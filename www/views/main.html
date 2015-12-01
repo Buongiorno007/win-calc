@@ -50,14 +50,13 @@
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}" class="right-side">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-        <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+        <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">
           <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
           <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
-      <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" hm-tap="userBox.swipeMainPage($event)" tabindex="1" class="main-central-part"></div>
       <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.switchComment($event)" hm-swipedown="roomInfo.switchComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">
@@ -408,19 +407,19 @@
                     </div>
                   </td>
                   <td class="aux-tablecell-qty">
-                    <div ng-show="addElement.element_qty" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                    <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button hm-tap="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_qty }}</button>
                       <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-width">
-                    <div ng-show="addElement.element_width" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                    <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button hm-tap="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_width }}</button>
                       <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-height">
-                    <div ng-show="addElement.element_height" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                    <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button hm-tap="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
                       <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
@@ -562,7 +561,7 @@
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
             <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
-              <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keypress="sizeCalc.pressCulculator($event)" class="size-calc-container">
+              <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
                 <thead>
                   <td>
                     <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
@@ -629,7 +628,7 @@
               </table>
             </div>
             <div ng-class="{'active': elementsMenu.G.global.isQtyCalculator}" class="elements-tools qty-calculator">
-              <table ng-keypress="elementsMenu.pressCulculator($event)" class="qty-calc-container">
+              <table ng-keyup="elementsMenu.pressCulculator($event)" class="qty-calc-container">
                 <tr>
                   <td>
                     <button hm-tap="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
@@ -702,15 +701,15 @@
             <div ng-if="addElemTab.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
                 <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-show="addElement.element_qty" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
-                <div ng-show="addElement.element_width" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
-                <div ng-show="addElement.element_height" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>

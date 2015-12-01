@@ -78,46 +78,49 @@
 
     //--------Select menu item
     function selectMenuItem(id) {
-      DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
-      DesignServ.hideCornerMarks();
-      DesignServ.deselectAllImpost();
-      if(id !== 4) {
-        DesignServ.deselectAllArc();
-      }
-      DesignServ.closeSizeCaclulator();
-      //----- hide culculator
-      DesignServ.hideSizeTools();
-      if(DesignStor.design.activeMenuItem) {
-        switch(DesignStor.design.activeMenuItem) {
-          case 1:
-            showAllAvailableGlass(id);
-            break;
-          case 2:
-            DesignServ.deselectAllGlass();
-            showAllAvailableCorner(id);
-            break;
-          case 3:
-            showAllAvailableGlass(id);
-            break;
-          case 4:
-            DesignServ.deselectAllGlass();
-            showAllAvailableArc(id);
-            break;
-          case 5:
-            DesignServ.deselectAllGlass();
-            DesignStor.design.activeSubMenuItem = 0;
-            DesignServ.initMirror();
-            break;
-        }
+      if(DesignStor.design.tempSize.length) {
+        DesignServ.closeSizeCaclulator();
       } else {
-        //------ if we close menu
-        DesignStor.design.activeSubMenuItem = 0;
-        //-------- delete selected glasses
-        DesignServ.deselectAllGlass();
-        DesignServ.deselectAllArc();
-        $timeout(function(){
-          DesignStor.design.isImpostDelete = 0;
-        }, 300);
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = 0;
+              DesignServ.initMirror();
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
       }
     }
 

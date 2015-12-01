@@ -1,4 +1,4 @@
-table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-keypress="sizeCalc.pressCulculator($event)")
+table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-keyup="sizeCalc.pressCulculator($event)")
   thead
     td
       button.cell.calc-delete(hm-tap="sizeCalc.deleteLastNumber()")

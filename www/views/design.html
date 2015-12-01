@@ -103,7 +103,7 @@
     </div>
     <div class="right-menu-footer">
       <div ng-class="{'active': designPage.G.global.isSizeCalculator}" class="size-calculator">
-        <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keypress="sizeCalc.pressCulculator($event)" class="size-calc-container">
+        <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
           <thead>
             <td>
               <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>

@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor) {
+  function addElemFactory($filter, $timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -15,7 +15,6 @@
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
-      desactiveAddElementParameters: desactiveAddElementParameters,
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
       createAddElementGroups: createAddElementGroups
@@ -38,7 +37,7 @@
           //playSound('swip');
           AuxStor.aux.showAddElementsMenu = 0;
 
-          desactiveAddElementParameters();
+          AddElementMenuServ.desactiveAddElementParameters();
           AuxStor.aux.isAddElement = 0;
           $timeout(function () {
             AuxStor.aux.addElementsMenuStyle = 0;
@@ -55,12 +54,7 @@
       }
     }
 
-    function desactiveAddElementParameters() {
-      AuxStor.aux.auxParameter = 0;
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isSizeCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 0;
-    }
+
 
 
     function downloadAddElementsData(id) {
@@ -74,17 +68,24 @@
     //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
       //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
-      AuxStor.aux.tempSize.length = 0;
       //----- close caclulator if opened
-      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex && !AuxStor.aux.tempSize.length) {
-        desactiveAddElementParameters();
+      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
+        if(AuxStor.aux.tempSize.length) {
+          AddElementMenuServ.changeElementSize();
+          if(GlobalStor.global.isSizeCalculator) {
+            AddElementMenuServ.closeSizeCaclulator();
+          } else if(GlobalStor.global.isQtyCalculator) {
+            AddElementMenuServ.closeQtyCaclulator();
+          }
+        }
+        //AddElementMenuServ.desactiveAddElementParameters();
         AuxStor.aux.currentAddElementId = 0;
         //console.log('close-'+$scope.global.auxParameter);
       } else {
         if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
           if(AuxStor.aux.isFocusedAddElement === groupId) {
             var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
-            desactiveAddElementParameters();
+            AddElementMenuServ.desactiveAddElementParameters();
             AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
             AuxStor.aux.currentAddElementId = elementIndex;
             switch (toolsId) {
@@ -134,7 +135,7 @@
       AuxStor.aux.isTabFrame = 0;
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.isAddElement = 0;
-      desactiveAddElementParameters();
+      AddElementMenuServ.desactiveAddElementParameters();
       $timeout(function() {
         AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);

@@ -7,9 +7,10 @@
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
+  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
 
     var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
 
     thisCtrl.config = {
@@ -31,7 +32,6 @@
     function swipeMainPage(event) {
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
-//      GeneralServ.stopStartProg();
       //playSound('swip');
     }
 
@@ -39,7 +39,6 @@
       if(GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
-//        GeneralServ.stopStartProg();
         //playSound('swip');
       }
     }

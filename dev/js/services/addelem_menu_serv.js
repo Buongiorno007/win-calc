@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ, CartServ, CartMenuServ) {
+  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AnalyticsServ, CartServ, CartMenuServ) {
 
     var thisFactory = this,
         delayShowElementsMenu = globalConstants.STEP * 12;
@@ -19,12 +19,14 @@
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
+      desactiveAddElementParameters: desactiveAddElementParameters,
       //---- calculators:
       pressCulculator: pressCulculator,
       setValueQty: setValueQty,
       closeQtyCaclulator: closeQtyCaclulator,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
+      changeElementSize: changeElementSize,
       closeSizeCaclulator: closeSizeCaclulator
     };
 
@@ -42,7 +44,7 @@
         AuxStor.aux.isTabFrame = 0;
         //playSound('swip');
         AuxStor.aux.showAddElementsMenu = 0;
-        AddElementsServ.desactiveAddElementParameters();
+        desactiveAddElementParameters();
         $timeout(function () {
           AuxStor.aux.isAddElement = 0;
           //playSound('swip');
@@ -52,6 +54,12 @@
     }
 
 
+    function desactiveAddElementParameters() {
+      AuxStor.aux.auxParameter = 0;
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 0;
+    }
 
 
 
@@ -60,7 +68,7 @@
       if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
         if (typeIndex === undefined && elementIndex === undefined) {
           var index = (AuxStor.aux.isFocusedAddElement - 1);
-          AddElementsServ.desactiveAddElementParameters();
+          desactiveAddElementParameters();
           AuxStor.aux.isAddElement = 0;
           //-------- clean all elements in selected Type
           ProductStor.product.chosenAddElements[index].length = 0;
@@ -184,19 +192,20 @@
 
 
     function setAddElementsTotalPrice(currProduct) {
-      var elementTypeQty = currProduct.chosenAddElements.length;
+      var elemTypeQty = currProduct.chosenAddElements.length;
       currProduct.addelem_price = 0;
       currProduct.addelemPriceDis = 0;
-      for (var i = 0; i < elementTypeQty; i++) {
-        var elementQty = currProduct.chosenAddElements[i].length;
-        if (elementQty > 0) {
-          for (var j = 0; j < elementQty; j++) {
-            currProduct.addelem_price += currProduct.chosenAddElements[i][j].element_qty * currProduct.chosenAddElements[i][j].element_price;
-            currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
+      while(--elemTypeQty > -1) {
+        var elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+        if (elemQty > 0) {
+          while(--elemQty > -1) {
+            currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
           }
         }
       }
+      currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
       currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
+      //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -208,7 +217,7 @@
     function deleteAddElement(typeId, elementId) {
       var index = (typeId - 1);
       ProductStor.product.chosenAddElements[index].splice(elementId, 1);
-      AddElementsServ.desactiveAddElementParameters();
+      desactiveAddElementParameters();
       //Set Total Product Price
       setAddElementsTotalPrice(ProductStor.product);
     }
@@ -247,16 +256,16 @@
           ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
         }
       }
-
+      //console.info('Qty-----', AuxStor.aux.tempSize, ProductStor.product.chosenAddElements[index][elementIndex].element_qty);
       //--------- Set Total Product Price
-      setAddElementsTotalPrice(ProductStor.product);
+      //setAddElementsTotalPrice(ProductStor.product);
     }
 
 
     //--------- Close Qty Calculator
     function closeQtyCaclulator() {
       //------- close caclulators
-      AddElementsServ.desactiveAddElementParameters();
+      desactiveAddElementParameters();
       //------ clean tempSize
       AuxStor.aux.tempSize.length = 0;
       //--------- Set Total Product Price
@@ -270,7 +279,7 @@
 
 
     function pressCulculator(keyEvent) {
-      console.info('PRESS KEY====', keyEvent.which);
+      //console.info('PRESS KEY====', keyEvent.which);
       var newValue;
       //------ Enter
       if (keyEvent.which === 13) {
@@ -327,7 +336,11 @@
             break;
         }
         if(newValue !== undefined) {
-          setValueSize(newValue);
+          //if (GlobalStor.global.isQtyCalculator) {
+          //  setValueQty(newValue);
+          //} else if (GlobalStor.global.isSizeCalculator) {
+            setValueSize(newValue);
+          //}
         }
       }
     }
@@ -397,10 +410,10 @@
     function closeSizeCaclulator() {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
-
+//console.info('closeSizeCaclulator');
       GlobalStor.global.isWidthCalculator = false;
       AuxStor.aux.tempSize.length = 0;
-      AddElementsServ.desactiveAddElementParameters();
+      desactiveAddElementParameters();
 
       //-------- recalculate add element price
       var objXAddElementPrice = {
@@ -416,6 +429,7 @@
           AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
           ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers(results.priceTotal));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+          //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
           //------- Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
         } else {

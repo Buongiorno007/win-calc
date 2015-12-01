@@ -69,7 +69,6 @@
 
 
     function setDefaultTemplate() {
-      cleanTempSize();
       DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
       DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
@@ -81,9 +80,8 @@
     //------- Save and Close Construction Page
     function designSaved() {
       closeSizeCaclulator(1).then(function() {
-        cleanTempSize();
         //------ if calculator is closed
-        if(!GlobalStor.global.isSizeCalculator) {
+        //if(!GlobalStor.global.isSizeCalculator) {
           //----- save new template in product
           ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
           ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
@@ -123,7 +121,7 @@
             backtoTemplatePanel();
           });
 
-        }
+        //}
       });
     }
 
@@ -132,7 +130,6 @@
 
     //--------- Cancel and Close Construction Page
     function designCancel() {
-      cleanTempSize();
       //------- close calculator if is opened
       hideSizeTools();
       //------ go to Main Page
@@ -156,10 +153,10 @@
 
     //------- set Default Construction
     function setDefaultConstruction() {
-      closeSizeCaclulator();
-      cleanTempSize();
+      //------- close calculator if is opened
+      hideSizeTools();
       //----- do if Size Calculator is not opened
-      if(!GlobalStor.global.isSizeCalculator) {
+      //if(!GlobalStor.global.isSizeCalculator) {
         DesignStor.design = DesignStor.setDefaultDesign();
         setDefaultTemplate();
         //============ if Door Construction
@@ -167,7 +164,7 @@
           //---- set indexes
           setIndexDoorConfig();
         }
-      }
+      //}
     }
 
 
@@ -225,28 +222,31 @@
         .each(function() {
           var impost = d3.select(this);
           impost.on(clickEvent, function() {
-            var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
-            closeSizeCaclulator();
-            cleanTempSize();
-            if(isImpost) {
-              impost.classed('frame-active', true);
-              //------- active impost menu and submenu
-              DesignStor.design.activeMenuItem = 3;
-              DesignStor.design.isImpostDelete = 1;
-              DesignStor.design.activeSubMenuItem = 3;
-              hideCornerMarks();
-              deselectAllArc();
-              hideSizeTools();
-              $rootScope.$apply();
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              impost.classed('frame-active', false);
-              //----- if none imposts
-              if(!DesignStor.design.selectedImpost.length) {
-                //------- close impost menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
+              var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
+              if (isImpost) {
+                impost.classed('frame-active', true);
+                //------- active impost menu and submenu
+                DesignStor.design.activeMenuItem = 3;
+                DesignStor.design.isImpostDelete = 1;
+                DesignStor.design.activeSubMenuItem = 3;
+                hideCornerMarks();
+                deselectAllArc();
+                hideSizeTools();
                 $rootScope.$apply();
-                DesignStor.design.isImpostDelete = 0;
+              } else {
+                impost.classed('frame-active', false);
+                //----- if none imposts
+                if (!DesignStor.design.selectedImpost.length) {
+                  //------- close impost menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  $rootScope.$apply();
+                  DesignStor.design.isImpostDelete = 0;
+                }
               }
             }
           });
@@ -281,37 +281,38 @@
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
           var glass = d3.select(this);
-//          glass.on("touchstart", function() {
-//          glass.on("mousedown", function() {
           glass.on(clickEvent, function() {
-            //========= select glass
-            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
-                blockID = glass[0][0].attributes.block_id.nodeValue;
-            closeSizeCaclulator();
-            cleanTempSize();
-            if(isGlass) {
-              glass.classed('glass-active', true);
-              hideCornerMarks();
-              deselectAllImpost();
-              deselectAllArc();
-              hideSizeTools();
-
-              //------- show Dimensions
-              showCurrentDimLevel(blockID);
-
-              $rootScope.$apply();
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              glass.classed('glass-active', false);
-              //------- hide Dimensions of current Block
-              d3.selectAll('#tamlateSVG .dim_block[block_id='+blockID+']').classed('dim_hidden', true);
+              //========= select glass
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass), blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if(!DesignStor.design.selectedGlass.length) {
-                //------- close glass menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
-                //---- shifting global dimension
-                hideAllDimension();
+              if (isGlass) {
+                glass.classed('glass-active', true);
+                hideCornerMarks();
+                deselectAllImpost();
+                deselectAllArc();
+                hideSizeTools();
+
+                //------- show Dimensions
+                showCurrentDimLevel(blockID);
+
                 $rootScope.$apply();
+              } else {
+                glass.classed('glass-active', false);
+                //------- hide Dimensions of current Block
+                d3.selectAll('#tamlateSVG .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
+
+                if (!DesignStor.design.selectedGlass.length) {
+                  //------- close glass menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  //---- shifting global dimension
+                  hideAllDimension();
+                  $rootScope.$apply();
+                }
               }
             }
           });
@@ -360,24 +361,27 @@
         d3.selectAll(arcs).each(function() {
           var arc = d3.select(this);
           arc.on(clickEvent, function() {
-            var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
-            //console.log('add to ARC++++', DesignStor.design.selectedArc);
-            closeSizeCaclulator();
-            cleanTempSize();
-            if(isArc) {
-              arc.classed('active_svg', true);
-              deselectAllGlass();
-              hideCornerMarks();
-              deselectAllImpost();
-              hideSizeTools();
-              $rootScope.$apply();
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              arc.classed('active_svg', false);
-              if(!DesignStor.design.selectedArc.length) {
-                //------- close glass menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
+              var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
+              //console.log('add to ARC++++', DesignStor.design.selectedArc);
+              if (isArc) {
+                arc.classed('active_svg', true);
+                deselectAllGlass();
+                hideCornerMarks();
+                deselectAllImpost();
+                hideSizeTools();
                 $rootScope.$apply();
+              } else {
+                arc.classed('active_svg', false);
+                if (!DesignStor.design.selectedArc.length) {
+                  //------- close glass menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  $rootScope.$apply();
+                }
               }
             }
           });
@@ -1549,34 +1553,33 @@
             var sizeRect = size.select('.size-rect'),
                 isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
 
-            /** save new Size when click another size */
-            closeSizeCaclulator();
-            cleanTempSize();
-
-            if(isActive) {
-              hideSizeTools();
+            if(DesignStor.design.tempSize.length) {
+              /** save new Size when click another size */
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              deselectAllDimension();
-              sizeRect.classed('active', true);
-              var dim = size.select('.size-txt-edit');
-              dim.classed('active', true);
-              DesignStor.design.oldSize = dim[0][0];
-              DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-              DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-              console.info('sizeRect________________',sizeRect);
-              console.info('sizeRect________________',DesignStor.design.oldSize);
-              //------- show caclulator or voice helper
-              if(GlobalStor.global.isVoiceHelper) {
-                DesignStor.design.openVoiceHelper = 1;
-                startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+              if (isActive) {
+                hideSizeTools();
               } else {
-                GlobalStor.global.isSizeCalculator = 1;
-                DesignStor.design.isMinSizeRestriction = 0;
-                DesignStor.design.isMaxSizeRestriction = 0;
+                deselectAllDimension();
+                sizeRect.classed('active', true);
+                var dim = size.select('.size-txt-edit');
+                dim.classed('active', true);
+                DesignStor.design.oldSize = dim[0][0];
+                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                //------- show caclulator or voice helper
+                if (GlobalStor.global.isVoiceHelper) {
+                  DesignStor.design.openVoiceHelper = 1;
+                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                } else {
+                  GlobalStor.global.isSizeCalculator = 1;
+                  DesignStor.design.isMinSizeRestriction = 0;
+                  DesignStor.design.isMaxSizeRestriction = 0;
+                }
               }
+              $rootScope.$apply();
             }
-            $rootScope.$apply();
-
           });
         });
 
@@ -1960,7 +1963,6 @@
       DesignStor.design.tempSize.length = 0;
       DesignStor.design.isMinSizeRestriction = 0;
       DesignStor.design.isMaxSizeRestriction = 0;
-        console.log('cleeeeen');
     }
 
 
@@ -2025,6 +2027,7 @@
         DesignStor.design.templateTEMP = angular.copy(result);
       });
       DesignStor.design.designSteps.pop();
+      cleanTempSize();
       hideSizeTools();
     }
 

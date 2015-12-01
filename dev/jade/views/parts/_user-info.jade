@@ -1,5 +1,5 @@
 .user-info-container(ng-controller="UserInfoCtrl as userBox",  hm-swipeleft="userBox.swipeLeft($event)", hm-swiperight="userBox.swipeRight($event)")
-  button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}", hm-tap="userBox.swipeMainPage($event)")
+  button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}", hm-tap="userBox.swipeMainPage($event)")
   img.user-foto(ng-if="userBox.U.userInfo.avatar && (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}")
   .icon-location.unvisible(show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")
   .user-info-block

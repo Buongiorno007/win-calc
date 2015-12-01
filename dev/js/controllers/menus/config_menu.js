@@ -9,7 +9,7 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, GeneralServ, MainServ, AddElementsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, GeneralServ, MainServ, AddElementMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -66,7 +66,7 @@
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      AddElementsServ.desactiveAddElementParameters();
+      AddElementMenuServ.desactiveAddElementParameters();
     }
 
     function saveProduct() {

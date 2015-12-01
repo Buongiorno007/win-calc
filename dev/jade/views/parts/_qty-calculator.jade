@@ -1,4 +1,4 @@
-table.qty-calc-container(ng-keypress="elementsMenu.pressCulculator($event)")
+table.qty-calc-container(ng-keyup="elementsMenu.pressCulculator($event)")
   tr
     td
       button.cell.calc-digit(hm-tap="elementsMenu.setValueQty(-1)") -1
