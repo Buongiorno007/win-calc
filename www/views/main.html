@@ -48,7 +48,7 @@
     </div>
   </section>
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}" class="right-side">
-    <section class="main-content">
+    <section tabindex="0" class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
@@ -93,6 +93,31 @@
           </div>
         </div>
         <div hm-tap="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
+      </div>
+      <div ng-controller="ReportCtrl as reportBox" ng-show="reportBox.G.global.isReport" class="report-container">
+        <div hm-tap="reportBox.G.global.isReport = 0" class="close_report"></div>
+        <div class="report-menu">
+          <div ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position" hm-tap="reportBox.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}" class="report-menu-item">{{ reportMenu.name }}</div>
+        </div>
+        <div class="report-box">
+          <table>
+            <tr class="report-item">
+              <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
+              <th class="report-elem">{{ 'add_elements.ARTICUL_LABEL' | translate }}</th>
+              <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
+              <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
+              <th class="report-elem">{{ reportBox.U.userInfo.currency }}</th>
+            </tr>
+            <tr ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name'" class="report-item">
+              <td class="report-elem">{{report.name}}</td>
+              <td class="report-elem">{{report.sku}}</td>
+              <td class="report-elem">{{report.amount}}</td>
+              <td class="report-elem">{{report.size}}</td>
+              <td class="report-elem">{{report.priceReal}}</td>
+            </tr>
+          </table>
+          <div class="report-price-total">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{reportBox.config.reportPriceTotal}} {{ reportBox.U.userInfo.currency }}</div>
+        </div>
       </div>
       <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
         <div ng-if="templatesPanel.G.global.activePanel == 1" class="template-inner">
@@ -509,31 +534,6 @@
         <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
         <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu &amp;&amp; !configMenu.G.global.productEditNumber" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           <div class="close_menu_tooltip"></div>
-        </div>
-        <div ng-show="configMenu.G.global.isReport" class="report-container">
-          <div hm-tap="configMenu.G.global.isReport = 0" class="close_report"></div>
-          <div class="report-menu">
-            <div ng-repeat="reportMenu in configMenu.config.reportMenu | orderBy: reportMenu.position" hm-tap="configMenu.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === configMenu.config.reportFilterId}" class="report-menu-item">{{ reportMenu.name }}</div>
-          </div>
-          <div class="report-box">
-            <table>
-              <tr class="report-item">
-                <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
-                <th class="report-elem">{{ 'add_elements.ARTICUL_LABEL' | translate }}</th>
-                <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
-                <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
-                <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
-              </tr>
-              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true | orderBy: 'name'" class="report-item">
-                <td class="report-elem">{{report.name}}</td>
-                <td class="report-elem">{{report.sku}}</td>
-                <td class="report-elem">{{report.amount}}</td>
-                <td class="report-elem">{{report.size}}</td>
-                <td class="report-elem">{{report.priceReal}}</td>
-              </tr>
-            </table>
-            <div class="report-price-total">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{configMenu.config.reportPriceTotal}} {{ configMenu.U.userInfo.currency }}</div>
-          </div>
         </div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">

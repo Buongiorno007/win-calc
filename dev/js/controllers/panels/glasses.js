@@ -39,13 +39,13 @@
 
     /** Select glass */
     function selectGlass(newId, newName) {
-      if(ProductStor.product.glass[0].id !== newId) {
+      //if(ProductStor.product.glass[0].id !== newId) {
         thisCtrl.config.selectGlassId = newId;
         thisCtrl.config.selectGlassName = newName;
         //----- open glass selector dialog
         GlobalStor.global.showGlassSelectorDialog = 1;
         DesignServ.initAllGlass();
-      }
+      //}
     }
 
 

@@ -845,7 +845,7 @@
             return GeneralServ.sorting(a.position, b.position);
           });
         }
-        console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
+        //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
         while(--elemAllQty > -1) {
           if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
             if(groups && groups.length) {

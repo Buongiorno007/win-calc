@@ -1,0 +1,62 @@
+/** Report */
+
+.report-container {
+  @include display-flex();
+  @include roboto-lt(rem(30px));
+  position: absolute;
+  top: 13rem;
+  left: 0;
+  width: 100%;
+  height: 61rem;
+  padding: 3rem;
+  z-index: 1;
+  overflow: hidden;
+  background-color: #fff;
+
+
+  .report-box {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    table {
+      width: 100%;
+    }
+    th {
+      background-color: #c2c2c2;
+    }
+  }
+  .report-elem {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #000;
+    padding: 1rem;
+  }
+  .report-price-total {
+    @include roboto-bd(rem(30px));
+    padding: 1rem;
+    border-top: 2px solid #000;
+    background-color: #c2c2c2;
+    text-align: right;
+  }
+  .report-menu-item {
+    padding: 1rem;
+    padding-right: 0;
+    border-bottom: 1px solid #000;
+    color: #fff;
+    background-color: $main_gray_txt;
+    cursor: pointer;
+
+    &.active {
+      color: $main_gray_txt;
+      background-color: #c2c2c2;
+    }
+  }
+  .close_report {
+    @extend .small-cross-btn;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: $main_orange;
+  }
+}
