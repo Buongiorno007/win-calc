@@ -2231,74 +2231,74 @@
 
 
     function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
-      var objTmp = angular.copy(currConsistElem),
-          priceReal = 0,
-          sizeReal = 0,
-          qtyReal = 1;
+      if(currConsistElem) {
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
-      //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
-      //console.log('Название: ' + currConsistElem.name);
-      //console.log('Цена: ' + currConsistElem.price);
-      //console.log('% отхода : ' + wasteValue);
-      //console.log('Поправка на обрезку : ' + pruning);
-      //console.log('Размер: ' + currSize + ' m');
-      //console.log('parentValue: ' + parentValue);
+        //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
+        //console.log('Название: ' + currConsistElem.name);
+        //console.log('Цена: ' + currConsistElem.price);
+        //console.log('% отхода : ' + wasteValue);
+        //console.log('Поправка на обрезку : ' + pruning);
+        //console.log('Размер: ' + currSize + ' m');
+        //console.log('parentValue: ' + parentValue);
 
-      /** if glass */
-      if(objTmp.element_group_id === 9) {
-        sizeReal = currSize;
-      }
-      switch(currConsist.rules_type_id) {
-        case 1:
-        case 21:
-        case 22:
-          sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-//          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
-          break;
-        case 3:
-//          qtyReal = Math.round(currSize + pruning) * currConsist.value;
-          qtyReal = (currSize + pruning) * currConsist.value;
-//          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
-          break;
-        case 5:
-          var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
-          qtyReal = sizeTemp * currConsist.value;
-//          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
-          break;
-        case 6:
-        case 23:
-          qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
-//          qtyReal = (currSize + pruning) * currConsist.value;
-//          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
-          break;
-        case 2:
-        case 4:
-        case 15:
-          qtyReal = parentValue * currConsist.value;
-//          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
-          break;
-        default:
-          sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
-//          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
-          break;
-      }
+        /** if glass */
+        if (objTmp.element_group_id === 9) {
+          sizeReal = currSize;
+        }
+        switch (currConsist.rules_type_id) {
+          case 1:
+          case 21:
+          case 22:
+            sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
+            //          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
+            break;
+          case 3:
+            //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+            qtyReal = (currSize + pruning) * currConsist.value;
+            //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+            break;
+          case 5:
+            var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
+            qtyReal = sizeTemp * currConsist.value;
+            //          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            break;
+          case 6:
+          case 23:
+            qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+            //          qtyReal = (currSize + pruning) * currConsist.value;
+            //          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
+            break;
+          case 2:
+          case 4:
+          case 15:
+            qtyReal = parentValue * currConsist.value;
+            //          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+            break;
+          default:
+            sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
+            //          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
+            break;
+        }
 
-      if(sizeReal) {
-        priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
-      } else {
-        priceReal = qtyReal * currConsistElem.price * wasteValue;
-      }
+        if (sizeReal) {
+          priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
+        } else {
+          priceReal = qtyReal * currConsistElem.price * wasteValue;
+        }
 
-      /** currency conversion */
-      if (UserStor.userInfo.currencyId != currConsistElem.currency_id){
-        priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+        /** currency conversion */
+        if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
+          priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+        }
+        //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
+        objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+        objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
+        objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+        //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+        priceObj.constrElements.push(objTmp);
+        priceObj.priceTotal += objTmp.priceReal;
       }
-      objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-      objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
-      objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-      //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
-      priceObj.constrElements.push(objTmp);
-      priceObj.priceTotal += objTmp.priceReal;
     }
 
 

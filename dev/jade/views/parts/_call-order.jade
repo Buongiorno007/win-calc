@@ -57,25 +57,29 @@
         .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.age.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
           select.user-select-field(name="age", ng-model="orderDialog.C.cart.customer.customer_age", ng-options="age.name for age in orderDialog.C.optionAge", required)
-            option(value='') {{ 'cart.SELECT_AGE' | translate }}
+            //option(value='') {{ 'cart.SELECT_AGE' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.age.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
         .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.education.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
           select.user-select-field(name="education", ng-model="orderDialog.C.cart.customer.customer_education", ng-options="educ.name for educ in orderDialog.C.optionEductaion", required)
-            option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
+            //option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.education.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
         .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.occupation.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
           select.user-select-field(name="occupation", ng-model="orderDialog.C.cart.customer.customer_occupation", ng-options="occup.name for occup in orderDialog.C.optionOccupation", required)
-            option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
+            //option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.occupation.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
         .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.infoSource.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
           select.user-select-field(name="infoSource", ng-model="orderDialog.C.cart.customer.customer_infoSource", ng-options="info.name for info in orderDialog.C.optionInfo", required)
-            option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}
+            //option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.infoSource.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
         button.save.save-order(type="submit") {{ 'cart.READY' | translate }}

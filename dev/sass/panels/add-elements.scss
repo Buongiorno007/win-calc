@@ -186,7 +186,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Grid
   .aux-grid {
-    @include top_left_coord(360px, 960px);
+    @include top_left_coord(360px, 920px);
     z-index: 3;
   }
 
@@ -219,7 +219,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Spillway
   .aux-spillway {
-    @include top_left_coord(690px, 595px);
+    @include top_left_coord(690px, 540px);
     z-index: 5;//3;
   }
 
@@ -445,7 +445,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-grid-txt {
-    @include top_left_coord(100px, 300px);
+    @include top_left_coord(100px, 270px);
   }
 
   .aux-visor-txt {
