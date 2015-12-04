@@ -65,21 +65,21 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .discount-container
             .discount-title {{ 'cart.DISCOUNT_SELECT' | translate }}
 
-            .discount-box(ng-class="{'selected': cartPage.C.cart.tempConstructDisc }")
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
               .discount-data(hm-tap="cartPage.openDiscInput(0)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
-                  .disc-max(ng-show="cartPage.C.cart.tempConstructDisc === cartPage.U.userInfo.discountConstrMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%
-                  input.disc-input(type="number", ng-model="cartPage.C.cart.tempConstructDisc", ng-change="cartPage.setNewDiscont(0)", max="{{cartPage.U.userInfo.discountConstrMax}}")
+                  .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
               .discount-txt(hm-tap="cartPage.approveNewDisc(0)")
                 .discounts-label {{ 'cart.DISCOUNT_WINDOW' | translate }}
 
-            .discount-box(ng-class="{'selected': cartPage.C.cart.tempAddelemDisc }")
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
               .discount-data(hm-tap="cartPage.openDiscInput(1)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
-                  .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc === cartPage.U.userInfo.discountAddElemMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%
-                  input.disc-input(type="number", ng-model="cartPage.C.cart.tempAddelemDisc", ng-change="cartPage.setNewDiscont(1)", max="{{cartPage.U.userInfo.discountAddElemMax}}")
+                  .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
               .discount-txt(hm-tap="cartPage.approveNewDisc(1)")
                 .discounts-label {{ 'cart.DISCOUNT_ADDELEM' | translate }}
 

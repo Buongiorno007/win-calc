@@ -458,7 +458,6 @@
     &.selected {
       .discount-txt {
         background-color: $main_green;
-        cursor: pointer;
         &:after {
           @include font-icon(7rem, 9rem);
           position: absolute;
@@ -473,9 +472,10 @@
 
   .discount-data {
     @include display-flex();
-    @include justify-content(center);
+    @include justify-content(flex-start);
     @include roboto-lt(3.5rem, 9rem);
-    width: 14rem;
+    width: 20rem;
+    padding-left: 2rem;
     text-align: center;
     border-top-left-radius: rem($radius_profile-box);
     border-bottom-left-radius: rem($radius_profile-box);
@@ -492,10 +492,11 @@
     color: $error_color;
   }
   .disc-input {
-    width: 7rem;
+    width: 15rem;
     padding: 0;
     margin: 0;
     outline: none;
+    border: none;
   }
   .discounts-list {
     @include top_left_coord(-80px, 0px);
@@ -524,6 +525,7 @@
     border-top-right-radius: rem($radius_profile-box);
     border-bottom-right-radius: rem($radius_profile-box);
     background-color: #fff;
+    cursor: pointer;
   }
   .discounts-label {
     @include roboto-md(2.25rem, 5rem);

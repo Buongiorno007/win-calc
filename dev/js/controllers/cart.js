@@ -69,8 +69,7 @@
 
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
-    thisCtrl.setNewDiscont = setNewDiscont;
-    thisCtrl.approveNewDisc = approveNewDisc;
+    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
 
 
@@ -118,36 +117,6 @@
       }
     }
 
-
-    function setNewDiscont(type) {
-      //------- discount x add element
-      if(type) {
-        if(!CartStor.cart.tempAddelemDisc) {
-          CartStor.cart.tempAddelemDisc = UserStor.userInfo.discountAddElemMax*1;
-        }
-      //------- discount x construction
-      } else {
-        if(!CartStor.cart.tempConstructDisc) {
-          CartStor.cart.tempConstructDisc = UserStor.userInfo.discountConstrMax*1;
-        }
-      }
-    }
-
-
-    function approveNewDisc(type) {
-      if(type) {
-        //------- discount x add element
-        OrderStor.order.discount_addelem = CartStor.cart.tempAddelemDisc*1;
-        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
-
-      } else {
-        //------- discount x construction
-        OrderStor.order.discount_construct = CartStor.cart.tempConstructDisc*1;
-        CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
-      }
-      //----------- start order price total calculation
-      CartMenuServ.calculateOrderPrice();
-    }
 
   }
 })();
