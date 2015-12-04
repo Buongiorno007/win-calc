@@ -114,9 +114,11 @@
       } else {
         //------- create new empty product
         ProductStor.product = ProductStor.setDefaultProduct();
-        ProductStor.product.is_addelem_only = true;
-        GlobalStor.global.isNavMenu = false;
-        GlobalStor.global.isConfigMenu = true;
+        MainServ.closeRoomSelectorDialog();
+        MainServ.setDefaultAuxParam();
+        ProductStor.product.is_addelem_only = 1;
+        GlobalStor.global.isNavMenu = 0;
+        GlobalStor.global.isConfigMenu = 1;
         //------ open AddElements Panel
         GlobalStor.global.activePanel = 6;
       }
@@ -139,12 +141,12 @@
         //------- Create New Project with Draft saving in Main Page
         if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
           //------ save product
-          MainServ.inputProductInOrder();
-          //------- define order Price
-          CartMenuServ.calculateOrderPrice();
-          //-------- save order as Draft
-          MainServ.saveOrderInDB({}, 0, '');
-
+          if(MainServ.inputProductInOrder()) {
+            //------- define order Price
+            CartMenuServ.calculateOrderPrice();
+            //-------- save order as Draft
+            MainServ.saveOrderInDB({}, 0, '');
+          }
           //------- Create New Project with Draft saving in Cart Page
         } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
           //-------- save order as Draft

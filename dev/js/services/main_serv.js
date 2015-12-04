@@ -728,34 +728,53 @@
 
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
-      var deferred = $q.defer();
-      GlobalStor.global.tempAddElements.length = 0;
-      GlobalStor.global.configMenuTips = 0;
-      GlobalStor.global.isShowCommentBlock = 0;
-      setDefaultAuxParam();
-
-      //============ if EDIT Product
-      if(GlobalStor.global.productEditNumber) {
-        var productsQty = OrderStor.order.products.length;
-        //-------- replace product in order
-        while(--productsQty > -1) {
-          if(OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
-            OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
-          }
-        }
-
-      //========== if New Product
-      } else {
-        ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-        delete ProductStor.product.template;
-        //-------- insert product in order
-        OrderStor.order.products.push(ProductStor.product);
+      var permission = 1;
+      //------- if AddElems only, check is there selected AddElems
+      if(ProductStor.product.is_addelem_only) {
+        permission = checkEmptyChoosenAddElems();
       }
-      deferred.resolve(1);
-      //----- finish working with product
-      GlobalStor.global.isCreatedNewProduct = 0;
-      GeneralServ.stopStartProg();
-      return deferred.promise;
+
+      if(permission) {
+        GlobalStor.global.tempAddElements.length = 0;
+        GlobalStor.global.configMenuTips = 0;
+        GlobalStor.global.isShowCommentBlock = 0;
+        setDefaultAuxParam();
+
+        /**============ EDIT Product =======*/
+        if (GlobalStor.global.productEditNumber) {
+          var productsQty = OrderStor.order.products.length;
+          //-------- replace product in order
+          while (--productsQty > -1) {
+            if (OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
+              OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
+            }
+          }
+
+          /**========== if New Product =========*/
+        } else {
+          ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
+          delete ProductStor.product.template;
+          //-------- insert product in order
+          OrderStor.order.products.push(ProductStor.product);
+        }
+        //----- finish working with product
+        GlobalStor.global.isCreatedNewProduct = 0;
+        GeneralServ.stopStartProg();
+      }
+      return permission;
+    }
+
+
+    function checkEmptyChoosenAddElems() {
+      var addElemQty = ProductStor.product.chosenAddElements.length,
+          isExist = 0;
+
+      while(--addElemQty > -1) {
+        if(ProductStor.product.chosenAddElements[addElemQty].length) {
+          isExist++;
+        }
+      }
+      return isExist;
     }
 
 

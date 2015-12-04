@@ -144,7 +144,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             .addelements-detail-tools
               button.addelements-detail-edit(hm-tap="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
               button.addelements-detail-close(hm-tap="cartPage.closeAddElementDetail()")
-            .product-template
+            .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
               .addelements-detail-row
                 .product-value
                   .product-icon-thumb

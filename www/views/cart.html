@@ -227,7 +227,7 @@
               <button hm-tap="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
               <button hm-tap="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
             </div>
-            <div class="product-template">
+            <div ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only" class="product-template">
               <div class="addelements-detail-row">
                 <div class="product-value">
                   <div class="product-icon-thumb">
@@ -386,7 +386,7 @@
                   <div class="select-mark"></div>
                   <div class="product-header">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
-                    <div class="order-value">X {{ product.product_qty }}</div>
+                    <div ng-hide="product.is_addelem_only" class="order-value">X {{ product.product_qty }}</div>
                   </div>
                   <div class="order-content">
                     <div class="order-item">

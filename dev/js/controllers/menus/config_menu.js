@@ -65,10 +65,10 @@
     }
 
     function saveProduct() {
-      MainServ.inputProductInOrder().then(function() {
+      if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         MainServ.goToCart();
-      });
+      }
     }
 
     function showNextTip() {

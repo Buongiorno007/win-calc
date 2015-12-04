@@ -3,7 +3,8 @@
 
 'use strict';
 /** global variable defined Browser or Device */
-var isDevice = 0;
+/** check first device */
+var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
 (function(){
 
@@ -11,15 +12,11 @@ var isDevice = 0;
 //  console.log('USER: navigator++', window.navigator);
 //  console.log('USER: userAgent+++', window.navigator.userAgent);
 //  console.log('USER: platform', window.navigator.platform);
-  isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
-
-//  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
-//      for(var key in browsers) {
-//        if (browsers[key].test(userAgent)) {
-//          platform++;
-//        }
-//      }
-  console.log('platform===', isDevice);
+  /** check browser */
+  if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+    isDevice = 0;
+  }
+  console.log('isDevice===', isDevice);
 
 
   if(isDevice) {
@@ -166,55 +163,6 @@ var isDevice = 0;
 
     $translateProvider.preferredLanguage('en');
 
-
-//    $httpProvider.defaults.useXDomain = true;
-//    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-//    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-//    $httpProvider.defaults.transformRequest = [function(data) {
-//      var param = function(obj)
-//      {
-//        var query = '';
-//        var name, value, fullSubName, subValue, innerObj, i, subName;
-//
-//        for(name in obj)
-//        {
-//          value = obj[name];
-//
-//          if(value instanceof Array)
-//          {
-//            for(i=0; i<value.length; ++i)
-//            {
-//              subValue = value[i];
-//              fullSubName = name + '[' + i + ']';
-//              innerObj = {};
-//              innerObj[fullSubName] = subValue;
-//              query += param(innerObj) + '&';
-//            }
-//          }
-//          else if(value instanceof Object)
-//          {
-//            for(subName in value)
-//            {
-//              subValue = value[subName];
-//              fullSubName = name + '[' + subName + ']';
-//              innerObj = {};
-//              innerObj[fullSubName] = subValue;
-//              query += param(innerObj) + '&';
-//            }
-//          }
-//          else if(value !== undefined && value !== null)
-//          {
-//            query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-//          }
-//        }
-//
-//        return query.length ? query.substr(0, query.length - 1) : query;
-//      };
-//
-//      return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-//    }];
-
-
   }
 
 })();
@@ -248,33 +196,6 @@ var isDevice = 0;
       isShowDiscInput: 0,
       isShowDiscInputAdd: 0,
       isProductComment: 0,
-//      allAddElementsListSource: {
-//        grids: [],
-//        visors: [],
-//        spillways: [],
-//        outsideSlope: [],
-//        louvers: [],
-//        insideSlope: [],
-//        connectors: [],
-//        fans: [],
-//        windowSill: [],
-//        handles: [],
-//        others: []
-//      },
-//      allAddElementsList: {},
-//      addElementsUniqueList: {},
-//      allTemplateIcons: [],
-//
-//      addElementsListPriceTOTAL: 0,
-//      isAllAddElements: false,
-//      isShowAllAddElements: false,
-//      isShowAddElementUnit: false,
-//      selectedAddElementUnitId: 0,
-//      selectedAddElementUnitIndex: 0,
-//      selectedAddElementUnitType: 0,
-//      selectedAddElementUnits: [],
-//      isOrderHaveAddElements: false,
-//      isShowLinkExplodeMenu: false,
 
       element: $filter('translate')('add_elements.ELEMENT'),
       elementa: $filter('translate')('add_elements.ELEMENTA'),
@@ -306,7 +227,6 @@ var isDevice = 0;
 
 
     //------ clicking
-    //thisCtrl.showAllAddElements = showAllAddElements;
     thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
@@ -317,10 +237,12 @@ var isDevice = 0;
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
 
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
+
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.setNewDiscont = setNewDiscont;
-
+    thisCtrl.approveNewDisc = approveNewDisc;
 
 
 
@@ -372,383 +294,32 @@ var isDevice = 0;
     function setNewDiscont(type) {
       //------- discount x add element
       if(type) {
-        if(!OrderStor.order.discount_addelem) {
-          OrderStor.order.discount_addelem = 0;
+        if(!CartStor.cart.tempAddelemDisc) {
+          CartStor.cart.tempAddelemDisc = UserStor.userInfo.discountAddElemMax*1;
         }
-        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
       //------- discount x construction
       } else {
-        if(!OrderStor.order.discount_construct) {
-          OrderStor.order.discount_construct = 0;
+        if(!CartStor.cart.tempConstructDisc) {
+          CartStor.cart.tempConstructDisc = UserStor.userInfo.discountConstrMax*1;
         }
+      }
+    }
+
+
+    function approveNewDisc(type) {
+      if(type) {
+        //------- discount x add element
+        OrderStor.order.discount_addelem = CartStor.cart.tempAddelemDisc*1;
+        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+
+      } else {
+        //------- discount x construction
+        OrderStor.order.discount_construct = CartStor.cart.tempConstructDisc*1;
         CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
       //----------- start order price total calculation
       CartMenuServ.calculateOrderPrice();
     }
-
-
-
-
-
-
-
-
-
-
-//    var p, prod, product, addElementUnique;
-
-
-    //$scope.global.startProgramm = false;
-    //$scope.global.isReturnFromDiffPage = false;
-    //$scope.global.isChangedTemplate = false;
-
-    //------- finish edit product
-//    $scope.global.productEditNumber = '';
-
-
-
-
-    //============= ALL AddElements panels
-
-    //-------- collect all AddElements in allAddElementsList from all products
-//    $scope.prepareAllAddElementsList = function(){
-//      $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
-//      for(var pr = 0; pr < $scope.global.order.products.length; pr++) {
-//
-//        for(var prop in $scope.global.order.products[pr].chosenAddElements) {
-//          if (!$scope.global.order.products[pr].chosenAddElements.hasOwnProperty(prop)) {
-//            continue;
-//          }
-//          if($scope.global.order.products[pr].chosenAddElements[prop].length > 0) {
-//            for (var elem = 0; elem < $scope.global.order.products[pr].chosenAddElements[prop].length; elem++) {
-//              var tempChosenAddElement = angular.copy($scope.global.order.products[pr].chosenAddElements[prop][elem]);
-//              tempChosenAddElement.elementQty *= $scope.global.order.products[pr].productQty;
-//              tempChosenAddElement.productQty = $scope.global.order.products[pr].productQty;
-//              tempChosenAddElement.productId = $scope.global.order.products[pr].productId;
-//              tempChosenAddElement.isAddElementsONLY = $scope.global.order.products[pr].isAddElementsONLY;
-//              switch (tempChosenAddElement.elementType) {
-//                case 1:
-//                  $scope.cart.allAddElementsList.grids.push(tempChosenAddElement);
-//                  break;
-//                case 2:
-//                  $scope.cart.allAddElementsList.visors.push(tempChosenAddElement);
-//                  break;
-//                case 3:
-//                  $scope.cart.allAddElementsList.spillways.push(tempChosenAddElement);
-//                  break;
-//                case 4:
-//                  $scope.cart.allAddElementsList.outsideSlope.push(tempChosenAddElement);
-//                  break;
-//                case 5:
-//                  $scope.cart.allAddElementsList.louvers.push(tempChosenAddElement);
-//                  break;
-//                case 6:
-//                  $scope.cart.allAddElementsList.insideSlope.push(tempChosenAddElement);
-//                  break;
-//                case 7:
-//                  $scope.cart.allAddElementsList.connectors.push(tempChosenAddElement);
-//                  break;
-//                case 8:
-//                  $scope.cart.allAddElementsList.fans.push(tempChosenAddElement);
-//                  break;
-//                case 9:
-//                  $scope.cart.allAddElementsList.windowSill.push(tempChosenAddElement);
-//                  break;
-//                case 10:
-//                  $scope.cart.allAddElementsList.handles.push(tempChosenAddElement);
-//                  break;
-//                case 11:
-//                  $scope.cart.allAddElementsList.others.push(tempChosenAddElement);
-//                  break;
-//              }
-//
-//            }
-//          }
-//        }
-//      }
-//    };
-//
-//    //--------------- dublicats cleaning in allAddElementsList in order to make unique element
-//    $scope.cleaningAllAddElementsList = function(){
-//      $scope.cart.addElementsUniqueList = angular.copy($scope.cart.allAddElementsList);
-//      //---- check dublicats
-//      for(var type in $scope.cart.addElementsUniqueList) {
-//        if (!$scope.cart.addElementsUniqueList.hasOwnProperty(type)) {
-//          continue;
-//        }
-//        if($scope.cart.addElementsUniqueList[type].length > 0) {
-//          for(var elem = $scope.cart.addElementsUniqueList[type].length - 1; elem >= 0 ; elem--) {
-//            for(var el = $scope.cart.addElementsUniqueList[type].length - 1; el >= 0 ; el--) {
-//              if(elem === el) {
-//                continue;
-//              } else {
-//                if($scope.cart.addElementsUniqueList[type][elem].elementId === $scope.cart.addElementsUniqueList[type][el].elementId && $scope.cart.addElementsUniqueList[type][elem].elementWidth === $scope.cart.addElementsUniqueList[type][el].elementWidth && $scope.cart.addElementsUniqueList[type][elem].elementHeight === $scope.cart.addElementsUniqueList[type][el].elementHeight) {
-//                  $scope.cart.addElementsUniqueList[type][elem].elementQty += $scope.cart.addElementsUniqueList[type][el].elementQty;
-//                  $scope.cart.addElementsUniqueList[type].splice(el, 1);
-//                  elem--;
-//                }
-//              }
-//            }
-//          }
-//        }
-//      }
-//      //console.log('$scope.cart.addElementsUniqueList ==== ', $scope.cart.addElementsUniqueList);
-//    };
-//
-//    //------ calculate TOTAL AddElements price
-//    $scope.getTOTALAddElementsPrice = function() {
-//      $scope.cart.addElementsListPriceTOTAL = 0;
-//      for(var i = 0; i < $scope.global.order.products.length; i++) {
-//        $scope.cart.addElementsListPriceTOTAL += ($scope.global.order.products[i].addElementsPriceSELECT * $scope.global.order.products[i].productQty);
-//      }
-//    };
-//
-//
-//    //-------- show All Add Elements panel
-//    $scope.showAllAddElements = function() {
-//      //--- open if AddElements are existed
-//      if($scope.cart.isOrderHaveAddElements) {
-//        //playSound('swip');
-//        $scope.cart.isShowAllAddElements = !$scope.cart.isShowAllAddElements;
-//        if($scope.cart.isShowAllAddElements) {
-//          $scope.prepareAllAddElementsList();
-//          $scope.cleaningAllAddElementsList();
-//          $scope.getTOTALAddElementsPrice();
-//        } else {
-//          $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
-//          $scope.cart.addElementsUniqueList = {};
-//        }
-//      }
-//    };
-//
-//
-//    //------ delete All AddElements List
-//    $scope.deleteAllAddElementsList = function() {
-//      $scope.cart.addElementsListPriceTOTAL = 0;
-//      for(var pr = 0; pr < $scope.global.order.products.length; pr++) {
-//        $scope.global.order.products[pr].productPriceTOTAL -= $scope.global.order.products[pr].addElementsPriceSELECT;
-//        $scope.global.order.products[pr].addElementsPriceSELECT = 0;
-//        for(var prop in $scope.global.order.products[pr].chosenAddElements) {
-//          if (!$scope.global.order.products[pr].chosenAddElements.hasOwnProperty(prop)) {
-//            continue;
-//          }
-//          if($scope.global.order.products[pr].chosenAddElements[prop].length > 0) {
-//            $scope.global.order.products[pr].chosenAddElements[prop].length = 0;
-//          }
-//        }
-//      }
-//      //---- close all AddElements panel
-//      $scope.parseAddElementsLocaly();
-//      $scope.showAllAddElements();
-//      $scope.global.calculateOrderPrice();
-//      $scope.cart.isOrderHaveAddElements = false;
-//    };
-//
-//    function getCurrentAddElementsType(elementType) {
-//      var curentType = '';
-//      switch (elementType) {
-//        case 1: curentType = 'grids';
-//          break;
-//        case 2: curentType = 'visors';
-//          break;
-//        case 3: curentType = 'spillways';
-//          break;
-//        case 4: curentType = 'outsideSlope';
-//          break;
-//        case 5: curentType = 'louvers';
-//          break;
-//        case 6: curentType = 'insideSlope';
-//          break;
-//        case 7: curentType = 'connectors';
-//          break;
-//        case 8: curentType = 'fans';
-//          break;
-//        case 9: curentType = 'windowSill';
-//          break;
-//        case 10: curentType = 'handles';
-//          break;
-//        case 11: curentType = 'others';
-//          break;
-//      }
-//      return curentType;
-//    }
-//
-//
-//    //------ delete AddElement in All AddElementsList
-//    $scope.deleteAddElementList = function(elementType, elementId) {
-//      var curentType;
-//      //----- if we delete all AddElement Unit in header of Unit Detail panel
-//      if($scope.cart.isShowAddElementUnit) {
-//        //playSound('swip');
-//        $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
-//        $scope.cart.selectedAddElementUnitId = 0;
-//        $scope.cart.selectedAddElementUnitIndex = 0;
-//        $scope.cart.selectedAddElementUnitType = 0;
-//        $scope.cart.selectedAddElementUnits.length = 0;
-//        curentType = elementType;
-//      } else {
-//        curentType = getCurrentAddElementsType(elementType);
-//      }
-//      for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
-//        if($scope.cart.allAddElementsList[curentType][el].elementId === elementId) {
-//          $scope.cart.allAddElementsList[curentType].splice(el, 1);
-//        }
-//      }
-//      $scope.cleaningAllAddElementsList();
-//      for(var p = 0; p < $scope.global.order.products.length; p++) {
-//        for(var prop in $scope.global.order.products[p].chosenAddElements) {
-//          if (!$scope.global.order.products[p].chosenAddElements.hasOwnProperty(prop)) {
-//            continue;
-//          }
-//          if((prop.toUpperCase()).indexOf(curentType.toUpperCase())+1 && $scope.global.order.products[p].chosenAddElements[prop].length > 0) {
-//            for (var elem = ($scope.global.order.products[p].chosenAddElements[prop].length - 1); elem >= 0; elem--) {
-//              if($scope.global.order.products[p].chosenAddElements[prop][elem].elementId === elementId) {
-//                $scope.global.order.products[p].addElementsPriceSELECT -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-//                $scope.global.order.products[p].productPriceTOTAL -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-//                $scope.global.order.products[p].chosenAddElements[prop].splice(elem, 1);
-//              }
-//            }
-//          }
-//        }
-//      }
-//      $scope.getTOTALAddElementsPrice();
-//      $scope.parseAddElementsLocaly();
-//      $scope.global.calculateOrderPrice();
-//      //--------- if all AddElements were deleted
-//      //---- close all AddElements panel
-//      if(!$scope.cart.addElementsListPriceTOTAL) {
-//        $scope.showAllAddElements();
-//        $scope.cart.isOrderHaveAddElements = false;
-//      }
-//    };
-//
-//
-//
-//
-//
-//    //-------- show Add Element Unit Detail panel
-//    $scope.showAddElementUnitDetail = function(elementType, elementId, elementIndex) {
-//      //playSound('swip');
-//      $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
-//      if($scope.cart.isShowAddElementUnit) {
-//        $scope.cart.selectedAddElementUnitId = elementId;
-//        $scope.cart.selectedAddElementUnitIndex = elementIndex;
-//        $scope.cart.selectedAddElementUnitType = getCurrentAddElementsType(elementType);
-//        $scope.cart.selectedAddElementUnits.length = 0;
-//        //console.log('allAddElementsList == ', $scope.cart.allAddElementsList);
-//
-//        for(var i = 0; i < $scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType].length; i++) {
-//          if($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i].elementId === $scope.cart.selectedAddElementUnitId) {
-//            if($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i].productQty === 1){
-//              $scope.cart.selectedAddElementUnits.push($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i]);
-//            } else {
-//              var addElementsUniqueProduct = [];
-//              var addElementsUnique = angular.copy($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i]);
-//              addElementsUnique.elementQty /= addElementsUnique.productQty;
-//              for(var p = 0; p < addElementsUnique.productQty; p++) {
-//                addElementsUniqueProduct.push(addElementsUnique);
-//              }
-//              if(addElementsUniqueProduct.length > 0) {
-//                $scope.cart.selectedAddElementUnits.push(addElementsUniqueProduct);
-//              }
-//
-//            }
-//          }
-//        }
-//        console.log('start selectedAddElementUnits = ', $scope.cart.selectedAddElementUnits);
-//      } else {
-//        $scope.cart.selectedAddElementUnitId = 0;
-//        $scope.cart.selectedAddElementUnitIndex = 0;
-//        $scope.cart.selectedAddElementUnitType = 0;
-//        $scope.cart.selectedAddElementUnits.length = 0;
-//      }
-//
-//    };
-//
-//
-//    //------ delete AddElement Unit in selectedAddElementUnits panel
-//    $scope.deleteAddElementUnit = function(parentIndex, elementIndex, addElementUnit) {
-//      console.log('start delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
-//      //---- close selectedAddElementUnits panel when we delete last unit
-//      if($scope.cart.selectedAddElementUnits.length === 1) {
-//        $scope.deleteAddElementList($scope.cart.selectedAddElementUnitType, addElementUnit.elementId);
-//        $scope.cart.selectedAddElementUnits.length = 0;
-//        $scope.cart.isShowLinkExplodeMenu = false;
-//      } else if($scope.cart.selectedAddElementUnits.length > 1) {
-//        if(parentIndex === '') {
-//          $scope.cart.selectedAddElementUnits.splice(elementIndex, 1);
-//        } else {
-//          //-------- Delete all group
-//          $scope.cart.isShowLinkExplodeMenu = false;
-//          $scope.cart.selectedAddElementUnits.splice(parentIndex, 1);
-//        }
-//        var curentType = $scope.cart.selectedAddElementUnitType;
-//        for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
-//          if($scope.cart.allAddElementsList[curentType][el].productId === addElementUnit.productId && $scope.cart.allAddElementsList[curentType][el].elementId === addElementUnit.elementId) {
-//            $scope.cart.allAddElementsList[curentType].splice(el, 1);
-//          }
-//        }
-//        $scope.cleaningAllAddElementsList();
-//        for (var p = 0; p < $scope.global.order.products.length; p++) {
-//          for (var prop in $scope.global.order.products[p].chosenAddElements) {
-//            if (!$scope.global.order.products[p].chosenAddElements.hasOwnProperty(prop)) {
-//              continue;
-//            }
-//            if ((prop.toUpperCase()).indexOf(curentType.toUpperCase()) + 1 && $scope.global.order.products[p].chosenAddElements[prop].length > 0) {
-//              for (var elem = ($scope.global.order.products[p].chosenAddElements[prop].length - 1); elem >= 0; elem--) {
-//                if ($scope.global.order.products[p].productId === addElementUnit.productId && $scope.global.order.products[p].chosenAddElements[prop][elem].elementId === addElementUnit.elementId) {
-//                  $scope.global.order.products[p].addElementsPriceSELECT -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-//                  $scope.global.order.products[p].productPriceTOTAL -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-//                  $scope.global.order.products[p].chosenAddElements[prop].splice(elem, 1);
-//                }
-//              }
-//            }
-//          }
-//        }
-//        console.log($scope.global.order.products);
-//        $scope.getTOTALAddElementsPrice();
-//        $scope.parseAddElementsLocaly();
-//        $scope.global.calculateOrderPrice();
-//
-//      }
-//      console.log('end delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
-//    };
-//
-//    //-------- Show/Hide Explode Link Menu
-//    $scope.toggleExplodeLinkMenu = function() {
-//      $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
-//    };
-//
-//    //-------- Explode group to one unit
-//    $scope.explodeUnitToOneProduct = function(parentIndex) {
-//      $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
-//
-//      //----- change selected product
-//      var currentProductId = $scope.cart.selectedAddElementUnits[parentIndex][0].productId;
-//      var currentProductIndex = currentProductId - 1;
-//      var newProductsQty = $scope.global.order.products[currentProductIndex].productQty - 1;
-//
-//      // making clone
-//      var cloneProduct = angular.copy($scope.global.order.products[currentProductIndex]);
-//      cloneProduct.productId = '';
-//      cloneProduct.productQty = 1;
-//      $scope.global.order.products.push(cloneProduct);
-//
-//      $scope.global.order.products[currentProductIndex].productQty = newProductsQty;
-//      // Change product value in DB
-//      localDB.updateDB(localDB.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.order.orderId, "union": 'AND'}, "productId": currentProductId});
-//
-//      console.log('selectedAddElementUnits == ', $scope.cart.selectedAddElementUnits);
-//      console.log('selected obj == ', $scope.cart.selectedAddElementUnits[parentIndex][0]);
-//      console.log('selected product id== ' );
-//    };
-//
-//    //-------- Explode all group
-//    $scope.explodeUnitGroupToProducts = function(parentIndex) {
-//      $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
-//    };
-
 
   }
 })();
@@ -885,7 +456,7 @@ var isDevice = 0;
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl($timeout, globalConstants, SVGServ, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
 
     var thisCtrl = this;
 
@@ -917,7 +488,8 @@ var isDevice = 0;
 
     //============ if Door Construction
     if(ProductStor.product.construction_type === 4) {
-      DesignServ.downloadDoorConfig();
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
     }
 
 
@@ -955,45 +527,49 @@ var isDevice = 0;
 
     //--------Select menu item
     function selectMenuItem(id) {
-      DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
-      DesignServ.hideCornerMarks();
-      DesignServ.deselectAllImpost();
-      if(id !== 4) {
-        DesignServ.deselectAllArc();
-      }
-      //----- hide culculator
-      DesignServ.hideSizeTools();
-      if(DesignStor.design.activeMenuItem) {
-        switch(DesignStor.design.activeMenuItem) {
-          case 1:
-            showAllAvailableGlass(id);
-            break;
-          case 2:
-            DesignServ.deselectAllGlass();
-            showAllAvailableCorner(id);
-            break;
-          case 3:
-            showAllAvailableGlass(id);
-            break;
-          case 4:
-            DesignServ.deselectAllGlass();
-            showAllAvailableArc(id);
-            break;
-          case 5:
-            DesignServ.deselectAllGlass();
-            DesignStor.design.activeSubMenuItem = 0;
-            DesignServ.initMirror();
-            break;
-        }
+      if(DesignStor.design.tempSize.length) {
+        DesignServ.closeSizeCaclulator();
       } else {
-        //------ if we close menu
-        DesignStor.design.activeSubMenuItem = 0;
-        //-------- delete selected glasses
-        DesignServ.deselectAllGlass();
-        DesignServ.deselectAllArc();
-        $timeout(function(){
-          DesignStor.design.isImpostDelete = 0;
-        }, 300);
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = 0;
+              DesignServ.initMirror();
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
       }
     }
 
@@ -1204,16 +780,17 @@ var isDevice = 0;
 
 
 
-    //============= DOOR ===============//
+    /**============= DOOR ===============*/
 
     //---------- Show Door Configuration
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
+      DesignServ.closeSizeCaclulator();
       //----- set emplty index values
-      DesignStor.design.doorConfig.doorShapeIndex = '';
-      DesignStor.design.doorConfig.sashShapeIndex = '';
-      DesignStor.design.doorConfig.handleShapeIndex = '';
-      DesignStor.design.doorConfig.lockShapeIndex = '';
+//      DesignStor.design.doorConfig.doorShapeIndex = '';
+//      DesignStor.design.doorConfig.sashShapeIndex = '';
+//      DesignStor.design.doorConfig.handleShapeIndex = '';
+//      DesignStor.design.doorConfig.lockShapeIndex = '';
     }
 
     //---------- Select door shape
@@ -1286,10 +863,7 @@ var isDevice = 0;
 
     //--------- Save Door Configuration
     function saveDoorConfig() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
-//      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+      DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
 
@@ -1477,32 +1051,132 @@ var isDevice = 0;
 
 
     function entriyWithoutLogin() {
-      var url = $location.search();
-//      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
-      switch(url.access) {
-        case '7d537b6746f925b1703aefa9b8a9a4bc':
-          thisCtrl.user.phone = '0950604425';
-          thisCtrl.user.password = '0950604425';
-          break;
-        case '3f5f0c7d46d318e026f9ba60dceffc65':
-          thisCtrl.user.phone = '0500505500';
-          thisCtrl.user.password = '0500505500';
-          break;
-        case '799e078b084c6d57cea0b0d53a7e3008':
-          thisCtrl.user.phone = '78124541170';
-          thisCtrl.user.password = '78124541170';
-          break;
+      var url = $location.search(),
+          accessArr = [
+            '7d537b6746f925b1703aefa9b8a9a4bc',
+            '3f5f0c7d46d318e026f9ba60dceffc65',
+            '799e078b084c6d57cea0b0d53a7e3008',
+            '9aefeef9c7e53f9de9bb36f32649dc3f',
+
+            '04fc711301f3c784d66955d98d399afb',
+            '768c1c687efe184ae6dd2420710b8799',
+            'f7a5c99c58103f6b65c451efd0f81826',
+            '27701bd8dd141b953b94a5c9a44697c0',
+            '7f7d5f9f3a660f2b09e3aae62a15e29b',
+            '23ff17389acbfd020043268fb49e7048',
+            'cd714cc33cfd23e74f414cbb8b9787fe',
+            '2959f1aea8db0f7fbba61f0f8474d0ef',
+            'a28a19e19b283845c851b4876b97cef4',
+            '661e67f8ce5eaf9d63c1b5be6fce1afb',
+            '0653e359db756493450c3fb1fc6790b2',
+            'ec5fefce8d1d81849b47923d6d1b52c0',
+            'd4ccb0f347163d9ee1cd5a106e1ec48b',
+            'c500ea6c5baf3deb447be25b90cf5f1c',
+            '59a6670111970ede6a77e9b43a5c4787',
+            '266021e24dd0bfaaa96f2b5e21d7c800',
+            'b8c4b7f74db12fadbe2d979ed93f392b',
+            '2482b711a07d1da3efa733aa7014f947',
+            '573b8926f015aa477cb6604901b92aea',
+            'b54d11c86eb7c8955a50d20f6b3be2f2',
+            '3a55b7218a5ca395ac71b3ec9904b6ed',
+            '3615d9213b1b3d5fe760901f43a8405f',
+            'e50137601a90943ce98b03e90d73272e',
+            'd4651afb4e1c749f0bacc7ff5d101982',
+            '988a8fa4855bf7ea54057717655d3fc9'
+          ],
+          phoneArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          passwordArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          accessQty = accessArr.length,
+          isCustomer = 0;
+
+
+      if(url.access) {
+
+        while(--accessQty > -1) {
+          if(accessArr[accessQty] === url.access) {
+            thisCtrl.user.phone = phoneArr[accessQty];
+            thisCtrl.user.password = passwordArr[accessQty];
+            isCustomer = 1;
+          }
+        }
+
+        if(isCustomer) {
+          if(thisCtrl.user.phone && thisCtrl.user.password) {
+            GlobalStor.global.isLoader = 1;
+            checkingUser();
+          }
+        } else {
+          localDB.importUser(url.access, 1).then(function(result) {
+            GlobalStor.global.isLoader = 1;
+            importDBProsses(result.user);
+          });
+        }
 
       }
-      if(thisCtrl.user.phone && thisCtrl.user.password) {
-        GlobalStor.global.isLoader = 1;
-        importDBProsses();
-      }
-
     }
-//?access=7d537b6746f925b1703aefa9b8a9a4bc
-//?access=3f5f0c7d46d318e026f9ba60dceffc65
-//?access=799e078b084c6d57cea0b0d53a7e3008
+
 
 
 
@@ -1559,7 +1233,7 @@ var isDevice = 0;
                 } else {
                   //======== IMPORT
                   console.log('Sync IMPORT');
-                  importDBProsses();
+                  checkingUser();
                 }
 
               });
@@ -1568,7 +1242,7 @@ var isDevice = 0;
             } else {
               //======== IMPORT
               console.log('IMPORT');
-              importDBProsses();
+              checkingUser();
             }
           });
         //-------- check LocalDB
@@ -1623,7 +1297,7 @@ var isDevice = 0;
     }
 
 
-    function importDBProsses() {
+    function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
 //        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
@@ -1631,43 +1305,8 @@ var isDevice = 0;
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === result.user.password) {
 
-            //----- checking user activation
-            if(result.user.locked) {
-              //------- clean all tables in LocalDB
-//              console.log('CLEEN START!!!!');
-              localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-                if(data) {
-//                  console.log('CLEEN DONE!!!!');
-                  //------- creates all tables in LocalDB
-//                  console.log('CREATE START!!!!');
-                  localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
-                    if(data) {
-//                      console.log('CREATE DONE!!!!');
-                      //------- save user in LocalDB
-                      localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.users.tableName);
-                      //------- save user in Stor
-                      angular.extend(UserStor.userInfo, result.user);
+            importDBProsses(result.user);
 
-                      //------- import Location
-                      localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-                        if(data) {
-                          //------ save Location Data in local obj
-                          loginServ.prepareLocationToUse().then(function (data) {
-                            thisCtrl.generalLocations = data;
-//                            console.log('generalLocations----------', thisCtrl.generalLocations);
-                            checkingFactory();
-                          });
-                        }
-                      });
-                    }
-                  });
-                }
-              });
-            } else {
-              GlobalStor.global.isLoader = 0;
-              //---- show attantion
-              thisCtrl.isUserNotActive = 1;
-            }
           } else {
             GlobalStor.global.isLoader = 0;
             //---- user not exists
@@ -1681,6 +1320,51 @@ var isDevice = 0;
 
       });
     }
+
+
+
+    function importDBProsses(user) {
+
+      //----- checking user activation
+      if(user.locked) {
+        //------- clean all tables in LocalDB
+        //              console.log('CLEEN START!!!!');
+        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+          if(data) {
+            //                  console.log('CLEEN DONE!!!!');
+            //------- creates all tables in LocalDB
+            //                  console.log('CREATE START!!!!');
+            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //                      console.log('CREATE DONE!!!!');
+                //------- save user in LocalDB
+                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                //------- save user in Stor
+                angular.extend(UserStor.userInfo, user);
+
+                //------- import Location
+                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                  if(data) {
+                    //------ save Location Data in local obj
+                    loginServ.prepareLocationToUse().then(function (data) {
+                      thisCtrl.generalLocations = data;
+                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
+                      checkingFactory();
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        GlobalStor.global.isLoader = 0;
+        //---- show attantion
+        thisCtrl.isUserNotActive = 1;
+      }
+
+    }
+
 
 
     function checkingFactory() {
@@ -1932,9 +1616,11 @@ var isDevice = 0;
       /** set Curr Discounts */
       MainServ.setCurrDiscounts();
 
+      /** set first Template */
+      MainServ.setCurrTemplate();
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        GlobalStor.global.showRoomSelectorDialog = 1;
+        MainServ.prepareMainPage();
         console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
@@ -1974,7 +1660,7 @@ var isDevice = 0;
  */
 
 
-// controllers/menus/addelem_menu.js
+// controllers/menus/addelems_menu.js
 
 (function(){
   'use strict';
@@ -2013,9 +1699,9 @@ var isDevice = 0;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-    thisCtrl.closeQtyCaclulator = closeQtyCaclulator;
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.selectAddElementColor = AddElementMenuServ.selectAddElementColor;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
 
@@ -2032,19 +1718,17 @@ var isDevice = 0;
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    //--------- Close Qty Calculator
-    function closeQtyCaclulator() {
-      AddElementsServ.desactiveAddElementParameters();
-    }
 
 
     /** common function to select addElem in 2 cases*/
     function selectAddElement(typeId, elementId, clickEvent) {
-      /** if isAddElementListView = 1 is list view otherwise is common view */
-      if(AuxStor.aux.isAddElementListView) {
-        selectAddElementList(typeId, elementId, clickEvent);
-      } else {
-        AddElementMenuServ.chooseAddElement(typeId, elementId);
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        /** if isAddElementListView = 1 is list view otherwise is common view */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        }
       }
     }
 
@@ -2170,7 +1854,7 @@ var isDevice = 0;
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, GeneralServ, MainServ, AddElementsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function configMenuCtrl($filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -2187,9 +1871,6 @@ var isDevice = 0;
         $filter('translate')('mainpage.PROFILE_TIP'),
         $filter('translate')('mainpage.GLASS_TIP')
       ],
-      reportMenu: [],
-      reportFilterId: undefined,
-      reportPriceTotal: 0,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_CONFIG_LIST: 5 * globalConstants.STEP,
       DELAY_SHOW_FOOTER: 5 * globalConstants.STEP,
@@ -2206,8 +1887,6 @@ var isDevice = 0;
     thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
-    thisCtrl.showReport = showReport;
-    thisCtrl.sortReport = sortReport;
 
 
     //============ methods ================//
@@ -2217,9 +1896,17 @@ var isDevice = 0;
 
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+      //---- hide rooms if opened
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      //---- hide tips
       GlobalStor.global.configMenuTips = 0;
+      //---- hide comment if opened
+      GlobalStor.global.isShowCommentBlock = 0;
+      //---- hide template type menu if opened
+      GlobalStor.global.isTemplateTypeMenu = 0;
+      GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      AddElementsServ.desactiveAddElementParameters();
+      AddElementMenuServ.desactiveAddElementParameters();
     }
 
     function saveProduct() {
@@ -2234,66 +1921,13 @@ var isDevice = 0;
       ++GlobalStor.global.configMenuTips;
       if(GlobalStor.global.configMenuTips === tipQty) {
         GlobalStor.global.configMenuTips = 0;
+        //------ open templates
+        GlobalStor.global.activePanel = 1;
+        //------ close rooms
+        GlobalStor.global.showRoomSelectorDialog = 0;
       }
     }
 
-    /** REPORT */
-    $document.off("keypress");
-    $document.bind("keypress", function(event) {
-//      console.log(UserStor.userInfo.user_type);
-//      console.log(event);
-      //------ show report only for Plands (5,7)
-      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-        //----- Button 'R'
-        if(event.keyCode === 82 || event.keyCode === 114 || event.keyCode === 1082) {
-          showReport();
-        }
-      }
-    });
-
-
-    function showReport() {
-      GlobalStor.global.isReport = !GlobalStor.global.isReport;
-      /** cuclulate Total Price of Report */
-      culcReportPriceTotal();
-      /** download report Menu */
-      if(GlobalStor.global.isReport) {
-        localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
-          thisCtrl.config.reportMenu = result.filter(function(item) {
-            return item.position > 0;
-          });
-          thisCtrl.config.reportMenu.push({
-            id: 0,
-            name: $filter('translate')('common_words.ALL')
-          });
-        });
-      }
-      $rootScope.$apply();
-    }
-
-    function sortReport(groupId) {
-      /** cuclulate Total Price of group of Report */
-      culcReportPriceTotal(groupId);
-      if(groupId) {
-        thisCtrl.config.reportFilterId = groupId;
-      } else {
-        thisCtrl.config.reportFilterId = undefined;
-      }
-    }
-
-    function culcReportPriceTotal(group) {
-      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
-        return item.element_group_id === group;
-      }) : angular.copy(ProductStor.product.report);
-
-      if(currReportList.length) {
-        thisCtrl.config.reportPriceTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(currReportList.reduce(function (sum, item) {
-          return {priceReal: sum.priceReal + item.priceReal};
-        }).priceReal), 3);
-      } else {
-        thisCtrl.config.reportPriceTotal = 0;
-      }
-    }
 
   }
 })();
@@ -2394,6 +2028,370 @@ var isDevice = 0;
 })();
 
 
+// controllers/panels/add_elements_cart.js
+
+(function(){
+  'use strict';
+  /**
+   * @ngInject
+   */
+  angular
+    .module('CartModule')
+    .controller('AddElemCartCtrl', addElementsCartCtrl);
+
+  function addElementsCartCtrl(globalConstants, localDB, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
+
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.config = {
+      addElemsTypes: localDB.addElementDBId,
+      selectedAddElemUnit: {id: 0},
+      isAddElemUnitDetail: 0,
+      addElemUnitProducts: [],
+      isLinkExplodeMenu: 0,
+      explodeMenuTop: 0,
+      explodeMenuLeft: 0,
+      isSwipeProdSelector: 0
+    };
+
+    //=========== clicking =============//
+    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
+    thisCtrl.deleteAllAddElems = deleteAllAddElems;
+    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
+
+    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
+    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
+    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
+    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
+    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
+
+    //------ adding elements to product
+    thisCtrl.swipeProductSelector = swipeProductSelector;
+    thisCtrl.selectProductToAddElem = selectProductToAddElem;
+
+
+
+
+    //============ methods ================//
+
+
+    function closeAllAddElemsPanel() {
+      CartStor.cart.isAllAddElems = 0;
+      //------ clean AddElems array for All AddElems Panel
+      CartStor.cart.allAddElemsOrder.length = 0;
+      CartStor.cart.addElemsOrderPriceTOTAL = 0;
+      //------ hide searching box
+      CartStor.cart.isSelectedProduct = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
+    }
+
+
+
+    function deleteAddElemsItem(addElem) {
+      deleteAddElemsInOrder(addElem);
+      CartServ.joinAllAddElements();
+      //------ if last AddElem was delete
+      if(!CartStor.cart.isExistAddElems) {
+        //------ go back in cart
+        closeAllAddElemsPanel();
+      } else {
+        CartServ.showAllAddElements();
+      }
+      //------ culculate AddElems Price in each Products
+      CartServ.calculateAddElemsProductsPrice(1);
+      //------ change order Price
+      CartMenuServ.calculateOrderPrice();
+    }
+
+
+
+    function deleteAllAddElems() {
+      //------ delete all chosenAddElements in Products
+      deleteAddElemsInOrder();
+      //------ culculate AddElems Price in each Products
+      CartServ.calculateAddElemsProductsPrice();
+      //------ change order Price
+      CartMenuServ.calculateOrderPrice();
+      CartServ.joinAllAddElements();
+      //------ go back in cart
+      closeAllAddElemsPanel();
+    }
+
+
+
+    function deleteAddElemsInOrder(element) {
+      var productsQty = OrderStor.order.products.length,
+          addElemProdQty, addElemQty;
+      while(--productsQty > -1) {
+        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
+          if(addElemQty) {
+            //--------- delete one Add Element
+            if(element) {
+              while(--addElemQty > -1) {
+                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
+                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                    }
+                  }
+                }
+              }
+            } else {
+              //--------- delete All Add Element
+              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
+            }
+          }
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+
+    function showAddElemUnitDetail(elemUnit) {
+      thisCtrl.config.selectedAddElemUnit = elemUnit;
+      collectAddElemUnitProducts();
+      thisCtrl.config.isAddElemUnitDetail = 1;
+    }
+
+
+    function collectAddElemUnitProducts() {
+      var allAddElemsQty = CartStor.cart.allAddElements.length,
+          addElemProdQty, addElemProd;
+
+      //------ clean addElemUnit array
+      thisCtrl.config.addElemUnitProducts.length = 0;
+      console.log('      ', CartStor.cart.allAddElements);
+      for(var i = 0; i < allAddElemsQty; i++) {
+        addElemProdQty = CartStor.cart.allAddElements[i].length;
+        for(var j = 0; j < addElemProdQty; j++) {
+          if(thisCtrl.config.selectedAddElemUnit.id === CartStor.cart.allAddElements[i][j].id) {
+            if(thisCtrl.config.selectedAddElemUnit.element_width === CartStor.cart.allAddElements[i][j].element_width) {
+              if(thisCtrl.config.selectedAddElemUnit.element_height === CartStor.cart.allAddElements[i][j].element_height) {
+
+                //-------- if product is addElems only
+                if(OrderStor.order.products[i].is_addelem_only) {
+                  addElemProd = {
+                    productIndex: i,
+                    is_addelem_only: OrderStor.order.products[i].is_addelem_only,
+                    element_width: CartStor.cart.allAddElements[i][j].element_width,
+                    element_height: CartStor.cart.allAddElements[i][j].element_height,
+                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
+                    elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
+                  };
+                  thisCtrl.config.addElemUnitProducts.push(addElemProd);
+
+                } else {
+
+                  addElemProd = {
+                    productIndex: i,
+                    is_addelem_only: OrderStor.order.products[i].is_addelem_only,
+                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
+                  };
+//                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
+//                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
+//                  console.info('addElemProd------', OrderStor.order.products[i]);
+//                  console.info('addElemProd------', addElemProd);
+                  if(OrderStor.order.products[i].product_qty > 1) {
+                    var wagon = [],
+                        cloneQty = OrderStor.order.products[i].product_qty*1;
+                    while(--cloneQty > -1) {
+                      wagon.push(addElemProd);
+                    }
+                    thisCtrl.config.addElemUnitProducts.push(wagon);
+                  } else {
+                    thisCtrl.config.addElemUnitProducts.push(addElemProd);
+                  }
+
+                }
+
+              }
+            }
+          }
+        }
+      }
+      console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+    }
+
+
+
+    function closeAddElemUnitDetail() {
+      thisCtrl.config.isAddElemUnitDetail = 0;
+      thisCtrl.config.selectedAddElemUnit = {id: 0};
+      thisCtrl.config.isLinkExplodeMenu = 0;
+    }
+
+
+
+    function deleteAddElemUnit(addElemUnit, isWagon) {
+      console.info('delet----', thisCtrl.config.selectedAddElemUnit);
+
+      if(isWagon) {
+        //------- decrease Product quantity
+        CartServ.decreaseProductQty(addElemUnit[0].productIndex);
+      } else {
+        //------- delete AddElem in Product
+        delAddElemUnitInProduct(addElemUnit);
+        CartServ.joinAllAddElements();
+      }
+
+      //------ if last AddElem was delete
+      if(!CartStor.cart.isExistAddElems) {
+        //------ go back in cart
+        closeAddElemUnitDetail();
+        closeAllAddElemsPanel();
+      } else {
+        CartServ.showAllAddElements();
+        collectAddElemUnitProducts();
+        //------ change selected AddElemUnit
+        reviewAddElemUnit();
+      }
+      //------ culculate AddElems Price in each Products
+      CartServ.calculateAddElemsProductsPrice(1);
+      //------ change order Price
+      CartMenuServ.calculateOrderPrice();
+
+    }
+
+
+
+    function delAddElemUnitInProduct(productIndex) {
+      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
+          addElemQty;
+
+      while(--addElemProdQty > -1) {
+        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
+        if(addElemQty) {
+          while(--addElemQty > -1) {
+            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
+              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
+                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function reviewAddElemUnit() {
+      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
+        noExist = 1;
+      while(--addElemsQty > -1) {
+        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
+          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
+          --noExist;
+        }
+      }
+      if(noExist) {
+        closeAddElemUnitDetail();
+      }
+    }
+
+
+    /**-------- Show/Hide Explode Link Menu ------*/
+    function toggleExplodeLinkMenu(prodInd, event) {
+      console.log(prodInd);
+      console.log(event.center);
+      thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
+      thisCtrl.config.explodeMenuTop = event.center.y - 50;
+      thisCtrl.config.explodeMenuLeft = event.center.x - 30;
+    }
+
+
+    /**-------- Explode by Products ------*/
+    function explodeUnitToProduct(addElemUnit, isAllProducts) {
+      var lastProductId = d3.max(OrderStor.order.products.map(function (item) {
+            return item.product_id;
+          })),
+          cloneProduct = angular.copy(OrderStor.order.products[addElemUnit[0].productIndex]),
+          newProductQty = cloneProduct.product_qty-1;
+
+      cloneProduct.product_qty = 1;
+
+      //--------- whole explode product
+      if(isAllProducts) {
+        OrderStor.order.products[addElemUnit[0].productIndex].product_qty = 1;
+        while(--newProductQty > -1) {
+          CartServ.addCloneProductInOrder(cloneProduct, lastProductId);
+        }
+      } else {
+        //--------- explode product once
+        OrderStor.order.products[addElemUnit[0].productIndex].product_qty -= 1;
+        CartServ.addCloneProductInOrder(cloneProduct, lastProductId);
+      }
+
+      thisCtrl.config.isLinkExplodeMenu = 0;
+      CartServ.joinAllAddElements();
+
+      CartServ.showAllAddElements();
+      collectAddElemUnitProducts();
+      //------ change selected AddElemUnit
+      reviewAddElemUnit();
+
+      //------ culculate AddElems Price in each Products
+      CartServ.calculateAddElemsProductsPrice(1);
+      //------ change order Price
+      CartMenuServ.calculateOrderPrice();
+
+    }
+
+
+
+
+    /** ======== ADDING ADDELEMENTS TO PRODUCTS ==========*/
+
+
+
+    /** open/close product selector by swipe */
+    function swipeProductSelector() {
+      thisCtrl.config.isSwipeProdSelector = !thisCtrl.config.isSwipeProdSelector;
+    }
+
+
+
+    function selectProductToAddElem(prodInd) {
+      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
+      if(isSelected) {
+        CartStor.cart.selectedProducts[prodInd].length = 0;
+        //------- check another products
+        checkAllSelectedProducts();
+      } else {
+        CartStor.cart.selectedProducts[prodInd].push(1);
+        CartStor.cart.isSelectedProduct = 1;
+      }
+    }
+
+
+
+    function checkAllSelectedProducts() {
+      var isSelected = 0,
+          prodIndQty = CartStor.cart.selectedProducts.length;
+      while(--prodIndQty > -1) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+          isSelected++;
+        }
+      }
+      CartStor.cart.isSelectedProduct = (isSelected) ? 1 : 0;
+    }
+
+
+  }
+})();
+
+
+
 // controllers/panels/add_elements_list.js
 
 (function(){
@@ -2428,7 +2426,7 @@ var isDevice = 0;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
     thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
-
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
   }
 })();
@@ -2446,7 +2444,7 @@ var isDevice = 0;
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ) {
+  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -2456,22 +2454,25 @@ var isDevice = 0;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
-      DELAY_SHOW_GRID: globalConstants.STEP * 5,
-      DELAY_SHOW_VISOR: globalConstants.STEP * 6,
-      DELAY_SHOW_SPILLWAY: globalConstants.STEP * 6,
-      DELAY_SHOW_OUTSIDE: globalConstants.STEP * 10,
-      DELAY_SHOW_WINDOWSILL: globalConstants.STEP * 13,
-      DELAY_SHOW_LOUVER: globalConstants.STEP * 15,
-      DELAY_SHOW_INSIDESLOPE: globalConstants.STEP * 20,
+      delays: [
+        globalConstants.STEP * 5, //GRID
+        globalConstants.STEP * 6, //VISOR
+        globalConstants.STEP * 6, //SPILLWAY
+        globalConstants.STEP * 10, //OUTSIDE
+        globalConstants.STEP * 13, //WINDOWSILL
+        globalConstants.STEP * 15, //LOUVER
+        globalConstants.STEP * 20, //INSIDESLOPE
+        globalConstants.STEP * 30, //CONNECTORS
+        globalConstants.STEP * 28, //HANDLE
+        globalConstants.STEP * 31, //FAN
+        globalConstants.STEP * 31 //OTHERS
+      ],
+
       DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
       DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
       DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
-      DELAY_SHOW_CONNECTORS: globalConstants.STEP * 30,
       DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
-      DELAY_SHOW_HANDLE: globalConstants.STEP * 28,
-      DELAY_SHOW_FAN: globalConstants.STEP * 31,
-      DELAY_SHOW_OTHERS: globalConstants.STEP * 31,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
 
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
@@ -2483,6 +2484,7 @@ var isDevice = 0;
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
     thisCtrl.showWindowScheme = showWindowScheme;
     thisCtrl.closeWindowScheme = closeWindowScheme;
@@ -2550,13 +2552,13 @@ var isDevice = 0;
 
     /** Select glass */
     function selectGlass(newId, newName) {
-      if(ProductStor.product.glass[0].id !== newId) {
+      //if(ProductStor.product.glass[0].id !== newId) {
         thisCtrl.config.selectGlassId = newId;
         thisCtrl.config.selectGlassName = newName;
         //----- open glass selector dialog
         GlobalStor.global.showGlassSelectorDialog = 1;
         DesignServ.initAllGlass();
-      }
+      //}
     }
 
 
@@ -2569,8 +2571,8 @@ var isDevice = 0;
           MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
         }
         changePriceAsNewGlass();
+        closeGlassSelectorDialog();
       }
-      closeGlassSelectorDialog();
     }
 
 
@@ -2636,10 +2638,10 @@ var isDevice = 0;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    //============ methods ================//
+    /**============ methods ================*/
 
 
-    //----------- Select hardware
+    /**----------- Select hardware -------- */
     function selectHardware(newId) {
       if(ProductStor.product.hardware.id !== newId) {
         //-------- set current Hardware
@@ -2647,7 +2649,9 @@ var isDevice = 0;
         //------ calculate price
         MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id);
         //------ save analytics data
-        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+//        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+        /** send analytics data to Server*/
+        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
       }
     }
 
@@ -2773,7 +2777,9 @@ var isDevice = 0;
           ProductStor.product.glass.length = 0;
           MainServ.parseTemplate().then(function () {
             //------ save analytics data
-            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+//            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+            /** send analytics data to Server*/
+            AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
           });
         });
       }
@@ -2808,7 +2814,6 @@ var isDevice = 0;
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
       typing: 'on'
     };
-    thisCtrl.switcherTemplate = true;
 
 
     //---------- download templates Img icons
@@ -2823,7 +2828,7 @@ var isDevice = 0;
 
     //------ clicking
 
-    thisCtrl.selectNewTemplate = selectNewTemplate;
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
     thisCtrl.gotoConstructionPage = gotoConstructionPage;
@@ -2833,46 +2838,22 @@ var isDevice = 0;
 
     //============ methods ================//
 
-    //---------- select new template and recalculate it price
-    function selectNewTemplate(templateIndex) {
-        thisCtrl.switcherTemplate = false;
-
-      function goToNewTemplate() {
-        //------ change last changed template to old one
-        TemplatesServ.backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        TemplatesServ.newPriceForNewTemplate(templateIndex);
-      }
-
-      if(GlobalStor.global.isChangedTemplate) {
-      //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate
-        );
-      } else {
-        TemplatesServ.newPriceForNewTemplate(templateIndex);
-      }
-    }
-
-
 
     //------ click on top button to change template type
     function toggleTemplateType() {
-      thisCtrl.switcherTemplate = !thisCtrl.switcherTemplate;
+      GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
 
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
-        thisCtrl.switcherTemplate = false;
+      GlobalStor.global.isTemplateTypeMenu = 0;
 
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
         }
-        GlobalStor.global.isChangedTemplate = false;
+        GlobalStor.global.isChangedTemplate = 0;
         TemplatesServ.initNewTemplateType(marker);
       }
 
@@ -2895,6 +2876,29 @@ var isDevice = 0;
       $location.path('/design');
     }
 
+
+  }
+})();
+
+
+// controllers/parts/addelems_group_menu.js
+
+(function(){
+  'use strict';
+  /**
+   * @ngInject
+   */
+  angular
+    .module('MainModule')
+    .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
+
+  function addElemGroupCtrl(AddElementsServ, AuxStor) {
+
+    var thisCtrl = this;
+    thisCtrl.A = AuxStor;
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
 
   }
 })();
@@ -3137,6 +3141,105 @@ var isDevice = 0;
 })();
 
 
+// controllers/parts/report.js
+
+(function(){
+  'use strict';
+  /**
+   * @ngInject
+   */
+  angular
+    .module('MainModule')
+    .controller('ReportCtrl', reportCtrl);
+
+  function reportCtrl($rootScope, $filter, localDB, GeneralServ, GlobalStor, ProductStor, UserStor) {
+
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      reportMenu: [],
+      reportFilterId: undefined,
+      reportPriceTotal: 0
+    };
+
+    //------ clicking
+
+    //thisCtrl.showReport = showReport;
+    thisCtrl.sortReport = sortReport;
+
+
+    //============ methods ================//
+
+
+
+    $('.main-content').off("keypress").keypress(function(event) {
+      //      console.log(UserStor.userInfo.user_type);
+      //console.log('RRRRRRRRR', event.keyCode);
+      //------ show report only for Plands (5,7)
+      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+        //----- Button 'R'
+        if(event.keyCode === 82 || event.keyCode === 114) {
+          showReport();
+        }
+      }
+    });
+
+
+    function showReport() {
+      GlobalStor.global.isReport = !GlobalStor.global.isReport;
+      /** cuclulate Total Price of Report */
+      culcReportPriceTotal();
+      /** download report Menu */
+      if(GlobalStor.global.isReport) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
+          thisCtrl.config.reportMenu = result.filter(function(item) {
+            return item.position > 0;
+          });
+          thisCtrl.config.reportMenu.push({
+            id: 0,
+            name: $filter('translate')('common_words.ALL')
+          });
+        });
+      }
+      $rootScope.$apply();
+    }
+
+
+
+    function sortReport(groupId) {
+      /** cuclulate Total Price of group of Report */
+      culcReportPriceTotal(groupId);
+      if(groupId) {
+        thisCtrl.config.reportFilterId = groupId;
+      } else {
+        thisCtrl.config.reportFilterId = undefined;
+      }
+    }
+
+
+
+    function culcReportPriceTotal(group) {
+      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
+        return item.element_group_id === group;
+      }) : angular.copy(ProductStor.product.report);
+
+      if(currReportList.length) {
+        thisCtrl.config.reportPriceTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(currReportList.reduce(function (sum, item) {
+          return {priceReal: sum.priceReal + item.priceReal};
+        }).priceReal), 3);
+      } else {
+        thisCtrl.config.reportPriceTotal = 0;
+      }
+    }
+
+
+  }
+})();
+
+
 // controllers/parts/room_info.js
 
 (function(){
@@ -3174,7 +3277,8 @@ var isDevice = 0;
     function showRoomSelectorDialog(event) {
       //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
-        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+//        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+        GlobalStor.global.showRoomSelectorDialog = 1;
         //playSound('fly');
       }
     }
@@ -3200,7 +3304,7 @@ var isDevice = 0;
     .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
-  function roomSelectorCtrl(globalConstants, GeneralServ, MainServ, GlobalStor, ProductStor, UserStor) {
+  function roomSelectorCtrl(globalConstants, MainServ, TemplatesServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3208,115 +3312,23 @@ var isDevice = 0;
     thisCtrl.U = UserStor;
 
     thisCtrl.config = {
-      rooms: [
-        {
-          id: 0,
-          width: 750,
-          height: 1450,
-          price: 1289
-        },
-        {
-          id: 1,
-          width: 1250,
-          height: 1450,
-          price: 1756
-        },
-        {
-          id: 2,
-          width: 2050,
-          height: 1450,
-          price: 2427
-        },
-        {
-          id: 3,
-          width: 750,
-          height: 1850,
-          price: 1549
-        },
-        {
-          id: 4,
-          width: 750,
-          height: 2050,
-          price: 1759
-        },
-        {
-          id: 5,
-          width: 2000,
-          height: 2050,
-          price: 2728
-        },
-        {
-          id: 6,
-          width: 1450,
-          height: 2050,
-          price: 2993
-        },
-        {
-          id: 7,
-          width: 4400,
-          height: 1550,
-          price: 6544
-        },
-        {
-          id: 8,
-          width: 4400,
-          height: 1550,
-          price: 6915
-        },
-        {
-          id: 9
-        },
-        {
-          id: 10
-        },
-        {
-          id: 11
-        },
-        {
-          id: 12
-        },
-        {
-          id: 13
-        },
-        {
-          id: 14
-        },
-        {
-          id: 15
-        }
-      ],
       DELAY_SHOW_ROOM: 2*globalConstants.STEP
     };
 
 
-    //TODO must be from Server
-//    for(var r = 0; r < 16; r++) {
-//      var roomObj = {id: r};
-//      thisCtrl.config.rooms.push(roomObj);
-//    }
-
 
     //------ clicking
     thisCtrl.selectRoom = selectRoom;
-    thisCtrl.closeRoomSelectorDialog = closeRoomSelectorDialog;
+    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
 
     //============ methods ================//
 
     //---------- Room Select
     function selectRoom(id) {
-      ProductStor.product.room_id = id;
-      closeRoomSelectorDialog();
-      MainServ.prepareMainPage();
-      GeneralServ.stopStartProg();
-      GlobalStor.global.showRoomSelectorDialog = 0;
+      TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
     }
 
 
-    //---------- Close Room Selector Dialog
-    function closeRoomSelectorDialog() {
-      GlobalStor.global.showRoomSelectorDialog = 0;
-      //playSound('fly');
-    }
 
   }
 })();
@@ -3341,7 +3353,7 @@ var isDevice = 0;
 
     //------ clicking
     //----------- for AddElements List View
-    if(GlobalStor.global.currOpenPage === 'main') {
+    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
       thisCtrl.placeholder = $filter('translate')('add_elements.INPUT_ADD_ELEMENT');
       thisCtrl.checkChanges = checkChanges;
       thisCtrl.cancelSearching = cancelSearching;
@@ -3354,7 +3366,6 @@ var isDevice = 0;
       thisCtrl.deleteSearchChart = deleteSearchChartHistory;
     }
 
-
     //============ methods ================//
 
     //----------- Searching Block in AddElements List View
@@ -3362,10 +3373,11 @@ var isDevice = 0;
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
         if(thisCtrl.searchingWord.length === 1) {
-          AuxStor.aux.addElementGroups = AddElementsServ.createAddElementGroups();
+          AddElementsServ.createAddElementGroups();
         }
-        AuxStor.aux.showAddElementGroups = true;
         AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+      } else {
+        cancelSearching();
       }
     }
 
@@ -3373,7 +3385,6 @@ var isDevice = 0;
     function cancelSearching() {
       thisCtrl.searchingWord = '';
       AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.showAddElementGroups = false;
       AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       AddElementMenuServ.closeAddElementsMenu();
     }
@@ -3399,12 +3410,14 @@ var isDevice = 0;
     //-------- Delete searching word
     function cancelSearchingHistory() {
       thisCtrl.searchingWord = '';
-      HistoryStor.history.isOrderSearch = false;
+      HistoryStor.history.searchingWord = '';
+      HistoryStor.history.isOrderSearch = 0;
     }
 
     //-------- Delete last chart searching word
     function deleteSearchChartHistory() {
       thisCtrl.searchingWord = thisCtrl.searchingWord.slice(0,-1);
+      HistoryStor.history.searchingWord = thisCtrl.searchingWord;
     }
 
 
@@ -3438,7 +3451,6 @@ var isDevice = 0;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
-
     //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;
@@ -3446,7 +3458,7 @@ var isDevice = 0;
       thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = DesignServ.closeSizeCaclulator;
     }
-
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
   }
@@ -3464,9 +3476,10 @@ var isDevice = 0;
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
+  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
 
     var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
 
     thisCtrl.config = {
@@ -3488,7 +3501,6 @@ var isDevice = 0;
     function swipeMainPage(event) {
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
-      GeneralServ.stopStartProg();
       //playSound('swip');
     }
 
@@ -3496,7 +3508,6 @@ var isDevice = 0;
       if(GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
-        GeneralServ.stopStartProg();
         //playSound('swip');
       }
     }
@@ -3716,54 +3727,145 @@ var isDevice = 0;
     .module('HistoryModule')
     .directive('calendarScroll', calendarScrollDir);
 
-  function calendarScrollDir($filter) {
+  function calendarScrollDir($filter, HistoryStor) {
 
     return {
       restrict: 'E',
       transclude: true,
       replace: true,
       scope: {
-        maxTime: '@',
-        calendarTime: '='
+        calendarType: '=',
+        orderType: '='
+      },
+      template: function(elem, attr){
+        var typeTemplate = attr.calendarType* 1,
+            templateBody = '',
+            dateRange = '',
+            formName = '',
+            selectDayId = '',
+            selectDayName = '',
+            selectMonthId = '',
+            selectMonthName = '',
+            selectYearId = '',
+            selectYearName = '',
+            monthObj = $filter('translate')('common_words.MONTHS'),
+            monthArr = monthObj.split(', '),
+            monthQty = monthArr.length,
+            dayIndex = 1, monthIndex = 0,
+            yearIndex = 2010, yearEnd = new Date().getFullYear()+1;
+
+        if(typeTemplate) {
+          /** Data Finish */
+          dateRange = 'date_range_from';
+          formName = 'date_from';
+          selectDayId = 'from_date';
+          selectDayName = 'from_date_'+attr.orderType;
+          selectMonthId = 'from_month';
+          selectMonthName = 'from_month_'+attr.orderType;
+          selectYearId = 'from_fullYear';
+          selectYearName = 'from_fullYear_'+attr.orderType;
+        } else {
+          /** Data Start */
+          dateRange = 'date_range_to';
+          formName = 'date_to';
+          selectDayId = 'to_date';
+          selectDayName = 'to_date_'+attr.orderType;
+          selectMonthId = 'to_month';
+          selectMonthName = 'to_month_'+attr.orderType;
+          selectYearId = 'to_fullYear';
+          selectYearName = 'to_fullYear_'+attr.orderType;
+        }
+        templateBody = '<div class="date_range outside">'+
+          '<div class="date_range_container">'+
+          '<div class="'+dateRange+'">'+
+          '<form name="'+formName+'">'+
+          '<div class="lines"><div></div></div>'+
+          '<select class="date" id="'+selectDayId+'" name="'+selectDayName+'">';
+
+        /** Day generating */
+        while(dayIndex < 32) {
+          templateBody += '<option value="'+dayIndex+'">'+dayIndex+'</option>';
+          dayIndex++;
+        }
+        templateBody += '</select><select class="date" id="'+selectMonthId+'" name="'+selectMonthName+'">';
+
+        /** Month generating */
+        while(monthIndex < monthQty) {
+          templateBody += '<option value="'+monthIndex+'">'+monthArr[monthIndex]+'</option>';
+          monthIndex++;
+        }
+        templateBody += '</select><select class="date" id="'+selectYearId+'" name="'+selectYearName+'">';
+
+        /** Year generating */
+        while(yearIndex <= yearEnd) {
+          templateBody += '<option value="'+yearIndex+'">'+yearIndex+'</option>';
+          yearIndex++;
+        }
+        templateBody += '</select></form></div></div></div>';
+
+        return templateBody;
+
       },
       link: function (scope, element, attrs) {
-        $(function(){
-          var today = new Date();
-//          console.log('today', typeof today);
-//          console.log(today);
-          var opt = {
-            theme: 'ios',
-            display: 'inline',
-            mode: 'mixed',
-            showLabel: false,
-            maxDate: today,
-            //height: 80,
-            height: 40,
-            fixedWidth: 656,
-            maxWidth: 656,
-            onChange : function (valueText) {
-              scope.calendarTime = valueText;
-              scope.$apply();
+
+//      Hammer.plugins.fakeMultitouch();
+
+        function getIndexForValue(selectTag, value) {
+          var selectQty = selectTag.options.length;
+          while(--selectQty > -1) {
+            if (selectTag.options[selectQty].value == value) {
+              return selectQty;
             }
-          };
-          opt.monthNames = $filter('translate')('common_words.MONTHA').split(', ');
-          //element.mobiscroll().date(opt);
+          }
+        }
 
-          attrs.$observe('maxTime', function () {
-            if(scope.maxTime) {
-//              console.log('maxTime', typeof scope.maxTime);
-//              console.log(scope.maxTime);
+        function update(panel, section, datetime) {
+          $('.'+panel).find("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
+          $('.'+panel).find("#" + section + "_month").drum('setIndex', datetime.getMonth());
+          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear()));
+        }
 
-              var newMaxDate = new Date(parseInt(scope.maxTime, 10));
-//              console.log('newMaxDate', typeof newMaxDate);
-//              console.log(newMaxDate);
-              //opt.maxDate = newMaxDate.toString();
-              opt.maxDate = newMaxDate;
-              //element.mobiscroll().date(opt);
+        $(function(){
+          $("select.date").drum({
+            onChange : function (elem) {
+              var elemNameArr = elem.name.split('_'),
+                  section = elemNameArr[0],
+                  isOrder = elemNameArr[2]*1,
+                  arr = {'date' : 'setDate', 'month' : 'setMonth', 'fullYear' : 'setFullYear'},
+                  date = new Date();
+              for (var s in arr) {
+                var i = ($("form[name='date_" + section + "'] select[id='" + section + "_" + s + "']"))[0].value;
+                eval ("date." + arr[s] + "(" + i + ")");
+              }
+
+              if(isOrder) {
+                update('history-view', section, date);
+                /** save Data for order */
+                if(section === 'from'){
+                  HistoryStor.history.startDate = date;
+                } else {
+                  HistoryStor.history.finishDate = date;
+                }
+              } else {
+                update('draft-view', section, date);
+                /** save Data for draft */
+                if(section === 'from'){
+                  HistoryStor.history.startDateDraft = date;
+                } else {
+                  HistoryStor.history.finishDateDraft = date;
+                }
+              }
+              scope.$apply();
             }
           });
 
+          var now = new Date();
+          update('history-view', "from", new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+          update('history-view', "to", new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+          update('draft-view', "from", new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+          update('draft-view', "to", new Date(now.getFullYear(), now.getMonth(), now.getDate()));
         });
+
       }
     };
 
@@ -4071,7 +4173,6 @@ var isDevice = 0;
         scope.$watch(attrs.output, function (price) {
           changePrice(price, elem);
         });
-
       }
     };
 
@@ -4218,9 +4319,15 @@ var isDevice = 0;
                   .x(function(d) { return d.x; })
                   .y(function(d) { return d.y; })
                   .interpolate("linear"),
-                padding = (scope.typeConstruction === 'icon') ? 1 : 0.7,
+                padding = 0.7,
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
+
+            if(scope.typeConstruction === 'icon'){
+              padding = 1;
+            } else if(scope.typeConstruction === 'edit') {
+              padding = 0.63;
+            }
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
@@ -5000,11 +5107,10 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ) {
+  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AnalyticsServ, CartServ, CartMenuServ) {
 
     var thisFactory = this,
-        delayShowElementsMenu = globalConstants.STEP * 12,
-        tempSize = [];
+        delayShowElementsMenu = globalConstants.STEP * 12;
 
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
@@ -5013,10 +5119,14 @@ function ErrorResult(code, message) {
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
+      desactiveAddElementParameters: desactiveAddElementParameters,
       //---- calculators:
+      pressCulculator: pressCulculator,
       setValueQty: setValueQty,
+      closeQtyCaclulator: closeQtyCaclulator,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
+      changeElementSize: changeElementSize,
       closeSizeCaclulator: closeSizeCaclulator
     };
 
@@ -5029,49 +5139,82 @@ function ErrorResult(code, message) {
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
-      AuxStor.aux.isFocusedAddElement = false;
-      AuxStor.aux.isTabFrame = false;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = false;
-      AddElementsServ.desactiveAddElementParameters();
-      $timeout(function() {
-        AuxStor.aux.isAddElement = false;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        AuxStor.aux.isFocusedAddElement = 0;
+        AuxStor.aux.isTabFrame = 0;
         //playSound('swip');
-        AuxStor.aux.addElementsMenuStyle = false;
-      }, delayShowElementsMenu);
+        AuxStor.aux.showAddElementsMenu = 0;
+        desactiveAddElementParameters();
+        $timeout(function () {
+          AuxStor.aux.isAddElement = 0;
+          //playSound('swip');
+          AuxStor.aux.addElementsMenuStyle = 0;
+        }, delayShowElementsMenu);
+      }
     }
+
+
+    function desactiveAddElementParameters() {
+      AuxStor.aux.auxParameter = 0;
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 0;
+    }
+
 
 
     //--------- Select AddElement
     function chooseAddElement(typeIndex, elementIndex) {
-      if(typeIndex === undefined && elementIndex === undefined) {
-        var index = (AuxStor.aux.isFocusedAddElement - 1);
-        AddElementsServ.desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = false;
-        //-------- clean all elements in selected Type
-        ProductStor.product.chosenAddElements[index].length = 0;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        if (typeIndex === undefined && elementIndex === undefined) {
+          var index = (AuxStor.aux.isFocusedAddElement - 1);
+          desactiveAddElementParameters();
+          AuxStor.aux.isAddElement = 0;
+          //-------- clean all elements in selected Type
+          ProductStor.product.chosenAddElements[index].length = 0;
 
-        //-------- Set Total Product Price
-        setAddElementsTotalPrice();
+          //-------- Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
 
-      } else {
-        getAddElementPrice(typeIndex, elementIndex).then(function(addElem) {
-          pushSelectedAddElement(addElem);
-          //Set Total Product Price
-          setAddElementsTotalPrice();
+        } else {
+          getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+            pushSelectedAddElement(ProductStor.product, addElem);
+            //Set Total Product Price
+            setAddElementsTotalPrice(ProductStor.product);
 
-          //------ save analytics data
-          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-        });
+            //------ save analytics data
+            //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+          });
+        }
       }
     }
 
 
     //--------- Select AddElement List
     function chooseAddElementList(typeIndex, elementIndex) {
-      pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-      //Set Total Product Price
-      setAddElementsTotalPrice();
+      /** in main page */
+      if(GlobalStor.global.currOpenPage === 'main') {
+
+        pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+        //Set Total Product Price
+        setAddElementsTotalPrice(ProductStor.product);
+
+      } else if(GlobalStor.global.currOpenPage === 'cart') {
+        /** in cart page */
+        var productsQty = CartStor.cart.selectedProducts.length;
+        for(var p = 0; p < productsQty; p++) {
+          if(CartStor.cart.selectedProducts[p].length) {
+            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //Set Total Product Price
+            CartServ.calculateAddElemsProductsPrice(1);
+            CartServ.joinAllAddElements();
+            CartServ.collectAllAddElems();
+            CartServ.getAddElemsPriceTotal();
+            //------ change order Price
+            CartMenuServ.calculateOrderPrice();
+          }
+        }
+      }
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
@@ -5113,11 +5256,11 @@ function ErrorResult(code, message) {
 
 
 
-    function pushSelectedAddElement(currElement) {
+    function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.id);
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement.id);
       if(existedElement === undefined) {
         var newElementSource = {
               element_type: index,
@@ -5126,13 +5269,13 @@ function ErrorResult(code, message) {
             },
             newElement = angular.extend(newElementSource, currElement);
 
-        ProductStor.product.chosenAddElements[index].push(newElement);
+        currProduct.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
-        if(ProductStor.product.chosenAddElements[index].length === 2) {
+        if(currProduct.chosenAddElements[index].length === 2) {
           AuxStor.aux.isTabFrame = 1;
         }
       } else {
-        ProductStor.product.chosenAddElements[index][existedElement].element_qty += 1;
+        currProduct.chosenAddElements[index][existedElement].element_qty += 1;
       }
 
     }
@@ -5148,22 +5291,23 @@ function ErrorResult(code, message) {
     }
 
 
-    function setAddElementsTotalPrice() {
-      var elementTypeQty = ProductStor.product.chosenAddElements.length;
-      ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelemPriceDis = 0;
-      for (var i = 0; i < elementTypeQty; i++) {
-        var elementQty = ProductStor.product.chosenAddElements[i].length;
-        if (elementQty > 0) {
-          for (var j = 0; j < elementQty; j++) {
-            ProductStor.product.addelem_price += ProductStor.product.chosenAddElements[i][j].element_qty * ProductStor.product.chosenAddElements[i][j].element_price;
-            ProductStor.product.addelem_price = GeneralServ.roundingNumbers(ProductStor.product.addelem_price);
+    function setAddElementsTotalPrice(currProduct) {
+      var elemTypeQty = currProduct.chosenAddElements.length;
+      currProduct.addelem_price = 0;
+      currProduct.addelemPriceDis = 0;
+      while(--elemTypeQty > -1) {
+        var elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+        if (elemQty > 0) {
+          while(--elemQty > -1) {
+            currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
           }
         }
       }
-      ProductStor.product.addelemPriceDis = GeneralServ.setPriceDis(ProductStor.product.addelem_price, OrderStor.order.discount_addelem);
+      currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
+      currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
+      //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
       $timeout(function() {
-        MainServ.setProductPriceTOTAL();
+        MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
     }
 
@@ -5173,20 +5317,22 @@ function ErrorResult(code, message) {
     function deleteAddElement(typeId, elementId) {
       var index = (typeId - 1);
       ProductStor.product.chosenAddElements[index].splice(elementId, 1);
-      AddElementsServ.desactiveAddElementParameters();
+      desactiveAddElementParameters();
       //Set Total Product Price
-      setAddElementsTotalPrice();
+      setAddElementsTotalPrice(ProductStor.product);
     }
 
 
     //--------- Delete All List of selected AddElements
     function deleteAllAddElements() {
       var elementsQty = ProductStor.product.chosenAddElements.length;
-      for(var index = 0; index < elementsQty; index++) {
-        ProductStor.product.chosenAddElements[index].length = 0;
+      while(--elementsQty > -1) {
+        ProductStor.product.chosenAddElements[elementsQty].length = 0;
       }
       ProductStor.product.addelem_price = 0;
       ProductStor.product.addelemPriceDis = 0;
+      //Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -5200,46 +5346,141 @@ function ErrorResult(code, message) {
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
-
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
       } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
         return false;
       } else {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
+        if(AuxStor.aux.tempSize.length) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_qty =  parseInt(AuxStor.aux.tempSize.join(''), 10) + newValue;
+          AuxStor.aux.tempSize.length = 0;
+        } else {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
+        }
       }
-
+      //console.info('Qty-----', AuxStor.aux.tempSize, ProductStor.product.chosenAddElements[index][elementIndex].element_qty);
       //--------- Set Total Product Price
-      setAddElementsTotalPrice();
+      //setAddElementsTotalPrice(ProductStor.product);
     }
+
+
+    //--------- Close Qty Calculator
+    function closeQtyCaclulator() {
+      //------- close caclulators
+      desactiveAddElementParameters();
+      //------ clean tempSize
+      AuxStor.aux.tempSize.length = 0;
+      //--------- Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+    }
+
 
 
 
     /** SIze Calculator */
 
-      //------- Change Size parameter
-    function setValueSize(newValue) {
-      //console.log($scope.addElementsMenu.tempSize);
-      if(tempSize.length == 1 && tempSize[0] === 0) {
-        tempSize.length = 0;
-      }
-      if(tempSize.length < 4) {
-        if(newValue === '00'){
-          tempSize.push(0, 0);
-        } else {
-          tempSize.push(newValue);
+
+    function pressCulculator(keyEvent) {
+      //console.log('PRESS KEY====', keyEvent.which);
+      var newValue;
+      //------ Enter
+      if (keyEvent.which === 13) {
+        if (GlobalStor.global.isQtyCalculator) {
+          closeQtyCaclulator();
+        } else if (GlobalStor.global.isSizeCalculator) {
+          closeSizeCaclulator();
+        }
+      } else if(keyEvent.which === 8) {
+        //-------- Backspace
+        deleteLastNumber();
+      } else {
+        //-------- Numbers
+        switch(keyEvent.which) {
+          case 48:
+          case 96:
+            newValue = 0;
+            break;
+          case 49:
+          case 97:
+            newValue = 1;
+            break;
+          case 50:
+          case 98:
+            newValue = 2;
+            break;
+          case 51:
+          case 99:
+            newValue = 3;
+            break;
+          case 52:
+          case 100:
+            newValue = 4;
+            break;
+          case 53:
+          case 101:
+            newValue = 5;
+            break;
+          case 54:
+          case 102:
+            newValue = 6;
+            break;
+          case 55:
+          case 103:
+            newValue = 7;
+            break;
+          case 56:
+          case 104:
+            newValue = 8;
+            break;
+          case 57:
+          case 105:
+            newValue = 9;
+            break;
+        }
+        if(newValue !== undefined) {
+          //if (GlobalStor.global.isQtyCalculator) {
+          //  setValueQty(newValue);
+          //} else if (GlobalStor.global.isSizeCalculator) {
+            setValueSize(newValue);
+          //}
         }
       }
-      changeElementSize();
+    }
+
+
+      //------- Change Size parameter
+    function setValueSize(newValue) {
+      //console.info('tempSize====', AuxStor.aux.tempSize);
+      //---- clean tempSize if indicate only one 0
+      if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if(AuxStor.aux.tempSize.length === 4) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if(newValue === '00'){
+        if(AuxStor.aux.tempSize.length === 1 || AuxStor.aux.tempSize.length === 2) {
+          AuxStor.aux.tempSize.push(0, 0);
+          changeElementSize();
+        } else if(AuxStor.aux.tempSize.length === 3) {
+          AuxStor.aux.tempSize.push(0);
+          changeElementSize();
+        }
+      } else {
+        if(AuxStor.aux.tempSize.length < 4) {
+          AuxStor.aux.tempSize.push(newValue);
+          changeElementSize();
+        }
+      }
     }
 
 
 
     //------- Delete last number
     function deleteLastNumber() {
-      tempSize.pop();
-      if(tempSize.length < 1) {
-        tempSize.push(0);
+      AuxStor.aux.tempSize.pop();
+      if(AuxStor.aux.tempSize.length < 1) {
+        AuxStor.aux.tempSize.push(0);
       }
       changeElementSize();
     }
@@ -5250,18 +5491,20 @@ function ErrorResult(code, message) {
           elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
 
-      for(var numer = 0; numer < tempSize.length; numer++) {
-        newElementSize += tempSize[numer].toString();
-      }
-      newElementSize = parseInt(newElementSize, 10);
+      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
 
-      if(GlobalStor.global.isWidthCalculator) {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
-      } else {
-        if(index === 4) {
-          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+      if(GlobalStor.global.isQtyCalculator) {
+        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
+      } else if(GlobalStor.global.isSizeCalculator) {
+        if(GlobalStor.global.isWidthCalculator) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
+        } else {
+          if(index === 4) {
+            ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+          }
         }
       }
+
     }
 
 
@@ -5269,16 +5512,16 @@ function ErrorResult(code, message) {
     function closeSizeCaclulator() {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
-
+//console.info('closeSizeCaclulator');
       GlobalStor.global.isWidthCalculator = false;
-      tempSize.length = 0;
-      AddElementsServ.desactiveAddElementParameters();
+      AuxStor.aux.tempSize.length = 0;
+      desactiveAddElementParameters();
 
       //-------- recalculate add element price
       var objXAddElementPrice = {
         currencyId: UserStor.userInfo.currencyId,
         elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width/1000)
+        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width / 1000)
       };
 
       //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
@@ -5286,15 +5529,15 @@ function ErrorResult(code, message) {
         if (results) {
           //          console.log(results.data.price);
           AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers(results.priceTotal));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+          //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
           //------- Set Total Product Price
-          setAddElementsTotalPrice();
+          setAddElementsTotalPrice(ProductStor.product);
         } else {
           console.log(results);
         }
       });
-
     }
 
 
@@ -5314,7 +5557,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -5322,7 +5565,6 @@ function ErrorResult(code, message) {
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
-      desactiveAddElementParameters: desactiveAddElementParameters,
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
       createAddElementGroups: createAddElementGroups
@@ -5338,25 +5580,27 @@ function ErrorResult(code, message) {
 
     //--------- Select additional element
     function selectAddElement(id) {
-      if(AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
-        AuxStor.aux.isFocusedAddElement = id;
-        AuxStor.aux.isTabFrame = 0;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = 0;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        if (AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
+          AuxStor.aux.isFocusedAddElement = id;
+          AuxStor.aux.isTabFrame = 0;
+          //playSound('swip');
+          AuxStor.aux.showAddElementsMenu = 0;
 
-        desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = 0;
-        $timeout(function() {
-          AuxStor.aux.addElementsMenuStyle = 0;
+          AddElementMenuServ.desactiveAddElementParameters();
+          AuxStor.aux.isAddElement = 0;
+          $timeout(function () {
+            AuxStor.aux.addElementsMenuStyle = 0;
+            //playSound('swip');
+            AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+            downloadAddElementsData(id);
+          }, delayShowElementsMenu);
+        } else {
+          AuxStor.aux.isFocusedAddElement = id;
           //playSound('swip');
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
           downloadAddElementsData(id);
-        }, delayShowElementsMenu);
-      } else {
-        AuxStor.aux.isFocusedAddElement = id;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-        downloadAddElementsData(id);
+        }
       }
     }
 
@@ -5372,36 +5616,60 @@ function ErrorResult(code, message) {
 
 
     //------- Select Add Element Parameter
-    function initAddElementTools(toolsId, elementIndex) {
-//      console.log('Tools!+', toolsId, elementIndex);
-      if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
-        desactiveAddElementParameters();
+    function initAddElementTools(groupId, toolsId, elementIndex) {
+      //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
+      //----- close caclulator if opened
+      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
+        if(AuxStor.aux.tempSize.length) {
+          AddElementMenuServ.changeElementSize();
+          if(GlobalStor.global.isSizeCalculator) {
+            AddElementMenuServ.closeSizeCaclulator();
+          } else if(GlobalStor.global.isQtyCalculator) {
+            AddElementMenuServ.closeQtyCaclulator();
+          }
+        }
+        //AddElementMenuServ.desactiveAddElementParameters();
         AuxStor.aux.currentAddElementId = 0;
         //console.log('close-'+$scope.global.auxParameter);
       } else {
-        desactiveAddElementParameters();
-        AuxStor.aux.auxParameter = AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex;
-        //console.log($scope.global.auxParameter);
-        AuxStor.aux.currentAddElementId = elementIndex;
-        switch(toolsId) {
-          case 1:
-            GlobalStor.global.isQtyCalculator = 1;
-            break;
-          case 2:
-            GlobalStor.global.isSizeCalculator = 1;
-            GlobalStor.global.isWidthCalculator = 1;
-            break;
-          case 3:
-            GlobalStor.global.isSizeCalculator = 1;
-            GlobalStor.global.isWidthCalculator = 0;
-            break;
+        if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+          if(AuxStor.aux.isFocusedAddElement === groupId) {
+            var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+            AddElementMenuServ.desactiveAddElementParameters();
+            AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
+            AuxStor.aux.currentAddElementId = elementIndex;
+            switch (toolsId) {
+              case 1:
+                if(currElem.element_qty) {
+                  AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
+                }
+                GlobalStor.global.isQtyCalculator = 1;
+                break;
+              case 2:
+                if(currElem.element_width) {
+                  AuxStor.aux.tempSize = currElem.element_width.toString().split('');
+                }
+                GlobalStor.global.isSizeCalculator = 1;
+                GlobalStor.global.isWidthCalculator = 1;
+                break;
+              case 3:
+                if(currElem.element_height) {
+                  AuxStor.aux.tempSize = currElem.element_height.toString().split('');
+                }
+                GlobalStor.global.isSizeCalculator = 1;
+                GlobalStor.global.isWidthCalculator = 0;
+                break;
+            }
+          }
         }
       }
     }
 
     function openAddElementListView() {
-      AuxStor.aux.isAddElementListView = 1;
-      viewSwitching();
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        AuxStor.aux.isAddElementListView = 1;
+        viewSwitching();
+      }
     }
 
     function closeAddElementListView() {
@@ -5417,50 +5685,29 @@ function ErrorResult(code, message) {
       AuxStor.aux.isTabFrame = 0;
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.isAddElement = 0;
-      desactiveAddElementParameters();
+      AddElementMenuServ.desactiveAddElementParameters();
       $timeout(function() {
         AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);
     }
 
 
-    function desactiveAddElementParameters() {
-      AuxStor.aux.auxParameter = 0;
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isSizeCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 0;
-    }
-
-
     //----------- create AddElement Groups for Searching
-
     function createAddElementGroups() {
-      var groups = [],
-          groupNames = [
-            $filter('translate')('add_elements.GRIDS'),
-            $filter('translate')('add_elements.VISORS'),
-            $filter('translate')('add_elements.SPILLWAYS'),
-            $filter('translate')('add_elements.OUTSIDE'),
-            $filter('translate')('add_elements.INSIDE'),
-            $filter('translate')('add_elements.LOUVERS'),
-            $filter('translate')('add_elements.CONNECTORS'),
-            $filter('translate')('add_elements.FAN'),
-            $filter('translate')('add_elements.WINDOWSILLS'),
-            $filter('translate')('add_elements.HANDLELS'),
-            $filter('translate')('add_elements.OTHERS')
-          ],
-          groupNamesQty = groupNames.length,
+      var groupNamesQty = AuxStor.aux.groupNames.length,
           g = 0;
-
+      AuxStor.aux.addElementGroups.length = 0;
       for(; g < groupNamesQty; g++){
-        var groupTempObj = {};
-        groupTempObj.groupId = (g+1);
-        groupTempObj.groupName = groupNames[g];
-        groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
-        groups.push(groupTempObj);
+        if(GlobalStor.global.addElementsAll[g].elementsList) {
+          var groupTempObj = {};
+          groupTempObj.groupId = (g+1);
+          groupTempObj.groupName = AuxStor.aux.groupNames[g];
+          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+          AuxStor.aux.addElementGroups.push(groupTempObj);
+        }
       }
-      return groups;
     }
+
 
   }
 })();
@@ -5490,15 +5737,16 @@ function ErrorResult(code, message) {
     };
 
     thisFactory.publicObj = {
-      saveAnalyticDB: insertAnalyticsDB,
-      sendAnalyticsDB: sendAnalyticsDB
+      sendAnalyticsData: sendAnalyticsData//,
+//      saveAnalyticDB: insertAnalyticsDB,
+//      sendAnalyticsDB: sendAnalyticsDB
     };
 
     return thisFactory.publicObj;
 
 
     //============ methods ================//
-
+/*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
       analyticsObj.user_id = userId;
@@ -5541,6 +5789,33 @@ function ErrorResult(code, message) {
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);
         }
       });
+    }
+*/
+
+    function sendAnalyticsData(userId, orderId, templateId, elementId, elementType) {
+      var analyticsObj = {
+            user_id: userId,
+            order_id: orderId,
+            calculation_id: templateId,
+            element_id: elementId,
+            date: new Date()
+          },
+          tableName = '';
+
+      switch(elementType) {
+        case 1: //----- profiles
+          tableName = 'profile_analytics';
+          break;
+        case 2: //----- glass
+          break;
+        case 3: //----- hardware
+          tableName = 'hardware_analytics';
+          break;
+        case 4: //----- lamination
+          break;
+      }
+      //----- send Analytics Data to Server
+      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
 
   }
@@ -5943,6 +6218,10 @@ function ErrorResult(code, message) {
 
     /** open/close discount block */
     function swipeDiscountBlock() {
+      if(!CartStor.cart.isShowDiscount) {
+        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
+        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      }
       CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
     }
 
@@ -6055,7 +6334,7 @@ function ErrorResult(code, message) {
     .module('CartModule')
     .factory('CartServ', cartFactory);
 
-  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
+  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -6065,7 +6344,14 @@ function ErrorResult(code, message) {
       decreaseProductQty: decreaseProductQty,
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct
+      editProduct: editProduct,
+
+      showAllAddElements: showAllAddElements,
+      collectAllAddElems: collectAllAddElems,
+      getAddElemsPriceTotal: getAddElemsPriceTotal,
+      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
+      createProductCopy: createProductCopy,
+      addCloneProductInOrder: addCloneProductInOrder
     };
 
     return thisFactory.publicObj;
@@ -6080,22 +6366,44 @@ function ErrorResult(code, message) {
     //---------- parse Add Elements from LocalStorage
     function joinAllAddElements() {
       var productsQty = OrderStor.order.products.length,
-          product;
+          isExistElem = 0,
+          typeElementsQty, elementsQty,
+          product, tempElement;
       //------ cleaning allAddElements
       CartStor.cart.allAddElements.length = 0;
+      CartStor.cart.isExistAddElems = 0;
 
       for(var prod = 0; prod < productsQty; prod++) {
         product = [];
-        var typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
         for(var type = 0; type < typeElementsQty; type++) {
-          var elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
+          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
           if(elementsQty > 0) {
             for(var elem = 0; elem < elementsQty; elem++) {
-              product.push(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              var element = {
+                id: tempElement.id,
+                list_group_id: tempElement.list_group_id,
+                name: tempElement.name,
+                elementPriceDis: tempElement.elementPriceDis,
+                element_price: tempElement.element_price,
+                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
+                element_type: tempElement.element_type,
+                element_width: tempElement.element_width,
+                element_height: tempElement.element_height
+              };
+              product.push(element);
             }
           }
         }
+        if(product.length) {
+          isExistElem++;
+        }
         CartStor.cart.allAddElements.push(product);
+      }
+      //------ to show button All AddElements
+      if(isExistElem) {
+        CartStor.cart.isExistAddElems = 1;
       }
     }
 
@@ -6114,6 +6422,7 @@ function ErrorResult(code, message) {
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
       OrderStor.order.products[productIndex].product_qty += 1;
+      joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -6129,6 +6438,7 @@ function ErrorResult(code, message) {
         OrderStor.order.products[productIndex].product_qty -= 1;
         CartMenuServ.calculateOrderPrice();
       }
+      joinAllAddElements();
     }
 
 
@@ -6172,6 +6482,129 @@ function ErrorResult(code, message) {
       //------- set previos Page
       GeneralServ.setPreviosPage();
       $location.path('/main');
+    }
+
+
+
+
+
+
+
+    /**======== ALL ADD LEMENTS PANEL ========*/
+
+    /** show All Add Elements Panel */
+    function showAllAddElements() {
+      collectAllAddElems();
+      getAddElemsPriceTotal();
+      initSelectedProductsArr();
+      CartStor.cart.isAllAddElems = 1;
+      AuxStor.aux.isAddElementListView = 1;
+    }
+
+
+    function collectAllAddElems() {
+      var addElemsSource = angular.copy(CartStor.cart.allAddElements),
+          addElemsQty = addElemsSource.length,
+          prodQty, elemsOrderQty, noExist;
+      CartStor.cart.allAddElemsOrder.length = 0;
+      while(--addElemsQty > -1) {
+        prodQty = addElemsSource[addElemsQty].length;
+        if(prodQty) {
+          while(--prodQty > -1) {
+            elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
+            if(elemsOrderQty) {
+              noExist = 1;
+              while(--elemsOrderQty > -1) {
+                if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
+                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
+                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
+                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingNumbers(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
+                      --noExist;
+                    }
+                  }
+                }
+              }
+              if(noExist) {
+                CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
+              }
+            } else {
+              CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
+            }
+          }
+        }
+      }
+      console.warn(CartStor.cart.allAddElemsOrder);
+    }
+
+
+
+    function getAddElemsPriceTotal() {
+      var productsQty = OrderStor.order.products.length;
+      CartStor.cart.addElemsOrderPriceTOTAL = 0;
+      while(--productsQty > -1) {
+        CartStor.cart.addElemsOrderPriceTOTAL += (OrderStor.order.products[productsQty].addelemPriceDis * OrderStor.order.products[productsQty].product_qty);
+      }
+      CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingNumbers(CartStor.cart.addElemsOrderPriceTOTAL);
+    }
+
+
+
+    function initSelectedProductsArr() {
+      CartStor.cart.selectedProducts.length = 0;
+      CartStor.cart.selectedProducts = OrderStor.order.products.map(function() {
+        return [];
+      });
+    }
+
+
+
+
+    function calculateAddElemsProductsPrice(reculc) {
+      var productsQty = OrderStor.order.products.length,
+          addElemTypeQty, addElemQty;
+      while(--productsQty > -1) {
+        OrderStor.order.products[productsQty].addelem_price = 0;
+        OrderStor.order.products[productsQty].addelemPriceDis = 0;
+
+        //-------- if was delete only one AddElemItem
+        if(reculc) {
+          addElemTypeQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+          while (--addElemTypeQty > -1) {
+            addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty].length;
+            if (addElemQty) {
+              while (--addElemQty > -1) {
+                OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
+              }
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingNumbers(OrderStor.order.products[productsQty].addelem_price);
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+            }
+          }
+        }
+
+        //------ reculculate product price total
+        MainServ.setProductPriceTOTAL(OrderStor.order.products[productsQty]);
+      }
+    }
+
+
+
+
+
+    function createProductCopy(currProdInd) {
+      var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
+            return item.product_id;
+          })),
+      cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
+      addCloneProductInOrder(cloneProduct, lastProductId);
+      joinAllAddElements();
+      CartMenuServ.calculateOrderPrice();
+    }
+
+
+    function addCloneProductInOrder(cloneProduct, lastProductId) {
+      ++lastProductId;
+      cloneProduct.product_id = lastProductId;
+      OrderStor.order.products.push(cloneProduct);
     }
 
 
@@ -6253,7 +6686,7 @@ function ErrorResult(code, message) {
   function designFactory($rootScope, $location, $timeout, $filter, $q, globalConstants, GeneralServ, MainServ, AnalyticsServ, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this,
-        newLength;
+        clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
 
     thisFactory.publicObj = {
       setDefaultTemplate: setDefaultTemplate,
@@ -6269,6 +6702,8 @@ function ErrorResult(code, message) {
       deselectAllImpost: deselectAllImpost,
       deselectAllArc: deselectAllArc,
       deselectAllGlass: deselectAllGlass,
+      rebuildSVGTemplate: rebuildSVGTemplate,
+
       //------- edit sash
       createSash: createSash,
       deleteSash: deleteSash,
@@ -6296,7 +6731,7 @@ function ErrorResult(code, message) {
       stepBack: stepBack,
 
       //---- door
-      downloadDoorConfig: downloadDoorConfig,
+//      downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig
     };
 
@@ -6319,50 +6754,50 @@ function ErrorResult(code, message) {
 
     //------- Save and Close Construction Page
     function designSaved() {
-      //------ if calculator is closed
-      if(!GlobalStor.global.isSizeCalculator) {
-        //$cordovaProgress.showSimple(true);
-        //----- save new template in product
-        ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-        ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+      closeSizeCaclulator(1).then(function() {
+        //------ if calculator is closed
+        //if(!GlobalStor.global.isSizeCalculator) {
+          //----- save new template in product
+          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
-        //----- create template icon
-        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-          ProductStor.product.templateIcon = angular.copy(result);
-        });
+          //----- create template icon
+          SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+            ProductStor.product.templateIcon = angular.copy(result);
+          });
 
-        //============ if Door Construction
-        if(ProductStor.product.construction_type === 4) {
-          //------- save new door config
-          ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-          ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-          ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-          ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-        }
-
-        //------ save new template in templates Array
-        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
-
-        //------- if sash was added in empty template
-        if(!GlobalStor.global.isSashesInTemplate) {
-          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
-          if (GlobalStor.global.isSashesInTemplate) {
-            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            //------ save analytics data
-            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
-          } else {
-            ProductStor.product.hardware.id = 0;
+          //============ if Door Construction
+          if(ProductStor.product.construction_type === 4) {
+            //------- save new door config
+            ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
+            ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
+            ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
+            ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
           }
-        }
-        //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
-          //-------- template was changed
-          GlobalStor.global.isChangedTemplate = true;
-          //$cordovaProgress.hide();
-          backtoTemplatePanel();
-        });
 
-      }
+          //------ save new template in templates Array
+          GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
+
+          //------- if sash was added in empty template
+          if(!GlobalStor.global.isSashesInTemplate) {
+            GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
+            if (GlobalStor.global.isSashesInTemplate) {
+              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+              //------ save analytics data
+              //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
+            } else {
+              ProductStor.product.hardware.id = 0;
+            }
+          }
+          //------- refresh price of new template
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
+            //-------- template was changed
+            GlobalStor.global.isChangedTemplate = 1;
+            backtoTemplatePanel();
+          });
+
+        //}
+      });
     }
 
 
@@ -6385,16 +6820,18 @@ function ErrorResult(code, message) {
       //      delete DesignStor.design.templateSourceTEMP;
       //      delete DesignStor.design.templateTEMP;
       GlobalStor.global.activePanel = 0;
-      GlobalStor.global.isNavMenu = false;
-      GlobalStor.global.isConfigMenu = true;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
       $location.path('/main');
     }
 
 
     //------- set Default Construction
     function setDefaultConstruction() {
+      //------- close calculator if is opened
+      hideSizeTools();
       //----- do if Size Calculator is not opened
-      if(!GlobalStor.global.isSizeCalculator) {
+      //if(!GlobalStor.global.isSizeCalculator) {
         DesignStor.design = DesignStor.setDefaultDesign();
         setDefaultTemplate();
         //============ if Door Construction
@@ -6402,7 +6839,7 @@ function ErrorResult(code, message) {
           //---- set indexes
           setIndexDoorConfig();
         }
-      }
+      //}
     }
 
 
@@ -6411,22 +6848,20 @@ function ErrorResult(code, message) {
 
     //============== Door ============//
 
-    function downloadDoorConfig() {
-      optionsServ.getDoorConfig(function (results) {
-        if (results.status) {
-          DesignStor.design.doorShapeList = results.data.doorType;
-          DesignStor.design.sashShapeList = results.data.sashType;
-          DesignStor.design.handleShapeList = results.data.handleType;
-          DesignStor.design.lockShapeList = results.data.lockType;
-
+//    function downloadDoorConfig() {
+//      optionsServ.getDoorConfig(function (results) {
+//        if (results.status) {
+//          DesignStor.design.doorShapeList = results.data.doorType;
+//          DesignStor.design.sashShapeList = results.data.sashType;
+//          DesignStor.design.handleShapeList = results.data.handleType;
+//          DesignStor.design.lockShapeList = results.data.lockType;
           //---- set indexes
-          setIndexDoorConfig();
-
-        } else {
-          console.log(results);
-        }
-      });
-    }
+//          setIndexDoorConfig();
+//        } else {
+//          console.log(results);
+//        }
+//      });
+//    }
 
     function setIndexDoorConfig() {
       DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_shape_id);
@@ -6461,28 +6896,32 @@ function ErrorResult(code, message) {
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
           var impost = d3.select(this);
-//          impost.on('touchstart', function() {
-          impost.on('click', function() {
-            var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
-            if(isImpost) {
-              impost.classed('frame-active', true);
-              //------- active impost menu and submenu
-              DesignStor.design.activeMenuItem = 3;
-              DesignStor.design.isImpostDelete = 1;
-              DesignStor.design.activeSubMenuItem = 3;
-              hideCornerMarks();
-              deselectAllArc();
-              hideSizeTools();
-              $rootScope.$apply();
+          impost.on(clickEvent, function() {
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              impost.classed('frame-active', false);
-              //----- if none imposts
-              if(!DesignStor.design.selectedImpost.length) {
-                //------- close impost menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
+              var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
+              if (isImpost) {
+                impost.classed('frame-active', true);
+                //------- active impost menu and submenu
+                DesignStor.design.activeMenuItem = 3;
+                DesignStor.design.isImpostDelete = 1;
+                DesignStor.design.activeSubMenuItem = 3;
+                hideCornerMarks();
+                deselectAllArc();
+                hideSizeTools();
                 $rootScope.$apply();
-                DesignStor.design.isImpostDelete = 0;
+              } else {
+                impost.classed('frame-active', false);
+                //----- if none imposts
+                if (!DesignStor.design.selectedImpost.length) {
+                  //------- close impost menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  $rootScope.$apply();
+                  DesignStor.design.isImpostDelete = 0;
+                }
               }
             }
           });
@@ -6517,34 +6956,38 @@ function ErrorResult(code, message) {
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
           var glass = d3.select(this);
-//          glass.on("touchstart", function() {
-          glass.on("mousedown", function() {
-            //========= select glass
-            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
-                blockID = glass[0][0].attributes.block_id.nodeValue;
-            if(isGlass) {
-              glass.classed('glass-active', true);
-              hideCornerMarks();
-              deselectAllImpost();
-              deselectAllArc();
-              hideSizeTools();
-
-              //------- show Dimensions
-              showCurrentDimLevel(blockID);
-
-              $rootScope.$apply();
+          glass.on(clickEvent, function() {
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              glass.classed('glass-active', false);
-              //------- hide Dimensions of current Block
-              d3.selectAll('#tamlateSVG .dim_block[block_id='+blockID+']').classed('dim_hidden', true);
+              //========= select glass
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass), blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if(!DesignStor.design.selectedGlass.length) {
-                //------- close glass menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
-                //---- shifting global dimension
-                hideAllDimension();
+              if (isGlass) {
+                glass.classed('glass-active', true);
+                hideCornerMarks();
+                deselectAllImpost();
+                deselectAllArc();
+                hideSizeTools();
+
+                //------- show Dimensions
+                showCurrentDimLevel(blockID);
+
                 $rootScope.$apply();
+              } else {
+                glass.classed('glass-active', false);
+                //------- hide Dimensions of current Block
+                d3.selectAll('#tamlateSVG .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
+
+                if (!DesignStor.design.selectedGlass.length) {
+                  //------- close glass menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  //---- shifting global dimension
+                  hideAllDimension();
+                  $rootScope.$apply();
+                }
               }
             }
           });
@@ -6592,24 +7035,28 @@ function ErrorResult(code, message) {
       if(arcs.length) {
         d3.selectAll(arcs).each(function() {
           var arc = d3.select(this);
-//          arc.on('touchstart', function() {
-          arc.on('click', function() {
-            var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
-            console.log('add to ARC++++', DesignStor.design.selectedArc);
-            if(isArc) {
-              arc.classed('active_svg', true);
-              deselectAllGlass();
-              hideCornerMarks();
-              deselectAllImpost();
-              hideSizeTools();
-              $rootScope.$apply();
+          arc.on(clickEvent, function() {
+            if(DesignStor.design.tempSize.length) {
+              closeSizeCaclulator();
+              cleanTempSize();
             } else {
-              arc.classed('active_svg', false);
-              if(!DesignStor.design.selectedArc.length) {
-                //------- close glass menu and submenu
-                DesignStor.design.activeMenuItem = 0;
-                DesignStor.design.activeSubMenuItem = 0;
+              var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
+              //console.log('add to ARC++++', DesignStor.design.selectedArc);
+              if (isArc) {
+                arc.classed('active_svg', true);
+                deselectAllGlass();
+                hideCornerMarks();
+                deselectAllImpost();
+                hideSizeTools();
                 $rootScope.$apply();
+              } else {
+                arc.classed('active_svg', false);
+                if (!DesignStor.design.selectedArc.length) {
+                  //------- close glass menu and submenu
+                  DesignStor.design.activeMenuItem = 0;
+                  DesignStor.design.activeSubMenuItem = 0;
+                  $rootScope.$apply();
+                }
               }
             }
           });
@@ -7777,35 +8224,46 @@ function ErrorResult(code, message) {
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
           var size = d3.select(this);
-//          size.on('touchstart', function() {
-          size.on('click', function() {
+          size.on(clickEvent, function() {
             var sizeRect = size.select('.size-rect'),
                 isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
-//            console.log(isActive);
-            if(isActive) {
-              hideSizeTools();
-            } else {
-              deselectAllDimension();
-              sizeRect.classed('active', true);
-              var dim = size.select('.size-txt-edit');
-              dim.classed('active', true);
-//              console.log('SIZE CLICK', dim);
-              DesignStor.design.oldSize = dim[0][0];
-              DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-              DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-              //------- show caclulator or voice helper
-              if(GlobalStor.global.isVoiceHelper) {
-                DesignStor.design.openVoiceHelper = 1;
-                startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-              } else {
-                GlobalStor.global.isSizeCalculator = 1;
-                DesignStor.design.isMinSizeRestriction = 0;
-                DesignStor.design.isMaxSizeRestriction = 0;
-              }
-            }
 
-            $rootScope.$apply();
+            if(DesignStor.design.tempSize.length) {
+              /** save new Size when click another size */
+              closeSizeCaclulator();
+              cleanTempSize();
+            } else {
+              if (isActive) {
+                hideSizeTools();
+              } else {
+                deselectAllDimension();
+                sizeRect.classed('active', true);
+                var dim = size.select('.size-txt-edit');
+                dim.classed('active', true);
+                DesignStor.design.oldSize = dim[0][0];
+                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                //------- show caclulator or voice helper
+                if (GlobalStor.global.isVoiceHelper) {
+                  DesignStor.design.openVoiceHelper = 1;
+                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                } else {
+                  GlobalStor.global.isSizeCalculator = 1;
+                  DesignStor.design.isMinSizeRestriction = 0;
+                  DesignStor.design.isMaxSizeRestriction = 0;
+                }
+              }
+              $rootScope.$apply();
+            }
           });
+        });
+
+      /** switch on keyboard */
+      d3.select(window)
+        .on('keydown', function() {
+          if(GlobalStor.global.isSizeCalculator) {
+            pressCulculator(d3.event);
+          }
         });
     }
 
@@ -7853,7 +8311,67 @@ function ErrorResult(code, message) {
 
 
 
-    //=============== Size Calculator ==============//
+    /**=============== Size Calculator ==============*/
+
+
+    function pressCulculator(keyEvent) {
+      var newValue;
+      //--------- Enter
+      if (keyEvent.which === 13) {
+        closeSizeCaclulator();
+        $rootScope.$apply();
+      } else if(keyEvent.which === 8) {
+        //-------- Backspace
+        deleteLastNumber();
+      } else {
+        switch(keyEvent.which) {
+          case 48:
+          case 96:
+            newValue = 0;
+            break;
+          case 49:
+          case 97:
+            newValue = 1;
+            break;
+          case 50:
+          case 98:
+            newValue = 2;
+            break;
+          case 51:
+          case 99:
+            newValue = 3;
+            break;
+          case 52:
+          case 100:
+            newValue = 4;
+            break;
+          case 53:
+          case 101:
+            newValue = 5;
+            break;
+          case 54:
+          case 102:
+            newValue = 6;
+            break;
+          case 55:
+          case 103:
+            newValue = 7;
+            break;
+          case 56:
+          case 104:
+            newValue = 8;
+            break;
+          case 57:
+          case 105:
+            newValue = 9;
+            break;
+        }
+        if(newValue !== undefined) {
+          setValueSize(newValue);
+        }
+      }
+    }
+
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
@@ -7924,12 +8442,8 @@ function ErrorResult(code, message) {
       for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
         newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-//      console.log('changeSize++++++++++', DesignStor.design.oldSize);
       var dim = d3.select(DesignStor.design.oldSize);
       dim.text(newSizeString);
-
-//      console.log('changeSize++++++++++', DesignStor.design.oldSize);
-
       if(GlobalStor.global.isVoiceHelper) {
         closeSizeCaclulator();
       }
@@ -7939,208 +8453,22 @@ function ErrorResult(code, message) {
 
 
     //------- Close Size Calculator
-    function closeSizeCaclulator() {
-
-      if(DesignStor.design.tempSize.length > 0) {
-        newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
-
+    function closeSizeCaclulator(prom) {
+      var deff = $q.defer();
+      if(DesignStor.design.tempSize.length) {
+        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
         //------- Dimensions limits checking
         if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
-          DesignStor.design.isMinSizeRestriction = 0;
-          DesignStor.design.isMaxSizeRestriction = 0;
 
-          //---- save last step
-          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-
-          //-------- change point coordinates in templateSource
-          var blocks = DesignStor.design.templateSourceTEMP.details,
-              blocksOLD = DesignStor.design.templateTEMP.details,
-              curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
-              curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
-              dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-              blocksQty = blocks.length;
-
-//          console.log('SIZE ````````curBlockId````````', curBlockId);
-//          console.log('SIZE ````````curDimType````````', curDimType);
-//          console.log('SIZE ````````dimId````````', dimId);
-
-
-          if(curDimType === 'curve') {
-            //============ changing Radius
-
-            var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
-
-            mainFor: for (var b = 1; b < blocksQty; b++) {
-              if(blocks[b].id === curBlockId) {
-                //-------- search in PointsQ
-                if(blocks[b].pointsQ) {
-                  var pointsQQty = blocks[b].pointsQ.length;
-                  while(--pointsQQty > -1) {
-                    if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                      blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
-                      break mainFor;
-                    }
-                  }
-                }
-                //-------- search in Imposts
-                if(blocks[b].impost) {
-                  if(blocks[b].impost.impostAxis[2].id === dimId) {
-                    blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
-                    break mainFor;
-                  }
-                }
-
-              }
-            }
-
-          } else if(dimId.indexOf('qa')+1) {
-            //========== changing Arc Height
-
-            for(var b = 1; b < blocksQty; b++) {
-              if(blocks[b].level === 1) {
-                var pointsQQty = blocks[b].pointsQ.length;
-                if(pointsQQty) {
-                  while(--pointsQQty > -1) {
-                    if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                      blocks[b].pointsQ[pointsQQty].heightQ = newLength;
-//                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
-                    }
-                  }
-                }
-              }
-            }
-
-          } else {
-            //========== changing Line dimension
-
-            var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-                oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-                axis = DesignStor.design.oldSize.attributes[13].nodeValue;
-
-//            console.log('SIZE ````````newLength````````', newLength);
-//            console.log('SIZE ````````startSize````````', startSize);
-//            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-//            console.log('SIZE ````````axis````````', axis);
-/*
-            //-------- if Dim point is impost
-            if(dimId.indexOf('ip')+1) {
-              //--------- check impost is vert/hor or inclinde
-              for(var b = 1; b < blocksQty; b++) {
-                if(blocks[b].id === curBlockId) {
-
-                  var impLine = {
-                      from: blocks[b].impost.impostAxis[0],
-                      to: blocks[b].impost.impostAxis[1]
-                    };
-                  SVGServ.setLineCoef(impLine);
-
-                  //-------- impost inclinde
-                  if(impLine.coefA > 0 && impLine.coefB > 0) {
-                    var linesOutQty = blocksOLD[b].linesOut.length,
-                        isCross = 0,
-                        isInside, currImpPoint, lineBlockWithImpP;
-                    //-------- find currImpPoint in impostAxis
-                    for(var ip = 0; ip < blocks[b].impost.impostAxis.length; ip++) {
-                      if(axis === 'x') {
-                        if (blocks[b].impost.impostAxis[ip].x === oldSizeValue) {
-                          currImpPoint = blocks[b].impost.impostAxis[ip];
-                        }
-                      } else if (axis === 'y') {
-                        if (blocks[b].impost.impostAxis[ip].y === oldSizeValue) {
-                          currImpPoint = blocks[b].impost.impostAxis[ip];
-                        }
-                      }
-                    }
-                    //---------- find line of block on which currImpPoint is layed
-                    while(--linesOutQty > -1) {
-                      isInside = SVGServ.checkLineOwnPoint(currImpPoint, blocksOLD[b].linesOut[linesOutQty].to, blocksOLD[b].linesOut[linesOutQty].from);
-                      isCross = SVGServ.checkInsidePointInLineEasy(isInside);
-                      //        console.log('!!!!!!!!! LINE isInside------------', isInside);
-                      //        console.log('!!!!!!!!! LINE isCross------------', isCross);
-                      if(isCross) {
-                        //          console.log('!!!!!!!!! DIM  currLine------------', currLine);
-                        lineBlockWithImpP = blocksOLD[b].linesOut[linesOutQty];
-                      }
-                    }
-
-                    //--------- change coordinates
-                    if(axis === 'x') {
-                      currImpPoint.x = startSize + newLength;
-                      currImpPoint.y = (-lineBlockWithImpP.coefC - lineBlockWithImpP.coefA * currImpPoint.x)/lineBlockWithImpP.coefB;
-                    } else if (axis === 'y') {
-                      currImpPoint.y = startSize + newLength;
-                      currImpPoint.x = (-lineBlockWithImpP.coefC - lineBlockWithImpP.coefB * currImpPoint.y)/lineBlockWithImpP.coefA;
-                    }
-
-                  } else {
-
-                    for(var b = 1; b < blocksQty; b++) {
-                      if(blocks[b].id === curBlockId && blocks[b].impost) {
-                        for(var i = 0; i < 2; i++) {
-                          if(axis === 'x') {
-                            if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                              blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                            }
-                          } else if (axis === 'y') {
-                            if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                              blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                            }
-                          }
-                        }
-                      }
-                    }
-
-                  }
-                }
-              }
-            } else {
-*/
-              for(var b = 1; b < blocksQty; b++) {
-                var pointsOutQty = blocks[b].pointsOut.length;
-                if(pointsOutQty) {
-                  while(--pointsOutQty > -1) {
-                    if(axis === 'x') {
-                      if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                        blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
-                      }
-                    } else if(axis === 'y') {
-                      if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                        blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
-                      }
-                    }
-                  }
-                }
-                if(blocks[b].impost) {
-                  for(var i = 0; i < 2; i++) {
-                    if(axis === 'x') {
-                      if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                        blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                        //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
-                      }
-                    } else if (axis === 'y') {
-                      if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                        blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                        //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
-                      }
-                    }
-                  }
-                }
-              }
-
-//            }
-          }
-
-
+          addNewSizeInTemplate(newLength);
           //------ close size calculator and deactive size box in svg
           hideSizeTools();
-
           //----- change Template
-          rebuildSVGTemplate();
-
-          DesignStor.design.tempSize.length = 0;
-          DesignStor.design.isMinSizeRestriction = 0;
-          DesignStor.design.isMaxSizeRestriction = 0;
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+            cleanTempSize();
+            deff.resolve(1);
+          });
         } else {
 
           //------ show error size
@@ -8150,10 +8478,7 @@ function ErrorResult(code, message) {
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-                DesignStor.design.templateTEMP = angular.copy(result);
-              });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
+              rebuildSVGTemplate();
             } else {
               DesignStor.design.isMinSizeRestriction = 1;
               DesignStor.design.isMaxSizeRestriction = 0;
@@ -8164,31 +8489,156 @@ function ErrorResult(code, message) {
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-                DesignStor.design.templateTEMP = angular.copy(result);
-              });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
+              rebuildSVGTemplate();
             } else {
               DesignStor.design.isMinSizeRestriction = 0;
               DesignStor.design.isMaxSizeRestriction = 1;
             }
           }
-
+          deff.resolve(1);
         }
       } else {
-        /*
-         DesignStor.design.minSizeLimit = 200;
-         DesignStor.design.maxSizeLimit = 5000;
-         */
         //------ close size calculator and deselect All Dimension
         hideSizeTools();
+        deff.resolve(1);
       }
       DesignStor.design.openVoiceHelper = 0;
       DesignStor.design.loudVoice = 0;
       DesignStor.design.quietVoice = 0;
-
+      console.log('FINISH CACL');
+      if(prom) {
+        return deff.promise;
+      }
     }
 
+
+
+
+
+    function addNewSizeInTemplate(newLength) {
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+
+      //-------- change point coordinates in templateSource
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksOLD = DesignStor.design.templateTEMP.details,
+          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
+          curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
+          dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
+          blocksQty = blocks.length;
+
+      //          console.log('SIZE ````````curBlockId````````', curBlockId);
+      //          console.log('SIZE ````````curDimType````````', curDimType);
+      //          console.log('SIZE ````````dimId````````', dimId);
+
+
+      if(curDimType === 'curve') {
+        //============ changing Radius
+
+        var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+
+        mainFor: for (var b = 1; b < blocksQty; b++) {
+          if(blocks[b].id === curBlockId) {
+            //-------- search in PointsQ
+            if(blocks[b].pointsQ) {
+              var pointsQQty = blocks[b].pointsQ.length;
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
+                  break mainFor;
+                }
+              }
+            }
+            //-------- search in Imposts
+            if(blocks[b].impost) {
+              if(blocks[b].impost.impostAxis[2].id === dimId) {
+                blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
+                break mainFor;
+              }
+            }
+
+          }
+        }
+
+      } else if(dimId.indexOf('qa')+1) {
+        //========== changing Arc Height
+
+        for(var b = 1; b < blocksQty; b++) {
+          if(blocks[b].level === 1) {
+            var pointsQQty = blocks[b].pointsQ.length;
+            if(pointsQQty) {
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newLength;
+                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                }
+              }
+            }
+          }
+        }
+
+      } else {
+        //========== changing Line dimension
+
+        var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+            oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+            axis = DesignStor.design.oldSize.attributes[13].nodeValue;
+
+        //            console.log('SIZE ````````newLength````````', newLength);
+        //            console.log('SIZE ````````startSize````````', startSize);
+        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
+        //            console.log('SIZE ````````axis````````', axis);
+
+        for(var b = 1; b < blocksQty; b++) {
+          var pointsOutQty = blocks[b].pointsOut.length;
+          if(pointsOutQty) {
+            while(--pointsOutQty > -1) {
+              if(axis === 'x') {
+                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+                }
+              } else if(axis === 'y') {
+                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                }
+              }
+            }
+          }
+          if(blocks[b].impost) {
+            for(var i = 0; i < 2; i++) {
+              if(axis === 'x') {
+                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
+                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
+                }
+              } else if (axis === 'y') {
+                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
+                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+
+
+
+
+
+
+    function cleanTempSize() {
+      DesignStor.design.tempSize.length = 0;
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+    }
 
 
     function culcHeightQByRadiusCurve(lineLength, radius) {
@@ -8217,23 +8667,29 @@ function ErrorResult(code, message) {
       //--------- delete click on imposts
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
-//          d3.select(this).on('touchstart', null);
-          d3.select(this).on('click', null);
+          d3.select(this).on(clickEvent, null);
         });
       //--------- delete click on glasses
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
+          d3.select(this).on(clickEvent, null);
 //          d3.select(this).on("touchstart", null);
-          d3.select(this).on("mousedown", null);
+//          d3.select(this).on("mousedown", null);
 //          d3.select(this).on("touchend", null);
-          d3.select(this).on("mouseup", null);
+//          d3.select(this).on("mouseup", null);
+        });
+      //--------- delete click on arcs
+      d3.selectAll('#tamlateSVG .frame')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
         });
       //--------- delete click on dimension
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
-//          d3.select(this).on('touchstart', null);
-          d3.select(this).on('click', null);
+          d3.select(this).on(clickEvent, null);
         });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
     }
 
 
@@ -8246,6 +8702,7 @@ function ErrorResult(code, message) {
         DesignStor.design.templateTEMP = angular.copy(result);
       });
       DesignStor.design.designSteps.pop();
+      cleanTempSize();
       hideSizeTools();
     }
 
@@ -8287,17 +8744,23 @@ function ErrorResult(code, message) {
 
     //TODO desktop
     //------- IMG rooms preload
-    $document.ready(function() {
-      for(var i = 0; i < 16; i++) {
-        $("<img />").attr("src", "img/rooms/"+i+".jpg");
-      }
-    });
+    //$document.ready(function() {
+    //  for(var i = 0; i < 16; i++) {
+    //    $("<img />").attr("src", "img/rooms/"+i+".jpg");
+    //  }
+    //});
 
     //-------- blocking to refresh page
-//    $window.onbeforeunload = function (){
-//      return $filter('translate')('common_words.PAGE_REFRESH');
-//    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
+    /** prevent Backspace back to previos Page */
+    $window.addEventListener('keydown', function(e){
+      if(e.keyCode === 8 && !$(e.target).is("input, textarea")){
+        e.preventDefault();
+      }
+    });
 
     return thisFactory.publicObj;
 
@@ -8306,7 +8769,7 @@ function ErrorResult(code, message) {
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
-        GlobalStor.global.startProgramm = false;
+        GlobalStor.global.startProgramm = 0;
       }
     }
 
@@ -8445,9 +8908,9 @@ function ErrorResult(code, message) {
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
-          console.info('HISTORY orders+++++', HistoryStor.history.orders);
+//          console.info('HISTORY orders+++++', HistoryStor.history.orders);
           //----- max day for calendar-scroll
-          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
+//          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
           HistoryStor.history.isEmptyResult = 1;
@@ -8455,26 +8918,18 @@ function ErrorResult(code, message) {
       });
     }
 
-
-
-
-
     //------- defind Order MaxDate
-    function getOrderMaxDate(orders) {
-      var ordersDateArr = [],
-          ordersQty = orders.length,
-          it = 0;
-      for (; it < ordersQty; it++) {
-        //var oldDateArr = orders[it].deliveryDate.split('.');
-        //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
-        //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(orders[it].new_delivery_date);
-      }
-      ordersDateArr.sort(function (a, b) {
-        return b - a;
-      });
-      return ordersDateArr[0];
-    }
+//    function getOrderMaxDate(orders) {
+//      var ordersDateArr = orders.map(function(item) {
+//            return item.new_delivery_date;
+//          }).sort(function (a, b) {
+//            return b - a;
+//          });
+//        //var oldDateArr = orders[it].deliveryDate.split('.');
+//        //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
+//        //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
+//      return ordersDateArr[0];
+//    }
 
 
 
@@ -8877,6 +9332,8 @@ function ErrorResult(code, message) {
 
     //------- Orders/Drafts View switcher
     function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
       HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
 
       //------ Download Drafts from localDB in first open
@@ -8884,6 +9341,8 @@ function ErrorResult(code, message) {
         downloadDrafts();
       }
     }
+
+
 
     //------ Download draft Orders from localDB
     function downloadDrafts() {
@@ -8901,7 +9360,6 @@ function ErrorResult(code, message) {
           }
           HistoryStor.history.draftsSource = angular.copy(drafts);
           HistoryStor.history.drafts = angular.copy(drafts);
-          //TODO ????
           //----- max day for calendar-scroll
 //          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
         } else {
@@ -8938,7 +9396,7 @@ function ErrorResult(code, message) {
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }
@@ -9642,15 +10100,24 @@ function ErrorResult(code, message) {
               'template_object TEXT',
             'foreignKey': ''
           },
-
-
-
-          //-------- inner temables
-          'analytics': {
-            'tableName': 'analytics',
-            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+          'background_templates':{
+            'tableName': 'background_templates',
+            'prop': 'factory_id INTEGER,'+
+            'desc_1 VARCHAR(255),' +
+            'desc_2 VARCHAR(255),' +
+            'template_id INTEGER,' +
+            'group_id INTEGER,' +
+            'position INTEGER,' +
+            'img VARCHAR',
             'foreignKey': ''
           },
+
+          //-------- inner temables
+//          'analytics': {
+//            'tableName': 'analytics',
+//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+//            'foreignKey': ''
+//          },
 
           'export': {
             'tableName': 'export',
@@ -9691,7 +10158,7 @@ function ErrorResult(code, message) {
           27, // 7 - fans
           8, // 8 - windowSill
           24, // 9 - handles
-          16 // 10 - others
+          18 // 10 - others
         ];
 
 
@@ -9930,9 +10397,10 @@ function ErrorResult(code, message) {
 
 
     /** get User from Server by login */
-    function importUser(login) {
-      var defer = $q.defer();
-      $http.post(globalConstants.serverIP + '/api/login', {login: login}).then(
+    function importUser(login, type) {
+      var defer = $q.defer(),
+        query = (type) ? '/api/login?type=1' : '/api/login';
+      $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
         },
@@ -10423,7 +10891,7 @@ function ErrorResult(code, message) {
                   }
                 });
               } else {
-                if(Array.isArray(construction.ids[index])) {
+                if(angular.isArray(construction.ids[index])) {
                   var promisKits = construction.ids[index].map(function(item2) {
                     var deff2 = $q.defer();
                     selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
@@ -10578,12 +11046,12 @@ function ErrorResult(code, message) {
           promKits = kits.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item) {
-              if(Array.isArray(item)) {
+              if(angular.isArray(item)) {
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer();
                   /** if hardware */
                   if(index === arr.length-1) {
-                    if(Array.isArray(item2)) {
+                    if(angular.isArray(item2)) {
                       var promisHW = item2.map(function(item3) {
                         var deff3 = $q.defer();
                         parseListContent(item3.child_id).then(function (result4) {
@@ -10613,11 +11081,13 @@ function ErrorResult(code, message) {
                       collectArr = [];
                   if(resQty) {
                     for(var i = 0; i < resQty; i++) {
-                      if(Array.isArray(result3[i])) {
+                      if(angular.isArray(result3[i])) {
                         collectArr.push(result3[i]);
                       } else {
                         if(result3[i][0]) {
                           collectArr.push(result3[i][0]);
+                        } else {
+                          collectArr.push(result3[i]);
                         }
                       }
                     }
@@ -10663,7 +11133,7 @@ function ErrorResult(code, message) {
       var defer = $q.defer(),
           lists = [],
           elemLists = [];
-      if(Array.isArray(listId)) {
+      if(angular.isArray(listId)) {
         lists = listId;
       } else {
         lists.push(listId);
@@ -10714,13 +11184,13 @@ function ErrorResult(code, message) {
           promisesKitElem = kits.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item) {
-              if(Array.isArray(item)) {
+              if(angular.isArray(item)) {
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer();
 
                   /** if hardware */
                   if(index === arr.length-1) {
-                    if(Array.isArray(item2)) {
+                    if(angular.isArray(item2)) {
                       var promisHW = item2.map(function (item3) {
                         var deff3 = $q.defer();
                         if(item3.child_type === 'element') {
@@ -10751,7 +11221,7 @@ function ErrorResult(code, message) {
                     } else {
                       for (var i = 0; i < resQty; i++) {
                         if (result2[i]) {
-                          if (Array.isArray(result2[i])) {
+                          if (angular.isArray(result2[i])) {
                             var innerArr = [], innerQty = result2[i].length;
                             //                          console.info(result2[i]);
                             for (var j = 0; j < innerQty; j++) {
@@ -10827,11 +11297,11 @@ function ErrorResult(code, message) {
           if(item && item.length) {
             var promConsistElem = item.map(function(item2) {
               var deff2 = $q.defer();
-              if(Array.isArray(item2)) {
+              if(angular.isArray(item2)) {
                 var promConsistElem2 = item2.map(function(item3) {
                   var deff3 = $q.defer();
                   if(item3) {
-                    if(Array.isArray(item3)) {
+                    if(angular.isArray(item3)) {
                       var promConsistElem3 = item3.map(function(item4) {
                         var deff4 = $q.defer();
                         if(item4) {
@@ -10866,13 +11336,17 @@ function ErrorResult(code, message) {
                 });
                 deff2.resolve($q.all(promConsistElem2));
               } else {
-                if(item2.child_type === 'element') {
-                  deff2.resolve(getElementByListId(0, item2.child_id));
+                if(item2) {
+                  if (item2.child_type === 'element') {
+                    deff2.resolve(getElementByListId(0, item2.child_id));
+                  } else {
+                    getKitByID(item2.child_id).then(function (data) {
+                      angular.extend(item2, data);
+                      deff2.resolve(getElementByListId(0, data.parent_element_id));
+                    });
+                  }
                 } else {
-                  getKitByID(item2.child_id).then(function(data) {
-                    angular.extend(item2, data);
-                    deff2.resolve(getElementByListId(0, data.parent_element_id));
-                  });
+                  deff2.resolve(0);
                 }
               }
               return deff2.promise;
@@ -10903,12 +11377,12 @@ function ErrorResult(code, message) {
       for(var ke = 0; ke < kitElemQty; ke++) {
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
-          if(Array.isArray(priceObj.kitsElem[ke])) {
+          if(angular.isArray(priceObj.kitsElem[ke])) {
 //            console.info('culcKitPrice ===== array');
             var kitElemChildQty = priceObj.kitsElem[ke].length;
             for(var child = 0; child < kitElemChildQty; child++) {
               /** hardware */
-              if(Array.isArray(priceObj.kitsElem[ke][child])) {
+              if(angular.isArray(priceObj.kitsElem[ke][child])) {
 //                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
@@ -11019,13 +11493,9 @@ function ErrorResult(code, message) {
           }
         }
       }
+//      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
       if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
-        if( /(uah|rub)/.test(GlobalStor.global.currencies[currIndex].name) && /(eur|usd|$)/.test(GlobalStor.global.currencies[elemIndex].name) ) {
-          price *= GlobalStor.global.currencies[elemIndex].value;
-        }
-        if( /(eur|usd|$)/.test(GlobalStor.global.currencies[currIndex].name) && /(uah|rub)/.test(GlobalStor.global.currencies[elemIndex].name) ) {
-          price /= GlobalStor.global.currencies[currIndex].value;
-        }
+        price *= GlobalStor.global.currencies[elemIndex].value;
       }
       return price;
     }
@@ -11042,14 +11512,14 @@ function ErrorResult(code, message) {
 
       for(; group < groupQty; group++) {
         if(priceObj.consist[group]) {
-//          console.log('         ');
-//          console.log('Group  ---------------------', group);
+          //console.log('         ');
+          //console.log('Group  ---------------------', group);
           var sizeQty = construction.sizes[group].length,
               consistQty = priceObj.consist[group].length;
 
           if(consistQty) {
 
-            if(Array.isArray(priceObj.kits[group])) {
+            if(angular.isArray(priceObj.kits[group])) {
 //              console.info('culcConsistPrice ===== array');
 //                console.info('1-----', group);
 //                console.info('2-----', construction.sizes[group]);
@@ -11090,7 +11560,7 @@ function ErrorResult(code, message) {
           }
 
         }
-//        console.log('Group - конец ---------------------');
+        //console.log('Group - конец ---------------------');
       }
 
     }
@@ -11101,16 +11571,16 @@ function ErrorResult(code, message) {
     function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
       /** if hardware */
       if(group === priceObj.consist.length-1) {
-//        console.warn('-------hardware------- currConsist', currConsist);
-//        console.warn('-------hardware------- currConsistElem', currConsistElem);
-//        console.warn('-------hardware------- mainKit', mainKit);
-//        console.warn('-------hardware------- currConstrSize', currConstrSize);
-        if(Array.isArray(currConsistElem)) {
+        //console.warn('-------hardware------- currConsist', currConsist);
+        //console.warn('-------hardware------- currConsistElem', currConsistElem);
+        //console.warn('-------hardware------- mainKit', mainKit);
+        //console.warn('-------hardware------- currConstrSize', currConstrSize);
+        if(angular.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               openDirQty = currConstrSize.openDir.length,
               hwInd = 0;
           for(; hwInd < hwElemQty; hwInd++) {
-            if(Array.isArray(currConsistElem[hwInd])) {
+            if(angular.isArray(currConsistElem[hwInd])) {
               var hwElemQty2 = currConsistElem[hwInd].length,
                   hwInd2 = 0;
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
@@ -11145,7 +11615,7 @@ function ErrorResult(code, message) {
                   }
 
                   priceReal = objTmp.qty * currConsistElem[hwInd][hwInd2].price * wasteValue;
-//                  console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
+                  //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
                   if (priceReal) {
                     /** currency conversion */
                     if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
@@ -11168,11 +11638,11 @@ function ErrorResult(code, message) {
 
       } else {
 //        console.log('nooo hardware');
-        if(Array.isArray(currConsistElem)) {
-//          console.log('array');
-//          console.info('1-----', group);
-//          console.info('2-----', currConstrSize);
-//          console.info('3-----', mainKit);
+        if(angular.isArray(currConsistElem)) {
+          //console.log('array');
+          //console.info('1-----', group);
+          //console.info('2-----', currConstrSize);
+          //console.info('3-----', mainKit);
           var elemQty = currConsistElem.length, elemInd = 0;
           for (; elemInd < elemQty; elemInd++) {
 //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
@@ -11317,74 +11787,74 @@ function ErrorResult(code, message) {
 
 
     function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
-      var objTmp = angular.copy(currConsistElem),
-          priceReal = 0,
-          sizeReal = 0,
-          qtyReal = 1;
+      if(currConsistElem) {
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
-//      console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
-//      console.log('Название: ' + currConsistElem.name);
-//      console.log('Цена: ' + currConsistElem.price);
-//      console.log('% отхода : ' + wasteValue);
-//      console.log('Поправка на обрезку : ' + pruning);
-//      console.log('Размер: ' + currSize + ' m');
-//      console.log('parentValue: ' + parentValue);
+        //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
+        //console.log('Название: ' + currConsistElem.name);
+        //console.log('Цена: ' + currConsistElem.price);
+        //console.log('% отхода : ' + wasteValue);
+        //console.log('Поправка на обрезку : ' + pruning);
+        //console.log('Размер: ' + currSize + ' m');
+        //console.log('parentValue: ' + parentValue);
 
-      /** if glass */
-      if(objTmp.element_group_id === 9) {
-        sizeReal = currSize;
-      }
-      switch(currConsist.rules_type_id) {
-        case 1:
-        case 21:
-        case 22:
-          sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-//          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
-          break;
-        case 3:
-//          qtyReal = Math.round(currSize + pruning) * currConsist.value;
-          qtyReal = (currSize + pruning) * currConsist.value;
-//          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
-          break;
-        case 5:
-          var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
-          qtyReal = sizeTemp * currConsist.value;
-//          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
-          break;
-        case 6:
-        case 23:
-          qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
-//          qtyReal = (currSize + pruning) * currConsist.value;
-//          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
-          break;
-        case 2:
-        case 4:
-        case 15:
-          qtyReal = parentValue * currConsist.value;
-//          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
-          break;
-        default:
-          sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
-//          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
-          break;
-      }
+        /** if glass */
+        if (objTmp.element_group_id === 9) {
+          sizeReal = currSize;
+        }
+        switch (currConsist.rules_type_id) {
+          case 1:
+          case 21:
+          case 22:
+            sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
+            //          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
+            break;
+          case 3:
+            //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+            qtyReal = (currSize + pruning) * currConsist.value;
+            //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+            break;
+          case 5:
+            var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
+            qtyReal = sizeTemp * currConsist.value;
+            //          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            break;
+          case 6:
+          case 23:
+            qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+            //          qtyReal = (currSize + pruning) * currConsist.value;
+            //          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
+            break;
+          case 2:
+          case 4:
+          case 15:
+            qtyReal = parentValue * currConsist.value;
+            //          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+            break;
+          default:
+            sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
+            //          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
+            break;
+        }
 
-      if(sizeReal) {
-        priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
-      } else {
-        priceReal = qtyReal * currConsistElem.price * wasteValue;
-      }
+        if (sizeReal) {
+          priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
+        } else {
+          priceReal = qtyReal * currConsistElem.price * wasteValue;
+        }
 
-      /** currency conversion */
-      if (UserStor.userInfo.currencyId != currConsistElem.currency_id){
-        priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+        /** currency conversion */
+        if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
+          priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+        }
+        //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
+        objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+        objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
+        objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+        //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+        priceObj.constrElements.push(objTmp);
+        priceObj.priceTotal += objTmp.priceReal;
       }
-      objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-      objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
-      objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-//      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
-      priceObj.constrElements.push(objTmp);
-      priceObj.priceTotal += objTmp.priceReal;
     }
 
 
@@ -11403,20 +11873,20 @@ function ErrorResult(code, message) {
       console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
-//        console.warn('kits!!!!!!+', kits);
+        //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-//          console.warn('consist!!!!!!+', consist);
+          //console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-//            console.warn('kitsElem!!!!!!+', kitsElem);
+            //console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-//              console.warn('consistElem!!!!!!+', consistElem);
+              //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
@@ -11477,7 +11947,6 @@ function ErrorResult(code, message) {
 
                   /** currency conversion */
                   if (UserStor.userInfo.currencyId != constrElem.currency_id){
-//                      console.log('diff currency');
                     priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
                   }
                   constrElem.qty = 1;
@@ -11579,7 +12048,7 @@ function ErrorResult(code, message) {
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
             console.log('language++', result);
-            checkLangDictionary(result.value.split('-')[0]);
+            checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
@@ -11589,8 +12058,12 @@ function ErrorResult(code, message) {
       } else {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
+        console.info(window.navigator);
+//        console.info(window.navigator.language);
+//        console.info(window.navigator.userLanguage);
+//        console.info(window.navigator.browserLanguage);
         console.info("The language is: " + browserLang);
-        checkLangDictionary(browserLang.split('-')[0]);
+        checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
     }
@@ -11599,11 +12072,13 @@ function ErrorResult(code, message) {
 
 
     //------ compare device language with existing dictionary, if not exist set default language = English
-    function checkLangDictionary(label) {
+    function checkLangDictionary(lang) {
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
-        if(globalConstants.languages[langQty].label === label) {
-          UserStor.userInfo.langLabel = label;
+        if(lang.indexOf(globalConstants.languages[langQty].label)+1) {
+          //console.log(lang);
+          //console.log(globalConstants.languages[langQty].label);
+          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
           UserStor.userInfo.langName = globalConstants.languages[langQty].name;
         }
       }
@@ -11818,56 +12293,53 @@ function ErrorResult(code, message) {
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
                         if(data) {
-                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+//                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
                               /** sorting glasses as to Type */
                               sortingGlasses();
-                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+//                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
                               /** download All Hardwares */
                               downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                                 if(data) {
-                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+//                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
 
-                                  /** download All AddElements */
-                                  downloadAllAddElements().then(function() {
-                                    /** download All Lamination */
-                                    downloadAllLamination().then(function(result) {
-                                      var lamins = angular.copy(result);
-//                                      console.log('LAMINATION++++', lamins);
-                                      if(lamins) {
-                                        var laminQty = lamins.length;
-                                        if(laminQty) {
-                                          /** change Images Path and save in device */
-                                          while(--laminQty > -1) {
-                                            lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
+                                  /** download All Templates and Backgrounds */
+                                  downloadAllBackgrounds().then(function() {
+
+                                    /** download All AddElements */
+                                    downloadAllAddElements().then(function() {
+                                      /** download All Lamination */
+                                      downloadAllLamination().then(function(result) {
+                                        var lamins = angular.copy(result);
+  //                                      console.log('LAMINATION++++', lamins);
+                                        if(lamins) {
+                                          var laminQty = lamins.length;
+                                          if(laminQty) {
+                                            /** change Images Path and save in device */
+                                            while(--laminQty > -1) {
+                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
+                                            }
+                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
+                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
                                           }
-                                          GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                          GlobalStor.global.laminationsOut = angular.copy(lamins);
                                         }
 
-                                      }
-
-                                      /** download Cart Menu Data */
-                                      downloadCartMenuData();
-                                      GlobalStor.global.isLoader = 0;
-                                      $location.path('/main');
-                                      console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
-
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                      });
                                     });
-
                                   });
-
                                 }
                               });
-
                             }
                           });
                         }
-
                       });
-
 
                     } else {
                       console.error('not find options_discounts!');
@@ -11894,7 +12366,6 @@ function ErrorResult(code, message) {
         var currencQty = currencies.length;
         if(currencies && currencQty) {
           GlobalStor.global.currencies = currencies;
-//          console.warn('all currencies!!', currencies);
           /** set current currency */
           while(--currencQty > -1) {
             if(currencies[currencQty].is_base === 1) {
@@ -11903,10 +12374,10 @@ function ErrorResult(code, message) {
                 UserStor.userInfo.currency = '\u20b4';//'₴';
               } else if( /rub/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '\u20BD';//'₽';
-              } else if( /(usd|$)/i.test(currencies[currencQty].name) ) {
+              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '$';
               } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€'
+                UserStor.userInfo.currency = '\u20AC';//'€';
               } else {
                 UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
               }
@@ -12263,6 +12734,36 @@ function ErrorResult(code, message) {
 
     }
 
+    /** download all Templates */
+    function downloadAllTemplates() {
+//TODO
+    }
+
+
+    /** download all Backgrounds */
+    function downloadAllBackgrounds() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
+        var rooms = angular.copy(result),
+            roomQty = rooms.length;
+        if(roomQty) {
+          /** sorting types by position */
+          rooms = rooms.sort(function(a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
+
+          while(--roomQty > -1) {
+            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            //---- prerendering img
+            $("<img />").attr("src", rooms[roomQty].img);
+          }
+          GlobalStor.global.rooms = rooms;
+        }
+        deff.resolve(1);
+      });
+      return deff.promise;
+    }
+
 
     /** download all lamination */
     function downloadAllLamination() {
@@ -12350,7 +12851,13 @@ function ErrorResult(code, message) {
               name: $filter('translate')('add_elements.OTHERS')
             };
 
-//        console.info('sorting====', GlobalStor.global.addElementsAll);
+        /** sorting types by position */
+        if(groups && groups.length) {
+          groups = groups.sort(function (a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
+        }
+        //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
         while(--elemAllQty > -1) {
           if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
             if(groups && groups.length) {
@@ -12399,6 +12906,10 @@ function ErrorResult(code, message) {
                 }
               }
               if(elements.length) {
+                /** sorting elements by position */
+                elements = elements.sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
                 newElemList.push(elements);
               } else {
                 typeDelete.push(t);
@@ -12474,7 +12985,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -12483,8 +12994,9 @@ function ErrorResult(code, message) {
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
+      setCurrTemplate: setCurrTemplate,
       prepareTemplates: prepareTemplates,
-      //downloadAllTemplates: downloadAllTemplates,
+      downloadAllTemplates: downloadAllTemplates,
 
       setCurrentProfile: setCurrentProfile,
       setCurrentGlass: setCurrentGlass,
@@ -12497,6 +13009,7 @@ function ErrorResult(code, message) {
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
+      closeRoomSelectorDialog: closeRoomSelectorDialog,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -12567,6 +13080,10 @@ function ErrorResult(code, message) {
     }
 
 
+    function setCurrTemplate() {
+      ProductStor.product.construction_type = GlobalStor.global.rooms[0].group_id;
+      ProductStor.product.template_id = (GlobalStor.global.rooms[0].template_id - 1);
+    }
 
 
     function prepareTemplates(type) {
@@ -12874,6 +13391,7 @@ function ErrorResult(code, message) {
           ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
         }
 
+//        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 //        console.log('objXFormedPrice+++++++', objXFormedPrice);
 
@@ -12896,7 +13414,10 @@ function ErrorResult(code, message) {
 
         /** save analytics data first time */
         if(GlobalStor.global.startProgramm) {
-          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+//          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          /** send analytics data to Server*/
+          //------ profile
+          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         }
       });
       return deferred.promise;
@@ -12933,10 +13454,9 @@ function ErrorResult(code, message) {
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-        console.log('price-------', result);
         if(result.priceTotal){
           ProductStor.product.template_price = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          setProductPriceTOTAL();
+          setProductPriceTOTAL(ProductStor.product);
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
         } else {
@@ -12996,52 +13516,51 @@ function ErrorResult(code, message) {
 
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
-      var glassSquareTotal,
-          profileHeatCoeffTotal,
-          glassHeatCoeffTotal;
+      var glassSquareTotal = 0,
+          glassHeatCoeffTotal = 0,
+          glassSizeQty = objXFormedPrice.sizes[5].length,
+          glassQty = ProductStor.product.glass.length,
+          profileHeatCoeffTotal = 0;
 
-//      for (var item = 0; item < templateQty; item++) {
-//        if(ProductStor.product.template.objects[item].type === "square") {
-//          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(sum, elem) {
-//            return sum + elem;
-//          });
-//        }
-//      }
-      //-------- total glasses square define
-      glassSquareTotal = GeneralServ.roundingNumbers(objXFormedPrice.sizes[5].reduce(function(sum, elem) {
-        return {square: (sum.square + elem.square)};
-      }).square, 3);
-//      console.log('heat_coef_total++++', ProductStor.product.profile.heat_coeff_value, ProductStor.product.template_square, glassSquareTotal);
+      /** working with glasses */
+      while(--glassSizeQty > -1) {
+        /** culculate glass Heat Coeff Total */
+        for(var g = 0; g < glassQty; g++) {
+          if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
+            if(!$.isNumeric(ProductStor.product.glass[g].transcalency)){
+              ProductStor.product.glass[g].transcalency = 1;
+            }
+            glassHeatCoeffTotal += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
+          }
+        }
+        /** get total glasses square */
+        glassSquareTotal += objXFormedPrice.sizes[5][glassSizeQty].square;
+      }
+      glassHeatCoeffTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(glassHeatCoeffTotal), 3);
+      glassSquareTotal = GeneralServ.roundingNumbers(glassSquareTotal, 3);
 
-      //-------- coeffs define
+      /** culculate profile Heat Coeff Total */
       if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
 
-//      console.log('heat_coef_total++++', ProductStor.product.glass[0].heat_coeff, glassSquareTotal);
-      //TODO glass array!
-      if(!$.isNumeric(ProductStor.product.glass[0].transcalency)){
-        ProductStor.product.glass[0].transcalency = 1;
-      }
-      glassHeatCoeffTotal = ProductStor.product.glass[0].transcalency * glassSquareTotal;
       /** calculate Heat Coeff Total */
+      /** U */
       ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/(profileHeatCoeffTotal + glassHeatCoeffTotal) );
-
-      //-------- calculate Air Coeff Total
-      //ProductStor.product.airCirculationTOTAL = + ProductStor.product.profileAirCoeff + ProductStor.product.glassAirCoeff + ProductStor.product.hardwareAirCoeff;
-
+      /** R */
+//      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( (profileHeatCoeffTotal + glassHeatCoeffTotal)/ProductStor.product.template_square );
     }
 
 
 
-    function setProductPriceTOTAL() {
+    function setProductPriceTOTAL(Product) {
       //playSound('price');
-      ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
-      ProductStor.product.productPriceDis = ( GeneralServ.setPriceDis(ProductStor.product.template_price, OrderStor.order.discount_construct) + ProductStor.product.addelemPriceDis );
+      Product.product_price = GeneralServ.roundingNumbers( Product.template_price + Product.addelem_price );
+      Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
       if(GlobalStor.global.deliveryCoeff.base_time) {
-        ProductStor.product.productPriceDis = GeneralServ.setPriceDis(ProductStor.product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
       }
       GlobalStor.global.isLoader = 0;
     }
@@ -13079,6 +13598,12 @@ function ErrorResult(code, message) {
     }
 
 
+    /**---------- Close Room Selector Dialog ---------*/
+    function closeRoomSelectorDialog() {
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
+      //playSound('fly');
+    }
 
 
 
@@ -13099,6 +13624,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.isCreatedNewProject = 1;
       GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
+      setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
@@ -13126,6 +13652,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.isCreatedNewProduct = 1;
       GlobalStor.global.isChangedTemplate = 0;
       //------- set new templates
+      setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
@@ -13152,7 +13679,11 @@ function ErrorResult(code, message) {
       GlobalStor.global.isConfigMenu = 1;
       GlobalStor.global.activePanel = 0;
       setDefaultAuxParam();
-      GlobalStor.global.showRoomSelectorDialog = 1;
+      if(GlobalStor.global.startProgramm) {
+        $timeout(function() {
+          GlobalStor.global.showRoomSelectorDialog = 1;
+        }, 2000);
+      }
     }
 
 
@@ -13161,7 +13692,10 @@ function ErrorResult(code, message) {
       AuxStor.aux.isAddElementListView = 0;
       AuxStor.aux.isFocusedAddElement = 0;
       AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isAddElementListView = 0;
       AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
     }
 
 
@@ -13176,6 +13710,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.tempAddElements.length = 0;
       GlobalStor.global.configMenuTips = 0;
       GlobalStor.global.isShowCommentBlock = 0;
+      setDefaultAuxParam();
 
       //============ if EDIT Product
       if(GlobalStor.global.productEditNumber) {
@@ -13189,7 +13724,7 @@ function ErrorResult(code, message) {
 
       //========== if New Product
       } else {
-        ProductStor.product.product_id = (OrderStor.order.products_qty > 0) ? (OrderStor.order.products_qty + 1) : 1;
+        ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
         delete ProductStor.product.template;
         //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);
@@ -13197,6 +13732,7 @@ function ErrorResult(code, message) {
       deferred.resolve(1);
       //----- finish working with product
       GlobalStor.global.isCreatedNewProduct = 0;
+      GeneralServ.stopStartProg();
       return deferred.promise;
     }
 
@@ -13373,8 +13909,9 @@ function ErrorResult(code, message) {
         deferred.resolve(1);
       }
 
+      //TODO
       //------ send analytics data to Server
-      AnalyticsServ.sendAnalyticsDB();
+//      AnalyticsServ.sendAnalyticsDB();
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
@@ -13831,18 +14368,14 @@ function ErrorResult(code, message) {
                   type:'skylight',
                   id:'block_4',
                   level: 3,
-                  blockType: 'sash',
+                  blockType: 'frame',
                   parent: 'block_3',
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: '',
-                  gridId: 0,
-                  sashType: 6,
-                  openDir: [1, 4],
-                  handlePos: 4
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -15117,7 +15650,8 @@ function ErrorResult(code, message) {
                   glassTxt: '',
                   gridId: 0,
                   openDir: [1, 4],
-                  handlePos: 4
+                  handlePos: 4,
+                  sashType: 2
                 }
               ]
             }
@@ -15163,87 +15697,7 @@ function ErrorResult(code, message) {
           ]
 
         }));
-      },
-
-      getDoorConfig: function (callback) {
-        callback(new OkResult({
-
-          doorType: [
-            {
-              shapeId: 1,
-              shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
-              shapeIcon: 'img/door-config/doorstep.png',
-              shapeIconSelect: 'img/door-config-selected/doorstep.png'
-            },
-            {
-              shapeId: 2,
-              shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
-              shapeIcon: 'img/door-config/no-doorstep.png',
-              shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
-            },
-            {
-              shapeId: 3,
-              shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
-              shapeIcon: 'img/door-config/doorstep-al1.png',
-              shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
-            },
-            {
-              shapeId: 4,
-              shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
-              shapeIcon: 'img/door-config/doorstep-al2.png',
-              shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
-            }
-          ],
-
-          sashType: [
-            {
-              shapeId: 1,
-              shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
-            },
-            {
-              shapeId: 2,
-              shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
-            },
-            {
-              shapeId: 3,
-              shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
-            }
-          ],
-
-          handleType: [
-            {
-              shapeId: 1,
-              shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
-              shapeIcon: 'img/door-config/lever-handle.png',
-              shapeIconSelect: 'img/door-config-selected/lever-handle.png'
-            },
-            {
-              shapeId: 2,
-              shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
-              shapeIcon: 'img/door-config/standart-handle.png',
-              shapeIconSelect: 'img/door-config-selected/standart-handle.png'
-            }
-          ],
-
-          lockType: [
-            {
-              shapeId: 1,
-              shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
-              shapeIcon: 'img/door-config/onelock.png',
-              shapeIconSelect: 'img/door-config-selected/onelock.png'
-            },
-            {
-              shapeId: 2,
-              shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
-              shapeIcon: 'img/door-config/multilock.png',
-              shapeIconSelect: 'img/door-config-selected/multilock.png'
-            }
-          ]
-
-
-        }));
       }
-
 
 
     }
@@ -15482,7 +15936,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($q, globalConstants, GeneralServ) {
+  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor) {
 
     var thisFactory = this;
 
@@ -15538,7 +15992,6 @@ function ErrorResult(code, message) {
         glassSquares: [],
         beadsSize: [],
         sashesBlock: []
-//        glassSizes: [],
       };
 
       var blocksQty = thisObj.details.length;
@@ -15570,7 +16023,6 @@ function ErrorResult(code, message) {
           thisObj.details[i].overallDim = [];
 
         } else {
-
 //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
 //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
@@ -16614,6 +17066,17 @@ function ErrorResult(code, message) {
             part.dir = 'curv';
             index++;
           } else {
+            //TODO----- DOOR
+            if(ProductStor.product.construction_type === 4) {
+              console.info('doorShapeIndex+++++', DesignStor.design.doorConfig.doorShapeIndex);
+              console.info('newPointsOut+++++', newPointsOut[index]);
+              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                if (DesignStor.design.doorConfig.doorShapeIndex === 1) {
+                  continue;
+                }
+              }
+            }
+
             //-------- if line
             part.points.push(newPointsOut[index]);
             part.points.push(newPointsOut[index+1]);
@@ -18076,13 +18539,14 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('TemplatesServ', templatesFactory);
 
-  function templatesFactory(MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function templatesFactory($filter, GeneralServ, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
-      backDefaultTemplate: backDefaultTemplate,
-      newPriceForNewTemplate: newPriceForNewTemplate,
+      selectNewTemplate: selectNewTemplate,
+      //backDefaultTemplate: backDefaultTemplate,
+      //newPriceForNewTemplate: newPriceForNewTemplate,
       initNewTemplateType: initNewTemplateType
     };
 
@@ -18093,26 +18557,83 @@ function ErrorResult(code, message) {
 
     //============ methods ================//
 
+
+    //---------- select new template and recalculate it price
+    function selectNewTemplate(templateIndex, roomInd) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      function goToNewTemplate() {
+        //------ change last changed template to old one
+        backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+    }
+
+
     //------- return to the initial template
     function backDefaultTemplate() {
       GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
     }
 
-    function newPriceForNewTemplate(templateIndex) {
-      if(ProductStor.product.template_id !== templateIndex) {
-        ProductStor.product.template_id = templateIndex;
-        MainServ.saveTemplateInProduct(templateIndex).then(function() {
-          ProductStor.product.glass.length = 0;
-          MainServ.setCurrentGlass(ProductStor.product);
-          MainServ.setCurrentHardware(ProductStor.product);
-          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-          //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
-          //------ save analytics data
-          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-        });
+
+
+    function newPriceForNewTemplate(templateIndex, roomInd) {
+      /** if was selected room */
+      if(roomInd) {
+        MainServ.closeRoomSelectorDialog();
+        ProductStor.product.room_id = roomInd-1;
+        /** set new Template Group */
+        if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
+          ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+          MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
+            if (data) {
+              GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+              GlobalStor.global.templatesSource = angular.copy(data);
+
+              culcPriceNewTemplate(templateIndex);
+            }
+          });
+        } else {
+          culcPriceNewTemplate(templateIndex);
+        }
+
+      } else {
+        if(ProductStor.product.template_id !== templateIndex) {
+          culcPriceNewTemplate(templateIndex);
+        }
       }
+
     }
+
+
+    function culcPriceNewTemplate(templateIndex) {
+      ProductStor.product.template_id = templateIndex;
+      MainServ.saveTemplateInProduct(templateIndex).then(function() {
+        ProductStor.product.glass.length = 0;
+        MainServ.setCurrentGlass(ProductStor.product);
+        MainServ.setCurrentHardware(ProductStor.product);
+        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+        //------ define product price
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
+        //------ save analytics data
+        //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+        /** send analytics data to Server*/
+        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+      });
+    }
+
 
 
     function initNewTemplateType(marker) {
@@ -18139,7 +18660,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AuxStor', auxStorageFactory);
 
-  function auxStorageFactory() {
+  function auxStorageFactory($filter) {
 
     var thisFactory = this;
 
@@ -18153,15 +18674,27 @@ function ErrorResult(code, message) {
         isAddElement: 0,
         currentAddElementId: 0,
         auxParameter: 0,
-
+        tempSize: [],
         currAddElementPrice: 0,
         isTabFrame: 0,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
 
-        showAddElementGroups: 0,
         addElementGroups: [],
-        searchingWord: ''
+        searchingWord: '',
+        groupNames: [
+          $filter('translate')('add_elements.GRIDS'),
+          $filter('translate')('add_elements.VISORS'),
+          $filter('translate')('add_elements.SPILLWAYS'),
+          $filter('translate')('add_elements.OUTSIDE'),
+          $filter('translate')('add_elements.INSIDE'),
+          $filter('translate')('add_elements.LOUVERS'),
+          $filter('translate')('add_elements.CONNECTORS'),
+          $filter('translate')('add_elements.FAN'),
+          $filter('translate')('add_elements.WINDOWSILLS'),
+          $filter('translate')('add_elements.HANDLELS'),
+          $filter('translate')('add_elements.OTHERS')
+        ]
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };
@@ -18202,12 +18735,22 @@ function ErrorResult(code, message) {
       cartSource: {
         allAddElements: [],
         isShowDiscount: 0,
+        tempConstructDisc: 0,
+        tempAddelemDisc: 0,
         discountPriceDiff: 0,
         discountDeliveyPlant: 0,
         marginDeliveyPlant: 0,
         squareTotal: 0,
         perimeterTotal: 0,
         qtyTotal: 0,
+
+        isExistAddElems: 0,
+        isAllAddElems: 0,
+        allAddElemsOrder: [],
+        addElemsOrderPriceTOTAL: 0,
+        isSelectedProduct: 0,
+        selectedProducts: [],
+
         isMasterDialog: 0,
         isOrderDialog: 0,
         isCreditDialog: 0,
@@ -18229,14 +18772,16 @@ function ErrorResult(code, message) {
       optionEductaion: [
         {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
         {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')}
+        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')},
+        {id: 4, name: $filter('translate')('cart.CLIENT_EDUC_4')}
       ],
       optionOccupation: [
         {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
         {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
         {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
         {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')}
+        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')},
+        {id: 6, name: $filter('translate')('cart.UNKNOWN')}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},
@@ -18300,7 +18845,7 @@ function ErrorResult(code, message) {
     .module('DesignModule')
     .factory('DesignStor', designStorageFactory);
 
-  function designStorageFactory() {
+  function designStorageFactory($filter) {
 
     var thisFactory = this;
 
@@ -18334,10 +18879,74 @@ function ErrorResult(code, message) {
         maxSizeLimit: 5000,
 
         //----- Door
-        doorShapeList: [],
-        sashShapeList: [],
-        handleShapeList: [],
-        lockShapeList: [],
+        doorShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
+            shapeIcon: 'img/door-config/doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
+            shapeIcon: 'img/door-config/no-doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+          },
+          {
+            shapeId: 3,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            shapeIcon: 'img/door-config/doorstep-al1.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+          },
+          {
+            shapeId: 4,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            shapeIcon: 'img/door-config/doorstep-al2.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+          }
+        ],
+        sashShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
+          },
+          {
+            shapeId: 3,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
+          }
+        ],
+        handleShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
+            shapeIcon: 'img/door-config/lever-handle.png',
+            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
+            shapeIcon: 'img/door-config/standart-handle.png',
+            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
+          }
+        ],
+        lockShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
+            shapeIcon: 'img/door-config/onelock.png',
+            shapeIconSelect: 'img/door-config-selected/onelock.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
+            shapeIcon: 'img/door-config/multilock.png',
+            shapeIconSelect: 'img/door-config-selected/multilock.png'
+          }
+        ],
         doorConfig: {
           doorShapeIndex: 0,
           sashShapeIndex: 0,
@@ -18398,7 +19007,7 @@ function ErrorResult(code, message) {
         isNavMenu: 1,
         isConfigMenu: 0,
         activePanel: 0,
-        configMenuTips: 1,
+        configMenuTips: 0,
 
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,
@@ -18411,14 +19020,19 @@ function ErrorResult(code, message) {
         isChangedTemplate: 0,
         isVoiceHelper: 0,
         voiceHelperLanguage: '',
-        showRoomSelectorDialog: 0,
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
+        isTemplateTypeMenu: 0,
+
+        //------ Rooms background
+        showRoomSelectorDialog: 0,
+        rooms: [],
 
         //------- Templates
         templateLabel: '',
         templatesSource: [],
         templatesSourceSTORE: [],
+        //TODO templateIcons: [],
         isSashesInTemplate: 0,
 
         //------ Profiles
@@ -18526,15 +19140,11 @@ function ErrorResult(code, message) {
         isStartDate: 0,
         isFinishDate: 0,
         isAllPeriod: 1,
-        maxDeliveryDateOrder: 0,
+//        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
         isSortType: 'last',
         isFilterType: undefined,
-        isCurrentOrdersHide: 0,
-        isWaitOrdersHide: 0,
-        isDoneOrdersHide: 0,
-
 
         //===== Draft
         isDraftView: 0,
@@ -18869,7 +19479,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: 'Das Neuladen der Seite zu Datenverlust führen!',
         SELECT: 'wählen',
         AND: 'und',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'Einloggen',
@@ -18927,7 +19538,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
-        ROOM_SELECTION: 'Die Wahl Interior',
+        ROOM_SELECTION: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
@@ -19114,16 +19725,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'Falsche E-Mail',
         LINK_BETWEEN_COUPLE: 'zwischen einem Paar von',
         LINK_BETWEEN_ALL: 'unter allen',
-        LINK_DELETE_ALL_GROUPE: 'unter allen',
+//        LINK_DELETE_ALL_GROUPE: 'unter allen',
         CLIENT_SEX: 'Paul',
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Alter',
         CLIENT_AGE_OLDER: "älteren",
-        CLIENT_EDUCATION: 'Bildung',
-        CLIENT_EDUC_MIDLE: "Durchschnitt",
-        CLIENT_EDUC_SPEC: "die durchschnittliche professionell.",
-        CLIENT_EDUC_HIGH: "Higher",
+        //CLIENT_EDUCATION: 'Bildung',
+        //CLIENT_EDUC_MIDLE: "Durchschnitt",
+        //CLIENT_EDUC_SPEC: "die durchschnittliche professionell.",
+        //CLIENT_EDUC_HIGH: "Higher",
+        CLIENT_EDUCATION: "Das wichtigste Kriterium Ihrer Wahl",
+        CLIENT_EDUC_MIDLE: "Guter Preis",
+        CLIENT_EDUC_SPEC: "Bildermacher",
+        CLIENT_EDUC_HIGH: "Markenprofil und Hardware",
+        CLIENT_EDUC_4: 'Empfehlungen Verkäufers',
         CLIENT_OCCUPATION: "Beschäftigung",
         CLIENT_OCCUP_WORKER: "Mitarbeiter",
         CLIENT_OCCUP_HOUSE: "Hausfrau",
@@ -19134,10 +19750,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: 'Press',
         CLIENT_INFO_FRIEND: "Von Freunden",
         CLIENT_INFO_ADV: "Visuelle Werbung",
-        SELECT_AGE: "Wählen Sie Ihr Alter",
-        SELECT_ADUCATION: "Wählen Sie Ihre Bildung",
-        SELECT_OCCUPATION: "Wählen Sie Ihre Beschäftigung",
-        SELECT_INFO_SOURCE: "Quelle wählen",
+        SELECT_PLACEHOLD: 'wählen Sie Ihre Variante',
+        //SELECT_AGE: "Wählen Sie Ihr Alter",
+        //SELECT_ADUCATION: "Wählen Sie Ihre Bildung",
+        //SELECT_OCCUPATION: "Wählen Sie Ihre Beschäftigung",
+        //SELECT_INFO_SOURCE: "Quelle wählen",
         NO_DISASSEMBL: 'Ohne Demontage',
         STANDART_ASSEMBL: 'Der Standardmäßige',
         VIP_ASSEMBL: 'Der VIP-Montage',
@@ -19147,7 +19764,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Ohne Rabatte',
         DISCOUNT_WINDOW: 'Rabatt auf ein Produkt',
         DISCOUNT_ADDELEM: 'Discount auf zusätzliche Elemente',
-        ORDER_COMMENT: 'Anmerkung Bestellen'
+        ORDER_COMMENT: 'Anmerkung Bestellen',
+        UNKNOWN: 'unbekannt'
       },
       settings: {
         AUTHORIZATION: 'Autorisierung:',
@@ -19210,7 +19828,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: 'Reloading the page will lead to data loss!',
         SELECT: 'Select',
         AND: 'and',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'To enter',
@@ -19268,7 +19887,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'In a basket',
         VOICE_SPEACH: 'You talk...',
         COMMENT: 'Leave a note on the order here.',
-        ROOM_SELECTION: 'Interior selection',
+        ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: 'To change the size, click here',
@@ -19455,16 +20074,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'Incorrect e-mail',
         LINK_BETWEEN_COUPLE: 'between couple',
         LINK_BETWEEN_ALL: 'between all',
-        LINK_DELETE_ALL_GROUPE: 'delete all',
+//        LINK_DELETE_ALL_GROUPE: 'delete all',
         CLIENT_SEX: 'Sex',
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
         CLIENT_AGE_OLDER: 'older',
-        CLIENT_EDUCATION: 'Education',
-        CLIENT_EDUC_MIDLE: 'middle',
-        CLIENT_EDUC_SPEC: 'specific middle',
-        CLIENT_EDUC_HIGH: 'high',
+        //CLIENT_EDUCATION: 'Education',
+        //CLIENT_EDUC_MIDLE: 'middle',
+        //CLIENT_EDUC_SPEC: 'specific middle',
+        //CLIENT_EDUC_HIGH: 'high',
+        CLIENT_EDUCATION: 'The main criterion of your choice',
+        CLIENT_EDUC_MIDLE: 'Good price',
+        CLIENT_EDUC_SPEC: 'image maker',
+        CLIENT_EDUC_HIGH: 'brand profile and hardware',
+        CLIENT_EDUC_4: 'Recommendations seller',
         CLIENT_OCCUPATION: 'Occupation',
         CLIENT_OCCUP_WORKER: 'Employee',
         CLIENT_OCCUP_HOUSE: 'Householder',
@@ -19475,10 +20099,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: 'Press',
         CLIENT_INFO_FRIEND: 'From friends',
         CLIENT_INFO_ADV: 'Visual advertising',
-        SELECT_AGE: 'Select your age',
-        SELECT_ADUCATION: 'Select your aducation',
-        SELECT_OCCUPATION: 'Select your occupation',
-        SELECT_INFO_SOURCE: 'Select source',
+        SELECT_PLACEHOLD: 'select your option',
+        //SELECT_AGE: 'Select your age',
+        //SELECT_ADUCATION: 'Select your aducation',
+        //SELECT_OCCUPATION: 'Select your occupation',
+        //SELECT_INFO_SOURCE: 'Select source',
         NO_DISASSEMBL: 'without dismantle',
         STANDART_ASSEMBL: 'the standard',
         VIP_ASSEMBL: 'VIP-installation',
@@ -19488,7 +20113,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Excluding discounts',
         DISCOUNT_WINDOW: 'Discount on a product',
         DISCOUNT_ADDELEM: 'Discount on additional elements',
-        ORDER_COMMENT: 'Order note'
+        ORDER_COMMENT: 'Order note',
+        UNKNOWN: 'Unknown'
       },
       settings: {
         AUTHORIZATION: 'Authorization:',
@@ -19549,7 +20175,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: "L'azzerramento della pagina porterà a perdita di dati!",
         SELECT: ' Scegliere ',
         AND: ' e ',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'Entrare',
@@ -19607,7 +20234,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'Nel cestino',
         VOICE_SPEACH: 'Parlate...',
         COMMENT: "Lasci la nota sull'ordine qui.",
-        ROOM_SELECTION: 'Scelta interna',
+        ROOM_SELECTION: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
         HEATCOEF_VAL: 'Wt/m',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
@@ -19794,16 +20421,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'Posta elettronica errata',
         LINK_BETWEEN_COUPLE: 'tra coppia',
         LINK_BETWEEN_ALL: 'tra tutti',
-        LINK_DELETE_ALL_GROUPE: 'cancelare tutto',
+//        LINK_DELETE_ALL_GROUPE: 'cancelare tutto',
         CLIENT_SEX: 'di sesso',
         CLIENT_SEX_M: 'U',
         CLIENT_SEX_F: 'D',
         CLIENT_AGE: 'Età',
         CLIENT_AGE_OLDER: 'è più più anziano',
-        CLIENT_EDUCATION: 'Istruzione',
-        CLIENT_EDUC_MIDLE: 'media',
-        CLIENT_EDUC_SPEC: 'specializzato secondario',
-        CLIENT_EDUC_HIGH: 'il più alto',
+        //CLIENT_EDUCATION: 'Istruzione',
+        //CLIENT_EDUC_MIDLE: 'media',
+        //CLIENT_EDUC_SPEC: 'specializzato secondario',
+        //CLIENT_EDUC_HIGH: 'il più alto',
+        CLIENTE_ISTRUZIONE: 'Il criterio principale della vostra scelta',
+        CLIENT_EDUC_MIDLE: 'Il buon prezzo',
+        CLIENTE_EDUC_SPEC: 'creatore di immagine',
+        CLIENT_EDUC_HIGH: 'il profilo del marchio e hardware',
+        CLIENT_EDUC_4: 'Raccomandazioni venditore',
         CLIENT_OCCUPATION: 'Occupazione',
         CLIENT_OCCUP_WORKER: 'Dipendente',
         CLIENT_OCCUP_HOUSE: 'Casalinga',
@@ -19814,10 +20446,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: 'Premere',
         CLIENT_INFO_FRIEND: 'Da conoscenti',
         CLIENT_INFO_ADV: 'Fare annunci visivo',
-        SELECT_AGE: 'Scelga la Sua età',
-        SELECT_ADUCATION: 'Scelga la Sua istruzione',
-        SELECT_OCCUPATION: 'Scelga la Sua occupazione',
-        SELECT_INFO_SOURCE: 'Scelga la fonte di informazioni',
+        SELECT_PLACEHOLD: "selezionare l'opzione",
+        //SELECT_AGE: 'Scelga la Sua età',
+        //SELECT_ADUCATION: 'Scelga la Sua istruzione',
+        //SELECT_OCCUPATION: 'Scelga la Sua occupazione',
+        //SELECT_INFO_SOURCE: 'Scelga la fonte di informazioni',
         NO_DISASSEMBL: 'senza smontano',
         STANDART_ASSEMBL: 'lo standard',
         VIP_ASSEMBL: 'INSTALLAZIONE DEL VIP',
@@ -19827,7 +20460,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Senza uno sconto',
         DISCOUNT_WINDOW: 'Sconto a un prodotto',
         DISCOUNT_ADDELEM: 'Sconto a elementi supplementari',
-        ORDER_COMMENT: 'Nota Order'
+        ORDER_COMMENT: 'Nota Order',
+        UNKNOWN: 'Sconosciuto'
       },
       settings: {
         AUTHORIZATION: 'Autorizzazione:',
@@ -19889,7 +20523,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderi de date!',
         SELECT: 'Select',
         AND: 'și',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'autentificare',
@@ -19947,7 +20582,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION: 'Interior selection',
+        ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
@@ -20134,16 +20769,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'poșta electronica este incorectă',
         LINK_BETWEEN_COUPLE: 'între o pereche de',
         LINK_BETWEEN_ALL: 'printre toate',
-        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
+//        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
         CLIENT_SEX: "Sex",
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: "F",
         CLIENT_AGE: "Age",
         CLIENT_AGE_OLDER: "mai vechi",
-        CLIENT_EDUCATION: "Educație",
-        CLIENT_EDUC_MIDLE: "Media",
-        CLIENT_EDUC_SPEC: "profesional mediu.",
-        CLIENT_EDUC_HIGH: "superior",
+        //CLIENT_EDUCATION: "Educație",
+        //CLIENT_EDUC_MIDLE: "Media",
+        //CLIENT_EDUC_SPEC: "profesional mediu.",
+        //CLIENT_EDUC_HIGH: "superior",
+        CLIENT_EDUCAȚIE: "Principalul criteriu de alegere",
+        CLIENT_EDUC_MIDLE: "preț bun",
+        CLIENT_EDUC_SPEC: "filtru de imagine",
+        CLIENT_EDUC_HIGH: "profilul de brand și hardware ",
+        CLIENT_EDUC_4:" vânzător Recomandări",
         CLIENT_OCCUPATION: "Ocuparea forței de muncă",
         CLIENT_OCCUP_WORKER: "angajat",
         CLIENT_OCCUP_HOUSE: "Casnică",
@@ -20154,10 +20794,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: "Presă",
         CLIENT_INFO_FRIEND: "De la prieteni",
         CLIENT_INFO_ADV: "publicitate vizuala",
-        SELECT_AGE: "Alegeți vârsta",
-        SELECT_ADUCATION: "Alegeți educatia ta",
-        SELECT_OCCUPATION: "Alege muncă dumneavoastră",
-        SELECT_INFO_SOURCE: "Selectați sursa ",
+        SELECT_PLACEHOLD: 'selectați opțiunea dumneavoastră',
+        //SELECT_AGE: "Alegeți vârsta",
+        //SELECT_ADUCATION: "Alegeți educatia ta",
+        //SELECT_OCCUPATION: "Alege muncă dumneavoastră",
+        //SELECT_INFO_SOURCE: "Selectați sursa ",
         NO_DISASSEMBL: "fără demontare",
         STANDART_ASSEMBL: "standard",
         VIP_ASSEMBL: "montaj VIP",
@@ -20167,7 +20808,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Discount Excluderea',
         DISCOUNT_WINDOW: 'Discount pe un produs',
         DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare',
-        ORDER_COMMENT: 'Nota Ordine'
+        ORDER_COMMENT: 'Nota Ordine',
+        UNKNOWN: 'Necunoscut'
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',
@@ -20228,7 +20870,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: 'Перезагрузка страницы приведет к потерю данных!',
         SELECT: 'Выбрать',
         AND: 'и',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Назад'
       },
       login: {
         ENTER: 'Войти',
@@ -20286,7 +20929,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
-        ROOM_SELECTION: 'Выбор интерьера',
+        ROOM_SELECTION: 'Выбор шаблона',
         CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
         HEATCOEF_VAL: 'Вт/м',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
@@ -20473,16 +21116,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'Неверная электронная почта',
         LINK_BETWEEN_COUPLE: 'между парой',
         LINK_BETWEEN_ALL: 'между всеми',
-        LINK_DELETE_ALL_GROUPE: 'удалить все',
+//        LINK_DELETE_ALL_GROUPE: 'удалить все',
         CLIENT_SEX: 'Пол',
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Возраст',
         CLIENT_AGE_OLDER: 'старше',
-        CLIENT_EDUCATION: 'Образование',
-        CLIENT_EDUC_MIDLE: 'среднее',
-        CLIENT_EDUC_SPEC: 'среднее спец.',
-        CLIENT_EDUC_HIGH: 'высшее',
+        //CLIENT_EDUCATION: 'Образование',
+        //CLIENT_EDUC_MIDLE: 'среднее',
+        //CLIENT_EDUC_SPEC: 'среднее спец.',
+        //CLIENT_EDUC_HIGH: 'высшее',
+        CLIENT_EDUCATION: 'Главный критерий вашего выбора',
+        CLIENT_EDUC_MIDLE: 'Выгодная цена',
+        CLIENT_EDUC_SPEC: 'Имидж производителя',
+        CLIENT_EDUC_HIGH: 'Бренд профиля или фурнитуры',
+        CLIENT_EDUC_4: 'Рекомендации продавца',
         CLIENT_OCCUPATION: 'Занятость',
         CLIENT_OCCUP_WORKER: 'Служащий',
         CLIENT_OCCUP_HOUSE: 'Домохозяйка',
@@ -20493,10 +21141,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: 'Пресса',
         CLIENT_INFO_FRIEND: 'От знакомых',
         CLIENT_INFO_ADV: 'Визуальная реклама',
-        SELECT_AGE: 'Выберите Ваш возраст',
-        SELECT_ADUCATION: 'Выберите Ваше образование',
-        SELECT_OCCUPATION: 'Выберите Вашу занятость',
-        SELECT_INFO_SOURCE: 'Выберите источник информации',
+        SELECT_PLACEHOLD: 'выберите свой вариант',
+        //SELECT_AGE: 'Выберите Ваш возраст',
+        //SELECT_ADUCATION: 'Выберите Ваше образование',
+        //SELECT_OCCUPATION: 'Выберите Вашу занятость',
+        //SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
         VIP_ASSEMBL: 'VIP-монтаж',
@@ -20506,7 +21155,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Без учета скидки',
         DISCOUNT_WINDOW: 'Скидка на изделие',
         DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы',
-        ORDER_COMMENT: 'Заметка о заказе'
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',
@@ -20567,7 +21217,8 @@ function ErrorResult(code, message) {
         PAGE_REFRESH: 'Перезагрузка страницы приведет к потерю данных!',
         SELECT: 'Выбрать',
         AND: 'та',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Назад'
       },
       login: {
         ENTER: 'Увійти',
@@ -20625,7 +21276,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
         COMMENT: 'Залиште свою замітку про заказ тут.',
-        ROOM_SELECTION: 'Вибір інтер`єру',
+        ROOM_SELECTION: 'Вибір шаблону',
         CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
         HEATCOEF_VAL: 'Вт/м',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
@@ -20812,16 +21463,21 @@ function ErrorResult(code, message) {
         WRONG_EMAIL: 'Невірна електронна пошта',
         LINK_BETWEEN_COUPLE: 'між парою',
         LINK_BETWEEN_ALL: 'між усіма',
-        LINK_DELETE_ALL_GROUPE: 'видалити усі',
+//        LINK_DELETE_ALL_GROUPE: 'видалити усі',
         CLIENT_SEX: 'Стать',
         CLIENT_SEX_M: 'Ч',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Вік',
         CLIENT_AGE_OLDER: 'старше',
-        CLIENT_EDUCATION: 'Освіта',
-        CLIENT_EDUC_MIDLE: 'середнэ',
-        CLIENT_EDUC_SPEC: 'середнэ спец.',
-        CLIENT_EDUC_HIGH: 'вища',
+        //CLIENT_EDUCATION: 'Освіта',
+        //CLIENT_EDUC_MIDLE: 'середнэ',
+        //CLIENT_EDUC_SPEC: 'середнэ спец.',
+        //CLIENT_EDUC_HIGH: 'вища',
+        CLIENT_EDUCATION: 'Головний критерій вашого вибору',
+        CLIENT_EDUC_MIDLE: 'Вигідна ціна',
+        CLIENT_EDUC_SPEC: 'Імідж виробника',
+        CLIENT_EDUC_HIGH: 'Бренд профілю або фурнітури',
+        CLIENT_EDUC_4: 'Рекомендації продавця',
         CLIENT_OCCUPATION: 'Зайнятість',
         CLIENT_OCCUP_WORKER: 'Службовець',
         CLIENT_OCCUP_HOUSE: 'Домогосподарка',
@@ -20832,10 +21488,11 @@ function ErrorResult(code, message) {
         CLIENT_INFO_PRESS: 'Преса',
         CLIENT_INFO_FRIEND: 'Від знайомих',
         CLIENT_INFO_ADV: 'Візуальна реклама',
-        SELECT_AGE: 'Выберите Ваш возраст',
-        SELECT_ADUCATION: 'Выберите Ваше образование',
-        SELECT_OCCUPATION: 'Выберите Вашу занятость',
-        SELECT_INFO_SOURCE: 'Выберите источник информации',
+        SELECT_PLACEHOLD: 'выберите свой вариант',
+        //SELECT_AGE: 'Выберите Ваш возраст',
+        //SELECT_ADUCATION: 'Выберите Ваше образование',
+        //SELECT_OCCUPATION: 'Выберите Вашу занятость',
+        //SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
         VIP_ASSEMBL: 'VIP-монтаж',
@@ -20845,7 +21502,8 @@ function ErrorResult(code, message) {
         DISCOUNT_WITHOUT: 'Без знижки',
         DISCOUNT_WINDOW: 'Знижка на виріб',
         DISCOUNT_ADDELEM: 'Знижка на додаткові елементи',
-        ORDER_COMMENT: 'Заметка о заказе'
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

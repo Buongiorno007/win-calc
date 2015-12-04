@@ -78,12 +78,20 @@
       <div class="construction-scrollbox">
         <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="edit"></svg-template>
       </div>
-      <!--.construction-right-menu-->
     </div>
     <div class="right-menu-header">
-      <button ng-show="designPage.D.design.designSteps.length &gt; 0" hm-tap="designPage.stepBack()" class="construct-tools step-back"></button>
-      <button hm-tap="designPage.G.global.activePanel = 0;designPage.designSaved()" class="construct-tools save-construction"></button>
-      <button hm-tap="designPage.designCancel()" class="construct-tools close-construction"></button>
+      <div ng-show="designPage.D.design.designSteps.length &gt; 0" class="nav-tool-box">
+        <button hm-tap="designPage.stepBack()" class="construct-tools step-back"></button>
+        <div class="nav-tool-label">{{ 'common_words.BACK' | translate }}</div>
+      </div>
+      <div class="nav-tool-box">
+        <button hm-tap="designPage.G.global.activePanel = 0;designPage.designSaved()" class="construct-tools save-construction"></button>
+        <div class="nav-tool-label">{{ 'settings.SAVE' | translate }}</div>
+      </div>
+      <div class="nav-tool-box">
+        <button hm-tap="designPage.designCancel()" class="construct-tools close-construction"></button>
+        <div class="nav-tool-label">{{ 'add_elements.CANCEL' | translate }}</div>
+      </div>
     </div>
     <div ng-show="designPage.P.product.construction_type === 4" class="door-config-menu">
       <button ng-class="{'active': designPage.config.isDoorConfig}" hm-tap="designPage.toggleDoorConfig()" class="door-config-btn"></button>
@@ -95,7 +103,7 @@
     </div>
     <div class="right-menu-footer">
       <div ng-class="{'active': designPage.G.global.isSizeCalculator}" class="size-calculator">
-        <table ng-controller="sizeCalculatorCtrl as sizeCalc" class="size-calc-container">
+        <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
           <thead>
             <td>
               <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>

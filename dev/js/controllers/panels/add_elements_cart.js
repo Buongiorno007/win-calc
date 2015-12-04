@@ -142,15 +142,16 @@
       for(var i = 0; i < allAddElemsQty; i++) {
         addElemProdQty = CartStor.cart.allAddElements[i].length;
         for(var j = 0; j < addElemProdQty; j++) {
-          if(thisCtrl.config.selectedAddElemUnit.id === CartStor.cart.allAddElements[i][j].id) {
-            if(thisCtrl.config.selectedAddElemUnit.element_width === CartStor.cart.allAddElements[i][j].element_width) {
-              if(thisCtrl.config.selectedAddElemUnit.element_height === CartStor.cart.allAddElements[i][j].element_height) {
+          if(CartStor.cart.allAddElements[i][j].id === thisCtrl.config.selectedAddElemUnit.id) {
+            if(CartStor.cart.allAddElements[i][j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+              if(CartStor.cart.allAddElements[i][j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
 
                 //-------- if product is addElems only
                 if(OrderStor.order.products[i].is_addelem_only) {
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
+                    name: CartStor.cart.allAddElements[i][j].name,
                     element_width: CartStor.cart.allAddElements[i][j].element_width,
                     element_height: CartStor.cart.allAddElements[i][j].element_height,
                     element_qty: CartStor.cart.allAddElements[i][j].element_qty,

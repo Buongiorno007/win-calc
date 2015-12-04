@@ -226,11 +226,13 @@
     //--------- Delete All List of selected AddElements
     function deleteAllAddElements() {
       var elementsQty = ProductStor.product.chosenAddElements.length;
-      for(var index = 0; index < elementsQty; index++) {
-        ProductStor.product.chosenAddElements[index].length = 0;
+      while(--elementsQty > -1) {
+        ProductStor.product.chosenAddElements[elementsQty].length = 0;
       }
       ProductStor.product.addelem_price = 0;
       ProductStor.product.addelemPriceDis = 0;
+      //Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -279,7 +281,7 @@
 
 
     function pressCulculator(keyEvent) {
-      //console.info('PRESS KEY====', keyEvent.which);
+      //console.log('PRESS KEY====', keyEvent.which);
       var newValue;
       //------ Enter
       if (keyEvent.which === 13) {

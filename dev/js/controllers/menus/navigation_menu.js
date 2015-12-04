@@ -32,7 +32,7 @@
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.clickNewProject = NavMenuServ.clickNewProject;
+    thisCtrl.clickNewProject = clickNewProject;
 
 
     //============ methods ================//
@@ -40,9 +40,8 @@
     //------- Select menu item
     function selectMenuItem(id) {
       thisCtrl.activeMenuItem = (thisCtrl.activeMenuItem === id) ? 0 : id;
-
       //-------- go to...
-      switch(thisCtrl.activeMenuItem) {
+      switch(id) {
         case 1:
           GeneralServ.stopStartProg();
           $location.path('/location');
@@ -73,12 +72,14 @@
           $location.path('/settings');
           break;
         case 8:
-          $window.open('http://windowscalculator.net:3002/login');
-
-          //TODO ipad var ref = window.open('http://axorindustry.com', '_system');
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          //TODO ipad ref.close();
+          if (GlobalStor.global.isDevice) {
+            var ref = window.open('http://axorindustry.com', '_system');
+            ref.close();
+          } else {
+            $window.open('http://windowscalculator.net:3002/login');
+          }
           break;
         case 9:
           NavMenuServ.switchVoiceHelper();
@@ -86,6 +87,11 @@
       }
     }
 
+
+    function clickNewProject() {
+      thisCtrl.activeMenuItem = 0;
+      NavMenuServ.clickNewProject();
+    }
 
   }
 })();

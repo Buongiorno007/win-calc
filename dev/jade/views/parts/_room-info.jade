@@ -8,7 +8,7 @@
         .coeff-max {{ roomInfo.O.order.heat_coef_min }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
-      button.select-rooms.unvisible(show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="roomInfo.showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}
+      button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="roomInfo.showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}
     .comment-btn(hm-tap="roomInfo.switchComment($event)")
 
   .product-comment

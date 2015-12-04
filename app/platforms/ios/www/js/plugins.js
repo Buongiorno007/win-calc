@@ -364,6 +364,374 @@ n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScro
  * Copyright (c) 2014 ; Licensed MIT
  */
 angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){var b=a.storageKey(),c=a.storage();c?c.get(b)?a.use(c.get(b)):angular.isString(a.preferredLanguage())?a.use(a.preferredLanguage()):c.set(b,a.use()):angular.isString(a.preferredLanguage())&&a.use(a.preferredLanguage())}]),angular.module("pascalprecht.translate").provider("$translate",["$STORAGE_KEY",function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p={},q=[],r=a,s=[],t=!1,u="translate-cloak",v=!1,w=".",x=function(){var a=window.navigator;return(a.language||a.browserLanguage||a.systemLanguage||a.userLanguage||"").split("-").join("_")},y=function(a){for(var b=[],d=angular.lowercase(a),e=0,f=q.length;f>e;e++)b.push(angular.lowercase(q[e]));if(b.indexOf(d)>-1)return a;if(c){var g;for(var h in c){var i=!1,j=c.hasOwnProperty(h)&&angular.lowercase(h)===angular.lowercase(a);if("*"===h.slice(-1)&&(i=h.slice(0,-1)===a.slice(0,h.length-1)),(j||i)&&(g=c[h],b.indexOf(angular.lowercase(g))>-1))return g}}var k=a.split("_");return k.length>1&&b.indexOf(angular.lowercase(k[0]))>-1?k[0]:a},z=function(a,b){if(!a&&!b)return p;if(a&&!b){if(angular.isString(a))return p[a]}else angular.isObject(p[a])||(p[a]={}),angular.extend(p[a],A(b));return this};this.translations=z,this.cloakClassName=function(a){return a?(u=a,this):u};var A=function(a,b,c,d){var e,f,g,h;b||(b=[]),c||(c={});for(e in a)a.hasOwnProperty(e)&&(h=a[e],angular.isObject(h)?A(h,b.concat(e),c,e):(f=b.length?""+b.join(w)+w+e:e,b.length&&e===d&&(g=""+b.join(w),c[g]="@:"+f),c[f]=h));return c};this.addInterpolation=function(a){return s.push(a),this},this.useMessageFormatInterpolation=function(){return this.useInterpolation("$translateMessageFormatInterpolation")},this.useInterpolation=function(a){return k=a,this},this.useSanitizeValueStrategy=function(a){return t=a,this},this.preferredLanguage=function(a){return a?(b=a,this):b},this.translationNotFoundIndicator=function(a){return this.translationNotFoundIndicatorLeft(a),this.translationNotFoundIndicatorRight(a),this},this.translationNotFoundIndicatorLeft=function(a){return a?(n=a,this):n},this.translationNotFoundIndicatorRight=function(a){return a?(o=a,this):o},this.fallbackLanguage=function(a){return B(a),this};var B=function(a){return a?(angular.isString(a)?(e=!0,d=[a]):angular.isArray(a)&&(e=!1,d=a),angular.isString(b)&&d.push(b),this):e?d[0]:d};this.use=function(a){if(a){if(!p[a]&&!l)throw new Error("$translateProvider couldn't find translationTable for langKey: '"+a+"'");return f=a,this}return f};var C=function(a){return a?(r=a,void 0):i?i+r:r};this.storageKey=C,this.useUrlLoader=function(a){return this.useLoader("$translateUrlLoader",{url:a})},this.useStaticFilesLoader=function(a){return this.useLoader("$translateStaticFilesLoader",a)},this.useLoader=function(a,b){return l=a,m=b||{},this},this.useLocalStorage=function(){return this.useStorage("$translateLocalStorage")},this.useCookieStorage=function(){return this.useStorage("$translateCookieStorage")},this.useStorage=function(a){return h=a,this},this.storagePrefix=function(a){return a?(i=a,this):a},this.useMissingTranslationHandlerLog=function(){return this.useMissingTranslationHandler("$translateMissingTranslationHandlerLog")},this.useMissingTranslationHandler=function(a){return j=a,this},this.usePostCompiling=function(a){return v=!!a,this},this.determinePreferredLanguage=function(a){var c=a&&angular.isFunction(a)?a():x();return b=q.length?y(c):c,this},this.registerAvailableLanguageKeys=function(a,b){return a?(q=a,b&&(c=b),this):q},this.$get=["$log","$injector","$rootScope","$q",function(a,c,i,q){var w,x,D,E=c.get(k||"$translateDefaultInterpolation"),F=!1,G={},H={},I=function(a,c,e){if(angular.isArray(a)){var g=function(a){for(var b={},d=[],f=function(a){var d=q.defer(),f=function(c){b[a]=c,d.resolve([a,c])};return I(a,c,e).then(f,f),d.promise},g=0,h=a.length;h>g;g++)d.push(f(a[g]));return q.all(d).then(function(){return b})};return g(a)}var i=q.defer();a&&(a=a.trim());var j=function(){var a=b?H[b]:H[f];if(x=0,h&&!a){var c=w.get(r);if(a=H[c],d&&d.length){var e=J(d,c);x=e>-1?e+=1:0,d.push(b)}}return a}();return j?j.then(function(){U(a,c,e).then(i.resolve,i.reject)},i.reject):U(a,c,e).then(i.resolve,i.reject),i.promise},J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K=function(a){return n&&(a=[n,a].join(" ")),o&&(a=[a,o].join(" ")),a},L=function(a){f=a,i.$emit("$translateChangeSuccess"),h&&w.set(I.storageKey(),f),E.setLocale(f),angular.forEach(G,function(a,b){G[b].setLocale(f)}),i.$emit("$translateChangeEnd")},M=function(a){if(!a)throw"No language key specified for loading.";var b=q.defer();return i.$emit("$translateLoadingStart"),F=!0,c.get(l)(angular.extend(m,{key:a})).then(function(c){var d={};i.$emit("$translateLoadingSuccess"),angular.isArray(c)?angular.forEach(c,function(a){angular.extend(d,A(a))}):angular.extend(d,A(c)),F=!1,b.resolve({key:a,table:d}),i.$emit("$translateLoadingEnd")},function(a){i.$emit("$translateLoadingError"),b.reject(a),i.$emit("$translateLoadingEnd")}),b.promise};if(h&&(w=c.get(h),!w.get||!w.set))throw new Error("Couldn't use storage '"+h+"', missing get() or set() method!");angular.isFunction(E.useSanitizeValueStrategy)&&E.useSanitizeValueStrategy(t),s.length&&angular.forEach(s,function(a){var d=c.get(a);d.setLocale(b||f),angular.isFunction(d.useSanitizeValueStrategy)&&d.useSanitizeValueStrategy(t),G[d.getInterpolationIdentifier()]=d});var N=function(a){var b=q.defer();return p.hasOwnProperty(a)?(b.resolve(p[a]),b.promise):(H[a].then(function(a){z(a.key,a.table),b.resolve(a.table)},b.reject),b.promise)},O=function(a,b,c,d){var e=q.defer();return N(a).then(function(g){g.hasOwnProperty(b)?(d.setLocale(a),e.resolve(d.interpolate(g[b],c)),d.setLocale(f)):e.reject()},e.reject),e.promise},P=function(a,b,c,d){var e,g=p[a];return g.hasOwnProperty(b)&&(d.setLocale(a),e=d.interpolate(g[b],c),d.setLocale(f)),e},Q=function(a,b,e,g){var h=q.defer();if(a<d.length){var i=d[a];O(i,b,e,g).then(function(a){h.resolve(a)},function(){var c=Q(a+1,b,e,g);h.resolve(c)})}else if(j){var k=c.get(j)(b,f);void 0!==k?h.resolve(k):h.resolve(b)}else h.resolve(b);return h.promise},R=function(a,b,c,e){var f;if(a<d.length){var g=d[a];f=P(g,b,c,e),f||(f=R(a+1,b,c,e))}return f},S=function(a,b,c){return Q(D>0?D:x,a,b,c)},T=function(a,b,c){return R(D>0?D:x,a,b,c)},U=function(a,b,e){var g=q.defer(),h=f?p[f]:p,i=e?G[e]:E;if(h&&h.hasOwnProperty(a)){var k=h[a];"@:"===k.substr(0,2)?I(k.substr(2),b,e).then(g.resolve,g.reject):g.resolve(i.interpolate(k,b))}else j&&!F&&c.get(j)(a,f),f&&d&&d.length?S(a,b,i).then(function(a){g.resolve(a)},function(a){g.reject(K(a))}):g.reject(K(a));return g.promise},V=function(a,b,e){var g,h=f?p[f]:p,i=e?G[e]:E;if(h&&h.hasOwnProperty(a)){var k=h[a];g="@:"===k.substr(0,2)?V(k.substr(2),b,e):i.interpolate(k,b)}else j&&!F&&c.get(j)(a,f),f&&d&&d.length?(x=0,g=T(a,b,i)):g=K(a);return g};if(I.preferredLanguage=function(){return b},I.cloakClassName=function(){return u},I.fallbackLanguage=function(a){if(void 0!==a&&null!==a){if(B(a),l&&d&&d.length)for(var b=0,c=d.length;c>b;b++)H[d[b]]||(H[d[b]]=M(d[b]));I.use(I.use())}return e?d[0]:d},I.useFallbackLanguage=function(a){if(void 0!==a&&null!==a)if(a){var b=J(d,a);b>-1&&(D=b)}else D=0},I.proposedLanguage=function(){return g},I.storage=function(){return w},I.use=function(a){if(!a)return f;var b=q.defer();i.$emit("$translateChangeStart");var c=y(a);return c&&(a=c),!p[a]&&l?(g=a,H[a]=M(a).then(function(c){z(c.key,c.table),b.resolve(c.key),g===a&&(L(c.key),g=void 0)},function(a){g=void 0,i.$emit("$translateChangeError"),b.reject(a),i.$emit("$translateChangeEnd")})):(b.resolve(a),L(a)),b.promise},I.storageKey=function(){return C()},I.isPostCompilingEnabled=function(){return v},I.refresh=function(a){function b(){e.resolve(),i.$emit("$translateRefreshEnd")}function c(){e.reject(),i.$emit("$translateRefreshEnd")}if(!l)throw new Error("Couldn't refresh translation table, no loader registered!");var e=q.defer();if(i.$emit("$translateRefreshStart"),a)p[a]?M(a).then(function(c){z(c.key,c.table),a===f&&L(f),b()},c):c();else{var g=[];if(d&&d.length)for(var h=0,j=d.length;j>h;h++)g.push(M(d[h]));f&&g.push(M(f)),q.all(g).then(function(a){angular.forEach(a,function(a){p[a.key]&&delete p[a.key],z(a.key,a.table)}),f&&L(f),b()})}return e.promise},I.instant=function(a,e,g){if(null===a||angular.isUndefined(a))return a;if(angular.isArray(a)){for(var h={},i=0,k=a.length;k>i;i++)h[a[i]]=I.instant(a[i],e,g);return h}if(angular.isString(a)&&a.length<1)return a;a&&(a=a.trim());var l,m=[];b&&m.push(b),f&&m.push(f),d&&d.length&&(m=m.concat(d));for(var n=0,o=m.length;o>n;n++){var q=m[n];if(p[q]&&"undefined"!=typeof p[q][a]&&(l=V(a,e,g)),"undefined"!=typeof l)break}return l||""===l||(l=a,j&&!F&&c.get(j)(a,f)),l},l&&(angular.equals(p,{})&&I.use(I.use()),d&&d.length))for(var W=0,X=d.length;X>W;W++)H[d[W]]=M(d[W]);return I}]}]),angular.module("pascalprecht.translate").factory("$translateDefaultInterpolation",["$interpolate",function(a){var b,c={},d="default",e=null,f={escaped:function(a){var b={};for(var c in a)a.hasOwnProperty(c)&&(b[c]=angular.element("<div></div>").text(a[c]).html());return b}},g=function(a){var b;return b=angular.isFunction(f[e])?f[e](a):a};return c.setLocale=function(a){b=a},c.getInterpolationIdentifier=function(){return d},c.useSanitizeValueStrategy=function(a){return e=a,this},c.interpolate=function(b,c){return e&&(c=g(c)),a(b)(c||{})},c}]),angular.module("pascalprecht.translate").constant("$STORAGE_KEY","NG_TRANSLATE_LANG_KEY"),angular.module("pascalprecht.translate").directive("translate",["$translate","$q","$interpolate","$compile","$parse","$rootScope",function(a,b,c,d,e,f){return{restrict:"AE",scope:!0,compile:function(b,g){var h=g.translateValues?g.translateValues:void 0,i=g.translateInterpolation?g.translateInterpolation:void 0,j=b[0].outerHTML.match(/translate-value-+/i);return function(b,k,l){if(b.interpolateParams={},l.$observe("translate",function(a){b.translationId=angular.equals(a,"")||!angular.isDefined(a)?c(k.text().replace(/^\s+|\s+$/g,""))(b.$parent):a}),l.$observe("translateDefault",function(a){b.defaultText=a}),h&&l.$observe("translateValues",function(a){a&&b.$parent.$watch(function(){angular.extend(b.interpolateParams,e(a)(b.$parent))})}),j){var m=function(a){l.$observe(a,function(c){b.interpolateParams[angular.lowercase(a.substr(14,1))+a.substr(15)]=c})};for(var n in l)l.hasOwnProperty(n)&&"translateValue"===n.substr(0,14)&&"translateValues"!==n&&m(n)}var o=function(b,c,e){e||"undefined"==typeof c.defaultText||(b=c.defaultText),k.html(b);var f=a.isPostCompilingEnabled(),h="undefined"!=typeof g.translateCompile,i=h&&"false"!==g.translateCompile;(f&&!h||i)&&d(k.contents())(c)},p=function(){return h||j?function(){var c=function(){b.translationId&&b.interpolateParams&&a(b.translationId,b.interpolateParams,i).then(function(a){o(a,b,!0)},function(a){o(a,b,!1)})};b.$watch("interpolateParams",c,!0),b.$watch("translationId",c)}:function(){var c=b.$watch("translationId",function(d){b.translationId&&d&&a(d,{},i).then(function(a){o(a,b,!0),c()},function(a){o(a,b,!1),c()})},!0)}}(),q=f.$on("$translateChangeSuccess",p);p(),b.$on("$destroy",q)}}}}]),angular.module("pascalprecht.translate").directive("translateCloak",["$rootScope","$translate",function(a,b){return{compile:function(c){a.$on("$translateLoadingSuccess",function(){c.removeClass(b.cloakClassName())}),c.addClass(b.cloakClassName())}}}]),angular.module("pascalprecht.translate").filter("translate",["$parse","$translate",function(a,b){return function(c,d,e){return angular.isObject(d)||(d=a(d)(this)),b.instant(c,d,e)}}]);
+/*! Drum.JS - v0.1dev - 2014-01-09
+ * http://mb.aquarius.uberspace.de/drum.js
+ *
+ * Copyright (c) 2013 Marcel Bretschneider <marcel.bretschneider@gmail.com>;
+ * Licensed under the MIT license */
+
+(function($) {
+	"use strict";
+
+	var DrumIcon = (function () {
+		var svgelem = function (tagName) {
+			return document.createElementNS("http://www.w3.org/2000/svg", tagName);
+		};
+		var svgcanvas = function (width, height) {
+			var svg = $(svgelem("svg"));
+			$(svg).attr("width", width);
+			$(svg).attr("height", height);
+
+			var g = $(svgelem("g"));
+			$(svg).append(g);
+
+			return svg;
+		};
+		var container = function (className) {
+			var container = document.createElement("div");
+			$(container).attr("class", className);
+			var inner = document.createElement("div");
+			$(container).append(inner);
+			return container;
+		};
+		var path = function (settings) {
+			var p = $(svgelem("path"));
+			var styles = {
+				"fill" : "none",
+				"stroke" : settings.dail_stroke_color,
+				"stroke-width" : settings.dail_stroke_width + "px",
+				"stroke-linecap" : "butt",
+				"stroke-linejoin" : "miter",
+				"stroke-opacity": "1"
+			};
+			var style = "";
+			for (var i in styles) {
+				$(p).attr(i, styles[i]);
+			}
+			return p;
+		};
+		return {
+			up : function (settings) {
+				var width = settings.dail_w;
+				var height = settings.dail_h;
+
+				var svg = svgcanvas(width, height);
+				var p = path(settings); 
+
+				$(p).attr("d", "m0," + (height + settings.dail_stroke_width) + "l" + (width/2) + ",-" + height + "l" + (width/2) + "," + height);
+				$(svg).find("g").append(p);
+
+				var cont = container("dial up");
+				$(cont).find("div").append(svg);
+				return cont;
+			},
+			down : function (settings) {
+				var width = settings.dail_w;
+				var height = settings.dail_h;
+
+				var svg = svgcanvas(width, height);
+				var p = path(settings); 
+
+				$(p).attr("d", "m0,-" + settings.dail_stroke_width + "l" + (width/2) + "," + height + "l" + (width/2) + ",-" + height);
+				$(svg).find("g").append(p);
+
+				var cont = container("dial down");
+				$(cont).find("div").append(svg);
+				return cont;
+			}
+		};
+	})();
+
+	var PanelModel = function (index, data_index, settings) 
+	{
+		this.index = index;
+		this.dataModel = new (function (data, i) {
+			this.data = data;
+			this.index = i;
+			this.getText = function () {
+				return this.data[this.index];
+			};
+		})(settings.data, data_index);
+
+		this.init = function () {
+			this.angle = settings.theta * index;
+			this.elem = document.createElement('figure');
+			$(this.elem).addClass('a' + this.angle*100);
+			$(this.elem).css('opacity', '0.5');
+			$(this.elem).css(
+				settings.transformProp, 
+				settings.rotateFn + '(' + -this.angle * 0.6 + 'deg) translateZ(' + settings.radius + 'rem)'
+//				settings.rotateFn + '(' + -this.angle + 'deg) translateZ(' + settings.radius + 'px)'
+			);
+			this.setText();
+		};
+		this.setText = function () {
+			$(this.elem).text(this.dataModel.getText());
+		};
+		this.update = function (data_index) {
+			if (this.dataModel.index != data_index) {
+				this.dataModel.index = data_index;
+				this.setText();
+			}
+		};
+	};
+
+	var Drum = function(element, options, transformProp)
+	{
+		var HTMLselect = ($(element))[0];
+		var obj = this;
+		var settings = $.extend({
+			panelCount : 16,
+			rotateFn : 'rotateX',
+			interactive: true,
+			dail_w: 20,
+			dail_h: 5,
+			dail_stroke_color: '#999999',
+			dail_stroke_width: 1
+		}, options || {});
+
+		settings.transformProp = transformProp;
+		settings.rotation = 0;
+		settings.distance = 0;
+		settings.last_angle = 0;
+		settings.theta = 360 / settings.panelCount;
+
+		settings.initselect = HTMLselect.selectedIndex;
+
+		if (settings.transformProp) {
+			settings.data = [];
+			for (var i=0; i<HTMLselect.children.length; i++) {
+				settings.data.push($(HTMLselect.children[i]).text());
+			}
+
+			$(element).hide();
+
+			var wrapper = document.createElement( "div" );
+			$(wrapper).addClass("drum-wrapper");
+			
+			if (settings.id) {
+        $(wrapper).attr('id', settings.id);
+      } else if (HTMLselect.id) {
+        $(wrapper).attr('id', 'drum_' + HTMLselect.id);
+      } else if ($(HTMLselect).attr('name')) {
+        $(wrapper).attr('id', 'drum_' + $(HTMLselect).attr('name'));
+      }
+			$(HTMLselect).after(wrapper);
+
+			var inner = document.createElement("div");
+			$(inner).addClass("inner");
+			$(inner).appendTo(wrapper);
+
+			var container = document.createElement( "div" );
+			$(container).addClass("container");		
+			$(container).appendTo(inner);
+
+			var drum = document.createElement( "div" );
+			$(drum).addClass("drum");
+			$(drum).appendTo(container);
+
+			if (settings.interactive === true) {
+				var dialUp = DrumIcon.up(settings);
+				$(wrapper).append(dialUp);
+
+				var dialDown = DrumIcon.down(settings);
+				$(wrapper).append(dialDown);
+
+//				$(wrapper).hover(function () {
+//					$(this).find(".up").show();
+//					$(this).find(".down").show();
+//				}, function () {
+//					$(this).find(".up").hide();
+//					$(this).find(".down").hide();
+//				});
+			}
+			settings.radius = Math.round( ( $(drum).height() / 2 ) / Math.tan( Math.PI / settings.panelCount ) )/16;
+//			settings.radius = Math.round( ( $(drum).height() / 2 ) / Math.tan( Math.PI / settings.panelCount ) );
+			settings.mapping = [];
+			var c = 0;
+			for (var i=0; i < settings.panelCount; i++) {
+				if (settings.data.length == i) break;
+				var j = c;
+				if (c >= (settings.panelCount / 2)) {
+					j = settings.data.length - (settings.panelCount - c);
+				}
+				c++;
+
+				var panel = new PanelModel(i, j, settings);
+				panel.init();
+				settings.mapping.push(panel);
+
+				$(drum).append(panel.elem);
+			}
+
+			var getNearest = function (deg) {
+				deg = deg || settings.rotation;
+				var th = (settings.theta / 2);
+				var n = 360;
+				var angle = ((deg + th) % n + n) % n;
+				angle = angle - angle % settings.theta;
+				var l = (settings.data.length - 1) * settings.theta;
+				if (angle > l) {
+					if (deg > 0) return l;
+					else return 0;
+				}
+				return angle;
+			};
+			var getSelected = function () {
+				var nearest = getNearest();
+				for (var i in settings.mapping) {
+					if (settings.mapping[i].angle == nearest) {
+						return settings.mapping[i];
+					}
+				}
+			};
+			var update = function (selected) {
+				var c, list = [], pc = settings.panelCount, ph = settings.panelCount / 2, l = settings.data.length;
+				var i = selected.index; 
+				var j = selected.dataModel.index;
+				for (var k=j-ph; k<=j+ph-1; k++) {
+					c = k;
+					if (k < 0){ c = l+k };
+					if (k > l-1){ c = k-l };
+					list.push(c);
+				}
+				var t = list.slice(ph-i); 
+				list = t.concat(list.slice(0, pc - t.length));
+				for (var i=0; i<settings.mapping.length; i++) {
+					settings.mapping[i].update(list[i]);
+				}
+			};
+			var transform = function(fire_event) {
+				$(drum).css(settings.transformProp, 'translateZ(-' + settings.radius + 'rem) ' + settings.rotateFn + '(' + settings.rotation * 0.6+ 'deg)');
+//				$(drum).css(settings.transformProp, 'translateZ(-' + settings.radius + 'px) ' + settings.rotateFn + '(' + settings.rotation + 'deg)');
+
+				var selected = getSelected();
+				if (selected) {
+					var data = selected.dataModel;
+					
+					var last_index = HTMLselect.selectedIndex;
+					HTMLselect.selectedIndex = data.index;
+
+					if (fire_event && last_index != data.index && settings.onChange) 
+						settings.onChange(HTMLselect);
+
+					$(selected.elem).css("opacity", 1);
+					$("figure:not(.a" + (selected.angle*100) + ", .hidden)", drum).css("opacity", "0.5");
+					if (selected.angle != settings.last_angle && [0,90,180,270].indexOf(selected.angle) >= 0) {
+						settings.last_angle = selected.angle;
+						update(selected);
+					}
+				}			
+			};
+
+			this.setIndex = function (dataindex) {
+				var page = Math.floor(dataindex / settings.panelCount);
+				var index = dataindex - (page * settings.panelCount);
+				var selected = new PanelModel(index, dataindex, settings);
+				update(selected);
+				settings.rotation = index * settings.theta;
+				transform(false);
+			};
+
+
+		} else {
+			this.setIndex = function (dataindex) {
+				HTMLselect.selectedIndex = dataindex;
+			};	
+		}
+
+		this.setIndex(settings.initselect);
+
+		/* IE7 getIndex error fix by https://github.com/koas */
+		this.getIndex = function () {
+			if (settings.transformProp)
+				return getSelected().dataModel.index;
+			else return HTMLselect.selectedIndex;
+		};
+
+		if (settings.transformProp) {
+			if (typeof(Hammer) != "undefined") {
+				settings.touch = new Hammer(wrapper, {
+					prevent_default: true,
+					no_mouseevents: true
+				});
+				
+				settings.touch.on("dragstart", function (e) { 
+					settings.distance = 0;
+				});
+
+				settings.touch.on("drag", function (e) {
+					var evt = ["up", "down"];
+					if (evt.indexOf(e.gesture.direction)>=0) {
+						settings.rotation += Math.round(e.gesture.deltaY - settings.distance) * -1;
+						transform(true);
+						settings.distance = e.gesture.deltaY;
+					}
+				});
+
+				settings.touch.on("dragend", function (e) {
+					settings.rotation = getNearest();
+					transform(true);
+				});
+			}
+
+			if (settings.interactive) {
+				$(dialUp).click(function (e) {
+					var deg = settings.rotation + settings.theta + 1;
+					settings.rotation = getNearest(deg);
+					transform(true);
+				});
+				$(dialDown).click(function (e) {
+					var deg = settings.rotation - settings.theta - 1;
+					settings.rotation = getNearest(deg);
+					transform(true);
+				});
+			}
+		}
+	};
+
+	var methods = {
+		getIndex : function () {
+			if ($(this).data('drum'))
+				return $(this).data('drum').getIndex();
+			return false;
+		},
+		setIndex : function (index) {
+			if ($(this).data('drum'))
+				$(this).data('drum').setIndex(index);
+		},
+		init : function (options) {
+			var transformProp = false;
+			if (!navigator.userAgent.match(/Trident/i) && !navigator.userAgent.match(/MSIE/i)) {
+				var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' ');
+				for(var i = 0; i < prefixes.length; i++) {
+					if(document.createElement('div').style[prefixes[i]] !== undefined) {
+						transformProp = prefixes[i];
+					}
+				}
+			}
+			var element = $(this);
+			if (!element.data('drum')) {
+				var drum = new Drum(element, options, transformProp);
+				element.data('drum', drum);
+			}
+		}
+	};
+
+	$.fn.drum = function(methodOrOptions)
+	{
+		var _arguments = arguments;
+		return this.each(function() {
+			if ( methods[methodOrOptions] ) {
+				return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( _arguments, 1 ));
+			} else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
+				return methods.init.apply( this, _arguments );
+			} else {
+				$.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.drum' );
+			}
+		});
+	};
+})(jQuery);
 /**
  * Calendar plugin
  */
