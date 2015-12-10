@@ -48,7 +48,7 @@
 
 
     function createSVGTemplate(sourceObj, depths) {
-//      console.log('------------------------------------------------------');
+      //console.log('------------------------------------------------------');
 //      console.log('svg start', new Date(), new Date().getMilliseconds());
       var thisObj = {},
           defer = $q.defer();
@@ -195,9 +195,9 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-//      console.log('TEMPLATE END++++', thisObj);
-//      console.log('svg finish', new Date(), new Date().getMilliseconds());
-//      console.log('------------------------------------------------------');
+      //console.log('TEMPLATE END++++', thisObj);
+      //console.log('svg finish', new Date(), new Date().getMilliseconds());
+      //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
     }
@@ -373,6 +373,8 @@
       var type = '';
       if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
         type = 'impost';
+      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
+        type = 'shtulp';
       } else {
         type = 'frame';
       }
@@ -413,6 +415,8 @@
             depth = depths.frameDepth.c;
           } else if(line.type === 'impost') {
             depth = depths.impostDepth.c/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.b/2;
           }
           break;
         case 'frame-bead':
@@ -432,6 +436,8 @@
             depth = depths.frameDepth.b - depths.frameDepth.c;
           } else if(line.type === 'impost') {
             depth = depths.impostDepth.d - depths.impostDepth.c/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.a/2 - depths.shtulpDepth.b/2;
           }
           break;
         case 'sash-in':
@@ -487,7 +493,15 @@
 //        console.log('coord = ', coord);
       crossPoint.x = coord.x;
       crossPoint.y = coord.y;
-      crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
+
+      //crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
+      if(line1.type === 'impost' || line2.type === 'impost') {
+        crossPoint.type = 'impost';
+      } else if(line1.type === 'shtulp' || line2.type === 'shtulp') {
+        crossPoint.type = 'shtulp';
+      } else {
+        crossPoint.type = 'frame';
+      }
       if(line1.to.dir === 'curv') {
         crossPoint.dir = 'curv';
         crossPoint.xQ = line1.to.xQ;
@@ -614,12 +628,12 @@
 
         //------- create 2 impost vectors
         var impVectorAx1 = {
-              type: 'impost',
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
               from: impAx0,
               to: impAx1
             },
             impVectorAx2 = {
-              type: 'impost',
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
               from: impAx1,
               to: impAx0
             };
@@ -1184,7 +1198,6 @@
             priceElements.framesSize.push(sizeValue);
           }
         }
-        //TODO----- if shtulpsSize: []
         parts.push(part);
       }
       if(beadObj.sizes.length) {
@@ -1753,9 +1766,10 @@
 
 
     function setImpostParts(points, priceElements) {
-      var pointsQty = points.length,
+      var pointsType = points[0].type,
+          pointsQty = points.length,
           part = {
-            type: 'impost',
+            type: pointsType,
             dir: 'line'
           };
       //------ if impost is line
@@ -1777,7 +1791,12 @@
       //------- for Price
       //----- converting size from mm to m
       var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
-      priceElements.impostsSize.push(sizeValue);
+
+      if(pointsType === 'impost') {
+        priceElements.impostsSize.push(sizeValue);
+      } else if(pointsType === 'shtulp') {
+        priceElements.shtulpsSize.push(sizeValue);
+      }
 
       return part;
     }
@@ -1842,7 +1861,7 @@
       } else if(pointsQty === 6) {
         for(var i = 0; i < pointsQty; i++) {
           if(impPoints[i].group) {
-            if(impPoints[i].id.indexOf('ip')+1) {
+            if(impPoints[i].id.indexOf('ip')+1 || impPoints[i].id.indexOf('sht')+1) {
               newImpPoints.push(impPoints[i]);
             }
           }
@@ -1976,7 +1995,7 @@
 //                      delete points[pQty];
                       //                    points.splice(pQty, 1);
 //                    } else
-                    if (points[pQty2].type === 'impost' && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
                       delete points[pQty2];
                       //                    points.splice(pQty2, 1);
                     } else {
@@ -1991,7 +2010,7 @@
 //                      delete points[pQty];
                       //                    points.splice(pQty, 1);
 //                    } else
-                    if (points[pQty2].type === 'impost' && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
                       //                    points.splice(pQty2, 1);
                       delete points[pQty2];
                     } else {

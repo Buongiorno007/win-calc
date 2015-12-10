@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1447154475') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1449764586') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -5413,145 +5413,154 @@ tr.factory_item {
 /* line 168, ../../dev/sass/pages/design.scss */
 .constr-shape-icon {
   font: normal 3.125rem/5rem icons, sans-serif;
-  width: 5rem;
   height: 5rem;
   float: left;
-  padding-right: 2px;
+  padding: 0 0.7rem;
   border-right: 1px solid #bebebe;
   text-align: center;
   color: #ddd;
 }
-/* line 178, ../../dev/sass/pages/design.scss */
+/* line 179, ../../dev/sass/pages/design.scss */
 .constr-shape-icon:last-child {
   border-right: none;
 }
 
-/* line 183, ../../dev/sass/pages/design.scss */
+/* line 184, ../../dev/sass/pages/design.scss */
 .clean:after {
   content: "";
 }
 
-/* line 186, ../../dev/sass/pages/design.scss */
+/* line 187, ../../dev/sass/pages/design.scss */
 .sash-left:after {
   content: "";
 }
 
-/* line 189, ../../dev/sass/pages/design.scss */
+/* line 190, ../../dev/sass/pages/design.scss */
 .sash-right:after {
   content: "";
 }
 
-/* line 192, ../../dev/sass/pages/design.scss */
+/* line 193, ../../dev/sass/pages/design.scss */
 .sash-up:after {
   content: "";
 }
 
-/* line 195, ../../dev/sass/pages/design.scss */
+/* line 196, ../../dev/sass/pages/design.scss */
 .sash-down:after {
   content: "";
 }
 
-/* line 198, ../../dev/sass/pages/design.scss */
+/* line 199, ../../dev/sass/pages/design.scss */
 .sash-right-up:after {
   content: "";
 }
 
-/* line 201, ../../dev/sass/pages/design.scss */
+/* line 202, ../../dev/sass/pages/design.scss */
 .sash-left-up:after {
   content: "";
 }
 
-/* line 204, ../../dev/sass/pages/design.scss */
+/* line 205, ../../dev/sass/pages/design.scss */
+.sash-shtulp-left:after {
+  content: "";
+}
+
+/* line 208, ../../dev/sass/pages/design.scss */
+.sash-shtulp-right:after {
+  content: "";
+}
+
+/* line 211, ../../dev/sass/pages/design.scss */
 .impost-vert:after {
   content: "";
 }
 
-/* line 207, ../../dev/sass/pages/design.scss */
+/* line 214, ../../dev/sass/pages/design.scss */
 .impost-hor:after {
   content: "";
 }
 
-/* line 210, ../../dev/sass/pages/design.scss */
+/* line 217, ../../dev/sass/pages/design.scss */
 .impost-inc-hor:after {
   content: "";
 }
 
-/* line 213, ../../dev/sass/pages/design.scss */
+/* line 220, ../../dev/sass/pages/design.scss */
 .impost-inc-vert:after {
   content: "";
 }
 
-/* line 216, ../../dev/sass/pages/design.scss */
+/* line 223, ../../dev/sass/pages/design.scss */
 .impost-inc-hor2:after {
   content: "";
 }
 
-/* line 219, ../../dev/sass/pages/design.scss */
+/* line 226, ../../dev/sass/pages/design.scss */
 .impost-inc-vert2:after {
   content: "";
 }
 
-/* line 222, ../../dev/sass/pages/design.scss */
+/* line 229, ../../dev/sass/pages/design.scss */
 .impost-curv-right:after {
   content: "";
 }
 
-/* line 225, ../../dev/sass/pages/design.scss */
+/* line 232, ../../dev/sass/pages/design.scss */
 .impost-curv-left:after {
   content: "";
 }
 
-/* line 228, ../../dev/sass/pages/design.scss */
+/* line 235, ../../dev/sass/pages/design.scss */
 .impost-curv-up:after {
   content: "";
 }
 
-/* line 231, ../../dev/sass/pages/design.scss */
+/* line 238, ../../dev/sass/pages/design.scss */
 .impost-curv-down:after {
   content: "";
 }
 
-/* line 234, ../../dev/sass/pages/design.scss */
+/* line 241, ../../dev/sass/pages/design.scss */
 .impost-curv1:after {
   content: "";
 }
 
-/* line 237, ../../dev/sass/pages/design.scss */
+/* line 244, ../../dev/sass/pages/design.scss */
 .impost-curv3:after {
   content: "";
 }
 
-/* line 240, ../../dev/sass/pages/design.scss */
+/* line 247, ../../dev/sass/pages/design.scss */
 .impost-curv4:after {
   content: "";
 }
 
-/* line 243, ../../dev/sass/pages/design.scss */
+/* line 250, ../../dev/sass/pages/design.scss */
 .impost-curv2:after {
   content: "";
 }
 
-/* line 246, ../../dev/sass/pages/design.scss */
+/* line 253, ../../dev/sass/pages/design.scss */
 .arc:after {
   content: "";
 }
 
-/* line 249, ../../dev/sass/pages/design.scss */
+/* line 256, ../../dev/sass/pages/design.scss */
 .corner:after {
   content: "";
 }
 
-/* line 252, ../../dev/sass/pages/design.scss */
+/* line 259, ../../dev/sass/pages/design.scss */
 .corner-curv:after {
   content: "";
 }
 
-/* line 259, ../../dev/sass/pages/design.scss */
+/* line 266, ../../dev/sass/pages/design.scss */
 .construction-block {
   text-align: center;
 }
 
-/* line 266, ../../dev/sass/pages/design.scss */
+/* line 273, ../../dev/sass/pages/design.scss */
 .construction-scrollbox {
   width: 100%;
   height: 100%;
@@ -5560,72 +5569,72 @@ tr.factory_item {
   overflow: auto;
 }
 
-/* line 273, ../../dev/sass/pages/design.scss */
+/* line 280, ../../dev/sass/pages/design.scss */
 .design-attantion {
   top: 45%;
   left: 35%;
 }
 
-/* line 281, ../../dev/sass/pages/design.scss */
+/* line 288, ../../dev/sass/pages/design.scss */
 .right-menu-header {
   position: absolute;
   right: 0;
   top: 3%;
 }
 
-/* line 286, ../../dev/sass/pages/design.scss */
+/* line 293, ../../dev/sass/pages/design.scss */
 .nav-tool-box {
   float: left;
   width: 8rem;
   text-align: center;
 }
 
-/* line 291, ../../dev/sass/pages/design.scss */
+/* line 298, ../../dev/sass/pages/design.scss */
 .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
 }
-/* line 297, ../../dev/sass/pages/design.scss */
+/* line 304, ../../dev/sass/pages/design.scss */
 .construct-tools:after {
   top: 25%;
   left: 25%;
 }
 
-/* line 302, ../../dev/sass/pages/design.scss */
+/* line 309, ../../dev/sass/pages/design.scss */
 .save-construction {
   font: normal 1.75rem/1.5 icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 306, ../../dev/sass/pages/design.scss */
+/* line 313, ../../dev/sass/pages/design.scss */
 .save-construction:after {
   content: "";
 }
 
-/* line 310, ../../dev/sass/pages/design.scss */
+/* line 317, ../../dev/sass/pages/design.scss */
 .close-construction {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
 
-/* line 315, ../../dev/sass/pages/design.scss */
+/* line 322, ../../dev/sass/pages/design.scss */
 .step-back {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 318, ../../dev/sass/pages/design.scss */
+/* line 325, ../../dev/sass/pages/design.scss */
 .step-back:after {
   content: "";
 }
 
-/* line 325, ../../dev/sass/pages/design.scss */
+/* line 332, ../../dev/sass/pages/design.scss */
 .right-menu-footer {
   position: absolute;
   right: 0;
   width: 32rem;
 }
 
-/* line 330, ../../dev/sass/pages/design.scss */
+/* line 337, ../../dev/sass/pages/design.scss */
 .door-config-menu {
   position: absolute;
   top: 25%;
@@ -5634,29 +5643,29 @@ tr.factory_item {
   text-align: right;
 }
 
-/* line 337, ../../dev/sass/pages/design.scss */
+/* line 344, ../../dev/sass/pages/design.scss */
 .door-config-btn {
   font: normal 8.125rem/1 icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 346, ../../dev/sass/pages/design.scss */
+/* line 353, ../../dev/sass/pages/design.scss */
 .door-config-btn:after {
   color: #6ed44a;
   content: "";
 }
-/* line 351, ../../dev/sass/pages/design.scss */
+/* line 358, ../../dev/sass/pages/design.scss */
 .door-config-btn.active:after {
   content: "";
 }
 
-/* line 356, ../../dev/sass/pages/design.scss */
+/* line 363, ../../dev/sass/pages/design.scss */
 .door-config-label {
   margin-bottom: 1.875rem;
 }
 
-/* line 364, ../../dev/sass/pages/design.scss */
+/* line 371, ../../dev/sass/pages/design.scss */
 .size-calculator {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -5668,17 +5677,17 @@ tr.factory_item {
   background-color: #f8f8f8;
   border-left: 1px solid #bebebe;
 }
-/* line 372, ../../dev/sass/pages/design.scss */
+/* line 379, ../../dev/sass/pages/design.scss */
 .size-calculator.active {
   bottom: 0;
 }
 
-/* line 377, ../../dev/sass/pages/design.scss */
+/* line 384, ../../dev/sass/pages/design.scss */
 .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 385, ../../dev/sass/pages/design.scss */
+/* line 392, ../../dev/sass/pages/design.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -5692,12 +5701,12 @@ tr.factory_item {
   background-color: #fafafa;
   z-index: 12;
 }
-/* line 395, ../../dev/sass/pages/design.scss */
+/* line 402, ../../dev/sass/pages/design.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 399, ../../dev/sass/pages/design.scss */
+/* line 406, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -5708,40 +5717,40 @@ tr.factory_item {
   position: absolute;
   width: 32rem;
 }
-/* line 406, ../../dev/sass/pages/design.scss */
+/* line 413, ../../dev/sass/pages/design.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 411, ../../dev/sass/pages/design.scss */
+/* line 418, ../../dev/sass/pages/design.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 413, ../../dev/sass/pages/design.scss */
+/* line 420, ../../dev/sass/pages/design.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 417, ../../dev/sass/pages/design.scss */
+/* line 424, ../../dev/sass/pages/design.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 419, ../../dev/sass/pages/design.scss */
+/* line 426, ../../dev/sass/pages/design.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 423, ../../dev/sass/pages/design.scss */
+/* line 430, ../../dev/sass/pages/design.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 425, ../../dev/sass/pages/design.scss */
+/* line 432, ../../dev/sass/pages/design.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 429, ../../dev/sass/pages/design.scss */
+/* line 436, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -5755,58 +5764,58 @@ tr.factory_item {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 440, ../../dev/sass/pages/design.scss */
+/* line 447, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 445, ../../dev/sass/pages/design.scss */
+/* line 452, ../../dev/sass/pages/design.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 450, ../../dev/sass/pages/design.scss */
+/* line 457, ../../dev/sass/pages/design.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 455, ../../dev/sass/pages/design.scss */
+/* line 462, ../../dev/sass/pages/design.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 460, ../../dev/sass/pages/design.scss */
+/* line 467, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 463, ../../dev/sass/pages/design.scss */
+/* line 470, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 468, ../../dev/sass/pages/design.scss */
+/* line 475, ../../dev/sass/pages/design.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 474, ../../dev/sass/pages/design.scss */
+/* line 481, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 479, ../../dev/sass/pages/design.scss */
+/* line 486, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 483, ../../dev/sass/pages/design.scss */
+/* line 490, ../../dev/sass/pages/design.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
@@ -5816,19 +5825,19 @@ tr.factory_item {
   background: url('../img/door-arrow.png?1447154474') no-repeat;
   background-size: 100% 100%;
 }
-/* line 492, ../../dev/sass/pages/design.scss */
+/* line 499, ../../dev/sass/pages/design.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 497, ../../dev/sass/pages/design.scss */
+/* line 504, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 503, ../../dev/sass/pages/design.scss */
+/* line 510, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-finish-btn {
   font: normal 3.75rem/1 icons, sans-serif;
   width: 100%;
@@ -5836,29 +5845,29 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 513, ../../dev/sass/pages/design.scss */
+/* line 520, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 516, ../../dev/sass/pages/design.scss */
+/* line 523, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
   content: "";
 }
-/* line 520, ../../dev/sass/pages/design.scss */
+/* line 527, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 523, ../../dev/sass/pages/design.scss */
+/* line 530, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
   content: "";
 }
-/* line 527, ../../dev/sass/pages/design.scss */
+/* line 534, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 530, ../../dev/sass/pages/design.scss */
+/* line 537, ../../dev/sass/pages/design.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }

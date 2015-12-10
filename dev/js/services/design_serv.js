@@ -459,65 +459,157 @@
           blockID = glassObj.attributes.block_id.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
-          minGlassSize = d3.min(glass.sizes);
-//console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
-      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+          minGlassSize = d3.min(glass.sizes),
+          sashesParams;
+
+      /**---- shtulps ---*/
+      if(type === 8 || type === 9) {
+//console.info('createSash++++', ProductStor);
+        if(minGlassSize >= globalConstants.minSizeLimitStulp) {
+
+          if(type === 8) {
+            sashesParams = [
+              {
+                openDir: [4],
+                handlePos: 4,
+                sashType: 4
+              },
+              {
+                openDir: [1, 2],
+                handlePos: 2,
+                sashType: 4
+              }
+            ];
+          } else if(type === 9) {
+            sashesParams = [
+              {
+                openDir: [1, 4],
+                handlePos: 4,
+                sashType: 4
+              },
+              {
+                openDir: [2],
+                handlePos: 2,
+                sashType: 4
+              }
+            ];
+          }
+
+          createShtulp(blockID, sashesParams);
+
+        } else {
+          //------ show error
+          showErrorInBlock(blockID);
+        }
+
+      } else {
+
+        if (minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+
+          //---- save last step
+          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+          for (var b = 1; b < blocksQty; b++) {
+            if (blocks[b].id === blockID) {
+              blocks[b].blockType = 'sash';
+              blocks[b].gridId = 0;//TODO ???
+
+              switch (type) {
+                //----- 'left'
+                case 2:
+                  blocks[b].openDir = [4];
+                  blocks[b].handlePos = 4;
+                  blocks[b].sashType = 2;
+                  break;
+                //----- 'right'
+                case 3:
+                  blocks[b].openDir = [2];
+                  blocks[b].handlePos = 2;
+                  blocks[b].sashType = 2;
+                  break;
+                //----- 'up'
+                case 4:
+                  blocks[b].openDir = [1];
+                  blocks[b].handlePos = 1;
+                  blocks[b].sashType = 7;
+                  break;
+                //------ 'down'
+                case 5:
+                  blocks[b].openDir = [3];
+                  blocks[b].handlePos = 3;
+                  blocks[b].sashType = 2;
+                  break;
+                //------ 'up', 'right'
+                case 6:
+                  blocks[b].openDir = [1, 2];
+                  blocks[b].handlePos = 2;
+                  blocks[b].sashType = 6;
+                  break;
+                //------ 'up', 'left'
+                case 7:
+                  blocks[b].openDir = [1, 4];
+                  blocks[b].handlePos = 4;
+                  blocks[b].sashType = 6;
+                  break;
+              }
+              //----- change Template
+              rebuildSVGTemplate();
+            }
+          }
+        } else {
+          //------ show error
+          showErrorInBlock(blockID);
+        }
+      }
+    }
+
+
+
+    /**----------- create SHTULP -----------*/
+
+    function createShtulp(blockID, sashesParams) {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          angel = 90, dimType = 0, currBlockInd, curBlockN,
+          lastBlockN,
+          impVector,
+          crossPoints;
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-        for (var b = 1; b < blocksQty; b++) {
-          if (blocks[b].id === blockID) {
-            blocks[b].blockType = 'sash';
-            blocks[b].gridId = 0;
 
-            switch (type) {
-              //----- 'left'
-              case 2:
-                blocks[b].openDir = [4];
-                blocks[b].handlePos = 4;
-                blocks[b].sashType = 2;
-                break;
-              //----- 'right'
-              case 3:
-                blocks[b].openDir = [2];
-                blocks[b].handlePos = 2;
-                blocks[b].sashType = 2;
-                break;
-              //----- 'up'
-              case 4:
-                blocks[b].openDir = [1];
-                blocks[b].handlePos = 1;
-                blocks[b].sashType = 7;
-                break;
-              //------ 'down'
-              case 5:
-                blocks[b].openDir = [3];
-                blocks[b].handlePos = 3;
-                blocks[b].sashType = 2;
-                break;
-              //------ 'up', 'right'
-              case 6:
-                blocks[b].openDir = [1, 2];
-                blocks[b].handlePos = 2;
-                blocks[b].sashType = 6;
-                break;
-              //------ 'up', 'left'
-              case 7:
-                blocks[b].openDir = [1, 4];
-                blocks[b].handlePos = 4;
-                blocks[b].sashType = 6;
-                break;
-            }
-            //----- change Template
-            rebuildSVGTemplate();
+        //------- find lines as to current block
+        while (--blocksQty > 0) {
+          if (blocks[blocksQty].id === blockID) {
+            currBlockInd = blocksQty*1;
+            curBlockN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
           }
         }
-      } else {
-        //------ show error
-        showErrorInBlock(blockID);
-      }
+        lastBlockN = getLastBlockNumber(blocksSource);
+        impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
+        crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
+
+        if(crossPoints.length > 2) {
+          sliceExtraPoints(crossPoints);
+        }
+
+        var impPointsQty = crossPoints.length;
+        if (impPointsQty === 2) {
+          while (--impPointsQty > -1) {
+            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType, 1);
+            createChildBlock(++lastBlockN, currBlockInd, blocksSource, 1, sashesParams[impPointsQty]);
+          }
+          //----- change Template
+          rebuildSVGTemplate();
+        } else {
+          //------ show error
+          showErrorInBlock(blockID);
+        }
     }
+
+
 
 
 
@@ -552,7 +644,26 @@
 
       for(var b = 1; b < blocksQty; b++) {
         if (blocks[b].id === blockID) {
-          removeSashPropInBlock(blocks[b]);
+          //console.log('delete sash-----', blocks[b]);
+
+          //------- if SHTULP
+          if(blocks[b].sashType === 4) {
+            //----- delete children blocks and impost points
+            for(var p = 1; p < blocksQty; p++) {
+              //console.log('delete sash 2-----', blocks[p].id, blocks[b].parent);
+              if(blocks[p].id === blocks[b].parent) {
+                removeAllChildrenBlock(blocks[p].children[0], blocks);
+                removeAllChildrenBlock(blocks[p].children[1], blocks);
+                blocks[p].children.length = 0;
+                delete blocks[p].impost;
+                break;
+              }
+            }
+
+          } else {
+            removeSashPropInBlock(blocks[b]);
+          }
+          break;
         }
       }
       //----- change Template
@@ -564,7 +675,8 @@
       block.blockType = 'frame';
       delete block.openDir;
       delete block.handlePos;
-      delete block.gridId;
+      delete block.sashType;
+      delete block.gridId; //TODO ???
     }
 
 
@@ -1257,7 +1369,7 @@
     }
 
 
-    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType) {
+    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType, isShtulp) {
       var impPoint = {
         type:'impost',
         id:'ip'+curBlockN,
@@ -1266,6 +1378,11 @@
         dir:'line',
         dimType: dimType
       };
+      //---------- for SHTULP
+      if(isShtulp) {
+        impPoint.type = 'shtulp';
+        impPoint.id = 'sht'+curBlockN;
+      }
       //---- insert impostPoint in parent block
       if(!blocks[blockIndex].impost) {
         blocks[blockIndex].impost = {
@@ -1278,7 +1395,7 @@
     }
 
 
-    function createChildBlock (blockN, blockIndex, blocks) {
+    function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
       var newBlock = {
         type: 'skylight',
         id: 'block_' + blockN,
@@ -1292,6 +1409,13 @@
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt
       };
+
+      //---------- for SHTULP
+      if(isShtulp) {
+        newBlock.blockType = 'sash';
+        angular.extend(newBlock, sashParams);
+      }
+
       //---- add Id new block in parent block
       blocks[blockIndex].children.push(newBlock.id);
       //---- insert block in blocks

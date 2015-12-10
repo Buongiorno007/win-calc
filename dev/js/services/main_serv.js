@@ -417,7 +417,7 @@
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 //        console.log('objXFormedPrice+++++++', objXFormedPrice);
 
-        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function(result) {

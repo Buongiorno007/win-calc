@@ -167,10 +167,11 @@ $door-config-content: $ipad-height - $door-config-header;
 
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
-  width: rem(80px);
+  //width: rem(80px);
   height: rem(80px);
   float: left;
-  padding-right: 2px;
+  //padding-right: 2px;
+  padding: 0 0.7rem;
   border-right: 1px solid $main_gray_btn;
   text-align: center;
   color: #ddd;
@@ -200,6 +201,12 @@ $door-config-content: $ipad-height - $door-config-header;
 }
 .sash-left-up:after {
   content: $sash-left-up-icon;
+}
+.sash-shtulp-left:after {
+  content: $sash-shtulp-left-icon;
+}
+.sash-shtulp-right:after {
+  content: $sash-shtulp-right-icon;
 }
 .impost-vert:after {
   content: $impost-vert-icon;
