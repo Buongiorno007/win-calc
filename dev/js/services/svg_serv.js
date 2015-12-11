@@ -157,6 +157,7 @@
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
 
             } else if(thisObj.details[i].blockType === 'sash') {
+              //console.info('-------', i, thisObj.details[i]);
               thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
@@ -373,7 +374,8 @@
       var type = '';
       if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
         type = 'impost';
-      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
+      //} else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
+      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1 && from === to) {
         type = 'shtulp';
       } else {
         type = 'frame';
@@ -386,7 +388,7 @@
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
           linesQty = lines.length;
-
+//console.info('lines+++', lines);
       for(var i = 0; i < linesQty; i++) {
         var newLine1 = angular.copy(lines[i]),
             newLine2 = {},
@@ -409,6 +411,7 @@
 
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
+      //console.info('depth++++', group, line.type);
       switch(group) {
         case 'frame':
           if(line.type === 'frame') {
@@ -450,9 +453,9 @@
           depth = depths.sashDepth.d - depths.sashDepth.c;
           break;
 
-        case 'frame+sash':
-          depth = depths.frameDepth.b + depths.sashDepth.c;
-          break;
+        //case 'frame+sash':
+        //  depth = depths.frameDepth.b + depths.sashDepth.c;
+        //  break;
       }
       var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
       return newCoefC;

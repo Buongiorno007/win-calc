@@ -464,20 +464,19 @@
 
       /**---- shtulps ---*/
       if(type === 8 || type === 9) {
-//console.info('createSash++++', ProductStor);
         if(minGlassSize >= globalConstants.minSizeLimitStulp) {
 
           if(type === 8) {
             sashesParams = [
               {
                 openDir: [4],
-                handlePos: 4,
+                handlePos: 0,
                 sashType: 4
               },
               {
                 openDir: [1, 2],
                 handlePos: 2,
-                sashType: 4
+                sashType: 17
               }
             ];
           } else if(type === 9) {
@@ -485,11 +484,11 @@
               {
                 openDir: [1, 4],
                 handlePos: 4,
-                sashType: 4
+                sashType: 17
               },
               {
                 openDir: [2],
-                handlePos: 2,
+                handlePos: 0,
                 sashType: 4
               }
             ];
@@ -637,7 +636,8 @@
     function deleteSash(glassObj) {
       var blockID = glassObj.attributes.block_id.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length;
+          blocksQty = blocks.length,
+          isShtulp = 0;
 
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -646,19 +646,14 @@
         if (blocks[b].id === blockID) {
           //console.log('delete sash-----', blocks[b]);
 
-          //------- if SHTULP
-          if(blocks[b].sashType === 4) {
+          //------- checking existing SHTULP
+          isShtulp = checkShtulp(blocks[b].parent, blocks, blocksQty);
+          if(isShtulp) {
             //----- delete children blocks and impost points
-            for(var p = 1; p < blocksQty; p++) {
-              //console.log('delete sash 2-----', blocks[p].id, blocks[b].parent);
-              if(blocks[p].id === blocks[b].parent) {
-                removeAllChildrenBlock(blocks[p].children[0], blocks);
-                removeAllChildrenBlock(blocks[p].children[1], blocks);
-                blocks[p].children.length = 0;
-                delete blocks[p].impost;
-                break;
-              }
-            }
+            removeAllChildrenBlock(blocks[isShtulp].children[0], blocks);
+            removeAllChildrenBlock(blocks[isShtulp].children[1], blocks);
+            blocks[isShtulp].children.length = 0;
+            delete blocks[isShtulp].impost;
 
           } else {
             removeSashPropInBlock(blocks[b]);
@@ -669,6 +664,25 @@
       //----- change Template
       rebuildSVGTemplate();
     }
+
+
+
+
+    function checkShtulp(parentId, blocks, blocksQty) {
+      var isShtulp = 0;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === parentId) {
+          if(blocks[blocksQty].impost) {
+            if(blocks[blocksQty].impost.impostAxis[0].type === 'shtulp') {
+              isShtulp = blocksQty;
+            }
+          }
+        }
+      }
+      return isShtulp;
+    }
+
+
 
 
     function removeSashPropInBlock(block) {

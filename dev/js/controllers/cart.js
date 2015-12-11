@@ -31,7 +31,6 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
-
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;

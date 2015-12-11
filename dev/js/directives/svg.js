@@ -130,21 +130,23 @@
                           },
                       'marker-mid': function(d) {
                         var dirQty = template.details[i].sashOpenDir.length;
-                        if(dirQty === 1) {
-                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                            return 'url(#handleR)';
-                          } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
-                            return 'url(#handleU)';
-                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                            return 'url(#handleL)';
-                          } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
-                            return 'url(#handleD)';
-                          }
-                        } else if(dirQty === 2) {
-                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                            return 'url(#handleR)';
-                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                            return 'url(#handleL)';
+                        if(template.details[i].handlePos) {
+                          if (dirQty === 1) {
+                            if (template.details[i].handlePos === 2) {
+                              return 'url(#handleR)';
+                            } else if (template.details[i].handlePos === 1) {
+                              return 'url(#handleU)';
+                            } else if (template.details[i].handlePos === 4) {
+                              return 'url(#handleL)';
+                            } else if (template.details[i].handlePos === 3) {
+                              return 'url(#handleD)';
+                            }
+                          } else if (dirQty === 2) {
+                            if (d.points[1].fi < 45 || d.points[1].fi > 315) {
+                              return 'url(#handleR)';
+                            } else if (d.points[1].fi > 135 && d.points[1].fi < 225) {
+                              return 'url(#handleL)';
+                            }
                           }
                         }
                       }
