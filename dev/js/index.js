@@ -152,7 +152,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       });
 
     $translateProvider.translations('ru', russianDictionary);
-    $translateProvider.translations('ua', ukrainianDictionary);
+    $translateProvider.translations('uk', ukrainianDictionary);
     $translateProvider.translations('en', englishDictionary);
     $translateProvider.translations('de', germanDictionary);
     $translateProvider.translations('ro', romanianDictionary);

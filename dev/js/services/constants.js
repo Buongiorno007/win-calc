@@ -41,7 +41,7 @@
       ],
       //------------ Languages
       languages: [
-        {label: 'ua', name: 'Українська'},
+        {label: 'uk', name: 'Українська'},
         {label: 'ru', name: 'Русский'},
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},

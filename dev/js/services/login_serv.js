@@ -46,11 +46,11 @@
       } else {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
-        console.info(window.navigator);
+        //console.info(window.navigator);
 //        console.info(window.navigator.language);
 //        console.info(window.navigator.userLanguage);
 //        console.info(window.navigator.browserLanguage);
-        console.info("The language is: " + browserLang);
+//        console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
@@ -63,11 +63,10 @@
     function checkLangDictionary(lang) {
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
-        if(lang.indexOf(globalConstants.languages[langQty].label)+1) {
-          //console.log(lang);
-          //console.log(globalConstants.languages[langQty].label);
+        if(globalConstants.languages[langQty].label.indexOf(lang)+1) {
           UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
           UserStor.userInfo.langName = globalConstants.languages[langQty].name;
+          break;
         }
       }
     }
