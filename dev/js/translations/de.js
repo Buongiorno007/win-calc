@@ -33,7 +33,8 @@
         SELECT: 'wählen',
         AND: 'und',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'Einloggen',
@@ -93,7 +94,7 @@
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
         ROOM_SELECTION: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
         GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',

@@ -33,7 +33,8 @@
         SELECT: ' Scegliere ',
         AND: ' e ',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'Entrare',
@@ -93,7 +94,7 @@
         COMMENT: "Lasci la nota sull'ordine qui.",
         ROOM_SELECTION: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
-        HEATCOEF_VAL: 'Wt/m',
+        HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
         GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',

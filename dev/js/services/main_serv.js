@@ -571,12 +571,13 @@
       commonHeatCoeffTotal = profileHeatCoeffTotal + glassHeatCoeffTotal;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
-        /** U */
-        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/commonHeatCoeffTotal );
-      } else {
         /** R */
         ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( commonHeatCoeffTotal/ProductStor.product.template_square );
+      } else {
+        /** U */
+        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/commonHeatCoeffTotal );
       }
+
     }
 
 

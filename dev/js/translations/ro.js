@@ -33,7 +33,8 @@
         SELECT: 'Select',
         AND: 'și',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'autentificare',
@@ -93,7 +94,7 @@
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
         ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
         GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",

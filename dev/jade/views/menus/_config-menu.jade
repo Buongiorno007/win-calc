@@ -42,9 +42,15 @@
       .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'settings.SAVE' | translate }}
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'u-coeff-low flashing': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div R = {{ configMenu.P.product.heat_coef_total }}
+    div {{'common_words.LETTER_M'| translate}} &sup2;&middot;&deg;C/{{'mainpage.HEATCOEF_VAL' | translate}}
+
+  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && !configMenu.U.userInfo.therm_coeff_id", ng-class="{'u-coeff-low flashing': configMenu.P.product.heat_coef_total > configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
     div U = {{ configMenu.P.product.heat_coef_total }}
-    div {{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K
+    div {{'mainpage.HEATCOEF_VAL' | translate}}/{{'common_words.LETTER_M'| translate}} &sup2;&middot;&deg;C
+
+
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
 
   .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", hm-tap="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}

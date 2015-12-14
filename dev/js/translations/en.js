@@ -33,7 +33,8 @@
         SELECT: 'Select',
         AND: 'and',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'To enter',
@@ -93,7 +94,7 @@
         COMMENT: 'Leave a note on the order here.',
         ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
         PROFILE_TIP: 'To select a profile, click here',
         GLASS_TIP: 'To select a double-glazed window, click here',
@@ -280,7 +281,7 @@
         LINK_BETWEEN_ALL: 'between all',
 //        LINK_DELETE_ALL_GROUPE: 'delete all',
         CLIENT_SEX: 'Sex',
-        CLIENT_SEX_M: 'M',
+        CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
         CLIENT_AGE_OLDER: 'older',

@@ -33,7 +33,8 @@
         SELECT: 'Выбрать',
         AND: 'и',
         OK: 'OK',
-        BACK: 'Назад'
+        BACK: 'Назад',
+        LETTER_M: 'м'
       },
       login: {
         ENTER: 'Войти',
@@ -93,7 +94,7 @@
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
         ROOM_SELECTION: 'Выбор шаблона',
         CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
-        HEATCOEF_VAL: 'Вт/м',
+        HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
         PROFILE_TIP: 'Для выбора профиля нажмите сюда',
         GLASS_TIP: 'Для выбора стеклопакета нажмите сюда',

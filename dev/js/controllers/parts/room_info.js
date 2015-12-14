@@ -7,12 +7,13 @@
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
-  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor) {
+  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
 
     thisCtrl.config = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
