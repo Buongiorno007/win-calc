@@ -178,7 +178,7 @@
         } else {
           localDB.importUser(url.access, 1).then(function(result) {
             GlobalStor.global.isLoader = 1;
-            importDBProsses(result.user);
+            importDBProsses(result.user, result.factoryLink);
           });
         }
 
@@ -307,14 +307,12 @@
 
     function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
-//        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+        //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === result.user.password) {
-
-            importDBProsses(result.user);
-
+            importDBProsses(result.user, result.factoryLink);
           } else {
             GlobalStor.global.isLoader = 0;
             //---- user not exists
@@ -331,7 +329,7 @@
 
 
 
-    function importDBProsses(user) {
+    function importDBProsses(user, factoryLink) {
 
       //----- checking user activation
       if(user.locked) {
@@ -349,6 +347,10 @@
                 localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
                 //------- save user in Stor
                 angular.extend(UserStor.userInfo, user);
+                //-------- check factory Link
+                if(factoryLink !== null) {
+                  UserStor.userInfo.factoryLink = factoryLink;
+                }
 
                 //------- import Location
                 localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {

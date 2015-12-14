@@ -254,7 +254,8 @@
               ' mount_sun NUMERIC(5,2),' +
               ' device_code VARCHAR(250),'+
               ' last_sync TIMESTAMP,' +
-              ' address VARCHAR',
+              ' address VARCHAR,' +
+              ' therm_coeff_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {

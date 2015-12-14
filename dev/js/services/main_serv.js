@@ -539,10 +539,11 @@
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
       var glassSquareTotal = 0,
-          glassHeatCoeffTotal = 0,
           glassSizeQty = objXFormedPrice.sizes[5].length,
           glassQty = ProductStor.product.glass.length,
-          profileHeatCoeffTotal = 0;
+          glassHeatCoeffTotal = 0,
+          profileHeatCoeffTotal = 0,
+          commonHeatCoeffTotal = 0;
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
@@ -567,11 +568,15 @@
       }
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
 
+      commonHeatCoeffTotal = profileHeatCoeffTotal + glassHeatCoeffTotal;
       /** calculate Heat Coeff Total */
-      /** U */
-      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/(profileHeatCoeffTotal + glassHeatCoeffTotal) );
-      /** R */
-//      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( (profileHeatCoeffTotal + glassHeatCoeffTotal)/ProductStor.product.template_square );
+      if(UserStor.userInfo.therm_coeff_id) {
+        /** U */
+        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/commonHeatCoeffTotal );
+      } else {
+        /** R */
+        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( commonHeatCoeffTotal/ProductStor.product.template_square );
+      }
     }
 
 

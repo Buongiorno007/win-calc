@@ -9,7 +9,7 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
+  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -74,11 +74,13 @@
         case 8:
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          if (GlobalStor.global.isDevice) {
-            var ref = window.open('http://axorindustry.com', '_system');
-            ref.close();
-          } else {
-            $window.open('http://windowscalculator.net:3002/login');
+          if(UserStor.userInfo.factoryLink.length) {
+            if (GlobalStor.global.isDevice) {
+              var ref = window.open(UserStor.userInfo.factoryLink);
+              ref.close();
+            } else {
+              $window.open(UserStor.userInfo.factoryLink);
+            }
           }
           break;
         case 9:

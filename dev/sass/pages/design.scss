@@ -167,18 +167,25 @@ $door-config-content: $ipad-height - $door-config-header;
 
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
-  //width: rem(80px);
-  height: rem(80px);
-  float: left;
-  //padding-right: 2px;
+  position: relative;
   padding: 0 0.7rem;
   border-right: 1px solid $main_gray_btn;
   text-align: center;
   color: #ddd;
-
+  background-color: #242424;
+  z-index: 5;
   &:last-child {
     border-right: none;
   }
+}
+
+
+.drop-shape-icon {
+  @extend .constr-shape-icon;
+  position: absolute;
+  top: 0;
+  border-right: none;
+  z-index: 4;
 }
 
 .clean:after {
@@ -217,32 +224,81 @@ $door-config-content: $ipad-height - $door-config-header;
 .impost-inc-hor:after {
   content: $impost-inc-hor-icon;
 }
-.impost-inc-vert:after {
-  content: $impost-inc-vert-icon;
+.impost-inc-vert{
+  left: 10.5rem;
+  top: 5.1rem;
+  &:after {
+    content: $impost-inc-vert-icon;
+  }
+  &.active {
+    top: 5.1rem;
+  }
 }
-.impost-inc-hor2:after {
-  content: $impost-inc-hor2-icon;
+.impost-inc-hor2 {
+  left: 10.5rem;
+  top: 10.2rem;
+  &:after {
+    content: $impost-inc-hor2-icon;
+  }
+  &.active {
+    top: 10.2rem;
+  }
 }
-.impost-inc-vert2:after {
-  content: $impost-inc-vert2-icon;
+.impost-inc-vert2{
+  left: 10.5rem;
+  top: 15.4rem;
+  &:after {
+    content: $impost-inc-vert2-icon;
+  }
+  &.active {
+    top: 15.4rem;
+  }
 }
 .impost-curv-right:after {
   content: $impost-curv-right-icon;
 }
-.impost-curv-left:after {
-  content: $impost-curv-left-icon;
+.impost-curv-left {
+  left: 15.1rem;
+  top: 5.1rem;
+  &:after {
+    content: $impost-curv-left-icon;
+  }
+  &.active {
+    top: 5.1rem;
+  }
 }
-.impost-curv-up:after {
-  content: $impost-curv-up-icon;
+.impost-curv-up {
+  left: 15.1rem;
+  top: 10.2rem;
+  &:after {
+    content: $impost-curv-up-icon;
+  }
+  &.active {
+    top: 10.2rem;
+  }
 }
-.impost-curv-down:after {
-  content: $impost-curv-down-icon;
+.impost-curv-down {
+  left: 15.1rem;
+  top: 15.4rem;
+  &:after {
+    content: $impost-curv-down-icon;
+  }
+  &.active {
+    top: 15.4rem;
+  }
 }
 .impost-curv1:after {
   content: $impost-curv1-icon;
 }
-.impost-curv3:after {
-  content: $impost-curv3-icon;
+.impost-curv3 {
+  left: 20.1rem;
+  top: 5.1rem;
+  &:after {
+    content: $impost-curv3-icon;
+  }
+  &.active {
+    top: 5.1rem;
+  }
 }
 .impost-curv4:after {
   content: $impost-curv4-icon;

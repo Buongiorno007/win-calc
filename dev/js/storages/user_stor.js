@@ -28,7 +28,8 @@
         discountConstrMax: 0,
         discountAddElemMax: 0,
         discConstrByWeek: [],
-        discAddElemByWeek: []
+        discAddElemByWeek: [],
+        factoryLink: ''
       },
       setDefaultUser: setDefaultUser
     };
