@@ -9,7 +9,11 @@
 
   function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
 
-    var thisCtrl = this;
+    var thisCtrl = this,
+        delaySubMenu1 = 300,
+        delaySubMenu2 = 600,
+        delaySubMenu3 = 900,
+        delaySubMenu4 = 1200;
 
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -82,6 +86,7 @@
         DesignServ.closeSizeCaclulator();
       } else {
         DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
         DesignServ.hideCornerMarks();
         DesignServ.deselectAllImpost();
         if (id !== 4) {
@@ -93,6 +98,19 @@
           switch (DesignStor.design.activeMenuItem) {
             case 1:
               showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
               break;
             case 2:
               DesignServ.deselectAllGlass();
@@ -100,6 +118,19 @@
               break;
             case 3:
               showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
               break;
             case 4:
               DesignServ.deselectAllGlass();
@@ -153,22 +184,39 @@
 //      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
       event.preventDefault();
 //      event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      var glassQty = DesignStor.design.selectedGlass.length,
+
+      var isPermit = 1,
+          glassQty = DesignStor.design.selectedGlass.length,
           i = 0;
+
       if(sashType === 1) {
+        DesignStor.design.activeMenuItem = 0;
+        DesignStor.design.activeSubMenuItem = 0;
+        DesignStor.design.isDropSubMenu = 0;
         //----- delete sash
         for(; i < glassQty; i++) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
-        //----- insert sash
-        for(; i < glassQty; i++) { //TODO download hardare types and create submenu
-          DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+        if(sashType === 2 || sashType === 6 || sashType === 8) {
+          if(DesignStor.design.isDropSubMenu === sashType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = sashType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          DesignStor.design.activeMenuItem = 0;
+          DesignStor.design.activeSubMenuItem = 0;
+          DesignStor.design.isDropSubMenu = 0;
+          //----- insert sash
+          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+          }
         }
       }
-//      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
     }
 
 
@@ -295,12 +343,14 @@
 
     function insertImpost(impostType, event) {
       event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      var impostsQty = DesignStor.design.selectedImpost.length,
+      var isPermit = 1,
+          impostsQty = DesignStor.design.selectedImpost.length,
           i = 0;
 
       if(impostType === 1) {
+        DesignStor.design.activeMenuItem = 0;
+        DesignStor.design.activeSubMenuItem = 0;
+        DesignStor.design.isDropSubMenu = 0;
         //----- delete imposts
         if (impostsQty) {
           for (; i < impostsQty; i++) {
@@ -311,16 +361,31 @@
           }, 300);
         }
       } else {
-        if(!impostsQty) {
-          var glassQty = DesignStor.design.selectedGlass.length;
-          if(glassQty) {
-            //------- insert imposts
-            for(; i < glassQty; i++) {
-              DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
-            }
+        //----- show drop submenu
+        if(impostType === 4 || impostType === 8 || impostType === 12) {
+          if(DesignStor.design.isDropSubMenu === impostType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = impostType;
+            isPermit = 0;
           }
-        } else {
-          DesignServ.deselectAllImpost();
+        }
+
+        if(isPermit) {
+          DesignStor.design.activeMenuItem = 0;
+          DesignStor.design.activeSubMenuItem = 0;
+          DesignStor.design.isDropSubMenu = 0;
+          if (!impostsQty) {
+            var glassQty = DesignStor.design.selectedGlass.length;
+            if (glassQty) {
+              //------- insert imposts
+              for (; i < glassQty; i++) {
+                DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
+              }
+            }
+          } else {
+            DesignServ.deselectAllImpost();
+          }
         }
       }
     }

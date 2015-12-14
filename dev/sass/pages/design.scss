@@ -3,8 +3,6 @@ $door-config-content: $ipad-height - $door-config-header;
 
 .construction-container {
   position: relative;
-//  width: rem($ipad-width);
-//  height: rem($ipad-height);
 }
 
 
@@ -110,7 +108,6 @@ $door-config-content: $ipad-height - $door-config-header;
   .left-menu-footer {
     position: absolute;
     left: rem(60px);
-//    bottom: rem(50px);
     bottom: 8rem;
     width: rem(350px);
   }
@@ -122,7 +119,6 @@ $door-config-content: $ipad-height - $door-config-header;
     @extend .splash;
 
     display: inline-block;
-//    width: rem(318px);
     height: rem(72px);
     padding: rem(13px) rem(26px);
     color: #fff;
@@ -181,6 +177,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
 
 .drop-shape-icon {
+  @include transition(top 0.3s linear);
   @extend .constr-shape-icon;
   position: absolute;
   top: 0;
@@ -194,26 +191,56 @@ $door-config-content: $ipad-height - $door-config-header;
 .sash-left:after {
   content: $sash-left-icon;
 }
-.sash-right:after {
-  content: $sash-right-icon;
+.sash-right {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-right-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
 }
-.sash-up:after {
-  content: $sash-up-icon;
+.sash-up {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-up-icon;
+  }
+  &.active {
+    top: $submenu_top2;
+  }
 }
-.sash-down:after {
-  content: $sash-down-icon;
+.sash-down {
+  left: $submenu_left1;
+  &:after {
+    content: $sash-down-icon;
+  }
+  &.active {
+    top: $submenu_top3;
+  }
 }
 .sash-right-up:after {
   content: $sash-right-up-icon;
 }
-.sash-left-up:after {
-  content: $sash-left-up-icon;
+.sash-left-up {
+  left: $submenu_left2;
+  &:after {
+    content: $sash-left-up-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
 }
 .sash-shtulp-left:after {
   content: $sash-shtulp-left-icon;
 }
-.sash-shtulp-right:after {
-  content: $sash-shtulp-right-icon;
+.sash-shtulp-right {
+  left: $submenu_left3;
+  &:after {
+    content: $sash-shtulp-right-icon;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
 }
 .impost-vert:after {
   content: $impost-vert-icon;
@@ -225,79 +252,72 @@ $door-config-content: $ipad-height - $door-config-header;
   content: $impost-inc-hor-icon;
 }
 .impost-inc-vert{
-  left: 10.5rem;
-  top: 5.1rem;
+  left: $submenu_left2;
   &:after {
     content: $impost-inc-vert-icon;
   }
   &.active {
-    top: 5.1rem;
+    top: $submenu_top1;
   }
 }
 .impost-inc-hor2 {
-  left: 10.5rem;
-  top: 10.2rem;
+  left: $submenu_left2;
   &:after {
     content: $impost-inc-hor2-icon;
   }
   &.active {
-    top: 10.2rem;
+    top: $submenu_top2;
   }
 }
 .impost-inc-vert2{
-  left: 10.5rem;
-  top: 15.4rem;
+  left: $submenu_left2;
   &:after {
     content: $impost-inc-vert2-icon;
   }
   &.active {
-    top: 15.4rem;
+    top: $submenu_top3;
   }
 }
 .impost-curv-right:after {
   content: $impost-curv-right-icon;
 }
 .impost-curv-left {
-  left: 15.1rem;
-  top: 5.1rem;
+  left: $submenu_left3;
   &:after {
     content: $impost-curv-left-icon;
   }
   &.active {
-    top: 5.1rem;
+    top: $submenu_top1;
   }
 }
 .impost-curv-up {
-  left: 15.1rem;
-  top: 10.2rem;
+  left: $submenu_left3;
   &:after {
     content: $impost-curv-up-icon;
   }
   &.active {
-    top: 10.2rem;
+    top: $submenu_top2;
   }
 }
 .impost-curv-down {
-  left: 15.1rem;
-  top: 15.4rem;
+  left: $submenu_left3;
   &:after {
     content: $impost-curv-down-icon;
   }
   &.active {
-    top: 15.4rem;
+    top: $submenu_top3;
   }
 }
 .impost-curv1:after {
   content: $impost-curv1-icon;
 }
 .impost-curv3 {
-  left: 20.1rem;
-  top: 5.1rem;
+  left: $submenu_left4;
   &:after {
     content: $impost-curv3-icon;
   }
   &.active {
-    top: 5.1rem;
+    top: $submenu_top1;
   }
 }
 .impost-curv4:after {
@@ -320,11 +340,7 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction SVG
 
 .construction-block {
-//  width: rem($ipad-width);
-//  height: rem($ipad-height);
-  //padding: rem(250px);
   text-align: center;
-  //overflow: auto;
 }
 .construction-scrollbox {
   width: 100%;
