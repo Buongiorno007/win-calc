@@ -2315,7 +2315,7 @@
           priceObj = {},
           finishPriceObj = {};
 
-      console.info('START+++', construction);
+      //console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
         //console.warn('kits!!!!!!+', kits);

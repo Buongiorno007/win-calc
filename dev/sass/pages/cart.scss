@@ -226,15 +226,15 @@
     }
     .order-u-coeff {
       @include roboto-lt(rem(42px));
-      bottom: rem(-60px);
+      bottom: -7.75rem;
       right: 3.3rem;
       position: absolute;
       margin-left: rem(5px);
       background-color: #fff;
       color: $main_green;
 
-      &.u-coeff-low {
-        color: $error_color;
+      &.coeff-low {
+        @extend .coeff-low;
       }
     }
     .order-content {

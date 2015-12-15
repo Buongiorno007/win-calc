@@ -85,8 +85,9 @@
     background-color: transparent;
     color: $main_green;
     z-index: 2;
-    &.u-coeff-low {
-      color: $error_color;
+
+    &.coeff-low {
+      @extend .coeff-low;
     }
   }
 

@@ -477,7 +477,7 @@
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         if(result.priceTotal){
-          ProductStor.product.template_price = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
+          ProductStor.product.template_price = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff), 3);
           setProductPriceTOTAL(ProductStor.product);
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
@@ -492,13 +492,13 @@
 
 
     function prepareReport(elementList) {
-      var report = [];
-//      console.log('report start', new Date(), new Date().getMilliseconds());
-      var elementListQty = elementList.length,
-          ind = 0;
+      var report = [],
+          elementListQty = elementList.length,
+          ind = 0,
+          tempObj, reportQty, exist;
       if(elementListQty) {
         for (; ind < elementListQty; ind++) {
-          var tempObj = angular.copy(elementList[ind]);
+          tempObj = angular.copy(elementList[ind]);
           tempObj.element_id = angular.copy(tempObj.id);
           tempObj.amount = angular.copy(tempObj.qty);
           delete tempObj.id;
@@ -507,7 +507,8 @@
           delete tempObj.qty;
           delete tempObj.waste;
           if (ind) {
-            var reportQty = report.length, exist = 0;
+            reportQty = report.length;
+            exist = 0;
             if (reportQty) {
               while (--reportQty > -1) {
                 if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
@@ -515,7 +516,7 @@
                   report[reportQty].amount += tempObj.amount;
                   report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
                   report[reportQty].priceReal += tempObj.priceReal;
-                  report[reportQty].priceReal = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
+                  report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
                 }
               }
               if (!exist) {
@@ -525,6 +526,11 @@
           } else {
             report.push(tempObj);
           }
+        }
+        //------ add margins to price of every elements
+        reportQty = report.length;
+        while(--reportQty > -1) {
+          report[reportQty].priceReal = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
         }
       }
 //      console.log('report finish', new Date(), new Date().getMilliseconds());
@@ -640,7 +646,7 @@
     /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
-      console.log('new project!!!!!!!!!!!!!!');
+      console.log('new project!!!!!!!!!!!!!!', OrderStor.order);
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
@@ -964,7 +970,7 @@
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
       //------ set current GeoLocation
-      loginServ.setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.regionName, UserStor.userInfo.countryName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
+      loginServ.setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;

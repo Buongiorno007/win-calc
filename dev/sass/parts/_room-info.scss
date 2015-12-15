@@ -66,13 +66,10 @@
   }
   .coeff {
     @include roboto-lt(rem(80px), 1);
-
     position: relative;
     float: left;
     &.coeff-low {
-      @extend .flashing;
-
-      color: #ff9500;
+      @extend .coeff-low;
     }
   }
   .coeff-title {

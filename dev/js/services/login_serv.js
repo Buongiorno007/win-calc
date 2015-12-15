@@ -360,7 +360,7 @@
               if( /uah/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '\u20b4';//'₴';
               } else if( /rub/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20BD';//'₽';
+                UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
               } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '$';
               } else if( /eur/i.test(currencies[currencQty].name) ) {

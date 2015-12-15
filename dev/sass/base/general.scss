@@ -12,6 +12,7 @@ body {
 //  height: rem($ipad-height);
   width: 100%;
   height: 100%;
+  font-family: roboto-regular, icons;
   font-size: 8px;
 }
 
@@ -181,6 +182,13 @@ body {
   @extend .splash;
   width: 8rem;
   height: 8rem;
+}
+
+
+// Low Heat Coeff
+.coeff-low {
+  @extend .flashing;
+  color: $error_color;
 }
 
 

@@ -8,28 +8,32 @@
 
 @include font-face('roboto-thin', font-files('roboto/Roboto-Thin.ttf'));
 
-@mixin roboto-rg($size, $line-height: $base-line_height) {
-  font: normal #{$size}/#{$line-height} roboto-regular, sans-serif;
-}
-
-@mixin roboto-bd($size, $line-height: $base-line_height) {
-  font: normal #{$size}/#{$line-height} roboto-bold, sans-serif;
-}
-
-@mixin roboto-lt($size, $line-height: $base-line_height) {
-  font: normal #{$size}/#{$line-height} roboto-light, sans-serif;
-}
-
-@mixin roboto-md($size, $line-height: $base-line_height) {
-  font: normal #{$size}/#{$line-height} roboto-medium, sans-serif;
-}
-
-@mixin roboto-th($size, $line-height: $base-line_height) {
-  font: normal #{$size}/#{$line-height} roboto-thin, sans-serif;
-}
 
 // General Icons
 @include font-face('icons', font-files('icons/icomoon.ttf'));
+
+
+@mixin roboto-rg($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} roboto-regular, sans-serif, icons;
+}
+
+@mixin roboto-bd($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} roboto-bold, sans-serif, icons;
+}
+
+@mixin roboto-lt($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} roboto-light, sans-serif, icons;
+}
+
+@mixin roboto-md($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} roboto-medium, sans-serif, icons;
+}
+
+@mixin roboto-th($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} roboto-thin, sans-serif, icons;
+}
+
+
 
 @mixin font-icon($size, $line-height: $base-line_height) {
   font: normal #{$size}/#{$line-height} icons, sans-serif;

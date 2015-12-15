@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1449764586') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1450112910') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -370,7 +370,7 @@ th {
   }
 }
 /* line 224, ../../dev/sass/base/_animations.scss */
-.flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
+.flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
   animation: flashing 1.5s ease 0s 1;
@@ -907,16 +907,17 @@ body {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  font-family: roboto-regular, icons;
   font-size: 8px;
 }
 
-/* line 18, ../../dev/sass/base/general.scss */
+/* line 19, ../../dev/sass/base/general.scss */
 body {
   margin: 0;
   padding: 0;
 }
 
-/* line 23, ../../dev/sass/base/general.scss */
+/* line 24, ../../dev/sass/base/general.scss */
 .app-container {
   position: relative;
   width: 128rem;
@@ -926,7 +927,7 @@ body {
   border: 1px solid #000;
 }
 
-/* line 32, ../../dev/sass/base/general.scss */
+/* line 33, ../../dev/sass/base/general.scss */
 .page-container {
   display: -webkit-flex;
   display: flex;
@@ -940,7 +941,7 @@ body {
   width: 165.5rem;
   height: 100%;
 }
-/* line 40, ../../dev/sass/base/general.scss */
+/* line 41, ../../dev/sass/base/general.scss */
 .page-container.swiped {
   -moz-transform: translateX(-37.5rem);
   -ms-transform: translateX(-37.5rem);
@@ -948,27 +949,27 @@ body {
   transform: translateX(-37.5rem);
 }
 
-/* line 46, ../../dev/sass/base/general.scss */
+/* line 47, ../../dev/sass/base/general.scss */
 .left-side {
   width: 37.5rem;
   height: 100%;
 }
 
-/* line 51, ../../dev/sass/base/general.scss */
+/* line 52, ../../dev/sass/base/general.scss */
 .right-side {
   display: -webkit-flex;
   display: flex;
   height: 100%;
 }
 
-/* line 57, ../../dev/sass/base/general.scss */
+/* line 58, ../../dev/sass/base/general.scss */
 .right-menu {
   position: relative;
   width: 32rem;
   height: 100%;
 }
 
-/* line 63, ../../dev/sass/base/general.scss */
+/* line 64, ../../dev/sass/base/general.scss */
 .main-content, .main-history {
   -moz-transition: width 0.5s linear;
   -o-transition: width 0.5s linear;
@@ -982,12 +983,12 @@ body {
   z-index: 0;
 }
 
-/* line 74, ../../dev/sass/base/general.scss */
+/* line 75, ../../dev/sass/base/general.scss */
 .unvisible {
   display: none !important;
 }
 
-/* line 80, ../../dev/sass/base/general.scss */
+/* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .alert-sign, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after, .cart-page .close-alladdelements {
@@ -1002,7 +1003,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 95, ../../dev/sass/base/general.scss */
+/* line 96, ../../dev/sass/base/general.scss */
 .button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
@@ -1011,38 +1012,38 @@ body {
   padding: 0;
 }
 
-/* line 103, ../../dev/sass/base/general.scss */
+/* line 104, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 110, ../../dev/sass/base/general.scss */
+/* line 111, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
-  font: normal 3rem/1.42857 roboto-light, sans-serif;
+  font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
   border-radius: 2rem;
 }
 
-/* line 117, ../../dev/sass/base/general.scss */
+/* line 118, ../../dev/sass/base/general.scss */
 .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn {
-  font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
+  font: normal 1.5rem/2.25rem roboto-regular, sans-serif, icons;
   border-radius: 2rem;
 }
 
-/* line 124, ../../dev/sass/base/general.scss */
+/* line 125, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .cart-page .order-tool {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   border-radius: 1.25rem;
 }
 
-/* line 131, ../../dev/sass/base/general.scss */
+/* line 132, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 139, ../../dev/sass/base/general.scss */
+/* line 140, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 icons, sans-serif;
   width: 3.75rem;
@@ -1051,20 +1052,20 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 149, ../../dev/sass/base/general.scss */
+/* line 150, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "";
 }
 
-/* line 158, ../../dev/sass/base/general.scss */
+/* line 159, ../../dev/sass/base/general.scss */
 .truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr, .cart-page .addelementunique-header .aux-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 167, ../../dev/sass/base/general.scss */
+/* line 168, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   -moz-transition: all 1.3s linear;
   -o-transition: all 1.3s linear;
@@ -1072,20 +1073,25 @@ body {
   transition: all 1.3s linear;
   opacity: 0.2;
 }
-/* line 171, ../../dev/sass/base/general.scss */
+/* line 172, ../../dev/sass/base/general.scss */
 .right-side.main-room-bg {
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 1;
 }
 
-/* line 180, ../../dev/sass/base/general.scss */
+/* line 181, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 8rem;
   height: 8rem;
 }
 
-/* line 188, ../../dev/sass/base/general.scss */
+/* line 189, ../../dev/sass/base/general.scss */
+.coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low {
+  color: #f74f2e;
+}
+
+/* line 196, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .glass-container .glass-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1099,35 +1105,35 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 199, ../../dev/sass/base/general.scss */
+/* line 207, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .glass-container .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   left: 5rem;
 }
 
-/* line 205, ../../dev/sass/base/general.scss */
+/* line 213, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 210, ../../dev/sass/base/general.scss */
+/* line 218, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .cart-page .addelementunit-delete:after, .report-container .close_report:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "";
 }
 
-/* line 216, ../../dev/sass/base/general.scss */
+/* line 224, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 222, ../../dev/sass/base/general.scss */
+/* line 230, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .cart-page .addelementunit-delete:after, .report-container .close_report:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 229, ../../dev/sass/base/general.scss */
+/* line 237, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1135,7 +1141,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 239, ../../dev/sass/base/general.scss */
+/* line 247, ../../dev/sass/base/general.scss */
 .aux-delete, .cart-page .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1143,7 +1149,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 248, ../../dev/sass/base/general.scss */
+/* line 256, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1151,7 +1157,7 @@ body {
   transform: rotate(90deg);
   top: 43.75rem;
   left: -7.875rem;
-  font: normal 1.5rem/1.42857 roboto-bold, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-bold, sans-serif, icons;
   position: absolute;
   width: 19.5rem;
   height: 3.75rem;
@@ -1166,7 +1172,7 @@ body {
   z-index: 1;
 }
 
-/* line 270, ../../dev/sass/base/general.scss */
+/* line 278, ../../dev/sass/base/general.scss */
 .fullViewDiv, .backDarkView, .alert-overlay, .backLightView, .loader-container, .info_container {
   position: absolute;
   left: 0;
@@ -1177,27 +1183,27 @@ body {
   height: 100%;
 }
 
-/* line 279, ../../dev/sass/base/general.scss */
+/* line 287, ../../dev/sass/base/general.scss */
 .backDarkView, .alert-overlay {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9;
 }
 
-/* line 284, ../../dev/sass/base/general.scss */
+/* line 292, ../../dev/sass/base/general.scss */
 .backLightView, .loader-container, .info_container {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 999;
 }
 
-/* line 296, ../../dev/sass/base/general.scss */
+/* line 304, ../../dev/sass/base/general.scss */
 .alert-overlay {
   opacity: 1.08;
   z-index: 10000;
 }
 
-/* line 301, ../../dev/sass/base/general.scss */
+/* line 309, ../../dev/sass/base/general.scss */
 .alert-block {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
   position: absolute;
   left: 50%;
@@ -1213,34 +1219,34 @@ body {
   z-index: 99999;
 }
 
-/* line 318, ../../dev/sass/base/general.scss */
+/* line 326, ../../dev/sass/base/general.scss */
 .alert-sign {
   font: normal 10rem/1.42857 icons, sans-serif;
 }
-/* line 322, ../../dev/sass/base/general.scss */
+/* line 330, ../../dev/sass/base/general.scss */
 .alert-sign:after {
   color: #f74f2e;
   content: "";
 }
 
-/* line 327, ../../dev/sass/base/general.scss */
+/* line 335, ../../dev/sass/base/general.scss */
 .alert-title {
-  font: normal 2rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2rem/1.42857 roboto-bold, sans-serif, icons;
 }
 
-/* line 330, ../../dev/sass/base/general.scss */
+/* line 338, ../../dev/sass/base/general.scss */
 .alert-descr {
   margin: 2rem 0;
 }
 
-/* line 333, ../../dev/sass/base/general.scss */
+/* line 341, ../../dev/sass/base/general.scss */
 .alert-btns {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
-/* line 336, ../../dev/sass/base/general.scss */
+/* line 344, ../../dev/sass/base/general.scss */
 .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn {
   width: 10rem;
   height: 4rem;
@@ -1248,17 +1254,17 @@ body {
   color: white;
 }
 
-/* line 344, ../../dev/sass/base/general.scss */
+/* line 352, ../../dev/sass/base/general.scss */
 .alert-no {
   background-color: #858181;
 }
 
-/* line 347, ../../dev/sass/base/general.scss */
+/* line 355, ../../dev/sass/base/general.scss */
 .alert-yes {
   background-color: #f98000;
 }
 
-/* line 355, ../../dev/sass/base/general.scss */
+/* line 363, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .cart-page .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content, .cart-page .products-selector .products-selector-block .products-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1267,33 +1273,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 358, ../../dev/sass/base/general.scss */
+/* line 366, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container, .cart-page .addelementunits-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 362, ../../dev/sass/base/general.scss */
+/* line 370, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container, .cart-page .products-selector .products-selector-block .products-block {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 366, ../../dev/sass/base/general.scss */
+/* line 374, ../../dev/sass/base/general.scss */
 .scroll-vert-container, .cart-page .addelementunits-container {
   width: 102%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 373, ../../dev/sass/base/general.scss */
+/* line 381, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 385, ../../dev/sass/base/general.scss */
+/* line 393, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1320,7 +1326,7 @@ body {
 }
 /* line 35, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-button {
-  font: normal 1.875rem/1 roboto-light, sans-serif;
+  font: normal 1.875rem/1 roboto-light, sans-serif, icons;
   color: #363636;
   cursor: pointer;
   outline: none;
@@ -1388,7 +1394,7 @@ body {
 }
 /* line 103, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance nav .pmu-month {
-  font: normal 2.25rem/2.25rem roboto-medium, sans-serif;
+  font: normal 2.25rem/2.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
 /* line 111, ../../dev/vendor/calendar/pickmeup.scss */
@@ -1435,7 +1441,7 @@ body {
 
 /* line 1, ../../dev/vendor/calendar-scroll/drum.scss */
 .date_range_container {
-  font: normal 2rem/1.42857 roboto-light, sans-serif;
+  font: normal 2rem/1.42857 roboto-light, sans-serif, icons;
 }
 
 /* line 4, ../../dev/vendor/calendar-scroll/drum.scss */
@@ -1899,12 +1905,12 @@ div.drum figure {
 }
 /* line 43, ../../dev/sass/parts/_user-info.scss */
 .user-info-container .user-location {
-  font: normal 2.25rem/3.375rem roboto-medium, sans-serif;
+  font: normal 2.25rem/3.375rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
 /* line 48, ../../dev/sass/parts/_user-info.scss */
 .user-info-container .user-name {
-  font: normal 1.5rem/2.5rem roboto-light, sans-serif;
+  font: normal 1.5rem/2.5rem roboto-light, sans-serif, icons;
   color: #363636;
 }
 
@@ -1941,7 +1947,7 @@ div.drum figure {
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  font: normal 12.5rem/9.375rem roboto-thin, sans-serif;
+  font: normal 12.5rem/9.375rem roboto-thin, sans-serif, icons;
   min-width: 60rem;
   color: #fff;
 }
@@ -1982,7 +1988,7 @@ div.drum figure {
 }
 /* line 59, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
-  font: normal 2.25rem/1 roboto-medium, sans-serif;
+  font: normal 2.25rem/1 roboto-medium, sans-serif, icons;
   position: absolute;
   top: -3.125rem;
   right: 0;
@@ -1990,17 +1996,13 @@ div.drum figure {
 }
 /* line 67, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
-  font: normal 5rem/1 roboto-light, sans-serif;
+  font: normal 5rem/1 roboto-light, sans-serif, icons;
   position: relative;
   float: left;
 }
-/* line 72, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .coeff.coeff-low {
-  color: #ff9500;
-}
-/* line 78, ../../dev/sass/parts/_room-info.scss */
+/* line 75, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
-  font: normal 2rem/2.5rem roboto-light, sans-serif;
+  font: normal 2rem/2.5rem roboto-light, sans-serif, icons;
   float: left;
   width: 15.625rem;
   max-height: 7rem;
@@ -2008,27 +2010,27 @@ div.drum figure {
   word-wrap: break-word;
   overflow: auto;
 }
-/* line 88, ../../dev/sass/parts/_room-info.scss */
+/* line 85, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn {
   position: absolute;
   bottom: 0;
   right: 1rem;
 }
-/* line 92, ../../dev/sass/parts/_room-info.scss */
+/* line 89, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
   cursor: pointer;
 }
-/* line 101, ../../dev/sass/parts/_room-info.scss */
+/* line 98, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 105, ../../dev/sass/parts/_room-info.scss */
+/* line 102, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
   height: 80%;
   display: block;
@@ -2160,12 +2162,12 @@ div.drum figure {
 }
 /* line 69, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-sizes {
-  font: normal 1.7rem/4rem roboto-regular, sans-serif;
+  font: normal 1.7rem/4rem roboto-regular, sans-serif, icons;
   float: left;
 }
 /* line 73, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-price {
-  font: normal 2.3rem/3.5rem roboto-bold, sans-serif;
+  font: normal 2.3rem/3.5rem roboto-bold, sans-serif, icons;
   float: right;
 }
 
@@ -2200,7 +2202,7 @@ div.drum figure {
 }
 /* line 24, ../../dev/sass/parts/_settings-panel.scss */
 .settings .title {
-  font: normal 2.25rem/6.1875rem roboto-medium, sans-serif;
+  font: normal 2.25rem/6.1875rem roboto-medium, sans-serif, icons;
 }
 /* line 27, ../../dev/sass/parts/_settings-panel.scss */
 .settings .save {
@@ -2251,7 +2253,7 @@ div.drum figure {
 }
 /* line 65, ../../dev/sass/parts/_settings-panel.scss */
 .settings .set-input-txt, .settings .set-input-phone {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   width: 65%;
   padding: 0;
   background-color: transparent;
@@ -2316,18 +2318,18 @@ div.drum figure {
 }
 /* line 42, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .title, .config-menu .title, .elements-menu .title, .cart-menu .title, .old-price-tab .title, .old-price-inst-tab .title {
-  font: normal 1.5rem/1.42857 roboto-bold, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-bold, sans-serif, icons;
   text-transform: uppercase;
 }
 /* line 48, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin: 0.3125rem 0;
   color: #363636;
 }
 /* line 56, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .name, .config-menu .name, .elements-menu .name, .cart-menu .name, .old-price-tab .name, .old-price-inst-tab .name, .menu-right-general .name.aside, .config-menu .name.aside, .elements-menu .name.aside, .cart-menu .name.aside, .old-price-tab .name.aside, .old-price-inst-tab .name.aside {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 60, ../../dev/sass/parts/_menu-right-general.scss */
@@ -2351,7 +2353,7 @@ div.drum figure {
 }
 /* line 78, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
-  font: normal 4rem/1 roboto-medium, sans-serif;
+  font: normal 4rem/1 roboto-medium, sans-serif, icons;
   display: inline-flex;
   overflow: hidden;
   height: 4rem;
@@ -2373,7 +2375,7 @@ div.drum figure {
 }
 /* line 97, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-currency, .config-menu .price-currency, .elements-menu .price-currency, .cart-menu .price-currency, .old-price-tab .price-currency, .old-price-inst-tab .price-currency {
-  font: normal 3.125rem/3.5rem roboto-light, sans-serif;
+  font: normal 3.125rem/3.5rem roboto-light, sans-serif, icons;
   margin-left: 0.625rem;
   margin-right: -2rem;
   padding-top: 0.5rem;
@@ -2471,7 +2473,7 @@ div.drum figure {
 }
 /* line 59, ../../dev/sass/parts/_config-panel.scss */
 .config-section .title, .profile-container .profile-block .title, .glass-container .glass-block .title, .hardware-container .hardware-block .title {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 64, ../../dev/sass/parts/_config-panel.scss */
@@ -2485,7 +2487,7 @@ div.drum figure {
 }
 /* line 72, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type, .profile-container .profile-block .type, .glass-container .glass-block .type, .hardware-container .hardware-block .type {
-  font: normal 2.25rem/3.5rem roboto-medium, sans-serif;
+  font: normal 2.25rem/3.5rem roboto-medium, sans-serif, icons;
   display: inline;
   padding: 0.3125rem 1.25rem;
   color: #fff;
@@ -2633,7 +2635,7 @@ div.drum figure {
 
 /* line 11, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
 }
 /* line 15, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but {
@@ -2642,7 +2644,7 @@ div.drum figure {
 }
 /* line 23, ../../dev/sass/parts/_additional-elements-general.scss */
 .parameters-block .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label, .cart-page .alladdelements-block .aux-label, .cart-page .addelementunit-only .aux-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 
@@ -2729,7 +2731,7 @@ div.drum figure {
 
 /* line 100, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-price, .additional-list-container .aux-total-price, .cart-page .alladdelements-block .aux-total-price, .cart-page .addelementunique-header .aux-total-price, .cart-page .addelementunit-only .aux-total-price {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   min-width: 20%;
   text-align: right;
   color: #363636;
@@ -2971,7 +2973,7 @@ div.drum figure {
 }
 /* line 16, ../../dev/sass/parts/_search-block.scss */
 .search-block .search-input {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 71.875rem;
   height: 7.1875rem;
   padding-left: 6.25rem;
@@ -3088,7 +3090,7 @@ div.drum figure {
 }
 /* line 59, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-title {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   width: 60%;
   margin: 0 auto;
   text-align: center;
@@ -3126,7 +3128,7 @@ div.drum figure {
 }
 /* line 97, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-descrip {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
@@ -3147,7 +3149,7 @@ div.drum figure {
 }
 /* line 130, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
@@ -3175,7 +3177,7 @@ div.drum figure {
 }
 /* line 158, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
@@ -3231,14 +3233,14 @@ div.drum figure {
 
 /* line 218, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-label {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-right: 0.625rem;
   color: #8c8c8c;
 }
 
 /* line 224, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-field {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: inline-block;
   width: 10.9375rem;
   height: 7rem;
@@ -3251,7 +3253,7 @@ div.drum figure {
 
 /* line 237, ../../dev/sass/parts/_cart-dialogs.scss */
 .subtitle-field {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: left;
   color: #363636;
 }
@@ -3319,12 +3321,12 @@ div.drum figure {
 }
 /* line 17, ../../dev/sass/parts/_voice.scss */
 .voice-container .voice-title {
-  font: normal 3rem/1.42857 roboto-light, sans-serif;
+  font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
   color: #5c5b5b;
 }
 /* line 22, ../../dev/sass/parts/_voice.scss */
 .voice-container .voice-input {
-  font: normal 2.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.375rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   bottom: 10%;
   left: 10%;
@@ -3419,18 +3421,18 @@ div.drum figure {
 }
 /* line 33, ../../dev/sass/parts/_info-box.scss */
 .info_container .info_title {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   margin: 0.3125rem 0;
 }
 /* line 37, ../../dev/sass/parts/_info-box.scss */
 .info_container .info_link {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-decoration: underline;
   word-break: break-all;
 }
 /* line 42, ../../dev/sass/parts/_info-box.scss */
 .info_container .info_descrip {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin: 2rem 0;
 }
 /* line 46, ../../dev/sass/parts/_info-box.scss */
@@ -3464,7 +3466,7 @@ div.drum figure {
 }
 /* line 20, ../../dev/sass/parts/_addelems-group-menu.scss */
 .aux-search-content .aux-list-group {
-  font: normal 2.25rem/6.25rem roboto-light, sans-serif;
+  font: normal 2.25rem/6.25rem roboto-light, sans-serif, icons;
   -moz-transition: color 0.5s linear;
   -o-transition: color 0.5s linear;
   -webkit-transition: color 0.5s linear;
@@ -3521,7 +3523,7 @@ div.drum figure {
 .report-container {
   display: -webkit-flex;
   display: flex;
-  font: normal 1.875rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.875rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   top: 13rem;
   left: 0;
@@ -3555,7 +3557,7 @@ div.drum figure {
 }
 /* line 35, ../../dev/sass/parts/_report.scss */
 .report-container .report-price-total {
-  font: normal 1.875rem/1.42857 roboto-bold, sans-serif;
+  font: normal 1.875rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1rem;
   border-top: 2px solid #000;
   background-color: #c2c2c2;
@@ -3606,7 +3608,7 @@ div.drum figure {
 }
 /* line 20, ../../dev/sass/pages/login.scss */
 .login-container .text-container {
-  font: normal 3rem/1.42857 roboto-light, sans-serif;
+  font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
   overflow: hidden;
   text-align: center;
   color: #000;
@@ -3657,7 +3659,7 @@ div.drum figure {
 
 /* line 71, ../../dev/sass/pages/login.scss */
 .user-field, .user-select-field {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
   width: 100%;
   height: 7rem;
@@ -3675,7 +3677,7 @@ div.drum figure {
 .error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   display: table;
   max-width: 37.5rem;
@@ -3710,7 +3712,7 @@ div.drum figure {
 
 /* line 121, ../../dev/sass/pages/login.scss */
 .attantion, .design-attantion {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   top: 50%;
   left: 20%;
@@ -3737,7 +3739,7 @@ div.drum figure {
 
 /* line 145, ../../dev/sass/pages/login.scss */
 .factory_box {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   top: 0;
   left: -9%;
@@ -3754,7 +3756,7 @@ div.drum figure {
 
 /* line 160, ../../dev/sass/pages/login.scss */
 .factory_title {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.625rem;
   text-align: center;
 }
@@ -3830,7 +3832,7 @@ tr.factory_item {
 
 /* line 32, ../../dev/sass/pages/settings.scss */
 .setting-title {
-  font: normal 2.25rem/6.1875rem roboto-medium, sans-serif;
+  font: normal 2.25rem/6.1875rem roboto-medium, sans-serif, icons;
 }
 
 /* line 36, ../../dev/sass/pages/settings.scss */
@@ -3851,7 +3853,7 @@ tr.factory_item {
 }
 /* line 50, ../../dev/sass/pages/settings.scss */
 .setting-container .change-foto {
-  font: normal 1.5rem/2.375rem roboto-light, sans-serif;
+  font: normal 1.5rem/2.375rem roboto-light, sans-serif, icons;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -3882,24 +3884,24 @@ tr.factory_item {
 }
 /* line 76, ../../dev/sass/pages/settings.scss */
 .setting-container .divider {
-  font: normal 1.5rem/5.5rem roboto-bold, sans-serif;
+  font: normal 1.5rem/5.5rem roboto-bold, sans-serif, icons;
   text-transform: uppercase;
   color: #bebebe;
 }
 /* line 82, ../../dev/sass/pages/settings.scss */
 .setting-container .setting-item-label {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   min-width: 31.25rem;
 }
 /* line 87, ../../dev/sass/pages/settings.scss */
 .setting-container .setting-item-data {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   max-width: 65%;
   color: #f98000;
 }
 /* line 94, ../../dev/sass/pages/settings.scss */
 .setting-container .setting-item-change {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   position: absolute;
   top: 0;
   right: 6.25rem;
@@ -3920,7 +3922,7 @@ tr.factory_item {
 }
 /* line 113, ../../dev/sass/pages/settings.scss */
 .setting-container .phone-btn {
-  font: normal 3.125rem/1px roboto-light, sans-serif;
+  font: normal 3.125rem/1px roboto-light, sans-serif, icons;
   width: 3.75rem;
   height: 3.75rem;
   margin-right: 2.5rem;
@@ -3966,13 +3968,13 @@ tr.factory_item {
 }
 /* line 24, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-label {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   min-width: 25rem;
   color: #bebebe;
 }
 /* line 30, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-data {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   color: #f98000;
 }
 /* line 34, ../../dev/sass/pages/change-pass.scss */
@@ -4011,7 +4013,7 @@ tr.factory_item {
 }
 /* line 26, ../../dev/sass/pages/change-lang.scss */
 .language-page .lang-label {
-  font: normal 2.25rem/6.1875rem roboto-light, sans-serif;
+  font: normal 2.25rem/6.1875rem roboto-light, sans-serif, icons;
 }
 
 /* line 2, ../../dev/sass/pages/location.scss */
@@ -4046,7 +4048,7 @@ tr.factory_item {
 /* line 28, ../../dev/sass/pages/location.scss */
 .location-page .location-current,
 .location-page .location-label {
-  font: normal 2.25rem/6.1875rem roboto-light, sans-serif;
+  font: normal 2.25rem/6.1875rem roboto-light, sans-serif, icons;
 }
 /* line 32, ../../dev/sass/pages/location.scss */
 .location-page .location-current {
@@ -4201,7 +4203,7 @@ tr.factory_item {
 }
 /* line 118, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval {
-  font: normal 1.5rem/1.5rem roboto-bold, sans-serif;
+  font: normal 1.5rem/1.5rem roboto-bold, sans-serif, icons;
   margin-left: 1.25rem;
   color: #363636;
 }
@@ -4240,7 +4242,7 @@ tr.factory_item {
 }
 /* line 165, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-divider {
-  font: normal 1.5rem/4.625rem roboto-bold, sans-serif;
+  font: normal 1.5rem/4.625rem roboto-bold, sans-serif, icons;
   padding-left: 2.75rem;
   background-color: #f8f8f8;
   color: #8c8c8c;
@@ -4283,7 +4285,7 @@ tr.factory_item {
 }
 /* line 204, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-label {
-  font: normal 2.25rem/5.4375rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.4375rem roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 210, ../../dev/sass/pages/history.scss */
@@ -4310,7 +4312,7 @@ tr.factory_item {
 }
 /* line 234, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-title {
-  font: normal 1.5rem/5.5rem roboto-bold, sans-serif;
+  font: normal 1.5rem/5.5rem roboto-bold, sans-serif, icons;
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
   text-transform: uppercase;
@@ -4319,7 +4321,7 @@ tr.factory_item {
 }
 /* line 244, ../../dev/sass/pages/history.scss */
 .accounts-container .period {
-  font: normal 2.25rem/5.5rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   color: #f98000;
   background-color: #fff;
   cursor: pointer;
@@ -4364,7 +4366,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   -webkit-justify-content: space-around;
   justify-content: space-around;
-  font: normal 2.25rem/4rem roboto-light, sans-serif;
+  font: normal 2.25rem/4rem roboto-light, sans-serif, icons;
   color: #bebebe;
   cursor: pointer;
 }
@@ -4436,7 +4438,7 @@ tr.factory_item {
 }
 /* line 349, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.footer {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   border-bottom-left-radius: 0.9375rem;
   border-bottom-right-radius: 0.9375rem;
   color: #363636;
@@ -4461,24 +4463,24 @@ tr.factory_item {
 }
 /* line 373, ../../dev/sass/pages/history.scss */
 .accounts-container .account-id {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   color: #363636;
 }
 /* line 378, ../../dev/sass/pages/history.scss */
 .accounts-container .account-addinfo {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-left: 0.625rem;
   color: #8c8c8c;
 }
 /* line 384, ../../dev/sass/pages/history.scss */
 .accounts-container .account-date-filter,
 .accounts-container .account-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 391, ../../dev/sass/pages/history.scss */
 .accounts-container .user-data {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 397, ../../dev/sass/pages/history.scss */
@@ -4539,7 +4541,7 @@ tr.factory_item {
 }
 /* line 449, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn {
-  font: normal 1.5rem/1.42857 roboto-regular, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-regular, sans-serif, icons;
   position: absolute;
   top: 12.5rem;
   right: 0;
@@ -4596,12 +4598,12 @@ tr.factory_item {
 }
 /* line 514, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 518, ../../dev/sass/pages/history.scss */
 .empty-search-result .searchin-text {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
 }
 
 /* line 525, ../../dev/sass/pages/history.scss */
@@ -4758,7 +4760,7 @@ tr.factory_item {
 }
 /* line 108, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   min-height: 3.214rem;
   color: #363636;
 }
@@ -4769,7 +4771,7 @@ tr.factory_item {
 /* line 117, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 122, ../../dev/sass/pages/cart.scss */
@@ -4797,7 +4799,7 @@ tr.factory_item {
   justify-content: space-around;
   -webkit-align-items: center;
   align-items: center;
-  font: normal 3rem/6.25rem roboto-medium, sans-serif;
+  font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
   background-color: #f0f0f0;
@@ -4851,12 +4853,12 @@ tr.factory_item {
 }
 /* line 184, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-title {
-  font: normal 2.25rem/1.7 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.7 roboto-medium, sans-serif, icons;
   text-align: center;
 }
 /* line 188, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-content {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: justify;
 }
 /* line 197, ../../dev/sass/pages/cart.scss */
@@ -4896,17 +4898,13 @@ tr.factory_item {
 }
 /* line 227, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-u-coeff {
-  font: normal 2.625rem/1.42857 roboto-light, sans-serif;
-  bottom: -3.75rem;
+  font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
+  bottom: -7.75rem;
   right: 3.3rem;
   position: absolute;
   margin-left: 0.3125rem;
   background-color: #fff;
   color: #6ed44a;
-}
-/* line 236, ../../dev/sass/pages/cart.scss */
-.cart-page .full-view .order-u-coeff.u-coeff-low {
-  color: #f74f2e;
 }
 /* line 240, ../../dev/sass/pages/cart.scss */
 .cart-page .full-view .order-content {
@@ -4998,7 +4996,7 @@ tr.factory_item {
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
-  font: normal 1.75rem/6.25rem roboto-light, sans-serif;
+  font: normal 1.75rem/6.25rem roboto-light, sans-serif, icons;
   background-color: #6ed44a;
   color: #fff;
 }
@@ -5094,7 +5092,7 @@ tr.factory_item {
 }
 /* line 410, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
   margin-right: 1.25rem;
 }
@@ -5126,7 +5124,7 @@ tr.factory_item {
 }
 /* line 448, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-title {
-  font: normal 2.5rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.5rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 452, ../../dev/sass/pages/cart.scss */
@@ -5156,7 +5154,7 @@ tr.factory_item {
   display: flex;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
-  font: normal 3.5rem/9rem roboto-light, sans-serif;
+  font: normal 3.5rem/9rem roboto-light, sans-serif, icons;
   width: 20rem;
   padding-left: 2rem;
   text-align: center;
@@ -5176,7 +5174,7 @@ tr.factory_item {
 }
 /* line 490, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-max {
-  font: normal 2rem/2rem roboto-light, sans-serif;
+  font: normal 2rem/2rem roboto-light, sans-serif, icons;
   color: #f74f2e;
 }
 /* line 494, ../../dev/sass/pages/cart.scss */
@@ -5191,7 +5189,7 @@ tr.factory_item {
 .cart-page .discounts-list {
   top: -5rem;
   left: 0rem;
-  font: normal 2.25rem/5.4375rem roboto-light, sans-serif;
+  font: normal 2.25rem/5.4375rem roboto-light, sans-serif, icons;
   position: absolute;
   height: 20rem;
   width: 14rem;
@@ -5224,7 +5222,7 @@ tr.factory_item {
 }
 /* line 530, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-label {
-  font: normal 2.25rem/5rem roboto-medium, sans-serif;
+  font: normal 2.25rem/5rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
 /* line 534, ../../dev/sass/pages/cart.scss */
@@ -5249,12 +5247,12 @@ tr.factory_item {
 }
 /* line 549, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price {
-  font: normal 3rem/6.25rem roboto-medium, sans-serif;
+  font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
 /* line 553, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 
@@ -5271,7 +5269,7 @@ tr.factory_item {
 
 /* line 16, ../../dev/sass/pages/design.scss */
 .construction-label, .construction-left-menu .figure-label, .door-config-label {
-  font: normal 1.5rem/1.5rem roboto-bold, sans-serif;
+  font: normal 1.5rem/1.5rem roboto-bold, sans-serif, icons;
   margin-top: 1.25rem;
   text-transform: uppercase;
   color: #363636;
@@ -5279,7 +5277,7 @@ tr.factory_item {
 
 /* line 24, ../../dev/sass/pages/design.scss */
 .construction-descrip, .construction-left-menu .footer-description, .nav-tool-label, .door-config-description {
-  font: normal 1.5rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 0.625rem;
   color: #666;
 }
@@ -5373,7 +5371,7 @@ tr.factory_item {
   -o-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
-  font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   display: -webkit-flex;
   display: flex;
   position: absolute;
@@ -5391,17 +5389,17 @@ tr.factory_item {
 }
 
 /* line 151, ../../dev/sass/pages/design.scss */
-#sash-shape-menu {
+#impost-shape-menu {
   top: 3rem;
 }
 
 /* line 154, ../../dev/sass/pages/design.scss */
-#angel-shape-menu {
+#sash-shape-menu {
   top: 17rem;
 }
 
 /* line 157, ../../dev/sass/pages/design.scss */
-#impost-shape-menu {
+#angel-shape-menu {
   top: 31rem;
 }
 
@@ -5887,13 +5885,13 @@ tr.factory_item {
 }
 /* line 529, ../../dev/sass/pages/design.scss */
 .door-configuration .door-title {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
 /* line 534, ../../dev/sass/pages/design.scss */
 .door-configuration .door-subtitle {
-  font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
+  font: normal 2.25rem/2.75rem roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 539, ../../dev/sass/pages/design.scss */
@@ -5936,7 +5934,7 @@ tr.factory_item {
 }
 /* line 571, ../../dev/sass/pages/design.scss */
 .door-configuration .door-option-label {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 576, ../../dev/sass/pages/design.scss */
@@ -6094,18 +6092,18 @@ tr.factory_item {
 }
 /* line 92, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .title {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 25rem;
   color: #fff;
 }
 /* line 99, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .badge {
-  font: normal 1.5rem/1.42857 roboto-medium, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-medium, sans-serif, icons;
   color: #999;
 }
 /* line 104, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .divider {
-  font: normal 1.5rem/4.375rem roboto-medium, sans-serif;
+  font: normal 1.5rem/4.375rem roboto-medium, sans-serif, icons;
   padding: 1.25rem 0 0 3.125rem;
   text-transform: uppercase;
   color: #999;
@@ -6180,7 +6178,7 @@ tr.factory_item {
 }
 /* line 53, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
-  font: normal 2.25rem/3.75rem roboto-light, sans-serif;
+  font: normal 2.25rem/3.75rem roboto-light, sans-serif, icons;
   position: absolute;
   top: -1.25rem;
   right: -0.625rem;
@@ -6202,7 +6200,7 @@ tr.factory_item {
 }
 /* line 77, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
-  font: normal 2.625rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
   width: 40%;
   top: 15rem;
   right: 1rem;
@@ -6213,17 +6211,13 @@ tr.factory_item {
   color: #6ed44a;
   z-index: 2;
 }
-/* line 88, ../../dev/sass/menus/_config-menu.scss */
-.config-menu .product-u-coeff.u-coeff-low {
-  color: #f74f2e;
-}
-/* line 95, ../../dev/sass/menus/_config-menu.scss */
+/* line 96, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 24rem;
   left: -26rem;
   position: absolute;
@@ -6234,7 +6228,7 @@ tr.factory_item {
   opacity: 0;
   z-index: 1;
 }
-/* line 108, ../../dev/sass/menus/_config-menu.scss */
+/* line 109, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -6246,28 +6240,28 @@ tr.factory_item {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 119, ../../dev/sass/menus/_config-menu.scss */
+/* line 120, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:hover {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 122, ../../dev/sass/menus/_config-menu.scss */
+/* line 123, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 126, ../../dev/sass/menus/_config-menu.scss */
+/* line 127, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 130, ../../dev/sass/menus/_config-menu.scss */
+/* line 131, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 140, ../../dev/sass/menus/_config-menu.scss */
+/* line 141, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
@@ -6319,7 +6313,7 @@ tr.factory_item {
 }
 /* line 41, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .tip {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 70%;
   color: #8c8c8c;
 }
@@ -6424,7 +6418,7 @@ tr.factory_item {
 }
 /* line 135, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-menu .aux-label-bold {
-  font: normal 1.375rem/1.42857 roboto-bold, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 
@@ -6508,7 +6502,7 @@ tr.factory_item {
   transform: rotate(-90deg);
   top: 7.75rem;
   left: -11.625rem;
-  font: normal 1.5rem/1.42857 roboto-bold, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-bold, sans-serif, icons;
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -6548,7 +6542,7 @@ tr.factory_item {
 }
 /* line 234, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-empty {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #bebebe;
 }
@@ -6800,7 +6794,7 @@ tr.factory_item {
 }
 /* line 190, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .drop-instalment .dropdown-item.selected .value {
-  font: normal 2.25rem/2.25rem roboto-regular, sans-serif;
+  font: normal 2.25rem/2.25rem roboto-regular, sans-serif, icons;
   color: #363636;
 }
 /* line 195, ../../dev/sass/menus/_cart-menu.scss */
@@ -6818,7 +6812,7 @@ tr.factory_item {
 }
 /* line 216, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .calendar-price {
-  font: normal 1.5rem/2 roboto-light, sans-serif;
+  font: normal 1.5rem/2 roboto-light, sans-serif, icons;
   position: relative;
 }
 /* line 222, ../../dev/sass/menus/_cart-menu.scss */
@@ -6910,7 +6904,7 @@ tr.factory_item {
 }
 /* line 306, ../../dev/sass/menus/_cart-menu.scss */
 .old-price-tab .name, .old-price-inst-tab .name, .old-price-tab .name.aside, .old-price-inst-tab .name.aside {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 311, ../../dev/sass/menus/_cart-menu.scss */
@@ -6954,7 +6948,7 @@ tr.factory_item {
 }
 /* line 16, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   -webkit-user-select: none;
@@ -6975,7 +6969,7 @@ tr.factory_item {
 }
 /* line 33, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .calc-label-limit, .size-calc-container .calc-label-limit, .qty-calc-container .calc-label-limit {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #bebebe;
 }
@@ -7020,7 +7014,7 @@ tr.factory_item {
 }
 /* line 36, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 7rem;
 }
 /* line 40, ../../dev/sass/parts/_size-calculator.scss */
@@ -7039,7 +7033,7 @@ tr.factory_item {
 }
 /* line 9, ../../dev/sass/parts/_qty-calculator.scss */
 .qty-calc-container .calc-qty-limit {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 
@@ -7053,7 +7047,7 @@ tr.factory_item {
 }
 /* line 8, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-title {
-  font: normal 5rem/5rem roboto-light, sans-serif;
+  font: normal 5rem/5rem roboto-light, sans-serif, icons;
   height: 5.75rem;
   text-align: center;
   color: #6ed44a;
@@ -7074,7 +7068,7 @@ tr.factory_item {
 }
 /* line 28, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-type {
-  font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   position: absolute;
   top: -4rem;
   left: 2rem;
@@ -7108,7 +7102,7 @@ tr.factory_item {
 }
 /* line 59, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-discr {
-  font: normal 5rem/1.42857 roboto-light, sans-serif;
+  font: normal 5rem/1.42857 roboto-light, sans-serif, icons;
   text-align: center;
   color: #363636;
 }
@@ -7154,7 +7148,7 @@ tr.factory_item {
 }
 /* line 101, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-label {
-  font: normal 1.5rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 9.375rem;
   margin: 1.25rem auto 0 auto;
   text-align: center;
@@ -7163,7 +7157,7 @@ tr.factory_item {
 }
 /* line 110, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-subscr {
-  font: normal 1.5rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 12.5rem;
   margin: 0 auto;
   text-align: center;
@@ -7208,18 +7202,18 @@ tr.factory_item {
 }
 /* line 31, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-descr {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   margin: 1.875rem 0;
   color: #363636;
 }
 /* line 38, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-country {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 43, ../../dev/sass/panels/profile.scss */
 .profile-container .label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 
@@ -7307,13 +7301,13 @@ tr.factory_item {
 }
 /* line 67, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-descr {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   margin-bottom: 3.125rem;
   color: #363636;
 }
 /* line 74, ../../dev/sass/panels/glass.scss */
 .glass-container .label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 83, ../../dev/sass/panels/glass.scss */
@@ -7382,7 +7376,7 @@ tr.factory_item {
 }
 /* line 24, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-title {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 29, ../../dev/sass/panels/hardware-window.scss */
@@ -7495,19 +7489,19 @@ tr.factory_item {
 }
 /* line 120, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-descr {
-  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   margin-bottom: 0.3125rem;
   color: #363636;
 }
 /* line 126, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-brand {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 0.3125rem;
   color: #363636;
 }
 /* line 132, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
 /* line 137, ../../dev/sass/panels/hardware-window.scss */
@@ -7531,7 +7525,7 @@ tr.factory_item {
 }
 /* line 12, ../../dev/sass/panels/lamination.scss */
 .lamination-container .lamination-title {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif;
+  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.9375rem;
   color: #363636;
 }
@@ -7594,7 +7588,7 @@ tr.factory_item {
 }
 /* line 63, ../../dev/sass/panels/lamination.scss */
 .lamination-container .lamination-label {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 11.875rem;
   padding: 0 1.0625rem;
   word-wrap: break-word;
@@ -8226,7 +8220,7 @@ tr.factory_item {
 }
 /* line 7, ../../dev/sass/panels/add-elements-list.scss */
 .additional-list-container .search-element {
-  font: normal 2.25rem/2.25rem roboto-light, sans-serif;
+  font: normal 2.25rem/2.25rem roboto-light, sans-serif, icons;
   margin: 1.25rem;
   margin-left: 0;
   padding: 1.125rem 1.25rem;
@@ -8246,7 +8240,7 @@ tr.factory_item {
 /* line 34, ../../dev/sass/panels/add-elements-list.scss */
 .additional-list-container .aux-list-block-title,
 .additional-list-container .aux-total-label {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 40, ../../dev/sass/panels/add-elements-list.scss */
@@ -8351,7 +8345,7 @@ tr.factory_item {
 /* line 45, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .alladdelements-block .aux-list-block-title,
 .cart-page .alladdelements-block .aux-total-label {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 51, ../../dev/sass/panels/add-elements-cart.scss */
@@ -8510,17 +8504,17 @@ tr.factory_item {
 }
 /* line 202, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunique-header .aux-title {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 207, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunique-header .aux-label {
-  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 211, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunique-header .aux-params-but {
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
 /* line 215, ../../dev/sass/panels/add-elements-cart.scss */
@@ -8618,7 +8612,7 @@ tr.factory_item {
 }
 /* line 306, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunit-footer {
-  font: normal 3rem/6.25rem roboto-medium, sans-serif;
+  font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
   color: #363636;
@@ -8672,7 +8666,7 @@ tr.factory_item {
 }
 /* line 357, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunit-train .link-explode-menu {
-  font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
   position: absolute;
   min-width: 32rem;
   padding: 0 1.25rem;
@@ -8729,7 +8723,7 @@ tr.factory_item {
 /* line 419, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunit-only .aux-list-block-title,
 .cart-page .addelementunit-only .aux-total-label {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
 /* line 425, ../../dev/sass/panels/add-elements-cart.scss */
@@ -8817,7 +8811,7 @@ tr.factory_item {
   }
 }
 /* line 224, ../../dev/sass/base/_animations.scss */
-.flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
+.flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
   animation: flashing 1.5s ease 0s 1;

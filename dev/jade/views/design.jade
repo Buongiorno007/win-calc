@@ -3,6 +3,11 @@ section.construction-page
 
     .construction-left-menu
       ul.figure-lists
+        li.figure-item(hm-tap="designPage.selectMenuItem(3)")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
+            .figure-icon.impost-shape
+            .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+
         li.figure-item(hm-tap="designPage.selectMenuItem(1)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
             .figure-icon.sash-shape
@@ -13,11 +18,6 @@ section.construction-page
             .figure-icon.angel-shape
             .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-        li.figure-item(hm-tap="designPage.selectMenuItem(3)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
-            .figure-icon.impost-shape
-            .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
         li.figure-item(hm-tap="designPage.selectMenuItem(4)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
             .figure-icon.arch-shape
@@ -27,22 +27,6 @@ section.construction-page
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
             .figure-icon.position-shape
             .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-
-      #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
-        .constr-shape-icon.clean(ng-hide="designPage.P.product.construction_type === 4", hm-tap="designPage.insertSash(1, $event)")
-        .constr-shape-icon.sash-left(hm-tap="designPage.insertSash(2, $event)")
-        .drop-shape-icon.sash-right(hm-tap="designPage.insertSash(3, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-        .drop-shape-icon.sash-up(hm-tap="designPage.insertSash(4, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-        .drop-shape-icon.sash-down(hm-tap="designPage.insertSash(5, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
-        .constr-shape-icon.sash-right-up(hm-tap="designPage.insertSash(6, $event)")
-        .drop-shape-icon.sash-left-up(hm-tap="designPage.insertSash(7, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}")
-        .constr-shape-icon.sash-shtulp-left(hm-tap="designPage.insertSash(8, $event)")
-        .drop-shape-icon.sash-shtulp-right(hm-tap="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-
-      #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
-        .constr-shape-icon.clean(hm-tap="designPage.insertCorner(1, $event)")
-        .constr-shape-icon.corner(hm-tap="designPage.insertCorner(2, $event)")
-        .constr-shape-icon.corner-curv(hm-tap="designPage.insertCorner(3, $event)")
 
       #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
         .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(2, $event)")
@@ -60,6 +44,22 @@ section.construction-page
         //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(14, $event)")
         //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(15, $event)")
         .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(1, $event)")
+
+      #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
+        .constr-shape-icon.clean(ng-hide="designPage.P.product.construction_type === 4", hm-tap="designPage.insertSash(1, $event)")
+        .constr-shape-icon.sash-left(hm-tap="designPage.insertSash(2, $event)")
+        .drop-shape-icon.sash-right(hm-tap="designPage.insertSash(3, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .drop-shape-icon.sash-up(hm-tap="designPage.insertSash(4, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .drop-shape-icon.sash-down(hm-tap="designPage.insertSash(5, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
+        .constr-shape-icon.sash-right-up(hm-tap="designPage.insertSash(6, $event)")
+        .drop-shape-icon.sash-left-up(hm-tap="designPage.insertSash(7, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}")
+        .constr-shape-icon.sash-shtulp-left(hm-tap="designPage.insertSash(8, $event)")
+        .drop-shape-icon.sash-shtulp-right(hm-tap="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+
+      #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
+        .constr-shape-icon.clean(hm-tap="designPage.insertCorner(1, $event)")
+        .constr-shape-icon.corner(hm-tap="designPage.insertCorner(2, $event)")
+        .constr-shape-icon.corner-curv(hm-tap="designPage.insertCorner(3, $event)")
 
       #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
         .constr-shape-icon.clean(hm-tap="designPage.insertArc(1, $event)")
