@@ -230,7 +230,7 @@
         if(locations[loc].cityId === cityId) {
           UserStor.userInfo.cityName = locations[loc].cityName;
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? locations[loc].heatTransfer : (1/locations[loc].heatTransfer);
           UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;

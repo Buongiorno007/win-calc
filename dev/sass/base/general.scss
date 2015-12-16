@@ -329,7 +329,7 @@ body {
   @extend .splash;
   &:after {
     color: $error_color;
-    content: $warning;
+    content: $notification;
   }
 }
 .alert-title {

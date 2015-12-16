@@ -98,7 +98,8 @@
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
         GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
-        SELECT_ALL: 'Take all'
+        SELECT_ALL: 'Alle auswählen',
+        SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',

@@ -98,7 +98,8 @@
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
         GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Take all'
+        SELECT_ALL: 'Selectați toate',
+        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
