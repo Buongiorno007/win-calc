@@ -120,21 +120,23 @@
       background-color: $main_green;
     }
     .set-glass-warning {
+      @include display-flex();
+      @include flex-flow(row wrap);
+      @include justify-content(center);
+      @include align-items(center);
       @include roboto-md(rem(24px));
-      position: relative;
-      bottom: -1.5rem;
       color: $main_gray_txt;
 
-      &:before {
+      span {
         @include font-icon(4rem);
         @extend .icon-setting;
         @extend .splash;
-        position: absolute;
-        top: -1.8rem;
-        left: 20rem;
-        color: $main_orange;
-        content: $warning;
         padding-right: 1rem;
+        &:before {
+          color: $main_orange;
+          content: $warning;
+
+        }
       }
     }
   }

@@ -351,7 +351,7 @@
                     <td class="aux-tablecell-width">
                       <div ng-show="addElem.element_width" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_width }}</div>
-                        <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
+                        <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                       </div>
                     </td>
                     <td class="aux-tablecell-height">
@@ -804,11 +804,11 @@
                 <div ng-if="addElement.element_width" class="aux-params">
                   <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
                   <button class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
+                  <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
                 <div ng-if="addElement.element_height" class="aux-params">
                   <button class="aux-params-but aux_big_but">{{ addElement.element_height }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
+                  <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
                 <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>

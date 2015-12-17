@@ -44,5 +44,5 @@
       svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="setGlass")
     .set-glass-btn(hm-tap="glassPanel.confirmGlass()")
     .set-glass-all-btn(hm-tap="glassPanel.setGlassToAll()") {{ 'mainpage.SELECT_ALL' | translate }}
-    .set-glass-warning {{ 'mainpage.SELECT_GLASS_WARN' | translate }}
+    .set-glass-warning <span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}
     .close-dialog(hm-tap="glassPanel.closeGlassSelectorDialog()")

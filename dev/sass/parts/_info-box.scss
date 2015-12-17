@@ -7,10 +7,10 @@
   }
   .info_box {
     position: absolute;
-    top: 25%;
+    top: 15%;
     left: 45%;
     width: 60rem;
-    height: 50rem;
+    height: 73rem;
     margin: -3rem 0 0 -3rem;
     padding: 3rem 2rem;
     background-color: #fff;
@@ -24,6 +24,9 @@
     overflow-y: auto;
     text-align: center;
     color: $main_gray_txt;
+  }
+  img {
+    max-width: 100%;
   }
   .info_title {
     @extend .truncated;
