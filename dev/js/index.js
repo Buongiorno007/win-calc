@@ -92,10 +92,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
 
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
+    //-------- delete # !!!
+    //$locationProvider.html5Mode({
+    //  enabled: true,
+    //  requireBase: false
+    //});
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',

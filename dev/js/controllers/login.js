@@ -307,7 +307,7 @@
 
     function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
-        //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);

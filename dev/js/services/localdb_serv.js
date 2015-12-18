@@ -158,7 +158,7 @@
           },
           'elements': {
             'tableName': 'elements',
-            'prop': 'sku VARCHAR(100),' +
+            'prop': 'heat_coeff INTEGER,' +
               ' name VARCHAR(255),' +
               ' element_group_id INTEGER,' +
               ' currency_id INTEGER,' +
@@ -181,7 +181,7 @@
               ' price NUMERIC(10, 2),' +
               ' amendment_pruning NUMERIC(10, 2),' +
               ' noise_coeff NUMERIC,' +
-              ' heat_coeff INTEGER,' +
+              ' sku VARCHAR(100),' +
               ' lamination_in_id INTEGER,' +
               ' lamination_out_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'

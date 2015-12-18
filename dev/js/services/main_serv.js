@@ -479,7 +479,7 @@
         if(result.priceTotal){
           ProductStor.product.template_price = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff), 3);
           setProductPriceTOTAL(ProductStor.product);
-          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
         } else {
           ProductStor.product.template_price = 0;

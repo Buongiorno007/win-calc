@@ -24,7 +24,7 @@
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
 //      console.log('START main CTRL!!!!!!');
-      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
+//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
       /** save first User entrance */
@@ -39,7 +39,7 @@
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
-        console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
+        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
 

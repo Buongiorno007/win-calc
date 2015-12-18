@@ -256,7 +256,7 @@
     /** =========== DOWNLOAD ALL DATA =========== */
 
     function downloadAllData() {
-      console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
+      //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
         if(data) {
@@ -317,7 +317,7 @@
                                         downloadCartMenuData();
                                         GlobalStor.global.isLoader = 0;
                                         $location.path('/main');
-                                        console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                       });
                                     });
                                   });
@@ -893,10 +893,13 @@
                 }
               }
               if(elements.length) {
-                /** sorting elements by position */
-                elements = elements.sort(function(a, b) {
-                  return GeneralServ.sorting(a.position, b.position);
-                });
+                ///** sorting elements by position */
+                //elements = elements.sort(function(a, b) {
+                //  return GeneralServ.sorting(a.position, b.position);
+                //});
+                /** sorting by name */
+                elements = $filter('orderBy')(elements, 'name');
+
                 newElemList.push(elements);
               } else {
                 typeDelete.push(t);
@@ -917,7 +920,7 @@
               }
             }
           }
-//          console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
+          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
         }
         deff.resolve(1);
       });
