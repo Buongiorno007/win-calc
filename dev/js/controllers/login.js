@@ -177,8 +177,14 @@
           }
         } else {
           localDB.importUser(url.access, 1).then(function(result) {
+            var userTemp = angular.copy(result.user);
             GlobalStor.global.isLoader = 1;
-            importDBProsses(result.user, result.factoryLink);
+            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
+            //-------- check factory Link
+            if(result.factoryLink !== null) {
+              userTemp.factoryLink = angular.copy(result.factoryLink);
+            }
+            importDBProsses(userTemp);
           });
         }
 
@@ -307,12 +313,19 @@
 
     function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
-        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
+          var userTemp = angular.copy(result.user);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
-          if(newUserPassword === result.user.password) {
-            importDBProsses(result.user, result.factoryLink);
+          if(newUserPassword === userTemp.password) {
+
+            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
+            //-------- check factory Link
+            if(result.factoryLink !== null) {
+              userTemp.factoryLink = angular.copy(result.factoryLink);
+            }
+            importDBProsses(userTemp);
           } else {
             GlobalStor.global.isLoader = 0;
             //---- user not exists
@@ -329,7 +342,7 @@
 
 
 
-    function importDBProsses(user, factoryLink) {
+    function importDBProsses(user) {
 
       //----- checking user activation
       if(user.locked) {
@@ -347,11 +360,6 @@
                 localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
                 //------- save user in Stor
                 angular.extend(UserStor.userInfo, user);
-                //-------- check factory Link
-                if(factoryLink !== null) {
-                  UserStor.userInfo.factoryLink = factoryLink;
-                }
-
                 //------- import Location
                 localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                   if(data) {

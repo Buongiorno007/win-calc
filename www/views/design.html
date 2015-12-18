@@ -71,6 +71,11 @@
         <div hm-tap="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
         <div hm-tap="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
       </div>
+      <div id="position-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
+        <div hm-tap="designPage.initMirror($event)" class="constr-shape-icon mirror"></div>
+        <div hm-tap="designPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
+        <div hm-tap="designPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
+      </div>
       <div class="left-menu-footer">
         <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
         <div hm-tap="designPage.setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>

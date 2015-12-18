@@ -65,6 +65,10 @@ section.construction-page
         .constr-shape-icon.clean(hm-tap="designPage.insertArc(1, $event)")
         .constr-shape-icon.arc(hm-tap="designPage.insertArc(2, $event)")
 
+      #position-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
+        .constr-shape-icon.mirror(hm-tap="designPage.initMirror($event)")
+        .constr-shape-icon.position-axis(hm-tap="designPage.positionAxis($event)")
+        .constr-shape-icon.position-glass(hm-tap="designPage.positionGlass($event)")
 
       .left-menu-footer
         .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")

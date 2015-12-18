@@ -345,10 +345,10 @@
           }
         } else {
           /** set glass to all template blocks */
-          if(!ProductStor.product.template_source.details[blocksQty].children.length) {
+          //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
             ProductStor.product.template_source.details[blocksQty].glassId = glassId;
             ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
-          }
+          //}
         }
       }
     }
@@ -427,6 +427,7 @@
             //---- only for this type of user
             if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
               ProductStor.product.report = prepareReport(result.constrElements);
+              //console.log('REPORT', ProductStor.product.report);
             }
           }
         });

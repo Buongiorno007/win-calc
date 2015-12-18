@@ -70,6 +70,9 @@
     thisCtrl.insertCorner = insertCorner;
     thisCtrl.insertImpost = insertImpost;
     thisCtrl.insertArc = insertArc;
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
 
     thisCtrl.stepBack = DesignServ.stepBack;
 
@@ -83,6 +86,7 @@
     //--------Select menu item
     function selectMenuItem(id) {
       if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
         DesignServ.closeSizeCaclulator();
       } else {
         DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
@@ -138,8 +142,7 @@
               break;
             case 5:
               DesignServ.deselectAllGlass();
-              DesignStor.design.activeSubMenuItem = 0;
-              DesignServ.initMirror();
+              DesignStor.design.activeSubMenuItem = id;
               break;
           }
         } else {
@@ -155,6 +158,12 @@
       }
     }
 
+
+    function deactivMenu() {
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      DesignStor.design.isDropSubMenu = 0;
+    }
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
@@ -190,9 +199,7 @@
           i = 0;
 
       if(sashType === 1) {
-        DesignStor.design.activeMenuItem = 0;
-        DesignStor.design.activeSubMenuItem = 0;
-        DesignStor.design.isDropSubMenu = 0;
+        deactivMenu();
         //----- delete sash
         for(; i < glassQty; i++) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
@@ -208,9 +215,7 @@
         }
 
         if(isPermit) {
-          DesignStor.design.activeMenuItem = 0;
-          DesignStor.design.activeSubMenuItem = 0;
-          DesignStor.design.isDropSubMenu = 0;
+          deactivMenu();
           //----- insert sash
           for (; i < glassQty; i++) { //TODO download hardare types and create submenu
             DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
@@ -247,10 +252,10 @@
     }
 
     function insertCorner(conerType, event) {
-      event.srcEvent.stopPropagation();
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
       //------ hide menu
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
+      deactivMenu();
       var cornerQty = DesignStor.design.selectedCorner.length,
           i = 0;
       switch(conerType) {
@@ -305,9 +310,9 @@
 
 
     function insertArc(arcType, event) {
-      event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      deactivMenu();
       //---- get quantity of arcs
       var arcQty = DesignStor.design.selectedArc.length;
 
@@ -342,15 +347,14 @@
 
 
     function insertImpost(impostType, event) {
-      event.srcEvent.stopPropagation();
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i = 0;
 
       if(impostType === 1) {
-        DesignStor.design.activeMenuItem = 0;
-        DesignStor.design.activeSubMenuItem = 0;
-        DesignStor.design.isDropSubMenu = 0;
+        deactivMenu();
         //----- delete imposts
         if (impostsQty) {
           for (; i < impostsQty; i++) {
@@ -372,9 +376,7 @@
         }
 
         if(isPermit) {
-          DesignStor.design.activeMenuItem = 0;
-          DesignStor.design.activeSubMenuItem = 0;
-          DesignStor.design.isDropSubMenu = 0;
+          deactivMenu();
           if (!impostsQty) {
             var glassQty = DesignStor.design.selectedGlass.length;
             if (glassQty) {
@@ -390,6 +392,31 @@
       }
     }
 
+
+    /**++++++++++ create Mirror ++++++++*/
+
+    function initMirror(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.initMirror();
+    }
+
+
+    /**++++++++++ position by Axises ++++++++*/
+
+    function positionAxis(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionAxis();
+    }
+
+
+    /**++++++++++ position by Glasses ++++++++*/
+
+    function positionGlass(event) {
+      event.preventDefault();
+      deactivMenu();
+    }
 
 
 

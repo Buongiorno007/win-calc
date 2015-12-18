@@ -160,6 +160,9 @@ $door-config-content: $ipad-height - $door-config-header;
 #arc-shape-menu {
   top: 44rem;
 }
+#position-menu {
+  top: 58rem;
+}
 
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
@@ -335,7 +338,15 @@ $door-config-content: $ipad-height - $door-config-header;
 .corner-curv:after {
   content: $corner-curv-icon;
 }
-
+.mirror:after {
+  content: $mirror;
+}
+.position-axis:after {
+  content: $position-axis;
+}
+.position-glass:after {
+  content: $position-glass;
+}
 
 // Construction SVG
 

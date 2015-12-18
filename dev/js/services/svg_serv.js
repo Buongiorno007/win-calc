@@ -36,7 +36,8 @@
       setQPointCoord: setQPointCoord,
       getCenterLine: getCenterLine,
 
-      checkInsidePointInLineEasy: checkInsidePointInLineEasy
+      checkInsidePointInLineEasy: checkInsidePointInLineEasy,
+      sortByX: sortByX
     };
 
     return thisFactory.publicObj;

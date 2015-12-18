@@ -45,6 +45,7 @@
       deleteImpost: deleteImpost,
       //-------- mirror
       initMirror: initMirror,
+      positionAxis: positionAxis,
       removeAllEventsInSVG: removeAllEventsInSVG,
 
       //---- change sizes
@@ -1675,11 +1676,79 @@
 
 
 
+    function positionAxis() {
+      var blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocksSource.length,
+          parentBlocs = [], parentBlocsQty,
+          impostInd = [],
+          parentSizeMin, parentSizeMax, tempImpost,
+          step, impostIndSort, impostIndQty, newX,
+          b, p, i;
+
+      //console.warn(blocks, blocksSource);
+
+      //----- find parent block dimensions
+      for(b = 1; b < blocksQty; b++) {
+        if(blocksSource[b].level === 1) {
+          parentBlocs.push(blocksSource[b].pointsOut.map(function(point) {
+            return point.x;
+          }));
+        }
+      }
+      //console.info('impost parent----', parentBlocs);
+      //----- find vertical imosts
+      parentBlocsQty = parentBlocs.length;
+      for(p = 0; p < parentBlocsQty; p++) {
+        impostInd = [];
+        parentSizeMin = d3.min(parentBlocs[p]);
+        parentSizeMax = d3.max(parentBlocs[p]);
+
+        //console.log('max/min', parentSizeMin, parentSizeMax);
+        for(b = 1; b < blocksQty; b++) {
+          if(blocksSource[b].impost) {
+            if(blocksSource[b].impost.impostAxis) {
+              //----- if impost vertical
+              if(blocksSource[b].impost.impostAxis[0].x === blocksSource[b].impost.impostAxis[1].x) {
+                if(blocksSource[b].impost.impostAxis[0].x > parentSizeMin && blocksSource[b].impost.impostAxis[0].x < parentSizeMax) {
+                  tempImpost = {ind: b, x: blocksSource[b].impost.impostAxis[0].x};
+                  impostInd.push(tempImpost);
+                  //console.info('impost', blocksSource[b].impost.impostAxis, tempImpost);
+                }
+              }
+            }
+          }
+        }
+        //----- set new step
+        step = (parentSizeMax/(impostInd.length+1));
+        impostIndSort = impostInd.sort(SVGServ.sortByX);
+        impostIndQty = impostIndSort.length;
+
+        for(i = 0; i < impostIndQty; i++) {
+          //-------- insert back imposts X
+          if(!i) {
+            newX = (parentSizeMin + step);
+          } else {
+            newX = (impostIndSort[i-1].x + step);
+          }
+          //console.warn('final----', newX);
+          impostIndSort[i].x = newX;
+          blocksSource[impostIndSort[i].ind].impost.impostAxis[0].x = newX;
+          blocksSource[impostIndSort[i].ind].impost.impostAxis[1].x = newX;
+        }
+      }
+      rebuildSVGTemplate();
+    }
 
 
 
 
-    //=============== CHANGE CONSTRUCTION SIZE ==============//
+
+
+
+
+
+
+    /**=============== CHANGE CONSTRUCTION SIZE ==============*/
 
 
     //------- set click to all Dimensions

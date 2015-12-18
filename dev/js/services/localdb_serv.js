@@ -255,7 +255,8 @@
               ' device_code VARCHAR(250),'+
               ' last_sync TIMESTAMP,' +
               ' address VARCHAR,' +
-              ' therm_coeff_id INTEGER',
+              ' therm_coeff_id INTEGER,' +
+              ' factory_link VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
@@ -2252,17 +2253,18 @@
           case 21:
           case 22:
             sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-            //          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
+                      //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
             break;
           case 3:
             //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
             qtyReal = (currSize + pruning) * currConsist.value;
-            //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+                      //console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
             break;
           case 5:
-            var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
-            qtyReal = sizeTemp * currConsist.value;
-            //          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            //var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
+            //qtyReal = sizeTemp * currConsist.value;
+            qtyReal = currConsist.value;
+                      //console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
             break;
           case 6:
           case 23:
@@ -2274,7 +2276,7 @@
           case 4:
           case 15:
             qtyReal = parentValue * currConsist.value;
-            //          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+                      //console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
             break;
           default:
             sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
@@ -2336,7 +2338,7 @@
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-                console.info('FINISH====:', priceObj);
+                //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
