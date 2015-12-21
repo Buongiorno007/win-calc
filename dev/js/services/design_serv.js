@@ -1679,15 +1679,17 @@
     function positionAxis() {
       var blocksSource = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocksSource.length,
+          blocks = DesignStor.design.templateTEMP.details,
           parentBlocs = [], parentBlocsQty,
           impostInd = [],
           parentSizeMin, parentSizeMax, tempImpost,
           step, impostIndSort, impostIndQty, newX,
+          isInside1, isInside2,
           b, p, i;
 
       //console.warn(blocks, blocksSource);
 
-      //----- find parent block dimensions
+      //----- find dimensions of block Level 1
       for(b = 1; b < blocksQty; b++) {
         if(blocksSource[b].level === 1) {
           parentBlocs.push(blocksSource[b].pointsOut.map(function(point) {
@@ -1709,6 +1711,7 @@
             if(blocksSource[b].impost.impostAxis) {
               //----- if impost vertical
               if(blocksSource[b].impost.impostAxis[0].x === blocksSource[b].impost.impostAxis[1].x) {
+                //----- if impost belong to parent Block
                 if(blocksSource[b].impost.impostAxis[0].x > parentSizeMin && blocksSource[b].impost.impostAxis[0].x < parentSizeMax) {
                   tempImpost = {ind: b, x: blocksSource[b].impost.impostAxis[0].x};
                   impostInd.push(tempImpost);
@@ -1731,9 +1734,16 @@
             newX = (impostIndSort[i-1].x + step);
           }
           //console.warn('final----', newX);
-          impostIndSort[i].x = newX;
-          blocksSource[impostIndSort[i].ind].impost.impostAxis[0].x = newX;
-          blocksSource[impostIndSort[i].ind].impost.impostAxis[1].x = newX;
+          //--------- checking is new impost Position inside of block
+          isInside1 = isPointInsideBlock(blocks[impostIndSort[i].ind].pointsOut, newX, blocksSource[impostIndSort[i].ind].impost.impostAxis[0].y);
+          isInside2 = isPointInsideBlock(blocks[impostIndSort[i].ind].pointsOut, newX, blocksSource[impostIndSort[i].ind].impost.impostAxis[1].y);
+          //----- if inside
+          if(!isInside1 && !isInside2) {
+            impostIndSort[i].x = newX;
+            blocksSource[impostIndSort[i].ind].impost.impostAxis[0].x = newX;
+            blocksSource[impostIndSort[i].ind].impost.impostAxis[1].x = newX;
+          }
+
         }
       }
       rebuildSVGTemplate();
@@ -1741,6 +1751,28 @@
 
 
 
+    function isPointInsideBlock(pointsOut, pointX, pointY) {
+      var newP = {
+            x: pointX,
+            y: pointY
+          },
+          isInside = 0,
+          tempInside = 0,
+          pointsOutQty = pointsOut.length,
+          p = 0;
+      for(; p < pointsOutQty; p++) {
+        if(pointsOut[p+1]) {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
+        } else {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
+        }
+        if(tempInside > 0) {
+          isInside = tempInside;
+          break;
+        }
+      }
+      return isInside;
+    }
 
 
 
@@ -2037,7 +2069,7 @@
       DesignStor.design.openVoiceHelper = 0;
       DesignStor.design.loudVoice = 0;
       DesignStor.design.quietVoice = 0;
-      console.log('FINISH CACL');
+      //console.log('FINISH CACL');
       if(prom) {
         return deff.promise;
       }
