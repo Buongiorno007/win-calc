@@ -45,7 +45,8 @@
       deleteImpost: deleteImpost,
       //-------- mirror
       initMirror: initMirror,
-      positionAxis: positionAxis,
+      positionAxises: positionAxises,
+      positionGlasses: positionGlasses,
       removeAllEventsInSVG: removeAllEventsInSVG,
 
       //---- change sizes
@@ -1675,8 +1676,9 @@
 
 
 
+    //++++++++++ Set Position by Axises ++++++++//
 
-    function positionAxis() {
+    function positionAxises() {
       var blocksSource = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocksSource.length,
           blocks = DesignStor.design.templateTEMP.details,
@@ -1776,6 +1778,120 @@
 
 
 
+
+    //++++++++++ Set Position by Glass Width ++++++++//
+
+
+    function positionGlasses() {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          selectedBlock, imposts, impostPoints,
+          impostPointsQty,
+          isParall, isCouple, isExist, impQty, impsQty,
+          selectedBlocks = [], selectedBlocksQty,
+          glassWidthAvg, step,
+          impostN, blockN, glassXArr,
+          b = 1, p, i, j, s;
+
+      //console.warn(blocks, blocksSource);
+
+      //----- collect blocks with parallele imposts
+      for(; b < blocksQty; b++) {
+        //----- take block only with glass
+        if(!blocks[b].children.length && blocks[b].glassPoints) {
+          selectedBlock = {imps: []};
+          imposts = [];
+
+          impostPoints = blocks[b].pointsOut.filter(function(point) {
+            return point.type === 'impost' || point.type === 'shtulp';
+          });
+          //console.info('11111', impostPoints);
+
+          impostPointsQty = impostPoints.length;
+
+          for(i = 0; i < impostPointsQty; i++) {
+            isParall = 0;
+            isCouple = 0;
+            for(j = 0; j < impostPointsQty; j++) {
+              if(i !== j) {
+                if(impostPoints[j].id === impostPoints[i].id) {
+                  isCouple = 1;
+                  if(impostPoints[j].x === impostPoints[i].x) {
+                    isParall = 1
+                  }
+                }
+              }
+            }
+            if(!isCouple) {
+              break;
+            } else {
+              if(isParall) {
+                isExist = 1;
+                impQty = selectedBlock.imps.length;
+                while(--impQty > -1) {
+                  if(selectedBlock.imps[impQty].id === impostPoints[i].id) {
+                    isExist = 0
+                  }
+                }
+                if(isExist) {
+                  selectedBlock.imps.push(impostPoints[i]);
+                }
+              }
+            }
+          }
+
+          if(selectedBlock.imps.length) {
+            //console.info('3333', selectedBlock);
+            glassXArr = blocks[b].glassPoints.map(function(item){return item.x});
+            selectedBlock.minX = d3.min(glassXArr);
+            selectedBlock.maxX = d3.max(glassXArr);
+            selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
+            selectedBlocks.push(selectedBlock);
+          }
+
+        }
+      }
+
+      glassWidthAvg = selectedBlocks.reduce(function(summ, item) {
+        return {width: (summ.width + item.width)};
+      }).width/selectedBlocks.length;
+
+      selectedBlocks = selectedBlocks.filter(function(block) {
+        return block.width < glassWidthAvg;
+      });
+      //console.info(selectedBlocks, glassWidthAvg);
+      selectedBlocksQty = selectedBlocks.length;
+      for(s = 0; s < selectedBlocksQty; s++) {
+        if(selectedBlocks[s].width < glassWidthAvg) {
+          impsQty = selectedBlocks[s].imps.length;
+          step = Math.abs(selectedBlocks[s].width - glassWidthAvg)/impsQty;
+          //console.info(impsQty, step);
+          while(--impsQty > -1) {
+            impostN = Number(selectedBlocks[s].imps[impsQty].id.replace(/\D+/g, ""));
+            //console.info('impostN', impostN);
+            for(p = 1; p < blocksQty; p++) {
+              blockN = Number(blocks[p].id.replace(/\D+/g, ""));
+              //console.info('blockN', blockN);
+              if(blockN === impostN) {
+                if(blocksSource[p].impost) {
+                  //console.info('----',blocksSource[p].impost.impostAxis[0].x, selectedBlocks[s].maxX)
+                  if(blocksSource[p].impost.impostAxis[0].x < selectedBlocks[s].maxX) {
+                    blocksSource[p].impost.impostAxis[0].x -= step;
+                    blocksSource[p].impost.impostAxis[1].x -= step;
+                  } else {
+                    blocksSource[p].impost.impostAxis[0].x += step;
+                    blocksSource[p].impost.impostAxis[1].x += step;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+      rebuildSVGTemplate();
+    }
 
 
 

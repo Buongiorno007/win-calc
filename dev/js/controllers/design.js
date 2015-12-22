@@ -407,7 +407,7 @@
     function positionAxis(event) {
       event.preventDefault();
       deactivMenu();
-      DesignServ.positionAxis();
+      DesignServ.positionAxises();
     }
 
 
@@ -416,6 +416,7 @@
     function positionGlass(event) {
       event.preventDefault();
       deactivMenu();
+      DesignServ.positionGlasses();
     }
 
 
