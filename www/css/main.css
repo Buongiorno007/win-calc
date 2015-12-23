@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1450442320') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1450861674') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -5668,17 +5668,17 @@ tr.factory_item {
 
 /* line 341, ../../dev/sass/pages/design.scss */
 .mirror:after {
-  content: "";
+  content: "";
 }
 
 /* line 344, ../../dev/sass/pages/design.scss */
 .position-axis:after {
-  content: "";
+  content: "";
 }
 
 /* line 347, ../../dev/sass/pages/design.scss */
 .position-glass:after {
-  content: "";
+  content: "";
 }
 
 /* line 353, ../../dev/sass/pages/design.scss */

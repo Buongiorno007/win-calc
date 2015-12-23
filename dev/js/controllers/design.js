@@ -141,7 +141,7 @@
               showAllAvailableArc(id);
               break;
             case 5:
-              DesignServ.deselectAllGlass();
+              //DesignServ.deselectAllGlass();
               DesignStor.design.activeSubMenuItem = id;
               break;
           }

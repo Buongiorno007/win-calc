@@ -1551,7 +1551,7 @@
 
 
 
-    //++++++++++ Create Mirror ++++++++//
+    /**++++++++++ Create Mirror ++++++++*/
 
 
     function initMirror() {
@@ -1676,7 +1676,8 @@
 
 
 
-    //++++++++++ Set Position by Axises ++++++++//
+    /**++++++++++ Set Position by Axises ++++++++*/
+
 
     function positionAxises() {
       var blocksSource = DesignStor.design.templateSourceTEMP.details,
@@ -1689,7 +1690,8 @@
           isInside1, isInside2,
           b, p, i;
 
-      //console.warn(blocks, blocksSource);
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //----- find dimensions of block Level 1
       for(b = 1; b < blocksQty; b++) {
@@ -1779,119 +1781,191 @@
 
 
 
-    //++++++++++ Set Position by Glass Width ++++++++//
+    /**++++++++++ Set Position by Glass Width ++++++++*/
 
 
     function positionGlasses() {
       var blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          selectedBlock, imposts, impostPoints,
-          impostPointsQty,
-          isParall, isCouple, isExist, impQty, impsQty,
+          selectedGlassQty = DesignStor.design.selectedGlass.length,
+          blockID,
           selectedBlocks = [], selectedBlocksQty,
-          glassWidthAvg, step,
-          impostN, blockN, glassXArr,
-          b = 1, p, i, j, s;
+          glassWidthAvg,
+          impQty1, impQty2, isImpClone,
+          impsSBQty, impsSBQty2,
+          step, isAprove,
+          impostN, blockN,
+          g, b, imp1, imp2, sb, isb, sb2, isb2, p;
 
-      //console.warn(blocks, blocksSource);
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      //----- collect blocks with parallele imposts
-      for(; b < blocksQty; b++) {
-        //----- take block only with glass
-        if(!blocks[b].children.length && blocks[b].glassPoints) {
-          selectedBlock = {imps: []};
-          imposts = [];
-
-          impostPoints = blocks[b].pointsOut.filter(function(point) {
-            return point.type === 'impost' || point.type === 'shtulp';
-          });
-          //console.info('11111', impostPoints);
-
-          impostPointsQty = impostPoints.length;
-
-          for(i = 0; i < impostPointsQty; i++) {
-            isParall = 0;
-            isCouple = 0;
-            for(j = 0; j < impostPointsQty; j++) {
-              if(i !== j) {
-                if(impostPoints[j].id === impostPoints[i].id) {
-                  isCouple = 1;
-                  if(impostPoints[j].x === impostPoints[i].x) {
-                    isParall = 1
-                  }
-                }
-              }
-            }
-            if(!isCouple) {
-              break;
-            } else {
-              if(isParall) {
-                isExist = 1;
-                impQty = selectedBlock.imps.length;
-                while(--impQty > -1) {
-                  if(selectedBlock.imps[impQty].id === impostPoints[i].id) {
-                    isExist = 0
-                  }
-                }
-                if(isExist) {
-                  selectedBlock.imps.push(impostPoints[i]);
-                }
-              }
+      //------- if is exist selected glasses
+      if(selectedGlassQty) {
+        for(g = 0; g < selectedGlassQty; g++) {
+          blockID = DesignStor.design.selectedGlass[g].attributes.block_id.nodeValue;
+          //----- find this block among all blocks
+          for(b = 1; b < blocksQty; b++) {
+            if(blocks[b].id === blockID) {
+              prepareBlockXPosition(blocks[b], selectedBlocks);
             }
           }
-
-          if(selectedBlock.imps.length) {
-            //console.info('3333', selectedBlock);
-            glassXArr = blocks[b].glassPoints.map(function(item){return item.x});
-            selectedBlock.minX = d3.min(glassXArr);
-            selectedBlock.maxX = d3.max(glassXArr);
-            selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
-            selectedBlocks.push(selectedBlock);
+        }
+      } else {
+        //-------- working with all glass
+        //----- collect blocks with parallele imposts
+        for(b = 1; b < blocksQty; b++) {
+          //----- take block only with glass
+          if(!blocks[b].children.length && blocks[b].glassPoints) {
+            prepareBlockXPosition(blocks[b], selectedBlocks);
           }
-
         }
       }
 
+
+      selectedBlocksQty = selectedBlocks.length;
+      //------ common glass width for each selectedBlocks
       glassWidthAvg = selectedBlocks.reduce(function(summ, item) {
         return {width: (summ.width + item.width)};
-      }).width/selectedBlocks.length;
+      }).width/selectedBlocksQty;
 
-      selectedBlocks = selectedBlocks.filter(function(block) {
-        return block.width < glassWidthAvg;
-      });
       //console.info(selectedBlocks, glassWidthAvg);
-      selectedBlocksQty = selectedBlocks.length;
-      for(s = 0; s < selectedBlocksQty; s++) {
-        if(selectedBlocks[s].width < glassWidthAvg) {
-          impsQty = selectedBlocks[s].imps.length;
-          step = Math.abs(selectedBlocks[s].width - glassWidthAvg)/impsQty;
-          //console.info(impsQty, step);
-          while(--impsQty > -1) {
-            impostN = Number(selectedBlocks[s].imps[impsQty].id.replace(/\D+/g, ""));
-            //console.info('impostN', impostN);
-            for(p = 1; p < blocksQty; p++) {
-              blockN = Number(blocks[p].id.replace(/\D+/g, ""));
-              //console.info('blockN', blockN);
-              if(blockN === impostN) {
-                if(blocksSource[p].impost) {
-                  //console.info('----',blocksSource[p].impost.impostAxis[0].x, selectedBlocks[s].maxX)
-                  if(blocksSource[p].impost.impostAxis[0].x < selectedBlocks[s].maxX) {
-                    blocksSource[p].impost.impostAxis[0].x -= step;
-                    blocksSource[p].impost.impostAxis[1].x -= step;
-                  } else {
-                    blocksSource[p].impost.impostAxis[0].x += step;
-                    blocksSource[p].impost.impostAxis[1].x += step;
+
+
+      //---- find common impost if 2 selectedBlocks
+      if(selectedBlocksQty === 2) {
+        //console.info('when 2 glass----');
+        impQty1 = selectedBlocks[0].imps.length;
+        impQty2 = selectedBlocks[1].imps.length;
+        isImpClone = 0;
+        circle1: for(imp1 = 0; imp1 < impQty1; imp1++) {
+          for(imp2 = 0; imp2 < impQty2; imp2++) {
+            if(selectedBlocks[1].imps[imp2].id === selectedBlocks[0].imps[imp1].id) {
+              isImpClone = selectedBlocks[1].imps[imp2].id;
+              break circle1;
+            }
+          }
+        }
+      }
+
+      for(sb = 0; sb < selectedBlocksQty; sb++) {
+        impsSBQty = selectedBlocks[sb].imps.length;
+        step = GeneralServ.roundingNumbers(glassWidthAvg - selectedBlocks[sb].width);
+        //console.info('step----', selectedBlocks[sb]);
+        //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
+        for(isb = 0; isb < impsSBQty; isb++) {
+          if(!selectedBlocks[sb].imps[isb].isChanged) {
+            isAprove = 0;
+            if(selectedBlocksQty === 2) {
+              if(selectedBlocks[sb].imps[isb].id === isImpClone) {
+                if(selectedBlocks[sb].imps[isb].x < selectedBlocks[sb].maxX) {
+                  //----- if impost is left, it shoud be decrece if glass is biger
+                  step *= -1;
+                }
+                isAprove = 1;
+              }
+            } else {
+              isAprove = 1;
+            }
+            if(isAprove) {
+              selectedBlocks[sb].imps[isb].x += step;
+              //console.info('impst----', selectedBlocks[sb].imps[isb].x);
+              //------- set mark in equals impost other blocks
+              for (sb2 = 0; sb2 < selectedBlocksQty; sb2++) {
+                if (isb !== sb2) {
+                  impsSBQty2 = selectedBlocks[sb2].imps.length;
+                  for (isb2 = 0; isb2 < impsSBQty2; isb2++) {
+                    if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
+                      selectedBlocks[sb2].imps[isb2].isChanged = 1;
+                      selectedBlocks[sb2].width -= step;
+                    }
                   }
                 }
               }
             }
           }
+        }
+      }
+      //console.warn('FINISH----', selectedBlocks);
+      //------- change imposts X in blockSource
+      for(sb = 0; sb < selectedBlocksQty; sb++) {
+        impsSBQty = selectedBlocks[sb].imps.length;
+        for(isb = 0; isb < impsSBQty; isb++) {
+          if(!selectedBlocks[sb].imps[isb].isChanged) {
+            impostN = Number(selectedBlocks[sb].imps[isb].id.replace(/\D+/g, ""));
+            for(p = 1; p < blocksQty; p++) {
+              blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
+              if(blockN === impostN) {
+                if(blocksSource[p].impost) {
+                  blocksSource[p].impost.impostAxis[0].x = selectedBlocks[sb].imps[isb].x*1;
+                  blocksSource[p].impost.impostAxis[1].x = selectedBlocks[sb].imps[isb].x*1;
+                }
+              }
+            }
 
+          }
         }
       }
       rebuildSVGTemplate();
     }
+
+
+
+
+    function prepareBlockXPosition(currBlock, selectedBlocks) {
+      var selectedBlock = {imps: []},
+          impostPoints = currBlock.pointsOut.filter(function(point) {
+            return point.type === 'impost' || point.type === 'shtulp';
+          }),
+          impostPointsQty = impostPoints.length,
+          isParall, isCouple, isExist, impsQty, glassXArr,
+          i = 0, j;
+
+      for(; i < impostPointsQty; i++) {
+        isParall = 0;
+        isCouple = 0;
+        for(j = 0; j < impostPointsQty; j++) {
+          if(i !== j) {
+            if(impostPoints[j].id === impostPoints[i].id) {
+              isCouple = 1;
+              if(impostPoints[j].x === impostPoints[i].x) {
+                isParall = 1
+              }
+            }
+          }
+        }
+        //------ if only one point of impost, deselect this block
+        if(!isCouple) {
+          break;
+        } else {
+          if(isParall) {
+            isExist = 1;
+            impsQty = selectedBlock.imps.length;
+            //------ seek dublicate
+            while(--impsQty > -1) {
+              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
+                isExist = 0
+              }
+            }
+            if(isExist) {
+              selectedBlock.imps.push(impostPoints[i]);
+            }
+          }
+        }
+      }
+
+      if(selectedBlock.imps.length) {
+        glassXArr = currBlock.glassPoints.map(function(item){return item.x});
+        selectedBlock.minX = d3.min(glassXArr);
+        selectedBlock.maxX = d3.max(glassXArr);
+        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
+        selectedBlocks.push(selectedBlock);
+      }
+    }
+
+
+
 
 
 
