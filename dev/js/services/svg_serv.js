@@ -1889,8 +1889,8 @@
           baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
           baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
           crossPoint = {
-            x: GeneralServ.rounding100( (baseX/base) ),
-            y: GeneralServ.rounding100( (baseY/base) )
+            x: GeneralServ.rounding100( GeneralServ.rounding1000(baseX/base) ),
+            y: GeneralServ.rounding100( GeneralServ.rounding1000(baseY/base) )
           };
       if(crossPoint.x === -0) {
         crossPoint.x = 0;

@@ -16,6 +16,7 @@
       setPreviosPage: setPreviosPage,
       rounding10: rounding10,
       rounding100: rounding100,
+      rounding1000: rounding1000,
       roundingNumbers: roundingNumbers,
       addMarginToPrice: addMarginToPrice,
       setPriceDis: setPriceDis,
@@ -67,6 +68,10 @@
 
     function rounding100(value) {
       return Math.round(value * 100) / 100;
+    }
+
+    function rounding1000(value) {
+      return Math.round(value * 1000) / 1000;
     }
 
     function roundingNumbers(nubmer, radix) {

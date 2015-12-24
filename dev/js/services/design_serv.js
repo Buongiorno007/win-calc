@@ -1319,12 +1319,12 @@
           linesQty = lines.length;
       for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint;
-//        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
         coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-//          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
           var isCross = SVGServ.isInsidePointInLine(checkPoint);
           if(isCross) {
             //---- checking dublicats
@@ -1826,9 +1826,9 @@
 
       selectedBlocksQty = selectedBlocks.length;
       //------ common glass width for each selectedBlocks
-      glassWidthAvg = selectedBlocks.reduce(function(summ, item) {
+      glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
         return {width: (summ.width + item.width)};
-      }).width/selectedBlocksQty;
+      }).width/selectedBlocksQty);
 
       //console.info(selectedBlocks, glassWidthAvg);
 
@@ -1851,7 +1851,7 @@
 
       for(sb = 0; sb < selectedBlocksQty; sb++) {
         impsSBQty = selectedBlocks[sb].imps.length;
-        step = GeneralServ.roundingNumbers(glassWidthAvg - selectedBlocks[sb].width);
+        step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
         //console.info('step----', selectedBlocks[sb]);
         //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
         for(isb = 0; isb < impsSBQty; isb++) {
