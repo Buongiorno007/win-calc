@@ -337,10 +337,10 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1450861674') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1450864510') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .glass-container .glass-selector-dialog .set-glass-warning span, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
@@ -990,7 +990,7 @@ body {
 
 /* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .alert-sign, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .grid-selector-dialog .set-grid-warning span, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after, .glass-container .glass-selector-dialog .set-glass-warning span, .cart-page .close-alladdelements {
   font-weight: normal;
   font-style: normal;
@@ -1004,7 +1004,7 @@ body {
 }
 
 /* line 96, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1025,7 +1025,7 @@ body {
 }
 
 /* line 118, ../../dev/sass/base/general.scss */
-.middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn {
+.middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif, icons;
   border-radius: 2rem;
 }
@@ -1092,7 +1092,7 @@ body {
 }
 
 /* line 196, ../../dev/sass/base/general.scss */
-.modal-dialog, .rooms-selector-dialog, .glass-container .glass-selector-dialog, .auxiliaries-container .scheme-view-dialog {
+.modal-dialog, .rooms-selector-dialog, .grid-selector-dialog, .glass-container .glass-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
   -moz-transition: all 0.3s linear;
@@ -1106,7 +1106,7 @@ body {
   background-color: rgba(255, 255, 255, 0.85);
 }
 /* line 207, ../../dev/sass/base/general.scss */
-.modal-dialog.active, .active.rooms-selector-dialog, .glass-container .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
+.modal-dialog.active, .active.rooms-selector-dialog, .active.grid-selector-dialog, .glass-container .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   left: 5rem;
 }
 
@@ -2955,6 +2955,76 @@ div.drum figure {
 /* line 345, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .group-indicator:before {
   border-color: transparent #34aadc;
+}
+
+/* line 3, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog {
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  height: 70rem;
+  left: -255rem;
+  background-color: #fff;
+  z-index: 12;
+  text-align: center;
+}
+/* line 12, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog.active {
+  left: -90rem;
+}
+/* line 15, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .dialog-inner {
+  height: 90%;
+  width: 100%;
+  text-align: center;
+}
+/* line 20, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-btn {
+  font: normal 1.5rem/2 icons, sans-serif;
+  position: absolute;
+  top: 1.875rem;
+  right: 6rem;
+  border-radius: 50%;
+  width: 3.2rem;
+  background-color: #6ed44a;
+  text-align: center;
+}
+/* line 32, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-btn:after {
+  color: #fff;
+  content: "";
+}
+/* line 37, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-all-btn {
+  position: relative;
+  bottom: 0;
+  display: inline-block;
+  padding: 0.8125rem 1.625rem;
+  color: #fff;
+  background-color: #6ed44a;
+}
+/* line 47, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-warning {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  font: normal 1.5rem/1.42857 roboto-medium, sans-serif, icons;
+  color: #363636;
+}
+/* line 55, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-warning span {
+  font: normal 4rem/1.42857 icons, sans-serif;
+  padding-right: 1rem;
+}
+/* line 60, ../../dev/sass/parts/_grid-selector.scss */
+.grid-selector-dialog .set-grid-warning span:before {
+  color: #f98000;
+  content: "";
 }
 
 /* line 1, ../../dev/sass/parts/_search-block.scss */
@@ -8823,555 +8893,4 @@ tr.factory_item {
 /* line 466, ../../dev/sass/panels/add-elements-cart.scss */
 .cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
-}
-
-/* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .glass-container .glass-selector-dialog .set-glass-warning span, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
-  -moz-animation: splashing 0.5s ease 0s 1;
-  -webkit-animation: splashing 0.5s ease 0s 1;
-  animation: splashing 0.5s ease 0s 1;
-}
-
-@-webkit-keyframes splashing {
-  from {
-    -webkit-transform: scale(0);
-  }
-  50% {
-    -webkit-transform: scale(1.3);
-  }
-  to {
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes splashing {
-  from {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-/* line 224, ../../dev/sass/base/_animations.scss */
-.flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
-  -moz-animation: flashing 1.5s ease 0s 1;
-  -webkit-animation: flashing 1.5s ease 0s 1;
-  animation: flashing 1.5s ease 0s 1;
-}
-
-@-webkit-keyframes flashing {
-  from {
-    opacity: 1;
-  }
-  10% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes flashing {
-  from {
-    opacity: 1;
-  }
-  10% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-/* line 230, ../../dev/sass/base/_animations.scss */
-.jumping, .config-menu .menu_tooltip {
-  -moz-animation: jump-hor 2s ease-in 0s infinite;
-  -webkit-animation: jump-hor 2s ease-in 0s infinite;
-  animation: jump-hor 2s ease-in 0s infinite;
-}
-
-@-webkit-keyframes jump-hor {
-  from {
-    -webkit-transform: translate(0, 0);
-  }
-  5% {
-    -webkit-transform: translate(-2.5rem, 0);
-  }
-  10% {
-    -webkit-transform: translate(0, 0);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes jump-hor {
-  from {
-    transform: translate(0, 0);
-  }
-  5% {
-    transform: translate(-2.5rem, 0);
-  }
-  10% {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 252, ../../dev/sass/base/_animations.scss */
-.move-grid {
-  -moz-animation: move-grid 1s ease 0s 1;
-  -webkit-animation: move-grid 1s ease 0s 1;
-  animation: move-grid 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-grid {
-  from {
-    -webkit-transform: translate(62.5rem, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-grid {
-  from {
-    transform: translate(62.5rem, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 257, ../../dev/sass/base/_animations.scss */
-.move-visor {
-  -moz-animation: move-visor 1s ease 0s 1;
-  -webkit-animation: move-visor 1s ease 0s 1;
-  animation: move-visor 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-visor {
-  from {
-    -webkit-transform: translate(62.5rem, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-visor {
-  from {
-    transform: translate(62.5rem, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 262, ../../dev/sass/base/_animations.scss */
-.move-spillway {
-  -moz-animation: move-spillway 1s ease 0s 1;
-  -webkit-animation: move-spillway 1s ease 0s 1;
-  animation: move-spillway 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-spillway {
-  from {
-    -webkit-transform: translate(125rem, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-spillway {
-  from {
-    transform: translate(125rem, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 267, ../../dev/sass/base/_animations.scss */
-.move-outside {
-  -moz-animation: move-outside 1s ease 0s 1;
-  -webkit-animation: move-outside 1s ease 0s 1;
-  animation: move-outside 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-outside {
-  from {
-    -webkit-transform: translate(0, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-outside {
-  from {
-    transform: translate(0, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 272, ../../dev/sass/base/_animations.scss */
-.move-windowsill {
-  -moz-animation: move-windowsill 2s ease 0s 1;
-  -webkit-animation: move-windowsill 2s ease 0s 1;
-  animation: move-windowsill 2s ease 0s 1;
-}
-
-@-webkit-keyframes move-windowsill {
-  from {
-    -webkit-transform: translate(-62.5rem, 125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-windowsill {
-  from {
-    transform: translate(-62.5rem, 125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 278, ../../dev/sass/base/_animations.scss */
-.move-louvers {
-  -moz-animation: move-louvers 2s ease 0s 1;
-  -webkit-animation: move-louvers 2s ease 0s 1;
-  animation: move-louvers 2s ease 0s 1;
-}
-
-@-webkit-keyframes move-louvers {
-  from {
-    -webkit-transform: translate(0, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-louvers {
-  from {
-    transform: translate(0, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 283, ../../dev/sass/base/_animations.scss */
-.move-louver-midle-1 {
-  -moz-animation: move-louver-1 2s ease 2s 1;
-  -webkit-animation: move-louver-1 2s ease 2s 1;
-  animation: move-louver-1 2s ease 2s 1;
-}
-
-@-webkit-keyframes move-louver-1 {
-  from {
-    -webkit-transform: translate(0, 0);
-  }
-  50% {
-    -webkit-transform: translate(0, -1.875rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-louver-1 {
-  from {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -1.875rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 288, ../../dev/sass/base/_animations.scss */
-.move-louver-midle-2 {
-  -moz-animation: move-louver-2 2s ease 2s 1;
-  -webkit-animation: move-louver-2 2s ease 2s 1;
-  animation: move-louver-2 2s ease 2s 1;
-}
-
-@-webkit-keyframes move-louver-2 {
-  from {
-    -webkit-transform: translate(0, 0);
-  }
-  50% {
-    -webkit-transform: translate(0, -3.75rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-louver-2 {
-  from {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -3.75rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 293, ../../dev/sass/base/_animations.scss */
-.move-louver-midle-3 {
-  -moz-animation: move-louver-3 2s ease 2s 1;
-  -webkit-animation: move-louver-3 2s ease 2s 1;
-  animation: move-louver-3 2s ease 2s 1;
-}
-
-@-webkit-keyframes move-louver-3 {
-  from {
-    -webkit-transform: translate(0, 0);
-  }
-  50% {
-    -webkit-transform: translate(0, -5.625rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-louver-3 {
-  from {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -5.625rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 298, ../../dev/sass/base/_animations.scss */
-.move-louver-bottom {
-  -moz-animation: move-louver-bottom 2s ease 2s 1;
-  -webkit-animation: move-louver-bottom 2s ease 2s 1;
-  animation: move-louver-bottom 2s ease 2s 1;
-}
-
-@-webkit-keyframes move-louver-bottom {
-  from {
-    -webkit-transform: translate(0, 0);
-  }
-  50% {
-    -webkit-transform: translate(0, -7.5rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-louver-bottom {
-  from {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -7.5rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 304, ../../dev/sass/base/_animations.scss */
-.move-inside-top {
-  -moz-animation: move-slope-top 1s ease 0s 1;
-  -webkit-animation: move-slope-top 1s ease 0s 1;
-  animation: move-slope-top 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-slope-top {
-  from {
-    -webkit-transform: translate(0, -125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-slope-top {
-  from {
-    transform: translate(0, -125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 309, ../../dev/sass/base/_animations.scss */
-.move-inside-right {
-  -moz-animation: move-slope-right 1s ease 0s 1;
-  -webkit-animation: move-slope-right 1s ease 0s 1;
-  animation: move-slope-right 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-slope-right {
-  from {
-    -webkit-transform: translate(125rem, 125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-slope-right {
-  from {
-    transform: translate(125rem, 125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 314, ../../dev/sass/base/_animations.scss */
-.move-inside-left {
-  -moz-animation: move-slope-left 1s ease 0s 1;
-  -webkit-animation: move-slope-left 1s ease 0s 1;
-  animation: move-slope-left 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-slope-left {
-  from {
-    -webkit-transform: translate(-62.5rem, 0);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-slope-left {
-  from {
-    transform: translate(-62.5rem, 0);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 320, ../../dev/sass/base/_animations.scss */
-.move-fan {
-  -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
-  -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
-  animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
-}
-
-@-webkit-keyframes move-fan {
-  from {
-    -webkit-transform: translate(0, 125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-fan {
-  from {
-    transform: translate(0, 125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-@-webkit-keyframes rot-fan {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-@keyframes rot-fan {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-/* line 327, ../../dev/sass/base/_animations.scss */
-.move-handle {
-  -moz-animation: move-handle 1s ease 0s 1;
-  -webkit-animation: move-handle 1s ease 0s 1;
-  animation: move-handle 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-handle {
-  from {
-    -webkit-transform: translate(-62.5rem, 125rem);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-handle {
-  from {
-    transform: translate(-62.5rem, 125rem);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 333, ../../dev/sass/base/_animations.scss */
-.move-view-tab {
-  -moz-animation: move-tab 1s ease 0s 1;
-  -webkit-animation: move-tab 1s ease 0s 1;
-  animation: move-tab 1s ease 0s 1;
-}
-
-@-webkit-keyframes move-tab {
-  from {
-    -webkit-transform: translate(-12.5rem, 43.75rem);
-  }
-  to {
-    -webkit-transform: translate(-7.875rem, 43.75rem);
-  }
-}
-@keyframes move-tab {
-  from {
-    transform: translate(-12.5rem, 43.75rem);
-  }
-  to {
-    transform: translate(-7.875rem, 43.75rem);
-  }
 }

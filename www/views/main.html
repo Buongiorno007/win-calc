@@ -726,6 +726,15 @@
             </div>
           </div>
         </div>
+        <div ng-if="!elementsMenu.P.product.is_addelem_only" ng-class="{'active': elementsMenu.A.aux.isGridSelectorDialog}" class="grid-selector-dialog">
+          <div class="dialog-inner">
+            <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="setGlass"></svg-template>
+          </div>
+          <div hm-tap="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
+          <div hm-tap="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>
+          <div class="set-grid-warning"><span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}</div>
+          <div hm-tap="elementsMenu.closeGridSelectorDialog()" class="close-dialog"></div>
+        </div>
       </div>
     </section>
   </section>

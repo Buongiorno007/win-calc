@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, MainServ, AddElementMenuServ, AddElementsServ) {
+  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, MainServ, AddElementMenuServ, AddElementsServ, DesignServ, DesignStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -39,6 +39,10 @@
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
+    thisCtrl.confirmGrid = confirmGrid;
+    thisCtrl.setGridToAll = setGridToAll;
+    thisCtrl.closeGridSelectorDialog = closeGridSelectorDialog;
+
 
 
 
@@ -63,6 +67,11 @@
         if (AuxStor.aux.isAddElementListView) {
           selectAddElementList(typeId, elementId, clickEvent);
         } else {
+          /** if grid,  show grid selector dialog */
+          if(AuxStor.aux.isFocusedAddElement === 1) {
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
+          }
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
@@ -93,6 +102,21 @@
         }, 1000);
       }
     }
+
+
+    /** Grid Selector Dialog */
+
+    function confirmGrid() {
+      console.info(DesignStor.design.selectedGlass);
+      //DesignServ.removeAllEventsInSVG();
+    }
+    function setGridToAll() {
+
+    }
+    function closeGridSelectorDialog() {
+      AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+    }
+
 
   }
 })();

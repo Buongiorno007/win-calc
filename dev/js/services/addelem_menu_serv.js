@@ -42,6 +42,7 @@
       if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
         AuxStor.aux.isFocusedAddElement = 0;
         AuxStor.aux.isTabFrame = 0;
+        AuxStor.aux.isGridSelectorDialog = 0;
         //playSound('swip');
         AuxStor.aux.showAddElementsMenu = 0;
         desactiveAddElementParameters();

@@ -322,6 +322,41 @@
     }
 
 
+
+    /**------- set click to all Glass for Grid ---------- */
+    function initAllGlassXGrid() {
+      DesignStor.design.selectedGlass.length = 0;
+      d3.selectAll('#tamlateSVG .glass')
+        .each(function() {
+          var glass = d3.select(this);
+          glass.on(clickEvent, function() {
+            var blocks = ProductStor.product.template.details,
+                blockID = glass[0][0].attributes.block_id.nodeValue;
+            //-------- check glass per sash
+            
+                //blockType: "sash"
+                //========= select glass
+
+
+            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+
+
+            if (isGlass) {
+              glass.classed('glass-active', true);
+              $rootScope.$apply();
+            } else {
+              glass.classed('glass-active', false);
+
+              if (!DesignStor.design.selectedGlass.length) {
+                $rootScope.$apply();
+              }
+            }
+          });
+        });
+    }
+
+
+
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+currDimId+']'),
           dimQty = dim[0].length;

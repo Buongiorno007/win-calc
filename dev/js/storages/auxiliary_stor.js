@@ -26,6 +26,7 @@
         isTabFrame: 0,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
+        isGridSelectorDialog: 0,
 
         addElementGroups: [],
         searchingWord: '',

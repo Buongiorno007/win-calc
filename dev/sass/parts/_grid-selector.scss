@@ -1,0 +1,67 @@
+//======== Glasses dialog
+
+.grid-selector-dialog {
+  @extend .modal-dialog;
+  @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+  height: 70rem;
+  left: -255rem;
+  background-color: #fff;
+  z-index: 12;
+  text-align: center;
+
+  &.active {
+    left: -90rem;
+  }
+  .dialog-inner {
+    height: 90%;
+    width: 100%;
+    text-align: center;
+  }
+  .set-grid-btn {
+    @extend .button;
+    @extend .splash;
+    @include font-icon(1.5rem, 2);
+    position: absolute;
+    top: 1.875rem;
+    right: 6rem;
+    border-radius: 50%;
+    width: 3.2rem;
+    background-color: $main_green;
+    text-align: center;
+
+    &:after{
+      color: #fff;
+      content: $select-history-icon;
+    }
+  }
+  .set-grid-all-btn {
+    @extend .middle-button;
+    @extend .splash;
+    position: relative;
+    bottom: 0;
+    display: inline-block;
+    padding: 0.8125rem 1.625rem;
+    color: #fff;
+    background-color: $main_green;
+  }
+  .set-grid-warning {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(center);
+    @include align-items(center);
+    @include roboto-md(rem(24px));
+    color: $main_gray_txt;
+
+    span {
+      @include font-icon(4rem);
+      @extend .icon-setting;
+      @extend .splash;
+      padding-right: 1rem;
+      &:before {
+        color: $main_orange;
+        content: $warning;
+
+      }
+    }
+  }
+}

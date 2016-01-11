@@ -71,3 +71,5 @@
             button.aux-params-but(hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}") {{ addElement.element_height }}
             .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
           .aux-delete(hm-tap="elementsMenu.deleteAddElement(($parent.$index+1), $index)")
+
+  include ../parts/_grid-selector
