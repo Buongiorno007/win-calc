@@ -14,6 +14,7 @@
     thisFactory.publicObj = {
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
+      roundingValue: roundingValue,
       rounding10: rounding10,
       rounding100: rounding100,
       rounding1000: rounding1000,
@@ -81,6 +82,23 @@
         return parseFloat( parseFloat(nubmer).toFixed(radix) );
       } else if(numberType === 'number') {
         return parseFloat(nubmer.toFixed(radix));
+      }
+    }
+
+    function roundingValue(nubmer, radix) {
+      var radix = (radix) ? radix : 2,
+          numberType = typeof nubmer,
+          roundRadix = '1', i = 0;
+
+      for(; i < radix; i++) {
+        roundRadix += '0';
+      }
+      roundRadix *= 1;
+
+      if(numberType === 'string') {
+        return parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
+      } else if(numberType === 'number') {
+        return parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
       }
     }
 

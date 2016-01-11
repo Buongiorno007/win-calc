@@ -478,7 +478,7 @@
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         if(result.priceTotal){
-          ProductStor.product.template_price = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff), 3);
+          ProductStor.product.template_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff), 2);
           setProductPriceTOTAL(ProductStor.product);
           //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
@@ -515,9 +515,9 @@
                 if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
                   exist++;
                   report[reportQty].amount += tempObj.amount;
-                  report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
+                  //report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
                   report[reportQty].priceReal += tempObj.priceReal;
-                  report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
+                  //report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
                 }
               }
               if (!exist) {
@@ -531,10 +531,11 @@
         //------ add margins to price of every elements
         reportQty = report.length;
         while(--reportQty > -1) {
-          report[reportQty].priceReal = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
+          report[reportQty].amount = GeneralServ.roundingValue(report[reportQty].amount, 3);
+          report[reportQty].size = GeneralServ.roundingValue(report[reportQty].size, 3);
+          report[reportQty].priceReal = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 2);
         }
       }
-//      console.log('report finish', new Date(), new Date().getMilliseconds());
       return report;
     }
 

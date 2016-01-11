@@ -59,7 +59,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     'CartModule',
     'HistoryModule',
     'SettingsModule'
-  ]).config(configurationApp);
+  ]).config(/*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
@@ -76,21 +76,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  configurationApp.$inject = [
-    '$routeProvider',
-    '$locationProvider',
-    '$httpProvider',
-    '$translateProvider',
-
-    'ukrainianDictionary',
-    'russianDictionary',
-    'englishDictionary',
-    'germanDictionary',
-    'romanianDictionary',
-    'italianDictionary'
-  ];
-
-  function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
+  function configurationApp($routeProvider, $locationProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
 
     //-------- delete # !!!
     //$locationProvider.html5Mode({
@@ -100,56 +86,47 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'loginPage',
+        controller: 'LoginCtrl as loginPage',
         title: 'Login'
       })
       .when('/main', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'mainPage',
+        controller: 'MainCtrl as mainPage',
         title: 'Main'
       })
       .when('/settings', {
         templateUrl: 'views/settings.html',
-        controller: 'SettingsCtrl',
-        controllerAs: 'settingsPage',
+        controller: 'SettingsCtrl as settingsPage',
         title: 'Settings'
       })
       .when('/change-pass', {
         templateUrl: 'views/change-pass.html',
-        controller: 'ChangePassCtrl',
-        controllerAs: 'passwordPage',
+        controller: 'ChangePassCtrl as passwordPage',
         title: 'Change Pass'
       })
       .when('/change-lang', {
         templateUrl: 'views/change-lang.html',
-        controller: 'ChangeLangCtrl',
-        controllerAs: 'languagePage',
+        controller: 'ChangeLangCtrl as languagePage',
         title: 'Change Language'
       })
       .when('/location', {
         templateUrl: 'views/location.html',
-        controller: 'LocationCtrl',
-        controllerAs: 'locationPage',
+        controller: 'LocationCtrl as locationPage',
         title: 'Location'
       })
       .when('/history', {
         templateUrl: 'views/history.html',
-        controller: 'HistoryCtrl',
-        controllerAs: 'historyPage',
+        controller: 'HistoryCtrl as historyPage',
         title: 'History'
       })
       .when('/cart', {
         templateUrl: 'views/cart.html',
-        controller: 'CartCtrl',
-        controllerAs: 'cartPage',
+        controller: 'CartCtrl as cartPage',
         title: 'Cart'
       })
       .when('/design', {
         templateUrl: 'views/design.html',
-        controller: 'DesignCtrl',
-        controllerAs: 'designPage',
+        controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
       .otherwise({

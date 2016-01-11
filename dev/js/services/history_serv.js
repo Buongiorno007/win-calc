@@ -112,9 +112,8 @@
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
             HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
-
             //------ update in Local BD
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
+            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()});
           }
         }
       }

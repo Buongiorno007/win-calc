@@ -1389,8 +1389,8 @@
       var impPoint = {
         type:'impost',
         id:'ip'+curBlockN,
-        x: coord.x,
-        y: coord.y,
+        x: Math.round(coord.x),
+        y: Math.round(coord.y),
         dir:'line',
         dimType: dimType
       };
@@ -1726,7 +1726,7 @@
           }
         }
         //----- set new step
-        step = (parentSizeMax/(impostInd.length+1));
+        step = Math.round(parentSizeMax/(impostInd.length+1));
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
@@ -1859,16 +1859,16 @@
             isAprove = 0;
             if(selectedBlocksQty === 2) {
               if(selectedBlocks[sb].imps[isb].id === isImpClone) {
-                if(selectedBlocks[sb].imps[isb].x < selectedBlocks[sb].maxX) {
-                  //----- if impost is left, it shoud be decrece if glass is biger
-                  step *= -1;
-                }
                 isAprove = 1;
               }
             } else {
               isAprove = 1;
             }
             if(isAprove) {
+              if(selectedBlocks[sb].imps[isb].x < selectedBlocks[sb].maxX) {
+                //----- if impost is left, it shoud be decrece if glass is bigger
+                step *= -1;
+              }
               selectedBlocks[sb].imps[isb].x += step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks

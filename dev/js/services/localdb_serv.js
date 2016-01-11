@@ -2252,35 +2252,36 @@
           case 1:
           case 21:
           case 22:
-            sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-                      //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
+            sizeReal = GeneralServ.roundingValue((currSize + pruning - currConsist.value), 3);
+            //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
             break;
           case 3:
-            //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+            //qtyReal = Math.round(currSize + pruning) * currConsist.value;
             qtyReal = (currSize + pruning) * currConsist.value;
-                      //console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+            //console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
             break;
           case 5:
             //var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
             //qtyReal = sizeTemp * currConsist.value;
             qtyReal = currConsist.value;
-                      //console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            //console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            //console.log('Правило 5 : (', currConsist.value, ') = ', qtyReal, ' шт. на 1 метр2 родителя');
             break;
           case 6:
           case 23:
-            qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
-            //          qtyReal = (currSize + pruning) * currConsist.value;
-            //          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
+            //qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+            qtyReal = (currSize + pruning) * currConsist.value;
+            //console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', (currSize + pruning) * currConsist.value, qtyReal, ' kg. на метр родителя');
             break;
           case 2:
           case 4:
           case 15:
             qtyReal = parentValue * currConsist.value;
-                      //console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+            //console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
             break;
           default:
-            sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
-            //          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
+            sizeReal = GeneralServ.roundingValue((currSize + pruning), 3);
+            //console.log('Правило else:', currSize, ' + ', pruning, ' = ', (currSize + pruning), sizeReal);
             break;
         }
 
@@ -2295,9 +2296,12 @@
           priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
         }
         //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
-        objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-        objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
-        objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+        //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+        //objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
+        //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+        objTmp.priceReal = priceReal;
+        objTmp.size = sizeReal;
+        objTmp.qty = qtyReal;
         //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
         priceObj.constrElements.push(objTmp);
         priceObj.priceTotal += objTmp.priceReal;

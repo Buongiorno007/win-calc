@@ -82,9 +82,9 @@
       }) : angular.copy(ProductStor.product.report);
 
       if(currReportList.length) {
-        thisCtrl.config.reportPriceTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(currReportList.reduce(function (sum, item) {
+        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
           return {priceReal: sum.priceReal + item.priceReal};
-        }).priceReal), 3);
+        }).priceReal, 2);
       } else {
         thisCtrl.config.reportPriceTotal = 0;
       }
