@@ -515,9 +515,7 @@
                 if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
                   exist++;
                   report[reportQty].amount += tempObj.amount;
-                  //report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
                   report[reportQty].priceReal += tempObj.priceReal;
-                  //report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
                 }
               }
               if (!exist) {
@@ -567,8 +565,8 @@
         /** get total glasses square */
         glassSquareTotal += objXFormedPrice.sizes[5][glassSizeQty].square;
       }
-      glassHeatCoeffTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(glassHeatCoeffTotal), 3);
-      glassSquareTotal = GeneralServ.roundingNumbers(glassSquareTotal, 3);
+      glassHeatCoeffTotal = GeneralServ.roundingValue(glassHeatCoeffTotal);
+      glassSquareTotal = GeneralServ.roundingValue(glassSquareTotal, 3);
 
       /** culculate profile Heat Coeff Total */
       if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
@@ -580,10 +578,10 @@
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
-        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( commonHeatCoeffTotal/ProductStor.product.template_square );
+        ProductStor.product.heat_coef_total = GeneralServ.roundingValue( commonHeatCoeffTotal/ProductStor.product.template_square );
       } else {
         /** U */
-        ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/commonHeatCoeffTotal );
+        ProductStor.product.heat_coef_total = GeneralServ.roundingValue( ProductStor.product.template_square/commonHeatCoeffTotal );
       }
 
     }
@@ -592,7 +590,7 @@
 
     function setProductPriceTOTAL(Product) {
       //playSound('price');
-      Product.product_price = GeneralServ.roundingNumbers( Product.template_price + Product.addelem_price );
+      Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
       Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
       if(GlobalStor.global.deliveryCoeff.base_time) {
@@ -923,7 +921,7 @@
       orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
       orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
-      orderData.products_qty = GeneralServ.roundingNumbers(OrderStor.order.products_qty);
+      orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
       if(orderType) {
         orderData.additional_payment = '';
         orderData.created = new Date();

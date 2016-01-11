@@ -1876,8 +1876,8 @@
                 priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
               }
               constrElem.qty = angular.copy(qtyTemp);
-              constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
-              constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+              constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+              constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
               priceObj.priceTotal += priceTemp;
 //              console.warn('finish bead-________',constrElem);
               constrElements.push(constrElem);
@@ -1911,8 +1911,8 @@
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
-            constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+            constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+            constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
             //          console.warn(constrElem);
             constrElements.push(constrElem);
@@ -2067,7 +2067,7 @@
                     if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
                       priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
                     }
-                    objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+                    objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
                     objTmp.size = 0;
 //                    console.info('finish -------priceObj------- ', priceObj);
 //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
@@ -2160,7 +2160,7 @@
             currSize = currConstrSize.square;
           }
         } else {
-          fullSize = GeneralServ.roundingNumbers((currConstrSize + mainKit.amendment_pruning), 3);
+          fullSize = GeneralServ.roundingValue((currConstrSize + mainKit.amendment_pruning), 3);
           currSize = currConstrSize;
         }
         if(currConsist.child_type === "list") {
@@ -2198,7 +2198,7 @@
         case 21: //---- less width of glass
         case 22: //---- less height of glass
           //------ меньше родителя на X (м)
-          value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
+          value = GeneralServ.roundingValue((parentValue - childValue), 3);
           break;
         case 2: //------ X шт. на родителя
         case 5: //----- X шт. на 1 м2 родителя
@@ -2209,7 +2209,7 @@
         case 12:
         case 14:
           //------ X шт. на метр родителя
-          value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
+          value = GeneralServ.roundingValue((Math.round(parentValue) * childValue), 3);
           break;
         case 6:
         case 7:
@@ -2217,7 +2217,7 @@
         case 9:
         case 13:
         case 23: //------ кг на м
-          value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
+          value = GeneralServ.roundingValue((parentValue * childValue), 3);
           break;
         default:
           value = childValue;
@@ -2341,7 +2341,7 @@
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
-              priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
+              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
                 //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
@@ -2437,7 +2437,7 @@
                     }
                   }
                 }
-                priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
+                priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
 //                console.info('FINISH ADD ====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);

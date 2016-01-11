@@ -338,7 +338,7 @@
         if(line.dir === 'line') {
           line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
         }
-        line.size = GeneralServ.rounding100( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
+        line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
         setLineCoef(line);
         lines.push(line);
       }
@@ -1019,8 +1019,8 @@
 
     function getCoordSideQPCurve(t, p0, p1) {
       var qpi = {
-        x: GeneralServ.rounding100( ((1-t)*p0.x + t*p1.x) ),
-        y: GeneralServ.rounding100( ((1-t)*p0.y + t*p1.y) )
+        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
+        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
       };
       return qpi;
     }
@@ -1060,8 +1060,8 @@
             break;
         }
       }
-      coordQP.y = GeneralServ.rounding10( coordQP.y );
-      coordQP.x = GeneralServ.rounding10( coordQP.x );
+      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
+      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
 //      console.log('ERROR coordQP!!!', coordQP);
       return coordQP;
     }
@@ -1188,7 +1188,7 @@
 
         //------- per Price
         //----- converting size from mm to m
-        var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
+        var sizeValue = GeneralServ.roundingValue(angular.copy(part.size)/1000, 3);
         if(newPointsOut[index].type === 'bead') {
           part.type = 'bead';
           beadObj.sizes.push(sizeValue);
@@ -1254,7 +1254,7 @@
           size = 0;
       //------- Line
       if(pointQty === 2 || pointQty === 4) {
-        size = GeneralServ.rounding10( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))) );
+        size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
 
         //--------- Curve
       } else if(pointQty === 3 || pointQty === 6) {
@@ -1321,7 +1321,7 @@
       glassObj.square = angular.copy(part.square);
       //----- converting size from mm to m
       glassObj.sizes = angular.copy(part.sizes).map(function(item) {
-        return GeneralServ.roundingNumbers(item/1000, 3);
+        return GeneralServ.roundingValue(item/1000, 3);
       });
       priceElements.glassSquares.push(glassObj);
 
@@ -1378,7 +1378,7 @@
           ++p;
         } else {
           //------- Line
-          size = GeneralServ.rounding10( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)) );
+          size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
         }
 
         sizes.push(size);
@@ -1698,12 +1698,12 @@
       if(d > 0) {
         var delta = Math.sqrt(d);
 //        console.log('delta ++++', b, delta);
-        roots.push( GeneralServ.rounding100( (-b + delta)/2 ) );
-        roots.push( GeneralServ.rounding100( (-b - delta)/2 ) );
+        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ) );
+        roots.push( GeneralServ.roundingValue( (-b - delta)/2 ) );
 //        roots.push( (-b + delta)/2 );
 //        roots.push( (-b - delta)/2 );
       } else if(d === 0) {
-        roots.push( GeneralServ.rounding100( -b/2 ) );
+        roots.push( GeneralServ.roundingValue( -b/2 ) );
 //        roots.push( -b/2 );
       }
 //TODO проблема с точкой пересечения
@@ -1746,7 +1746,7 @@
 
     //---------- linear interpolation utility
     function getCoordCurveByT(P0, P1, P2, t) {
-      return GeneralServ.rounding100( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
+      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
     }
 
 
@@ -1794,7 +1794,7 @@
 
       //------- for Price
       //----- converting size from mm to m
-      var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
+      var sizeValue = GeneralServ.roundingValue(angular.copy(part.size)/1000, 3);
 
       if(pointsType === 'impost') {
         priceElements.impostsSize.push(sizeValue);
@@ -1889,8 +1889,8 @@
           baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
           baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
           crossPoint = {
-            x: GeneralServ.rounding100( GeneralServ.rounding1000(baseX/base) ),
-            y: GeneralServ.rounding100( GeneralServ.rounding1000(baseY/base) )
+            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
+            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
           };
       if(crossPoint.x === -0) {
         crossPoint.x = 0;
@@ -1904,8 +1904,8 @@
 
     function checkLineOwnPoint(point, lineTo, lineFrom) {
       var check = {
-        x: GeneralServ.rounding100( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
-        y: GeneralServ.rounding100( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
+        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
+        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
       };
       if(check.x === -Infinity) {
         check.x = Infinity;
@@ -2283,7 +2283,7 @@
                         dim.to = angular.copy(blocks[b].pointsQ[q].midleX);
                         break;
                     }
-                    dim.text = GeneralServ.rounding10( angular.copy(blocks[b].pointsQ[q].heightQ) );
+                    dim.text = GeneralServ.roundingValue( angular.copy(blocks[b].pointsQ[q].heightQ), 1 );
                     dim.maxLimit = blocks[b].pointsQ[q].lengthChord/4;
                   }
                 }
@@ -2405,7 +2405,7 @@
           },
           currLimit;
 
-      dim.text = GeneralServ.rounding10( Math.abs(dim.to - dim.from) );
+      dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
 
 //      console.log('FINISH limits---------', dim, limits);
 
@@ -2434,13 +2434,13 @@
       for(var i = 0; i < limitsQty; i++) {
         if(dim.axis === 'x') {
           if(limits[i].x === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.rounding10( (limits[i-1].x + globalConstants.minSizeLimit) ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.rounding10( (limits[i+1].x - dim.from - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].x + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
           }
         } else {
           if(limits[i].y === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.rounding10( (limits[i-1].y + globalConstants.minSizeLimit) ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.rounding10( (limits[i+1].y - dim.from - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].y + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
           }
         }
       }
@@ -2492,7 +2492,7 @@
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.rounding10( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit) );
+                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1 );
                 }
               } else {
 //                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].x + globalConstants.minSizeLimit) );
@@ -2503,7 +2503,7 @@
               dimLimit.minL = globalConstants.minSizeLimit;
             }
 //            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (currLimits[i+1].x - startDim - globalConstants.minSizeLimit) ) : maxSizeLimit;
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
@@ -2514,7 +2514,7 @@
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.rounding10( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit) );
+                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit), 1 );
                 }
               } else {
 //                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].y + globalConstants.minSizeLimit) );
@@ -2525,7 +2525,7 @@
               dimLimit.minL = globalConstants.minSizeLimit;
             }
 //            console.log(pointDim.y, startDim, currLimits[i+1].y, pointDim.y, globalConstants.minSizeLimit);
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
           }
         }
       }
@@ -2604,7 +2604,7 @@
     function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
       pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
       pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
-      pointQ.lengthChord = GeneralServ.rounding100( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
+      pointQ.lengthChord = GeneralServ.roundingValue( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
       pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
       pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
       pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);

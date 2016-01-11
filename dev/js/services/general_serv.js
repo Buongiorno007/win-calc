@@ -15,10 +15,10 @@
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
       roundingValue: roundingValue,
-      rounding10: rounding10,
-      rounding100: rounding100,
-      rounding1000: rounding1000,
-      roundingNumbers: roundingNumbers,
+      //rounding10: rounding10,
+      //rounding100: rounding100,
+      //rounding1000: rounding1000,
+      //roundingNumbers: roundingNumbers,
       addMarginToPrice: addMarginToPrice,
       setPriceDis: setPriceDis,
       sorting: sorting,
@@ -63,27 +63,27 @@
     }
 
 
-    function rounding10(value) {
-      return Math.round(value * 10) / 10;
-    }
-
-    function rounding100(value) {
-      return Math.round(value * 100) / 100;
-    }
-
-    function rounding1000(value) {
-      return Math.round(value * 1000) / 1000;
-    }
-
-    function roundingNumbers(nubmer, radix) {
-      var radix = (radix) ? radix : 2,
-          numberType = typeof nubmer;
-      if(numberType === 'string') {
-        return parseFloat( parseFloat(nubmer).toFixed(radix) );
-      } else if(numberType === 'number') {
-        return parseFloat(nubmer.toFixed(radix));
-      }
-    }
+    //function rounding10(value) {
+    //  return Math.round(value * 10) / 10;
+    //}
+    //
+    //function rounding100(value) {
+    //  return Math.round(value * 100) / 100;
+    //}
+    //
+    //function rounding1000(value) {
+    //  return Math.round(value * 1000) / 1000;
+    //}
+    //
+    //function roundingNumbers(nubmer, radix) {
+    //  var radix = (radix) ? radix : 2,
+    //      numberType = typeof nubmer;
+    //  if(numberType === 'string') {
+    //    return parseFloat( parseFloat(nubmer).toFixed(radix) );
+    //  } else if(numberType === 'number') {
+    //    return parseFloat(nubmer.toFixed(radix));
+    //  }
+    //}
 
     function roundingValue(nubmer, radix) {
       var radix = (radix) ? radix : 2,
@@ -108,7 +108,7 @@
     }
 
     function setPriceDis(price, discount) {
-      return roundingNumbers( price * (1 - discount/100) );
+      return roundingValue( price * (1 - discount/100) );
     }
 
     function sorting(a, b) {

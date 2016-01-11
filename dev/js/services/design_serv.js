@@ -841,7 +841,8 @@
         }
       }
       SVGServ.setLineCoef(currLine);
-      currLine.size = GeneralServ.rounding10( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))) );
+      //currLine.size = GeneralServ.rounding10( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))) );
+      currLine.size = GeneralServ.roundingValue( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))), 1 );
       createCurveQPoint('corner', 'qc'+cornerN, currLine, cornerN, blocksInd, blocks);
     }
 
@@ -1449,7 +1450,8 @@
               from: crossPointsIn[0],
               to: crossPointsIn[1]
             },
-            impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
+            //impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
+            impRadius = GeneralServ.roundingValue( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2), 1 ),
             pointsIn = angular.copy(pointsIn),
             pointsQty = pointsIn.length,
             currPoints = [],
@@ -1478,7 +1480,8 @@
 //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
         currBlockCenter = SVGServ.centerBlock(currPoints);
 //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
+//        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
 //      console.log('IMP -------------',impRadius, distCenterToImpost);
         if (impRadius < distCenterToImpost) {
           return impRadius / 2;
@@ -1826,7 +1829,8 @@
 
       selectedBlocksQty = selectedBlocks.length;
       //------ common glass width for each selectedBlocks
-      glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
+      //glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
+      glassWidthAvg = GeneralServ.roundingValue(selectedBlocks.reduce(function(summ, item) {
         return {width: (summ.width + item.width)};
       }).width/selectedBlocksQty);
 
@@ -2396,7 +2400,8 @@
 
 
     function culcHeightQByRadiusCurve(lineLength, radius) {
-      return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
+      //return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
+      return GeneralServ.roundingValue( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)), 1);
     }
 
 

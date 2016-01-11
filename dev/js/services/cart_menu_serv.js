@@ -200,11 +200,11 @@
 
 
     function culcDeliveyPriceByDiscPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
     }
 
     function culcDeliveryPriceByMargPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
     }
 
     function hideDeliveryPriceOnCalendar() {
@@ -285,16 +285,16 @@
         CartStor.cart.perimeterTotal += 0.002 * (OrderStor.order.products[productsQty].template_width + OrderStor.order.products[productsQty].template_height) * OrderStor.order.products[productsQty].product_qty;
         CartStor.cart.qtyTotal += OrderStor.order.products[productsQty].product_qty;
       }
-      OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
-      OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
-      OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
-      CartStor.cart.squareTotal = GeneralServ.roundingNumbers(CartStor.cart.squareTotal);
-      CartStor.cart.perimeterTotal = GeneralServ.roundingNumbers(CartStor.cart.perimeterTotal);
-      CartStor.cart.qtyTotal = GeneralServ.roundingNumbers(CartStor.cart.qtyTotal);
+      OrderStor.order.addelems_price = GeneralServ.roundingValue(OrderStor.order.addelems_price);
+      OrderStor.order.templates_price = GeneralServ.roundingValue(OrderStor.order.templates_price);
+      OrderStor.order.products_price = GeneralServ.roundingValue(OrderStor.order.products_price);
+      CartStor.cart.squareTotal = GeneralServ.roundingValue(CartStor.cart.squareTotal);
+      CartStor.cart.perimeterTotal = GeneralServ.roundingValue(CartStor.cart.perimeterTotal);
+      CartStor.cart.qtyTotal = GeneralServ.roundingValue(CartStor.cart.qtyTotal);
 
       /** if default user discount = 0 */
       if(OrderStor.order.productsPriceDis) {
-        OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
+        OrderStor.order.productsPriceDis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis);
       } else {
         OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
       }
@@ -330,9 +330,9 @@
         }
       }
 
-      OrderStor.order.order_price = GeneralServ.roundingNumbers(OrderStor.order.order_price);
-      OrderStor.order.order_price_dis = GeneralServ.roundingNumbers(OrderStor.order.order_price_dis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price - OrderStor.order.order_price_dis);
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 
       //------ get price with instalment
       calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
@@ -342,15 +342,15 @@
 
     function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
       if(OrderStor.order.is_instalment) {
-        OrderStor.order.payment_first = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.payment_monthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
-        OrderStor.order.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
+        OrderStor.order.payment_first = GeneralServ.roundingValue( (price * OrderStor.order.selectedInstalmentPercent / 100) );
+        OrderStor.order.payment_monthly = GeneralServ.roundingValue( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
+        OrderStor.order.paymentFirstDis = GeneralServ.roundingValue( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
+        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingValue( ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
         if(pricePrimary) {
-          OrderStor.order.payment_first_primary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.payment_monthly_primary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
-          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
+          OrderStor.order.payment_first_primary = GeneralServ.roundingValue( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
+          OrderStor.order.payment_monthly_primary = GeneralServ.roundingValue( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
+          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingValue( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
+          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingValue( ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
         }
       }
     }
@@ -385,7 +385,7 @@
           break;
       }
 //      console.log('dayMargin',dayMargin);
-      OrderStor.order.mounting_price = GeneralServ.roundingNumbers(OrderStor.order.mounting_price * (1 + (dayMargin/100)));
+      OrderStor.order.mounting_price = GeneralServ.roundingValue(OrderStor.order.mounting_price * (1 + (dayMargin/100)));
     }
 
 
@@ -405,7 +405,7 @@
       for(var prod = 0; prod < productQty; prod++) {
         var templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
         OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
-        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingNumbers(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
+        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
 
         var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
         for(var elem = 0; elem < addElemsQty; elem++) {
@@ -423,7 +423,7 @@
     function changeProductPriceAsDiscount(discount) {
       var productQty = OrderStor.order.products.length;
       for(var prod = 0; prod < productQty; prod++) {
-        OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingNumbers( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
+        OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingValue( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
       }
     }
 

@@ -143,7 +143,7 @@
         localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
             AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
           } else {
@@ -203,7 +203,7 @@
           }
         }
       }
-      currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
+      currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
       currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
       //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
       $timeout(function() {
@@ -429,7 +429,7 @@
         if (results) {
           //          console.log(results.data.price);
           AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers(results.priceTotal));
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingValue(results.priceTotal));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
           //------- Set Total Product Price
