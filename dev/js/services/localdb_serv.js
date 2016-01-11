@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
 
-  function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor, GlobalStor) {
+  function globalDBFactory($http, $q, $filter, globalConstants, GeneralServ, UserStor, GlobalStor) {
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -1854,6 +1854,7 @@
     function culcPriceAsSize(group, kits, kitsElem, sizes, sizeQty, priceObj, constrElements) {
       var priceTemp = 0,
           sizeTemp = 0,
+          sizeLabelTemp = 0,
           qtyTemp = 1,
           constrElem = {},
           waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
@@ -1893,6 +1894,7 @@
             /** check size by id of glass */
             if (sizes[siz].elemId === kits.id) {
               sizeTemp = sizes[siz].square;
+              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
               isExist++;
             }
@@ -1912,6 +1914,7 @@
             }
             constrElem.qty = angular.copy(qtyTemp);
             constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+            constrElem.sizeLabel = sizeLabelTemp;
             constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
             //          console.warn(constrElem);
@@ -2137,19 +2140,21 @@
 
 
     function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
-//      console.info('1-----', group);
-//      console.info('2-----', currConsist, currConsistElem);
-//      console.info('3-----', currConstrSize, mainKit);
+      //console.info('1-----', group);
+      //console.info('2-----', currConsist, currConsistElem);
+      //console.info('3-----', currConstrSize, mainKit);
       if (currConsist.parent_list_id === mainKit.id) {
 
         var fullSize = 1,
             currSize = 1,
+            sizeLabel = 0,
             wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
         /** if glasses */
         if(group === 5) {
           if(currConsist.rules_type_id === 5) {
             fullSize = currConstrSize.square;
             currSize = currConstrSize.square;
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
           } else if(currConsist.rules_type_id === 21) {
             fullSize = currConstrSize.sizes[0];
             currSize = currConstrSize.sizes[0];
@@ -2166,7 +2171,7 @@
         if(currConsist.child_type === "list") {
           currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
         }
-        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
+        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj, sizeLabel);
 
       } else {
         var consistQty = consistArr.length;
@@ -2232,7 +2237,7 @@
 
 
 
-    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
+    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
@@ -2297,10 +2302,10 @@
         }
         //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
         //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-        //objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
         //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
         objTmp.priceReal = priceReal;
-        objTmp.size = sizeReal;
+        objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
+        objTmp.sizeLabel = sizeLabel;
         objTmp.qty = qtyReal;
         //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
         priceObj.constrElements.push(objTmp);

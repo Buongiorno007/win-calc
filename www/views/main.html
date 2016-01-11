@@ -108,14 +108,14 @@
               <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
               <th class="report-elem">{{ 'add_elements.ARTICUL_LABEL' | translate }}</th>
               <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
-              <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
+              <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }} ({{ 'common_words.LETTER_M' | translate }})</th>
               <th class="report-elem">{{ reportBox.U.userInfo.currency }}</th>
             </tr>
             <tr ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name'" class="report-item">
               <td class="report-elem">{{report.name}}</td>
               <td class="report-elem">{{report.sku}}</td>
               <td class="report-elem">{{report.amount}}</td>
-              <td class="report-elem">{{report.size}}</td>
+              <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
               <td class="report-elem">{{report.priceReal}}</td>
             </tr>
           </table>

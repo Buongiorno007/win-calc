@@ -530,7 +530,6 @@
         reportQty = report.length;
         while(--reportQty > -1) {
           report[reportQty].amount = GeneralServ.roundingValue(report[reportQty].amount, 3);
-          report[reportQty].size = GeneralServ.roundingValue(report[reportQty].size, 3);
           report[reportQty].priceReal = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 2);
         }
       }
