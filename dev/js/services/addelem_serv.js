@@ -60,8 +60,8 @@
     function downloadAddElementsData(id) {
       var index = (id - 1);
       AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
-      AuxStor.aux.addElementsType = GlobalStor.global.addElementsAll[index].elementType;
-      AuxStor.aux.addElementsList = GlobalStor.global.addElementsAll[index].elementsList;
+      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
     }
 
 
@@ -135,6 +135,8 @@
       AuxStor.aux.isTabFrame = 0;
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.isAddElement = 0;
+      //------ close Grid Selector Dialog
+      AuxStor.aux.isGridSelectorDialog = 0;
       AddElementMenuServ.desactiveAddElementParameters();
       $timeout(function() {
         AuxStor.aux.addElementsMenuStyle = 0;

@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, MainServ, AddElementMenuServ, AddElementsServ, DesignServ, DesignStor) {
+  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, DesignStor, GeneralServ, MainServ, AddElementMenuServ, AddElementsServ, DesignServ, SVGServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -18,6 +18,7 @@
 
 
     thisCtrl.config = {
+      selectedGrid: 0,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: 10 * globalConstants.STEP,
       typing: 'on'
@@ -69,10 +70,18 @@
         } else {
           /** if grid,  show grid selector dialog */
           if(AuxStor.aux.isFocusedAddElement === 1) {
-            AuxStor.aux.isGridSelectorDialog = 1;
-            DesignServ.initAllGlassXGrid();
+            if(ProductStor.product.is_addelem_only) {
+              //------ without window
+              AddElementMenuServ.chooseAddElement(typeId, elementId);
+            } else {
+              //------- show Grid Selector Dialog
+              thisCtrl.config.selectedGrid = [typeId, elementId];
+              AuxStor.aux.isGridSelectorDialog = 1;
+              DesignServ.initAllGlassXGrid();
+            }
+          } else {
+            AddElementMenuServ.chooseAddElement(typeId, elementId);
           }
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
     }
@@ -104,19 +113,109 @@
     }
 
 
-    /** Grid Selector Dialog */
+    /**================ Grid Selector Dialog ================*/
 
+    /** set Selected Grids */
     function confirmGrid() {
-      console.info(DesignStor.design.selectedGlass);
-      //DesignServ.removeAllEventsInSVG();
+      var selectBlockQty = DesignStor.design.selectedGlass.length;
+      if(selectBlockQty) {
+        while (--selectBlockQty > -1) {
+          var blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
+          setGridToTemplateBlocks(blockId, thisCtrl.config.selectedGrid);
+        }
+        changeSVGTemplateAsNewGrid();
+        closeGridSelectorDialog();
+      }
     }
-    function setGridToAll() {
 
+
+
+    /** set Grids for all Sashes */
+    function setGridToAll() {
+      setGridToTemplateBlocks(0, thisCtrl.config.selectedGrid);
+      changeSVGTemplateAsNewGrid();
+      closeGridSelectorDialog();
     }
+
+
+
+
+    function setGridToTemplateBlocks(blockId, gridIndex) {
+      var blocksQty = ProductStor.product.template_source.details.length;
+      while(--blocksQty > 0) {
+        if(blockId) {
+          /** set grid to template block by its Id */
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+            /** check block to old grid
+             * delete in product.choosenAddElements if exist
+             * */
+            deleteOldGridInList(blocksQty);
+            setCurrGridToBlock(blockId, blocksQty, gridIndex);
+            break;
+          }
+        } else {
+          /** set grid to all template blocks */
+          if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+            deleteOldGridInList(blocksQty);
+            setCurrGridToBlock(ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex);
+          }
+        }
+      }
+    }
+
+
+
+    function deleteOldGridInList(blockIndex) {
+      if(ProductStor.product.template_source.details[blockIndex].gridId) {
+        var chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+        while(--chosenGridsQty > -1) {
+          if(ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+              ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+              ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+            }
+          }
+        }
+      }
+    }
+
+
+
+    function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+      ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+      ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.x;
+          }),
+          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.y;
+          });
+      AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
+      AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].block_id = blockId;
+      AddElementMenuServ.chooseAddElement(gridIndex[0], gridIndex[1]);
+    }
+
+
+
+    function changeSVGTemplateAsNewGrid () {
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+        //------ save analytics data
+        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+      });
+    }
+
+
+
+
     function closeGridSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
+      DesignStor.design.selectedGlass.length = 0;
+      thisCtrl.config.selectedGrid = 0;
       AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
     }
-
 
   }
 })();

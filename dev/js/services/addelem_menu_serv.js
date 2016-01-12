@@ -127,8 +127,8 @@
     function getAddElementPrice(typeIndex, elementIndex) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element price is
-      if(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+      //------- checking if add element is not grid and has price
+      if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
         AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
         AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
 
@@ -137,9 +137,9 @@
         var objXAddElementPrice = {
           currencyId: UserStor.userInfo.currencyId,
           elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
-          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)
+          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)//TODO add height
         };
-//                console.log('objXAddElementPrice=====', objXAddElementPrice);
+        console.log('objXAddElementPrice=====', objXAddElementPrice);
         //-------- get current add element price
         localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
@@ -161,8 +161,9 @@
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement.id);
-      if(existedElement === undefined) {
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      console.warn(currElement, JSON.stringify(currProduct.chosenAddElements[index]), '======', existedElement);
+      if(!existedElement) {
         var newElementSource = {
               element_type: index,
               element_width: 0,
@@ -175,20 +176,44 @@
         if(currProduct.chosenAddElements[index].length === 2) {
           AuxStor.aux.isTabFrame = 1;
         }
-      } else {
-        currProduct.chosenAddElements[index][existedElement].element_qty += 1;
       }
 
     }
 
 
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
-    function checkExistedSelectAddElement(elementsArr, elementId) {
-      for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].id === elementId) {
-          return j;
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist++;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist++;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist++;
+          }
+
+          /** increase quantity if exist */
+          if(isExist) {
+            elementsArr[elementsQty].element_qty += 1;
+            break;
+          }
         }
+
       }
+      return isExist;
     }
 
 

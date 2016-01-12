@@ -44,7 +44,7 @@
         thisCtrl.config.selectGlassName = newName;
         //----- open glass selector dialog
         GlobalStor.global.showGlassSelectorDialog = 1;
-        DesignServ.initAllGlass();
+        DesignServ.initAllGlassXGlass();
       //}
     }
 
@@ -73,7 +73,6 @@
     function changePriceAsNewGlass () {
       GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
       DesignStor.design.selectedGlass.length = 0;
-      DesignServ.removeAllEventsInSVG();
       //------- set currenct Glass
       MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
@@ -87,6 +86,7 @@
     }
 
     function closeGlassSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
       GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
     }
 

@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(GeneralServ, SVGServ, DesignServ) {
+  function svgTemplateDir(globalConstants, GeneralServ, SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -51,8 +51,12 @@
 
             if(scope.typeConstruction === 'icon') {
               mainSVG.attr('class', 'tamlateIconSVG');
+            } else if(scope.typeConstruction === 'setGlass') {
+              mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
+            } else if(scope.typeConstruction === 'setGrid') {
+              mainSVG.attr('id', globalConstants.SVG_ID_GRID);
             } else {
-              mainSVG.attr('id', 'tamlateSVG');
+              mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
             }
 
             points = SVGServ.collectAllPointsOut(template.details);
@@ -194,6 +198,20 @@
                       });
                   }
                 }
+
+                /** type Grid names */
+                if (scope.typeConstruction === 'setGrid') {
+                  if(!template.details[i].children.length && template.details[i].gridId) {
+                    elementsGroup.append('text')
+                      .text(template.details[i].gridTxt)
+                      .attr({
+                        'class': 'glass-txt',
+                        'x': template.details[i].center.x,
+                        'y': template.details[i].center.y
+                      });
+                  }
+                }
+
               }
 
             }

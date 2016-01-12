@@ -729,6 +729,7 @@
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+      AuxStor.aux.isGridSelectorDialog = 0;
     }
 
 

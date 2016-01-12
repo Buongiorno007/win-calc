@@ -39,6 +39,11 @@
         'aux_color_middle',
         'aux_color_small'
       ],
+      //------------ SVG
+      SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_GLASS: 'tamlateSVGGlass',
+      SVG_ID_GRID: 'tamlateSVGGrid',
+
       //------------ Languages
       languages: [
         {label: 'uk', name: 'Українська'},

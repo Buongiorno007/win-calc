@@ -21,6 +21,8 @@
 
       initAllImposts: initAllImposts,
       initAllGlass: initAllGlass,
+      initAllGlassXGlass: initAllGlassXGlass,
+      initAllGlassXGrid: initAllGlassXGrid,
       initAllArcs: initAllArcs,
       initAllDimension: initAllDimension,
       hideCornerMarks: hideCornerMarks,
@@ -48,6 +50,7 @@
       positionAxises: positionAxises,
       positionGlasses: positionGlasses,
       removeAllEventsInSVG: removeAllEventsInSVG,
+      removeGlassEventsInSVG: removeGlassEventsInSVG,
 
       //---- change sizes
       setValueSize: setValueSize,
@@ -220,7 +223,7 @@
     //------ add to all imposts event on click
     function initAllImposts() {
       DesignStor.design.selectedImpost.length = 0;
-      d3.selectAll('#tamlateSVG [item_type=impost]')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
         .each(function() {
           var impost = d3.select(this);
           impost.on(clickEvent, function() {
@@ -280,7 +283,7 @@
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
       DesignStor.design.selectedGlass.length = 0;
-      d3.selectAll('#tamlateSVG .glass')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
         .each(function() {
           var glass = d3.select(this);
           glass.on(clickEvent, function() {
@@ -305,7 +308,7 @@
               } else {
                 glass.classed('glass-active', false);
                 //------- hide Dimensions of current Block
-                d3.selectAll('#tamlateSVG .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
+                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
 
                 if (!DesignStor.design.selectedGlass.length) {
                   //------- close glass menu and submenu
@@ -322,35 +325,54 @@
     }
 
 
+    /**------- set click to all Glass for Glass selector ---------- */
 
-    /**------- set click to all Glass for Grid ---------- */
+    function initAllGlassXGlass() {
+      DesignStor.design.selectedGlass.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          var glass = d3.select(this);
+          glass.on(clickEvent, function() {
+              //========= select glass
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+              if (isGlass) {
+                glass.classed('glass-active', true);
+              } else {
+                glass.classed('glass-active', false);
+              }
+          });
+        });
+    }
+
+    /**------- set click to all Glass for Grid selector ---------- */
+
     function initAllGlassXGrid() {
       DesignStor.design.selectedGlass.length = 0;
-      d3.selectAll('#tamlateSVG .glass')
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
         .each(function() {
           var glass = d3.select(this);
           glass.on(clickEvent, function() {
             var blocks = ProductStor.product.template.details,
+                blocksQty = blocks.length,
                 blockID = glass[0][0].attributes.block_id.nodeValue;
             //-------- check glass per sash
-            
-                //blockType: "sash"
-                //========= select glass
-
-
-            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
-
-
-            if (isGlass) {
-              glass.classed('glass-active', true);
-              $rootScope.$apply();
-            } else {
-              glass.classed('glass-active', false);
-
-              if (!DesignStor.design.selectedGlass.length) {
-                $rootScope.$apply();
+            while(--blocksQty > 0) {
+              if(blocks[blocksQty].id === blockID) {
+                if (blocks[blocksQty].blockType === "sash") {
+                  var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+                  //========= select glass
+                  if (isGlass) {
+                    glass.classed('glass-active', true);
+                  } else {
+                    glass.classed('glass-active', false);
+                  }
+                } else {
+                  //------ show error
+                  showErrorInBlock(blockID, globalConstants.SVG_ID_GRID);
+                }
               }
             }
+
           });
         });
     }
@@ -358,7 +380,7 @@
 
 
     function showCurrentDimLevel(currDimId) {
-      var dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+currDimId+']'),
+      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
           dimQty = dim[0].length;
 
       if(dimQty) {
@@ -376,10 +398,10 @@
 //        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
 
         if(isXDim) {
-          d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', true);
         }
         if(isYDim) {
-          d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', true);
         }
         dim.classed('dim_hidden', false);
       }
@@ -389,7 +411,7 @@
 
 
     function initAllArcs() {
-      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
+      var arcs = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')[0].filter(function (item) {
         if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
           return true;
         }
@@ -449,15 +471,15 @@
 
 
     function hideAllDimension() {
-      d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
-      d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
-      d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block').classed('dim_hidden', true);
     }
 
 
     function hideCornerMarks() {
       DesignStor.design.selectedCorner.length = 0;
-      d3.selectAll('#tamlateSVG .corner_mark')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .corner_mark')
         .transition()
         .duration(300)
         .ease("linear")
@@ -466,19 +488,19 @@
 
     function deselectAllImpost() {
       DesignStor.design.selectedImpost.length = 0;
-      d3.selectAll('#tamlateSVG [item_type=impost]').classed('frame-active', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]').classed('frame-active', false);
     }
 
 
     function deselectAllArc() {
       DesignStor.design.selectedArc.length = 0;
-      d3.selectAll('#tamlateSVG .frame').classed('active_svg', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame').classed('active_svg', false);
     }
 
 
     function deselectAllGlass() {
       DesignStor.design.selectedGlass.length = 0;
-      d3.selectAll('#tamlateSVG .glass').classed('glass-active', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass').classed('glass-active', false);
     }
 
 
@@ -548,7 +570,8 @@
           for (var b = 1; b < blocksQty; b++) {
             if (blocks[b].id === blockID) {
               blocks[b].blockType = 'sash';
-              blocks[b].gridId = 0;//TODO ???
+              blocks[b].gridId = 0;
+              blocks[b].gridTxt = '';
 
               switch (type) {
                 //----- 'left'
@@ -649,11 +672,11 @@
 
 
 
-    function showErrorInBlock(blockID) {
-      var currGlass = d3.select('#tamlateSVG .glass[block_id='+blockID+']'),
+    function showErrorInBlock(blockID, svgSelector) {
+      var idSVG = (svgSelector) ? svgSelector : globalConstants.SVG_ID_EDIT,
+          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
           i = 1;
       currGlass.classed('error_glass', true);
-
       var interval = setInterval(function() {
         if(i === 11) {
           clearInterval(interval);
@@ -727,7 +750,8 @@
       delete block.openDir;
       delete block.handlePos;
       delete block.sashType;
-      delete block.gridId; //TODO ???
+      delete block.gridId;
+      delete block.gridTxt;
     }
 
 
@@ -1167,7 +1191,7 @@
     function workingWithAllArcs(param) {
       var firstArc = DesignStor.design.selectedArc.shift(),
           arcId = firstArc.attributes.item_id.nodeValue,
-          currElem = d3.select('#tamlateSVG [item_id='+arcId+']');
+          currElem = d3.select('#'+globalConstants.SVG_ID_EDIT+' [item_id='+arcId+']');
       if(currElem[0].length) {
         if(param) {
           createArc(currElem[0][0]).then(function() {
@@ -2014,7 +2038,7 @@
 
     //------- set click to all Dimensions
     function initAllDimension() {
-      d3.selectAll('#tamlateSVG .size-box')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
         .each(function() {
           var size = d3.select(this);
           size.on(clickEvent, function() {
@@ -2448,8 +2472,8 @@
 
 
     function deselectAllDimension() {
-      d3.selectAll('#tamlateSVG .size-rect').classed('active', false);
-      d3.selectAll('#tamlateSVG .size-txt-edit').classed('active', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-rect').classed('active', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-txt-edit').classed('active', false);
     }
 
 
@@ -2459,26 +2483,22 @@
 
     function removeAllEventsInSVG() {
       //--------- delete click on imposts
-      d3.selectAll('#tamlateSVG [item_type=impost]')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
         .each(function() {
           d3.select(this).on(clickEvent, null);
         });
       //--------- delete click on glasses
-      d3.selectAll('#tamlateSVG .glass')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
         .each(function() {
           d3.select(this).on(clickEvent, null);
-//          d3.select(this).on("touchstart", null);
-//          d3.select(this).on("mousedown", null);
-//          d3.select(this).on("touchend", null);
-//          d3.select(this).on("mouseup", null);
         });
       //--------- delete click on arcs
-      d3.selectAll('#tamlateSVG .frame')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
         .each(function() {
           d3.select(this).on(clickEvent, null);
         });
       //--------- delete click on dimension
-      d3.selectAll('#tamlateSVG .size-box')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
         .each(function() {
           d3.select(this).on(clickEvent, null);
         });
@@ -2486,6 +2506,22 @@
       d3.select(window).on('keydown', null);
     }
 
+
+    function removeGlassEventsInSVG() {
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
 
 
 

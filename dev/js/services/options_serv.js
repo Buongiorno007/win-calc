@@ -1377,7 +1377,6 @@
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4,
                   sashType: 2
@@ -1538,7 +1537,6 @@
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4,
                   sashType: 2

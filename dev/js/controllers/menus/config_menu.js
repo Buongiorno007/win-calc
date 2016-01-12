@@ -9,7 +9,7 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function configMenuCtrl($filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function configMenuCtrl($filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, DesignServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -62,6 +62,9 @@
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
       AddElementMenuServ.desactiveAddElementParameters();
+      //------ delete events on Glass/Grid Selector Dialogs
+      DesignServ.removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = 0;
     }
 
     function saveProduct() {
