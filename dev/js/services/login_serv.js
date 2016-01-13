@@ -942,7 +942,7 @@
       localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function(mounting) {
         if (mounting.length) {
           GlobalStor.global.assemblingData = angular.copy(mounting);
-          //          console.warn('assemblingData=', GlobalStor.global.assemblingData);
+          //console.warn('assemblingData=', GlobalStor.global.assemblingData);
         }
       });
       /** download Instalment Data */

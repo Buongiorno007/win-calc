@@ -56,12 +56,12 @@
       }
     }
 
-    function selectAssembling(id, name, price) {
-      if(OrderStor.order.mounting_id !== id) {
-        OrderStor.order.mounting_id = id;
-        if(id) {
-          OrderStor.order.mountingName = name;
-          OrderStor.order.mounting_price = parseFloat(price);
+    function selectAssembling(currAssemb) {
+      if(OrderStor.order.mounting_id !== currAssemb.id) {
+        OrderStor.order.mounting_id = currAssemb.id;
+        if(currAssemb.id) {
+          OrderStor.order.mountingName = currAssemb.name;
+          OrderStor.order.mounting_price = currAssemb.priceReal;
         } else {
           OrderStor.order.mountingName = '';
           OrderStor.order.mounting_price = 0;

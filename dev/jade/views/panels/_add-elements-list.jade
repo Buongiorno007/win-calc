@@ -41,7 +41,7 @@
             td.aux-tablecell-price
               .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
             td.aux-tablecell-delete
-              .aux-delete(hm-tap="elementsListPanel.deleteAddElement(($parent.$index + 1), $index)")
+              .aux-delete(hm-tap="elementsListPanel.deleteAddElement($parent.$index, $index)")
 
 
     .aux-list-block(ng-if="elementsListPanel.P.product.addelemPriceDis")

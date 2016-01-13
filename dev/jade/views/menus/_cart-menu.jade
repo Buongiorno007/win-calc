@@ -30,7 +30,7 @@
             .dropdown-item-inner
               .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
               .name.drop-txt {{ 'cart.FREE' | translate }}
-          li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", hm-tap="cartMenu.selectAssembling(assemb.id, assemb.name, assemb.price)")
+          li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", hm-tap="cartMenu.selectAssembling(assemb)")
             .dropdown-item-inner
               .value.drop-txt {{ assemb.name }}
               .name.drop-txt + {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}

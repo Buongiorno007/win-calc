@@ -891,6 +891,7 @@
                 element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
                 element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                 element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
                 modified: new Date()
               };
 

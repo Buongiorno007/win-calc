@@ -27,6 +27,7 @@
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,
+        selectedGrid: 0,
 
         addElementGroups: [],
         searchingWord: '',

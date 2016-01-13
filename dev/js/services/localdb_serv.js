@@ -518,7 +518,8 @@
               ' element_width NUMERIC,' +
               ' element_height NUMERIC,' +
               ' element_price NUMERIC,' +
-              ' element_qty INTEGER',
+              ' element_qty INTEGER,' +
+              ' block_id INTEGER',
             'foreignKey': ''
           },
 //          'order_elements': {

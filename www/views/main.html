@@ -457,7 +457,7 @@
                     <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div hm-tap="elementsListPanel.deleteAddElement(($parent.$index + 1), $index)" class="aux-delete"></div>
+                    <div hm-tap="elementsListPanel.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
@@ -721,7 +721,7 @@
                   <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
-                <div hm-tap="elementsMenu.deleteAddElement(($parent.$index+1), $index)" class="aux-delete"></div>
+                <div hm-tap="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
               </div>
             </div>
           </div>
