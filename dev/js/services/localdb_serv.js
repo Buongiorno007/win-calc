@@ -710,23 +710,23 @@
       var promises = [],
           tableKeys = Object.keys(result.tables),
           tableQty = tableKeys.length;
-//      console.log('tabless =', tableKeys);
+      //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
         for (var t = 0; t < tableQty; t++) {
           var colums = result.tables[tableKeys[t]].fields.join(', '),
               rowsQty = result.tables[tableKeys[t]].rows.length;
-//          console.log('insert ++++', tableKeys[t]);
+          //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
                     return "'" + elem + "'";
                   }).join(', ');
-//              console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ' + error);
+                console.log('Error!!! ', tableKeys[t], colums);
                 defer.resolve(0);
               });
 
@@ -868,6 +868,7 @@
         function (result) {
           if(result.data.status) {
             //-------- insert in LocalDB
+            console.warn(result.data);
             insertTablesLocalDB(result.data).then(function() {
               defer.resolve(1);
             });
@@ -2363,7 +2364,7 @@
 
 
 
-    /** ADDELEMENT PRICE */
+    /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
       var deffMain = $q.defer(),
@@ -2372,36 +2373,43 @@
             constrElements: [],
             priceTotal: 0
           };
-//      console.info('START+++', AddElement);
+      //console.info('START+++', AddElement);
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
-//        console.warn('consist!!!!!!+', result);
+        //console.warn('consist!!!!!!+', result);
         priceObj.consist = result;
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
             priceObj.kits = kits;
-//            console.warn('kits!!!!!!+', kits);
+            //console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
               priceObj.kitsElem = kitsElem;
-//              console.warn('kitsElem!!!!!!+', kitsElem);
+              //console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
-//                console.warn('consistElem!!!!!!+', consist[0]);
+                //console.warn('consistElem!!!!!!+', consist[0]);
                 priceObj.consistElem = consist[0];
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
 
-                  var priceTemp = 0,
-                      sizeTemp = 0,
-                      wasteValue = (priceObj.kits.waste) ? (1 + (priceObj.kits.waste / 100)) : 1,
-                      constrElem = angular.copy(priceObj.kitsElem);
+                  var sizeSource = 0,
+                      sizeTemp = 0;
+                  //------ if height is existed
+                  if(AddElement.elementHeight) {
+                    sizeSource = GeneralServ.roundingValue((AddElement.elementWidth * AddElement.elementHeight), 3);
+                    sizeTemp = GeneralServ.roundingValue(((AddElement.elementWidth + priceObj.kits.amendment_pruning)*(AddElement.elementHeight + priceObj.kits.amendment_pruning)), 3);
+                  } else {
+                    sizeSource = AddElement.elementWidth;
+                    sizeTemp = (AddElement.elementWidth + priceObj.kits.amendment_pruning);
+                  }
+                  var wasteValue = (priceObj.kits.waste) ? (1 + (priceObj.kits.waste / 100)) : 1,
+                      constrElem = angular.copy(priceObj.kitsElem),
+                      priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
 
-                  sizeTemp = (AddElement.elementWidth + priceObj.kits.amendment_pruning);
-                  priceTemp = (sizeTemp * constrElem.price) * wasteValue;
-
+                  //console.warn('!!!!!!+', sizeSource, sizeTemp);
                   /** currency conversion */
                   if (UserStor.userInfo.currencyId != constrElem.currency_id){
                     priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
@@ -2411,7 +2419,7 @@
                   constrElem.priceReal = priceTemp;
                   priceObj.priceTotal += priceTemp;
                   priceObj.constrElements.push(constrElem);
-//                    console.warn('constrElem!!!!!!+', constrElem);
+                    //console.warn('constrElem!!!!!!+', constrElem);
 
                   /** culc Consist Price */
 
@@ -2425,12 +2433,12 @@
                             if(priceObj.consist[cons].child_type === "list") {
                               priceObj.consist[cons].newValue = getValueByRule(sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
                             }
-                            culcPriceAsRule(1, AddElement.elementWidth, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
+                            culcPriceAsRule(1, sizeSource, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
 //                                  console.warn('parent++++', priceObj.consist[el]);
-                                var wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
+                                wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
                                   priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
                                 }
@@ -2444,7 +2452,7 @@
                   }
                 }
                 priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-//                console.info('FINISH ADD ====:', priceObj);
+                //console.info('FINISH ADD ====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);

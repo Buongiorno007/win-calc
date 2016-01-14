@@ -248,7 +248,8 @@
                 objXAddElementPrice = {
                   currencyId: UserStor.userInfo.currencyId,
                   elementId: item.id,
-                  elementWidth: (item.element_width/1000)//TODO add height
+                  elementWidth: (item.element_width/1000),
+                  elementHeight: (item.element_height/1000)
                 };
             //console.log('objXAddElementPrice=====', objXAddElementPrice);
             //-------- get current add element price
