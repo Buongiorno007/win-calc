@@ -245,6 +245,25 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+//----- in Door case
+.door-sash {
+  .sash-right {
+    left: $submenu_left0;
+  }
+  .sash-up {
+    left: $submenu_left0;
+  }
+  .sash-down {
+    left: $submenu_left0;
+  }
+  .sash-left-up {
+    left: $submenu_left1;
+  }
+  .sash-shtulp-right {
+    left: $submenu_left2;
+  }
+}
+
 .impost-vert:after {
   content: $impost-vert-icon;
 }

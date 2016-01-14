@@ -90,7 +90,6 @@
             //          console.log('++++++ template +++++++', mainGroup);
             blocksQty = template.details.length;
             for (var i = 1; i < blocksQty; i++) {
-
               elementsGroup.selectAll('path.' + template.details[i].id)
                 .data(template.details[i].parts)
                 .enter().append('path')
@@ -102,7 +101,11 @@
                     if(scope.typeConstruction === 'icon') {
                       return (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
                     } else {
-                      return (d.type === 'glass') ? 'glass' : 'frame';
+                      if(d.doorstep) {
+                        return 'doorstep';
+                      } else {
+                        return (d.type === 'glass') ? 'glass' : 'frame';
+                      }
                     }
                   },
                   'item_type': function (d) {

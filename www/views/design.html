@@ -51,7 +51,7 @@
         <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(15, $event)")-->
         <div ng-show="designPage.D.design.isImpostDelete" hm-tap="designPage.insertImpost(1, $event)" class="constr-shape-icon clean"></div>
       </div>
-      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
+      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1, 'door-sash': designPage.P.product.construction_type === 4}" class="edit_submenu">
         <div ng-hide="designPage.P.product.construction_type === 4" hm-tap="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
         <div hm-tap="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></div>
         <div hm-tap="designPage.insertSash(3, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>

@@ -45,7 +45,7 @@ section.construction-page
         //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(15, $event)")
         .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", hm-tap="designPage.insertImpost(1, $event)")
 
-      #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}")
+      #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1, 'door-sash': designPage.P.product.construction_type === 4}")
         .constr-shape-icon.clean(ng-hide="designPage.P.product.construction_type === 4", hm-tap="designPage.insertSash(1, $event)")
         .constr-shape-icon.sash-left(hm-tap="designPage.insertSash(2, $event)")
         .drop-shape-icon.sash-right(hm-tap="designPage.insertSash(3, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")

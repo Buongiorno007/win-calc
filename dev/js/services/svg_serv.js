@@ -197,7 +197,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('TEMPLATE END++++', thisObj);
+      //console.log('TEMPLATE END++++', thisObj);
       //console.log('svg finish', new Date(), new Date().getMilliseconds());
       //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -1086,7 +1086,7 @@
           beadObj = {
             glassId: currGlassId,
             sizes: []
-          };
+          }, tempPoint, tempPoint2;
 
       for(var index = 0; index < pointsQty; index++) {
         //----- passing if first point is curv
@@ -1100,88 +1100,97 @@
         };
         //------ if last point
         if(index === (pointsQty - 1)) {
+          /** if curv */
           //------- if one point is 'curv' from both
           if(newPointsOut[index].dir === 'curv') {
             break;
           } else if(newPointsOut[0].dir === 'curv') {
             part.type = 'arc';
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[0]);
-            part.points.push(newPointsOut[1]);
-            part.points.push(pointsIn[1]);
-            part.points.push(pointsIn[0]);
-            part.points.push(pointsIn[index]);
+            part.points.push(newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]);
             if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
               part.type = 'arc-corner';
             }
             part.dir = 'curv';
           } else {
-            //-------- if line
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[0]);
-            part.points.push(pointsIn[0]);
-            if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
-              part.type = 'corner';
+            /**----- DOOR -----*/
+            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+              //-------- change points fp2-fp3 frame
+              if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                tempPoint = angular.copy(pointsIn[0]);
+                tempPoint.y = newPointsOut[0].y * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], tempPoint, pointsIn[index]);
+              } else {
+                /** if line */
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+              }
+            } else {
+              /** if line */
+              collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
             }
-            part.points.push(pointsIn[index]);
 
-            //-------- set sill
-            if(newPointsOut[index].sill && newPointsOut[0].sill) {
-              part.sill = 1;
-            }
           }
         } else {
 
-          //------- if curv
+          /** if curv */
           if(newPointsOut[index].dir === 'curv' || newPointsOut[index+1].dir === 'curv') {
             part.type = 'arc';
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[index+1]);
+            part.points.push(newPointsOut[index], newPointsOut[index+1]);
             if(newPointsOut[index+2]) {
-              part.points.push(newPointsOut[index+2]);
-              part.points.push(pointsIn[index+2]);
+              part.points.push(newPointsOut[index+2], pointsIn[index+2]);
               if(newPointsOut[index].type === 'corner' || newPointsOut[index+2].type === 'corner') {
                 part.type = 'arc-corner';
               }
             } else {
-              part.points.push(newPointsOut[0]);
-              part.points.push(pointsIn[0]);
+              part.points.push(newPointsOut[0], pointsIn[0]);
               if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
                 part.type = 'arc-corner';
               }
             }
-            part.points.push(pointsIn[index+1]);
-            part.points.push(pointsIn[index]);
+            part.points.push(pointsIn[index+1], pointsIn[index]);
             part.dir = 'curv';
             index++;
           } else {
-            //TODO----- DOOR
-            if(ProductStor.product.construction_type === 4) {
-              console.info('doorShapeIndex+++++', DesignStor.design.doorConfig.doorShapeIndex);
-              console.info('newPointsOut+++++', newPointsOut[index]);
-              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                if (DesignStor.design.doorConfig.doorShapeIndex === 1) {
+            /**----- DOOR -----*/
+            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+              /** without doorstep */
+              //-------- delete fp3-fp4 frame
+              if(DesignStor.design.doorConfig.doorShapeIndex === 1) {
+                if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   continue;
                 }
               }
-            }
+              /** doorstep Al inner */
+              //-------- change fp3-fp4 frame to inner doorstep
+              if(DesignStor.design.doorConfig.doorShapeIndex === 2) {
+                if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                  tempPoint = angular.copy(newPointsOut[index]);
+                  tempPoint.x = pointsIn[index].x * 1;
+                  tempPoint2 = angular.copy(newPointsOut[index+1]);
+                  tempPoint2.x = pointsIn[index+1].x * 1;
+                  collectPointsInParts(part, tempPoint, tempPoint2, pointsIn[index+1], pointsIn[index]);
+                  part.doorstep = 1;
+                }
+              }
 
-            //-------- if line
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[index+1]);
-            part.points.push(pointsIn[index+1]);
-            if(newPointsOut[index].type === 'corner' || newPointsOut[index+1].type === 'corner') {
-              part.type = 'corner';
-            }
-            part.points.push(pointsIn[index]);
-
-            //-------- set sill
-            if(newPointsOut[index].sill && newPointsOut[index+1].sill) {
-              part.sill = 1;
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                //-------- change points fp4-fp1 frame
+                tempPoint = angular.copy(pointsIn[index]);
+                tempPoint.y = newPointsOut[index].y * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], tempPoint);
+              } else {
+                if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                  /** if line */
+                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                }
+              }
+            } else {
+              /** if line */
+              collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
             }
           }
 
         }
+        console.info(part.points);
         part.path = assamblingPath(part.points);
         //------- culc length
         part.size = culcLength(part.points);
@@ -1208,6 +1217,18 @@
         priceElements.beadsSize.push(beadObj);
       }
       return parts;
+    }
+
+
+    function collectPointsInParts(part, point1, point2, point3, point4) {
+      part.points.push(point1, point2, point3, point4);
+      if(point1.type === 'corner' || point2.type === 'corner') {
+        part.type = 'corner';
+      }
+      //-------- set sill
+      if(point1.sill && point2.sill) {
+        part.sill = 1;
+      }
     }
 
 
@@ -1482,27 +1503,19 @@
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(getCrossPointSashDir(1, center, 225, beadLines));
-            part.points.push(getCrossPointSashDir(3, center, 90, beadLines));
-            part.points.push(getCrossPointSashDir(1, center, 315, beadLines));
+            part.points.push(getCrossPointSashDir(1, center, 225, beadLines), getCrossPointSashDir(3, center, 90, beadLines), getCrossPointSashDir(1, center, 315, beadLines));
             break;
           //----- 'right'
           case 2:
-            part.points.push(getCrossPointSashDir(2, center, 225, beadLines));
-            part.points.push(getCrossPointSashDir(4, center, 180, beadLines));
-            part.points.push(getCrossPointSashDir(2, center, 135, beadLines));
+            part.points.push(getCrossPointSashDir(2, center, 225, beadLines), getCrossPointSashDir(4, center, 180, beadLines), getCrossPointSashDir(2, center, 135, beadLines));
             break;
           //------ 'down'
           case 3:
-            part.points.push(getCrossPointSashDir(3, center, 135, beadLines));
-            part.points.push(getCrossPointSashDir(1, center, 270, beadLines));
-            part.points.push(getCrossPointSashDir(3, center, 45, beadLines));
+            part.points.push(getCrossPointSashDir(3, center, 135, beadLines), getCrossPointSashDir(1, center, 270, beadLines), getCrossPointSashDir(3, center, 45, beadLines));
             break;
           //----- 'left'
           case 4:
-            part.points.push(getCrossPointSashDir(4, center, 45, beadLines));
-            part.points.push(getCrossPointSashDir(2, center, 180, beadLines));
-            part.points.push(getCrossPointSashDir(4, center, 315, beadLines));
+            part.points.push(getCrossPointSashDir(4, center, 45, beadLines), getCrossPointSashDir(2, center, 180, beadLines), getCrossPointSashDir(4, center, 315, beadLines));
             break;
         }
         parts.push(part);
@@ -1698,8 +1711,7 @@
       if(d > 0) {
         var delta = Math.sqrt(d);
 //        console.log('delta ++++', b, delta);
-        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ) );
-        roots.push( GeneralServ.roundingValue( (-b - delta)/2 ) );
+        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ), GeneralServ.roundingValue( (-b - delta)/2 ) );
 //        roots.push( (-b + delta)/2 );
 //        roots.push( (-b - delta)/2 );
       } else if(d === 0) {

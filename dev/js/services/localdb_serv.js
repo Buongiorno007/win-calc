@@ -868,7 +868,7 @@
         function (result) {
           if(result.data.status) {
             //-------- insert in LocalDB
-            console.warn(result.data);
+            //console.warn(result.data);
             insertTablesLocalDB(result.data).then(function() {
               defer.resolve(1);
             });
