@@ -1,14 +1,30 @@
 /* globals d3, startRecognition, parseStringToDimension, playTTS */
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, globalConstants, GeneralServ, MainServ, AnalyticsServ, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
+  function designFactory(
+    $rootScope,
+    $location,
+    $timeout,
+    $filter,
+    $q,
+    globalConstants,
+    GeneralServ,
+    localDB,
+    MainServ,
+    AnalyticsServ,
+    optionsServ,
+    SVGServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
 
     var thisFactory = this,
         clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
@@ -59,6 +75,7 @@
       hideSizeTools: hideSizeTools,
 
       stepBack: stepBack,
+      getGridPrice: getGridPrice,
 
       //---- door
 //      downloadDoorConfig: downloadDoorConfig,
@@ -70,7 +87,7 @@
 
 
 
-    //============ methods ================//
+    /**============ methods ================*/
 
 
     function setDefaultTemplate() {
@@ -82,51 +99,58 @@
 
 
 
-    //------- Save and Close Construction Page
+    /**------- Save and Close Construction Page ----------*/
+
     function designSaved() {
       closeSizeCaclulator(1).then(function() {
-        //------ if calculator is closed
-        //if(!GlobalStor.global.isSizeCalculator) {
-          //----- save new template in product
-          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+        /** save new template in product */
+        ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+        ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
-          //----- create template icon
-          SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-            ProductStor.product.templateIcon = angular.copy(result);
-          });
+        /** create template icon */
+        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
 
-          //============ if Door Construction
-          if(ProductStor.product.construction_type === 4) {
-            //------- save new door config
-            ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-            ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-            ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-            ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-          }
+        /** if Door Construction */
+        if(ProductStor.product.construction_type === 4) {
+          //------- save new door config
+          ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
+          ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
+          ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
+          ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
+        }
 
-          //------ save new template in templates Array
-          GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
+        /** save new template in templates Array */
+        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
 
-          //------- if sash was added in empty template
+        /** if sash was added/removed in template */
+        var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
+        if (isSashesInTemplate) {
           if(!GlobalStor.global.isSashesInTemplate) {
-            GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
-            if (GlobalStor.global.isSashesInTemplate) {
-              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-              //------ save analytics data
-              //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
-            } else {
-              ProductStor.product.hardware.id = 0;
-            }
+            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            //------ save analytics data
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
           }
-          //------- refresh price of new template
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
-            //-------- template was changed
-            GlobalStor.global.isChangedTemplate = 1;
-            backtoTemplatePanel();
-          });
+        } else {
+          ProductStor.product.hardware = {};
+          ProductStor.product.hardware.id = 0;
+        }
 
-        //}
+        /** check grids */
+        var isChanged = updateGrids();
+        if(isChanged) {
+          //------ get new grids price
+          getGridPrice(ProductStor.product.chosenAddElements[0]);
+        }
+
+        /** refresh price of new template */
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
+          //-------- template was changed
+          GlobalStor.global.isChangedTemplate = 1;
+          backtoTemplatePanel();
+        });
+
       });
     }
 
@@ -174,9 +198,81 @@
 
 
 
+    /**--------------- GRIDs --------------*/
+
+    function updateGrids() {
+      var gridQty = ProductStor.product.chosenAddElements[0].length, isChanged = 0;
+      if(gridQty) {
+        GridArr: while(--gridQty > -1) {
+          //----- find grid in template
+          var blockQty = ProductStor.product.template.details.length;
+          while(--blockQty > 0) {
+            if(ProductStor.product.template.details[blockQty].id === ProductStor.product.chosenAddElements[0][gridQty].block_id) {
+              //------- if grid there is in this block
+              if(ProductStor.product.template.details[blockQty].gridId) {
+
+                //------ defined inner block sizes
+                var sizeGridX = ProductStor.product.template.details[blockQty].pointsIn.map(function(item) {
+                      return item.x;
+                    }),
+                    sizeGridY = ProductStor.product.template.details[blockQty].pointsIn.map(function(item) {
+                      return item.y;
+                    }),
+                    gridTemp = {};
+                gridTemp.width = (d3.max(sizeGridX) - d3.min(sizeGridX));
+                gridTemp.height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+                //----- if width or height are defferented - reculculate grid price
+                if(ProductStor.product.chosenAddElements[0][gridQty].element_width !== gridTemp.width || ProductStor.product.chosenAddElements[0][gridQty].element_height !== gridTemp.height) {
+                  ProductStor.product.chosenAddElements[0][gridQty].element_width = gridTemp.width;
+                  ProductStor.product.chosenAddElements[0][gridQty].element_height = gridTemp.height;
+                  isChanged = 1;
+                }
+
+              } else {
+                //----- delete grid in chosenAddElements
+                ProductStor.product.chosenAddElements[0].splice(gridQty, 1);
+                continue GridArr;
+              }
+            }
+          }
+        }
+      }
+      return isChanged;
+    }
 
 
-    //============== Door ============//
+    function getGridPrice(grids) {
+      var deff = $q.defer(),
+          proms = grids.map(function(item) {
+            var deff2 = $q.defer(),
+                objXAddElementPrice = {
+                  currencyId: UserStor.userInfo.currencyId,
+                  elementId: item.id,
+                  elementWidth: (item.element_width/1000)//TODO add height
+                };
+            //console.log('objXAddElementPrice=====', objXAddElementPrice);
+            //-------- get current add element price
+            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+              if (results) {
+                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
+                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
+                //console.log('objXAddElementPrice====result +++', results, item);
+                deff2.resolve(item);
+              } else {
+                deff2.reject(results);
+              }
+            });
+
+            return deff2.promise;
+          });
+
+      deff.resolve($q.all(proms));
+      return deff.promise;
+    }
+
+
+
+    /**---------------- DOORs--------------*/
 
 //    function downloadDoorConfig() {
 //      optionsServ.getDoorConfig(function (results) {
@@ -217,7 +313,7 @@
 
 
 
-    //========== Edit Design =============//
+    /**-------------- Edit Design --------------*/
 
 
     //------ add to all imposts event on click

@@ -408,39 +408,12 @@
     }
 
 
-    function getGridPrice(grids) {
-      var deff = $q.defer(),
-          proms = grids.map(function(item) {
-            var deff2 = $q.defer(),
-                objXAddElementPrice = {
-                  currencyId: UserStor.userInfo.currencyId,
-                  elementId: item.id,
-                  elementWidth: (item.element_width/1000)//TODO add height
-                };
-            //console.log('objXAddElementPrice=====', objXAddElementPrice);
-            //-------- get current add element price
-            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-              if (results) {
-                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-                //console.log('objXAddElementPrice====result +++', results, item);
-                deff2.resolve(item);
-              } else {
-                deff2.reject(results);
-              }
-            });
 
-            return deff2.promise;
-          });
-
-      deff.resolve($q.all(proms));
-      return deff.promise;
-    }
 
 
     function insertGrids(grids) {
       //console.info('grids+++++', grids);
-      getGridPrice(grids).then(function(data) {
+      DesignServ.getGridPrice(grids).then(function(data) {
         //console.info('SVG+++++', data);
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
@@ -451,7 +424,7 @@
           }
           AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
           //------ show element price
-          AuxStor.aux.isAddElement = 1;
+          AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0]+'-'+AuxStor.aux.selectedGrid[1];
           //------ Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
           //------ change SVG
