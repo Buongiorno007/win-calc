@@ -1098,7 +1098,7 @@
           dir: 'line',
           points: []
         };
-        //------ if last point
+        /**------ last point ------*/
         if(index === (pointsQty - 1)) {
           /** if curv */
           //------- if one point is 'curv' from both
@@ -1119,6 +1119,16 @@
                 tempPoint = angular.copy(pointsIn[0]);
                 tempPoint.y = newPointsOut[0].y * 1;
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], tempPoint, pointsIn[index]);
+              } else {
+                /** if line */
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+              }
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+              //-------- change points fp2-fp3 frame
+              if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                tempPoint = angular.copy(newPointsOut[0]);
+                tempPoint.y = pointsIn[0].y * 1;
+                collectPointsInParts(part, newPointsOut[index], tempPoint, pointsIn[0], pointsIn[index]);
               } else {
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
@@ -1183,6 +1193,29 @@
                   collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
                 }
               }
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+              /** doorstep Al outer */
+              //-------- change fp3-fp4 frame to outer doorstep
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                tempPoint = angular.copy(pointsIn[index]);
+                tempPoint.x = newPointsOut[index].x * 1;
+                tempPoint2 = angular.copy(pointsIn[index+1]);
+                tempPoint2.x = newPointsOut[index+1].x * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], tempPoint2, tempPoint);
+                part.doorstep = 1;
+              }
+
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                //-------- change points fp4-fp1 frame
+                tempPoint = angular.copy(newPointsOut[index]);
+                tempPoint.y = pointsIn[index].y * 1;
+                collectPointsInParts(part, tempPoint, newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
+              } else {
+                if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                  /** if line */
+                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                }
+              }
             } else {
               /** if line */
               collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
@@ -1190,7 +1223,7 @@
           }
 
         }
-        console.info(part.points);
+        //console.info(part.points);
         part.path = assamblingPath(part.points);
         //------- culc length
         part.size = culcLength(part.points);

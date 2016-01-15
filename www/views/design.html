@@ -71,7 +71,7 @@
         <div hm-tap="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
         <div hm-tap="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
       </div>
-      <div id="position-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
+      <div id="position-menu" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
         <div hm-tap="designPage.initMirror($event)" class="constr-shape-icon mirror"></div>
         <div hm-tap="designPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
         <div hm-tap="designPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>

@@ -3611,26 +3611,30 @@ div.drum figure {
 }
 /* line 17, ../../dev/sass/parts/_report.scss */
 .report-container .report-box {
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  user-select: text;
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
-/* line 22, ../../dev/sass/parts/_report.scss */
+/* line 23, ../../dev/sass/parts/_report.scss */
 .report-container .report-box table {
   width: 100%;
 }
-/* line 25, ../../dev/sass/parts/_report.scss */
+/* line 26, ../../dev/sass/parts/_report.scss */
 .report-container .report-box th {
   background-color: #c2c2c2;
 }
-/* line 29, ../../dev/sass/parts/_report.scss */
+/* line 30, ../../dev/sass/parts/_report.scss */
 .report-container .report-elem {
   text-align: center;
   vertical-align: middle;
   border: 1px solid #000;
   padding: 1rem;
 }
-/* line 35, ../../dev/sass/parts/_report.scss */
+/* line 36, ../../dev/sass/parts/_report.scss */
 .report-container .report-price-total {
   font: normal 1.875rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1rem;
@@ -3638,7 +3642,7 @@ div.drum figure {
   background-color: #c2c2c2;
   text-align: right;
 }
-/* line 42, ../../dev/sass/parts/_report.scss */
+/* line 43, ../../dev/sass/parts/_report.scss */
 .report-container .report-menu-item {
   padding: 1rem;
   padding-right: 0;
@@ -3647,12 +3651,12 @@ div.drum figure {
   background-color: #363636;
   cursor: pointer;
 }
-/* line 50, ../../dev/sass/parts/_report.scss */
+/* line 51, ../../dev/sass/parts/_report.scss */
 .report-container .report-menu-item.active {
   color: #363636;
   background-color: #c2c2c2;
 }
-/* line 55, ../../dev/sass/parts/_report.scss */
+/* line 56, ../../dev/sass/parts/_report.scss */
 .report-container .close_report {
   position: absolute;
   top: 1rem;
