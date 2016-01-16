@@ -35,7 +35,7 @@
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
     //------- collect all AddElements of Order
-    CartServ.joinAllAddElements();
+    CartMenuServ.joinAllAddElements();
     //----------- start order price total calculation
     CartMenuServ.calculateOrderPrice();
 

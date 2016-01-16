@@ -283,7 +283,7 @@
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
       OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
-      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.floorData);
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
       setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
       setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
 

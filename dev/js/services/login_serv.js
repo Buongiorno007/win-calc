@@ -275,7 +275,9 @@
                     if(coeff && coeff.length) {
                       //                  console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
+                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
+                        return item * 1;
+                      });
 
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
@@ -617,7 +619,7 @@
 
             for(var j = 0; j < glassIdsQty; j++) {
               var defer6 = $q.defer();
-
+              console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
@@ -935,7 +937,7 @@
       localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
         if (supply.length) {
           GlobalStor.global.supplyData = angular.copy(supply);
-          //          console.warn('supplyData=', GlobalStor.global.supplyData);
+          //console.warn('supplyData=', GlobalStor.global.supplyData);
         }
       });
       /** download Mounting Data */

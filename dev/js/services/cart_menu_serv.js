@@ -12,6 +12,7 @@
     var thisFactory = this;
 
     thisFactory.publicObj = {
+      joinAllAddElements: joinAllAddElements,
       //---- menu
       selectFloorPrice: selectFloorPrice,
       selectAssembling: selectAssembling,
@@ -40,17 +41,65 @@
 
     //============ methods ================//
 
+
+    /**---------- join all Add Elements for Detials ---------*/
+    function joinAllAddElements() {
+      var productsQty = OrderStor.order.products.length,
+          isExistElem = 0,
+          typeElementsQty, elementsQty,
+          product, tempElement, prod, type, elem;
+      //------ cleaning allAddElements
+      CartStor.cart.allAddElements.length = 0;
+      CartStor.cart.isExistAddElems = 0;
+
+      for(prod = 0; prod < productsQty; prod++) {
+        product = [];
+        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(type = 0; type < typeElementsQty; type++) {
+          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
+          if(elementsQty > 0) {
+            for(elem = 0; elem < elementsQty; elem++) {
+              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              var element = {
+                id: tempElement.id,
+                list_group_id: tempElement.list_group_id,
+                name: tempElement.name,
+                elementPriceDis: tempElement.elementPriceDis,
+                element_price: tempElement.element_price,
+                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
+                element_type: tempElement.element_type,
+                element_width: tempElement.element_width,
+                element_height: tempElement.element_height
+              };
+              product.push(element);
+            }
+          }
+        }
+        if(product.length) {
+          isExistElem++;
+        }
+        CartStor.cart.allAddElements.push(product);
+      }
+      //------ to show button All AddElements
+      if(isExistElem) {
+        CartStor.cart.isExistAddElems = 1;
+      }
+    }
+
+
     //------- Select dropdown menu item
 
-    function selectFloorPrice(id, name, price) {
-      if(OrderStor.order.floor_id !== id) {
-        OrderStor.order.floor_id = id;
-        if(id) {
-          OrderStor.order.floorName = name;
-          OrderStor.order.floor_price = parseFloat(price);
+    function selectFloorPrice(currDelivery) {
+      if(OrderStor.order.floor_id !== currDelivery.id) {
+        OrderStor.order.floor_id = currDelivery.id;
+        if(currDelivery.id) {
+          OrderStor.order.floorName = currDelivery.name;
+          OrderStor.order.floor_price = parseFloat(currDelivery.price);
+          OrderStor.order.delivery_user_id = currDelivery.user_id;
         } else {
           OrderStor.order.floorName = '';
           OrderStor.order.floor_price = 0;
+          OrderStor.order.delivery_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
@@ -62,9 +111,11 @@
         if(currAssemb.id) {
           OrderStor.order.mountingName = currAssemb.name;
           OrderStor.order.mounting_price = currAssemb.priceReal;
+          OrderStor.order.mounting_user_id = currAssemb.user_id;
         } else {
           OrderStor.order.mountingName = '';
           OrderStor.order.mounting_price = 0;
+          OrderStor.order.mounting_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
@@ -312,8 +363,8 @@
       setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price = OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-      OrderStor.order.order_price_dis = OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
       OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -417,6 +468,8 @@
           }
         }
       }
+      /** recollect AllAddElements for Details */
+      joinAllAddElements();
     }
 
 

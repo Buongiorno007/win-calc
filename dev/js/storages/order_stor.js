@@ -25,6 +25,13 @@
 
         discount_construct: 0,
         discount_addelem: 0,
+        discount_construct_max: 0,
+        discount_addelem_max: 0,
+        delivery_user_id: 0,
+        mounting_user_id: 0,
+        default_term_plant: 0,
+        disc_term_plant: 0,
+        margin_plant: 0,
 
         products_qty: 0,
         products: [],

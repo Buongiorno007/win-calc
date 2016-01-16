@@ -189,7 +189,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
     //------- collect all AddElements of Order
-    CartServ.joinAllAddElements();
+    CartMenuServ.joinAllAddElements();
     //----------- start order price total calculation
     CartMenuServ.calculateOrderPrice();
 
@@ -6203,6 +6203,7 @@ function ErrorResult(code, message) {
     var thisFactory = this;
 
     thisFactory.publicObj = {
+      joinAllAddElements: joinAllAddElements,
       //---- menu
       selectFloorPrice: selectFloorPrice,
       selectAssembling: selectAssembling,
@@ -6231,17 +6232,65 @@ function ErrorResult(code, message) {
 
     //============ methods ================//
 
+
+    /**---------- join all Add Elements for Detials ---------*/
+    function joinAllAddElements() {
+      var productsQty = OrderStor.order.products.length,
+          isExistElem = 0,
+          typeElementsQty, elementsQty,
+          product, tempElement, prod, type, elem;
+      //------ cleaning allAddElements
+      CartStor.cart.allAddElements.length = 0;
+      CartStor.cart.isExistAddElems = 0;
+
+      for(prod = 0; prod < productsQty; prod++) {
+        product = [];
+        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(type = 0; type < typeElementsQty; type++) {
+          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
+          if(elementsQty > 0) {
+            for(elem = 0; elem < elementsQty; elem++) {
+              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              var element = {
+                id: tempElement.id,
+                list_group_id: tempElement.list_group_id,
+                name: tempElement.name,
+                elementPriceDis: tempElement.elementPriceDis,
+                element_price: tempElement.element_price,
+                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
+                element_type: tempElement.element_type,
+                element_width: tempElement.element_width,
+                element_height: tempElement.element_height
+              };
+              product.push(element);
+            }
+          }
+        }
+        if(product.length) {
+          isExistElem++;
+        }
+        CartStor.cart.allAddElements.push(product);
+      }
+      //------ to show button All AddElements
+      if(isExistElem) {
+        CartStor.cart.isExistAddElems = 1;
+      }
+    }
+
+
     //------- Select dropdown menu item
 
-    function selectFloorPrice(id, name, price) {
-      if(OrderStor.order.floor_id !== id) {
-        OrderStor.order.floor_id = id;
-        if(id) {
-          OrderStor.order.floorName = name;
-          OrderStor.order.floor_price = parseFloat(price);
+    function selectFloorPrice(currDelivery) {
+      if(OrderStor.order.floor_id !== currDelivery.id) {
+        OrderStor.order.floor_id = currDelivery.id;
+        if(currDelivery.id) {
+          OrderStor.order.floorName = currDelivery.name;
+          OrderStor.order.floor_price = parseFloat(currDelivery.price);
+          OrderStor.order.delivery_user_id = currDelivery.user_id;
         } else {
           OrderStor.order.floorName = '';
           OrderStor.order.floor_price = 0;
+          OrderStor.order.delivery_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
@@ -6253,9 +6302,11 @@ function ErrorResult(code, message) {
         if(currAssemb.id) {
           OrderStor.order.mountingName = currAssemb.name;
           OrderStor.order.mounting_price = currAssemb.priceReal;
+          OrderStor.order.mounting_user_id = currAssemb.user_id;
         } else {
           OrderStor.order.mountingName = '';
           OrderStor.order.mounting_price = 0;
+          OrderStor.order.mounting_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
@@ -6503,8 +6554,8 @@ function ErrorResult(code, message) {
       setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price = OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-      OrderStor.order.order_price_dis = OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
       OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -6608,6 +6659,8 @@ function ErrorResult(code, message) {
           }
         }
       }
+      /** recollect AllAddElements for Details */
+      joinAllAddElements();
     }
 
 
@@ -6743,7 +6796,6 @@ function ErrorResult(code, message) {
     var thisFactory = this;
 
     thisFactory.publicObj = {
-      joinAllAddElements: joinAllAddElements,
       increaseProductQty: increaseProductQty,
       decreaseProductQty: decreaseProductQty,
       addNewProductInOrder: addNewProductInOrder,
@@ -6765,54 +6817,6 @@ function ErrorResult(code, message) {
 
     //============ methods ================//
 
-
-
-    //---------- parse Add Elements from LocalStorage
-    function joinAllAddElements() {
-      var productsQty = OrderStor.order.products.length,
-          isExistElem = 0,
-          typeElementsQty, elementsQty,
-          product, tempElement;
-      //------ cleaning allAddElements
-      CartStor.cart.allAddElements.length = 0;
-      CartStor.cart.isExistAddElems = 0;
-
-      for(var prod = 0; prod < productsQty; prod++) {
-        product = [];
-        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(var type = 0; type < typeElementsQty; type++) {
-          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
-          if(elementsQty > 0) {
-            for(var elem = 0; elem < elementsQty; elem++) {
-              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
-              var element = {
-                id: tempElement.id,
-                list_group_id: tempElement.list_group_id,
-                name: tempElement.name,
-                elementPriceDis: tempElement.elementPriceDis,
-                element_price: tempElement.element_price,
-                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
-                element_type: tempElement.element_type,
-                element_width: tempElement.element_width,
-                element_height: tempElement.element_height
-              };
-              product.push(element);
-            }
-          }
-        }
-        if(product.length) {
-          isExistElem++;
-        }
-        CartStor.cart.allAddElements.push(product);
-      }
-      //------ to show button All AddElements
-      if(isExistElem) {
-        CartStor.cart.isExistAddElems = 1;
-      }
-    }
-
-
-
     //------- add new product in order
     function addNewProductInOrder() {
       //------- set previos Page
@@ -6826,7 +6830,7 @@ function ErrorResult(code, message) {
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
       OrderStor.order.products[productIndex].product_qty += 1;
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -6842,7 +6846,7 @@ function ErrorResult(code, message) {
         OrderStor.order.products[productIndex].product_qty -= 1;
         CartMenuServ.calculateOrderPrice();
       }
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
     }
 
 
@@ -7000,7 +7004,7 @@ function ErrorResult(code, message) {
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
       addCloneProductInOrder(cloneProduct, lastProductId);
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -10161,7 +10165,7 @@ function ErrorResult(code, message) {
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
       OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
-      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.floorData);
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
       setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
       setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
 
@@ -11049,6 +11053,14 @@ function ErrorResult(code, message) {
 
               ' discount_construct NUMERIC,' +
               ' discount_addelem NUMERIC,' +
+              ' discount_construct_max NUMERIC,' +
+              ' discount_addelem_max NUMERIC,' +
+              ' delivery_user_id NUMERIC,' +
+              ' mounting_user_id NUMERIC,' +
+              ' default_term_plant NUMERIC,' +
+              ' disc_term_plant NUMERIC,' +
+              ' margin_plant NUMERIC,' +
+
               ' customer_name TEXT,' +
               ' customer_email TEXT,' +
               ' customer_phone VARCHAR(30),' +
@@ -13342,7 +13354,9 @@ function ErrorResult(code, message) {
                     if(coeff && coeff.length) {
                       //                  console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
+                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
+                        return item * 1;
+                      });
 
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
@@ -13684,7 +13698,7 @@ function ErrorResult(code, message) {
 
             for(var j = 0; j < glassIdsQty; j++) {
               var defer6 = $q.defer();
-
+              console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
@@ -14002,7 +14016,7 @@ function ErrorResult(code, message) {
       localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
         if (supply.length) {
           GlobalStor.global.supplyData = angular.copy(supply);
-          //          console.warn('supplyData=', GlobalStor.global.supplyData);
+          //console.warn('supplyData=', GlobalStor.global.supplyData);
         }
       });
       /** download Mounting Data */
@@ -14042,7 +14056,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
 
     var thisFactory = this;
 
@@ -14627,8 +14641,8 @@ function ErrorResult(code, message) {
       Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
       Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
-      if(GlobalStor.global.deliveryCoeff.base_time) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
+      if(GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]);
       }
       GlobalStor.global.isLoader = 0;
     }
@@ -14958,6 +14972,13 @@ function ErrorResult(code, message) {
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
       orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
       orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+      //----- rates %
+      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+
       if(orderType) {
         orderData.additional_payment = '';
         orderData.created = new Date();
@@ -20374,6 +20395,13 @@ function ErrorResult(code, message) {
 
         discount_construct: 0,
         discount_addelem: 0,
+        discount_construct_max: 0,
+        discount_addelem_max: 0,
+        delivery_user_id: 0,
+        mounting_user_id: 0,
+        default_term_plant: 0,
+        disc_term_plant: 0,
+        margin_plant: 0,
 
         products_qty: 0,
         products: [],

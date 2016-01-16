@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
 
     var thisFactory = this;
 
@@ -592,8 +592,8 @@
       Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
       Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
-      if(GlobalStor.global.deliveryCoeff.base_time) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
+      if(GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]);
       }
       GlobalStor.global.isLoader = 0;
     }
@@ -923,6 +923,13 @@
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
       orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
       orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+      //----- rates %
+      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+
       if(orderType) {
         orderData.additional_payment = '';
         orderData.created = new Date();

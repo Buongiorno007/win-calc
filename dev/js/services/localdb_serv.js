@@ -459,6 +459,14 @@
 
               ' discount_construct NUMERIC,' +
               ' discount_addelem NUMERIC,' +
+              ' discount_construct_max NUMERIC,' +
+              ' discount_addelem_max NUMERIC,' +
+              ' delivery_user_id NUMERIC,' +
+              ' mounting_user_id NUMERIC,' +
+              ' default_term_plant NUMERIC,' +
+              ' disc_term_plant NUMERIC,' +
+              ' margin_plant NUMERIC,' +
+
               ' customer_name TEXT,' +
               ' customer_email TEXT,' +
               ' customer_phone VARCHAR(30),' +

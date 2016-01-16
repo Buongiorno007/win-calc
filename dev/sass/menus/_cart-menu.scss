@@ -38,7 +38,7 @@
   }
   .cart-item-data {
     @include display-flex();
-    @include flex-flow(row nowrap);
+    @include flex-flow(row wrap);
     @include align-items(center);
   }
   .check-switcher {

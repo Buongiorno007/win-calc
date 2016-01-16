@@ -13,7 +13,7 @@
             .dropdown-item-inner
               .value.drop-txt {{ 'cart.SELF_EXPORT' | translate }}
               .name.drop-txt
-          li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(supplyList.id, supplyList.name, supplyList.price)")
+          li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(supplyList)")
             .dropdown-item-inner
               .value.drop-txt {{supplyList.name}} {{ 'cart.FLOOR' | translate }}
               .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}

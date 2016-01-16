@@ -12,7 +12,6 @@
     var thisFactory = this;
 
     thisFactory.publicObj = {
-      joinAllAddElements: joinAllAddElements,
       increaseProductQty: increaseProductQty,
       decreaseProductQty: decreaseProductQty,
       addNewProductInOrder: addNewProductInOrder,
@@ -34,54 +33,6 @@
 
     //============ methods ================//
 
-
-
-    //---------- parse Add Elements from LocalStorage
-    function joinAllAddElements() {
-      var productsQty = OrderStor.order.products.length,
-          isExistElem = 0,
-          typeElementsQty, elementsQty,
-          product, tempElement;
-      //------ cleaning allAddElements
-      CartStor.cart.allAddElements.length = 0;
-      CartStor.cart.isExistAddElems = 0;
-
-      for(var prod = 0; prod < productsQty; prod++) {
-        product = [];
-        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(var type = 0; type < typeElementsQty; type++) {
-          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
-          if(elementsQty > 0) {
-            for(var elem = 0; elem < elementsQty; elem++) {
-              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
-              var element = {
-                id: tempElement.id,
-                list_group_id: tempElement.list_group_id,
-                name: tempElement.name,
-                elementPriceDis: tempElement.elementPriceDis,
-                element_price: tempElement.element_price,
-                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
-                element_type: tempElement.element_type,
-                element_width: tempElement.element_width,
-                element_height: tempElement.element_height
-              };
-              product.push(element);
-            }
-          }
-        }
-        if(product.length) {
-          isExistElem++;
-        }
-        CartStor.cart.allAddElements.push(product);
-      }
-      //------ to show button All AddElements
-      if(isExistElem) {
-        CartStor.cart.isExistAddElems = 1;
-      }
-    }
-
-
-
     //------- add new product in order
     function addNewProductInOrder() {
       //------- set previos Page
@@ -95,7 +46,7 @@
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
       OrderStor.order.products[productIndex].product_qty += 1;
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -111,7 +62,7 @@
         OrderStor.order.products[productIndex].product_qty -= 1;
         CartMenuServ.calculateOrderPrice();
       }
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
     }
 
 
@@ -269,7 +220,7 @@
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
       addCloneProductInOrder(cloneProduct, lastProductId);
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 

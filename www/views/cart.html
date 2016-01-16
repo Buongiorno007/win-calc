@@ -567,7 +567,7 @@
                     <div class="name drop-txt"></div>
                   </div>
                 </li>
-                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(supplyList.id, supplyList.name, supplyList.price)" class="dropdown-item">
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{supplyList.name}} {{ 'cart.FLOOR' | translate }}</div>
                     <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
