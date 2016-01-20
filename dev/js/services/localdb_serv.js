@@ -232,7 +232,7 @@
           'users': {
             'tableName': 'users',
             'prop':
-              'email VARCHAR(255),' +
+              ' email VARCHAR(255),' +
               ' password VARCHAR(255),' +
               ' factory_id INTEGER,' +
               ' name VARCHAR(255),' +
@@ -728,9 +728,15 @@
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    return "'" + elem + "'";
+                    /** change " ' " to " ` " in word */
+                    var tempVal = ''+elem,
+                      indexChar = tempVal.indexOf("'");
+                    if(indexChar+1) {
+                      tempVal = tempVal.substr(0,indexChar) + '`' + tempVal.substr(indexChar+1).toLowerCase();
+                    }
+                    return "'" + tempVal + "'";
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], values);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {

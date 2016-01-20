@@ -1,10 +1,6 @@
 (function(){
   'use strict';
-
-  /**
-   * @ngInject
-   */
-
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);

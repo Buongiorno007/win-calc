@@ -1,13 +1,11 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CallCreditCtrl', callCreditCtrl);
 
-  function callCreditCtrl($filter, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
+  function callCreditCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
@@ -23,12 +21,10 @@
       //typing: 'on'
     };
 
-    //------ get all regions and cities
-    //TODO база городов и регионов долны быть только одной страны завода
-    SettingServ.downloadLocations().then(function(data) {
-      thisCtrl.locations = data;
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
     });
-
 
     //------ clicking
     thisCtrl.submitForm = submitForm;

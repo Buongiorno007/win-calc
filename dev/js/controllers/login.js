@@ -65,6 +65,8 @@
             '3f5f0c7d46d318e026f9ba60dceffc65',
             '799e078b084c6d57cea0b0d53a7e3008',
             '9aefeef9c7e53f9de9bb36f32649dc3f',
+            'a2da6d85764368b24392740020efbc92',
+            'ceb60bfed037baaa484bd7b88d274c98',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -97,6 +99,8 @@
             '0500505500',
             '78124541170',
             '22274313',
+            '9201922876',
+            '903528981',
 
             '000001',
             '000002',
@@ -129,6 +133,8 @@
             '0500505500',
             '78124541170',
             '22274313',
+            '9201922876',
+            '903528981',
 
             '000001',
             '000002',
@@ -315,7 +321,7 @@
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
@@ -388,7 +394,7 @@
     function checkingFactory() {
       //------- set User Location
       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-      if(+UserStor.userInfo.factory_id > 0) {
+      if((UserStor.userInfo.factory_id * 1) > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
           if (thisCtrl.isLocalDB) {
@@ -488,7 +494,7 @@
 
 
 
-    //-------- user registration
+    /**============ registration ============*/
 
     function switchRegistration() {
       //------ check Internet

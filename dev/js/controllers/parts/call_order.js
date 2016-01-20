@@ -1,31 +1,27 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  function callOrderCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
+  function callOrderCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
 
-      //------ get all regions and cities
-      //TODO база городов и регионов долны быть только одной страны завода
-      SettingServ.downloadLocations().then(function(data) {
-          thisCtrl.locations = data;
-      });
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
 
-
-      //------ clicking
-      thisCtrl.submitForm = submitForm;
-      thisCtrl.changeLocation = CartMenuServ.changeLocation;
-      thisCtrl.selectCity = CartMenuServ.selectCity;
-      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
     //============ methods ================//

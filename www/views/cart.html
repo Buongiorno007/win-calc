@@ -875,7 +875,7 @@
               <input type="text" name="location" ng-model="masterDialog.C.cart.customer.customer_location" ng-change="masterDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="masterDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="masterDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="masterDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in masterDialog.locations | filter: {cityName: masterDialog.C.cart.customer.customer_location } | orderBy:'cityName'" hm-tap="masterDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in masterDialog.locations | locationFilter:masterDialog.C.cart.customer.customer_location track by $index" hm-tap="masterDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : masterDialog.C.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field">
@@ -916,7 +916,7 @@
               <input type="text" name="location" ng-model="orderDialog.C.cart.customer.customer_location" ng-change="orderDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="orderDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="orderDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in orderDialog.locations | filter: {cityName: orderDialog.C.cart.customer.customer_location } | orderBy:'cityName'" hm-tap="orderDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in orderDialog.locations | locationFilter:orderDialog.C.cart.customer.customer_location track by $index" hm-tap="orderDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
@@ -1026,7 +1026,7 @@
               <input type="text" name="location" ng-model="creditDialog.C.cart.customer.customer_location" ng-change="creditDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="creditDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="creditDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in creditDialog.locations | filter: {cityName: creditDialog.C.cart.customer.customer_location } | orderBy:'cityName'" hm-tap="creditDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in creditDialog.locations | locationFilter:creditDialog.C.cart.customer.customer_location track by $index" hm-tap="creditDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required }" class="input-field">

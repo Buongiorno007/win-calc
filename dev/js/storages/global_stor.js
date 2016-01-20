@@ -87,6 +87,7 @@
         isReport: 0,
 
         currencies: [],
+        locations: {},
         margins: {},
         deliveryCoeff: {},
 

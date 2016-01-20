@@ -986,12 +986,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
 
 
-    //------ get all regions and cities
-    //TODO база городов и регионов долны быть только одной страны завода
-    SettingServ.downloadLocations().then(function(data) {
-      thisCtrl.locations = data;
+    //SettingServ.downloadLocations().then(function(data) {
+    //  thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
     });
-
 
     //------ clicking
     thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
@@ -1100,6 +1101,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '3f5f0c7d46d318e026f9ba60dceffc65',
             '799e078b084c6d57cea0b0d53a7e3008',
             '9aefeef9c7e53f9de9bb36f32649dc3f',
+            'a2da6d85764368b24392740020efbc92',
+            'ceb60bfed037baaa484bd7b88d274c98',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1132,6 +1135,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '0500505500',
             '78124541170',
             '22274313',
+            '9201922876',
+            '903528981',
 
             '000001',
             '000002',
@@ -1164,6 +1169,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '0500505500',
             '78124541170',
             '22274313',
+            '9201922876',
+            '903528981',
 
             '000001',
             '000002',
@@ -1350,7 +1357,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
@@ -1423,7 +1430,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function checkingFactory() {
       //------- set User Location
       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-      if(+UserStor.userInfo.factory_id > 0) {
+      if((UserStor.userInfo.factory_id * 1) > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
           if (thisCtrl.isLocalDB) {
@@ -1523,7 +1530,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    //-------- user registration
+    /**============ registration ============*/
 
     function switchRegistration() {
       //------ check Internet
@@ -1852,9 +1859,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CartMenuCtrl', cartMenuCtrl);
@@ -1930,11 +1935,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-
-  /**
-   * @ngInject
-   */
-
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);
@@ -2025,11 +2026,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-
-  /**
-   * @ngInject
-   */
-
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
@@ -2982,9 +2979,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
@@ -3005,9 +3000,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('AlertCtrl', alertCtrl);
@@ -3032,14 +3025,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CallCreditCtrl', callCreditCtrl);
 
-  function callCreditCtrl($filter, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
+  function callCreditCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
@@ -3055,12 +3046,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //typing: 'on'
     };
 
-    //------ get all regions and cities
-    //TODO база городов и регионов долны быть только одной страны завода
-    SettingServ.downloadLocations().then(function(data) {
-      thisCtrl.locations = data;
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
     });
-
 
     //------ clicking
     thisCtrl.submitForm = submitForm;
@@ -3091,32 +3080,31 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CallMasterCtrl', callMasterCtrl);
 
-  function callMasterCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
+  function callMasterCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
 
-    //------ get all regions and cities
-      //TODO база городов и регионов долны быть только одной страны завода
-      SettingServ.downloadLocations().then(function(data) {
-          thisCtrl.locations = data;
-      });
+    //SettingServ.downloadLocations().then(function(data) {
+    //    thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
 
-
-      //------ clicking
-      thisCtrl.submitForm = submitForm;
-      thisCtrl.changeLocation = CartMenuServ.changeLocation;
-      thisCtrl.selectCity = CartMenuServ.selectCity;
-      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
     //============ methods ================//
@@ -3138,32 +3126,28 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  function callOrderCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
+  function callOrderCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
 
-      //------ get all regions and cities
-      //TODO база городов и регионов долны быть только одной страны завода
-      SettingServ.downloadLocations().then(function(data) {
-          thisCtrl.locations = data;
-      });
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
 
-
-      //------ clicking
-      thisCtrl.submitForm = submitForm;
-      thisCtrl.changeLocation = CartMenuServ.changeLocation;
-      thisCtrl.selectCity = CartMenuServ.selectCity;
-      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
     //============ methods ================//
@@ -3186,9 +3170,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('infoBoxCtrl', infoBoxCtrl);
@@ -3222,9 +3204,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('LoaderCtrl', loaderCtrl);
@@ -3242,9 +3222,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ReportCtrl', reportCtrl);
@@ -3341,9 +3319,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
@@ -3395,9 +3371,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
@@ -3436,9 +3410,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('searchCtrl', searchCtrl);
@@ -3527,9 +3499,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('sizeCalculatorCtrl', sizeCalcCtrl);
@@ -3567,9 +3537,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
@@ -3818,9 +3786,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .directive('calendarScroll', calendarScrollDir);
@@ -3975,9 +3941,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .directive('calendar', calendarDir);
@@ -4030,9 +3994,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('fileread', fileLoader);
@@ -4067,13 +4029,51 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// directives/location_filter.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .filter('locationFilter', locationFilter);
+
+  function locationFilter($filter) {
+
+    return function(items, searchWord) {
+      var itemsQty = items.length,
+          searchWTemp,
+          filtered = [];
+          //regexp = new RegExp('^'+searchWord+'\\.*','i');
+
+      if(searchWord && (searchWord.length > 2)) {
+        //------- slower!!!!
+        //while(--itemsQty > -1) {
+        //  if(regexp.test(items[itemsQty].fullLocation)) {
+        //    filtered.push(items[itemsQty]);
+        //  }
+        //}
+        searchWTemp = searchWord.toLowerCase();
+        while(--itemsQty > -1) {
+          if(items[itemsQty].fullLocation.toLowerCase().indexOf(searchWTemp) === 0) {
+            filtered.push(items[itemsQty]);
+          }
+        }
+      }
+      filtered = $filter('orderBy')(filtered, 'cityName', false);
+      return filtered;
+    };
+
+  }
+})();
+
+
+
 // directives/order_date.js
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .directive('orderDate', orderDateDir);
@@ -4136,9 +4136,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .filter('orderSorting', orderSortingFilter);
@@ -4183,9 +4181,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('priceFixed', priceFixedDir);
@@ -4233,9 +4229,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('price', priceDir);
@@ -4347,9 +4341,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('showDelay', showDelayDir);
@@ -4383,9 +4375,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
@@ -4424,7 +4414,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             if(scope.typeConstruction === 'icon'){
               padding = 1;
             } else if(scope.typeConstruction === 'edit') {
-              padding = 0.63;
+              padding = 0.6;
             }
 
             mainSVG = d3.select(container).append('svg').attr({
@@ -4854,9 +4844,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('typing', typingDir);
@@ -6554,7 +6542,8 @@ function ErrorResult(code, message) {
       setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
@@ -6564,15 +6553,15 @@ function ErrorResult(code, message) {
       //----- add delivery price if order edit
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
-          OrderStor.order.order_price += OrderStor.order.delivery_price;
+          //OrderStor.order.order_price += OrderStor.order.delivery_price;
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
-          OrderStor.order.order_price -= OrderStor.order.delivery_price;
+          //OrderStor.order.order_price -= OrderStor.order.delivery_price;
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         }
       }
 
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 
@@ -7217,6 +7206,7 @@ function ErrorResult(code, message) {
         var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
         if (isSashesInTemplate) {
           if(!GlobalStor.global.isSashesInTemplate) {
+            GlobalStor.global.isSashesInTemplate = 1;
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
             //------ save analytics data
             //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
@@ -7224,6 +7214,7 @@ function ErrorResult(code, message) {
         } else {
           ProductStor.product.hardware = {};
           ProductStor.product.hardware.id = 0;
+          GlobalStor.global.isSashesInTemplate = 0;
         }
 
         /** check grids */
@@ -9733,9 +9724,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);
@@ -10826,7 +10815,7 @@ function ErrorResult(code, message) {
           'users': {
             'tableName': 'users',
             'prop':
-              'email VARCHAR(255),' +
+              ' email VARCHAR(255),' +
               ' password VARCHAR(255),' +
               ' factory_id INTEGER,' +
               ' name VARCHAR(255),' +
@@ -11322,9 +11311,15 @@ function ErrorResult(code, message) {
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    return "'" + elem + "'";
+                    /** change " ' " to " ` " in word */
+                    var tempVal = ''+elem,
+                      indexChar = tempVal.indexOf("'");
+                    if(indexChar+1) {
+                      tempVal = tempVal.substr(0,indexChar) + '`' + tempVal.substr(indexChar+1).toLowerCase();
+                    }
+                    return "'" + tempVal + "'";
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], values);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
@@ -13079,9 +13074,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('LoginModule')
     .factory('loginServ', startFactory);
@@ -13205,70 +13198,52 @@ function ErrorResult(code, message) {
             mergerLocation: []
           },
           countryQty, regionQty, cityQty;
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
       //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName).then(function(data) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function(data) {
+        //console.log('country!!!', data);
         countryQty = data.length;
         if(countryQty) {
-          for (var stat = 0; stat < countryQty; stat++) {
-            var tempCountry = {
-              id: data[stat].id,
-              name: data[stat].name,
-              currency: data[stat].currency_id
-            };
-            generalLocations.countries.push(tempCountry);
-          }
+          generalLocations.countries = angular.copy(data);
         } else {
           console.log('Error!!!', data);
         }
       }).then(function(){
 
         //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName).then(function(data) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function(data) {
+          //console.log('regions!!!', data);
           regionQty = data.length;
           if(regionQty) {
-            for (var reg = 0; reg < regionQty; reg++) {
-              var tempRegion = {
-                id: data[reg].id,
-                countryId: data[reg].country_id,
-                name: data[reg].name,
-                climaticZone: data[reg].climatic_zone,
-                heatTransfer: data[reg].heat_transfer
-              };
-              generalLocations.regions.push(tempRegion);
-            }
+            generalLocations.regions = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
 
-        }).then(function() {
+        }).then( function() {
 
           //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(data) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, null, 'id, name, region_id as regionId').then(function(data) {
+            //console.log('cities!!!', data);
             cityQty = data.length;
             if(cityQty) {
+              generalLocations.cities = angular.copy(data);
               for(var cit = 0; cit < cityQty; cit++) {
-                var tempCity = {
-                  id: data[cit].id,
-                  regionId: data[cit].region_id,
-                  name: data[cit].name
-                };
-                generalLocations.cities.push(tempCity);
-
                 var location = {
-                  cityId: data[cit].id,
-                  cityName: data[cit].name
+                  cityId: generalLocations.cities[cit].id,
+                  cityName: generalLocations.cities[cit].name
                 };
                 for(var r = 0; r < regionQty; r++) {
-                  if(data[cit].region_id === generalLocations.regions[r].id) {
+                  if(generalLocations.cities[cit].regionId === generalLocations.regions[r].id) {
                     location.regionName = generalLocations.regions[r].name;
                     location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = GeneralServ.roundingValue(1/generalLocations.regions[r].heatTransfer);
+                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
                     for(var s = 0; s < countryQty; s++) {
                       if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
                         location.countryId = generalLocations.countries[s].id;
-                        location.countryName = generalLocations.countries[s].name;
+                        //location.countryName = generalLocations.countries[s].name;
                         location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
+                        location.fullLocation = '' + location.cityName + ', ' + location.regionName;
                         generalLocations.mergerLocation.push(location);
                       }
                     }
@@ -13276,6 +13251,9 @@ function ErrorResult(code, message) {
                 }
 
               }
+              //console.info('generalLocations', generalLocations);
+              GlobalStor.locations = angular.copy(generalLocations);
+              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
               deferred.resolve(generalLocations);
             } else {
               deferred.reject(data);
@@ -13309,8 +13287,8 @@ function ErrorResult(code, message) {
         if(locations[loc].cityId === cityId) {
           UserStor.userInfo.cityName = locations[loc].cityName;
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? locations[loc].heatTransfer : GeneralServ.roundingValue(1/locations[loc].heatTransfer);
-          UserStor.userInfo.countryName = locations[loc].countryName;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/locations[loc].heatTransfer) : locations[loc].heatTransfer;
+          //UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
           //------ set current GeoLocation
@@ -13340,48 +13318,52 @@ function ErrorResult(code, message) {
       setCurrency().then(function(data) {
         if(data) {
           /** download user discounts */
+          //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
           setUserDiscounts().then(function(data) {
             if(data) {
-
+              //console.log('TIME user discounts!!!!!!', new Date(), new Date().getMilliseconds());
               /** download price Margins of Plant */
               downloadPriceMargin().then(function(margins) {
                 if(margins && margins.length) {
                   GlobalStor.global.margins = angular.copy(margins[0]);
-                  //              console.warn('Margins!!', margins);
-
+                  //console.warn('Margins!!', margins);
+                  //console.log('TIME  Margins of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                   /** download delivery Coeff of Plant */
                   downloadDeliveryCoeff().then(function(coeff){
                     if(coeff && coeff.length) {
-                      //                  console.warn('delivery Coeff!!', coeff);
+                      //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
                         return item * 1;
                       });
-
+                      //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
                         if(data) {
-//                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+                          //console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+                          //console.log('TIME Profiles!!!!!!', new Date(), new Date().getMilliseconds());
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
                               /** sorting glasses as to Type */
                               sortingGlasses();
-//                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              //console.log('TIME Glasses!!!!!!', new Date(), new Date().getMilliseconds());
                               /** download All Hardwares */
                               downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                                 if(data) {
-//                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-
+                                  //console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+                                  //console.log('TIME Hardwares!!!!!!', new Date(), new Date().getMilliseconds());
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
-
+                                    //console.log('TIME Backgrounds!!!!!!', new Date(), new Date().getMilliseconds());
                                     /** download All AddElements */
                                     downloadAllAddElements().then(function() {
+                                      //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
                                         var lamins = angular.copy(result);
-  //                                      console.log('LAMINATION++++', lamins);
+                                        //console.log('LAMINATION++++', lamins);
                                         if(lamins) {
                                           var laminQty = lamins.length;
                                           if(laminQty) {
@@ -13393,7 +13375,7 @@ function ErrorResult(code, message) {
                                             GlobalStor.global.laminationsOut = angular.copy(lamins);
                                           }
                                         }
-
+                                        //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
                                         GlobalStor.global.isLoader = 0;
@@ -16824,20 +16806,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
     .factory('SettingServ', settingsFactory);
 
-  function settingsFactory($rootScope, $q, $location, localDB, GlobalStor, UserStor) {
+  function settingsFactory($rootScope, $location, localDB, GlobalStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
       changeAvatar: changeAvatar,
-      downloadLocations: downloadLocations,
+      //downloadLocations: downloadLocations,
       closeLocationPage: closeLocationPage,
       gotoLocationPage: gotoLocationPage,
       gotoPasswordPage: gotoPasswordPage,
@@ -16879,65 +16859,6 @@ function ErrorResult(code, message) {
 //      } );
     }
 
-
-
-    //------- collecting cities, regions and countries in one object for registration form
-    function downloadLocations() {
-      var deferred = $q.defer(),
-          regions = [],
-          mergerLocation = [],
-          regionQty, cityQty;
-
-        //--------- get all regions relative to current countryID
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
-          regionQty = result.length;
-          if(regionQty) {
-            for (var reg = 0; reg < regionQty; reg++) {
-              var tempRegion = {
-                id: result[reg].id,
-                countryId: result[reg].country_id,
-                name: result[reg].name,
-                climaticZone: result[reg].climatic_zone,
-                heatTransfer: result[reg].heat_transfer
-              };
-              regions.push(tempRegion);
-            }
-          } else {
-            console.log('Error!!!', result);
-          }
-
-        }).then(function() {
-
-          //--------- get all cities relative to current countryID
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(results) {
-            cityQty = results.length;
-            if(cityQty) {
-              for(var cit = 0; cit < cityQty; cit++) {
-                for(var r = 0; r < regionQty; r++) {
-                  if(results[cit].region_id === regions[r].id) {
-                    var location = {
-                      cityId: results[cit].id,
-                      cityName: results[cit].name,
-                      climaticZone: regions[r].climaticZone,
-                      heatTransfer: regions[r].heatTransfer,
-                      countryId: UserStor.userInfo.countryId,
-                      countryName: UserStor.userInfo.countryName,
-                      fullLocation: '' + results[cit].name + ', ' + regions[r].name + ', ' + UserStor.userInfo.countryName
-                    };
-                    mergerLocation.push(location);
-                  }
-                }
-
-              }
-              deferred.resolve(mergerLocation);
-            } else {
-              deferred.reject(results);
-            }
-          });
-
-        });
-      return deferred.promise;
-    }
 
 
     //-------- close Location Page
@@ -17041,9 +16962,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('SVGServ', designFactory);
@@ -20256,6 +20175,7 @@ function ErrorResult(code, message) {
         isReport: 0,
 
         currencies: [],
+        locations: {},
         margins: {},
         deliveryCoeff: {},
 

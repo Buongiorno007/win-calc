@@ -128,6 +128,7 @@
         var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
         if (isSashesInTemplate) {
           if(!GlobalStor.global.isSashesInTemplate) {
+            GlobalStor.global.isSashesInTemplate = 1;
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
             //------ save analytics data
             //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
@@ -135,6 +136,7 @@
         } else {
           ProductStor.product.hardware = {};
           ProductStor.product.hardware.id = 0;
+          GlobalStor.global.isSashesInTemplate = 0;
         }
 
         /** check grids */

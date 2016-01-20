@@ -363,7 +363,8 @@
       setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
@@ -373,15 +374,15 @@
       //----- add delivery price if order edit
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
-          OrderStor.order.order_price += OrderStor.order.delivery_price;
+          //OrderStor.order.order_price += OrderStor.order.delivery_price;
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
-          OrderStor.order.order_price -= OrderStor.order.delivery_price;
+          //OrderStor.order.order_price -= OrderStor.order.delivery_price;
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         }
       }
 
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 

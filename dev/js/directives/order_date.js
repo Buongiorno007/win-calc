@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .directive('orderDate', orderDateDir);

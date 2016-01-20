@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
@@ -41,7 +39,7 @@
             if(scope.typeConstruction === 'icon'){
               padding = 1;
             } else if(scope.typeConstruction === 'edit') {
-              padding = 0.63;
+              padding = 0.6;
             }
 
             mainSVG = d3.select(container).append('svg').attr({

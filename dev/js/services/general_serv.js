@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);

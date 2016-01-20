@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('LoginModule')
     .factory('loginServ', startFactory);
@@ -126,70 +124,52 @@
             mergerLocation: []
           },
           countryQty, regionQty, cityQty;
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
       //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName).then(function(data) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function(data) {
+        //console.log('country!!!', data);
         countryQty = data.length;
         if(countryQty) {
-          for (var stat = 0; stat < countryQty; stat++) {
-            var tempCountry = {
-              id: data[stat].id,
-              name: data[stat].name,
-              currency: data[stat].currency_id
-            };
-            generalLocations.countries.push(tempCountry);
-          }
+          generalLocations.countries = angular.copy(data);
         } else {
           console.log('Error!!!', data);
         }
       }).then(function(){
 
         //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName).then(function(data) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function(data) {
+          //console.log('regions!!!', data);
           regionQty = data.length;
           if(regionQty) {
-            for (var reg = 0; reg < regionQty; reg++) {
-              var tempRegion = {
-                id: data[reg].id,
-                countryId: data[reg].country_id,
-                name: data[reg].name,
-                climaticZone: data[reg].climatic_zone,
-                heatTransfer: data[reg].heat_transfer
-              };
-              generalLocations.regions.push(tempRegion);
-            }
+            generalLocations.regions = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
 
-        }).then(function() {
+        }).then( function() {
 
           //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(data) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, null, 'id, name, region_id as regionId').then(function(data) {
+            //console.log('cities!!!', data);
             cityQty = data.length;
             if(cityQty) {
+              generalLocations.cities = angular.copy(data);
               for(var cit = 0; cit < cityQty; cit++) {
-                var tempCity = {
-                  id: data[cit].id,
-                  regionId: data[cit].region_id,
-                  name: data[cit].name
-                };
-                generalLocations.cities.push(tempCity);
-
                 var location = {
-                  cityId: data[cit].id,
-                  cityName: data[cit].name
+                  cityId: generalLocations.cities[cit].id,
+                  cityName: generalLocations.cities[cit].name
                 };
                 for(var r = 0; r < regionQty; r++) {
-                  if(data[cit].region_id === generalLocations.regions[r].id) {
+                  if(generalLocations.cities[cit].regionId === generalLocations.regions[r].id) {
                     location.regionName = generalLocations.regions[r].name;
                     location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = GeneralServ.roundingValue(1/generalLocations.regions[r].heatTransfer);
+                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
                     for(var s = 0; s < countryQty; s++) {
                       if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
                         location.countryId = generalLocations.countries[s].id;
-                        location.countryName = generalLocations.countries[s].name;
+                        //location.countryName = generalLocations.countries[s].name;
                         location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
+                        location.fullLocation = '' + location.cityName + ', ' + location.regionName;
                         generalLocations.mergerLocation.push(location);
                       }
                     }
@@ -197,6 +177,9 @@
                 }
 
               }
+              //console.info('generalLocations', generalLocations);
+              GlobalStor.locations = angular.copy(generalLocations);
+              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
               deferred.resolve(generalLocations);
             } else {
               deferred.reject(data);
@@ -230,8 +213,8 @@
         if(locations[loc].cityId === cityId) {
           UserStor.userInfo.cityName = locations[loc].cityName;
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? locations[loc].heatTransfer : GeneralServ.roundingValue(1/locations[loc].heatTransfer);
-          UserStor.userInfo.countryName = locations[loc].countryName;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/locations[loc].heatTransfer) : locations[loc].heatTransfer;
+          //UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
           //------ set current GeoLocation
@@ -261,48 +244,52 @@
       setCurrency().then(function(data) {
         if(data) {
           /** download user discounts */
+          //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
           setUserDiscounts().then(function(data) {
             if(data) {
-
+              //console.log('TIME user discounts!!!!!!', new Date(), new Date().getMilliseconds());
               /** download price Margins of Plant */
               downloadPriceMargin().then(function(margins) {
                 if(margins && margins.length) {
                   GlobalStor.global.margins = angular.copy(margins[0]);
-                  //              console.warn('Margins!!', margins);
-
+                  //console.warn('Margins!!', margins);
+                  //console.log('TIME  Margins of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                   /** download delivery Coeff of Plant */
                   downloadDeliveryCoeff().then(function(coeff){
                     if(coeff && coeff.length) {
-                      //                  console.warn('delivery Coeff!!', coeff);
+                      //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
                         return item * 1;
                       });
-
+                      //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
                         if(data) {
-//                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+                          //console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+                          //console.log('TIME Profiles!!!!!!', new Date(), new Date().getMilliseconds());
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
                               /** sorting glasses as to Type */
                               sortingGlasses();
-//                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              //console.log('TIME Glasses!!!!!!', new Date(), new Date().getMilliseconds());
                               /** download All Hardwares */
                               downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                                 if(data) {
-//                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-
+                                  //console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+                                  //console.log('TIME Hardwares!!!!!!', new Date(), new Date().getMilliseconds());
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
-
+                                    //console.log('TIME Backgrounds!!!!!!', new Date(), new Date().getMilliseconds());
                                     /** download All AddElements */
                                     downloadAllAddElements().then(function() {
+                                      //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
                                         var lamins = angular.copy(result);
-  //                                      console.log('LAMINATION++++', lamins);
+                                        //console.log('LAMINATION++++', lamins);
                                         if(lamins) {
                                           var laminQty = lamins.length;
                                           if(laminQty) {
@@ -314,7 +301,7 @@
                                             GlobalStor.global.laminationsOut = angular.copy(lamins);
                                           }
                                         }
-
+                                        //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
                                         GlobalStor.global.isLoader = 0;
