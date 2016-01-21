@@ -4435,6 +4435,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
+            console.info('scale--return--', scale);
             if(scope.typeConstruction !== 'icon') {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
             }
@@ -6553,11 +6554,20 @@ function ErrorResult(code, message) {
       //----- add delivery price if order edit
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
-          //OrderStor.order.order_price += OrderStor.order.delivery_price;
+          if(CartStor.cart.marginDeliveyPlant) {
+            OrderStor.order.order_price += GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
+          }
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
-          //OrderStor.order.order_price -= OrderStor.order.delivery_price;
+          if(CartStor.cart.discountDeliveyPlant) {
+            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
+          }
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
+        } else {
+          var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+          if(default_delivery_plant) {
+            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * default_delivery_plant / 100);
+          }
         }
       }
 
@@ -14619,12 +14629,13 @@ function ErrorResult(code, message) {
 
 
     function setProductPriceTOTAL(Product) {
+      var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
       //playSound('price');
       Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
       Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
-      if(GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]);
+      if(default_delivery_plant) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, default_delivery_plant);
       }
       GlobalStor.global.isLoader = 0;
     }
@@ -17188,9 +17199,45 @@ function ErrorResult(code, message) {
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = (dim.maxX - dim.minX),
-          templateH = (dim.maxY - dim.minY);
-      return (templateW > templateH) ? (windowW/templateW) * padding : (windowH/templateH) * padding;
+      var templateW = ((dim.maxX - dim.minX)+300),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/windowW);
+          //console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/templateW);
+          //console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('W======', scaleTmp);
+        }
+        //console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          //console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          //console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('H======', scaleTmp);
+        }
+        //console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
     }
 
 

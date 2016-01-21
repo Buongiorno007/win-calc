@@ -588,12 +588,13 @@
 
 
     function setProductPriceTOTAL(Product) {
+      var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
       //playSound('price');
       Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
       Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
-      if(GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time]);
+      if(default_delivery_plant) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, default_delivery_plant);
       }
       GlobalStor.global.isLoader = 0;
     }

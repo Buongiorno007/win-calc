@@ -374,11 +374,20 @@
       //----- add delivery price if order edit
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
-          //OrderStor.order.order_price += OrderStor.order.delivery_price;
+          if(CartStor.cart.marginDeliveyPlant) {
+            OrderStor.order.order_price += GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
+          }
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
-          //OrderStor.order.order_price -= OrderStor.order.delivery_price;
+          if(CartStor.cart.discountDeliveyPlant) {
+            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
+          }
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
+        } else {
+          var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+          if(default_delivery_plant) {
+            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * default_delivery_plant / 100);
+          }
         }
       }
 

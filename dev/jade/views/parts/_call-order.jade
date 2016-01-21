@@ -3,7 +3,6 @@
     form(name='callOrderForm', novalidate, ng-submit="orderDialog.submitForm(callOrderForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(hm-tap="orderDialog.closeOrderDialog()", type="button")
-        button.cart-dialog-tool.print(hm-tap="", type="button")
         .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
