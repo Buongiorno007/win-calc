@@ -4,10 +4,10 @@
     <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
       <header class="nav-menu-header">
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST }}" class="items-list unvisible">
-          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" hm-tap="navMenu.selectMenuItem(1)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" ng-click="navMenu.selectMenuItem(1)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP) }}" class="nav-icon-addLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" hm-tap="navMenu.selectMenuItem(2)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" ng-click="navMenu.selectMenuItem(2)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
@@ -16,58 +16,58 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
+          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" ng-click="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" ng-click="navMenu.selectMenuItem(4)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products.length }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" ng-click="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" ng-click="navMenu.selectMenuItem(6)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="nav-icon-calculationsHistory unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" ng-click="navMenu.selectMenuItem(7)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" ng-click="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
+          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" ng-click="navMenu.selectMenuItem(9)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
           </li>
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-if="!navMenu.G.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!navMenu.G.global.orderEditNumber" ng-click="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
   <section class="right-side">
     <section class="main-content">
       <section class="cart-page">
-        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock()" class="cart-container full-view">
+        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" ng-swipe-down="cartPage.swipeDiscountBlock()" class="cart-container full-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+            <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button ng-show="cartPage.C.cart.isExistAddElems" hm-tap="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
-            <button hm-tap="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
+            <button ng-show="cartPage.C.cart.isExistAddElems" ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
+            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="scroll-hor-container">
             <div class="order-block">
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
-                <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" class="order-header-fon">
+                <button ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+                <div ng-click="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
@@ -104,7 +104,7 @@
                       <div class="order-value">{{ product.laminationOutName }} / {{ product.laminationInName }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}</div>
                     </li>
-                    <li hm-tap="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                    <li ng-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                       <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                         <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                       </div>
@@ -112,15 +112,15 @@
                     </li>
                   </ul>
                   <div class="order-qty">
-                    <button hm-tap="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                    <button ng-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                     <div class="order-value">{{ product.product_qty }}</div>
-                    <button hm-tap="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                    <button ng-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
                     <div class="order-label qty-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
                   </div>
                 </div>
                 <div class="order-footer">
                   <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
-                  <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" hm-tap="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                  <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" ng-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
                 </div>
                 <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                   <div class="order-comment-box">
@@ -130,32 +130,32 @@
                 </div>
               </div>
             </div>
-            <div hm-swipeup="cartPage.swipeDiscountBlock()" class="discount-swipe-up"></div>
-            <button hm-tap="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
+            <div ng-swipe-up="cartPage.swipeDiscountBlock()" class="discount-swipe-up"></div>
+            <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ 'cart.DISCOUNT_SELECT' | translate }}</div>
             <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
-              <div hm-tap="cartPage.openDiscInput(0)" class="discount-data">
+              <div ng-click="cartPage.openDiscInput(0)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input">
                 </div>
               </div>
-              <div hm-tap="cartPage.approveNewDisc(0)" class="discount-txt">
+              <div ng-click="cartPage.approveNewDisc(0)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
               </div>
             </div>
             <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
-              <div hm-tap="cartPage.openDiscInput(1)" class="discount-data">
+              <div ng-click="cartPage.openDiscInput(1)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input">
                 </div>
               </div>
-              <div hm-tap="cartPage.approveNewDisc(1)" class="discount-txt">
+              <div ng-click="cartPage.approveNewDisc(1)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
               </div>
             </div>
@@ -180,43 +180,43 @@
         </section>
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+            <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button hm-tap="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
-            <button hm-tap="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
+            <button ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
+            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="order-block scroll-vert-container">
             <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
-              <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+              <button ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-template">
+                <div ng-click="cartPage.editProduct($index, 'product')" class="order-template">
                   <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                 </div>
               </div>
               <div class="order-content">
                 <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ 'mainpage.MM' | translate }}</div>
-                <div hm-tap="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                <div ng-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                   <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                     <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                   </div>
                   <div class="order-label">{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}</div>
                 </div>
                 <div class="order-qty">
-                  <button hm-tap="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                  <button ng-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                   <div class="order-value">{{ product.product_qty }}</div>
-                  <button hm-tap="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                  <button ng-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
                 </div>
                 <div class="order-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
               </div>
               <div class="order-footer">
                 <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
-                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" hm-tap="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" ng-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
               </div>
               <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                 <div class="order-comment-box">
@@ -226,13 +226,13 @@
               </div>
             </div>
           </div>
-          <button hm-tap="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.FULL_VIEW' | translate }}</button>
+          <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.FULL_VIEW' | translate }}</button>
         </section>
         <div ng-if="cartPage.config.isAddElementDetail" class="addelements-detail">
           <div class="addelements-detail-header">
             <div class="addelements-detail-tools">
-              <button hm-tap="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
-              <button hm-tap="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
+              <button ng-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
+              <button ng-click="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
             </div>
             <div ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only" class="product-template">
               <div class="addelements-detail-row">
@@ -298,22 +298,22 @@
             <div>&#8721;</div>
           </div>
         </div>
-        <div ng-if="cartPage.config.isAddElementDetail" hm-tap="cartPage.closeAddElementDetail()" class="backDarkView"></div>
+        <div ng-if="cartPage.config.isAddElementDetail" ng-click="cartPage.closeAddElementDetail()" class="backDarkView"></div>
         <section ng-controller="AddElemCartCtrl as elemCartPanel" ng-class="{'active': cartPage.C.cart.isAllAddElems}" class="cart-container alladdelements-view">
           <div class="alladdelements-header">
-            <button hm-tap="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
+            <button ng-click="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
             <div ng-if="cartPage.C.cart.isSelectedProduct">
               <form ng-controller="searchCtrl as searchBox" name="searchForm">
                 <div class="search-block">
                   <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
-                  <button hm-tap="searchBox.deleteSearchChart()" class="delete-search"></button>
-                  <button hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+                  <button ng-click="searchBox.deleteSearchChart()" class="delete-search"></button>
+                  <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
                 </div>
               </form>
             </div>
             <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
               <ul class="aux-list-groups">
-                <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" hm-tap="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
+                <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
                   <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
                   <div class="search-elements-block"></div>
                 </li>
@@ -338,7 +338,7 @@
                   <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">
                       <div class="aux-name">
-                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" hm-tap="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
+                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" ng-click="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
                         <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                       </div>
                     </td>
@@ -364,7 +364,7 @@
                       <div class="aux-price">+ {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                     </td>
                     <td class="aux-tablecell-delete">
-                      <div hm-tap="elemCartPanel.deleteAddElemsItem(addElem)" class="aux-delete"></div>
+                      <div ng-click="elemCartPanel.deleteAddElemsItem(addElem)" class="aux-delete"></div>
                     </td>
                   </tr>
                 </table>
@@ -380,7 +380,7 @@
                     <div class="aux-total-price">{{ cartPage.C.cart.addElemsOrderPriceTOTAL }} {{ cartPage.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div hm-tap="elemCartPanel.deleteAllAddElems()" class="aux-delete"></div>
+                    <div ng-click="elemCartPanel.deleteAllAddElems()" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
@@ -389,7 +389,7 @@
           <div class="products-selector">
             <div ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}" hm-swipeup="elemCartPanel.swipeProductSelector()" hm-swipedown="elemCartPanel.swipeProductSelector()" class="products-selector-block">
               <div class="products-block">
-                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" hm-tap="elemCartPanel.selectProductToAddElem($index)" class="product">
+                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" ng-click="elemCartPanel.selectProductToAddElem($index)" class="product">
                   <div class="select-mark"></div>
                   <div class="product-header">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
@@ -432,7 +432,7 @@
           </div>
           <section ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}" class="cart-container addelement-view">
             <div class="addelementunique-header">
-              <button hm-tap="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
+              <button ng-click="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
               <div class="addelementunit-header-fon"></div>
               <table class="aux-list-addellement">
                 <tr class="aux-list-row">
@@ -464,7 +464,7 @@
                     <div class="aux-price">+ {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div hm-tap="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
+                    <div ng-click="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
@@ -472,7 +472,7 @@
             <div class="addelementunits-container">
               <div class="addelementunit-block">
                 <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="!addElemUnit.is_addelem_only &amp;&amp; !addElemUnit.length" class="addelementunit">
-                  <button hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
+                  <button ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
                   <div class="addelementunit-header">
                     <div class="addelementunit-template">
                       <svg-template template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
@@ -487,8 +487,8 @@
               <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.length &gt; 0" class="addelementunit-train">
                 <div class="addelementunit-train-inner">
                   <div ng-repeat="addElemWagon in addElemUnit track by $index" ng-class="{'unit-last': $last}" class="addelementunit">
-                    <div hm-tap="elemCartPanel.toggleExplodeLinkMenu($index, $event)" class="addelementunit-link link-right"></div>
-                    <button hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
+                    <div ng-click="elemCartPanel.toggleExplodeLinkMenu($index, $event)" class="addelementunit-link link-right"></div>
+                    <button ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
                     <div class="addelementunit-header">
                       <div class="addelementunit-template">
                         <svg-template template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
@@ -502,8 +502,8 @@
                 </div>
                 <div ng-show="elemCartPanel.config.isLinkExplodeMenu" ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}" class="link-explode-menu">
                   <ul class="link-explode-list">
-                    <li hm-tap="elemCartPanel.explodeUnitToProduct(addElemUnit)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_COUPLE' | translate }}</li>
-                    <li hm-tap="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_ALL' | translate }}</li>
+                    <li ng-click="elemCartPanel.explodeUnitToProduct(addElemUnit)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_COUPLE' | translate }}</li>
+                    <li ng-click="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_ALL' | translate }}</li>
                   </ul>
                 </div>
               </div>
@@ -538,7 +538,7 @@
                       <div class="aux-price">+ {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                     </td>
                     <td class="aux-tablecell-delete">
-                      <div hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
+                      <div ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
                     </td>
                   </tr>
                 </table>
@@ -552,7 +552,7 @@
       <div ng-controller="CartMenuCtrl as cartMenu" class="right-menu-controller">
         <div class="cart-menu">
           <ul class="items-list">
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" hm-tap="cartMenu.selectMenuItem(1)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" ng-click="cartMenu.selectMenuItem(1)" class="item">
               <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.floor_id" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -561,13 +561,13 @@
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" ng-click="cartMenu.selectFloorPrice(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.SELF_EXPORT' | translate }}</div>
                     <div class="name drop-txt"></div>
                   </div>
                 </li>
-                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" ng-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{supplyList.name}} {{ 'cart.FLOOR' | translate }}</div>
                     <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
@@ -575,7 +575,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" hm-tap="cartMenu.selectMenuItem(2)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" ng-click="cartMenu.selectMenuItem(2)" class="item">
               <div data-output="{{ 'cart.ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -584,13 +584,13 @@
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" hm-tap="cartMenu.selectAssembling(0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" ng-click="cartMenu.selectAssembling(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.WITHOUT_ASSEMBLING' | translate }}</div>
                     <div class="name drop-txt">{{ 'cart.FREE' | translate }}</div>
                   </div>
                 </li>
-                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" hm-tap="cartMenu.selectAssembling(assemb)" class="dropdown-item">
+                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" ng-click="cartMenu.selectAssembling(assemb)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
                     <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
@@ -598,7 +598,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3}" hm-tap="cartMenu.selectMenuItem(3)" class="item switcher">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3}" ng-click="cartMenu.selectMenuItem(3)" class="item switcher">
               <div data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-if="!cartMenu.O.order.is_instalment" data-output="{{ 'cart.WITHOUT_INSTALMENTS' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -606,15 +606,15 @@
                   <ng-pluralize count="cartMenu.O.order.selectedInstalmentPeriod" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
                 </div><span ng-if="cartMenu.O.order.is_instalment" data-output="{{ cartMenu.O.order.selectedInstalmentPercent }} %" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
-              <div ng-class="{'active': cartMenu.O.order.is_instalment }" hm-tap="cartMenu.closeInstalment()" class="check-switcher">
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" ng-click="cartMenu.closeInstalment()" class="check-switcher">
                 <div class="check-bg-active"></div>
                 <div class="check-bg-passive"></div>
               </div>
-              <div ng-class="{'active': cartMenu.O.order.is_instalment }" hm-tap="cartMenu.closeInstalment()" class="check-handle"></div>
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" ng-click="cartMenu.closeInstalment()" class="check-handle"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 3}" class="dropdown-cart-menu drop-instalment">
               <ul class="dropdown-items-list">
-                <li ng-repeat="payment in cartMenu.G.global.instalmentsData" ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}" hm-tap="cartMenu.selectInstalment(payment.id, payment.name, payment.value)" class="dropdown-item">
+                <li ng-repeat="payment in cartMenu.G.global.instalmentsData" ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}" ng-click="cartMenu.selectInstalment(payment.id, payment.name, payment.value)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value">{{ payment.name }}
                       <ng-pluralize count="payment.name" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
@@ -624,7 +624,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" hm-tap="cartMenu.selectMenuItem(4)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" ng-click="cartMenu.selectMenuItem(4)" class="item">
               <div data-output="{{ 'cart.DELIVERY_DATE' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
             </li>
@@ -637,19 +637,19 @@
             </div>
           </ul>
           <footer class="menu-footer">
-            <div ng-class="{'active': cartMenu.O.order.is_instalment}" hm-tap="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
+            <div ng-class="{'active': cartMenu.O.order.is_instalment}" ng-click="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
               <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.O.order.selectedInstalmentPercent }} %</div>
               <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
               <div class="name">{{ cartMenu.O.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
               <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" hm-tap="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" ng-click="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
               <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <button hm-tap="cartMenu.openOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
-            <button hm-tap="cartMenu.openMasterDialog()" class="measure-btn">{{ 'cart.MEASURE' | translate }}</button>
+            <button ng-click="cartMenu.openOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
+            <button ng-click="cartMenu.openMasterDialog()" class="measure-btn">{{ 'cart.MEASURE' | translate }}</button>
           </footer>
         </div>
         <div ng-class="{'active': cartMenu.O.order.is_old_price &amp;&amp; cartMenu.O.order.is_instalment}" class="old-price-inst-tab">
@@ -668,19 +668,19 @@
         <div class="elements-menu">
           <header class="menu-header">
             <div data-output="{{ 'add_elements_menu.TIP' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="tip"></div>
-            <button hm-tap="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
+            <button ng-click="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
           </header>
           <div class="menu-lists">
             <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-list">
-              <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" hm-tap="elementsMenu.chooseAddElement()" class="item empty-element">
+              <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" ng-click="elementsMenu.chooseAddElement()" class="item empty-element">
                 <div data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
               </li>
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
               <div data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
               <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
-                <div hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" hm-tap="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" ng-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
           </div>
@@ -692,7 +692,7 @@
               <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
                 <thead>
                   <td>
-                    <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
+                    <button ng-click="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
                   </td>
                   <td colspan="2">
                     <div class="calc-interval">
@@ -711,46 +711,46 @@
                 </thead>
                 <tr>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
+                    <button ng-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
+                    <button ng-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button hm-tap="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
-                  </td>
-                  <td>
-                    <button hm-tap="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
-                  </td>
-                  <td>
-                    <button hm-tap="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
+                    <button ng-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
+                    <button ng-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
+                    <button ng-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+                    <button ng-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+                    <button ng-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+                    <button ng-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
                   </td>
                   <td>
-                    <button hm-tap="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+                    <button ng-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button ng-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+                  </td>
+                  <td>
+                    <button ng-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+                  </td>
+                  <td>
+                    <button ng-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
                   </td>
                 </tr>
               </table>
@@ -759,7 +759,7 @@
               <table ng-keyup="elementsMenu.pressCulculator($event)" class="qty-calc-container">
                 <tr>
                   <td>
-                    <button hm-tap="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
+                    <button ng-click="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
                   </td>
                   <td>
                     <div class="calc-interval">
@@ -770,18 +770,18 @@
                     </div>
                   </td>
                   <td>
-                    <button hm-tap="elementsMenu.setValueQty(+1)" class="cell calc-digit">+1</button>
+                    <button ng-click="elementsMenu.setValueQty(+1)" class="cell calc-digit">+1</button>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <button hm-tap="elementsMenu.setValueQty(-5)" class="cell calc-digit">-5</button>
+                    <button ng-click="elementsMenu.setValueQty(-5)" class="cell calc-digit">-5</button>
                   </td>
                   <td>
-                    <button hm-tap="elementsMenu.closeQtyCaclulator()" class="cell calc-equal">=</button>
+                    <button ng-click="elementsMenu.closeQtyCaclulator()" class="cell calc-equal">=</button>
                   </td>
                   <td>
-                    <button hm-tap="elementsMenu.setValueQty(+5)" class="cell calc-digit">+5</button>
+                    <button ng-click="elementsMenu.setValueQty(+5)" class="cell calc-digit">+5</button>
                   </td>
                 </tr>
               </table>
@@ -797,12 +797,12 @@
                   <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                 </div>
                 <div ng-if="addElement.element_qty" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}-->
+                  <!--button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}-->
                   <button class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-if="addElement.element_width" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
+                  <!--button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
                   <button class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
@@ -811,7 +811,7 @@
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
-                <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
+                <button ng-click="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
               </div>
             </div>
           </div>
@@ -822,7 +822,7 @@
             <button ng-class="{'active': addElemTab.length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
           </div>
           <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': addElemTab.length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
+            <button ng-class="{'active': addElemTab.length &gt; 1}" ng-click="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
             <div ng-if="addElemTab.length === 0" class="tab-content-empty">
               <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
             </div>
@@ -830,18 +830,18 @@
               <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
                 <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_qty }}</button>
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_width }}</button>
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
                 <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
-                <div hm-tap="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
+                <div ng-click="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
               </div>
             </div>
           </div>
@@ -850,10 +850,10 @@
           <div class="dialog-inner">
             <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="setGrid"></svg-template>
           </div>
-          <div hm-tap="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
-          <div hm-tap="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>
+          <div ng-click="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
+          <div ng-click="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>
           <div class="set-grid-warning"><span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}</div>
-          <div hm-tap="elementsMenu.closeGridSelectorDialog()" class="close-dialog"></div>
+          <div ng-click="elementsMenu.closeGridSelectorDialog()" class="close-dialog"></div>
         </div>
       </div>
     </section>
@@ -861,7 +861,7 @@
       <div class="cart-dialogs-container">
         <form name="callMasterForm" novalidate ng-submit="masterDialog.submitForm(callMasterForm)">
           <div class="cart-dialog-header">
-            <button hm-tap="masterDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+            <button ng-click="masterDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
             <div class="cart-dialog-title">{{ 'cart.CALL_MASTER' | translate }}</div>
             <button type="submit" class="save">{{ 'cart.READY' | translate }}</button>
           </div>
@@ -875,7 +875,7 @@
               <input type="text" name="location" ng-model="masterDialog.C.cart.customer.customer_location" ng-change="masterDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="masterDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="masterDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="masterDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in masterDialog.locations | locationFilter:masterDialog.C.cart.customer.customer_location track by $index" hm-tap="masterDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in masterDialog.locations | locationFilter:masterDialog.C.cart.customer.customer_location track by $index" ng-click="masterDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : masterDialog.C.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field">
@@ -895,7 +895,7 @@
       <div class="cart-dialogs-container">
         <form name="callOrderForm" novalidate ng-submit="orderDialog.submitForm(callOrderForm)">
           <div class="cart-dialog-header">
-            <button hm-tap="orderDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+            <button ng-click="orderDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
             <div class="cart-dialog-title">{{ 'cart.CALL_ORDER' | translate }}</div>
           </div>
           <div class="cart-dialog-body">
@@ -915,7 +915,7 @@
               <input type="text" name="location" ng-model="orderDialog.C.cart.customer.customer_location" ng-change="orderDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="orderDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="orderDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in orderDialog.locations | locationFilter:orderDialog.C.cart.customer.customer_location track by $index" hm-tap="orderDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in orderDialog.locations | locationFilter:orderDialog.C.cart.customer.customer_location track by $index" ng-click="orderDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
@@ -982,7 +982,7 @@
       <div class="cart-dialogs-container">
         <form name="callCreditForm" novalidate ng-submit="creditDialog.submitForm(callCreditForm)">
           <div class="cart-dialog-header">
-            <button hm-tap="creditDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+            <button ng-click="creditDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
             <div class="cart-dialog-title">{{ 'cart.CALL_CREDIT' | translate }}</div>
           </div>
           <div class="cart-dialog-body">
@@ -1024,7 +1024,7 @@
               <input type="text" name="location" ng-model="creditDialog.C.cart.customer.customer_location" ng-change="creditDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="creditDialog.C.cart.isCityBox = false" autocomplete="off" required class="user-field">
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <ul ng-show="creditDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in creditDialog.locations | locationFilter:creditDialog.C.cart.customer.customer_location track by $index" hm-tap="creditDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                <li ng-repeat="location in creditDialog.locations | locationFilter:creditDialog.C.cart.customer.customer_location track by $index" ng-click="creditDialog.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
               </ul>
             </div>
             <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required }" class="input-field">
@@ -1097,8 +1097,8 @@
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
-      <button hm-tap="alertBox.G.global.isAlert = 0" class="alert-no">{{ 'common_words.BUTTON_N' | translate }}</button>
-      <button hm-tap="alertBox.clickYes()" class="alert-yes">{{ 'common_words.BUTTON_Y' | translate }}</button>
+      <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ 'common_words.BUTTON_N' | translate }}</button>
+      <button ng-click="alertBox.clickYes()" class="alert-yes">{{ 'common_words.BUTTON_Y' | translate }}</button>
     </div>
   </div>
 </div>

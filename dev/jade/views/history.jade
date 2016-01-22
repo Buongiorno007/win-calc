@@ -8,7 +8,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
         section.accounts-container.history-view(ng-class="{'dark-fon': historyPage.H.history.isOrderDate || historyPage.H.history.isOrderSort }")
           .history-header
-            button.history-back(hm-tap="historyPage.toCurrentCalculation()" )
+            button.history-back(ng-click="historyPage.toCurrentCalculation()" )
             .history-user-info(ng-hide="historyPage.H.history.isOrderSearch")
               include parts/_user-info
             .history-search(ng-show="historyPage.H.history.isOrderSearch")
@@ -16,10 +16,10 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
             .history-tools-panel
               .tools-block.search-tool(ng-class="{ 'active': historyPage.H.history.isOrderSearch }")
-                button.tool.search-btn(hm-tap="historyPage.orderSearching()")
+                button.tool.search-btn(ng-click="historyPage.orderSearching()")
 
               .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
-                button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
+                button.tool.calendar-btn(ng-click="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
                   span(ng-if="historyPage.H.history.startDate !== ''") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
                   span(ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''") &nbsp; - &nbsp;
@@ -27,42 +27,42 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
                 .dropdown-tool-dialog.date-filter(ng-if="!historyPage.H.history.isDraftView")
                   .filter-title {{ 'history.DATE_RANGE' | translate }}
-                  .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDate }", hm-tap="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                  .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDate }", ng-click="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isStartDate }")
                     calendar-scroll(order-type="1", calendar-type="1")
 
-                  .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDate }", hm-tap="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+                  .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDate }", ng-click="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isFinishDate }")
                     calendar-scroll(order-type="1", calendar-type="0")
 
-                  .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriod }", hm-tap="historyPage.openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
+                  .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriod }", ng-click="historyPage.openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
 
               .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderSort }")
-                button.tool.settings-btn(hm-tap="historyPage.orderSorting()")
+                button.tool.settings-btn(ng-click="historyPage.orderSorting()")
                 .dropdown-tool-dialog.sort-filter
                   .filter-divider {{ 'history.SORTING' | translate }}
                   ul.filter-list
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }", hm-tap="historyPage.sortingInit(0, 'first')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }", ng-click="historyPage.sortingInit(0, 'first')")
                       .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }", hm-tap="historyPage.sortingInit(0, 'last')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }", ng-click="historyPage.sortingInit(0, 'last')")
                       .filter-label {{ 'history.NEWEST_LAST' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }", hm-tap="historyPage.sortingInit(0, 'type')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }", ng-click="historyPage.sortingInit(0, 'type')")
                       .filter-label {{ 'history.SORT_BY_TYPE' | translate }}
                       .filter-select-icon
                   .filter-divider {{ 'history.SORT_SHOW' | translate }}
                   ul.filter-list
-                    li.filter-item(ng-class="{ 'selected': !historyPage.H.history.isFilterType }", hm-tap="historyPage.sortingInit(1, undefined)")
+                    li.filter-item(ng-class="{ 'selected': !historyPage.H.history.isFilterType }", ng-click="historyPage.sortingInit(1, undefined)")
                       .filter-label {{ 'common_words.ALL' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }", hm-tap="historyPage.sortingInit(1, 'order')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }", ng-click="historyPage.sortingInit(1, 'order')")
                       .filter-label {{ 'history.SORT_SHOW_ACTIVE' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }", hm-tap="historyPage.sortingInit(1, 'master')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }", ng-click="historyPage.sortingInit(1, 'master')")
                       .filter-label {{ 'history.SORT_SHOW_WAIT' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", hm-tap="historyPage.sortingInit(1, 'done')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", ng-click="historyPage.sortingInit(1, 'done')")
                       .filter-label {{ 'history.SORT_SHOW_DONE' | translate }}
                       .filter-select-icon
 
@@ -99,11 +99,11 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                   .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
-              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.sendOrderToFactory(order.order_style, order.id)")
-              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.id)")
-              button.account-tool.account-print-btn(hm-tap="")
-              button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.order_type, order.id, $event)")
-              button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(1, order.id)") {{ 'common_words.CHANGE' | translate }}
+              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", ng-click="historyPage.sendOrderToFactory(order.order_style, order.id)")
+              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", ng-click="historyPage.makeOrderCopy(order.order_style, order.id)")
+              button.account-tool.account-print-btn(ng-click="")
+              button.account-delete-btn(ng-hide="order.order_style == 'done'", ng-click="historyPage.clickDeleteOrder(order.order_type, order.id, $event)")
+              button.account-change-btn(ng-hide="order.order_style == 'done'", ng-click="historyPage.editOrder(1, order.id)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="historyPage.H.history.searchingWord.length && (historyPage.H.history.orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon
@@ -113,7 +113,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .result-icon
               .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
-          button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
+          button.view-switch-tab(ng-click="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
 
 
@@ -127,7 +127,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
             include parts/_user-info
             .history-tools-panel
               .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDateDraft }")
-                button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
+                button.tool.calendar-btn(ng-click="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.H.history.startDateDraft === '' && historyPage.H.history.finishDateDraft === ''}")
                   span(ng-if="historyPage.H.history.startDateDraft !== ''") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}
                   span(ng-show="historyPage.H.history.startDateDraft !== ''") &nbsp; - &nbsp;
@@ -135,32 +135,32 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
                 .dropdown-tool-dialog.date-filter(ng-if="historyPage.H.history.isDraftView")
                   .filter-title {{ 'history.DATE_RANGE' | translate }}
-                  .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDateDraft }", hm-tap="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}
+                  .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDateDraft }", ng-click="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isStartDateDraft }")
                     calendar-scroll(order-type="0", calendar-type="1")
 
-                  .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDateDraft }", hm-tap="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}
+                  .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDateDraft }", ng-click="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isFinishDateDraft }")
                     calendar-scroll(order-type="0", calendar-type="0")
 
-                  .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriodDraft }", hm-tap="historyPage.openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
+                  .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriodDraft }", ng-click="historyPage.openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
 
               .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderSortDraft }")
-                button.tool.settings-btn(hm-tap="historyPage.orderSorting()")
+                button.tool.settings-btn(ng-click="historyPage.orderSorting()")
                 .dropdown-tool-dialog.sort-filter
                   .filter-divider {{ 'history.SORTING' | translate }}
                   ul.filter-list
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'first' }", hm-tap="historyPage.sortingInit('first')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'first' }", ng-click="historyPage.sortingInit('first')")
                       .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'last' }", hm-tap="historyPage.sortingInit('last')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'last' }", ng-click="historyPage.sortingInit('last')")
                       .filter-label {{ 'history.NEWEST_LAST' | translate }}
                       .filter-select-icon
 
           .scroll-vert-container
             .scrolling-container
               .account-block(ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft")
-                .account(hm-tap="historyPage.editOrder(0, draft.id)")
+                .account(ng-click="historyPage.editOrder(0, draft.id)")
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
                     .account-label.account-date-filter {{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}
@@ -168,14 +168,14 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .account-value {{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}
                       span(ng-show="draft.is_instalment") , {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}
-                button.account-tool.account-print-btn(hm-tap="")
-                button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.id, $event)")
+                button.account-tool.account-print-btn(ng-click="")
+                button.account-delete-btn(ng-click="historyPage.clickDeleteOrder(draft.order_type, draft.id, $event)")
 
 
             .empty-search-result(ng-show="historyPage.H.history.isEmptyResultDraft")
               .result-icon
               .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
-          button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
+          button.view-switch-tab(ng-click="historyPage.viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
 include parts/_loader
 include parts/_alert

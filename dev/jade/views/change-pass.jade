@@ -1,8 +1,8 @@
 section.settings.password-page
   .header
-    button.back(hm-tap="passwordPage.gotoSettingsPage()")
+    button.back(ng-click="passwordPage.gotoSettingsPage()")
     .title(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
-    button.save(hm-tap="passwordPage.saveNewPassword()") {{ 'settings.SAVE' | translate }}
+    button.save(ng-click="passwordPage.saveNewPassword()") {{ 'settings.SAVE' | translate }}
 
   .psw-container
     .lists

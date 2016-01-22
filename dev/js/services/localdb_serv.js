@@ -703,7 +703,13 @@
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
           values = keysArr.map(function (key) {
-            return "'"+row[key]+"'";
+            var tempVal;
+            if(tableName === 'order_products') {
+              tempVal = "'"+row[key]+"'";
+            } else {
+              tempVal = '"'+row[key]+'"';
+            }
+            return tempVal;
           }).join(', ');
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {

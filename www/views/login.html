@@ -2,7 +2,7 @@
 <section class="login-page">
   <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousedown="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;" class="login-container">
     <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ 'login.OFFLINE' | translate }}
-      <button hm-tap="loginPage.closeOfflineAlert()" class="inet_ok">{{ 'common_words.OK' | translate }}</button>
+      <button ng-click="loginPage.closeOfflineAlert()" class="inet_ok">{{ 'common_words.OK' | translate }}</button>
     </div>
     <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div ng-show="loginPage.isUserNotExist" class="attantion">{{ 'login.USER_NOT_EXIST' | translate }}</div>
@@ -24,10 +24,10 @@
       </div>
       <button type="submit" class="login-submit">{{ 'login.ENTER' | translate }}</button>
     </form>
-    <button hm-tap="loginPage.switchRegistration()" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
+    <button ng-click="loginPage.switchRegistration()" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
     <div ng-show="loginPage.isFactoryId" ng-mousedown="loginPage.isFactoryNotSelect = 0;" class="factory_box">
       <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ 'login.SELECT_FACTORY' | translate }}</div>
-      <button type="button" hm-tap="loginPage.closeFactoryDialog()" class="close_dialog"></button>
+      <button type="button" ng-click="loginPage.closeFactoryDialog()" class="close_dialog"></button>
       <div class="factory_title">{{ 'login.SELECT_PRODUCER' | translate }}</div>
       <div class="factory_list">
         <table class="factory_table">
@@ -40,11 +40,11 @@
           </tr>
         </table>
       </div>
-      <button hm-tap="loginPage.selectFactory()" class="login-submit">{{ 'common_words.SELECT' | translate }}</button>
+      <button ng-click="loginPage.selectFactory()" class="login-submit">{{ 'common_words.SELECT' | translate }}</button>
     </div>
   </div>
   <div ng-show="loginPage.isRegistration" ng-mousedown="loginPage.isUserExist = 0;" class="login-container">
-    <button type="button" hm-tap="loginPage.closeRegistration()" class="close_dialog"></button>
+    <button type="button" ng-click="loginPage.closeRegistration()" class="close_dialog"></button>
     <div ng-show="loginPage.isUserExist" class="attantion">{{ 'login.USER_EXIST' | translate }}</div>
     <div class="logo"></div>
     <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">

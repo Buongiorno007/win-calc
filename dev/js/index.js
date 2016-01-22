@@ -50,8 +50,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   angular.module('BauVoiceApp', [
     'ngRoute',
     'pascalprecht.translate',
-    'hmTouchEvents',
+    'ngTouch',
     'ngCordova',
+    'swipe',
 
     'LoginModule',
     'MainModule',

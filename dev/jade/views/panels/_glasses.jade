@@ -5,12 +5,12 @@
       .group-block-header
         .title(data-output="{{ glassPanel.G.global.glassTypes[$index].name }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
         .group-info
-          .info(ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", hm-tap="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
+          .info(ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length", ng-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
 
       .glass-block-footer.clearfix
         .footer-inner
           .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glass.id == glassPanel.G.global.selectLastGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
-            .box_inner(hm-tap="glassPanel.selectGlass(glass.id, glass.sku)")
+            .box_inner(ng-click="glassPanel.selectGlass(glass.id, glass.sku)")
               .glass-box-view
                 .glass-img(ng-switch="glass.cameras")
                   img(ng-switch-when="1", ng-if="glass.glass_folder_id !== 6", ng-src="img/glasses/glass1.png")
@@ -37,12 +37,12 @@
                   .coef-index
                   .coef-index
                 .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-            .info(ng-if="glass.img.length || glass.link.length || glass.description.length", hm-tap="glassPanel.showInfoBox(glass.id, typeGlass)")
+            .info(ng-if="glass.img.length || glass.link.length || glass.description.length", ng-click="glassPanel.showInfoBox(glass.id, typeGlass)")
 
   .glass-selector-dialog(ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}")
     .dialog-inner
       svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="setGlass")
-    .set-glass-btn(hm-tap="glassPanel.confirmGlass()")
-    .set-glass-all-btn(hm-tap="glassPanel.setGlassToAll()") {{ 'mainpage.SELECT_ALL' | translate }}
+    .set-glass-btn(ng-click="glassPanel.confirmGlass()")
+    .set-glass-all-btn(ng-click="glassPanel.setGlassToAll()") {{ 'mainpage.SELECT_ALL' | translate }}
     .set-glass-warning <span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}
-    .close-dialog(hm-tap="glassPanel.closeGlassSelectorDialog()")
+    .close-dialog(ng-click="glassPanel.closeGlassSelectorDialog()")

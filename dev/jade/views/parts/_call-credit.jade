@@ -2,7 +2,7 @@
   .cart-dialogs-container
     form(name='callCreditForm', novalidate, ng-submit="creditDialog.submitForm(callCreditForm)")
       .cart-dialog-header
-        button.cart-dialog-tool.back(hm-tap="creditDialog.closeOrderDialog()", type="button")
+        button.cart-dialog-tool.back(ng-click="creditDialog.closeOrderDialog()", type="button")
         .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_CREDIT_DESCRIP' | translate }}
@@ -47,7 +47,7 @@
           input.user-field(type="text", name="location", ng-model="creditDialog.C.cart.customer.customer_location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="creditDialog.C.cart.isCityBox = false", autocomplete="off", required)
           .error-tooltip(ng-show='creditDialog.C.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
           ul.location-list-tooltip(ng-show="creditDialog.C.cart.isCityBox", tabindex="1")
-            li.location-option(ng-repeat="location in creditDialog.locations | locationFilter:creditDialog.C.cart.customer.customer_location track by $index", hm-tap="creditDialog.selectCity(location)") {{location.fullLocation}}
+            li.location-option(ng-repeat="location in creditDialog.locations | locationFilter:creditDialog.C.cart.customer.customer_location track by $index", ng-click="creditDialog.selectCity(location)") {{location.fullLocation}}
 
 
 

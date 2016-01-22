@@ -53,8 +53,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   angular.module('BauVoiceApp', [
     'ngRoute',
     'pascalprecht.translate',
-    'hmTouchEvents',
+    'ngTouch',
     'ngCordova',
+    'swipe',
 
     'LoginModule',
     'MainModule',
@@ -9765,9 +9766,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -11293,7 +11294,13 @@ function ErrorResult(code, message) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
           values = keysArr.map(function (key) {
-            return "'"+row[key]+"'";
+            var tempVal;
+            if(tableName === 'order_products') {
+              tempVal = "'"+row[key]+"'";
+            } else {
+              tempVal = '"'+row[key]+'"';
+            }
+            return tempVal;
           }).join(', ');
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {

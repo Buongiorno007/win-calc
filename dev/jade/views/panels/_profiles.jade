@@ -4,9 +4,9 @@
       .group-block-header(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
         .title(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
         .group-info
-          .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+          .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
       .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
-        .box_inner(hm-tap="profilesPanel.selectProfile(profile.id)")
+        .box_inner(ng-click="profilesPanel.selectProfile(profile.id)")
           .profile-box-top
             .type {{ profile.cameras }}
               ng-pluralize(count="profile.cameras",
@@ -30,4 +30,4 @@
               .coef-index
               .coef-index
             .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-        .info(ng-if="profile.img.length || profile.link.length || profile.description.length", hm-tap="profilesPanel.showInfoBox(profile.id, producer)")
+        .info(ng-if="profile.img.length || profile.link.length || profile.description.length", ng-click="profilesPanel.showInfoBox(profile.id, producer)")

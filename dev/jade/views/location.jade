@@ -2,11 +2,11 @@ section.settings.location-page
   .header
     button.back
     input.location-current(type="text", ng-model="locationPage.userNewLocation")
-    button.save(hm-tap="locationPage.closeLocationPage()") {{ 'add_elements.CANCEL' | translate }}
+    button.save(ng-click="locationPage.closeLocationPage()") {{ 'add_elements.CANCEL' | translate }}
   .location-container
     .lists
       ul.list
-        li.item.click(ng-repeat="location in locationPage.locations | locationFilter:locationPage.userNewLocation track by $index", hm-tap="locationPage.selectCity(location)")
+        li.item.click(ng-repeat="location in locationPage.locations | locationFilter:locationPage.userNewLocation track by $index", ng-click="locationPage.selectCity(location)")
           .location-label {{location.fullLocation}}
 
 
