@@ -364,7 +364,7 @@
 
       //----- add product prices, floor price, assembling price
       //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price);
+      OrderStor.order.order_price = OrderStor.order.products_price;
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
@@ -375,23 +375,23 @@
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
           if(CartStor.cart.marginDeliveyPlant) {
-            OrderStor.order.order_price += GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
+            OrderStor.order.order_price += (OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
           }
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
           if(CartStor.cart.discountDeliveyPlant) {
-            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
+            OrderStor.order.order_price -= (OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
           }
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         } else {
           var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
           if(default_delivery_plant) {
-            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * default_delivery_plant / 100);
+            OrderStor.order.order_price -= (OrderStor.order.products_price * default_delivery_plant / 100);
           }
         }
       }
 
-      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 

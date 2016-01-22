@@ -480,10 +480,10 @@
 
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
-          dimQty = dim[0].length;
-
+          dimQty = dim[0].length,
+          isXDim = 0, isYDim = 0;
+      //------- checking what kind of dimension X or Y direction
       if(dimQty) {
-        var isXDim = 0, isYDim = 0;
         while(--dimQty > -1) {
           if(dim[0][dimQty].attributes.axis) {
             if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
@@ -493,16 +493,14 @@
             }
           }
         }
-        //------- hide all dimension Level 0
-//        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
-
+        //------- shifting overall dimensions is level0 is existed
         if(isXDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
         }
         if(isYDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
         }
-        dim.classed('dim_hidden', false);
+        dim.classed('dim_hidden', 0);
       }
     }
 

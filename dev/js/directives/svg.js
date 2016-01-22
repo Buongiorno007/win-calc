@@ -60,7 +60,6 @@
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            console.info('scale--return--', scale);
             if(scope.typeConstruction !== 'icon') {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
             }

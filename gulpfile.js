@@ -135,6 +135,20 @@ gulp.task('audio', function() {
 });
 
 
+/** copy files from different folders
+
+gulp.task('copy', function() {
+  return gulp.src([
+      'dev/js/directives/location_filter.js', 'dev/js/directives/typing.js',
+      'dev/audio/*.js',
+      'adminka/*.js'
+    ])
+    .pipe(concat('plugins2.js'))
+    .pipe( gulp.dest('www/'));
+});
+
+*/
+
 // Локальный сервер для разработки
 // http://www.browsersync.io/docs/options/
 gulp.task('server', function () {

@@ -328,7 +328,7 @@
             'prop': 'parent_list_id INTEGER,' +
               ' child_id INTEGER,' +
               ' child_type VARCHAR(255),' +
-              ' value NUMERIC(10, 3),' +
+              ' value NUMERIC(10, 7),' +
               ' rules_type_id INTEGER,' +
               ' direction_id INTEGER,' +
               ' window_hardware_color_id INTEGER,' +
@@ -728,15 +728,15 @@
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    /** change " ' " to " ` " in word */
-                    var tempVal = ''+elem,
-                      indexChar = tempVal.indexOf("'");
-                    if(indexChar+1) {
-                      tempVal = tempVal.substr(0,indexChar) + '`' + tempVal.substr(indexChar+1).toLowerCase();
+                    var tempVal;
+                    if(tableKeys[t] === 'templates') {
+                      tempVal = "'" + elem + "'";
+                    } else {
+                      tempVal = '"' + elem + '"';
                     }
-                    return "'" + tempVal + "'";
+                    return tempVal;
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], values);
+              //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {

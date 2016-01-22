@@ -4435,7 +4435,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            console.info('scale--return--', scale);
             if(scope.typeConstruction !== 'icon') {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
             }
@@ -6544,7 +6543,7 @@ function ErrorResult(code, message) {
 
       //----- add product prices, floor price, assembling price
       //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
-      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price);
+      OrderStor.order.order_price = OrderStor.order.products_price;
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
 
       //----- save primary total price
@@ -6555,23 +6554,23 @@ function ErrorResult(code, message) {
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
           if(CartStor.cart.marginDeliveyPlant) {
-            OrderStor.order.order_price += GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
+            OrderStor.order.order_price += (OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
           }
           OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
           if(CartStor.cart.discountDeliveyPlant) {
-            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
+            OrderStor.order.order_price -= (OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
           }
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         } else {
           var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
           if(default_delivery_plant) {
-            OrderStor.order.order_price -= GeneralServ.roundingValue(OrderStor.order.products_price * default_delivery_plant / 100);
+            OrderStor.order.order_price -= (OrderStor.order.products_price * default_delivery_plant / 100);
           }
         }
       }
 
-      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 
@@ -7568,10 +7567,10 @@ function ErrorResult(code, message) {
 
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
-          dimQty = dim[0].length;
-
+          dimQty = dim[0].length,
+          isXDim = 0, isYDim = 0;
+      //------- checking what kind of dimension X or Y direction
       if(dimQty) {
-        var isXDim = 0, isYDim = 0;
         while(--dimQty > -1) {
           if(dim[0][dimQty].attributes.axis) {
             if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
@@ -7581,16 +7580,14 @@ function ErrorResult(code, message) {
             }
           }
         }
-        //------- hide all dimension Level 0
-//        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
-
+        //------- shifting overall dimensions is level0 is existed
         if(isXDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
         }
         if(isYDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', true);
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
         }
-        dim.classed('dim_hidden', false);
+        dim.classed('dim_hidden', 0);
       }
     }
 
@@ -10921,7 +10918,7 @@ function ErrorResult(code, message) {
             'prop': 'parent_list_id INTEGER,' +
               ' child_id INTEGER,' +
               ' child_type VARCHAR(255),' +
-              ' value NUMERIC(10, 3),' +
+              ' value NUMERIC(10, 7),' +
               ' rules_type_id INTEGER,' +
               ' direction_id INTEGER,' +
               ' window_hardware_color_id INTEGER,' +
@@ -11321,15 +11318,15 @@ function ErrorResult(code, message) {
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    /** change " ' " to " ` " in word */
-                    var tempVal = ''+elem,
-                      indexChar = tempVal.indexOf("'");
-                    if(indexChar+1) {
-                      tempVal = tempVal.substr(0,indexChar) + '`' + tempVal.substr(indexChar+1).toLowerCase();
+                    var tempVal;
+                    if(tableKeys[t] === 'templates') {
+                      tempVal = "'" + elem + "'";
+                    } else {
+                      tempVal = '"' + elem + '"';
                     }
-                    return "'" + tempVal + "'";
+                    return tempVal;
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], values);
+              //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
@@ -19110,7 +19107,7 @@ function ErrorResult(code, message) {
 
 
 
-
+    /**=============== DIMENSION ============*/
 
 
     function initDimensions(blocks) {
@@ -19122,15 +19119,12 @@ function ErrorResult(code, message) {
           blocksQty = blocks.length,
           maxSizeLimit = blocks[0].maxSizeLimit,
           globalLimitsX, globalLimitsY, allPoints;
-
-//      console.log('----------------- START DIMENSION-----------------');
-      //=========== All points ==============//
+      /**---------- All points ----------*/
       allPoints = collectAllPointsOut(blocks);
       //------ except Q points
       allPoints = allPoints.filter(function (elem) {
         return (elem.dir === 'curv' || elem.t) ? 0 : 1;
       });
-
       globalLimitsX = angular.copy(allPoints);
       globalLimitsY = angular.copy(allPoints);
       //------ delete dublicates
@@ -19139,24 +19133,18 @@ function ErrorResult(code, message) {
       //---- sorting
       globalLimitsX.sort(sortByX);
       globalLimitsY.sort(sortByY);
+      //console.log('``````````allPoints``````', allPoints);
+      //console.log('``````````globalLimitsX``````', globalLimitsX);
+      //console.log('``````````globalLimitsY``````', globalLimitsY);
 
-//      console.log('``````````allPoints``````', allPoints);
-//      console.log('``````````globalLimitsX``````', globalLimitsX);
-//      console.log('``````````globalLimitsY``````', globalLimitsY);
-
-      //========== on eah block ==========//
-
+      /**-------- on eah block --------*/
       for (var b = 1; b < blocksQty; b++) {
-
         var pointsOutQty = blocks[b].pointsOut.length;
+        //console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
 
-//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
-
-
-        //========== Global Dimension of Blocks level 1 ============//
-
+        /** Global Dimension of Blocks level 1 */
         if (blocks[b].level === 1) {
-          //          console.log('========= block 1===========');
+          //console.log('========= block 1===========');
           var globalDimX = [],
               globalDimY,
               arcHeights = [],
@@ -19177,15 +19165,11 @@ function ErrorResult(code, message) {
           globalDimX.sort(sortByX);
           globalDimY.sort(sortByY);
 
-//          console.log('``````````globalDimX ``````', globalDimX);
-//          console.log('``````````globalDimY ``````', globalDimY);
-//          console.log('``````````heightArcX ``````', arcHeights);
-
-          //          console.log('``````````Create dim by X``````````');
+          //console.log('``````````globalDimX ``````', globalDimX);
+          //console.log('``````````globalDimY ``````', globalDimY);
+          //console.log('``````````heightArcX ``````', arcHeights);
           collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
-          //          console.log('``````````Create dim by Y``````````');
           collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
-
           //------ collect dim for arc height
           createArcDim(1, blocks[b].id, arcHeights, dimension, blocks, blocksQty);
 
@@ -19204,7 +19188,6 @@ function ErrorResult(code, message) {
           collectOverallDim(overallDim, dimension);
 //          console.log('for overall finish ------', overallDim);
 
-
           overallDim.square = calcSquare(blocks[b].pointsOut);
           //--------- push Overall Dimension
           blocks[0].overallDim.push(overallDim);
@@ -19212,7 +19195,7 @@ function ErrorResult(code, message) {
 
 
 
-        //========= Dimension in Block without children ==========//
+        /**========= Dimension in Block without children ==========*/
 
         if (!blocks[b].children.length) {
           var blockDimX = [],
@@ -19220,8 +19203,21 @@ function ErrorResult(code, message) {
               blockLimits = [];
 
           cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
-//          console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
+          //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
 
+          //------ go to parent and another children for Limits
+          for (var bp = 1; bp < blocksQty; bp++) {
+            if (blocks[bp].id === blocks[b].parent) {
+              //------- add impost
+              if(blocks[bp].impost) {
+                //============ collect Curver Radius of impost
+                if (blocks[bp].impost.impostAxis[2]) {
+                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+                }
+              }
+            }
+          }
+/*
           //-------- set block Limits
           //------ go to parent and another children for Limits
           for (var bp = 1; bp < blocksQty; bp++) {
@@ -19253,33 +19249,28 @@ function ErrorResult(code, message) {
               }
             }
           }
+*/
 
           blockLimits = angular.copy(allPoints);
-
-//          console.log('`````````` blockLimits ``````````', blockLimits);
+          //console.log('`````````` blockLimits ``````````', blockLimits);
           blockDimY = angular.copy(blockDimX);
 
-
-          //========== build Dimension
-
+          /**-------- build Dimension -----------*/
           if (blockDimX.length > 1) {
+            /** X */
             //------ delete dublicates
-//            cleanDublicat(1, blockDimX);
             blockDimX = cleanDublicatNoFP(1, blockDimX);
             //---- sorting
             blockDimX.sort(sortByX);
-//            console.log('`````````` new dim X ``````````', blockDimX);
-//            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].parent, maxSizeLimit);
+            //console.log('`````````` new dim X ``````````', blockDimX);
             collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
-          }
-          if (blockDimY.length > 1) {
+
+            /** Y */
             //------ delete dublicates
-//            cleanDublicat(2, blockDimY);
             blockDimY = cleanDublicatNoFP(2, blockDimY);
             //---- sorting
             blockDimY.sort(sortByY);
-//            console.log('`````````` new dim Y ``````````', blockDimY);
-//            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].parent, maxSizeLimit);
+            //console.log('`````````` new dim Y ``````````', blockDimY);
             collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
           }
         }
@@ -19433,13 +19424,12 @@ function ErrorResult(code, message) {
       var dimQty = pointsDim.length - 1;
 //      console.log('-------- points ---------', JSON.stringify(pointsDim));
       for(var d = 0; d < dimQty; d++) {
-        //----- not create global dim in block level 0
-        if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
-          continue;
-        } else {
-//          console.log('````````````````````', pointsDim[d], pointsDim[d+1]);
+        //TODO----- not create global dim in block level 0
+        //if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
+        //  break;
+        //} else {
           dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
-        }
+        //}
       }
     }
 
@@ -19456,11 +19446,8 @@ function ErrorResult(code, message) {
             to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
           },
           currLimit;
-
       dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
-
 //      console.log('FINISH limits---------', dim, limits);
-
       //=========== set Limints
       //-------- for global
       if(level) {
@@ -19473,7 +19460,6 @@ function ErrorResult(code, message) {
       }
       dim.minLimit = currLimit.minL;
       dim.maxLimit = currLimit.maxL;
-
 //      console.log('---------------DIM FINISH ------------');
       return dim;
     }
@@ -19501,26 +19487,16 @@ function ErrorResult(code, message) {
 
 
 
-
-
-
-
-
     function setLimitsDim(axis, pointDim, startDim, limits, maxSizeLimit) {
 //      console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
       var dimLimit = {},
           //------ set new Limints by X or Y
           currLimits = setNewLimitsInBlock(axis, pointDim, limits),
-//          currLimits = limits,
           currLimitsQty = currLimits.length;
-
-//      console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
-
+      //console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
       for(var i = 0; i < currLimitsQty; i++) {
-
         //---- find left second imp point
         var isSecondImpP = 0;
-
         for(var s = 0; s < currLimitsQty; s++) {
           if(currLimits[s].id === pointDim.id){
             var difX = pointDim.x - currLimits[s].x,
@@ -19532,13 +19508,10 @@ function ErrorResult(code, message) {
             }
           }
         }
-
-
-//        console.log('!!!!!!!!! DIM  isSecondImpP------------', isSecondImpP, pointDim);
+        //console.log('!!!!!!!!! DIM  isSecondImpP------------', isSecondImpP, pointDim);
         if(axis === 'x') {
           if(currLimits[i].x === pointDim.x) {
             if(currLimits[i-1]) {
-
               if(isSecondImpP) {
                 //----- second impP last
                 if(pointDim.id === currLimits[i-1].id) {
@@ -19547,20 +19520,16 @@ function ErrorResult(code, message) {
                   dimLimit.minL = GeneralServ.roundingValue( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1 );
                 }
               } else {
-//                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].x + globalConstants.minSizeLimit) );
                 dimLimit.minL = globalConstants.minSizeLimit;
               }
-
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-//            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (currLimits[i+1].x - startDim - globalConstants.minSizeLimit) ) : maxSizeLimit;
             dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
             if(currLimits[i-1]) {
-
               if(isSecondImpP) {
                 //----- second impP last
                 if(pointDim.id === currLimits[i-1].id) {
@@ -19569,14 +19538,11 @@ function ErrorResult(code, message) {
                   dimLimit.minL = GeneralServ.roundingValue( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit), 1 );
                 }
               } else {
-//                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].y + globalConstants.minSizeLimit) );
                 dimLimit.minL = globalConstants.minSizeLimit;
               }
-
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-//            console.log(pointDim.y, startDim, currLimits[i+1].y, pointDim.y, globalConstants.minSizeLimit);
             dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
           }
         }
@@ -19593,7 +19559,6 @@ function ErrorResult(code, message) {
       var currLimits = [],
           limitsQty = limits.length,
           lim = 0;
-
       if(axis === 'x') {
         for(; lim < limitsQty; lim++) {
           if(pointDim.y === limits[lim].y || limits[lim].id.indexOf('fp')+1) {
@@ -19604,7 +19569,6 @@ function ErrorResult(code, message) {
         cleanDublicat(1, currLimits);
         //---- sorting
         currLimits.sort(sortByX);
-
       } else {
         for(; lim < limitsQty; lim++) {
           if (pointDim.x === limits[lim].x || limits[lim].id.indexOf('fp')+1) {
@@ -19616,7 +19580,6 @@ function ErrorResult(code, message) {
         //---- sorting
         currLimits.sort(sortByY);
       }
-
       return currLimits;
     }
 
