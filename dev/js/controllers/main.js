@@ -61,18 +61,3 @@
 //event.srcEvent.stopPropagation();
 //event.preventDefault();
 //$event.stopImmediatePropagation();
-
-/*
-
- hm-pinch="pinch($event)" hm-rotate="rotate($event)"
-
- $scope.rotate = function(event) {
- $scope.rotation = event.gesture.rotation % 360;
- event.gesture.preventDefault();
- }
- $scope.pinch = function(event) {
- $scope.scaleFactor = event.gesture.scale;
- event.gesture.preventDefault();
- }
-
- */

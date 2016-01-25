@@ -29,7 +29,7 @@
     //============ methods ================//
 
     //------ Show/Close Room Selector Dialog
-    function showRoomSelectorDialog(event) {
+    function showRoomSelectorDialog() {
       //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
 //        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
@@ -39,7 +39,7 @@
     }
 
     //----- Show Comments
-    function switchComment(event) {
+    function switchComment() {
       //playSound('swip');
       GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }

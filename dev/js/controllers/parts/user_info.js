@@ -23,8 +23,6 @@
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
 
-
-
     //============ methods ================//
 
     function swipeMainPage(event) {
@@ -48,7 +46,6 @@
         //playSound('swip');
       }
     }
-
 
   }
 })();

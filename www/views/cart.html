@@ -50,7 +50,7 @@
   <section class="right-side">
     <section class="main-content">
       <section class="cart-page">
-        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" ng-swipe-down="cartPage.swipeDiscountBlock()" class="cart-container full-view">
+        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" ng-swipe-up="cartPage.openDiscountBlock()" ng-swipe-down="cartPage.closeDiscountBlock()" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
               <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -130,7 +130,6 @@
                 </div>
               </div>
             </div>
-            <div ng-swipe-up="cartPage.swipeDiscountBlock()" class="discount-swipe-up"></div>
             <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
           </div>
           <div class="discount-container">
@@ -140,7 +139,7 @@
                 <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
-                  <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input">
+                  <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
               <div ng-click="cartPage.approveNewDisc(0)" class="discount-txt">
@@ -152,7 +151,7 @@
                 <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
-                  <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input">
+                  <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
               <div ng-click="cartPage.approveNewDisc(1)" class="discount-txt">

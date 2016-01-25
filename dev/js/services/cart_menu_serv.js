@@ -24,7 +24,8 @@
       calculateTotalOrderPrice: calculateTotalOrderPrice,
       changeProductPriceAsDiscount: changeProductPriceAsDiscount,
       changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
-      swipeDiscountBlock: swipeDiscountBlock,
+      openDiscountBlock: openDiscountBlock,
+      closeDiscountBlock: closeDiscountBlock,
       approveNewDisc: approveNewDisc,
 
       //---- sent order
@@ -451,14 +452,18 @@
 
 
 
-    /** open/close discount block */
-    function swipeDiscountBlock() {
-      if(!CartStor.cart.isShowDiscount) {
-        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
-        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
-      }
-      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+    /**-------- open/close discount block --------*/
+
+    function openDiscountBlock() {
+      CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
+      CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      CartStor.cart.isShowDiscount = 1;
     }
+
+    function closeDiscountBlock() {
+      CartStor.cart.isShowDiscount = 0;
+    }
+
 
 
     function changeAddElemPriceAsDiscount(discount) {

@@ -221,7 +221,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
@@ -1704,21 +1705,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 //event.srcEvent.stopPropagation();
 //event.preventDefault();
 //$event.stopImmediatePropagation();
-
-/*
-
- hm-pinch="pinch($event)" hm-rotate="rotate($event)"
-
- $scope.rotate = function(event) {
- $scope.rotation = event.gesture.rotation % 360;
- event.gesture.preventDefault();
- }
- $scope.pinch = function(event) {
- $scope.scaleFactor = event.gesture.scale;
- event.gesture.preventDefault();
- }
-
- */
 
 
 // controllers/menus/addelems_menu.js
@@ -3349,7 +3335,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //============ methods ================//
 
     //------ Show/Close Room Selector Dialog
-    function showRoomSelectorDialog(event) {
+    function showRoomSelectorDialog() {
       //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
 //        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
@@ -3359,7 +3345,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     //----- Show Comments
-    function switchComment(event) {
+    function switchComment() {
       //playSound('swip');
       GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }
@@ -3561,8 +3547,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
 
-
-
     //============ methods ================//
 
     function swipeMainPage(event) {
@@ -3586,7 +3570,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //playSound('swip');
       }
     }
-
 
   }
 })();
@@ -6204,7 +6187,8 @@ function ErrorResult(code, message) {
       calculateTotalOrderPrice: calculateTotalOrderPrice,
       changeProductPriceAsDiscount: changeProductPriceAsDiscount,
       changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
-      swipeDiscountBlock: swipeDiscountBlock,
+      openDiscountBlock: openDiscountBlock,
+      closeDiscountBlock: closeDiscountBlock,
       approveNewDisc: approveNewDisc,
 
       //---- sent order
@@ -6631,14 +6615,18 @@ function ErrorResult(code, message) {
 
 
 
-    /** open/close discount block */
-    function swipeDiscountBlock() {
-      if(!CartStor.cart.isShowDiscount) {
-        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
-        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
-      }
-      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+    /**-------- open/close discount block --------*/
+
+    function openDiscountBlock() {
+      CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
+      CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      CartStor.cart.isShowDiscount = 1;
     }
+
+    function closeDiscountBlock() {
+      CartStor.cart.isShowDiscount = 0;
+    }
+
 
 
     function changeAddElemPriceAsDiscount(discount) {
@@ -9766,9 +9754,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -11294,14 +11282,10 @@ function ErrorResult(code, message) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
           values = keysArr.map(function (key) {
-            var tempVal;
-            if(tableName === 'order_products') {
-              tempVal = "'"+row[key]+"'";
-            } else {
-              tempVal = '"'+row[key]+'"';
-            }
-            return tempVal;
+            row[key] = checkStringToQuote(row[key]);
+            return "'"+row[key]+"'";
           }).join(', ');
+      //console.log(values);
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
           console.log('Something went wrong with insert into ' + tableName);
@@ -11325,13 +11309,8 @@ function ErrorResult(code, message) {
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    var tempVal;
-                    if(tableKeys[t] === 'templates') {
-                      tempVal = "'" + elem + "'";
-                    } else {
-                      tempVal = '"' + elem + '"';
-                    }
-                    return tempVal;
+                    elem = checkStringToQuote(elem);
+                    return "'" + elem + "'";
                   }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
@@ -11349,6 +11328,21 @@ function ErrorResult(code, message) {
       return $q.all(promises);
     }
 
+
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+    
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
 
 
     function selectLocalDB(tableName, options, columns) {
@@ -14600,7 +14594,8 @@ function ErrorResult(code, message) {
         /** culculate glass Heat Coeff Total */
         for(var g = 0; g < glassQty; g++) {
           if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
-            if(!$.isNumeric(ProductStor.product.glass[g].transcalency)){
+            //$.isNumeric
+            if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
               ProductStor.product.glass[g].transcalency = 1;
             }
             glassHeatCoeffTotal += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
@@ -14613,7 +14608,7 @@ function ErrorResult(code, message) {
       glassSquareTotal = GeneralServ.roundingValue(glassSquareTotal, 3);
 
       /** culculate profile Heat Coeff Total */
-      if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
+      if(!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
@@ -14762,6 +14757,7 @@ function ErrorResult(code, message) {
         $timeout(function() {
           GlobalStor.global.showRoomSelectorDialog = 1;
         }, 2000);
+        $timeout(closeRoomSelectorDialog, 5000);
       }
     }
 
@@ -14908,7 +14904,7 @@ function ErrorResult(code, message) {
 
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
-        console.log('productReportData', productReportData);
+        //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
           productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);

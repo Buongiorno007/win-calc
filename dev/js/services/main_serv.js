@@ -555,7 +555,8 @@
         /** culculate glass Heat Coeff Total */
         for(var g = 0; g < glassQty; g++) {
           if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
-            if(!$.isNumeric(ProductStor.product.glass[g].transcalency)){
+            //$.isNumeric
+            if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
               ProductStor.product.glass[g].transcalency = 1;
             }
             glassHeatCoeffTotal += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
@@ -568,7 +569,7 @@
       glassSquareTotal = GeneralServ.roundingValue(glassSquareTotal, 3);
 
       /** culculate profile Heat Coeff Total */
-      if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
+      if(!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
@@ -717,6 +718,7 @@
         $timeout(function() {
           GlobalStor.global.showRoomSelectorDialog = 1;
         }, 2000);
+        $timeout(closeRoomSelectorDialog, 5000);
       }
     }
 
@@ -863,7 +865,7 @@
 
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
-        console.log('productReportData', productReportData);
+        //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
           productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);

@@ -66,7 +66,8 @@
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 

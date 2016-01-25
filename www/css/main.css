@@ -4734,6 +4734,10 @@ tr.factory_item {
 .cart-page .cart-container.full-view {
   top: 0rem;
   left: 0rem;
+  -moz-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
 }
 /* line 27, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view .scroll-hor-container {
@@ -5185,15 +5189,6 @@ tr.factory_item {
   border-bottom: 1px solid #bebebe;
 }
 /* line 432, ../../dev/sass/pages/cart.scss */
-.cart-page .discount-swipe-up {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  height: 4%;
-  z-index: 3;
-}
-/* line 441, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-container {
   width: 90%;
   margin: auto;
@@ -5201,12 +5196,12 @@ tr.factory_item {
   padding: 5rem 3.75rem 3rem;
   border-top: 1px solid #bebebe;
 }
-/* line 448, ../../dev/sass/pages/cart.scss */
+/* line 439, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 452, ../../dev/sass/pages/cart.scss */
+/* line 443, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box {
   display: -webkit-flex;
   display: flex;
@@ -5214,11 +5209,11 @@ tr.factory_item {
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 459, ../../dev/sass/pages/cart.scss */
+/* line 450, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt {
   background-color: #6ed44a;
 }
-/* line 461, ../../dev/sass/pages/cart.scss */
+/* line 452, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
   position: absolute;
@@ -5227,7 +5222,7 @@ tr.factory_item {
   color: #fff;
   content: "";
 }
-/* line 473, ../../dev/sass/pages/cart.scss */
+/* line 464, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-data {
   display: -webkit-flex;
   display: flex;
@@ -5242,7 +5237,7 @@ tr.factory_item {
   background-color: #fff;
   color: #363636;
 }
-/* line 485, ../../dev/sass/pages/cart.scss */
+/* line 476, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input-box {
   display: -webkit-flex;
   display: flex;
@@ -5251,12 +5246,12 @@ tr.factory_item {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 490, ../../dev/sass/pages/cart.scss */
+/* line 481, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-max {
   font: normal 2rem/2rem roboto-light, sans-serif, icons;
   color: #f74f2e;
 }
-/* line 494, ../../dev/sass/pages/cart.scss */
+/* line 485, ../../dev/sass/pages/cart.scss */
 .cart-page .disc-input {
   width: 15rem;
   padding: 0;
@@ -5264,7 +5259,7 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 501, ../../dev/sass/pages/cart.scss */
+/* line 492, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-list {
   top: -5rem;
   left: 0rem;
@@ -5279,13 +5274,13 @@ tr.factory_item {
   border-radius: 1rem;
   z-index: 5;
 }
-/* line 515, ../../dev/sass/pages/cart.scss */
+/* line 506, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
-/* line 521, ../../dev/sass/pages/cart.scss */
+/* line 512, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-txt {
   -webkit-flex-grow: 2;
   flex-grow: 2;
@@ -5299,12 +5294,12 @@ tr.factory_item {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 530, ../../dev/sass/pages/cart.scss */
+/* line 521, ../../dev/sass/pages/cart.scss */
 .cart-page .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 534, ../../dev/sass/pages/cart.scss */
+/* line 525, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-container {
   display: -webkit-flex;
   display: flex;
@@ -5314,22 +5309,22 @@ tr.factory_item {
   border-radius: 1rem;
   background-color: #fff;
 }
-/* line 542, ../../dev/sass/pages/cart.scss */
+/* line 533, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 545, ../../dev/sass/pages/cart.scss */
+/* line 536, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
-/* line 549, ../../dev/sass/pages/cart.scss */
+/* line 540, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 553, ../../dev/sass/pages/cart.scss */
+/* line 544, ../../dev/sass/pages/cart.scss */
 .cart-page .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;

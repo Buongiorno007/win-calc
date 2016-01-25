@@ -703,14 +703,10 @@
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
           values = keysArr.map(function (key) {
-            var tempVal;
-            if(tableName === 'order_products') {
-              tempVal = "'"+row[key]+"'";
-            } else {
-              tempVal = '"'+row[key]+'"';
-            }
-            return tempVal;
+            row[key] = checkStringToQuote(row[key]);
+            return "'"+row[key]+"'";
           }).join(', ');
+      //console.log(values);
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
           console.log('Something went wrong with insert into ' + tableName);
@@ -734,13 +730,8 @@
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    var tempVal;
-                    if(tableKeys[t] === 'templates') {
-                      tempVal = "'" + elem + "'";
-                    } else {
-                      tempVal = '"' + elem + '"';
-                    }
-                    return tempVal;
+                    elem = checkStringToQuote(elem);
+                    return "'" + elem + "'";
                   }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
@@ -758,6 +749,21 @@
       return $q.all(promises);
     }
 
+
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+    
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
 
 
     function selectLocalDB(tableName, options, columns) {

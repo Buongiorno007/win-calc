@@ -73,12 +73,12 @@
             <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog($event)" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
+            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
           </div>
-          <div ng-click="roomInfo.switchComment($event)" class="comment-btn"></div>
+          <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
         </div>
         <div class="product-comment">
-          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field"></textarea>
+          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field noPreventDefault"></textarea>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">

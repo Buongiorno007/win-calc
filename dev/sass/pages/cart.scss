@@ -23,7 +23,7 @@
     padding-left: rem(100px);
     &.full-view {
       @include top_left_coord(0px, 0px);
-
+      @include transition(all 0.5s linear);
       .scroll-hor-container {
         height: 83rem;
       }
@@ -428,15 +428,6 @@
 
 
 //======== DISCOUNT ========//
-
-  .discount-swipe-up {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 4%;
-    z-index: 3;
-  }
 
   .discount-container {
     width: 90%;
