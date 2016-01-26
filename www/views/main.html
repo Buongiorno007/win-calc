@@ -568,104 +568,10 @@
             <div ng-show="elementsMenu.A.aux.isAddElement" class="price-element">
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
-            <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
-              <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
-                <thead>
-                  <td>
-                    <button ng-click="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
-                  </td>
-                  <td colspan="2">
-                    <div class="calc-interval">
-                      <div class="interval">
-                        <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
-                        <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
-                        <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
-                      </div>
-                      <div class="interval">
-                        <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
-                        <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
-                        <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
-                      </div>
-                    </div>
-                  </td>
-                </thead>
-                <tr>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
-                  </td>
-                  <td>
-                    <button ng-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div ng-class="{'active': elementsMenu.G.global.isQtyCalculator}" class="elements-tools qty-calculator">
-              <table ng-keyup="elementsMenu.pressCulculator($event)" class="qty-calc-container">
-                <tr>
-                  <td>
-                    <button ng-click="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
-                  </td>
-                  <td>
-                    <div class="calc-interval">
-                      <div class="interval">
-                        <div class="calc-qty-limit">1000</div>
-                        <div class="calc-label-limit">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <button ng-click="elementsMenu.setValueQty(+1)" class="cell calc-digit">+1</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <button ng-click="elementsMenu.setValueQty(-5)" class="cell calc-digit">-5</button>
-                  </td>
-                  <td>
-                    <button ng-click="elementsMenu.closeQtyCaclulator()" class="cell calc-equal">=</button>
-                  </td>
-                  <td>
-                    <button ng-click="elementsMenu.setValueQty(+5)" class="cell calc-digit">+5</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
+            <!--.calculators-box.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")-->
+            <!--  include ../parts/_size-calculator-->
+            <!--.calculators-box.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")-->
+            <!--  include ../parts/_qty-calculator-->
           </footer>
         </div>
         <div ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
@@ -735,6 +641,104 @@
           <div class="set-grid-warning"><span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}</div>
           <div ng-click="elementsMenu.closeGridSelectorDialog()" class="close-dialog"></div>
         </div>
+      </div>
+      <div ng-class="{'active': mainPage.G.global.isSizeCalculator}" class="calculators-box size-calculator">
+        <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
+          <thead>
+            <td>
+              <button ng-click="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
+            </td>
+            <td colspan="2">
+              <div class="calc-interval">
+                <div class="interval">
+                  <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
+                  <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
+                  <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
+                </div>
+                <div class="interval">
+                  <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
+                  <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
+                  <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
+                </div>
+              </div>
+            </td>
+          </thead>
+          <tr>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button ng-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+            </td>
+            <td>
+              <button ng-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div ng-class="{'active': mainPage.G.global.isQtyCalculator}" class="calculators-box qty-calculator">
+        <table ng-keyup="elementsMenu.pressCulculator($event)" class="qty-calc-container">
+          <tr>
+            <td>
+              <button ng-click="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
+            </td>
+            <td>
+              <div class="calc-interval">
+                <div class="interval">
+                  <div class="calc-qty-limit">1000</div>
+                  <div class="calc-label-limit">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <button ng-click="elementsMenu.setValueQty(+1)" class="cell calc-digit">+1</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button ng-click="elementsMenu.setValueQty(-5)" class="cell calc-digit">-5</button>
+            </td>
+            <td>
+              <button ng-click="elementsMenu.closeQtyCaclulator()" class="cell calc-equal">=</button>
+            </td>
+            <td>
+              <button ng-click="elementsMenu.setValueQty(+5)" class="cell calc-digit">+5</button>
+            </td>
+          </tr>
+        </table>
       </div>
     </section>
   </section>

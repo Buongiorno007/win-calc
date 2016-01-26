@@ -103,7 +103,7 @@ section.construction-page
       .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
 
     .right-menu-footer
-      .size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
+      .calculators-box.size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
         include parts/_size-calculator
       include parts/_voice
 

@@ -751,7 +751,7 @@
 
 
     /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
-    
+
     function checkStringToQuote(str) {
       if(angular.isString(str)) {
         if(str.indexOf("'")+1) {

@@ -5379,7 +5379,7 @@ function ErrorResult(code, message) {
         //-------- get current add element price
         localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             //console.log('objXAddElementPrice====result +++', AuxStor.aux.addElementsList[typeIndex][elementIndex]);
@@ -5862,7 +5862,7 @@ function ErrorResult(code, message) {
       localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
         if (results) {
           //          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
           ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingValue(results.priceTotal));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
@@ -5884,14 +5884,12 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
+  function addElemFactory($timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -6258,7 +6256,7 @@ function ErrorResult(code, message) {
         OrderStor.order.floor_id = currDelivery.id;
         if(currDelivery.id) {
           OrderStor.order.floorName = currDelivery.name;
-          OrderStor.order.floor_price = parseFloat(currDelivery.price);
+          OrderStor.order.floor_price = currDelivery.priceReal;
           OrderStor.order.delivery_user_id = currDelivery.user_id;
         } else {
           OrderStor.order.floorName = '';
@@ -6448,7 +6446,7 @@ function ErrorResult(code, message) {
                 items[itemQty].priceReal = Math.round(OrderStor.order.productsPriceDis * items[itemQty].price/100);
                 break;
               default:
-                items[itemQty].priceReal = 0;
+                items[itemQty].priceReal = Math.round(items[itemQty].price); //----- type = 5 price per order
                 break;
             }
           }
@@ -11330,7 +11328,7 @@ function ErrorResult(code, message) {
 
 
     /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
-    
+
     function checkStringToQuote(str) {
       if(angular.isString(str)) {
         if(str.indexOf("'")+1) {
@@ -13856,8 +13854,9 @@ function ErrorResult(code, message) {
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
-            resultQty = addKits.length;
-        for(var i = 0; i < resultQty; i++) {
+            resultQty = addKits.length,
+            i = 0;
+        for(; i < resultQty; i++) {
           var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }

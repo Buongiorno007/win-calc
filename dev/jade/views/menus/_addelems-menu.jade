@@ -20,10 +20,10 @@
       .price-element(ng-show="elementsMenu.A.aux.isAddElement")
         .price-value + {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
 
-      .elements-tools.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")
-        include ../parts/_size-calculator
-      .elements-tools.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")
-        include ../parts/_qty-calculator
+      //.calculators-box.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")
+      //  include ../parts/_size-calculator
+      //.calculators-box.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")
+      //  include ../parts/_qty-calculator
 
 
   .list-items(ng-show="elementsMenu.A.aux.isAddElementListView", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")

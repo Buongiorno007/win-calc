@@ -774,8 +774,9 @@
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
-            resultQty = addKits.length;
-        for(var i = 0; i < resultQty; i++) {
+            resultQty = addKits.length,
+            i = 0;
+        for(; i < resultQty; i++) {
           var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }

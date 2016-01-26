@@ -60,7 +60,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
 
 
   .products-selector
-    .products-selector-block(ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}", hm-swipeup="elemCartPanel.swipeProductSelector()", hm-swipedown="elemCartPanel.swipeProductSelector()")
+    .products-selector-block(ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}", ng-swipe-up="elemCartPanel.swipeProductSelector()", ng-swipe-down="elemCartPanel.swipeProductSelector()")
 
       .products-block
         .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", ng-click="elemCartPanel.selectProductToAddElem($index)")

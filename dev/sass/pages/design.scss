@@ -470,23 +470,6 @@ $door-config-content: $ipad-height - $door-config-header;
   @extend .construction-descrip;
 }
 
-.size-calculator {
-  @include transition(all 0.5s linear);
-
-  position: absolute;
-  bottom: rem(-1000px);
-  width: rem(475px);
-  background-color: #f8f8f8;
-  border-left: 1px solid $main_gray_btn;
-  &.active {
-    bottom: 0;
-  }
-}
-
-.calc-equal {
-  background-color: $main_green;
-}
-
 
 
 // Door Configuration Panel

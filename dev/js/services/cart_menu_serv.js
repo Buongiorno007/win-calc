@@ -95,7 +95,7 @@
         OrderStor.order.floor_id = currDelivery.id;
         if(currDelivery.id) {
           OrderStor.order.floorName = currDelivery.name;
-          OrderStor.order.floor_price = parseFloat(currDelivery.price);
+          OrderStor.order.floor_price = currDelivery.priceReal;
           OrderStor.order.delivery_user_id = currDelivery.user_id;
         } else {
           OrderStor.order.floorName = '';
@@ -285,7 +285,7 @@
                 items[itemQty].priceReal = Math.round(OrderStor.order.productsPriceDis * items[itemQty].price/100);
                 break;
               default:
-                items[itemQty].priceReal = 0;
+                items[itemQty].priceReal = Math.round(items[itemQty].price); //----- type = 5 price per order
                 break;
             }
           }

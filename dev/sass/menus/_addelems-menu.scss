@@ -115,17 +115,6 @@
     margin-right: rem(44px);
     padding-right: 0;
   }
-  .elements-tools {
-    @include transition(all 0.5s linear);
-
-    position: absolute;
-    bottom: rem(-1000px);
-    width: 32rem;
-    background-color: #f8f8f8;
-    &.active {
-      bottom: 0;
-    }
-  }
   .price-element {
     min-height: rem(130px);
     padding-top: rem(20px);
