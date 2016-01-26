@@ -8,8 +8,8 @@
       ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index",
       ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList",
       ng-switch="$index",
-      show-delay="{{ elementsPanel.config.delays[$index] }}",
-      ng-class="{'aux-grid': !$index, 'aux-visor': $index==1, 'aux-spillway':$index==2, 'aux-outside':$index==3, 'aux-louver':$index==4, 'aux-inside':$index==5, 'aux-connectors':$index==6, 'aux-fan':$index==7, 'aux-windowsill':$index==8, 'aux-handle':$index==9, 'aux-others':$index==10, 'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) && !addElemGroup.length, 'selected': addElemGroup.length}")
+      show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}",
+      ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) && !addElemGroup.length, 'selected': addElemGroup.length}]")
 
       .aux-grid-img.move-grid(ng-switch-when="0")
       .aux-visor-img.move-visor(ng-switch-when="1")
@@ -32,25 +32,25 @@
       .aux-handle-img.move-handle(ng-switch-when="9")
       .aux-txt-box.aux-others-txt(ng-switch-when="10")
 
-      .aux-txt-box(ng-class="{'aux-grid-txt': !$index, 'aux-visor-txt': $index==1, 'aux-spillway-txt':$index==2, 'aux-outside-txt':$index==3, 'aux-louver-txt':$index==4, 'aux-inside-txt':$index==5, 'aux-connectors-txt':$index==6, 'aux-fan-txt':$index==7, 'aux-windowsill-txt':$index==8, 'aux-handle-txt':$index==9, 'aux-others-txt':$index==10}")
-        .choose-block.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", ng-hide="addElemGroup.length")
-          button.aux-choose-but(ng-click="elementsPanel.selectAddElement($index+1)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7, 'focused': elementsPanel.G.global.isFocusedAddElement == 1}", ng-disabled="elementsPanel.A.aux.isFocusedAddElement == ($index+1)") {{ 'add_elements.CHOOSE' | translate }}
-          .aux-label(data-output="{{ elementsPanel.A.aux.groupNames[$index] }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
+      .aux-txt-box(ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'")
+        .choose-block.unvisible(ng-hide="addElemGroup.length", show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
+          button.aux-choose-but(ng-click="elementsPanel.selectAddElement($index+1)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7}", ng-disabled="elementsPanel.A.aux.isFocusedAddElement == ($index+1)") {{ 'add_elements.CHOOSE' | translate }}
+          .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
 
         .selected-block(ng-show="addElemGroup.length", ng-class="($index==1)?'horisontal':'vertival'")
           .aux-info-box
             .aux-title(data-output="{{ addElemGroup[0].name }}", ng-click="elementsPanel.selectAddElement($index+1)", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_START }}")
-            .aux-label(data-output="{{ elementsPanel.A.aux.groupNames[$index] }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
+            .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
 
           .aux-sizing-box
             .aux-params(ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}")
-              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 1, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7, 'focused': elementsPanel.G.global.isFocusedAddElement == 1}") {{ addElemGroup[0].element_qty }}
+              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 1, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7}") {{ addElemGroup[0].element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
-            .aux-params(ng-hide="$index==3 || $index==5 || $index==7 || $index==9 || $index==10", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-2-0'}")
-              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 2, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7, 'focused': elementsPanel.G.global.isFocusedAddElement == 1}")  {{ addElemGroup[0].element_width }}
+            .aux-params(ng-show="addElemGroup[0].element_width", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-2-0'}")
+              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 2, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7}")  {{ addElemGroup[0].element_width }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
-            .aux-params(ng-show="!$index || $index==4", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-3-0'}")
-              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 3, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7, 'focused': elementsPanel.G.global.isFocusedAddElement == 1}")  {{ addElemGroup[0].element_height }}
+            .aux-params(ng-show="addElemGroup[0].element_height", ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-3-0'}")
+              button.aux-params-but(ng-click="elementsPanel.initAddElementTools(($index+1), 3, 0)", ng-keyup="elementsPanel.pressCulculator($event)", ng-class="{'aux_connect_but': (!$index || $index === 6), 'aux_big_but': ($index === 1 || $index === 8), 'aux_middle_but': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_slope_but': ($index === 3 || $index === 5), 'aux_small_but': $index === 7}")  {{ addElemGroup[0].element_height }}
               .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="addElemGroup.length>1") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ addElemGroup.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 

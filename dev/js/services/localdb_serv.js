@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
@@ -600,21 +598,7 @@
             'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
-        },
-
-        addElementDBId = [
-          20, // 0 - grids
-          21, // 1 - visors
-          9, // 2 - spillways
-          19, // 3 - outSlope
-          26, // 4 - louvers
-          19, // 5 - inSlope
-          12, // 6 - connectors
-          27, // 7 - fans
-          8, // 8 - windowSill
-          24, // 9 - handles
-          18 // 10 - others
-        ];
+        };
 
 
 
@@ -623,7 +607,6 @@
     thisFactory.publicObj = {
       tablesLocalDB: tablesLocalDB,
       tablesLocationLocalDB: tablesLocationLocalDB,
-      addElementDBId: addElementDBId,
 
       cleanLocalDB: cleanLocalDB,
       createTablesLocalDB: createTablesLocalDB,

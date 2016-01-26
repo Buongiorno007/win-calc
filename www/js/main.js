@@ -2477,17 +2477,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl(globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
+  function addElementsListCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
@@ -2495,6 +2492,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     thisCtrl.config = {
+      addElementDATA: GeneralServ.addElementDATA,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
       filteredGroups: [],
@@ -2518,14 +2516,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ, AddElementMenuServ) {
+  function addElementsCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, AuxStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -2535,27 +2531,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
-      delays: [
-        globalConstants.STEP * 5, //GRID
-        globalConstants.STEP * 6, //VISOR
-        globalConstants.STEP * 6, //SPILLWAY
-        globalConstants.STEP * 10, //OUTSIDE
-        globalConstants.STEP * 13, //WINDOWSILL
-        globalConstants.STEP * 15, //LOUVER
-        globalConstants.STEP * 20, //INSIDESLOPE
-        globalConstants.STEP * 30, //CONNECTORS
-        globalConstants.STEP * 28, //HANDLE
-        globalConstants.STEP * 31, //FAN
-        globalConstants.STEP * 31 //OTHERS
-      ],
-
+      addElementDATA: GeneralServ.addElementDATA,
       DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
       DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
       DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
       DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
-
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
       typing: 'on'
     };
@@ -3200,6 +3182,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+
+  }
+})();
+
+
+// controllers/parts/qty_calculator.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('qtyCalculatorCtrl', qtyCalcCtrl);
+
+  function qtyCalcCtrl(AddElementMenuServ) {
+
+    var thisCtrl = this;
+
+    //------ clicking
+    thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
+    thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
+    thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
   }
 })();
@@ -5889,7 +5894,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
+  function addElemFactory($timeout, globalConstants, GeneralServ, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -5941,7 +5946,7 @@ function ErrorResult(code, message) {
 
     function downloadAddElementsData(id) {
       var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].colorClass;
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
     }
@@ -6028,16 +6033,17 @@ function ErrorResult(code, message) {
 
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
-      var groupNamesQty = AuxStor.aux.groupNames.length,
+      var groupNamesQty = GeneralServ.addElementDATA.length,
           g = 0;
       AuxStor.aux.addElementGroups.length = 0;
       for(; g < groupNamesQty; g++){
         if(GlobalStor.global.addElementsAll[g].elementsList) {
           var groupTempObj = {};
           groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = AuxStor.aux.groupNames[g];
-          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupTempObj.groupClass = angular.copy(GeneralServ.addElementDATA[g].colorClass);
           AuxStor.aux.addElementGroups.push(groupTempObj);
+          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
         }
       }
     }
@@ -6187,6 +6193,7 @@ function ErrorResult(code, message) {
       changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
       openDiscountBlock: openDiscountBlock,
       closeDiscountBlock: closeDiscountBlock,
+      swipeDiscountBlock: swipeDiscountBlock,
       approveNewDisc: approveNewDisc,
 
       //---- sent order
@@ -6625,6 +6632,14 @@ function ErrorResult(code, message) {
       CartStor.cart.isShowDiscount = 0;
     }
 
+    function swipeDiscountBlock() {
+      if(!CartStor.cart.isShowDiscount) {
+        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
+        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      }
+      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+    }
+
 
 
     function changeAddElemPriceAsDiscount(discount) {
@@ -7014,8 +7029,6 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-//      serverIP: 'http://192.168.1.147:3002',
-//      serverIP: 'http://windowscalculator.net:3002',
       serverIP: 'http://api.windowscalculator.net',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -7036,19 +7049,6 @@ function ErrorResult(code, message) {
       minRadiusHeight: 10,
 
       activeClass: 'active',
-      addElementsGroupClass: [
-        'aux_color_connect',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_connect',
-        'aux_color_small',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_small'
-      ],
       //------------ SVG
       SVG_ID_EDIT: 'tamlateSVG',
       SVG_ID_GLASS: 'tamlateSVGGlass',
@@ -9723,18 +9723,104 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);
 
-  function generalFactory($filter, $window, $document, GlobalStor) {
-
-    var thisFactory = this;
-
+  function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
+    var thisFactory = this,
+        addElementDATA = [
+          /** GRID */
+          {
+            id: 20,
+            name: $filter('translate')('add_elements.GRIDS'),
+            typeClass: 'aux-grid',
+            colorClass: 'aux_color_connect',
+            delay: globalConstants.STEP * 5
+          },
+          /** VISOR */
+          {
+            id: 21,
+            name: $filter('translate')('add_elements.VISORS'),
+            typeClass: 'aux-visor',
+            colorClass: 'aux_color_big',
+            delay: globalConstants.STEP * 6
+          },
+          /**SPILLWAY*/
+          {
+            id: 9,
+            name: $filter('translate')('add_elements.SPILLWAYS'),
+            typeClass: 'aux-spillway',
+            colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 6
+          },
+          /**OUTSIDE*/
+          {
+            id: 19,
+            name: $filter('translate')('add_elements.OUTSIDE'),
+            typeClass: 'aux-outside',
+            colorClass: 'aux_color_slope',
+            delay: globalConstants.STEP * 10
+          },
+          /**LOUVER*/
+          {
+            id: 26,
+            name: $filter('translate')('add_elements.LOUVERS'),
+            typeClass: 'aux-louver',
+            colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 15
+          },
+          /**INSIDESLOPE*/
+          {
+            id: 19,
+            name: $filter('translate')('add_elements.INSIDE'),
+            typeClass: 'aux-inside',
+            colorClass: 'aux_color_slope',
+            delay: globalConstants.STEP * 20
+          },
+          /**CONNECTORS*/
+          {
+            id: 12,
+            name: $filter('translate')('add_elements.CONNECTORS'),
+            typeClass: 'aux-connectors',
+            colorClass: 'aux_color_connect',
+            delay: globalConstants.STEP * 30
+          },
+          /**FAN*/
+          {
+            id: 27,
+            name: $filter('translate')('add_elements.FAN'),
+            typeClass: 'aux-fan',
+            colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+          /**WINDOWSILL*/
+          {
+            id: 8,
+            name: $filter('translate')('add_elements.WINDOWSILLS'),
+            typeClass: 'aux-windowsill',
+            colorClass: 'aux_color_big',
+            delay: globalConstants.STEP * 13
+          },
+          /**HANDLE*/
+          {
+            id: 24,
+            name: $filter('translate')('add_elements.HANDLELS'),
+            typeClass: 'aux-handle',
+            colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 28
+          },
+          /**OTHERS*/
+          {
+            id: 18,
+            name: $filter('translate')('add_elements.OTHERS'),
+            typeClass: 'aux-others',
+            colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          }
+        ];
+//.aux-txt-box(ng-class="{{elementsPanel.config.addElementDATA[$index].typeClass + '-txt'}} {'aux-grid-txt': !$index, 'aux-visor-txt': $index==1, 'aux-spillway-txt':$index==2, 'aux-outside-txt':$index==3, 'aux-louver-txt':$index==4, 'aux-inside-txt':$index==5, 'aux-connectors-txt':$index==6, 'aux-fan-txt':$index==7, 'aux-windowsill-txt':$index==8, 'aux-handle-txt':$index==9, 'aux-others-txt':$index==10}")
     thisFactory.publicObj = {
+      addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
       roundingValue: roundingValue,
-      //rounding10: rounding10,
-      //rounding100: rounding100,
-      //rounding1000: rounding1000,
-      //roundingNumbers: roundingNumbers,
       addMarginToPrice: addMarginToPrice,
       setPriceDis: setPriceDis,
       sorting: sorting,
@@ -9778,28 +9864,6 @@ function ErrorResult(code, message) {
       GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
     }
 
-
-    //function rounding10(value) {
-    //  return Math.round(value * 10) / 10;
-    //}
-    //
-    //function rounding100(value) {
-    //  return Math.round(value * 100) / 100;
-    //}
-    //
-    //function rounding1000(value) {
-    //  return Math.round(value * 1000) / 1000;
-    //}
-    //
-    //function roundingNumbers(nubmer, radix) {
-    //  var radix = (radix) ? radix : 2,
-    //      numberType = typeof nubmer;
-    //  if(numberType === 'string') {
-    //    return parseFloat( parseFloat(nubmer).toFixed(radix) );
-    //  } else if(numberType === 'number') {
-    //    return parseFloat(nubmer.toFixed(radix));
-    //  }
-    //}
 
     function roundingValue(nubmer, radix) {
       var radix = (radix) ? radix : 2,
@@ -10577,9 +10641,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
@@ -11177,21 +11239,7 @@ function ErrorResult(code, message) {
             'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
-        },
-
-        addElementDBId = [
-          20, // 0 - grids
-          21, // 1 - visors
-          9, // 2 - spillways
-          19, // 3 - outSlope
-          26, // 4 - louvers
-          19, // 5 - inSlope
-          12, // 6 - connectors
-          27, // 7 - fans
-          8, // 8 - windowSill
-          24, // 9 - handles
-          18 // 10 - others
-        ];
+        };
 
 
 
@@ -11200,7 +11248,6 @@ function ErrorResult(code, message) {
     thisFactory.publicObj = {
       tablesLocalDB: tablesLocalDB,
       tablesLocationLocalDB: tablesLocationLocalDB,
-      addElementDBId: addElementDBId,
 
       cleanLocalDB: cleanLocalDB,
       createTablesLocalDB: createTablesLocalDB,
@@ -13849,8 +13896,8 @@ function ErrorResult(code, message) {
 
     function getAllAddKits() {
       var defer = $q.defer(),
-          promises = localDB.addElementDBId.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          promises = GeneralServ.addElementDATA.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
@@ -19764,14 +19811,12 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('MainModule')
     .factory('AuxStor', auxStorageFactory);
 
-  function auxStorageFactory($filter) {
+  function auxStorageFactory() {
 
     var thisFactory = this;
 
@@ -19794,20 +19839,7 @@ function ErrorResult(code, message) {
         selectedGrid: 0,
 
         addElementGroups: [],
-        searchingWord: '',
-        groupNames: [
-          $filter('translate')('add_elements.GRIDS'),
-          $filter('translate')('add_elements.VISORS'),
-          $filter('translate')('add_elements.SPILLWAYS'),
-          $filter('translate')('add_elements.OUTSIDE'),
-          $filter('translate')('add_elements.INSIDE'),
-          $filter('translate')('add_elements.LOUVERS'),
-          $filter('translate')('add_elements.CONNECTORS'),
-          $filter('translate')('add_elements.FAN'),
-          $filter('translate')('add_elements.WINDOWSILLS'),
-          $filter('translate')('add_elements.HANDLELS'),
-          $filter('translate')('add_elements.OTHERS')
-        ]
+        searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };
@@ -20100,9 +20132,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('GlobalStor', globalStorageFactory);
@@ -21057,7 +21087,7 @@ function ErrorResult(code, message) {
         LOCK_TYPE2: 'multilocking with a latch'
       },
       add_elements: {
-        CHOOSE: 'select ',
+        CHOOSE: 'select',
         ADD: 'add',
         GRID: 'mosquito grid',
         VISOR: 'peak',

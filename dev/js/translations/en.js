@@ -136,7 +136,7 @@
         LOCK_TYPE2: 'multilocking with a latch'
       },
       add_elements: {
-        CHOOSE: 'select ',
+        CHOOSE: 'select',
         ADD: 'add',
         GRID: 'mosquito grid',
         VISOR: 'peak',

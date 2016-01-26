@@ -1,16 +1,13 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl(globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
+  function addElementsListCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
@@ -18,6 +15,7 @@
 
 
     thisCtrl.config = {
+      addElementDATA: GeneralServ.addElementDATA,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
       filteredGroups: [],

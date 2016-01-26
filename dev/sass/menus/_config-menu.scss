@@ -37,7 +37,7 @@
 
   .additional-items-list {
     @include overflow-scroll();
-    max-height: rem(200px);
+    max-height: 18rem;
     padding: 0;
     list-style: none;
     overflow-x: hidden;

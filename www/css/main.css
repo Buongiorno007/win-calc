@@ -340,7 +340,7 @@ th {
   src: url('../fonts/icons/icomoon.ttf?1450864510') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .aux-color, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .glass-container .glass-selector-dialog .set-glass-warning span, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
@@ -1004,7 +1004,7 @@ body {
 }
 
 /* line 96, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -2684,35 +2684,7 @@ div.drum figure {
   background-color: #0079ff;
 }
 
-/* line 57, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-color {
-  font: normal 1.875rem/1 icons, sans-serif;
-  position: relative;
-  width: 2.8125rem;
-  height: 2.8125rem;
-  padding: 0;
-}
-/* line 66, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-color.selected {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #6ed44a;
-}
-/* line 70, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-color.selected:after {
-  position: absolute;
-  left: 20%;
-  top: 15%;
-  content: "";
-  color: #6ed44a;
-}
-/* line 78, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-color img {
-  width: 2.8125rem;
-  height: 2.8125rem;
-}
-
-/* line 87, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 58, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-list-row {
   display: -webkit-flex;
   display: flex;
@@ -2724,18 +2696,18 @@ div.drum figure {
   align-items: flex-start;
 }
 
-/* line 93, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 64, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-name {
   max-width: 50%;
 }
 
-/* line 96, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 67, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-title {
   max-width: 90%;
   cursor: pointer;
 }
 
-/* line 100, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 71, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-price, .additional-list-container .aux-total-price, .cart-page .alladdelements-block .aux-total-price, .cart-page .addelementunique-header .aux-total-price, .cart-page .addelementunit-only .aux-total-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   min-width: 20%;
@@ -2743,222 +2715,222 @@ div.drum figure {
   color: #363636;
 }
 
-/* line 110, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 81, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .item.active {
   background-color: #4bd963;
 }
-/* line 116, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 87, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #4bd963;
   background-color: #4bd963;
 }
-/* line 124, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 95, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .frame-tab.active {
   border-top-color: #4bd963;
 }
-/* line 129, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 100, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-params-but {
   color: #4bd963;
   border-color: #4bd963;
 }
-/* line 132, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 103, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-params-but.selected {
   color: #fff;
   border-color: #4bd963;
   background-color: #4bd963;
 }
-/* line 139, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 110, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-title,
 .aux_color_big .calc-value-limit {
   color: #4bd963;
 }
-/* line 144, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 115, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .calc-equal,
 .aux_color_big .search-element {
   background-color: #4bd963;
 }
-/* line 149, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 120, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .group-indicator {
   background-color: #4bd963;
 }
-/* line 151, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 122, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .group-indicator:before {
   border-color: transparent #4bd963;
 }
 
-/* line 159, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 130, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .item.active {
   background-color: #5755d5;
 }
-/* line 165, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 136, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #5755d5;
   background-color: #5755d5;
 }
-/* line 173, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 144, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .frame-tab.active {
   border-top-color: #5755d5;
 }
-/* line 177, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 148, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-params-but {
   color: #5755d5;
   border-color: #5755d5;
 }
-/* line 180, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 151, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-params-but.selected {
   color: #fff;
   border-color: #5755d5;
   background-color: #5755d5;
 }
-/* line 187, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 158, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-title,
 .aux_color_middle .calc-value-limit {
   color: #5755d5;
 }
-/* line 192, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 163, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .calc-equal,
 .aux_color_middle .search-element {
   background-color: #5755d5;
 }
-/* line 197, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 168, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .group-indicator {
   background-color: #5755d5;
 }
-/* line 199, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 170, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .group-indicator:before {
   border-color: transparent #5755d5;
 }
 
-/* line 207, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 178, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .item.active {
   background-color: #0079ff;
 }
-/* line 213, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 184, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #0079ff;
   background-color: #0079ff;
 }
-/* line 221, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 192, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .frame-tab.active {
   border-top-color: #0079ff;
 }
-/* line 225, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 196, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-params-but {
   color: #0079ff;
   border-color: #0079ff;
 }
-/* line 228, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 199, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-params-but.selected {
   color: #fff;
   border-color: #0079ff;
   background-color: #0079ff;
 }
-/* line 235, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 206, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-title,
 .aux_color_connect .calc-value-limit {
   color: #0079ff;
 }
-/* line 240, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 211, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .calc-equal,
 .aux_color_connect .search-element {
   background-color: #0079ff;
 }
-/* line 245, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 216, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .group-indicator {
   background-color: #0079ff;
 }
-/* line 247, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 218, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .group-indicator:before {
   border-color: transparent #0079ff;
 }
 
-/* line 255, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 226, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .item.active {
   background-color: #6ed44a;
 }
-/* line 261, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 232, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #6ed44a;
   background-color: #6ed44a;
 }
-/* line 269, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 240, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .frame-tab.active {
   border-top-color: #6ed44a;
 }
-/* line 274, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 245, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-params-but {
   color: #6ed44a;
   border-color: #6ed44a;
 }
-/* line 277, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 248, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-params-but.selected {
   color: #fff;
   border-color: #6ed44a;
   background-color: #6ed44a;
 }
-/* line 284, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 255, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-title,
 .aux_color_slope .calc-value-limit {
   color: #6ed44a;
 }
-/* line 289, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 260, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .calc-equal,
 .aux_color_slope .search-element {
   background-color: #6ed44a;
 }
-/* line 294, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 265, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .group-indicator {
   background-color: #6ed44a;
 }
-/* line 296, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 267, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .group-indicator:before {
   border-color: transparent #6ed44a;
 }
 
-/* line 304, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 275, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .item.active {
   background-color: #34aadc;
 }
-/* line 310, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 281, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #34aadc;
   background-color: #34aadc;
 }
-/* line 318, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 289, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .frame-tab.active {
   border-top-color: #34aadc;
 }
-/* line 323, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 294, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-params-but {
   color: #34aadc;
   border-color: #34aadc;
 }
-/* line 326, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 297, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-params-but.selected {
   color: #fff;
   border-color: #34aadc;
   background-color: #34aadc;
 }
-/* line 333, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 304, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-title,
 .aux_color_small .calc-value-limit {
   color: #34aadc;
 }
-/* line 338, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 309, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .calc-equal,
 .aux_color_small .search-element {
   background-color: #34aadc;
 }
-/* line 343, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 314, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .group-indicator {
   background-color: #34aadc;
 }
-/* line 345, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 316, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .group-indicator:before {
   border-color: transparent #34aadc;
 }
@@ -6258,7 +6230,7 @@ tr.factory_item {
   -o-overflow-scrolling: touch;
   -ms-overflow-scrolling: touch;
   overflow-scrolling: touch;
-  max-height: 12.5rem;
+  max-height: 18rem;
   padding: 0;
   list-style: none;
   overflow-x: hidden;

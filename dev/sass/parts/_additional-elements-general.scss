@@ -53,35 +53,6 @@
   }
 }
 
-
-.aux-color {
-  @include font-icon(rem(30px), 1);
-  @extend .splash;
-  @extend .button;
-
-  position: relative;
-  width: rem(45px);
-  height: rem(45px);
-  padding: 0;
-  &.selected {
-    border-style: solid;
-    border-width: 1px;
-    border-color: $main_green;
-    &:after {
-      position: absolute;
-      left: 20%;
-      top: 15%;
-      content: $check-panel-icon;
-      color: $main_green;
-    }
-  }
-  img {
-//    width: rem(45px);
-    width: 2.8125rem;
-    height: 2.8125rem;
-  }
-}
-
 // List View
 
 .aux-list-row {

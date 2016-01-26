@@ -769,8 +769,8 @@
 
     function getAllAddKits() {
       var defer = $q.defer(),
-          promises = localDB.addElementDBId.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          promises = GeneralServ.addElementDATA.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),

@@ -5,7 +5,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
+  function addElemFactory($timeout, globalConstants, GeneralServ, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -57,7 +57,7 @@
 
     function downloadAddElementsData(id) {
       var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].colorClass;
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
     }
@@ -144,16 +144,17 @@
 
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
-      var groupNamesQty = AuxStor.aux.groupNames.length,
+      var groupNamesQty = GeneralServ.addElementDATA.length,
           g = 0;
       AuxStor.aux.addElementGroups.length = 0;
       for(; g < groupNamesQty; g++){
         if(GlobalStor.global.addElementsAll[g].elementsList) {
           var groupTempObj = {};
           groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = AuxStor.aux.groupNames[g];
-          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupTempObj.groupClass = angular.copy(GeneralServ.addElementDATA[g].colorClass);
           AuxStor.aux.addElementGroups.push(groupTempObj);
+          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
         }
       }
     }

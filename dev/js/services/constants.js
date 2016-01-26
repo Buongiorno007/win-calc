@@ -4,8 +4,6 @@
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-//      serverIP: 'http://192.168.1.147:3002',
-//      serverIP: 'http://windowscalculator.net:3002',
       serverIP: 'http://api.windowscalculator.net',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -26,19 +24,6 @@
       minRadiusHeight: 10,
 
       activeClass: 'active',
-      addElementsGroupClass: [
-        'aux_color_connect',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_connect',
-        'aux_color_small',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_small'
-      ],
       //------------ SVG
       SVG_ID_EDIT: 'tamlateSVG',
       SVG_ID_GLASS: 'tamlateSVGGlass',

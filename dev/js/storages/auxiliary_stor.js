@@ -1,13 +1,11 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('MainModule')
     .factory('AuxStor', auxStorageFactory);
 
-  function auxStorageFactory($filter) {
+  function auxStorageFactory() {
 
     var thisFactory = this;
 
@@ -30,20 +28,7 @@
         selectedGrid: 0,
 
         addElementGroups: [],
-        searchingWord: '',
-        groupNames: [
-          $filter('translate')('add_elements.GRIDS'),
-          $filter('translate')('add_elements.VISORS'),
-          $filter('translate')('add_elements.SPILLWAYS'),
-          $filter('translate')('add_elements.OUTSIDE'),
-          $filter('translate')('add_elements.INSIDE'),
-          $filter('translate')('add_elements.LOUVERS'),
-          $filter('translate')('add_elements.CONNECTORS'),
-          $filter('translate')('add_elements.FAN'),
-          $filter('translate')('add_elements.WINDOWSILLS'),
-          $filter('translate')('add_elements.HANDLELS'),
-          $filter('translate')('add_elements.OTHERS')
-        ]
+        searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };

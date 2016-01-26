@@ -8,18 +8,8 @@
   .aux-list-content
 
     .aux-list-box(ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index")
-      .aux-list-block(ng-if="elemType.length > 0", ng-switch="$index", ng-class="elementsListPanel.constants.addElementsGroupClass[$index]")
-        .aux-list-block-title(ng-switch-when="0") {{ 'add_elements.GRID' | translate }}
-        .aux-list-block-title(ng-switch-when="1") {{ 'add_elements.VISOR' | translate }}
-        .aux-list-block-title(ng-switch-when="2") {{ 'add_elements.SPILLWAY' | translate }}
-        .aux-list-block-title(ng-switch-when="3") {{ 'add_elements.OUTSIDE' | translate }}
-        .aux-list-block-title(ng-switch-when="4") {{ 'add_elements.LOUVERS' | translate }}
-        .aux-list-block-title(ng-switch-when="5") {{ 'add_elements.INSIDE' | translate }}
-        .aux-list-block-title(ng-switch-when="6") {{ 'add_elements.CONNECTORS' | translate }}
-        .aux-list-block-title(ng-switch-when="7") {{ 'add_elements.FAN' | translate }}
-        .aux-list-block-title(ng-switch-when="8") {{ 'add_elements.WINDOWSILL' | translate }}
-        .aux-list-block-title(ng-switch-when="9") {{ 'add_elements.HANDLEL' | translate }}
-        .aux-list-block-title(ng-switch-when="10") {{ 'add_elements.OTHERS' | translate }}
+      .aux-list-block(ng-if="elemType.length > 0", ng-class="elementsListPanel.config.addElementDATA[$index].colorClass")
+        .aux-list-block-title {{ elementsListPanel.config.addElementDATA[$index].name }}
         table.aux-list-addellement
           tr.aux-list-row(ng-repeat="addElement in elemType track by $index")
             td.aux-tablecell-name
