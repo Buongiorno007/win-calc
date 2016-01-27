@@ -207,9 +207,10 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
       include menus/_cart-menu
       include menus/_addelems-menu
 
-    include parts/_call-master
-    include parts/_call-order
-    include parts/_call-credit
+    section.order-forms(ng-controller="OrderFormCtrl as orderForm")
+      include parts/_form-master
+      include parts/_form-order
+      include parts/_form-credit
 
 include parts/_loader
 include parts/_alert

@@ -3325,7 +3325,7 @@ div.drum figure {
 }
 
 /* line 168, ../../dev/sass/parts/_cart-dialogs.scss */
-#call-master-dialog .cart-dialogs-container {
+.master-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
 
@@ -6430,7 +6430,7 @@ tr.factory_item {
 /* line 1, ../../dev/sass/menus/_addelems-menu.scss */
 .elements-list-container {
   top: 0rem;
-  left: 33.75rem;
+  left: 37.5rem;
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;

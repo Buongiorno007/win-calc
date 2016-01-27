@@ -1,6 +1,6 @@
 .elements-list-container {
   @extend .parameters-block;
-  @include top_left_coord(0px, 540px);
+  @include top_left_coord(0px, 600px);
   @include transition(all 0.3s linear);
 
   position: absolute;

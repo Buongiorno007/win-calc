@@ -1,0 +1,84 @@
+.cart-dialogs.order-dialog(ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }")
+  .cart-dialogs-container
+    form(name='callOrderForm', novalidate, ng-submit="orderForm.submitForm(callOrderForm)")
+      .cart-dialog-header
+        button.cart-dialog-tool.back(ng-click="orderForm.closeOrderDialog()", type="button")
+        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }}
+      .cart-dialog-body
+        .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
+
+        .cart-dialog-label {{ 'cart.CALL_ORDER_CLIENT_INFO' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.phone.$error.required }")
+          input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'login.MOBILE' | translate }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+
+
+
+        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.location.$error.required }")
+          input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", autocomplete="off", required)
+          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
+            li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", ng-click="orderForm.selectCity(location)") {{location.fullLocation}}
+
+
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
+          input.user-field(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currency }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.mail.$error.required }")
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
+
+        .input-field
+          input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.ADD_PHONE' | translate }}")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_SEX' | translate }}
+          label.label-field {{ 'cart.CLIENT_SEX_M' | translate }}
+            input.radio-field(type="radio", name="sex", ng-model="orderForm.C.cart.customer.customer_sex", value="1")
+          label.label-field {{ 'cart.CLIENT_SEX_F' | translate }}
+            input.radio-field(type="radio", name="sex", ng-model="orderForm.C.cart.customer.customer_sex", value="2")
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.age.$error.required }")
+          .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
+          select.user-select-field(name="age", ng-model="orderForm.C.cart.customer.customer_age", ng-options="age.name for age in orderForm.C.optionAge", required)
+            //option(value='') {{ 'cart.SELECT_AGE' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.age.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.education.$error.required }")
+          .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
+          select.user-select-field(name="education", ng-model="orderForm.C.cart.customer.customer_education", ng-options="educ.name for educ in orderForm.C.optionEductaion", required)
+            //option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.education.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.occupation.$error.required }")
+          .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
+          select.user-select-field(name="occupation", ng-model="orderForm.C.cart.customer.customer_occupation", ng-options="occup.name for occup in orderForm.C.optionOccupation", required)
+            //option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.occupation.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.infoSource.$error.required }")
+          .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
+          select.user-select-field(name="infoSource", ng-model="orderForm.C.cart.customer.customer_infoSource", ng-options="info.name for info in orderForm.C.optionInfo", required)
+            //option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}
+            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callOrderForm.infoSource.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        button.save.save-order(type="submit") {{ 'cart.READY' | translate }}

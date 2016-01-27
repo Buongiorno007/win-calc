@@ -602,10 +602,10 @@
     }
 
 
-    function setDefaultCustomerData(cityId, cityName, fullLocation) {
-      CartStor.cart.customer.customer_city_id = cityId;
-      CartStor.cart.customer.customer_city = cityName;
-      CartStor.cart.customer.customer_location = fullLocation;
+    function setDefaultCustomerData() {
+      CartStor.cart.customer.customer_city_id = arguments[0];
+      CartStor.cart.customer.customer_city = arguments[1];
+      CartStor.cart.customer.customer_location = arguments[2];
     }
 
   }

@@ -2988,151 +2988,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
-// controllers/parts/call_credit.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .controller('CallCreditCtrl', callCreditCtrl);
-
-  function callCreditCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-    thisCtrl.config = {
-      month: $filter('translate')('common_words.MONTH_LABEL'),
-      montha: $filter('translate')('common_words.MONTHA_LABEL'),
-      months: $filter('translate')('common_words.MONTHS_LABEL')
-
-      //DELAY_START: globalConstants.STEP,
-      //typing: 'on'
-    };
-
-    /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
-    });
-
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-
-    //--------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-
-
-  }
-})();
-
-
-// controllers/parts/call_master.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .controller('CallMasterCtrl', callMasterCtrl);
-
-  function callMasterCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-    //SettingServ.downloadLocations().then(function(data) {
-    //    thisCtrl.locations = data;
-    //});
-    /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
-    });
-
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-    //------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-  }
-})();
-
-
-// controllers/parts/call_order.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .controller('CallOrderCtrl', callOrderCtrl);
-
-  function callOrderCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-    /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
-    });
-
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-    //------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-
-  }
-})();
-
-
 // controllers/parts/info_box.js
 
 (function(){
@@ -3180,6 +3035,58 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+
+  }
+})();
+
+
+// controllers/parts/order_form.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .controller('OrderFormCtrl', orderFormCtrl);
+
+  function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
+
+    var thisCtrl = this;
+    thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      month: $filter('translate')('common_words.MONTH_LABEL'),
+      montha: $filter('translate')('common_words.MONTHA_LABEL'),
+      months: $filter('translate')('common_words.MONTHS_LABEL')
+    };
+
+    //SettingServ.downloadLocations().then(function(data) {
+    //    thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
+
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+
+
+    //============ methods ================//
+
+    //------- Send Form Data
+    function submitForm(form) {
+      //------- Trigger validation flag.
+      CartStor.cart.submitted = true;
+      if(form.$valid) {
+        CartMenuServ.sendOrder();
+      }
+    }
 
   }
 })();
@@ -5850,7 +5757,7 @@ function ErrorResult(code, message) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
 //console.info('closeSizeCaclulator');
-      GlobalStor.global.isWidthCalculator = false;
+      GlobalStor.global.isWidthCalculator = 0;
       AuxStor.aux.tempSize.length = 0;
       desactiveAddElementParameters();
 
@@ -5913,32 +5820,44 @@ function ErrorResult(code, message) {
     //============ methods ================//
 
 
-    //--------- Select additional element
+    //--------- Select additional element group
     function selectAddElement(id) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
-          AuxStor.aux.isFocusedAddElement = id;
-          AuxStor.aux.isTabFrame = 0;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = 0;
-
-          AddElementMenuServ.desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          $timeout(function () {
-            AuxStor.aux.addElementsMenuStyle = 0;
-            //playSound('swip');
-            AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-            downloadAddElementsData(id);
-          }, delayShowElementsMenu);
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
+        /** if AddElem Menu is opened yet */
+        if(AuxStor.aux.showAddElementsMenu) {
+          if (AuxStor.aux.isFocusedAddElement === id) {
+            //-------- close menu
+            closingAddElemMenu();
+          } else {
+            //-------- close menu
+            closingAddElemMenu();
+            //-------- next open new menu
+            $timeout(function () {
+              showingAddElemMenu(id);
+            }, delayShowElementsMenu);
+          }
         } else {
-          AuxStor.aux.isFocusedAddElement = id;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-          downloadAddElementsData(id);
+          /** first open of AddElem Menu */
+          showingAddElemMenu(id);
         }
       }
     }
 
+
+    function showingAddElemMenu(id) {
+      AuxStor.aux.isFocusedAddElement = id;
+      //playSound('swip');
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      downloadAddElementsData(id);
+    }
+
+    function closingAddElemMenu() {
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AddElementMenuServ.desactiveAddElementParameters();
+      AuxStor.aux.isAddElement = 0;
+    }
 
 
 
@@ -6001,7 +5920,7 @@ function ErrorResult(code, message) {
     }
 
     function openAddElementListView() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
         AuxStor.aux.isAddElementListView = 1;
         viewSwitching();
       }
@@ -6023,9 +5942,6 @@ function ErrorResult(code, message) {
       //------ close Grid Selector Dialog
       AuxStor.aux.isGridSelectorDialog = 0;
       AddElementMenuServ.desactiveAddElementParameters();
-      $timeout(function() {
-        AuxStor.aux.addElementsMenuStyle = 0;
-      }, delayShowElementsMenu);
     }
 
 
@@ -6056,9 +5972,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('AnalyticsServ', analyticsFactory);
@@ -6767,10 +6681,10 @@ function ErrorResult(code, message) {
     }
 
 
-    function setDefaultCustomerData(cityId, cityName, fullLocation) {
-      CartStor.cart.customer.customer_city_id = cityId;
-      CartStor.cart.customer.customer_city = cityName;
-      CartStor.cart.customer.customer_location = fullLocation;
+    function setDefaultCustomerData() {
+      CartStor.cart.customer.customer_city_id = arguments[0];
+      CartStor.cart.customer.customer_city = arguments[1];
+      CartStor.cart.customer.customer_location = arguments[2];
     }
 
   }
@@ -9836,9 +9750,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -9927,9 +9841,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
@@ -10140,7 +10052,7 @@ function ErrorResult(code, message) {
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
-      event.srcEvent.stopPropagation();
+      event.stopPropagation();
 
       GeneralServ.confirmAlert(
         $filter('translate')('common_words.DELETE_ORDER_TITLE'),
@@ -14083,9 +13995,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('MainServ', navFactory);
@@ -15090,9 +15000,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('NavMenuServ', navFactory);
@@ -15261,9 +15169,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('optionsServ', optionFactory);
@@ -16953,9 +16859,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('SoundPlayServ', soundPlayFactory);
@@ -19688,9 +19592,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .factory('TemplatesServ', templatesFactory);

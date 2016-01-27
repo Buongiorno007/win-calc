@@ -26,32 +26,44 @@
     //============ methods ================//
 
 
-    //--------- Select additional element
+    //--------- Select additional element group
     function selectAddElement(id) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
-          AuxStor.aux.isFocusedAddElement = id;
-          AuxStor.aux.isTabFrame = 0;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = 0;
-
-          AddElementMenuServ.desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          $timeout(function () {
-            AuxStor.aux.addElementsMenuStyle = 0;
-            //playSound('swip');
-            AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-            downloadAddElementsData(id);
-          }, delayShowElementsMenu);
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
+        /** if AddElem Menu is opened yet */
+        if(AuxStor.aux.showAddElementsMenu) {
+          if (AuxStor.aux.isFocusedAddElement === id) {
+            //-------- close menu
+            closingAddElemMenu();
+          } else {
+            //-------- close menu
+            closingAddElemMenu();
+            //-------- next open new menu
+            $timeout(function () {
+              showingAddElemMenu(id);
+            }, delayShowElementsMenu);
+          }
         } else {
-          AuxStor.aux.isFocusedAddElement = id;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-          downloadAddElementsData(id);
+          /** first open of AddElem Menu */
+          showingAddElemMenu(id);
         }
       }
     }
 
+
+    function showingAddElemMenu(id) {
+      AuxStor.aux.isFocusedAddElement = id;
+      //playSound('swip');
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      downloadAddElementsData(id);
+    }
+
+    function closingAddElemMenu() {
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AddElementMenuServ.desactiveAddElementParameters();
+      AuxStor.aux.isAddElement = 0;
+    }
 
 
 
@@ -114,7 +126,7 @@
     }
 
     function openAddElementListView() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
         AuxStor.aux.isAddElementListView = 1;
         viewSwitching();
       }
@@ -136,9 +148,6 @@
       //------ close Grid Selector Dialog
       AuxStor.aux.isGridSelectorDialog = 0;
       AddElementMenuServ.desactiveAddElementParameters();
-      $timeout(function() {
-        AuxStor.aux.addElementsMenuStyle = 0;
-      }, delayShowElementsMenu);
     }
 
 

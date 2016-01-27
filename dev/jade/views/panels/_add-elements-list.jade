@@ -21,11 +21,11 @@
                 button.aux-params-but(ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)", ng-keyup="elementsListPanel.pressCulculator($event)") {{ addElement.element_qty }}
                 .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-width
-              .aux-params(ng-show="addElement.element_width", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
+              .aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
                 button.aux-params-but(ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)", ng-keyup="elementsListPanel.pressCulculator($event)") {{ addElement.element_width }}
                 .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-height
-              .aux-params(ng-show="addElement.element_height", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
+              .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
                 button.aux-params-but(ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)", ng-keyup="elementsListPanel.pressCulculator($event)") {{ addElement.element_height }}
                 .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-price

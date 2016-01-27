@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
@@ -213,7 +211,7 @@
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
-      event.srcEvent.stopPropagation();
+      event.stopPropagation();
 
       GeneralServ.confirmAlert(
         $filter('translate')('common_words.DELETE_ORDER_TITLE'),

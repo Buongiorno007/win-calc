@@ -654,7 +654,7 @@
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
 //console.info('closeSizeCaclulator');
-      GlobalStor.global.isWidthCalculator = false;
+      GlobalStor.global.isWidthCalculator = 0;
       AuxStor.aux.tempSize.length = 0;
       desactiveAddElementParameters();
 

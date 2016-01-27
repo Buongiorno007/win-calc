@@ -3,14 +3,20 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CallMasterCtrl', callMasterCtrl);
+    .controller('OrderFormCtrl', orderFormCtrl);
 
-  function callMasterCtrl(GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
     thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      month: $filter('translate')('common_words.MONTH_LABEL'),
+      montha: $filter('translate')('common_words.MONTHA_LABEL'),
+      months: $filter('translate')('common_words.MONTHS_LABEL')
+    };
 
     //SettingServ.downloadLocations().then(function(data) {
     //    thisCtrl.locations = data;
