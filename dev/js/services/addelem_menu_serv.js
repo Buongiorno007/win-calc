@@ -151,7 +151,7 @@
             pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
             //Set Total Product Price
             CartServ.calculateAddElemsProductsPrice(1);
-            CartServ.joinAllAddElements();
+            CartMenuServ.joinAllAddElements();
             CartServ.collectAllAddElems();
             CartServ.getAddElemsPriceTotal();
             //------ change order Price

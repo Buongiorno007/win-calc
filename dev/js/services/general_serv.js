@@ -13,7 +13,7 @@
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
-            colorClass: 'aux_color_connect',
+            //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
           /** VISOR */
@@ -21,7 +21,7 @@
             id: 21,
             name: $filter('translate')('add_elements.VISORS'),
             typeClass: 'aux-visor',
-            colorClass: 'aux_color_big',
+            //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
           /**SPILLWAY*/
@@ -29,7 +29,7 @@
             id: 9,
             name: $filter('translate')('add_elements.SPILLWAYS'),
             typeClass: 'aux-spillway',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
           /**OUTSIDE*/
@@ -37,7 +37,7 @@
             id: 19,
             name: $filter('translate')('add_elements.OUTSIDE'),
             typeClass: 'aux-outside',
-            colorClass: 'aux_color_slope',
+            //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
           /**LOUVER*/
@@ -45,7 +45,7 @@
             id: 26,
             name: $filter('translate')('add_elements.LOUVERS'),
             typeClass: 'aux-louver',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
           /**INSIDESLOPE*/
@@ -53,7 +53,7 @@
             id: 19,
             name: $filter('translate')('add_elements.INSIDE'),
             typeClass: 'aux-inside',
-            colorClass: 'aux_color_slope',
+            //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
           /**CONNECTORS*/
@@ -61,7 +61,7 @@
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
-            colorClass: 'aux_color_connect',
+            //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
           /**FAN*/
@@ -69,7 +69,7 @@
             id: 27,
             name: $filter('translate')('add_elements.FAN'),
             typeClass: 'aux-fan',
-            colorClass: 'aux_color_small',
+            //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
           /**WINDOWSILL*/
@@ -77,7 +77,7 @@
             id: 8,
             name: $filter('translate')('add_elements.WINDOWSILLS'),
             typeClass: 'aux-windowsill',
-            colorClass: 'aux_color_big',
+            //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
           /**HANDLE*/
@@ -85,7 +85,7 @@
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
           /**OTHERS*/
@@ -93,11 +93,11 @@
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
-            colorClass: 'aux_color_small',
+            //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
         ];
-//.aux-txt-box(ng-class="{{elementsPanel.config.addElementDATA[$index].typeClass + '-txt'}} {'aux-grid-txt': !$index, 'aux-visor-txt': $index==1, 'aux-spillway-txt':$index==2, 'aux-outside-txt':$index==3, 'aux-louver-txt':$index==4, 'aux-inside-txt':$index==5, 'aux-connectors-txt':$index==6, 'aux-fan-txt':$index==7, 'aux-windowsill-txt':$index==8, 'aux-handle-txt':$index==9, 'aux-others-txt':$index==10}")
+
     thisFactory.publicObj = {
       addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,

@@ -84,24 +84,6 @@ $aux-img-select-path: 'auxiliaries-selected';
       .aux-choose-but {
         color: #fff;
       }
-      .choose-block {
-        .aux_big_but {
-          background-color: $aux_big_color;
-        }
-        .aux_middle_but {
-          background-color: $aux_middle_color;
-        }
-        .aux_small_but {
-          background-color: $aux_small_color;
-        }
-        .aux_slope_but {
-          background-color: $main_green;
-        }
-        .aux_connect_but {
-          background-color: $aux_connect_color;
-        }
-      }
-
     }
 
     &.selected {
@@ -181,7 +163,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   .aux-grid.focused,
   .aux-spillway.focused,
   .aux-outside.focused {
-    z-index: 20;//10;
+    z-index: 20;
   }
 
   //------Grid
@@ -204,7 +186,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //------Visor
   .aux-visor {
     @include top_left_coord(140px, 540px);
-    z-index: 4;//3;
+    z-index: 4;
   }
 
   .aux-visor-img {
@@ -220,7 +202,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //------Spillway
   .aux-spillway {
     @include top_left_coord(690px, 540px);
-    z-index: 5;//3;
+    z-index: 5;
   }
 
   .aux-spillway-img {
@@ -236,7 +218,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-------Outside
   .aux-outside {
     @include top_left_coord(380px, 440px);
-    z-index: 6;//3;
+    z-index: 6;
   }
 
   .aux-outside-img {
@@ -252,7 +234,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Windowsill
   .aux-windowsill {
     @include top_left_coord(1160px, 100px);
-    z-index: 7;//3;
+    z-index: 7;
   }
 
   .aux-windowsill-img {
@@ -268,9 +250,8 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Louvers
 
   .aux-louver {
-    //@include top_left_coord(750px, 570px);
     @include top_left_coord(750px, 530px);
-    z-index: 8;//4;
+    z-index: 8;
   }
 
   .aux-louver-img {
@@ -328,7 +309,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Inside-slope
   .aux-inside {
     @include top_left_coord(510px, 210px);
-    z-index: 9;//3;
+    z-index: 9;
   }
 
   .aux-inside-img {
@@ -369,7 +350,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //------Fun
   .aux-fan {
     @include top_left_coord(990px, 358px);
-    z-index: 10;//5;
+    z-index: 10;
   }
 
   .aux-fan-img {
@@ -385,7 +366,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Connectors
   .aux-connectors {
     @include top_left_coord(990px, 1010px);
-    z-index: 11;//3;
+    z-index: 11;
   }
 
   .aux-connectors-img {
@@ -397,7 +378,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     @extend .splash;
     @include top_left_coord(0px, 0px);
     position: absolute;
-    //width: rem(205px);
     width: rem(128px);
     height: rem(168px);
     background-image: image-url($aux-img-path+'/force-connector.png');
@@ -419,7 +399,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Handle
   .aux-handle {
     @include top_left_coord(1290px, 50px);
-    z-index: 12;//3;
+    z-index: 12;
   }
 
   .aux-handle-img {
@@ -436,7 +416,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Others
   .aux-others {
     @include top_left_coord(1350px, 1260px);
-    z-index: 13;//3;
+    z-index: 13;
   }
 
 
@@ -485,31 +465,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(35px, 150px);
   }
 
-  .aux_big_but {
-    color: $aux_big_color;
-    border-color: $aux_big_color;
-  }
-
-  .aux_middle_but {
-    color: $aux_middle_color;
-    border-color: $aux_middle_color;
-  }
-
-  .aux_small_but {
-    color: $aux_small_color;
-    border-color: $aux_small_color;
-  }
-
-  .aux_slope_but {
-    color: $main_green;
-    border-color: $main_green;
-  }
-
-  .aux_connect_but {
-    color: $aux_connect_color;
-    border-color: $aux_connect_color;
-  }
-
   .selected-block {
     @include display-flex();
     @include justify-content(flex-start);
@@ -544,7 +499,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     height: rem(50px);
     border-radius: 50%;
     background-color: $main_orange;
-    z-index: 21;//11;
+    z-index: 21;
     &:after {
       color: #fff;
       content: $info-i-icon;
@@ -556,7 +511,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     height: 60rem;
     padding-top: 2rem;
     overflow: hidden;
-    z-index: 22;//12;
+    z-index: 22;
     text-align: center;
   }
 }

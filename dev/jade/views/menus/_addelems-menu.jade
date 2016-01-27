@@ -20,12 +20,8 @@
       .price-element(ng-show="elementsMenu.A.aux.isAddElement")
         .price-value + {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
 
-      //.calculators-box.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")
-      //  include ../parts/_size-calculator
-      //.calculators-box.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")
-      //  include ../parts/_qty-calculator
 
-
+  //========== one element pannel in List View
   .list-items(ng-show="elementsMenu.A.aux.isAddElementListView", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
     .list-item(ng-repeat="addElement in type track by $index")
       .aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.coordinats")
@@ -33,16 +29,14 @@
           .aux-name
             .aux-title {{ addElement.name }}
             .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
-          .aux-params(ng-if="addElement.element_qty")
-            //button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}
-            button.aux-params-but.aux_big_but {{ addElement.element_qty }}
+          .aux-params
+            button.aux-params-but {{ addElement.element_qty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
-          .aux-params(ng-if="addElement.element_width")
-            //button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(2, $index)") {{ addElement.element_width }}
-            button.aux-params-but.aux_big_but {{ addElement.element_width }}
+          .aux-params(ng-show="addElement.element_width")
+            button.aux-params-but {{ addElement.element_width }}
             .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
-          .aux-params(ng-if="addElement.element_height")
-            button.aux-params-but.aux_big_but {{ addElement.element_height }}
+          .aux-params(ng-show="addElement.element_height")
+            button.aux-params-but {{ addElement.element_height }}
             .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
 
           .aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
@@ -62,13 +56,13 @@
         .tab-aux-row(ng-repeat="addElement in addElemTab track by $index")
           .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
-            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}") {{ addElement.element_qty }}
+            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)") {{ addElement.element_qty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
-          .aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
-            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}") {{ addElement.element_width }}
+          .aux-params(ng-show="addElement.element_width", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
+            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)", ng-keyup="elementsMenu.pressCulculator($event)") {{ addElement.element_width }}
             .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
-          .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
-            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)", ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}") {{ addElement.element_height }}
+          .aux-params(ng-show="addElement.element_height", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
+            button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)", ng-keyup="elementsMenu.pressCulculator($event)") {{ addElement.element_height }}
             .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
           .aux-delete(ng-click="elementsMenu.deleteAddElement($parent.$index, $index)")
 

@@ -320,21 +320,11 @@
             </div>
           </div>
           <div class="alladdelements-block">
-            <div ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index" ng-class="elemCartPanel.constants.addElementsGroupClass[$index]" class="aux-list-block">
-              <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType}).length" ng-switch="elemType" class="aux-block-inner">
-                <div ng-switch-when="20" class="aux-list-block-title">{{ 'add_elements.GRID' | translate }}</div>
-                <div ng-switch-when="21" class="aux-list-block-title">{{ 'add_elements.VISOR' | translate }}</div>
-                <div ng-switch-when="9" class="aux-list-block-title">{{ 'add_elements.SPILLWAY' | translate }}</div>
-                <div ng-switch-when="19" class="aux-list-block-title">{{ 'add_elements.OUTSIDE' | translate }}</div>
-                <div ng-switch-when="26" class="aux-list-block-title">{{ 'add_elements.LOUVERS' | translate }}</div>
-                <div ng-switch-when="19" class="aux-list-block-title">{{ 'add_elements.INSIDE' | translate }}</div>
-                <div ng-switch-when="12" class="aux-list-block-title">{{ 'add_elements.CONNECTORS' | translate }}</div>
-                <div ng-switch-when="27" class="aux-list-block-title">{{ 'add_elements.FAN' | translate }}</div>
-                <div ng-switch-when="8" class="aux-list-block-title">{{ 'add_elements.WINDOWSILL' | translate }}</div>
-                <div ng-switch-when="24" class="aux-list-block-title">{{ 'add_elements.HANDLEL' | translate }}</div>
-                <div ng-switch-when="16" class="aux-list-block-title">{{ 'add_elements.OTHERS' | translate }}</div>
+            <div ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index" ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
+              <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length" class="aux-block-inner">
+                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name }}</div>
                 <table class="aux-list-addellement">
-                  <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index" class="aux-list-row">
+                  <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">
                       <div class="aux-name">
                         <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" ng-click="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
@@ -687,12 +677,9 @@
             <div ng-show="elementsMenu.A.aux.isAddElement" class="price-element">
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
-            <!--.calculators-box.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")-->
-            <!--  include ../parts/_size-calculator-->
-            <!--.calculators-box.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")-->
-            <!--  include ../parts/_qty-calculator-->
           </footer>
         </div>
+        <!--========== one element pannel in List View-->
         <div ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
           <div ng-repeat="addElement in type track by $index" class="list-item">
             <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
@@ -701,18 +688,16 @@
                   <div class="aux-title">{{ addElement.name }}</div>
                   <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.element_qty" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}-->
-                  <button class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
+                <div class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.element_width" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(ng-click="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
-                  <button class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
+                <div ng-show="addElement.element_width" class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.element_height" class="aux-params">
-                  <button class="aux-params-but aux_big_but">{{ addElement.element_height }}</button>
+                <div ng-show="addElement.element_height" class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
@@ -735,15 +720,15 @@
               <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
                 <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_qty }}</button>
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" class="aux-params-but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
-                <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_width }}</button>
+                <div ng-show="addElement.element_width" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" class="aux-params-but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
-                <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-class="{'aux_connect_but': (!$parent.$index || $parent.$index === 6), 'aux_big_but': ($parent.$index === 1 || $parent.$index === 8), 'aux_middle_but': ($parent.$index === 2 || $parent.$index === 4 || $parent.$index === 9 || $parent.$index === 10), 'aux_slope_but': ($parent.$index === 3 || $parent.$index === 5), 'aux_small_but': $parent.$index === 7}" class="aux-params-but">{{ addElement.element_height }}</button>
+                <div ng-show="addElement.element_height" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
                 <div ng-click="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>

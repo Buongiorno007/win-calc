@@ -2112,19 +2112,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('AddElemCartCtrl', addElementsCartCtrl);
 
-  function addElementsCartCtrl(globalConstants, localDB, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
+  function addElementsCartCtrl(globalConstants, GeneralServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
-      addElemsTypes: localDB.addElementDBId,
+      addElementDATA: GeneralServ.addElementDATA,
       selectedAddElemUnit: {id: 0},
       isAddElemUnitDetail: 0,
       addElemUnitProducts: [],
@@ -2171,7 +2169,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function deleteAddElemsItem(addElem) {
       deleteAddElemsInOrder(addElem);
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ if last AddElem was delete
       if(!CartStor.cart.isExistAddElems) {
         //------ go back in cart
@@ -2194,7 +2192,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       CartServ.calculateAddElemsProductsPrice();
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ go back in cart
       closeAllAddElemsPanel();
     }
@@ -2322,7 +2320,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else {
         //------- delete AddElem in Product
         delAddElemUnitInProduct(addElemUnit);
-        CartServ.joinAllAddElements();
+        CartMenuServ.joinAllAddElements();
       }
 
       //------ if last AddElem was delete
@@ -2414,7 +2412,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
 
       thisCtrl.config.isLinkExplodeMenu = 0;
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
 
       CartServ.showAllAddElements();
       collectAddElemUnitProducts();
@@ -5349,7 +5347,7 @@ function ErrorResult(code, message) {
             pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
             //Set Total Product Price
             CartServ.calculateAddElemsProductsPrice(1);
-            CartServ.joinAllAddElements();
+            CartMenuServ.joinAllAddElements();
             CartServ.collectAllAddElems();
             CartServ.getAddElemsPriceTotal();
             //------ change order Price
@@ -5946,7 +5944,7 @@ function ErrorResult(code, message) {
 
     function downloadAddElementsData(id) {
       var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].colorClass;
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
     }
@@ -6041,7 +6039,7 @@ function ErrorResult(code, message) {
           var groupTempObj = {};
           groupTempObj.groupId = (g+1);
           groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = angular.copy(GeneralServ.addElementDATA[g].colorClass);
+          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
           AuxStor.aux.addElementGroups.push(groupTempObj);
           //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
         }
@@ -9731,7 +9729,7 @@ function ErrorResult(code, message) {
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
-            colorClass: 'aux_color_connect',
+            //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
           /** VISOR */
@@ -9739,7 +9737,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: $filter('translate')('add_elements.VISORS'),
             typeClass: 'aux-visor',
-            colorClass: 'aux_color_big',
+            //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
           /**SPILLWAY*/
@@ -9747,7 +9745,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: $filter('translate')('add_elements.SPILLWAYS'),
             typeClass: 'aux-spillway',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
           /**OUTSIDE*/
@@ -9755,7 +9753,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: $filter('translate')('add_elements.OUTSIDE'),
             typeClass: 'aux-outside',
-            colorClass: 'aux_color_slope',
+            //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
           /**LOUVER*/
@@ -9763,7 +9761,7 @@ function ErrorResult(code, message) {
             id: 26,
             name: $filter('translate')('add_elements.LOUVERS'),
             typeClass: 'aux-louver',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
           /**INSIDESLOPE*/
@@ -9771,7 +9769,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: $filter('translate')('add_elements.INSIDE'),
             typeClass: 'aux-inside',
-            colorClass: 'aux_color_slope',
+            //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
           /**CONNECTORS*/
@@ -9779,7 +9777,7 @@ function ErrorResult(code, message) {
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
-            colorClass: 'aux_color_connect',
+            //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
           /**FAN*/
@@ -9787,7 +9785,7 @@ function ErrorResult(code, message) {
             id: 27,
             name: $filter('translate')('add_elements.FAN'),
             typeClass: 'aux-fan',
-            colorClass: 'aux_color_small',
+            //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
           /**WINDOWSILL*/
@@ -9795,7 +9793,7 @@ function ErrorResult(code, message) {
             id: 8,
             name: $filter('translate')('add_elements.WINDOWSILLS'),
             typeClass: 'aux-windowsill',
-            colorClass: 'aux_color_big',
+            //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
           /**HANDLE*/
@@ -9803,7 +9801,7 @@ function ErrorResult(code, message) {
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
-            colorClass: 'aux_color_middle',
+            //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
           /**OTHERS*/
@@ -9811,11 +9809,11 @@ function ErrorResult(code, message) {
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
-            colorClass: 'aux_color_small',
+            //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
         ];
-//.aux-txt-box(ng-class="{{elementsPanel.config.addElementDATA[$index].typeClass + '-txt'}} {'aux-grid-txt': !$index, 'aux-visor-txt': $index==1, 'aux-spillway-txt':$index==2, 'aux-outside-txt':$index==3, 'aux-louver-txt':$index==4, 'aux-inside-txt':$index==5, 'aux-connectors-txt':$index==6, 'aux-fan-txt':$index==7, 'aux-windowsill-txt':$index==8, 'aux-handle-txt':$index==9, 'aux-others-txt':$index==10}")
+
     thisFactory.publicObj = {
       addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,

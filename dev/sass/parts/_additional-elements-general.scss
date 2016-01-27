@@ -35,21 +35,6 @@
     .aux-params-but {
       color: #fff;
     }
-    .aux_big_but {
-      background-color: $aux_big_color;
-    }
-    .aux_middle_but {
-      background-color: $aux_middle_color;
-    }
-    .aux_small_but {
-      background-color: $aux_small_color;
-    }
-    .aux_slope_but {
-      background-color: $main_green;
-    }
-    .aux_connect_but {
-      background-color: $aux_connect_color;
-    }
   }
 }
 
@@ -76,7 +61,35 @@
 }
 
 
-.aux_color_big {
+
+////////// Themes ///////////
+
+
+.aux-visor-theme,
+.aux-windowsill-theme {
+
+  .aux-choose-but {
+    color: $aux_big_color;
+    border-color: $aux_big_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_big_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_big_color;
+    border-color: $aux_big_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_big_color;
+      }
+    }
+  }
+
   .item {
     &.active {
       background-color: $aux_big_color;
@@ -94,16 +107,6 @@
   .frame-tab {
     &.active {
       border-top-color: $aux_big_color;
-    }
-  }
-
-  .aux-params-but {
-    color: $aux_big_color;
-    border-color: $aux_big_color;
-    &.selected {
-      color: #fff;
-      border-color: $aux_big_color;
-      background-color: $aux_big_color;
     }
   }
 
@@ -125,7 +128,32 @@
   }
 }
 
-.aux_color_middle {
+.aux-spillway-theme,
+.aux-louver-theme,
+.aux-handle-theme {
+
+  .aux-choose-but {
+    color: $aux_middle_color;
+    border-color: $aux_middle_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_middle_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_middle_color;
+    border-color: $aux_middle_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_middle_color;
+      }
+    }
+  }
+
   .item {
     &.active {
       background-color: $aux_middle_color;
@@ -143,15 +171,6 @@
   .frame-tab {
     &.active {
       border-top-color: $aux_middle_color;
-    }
-  }
-  .aux-params-but {
-    color: $aux_middle_color;
-    border-color: $aux_middle_color;
-    &.selected {
-      color: #fff;
-      border-color: $aux_middle_color;
-      background-color: $aux_middle_color;
     }
   }
 
@@ -173,7 +192,31 @@
   }
 }
 
-.aux_color_connect {
+.aux-grid-theme,
+.aux-connectors-theme {
+
+  .aux-choose-but {
+    color: $aux_connect_color;
+    border-color: $aux_connect_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_connect_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_connect_color;
+    border-color: $aux_connect_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_connect_color;
+      }
+    }
+  }
+
   .item {
     &.active {
       background-color: $aux_connect_color;
@@ -191,15 +234,6 @@
   .frame-tab {
     &.active {
       border-top-color: $aux_connect_color;
-    }
-  }
-  .aux-params-but {
-    color: $aux_connect_color;
-    border-color: $aux_connect_color;
-    &.selected {
-      color: #fff;
-      border-color: $aux_connect_color;
-      background-color: $aux_connect_color;
     }
   }
 
@@ -221,7 +255,31 @@
   }
 }
 
-.aux_color_slope {
+.aux-outside-theme,
+.aux-inside-theme {
+
+  .aux-choose-but {
+    color: $main_green;
+    border-color: $main_green;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $main_green;
+    }
+  }
+
+  .aux-params-but {
+    color: $main_green;
+    border-color: $main_green;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $main_green;
+      }
+    }
+  }
+
   .item {
     &.active {
       background-color: $main_green;
@@ -239,16 +297,6 @@
   .frame-tab {
     &.active {
       border-top-color: $main_green;
-    }
-  }
-
-  .aux-params-but {
-    color: $main_green;
-    border-color: $main_green;
-    &.selected {
-      color: #fff;
-      border-color: $main_green;
-      background-color: $main_green;
     }
   }
 
@@ -270,7 +318,32 @@
   }
 }
 
-.aux_color_small {
+
+.aux-fan-theme,
+.aux-others-theme {
+
+  .aux-choose-but {
+    color: $aux_small_color;
+    border-color: $aux_small_color;
+  }
+  &.focused {
+    .aux-choose-but {
+      background-color: $aux_small_color;
+    }
+  }
+
+  .aux-params-but {
+    color: $aux_small_color;
+    border-color: $aux_small_color;
+  }
+  .aux-params {
+    &.selected {
+      .aux-params-but {
+        background-color: $aux_small_color;
+      }
+    }
+  }
+
   .item {
     &.active {
       background-color: $aux_small_color;
@@ -288,16 +361,6 @@
   .frame-tab {
     &.active {
       border-top-color: $aux_small_color;
-    }
-  }
-
-  .aux-params-but {
-    color: $aux_small_color;
-    border-color: $aux_small_color;
-    &.selected {
-      color: #fff;
-      border-color: $aux_small_color;
-      background-color: $aux_small_color;
     }
   }
 

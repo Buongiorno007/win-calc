@@ -57,7 +57,7 @@
 
     function downloadAddElementsData(id) {
       var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].colorClass;
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
     }
@@ -152,7 +152,7 @@
           var groupTempObj = {};
           groupTempObj.groupId = (g+1);
           groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = angular.copy(GeneralServ.addElementDATA[g].colorClass);
+          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
           AuxStor.aux.addElementGroups.push(groupTempObj);
           //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
         }

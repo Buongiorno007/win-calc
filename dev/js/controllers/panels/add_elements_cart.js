@@ -1,18 +1,16 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('AddElemCartCtrl', addElementsCartCtrl);
 
-  function addElementsCartCtrl(globalConstants, localDB, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
+  function addElementsCartCtrl(globalConstants, GeneralServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
-      addElemsTypes: localDB.addElementDBId,
+      addElementDATA: GeneralServ.addElementDATA,
       selectedAddElemUnit: {id: 0},
       isAddElemUnitDetail: 0,
       addElemUnitProducts: [],
@@ -59,7 +57,7 @@
 
     function deleteAddElemsItem(addElem) {
       deleteAddElemsInOrder(addElem);
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ if last AddElem was delete
       if(!CartStor.cart.isExistAddElems) {
         //------ go back in cart
@@ -82,7 +80,7 @@
       CartServ.calculateAddElemsProductsPrice();
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ go back in cart
       closeAllAddElemsPanel();
     }
@@ -210,7 +208,7 @@
       } else {
         //------- delete AddElem in Product
         delAddElemUnitInProduct(addElemUnit);
-        CartServ.joinAllAddElements();
+        CartMenuServ.joinAllAddElements();
       }
 
       //------ if last AddElem was delete
@@ -302,7 +300,7 @@
       }
 
       thisCtrl.config.isLinkExplodeMenu = 0;
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
 
       CartServ.showAllAddElements();
       collectAddElemUnitProducts();

@@ -9,22 +9,12 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
 
   .alladdelements-block
 
-    .aux-list-block(ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index", ng-class="elemCartPanel.constants.addElementsGroupClass[$index]")
-      .aux-block-inner(ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType}).length", ng-switch="elemType")
-        .aux-list-block-title(ng-switch-when="20") {{ 'add_elements.GRID' | translate }}
-        .aux-list-block-title(ng-switch-when="21") {{ 'add_elements.VISOR' | translate }}
-        .aux-list-block-title(ng-switch-when="9") {{ 'add_elements.SPILLWAY' | translate }}
-        .aux-list-block-title(ng-switch-when="19") {{ 'add_elements.OUTSIDE' | translate }}
-        .aux-list-block-title(ng-switch-when="26") {{ 'add_elements.LOUVERS' | translate }}
-        .aux-list-block-title(ng-switch-when="19") {{ 'add_elements.INSIDE' | translate }}
-        .aux-list-block-title(ng-switch-when="12") {{ 'add_elements.CONNECTORS' | translate }}
-        .aux-list-block-title(ng-switch-when="27") {{ 'add_elements.FAN' | translate }}
-        .aux-list-block-title(ng-switch-when="8") {{ 'add_elements.WINDOWSILL' | translate }}
-        .aux-list-block-title(ng-switch-when="24") {{ 'add_elements.HANDLEL' | translate }}
-        .aux-list-block-title(ng-switch-when="16") {{ 'add_elements.OTHERS' | translate }}
+    .aux-list-block(ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index", ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'")
+      .aux-block-inner(ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length")
+        .aux-list-block-title {{ elemCartPanel.config.addElementDATA[$index].name }}
 
         table.aux-list-addellement
-          tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index")
+          tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index")
             td.aux-tablecell-name
               .aux-name
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", ng-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
