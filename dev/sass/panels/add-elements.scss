@@ -168,7 +168,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Grid
   .aux-grid {
-    @include top_left_coord(360px, 920px);
+    @include top_left_coord(360px, 890px);
     z-index: 3;
   }
 
@@ -429,7 +429,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-visor-txt {
-    @include top_left_coord(-50px, 515px);
+    @include top_left_coord(-50px, 480px);
   }
 
   .aux-spillway-txt {

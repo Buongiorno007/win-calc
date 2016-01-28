@@ -10,9 +10,8 @@
     var thisCtrl = this;
 
     //------ clicking
-    thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
-    thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
-    thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
   }

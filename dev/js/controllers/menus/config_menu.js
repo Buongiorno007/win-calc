@@ -46,6 +46,10 @@
     //------- Select menu item
 
     function selectConfigPanel(id) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       //---- hide rooms if opened
       GlobalStor.global.showRoomSelectorDialog = 0;
@@ -57,7 +61,6 @@
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      AddElementMenuServ.desactiveAddElementParameters();
       //------ delete events on Glass/Grid Selector Dialogs
       DesignServ.removeGlassEventsInSVG();
       GlobalStor.global.showGlassSelectorDialog = 0;

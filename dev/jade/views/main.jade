@@ -19,9 +19,9 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
     section.right-menu
       include menus/_config-menu
       include menus/_addelems-menu
-      .calculators-box.size-calculator(ng-class="{'active': mainPage.G.global.isSizeCalculator}")
+      .calculators-box.size-calculator(ng-class="[{'active': mainPage.G.global.isSizeCalculator}, mainPage.A.aux.calculatorStyle]")
         include parts/_size-calculator
-      .calculators-box.qty-calculator(ng-class="{'active': mainPage.G.global.isQtyCalculator}")
+      .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]")
         include parts/_qty-calculator
   include parts/_info-box
 include parts/_loader

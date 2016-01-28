@@ -29,7 +29,7 @@
                 button.aux-params-but(ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)", ng-keyup="elementsListPanel.pressCulculator($event)") {{ addElement.element_height }}
                 .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-price
-              .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
+              .aux-price(price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsListPanel.U.userInfo.currency}}")
             td.aux-tablecell-delete
               .aux-delete(ng-click="elementsListPanel.deleteAddElement($parent.$index, $index)")
 

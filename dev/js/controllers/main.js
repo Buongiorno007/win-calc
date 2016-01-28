@@ -7,12 +7,13 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
+    thisCtrl.A = AuxStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';

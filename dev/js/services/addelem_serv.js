@@ -28,24 +28,26 @@
 
     //--------- Select additional element group
     function selectAddElement(id) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
-        /** if AddElem Menu is opened yet */
-        if(AuxStor.aux.showAddElementsMenu) {
-          if (AuxStor.aux.isFocusedAddElement === id) {
-            //-------- close menu
-            closingAddElemMenu();
-          } else {
-            //-------- close menu
-            closingAddElemMenu();
-            //-------- next open new menu
-            $timeout(function () {
-              showingAddElemMenu(id);
-            }, delayShowElementsMenu);
-          }
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if AddElem Menu is opened yet */
+      if(AuxStor.aux.showAddElementsMenu) {
+        if (AuxStor.aux.isFocusedAddElement === id) {
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
         } else {
-          /** first open of AddElem Menu */
-          showingAddElemMenu(id);
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
+          //-------- next open new menu
+          $timeout(function () {
+            showingAddElemMenu(id);
+          }, delayShowElementsMenu);
         }
+      } else {
+        /** first open of AddElem Menu */
+        showingAddElemMenu(id);
       }
     }
 
@@ -57,13 +59,6 @@
       downloadAddElementsData(id);
     }
 
-    function closingAddElemMenu() {
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AddElementMenuServ.desactiveAddElementParameters();
-      AuxStor.aux.isAddElement = 0;
-    }
 
 
 
@@ -77,59 +72,48 @@
 
     //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
-      //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
-      //----- close caclulator if opened
+      /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
-        if(AuxStor.aux.tempSize.length) {
-          AddElementMenuServ.changeElementSize();
-          if(GlobalStor.global.isSizeCalculator) {
-            AddElementMenuServ.closeSizeCaclulator();
-          } else if(GlobalStor.global.isQtyCalculator) {
-            AddElementMenuServ.closeQtyCaclulator();
-          }
-        }
-        //AddElementMenuServ.desactiveAddElementParameters();
-        AuxStor.aux.currentAddElementId = 0;
-        //console.log('close-'+$scope.global.auxParameter);
+        AddElementMenuServ.finishCalculators();
       } else {
-        if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-          if(AuxStor.aux.isFocusedAddElement === groupId) {
-            var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
-            AddElementMenuServ.desactiveAddElementParameters();
-            AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
-            AuxStor.aux.currentAddElementId = elementIndex;
-            switch (toolsId) {
-              case 1:
-                if(currElem.element_qty) {
-                  AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-                }
-                GlobalStor.global.isQtyCalculator = 1;
-                break;
-              case 2:
-                if(currElem.element_width) {
-                  AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 1;
-                break;
-              case 3:
-                if(currElem.element_height) {
-                  AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 0;
-                break;
+        /** click another parameter */
+        if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+        AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
+        AuxStor.aux.currentAddElementId = elementIndex;
+        /** set css theme for calculator */
+        AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
+        switch (toolsId) {
+          case 1:
+            if(currElem.element_qty) {
+              AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
             }
-          }
+            GlobalStor.global.isQtyCalculator = 1;
+            break;
+          case 2:
+            if(currElem.element_width) {
+              AuxStor.aux.tempSize = currElem.element_width.toString().split('');
+            }
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 1;
+            break;
+          case 3:
+            if(currElem.element_height) {
+              AuxStor.aux.tempSize = currElem.element_height.toString().split('');
+            }
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 0;
+            break;
         }
       }
     }
 
     function openAddElementListView() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
-        AuxStor.aux.isAddElementListView = 1;
-        viewSwitching();
-      }
+      AuxStor.aux.isAddElementListView = 1;
+      viewSwitching();
     }
 
     function closeAddElementListView() {
@@ -147,7 +131,10 @@
       AuxStor.aux.isAddElement = 0;
       //------ close Grid Selector Dialog
       AuxStor.aux.isGridSelectorDialog = 0;
-      AddElementMenuServ.desactiveAddElementParameters();
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
     }
 
 

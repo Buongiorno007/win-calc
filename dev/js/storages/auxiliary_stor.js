@@ -26,6 +26,7 @@
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,
         selectedGrid: 0,
+        calculatorStyle: '',
 
         addElementGroups: [],
         searchingWord: ''

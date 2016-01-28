@@ -167,7 +167,7 @@
     width: rem(860px);
     min-height: rem(312px);
     max-height: rem(600px);
-    padding: rem(50px);
+    padding: rem(30px);
     background-color: #fff;
     border-color: $main_gray_btn;
     border-width: 1px 0 1px 1px;
@@ -229,7 +229,6 @@
     @include display-flex();
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
-    @include align-items(flex-start);
     margin-bottom: rem(20px);
 
     &:last-child{
@@ -237,6 +236,10 @@
     }
   }
   .aux-title {
-    width: rem(370px);
+    width: rem(300px);
+  }
+  .tab-aux-price {
+    @include roboto-bd(rem(36px));
+    color: $main_gray_txt;
   }
 }

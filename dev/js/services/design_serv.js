@@ -2289,6 +2289,7 @@
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
+      var sizeLength = DesignStor.design.tempSize.length;
       //console.log('take new value = ', newValue);
       if(GlobalStor.global.isVoiceHelper) {
 
@@ -2306,29 +2307,24 @@
 
       } else {
         //---- clear array from 0 after delete all number in array
-        if (DesignStor.design.tempSize.length === 1 && DesignStor.design.tempSize[0] === 0) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (DesignStor.design.tempSize.length === 4) {
+        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
           DesignStor.design.tempSize.length = 0;
         }
         if (newValue === '0') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
             DesignStor.design.tempSize.push(newValue);
             changeSize();
           }
-        }
-        if(newValue === '00') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
-            if (DesignStor.design.tempSize.length < 3) {
+        } else if(newValue === '00') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            if (sizeLength < 3) {
               DesignStor.design.tempSize.push(0, 0);
-            } else if (DesignStor.design.tempSize.length === 3) {
+            } else if (sizeLength === 3) {
               DesignStor.design.tempSize.push(0);
             }
             changeSize();
           }
-        }
-        if(newValue !== '0' && newValue !== '00') {
+        } else {
           DesignStor.design.tempSize.push(newValue);
           changeSize();
         }

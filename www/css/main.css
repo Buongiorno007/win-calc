@@ -6616,7 +6616,7 @@ tr.factory_item {
   width: 53.75rem;
   min-height: 19.5rem;
   max-height: 37.5rem;
-  padding: 3.125rem;
+  padding: 1.875rem;
   background-color: #fff;
   border-color: #bebebe;
   border-width: 1px 0 1px 1px;
@@ -6697,17 +6697,20 @@ tr.factory_item {
   flex-flow: row nowrap;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
   margin-bottom: 1.25rem;
 }
-/* line 235, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 234, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 239, ../../dev/sass/menus/_addelems-menu.scss */
+/* line 238, ../../dev/sass/menus/_addelems-menu.scss */
 .menu-right-tabs .aux-title {
-  width: 23.125rem;
+  width: 18.75rem;
+}
+/* line 241, ../../dev/sass/menus/_addelems-menu.scss */
+.menu-right-tabs .tab-aux-price {
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
+  color: #363636;
 }
 
 /* line 1, ../../dev/sass/menus/_cart-menu.scss */
@@ -7984,7 +7987,7 @@ tr.factory_item {
 /* line 170, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-grid {
   top: 22.5rem;
-  left: 57.5rem;
+  left: 55.625rem;
   z-index: 3;
 }
 /* line 175, ../../dev/sass/panels/add-elements.scss */
@@ -8258,7 +8261,7 @@ tr.factory_item {
 /* line 431, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-visor-txt {
   top: -3.125rem;
-  left: 32.1875rem;
+  left: 30rem;
 }
 /* line 435, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-spillway-txt {

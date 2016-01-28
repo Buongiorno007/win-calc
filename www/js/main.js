@@ -1651,12 +1651,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
+    thisCtrl.A = AuxStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
@@ -1785,25 +1786,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- common function to select addElem in 2 cases --------*/
 
     function selectAddElement(typeId, elementId, clickEvent) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        /** if isAddElementListView = 1 is list view otherwise is common view */
-        if (AuxStor.aux.isAddElementListView) {
-          selectAddElementList(typeId, elementId, clickEvent);
-        } else {
-          /** if grid,  show grid selector dialog */
-          if(AuxStor.aux.isFocusedAddElement === 1) {
-            if(ProductStor.product.is_addelem_only) {
-              //------ without window
-              AddElementMenuServ.chooseAddElement(typeId, elementId);
-            } else {
-              //------- show Grid Selector Dialog
-              AuxStor.aux.selectedGrid = [typeId, elementId];
-              AuxStor.aux.isGridSelectorDialog = 1;
-              DesignServ.initAllGlassXGrid();
-            }
-          } else {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if ListView is opened */
+      if (AuxStor.aux.isAddElementListView) {
+        selectAddElementList(typeId, elementId, clickEvent);
+      } else {
+        /** if grid,  show grid selector dialog */
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          if(ProductStor.product.is_addelem_only) {
+            /** without window */
             AddElementMenuServ.chooseAddElement(typeId, elementId);
+          } else {
+            /** show Grid Selector Dialog */
+            AuxStor.aux.selectedGrid = [typeId, elementId];
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
           }
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
     }
@@ -1968,6 +1971,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------- Select menu item
 
     function selectConfigPanel(id) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       //---- hide rooms if opened
       GlobalStor.global.showRoomSelectorDialog = 0;
@@ -1979,7 +1986,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      AddElementMenuServ.desactiveAddElementParameters();
       //------ delete events on Glass/Grid Selector Dialogs
       DesignServ.removeGlassEventsInSVG();
       GlobalStor.global.showGlassSelectorDialog = 0;
@@ -3106,9 +3112,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     var thisCtrl = this;
 
     //------ clicking
-    thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
-    thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
-    thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
   }
@@ -4093,11 +4098,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       link: function (scope, element, attrs) {
 
         function getNewPrice(priceAtr, qty, currency) {
-          var price = priceAtr;
-          if(typeof price === 'string') {
-            price = parseFloat(price);
-          }
-          var newPrice = parseFloat( (parseFloat(price.toFixed(2)) * qty).toFixed(2) ) + ' ' + currency;
+          var newPrice = parseFloat( ((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2) ) + ' ' + currency;
           element.text(newPrice);
         }
 
@@ -5111,7 +5112,6 @@ function ErrorResult(code, message) {
   function addElemMenuFactory(
     $q,
     $timeout,
-    globalConstants,
     GlobalStor,
     OrderStor,
     ProductStor,
@@ -5129,8 +5129,7 @@ function ErrorResult(code, message) {
     CartMenuServ
   ) {
 
-    var thisFactory = this,
-        delayShowElementsMenu = globalConstants.STEP * 12;
+    var thisFactory = this;
 
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
@@ -5139,7 +5138,7 @@ function ErrorResult(code, message) {
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
-      desactiveAddElementParameters: desactiveAddElementParameters,
+      finishCalculators: finishCalculators,
 
       //---- grid
       confirmGrid: confirmGrid,
@@ -5165,20 +5164,17 @@ function ErrorResult(code, message) {
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        AuxStor.aux.isFocusedAddElement = 0;
-        AuxStor.aux.isTabFrame = 0;
-        AuxStor.aux.isGridSelectorDialog = 0;
-        AuxStor.aux.selectedGrid = 0;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = 0;
-        desactiveAddElementParameters();
-        $timeout(function () {
-          AuxStor.aux.isAddElement = 0;
-          //playSound('swip');
-          AuxStor.aux.addElementsMenuStyle = 0;
-        }, delayShowElementsMenu);
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
       }
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isGridSelectorDialog = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
+      //playSound('swip');
     }
 
 
@@ -5193,31 +5189,32 @@ function ErrorResult(code, message) {
 
     //--------- Select AddElement
     function chooseAddElement(typeIndex, elementIndex) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (typeIndex === undefined && elementIndex === undefined) {
-          /**------- if all grids deleting --------*/
-          if(AuxStor.aux.isFocusedAddElement === 1) {
-            deleteGridsInTemplate();
-          }
-          var index = (AuxStor.aux.isFocusedAddElement - 1);
-          desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          //-------- clean all elements in selected Type
-          ProductStor.product.chosenAddElements[index].length = 0;
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      if (typeIndex === undefined && elementIndex === undefined) {
+        /**------- if all grids deleting --------*/
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          deleteGridsInTemplate();
+        }
+        var index = (AuxStor.aux.isFocusedAddElement - 1);
+        AuxStor.aux.isAddElement = 0;
+        //-------- clean all elements in selected Type
+        ProductStor.product.chosenAddElements[index].length = 0;
 
-          //-------- Set Total Product Price
+        //-------- Set Total Product Price
+        setAddElementsTotalPrice(ProductStor.product);
+
+      } else {
+        getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+          pushSelectedAddElement(ProductStor.product, addElem);
+          //Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
 
-        } else {
-          getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
-            pushSelectedAddElement(ProductStor.product, addElem);
-            //Set Total Product Price
-            setAddElementsTotalPrice(ProductStor.product);
-
-            //------ save analytics data
-            //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-          });
-        }
+          //------ save analytics data
+          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+        });
       }
     }
 
@@ -5274,31 +5271,16 @@ function ErrorResult(code, message) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element is not grid and has price
-      if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-        AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-
-        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      } else {
-        var objXAddElementPrice = {
-          currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
-          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)//TODO add height
-        };
-        //console.log('objXAddElementPrice=====', objXAddElementPrice);
-        //-------- get current add element price
-        localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-            //console.log('objXAddElementPrice====result +++', AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-            deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-          } else {
-            deferred.reject(results);
-          }
+      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+      //
+      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      //} else {
+        calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
+          deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
         });
-      }
+      //}
       return deferred.promise;
     }
 
@@ -5309,7 +5291,6 @@ function ErrorResult(code, message) {
           existedElement;
 
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      //console.warn(currElement, JSON.stringify(currProduct.chosenAddElements[index]), '======', existedElement);
       if(!existedElement) {
         var newElementSource = {
               element_type: index,
@@ -5354,7 +5335,6 @@ function ErrorResult(code, message) {
 
           /** increase quantity if exist */
           if(isExist) {
-            //console.log('isExist', isExist);
             elementsArr[elementsQty].element_qty += 1;
             break;
           }
@@ -5379,7 +5359,6 @@ function ErrorResult(code, message) {
       }
       currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
       currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
-      //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -5389,13 +5368,15 @@ function ErrorResult(code, message) {
 
     //-------- Delete AddElement from global object
     function deleteAddElement(typeId, elementId) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
       /**------- if grid delete --------*/
       if(AuxStor.aux.isFocusedAddElement === 1) {
-        //console.log('delete grid+++++++++', ProductStor.product.chosenAddElements[typeId][elementId].block_id);
         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
       }
       ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
-      desactiveAddElementParameters();
       //------ Set Total Product Price
       setAddElementsTotalPrice(ProductStor.product);
     }
@@ -5515,9 +5496,7 @@ function ErrorResult(code, message) {
 
 
     function insertGrids(grids) {
-      //console.info('grids+++++', grids);
       DesignServ.getGridPrice(grids).then(function(data) {
-        //console.info('SVG+++++', data);
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
         if(dataQty) {
@@ -5543,7 +5522,6 @@ function ErrorResult(code, message) {
     function changeSVGTemplateAsNewGrid () {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
-        //console.log('change svg');
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
@@ -5589,7 +5567,7 @@ function ErrorResult(code, message) {
     //--------- Change Qty parameter
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
       } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
@@ -5602,9 +5580,6 @@ function ErrorResult(code, message) {
           ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
         }
       }
-      //console.info('Qty-----', AuxStor.aux.tempSize, ProductStor.product.chosenAddElements[index][elementIndex].element_qty);
-      //--------- Set Total Product Price
-      //setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -5682,11 +5657,7 @@ function ErrorResult(code, message) {
             break;
         }
         if(newValue !== undefined) {
-          //if (GlobalStor.global.isQtyCalculator) {
-          //  setValueQty(newValue);
-          //} else if (GlobalStor.global.isSizeCalculator) {
-            setValueSize(newValue);
-          //}
+          setValueSize(newValue);
         }
       }
     }
@@ -5694,28 +5665,30 @@ function ErrorResult(code, message) {
 
       //------- Change Size parameter
     function setValueSize(newValue) {
-      //console.info('tempSize====', AuxStor.aux.tempSize);
+      var sizeLength = AuxStor.aux.tempSize.length;
       //---- clean tempSize if indicate only one 0
-      if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
+      if(sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
         AuxStor.aux.tempSize.length = 0;
       }
-      if(AuxStor.aux.tempSize.length === 4) {
-        AuxStor.aux.tempSize.length = 0;
-      }
-      if(newValue === '00'){
-        if(AuxStor.aux.tempSize.length === 1 || AuxStor.aux.tempSize.length === 2) {
-          AuxStor.aux.tempSize.push(0, 0);
-          changeElementSize();
-        } else if(AuxStor.aux.tempSize.length === 3) {
-          AuxStor.aux.tempSize.push(0);
-          changeElementSize();
-        }
-      } else {
-        if(AuxStor.aux.tempSize.length < 4) {
+      if (newValue === '0') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
           AuxStor.aux.tempSize.push(newValue);
           changeElementSize();
         }
+      } else if(newValue === '00') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          if (sizeLength < 3) {
+            AuxStor.aux.tempSize.push(0, 0);
+          } else if (sizeLength === 3) {
+            AuxStor.aux.tempSize.push(0);
+          }
+          changeElementSize();
+        }
+      } else {
+        AuxStor.aux.tempSize.push(newValue);
+        changeElementSize();
       }
+
     }
 
 
@@ -5733,19 +5706,16 @@ function ErrorResult(code, message) {
     function changeElementSize(){
       var newElementSize = '',
           elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
 
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
-
       if(GlobalStor.global.isQtyCalculator) {
         ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
       } else if(GlobalStor.global.isSizeCalculator) {
         if(GlobalStor.global.isWidthCalculator) {
           ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
         } else {
-          if(index === 4) {
-            ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
-          }
+          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
         }
       }
 
@@ -5755,33 +5725,44 @@ function ErrorResult(code, message) {
     //------- Close Size Calculator
     function closeSizeCaclulator() {
       var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
-//console.info('closeSizeCaclulator');
-      GlobalStor.global.isWidthCalculator = 0;
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
       desactiveAddElementParameters();
-
       //-------- recalculate add element price
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width / 1000)
-      };
-
-      //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
-      localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          //          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingValue(results.priceTotal));
-          ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-          //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
-          //------- Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-        } else {
-          console.log(results);
-        }
+      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+        setAddElementsTotalPrice(ProductStor.product);
       });
+    }
+
+
+    function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
+        var objXAddElementPrice = {
+              currencyId: UserStor.userInfo.currencyId,
+              elementId: addElementsList[typeIndex][elementIndex].id,
+              elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
+              elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
+            };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
+            addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
+            addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+          }
+          return results;
+        });
+    }
+
+
+    function finishCalculators() {
+      //if(AuxStor.aux.tempSize.length) {
+        //changeElementSize();
+        if(GlobalStor.global.isSizeCalculator) {
+          closeSizeCaclulator();
+        } else if(GlobalStor.global.isQtyCalculator) {
+          closeQtyCaclulator();
+        }
+      //}
+      AuxStor.aux.currentAddElementId = 0;
     }
 
 
@@ -5822,24 +5803,26 @@ function ErrorResult(code, message) {
 
     //--------- Select additional element group
     function selectAddElement(id) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
-        /** if AddElem Menu is opened yet */
-        if(AuxStor.aux.showAddElementsMenu) {
-          if (AuxStor.aux.isFocusedAddElement === id) {
-            //-------- close menu
-            closingAddElemMenu();
-          } else {
-            //-------- close menu
-            closingAddElemMenu();
-            //-------- next open new menu
-            $timeout(function () {
-              showingAddElemMenu(id);
-            }, delayShowElementsMenu);
-          }
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if AddElem Menu is opened yet */
+      if(AuxStor.aux.showAddElementsMenu) {
+        if (AuxStor.aux.isFocusedAddElement === id) {
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
         } else {
-          /** first open of AddElem Menu */
-          showingAddElemMenu(id);
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
+          //-------- next open new menu
+          $timeout(function () {
+            showingAddElemMenu(id);
+          }, delayShowElementsMenu);
         }
+      } else {
+        /** first open of AddElem Menu */
+        showingAddElemMenu(id);
       }
     }
 
@@ -5851,13 +5834,6 @@ function ErrorResult(code, message) {
       downloadAddElementsData(id);
     }
 
-    function closingAddElemMenu() {
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AddElementMenuServ.desactiveAddElementParameters();
-      AuxStor.aux.isAddElement = 0;
-    }
 
 
 
@@ -5871,59 +5847,48 @@ function ErrorResult(code, message) {
 
     //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
-      //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
-      //----- close caclulator if opened
+      /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
-        if(AuxStor.aux.tempSize.length) {
-          AddElementMenuServ.changeElementSize();
-          if(GlobalStor.global.isSizeCalculator) {
-            AddElementMenuServ.closeSizeCaclulator();
-          } else if(GlobalStor.global.isQtyCalculator) {
-            AddElementMenuServ.closeQtyCaclulator();
-          }
-        }
-        //AddElementMenuServ.desactiveAddElementParameters();
-        AuxStor.aux.currentAddElementId = 0;
-        //console.log('close-'+$scope.global.auxParameter);
+        AddElementMenuServ.finishCalculators();
       } else {
-        if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-          if(AuxStor.aux.isFocusedAddElement === groupId) {
-            var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
-            AddElementMenuServ.desactiveAddElementParameters();
-            AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
-            AuxStor.aux.currentAddElementId = elementIndex;
-            switch (toolsId) {
-              case 1:
-                if(currElem.element_qty) {
-                  AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-                }
-                GlobalStor.global.isQtyCalculator = 1;
-                break;
-              case 2:
-                if(currElem.element_width) {
-                  AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 1;
-                break;
-              case 3:
-                if(currElem.element_height) {
-                  AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 0;
-                break;
+        /** click another parameter */
+        if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+        AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
+        AuxStor.aux.currentAddElementId = elementIndex;
+        /** set css theme for calculator */
+        AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
+        switch (toolsId) {
+          case 1:
+            if(currElem.element_qty) {
+              AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
             }
-          }
+            GlobalStor.global.isQtyCalculator = 1;
+            break;
+          case 2:
+            if(currElem.element_width) {
+              AuxStor.aux.tempSize = currElem.element_width.toString().split('');
+            }
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 1;
+            break;
+          case 3:
+            if(currElem.element_height) {
+              AuxStor.aux.tempSize = currElem.element_height.toString().split('');
+            }
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 0;
+            break;
         }
       }
     }
 
     function openAddElementListView() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {//TODO ?????
-        AuxStor.aux.isAddElementListView = 1;
-        viewSwitching();
-      }
+      AuxStor.aux.isAddElementListView = 1;
+      viewSwitching();
     }
 
     function closeAddElementListView() {
@@ -5941,7 +5906,10 @@ function ErrorResult(code, message) {
       AuxStor.aux.isAddElement = 0;
       //------ close Grid Selector Dialog
       AuxStor.aux.isGridSelectorDialog = 0;
-      AddElementMenuServ.desactiveAddElementParameters();
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
     }
 
 
@@ -9275,6 +9243,7 @@ function ErrorResult(code, message) {
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
+      var sizeLength = DesignStor.design.tempSize.length;
       //console.log('take new value = ', newValue);
       if(GlobalStor.global.isVoiceHelper) {
 
@@ -9292,29 +9261,24 @@ function ErrorResult(code, message) {
 
       } else {
         //---- clear array from 0 after delete all number in array
-        if (DesignStor.design.tempSize.length === 1 && DesignStor.design.tempSize[0] === 0) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (DesignStor.design.tempSize.length === 4) {
+        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
           DesignStor.design.tempSize.length = 0;
         }
         if (newValue === '0') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
             DesignStor.design.tempSize.push(newValue);
             changeSize();
           }
-        }
-        if(newValue === '00') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
-            if (DesignStor.design.tempSize.length < 3) {
+        } else if(newValue === '00') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            if (sizeLength < 3) {
               DesignStor.design.tempSize.push(0, 0);
-            } else if (DesignStor.design.tempSize.length === 3) {
+            } else if (sizeLength === 3) {
               DesignStor.design.tempSize.push(0);
             }
             changeSize();
           }
-        }
-        if(newValue !== '0' && newValue !== '00') {
+        } else {
           DesignStor.design.tempSize.push(newValue);
           changeSize();
         }
@@ -9750,9 +9714,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -19737,6 +19701,7 @@ function ErrorResult(code, message) {
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,
         selectedGrid: 0,
+        calculatorStyle: '',
 
         addElementGroups: [],
         searchingWord: ''

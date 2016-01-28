@@ -8,7 +8,6 @@
   function addElemMenuFactory(
     $q,
     $timeout,
-    globalConstants,
     GlobalStor,
     OrderStor,
     ProductStor,
@@ -26,8 +25,7 @@
     CartMenuServ
   ) {
 
-    var thisFactory = this,
-        delayShowElementsMenu = globalConstants.STEP * 12;
+    var thisFactory = this;
 
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
@@ -36,7 +34,7 @@
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
-      desactiveAddElementParameters: desactiveAddElementParameters,
+      finishCalculators: finishCalculators,
 
       //---- grid
       confirmGrid: confirmGrid,
@@ -62,20 +60,17 @@
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        AuxStor.aux.isFocusedAddElement = 0;
-        AuxStor.aux.isTabFrame = 0;
-        AuxStor.aux.isGridSelectorDialog = 0;
-        AuxStor.aux.selectedGrid = 0;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = 0;
-        desactiveAddElementParameters();
-        $timeout(function () {
-          AuxStor.aux.isAddElement = 0;
-          //playSound('swip');
-          AuxStor.aux.addElementsMenuStyle = 0;
-        }, delayShowElementsMenu);
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
       }
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isGridSelectorDialog = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
+      //playSound('swip');
     }
 
 
@@ -90,31 +85,32 @@
 
     //--------- Select AddElement
     function chooseAddElement(typeIndex, elementIndex) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (typeIndex === undefined && elementIndex === undefined) {
-          /**------- if all grids deleting --------*/
-          if(AuxStor.aux.isFocusedAddElement === 1) {
-            deleteGridsInTemplate();
-          }
-          var index = (AuxStor.aux.isFocusedAddElement - 1);
-          desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          //-------- clean all elements in selected Type
-          ProductStor.product.chosenAddElements[index].length = 0;
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      if (typeIndex === undefined && elementIndex === undefined) {
+        /**------- if all grids deleting --------*/
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          deleteGridsInTemplate();
+        }
+        var index = (AuxStor.aux.isFocusedAddElement - 1);
+        AuxStor.aux.isAddElement = 0;
+        //-------- clean all elements in selected Type
+        ProductStor.product.chosenAddElements[index].length = 0;
 
-          //-------- Set Total Product Price
+        //-------- Set Total Product Price
+        setAddElementsTotalPrice(ProductStor.product);
+
+      } else {
+        getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+          pushSelectedAddElement(ProductStor.product, addElem);
+          //Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
 
-        } else {
-          getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
-            pushSelectedAddElement(ProductStor.product, addElem);
-            //Set Total Product Price
-            setAddElementsTotalPrice(ProductStor.product);
-
-            //------ save analytics data
-            //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-          });
-        }
+          //------ save analytics data
+          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+        });
       }
     }
 
@@ -171,31 +167,16 @@
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element is not grid and has price
-      if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-        AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-
-        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      } else {
-        var objXAddElementPrice = {
-          currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
-          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)//TODO add height
-        };
-        //console.log('objXAddElementPrice=====', objXAddElementPrice);
-        //-------- get current add element price
-        localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-            //console.log('objXAddElementPrice====result +++', AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-            deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-          } else {
-            deferred.reject(results);
-          }
+      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+      //
+      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      //} else {
+        calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
+          deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
         });
-      }
+      //}
       return deferred.promise;
     }
 
@@ -206,7 +187,6 @@
           existedElement;
 
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      //console.warn(currElement, JSON.stringify(currProduct.chosenAddElements[index]), '======', existedElement);
       if(!existedElement) {
         var newElementSource = {
               element_type: index,
@@ -251,7 +231,6 @@
 
           /** increase quantity if exist */
           if(isExist) {
-            //console.log('isExist', isExist);
             elementsArr[elementsQty].element_qty += 1;
             break;
           }
@@ -276,7 +255,6 @@
       }
       currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
       currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
-      //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -286,13 +264,15 @@
 
     //-------- Delete AddElement from global object
     function deleteAddElement(typeId, elementId) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
       /**------- if grid delete --------*/
       if(AuxStor.aux.isFocusedAddElement === 1) {
-        //console.log('delete grid+++++++++', ProductStor.product.chosenAddElements[typeId][elementId].block_id);
         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
       }
       ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
-      desactiveAddElementParameters();
       //------ Set Total Product Price
       setAddElementsTotalPrice(ProductStor.product);
     }
@@ -412,9 +392,7 @@
 
 
     function insertGrids(grids) {
-      //console.info('grids+++++', grids);
       DesignServ.getGridPrice(grids).then(function(data) {
-        //console.info('SVG+++++', data);
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
         if(dataQty) {
@@ -440,7 +418,6 @@
     function changeSVGTemplateAsNewGrid () {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
-        //console.log('change svg');
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
@@ -486,7 +463,7 @@
     //--------- Change Qty parameter
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
       } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
@@ -499,9 +476,6 @@
           ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
         }
       }
-      //console.info('Qty-----', AuxStor.aux.tempSize, ProductStor.product.chosenAddElements[index][elementIndex].element_qty);
-      //--------- Set Total Product Price
-      //setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -579,11 +553,7 @@
             break;
         }
         if(newValue !== undefined) {
-          //if (GlobalStor.global.isQtyCalculator) {
-          //  setValueQty(newValue);
-          //} else if (GlobalStor.global.isSizeCalculator) {
-            setValueSize(newValue);
-          //}
+          setValueSize(newValue);
         }
       }
     }
@@ -591,28 +561,30 @@
 
       //------- Change Size parameter
     function setValueSize(newValue) {
-      //console.info('tempSize====', AuxStor.aux.tempSize);
+      var sizeLength = AuxStor.aux.tempSize.length;
       //---- clean tempSize if indicate only one 0
-      if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
+      if(sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
         AuxStor.aux.tempSize.length = 0;
       }
-      if(AuxStor.aux.tempSize.length === 4) {
-        AuxStor.aux.tempSize.length = 0;
-      }
-      if(newValue === '00'){
-        if(AuxStor.aux.tempSize.length === 1 || AuxStor.aux.tempSize.length === 2) {
-          AuxStor.aux.tempSize.push(0, 0);
-          changeElementSize();
-        } else if(AuxStor.aux.tempSize.length === 3) {
-          AuxStor.aux.tempSize.push(0);
-          changeElementSize();
-        }
-      } else {
-        if(AuxStor.aux.tempSize.length < 4) {
+      if (newValue === '0') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
           AuxStor.aux.tempSize.push(newValue);
           changeElementSize();
         }
+      } else if(newValue === '00') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          if (sizeLength < 3) {
+            AuxStor.aux.tempSize.push(0, 0);
+          } else if (sizeLength === 3) {
+            AuxStor.aux.tempSize.push(0);
+          }
+          changeElementSize();
+        }
+      } else {
+        AuxStor.aux.tempSize.push(newValue);
+        changeElementSize();
       }
+
     }
 
 
@@ -630,19 +602,16 @@
     function changeElementSize(){
       var newElementSize = '',
           elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
 
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
-
       if(GlobalStor.global.isQtyCalculator) {
         ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
       } else if(GlobalStor.global.isSizeCalculator) {
         if(GlobalStor.global.isWidthCalculator) {
           ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
         } else {
-          if(index === 4) {
-            ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
-          }
+          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
         }
       }
 
@@ -652,33 +621,44 @@
     //------- Close Size Calculator
     function closeSizeCaclulator() {
       var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
-//console.info('closeSizeCaclulator');
-      GlobalStor.global.isWidthCalculator = 0;
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
       desactiveAddElementParameters();
-
       //-------- recalculate add element price
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width / 1000)
-      };
-
-      //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
-      localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          //          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingValue(results.priceTotal));
-          ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-          //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
-          //------- Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-        } else {
-          console.log(results);
-        }
+      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+        setAddElementsTotalPrice(ProductStor.product);
       });
+    }
+
+
+    function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
+        var objXAddElementPrice = {
+              currencyId: UserStor.userInfo.currencyId,
+              elementId: addElementsList[typeIndex][elementIndex].id,
+              elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
+              elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
+            };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
+            addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
+            addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+          }
+          return results;
+        });
+    }
+
+
+    function finishCalculators() {
+      //if(AuxStor.aux.tempSize.length) {
+        //changeElementSize();
+        if(GlobalStor.global.isSizeCalculator) {
+          closeSizeCaclulator();
+        } else if(GlobalStor.global.isQtyCalculator) {
+          closeQtyCaclulator();
+        }
+      //}
+      AuxStor.aux.currentAddElementId = 0;
     }
 
 

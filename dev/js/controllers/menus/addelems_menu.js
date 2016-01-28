@@ -74,25 +74,27 @@
     /**---------- common function to select addElem in 2 cases --------*/
 
     function selectAddElement(typeId, elementId, clickEvent) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        /** if isAddElementListView = 1 is list view otherwise is common view */
-        if (AuxStor.aux.isAddElementListView) {
-          selectAddElementList(typeId, elementId, clickEvent);
-        } else {
-          /** if grid,  show grid selector dialog */
-          if(AuxStor.aux.isFocusedAddElement === 1) {
-            if(ProductStor.product.is_addelem_only) {
-              //------ without window
-              AddElementMenuServ.chooseAddElement(typeId, elementId);
-            } else {
-              //------- show Grid Selector Dialog
-              AuxStor.aux.selectedGrid = [typeId, elementId];
-              AuxStor.aux.isGridSelectorDialog = 1;
-              DesignServ.initAllGlassXGrid();
-            }
-          } else {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if ListView is opened */
+      if (AuxStor.aux.isAddElementListView) {
+        selectAddElementList(typeId, elementId, clickEvent);
+      } else {
+        /** if grid,  show grid selector dialog */
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          if(ProductStor.product.is_addelem_only) {
+            /** without window */
             AddElementMenuServ.chooseAddElement(typeId, elementId);
+          } else {
+            /** show Grid Selector Dialog */
+            AuxStor.aux.selectedGrid = [typeId, elementId];
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
           }
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
     }
