@@ -1,32 +1,5 @@
-@mixin behavior-widening($nameExtend, $widthFrom, $widthTo) {
-  @-webkit-keyframes #{$nameExtend} {
-    from {
-      width: $widthFrom;
-    }
-    to {
-      width: $widthTo;
-    }
-  }
-  @keyframes #{$nameExtend} {
-    from {
-      width: $widthFrom;
-    }
-    to {
-      width: $widthTo;
-    }
-  }
-}
-
 @mixin behavior-move($nameMove, $fromX, $fromY, $toX, $toY) {
-  @-webkit-keyframes #{$nameMove} {
-    from {
-      -webkit-transform: translate($fromX, $fromY);
-    }
-    to {
-      -webkit-transform: translate($toX, $toY);
-    }
-  }
-  @keyframes #{$nameMove} {
+  @include keyframes($nameMove) {
     from {
       transform: translate($fromX, $fromY);
     }
@@ -37,18 +10,7 @@
 }
 
 @mixin behavior-louvers-move($nameMove, $fromX, $fromY, $middleX, $middleY, $toX, $toY) {
-  @-webkit-keyframes #{$nameMove} {
-    from {
-      -webkit-transform: translate($fromX, $fromY);
-    }
-    50% {
-      -webkit-transform: translate($middleX, $middleY);
-    }
-    to {
-      -webkit-transform: translate($toX, $toY);
-    }
-  }
-  @keyframes #{$nameMove} {
+  @include keyframes($nameMove) {
     from {
       transform: translate($fromX, $fromY);
     }
@@ -63,15 +25,7 @@
 
 // Rotate
 @mixin behavior-rotate($nameMove, $fromDeg, $toDeg) {
-  @-webkit-keyframes #{$nameMove} {
-    from {
-      -webkit-transform: rotate($fromDeg);
-    }
-    to {
-      -webkit-transform: rotate($toDeg);
-    }
-  }
-  @keyframes #{$nameMove} {
+  @include keyframes($nameMove) {
     from {
       transform: rotate($fromDeg);
     }
@@ -83,18 +37,7 @@
 
 // Splash
 @mixin behavior-splash($nameMove, $fromSize, $middleSize, $toSize) {
-  @-webkit-keyframes #{$nameMove} {
-    from {
-      -webkit-transform: scale($fromSize);
-    }
-    50% {
-      -webkit-transform: scale($middleSize);
-    }
-    to {
-      -webkit-transform: scale($toSize);
-    }
-  }
-  @keyframes #{$nameMove} {
+  @include keyframes($nameMove) {
     from {
       transform: scale($fromSize);
     }
@@ -108,42 +51,7 @@
 }
 
 @mixin behavior-flashing($nameMove) {
-  @-webkit-keyframes #{$nameMove} {
-    from {
-      opacity: 1;
-    }
-    10% {
-      opacity: 0;
-    }
-    20% {
-      opacity: 1;
-    }
-    30% {
-      opacity: 0;
-    }
-    40% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    60% {
-      opacity: 1;
-    }
-    70% {
-      opacity: 0;
-    }
-    80% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes #{$nameMove} {
+  @include keyframes($nameMove) {
     from {
       opacity: 1;
     }
@@ -181,22 +89,8 @@
 }
 
 
-@mixin behavior-jump($nameJump, $fromX, $fromY, $toX, $toY) {
-  @-webkit-keyframes #{$nameJump} {
-    from {
-      -webkit-transform: translate($fromX, $fromY);
-    }
-    5% {
-      -webkit-transform: translate($toX, $toY);
-    }
-    10% {
-      -webkit-transform: translate($fromX, $fromY);
-    }
-    to {
-      -webkit-transform: translate($fromX, $fromY);
-    }
-  }
-  @keyframes #{$nameJump} {
+@mixin behavior-jump($nameMove, $fromX, $fromY, $toX, $toY) {
+  @include keyframes($nameMove) {
     from {
       transform: translate($fromX, $fromY);
     }
@@ -211,8 +105,6 @@
     }
   }
 }
-
-
 
 
 .splash {
@@ -232,18 +124,6 @@
 }
 @include behavior-jump(jump-hor, 0, 0, -2.5rem, 0);
 
-
-// Left Menu
-//.move-menu-left {
-//  @include animation(move-navmenu-list .5s 0 ease 1);
-//}
-//@include behavior-move(move-navmenu-list, rem(-600px), 0, 0, 0);
-
-// Right Menu
-//.move-menu-right {
-//  @include animation(move-menu-right .5s 0 linear 1);
-//}
-//@include behavior-move(move-menu-right, rem(500px), 0, 0, 0);
 
 
 
