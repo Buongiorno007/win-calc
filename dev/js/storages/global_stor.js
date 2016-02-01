@@ -64,6 +64,7 @@
         //------ Lamination
         laminats: [],
         laminatCouples: [],
+        lamGroupFiltered: [],
 
         //------ Add Elements
         addElementsAll: [],

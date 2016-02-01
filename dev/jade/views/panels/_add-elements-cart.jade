@@ -74,7 +74,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
               .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
             .order-item
               .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
-              .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
+              .order-value {{ product.lamination.laminat_out_name }} / {{ product.lamination.laminat_in_name }}
               .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
             .order-item.addelements-btn
               .order-value {{cartPage.C.cart.allAddElements[$index].length}}

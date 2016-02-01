@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ProfilesCtrl', profileSelectorCtrl);
@@ -34,11 +32,15 @@
     //---------- Select profile
     function selectProfile(newId) {
       if(ProductStor.product.profile.id !== newId) {
+        /** set default white lamination */
+        MainServ.setCurrLamination();
         MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
           ProductStor.product.glass.length = 0;
           MainServ.parseTemplate().then(function () {
             //------ save analytics data
 //            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+            /** change lamination groups as of new profile */
+            MainServ.laminatFiltering();
             /** send analytics data to Server*/
             AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
           });

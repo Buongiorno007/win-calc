@@ -185,7 +185,7 @@
               }
             }
           }
-          console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('generalLocations', GlobalStor.global.locations);
           //console.info('finish time+++', new Date(), new Date().getMilliseconds());
           deff.resolve(1);
         } else {
@@ -292,11 +292,15 @@
                                       downloadAllLamination().then(function(result) {
                                         //console.log('LAMINATION++++', result);
                                         if(result && result.length) {
-                                          GlobalStor.global.laminats = angular.copy(result);
+                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
+                                            item.isActive = 0;
+                                            return item;
+                                          });
                                           /** add white color */
                                           GlobalStor.global.laminats.push({
                                             id: 1,
                                             type_id: 1,
+                                            isActive: 0,
                                             name: $filter('translate')('mainpage.WHITE_LAMINATION')
                                           });
                                           /** download lamination couples */

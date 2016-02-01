@@ -43,7 +43,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
                     li.order-item
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
-                      .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
+                      .order-value {{ product.lamination.laminat_out_name }} / {{ product.lamination.laminat_in_name }}
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
                     li.order-item.addelements-btn(ng-click="cartPage.showAddElementDetail($index)")
                       .order-value {{cartPage.C.cart.allAddElements[$index].length}}

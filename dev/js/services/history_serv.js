@@ -352,7 +352,6 @@
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
-
             //----- checking product with design or only addElements
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
@@ -371,7 +370,10 @@
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                setLaminationXOrder(tempProd);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
                 defer1.resolve(tempProd);
               });
 
@@ -423,26 +425,6 @@
         product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
       }
 
-    }
-
-
-    function setLaminationXOrder(product) {
-      if(product.lamination_in_id) {
-        var lamInQty = GlobalStor.global.laminationsIn.length;
-        while(--lamInQty > -1) {
-          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
-            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
-          }
-        }
-      }
-      if(product.lamination_out_id) {
-        var lamOutQty = GlobalStor.global.laminationsOut.length;
-        while(--lamOutQty > -1) {
-          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
-            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
-          }
-        }
-      }
     }
 
 

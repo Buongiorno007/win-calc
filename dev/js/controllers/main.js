@@ -40,6 +40,8 @@
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
+        /** start lamination filtering */
+        MainServ.laminatFiltering();
         /** download all cities */
         if(GlobalStor.global.locations.cities.length === 1) {
           loginServ.downloadAllCities(1);

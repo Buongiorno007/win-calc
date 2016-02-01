@@ -1676,6 +1676,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
+        /** start lamination filtering */
+        MainServ.laminatFiltering();
         /** download all cities */
         if(GlobalStor.global.locations.cities.length === 1) {
           loginServ.downloadAllCities(1);
@@ -2747,47 +2749,42 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
     //============ methods ================//
 
-    //------------ Select lamination
-    function selectLaminat(type, id, name) {
-      if(type) {
-        if(ProductStor.product.lamination_out_id !== id) {
-          ProductStor.product.lamination_out_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationOutName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationOutName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-        }
-      } else {
-        if(ProductStor.product.lamination_in_id !== id) {
-          ProductStor.product.lamination_in_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationInName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationInName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+
+    /** init Laminat Filter */
+    function initLaminatFilter(typeId) {
+      //console.info('init filter --- ', typeId);
+      var laminatQty = GlobalStor.global.laminats.length;
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].type_id === typeId) {
+          GlobalStor.global.laminats[laminatQty].isActive = !GlobalStor.global.laminats[laminatQty].isActive;
+          //console.info('init filter --- ', GlobalStor.global.laminats[laminatQty]);
+          MainServ.laminatFiltering();
         }
       }
     }
 
 
-    //TODO?????
-    function setLaminationTotalPrice() {
-//      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
-//      $timeout(function() {
-//        MainServ.setProductPriceTOTAL();
-//      }, 50);
+
+    //------------ Select lamination
+    function selectLaminat(id) {
+      //console.info('select lamin --- ', id);
+      MainServ.setCurrLamination(id);
+
+
+      //MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+      //  ProductStor.product.glass.length = 0;
+      //  MainServ.parseTemplate().then(function () {
+      //    //------ save analytics data
+      //    /** send analytics data to Server*/
+      //    //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+      //  });
+      //});
+
     }
 
   }
@@ -2799,9 +2796,7 @@ console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ProfilesCtrl', profileSelectorCtrl);
@@ -2833,11 +2828,15 @@ console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
     //---------- Select profile
     function selectProfile(newId) {
       if(ProductStor.product.profile.id !== newId) {
+        /** set default white lamination */
+        MainServ.setCurrLamination();
         MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
           ProductStor.product.glass.length = 0;
           MainServ.parseTemplate().then(function () {
             //------ save analytics data
 //            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+            /** change lamination groups as of new profile */
+            MainServ.laminatFiltering();
             /** send analytics data to Server*/
             AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
           });
@@ -3065,7 +3064,7 @@ console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
     //    thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
       return item.countryId === UserStor.userInfo.countryId;
     });
 
@@ -10139,7 +10138,6 @@ function ErrorResult(code, message) {
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
-
             //----- checking product with design or only addElements
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
@@ -10158,7 +10156,10 @@ function ErrorResult(code, message) {
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                setLaminationXOrder(tempProd);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
                 defer1.resolve(tempProd);
               });
 
@@ -10210,26 +10211,6 @@ function ErrorResult(code, message) {
         product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
       }
 
-    }
-
-
-    function setLaminationXOrder(product) {
-      if(product.lamination_in_id) {
-        var lamInQty = GlobalStor.global.laminationsIn.length;
-        while(--lamInQty > -1) {
-          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
-            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
-          }
-        }
-      }
-      if(product.lamination_out_id) {
-        var lamOutQty = GlobalStor.global.laminationsOut.length;
-        while(--lamOutQty > -1) {
-          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
-            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
-          }
-        }
-      }
     }
 
 
@@ -11010,6 +10991,7 @@ function ErrorResult(code, message) {
               ' profile_id INTEGER,' +
               ' glass_id VARCHAR,' +
               ' hardware_id INTEGER,' +
+              ' lamination_id INTEGER,' +
               ' lamination_out_id INTEGER,' +
               ' lamination_in_id INTEGER,' +
               ' door_shape_id INTEGER,' +
@@ -13181,7 +13163,7 @@ function ErrorResult(code, message) {
               }
             }
           }
-          console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('generalLocations', GlobalStor.global.locations);
           //console.info('finish time+++', new Date(), new Date().getMilliseconds());
           deff.resolve(1);
         } else {
@@ -13288,11 +13270,15 @@ function ErrorResult(code, message) {
                                       downloadAllLamination().then(function(result) {
                                         //console.log('LAMINATION++++', result);
                                         if(result && result.length) {
-                                          GlobalStor.global.laminats = angular.copy(result);
+                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
+                                            item.isActive = 0;
+                                            return item;
+                                          });
                                           /** add white color */
                                           GlobalStor.global.laminats.push({
                                             id: 1,
                                             type_id: 1,
+                                            isActive: 0,
                                             name: $filter('translate')('mainpage.WHITE_LAMINATION')
                                           });
                                           /** download lamination couples */
@@ -14020,6 +14006,8 @@ function ErrorResult(code, message) {
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
       closeRoomSelectorDialog: closeRoomSelectorDialog,
+      laminatFiltering: laminatFiltering,
+      setCurrLamination: setCurrLamination,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -14630,6 +14618,91 @@ function ErrorResult(code, message) {
 
 
 
+    /**-------- filtering Lamination Groupes -----------*/
+
+    function laminatFiltering() {
+      var laminatQty = GlobalStor.global.laminats.length,
+          /** sort by Profile */
+          lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
+            if(item.profile_id) {
+              return item.profile_id === ProductStor.product.profile.id;
+            } else {
+              return true;
+            }
+          }),
+          lamGroupsTempQty, isAnyActive = 0;
+
+      //console.info('filter _____ ', lamGroupsTemp);
+
+      GlobalStor.global.lamGroupFiltered.length = 0;
+
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].isActive) {
+          isAnyActive = 1;
+          lamGroupsTempQty = lamGroupsTemp.length;
+          while(--lamGroupsTempQty > -1) {
+            if(lamGroupsTemp[lamGroupsTempQty].img_in_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            } else if(lamGroupsTemp[lamGroupsTempQty].img_out_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            }
+          }
+        }
+      }
+      //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
+      if(!GlobalStor.global.lamGroupFiltered.length) {
+        if(!isAnyActive) {
+          GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+        }
+      }
+    }
+
+
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
+      }
+      return noExist;
+    }
+
+
+    function setCurrLamination(newLamId) {
+      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      //---- clean filter
+      cleanLamFilter();
+      while(--laminatGroupQty > -1) {
+        if(newLamId) {
+          //------ set lamination Couple with color
+          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        } else {
+          //----- set white lamination Couple
+          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        }
+      }
+    }
+
+
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
+      }
+    }
+
+
 
 
     /**========== CREATE ORDER ==========*/
@@ -14651,6 +14724,9 @@ function ErrorResult(code, message) {
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -14678,6 +14754,9 @@ function ErrorResult(code, message) {
       setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -14821,6 +14900,9 @@ function ErrorResult(code, message) {
           return item.id;
         }).join(', ');
         productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;
@@ -14829,8 +14911,7 @@ function ErrorResult(code, message) {
         delete productData.profile;
         delete productData.glass;
         delete productData.hardware;
-        delete productData.laminationOutName;
-        delete productData.laminationInName;
+        delete productData.lamination;
         delete productData.chosenAddElements;
         delete productData.profileDepths;
         delete productData.addelemPriceDis;
@@ -20092,6 +20173,7 @@ function ErrorResult(code, message) {
         //------ Lamination
         laminats: [],
         laminatCouples: [],
+        lamGroupFiltered: [],
 
         //------ Add Elements
         addElementsAll: [],
@@ -20393,11 +20475,6 @@ function ErrorResult(code, message) {
           img_in_id: 1,
           img_out_id: 1
         },
-        //lamination_out_id: 1,
-        //laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        //lamination_in_id: 1,
-        //laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-
         chosenAddElements: [
           [], // 0 - grids
           [], // 1 - visors

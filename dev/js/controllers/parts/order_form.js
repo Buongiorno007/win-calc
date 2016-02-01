@@ -22,7 +22,7 @@
     //    thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
       return item.countryId === UserStor.userInfo.countryId;
     });
 
