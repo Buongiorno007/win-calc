@@ -37,11 +37,19 @@
           impostDepth: {},
           shtulpDepth: {}
         },
-
-        lamination_out_id: 1,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 1,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          img_in_id: 1,
+          img_out_id: 1
+        },
+        //lamination_out_id: 1,
+        //laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        //lamination_in_id: 1,
+        //laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
 
         chosenAddElements: [
           [], // 0 - grids

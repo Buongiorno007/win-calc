@@ -217,6 +217,19 @@
               ' img VARCHAR',
             'foreignKey': ''
           },
+          'profile_laminations': {
+            'tableName': 'profile_laminations',
+            'prop': 'profile_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' code_sync VARCHAR',
+            'foreignKey': ''
+          },
           'rules_types': {
             'tableName': 'rules_types',
             'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',

@@ -88,22 +88,13 @@
         AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
         switch (toolsId) {
           case 1:
-            if(currElem.element_qty) {
-              AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-            }
             GlobalStor.global.isQtyCalculator = 1;
             break;
           case 2:
-            if(currElem.element_width) {
-              AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 1;
             break;
           case 3:
-            if(currElem.element_height) {
-              AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 0;
             break;

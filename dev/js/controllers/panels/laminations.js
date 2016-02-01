@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
@@ -24,8 +22,7 @@
     thisCtrl.selectLaminat = selectLaminat;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-
-
+console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
     //============ methods ================//
 
     //------------ Select lamination

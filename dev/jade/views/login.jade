@@ -59,17 +59,17 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.minlength || registrForm.phone.$dirty && registrForm.phone.$error.minlength") {{ 'login.SHORT_PHONE' | translate }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }")
-        select.user-select-field(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.generalLocations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()", required)
+        select.user-select-field(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()", required)
           option(value='') {{ 'login.SELECT_COUNTRY' | translate }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.country.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }")
-        select.user-select-field(name="region", ng-model="loginPage.user.region", ng-options="region.name for region in loginPage.generalLocations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.country", required)
+        select.user-select-field(name="region", ng-model="loginPage.user.region", ng-options="region.name for region in loginPage.G.global.locations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.country", required)
           option(value='') {{ 'login.SELECT_REGION' | translate }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.region.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.city.$error.required, 'placeholder-select': !loginPage.user.city }")
-        select.user-select-field(name="city", ng-model="loginPage.user.city", ng-options="city.name for city in loginPage.generalLocations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'name'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.region", required)
+        select.user-select-field(name="city", ng-model="loginPage.user.city", ng-options="city.cityName for city in loginPage.G.global.locations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'cityName'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.region", required)
           option(value='') {{ 'login.SELECT_CITY' | translate }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 

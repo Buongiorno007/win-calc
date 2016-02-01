@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
+  function mainPageCtrl(loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -40,6 +40,10 @@
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+        }
         //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }

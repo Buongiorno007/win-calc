@@ -973,9 +973,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
@@ -992,7 +990,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //  thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
       return item.countryId === UserStor.userInfo.countryId;
     });
 
@@ -1012,7 +1010,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         UserStor.userInfo.city_id = location.cityId;
         UserStor.userInfo.cityName = location.cityName;
         UserStor.userInfo.countryId = location.countryId;
-        UserStor.userInfo.countryName = location.countryName;
+        //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
         UserStor.userInfo.climaticZone = location.climaticZone;
         UserStor.userInfo.heatTransfer = location.heatTransfer;
@@ -1038,9 +1036,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
@@ -1048,12 +1044,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
     thisCtrl.isLocalDB = 0;
     thisCtrl.isRegistration = 0;
-    thisCtrl.generalLocations = {};
     thisCtrl.submitted = 0;
     thisCtrl.isUserExist = 0;
     thisCtrl.isUserNotExist = 0;
@@ -1273,8 +1270,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     if(data[0].locked) {
                       angular.extend(UserStor.userInfo, data[0]);
                       //------- set User Location
-                      loginServ.prepareLocationToUse().then(function(data) {
-                        thisCtrl.generalLocations = data;
+                      loginServ.prepareLocationToUse().then(function() {
                         checkingFactory();
                       });
 
@@ -1319,9 +1315,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   if(data[0].factory_id > 0) {
                     angular.extend(UserStor.userInfo, data[0]);
                     //------- set User Location
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+                    loginServ.prepareLocationToUse().then(function() {
+                      loginServ.setUserLocation();
                       /** download all data */
                       loginServ.downloadAllData();
                     });
@@ -1359,7 +1354,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
@@ -1408,9 +1403,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                   if(data) {
                     //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
+                    loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
                   }
@@ -1431,7 +1424,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function checkingFactory() {
       //------- set User Location
-      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+      loginServ.setUserLocation();
       if((UserStor.userInfo.factory_id * 1) > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
@@ -1449,12 +1442,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else {
         //---- show Factory List
         //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
+        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
           localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
 //            console.log('Factories++++++', result);
             GlobalStor.global.isLoader = 0;
             if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories, thisCtrl.generalLocations.mergerLocation);
+              thisCtrl.factories = setFactoryLocation(result.factories);
               //-------- close Factory Dialog
               thisCtrl.isFactoryId = 1;
             } else {
@@ -1483,13 +1476,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function setFactoryLocation(factories, location) {
+    function setFactoryLocation(factories) {
       var factoryQty = factories.length,
-          locationQty = location.length;
+          locationQty;
       while(--factoryQty > -1) {
-        for(var l = 0; l < locationQty; l++) {
-          if(factories[factoryQty].city_id === location[l].cityId) {
-            factories[factoryQty].location = location[l].fullLocation;
+        locationQty = GlobalStor.global.locations.cities.length;
+        while(--locationQty > -1) {
+          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
+            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
           }
         }
       }
@@ -1542,11 +1536,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
 //          console.log('REG', data);
-          //------ if generalLocations is not exists refresh Location and Users
+          //------ if locations is not exists refresh Location and Users
           if(thisCtrl.isLocalDB) {
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-//              console.log('DOWNLOAD LOCATION 1', data);
+            GlobalStor.global.isLoader = 1;
+            loginServ.prepareLocationToUse(1).then(function() {
+              GlobalStor.global.isLoader = 0;
               thisCtrl.isRegistration = 1;
             });
           } else {
@@ -1561,9 +1555,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     localDB.importLocation().then(function(data) {
                       if(data) {
                         //------ save Location Data in local obj
-                        loginServ.prepareLocationToUse().then(function(data) {
-                          thisCtrl.generalLocations = data;
-//                          console.log('DOWNLOAD LOCATION 2', data);
+                        loginServ.prepareLocationToUse(1).then(function() {
                           GlobalStor.global.isLoader = 0;
                           thisCtrl.isRegistration = 1;
                         });
@@ -1651,7 +1643,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
+  function mainPageCtrl(loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -1684,6 +1676,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+        }
         //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
@@ -2731,9 +2727,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
@@ -2755,8 +2749,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectLaminat = selectLaminat;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-
-
+console.info(GlobalStor.global.laminats, GlobalStor.global.laminatCouples);
     //============ methods ================//
 
     //------------ Select lamination
@@ -3494,9 +3487,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsPageCtrl);
@@ -5863,22 +5854,13 @@ function ErrorResult(code, message) {
         AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
         switch (toolsId) {
           case 1:
-            if(currElem.element_qty) {
-              AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-            }
             GlobalStor.global.isQtyCalculator = 1;
             break;
           case 2:
-            if(currElem.element_width) {
-              AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 1;
             break;
           case 3:
-            if(currElem.element_height) {
-              AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 0;
             break;
@@ -10732,6 +10714,19 @@ function ErrorResult(code, message) {
               ' img VARCHAR',
             'foreignKey': ''
           },
+          'profile_laminations': {
+            'tableName': 'profile_laminations',
+            'prop': 'profile_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' code_sync VARCHAR',
+            'foreignKey': ''
+          },
           'rules_types': {
             'tableName': 'rules_types',
             'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
@@ -13006,7 +13001,7 @@ function ErrorResult(code, message) {
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -13015,6 +13010,7 @@ function ErrorResult(code, message) {
       initExport: initExport,
       isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
@@ -13116,110 +13112,111 @@ function ErrorResult(code, message) {
 
 
     //------- collecting cities, regions and countries in one object for registration form
-    function prepareLocationToUse() {
+    function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
-          generalLocations = {
-            countries: [],
-            regions: [],
-            cities: [],
-            mergerLocation: []
-          },
-          countryQty, regionQty, cityQty;
-      //console.info('start time+++', new Date(), new Date().getMilliseconds());
-      //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function(data) {
-        //console.log('country!!!', data);
-        countryQty = data.length;
-        if(countryQty) {
-          generalLocations.countries = angular.copy(data);
-        } else {
-          console.log('Error!!!', data);
-        }
-      }).then(function(){
-
-        //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function(data) {
-          //console.log('regions!!!', data);
-          regionQty = data.length;
-          if(regionQty) {
-            generalLocations.regions = angular.copy(data);
+          countryQty, regionQty;
+      //if(!GlobalStor.global.locations.cities.length) {
+        //console.info('start time+++', new Date(), new Date().getMilliseconds());
+        //---- get all counties
+        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+        }).then(function () {
 
-        }).then( function() {
-
-          //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, null, 'id, name, region_id as regionId').then(function(data) {
-            //console.log('cities!!!', data);
-            cityQty = data.length;
-            if(cityQty) {
-              generalLocations.cities = angular.copy(data);
-              for(var cit = 0; cit < cityQty; cit++) {
-                var location = {
-                  cityId: generalLocations.cities[cit].id,
-                  cityName: generalLocations.cities[cit].name
-                };
-                for(var r = 0; r < regionQty; r++) {
-                  if(generalLocations.cities[cit].regionId === generalLocations.regions[r].id) {
-                    location.regionName = generalLocations.regions[r].name;
-                    location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
-                    for(var s = 0; s < countryQty; s++) {
-                      if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
-                        location.countryId = generalLocations.countries[s].id;
-                        //location.countryName = generalLocations.countries[s].name;
-                        location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName;
-                        generalLocations.mergerLocation.push(location);
-                      }
-                    }
-                  }
-                }
-
-              }
-              //console.info('generalLocations', generalLocations);
-              GlobalStor.locations = angular.copy(generalLocations);
-              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
-              deferred.resolve(generalLocations);
+          //--------- get all regions
+          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
+            //console.log('regions!!!', data);
+            regionQty = data.length;
+            if (regionQty) {
+              GlobalStor.global.locations.regions = angular.copy(data);
             } else {
-              deferred.reject(data);
+              console.log('Error!!!', data);
             }
-          });
 
+          }).then(function () {
+            //--------- get city
+            downloadAllCities(allCityParam).then(function () {
+              deferred.resolve(1);
+            });
+          });
         });
-      });
+      //} else {
+      //  deferred.resolve(1);
+      //}
       return deferred.promise;
     }
 
 
-    function collectCityIdsAsCountry(location) {
-      var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      for(var i = 0; i < locationQty; i++) {
-        if(location[i].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[i].cityId);
+
+    function downloadAllCities(allCityParam) {
+      var deff = $q.defer(),
+          cityOption = (allCityParam) ? null : {'id': UserStor.userInfo.city_id},
+          countryQty, regionQty, cityQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+        //console.log('cities!!!', data);
+        cityQty = data.length;
+        if(cityQty) {
+          GlobalStor.global.locations.cities = angular.copy(data);
+          while(--cityQty > -1) {
+            regionQty = GlobalStor.global.locations.regions.length;
+            while(--regionQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                countryQty = GlobalStor.global.locations.countries.length;
+                while(--countryQty > -1) {
+                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+
+                  }
+                }
+              }
+            }
+          }
+          console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+          deff.resolve(1);
+        } else {
+          deff.resolve(0);
         }
-      }
-      defer.resolve(cityIds.join(','));
+      });
+      return deff.promise;
+    }
+
+
+
+    function collectCityIdsAsCountry() {
+      var defer = $q.defer(),
+          cityIds = GlobalStor.global.locations.cities.map(function(item) {
+            if(item.countryId === UserStor.userInfo.countryId) {
+              return item.cityId;
+            }
+          }).join(',');
+      defer.resolve(cityIds);
       return defer.promise;
     }
 
 
     //--------- set user location
-    function setUserLocation(locations, cityId) {
-      var locationQty = locations.length;
-      for(var loc = 0; loc < locationQty; loc++) {
-        if(locations[loc].cityId === cityId) {
-          UserStor.userInfo.cityName = locations[loc].cityName;
-          UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/locations[loc].heatTransfer) : locations[loc].heatTransfer;
-          //UserStor.userInfo.countryName = locations[loc].countryName;
-          UserStor.userInfo.countryId = locations[loc].countryId;
-          UserStor.userInfo.fullLocation = locations[loc].fullLocation;
+    function setUserLocation() {
+      var cityQty = GlobalStor.global.locations.cities.length;
+      while(--cityQty > -1) {
+        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].climaticZone, UserStor.userInfo.heatTransfer, locations[loc].fullLocation);
+          setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
         }
       }
     }
@@ -13289,25 +13286,28 @@ function ErrorResult(code, message) {
                                       //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
-                                        var lamins = angular.copy(result);
-                                        //console.log('LAMINATION++++', lamins);
-                                        if(lamins) {
-                                          var laminQty = lamins.length;
-                                          if(laminQty) {
-                                            /** change Images Path and save in device */
-                                            while(--laminQty > -1) {
-                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
-                                            }
-                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
-                                          }
+                                        //console.log('LAMINATION++++', result);
+                                        if(result && result.length) {
+                                          GlobalStor.global.laminats = angular.copy(result);
+                                          /** add white color */
+                                          GlobalStor.global.laminats.push({
+                                            id: 1,
+                                            type_id: 1,
+                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                          });
+                                          /** download lamination couples */
+                                          downloadLamCouples().then(function() {
+                                            /** add white-white couple */
+                                            GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
+
+                                            //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
+                                            /** download Cart Menu Data */
+                                            downloadCartMenuData();
+                                            GlobalStor.global.isLoader = 0;
+                                            $location.path('/main');
+                                            //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                          });
                                         }
-                                        //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
-                                        /** download Cart Menu Data */
-                                        downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
-                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                       });
                                     });
                                   });
@@ -13744,12 +13744,43 @@ function ErrorResult(code, message) {
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
         return lamin;
       });
     }
 
 
+    /** download lamination couples */
+    function downloadLamCouples() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
+        if(lamins) {
+          GlobalStor.global.laminatCouples = angular.copy(lamins);
+          /** add lamination names */
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
+          while(--coupleQty > -1) {
+            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
+            delete GlobalStor.global.laminatCouples[coupleQty].modified;
+            for(lam = 0; lam < laminatQty; lam++) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+              }
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+              }
+            }
+          }
+          deff.resolve(1);
+        } else {
+          deff.resolve(1);
+        }
+      });
+      return deff.promise;
+    }
 
 
     function downloadAllAddElements() {
@@ -20059,8 +20090,8 @@ function ErrorResult(code, message) {
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsIn: [],
-        laminationsOut: [],
+        laminats: [],
+        laminatCouples: [],
 
         //------ Add Elements
         addElementsAll: [],
@@ -20082,7 +20113,11 @@ function ErrorResult(code, message) {
         isReport: 0,
 
         currencies: [],
-        locations: {},
+        locations: {
+          countries: [],
+          regions: [],
+          cities: []
+        },
         margins: {},
         deliveryCoeff: {},
 
@@ -20349,11 +20384,19 @@ function ErrorResult(code, message) {
           impostDepth: {},
           shtulpDepth: {}
         },
-
-        lamination_out_id: 1,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 1,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          img_in_id: 1,
+          img_out_id: 1
+        },
+        //lamination_out_id: 1,
+        //laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        //lamination_in_id: 1,
+        //laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
 
         chosenAddElements: [
           [], // 0 - grids
@@ -20579,9 +20622,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'Isolierung',
         CORROSION_COEFF: 'Korrosionsschutz',
         BURGLAR_COEFF: 'Diebstahlschutz',
-        LAMINAT_INSIDE: 'Laminieren des Rahmens im Raum',
-        LAMINAT_OUTSIDE: 'Laminierung von Seiten der Straßenfront',
-        LAMINAT_WHITE: 'ohne Laminierung, eine radikale weiß',
+        LAMINAT_INSIDE: 'im Raum',
+        LAMINAT_OUTSIDE: 'Straßenfront',
         ONE_WINDOW_TYPE: 'Das Einaufklappbare',
         TWO_WINDOW_TYPE: 'Das Zweiaufklappbare',
         THREE_WINDOW_TYPE: 'Das Dreiaufklappbare',
@@ -20930,9 +20972,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'noise isolation',
         CORROSION_COEFF: 'Anticorrosion',
         BURGLAR_COEFF: 'Burglar',
-        LAMINAT_INSIDE: 'Lamination of a frame in the room',
-        LAMINAT_OUTSIDE: 'Lamination from a facade',
-        LAMINAT_WHITE: 'without lamination, radical white color',
+        LAMINAT_INSIDE: 'In room',
+        LAMINAT_OUTSIDE: 'Facade',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -21279,9 +21320,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'isolamento acustico',
         CORROSION_COEFF: 'anticorrosione',
         BURGLAR_COEFF: 'protezione contro rottura',
-        LAMINAT_INSIDE: 'Laminazione dell’infisso in camera',
-        LAMINAT_OUTSIDE: 'Laminazione dal lato della facciata',
-        LAMINAT_WHITE: 'senza laminazione',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'la facciata',
         ONE_WINDOW_TYPE: 'La porta sola',
         TWO_WINDOW_TYPE: "L'ala doppio",
         THREE_WINDOW_TYPE: 'Il da tre foglie',
@@ -21629,9 +21669,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'izolare fonica',
         CORROSION_COEFF: 'anticoroziune',
         BURGLAR_COEFF: 'hoț',
-        LAMINAT_INSIDE: 'Laminarea a cadrului in camera',
-        LAMINAT_OUTSIDE: 'Laminare din față',
-        LAMINAT_WHITE: 'Fără laminare, de culoare albă radical',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'față',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -21978,9 +22017,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоизоляция',
         CORROSION_COEFF: 'aнтикоррозийность',
         BURGLAR_COEFF: 'противовзломность',
-        LAMINAT_INSIDE: 'Ламинация рамы в комнате',
-        LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
-        LAMINAT_WHITE: 'без ламинации, радикальный белый цвет',
+        LAMINAT_INSIDE: 'в комнате',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -22327,9 +22365,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоізоляція',
         CORROSION_COEFF: 'aнтикорозійність',
         BURGLAR_COEFF: 'протизламність',
-        LAMINAT_INSIDE: 'Ламінація рами в кімнаті',
-        LAMINAT_OUTSIDE: 'Ламінація з боку фасаду',
-        LAMINAT_WHITE: 'без ламінації, радикальний білий колір',
+        LAMINAT_INSIDE: 'в кімнаті',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',

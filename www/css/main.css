@@ -341,7 +341,7 @@ th {
 }
 /* line 110, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .glass-container .glass-selector-dialog .set-glass-warning span, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
+.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .glass-container .glass-selector-dialog .set-glass-warning span, .hardware-container .hardware-box, .lamination-container .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
   animation: splashing 0.5s ease 0s 1;
@@ -3258,7 +3258,7 @@ div.drum figure {
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   height: 70rem;
-  left: -255rem;
+  left: -258rem;
   background-color: #fff;
   z-index: 12;
   text-align: center;
@@ -7932,95 +7932,94 @@ tr.factory_item {
   overflow-x: hidden;
   padding: 3.125rem 5rem;
 }
-/* line 5, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-block {
-  margin-bottom: 6.25rem;
-}
-/* line 8, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-block:last-child {
-  margin-bottom: 0;
-}
-/* line 12, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-title {
-  font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
-  margin-bottom: 0.9375rem;
-  color: #363636;
-}
-/* line 18, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-white {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  align-items: center;
-  margin-bottom: 0.9375rem;
-}
-/* line 26, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lam-option-box {
-  position: relative;
-  float: left;
-  min-height: 20.375rem;
-  margin-right: 0.9375rem;
-}
-/* line 32, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-img {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+/* line 7, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-img {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
-  width: 14.0625rem;
-  min-width: 11.875rem;
-  height: 14.0625rem;
-  cursor: pointer;
 }
-/* line 43, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-img img {
-  max-width: 11.875rem;
-  width: 11.875rem;
+/* line 10, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-img img {
   height: 11.5rem;
 }
-/* line 48, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-img.selected {
+/* line 13, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-img.selected {
   position: relative;
-  border-radius: 0.9375rem;
-  background-color: #6ed44a;
+  outline: 3px solid #6ed44a;
 }
-/* line 52, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-img.selected:after {
-  font: normal 8.125rem/8.125rem icons, sans-serif;
+/* line 16, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-img.selected:after {
+  font: normal 8.125rem/7rem icons, sans-serif;
   position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
+  top: 18%;
+  left: 36%;
   color: #6ed44a;
   content: "";
 }
-/* line 63, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-label {
+/* line 27, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  max-width: 11.875rem;
-  padding: 0 1.0625rem;
   word-wrap: break-word;
   color: #363636;
 }
-/* line 70, ../../dev/sass/panels/lamination.scss */
-.lamination-container .lamination-label.for-white {
-  max-width: 31.25rem;
+/* line 34, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-filter {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2rem;
 }
-/* line 74, ../../dev/sass/panels/lamination.scss */
+/* line 40, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-filter .laminat-box {
+  margin-right: 3rem;
+}
+/* line 44, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-filter .laminat-img img {
+  width: 25.4rem;
+}
+/* line 51, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-groups {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  height: 77%;
+  overflow: auto;
+  padding-top: 3rem;
+}
+/* line 59, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-groups .laminat-box {
+  margin-bottom: 3rem;
+}
+/* line 62, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-groups .laminat-row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+/* line 68, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-groups .laminat-img img {
+  width: 12rem;
+}
+/* line 72, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-groups .laminat-label {
+  font-size: 2rem;
+}
+/* line 78, ../../dev/sass/panels/lamination.scss */
 .lamination-container .info {
   top: -1.25rem;
   right: 3.125rem;
 }
-/* line 78, ../../dev/sass/panels/lamination.scss */
+/* line 82, ../../dev/sass/panels/lamination.scss */
 .lamination-container .lamination-img.selected ~ .info {
   top: -1.875rem;
   right: 1.875rem;

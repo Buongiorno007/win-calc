@@ -62,8 +62,8 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsIn: [],
-        laminationsOut: [],
+        laminats: [],
+        laminatCouples: [],
 
         //------ Add Elements
         addElementsAll: [],
@@ -85,7 +85,11 @@
         isReport: 0,
 
         currencies: [],
-        locations: {},
+        locations: {
+          countries: [],
+          regions: [],
+          cities: []
+        },
         margins: {},
         deliveryCoeff: {},
 

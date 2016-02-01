@@ -5,7 +5,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -14,6 +14,7 @@
       initExport: initExport,
       isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
@@ -115,110 +116,111 @@
 
 
     //------- collecting cities, regions and countries in one object for registration form
-    function prepareLocationToUse() {
+    function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
-          generalLocations = {
-            countries: [],
-            regions: [],
-            cities: [],
-            mergerLocation: []
-          },
-          countryQty, regionQty, cityQty;
-      //console.info('start time+++', new Date(), new Date().getMilliseconds());
-      //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function(data) {
-        //console.log('country!!!', data);
-        countryQty = data.length;
-        if(countryQty) {
-          generalLocations.countries = angular.copy(data);
-        } else {
-          console.log('Error!!!', data);
-        }
-      }).then(function(){
-
-        //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function(data) {
-          //console.log('regions!!!', data);
-          regionQty = data.length;
-          if(regionQty) {
-            generalLocations.regions = angular.copy(data);
+          countryQty, regionQty;
+      //if(!GlobalStor.global.locations.cities.length) {
+        //console.info('start time+++', new Date(), new Date().getMilliseconds());
+        //---- get all counties
+        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+        }).then(function () {
 
-        }).then( function() {
-
-          //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, null, 'id, name, region_id as regionId').then(function(data) {
-            //console.log('cities!!!', data);
-            cityQty = data.length;
-            if(cityQty) {
-              generalLocations.cities = angular.copy(data);
-              for(var cit = 0; cit < cityQty; cit++) {
-                var location = {
-                  cityId: generalLocations.cities[cit].id,
-                  cityName: generalLocations.cities[cit].name
-                };
-                for(var r = 0; r < regionQty; r++) {
-                  if(generalLocations.cities[cit].regionId === generalLocations.regions[r].id) {
-                    location.regionName = generalLocations.regions[r].name;
-                    location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
-                    for(var s = 0; s < countryQty; s++) {
-                      if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
-                        location.countryId = generalLocations.countries[s].id;
-                        //location.countryName = generalLocations.countries[s].name;
-                        location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName;
-                        generalLocations.mergerLocation.push(location);
-                      }
-                    }
-                  }
-                }
-
-              }
-              //console.info('generalLocations', generalLocations);
-              GlobalStor.locations = angular.copy(generalLocations);
-              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
-              deferred.resolve(generalLocations);
+          //--------- get all regions
+          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
+            //console.log('regions!!!', data);
+            regionQty = data.length;
+            if (regionQty) {
+              GlobalStor.global.locations.regions = angular.copy(data);
             } else {
-              deferred.reject(data);
+              console.log('Error!!!', data);
             }
-          });
 
+          }).then(function () {
+            //--------- get city
+            downloadAllCities(allCityParam).then(function () {
+              deferred.resolve(1);
+            });
+          });
         });
-      });
+      //} else {
+      //  deferred.resolve(1);
+      //}
       return deferred.promise;
     }
 
 
-    function collectCityIdsAsCountry(location) {
-      var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      for(var i = 0; i < locationQty; i++) {
-        if(location[i].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[i].cityId);
+
+    function downloadAllCities(allCityParam) {
+      var deff = $q.defer(),
+          cityOption = (allCityParam) ? null : {'id': UserStor.userInfo.city_id},
+          countryQty, regionQty, cityQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+        //console.log('cities!!!', data);
+        cityQty = data.length;
+        if(cityQty) {
+          GlobalStor.global.locations.cities = angular.copy(data);
+          while(--cityQty > -1) {
+            regionQty = GlobalStor.global.locations.regions.length;
+            while(--regionQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                countryQty = GlobalStor.global.locations.countries.length;
+                while(--countryQty > -1) {
+                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+
+                  }
+                }
+              }
+            }
+          }
+          console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+          deff.resolve(1);
+        } else {
+          deff.resolve(0);
         }
-      }
-      defer.resolve(cityIds.join(','));
+      });
+      return deff.promise;
+    }
+
+
+
+    function collectCityIdsAsCountry() {
+      var defer = $q.defer(),
+          cityIds = GlobalStor.global.locations.cities.map(function(item) {
+            if(item.countryId === UserStor.userInfo.countryId) {
+              return item.cityId;
+            }
+          }).join(',');
+      defer.resolve(cityIds);
       return defer.promise;
     }
 
 
     //--------- set user location
-    function setUserLocation(locations, cityId) {
-      var locationQty = locations.length;
-      for(var loc = 0; loc < locationQty; loc++) {
-        if(locations[loc].cityId === cityId) {
-          UserStor.userInfo.cityName = locations[loc].cityName;
-          UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/locations[loc].heatTransfer) : locations[loc].heatTransfer;
-          //UserStor.userInfo.countryName = locations[loc].countryName;
-          UserStor.userInfo.countryId = locations[loc].countryId;
-          UserStor.userInfo.fullLocation = locations[loc].fullLocation;
+    function setUserLocation() {
+      var cityQty = GlobalStor.global.locations.cities.length;
+      while(--cityQty > -1) {
+        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].climaticZone, UserStor.userInfo.heatTransfer, locations[loc].fullLocation);
+          setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
         }
       }
     }
@@ -288,25 +290,28 @@
                                       //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
-                                        var lamins = angular.copy(result);
-                                        //console.log('LAMINATION++++', lamins);
-                                        if(lamins) {
-                                          var laminQty = lamins.length;
-                                          if(laminQty) {
-                                            /** change Images Path and save in device */
-                                            while(--laminQty > -1) {
-                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
-                                            }
-                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
-                                          }
+                                        //console.log('LAMINATION++++', result);
+                                        if(result && result.length) {
+                                          GlobalStor.global.laminats = angular.copy(result);
+                                          /** add white color */
+                                          GlobalStor.global.laminats.push({
+                                            id: 1,
+                                            type_id: 1,
+                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                          });
+                                          /** download lamination couples */
+                                          downloadLamCouples().then(function() {
+                                            /** add white-white couple */
+                                            GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
+
+                                            //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
+                                            /** download Cart Menu Data */
+                                            downloadCartMenuData();
+                                            GlobalStor.global.isLoader = 0;
+                                            $location.path('/main');
+                                            //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                          });
                                         }
-                                        //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
-                                        /** download Cart Menu Data */
-                                        downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
-                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                       });
                                     });
                                   });
@@ -743,12 +748,43 @@
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
         return lamin;
       });
     }
 
 
+    /** download lamination couples */
+    function downloadLamCouples() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
+        if(lamins) {
+          GlobalStor.global.laminatCouples = angular.copy(lamins);
+          /** add lamination names */
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
+          while(--coupleQty > -1) {
+            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
+            delete GlobalStor.global.laminatCouples[coupleQty].modified;
+            for(lam = 0; lam < laminatQty; lam++) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+              }
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+              }
+            }
+          }
+          deff.resolve(1);
+        } else {
+          deff.resolve(1);
+        }
+      });
+      return deff.promise;
+    }
 
 
     function downloadAllAddElements() {
