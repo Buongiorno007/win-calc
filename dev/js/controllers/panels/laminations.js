@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl(globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -40,21 +40,16 @@
     }
 
 
-
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
       MainServ.setCurrLamination(id);
 
-
-      //MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-      //  ProductStor.product.glass.length = 0;
-      //  MainServ.parseTemplate().then(function () {
-      //    //------ save analytics data
-      //    /** send analytics data to Server*/
-      //    //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-      //  });
-      //});
+      MainServ.setProfileByLaminat(id).then(function() {
+        //------ save analytics data
+        /** send analytics data to Server*/
+        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+      });
 
     }
 

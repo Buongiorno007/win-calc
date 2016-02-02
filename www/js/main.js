@@ -2578,9 +2578,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('GlassesCtrl', glassSelectorCtrl);
@@ -2657,7 +2655,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         ProductStor.product.template = angular.copy(result);
         //------ calculate price
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
@@ -2677,9 +2675,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('HardwaresCtrl', hardwareSelectorCtrl);
@@ -2712,7 +2708,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
 //        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
@@ -2734,7 +2730,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl(globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2769,21 +2765,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
       MainServ.setCurrLamination(id);
 
-
-      //MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-      //  ProductStor.product.glass.length = 0;
-      //  MainServ.parseTemplate().then(function () {
-      //    //------ save analytics data
-      //    /** send analytics data to Server*/
-      //    //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-      //  });
-      //});
+      MainServ.setProfileByLaminat(id).then(function() {
+        //------ save analytics data
+        /** send analytics data to Server*/
+        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+      });
 
     }
 
@@ -2853,9 +2844,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
 'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
@@ -7082,7 +7071,7 @@ function ErrorResult(code, message) {
         }
 
         /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = 1;
           backtoTemplatePanel();
@@ -9695,9 +9684,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -14008,6 +13997,7 @@ function ErrorResult(code, message) {
       closeRoomSelectorDialog: closeRoomSelectorDialog,
       laminatFiltering: laminatFiltering,
       setCurrLamination: setCurrLamination,
+      setProfileByLaminat: setProfileByLaminat,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -14162,9 +14152,9 @@ function ErrorResult(code, message) {
     function setCurrentProfile(product, id) {
       var deferred = $q.defer();
       if(id) {
-        product.profile = fineItemById(id, GlobalStor.global.profiles);
+        product.profile = angular.copy(fineItemById(id, GlobalStor.global.profiles));
       } else {
-        product.profile = GlobalStor.global.profiles[0][0];
+        product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
       }
       //------- set Depths
       $q.all([
@@ -14222,7 +14212,7 @@ function ErrorResult(code, message) {
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
           deferred.resolve(1);
         });
       });
@@ -14345,10 +14335,10 @@ function ErrorResult(code, message) {
 
 
     //--------- create object to send in server for price calculation
-    function preparePrice(template, profileId, glassIds, hardwareId) {
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
-      setBeadId(profileId).then(function(beadResult) {
+      setBeadId(profileId, laminatId).then(function(beadResult) {
         var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
               var beadQty = template.priceElements.beadsSize.length;
               while(--beadQty > -1) {
@@ -14424,29 +14414,89 @@ function ErrorResult(code, message) {
 
 
     /** set Bead Id */
-    function setBeadId(profileId) {
-      var defer = $q.defer(),
-          promises = ProductStor.product.glass.map(function(item) {
-            var defer2 = $q.defer();
+    function setBeadId(profileId, laminatId) {
+      var deff = $q.defer(),
+          promisBeads = ProductStor.product.glass.map(function(item) {
+            var deff2 = $q.defer();
             if(item.glass_width) {
-              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function (result) {
-                if(result.length) {
-                  var beadObj = {
-                    glassId: item.id,
-                    beadId: result[0].list_id
-                  };
-                  defer2.resolve(beadObj);
+              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(beadIds) {
+                var beadsQty = beadIds.length,
+                    beadObj = {
+                      glassId: item.id,
+                      beadId: 0
+                    };
+                if(beadsQty) {
+                  console.log('beads++++', beadIds);
+                  //----- if beads more one
+                  if(beadsQty > 1) {
+                    //----- go to kits and find bead width required laminat Id
+                    var pomisList = beadIds.map(function(item2) {
+                      var deff3 = $q.defer();
+                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2}, 'beed_lamination_id').then(function(lamId) {
+                        console.log('lamId++++', lamId);
+                        if(lamId) {
+                          if(lamId[0] === laminatId) {
+                            deff3.resolve(1);
+                          } else {
+                            deff3.resolve(0);
+                          }
+                        }
+                      });
+                      return deff3.promise;
+                    });
+
+                    $q.all(pomisList).then(function(results) {
+                      console.log('finish++++', results);
+                      var resultQty = results.length;
+                      while(--resultQty > -1) {
+                        if(results[resultQty]) {
+                          beadObj.beadId = beadIds[resultQty].list_id;
+                          deff2.resolve(beadObj);
+                        }
+                      }
+                    });
+
+                  } else {
+                    beadObj.beadId = beadIds[0].list_id;
+                    deff2.resolve(beadObj);
+                  }
+
                 } else {
                   console.log('Error!!', result);
-                  defer2.resolve(0);
+                  deff2.resolve(0);
                 }
               });
-              return defer2.promise;
+              return deff2.promise;
             }
           });
-      defer.resolve($q.all(promises));
-      return defer.promise;
+
+      deff.resolve($q.all(promisBeads));
+      return deff.promise;
     }
+
+    //function setBeadId(profileId, laminatId) {
+    //  var defer = $q.defer(),
+    //      promises = ProductStor.product.glass.map(function(item) {
+    //        var defer2 = $q.defer();
+    //        if(item.glass_width) {
+    //          localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(result) {
+    //            if(result.length) {
+    //              var beadObj = {
+    //                glassId: item.id,
+    //                beadId: result[0].list_id
+    //              };
+    //              defer2.resolve(beadObj);
+    //            } else {
+    //              console.log('Error!!', result);
+    //              defer2.resolve(0);
+    //            }
+    //          });
+    //          return defer2.promise;
+    //        }
+    //      });
+    //  defer.resolve($q.all(promises));
+    //  return defer.promise;
+    //}
 
 
     //---------- Price define
@@ -14701,6 +14751,53 @@ function ErrorResult(code, message) {
         GlobalStor.global.laminats[laminatQty].isActive = 0;
       }
     }
+
+
+
+    function setProfileByLaminat(lamId) {
+      var deff = $q.defer();
+      if(lamId) {
+        //------ set profiles parameters
+        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+      } else {
+        ProductStor.product.profile = angular.copy(fineItemById(ProductStor.product.profile.id, GlobalStor.global.profiles));
+      }
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
+        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        ProductStor.product.profileDepths.frameDepth = result[0];
+        ProductStor.product.profileDepths.frameStillDepth = result[1];
+        ProductStor.product.profileDepths.sashDepth = result[2];
+        ProductStor.product.profileDepths.impostDepth = result[3];
+        ProductStor.product.profileDepths.shtulpDepth = result[4];
+
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+            deff.resolve(1);
+          });
+          //----- create template icon
+          SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+            ProductStor.product.templateIcon = angular.copy(result);
+          });
+        });
+
+      });
+      return deff.promise;
+    }
+
+
+
 
 
 
@@ -19760,7 +19857,7 @@ function ErrorResult(code, message) {
         MainServ.setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
         //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
         //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         /** send analytics data to Server*/
