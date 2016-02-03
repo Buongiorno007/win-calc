@@ -461,7 +461,7 @@
                       beadId: 0
                     };
                 if(beadsQty) {
-                  console.log('beads++++', beadIds);
+                  //console.log('beads++++', beadIds);
                   //----- if beads more one
                   if(beadsQty > 1) {
                     //----- go to kits and find bead width required laminat Id

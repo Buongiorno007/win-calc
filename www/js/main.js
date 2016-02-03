@@ -1636,9 +1636,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
@@ -4254,7 +4252,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(globalConstants, GeneralServ, SVGServ, DesignServ) {
+  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -4326,6 +4324,41 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .on("zoom", zooming));
             }
 
+            /** Defs */
+            if(scope.typeConstruction !== 'icon') {
+              var defs = mainGroup.append("defs"),
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+              /** dimension */
+              //----- horizontal marker arrow
+              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              //------- vertical marker arrow
+              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              /** handle */
+              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+
+              /** lamination */
+              if(ProductStor.product.lamination.img_in_id > 1) {
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+              }
+            }
+
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
             });
@@ -4333,8 +4366,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'id': 'dim_group'
             });
 
-
-            //          console.log('++++++ template +++++++', mainGroup);
             blocksQty = template.details.length;
             for (var i = 1; i < blocksQty; i++) {
               elementsGroup.selectAll('path.' + template.details[i].id)
@@ -4366,6 +4397,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   },
                   'd': function (d) {
                     return d.path;
+                  },
+                  'fill': function(d) {
+                    if(ProductStor.product.lamination.img_in_id > 1) {
+                      return (d.type !== 'glass') ? 'url(#laminat)' : '';
+                    } else {
+                      return '#f9f9f9';
+                    }
                   }
                 });
 
@@ -4468,29 +4506,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             if(scope.typeConstruction !== 'icon') {
               //--------- dimension
-              var defs = dimGroup.append("defs"),
-                  dimXQty = template.dimension.dimX.length,
+              var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length,
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-  "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
-
-              //----- horizontal marker arrow
-              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              //------- vertical marker arrow
-              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              //------- marker handle
-              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
-
-              //            console.log('SVG=========dim==', template.dimension);
+                  dimQQty = template.dimension.dimQ.length;
               for (var dx = 0; dx < dimXQty; dx++) {
                 createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
               }
@@ -4500,8 +4518,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               for (var dq = 0; dq < dimQQty; dq++) {
                 createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
               }
-
             }
+
             elem.html(container);
 
             //======= set Events on elements
@@ -9684,9 +9702,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -14426,7 +14444,7 @@ function ErrorResult(code, message) {
                       beadId: 0
                     };
                 if(beadsQty) {
-                  console.log('beads++++', beadIds);
+                  //console.log('beads++++', beadIds);
                   //----- if beads more one
                   if(beadsQty > 1) {
                     //----- go to kits and find bead width required laminat Id

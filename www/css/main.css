@@ -1891,20 +1891,19 @@ div.drum figure {
   -o-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
-  fill: #f9f9f9;
   stroke: #363636;
   stroke-width: 2;
   cursor: pointer;
 }
 
-/* line 10, ../../dev/sass/parts/svg.scss */
+/* line 9, ../../dev/sass/parts/svg.scss */
 .frame-icon {
   fill: #aaa;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 15, ../../dev/sass/parts/svg.scss */
+/* line 14, ../../dev/sass/parts/svg.scss */
 .glass {
   -moz-transition: all 0.1s linear;
   -o-transition: all 0.1s linear;
@@ -1914,48 +1913,48 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 20, ../../dev/sass/parts/svg.scss */
+/* line 19, ../../dev/sass/parts/svg.scss */
 .glass-icon {
   fill: #94DEEE;
 }
 
-/* line 24, ../../dev/sass/parts/svg.scss */
+/* line 23, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #000;
   stroke: #000;
 }
 
-/* line 28, ../../dev/sass/parts/svg.scss */
+/* line 27, ../../dev/sass/parts/svg.scss */
 .active_svg, .frame-active, .glass-active, .corner_mark {
   fill: rgba(34, 34, 255, 0.5) !important;
 }
 
-/* line 34, ../../dev/sass/parts/svg.scss */
+/* line 33, ../../dev/sass/parts/svg.scss */
 .sash_mark {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 39, ../../dev/sass/parts/svg.scss */
+/* line 38, ../../dev/sass/parts/svg.scss */
 .corner_mark {
   stroke: none;
   cursor: pointer;
 }
 
-/* line 44, ../../dev/sass/parts/svg.scss */
+/* line 43, ../../dev/sass/parts/svg.scss */
 .handle-mark {
   fill: #f9f9f9;
   stroke: #5E5E5E;
   stroke-width: 1;
 }
 
-/* line 49, ../../dev/sass/parts/svg.scss */
+/* line 48, ../../dev/sass/parts/svg.scss */
 .error_glass {
   fill: #f74f2e;
 }
 
-/* line 53, ../../dev/sass/parts/svg.scss */
+/* line 52, ../../dev/sass/parts/svg.scss */
 .dim_blockX, .dim_blockY {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -1963,7 +1962,7 @@ div.drum figure {
   transition: all 0.5s linear;
 }
 
-/* line 56, ../../dev/sass/parts/svg.scss */
+/* line 55, ../../dev/sass/parts/svg.scss */
 .dim_shiftX {
   -moz-transform: translate(0, -150px);
   -ms-transform: translate(0, -150px);
@@ -1971,7 +1970,7 @@ div.drum figure {
   transform: translate(0, -150px);
 }
 
-/* line 59, ../../dev/sass/parts/svg.scss */
+/* line 58, ../../dev/sass/parts/svg.scss */
 .dim_shiftY {
   -moz-transform: translate(-200px, 0);
   -ms-transform: translate(-200px, 0);
@@ -1979,7 +1978,7 @@ div.drum figure {
   transform: translate(-200px, 0);
 }
 
-/* line 63, ../../dev/sass/parts/svg.scss */
+/* line 62, ../../dev/sass/parts/svg.scss */
 .dim_block {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -1989,20 +1988,20 @@ div.drum figure {
   visibility: visible;
 }
 
-/* line 68, ../../dev/sass/parts/svg.scss */
+/* line 67, ../../dev/sass/parts/svg.scss */
 .dim_hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-/* line 73, ../../dev/sass/parts/svg.scss */
+/* line 72, ../../dev/sass/parts/svg.scss */
 .size-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-/* line 79, ../../dev/sass/parts/svg.scss */
+/* line 78, ../../dev/sass/parts/svg.scss */
 .size-rect {
   width: 160px;
   height: 70px;
@@ -2011,13 +2010,13 @@ div.drum figure {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 86, ../../dev/sass/parts/svg.scss */
+/* line 85, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 91, ../../dev/sass/parts/svg.scss */
+/* line 90, ../../dev/sass/parts/svg.scss */
 .size-txt, .size-txt-edit, .glass-txt {
   font-size: 5.625rem;
   stroke: #000;
@@ -2027,29 +2026,29 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 99, ../../dev/sass/parts/svg.scss */
+/* line 98, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 104, ../../dev/sass/parts/svg.scss */
+/* line 103, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 110, ../../dev/sass/parts/svg.scss */
+/* line 109, ../../dev/sass/parts/svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 117, ../../dev/sass/parts/svg.scss */
+/* line 116, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 121, ../../dev/sass/parts/svg.scss */
+/* line 120, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }
