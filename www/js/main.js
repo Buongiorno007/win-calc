@@ -1222,7 +1222,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             GlobalStor.global.isLoader = 1;
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null) {
+            if(result.factoryLink !== null || result.factoryLink !== '') {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -1354,14 +1354,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
 
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null) {
+            if(result.factoryLink !== null || result.factoryLink !== '') {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -9702,9 +9702,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -10725,6 +10725,43 @@ function ErrorResult(code, message) {
             'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           },
+          //address: "сайт"
+          //avatar: "/local_storage/avatars/470927ok4.png"
+          //birthday: null
+          //city_id: 838
+          //city_phone: ""
+          //device_code: "ceb60bfed037baaa484bd7b88d274c98"
+          //email: "director@okoshko.ua"
+          //factory_id: 1542
+          //id: 1556
+          //last_sync: "2016-02-03T15:24:32.677Z"
+          //locked: 1
+          //modified: "2016-02-03T14:24:32.679Z"
+          //name: "Сайт ОКОШКО"
+          //password: "ceb60bfed037baaa484bd7b88d274c98"
+          //phone: "903528981"
+          //sex: null
+          //user_type: 7
+
+          //address: ""
+          //avatar: "/local_storage/avatars/158862image.jpeg"
+          //birthday: "2015-02-01T23:00:00.000Z"
+          //city_id: 156
+          //city_phone: ""
+          //device_code: "aa8ec0d38b3904c114c45027046dcb89"
+          //email: ""
+          //factory_id: 897
+          //id: 897
+          //last_sync: "2016-02-02T08:37:49.505Z"
+          //locked: 1
+          //modified: "2016-02-03T08:50:51.158Z"
+          //name: "STEKO"
+          //password: "aa8ec0d38b3904c114c45027046dcb89"
+          //phone: "0504814488"
+          //sex: "1"
+          //user_type: 7
+
+
           'users': {
             'tableName': 'users',
             'prop':
@@ -11188,7 +11225,6 @@ function ErrorResult(code, message) {
             row[key] = checkStringToQuote(row[key]);
             return "'"+row[key]+"'";
           }).join(', ');
-      //console.log(values);
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
           console.log('Something went wrong with insert into ' + tableName);
@@ -20544,9 +20580,7 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('ProductStor', productStorageFactory);
@@ -20786,7 +20820,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Bauglasplatte',
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
-        CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_LAMINATION_TYPE: 'in den Zimmer / Die Fassade',
         WHITE_LAMINATION: 'Weiß',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
@@ -21136,7 +21170,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Glazing',
         CONFIGMENU_HARDWARE: 'accessories',
         CONFIGMENU_LAMINATION: 'Lamination',
-        CONFIGMENU_LAMINATION_TYPE: 'Facade / room',
+        CONFIGMENU_LAMINATION_TYPE: 'room / Facade',
         WHITE_LAMINATION: 'White',
         CONFIGMENU_ADDITIONAL: 'Additionally',
         CONFIGMENU_IN_CART: 'In a basket',
@@ -21484,7 +21518,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Parquet di vetro',
         CONFIGMENU_HARDWARE: 'Fornitura',
         CONFIGMENU_LAMINATION: 'Laminazione',
-        CONFIGMENU_LAMINATION_TYPE: 'facciata / in camera',
+        CONFIGMENU_LAMINATION_TYPE: 'in camera / facciata',
         WHITE_LAMINATION: 'La bianca',
         CONFIGMENU_ADDITIONAL: 'In aggiunta',
         CONFIGMENU_IN_CART: 'Nel cestino',
@@ -21833,7 +21867,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'geam termopan',
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
         WHITE_LAMINATION: 'alb',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
@@ -22181,7 +22215,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Стеклопакет',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',
         WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
@@ -22529,7 +22563,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Склопакет',
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
+        CONFIGMENU_LAMINATION_TYPE: 'в кімнаті / фасад',
         WHITE_LAMINATION: 'Біла',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',

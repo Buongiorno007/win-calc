@@ -86,7 +86,7 @@
         CONFIGMENU_GLASS: 'Parquet di vetro',
         CONFIGMENU_HARDWARE: 'Fornitura',
         CONFIGMENU_LAMINATION: 'Laminazione',
-        CONFIGMENU_LAMINATION_TYPE: 'facciata / in camera',
+        CONFIGMENU_LAMINATION_TYPE: 'in camera / facciata',
         WHITE_LAMINATION: 'La bianca',
         CONFIGMENU_ADDITIONAL: 'In aggiunta',
         CONFIGMENU_IN_CART: 'Nel cestino',

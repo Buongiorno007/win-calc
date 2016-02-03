@@ -86,7 +86,7 @@
         CONFIGMENU_GLASS: 'geam termopan',
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
         WHITE_LAMINATION: 'alb',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',

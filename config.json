@@ -37,7 +37,8 @@
       "js": "www/js",
       "img": "www/img",
       "fonts": "www/fonts",
-      "audio": "www/audio"
+      "audio": "www/audio",
+      "product": "www/product"
     }
   },
   "watch": {

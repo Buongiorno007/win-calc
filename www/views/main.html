@@ -493,7 +493,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 5}" ng-click="configMenu.selectConfigPanel(5)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div data-output="{{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
-            <div data-output="{{ configMenu.P.product.lamination.laminat_out_name }} / {{ configMenu.P.product.lamination.laminat_in_name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ configMenu.P.product.lamination.laminat_in_name }} / {{ configMenu.P.product.lamination.laminat_out_name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 6}" ng-click="configMenu.selectConfigPanel(6)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>

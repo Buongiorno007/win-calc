@@ -86,7 +86,7 @@
         CONFIGMENU_GLASS: 'Glazing',
         CONFIGMENU_HARDWARE: 'accessories',
         CONFIGMENU_LAMINATION: 'Lamination',
-        CONFIGMENU_LAMINATION_TYPE: 'Facade / room',
+        CONFIGMENU_LAMINATION_TYPE: 'room / Facade',
         WHITE_LAMINATION: 'White',
         CONFIGMENU_ADDITIONAL: 'Additionally',
         CONFIGMENU_IN_CART: 'In a basket',

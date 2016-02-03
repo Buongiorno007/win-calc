@@ -86,7 +86,7 @@
         CONFIGMENU_GLASS: 'Bauglasplatte',
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
-        CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_LAMINATION_TYPE: 'in den Zimmer / Die Fassade',
         WHITE_LAMINATION: 'Weiß',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',

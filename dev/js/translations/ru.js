@@ -86,7 +86,7 @@
         CONFIGMENU_GLASS: 'Стеклопакет',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',
         WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',

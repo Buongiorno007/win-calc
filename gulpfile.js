@@ -234,6 +234,31 @@ gulp.task('production', ['clean'], function() {
 });
 
 
+/** PRODUCTION css and js min */
+gulp.task('prod', function() {
+  // css
+  compassTask()
+    .pipe(csso())
+    .pipe(gulp.dest(config.build.dest.product));
+
+  // js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(config.build.dest.product));
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest(config.build.dest.product));
+});
+
+
 /**========= Загрузка на удаленный сервер =========*/
 
 /** upload index */
@@ -253,7 +278,7 @@ gulp.task('upload-html', function () {
 gulp.task('upload-js', function () {
   var settings = JSON.parse(JSON.stringify(config.server));
   settings.remotePath += '/js';
-  gulp.src(config.build.dest.js + '/**/*')
+  gulp.src(config.build.dest.product + '/*.js')
     .pipe(ftp(settings));
 });
 
@@ -261,7 +286,7 @@ gulp.task('upload-js', function () {
 gulp.task('upload-css', function () {
   var settings = JSON.parse(JSON.stringify(config.server));
   settings.remotePath += '/css';
-  gulp.src(config.build.dest.css + '/**/*')
+  gulp.src(config.build.dest.product + '/*.css')
     .pipe(ftp(settings));
 });
 

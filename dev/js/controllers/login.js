@@ -186,7 +186,7 @@
             GlobalStor.global.isLoader = 1;
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null) {
+            if(result.factoryLink !== null || result.factoryLink !== '') {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -318,14 +318,14 @@
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
 
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null) {
+            if(result.factoryLink !== null || result.factoryLink !== '') {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
