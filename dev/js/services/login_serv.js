@@ -307,15 +307,14 @@
                                           downloadLamCouples().then(function() {
                                             /** add white-white couple */
                                             GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
-
                                             //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
-                                            /** download Cart Menu Data */
-                                            downloadCartMenuData();
-                                            GlobalStor.global.isLoader = 0;
-                                            $location.path('/main');
-                                            //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                           });
                                         }
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                       });
                                     });
                                   });

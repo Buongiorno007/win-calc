@@ -1222,7 +1222,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             GlobalStor.global.isLoader = 1;
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null || result.factoryLink !== '') {
+            if(result.factoryLink !== null) {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -1361,7 +1361,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null || result.factoryLink !== '') {
+            if(result.factoryLink !== null) {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -10725,43 +10725,6 @@ function ErrorResult(code, message) {
             'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           },
-          //address: "сайт"
-          //avatar: "/local_storage/avatars/470927ok4.png"
-          //birthday: null
-          //city_id: 838
-          //city_phone: ""
-          //device_code: "ceb60bfed037baaa484bd7b88d274c98"
-          //email: "director@okoshko.ua"
-          //factory_id: 1542
-          //id: 1556
-          //last_sync: "2016-02-03T15:24:32.677Z"
-          //locked: 1
-          //modified: "2016-02-03T14:24:32.679Z"
-          //name: "Сайт ОКОШКО"
-          //password: "ceb60bfed037baaa484bd7b88d274c98"
-          //phone: "903528981"
-          //sex: null
-          //user_type: 7
-
-          //address: ""
-          //avatar: "/local_storage/avatars/158862image.jpeg"
-          //birthday: "2015-02-01T23:00:00.000Z"
-          //city_id: 156
-          //city_phone: ""
-          //device_code: "aa8ec0d38b3904c114c45027046dcb89"
-          //email: ""
-          //factory_id: 897
-          //id: 897
-          //last_sync: "2016-02-02T08:37:49.505Z"
-          //locked: 1
-          //modified: "2016-02-03T08:50:51.158Z"
-          //name: "STEKO"
-          //password: "aa8ec0d38b3904c114c45027046dcb89"
-          //phone: "0504814488"
-          //sex: "1"
-          //user_type: 7
-
-
           'users': {
             'tableName': 'users',
             'prop':
@@ -10789,7 +10752,7 @@ function ErrorResult(code, message) {
               ' last_sync TIMESTAMP,' +
               ' address VARCHAR,' +
               ' therm_coeff_id INTEGER,' +
-              ' factory_link VARCHAR',
+              ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
@@ -13328,15 +13291,14 @@ function ErrorResult(code, message) {
                                           downloadLamCouples().then(function() {
                                             /** add white-white couple */
                                             GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
-
                                             //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
-                                            /** download Cart Menu Data */
-                                            downloadCartMenuData();
-                                            GlobalStor.global.isLoader = 0;
-                                            $location.path('/main');
-                                            //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                           });
                                         }
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
                                       });
                                     });
                                   });

@@ -186,7 +186,7 @@
             GlobalStor.global.isLoader = 1;
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null || result.factoryLink !== '') {
+            if(result.factoryLink !== null) {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
@@ -325,7 +325,7 @@
 
             userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
             //-------- check factory Link
-            if(result.factoryLink !== null || result.factoryLink !== '') {
+            if(result.factoryLink !== null) {
               userTemp.factoryLink = angular.copy(result.factoryLink);
             }
             importDBProsses(userTemp);
