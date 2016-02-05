@@ -384,7 +384,7 @@
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination_in_id,
+              laminationId: ProductStor.product.lamination.img_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,

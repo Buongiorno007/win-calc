@@ -5,7 +5,7 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -29,6 +29,35 @@
     thisCtrl.regPhone = globalConstants.REG_PHONE;
     thisCtrl.regName = globalConstants.REG_NAME;
     thisCtrl.regMail = globalConstants.REG_MAIL;
+
+    //------- translate
+    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+    thisCtrl.OK = $filter('translate')('common_words.OK');
+    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.ENTER = $filter('translate')('login.ENTER');
+    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;

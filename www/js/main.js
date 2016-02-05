@@ -144,7 +144,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     $translateProvider.translations('ro', romanianDictionary);
     $translateProvider.translations('it', italianDictionary);
 
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
 
   }
 
@@ -1041,7 +1041,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -1065,6 +1065,35 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.regPhone = globalConstants.REG_PHONE;
     thisCtrl.regName = globalConstants.REG_NAME;
     thisCtrl.regMail = globalConstants.REG_MAIL;
+
+    //------- translate
+    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+    thisCtrl.OK = $filter('translate')('common_words.OK');
+    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.ENTER = $filter('translate')('login.ENTER');
+    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;
@@ -1716,6 +1745,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function addElementMenuCtrl(
     $timeout,
+    $filter,
     globalConstants,
     GlobalStor,
     ProductStor,
@@ -1741,6 +1771,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
+    thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.ADD = $filter('translate')('add_elements.ADD');
+    thisCtrl.TAB_NAME_SIMPLE_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_SIMPLE_FRAME');
+    thisCtrl.TAB_NAME_HARD_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_HARD_FRAME');
+    thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
     /**============ clicking ============*/
@@ -1868,6 +1909,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
+    thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
+    thisCtrl.FREE = $filter('translate')('cart.FREE');
+    thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
+    thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
+    thisCtrl.DELIVERY_DATE = $filter('translate')('cart.DELIVERY_DATE');
+    thisCtrl.FIRST_PAYMENT_LABEL = $filter('translate')('cart.FIRST_PAYMENT_LABEL');
+    thisCtrl.DATE_DELIVERY_LABEL = $filter('translate')('cart.DATE_DELIVERY_LABEL');
+    thisCtrl.MONTHLY_PAYMENT_LABEL = $filter('translate')('cart.MONTHLY_PAYMENT_LABEL');
+    thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
+    thisCtrl.ORDER = $filter('translate')('cart.ORDER');
+    thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
+
+
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;
@@ -1952,8 +2011,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    GlobalStor.global.isOpenedCartPage = 0;
-    GlobalStor.global.isOpenedHistoryPage = 0;
+    //------- translate
+    thisCtrl.CONFIGMENU_CONFIGURATION = $filter('translate')('mainpage.CONFIGMENU_CONFIGURATION');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
+    thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+
 
     //------ clicking
     thisCtrl.selectConfigPanel = selectConfigPanel;
@@ -2020,7 +2093,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2040,6 +2113,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
     thisCtrl.activeMenuItem = 0;
+
+    //------- translate
+    thisCtrl.NAVMENU_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_GEOLOCATION');
+    thisCtrl.NAVMENU_CURRENT_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_CURRENT_GEOLOCATION');
+    thisCtrl.NAVMENU_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_CALCULATIONS');
+    thisCtrl.NAVMENU_CURRENT_CALCULATION = $filter('translate')('mainpage.NAVMENU_CURRENT_CALCULATION');
+    thisCtrl.NAVMENU_CART = $filter('translate')('mainpage.NAVMENU_CART');
+    thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+    thisCtrl.NAVMENU_ALL_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_ALL_CALCULATIONS');
+    thisCtrl.NAVMENU_APPENDIX = $filter('translate')('mainpage.NAVMENU_APPENDIX');
+    thisCtrl.NAVMENU_SETTINGS = $filter('translate')('mainpage.NAVMENU_SETTINGS');
+    thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
+    thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
+    thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;
@@ -6898,6 +6985,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
       serverIP: 'http://api.windowscalculator.net',
+      //serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -9702,9 +9790,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -10816,7 +10904,8 @@ function ErrorResult(code, message) {
               ' cameras INTEGER,' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
-              ' img VARCHAR',
+              ' img VARCHAR,' +
+              ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -14365,7 +14454,7 @@ function ErrorResult(code, message) {
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination_in_id,
+              laminationId: ProductStor.product.lamination.img_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,

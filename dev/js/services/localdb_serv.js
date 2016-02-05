@@ -331,7 +331,8 @@
               ' cameras INTEGER,' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
-              ' img VARCHAR',
+              ' img VARCHAR,' +
+              ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
