@@ -75,7 +75,13 @@
     "pass": "Je6HDVaSQcaxaRo",
     "remotePath": "/web/calculator"
   },
-
+  "serverSteko": {
+    "host": "calculator.steko.com.ua",
+    "port": "",
+    "user": "c1_alica",
+    "pass": "_Y1zJyiXrwOJt",
+    "remotePath": "/web"
+  },
 
   "buildApp": {
     "src": {

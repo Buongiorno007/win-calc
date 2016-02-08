@@ -1,4 +1,4 @@
-
+'use strict';
 // Инициализируем плагины
 var gulp        = require('gulp'),       // Собственно Gulp JS
     config      = require('./config.json'),   // Конфиг для проектов
@@ -270,14 +270,17 @@ gulp.task('prod', function() {
 
 /**========= Загрузка на удаленный сервер =========*/
 
+var server = config.server;
+//var server = config.serverSteko;
+
 /** upload index */
 gulp.task('upload-index', function () {
   gulp.src(config.build.dest.html + 'index.html')
-    .pipe(ftp(config.server));
+    .pipe(ftp(server));
 });
 /** upload html */
 gulp.task('upload-html', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/views';
   gulp.src(config.build.dest.product + '/views/*.html')
     .pipe(ftp(settings));
@@ -285,7 +288,7 @@ gulp.task('upload-html', function () {
 
 /** upload js */
 gulp.task('upload-js', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/js';
   gulp.src(config.build.dest.product + '/*.js')
     .pipe(ftp(settings));
@@ -293,7 +296,7 @@ gulp.task('upload-js', function () {
 
 /** upload css */
 gulp.task('upload-css', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/css';
   gulp.src(config.build.dest.product + '/*.css')
     .pipe(ftp(settings));
