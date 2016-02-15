@@ -21,6 +21,11 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+
     //------ clicking
     thisCtrl.selectProfile = selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;

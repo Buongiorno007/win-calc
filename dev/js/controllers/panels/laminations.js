@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl(globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl($filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -17,6 +17,10 @@
       DELAY_TYPING: 2.5 * globalConstants.STEP,
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
+    thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
 
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;

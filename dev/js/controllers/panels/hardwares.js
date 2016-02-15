@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('HardwaresCtrl', hardwareSelectorCtrl);
 
-  function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
+  function hardwareSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -18,6 +18,11 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.BRAND = $filter('translate')('panels.BRAND');
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
+    thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
     //------ clicking
     thisCtrl.selectHardware = selectHardware;
@@ -33,7 +38,7 @@
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id);
         //------ save analytics data
 //        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/

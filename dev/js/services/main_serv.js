@@ -247,7 +247,7 @@
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
           deferred.resolve(1);
         });
       });
@@ -818,7 +818,7 @@
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.template = angular.copy(result);
           var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
             deff.resolve(1);
           });
           //----- create template icon

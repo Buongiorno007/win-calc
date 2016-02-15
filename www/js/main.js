@@ -1121,7 +1121,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //============ methods ================//
 
-
     function entriyWithoutLogin() {
       var url = $location.search(),
           accessArr = [
@@ -1131,6 +1130,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '9aefeef9c7e53f9de9bb36f32649dc3f',
             'a2da6d85764368b24392740020efbc92',
             'ceb60bfed037baaa484bd7b88d274c98',
+            '632b3213660804acb71fe045c6e321ed',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1165,6 +1165,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '22274313',
             '9201922876',
             '903528981',
+            '9301600441',
 
             '000001',
             '000002',
@@ -1199,6 +1200,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '22274313',
             '9201922876',
             '903528981',
+            '9301600441',
 
             '000001',
             '000002',
@@ -2687,6 +2689,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
+    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
 
     //------ clicking
     thisCtrl.selectGlass = selectGlass;
@@ -2740,7 +2748,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         ProductStor.product.template = angular.copy(result);
         //------ calculate price
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
@@ -2765,7 +2773,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('HardwaresCtrl', hardwareSelectorCtrl);
 
-  function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
+  function hardwareSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2778,6 +2786,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.BRAND = $filter('translate')('panels.BRAND');
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
+    thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
     //------ clicking
     thisCtrl.selectHardware = selectHardware;
@@ -2793,7 +2806,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id);
         //------ save analytics data
 //        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
@@ -2815,7 +2828,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl(globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl($filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2827,6 +2840,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_TYPING: 2.5 * globalConstants.STEP,
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
+    thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
 
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;
@@ -2892,6 +2909,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_TYPING: 2.5 * globalConstants.STEP,
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
 
     //------ clicking
     thisCtrl.selectProfile = selectProfile;
@@ -6984,8 +7006,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      serverIP: 'http://api.steko.com.ua',
+      serverIP: 'http://api.windowscalculator.net',
+      //serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -7177,7 +7199,7 @@ function ErrorResult(code, message) {
         }
 
         /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = 1;
           backtoTemplatePanel();
@@ -14317,7 +14339,7 @@ function ErrorResult(code, message) {
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
           deferred.resolve(1);
         });
       });
@@ -14888,7 +14910,7 @@ function ErrorResult(code, message) {
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.template = angular.copy(result);
           var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
             deff.resolve(1);
           });
           //----- create template icon

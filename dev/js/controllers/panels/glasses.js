@@ -24,6 +24,12 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
+    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
 
     //------ clicking
     thisCtrl.selectGlass = selectGlass;
@@ -77,7 +83,7 @@
         ProductStor.product.template = angular.copy(result);
         //------ calculate price
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });

@@ -147,7 +147,7 @@
         }
 
         /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = 1;
           backtoTemplatePanel();
