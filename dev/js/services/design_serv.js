@@ -2194,7 +2194,7 @@
         var intValue = parseStringToDimension(value);
         //console.log("данные после парса", intValue);
         //console.log("тип полученных данных", typeof intValue);
-        if (intValue == "NaN") {
+        if (intValue === "NaN") {
           intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
         }
         playTTS(intValue);
@@ -2435,7 +2435,7 @@
 
       //-------- change point coordinates in templateSource
       var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksOLD = DesignStor.design.templateTEMP.details,
+          //blocksOLD = DesignStor.design.templateTEMP.details,
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,

@@ -467,27 +467,33 @@
                     //----- go to kits and find bead width required laminat Id
                     var pomisList = beadIds.map(function(item2) {
                       var deff3 = $q.defer();
-                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2}, 'beed_lamination_id').then(function(lamId) {
-                        console.log('lamId++++', lamId);
+                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'beed_lamination_id as id').then(function(lamId) {
+                        //console.log('lamId++++', lamId);
                         if(lamId) {
-                          if(lamId[0] === laminatId) {
+                          if(lamId[0].id === laminatId) {
                             deff3.resolve(1);
                           } else {
                             deff3.resolve(0);
                           }
+                        } else {
+                          deff3.resolve(0);
                         }
                       });
                       return deff3.promise;
                     });
 
                     $q.all(pomisList).then(function(results) {
-                      console.log('finish++++', results);
+                      //console.log('finish++++', results);
                       var resultQty = results.length;
                       while(--resultQty > -1) {
                         if(results[resultQty]) {
                           beadObj.beadId = beadIds[resultQty].list_id;
                           deff2.resolve(beadObj);
                         }
+                      }
+                      if(!beadObj.beadId) {
+                        console.log('Error in bead!!');
+                        deff2.resolve(0);
                       }
                     });
 
@@ -497,7 +503,7 @@
                   }
 
                 } else {
-                  console.log('Error!!', result);
+                  console.log('Error in bead!!', result);
                   deff2.resolve(0);
                 }
               });
@@ -509,29 +515,6 @@
       return deff.promise;
     }
 
-    //function setBeadId(profileId, laminatId) {
-    //  var defer = $q.defer(),
-    //      promises = ProductStor.product.glass.map(function(item) {
-    //        var defer2 = $q.defer();
-    //        if(item.glass_width) {
-    //          localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(result) {
-    //            if(result.length) {
-    //              var beadObj = {
-    //                glassId: item.id,
-    //                beadId: result[0].list_id
-    //              };
-    //              defer2.resolve(beadObj);
-    //            } else {
-    //              console.log('Error!!', result);
-    //              defer2.resolve(0);
-    //            }
-    //          });
-    //          return defer2.promise;
-    //        }
-    //      });
-    //  defer.resolve($q.all(promises));
-    //  return defer.promise;
-    //}
 
 
     //---------- Price define

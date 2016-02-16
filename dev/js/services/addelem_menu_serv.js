@@ -640,9 +640,9 @@
             };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-            addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-            addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+            addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
+            addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
+            AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
           }
           return results;
         });

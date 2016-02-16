@@ -1,3 +1,4 @@
+/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
@@ -179,7 +180,7 @@
 
     function removeDuplicates(arr) {
       return arr.filter(function(elem, index, self) {
-        return index == self.indexOf(elem);
+        return index === self.indexOf(elem);
       });
     }
 

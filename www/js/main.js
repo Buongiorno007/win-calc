@@ -3227,8 +3227,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.config = {
       reportMenu: [],
       reportFilterId: undefined,
-      reportPriceTotal: 0
+      reportPriceTotal: 0,
+      reportPriceBase: 0
     };
+
+    //------- translate
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.ARTICUL_LABEL = $filter('translate')('add_elements.ARTICUL_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.SIZE_LABEL = $filter('translate')('add_elements.SIZE_LABEL');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
+
 
     //------ clicking
 
@@ -3287,16 +3297,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function culcReportPriceTotal(group) {
-      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
-        return item.element_group_id === group;
-      }) : angular.copy(ProductStor.product.report);
-
+      var currReportList;
+      if(group) {
+        currReportList = ProductStor.product.report.filter(function(item) {
+          return item.element_group_id === group;
+        });
+      } else {
+        currReportList = angular.copy(ProductStor.product.report);
+      }
       if(currReportList.length) {
         thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
           return {priceReal: sum.priceReal + item.priceReal};
         }).priceReal, 2);
+        thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+          return {price: sum.price + item.price};
+        }).price, 2);
       } else {
         thisCtrl.config.reportPriceTotal = 0;
+        thisCtrl.config.reportPriceBase = 0;
       }
     }
 
@@ -5850,9 +5868,9 @@ function ErrorResult(code, message) {
             };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem));
-            addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-            addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+            addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
+            addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
+            AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
           }
           return results;
         });
@@ -7006,8 +7024,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      //serverIP: 'http://api.steko.com.ua',
+      //serverIP: 'http://api.windowscalculator.net',
+      serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -9246,7 +9264,7 @@ function ErrorResult(code, message) {
         var intValue = parseStringToDimension(value);
         //console.log("данные после парса", intValue);
         //console.log("тип полученных данных", typeof intValue);
-        if (intValue == "NaN") {
+        if (intValue === "NaN") {
           intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
         }
         playTTS(intValue);
@@ -9487,7 +9505,7 @@ function ErrorResult(code, message) {
 
       //-------- change point coordinates in templateSource
       var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksOLD = DesignStor.design.templateTEMP.details,
+          //blocksOLD = DesignStor.design.templateTEMP.details,
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
@@ -9690,6 +9708,7 @@ function ErrorResult(code, message) {
 
 // services/general_serv.js
 
+/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
@@ -9871,7 +9890,7 @@ function ErrorResult(code, message) {
 
     function removeDuplicates(arr) {
       return arr.filter(function(elem, index, self) {
-        return index == self.indexOf(elem);
+        return index === self.indexOf(elem);
       });
     }
 
@@ -13134,7 +13153,7 @@ function ErrorResult(code, message) {
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
-            console.log('No language defined');
+            console.log('No language defined', error);
           });
 
       } else {
@@ -13617,6 +13636,7 @@ function ErrorResult(code, message) {
             }, function (err) {
               console.log('Error!', err);
             }, function (progress) {
+              console.log('progress!', progress);
 //            $timeout(function () {
 //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
 //            })
@@ -14007,10 +14027,10 @@ function ErrorResult(code, message) {
                   /** get price of element */
                   for(var k = 0; k < tempElemQty; k++) {
                     if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      /** add price margin */
-                      GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
+                      ///** add price margin */
+                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
                       /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
                     }
                   }
                   elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
@@ -14559,27 +14579,33 @@ function ErrorResult(code, message) {
                     //----- go to kits and find bead width required laminat Id
                     var pomisList = beadIds.map(function(item2) {
                       var deff3 = $q.defer();
-                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2}, 'beed_lamination_id').then(function(lamId) {
-                        console.log('lamId++++', lamId);
+                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'beed_lamination_id as id').then(function(lamId) {
+                        //console.log('lamId++++', lamId);
                         if(lamId) {
-                          if(lamId[0] === laminatId) {
+                          if(lamId[0].id === laminatId) {
                             deff3.resolve(1);
                           } else {
                             deff3.resolve(0);
                           }
+                        } else {
+                          deff3.resolve(0);
                         }
                       });
                       return deff3.promise;
                     });
 
                     $q.all(pomisList).then(function(results) {
-                      console.log('finish++++', results);
+                      //console.log('finish++++', results);
                       var resultQty = results.length;
                       while(--resultQty > -1) {
                         if(results[resultQty]) {
                           beadObj.beadId = beadIds[resultQty].list_id;
                           deff2.resolve(beadObj);
                         }
+                      }
+                      if(!beadObj.beadId) {
+                        console.log('Error in bead!!');
+                        deff2.resolve(0);
                       }
                     });
 
@@ -14589,7 +14615,7 @@ function ErrorResult(code, message) {
                   }
 
                 } else {
-                  console.log('Error!!', result);
+                  console.log('Error in bead!!', result);
                   deff2.resolve(0);
                 }
               });
@@ -14601,29 +14627,6 @@ function ErrorResult(code, message) {
       return deff.promise;
     }
 
-    //function setBeadId(profileId, laminatId) {
-    //  var defer = $q.defer(),
-    //      promises = ProductStor.product.glass.map(function(item) {
-    //        var defer2 = $q.defer();
-    //        if(item.glass_width) {
-    //          localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(result) {
-    //            if(result.length) {
-    //              var beadObj = {
-    //                glassId: item.id,
-    //                beadId: result[0].list_id
-    //              };
-    //              defer2.resolve(beadObj);
-    //            } else {
-    //              console.log('Error!!', result);
-    //              defer2.resolve(0);
-    //            }
-    //          });
-    //          return defer2.promise;
-    //        }
-    //      });
-    //  defer.resolve($q.all(promises));
-    //  return defer.promise;
-    //}
 
 
     //---------- Price define

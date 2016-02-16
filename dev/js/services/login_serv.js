@@ -39,7 +39,7 @@
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
-            console.log('No language defined');
+            console.log('No language defined', error);
           });
 
       } else {
@@ -522,6 +522,7 @@
             }, function (err) {
               console.log('Error!', err);
             }, function (progress) {
+              console.log('progress!', progress);
 //            $timeout(function () {
 //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
 //            })
@@ -912,10 +913,10 @@
                   /** get price of element */
                   for(var k = 0; k < tempElemQty; k++) {
                     if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      /** add price margin */
-                      GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
+                      ///** add price margin */
+                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
                       /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
                     }
                   }
                   elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
