@@ -29,62 +29,6 @@
     var thisFactory = this,
         clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
 
-    thisFactory.publicObj = {
-      setDefaultTemplate: setDefaultTemplate,
-      designSaved: designSaved,
-      designCancel: designCancel,
-      setDefaultConstruction: setDefaultConstruction,
-
-      initAllImposts: initAllImposts,
-      initAllGlass: initAllGlass,
-      initAllGlassXGlass: initAllGlassXGlass,
-      initAllGlassXGrid: initAllGlassXGrid,
-      initAllArcs: initAllArcs,
-      initAllDimension: initAllDimension,
-      hideCornerMarks: hideCornerMarks,
-      deselectAllImpost: deselectAllImpost,
-      deselectAllArc: deselectAllArc,
-      deselectAllGlass: deselectAllGlass,
-      rebuildSVGTemplate: rebuildSVGTemplate,
-
-      //------- edit sash
-      createSash: createSash,
-      deleteSash: deleteSash,
-      //------- edit corners
-      setCornerPoints: setCornerPoints,
-      setCurvCornerPoints: setCurvCornerPoints,
-      deleteCornerPoints: deleteCornerPoints,
-      //-------- edit arc
-      createArc: createArc,
-      deleteArc: deleteArc,
-      workingWithAllArcs: workingWithAllArcs,
-      //-------- edit impost
-      createImpost: createImpost,
-      deleteImpost: deleteImpost,
-      //-------- mirror
-      initMirror: initMirror,
-      positionAxises: positionAxises,
-      positionGlasses: positionGlasses,
-      removeAllEventsInSVG: removeAllEventsInSVG,
-      removeGlassEventsInSVG: removeGlassEventsInSVG,
-
-      //---- change sizes
-      setValueSize: setValueSize,
-      deleteLastNumber: deleteLastNumber,
-      closeSizeCaclulator: closeSizeCaclulator,
-      hideSizeTools: hideSizeTools,
-
-      stepBack: stepBack,
-      getGridPrice: getGridPrice,
-
-      //---- door
-//      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
-    };
-
-    return thisFactory.publicObj;
-
-
 
 
     /**============ methods ================*/
@@ -2630,6 +2574,66 @@
     }
 
 
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      setDefaultTemplate: setDefaultTemplate,
+      designSaved: designSaved,
+      designCancel: designCancel,
+      setDefaultConstruction: setDefaultConstruction,
+
+      initAllImposts: initAllImposts,
+      initAllGlass: initAllGlass,
+      initAllGlassXGlass: initAllGlassXGlass,
+      initAllGlassXGrid: initAllGlassXGrid,
+      initAllArcs: initAllArcs,
+      initAllDimension: initAllDimension,
+      hideCornerMarks: hideCornerMarks,
+      deselectAllImpost: deselectAllImpost,
+      deselectAllArc: deselectAllArc,
+      deselectAllGlass: deselectAllGlass,
+      rebuildSVGTemplate: rebuildSVGTemplate,
+
+      //------- edit sash
+      createSash: createSash,
+      deleteSash: deleteSash,
+      //------- edit corners
+      setCornerPoints: setCornerPoints,
+      setCurvCornerPoints: setCurvCornerPoints,
+      deleteCornerPoints: deleteCornerPoints,
+      //-------- edit arc
+      createArc: createArc,
+      deleteArc: deleteArc,
+      workingWithAllArcs: workingWithAllArcs,
+      //-------- edit impost
+      createImpost: createImpost,
+      deleteImpost: deleteImpost,
+      //-------- mirror
+      initMirror: initMirror,
+      positionAxises: positionAxises,
+      positionGlasses: positionGlasses,
+      removeAllEventsInSVG: removeAllEventsInSVG,
+      removeGlassEventsInSVG: removeGlassEventsInSVG,
+
+      //---- change sizes
+      setValueSize: setValueSize,
+      deleteLastNumber: deleteLastNumber,
+      closeSizeCaclulator: closeSizeCaclulator,
+      hideSizeTools: hideSizeTools,
+
+      stepBack: stepBack,
+      getGridPrice: getGridPrice,
+
+      //---- door
+      //      downloadDoorConfig: downloadDoorConfig,
+      setIndexDoorConfig: setIndexDoorConfig
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

@@ -11,27 +11,8 @@
 
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      increaseProductQty: increaseProductQty,
-      decreaseProductQty: decreaseProductQty,
-      addNewProductInOrder: addNewProductInOrder,
-      clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct,
 
-      showAllAddElements: showAllAddElements,
-      collectAllAddElems: collectAllAddElems,
-      getAddElemsPriceTotal: getAddElemsPriceTotal,
-      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
-      createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
-    };
-
-    return thisFactory.publicObj;
-
-
-
-
-    //============ methods ================//
+    /**============ methods ================*/
 
     //------- add new product in order
     function addNewProductInOrder() {
@@ -230,6 +211,27 @@
       cloneProduct.product_id = lastProductId;
       OrderStor.order.products.push(cloneProduct);
     }
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      increaseProductQty: increaseProductQty,
+      decreaseProductQty: decreaseProductQty,
+      addNewProductInOrder: addNewProductInOrder,
+      clickDeleteProduct: clickDeleteProduct,
+      editProduct: editProduct,
+
+      showAllAddElements: showAllAddElements,
+      collectAllAddElems: collectAllAddElems,
+      getAddElemsPriceTotal: getAddElemsPriceTotal,
+      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
+      createProductCopy: createProductCopy,
+      addCloneProductInOrder: addCloneProductInOrder
+    };
+
+    return thisFactory.publicObj;
 
 
   }

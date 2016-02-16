@@ -16,16 +16,9 @@
       element_type: 0
     };
 
-    thisFactory.publicObj = {
-      sendAnalyticsData: sendAnalyticsData//,
-//      saveAnalyticDB: insertAnalyticsDB,
-//      sendAnalyticsDB: sendAnalyticsDB
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+    /**============ methods ================*/
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -97,6 +90,19 @@
       //----- send Analytics Data to Server
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      sendAnalyticsData: sendAnalyticsData//,
+      //      saveAnalyticDB: insertAnalyticsDB,
+      //      sendAnalyticsDB: sendAnalyticsDB
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

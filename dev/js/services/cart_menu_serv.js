@@ -11,37 +11,9 @@
 
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      joinAllAddElements: joinAllAddElements,
-      //---- menu
-      selectFloorPrice: selectFloorPrice,
-      selectAssembling: selectAssembling,
-      selectInstalment: selectInstalment,
-      checkDifferentDate: checkDifferentDate,
-      //---- price
-      calculateOrderPrice: calculateOrderPrice,
-      calculateAllProductsPrice: calculateAllProductsPrice,
-      calculateTotalOrderPrice: calculateTotalOrderPrice,
-      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
-      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
-      openDiscountBlock: openDiscountBlock,
-      closeDiscountBlock: closeDiscountBlock,
-      swipeDiscountBlock: swipeDiscountBlock,
-      approveNewDisc: approveNewDisc,
-
-      //---- sent order
-      closeOrderDialog: closeOrderDialog,
-      changeLocation: changeLocation,
-      selectCity: selectCity,
-      sendOrder: sendOrder
-    };
-
-    return thisFactory.publicObj;
 
 
-
-
-    //============ methods ================//
+    /**============ methods ================*/
 
 
     /**---------- join all Add Elements for Detials ---------*/
@@ -607,6 +579,38 @@
       CartStor.cart.customer.customer_city = arguments[1];
       CartStor.cart.customer.customer_location = arguments[2];
     }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      joinAllAddElements: joinAllAddElements,
+      //---- menu
+      selectFloorPrice: selectFloorPrice,
+      selectAssembling: selectAssembling,
+      selectInstalment: selectInstalment,
+      checkDifferentDate: checkDifferentDate,
+      //---- price
+      calculateOrderPrice: calculateOrderPrice,
+      calculateAllProductsPrice: calculateAllProductsPrice,
+      calculateTotalOrderPrice: calculateTotalOrderPrice,
+      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
+      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
+      openDiscountBlock: openDiscountBlock,
+      closeDiscountBlock: closeDiscountBlock,
+      swipeDiscountBlock: swipeDiscountBlock,
+      approveNewDisc: approveNewDisc,
+
+      //---- sent order
+      closeOrderDialog: closeOrderDialog,
+      changeLocation: changeLocation,
+      selectCity: selectCity,
+      sendOrder: sendOrder
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

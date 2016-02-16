@@ -99,18 +99,6 @@
           }
         ];
 
-    thisFactory.publicObj = {
-      addElementDATA: addElementDATA,
-      stopStartProg: stopStartProg,
-      setPreviosPage: setPreviosPage,
-      roundingValue: roundingValue,
-      addMarginToPrice: addMarginToPrice,
-      setPriceDis: setPriceDis,
-      sorting: sorting,
-      removeDuplicates: removeDuplicates,
-      getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
-    };
 
     //TODO desktop
     //------- IMG rooms preload
@@ -132,10 +120,8 @@
       }
     });
 
-    return thisFactory.publicObj;
 
-
-    //============ methods ================//
+    /**============ methods ================*/
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
@@ -202,6 +188,26 @@
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      addElementDATA: addElementDATA,
+      stopStartProg: stopStartProg,
+      setPreviosPage: setPreviosPage,
+      roundingValue: roundingValue,
+      addMarginToPrice: addMarginToPrice,
+      setPriceDis: setPriceDis,
+      sorting: sorting,
+      removeDuplicates: removeDuplicates,
+      getMaxMinCoord: getMaxMinCoord,
+      confirmAlert: confirmAlert
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

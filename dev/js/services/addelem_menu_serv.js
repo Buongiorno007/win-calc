@@ -27,36 +27,8 @@
 
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      closeAddElementsMenu: closeAddElementsMenu,
-      chooseAddElement: chooseAddElement,
-      chooseAddElementList: chooseAddElementList,
-      getAddElementPrice: getAddElementPrice,
-      deleteAddElement: deleteAddElement,
-      deleteAllAddElements: deleteAllAddElements,
-      finishCalculators: finishCalculators,
 
-      //---- grid
-      confirmGrid: confirmGrid,
-      setGridToAll: setGridToAll,
-      closeGridSelectorDialog: closeGridSelectorDialog,
-
-      //---- calculators:
-      pressCulculator: pressCulculator,
-      setValueQty: setValueQty,
-      closeQtyCaclulator: closeQtyCaclulator,
-      setValueSize: setValueSize,
-      deleteLastNumber: deleteLastNumber,
-      changeElementSize: changeElementSize,
-      closeSizeCaclulator: closeSizeCaclulator
-    };
-
-    return thisFactory.publicObj;
-
-
-
-
-    //============ methods ================//
+    /**============ methods ================*/
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
@@ -661,6 +633,37 @@
       AuxStor.aux.currentAddElementId = 0;
     }
 
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      closeAddElementsMenu: closeAddElementsMenu,
+      chooseAddElement: chooseAddElement,
+      chooseAddElementList: chooseAddElementList,
+      getAddElementPrice: getAddElementPrice,
+      deleteAddElement: deleteAddElement,
+      deleteAllAddElements: deleteAllAddElements,
+      finishCalculators: finishCalculators,
+
+      //---- grid
+      confirmGrid: confirmGrid,
+      setGridToAll: setGridToAll,
+      closeGridSelectorDialog: closeGridSelectorDialog,
+
+      //---- calculators:
+      pressCulculator: pressCulculator,
+      setValueQty: setValueQty,
+      closeQtyCaclulator: closeQtyCaclulator,
+      setValueSize: setValueSize,
+      deleteLastNumber: deleteLastNumber,
+      changeElementSize: changeElementSize,
+      closeSizeCaclulator: closeSizeCaclulator
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

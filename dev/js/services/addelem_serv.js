@@ -10,20 +10,9 @@
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
 
-    thisFactory.publicObj = {
-      selectAddElement: selectAddElement,
-      initAddElementTools: initAddElementTools,
-      openAddElementListView: openAddElementListView,
-      closeAddElementListView: closeAddElementListView,
-      createAddElementGroups: createAddElementGroups
-    };
-
-    return thisFactory.publicObj;
 
 
-
-
-    //============ methods ================//
+    /**============ methods ================*/
 
 
     //--------- Select additional element group
@@ -146,6 +135,19 @@
       }
     }
 
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      selectAddElement: selectAddElement,
+      initAddElementTools: initAddElementTools,
+      openAddElementListView: openAddElementListView,
+      closeAddElementListView: closeAddElementListView,
+      createAddElementGroups: createAddElementGroups
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();
