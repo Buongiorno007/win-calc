@@ -2,7 +2,6 @@
 
 .frame {
   @include transition(all 0.2s linear);
-  fill: #f9f9f9;
   stroke: $main_gray_txt;
   stroke-width: 2;
   cursor: pointer;
@@ -16,6 +15,15 @@
   @include transition(all 0.1s linear);
   fill: rgba(155, 204, 255, 0.20);
   cursor: pointer;
+}
+.glass-main {
+  @include transition(all 0.1s linear);
+  fill: url(#background);
+  cursor: pointer;
+}
+.active_svg-main {
+  fill: url(#background);
+  fill: rgba(34, 34, 255, 0.5)!important;
 }
 .glass-icon {
   fill: #94DEEE;

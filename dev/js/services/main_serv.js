@@ -5,7 +5,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, DesignStor, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
 
     var thisFactory = this;
 
@@ -30,6 +30,9 @@
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
       closeRoomSelectorDialog: closeRoomSelectorDialog,
+      laminatFiltering: laminatFiltering,
+      setCurrLamination: setCurrLamination,
+      setProfileByLaminat: setProfileByLaminat,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -184,9 +187,9 @@
     function setCurrentProfile(product, id) {
       var deferred = $q.defer();
       if(id) {
-        product.profile = fineItemById(id, GlobalStor.global.profiles);
+        product.profile = angular.copy(fineItemById(id, GlobalStor.global.profiles));
       } else {
-        product.profile = GlobalStor.global.profiles[0][0];
+        product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
       }
       //------- set Depths
       $q.all([
@@ -244,7 +247,7 @@
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
           deferred.resolve(1);
         });
       });
@@ -262,6 +265,7 @@
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
+        DesignStor.design.templateTEMP = angular.copy(result);
         GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
 //        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
@@ -367,10 +371,10 @@
 
 
     //--------- create object to send in server for price calculation
-    function preparePrice(template, profileId, glassIds, hardwareId) {
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
-      setBeadId(profileId).then(function(beadResult) {
+      setBeadId(profileId, laminatId).then(function(beadResult) {
         var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
               var beadQty = template.priceElements.beadsSize.length;
               while(--beadQty > -1) {
@@ -381,7 +385,7 @@
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination_in_id,
+              laminationId: ProductStor.product.lamination.img_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,
@@ -446,29 +450,89 @@
 
 
     /** set Bead Id */
-    function setBeadId(profileId) {
-      var defer = $q.defer(),
-          promises = ProductStor.product.glass.map(function(item) {
-            var defer2 = $q.defer();
+    function setBeadId(profileId, laminatId) {
+      var deff = $q.defer(),
+          promisBeads = ProductStor.product.glass.map(function(item) {
+            var deff2 = $q.defer();
             if(item.glass_width) {
-              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function (result) {
-                if(result.length) {
-                  var beadObj = {
-                    glassId: item.id,
-                    beadId: result[0].list_id
-                  };
-                  defer2.resolve(beadObj);
+              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(beadIds) {
+                var beadsQty = beadIds.length,
+                    beadObj = {
+                      glassId: item.id,
+                      beadId: 0
+                    };
+                if(beadsQty) {
+                  //console.log('beads++++', beadIds);
+                  //----- if beads more one
+                  if(beadsQty > 1) {
+                    //----- go to kits and find bead width required laminat Id
+                    var pomisList = beadIds.map(function(item2) {
+                      var deff3 = $q.defer();
+                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2}, 'beed_lamination_id').then(function(lamId) {
+                        console.log('lamId++++', lamId);
+                        if(lamId) {
+                          if(lamId[0] === laminatId) {
+                            deff3.resolve(1);
+                          } else {
+                            deff3.resolve(0);
+                          }
+                        }
+                      });
+                      return deff3.promise;
+                    });
+
+                    $q.all(pomisList).then(function(results) {
+                      console.log('finish++++', results);
+                      var resultQty = results.length;
+                      while(--resultQty > -1) {
+                        if(results[resultQty]) {
+                          beadObj.beadId = beadIds[resultQty].list_id;
+                          deff2.resolve(beadObj);
+                        }
+                      }
+                    });
+
+                  } else {
+                    beadObj.beadId = beadIds[0].list_id;
+                    deff2.resolve(beadObj);
+                  }
+
                 } else {
                   console.log('Error!!', result);
-                  defer2.resolve(0);
+                  deff2.resolve(0);
                 }
               });
-              return defer2.promise;
+              return deff2.promise;
             }
           });
-      defer.resolve($q.all(promises));
-      return defer.promise;
+
+      deff.resolve($q.all(promisBeads));
+      return deff.promise;
     }
+
+    //function setBeadId(profileId, laminatId) {
+    //  var defer = $q.defer(),
+    //      promises = ProductStor.product.glass.map(function(item) {
+    //        var defer2 = $q.defer();
+    //        if(item.glass_width) {
+    //          localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(result) {
+    //            if(result.length) {
+    //              var beadObj = {
+    //                glassId: item.id,
+    //                beadId: result[0].list_id
+    //              };
+    //              defer2.resolve(beadObj);
+    //            } else {
+    //              console.log('Error!!', result);
+    //              defer2.resolve(0);
+    //            }
+    //          });
+    //          return defer2.promise;
+    //        }
+    //      });
+    //  defer.resolve($q.all(promises));
+    //  return defer.promise;
+    //}
 
 
     //---------- Price define
@@ -640,6 +704,138 @@
 
 
 
+    /**-------- filtering Lamination Groupes -----------*/
+
+    function laminatFiltering() {
+      var laminatQty = GlobalStor.global.laminats.length,
+          /** sort by Profile */
+          lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
+            if(item.profile_id) {
+              return item.profile_id === ProductStor.product.profile.id;
+            } else {
+              return true;
+            }
+          }),
+          lamGroupsTempQty, isAnyActive = 0;
+
+      //console.info('filter _____ ', lamGroupsTemp);
+
+      GlobalStor.global.lamGroupFiltered.length = 0;
+
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].isActive) {
+          isAnyActive = 1;
+          lamGroupsTempQty = lamGroupsTemp.length;
+          while(--lamGroupsTempQty > -1) {
+            if(lamGroupsTemp[lamGroupsTempQty].img_in_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            } else if(lamGroupsTemp[lamGroupsTempQty].img_out_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            }
+          }
+        }
+      }
+      //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
+      if(!GlobalStor.global.lamGroupFiltered.length) {
+        if(!isAnyActive) {
+          GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+        }
+      }
+    }
+
+
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
+      }
+      return noExist;
+    }
+
+
+    function setCurrLamination(newLamId) {
+      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      //---- clean filter
+      cleanLamFilter();
+      while(--laminatGroupQty > -1) {
+        if(newLamId) {
+          //------ set lamination Couple with color
+          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        } else {
+          //----- set white lamination Couple
+          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        }
+      }
+    }
+
+
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
+      }
+    }
+
+
+
+    function setProfileByLaminat(lamId) {
+      var deff = $q.defer();
+      if(lamId) {
+        //------ set profiles parameters
+        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+      } else {
+        ProductStor.product.profile = angular.copy(fineItemById(ProductStor.product.profile.id, GlobalStor.global.profiles));
+      }
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
+        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        ProductStor.product.profileDepths.frameDepth = result[0];
+        ProductStor.product.profileDepths.frameStillDepth = result[1];
+        ProductStor.product.profileDepths.sashDepth = result[2];
+        ProductStor.product.profileDepths.impostDepth = result[3];
+        ProductStor.product.profileDepths.shtulpDepth = result[4];
+
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+            deff.resolve(1);
+          });
+          //----- create template icon
+          SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+            ProductStor.product.templateIcon = angular.copy(result);
+          });
+        });
+
+      });
+      return deff.promise;
+    }
+
+
+
+
+
 
 
     /**========== CREATE ORDER ==========*/
@@ -661,6 +857,9 @@
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -688,6 +887,9 @@
       setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -831,6 +1033,9 @@
           return item.id;
         }).join(', ');
         productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;
@@ -839,8 +1044,7 @@
         delete productData.profile;
         delete productData.glass;
         delete productData.hardware;
-        delete productData.laminationOutName;
-        delete productData.laminationInName;
+        delete productData.lamination;
         delete productData.chosenAddElements;
         delete productData.profileDepths;
         delete productData.addelemPriceDis;

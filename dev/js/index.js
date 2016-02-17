@@ -130,6 +130,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
+      .when('/designMain', {
+        templateUrl: 'views/design.html',
+        controller: 'DesignCtrl as designPageMain',
+        title: 'Design'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -141,7 +146,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     $translateProvider.translations('ro', romanianDictionary);
     $translateProvider.translations('it', italianDictionary);
 
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
 
   }
 

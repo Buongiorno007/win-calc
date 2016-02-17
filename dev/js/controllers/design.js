@@ -69,18 +69,18 @@
     thisCtrl.insertSash = insertSash;
     thisCtrl.insertCorner = insertCorner;
     thisCtrl.insertImpost = insertImpost;
-    thisCtrl.insertArc = insertArc;
+    thisCtrl.insertArc = insertArc;   
     thisCtrl.initMirror = initMirror;
     thisCtrl.positionAxis = positionAxis;
     thisCtrl.positionGlass = positionGlass;
 
     thisCtrl.stepBack = DesignServ.stepBack;
 
+    //------- close Report
+    GlobalStor.global.isReport = 0;
 
 
-
-
-    //============ methods ================//
+    //============ methods  ================//
 
 
     //--------Select menu item
@@ -183,7 +183,7 @@
         //----- show all glasses
         var glasses = d3.selectAll('#tamlateSVG .glass');
         DesignStor.design.selectedGlass = glasses[0];
-        glasses.classed('glass-active', true);
+        glasses.classed('glass-active', false);
       }
     }
 

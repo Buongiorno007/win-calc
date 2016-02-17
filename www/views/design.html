@@ -1,7 +1,7 @@
 
 <section class="construction-page">
   <section class="construction-container">
-    <div class="construction-left-menu">
+    <div ng-class="{'selected': designPage.G.global.isTemplateItemDesign}" class="construction-left-menu">
       <ul class="figure-lists">
         <li ng-click="designPage.selectMenuItem(3)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3}" class="figure-item-block">

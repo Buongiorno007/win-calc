@@ -217,6 +217,19 @@
               ' img VARCHAR',
             'foreignKey': ''
           },
+          'profile_laminations': {
+            'tableName': 'profile_laminations',
+            'prop': 'profile_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' code_sync VARCHAR',
+            'foreignKey': ''
+          },
           'rules_types': {
             'tableName': 'rules_types',
             'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
@@ -254,7 +267,7 @@
               ' last_sync TIMESTAMP,' +
               ' address VARCHAR,' +
               ' therm_coeff_id INTEGER,' +
-              ' factory_link VARCHAR',
+              ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
@@ -318,7 +331,8 @@
               ' cameras INTEGER,' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
-              ' img VARCHAR',
+              ' img VARCHAR,' +
+              ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -500,6 +514,7 @@
               ' profile_id INTEGER,' +
               ' glass_id VARCHAR,' +
               ' hardware_id INTEGER,' +
+              ' lamination_id INTEGER,' +
               ' lamination_out_id INTEGER,' +
               ' lamination_in_id INTEGER,' +
               ' door_shape_id INTEGER,' +
@@ -689,7 +704,6 @@
             row[key] = checkStringToQuote(row[key]);
             return "'"+row[key]+"'";
           }).join(', ');
-      //console.log(values);
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
           console.log('Something went wrong with insert into ' + tableName);

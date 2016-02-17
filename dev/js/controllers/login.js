@@ -1,21 +1,20 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
     thisCtrl.isLocalDB = 0;
     thisCtrl.isRegistration = 0;
-    thisCtrl.generalLocations = {};
     thisCtrl.submitted = 0;
     thisCtrl.isUserExist = 0;
     thisCtrl.isUserNotExist = 0;
@@ -30,6 +29,35 @@
     thisCtrl.regPhone = globalConstants.REG_PHONE;
     thisCtrl.regName = globalConstants.REG_NAME;
     thisCtrl.regMail = globalConstants.REG_MAIL;
+
+    //------- translate
+    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+    thisCtrl.OK = $filter('translate')('common_words.OK');
+    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.ENTER = $filter('translate')('login.ENTER');
+    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;
@@ -235,8 +263,7 @@
                     if(data[0].locked) {
                       angular.extend(UserStor.userInfo, data[0]);
                       //------- set User Location
-                      loginServ.prepareLocationToUse().then(function(data) {
-                        thisCtrl.generalLocations = data;
+                      loginServ.prepareLocationToUse().then(function() {
                         checkingFactory();
                       });
 
@@ -281,9 +308,8 @@
                   if(data[0].factory_id > 0) {
                     angular.extend(UserStor.userInfo, data[0]);
                     //------- set User Location
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+                    loginServ.prepareLocationToUse().then(function() {
+                      loginServ.setUserLocation();
                       /** download all data */
                       loginServ.downloadAllData();
                     });
@@ -321,7 +347,7 @@
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
-          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
@@ -370,9 +396,7 @@
                 localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                   if(data) {
                     //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
+                    loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
                   }
@@ -393,7 +417,7 @@
 
     function checkingFactory() {
       //------- set User Location
-      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+      loginServ.setUserLocation();
       if((UserStor.userInfo.factory_id * 1) > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
@@ -411,12 +435,12 @@
       } else {
         //---- show Factory List
         //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
+        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
           localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
 //            console.log('Factories++++++', result);
             GlobalStor.global.isLoader = 0;
             if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories, thisCtrl.generalLocations.mergerLocation);
+              thisCtrl.factories = setFactoryLocation(result.factories);
               //-------- close Factory Dialog
               thisCtrl.isFactoryId = 1;
             } else {
@@ -445,13 +469,14 @@
 
 
 
-    function setFactoryLocation(factories, location) {
+    function setFactoryLocation(factories) {
       var factoryQty = factories.length,
-          locationQty = location.length;
+          locationQty;
       while(--factoryQty > -1) {
-        for(var l = 0; l < locationQty; l++) {
-          if(factories[factoryQty].city_id === location[l].cityId) {
-            factories[factoryQty].location = location[l].fullLocation;
+        locationQty = GlobalStor.global.locations.cities.length;
+        while(--locationQty > -1) {
+          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
+            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
           }
         }
       }
@@ -504,11 +529,11 @@
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
 //          console.log('REG', data);
-          //------ if generalLocations is not exists refresh Location and Users
+          //------ if locations is not exists refresh Location and Users
           if(thisCtrl.isLocalDB) {
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-//              console.log('DOWNLOAD LOCATION 1', data);
+            GlobalStor.global.isLoader = 1;
+            loginServ.prepareLocationToUse(1).then(function() {
+              GlobalStor.global.isLoader = 0;
               thisCtrl.isRegistration = 1;
             });
           } else {
@@ -523,9 +548,7 @@
                     localDB.importLocation().then(function(data) {
                       if(data) {
                         //------ save Location Data in local obj
-                        loginServ.prepareLocationToUse().then(function(data) {
-                          thisCtrl.generalLocations = data;
-//                          console.log('DOWNLOAD LOCATION 2', data);
+                        loginServ.prepareLocationToUse(1).then(function() {
                           GlobalStor.global.isLoader = 0;
                           thisCtrl.isRegistration = 1;
                         });

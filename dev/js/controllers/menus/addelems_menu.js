@@ -8,6 +8,7 @@
 
   function addElementMenuCtrl(
     $timeout,
+    $filter,
     globalConstants,
     GlobalStor,
     ProductStor,
@@ -33,6 +34,17 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
+    thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.ADD = $filter('translate')('add_elements.ADD');
+    thisCtrl.TAB_NAME_SIMPLE_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_SIMPLE_FRAME');
+    thisCtrl.TAB_NAME_HARD_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_HARD_FRAME');
+    thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
     /**============ clicking ============*/

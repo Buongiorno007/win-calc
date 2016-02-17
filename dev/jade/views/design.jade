@@ -1,7 +1,7 @@
 section.construction-page
   section.construction-container
 
-    .construction-left-menu
+    .construction-left-menu(ng-class="{'selected': designPage.G.global.isTemplateItemDesign}")
       ul.figure-lists
         li.figure-item(ng-click="designPage.selectMenuItem(3)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")

@@ -23,6 +23,24 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
+    thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
+    thisCtrl.FREE = $filter('translate')('cart.FREE');
+    thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
+    thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
+    thisCtrl.DELIVERY_DATE = $filter('translate')('cart.DELIVERY_DATE');
+    thisCtrl.FIRST_PAYMENT_LABEL = $filter('translate')('cart.FIRST_PAYMENT_LABEL');
+    thisCtrl.DATE_DELIVERY_LABEL = $filter('translate')('cart.DATE_DELIVERY_LABEL');
+    thisCtrl.MONTHLY_PAYMENT_LABEL = $filter('translate')('cart.MONTHLY_PAYMENT_LABEL');
+    thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
+    thisCtrl.ORDER = $filter('translate')('cart.ORDER');
+    thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
+
+
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;

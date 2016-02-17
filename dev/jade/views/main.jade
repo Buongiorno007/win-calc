@@ -1,21 +1,23 @@
 section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
+  
   section.left-side
     include menus/_navigation-menu
-  section.right-side(ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}", ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}")
+  section.right-side(ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}", ng-style="{'background-image':'url()'}")
+    include parts/_new-room
     section.main-content(tabindex="0")
+      include design-copy
       include parts/_user-info
       include parts/_room-info
       include parts/_room-selector
       include parts/_report
-
       include panels/_templates
       include panels/_profiles
-      include panels/_glasses
+      include panels/_glasses 
       include panels/_hardwares
       include panels/_laminations
       include panels/_add-elements
       include panels/_add-elements-list
-      .backDarkView(ng-show="mainPage.G.global.isShowCommentBlock")
+      .backDarkView(ng-if="mainPage.G.global.isShowCommentBlock")
     section.right-menu
       include menus/_config-menu
       include menus/_addelems-menu

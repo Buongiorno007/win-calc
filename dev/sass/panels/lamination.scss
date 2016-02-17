@@ -2,75 +2,80 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: rem(50px) rem(80px);
-  .lamination-block {
-    margin-bottom: rem(100px);
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .lamination-title {
-    @include roboto-bd(rem(48px));
 
-    margin-bottom: rem(15px);
-    color: $main_gray_txt;
-  }
-  .lamination-white {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
-    @include align-items(center);
-
-    margin-bottom: rem(15px);
-  }
-  .lam-option-box {
-    position: relative;
-    float: left;
-    min-height: rem(326px);
-    margin-right: rem(15px);
-  }
-  .lamination-img {
+  .laminat-img {
     @extend .splash;
-    @include display-flex();
-    @include align-items(center);
-    @include justify-content(center);
     @include transition(all .5s linear);
-
-    width: rem(225px);
-    min-width: rem(190px);
-    height: rem(225px);
     cursor: pointer;
     img {
-      max-width: rem(190px);
-      width: 11.875rem;
       height: 11.5rem;
     }
     &.selected {
       position: relative;
-      border-radius: rem($radius_lamination);
-      background-color: $main_green;
+      outline: 3px solid $main_green;
       &:after {
-        @include font-icon(rem(130px), rem(130px));
-
+        @include font-icon(rem(130px), 7rem);
         position: absolute;
-        top: rem(40px);
-        right: rem(40px);
+        top: 18%;
+        left: 36%;
         color: $main_green;
         content: $check-panel-icon;
       }
     }
   }
-  .lamination-label {
-    @include roboto-lt(rem(36px));
 
-    max-width: rem(190px);
-    padding: 0 rem(17px);
+  .laminat-label {
+    @include roboto-lt(rem(36px));
     word-wrap: break-word;
     color: $main_gray_txt;
-    &.for-white {
-      max-width: rem(500px);
+  }
+
+
+  .laminat-filter {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2rem;
+    .laminat-box {
+      margin-right: 3rem;
+    }
+    .laminat-img {
+      img {
+        width: 25.4rem;
+      }
     }
   }
+
+
+  .laminat-groups {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(space-around);
+    height: 77%;
+    overflow: auto;
+    padding-top: 3rem;
+
+    .laminat-box {
+      margin-bottom: 3rem;
+    }
+    .laminat-row {
+      @include display-flex();
+      @include flex-flow(row wrap);
+      @include justify-content(space-between);
+    }
+    .laminat-img {
+      img {
+        width: 12rem;
+      }
+    }
+    .laminat-label {
+      font-size: 2rem;
+    }
+  }
+
+
   .info {
     top: rem(-20px);
     right: rem(50px);

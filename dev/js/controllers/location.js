@@ -1,8 +1,6 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
@@ -19,7 +17,7 @@
     //  thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
       return item.countryId === UserStor.userInfo.countryId;
     });
 
@@ -39,7 +37,7 @@
         UserStor.userInfo.city_id = location.cityId;
         UserStor.userInfo.cityName = location.cityName;
         UserStor.userInfo.countryId = location.countryId;
-        UserStor.userInfo.countryName = location.countryName;
+        //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
         UserStor.userInfo.climaticZone = location.climaticZone;
         UserStor.userInfo.heatTransfer = location.heatTransfer;

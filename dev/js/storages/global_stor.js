@@ -20,7 +20,8 @@
         isConfigMenu: 0,
         activePanel: 0,
         configMenuTips: 0,
-
+        isTemplateItemMenu: 0,
+        isTemplateItemDesign: 1,
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,
         productEditNumber: 0,
@@ -31,14 +32,14 @@
 
         isChangedTemplate: 0,
         isVoiceHelper: 0,
-        voiceHelperLanguage: '',
+        voiceHelperLanguage: '', 
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
-
+        
         //------ Rooms background
         showRoomSelectorDialog: 0,
-        rooms: [],
+        
 
         //------- Templates
         templateLabel: '',
@@ -62,8 +63,11 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsIn: [],
-        laminationsOut: [],
+        laminats: [],
+        laminatCouples: [],
+
+        lamGroupFiltered: [],
+
 
         //------ Add Elements
         addElementsAll: [],
@@ -85,7 +89,11 @@
         isReport: 0,
 
         currencies: [],
-        locations: {},
+        locations: {
+          countries: [],
+          regions: [],
+          cities: []
+        },
         margins: {},
         deliveryCoeff: {},
 

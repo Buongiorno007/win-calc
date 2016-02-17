@@ -133,6 +133,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
+      .when('/designMain', {
+        templateUrl: 'views/design.html',
+        controller: 'DesignCtrl as designPageMain',
+        title: 'Design'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -144,7 +149,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     $translateProvider.translations('ro', romanianDictionary);
     $translateProvider.translations('it', italianDictionary);
 
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
 
   }
 
@@ -470,6 +475,1260 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.insertSash = insertSash;
     thisCtrl.insertCorner = insertCorner;
     thisCtrl.insertImpost = insertImpost;
+    thisCtrl.insertArc = insertArc;   
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
+
+    thisCtrl.stepBack = DesignServ.stepBack;
+
+    //------- close Report
+    GlobalStor.global.isReport = 0;
+
+
+    //============ methods  ================//
+
+
+    //--------Select menu item
+    function selectMenuItem(id) {
+      if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
+        DesignServ.closeSizeCaclulator();
+      } else {
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              //DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = id;
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      }
+    }
+
+
+    function deactivMenu() {
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      DesignStor.design.isDropSubMenu = 0;
+    }
+
+    function showDesignError() {
+      thisCtrl.config.isDesignError = 1;
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      $timeout(function(){
+        thisCtrl.config.isDesignError = 0;
+      }, 800);
+    }
+
+
+    //++++++++++ Edit Sash ++++++++++//
+
+    function showAllAvailableGlass(menuId) {
+      DesignStor.design.activeSubMenuItem = menuId;
+      if(!DesignStor.design.selectedGlass.length) {
+        //----- show all glasses
+        var glasses = d3.selectAll('#tamlateSVG .glass');
+        DesignStor.design.selectedGlass = glasses[0];
+        glasses.classed('glass-active', false);
+      }
+    }
+
+
+
+    function insertSash(sashType, event) {
+//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+      event.preventDefault();
+//      event.srcEvent.stopPropagation();
+
+      var isPermit = 1,
+          glassQty = DesignStor.design.selectedGlass.length,
+          i = 0;
+
+      if(sashType === 1) {
+        deactivMenu();
+        //----- delete sash
+        for(; i < glassQty; i++) {
+          DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
+        }
+      } else {
+        if(sashType === 2 || sashType === 6 || sashType === 8) {
+          if(DesignStor.design.isDropSubMenu === sashType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = sashType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          //----- insert sash
+          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+          }
+        }
+      }
+    }
+
+
+
+    //++++++++++ Edit Corner ++++++++//
+
+    //-------- show all Corner Marks
+    function showAllAvailableCorner(menuId) {
+      var corners = d3.selectAll('#tamlateSVG .corner_mark');
+      if(corners[0].length) {
+        //---- show submenu
+        DesignStor.design.activeSubMenuItem = menuId;
+        corners.transition().duration(300).ease("linear").attr('r', 50);
+        DesignStor.design.selectedCorner = corners[0];
+//        corners.on('touchstart', function () {
+        corners.on('click', function () {
+          //----- hide all cornerMark
+          DesignServ.hideCornerMarks();
+
+          //----- show selected cornerMark
+          var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
+          DesignStor.design.selectedCorner.push(corner[0][0]);
+
+        });
+      } else {
+        showDesignError();
+      }
+    }
+
+    function insertCorner(conerType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      //------ hide menu
+      deactivMenu();
+      var cornerQty = DesignStor.design.selectedCorner.length,
+          i = 0;
+      switch(conerType) {
+        //----- delete
+        case 1:
+          for(; i < cornerQty; i++) {
+            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+        //----- line angel
+        case 2:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+        //----- curv angel
+        case 3:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+      }
+    }
+
+
+
+
+
+    //++++++++++ Edit Arc ++++++++//
+
+    function showAllAvailableArc(menuId) {
+      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
+        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+          return true;
+        }
+      });
+      //----- if not corners
+      if(arcs.length) {
+        DesignStor.design.activeSubMenuItem = menuId;
+//        console.log('Arcs++++++', DesignStor.design.selectedArc);
+        if(!DesignStor.design.selectedArc.length) {
+          //----- show all frames and arc
+          var arcsD3 = d3.selectAll(arcs);
+          DesignStor.design.selectedArc = arcsD3[0];
+          arcsD3.classed('active_svg', true);
+        }
+      } else {
+        showDesignError();
+      }
+    }
+
+
+
+    function insertArc(arcType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      deactivMenu();
+      //---- get quantity of arcs
+      var arcQty = DesignStor.design.selectedArc.length;
+
+      //======= delete arc
+      if(arcType === 1) {
+        //------ delete all arcs
+        if (arcQty > 1) {
+          DesignServ.workingWithAllArcs(0);
+        } else {
+          //------ delete one selected arc
+          DesignServ.deleteArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
+        }
+
+      //======= insert arc
+      } else {
+        //------ insert all arcs
+        if(arcQty > 1) {
+          DesignServ.workingWithAllArcs(1);
+        } else {
+          //------ insert one selected arc
+          DesignServ.createArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
+        }
+      }
+    }
+
+
+
+
+    //++++++++++ Edit Impost ++++++++//
+
+
+    function insertImpost(impostType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      var isPermit = 1,
+          impostsQty = DesignStor.design.selectedImpost.length,
+          i = 0;
+
+      if(impostType === 1) {
+        deactivMenu();
+        //----- delete imposts
+        if (impostsQty) {
+          for (; i < impostsQty; i++) {
+            DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
+          }
+          $timeout(function(){
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      } else {
+        //----- show drop submenu
+        if(impostType === 4 || impostType === 8 || impostType === 12) {
+          if(DesignStor.design.isDropSubMenu === impostType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = impostType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          if (!impostsQty) {
+            var glassQty = DesignStor.design.selectedGlass.length;
+            if (glassQty) {
+              //------- insert imposts
+              for (; i < glassQty; i++) {
+                DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
+              }
+            }
+          } else {
+            DesignServ.deselectAllImpost();
+          }
+        }
+      }
+    }
+
+
+    /**++++++++++ create Mirror ++++++++*/
+
+    function initMirror(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.initMirror();
+    }
+
+
+    /**++++++++++ position by Axises ++++++++*/
+
+    function positionAxis(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionAxises();
+    }
+
+
+    /**++++++++++ position by Glasses ++++++++*/
+
+    function positionGlass(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionGlasses();
+    }
+
+
+
+
+
+
+    /**============= DOOR ===============*/
+
+    //---------- Show Door Configuration
+    function toggleDoorConfig() {
+      thisCtrl.config.isDoorConfig = 1;
+      DesignServ.closeSizeCaclulator();
+      //----- set emplty index values
+//      DesignStor.design.doorConfig.doorShapeIndex = '';
+//      DesignStor.design.doorConfig.sashShapeIndex = '';
+//      DesignStor.design.doorConfig.handleShapeIndex = '';
+//      DesignStor.design.doorConfig.lockShapeIndex = '';
+    }
+
+    //---------- Select door shape
+    function selectDoor(id) {
+      if(!thisCtrl.config.selectedStep2) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+          DesignStor.design.doorConfig.doorShapeIndex = '';
+          thisCtrl.config.selectedStep1 = 0;
+        } else {
+          DesignStor.design.doorConfig.doorShapeIndex = id;
+          thisCtrl.config.selectedStep1 = 1;
+        }
+      }
+    }
+    //---------- Select sash shape
+    function selectSash(id) {
+      if(!thisCtrl.config.selectedStep3) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+          DesignStor.design.doorConfig.sashShapeIndex = '';
+          thisCtrl.config.selectedStep2 = 0;
+        } else {
+          DesignStor.design.doorConfig.sashShapeIndex = id;
+          thisCtrl.config.selectedStep2 = 1;
+        }
+      }
+    }
+    //-------- Select handle shape
+    function selectHandle(id) {
+      if(!thisCtrl.config.selectedStep4) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          thisCtrl.config.selectedStep3 = 0;
+        } else {
+          DesignStor.design.doorConfig.handleShapeIndex = id;
+          thisCtrl.config.selectedStep3 = 1;
+        }
+      }
+    }
+    //--------- Select lock shape
+    function selectLock(id) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        thisCtrl.config.selectedStep4 = 0;
+      } else {
+        DesignStor.design.doorConfig.lockShapeIndex = id;
+        thisCtrl.config.selectedStep4 = 1;
+      }
+    }
+
+    //--------- Close Door Configuration
+    function closeDoorConfig() {
+      if(thisCtrl.config.selectedStep3) {
+        thisCtrl.config.selectedStep3 = 0;
+        thisCtrl.config.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep2) {
+        thisCtrl.config.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep1) {
+        thisCtrl.config.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+      } else {
+        //------ close door config
+        thisCtrl.config.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+      }
+    }
+
+    //--------- Save Door Configuration
+    function saveDoorConfig() {
+      DesignServ.rebuildSVGTemplate();
+      thisCtrl.config.isDoorConfig = 0;
+    }
+
+    //=============== End Door ==================//
+
+
+
+  }
+})();
+
+
+
+// controllers/history.js
+
+(function(){
+  'use strict';
+  /**
+   * @ngInject
+   */
+  angular
+    .module('HistoryModule')
+    .controller('HistoryCtrl', historyCtrl);
+
+  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
+
+
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.H = HistoryStor;
+    thisCtrl.U = UserStor;
+
+
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'history';
+
+    //----- variables for drafts sorting
+    thisCtrl.createdDate = 'created';
+
+    HistoryServ.downloadOrders();
+
+
+    //------ clicking
+    thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
+    thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
+    thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
+    thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
+    thisCtrl.editOrder = HistoryServ.editOrder;
+    thisCtrl.viewSwitching = HistoryServ.viewSwitching;
+
+    thisCtrl.orderSearching = HistoryServ.orderSearching;
+    thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
+    thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
+    thisCtrl.orderSorting = HistoryServ.orderSorting;
+    thisCtrl.sortingInit = HistoryServ.sortingInit;
+
+
+  }
+})();
+
+
+// controllers/location.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('SettingsModule')
+    .controller('LocationCtrl', locationCtrl);
+
+  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+
+    var thisCtrl = this;
+
+    //----- current user location
+    thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
+
+
+    //SettingServ.downloadLocations().then(function(data) {
+    //  thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+    //============ methods ================//
+
+    //-------- Select City
+    function selectCity(location) {
+      thisCtrl.userNewLocation = location.fullLocation;
+
+      //----- if user settings changing
+      if(GlobalStor.global.currOpenPage === 'settings') {
+        UserStor.userInfo.city_id = location.cityId;
+        UserStor.userInfo.cityName = location.cityName;
+        UserStor.userInfo.countryId = location.countryId;
+        //UserStor.userInfo.countryName = location.countryName;
+        UserStor.userInfo.fullLocation = location.fullLocation;
+        UserStor.userInfo.climaticZone = location.climaticZone;
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //----- save new City Id in LocalDB & Server
+        //----- update password in LocalDB & Server
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
+
+        //-------- if current geolocation changing
+      } else if(GlobalStor.global.currOpenPage === 'main'){
+        //----- build new currentGeoLocation
+        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
+      }
+      GlobalStor.global.startProgramm = false;
+      SettingServ.closeLocationPage();
+    }
+
+
+  }
+})();
+
+
+// controllers/login.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('LoginModule')
+    .controller('LoginCtrl', loginPageCtrl);
+
+  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
+    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+    thisCtrl.isOnline = 1;
+    thisCtrl.isOffline = 0;
+    thisCtrl.isLocalDB = 0;
+    thisCtrl.isRegistration = 0;
+    thisCtrl.submitted = 0;
+    thisCtrl.isUserExist = 0;
+    thisCtrl.isUserNotExist = 0;
+    thisCtrl.isUserPasswordError = 0;
+    thisCtrl.isSendEmail = 0;
+    thisCtrl.isUserNotActive = 0;
+    thisCtrl.isFactoryId = 0;
+    thisCtrl.isFactoryNotSelect = 0;
+    thisCtrl.isStartImport = 0;
+    thisCtrl.user = {};
+    thisCtrl.factories = 0;
+    thisCtrl.regPhone = globalConstants.REG_PHONE;
+    thisCtrl.regName = globalConstants.REG_NAME;
+    thisCtrl.regMail = globalConstants.REG_MAIL;
+
+    //------- translate
+    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+    thisCtrl.OK = $filter('translate')('common_words.OK');
+    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.ENTER = $filter('translate')('login.ENTER');
+    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+
+    //------ clicking
+    thisCtrl.switchRegistration = switchRegistration;
+    thisCtrl.closeRegistration = closeRegistration;
+    thisCtrl.enterForm = enterForm;
+    thisCtrl.registrForm = registrForm;
+    thisCtrl.selectLocation = selectLocation;
+    thisCtrl.selectFactory = selectFactory;
+    thisCtrl.closeFactoryDialog = closeFactoryDialog;
+    thisCtrl.closeOfflineAlert = closeOfflineAlert;
+
+
+
+    //------- defined system language
+    loginServ.getDeviceLanguage();
+
+
+    //------- export data
+    if(thisCtrl.isOnline) {
+      loginServ.initExport();
+
+      entriyWithoutLogin();
+    }
+
+
+    //============ methods ================//
+
+
+    function entriyWithoutLogin() {
+      var url = $location.search(),
+          accessArr = [
+            '7d537b6746f925b1703aefa9b8a9a4bc',
+            '3f5f0c7d46d318e026f9ba60dceffc65',
+            '799e078b084c6d57cea0b0d53a7e3008',
+            '9aefeef9c7e53f9de9bb36f32649dc3f',
+            'a2da6d85764368b24392740020efbc92',
+            'ceb60bfed037baaa484bd7b88d274c98',
+
+            '04fc711301f3c784d66955d98d399afb',
+            '768c1c687efe184ae6dd2420710b8799',
+            'f7a5c99c58103f6b65c451efd0f81826',
+            '27701bd8dd141b953b94a5c9a44697c0',
+            '7f7d5f9f3a660f2b09e3aae62a15e29b',
+            '23ff17389acbfd020043268fb49e7048',
+            'cd714cc33cfd23e74f414cbb8b9787fe',
+            '2959f1aea8db0f7fbba61f0f8474d0ef',
+            'a28a19e19b283845c851b4876b97cef4',
+            '661e67f8ce5eaf9d63c1b5be6fce1afb',
+            '0653e359db756493450c3fb1fc6790b2',
+            'ec5fefce8d1d81849b47923d6d1b52c0',
+            'd4ccb0f347163d9ee1cd5a106e1ec48b',
+            'c500ea6c5baf3deb447be25b90cf5f1c',
+            '59a6670111970ede6a77e9b43a5c4787',
+            '266021e24dd0bfaaa96f2b5e21d7c800',
+            'b8c4b7f74db12fadbe2d979ed93f392b',
+            '2482b711a07d1da3efa733aa7014f947',
+            '573b8926f015aa477cb6604901b92aea',
+            'b54d11c86eb7c8955a50d20f6b3be2f2',
+            '3a55b7218a5ca395ac71b3ec9904b6ed',
+            '3615d9213b1b3d5fe760901f43a8405f',
+            'e50137601a90943ce98b03e90d73272e',
+            'd4651afb4e1c749f0bacc7ff5d101982',
+            '988a8fa4855bf7ea54057717655d3fc9'
+          ],
+          phoneArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          passwordArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          accessQty = accessArr.length,
+          isCustomer = 0;
+
+
+      if(url.access) {
+
+        while(--accessQty > -1) {
+          if(accessArr[accessQty] === url.access) {
+            thisCtrl.user.phone = phoneArr[accessQty];
+            thisCtrl.user.password = passwordArr[accessQty];
+            isCustomer = 1;
+          }
+        }
+
+        if(isCustomer) {
+          if(thisCtrl.user.phone && thisCtrl.user.password) {
+            GlobalStor.global.isLoader = 1;
+            checkingUser();
+          }
+        } else {
+          localDB.importUser(url.access, 1).then(function(result) {
+            var userTemp = angular.copy(result.user);
+            GlobalStor.global.isLoader = 1;
+            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
+            //-------- check factory Link
+            if(result.factoryLink !== null) {
+              userTemp.factoryLink = angular.copy(result.factoryLink);
+            }
+            importDBProsses(userTemp);
+          });
+        }
+
+      }
+    }
+
+
+
+
+    function closeOfflineAlert() {
+      thisCtrl.isOffline = false;
+    }
+
+
+
+    /** =========== SIGN IN ======== */
+
+    function enterForm(form) {
+//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+      //------ Trigger validation flag.
+      thisCtrl.submitted = 1;
+      if (form.$valid) {
+        GlobalStor.global.isLoader = 1;
+        //------ check Internet
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          //------- check available Local DB
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
+
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+                //---- user exists
+                if(data.length) {
+                  //---------- check user password
+                  var newUserPassword = localDB.md5(thisCtrl.user.password);
+                  if(newUserPassword === data[0].password) {
+                    //----- checking user activation
+                    if(data[0].locked) {
+                      angular.extend(UserStor.userInfo, data[0]);
+                      //------- set User Location
+                      loginServ.prepareLocationToUse().then(function() {
+                        checkingFactory();
+                      });
+
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- show attantion
+                      thisCtrl.isUserNotActive = 1;
+                    }
+                  } else {
+                    GlobalStor.global.isLoader = 0;
+                    //---- user not exists
+                    thisCtrl.isUserPasswordError = 1;
+                  }
+                } else {
+                  //======== IMPORT
+                  console.log('Sync IMPORT');
+                  checkingUser();
+                }
+
+              });
+
+
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
+        //-------- check LocalDB
+        } else if(thisCtrl.isLocalDB) {
+          console.log('OFFLINE');
+          //---- checking user in LocalDB
+          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+            //---- user exists
+            if(data.length) {
+              //---------- check user password
+              var newUserPassword = localDB.md5(thisCtrl.user.password);
+              if(newUserPassword === data[0].password) {
+                //----- checking user activation
+                if(data[0].locked) {
+                  //------- checking user FactoryId
+                  if(data[0].factory_id > 0) {
+                    angular.extend(UserStor.userInfo, data[0]);
+                    //------- set User Location
+                    loginServ.prepareLocationToUse().then(function() {
+                      loginServ.setUserLocation();
+                      /** download all data */
+                      loginServ.downloadAllData();
+                    });
+                  } else {
+                    GlobalStor.global.isLoader = 0;
+                    thisCtrl.isOffline = 1;
+                  }
+                } else {
+                  GlobalStor.global.isLoader = 0;
+                  //---- show attantion
+                  thisCtrl.isUserNotActive = 1;
+                }
+              } else {
+                GlobalStor.global.isLoader = 0;
+                //---- user not exists
+                thisCtrl.isUserPasswordError = 1;
+              }
+            } else {
+              GlobalStor.global.isLoader = 0;
+              //---- user not exists
+              thisCtrl.isUserNotExist = 1;
+            }
+
+          });
+
+        } else {
+          GlobalStor.global.isLoader = 0;
+          thisCtrl.isOffline = 1;
+        }
+      }
+    }
+
+
+    function checkingUser() {
+      localDB.importUser(thisCtrl.user.phone).then(function(result) {
+        if(result.status) {
+          var userTemp = angular.copy(result.user);
+          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          //---------- check user password
+          var newUserPassword = localDB.md5(thisCtrl.user.password);
+          if(newUserPassword === userTemp.password) {
+
+            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
+            //-------- check factory Link
+            if(result.factoryLink !== null) {
+              userTemp.factoryLink = angular.copy(result.factoryLink);
+            }
+            importDBProsses(userTemp);
+          } else {
+            GlobalStor.global.isLoader = 0;
+            //---- user not exists
+            thisCtrl.isUserPasswordError = 1;
+          }
+        } else {
+          GlobalStor.global.isLoader = 0;
+          //---- user not exists
+          thisCtrl.isUserNotExist = 1;
+        }
+
+      });
+    }
+
+
+
+    function importDBProsses(user) {
+
+      //----- checking user activation
+      if(user.locked) {
+        //------- clean all tables in LocalDB
+        //              console.log('CLEEN START!!!!');
+        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+          if(data) {
+            //                  console.log('CLEEN DONE!!!!');
+            //------- creates all tables in LocalDB
+            //                  console.log('CREATE START!!!!');
+            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //                      console.log('CREATE DONE!!!!');
+                //------- save user in LocalDB
+                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                //------- save user in Stor
+                angular.extend(UserStor.userInfo, user);
+                //------- import Location
+                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                  if(data) {
+                    //------ save Location Data in local obj
+                    loginServ.prepareLocationToUse().then(function() {
+                      checkingFactory();
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        GlobalStor.global.isLoader = 0;
+        //---- show attantion
+        thisCtrl.isUserNotActive = 1;
+      }
+
+    }
+
+
+
+    function checkingFactory() {
+      //------- set User Location
+      loginServ.setUserLocation();
+      if((UserStor.userInfo.factory_id * 1) > 0) {
+        loginServ.isLocalDBExist().then(function(data) {
+          thisCtrl.isLocalDB = data;
+          if (thisCtrl.isLocalDB) {
+            //------- current FactoryId matches to user FactoryId, go to main page without importDB
+            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+            /** download all data */
+            loginServ.downloadAllData();
+            //});
+          } else {
+            //------ LocalDB is empty
+            importDBfromServer(UserStor.userInfo.factory_id);
+          }
+        });
+      } else {
+        //---- show Factory List
+        //----- collect city Ids regarding to user country
+        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
+          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
+//            console.log('Factories++++++', result);
+            GlobalStor.global.isLoader = 0;
+            if(result.status) {
+              thisCtrl.factories = setFactoryLocation(result.factories);
+              //-------- close Factory Dialog
+              thisCtrl.isFactoryId = 1;
+            } else {
+              console.log('can not get factories!');
+            }
+          });
+        });
+      }
+    }
+
+
+
+    function importDBfromServer() {
+      thisCtrl.isStartImport = 1;
+//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+        if(data) {
+          /** download all data */
+          loginServ.downloadAllData();
+          thisCtrl.isStartImport = 0;
+        } else {
+          console.log('Error!');
+        }
+      });
+    }
+
+
+
+    function setFactoryLocation(factories) {
+      var factoryQty = factories.length,
+          locationQty;
+      while(--factoryQty > -1) {
+        locationQty = GlobalStor.global.locations.cities.length;
+        while(--locationQty > -1) {
+          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
+            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
+          }
+        }
+      }
+      return factories;
+    }
+
+
+
+    function selectFactory() {
+      if(thisCtrl.user.factoryId > 0) {
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          GlobalStor.global.isLoader = 1;
+          //-------- send selected Factory Id in Server
+          UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
+//                  console.log(UserStor.userInfo.factory_id);
+          //----- update factoryId in LocalDB & Server
+          localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
+            //-------- close Factory Dialog
+            thisCtrl.isFactoryId = 0;
+            importDBfromServer();
+          });
+        } else {
+          thisCtrl.isOffline = 1;
+        }
+      } else {
+        //---- show attantion if any factory was chosen
+        thisCtrl.isFactoryNotSelect = 1;
+      }
+
+    }
+
+    function closeFactoryDialog() {
+      thisCtrl.isFactoryNotSelect = 0;
+      thisCtrl.isFactoryId = 0;
+      delete thisCtrl.user.factoryId;
+    }
+
+
+
+
+
+    /**============ registration ============*/
+
+    function switchRegistration() {
+      //------ check Internet
+      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+      if(thisCtrl.isOnline) {
+        //------- check available Local DB
+        loginServ.isLocalDBExist().then(function(data) {
+          thisCtrl.isLocalDB = data;
+//          console.log('REG', data);
+          //------ if locations is not exists refresh Location and Users
+          if(thisCtrl.isLocalDB) {
+            GlobalStor.global.isLoader = 1;
+            loginServ.prepareLocationToUse(1).then(function() {
+              GlobalStor.global.isLoader = 0;
+              thisCtrl.isRegistration = 1;
+            });
+          } else {
+            GlobalStor.global.isLoader = 1;
+            //------- clean all tables in LocalDB
+            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //------- creates all tables in LocalDB
+                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
+                  if(data) {
+                    //------- import Location
+                    localDB.importLocation().then(function(data) {
+                      if(data) {
+                        //------ save Location Data in local obj
+                        loginServ.prepareLocationToUse(1).then(function() {
+                          GlobalStor.global.isLoader = 0;
+                          thisCtrl.isRegistration = 1;
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+          thisCtrl.user = {};
+          //angular.element('#first_input').focus();
+        });
+      } else {
+        thisCtrl.isOffline = 1;
+      }
+    }
+
+
+    function closeRegistration() {
+      thisCtrl.user = {};
+      thisCtrl.isRegistration = 0;
+    }
+
+    function registrForm(form) {
+      // Trigger validation flag.
+      thisCtrl.submitted = true;
+      if (form.$valid) {
+        //------ check Internet
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          GlobalStor.global.isLoader = 1;
+          //--- checking user in server
+          localDB.importUser(thisCtrl.user.phone).then(function(result) {
+            if(result.status) {
+              GlobalStor.global.isLoader = 0;
+              //---- show attantion
+              thisCtrl.isUserExist = 1;
+            } else {
+              var userData = {
+                name: thisCtrl.user.name,
+                phone: thisCtrl.user.phone,
+                email: thisCtrl.user.mail,
+                cityId: thisCtrl.user.city.id,
+                password: localDB.md5(thisCtrl.user.phone)
+              };
+              console.log('CREATE USER!!!!!!!!!!!!', userData);
+              //--- create new user in Server
+              localDB.createUserServer(userData);
+              GlobalStor.global.isLoader = 0;
+              //-------- sent confirmed email
+              thisCtrl.isSendEmail = 1;
+              closeRegistration();
+            }
+          });
+        } else {
+          thisCtrl.isOffline = 1;
+        }
+      }
+    }
+
+    //--------- if was empty option selected in select after choosing
+    function selectLocation() {
+      if(!thisCtrl.user.country) {
+        delete thisCtrl.user.region;
+        delete thisCtrl.user.city;
+      } else if(!thisCtrl.user.region) {
+        delete thisCtrl.user.city;
+      }
+    }
+
+
+  }
+})();
+
+
+// controllers/main.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('MainCtrl', mainPageCtrl);
+
+    
+  function mainPageCtrl($timeout, DesignServ, DesignStor, loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor, globalConstants) {
+
+   var thisCtrl = this,
+    delaySubMenu1 = 300,
+    delaySubMenu2 = 600,
+    delaySubMenu3 = 900,
+    delaySubMenu4 = 1200;
+
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+    thisCtrl.A = AuxStor;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.D = DesignStor;
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'main';
+
+      thisCtrl.config = {
+      //---- design menu
+      isDesignError: 0,
+
+      //----- door
+      isDoorConfig: 0,
+      selectedStep1: 0,
+      selectedStep2: 0,
+      selectedStep3: 0,
+      selectedStep4: 0,
+
+      DELAY_SHOW_FIGURE_ITEM: 1000,
+      typing: 'on'
+    };
+
+
+//=========== clicking ============//
+
+    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designCancel = DesignServ.designCancel;
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+
+    //----- door config
+    thisCtrl.toggleDoorConfig = toggleDoorConfig;
+    thisCtrl.selectDoor = selectDoor;
+    thisCtrl.selectSash = selectSash;
+    thisCtrl.selectHandle = selectHandle;
+    thisCtrl.selectLock = selectLock;
+    thisCtrl.closeDoorConfig = closeDoorConfig;
+    thisCtrl.saveDoorConfig = saveDoorConfig;
+
+    //------ edit design
+    thisCtrl.insertSash = insertSash;
+    thisCtrl.insertCorner = insertCorner;
+    thisCtrl.insertImpost = insertImpost;
     thisCtrl.insertArc = insertArc;
     thisCtrl.initMirror = initMirror;
     thisCtrl.positionAxis = positionAxis;
@@ -478,10 +1737,66 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.stepBack = DesignServ.stepBack;
 
 
+    //=============== FIRST START =========//
+
+    if(GlobalStor.global.startProgramm) {
+//      GlobalStor.global.isLoader = 1;
+//      console.log('START main CTRL!!!!!!');
+//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
+      //playSound('menu');
+
+      /** save first User entrance */
+      MainServ.saveUserEntry();
+      /** create order date */
+      MainServ.createOrderData();
+      /** set Curr Discounts */
+      MainServ.setCurrDiscounts();
+
+      /** set first Template */
+      MainServ.setCurrTemplate();
+      /** set Templates */
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        MainServ.prepareMainPage();
+      /** start lamination filtering */
+        MainServ.laminatFiltering();
+
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+        }
 
 
+        //--------- set template from ProductStor
+        DesignServ.setDefaultTemplate();
+       
 
-    //============ methods ================//
+        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
+      });
+    }
+
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
+    }
+
+
+      
+ 
+    //------- close Report
+    GlobalStor.global.isReport = 0;
+
+    //================ EDIT PRODUCT =================
+    if (GlobalStor.global.productEditNumber) {
+      console.log('EDIT!!!!');
+      console.log('product = ', ProductStor.product);
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
+        ProductStor.product.template = data;
+      });
+    }
+
+
+//========= methods  ================//
 
 
     //--------Select menu item
@@ -916,791 +2231,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-  }
+    }
 })();
 
 
-
-// controllers/history.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('HistoryModule')
-    .controller('HistoryCtrl', historyCtrl);
-
-  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
-
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.H = HistoryStor;
-    thisCtrl.U = UserStor;
-
-
-    //------- set current Page
-    GlobalStor.global.currOpenPage = 'history';
-
-    //----- variables for drafts sorting
-    thisCtrl.createdDate = 'created';
-
-    HistoryServ.downloadOrders();
-
-
-    //------ clicking
-    thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
-    thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
-    thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
-    thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
-    thisCtrl.editOrder = HistoryServ.editOrder;
-    thisCtrl.viewSwitching = HistoryServ.viewSwitching;
-
-    thisCtrl.orderSearching = HistoryServ.orderSearching;
-    thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
-    thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
-    thisCtrl.orderSorting = HistoryServ.orderSorting;
-    thisCtrl.sortingInit = HistoryServ.sortingInit;
-
-
-  }
-})();
-
-
-// controllers/location.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('SettingsModule')
-    .controller('LocationCtrl', locationCtrl);
-
-  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
-
-    var thisCtrl = this;
-
-    //----- current user location
-    thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
-
-
-    //SettingServ.downloadLocations().then(function(data) {
-    //  thisCtrl.locations = data;
-    //});
-    /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
-      return item.countryId === UserStor.userInfo.countryId;
-    });
-
-    //------ clicking
-    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
-    thisCtrl.selectCity = selectCity;
-
-
-    //============ methods ================//
-
-    //-------- Select City
-    function selectCity(location) {
-      thisCtrl.userNewLocation = location.fullLocation;
-
-      //----- if user settings changing
-      if(GlobalStor.global.currOpenPage === 'settings') {
-        UserStor.userInfo.city_id = location.cityId;
-        UserStor.userInfo.cityName = location.cityName;
-        UserStor.userInfo.countryId = location.countryId;
-        UserStor.userInfo.countryName = location.countryName;
-        UserStor.userInfo.fullLocation = location.fullLocation;
-        UserStor.userInfo.climaticZone = location.climaticZone;
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
-        //----- save new City Id in LocalDB & Server
-        //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
-
-        //-------- if current geolocation changing
-      } else if(GlobalStor.global.currOpenPage === 'main'){
-        //----- build new currentGeoLocation
-        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
-      }
-      GlobalStor.global.startProgramm = false;
-      SettingServ.closeLocationPage();
-    }
-
-
-  }
-})();
-
-
-// controllers/login.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('LoginModule')
-    .controller('LoginCtrl', loginPageCtrl);
-
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
-
-    var thisCtrl = this;
-    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-    thisCtrl.isOnline = 1;
-    thisCtrl.isOffline = 0;
-    thisCtrl.isLocalDB = 0;
-    thisCtrl.isRegistration = 0;
-    thisCtrl.generalLocations = {};
-    thisCtrl.submitted = 0;
-    thisCtrl.isUserExist = 0;
-    thisCtrl.isUserNotExist = 0;
-    thisCtrl.isUserPasswordError = 0;
-    thisCtrl.isSendEmail = 0;
-    thisCtrl.isUserNotActive = 0;
-    thisCtrl.isFactoryId = 0;
-    thisCtrl.isFactoryNotSelect = 0;
-    thisCtrl.isStartImport = 0;
-    thisCtrl.user = {};
-    thisCtrl.factories = 0;
-    thisCtrl.regPhone = globalConstants.REG_PHONE;
-    thisCtrl.regName = globalConstants.REG_NAME;
-    thisCtrl.regMail = globalConstants.REG_MAIL;
-
-    //------ clicking
-    thisCtrl.switchRegistration = switchRegistration;
-    thisCtrl.closeRegistration = closeRegistration;
-    thisCtrl.enterForm = enterForm;
-    thisCtrl.registrForm = registrForm;
-    thisCtrl.selectLocation = selectLocation;
-    thisCtrl.selectFactory = selectFactory;
-    thisCtrl.closeFactoryDialog = closeFactoryDialog;
-    thisCtrl.closeOfflineAlert = closeOfflineAlert;
-
-
-
-    //------- defined system language
-    loginServ.getDeviceLanguage();
-
-
-    //------- export data
-    if(thisCtrl.isOnline) {
-      loginServ.initExport();
-
-      entriyWithoutLogin();
-    }
-
-
-    //============ methods ================//
-
-
-    function entriyWithoutLogin() {
-      var url = $location.search(),
-          accessArr = [
-            '7d537b6746f925b1703aefa9b8a9a4bc',
-            '3f5f0c7d46d318e026f9ba60dceffc65',
-            '799e078b084c6d57cea0b0d53a7e3008',
-            '9aefeef9c7e53f9de9bb36f32649dc3f',
-            'a2da6d85764368b24392740020efbc92',
-            'ceb60bfed037baaa484bd7b88d274c98',
-
-            '04fc711301f3c784d66955d98d399afb',
-            '768c1c687efe184ae6dd2420710b8799',
-            'f7a5c99c58103f6b65c451efd0f81826',
-            '27701bd8dd141b953b94a5c9a44697c0',
-            '7f7d5f9f3a660f2b09e3aae62a15e29b',
-            '23ff17389acbfd020043268fb49e7048',
-            'cd714cc33cfd23e74f414cbb8b9787fe',
-            '2959f1aea8db0f7fbba61f0f8474d0ef',
-            'a28a19e19b283845c851b4876b97cef4',
-            '661e67f8ce5eaf9d63c1b5be6fce1afb',
-            '0653e359db756493450c3fb1fc6790b2',
-            'ec5fefce8d1d81849b47923d6d1b52c0',
-            'd4ccb0f347163d9ee1cd5a106e1ec48b',
-            'c500ea6c5baf3deb447be25b90cf5f1c',
-            '59a6670111970ede6a77e9b43a5c4787',
-            '266021e24dd0bfaaa96f2b5e21d7c800',
-            'b8c4b7f74db12fadbe2d979ed93f392b',
-            '2482b711a07d1da3efa733aa7014f947',
-            '573b8926f015aa477cb6604901b92aea',
-            'b54d11c86eb7c8955a50d20f6b3be2f2',
-            '3a55b7218a5ca395ac71b3ec9904b6ed',
-            '3615d9213b1b3d5fe760901f43a8405f',
-            'e50137601a90943ce98b03e90d73272e',
-            'd4651afb4e1c749f0bacc7ff5d101982',
-            '988a8fa4855bf7ea54057717655d3fc9'
-          ],
-          phoneArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-            '9201922876',
-            '903528981',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028'
-          ],
-          passwordArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-            '9201922876',
-            '903528981',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028'
-          ],
-          accessQty = accessArr.length,
-          isCustomer = 0;
-
-
-      if(url.access) {
-
-        while(--accessQty > -1) {
-          if(accessArr[accessQty] === url.access) {
-            thisCtrl.user.phone = phoneArr[accessQty];
-            thisCtrl.user.password = passwordArr[accessQty];
-            isCustomer = 1;
-          }
-        }
-
-        if(isCustomer) {
-          if(thisCtrl.user.phone && thisCtrl.user.password) {
-            GlobalStor.global.isLoader = 1;
-            checkingUser();
-          }
-        } else {
-          localDB.importUser(url.access, 1).then(function(result) {
-            var userTemp = angular.copy(result.user);
-            GlobalStor.global.isLoader = 1;
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
-            importDBProsses(userTemp);
-          });
-        }
-
-      }
-    }
-
-
-
-
-    function closeOfflineAlert() {
-      thisCtrl.isOffline = false;
-    }
-
-
-
-    /** =========== SIGN IN ======== */
-
-    function enterForm(form) {
-//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.
-      thisCtrl.submitted = 1;
-      if (form.$valid) {
-        GlobalStor.global.isLoader = 1;
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          //------- check available Local DB
-          loginServ.isLocalDBExist().then(function(data){
-            thisCtrl.isLocalDB = data;
-            if(thisCtrl.isLocalDB) {
-
-              //======== SYNC
-              console.log('SYNC');
-              //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-                //---- user exists
-                if(data.length) {
-                  //---------- check user password
-                  var newUserPassword = localDB.md5(thisCtrl.user.password);
-                  if(newUserPassword === data[0].password) {
-                    //----- checking user activation
-                    if(data[0].locked) {
-                      angular.extend(UserStor.userInfo, data[0]);
-                      //------- set User Location
-                      loginServ.prepareLocationToUse().then(function(data) {
-                        thisCtrl.generalLocations = data;
-                        checkingFactory();
-                      });
-
-                    } else {
-                      GlobalStor.global.isLoader = 0;
-                      //---- show attantion
-                      thisCtrl.isUserNotActive = 1;
-                    }
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    //---- user not exists
-                    thisCtrl.isUserPasswordError = 1;
-                  }
-                } else {
-                  //======== IMPORT
-                  console.log('Sync IMPORT');
-                  checkingUser();
-                }
-
-              });
-
-
-            } else {
-              //======== IMPORT
-              console.log('IMPORT');
-              checkingUser();
-            }
-          });
-        //-------- check LocalDB
-        } else if(thisCtrl.isLocalDB) {
-          console.log('OFFLINE');
-          //---- checking user in LocalDB
-          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-            //---- user exists
-            if(data.length) {
-              //---------- check user password
-              var newUserPassword = localDB.md5(thisCtrl.user.password);
-              if(newUserPassword === data[0].password) {
-                //----- checking user activation
-                if(data[0].locked) {
-                  //------- checking user FactoryId
-                  if(data[0].factory_id > 0) {
-                    angular.extend(UserStor.userInfo, data[0]);
-                    //------- set User Location
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-                      /** download all data */
-                      loginServ.downloadAllData();
-                    });
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    thisCtrl.isOffline = 1;
-                  }
-                } else {
-                  GlobalStor.global.isLoader = 0;
-                  //---- show attantion
-                  thisCtrl.isUserNotActive = 1;
-                }
-              } else {
-                GlobalStor.global.isLoader = 0;
-                //---- user not exists
-                thisCtrl.isUserPasswordError = 1;
-              }
-            } else {
-              GlobalStor.global.isLoader = 0;
-              //---- user not exists
-              thisCtrl.isUserNotExist = 1;
-            }
-
-          });
-
-        } else {
-          GlobalStor.global.isLoader = 0;
-          thisCtrl.isOffline = 1;
-        }
-      }
-    }
-
-
-    function checkingUser() {
-      localDB.importUser(thisCtrl.user.phone).then(function(result) {
-        if(result.status) {
-          var userTemp = angular.copy(result.user);
-          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-          //---------- check user password
-          var newUserPassword = localDB.md5(thisCtrl.user.password);
-          if(newUserPassword === userTemp.password) {
-
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
-            importDBProsses(userTemp);
-          } else {
-            GlobalStor.global.isLoader = 0;
-            //---- user not exists
-            thisCtrl.isUserPasswordError = 1;
-          }
-        } else {
-          GlobalStor.global.isLoader = 0;
-          //---- user not exists
-          thisCtrl.isUserNotExist = 1;
-        }
-
-      });
-    }
-
-
-
-    function importDBProsses(user) {
-
-      //----- checking user activation
-      if(user.locked) {
-        //------- clean all tables in LocalDB
-        //              console.log('CLEEN START!!!!');
-        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-          if(data) {
-            //                  console.log('CLEEN DONE!!!!');
-            //------- creates all tables in LocalDB
-            //                  console.log('CREATE START!!!!');
-            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //                      console.log('CREATE DONE!!!!');
-                //------- save user in LocalDB
-                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
-                //------- save user in Stor
-                angular.extend(UserStor.userInfo, user);
-                //------- import Location
-                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-                  if(data) {
-                    //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
-                      checkingFactory();
-                    });
-                  }
-                });
-              }
-            });
-          }
-        });
-      } else {
-        GlobalStor.global.isLoader = 0;
-        //---- show attantion
-        thisCtrl.isUserNotActive = 1;
-      }
-
-    }
-
-
-
-    function checkingFactory() {
-      //------- set User Location
-      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-      if((UserStor.userInfo.factory_id * 1) > 0) {
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-          if (thisCtrl.isLocalDB) {
-            //------- current FactoryId matches to user FactoryId, go to main page without importDB
-            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-            /** download all data */
-            loginServ.downloadAllData();
-            //});
-          } else {
-            //------ LocalDB is empty
-            importDBfromServer(UserStor.userInfo.factory_id);
-          }
-        });
-      } else {
-        //---- show Factory List
-        //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
-          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
-//            console.log('Factories++++++', result);
-            GlobalStor.global.isLoader = 0;
-            if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories, thisCtrl.generalLocations.mergerLocation);
-              //-------- close Factory Dialog
-              thisCtrl.isFactoryId = 1;
-            } else {
-              console.log('can not get factories!');
-            }
-          });
-        });
-      }
-    }
-
-
-
-    function importDBfromServer() {
-      thisCtrl.isStartImport = 1;
-//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-        if(data) {
-          /** download all data */
-          loginServ.downloadAllData();
-          thisCtrl.isStartImport = 0;
-        } else {
-          console.log('Error!');
-        }
-      });
-    }
-
-
-
-    function setFactoryLocation(factories, location) {
-      var factoryQty = factories.length,
-          locationQty = location.length;
-      while(--factoryQty > -1) {
-        for(var l = 0; l < locationQty; l++) {
-          if(factories[factoryQty].city_id === location[l].cityId) {
-            factories[factoryQty].location = location[l].fullLocation;
-          }
-        }
-      }
-      return factories;
-    }
-
-
-
-    function selectFactory() {
-      if(thisCtrl.user.factoryId > 0) {
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //-------- send selected Factory Id in Server
-          UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-//                  console.log(UserStor.userInfo.factory_id);
-          //----- update factoryId in LocalDB & Server
-          localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
-            //-------- close Factory Dialog
-            thisCtrl.isFactoryId = 0;
-            importDBfromServer();
-          });
-        } else {
-          thisCtrl.isOffline = 1;
-        }
-      } else {
-        //---- show attantion if any factory was chosen
-        thisCtrl.isFactoryNotSelect = 1;
-      }
-
-    }
-
-    function closeFactoryDialog() {
-      thisCtrl.isFactoryNotSelect = 0;
-      thisCtrl.isFactoryId = 0;
-      delete thisCtrl.user.factoryId;
-    }
-
-
-
-
-
-    /**============ registration ============*/
-
-    function switchRegistration() {
-      //------ check Internet
-      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-      if(thisCtrl.isOnline) {
-        //------- check available Local DB
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-//          console.log('REG', data);
-          //------ if generalLocations is not exists refresh Location and Users
-          if(thisCtrl.isLocalDB) {
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-//              console.log('DOWNLOAD LOCATION 1', data);
-              thisCtrl.isRegistration = 1;
-            });
-          } else {
-            GlobalStor.global.isLoader = 1;
-            //------- clean all tables in LocalDB
-            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //------- creates all tables in LocalDB
-                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
-                  if(data) {
-                    //------- import Location
-                    localDB.importLocation().then(function(data) {
-                      if(data) {
-                        //------ save Location Data in local obj
-                        loginServ.prepareLocationToUse().then(function(data) {
-                          thisCtrl.generalLocations = data;
-//                          console.log('DOWNLOAD LOCATION 2', data);
-                          GlobalStor.global.isLoader = 0;
-                          thisCtrl.isRegistration = 1;
-                        });
-                      }
-                    });
-                  }
-                });
-              }
-            });
-          }
-          thisCtrl.user = {};
-          //angular.element('#first_input').focus();
-        });
-      } else {
-        thisCtrl.isOffline = 1;
-      }
-    }
-
-
-    function closeRegistration() {
-      thisCtrl.user = {};
-      thisCtrl.isRegistration = 0;
-    }
-
-    function registrForm(form) {
-      // Trigger validation flag.
-      thisCtrl.submitted = true;
-      if (form.$valid) {
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //--- checking user in server
-          localDB.importUser(thisCtrl.user.phone).then(function(result) {
-            if(result.status) {
-              GlobalStor.global.isLoader = 0;
-              //---- show attantion
-              thisCtrl.isUserExist = 1;
-            } else {
-              var userData = {
-                name: thisCtrl.user.name,
-                phone: thisCtrl.user.phone,
-                email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.id,
-                password: localDB.md5(thisCtrl.user.phone)
-              };
-              console.log('CREATE USER!!!!!!!!!!!!', userData);
-              //--- create new user in Server
-              localDB.createUserServer(userData);
-              GlobalStor.global.isLoader = 0;
-              //-------- sent confirmed email
-              thisCtrl.isSendEmail = 1;
-              closeRegistration();
-            }
-          });
-        } else {
-          thisCtrl.isOffline = 1;
-        }
-      }
-    }
-
-    //--------- if was empty option selected in select after choosing
-    function selectLocation() {
-      if(!thisCtrl.user.country) {
-        delete thisCtrl.user.region;
-        delete thisCtrl.user.city;
-      } else if(!thisCtrl.user.region) {
-        delete thisCtrl.user.city;
-      }
-    }
-
-
-  }
-})();
-
-
-// controllers/main.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('MainCtrl', mainPageCtrl);
-
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.U = UserStor;
-    thisCtrl.A = AuxStor;
-
-    //------- set current Page
-    GlobalStor.global.currOpenPage = 'main';
-    //------- close Report
-    GlobalStor.global.isReport = 0;
-
-    //=============== FIRST START =========//
-
-    if(GlobalStor.global.startProgramm) {
-//      GlobalStor.global.isLoader = 1;
-//      console.log('START main CTRL!!!!!!');
-//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
-      //playSound('menu');
-
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
-      });
-    }
-
-
-    //================ EDIT PRODUCT =================
-    if (GlobalStor.global.productEditNumber) {
-      console.log('EDIT!!!!');
-      console.log('product = ', ProductStor.product);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
-        ProductStor.product.template = data;
-      });
-    }
-
-
-  }
-})();
 
 
 //event.srcEvent.stopPropagation();
@@ -1720,6 +2254,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function addElementMenuCtrl(
     $timeout,
+    $filter,
     globalConstants,
     GlobalStor,
     ProductStor,
@@ -1745,6 +2280,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
+    thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.ADD = $filter('translate')('add_elements.ADD');
+    thisCtrl.TAB_NAME_SIMPLE_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_SIMPLE_FRAME');
+    thisCtrl.TAB_NAME_HARD_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_HARD_FRAME');
+    thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
     /**============ clicking ============*/
@@ -1872,6 +2418,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
+    thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
+    thisCtrl.FREE = $filter('translate')('cart.FREE');
+    thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
+    thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
+    thisCtrl.DELIVERY_DATE = $filter('translate')('cart.DELIVERY_DATE');
+    thisCtrl.FIRST_PAYMENT_LABEL = $filter('translate')('cart.FIRST_PAYMENT_LABEL');
+    thisCtrl.DATE_DELIVERY_LABEL = $filter('translate')('cart.DATE_DELIVERY_LABEL');
+    thisCtrl.MONTHLY_PAYMENT_LABEL = $filter('translate')('cart.MONTHLY_PAYMENT_LABEL');
+    thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
+    thisCtrl.ORDER = $filter('translate')('cart.ORDER');
+    thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
+
+
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;
@@ -1956,8 +2520,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    GlobalStor.global.isOpenedCartPage = 0;
-    GlobalStor.global.isOpenedHistoryPage = 0;
+    //------- translate
+    thisCtrl.CONFIGMENU_CONFIGURATION = $filter('translate')('mainpage.CONFIGMENU_CONFIGURATION');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
+    thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+
 
     //------ clicking
     thisCtrl.selectConfigPanel = selectConfigPanel;
@@ -2024,7 +2602,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2044,6 +2622,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
     thisCtrl.activeMenuItem = 0;
+
+    //------- translate
+    thisCtrl.NAVMENU_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_GEOLOCATION');
+    thisCtrl.NAVMENU_CURRENT_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_CURRENT_GEOLOCATION');
+    thisCtrl.NAVMENU_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_CALCULATIONS');
+    thisCtrl.NAVMENU_CURRENT_CALCULATION = $filter('translate')('mainpage.NAVMENU_CURRENT_CALCULATION');
+    thisCtrl.NAVMENU_CART = $filter('translate')('mainpage.NAVMENU_CART');
+    thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+    thisCtrl.NAVMENU_ALL_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_ALL_CALCULATIONS');
+    thisCtrl.NAVMENU_APPENDIX = $filter('translate')('mainpage.NAVMENU_APPENDIX');
+    thisCtrl.NAVMENU_SETTINGS = $filter('translate')('mainpage.NAVMENU_SETTINGS');
+    thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
+    thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
+    thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
 
     //------ clicking
     thisCtrl.selectMenuItem = selectMenuItem;
@@ -2580,9 +3172,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('GlassesCtrl', glassSelectorCtrl);
@@ -2659,7 +3249,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         ProductStor.product.template = angular.copy(result);
         //------ calculate price
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
@@ -2679,9 +3269,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('HardwaresCtrl', hardwareSelectorCtrl);
@@ -2714,7 +3302,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
 //        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
@@ -2731,14 +3319,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl(globalConstants, MainServ, DesignServ ,GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2753,48 +3339,40 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 
     //============ methods ================//
 
-    //------------ Select lamination
-    function selectLaminat(type, id, name) {
-      if(type) {
-        if(ProductStor.product.lamination_out_id !== id) {
-          ProductStor.product.lamination_out_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationOutName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationOutName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-        }
-      } else {
-        if(ProductStor.product.lamination_in_id !== id) {
-          ProductStor.product.lamination_in_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationInName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationInName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+
+    /** init Laminat Filter */
+    function initLaminatFilter(typeId) {
+      //console.info('init filter --- ', typeId);
+      var laminatQty = GlobalStor.global.laminats.length;
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].type_id === typeId) {
+          GlobalStor.global.laminats[laminatQty].isActive = !GlobalStor.global.laminats[laminatQty].isActive;
+          //console.info('init filter --- ', GlobalStor.global.laminats[laminatQty]);
+          MainServ.laminatFiltering();
         }
       }
     }
 
 
-    //TODO?????
-    function setLaminationTotalPrice() {
-//      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
-//      $timeout(function() {
-//        MainServ.setProductPriceTOTAL();
-//      }, 50);
+    //------------ Select lamination
+    function selectLaminat(id) {
+      //console.info('select lamin --- ', id);
+      MainServ.setCurrLamination(id);
+
+      MainServ.setProfileByLaminat(id).then(function() {
+        //------ save analytics data
+        /** send analytics data to Server*/
+        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+      })
+      DesignServ.rebuildSVGTemplate();
+
     }
 
   }
@@ -2806,9 +3384,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('ProfilesCtrl', profileSelectorCtrl);
@@ -2840,11 +3416,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //---------- Select profile
     function selectProfile(newId) {
       if(ProductStor.product.profile.id !== newId) {
+        /** set default white lamination */
+        MainServ.setCurrLamination();
         MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
           ProductStor.product.glass.length = 0;
           MainServ.parseTemplate().then(function () {
             //------ save analytics data
 //            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+            /** change lamination groups as of new profile */
+            MainServ.laminatFiltering();
             /** send analytics data to Server*/
             AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
           });
@@ -2861,9 +3441,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
 'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
@@ -3072,7 +3650,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //    thisCtrl.locations = data;
     //});
     /** база городов и регионов долны быть только одной страны завода */
-    thisCtrl.locations = GlobalStor.locations.mergerLocation.filter(function(item) {
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
       return item.countryId === UserStor.userInfo.countryId;
     });
 
@@ -3226,28 +3804,35 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
-  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function roomInfoCtrl($filter, MainServ, GeneralServ, TemplatesServ, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
 
-    thisCtrl.config = {
+  
+      thisCtrl.config = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
       DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
       typing: 'on'
     };
-
+  
 
     //------ clicking
 
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    
 
 
-    //============ methods ================//
+
+    //========================= selection rooms ========================================//
 
     //------ Show/Close Room Selector Dialog
     function showRoomSelectorDialog() {
@@ -3264,8 +3849,42 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //playSound('swip');
       GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }
+  
 
+   //------ click on top button to change template type
+    
+    function toggleTemplateType() {
+      GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
+    }
+
+    //================== Select new Template Type ========================//
+  
+
+    function selectNewTemplateType(marker) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      function goToNewTemplateType() {
+        if (marker === 4) {
+          MainServ.setDefaultDoorConfig();
+        }
+        GlobalStor.global.isChangedTemplate = 0;
+        TemplatesServ.initNewTemplateType(marker);
+      }
+
+      if (GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplateType
+        );
+      } else {
+        TemplatesServ.initNewTemplateType(marker);
+      }
+
+    }
   }
+
 })();
 
 
@@ -3298,7 +3917,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //============ methods ================//
 
     //---------- Room Select
-    function selectRoom(id) {
+   
+   function selectRoom(id) {
       TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
     }
 
@@ -3413,10 +4033,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.D = DesignStor;
 
 
-
     //------ clicking
     //------ for Add Elements Panel
-    if(GlobalStor.global.currOpenPage === 'main') {
+    if(GlobalStor.global.activePanel == 6) {
       thisCtrl.isDesignPage = false;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
@@ -3494,9 +4113,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsPageCtrl);
@@ -4266,6 +4883,86 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// directives/svg_points.js
+
+
+// (function(){
+//   'use strict';
+//     /**@ngInject*/
+
+//   angular
+//     .module('BauVoiceApp')
+//     .directive('svgTemplatePoints', svgTemplatePoints);
+
+//   function svgTemplatePoints(DesignStor, ProductStor) {
+//   	var pixell = 0.265;
+//   	var Kx= (900*0.265);
+//   	var Ky= 100;
+
+//   return {
+//       restrict: 'E',
+//       replace: true,
+//       transclude: true,
+//       scope: {
+//         template: '=',
+//       },
+//       link: function (scope, elem, attrs) {
+
+//         scope.$watch('template', function () {
+//           templatePoints(scope.template);
+//         });
+
+//         function templatePoints(template) {
+//         	 var container = document.createElement('div'), mainPointsSVG;
+// 			if(template && !$.isEmptyObject(template)) {
+// 				console.info('2222-', template);
+// 				var blockQty = template.details.length,
+// 	        	path = '';
+// 				if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+// 	        	  while(--blockQty > 0) {
+// 	        	   if (template.details[blockQty].level === 1) {
+// 	        	  	console.info('333333-', template.details[blockQty].pointsOut);
+// 	        	  	var pointsOutQty =  template.details[blockQty].pointsOut.length;
+// 	        	  	while(--pointsOutQty > -1) {
+// 	        	  		path += (template.details[blockQty].pointsOut[pointsOutQty].x*pixell+Kx);
+// 	        	  		if(pointsOutQty == 0) {
+// 							path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y*pixell+Ky);
+// 	        	  		} else {
+// 							path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y*pixell+Ky) +',';
+// 	        	  		}
+						
+// 	        	  	}
+					
+// 				  }
+// 	        	}
+
+// 	        	console.info('333333-', path);
+
+// 	        	mainPointsSVG = d3.select(container).append('svg').attr({
+// 	              'width': 0,
+// 	              'height': 0
+// 	            });
+// 	            mainPointsSVG.append('defs').append('clipPath')
+// 	            .attr('id', 'clipPolygon')
+// 	            .append('polygon')
+// 	            .attr('points', function() {
+// 	            	return path
+// 	            } , transform: 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'  );
+
+// 	             elem.html(container);
+//            }
+// 		}
+
+
+			
+//         }
+//       }
+//     }
+//   }
+// })();
+
+
+
 // directives/svg.js
 
 (function(){
@@ -4275,7 +4972,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(globalConstants, GeneralServ, SVGServ, DesignServ) {
+  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -4310,7 +5007,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               padding = 1;
             } else if(scope.typeConstruction === 'edit') {
               padding = 0.6;
-            }
+            } else if(scope.typeConstruction === 'MainEdit') {
+                padding = 0.6;
+              }
+            
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
@@ -4329,23 +5029,101 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
-            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            if(scope.typeConstruction !== 'icon') {
-              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+
+      
+            if(scope.typeConstruction === 'MainEdit') {
+             scale = SVGServ.setTemplateScaleMAIN(dimMaxMin, widthSVG, heightSVG, padding);
+            } else {
+             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding); 
             }
 
+
+            if(scope.typeConstruction !== 'icon') {
+              if (scope.typeConstruction === 'MainEdit') {
+              position = SVGServ.setTemplatePositionMAIN(dimMaxMin, widthSVG, heightSVG, scale);
+            } else {
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+            }
+            }
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
 
-            if (scope.typeConstruction === 'edit') {
+
+        //===================zoom=====================//
+
+
+            if (scope.typeConstruction === 'edit' ) {
               mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
                 .on("zoom", zooming));
+            } 
+
+        //===================zoom end=====================//
+
+           
+            /** Defs */
+            if(scope.typeConstruction !== 'icon') {
+              var defs = mainGroup.append("defs"),
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+              /** dimension */
+              //----- horizontal marker arrow
+              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              //------- vertical marker arrow
+              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              /** handle */
+              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+
+              /** lamination */
+      
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+
+
+                defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 4200)
+                  .attr('height', 2800)
+                  .append("image")
+                  .attr("xlink:href", "img/room/fon.jpg")
+                  .attr('width', 4200)
+                  .attr('height', 2800);
+
+           
+                  //  defs.append('mask')
+                  // .attr('id', 'masking')
+                  // .attr('maskUnits', 'objectBoundingBox')
+                  // .attr('fill', 'img/room/2.jpg')
+                  // .attr('width', 4200)
+                  // .attr('height', 2800)
+                  // .append("circle")
+                  // .attr('cx', 5)
+                  // .attr('cy', 5)
+                  // .attr('r', .35)
+                  // .attr('fill', 'white');
             }
+                  
+  
 
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
@@ -4354,8 +5132,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'id': 'dim_group'
             });
 
-
-            //          console.log('++++++ template +++++++', mainGroup);
             blocksQty = template.details.length;
             for (var i = 1; i < blocksQty; i++) {
               elementsGroup.selectAll('path.' + template.details[i].id)
@@ -4387,6 +5163,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   },
                   'd': function (d) {
                     return d.path;
+                  },
+                  'fill': function(d) {
+                    if(ProductStor.product.lamination.img_in_id > 1) {
+                      return (d.type !== 'glass') ? 'url(#laminat)' : '';
+                    } else {
+                      return '#f9f9f9';
+                    }
                   }
                 });
 
@@ -4430,8 +5213,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
                 //---- corner markers
-                if(scope.typeConstruction === 'edit') {
+                if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
                   if (template.details[i].level === 1) {
+              
                     //----- create array of frame points with corner = true
                     var corners = template.details[i].pointsOut.filter(function (item) {
                       return item.corner > 0;
@@ -4487,31 +5271,44 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             }
 
+
+        
+           var blockQty = template.details.length,
+                path = '';
+                while(--blockQty > 0) {
+                   if (template.details[blockQty].level === 1) {
+                console.info('333333-', template.details[blockQty].pointsOut);
+                var pointsOutQty =  template.details[blockQty].pointsOut.length;
+                while(--pointsOutQty > -1) {
+                  path += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                   if(pointsOutQty == 0) {
+              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                } else {
+              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                  }
+                }
+              }
+            }
+          
+           if(scope.typeConstruction !== 'icon') {
+               mainGroup.append('g').append("polygon")
+              .attr({
+                'id' : 'clipPolygon',
+                'points' : path,
+              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ (scale/100)*500 +','+ (scale/100)*500 +')'
+            });
+
+          }
+       
+
+
+
+
             if(scope.typeConstruction !== 'icon') {
               //--------- dimension
-              var defs = dimGroup.append("defs"),
-                  dimXQty = template.dimension.dimX.length,
+              var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length,
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-  "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
-
-              //----- horizontal marker arrow
-              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              //------- vertical marker arrow
-              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              //------- marker handle
-              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
-
-              //            console.log('SVG=========dim==', template.dimension);
+                  dimQQty = template.dimension.dimQ.length;
               for (var dx = 0; dx < dimXQty; dx++) {
                 createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
               }
@@ -4521,14 +5318,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               for (var dq = 0; dq < dimQQty; dq++) {
                 createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
               }
-
             }
+
             elem.html(container);
 
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -4561,6 +5358,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
+          if (scope.typeConstruction === !'MainEdit') {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -4630,7 +5428,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
            .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
             sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
@@ -4645,7 +5443,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox.append('text')
            .text(dim.text)
            .attr({
-             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+             'class': function() { return (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit' ) ? 'size-txt-edit' : 'size-txt'; },
              'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
              'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
              'dx': 80,
@@ -4662,7 +5460,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
            });
 
         }
-
+}
 
         function createRadiusDimension(dimQ, dimGroup, lineCreator) {
 
@@ -4697,7 +5495,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -5863,22 +6661,13 @@ function ErrorResult(code, message) {
         AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
         switch (toolsId) {
           case 1:
-            if(currElem.element_qty) {
-              AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-            }
             GlobalStor.global.isQtyCalculator = 1;
             break;
           case 2:
-            if(currElem.element_width) {
-              AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 1;
             break;
           case 3:
-            if(currElem.element_height) {
-              AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-            }
             GlobalStor.global.isSizeCalculator = 1;
             GlobalStor.global.isWidthCalculator = 0;
             break;
@@ -6910,6 +7699,7 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
       serverIP: 'http://api.windowscalculator.net',
+      //serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -7101,7 +7891,7 @@ function ErrorResult(code, message) {
         }
 
         /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = 1;
           backtoTemplatePanel();
@@ -7135,7 +7925,7 @@ function ErrorResult(code, message) {
       $location.path('/main');
     }
 
-
+ 
     //------- set Default Construction
     function setDefaultConstruction() {
       //------- close calculator if is opened
@@ -7335,6 +8125,7 @@ function ErrorResult(code, message) {
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
+      console.log('clickclickclickclickclickclickclickclickclickclick')
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
         .each(function() {
@@ -7349,6 +8140,7 @@ function ErrorResult(code, message) {
 
               if (isGlass) {
                 glass.classed('glass-active', true);
+                GlobalStor.global.isTemplateItemMenu = 1;
                 hideCornerMarks();
                 deselectAllImpost();
                 deselectAllArc();
@@ -7360,6 +8152,7 @@ function ErrorResult(code, message) {
                 $rootScope.$apply();
               } else {
                 glass.classed('glass-active', false);
+                GlobalStor.global.isTemplateItemMenu = 0;
                 //------- hide Dimensions of current Block
                 d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
 
@@ -7499,7 +8292,9 @@ function ErrorResult(code, message) {
       }
     }
 
-
+function upBackground () {
+  
+}
 
     function isExistArcInSelected(newElem, selectedArr) {
       var exist = 1,
@@ -9526,31 +10321,32 @@ function ErrorResult(code, message) {
 
 
 
-
+//======================clear SVG====================//
 
     function removeAllEventsInSVG() {
-      //--------- delete click on imposts
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on arcs
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on dimension
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
+      // console.log('remove remove remove remove remove remove')
+      // //--------- delete click on imposts
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on glasses
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on arcs
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on dimension
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete event listener for keydown
+      // d3.select(window).on('keydown', null);
     }
 
 
@@ -10157,7 +10953,6 @@ function ErrorResult(code, message) {
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
-
             //----- checking product with design or only addElements
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
@@ -10176,7 +10971,10 @@ function ErrorResult(code, message) {
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                setLaminationXOrder(tempProd);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
                 defer1.resolve(tempProd);
               });
 
@@ -10228,26 +11026,6 @@ function ErrorResult(code, message) {
         product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
       }
 
-    }
-
-
-    function setLaminationXOrder(product) {
-      if(product.lamination_in_id) {
-        var lamInQty = GlobalStor.global.laminationsIn.length;
-        while(--lamInQty > -1) {
-          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
-            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
-          }
-        }
-      }
-      if(product.lamination_out_id) {
-        var lamOutQty = GlobalStor.global.laminationsOut.length;
-        while(--lamOutQty > -1) {
-          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
-            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
-          }
-        }
-      }
     }
 
 
@@ -10732,6 +11510,19 @@ function ErrorResult(code, message) {
               ' img VARCHAR',
             'foreignKey': ''
           },
+          'profile_laminations': {
+            'tableName': 'profile_laminations',
+            'prop': 'profile_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' code_sync VARCHAR',
+            'foreignKey': ''
+          },
           'rules_types': {
             'tableName': 'rules_types',
             'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
@@ -10769,7 +11560,7 @@ function ErrorResult(code, message) {
               ' last_sync TIMESTAMP,' +
               ' address VARCHAR,' +
               ' therm_coeff_id INTEGER,' +
-              ' factory_link VARCHAR',
+              ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
@@ -10833,7 +11624,8 @@ function ErrorResult(code, message) {
               ' cameras INTEGER,' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
-              ' img VARCHAR',
+              ' img VARCHAR,' +
+              ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -11015,6 +11807,7 @@ function ErrorResult(code, message) {
               ' profile_id INTEGER,' +
               ' glass_id VARCHAR,' +
               ' hardware_id INTEGER,' +
+              ' lamination_id INTEGER,' +
               ' lamination_out_id INTEGER,' +
               ' lamination_in_id INTEGER,' +
               ' door_shape_id INTEGER,' +
@@ -11204,7 +11997,6 @@ function ErrorResult(code, message) {
             row[key] = checkStringToQuote(row[key]);
             return "'"+row[key]+"'";
           }).join(', ');
-      //console.log(values);
       db.transaction(function (trans) {
         trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
           console.log('Something went wrong with insert into ' + tableName);
@@ -13006,7 +13798,7 @@ function ErrorResult(code, message) {
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -13015,6 +13807,7 @@ function ErrorResult(code, message) {
       initExport: initExport,
       isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
@@ -13116,110 +13909,113 @@ function ErrorResult(code, message) {
 
 
     //------- collecting cities, regions and countries in one object for registration form
-    function prepareLocationToUse() {
+    function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
-          generalLocations = {
-            countries: [],
-            regions: [],
-            cities: [],
-            mergerLocation: []
-          },
-          countryQty, regionQty, cityQty;
-      //console.info('start time+++', new Date(), new Date().getMilliseconds());
-      //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function(data) {
-        //console.log('country!!!', data);
-        countryQty = data.length;
-        if(countryQty) {
-          generalLocations.countries = angular.copy(data);
-        } else {
-          console.log('Error!!!', data);
-        }
-      }).then(function(){
-
-        //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function(data) {
-          //console.log('regions!!!', data);
-          regionQty = data.length;
-          if(regionQty) {
-            generalLocations.regions = angular.copy(data);
+          countryQty, regionQty;
+      //if(!GlobalStor.global.locations.cities.length) {
+        //console.info('start time+++', new Date(), new Date().getMilliseconds());
+        //---- get all counties
+        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+        }).then(function () {
 
-        }).then( function() {
-
-          //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, null, 'id, name, region_id as regionId').then(function(data) {
-            //console.log('cities!!!', data);
-            cityQty = data.length;
-            if(cityQty) {
-              generalLocations.cities = angular.copy(data);
-              for(var cit = 0; cit < cityQty; cit++) {
-                var location = {
-                  cityId: generalLocations.cities[cit].id,
-                  cityName: generalLocations.cities[cit].name
-                };
-                for(var r = 0; r < regionQty; r++) {
-                  if(generalLocations.cities[cit].regionId === generalLocations.regions[r].id) {
-                    location.regionName = generalLocations.regions[r].name;
-                    location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
-                    for(var s = 0; s < countryQty; s++) {
-                      if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
-                        location.countryId = generalLocations.countries[s].id;
-                        //location.countryName = generalLocations.countries[s].name;
-                        location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName;
-                        generalLocations.mergerLocation.push(location);
-                      }
-                    }
-                  }
-                }
-
-              }
-              //console.info('generalLocations', generalLocations);
-              GlobalStor.locations = angular.copy(generalLocations);
-              //console.info('finish time+++', new Date(), new Date().getMilliseconds());
-              deferred.resolve(generalLocations);
+          //--------- get all regions
+          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
+            //console.log('regions!!!', data);
+            regionQty = data.length;
+            if (regionQty) {
+              GlobalStor.global.locations.regions = angular.copy(data);
             } else {
-              deferred.reject(data);
+              console.log('Error!!!', data);
             }
-          });
 
+          }).then(function () {
+            //--------- get city
+            downloadAllCities(allCityParam).then(function () {
+              deferred.resolve(1);
+            });
+          });
         });
-      });
+      //} else {
+      //  deferred.resolve(1);
+      //}
       return deferred.promise;
     }
 
 
-    function collectCityIdsAsCountry(location) {
-      var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      for(var i = 0; i < locationQty; i++) {
-        if(location[i].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[i].cityId);
+
+    function downloadAllCities(allCityParam) {
+      var deff = $q.defer(),
+          cityOption = (allCityParam) ? null : {'id': UserStor.userInfo.city_id},
+          countryQty, regionQty, cityQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+        //console.log('cities!!!', data);
+        cityQty = data.length;
+        if(cityQty) {
+          GlobalStor.global.locations.cities = angular.copy(data);
+          while(--cityQty > -1) {
+            regionQty = GlobalStor.global.locations.regions.length;
+            while(--regionQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                countryQty = GlobalStor.global.locations.countries.length;
+                while(--countryQty > -1) {
+                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+
+                  }
+                }
+              }
+            }
+          }
+
+          //console.info('generalLocations', GlobalStor.global.locations);
+
+          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+          deff.resolve(1);
+        } else {
+          deff.resolve(0);
         }
-      }
-      defer.resolve(cityIds.join(','));
+      });
+      return deff.promise;
+    }
+
+
+
+    function collectCityIdsAsCountry() {
+      var defer = $q.defer(),
+          cityIds = GlobalStor.global.locations.cities.map(function(item) {
+            if(item.countryId === UserStor.userInfo.countryId) {
+              return item.cityId;
+            }
+          }).join(',');
+      defer.resolve(cityIds);
       return defer.promise;
     }
 
 
     //--------- set user location
-    function setUserLocation(locations, cityId) {
-      var locationQty = locations.length;
-      for(var loc = 0; loc < locationQty; loc++) {
-        if(locations[loc].cityId === cityId) {
-          UserStor.userInfo.cityName = locations[loc].cityName;
-          UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/locations[loc].heatTransfer) : locations[loc].heatTransfer;
-          //UserStor.userInfo.countryName = locations[loc].countryName;
-          UserStor.userInfo.countryId = locations[loc].countryId;
-          UserStor.userInfo.fullLocation = locations[loc].fullLocation;
+    function setUserLocation() {
+      var cityQty = GlobalStor.global.locations.cities.length;
+      while(--cityQty > -1) {
+        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].climaticZone, UserStor.userInfo.heatTransfer, locations[loc].fullLocation);
+          setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
         }
       }
     }
@@ -13289,25 +14085,37 @@ function ErrorResult(code, message) {
                                       //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
-                                        var lamins = angular.copy(result);
-                                        //console.log('LAMINATION++++', lamins);
-                                        if(lamins) {
-                                          var laminQty = lamins.length;
-                                          if(laminQty) {
-                                            /** change Images Path and save in device */
-                                            while(--laminQty > -1) {
-                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
-                                            }
-                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
-                                          }
+                                        //console.log('LAMINATION++++', result);
+                                        if(result && result.length) {
+
+                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
+                                            item.isActive = 0;
+                                            return item;
+                                          });
+
+                                          /** add white color */
+                                          GlobalStor.global.laminats.push({
+                                            id: 1,
+                                            type_id: 1,
+
+                                            isActive: 0,
+
+                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                          });
+                                          /** download lamination couples */
+                                          downloadLamCouples().then(function() {
+                                            /** add white-white couple */
+                                            GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
+
+                                            //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
+                                          });
                                         }
-                                        //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
                                         GlobalStor.global.isLoader = 0;
                                         $location.path('/main');
                                         //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+
                                       });
                                     });
                                   });
@@ -13607,7 +14415,7 @@ function ErrorResult(code, message) {
 
             for(var j = 0; j < glassIdsQty; j++) {
               var defer6 = $q.defer();
-              console.warn(glassIds[j]);//TODO error
+              console.warn(glassIds[j]); //TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
@@ -13744,12 +14552,43 @@ function ErrorResult(code, message) {
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
         return lamin;
       });
     }
 
 
+    /** download lamination couples */
+    function downloadLamCouples() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
+        if(lamins) {
+          GlobalStor.global.laminatCouples = angular.copy(lamins);
+          /** add lamination names */
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
+          while(--coupleQty > -1) {
+            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
+            delete GlobalStor.global.laminatCouples[coupleQty].modified;
+            for(lam = 0; lam < laminatQty; lam++) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+              }
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+              }
+            }
+          }
+          deff.resolve(1);
+        } else {
+          deff.resolve(1);
+        }
+      });
+      return deff.promise;
+    }
 
 
     function downloadAllAddElements() {
@@ -13964,7 +14803,7 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, DesignStor, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
 
     var thisFactory = this;
 
@@ -13989,6 +14828,9 @@ function ErrorResult(code, message) {
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
       closeRoomSelectorDialog: closeRoomSelectorDialog,
+      laminatFiltering: laminatFiltering,
+      setCurrLamination: setCurrLamination,
+      setProfileByLaminat: setProfileByLaminat,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -14143,9 +14985,9 @@ function ErrorResult(code, message) {
     function setCurrentProfile(product, id) {
       var deferred = $q.defer();
       if(id) {
-        product.profile = fineItemById(id, GlobalStor.global.profiles);
+        product.profile = angular.copy(fineItemById(id, GlobalStor.global.profiles));
       } else {
-        product.profile = GlobalStor.global.profiles[0][0];
+        product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
       }
       //------- set Depths
       $q.all([
@@ -14203,7 +15045,7 @@ function ErrorResult(code, message) {
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
           deferred.resolve(1);
         });
       });
@@ -14221,6 +15063,7 @@ function ErrorResult(code, message) {
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
+        DesignStor.design.templateTEMP = angular.copy(result);
         GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
 //        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
@@ -14326,10 +15169,10 @@ function ErrorResult(code, message) {
 
 
     //--------- create object to send in server for price calculation
-    function preparePrice(template, profileId, glassIds, hardwareId) {
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
-      setBeadId(profileId).then(function(beadResult) {
+      setBeadId(profileId, laminatId).then(function(beadResult) {
         var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
               var beadQty = template.priceElements.beadsSize.length;
               while(--beadQty > -1) {
@@ -14340,7 +15183,7 @@ function ErrorResult(code, message) {
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination_in_id,
+              laminationId: ProductStor.product.lamination.img_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,
@@ -14405,29 +15248,89 @@ function ErrorResult(code, message) {
 
 
     /** set Bead Id */
-    function setBeadId(profileId) {
-      var defer = $q.defer(),
-          promises = ProductStor.product.glass.map(function(item) {
-            var defer2 = $q.defer();
+    function setBeadId(profileId, laminatId) {
+      var deff = $q.defer(),
+          promisBeads = ProductStor.product.glass.map(function(item) {
+            var deff2 = $q.defer();
             if(item.glass_width) {
-              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function (result) {
-                if(result.length) {
-                  var beadObj = {
-                    glassId: item.id,
-                    beadId: result[0].list_id
-                  };
-                  defer2.resolve(beadObj);
+              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(beadIds) {
+                var beadsQty = beadIds.length,
+                    beadObj = {
+                      glassId: item.id,
+                      beadId: 0
+                    };
+                if(beadsQty) {
+                  //console.log('beads++++', beadIds);
+                  //----- if beads more one
+                  if(beadsQty > 1) {
+                    //----- go to kits and find bead width required laminat Id
+                    var pomisList = beadIds.map(function(item2) {
+                      var deff3 = $q.defer();
+                      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2}, 'beed_lamination_id').then(function(lamId) {
+                        console.log('lamId++++', lamId);
+                        if(lamId) {
+                          if(lamId[0] === laminatId) {
+                            deff3.resolve(1);
+                          } else {
+                            deff3.resolve(0);
+                          }
+                        }
+                      });
+                      return deff3.promise;
+                    });
+
+                    $q.all(pomisList).then(function(results) {
+                      console.log('finish++++', results);
+                      var resultQty = results.length;
+                      while(--resultQty > -1) {
+                        if(results[resultQty]) {
+                          beadObj.beadId = beadIds[resultQty].list_id;
+                          deff2.resolve(beadObj);
+                        }
+                      }
+                    });
+
+                  } else {
+                    beadObj.beadId = beadIds[0].list_id;
+                    deff2.resolve(beadObj);
+                  }
+
                 } else {
                   console.log('Error!!', result);
-                  defer2.resolve(0);
+                  deff2.resolve(0);
                 }
               });
-              return defer2.promise;
+              return deff2.promise;
             }
           });
-      defer.resolve($q.all(promises));
-      return defer.promise;
+
+      deff.resolve($q.all(promisBeads));
+      return deff.promise;
     }
+
+    //function setBeadId(profileId, laminatId) {
+    //  var defer = $q.defer(),
+    //      promises = ProductStor.product.glass.map(function(item) {
+    //        var defer2 = $q.defer();
+    //        if(item.glass_width) {
+    //          localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(result) {
+    //            if(result.length) {
+    //              var beadObj = {
+    //                glassId: item.id,
+    //                beadId: result[0].list_id
+    //              };
+    //              defer2.resolve(beadObj);
+    //            } else {
+    //              console.log('Error!!', result);
+    //              defer2.resolve(0);
+    //            }
+    //          });
+    //          return defer2.promise;
+    //        }
+    //      });
+    //  defer.resolve($q.all(promises));
+    //  return defer.promise;
+    //}
 
 
     //---------- Price define
@@ -14599,6 +15502,138 @@ function ErrorResult(code, message) {
 
 
 
+    /**-------- filtering Lamination Groupes -----------*/
+
+    function laminatFiltering() {
+      var laminatQty = GlobalStor.global.laminats.length,
+          /** sort by Profile */
+          lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
+            if(item.profile_id) {
+              return item.profile_id === ProductStor.product.profile.id;
+            } else {
+              return true;
+            }
+          }),
+          lamGroupsTempQty, isAnyActive = 0;
+
+      //console.info('filter _____ ', lamGroupsTemp);
+
+      GlobalStor.global.lamGroupFiltered.length = 0;
+
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].isActive) {
+          isAnyActive = 1;
+          lamGroupsTempQty = lamGroupsTemp.length;
+          while(--lamGroupsTempQty > -1) {
+            if(lamGroupsTemp[lamGroupsTempQty].img_in_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            } else if(lamGroupsTemp[lamGroupsTempQty].img_out_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            }
+          }
+        }
+      }
+      //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
+      if(!GlobalStor.global.lamGroupFiltered.length) {
+        if(!isAnyActive) {
+          GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+        }
+      }
+    }
+
+
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
+      }
+      return noExist;
+    }
+
+
+    function setCurrLamination(newLamId) {
+      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      //---- clean filter
+      cleanLamFilter();
+      while(--laminatGroupQty > -1) {
+        if(newLamId) {
+          //------ set lamination Couple with color
+          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        } else {
+          //----- set white lamination Couple
+          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        }
+      }
+    }
+
+
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
+      }
+    }
+
+
+
+    function setProfileByLaminat(lamId) {
+      var deff = $q.defer();
+      if(lamId) {
+        //------ set profiles parameters
+        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+      } else {
+        ProductStor.product.profile = angular.copy(fineItemById(ProductStor.product.profile.id, GlobalStor.global.profiles));
+      }
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
+        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        ProductStor.product.profileDepths.frameDepth = result[0];
+        ProductStor.product.profileDepths.frameStillDepth = result[1];
+        ProductStor.product.profileDepths.sashDepth = result[2];
+        ProductStor.product.profileDepths.impostDepth = result[3];
+        ProductStor.product.profileDepths.shtulpDepth = result[4];
+
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id).then(function() {
+            deff.resolve(1);
+          });
+          //----- create template icon
+          SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+            ProductStor.product.templateIcon = angular.copy(result);
+          });
+        });
+
+      });
+      return deff.promise;
+    }
+
+
+
+
+
 
 
     /**========== CREATE ORDER ==========*/
@@ -14620,6 +15655,9 @@ function ErrorResult(code, message) {
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -14647,6 +15685,9 @@ function ErrorResult(code, message) {
       setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -14790,6 +15831,9 @@ function ErrorResult(code, message) {
           return item.id;
         }).join(', ');
         productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;
@@ -14798,8 +15842,7 @@ function ErrorResult(code, message) {
         delete productData.profile;
         delete productData.glass;
         delete productData.hardware;
-        delete productData.laminationOutName;
-        delete productData.laminationInName;
+        delete productData.lamination;
         delete productData.chosenAddElements;
         delete productData.profileDepths;
         delete productData.addelemPriceDis;
@@ -16899,6 +17942,8 @@ function ErrorResult(code, message) {
       createSVGTemplateIcon: createSVGTemplateIcon,
       collectAllPointsOut: collectAllPointsOut,
       setTemplateScale: setTemplateScale,
+      setTemplateScaleMAIN: setTemplateScaleMAIN,
+      setTemplatePositionMAIN: setTemplatePositionMAIN,
       setTemplatePosition: setTemplatePosition,
 
       centerBlock: centerBlock,
@@ -17080,7 +18125,7 @@ function ErrorResult(code, message) {
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      //console.log('TEMPLATE END++++', thisObj);
+      console.log('TEMPLATE END++++', thisObj);
       //console.log('svg finish', new Date(), new Date().getMilliseconds());
       //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -17111,7 +18156,7 @@ function ErrorResult(code, message) {
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+300),
+      var templateW = (dim.maxX - dim.minX)+300,
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()
@@ -17123,6 +18168,7 @@ function ErrorResult(code, message) {
       //var tempRatio = templateW/templateH;
       //var ratio = windRatio/tempRatio;
       //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+
 
       if(templateW > templateH) {
         if(windowW > templateW) {
@@ -17153,17 +18199,78 @@ function ErrorResult(code, message) {
     }
 
 
+        //----------- SCALE MAIN
+
+    function setTemplateScaleMAIN(dim, windowW, windowH, padding) {
+    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    } if(ProductStor.product.construction_type == 2 || ProductStor.product.construction_type == 4 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    }
+
+  }
+
+
 
     //----------- TRANSLATE
 
     function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+        y: (windowH - (dim.minY + dim.maxY)*scale)/2,
       };
       return position;
     }
 
+    function setTemplatePositionMAIN(dim, windowW, windowH, scale) {
+      if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+        var position = {
+          x: 250,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-310,
+      }
+        } if(ProductStor.product.construction_type == 2) {
+           var position = {
+              x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+              y: (windowH - (dim.minY + dim.maxY)*scale)/2,
+      } 
+        } if(ProductStor.product.construction_type == 4) {
+           var position = {
+              x: 250,
+              y: (windowH - (dim.minY + dim.maxY)*scale)-120,
+      }
+        }
+        return position;
+    }
 
 
 
@@ -19648,7 +20755,7 @@ function ErrorResult(code, message) {
         MainServ.setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
         //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
         //------ save analytics data
         //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         /** send analytics data to Server*/
@@ -20017,7 +21124,8 @@ function ErrorResult(code, message) {
         isConfigMenu: 0,
         activePanel: 0,
         configMenuTips: 0,
-
+        isTemplateItemMenu: 0,
+        isTemplateItemDesign: 1,
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,
         productEditNumber: 0,
@@ -20028,14 +21136,14 @@ function ErrorResult(code, message) {
 
         isChangedTemplate: 0,
         isVoiceHelper: 0,
-        voiceHelperLanguage: '',
+        voiceHelperLanguage: '', 
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
-
+        
         //------ Rooms background
         showRoomSelectorDialog: 0,
-        rooms: [],
+        
 
         //------- Templates
         templateLabel: '',
@@ -20059,8 +21167,11 @@ function ErrorResult(code, message) {
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsIn: [],
-        laminationsOut: [],
+        laminats: [],
+        laminatCouples: [],
+
+        lamGroupFiltered: [],
+
 
         //------ Add Elements
         addElementsAll: [],
@@ -20082,7 +21193,11 @@ function ErrorResult(code, message) {
         isReport: 0,
 
         currencies: [],
-        locations: {},
+        locations: {
+          countries: [],
+          regions: [],
+          cities: []
+        },
         margins: {},
         deliveryCoeff: {},
 
@@ -20310,11 +21425,9 @@ function ErrorResult(code, message) {
 
 // storages/product_stor.js
 
-(function(){
+ (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('ProductStor', productStorageFactory);
@@ -20322,7 +21435,7 @@ function ErrorResult(code, message) {
   function productStorageFactory($filter) {
     var thisFactory = this;
 
-    thisFactory.publicObj = {
+    thisFactory.publicObj = { 
       productSource: {
         product_id: 0,
         is_addelem_only: 0,
@@ -20349,11 +21462,15 @@ function ErrorResult(code, message) {
           impostDepth: {},
           shtulpDepth: {}
         },
-
-        lamination_out_id: 1,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 1,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          img_in_id: 1,
+          img_out_id: 1
+        },
 
         chosenAddElements: [
           [], // 0 - grids
@@ -20551,13 +21668,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Bauglasplatte',
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
-        CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_LAMINATION_TYPE: 'in den Zimmer / Die Fassade',
         WHITE_LAMINATION: 'Weiß',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
-        ROOM_SELECTION: 'Die Wahl Template',
+        ROOM_SELECTION1: 'Fenster',
+        ROOM_SELECTION2: 'Dekoration',
+        ROOM_SELECTION3: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
@@ -20579,9 +21698,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'Isolierung',
         CORROSION_COEFF: 'Korrosionsschutz',
         BURGLAR_COEFF: 'Diebstahlschutz',
-        LAMINAT_INSIDE: 'Laminieren des Rahmens im Raum',
-        LAMINAT_OUTSIDE: 'Laminierung von Seiten der Straßenfront',
-        LAMINAT_WHITE: 'ohne Laminierung, eine radikale weiß',
+        LAMINAT_INSIDE: 'im Raum',
+        LAMINAT_OUTSIDE: 'Straßenfront',
         ONE_WINDOW_TYPE: 'Das Einaufklappbare',
         TWO_WINDOW_TYPE: 'Das Zweiaufklappbare',
         THREE_WINDOW_TYPE: 'Das Dreiaufklappbare',
@@ -20902,13 +22020,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Glazing',
         CONFIGMENU_HARDWARE: 'accessories',
         CONFIGMENU_LAMINATION: 'Lamination',
-        CONFIGMENU_LAMINATION_TYPE: 'Facade / room',
+        CONFIGMENU_LAMINATION_TYPE: 'room / Facade',
         WHITE_LAMINATION: 'White',
         CONFIGMENU_ADDITIONAL: 'Additionally',
         CONFIGMENU_IN_CART: 'In a basket',
         VOICE_SPEACH: 'You talk...',
         COMMENT: 'Leave a note on the order here.',
-        ROOM_SELECTION: 'Template selection',
+        ROOM_SELECTION1: 'Window',
+        ROOM_SELECTION2: 'Decoration',
+        ROOM_SELECTION3: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
@@ -20930,9 +22050,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'noise isolation',
         CORROSION_COEFF: 'Anticorrosion',
         BURGLAR_COEFF: 'Burglar',
-        LAMINAT_INSIDE: 'Lamination of a frame in the room',
-        LAMINAT_OUTSIDE: 'Lamination from a facade',
-        LAMINAT_WHITE: 'without lamination, radical white color',
+        LAMINAT_INSIDE: 'In room',
+        LAMINAT_OUTSIDE: 'Facade',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -21251,13 +22370,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Parquet di vetro',
         CONFIGMENU_HARDWARE: 'Fornitura',
         CONFIGMENU_LAMINATION: 'Laminazione',
-        CONFIGMENU_LAMINATION_TYPE: 'facciata / in camera',
+        CONFIGMENU_LAMINATION_TYPE: 'in camera / facciata',
         WHITE_LAMINATION: 'La bianca',
         CONFIGMENU_ADDITIONAL: 'In aggiunta',
         CONFIGMENU_IN_CART: 'Nel cestino',
         VOICE_SPEACH: 'Parlate...',
         COMMENT: "Lasci la nota sull'ordine qui.",
-        ROOM_SELECTION: 'Scelta template',
+        ROOM_SELECTION1: 'Finestra',
+        ROOM_SELECTION2: 'Decorazione',
+        ROOM_SELECTION3: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
         HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
@@ -21279,9 +22400,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'isolamento acustico',
         CORROSION_COEFF: 'anticorrosione',
         BURGLAR_COEFF: 'protezione contro rottura',
-        LAMINAT_INSIDE: 'Laminazione dell’infisso in camera',
-        LAMINAT_OUTSIDE: 'Laminazione dal lato della facciata',
-        LAMINAT_WHITE: 'senza laminazione',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'la facciata',
         ONE_WINDOW_TYPE: 'La porta sola',
         TWO_WINDOW_TYPE: "L'ala doppio",
         THREE_WINDOW_TYPE: 'Il da tre foglie',
@@ -21601,13 +22721,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'geam termopan',
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
         WHITE_LAMINATION: 'alb',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION: 'Template selection',
+        ROOM_SELECTION1: 'Fereastră',
+        ROOM_SELECTION2: 'Decorare',
+        ROOM_SELECTION3: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
@@ -21629,9 +22751,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'izolare fonica',
         CORROSION_COEFF: 'anticoroziune',
         BURGLAR_COEFF: 'hoț',
-        LAMINAT_INSIDE: 'Laminarea a cadrului in camera',
-        LAMINAT_OUTSIDE: 'Laminare din față',
-        LAMINAT_WHITE: 'Fără laminare, de culoare albă radical',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'față',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -21950,13 +23071,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Стеклопакет',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',
         WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
-        ROOM_SELECTION: 'Выбор шаблона',
+        ROOM_SELECTION1: 'Окно',
+        ROOM_SELECTION2: 'Декор',
+        ROOM_SELECTION3: 'Выбор шаблона',
         CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
@@ -21978,9 +23101,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоизоляция',
         CORROSION_COEFF: 'aнтикоррозийность',
         BURGLAR_COEFF: 'противовзломность',
-        LAMINAT_INSIDE: 'Ламинация рамы в комнате',
-        LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
-        LAMINAT_WHITE: 'без ламинации, радикальный белый цвет',
+        LAMINAT_INSIDE: 'в комнате',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -22299,13 +23421,15 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Склопакет',
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
+        CONFIGMENU_LAMINATION_TYPE: 'в кімнаті / фасад',
         WHITE_LAMINATION: 'Біла',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
         COMMENT: 'Залиште свою замітку про заказ тут.',
-        ROOM_SELECTION: 'Вибір шаблону',
+        ROOM_SELECTION1: 'Вiкно',
+        ROOM_SELECTION2: 'Декор',
+        ROOM_SELECTION3: 'Вибір шаблону',
         CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
@@ -22327,9 +23451,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоізоляція',
         CORROSION_COEFF: 'aнтикорозійність',
         BURGLAR_COEFF: 'протизламність',
-        LAMINAT_INSIDE: 'Ламінація рами в кімнаті',
-        LAMINAT_OUTSIDE: 'Ламінація з боку фасаду',
-        LAMINAT_WHITE: 'без ламінації, радикальний білий колір',
+        LAMINAT_INSIDE: 'в кімнаті',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',

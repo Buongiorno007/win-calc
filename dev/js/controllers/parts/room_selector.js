@@ -25,7 +25,8 @@
     //============ methods ================//
 
     //---------- Room Select
-    function selectRoom(id) {
+   
+   function selectRoom(id) {
       TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
     }
 

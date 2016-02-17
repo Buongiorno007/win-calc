@@ -5,7 +5,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(globalConstants, GeneralServ, SVGServ, DesignServ) {
+  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -40,7 +40,10 @@
               padding = 1;
             } else if(scope.typeConstruction === 'edit') {
               padding = 0.6;
-            }
+            } else if(scope.typeConstruction === 'MainEdit') {
+                padding = 0.6;
+              }
+            
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
@@ -59,23 +62,101 @@
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
-            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            if(scope.typeConstruction !== 'icon') {
-              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+
+      
+            if(scope.typeConstruction === 'MainEdit') {
+             scale = SVGServ.setTemplateScaleMAIN(dimMaxMin, widthSVG, heightSVG, padding);
+            } else {
+             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding); 
             }
 
+
+            if(scope.typeConstruction !== 'icon') {
+              if (scope.typeConstruction === 'MainEdit') {
+              position = SVGServ.setTemplatePositionMAIN(dimMaxMin, widthSVG, heightSVG, scale);
+            } else {
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+            }
+            }
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
 
-            if (scope.typeConstruction === 'edit') {
+
+        //===================zoom=====================//
+
+
+            if (scope.typeConstruction === 'edit' ) {
               mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
                 .on("zoom", zooming));
+            } 
+
+        //===================zoom end=====================//
+
+           
+            /** Defs */
+            if(scope.typeConstruction !== 'icon') {
+              var defs = mainGroup.append("defs"),
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+              /** dimension */
+              //----- horizontal marker arrow
+              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              //------- vertical marker arrow
+              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              /** handle */
+              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+
+              /** lamination */
+      
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+
+
+                defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 4200)
+                  .attr('height', 2800)
+                  .append("image")
+                  .attr("xlink:href", "img/room/fon.jpg")
+                  .attr('width', 4200)
+                  .attr('height', 2800);
+
+           
+                  //  defs.append('mask')
+                  // .attr('id', 'masking')
+                  // .attr('maskUnits', 'objectBoundingBox')
+                  // .attr('fill', 'img/room/2.jpg')
+                  // .attr('width', 4200)
+                  // .attr('height', 2800)
+                  // .append("circle")
+                  // .attr('cx', 5)
+                  // .attr('cy', 5)
+                  // .attr('r', .35)
+                  // .attr('fill', 'white');
             }
+                  
+  
 
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
@@ -84,8 +165,6 @@
               'id': 'dim_group'
             });
 
-
-            //          console.log('++++++ template +++++++', mainGroup);
             blocksQty = template.details.length;
             for (var i = 1; i < blocksQty; i++) {
               elementsGroup.selectAll('path.' + template.details[i].id)
@@ -117,6 +196,13 @@
                   },
                   'd': function (d) {
                     return d.path;
+                  },
+                  'fill': function(d) {
+                    if(ProductStor.product.lamination.img_in_id > 1) {
+                      return (d.type !== 'glass') ? 'url(#laminat)' : '';
+                    } else {
+                      return '#f9f9f9';
+                    }
                   }
                 });
 
@@ -160,8 +246,9 @@
 
 
                 //---- corner markers
-                if(scope.typeConstruction === 'edit') {
+                if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
                   if (template.details[i].level === 1) {
+              
                     //----- create array of frame points with corner = true
                     var corners = template.details[i].pointsOut.filter(function (item) {
                       return item.corner > 0;
@@ -217,31 +304,44 @@
 
             }
 
+
+        
+           var blockQty = template.details.length,
+                path = '';
+                while(--blockQty > 0) {
+                   if (template.details[blockQty].level === 1) {
+                console.info('333333-', template.details[blockQty].pointsOut);
+                var pointsOutQty =  template.details[blockQty].pointsOut.length;
+                while(--pointsOutQty > -1) {
+                  path += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                   if(pointsOutQty == 0) {
+              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                } else {
+              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                  }
+                }
+              }
+            }
+          
+           if(scope.typeConstruction !== 'icon') {
+               mainGroup.append('g').append("polygon")
+              .attr({
+                'id' : 'clipPolygon',
+                'points' : path,
+              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ (scale/100)*500 +','+ (scale/100)*500 +')'
+            });
+
+          }
+       
+
+
+
+
             if(scope.typeConstruction !== 'icon') {
               //--------- dimension
-              var defs = dimGroup.append("defs"),
-                  dimXQty = template.dimension.dimX.length,
+              var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length,
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-  "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
-
-              //----- horizontal marker arrow
-              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              //------- vertical marker arrow
-              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              //------- marker handle
-              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
-
-              //            console.log('SVG=========dim==', template.dimension);
+                  dimQQty = template.dimension.dimQ.length;
               for (var dx = 0; dx < dimXQty; dx++) {
                 createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
               }
@@ -251,14 +351,14 @@
               for (var dq = 0; dq < dimQQty; dq++) {
                 createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
               }
-
             }
+
             elem.html(container);
 
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -291,6 +391,7 @@
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
+          if (scope.typeConstruction === !'MainEdit') {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -360,7 +461,7 @@
           sizeBox = dimBlock.append('g')
            .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
             sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
@@ -375,7 +476,7 @@
           sizeBox.append('text')
            .text(dim.text)
            .attr({
-             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+             'class': function() { return (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit' ) ? 'size-txt-edit' : 'size-txt'; },
              'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
              'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
              'dx': 80,
@@ -392,7 +493,7 @@
            });
 
         }
-
+}
 
         function createRadiusDimension(dimQ, dimGroup, lineCreator) {
 
@@ -427,7 +528,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({

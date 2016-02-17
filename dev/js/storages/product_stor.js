@@ -1,8 +1,6 @@
-(function(){
+ (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('ProductStor', productStorageFactory);
@@ -10,7 +8,7 @@
   function productStorageFactory($filter) {
     var thisFactory = this;
 
-    thisFactory.publicObj = {
+    thisFactory.publicObj = { 
       productSource: {
         product_id: 0,
         is_addelem_only: 0,
@@ -37,11 +35,15 @@
           impostDepth: {},
           shtulpDepth: {}
         },
-
-        lamination_out_id: 1,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 1,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          img_in_id: 1,
+          img_out_id: 1
+        },
 
         chosenAddElements: [
           [], // 0 - grids

@@ -1,0 +1,87 @@
+
+<section class="construction-page">
+  <section class="construction-container">
+    <div ng-class="{'selected': mainPage.G.global.isTemplateItemMenu}" class="construction-left-menu">
+      <ul class="figure-lists">
+        <li ng-click="mainPage.selectMenuItem(3)" class="figure-item">
+          <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 3}" class="figure-item-block">
+            <div class="figure-icon impost-shape"></div>
+            <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          </div>
+        </li>
+        <li ng-click="mainPage.selectMenuItem(1)" class="figure-item">
+          <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 1}" class="figure-item-block">
+            <div class="figure-icon sash-shape"></div>
+            <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          </div>
+        </li>
+        <li ng-click="mainPage.selectMenuItem(2)" class="figure-item">
+          <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 2}" class="figure-item-block">
+            <div class="figure-icon angel-shape"></div>
+            <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          </div>
+        </li>
+        <li ng-click="mainPage.selectMenuItem(4)" class="figure-item">
+          <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 4}" class="figure-item-block">
+            <div class="figure-icon arch-shape"></div>
+            <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          </div>
+        </li>
+        <li ng-click="mainPage.selectMenuItem(5)" class="figure-item">
+          <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 5}" class="figure-item-block">
+            <div class="figure-icon position-shape"></div>
+            <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          </div>
+        </li>
+      </ul>
+      <div id="impost-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(4, $event)" class="constr-shape-icon impost-inc-hor"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(5, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(6, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(7, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(8, $event)" class="constr-shape-icon impost-curv-right"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(9, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(10, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(11, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(12, $event)" class="constr-shape-icon impost-curv1"></div>
+        <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(13, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
+        <!--.constr-shape-icon.impost-curv4(ng-hide="mainPage.D.design.isImpostDelete", ng-click="mainPage.insertImpost(14, $event)")-->
+        <!--.constr-shape-icon.impost-curv2(ng-hide="mainPage.D.design.isImpostDelete", ng-click="mainPage.insertImpost(15, $event)")-->
+        <div ng-show="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(1, $event)" class="constr-shape-icon clean"></div>
+      </div>
+      <div id="sash-shape-menu" ng-class="{'selected': mainPage.D.design.activeSubMenuItem, 'door-sash': mainPage.P.product.construction_type === 4}" class="edit_submenu">
+        <div ng-hide="mainPage.P.product.construction_type === 4" ng-click="mainPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
+        <div ng-click="mainPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></div>
+        <div ng-click="mainPage.insertSash(3, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
+        <div ng-click="mainPage.insertSash(4, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
+        <div ng-click="mainPage.insertSash(5, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
+        <div ng-click="mainPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></div>
+        <div ng-click="mainPage.insertSash(7, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 6}" class="drop-shape-icon sash-left-up"></div>
+        <div ng-click="mainPage.insertSash(8, $event)" class="constr-shape-icon sash-shtulp-left"></div>
+        <div ng-click="mainPage.insertSash(9, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon sash-shtulp-right"></div>
+      </div>
+      <div id="angel-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
+        <div ng-click="mainPage.insertCorner(1, $event)" class="constr-shape-icon clean"></div>
+        <div ng-click="mainPage.insertCorner(2, $event)" class="constr-shape-icon corner"></div>
+        <div ng-click="mainPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></div>
+      </div>
+      <div id="arc-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
+        <div ng-click="mainPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
+        <div ng-click="mainPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
+      </div>
+      <div id="position-menu" ng-hide="mainPage.P.product.construction_type === 4" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
+        <div ng-click="mainPage.initMirror($event)" class="constr-shape-icon mirror"></div>
+        <div ng-click="mainPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
+        <div ng-click="mainPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
+      </div>
+    </div>
+    <svg-template-points template="mainPage.D.design.templateTEMP"></svg-template-points>
+    <div class="construction-block-main">  
+      <div class="construction-scrollbox-main">
+        <svg-template template="mainPage.D.design.templateTEMP" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="MainEdit"></svg-template>
+      </div>
+    </div>
+  </section>
+</section>

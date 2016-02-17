@@ -12,10 +12,9 @@
     thisCtrl.D = DesignStor;
 
 
-
     //------ clicking
     //------ for Add Elements Panel
-    if(GlobalStor.global.currOpenPage === 'main') {
+    if(GlobalStor.global.activePanel == 6) {
       thisCtrl.isDesignPage = false;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;

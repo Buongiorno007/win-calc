@@ -1,13 +1,11 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function laminationSelectorCtrl(globalConstants, MainServ, DesignServ ,GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -22,48 +20,40 @@
 
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 
     //============ methods ================//
 
-    //------------ Select lamination
-    function selectLaminat(type, id, name) {
-      if(type) {
-        if(ProductStor.product.lamination_out_id !== id) {
-          ProductStor.product.lamination_out_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationOutName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationOutName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-        }
-      } else {
-        if(ProductStor.product.lamination_in_id !== id) {
-          ProductStor.product.lamination_in_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationInName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationInName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+
+    /** init Laminat Filter */
+    function initLaminatFilter(typeId) {
+      //console.info('init filter --- ', typeId);
+      var laminatQty = GlobalStor.global.laminats.length;
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].type_id === typeId) {
+          GlobalStor.global.laminats[laminatQty].isActive = !GlobalStor.global.laminats[laminatQty].isActive;
+          //console.info('init filter --- ', GlobalStor.global.laminats[laminatQty]);
+          MainServ.laminatFiltering();
         }
       }
     }
 
 
-    //TODO?????
-    function setLaminationTotalPrice() {
-//      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
-//      $timeout(function() {
-//        MainServ.setProductPriceTOTAL();
-//      }, 50);
+    //------------ Select lamination
+    function selectLaminat(id) {
+      //console.info('select lamin --- ', id);
+      MainServ.setCurrLamination(id);
+
+      MainServ.setProfileByLaminat(id).then(function() {
+        //------ save analytics data
+        /** send analytics data to Server*/
+        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+      })
+      DesignServ.rebuildSVGTemplate();
+
     }
 
   }

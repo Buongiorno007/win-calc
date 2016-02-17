@@ -2,34 +2,34 @@
   .cart-menu
     ul.items-list
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1}", ng-click="cartMenu.selectMenuItem(1)")
-        .title(data-output="{{ 'cart.DELIVERY' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .title(data-output="{{ ::cartMenu.DELIVERY }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ ::cartMenu.SELF_EXPORT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ ::cartMenu.FLOOR }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-show="cartMenu.O.order.floor_id", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
         ul.dropdown-items-list
           li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", ng-click="cartMenu.selectFloorPrice(0)")
             .dropdown-item-inner
-              .value.drop-txt {{ 'cart.SELF_EXPORT' | translate }}
+              .value.drop-txt {{ ::cartMenu.SELF_EXPORT }}
               .name.drop-txt
           li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", ng-click="cartMenu.selectFloorPrice(supplyList)")
             .dropdown-item-inner
-              .value.drop-txt {{supplyList.name}} {{ 'cart.FLOOR' | translate }}
+              .value.drop-txt {{supplyList.name}} {{ ::cartMenu.FLOOR }}
               .name.drop-txt + {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2}", ng-click="cartMenu.selectMenuItem(2)")
-        .title(data-output="{{ 'cart.ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .title(data-output="{{ ::cartMenu.ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
         ul.dropdown-items-list
           li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", ng-click="cartMenu.selectAssembling(0)")
             .dropdown-item-inner
-              .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
-              .name.drop-txt {{ 'cart.FREE' | translate }}
+              .value.drop-txt {{ ::cartMenu.WITHOUT_ASSEMBLING }}
+              .name.drop-txt {{ ::cartMenu.FREE }}
           li.dropdown-item(ng-repeat="assemb in cartMenu.G.global.assemblingData", ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}", ng-click="cartMenu.selectAssembling(assemb)")
             .dropdown-item-inner
               .value.drop-txt {{ assemb.name }}
@@ -37,9 +37,9 @@
 
 
       li.item.switcher(ng-class="{'active': cartMenu.config.activeMenuItem == 3}", ng-click="cartMenu.selectMenuItem(3)")
-        .title(data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .title(data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-if="!cartMenu.O.order.is_instalment", data-output="{{ 'cart.WITHOUT_INSTALMENTS' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-if="!cartMenu.O.order.is_instalment", data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-if="cartMenu.O.order.is_instalment") {{ cartMenu.O.order.selectedInstalmentPeriod }}
             ng-pluralize(count="cartMenu.O.order.selectedInstalmentPeriod",
             when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}")
@@ -59,7 +59,7 @@
 
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 4}", ng-click="cartMenu.selectMenuItem(4)")
-        .title(data-output="{{ 'cart.DELIVERY_DATE' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+        .title(data-output="{{ ::cartMenu.DELIVERY_DATE }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .value(data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 4}")
         calendar.calendar-box
@@ -70,23 +70,23 @@
 
     footer.menu-footer
       .price-block.price-with-instalments(ng-class="{'active': cartMenu.O.order.is_instalment}", ng-click="cartMenu.swipeDiscountBlock()")
-        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.O.order.selectedInstalmentPercent }} %
-        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
+        .name {{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %
+        .name {{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
         price(price-value="cartMenu.O.order.paymentFirstDis", price-currency="cartMenu.U.userInfo.currency")
-        .name {{ cartMenu.O.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
+        .name {{ cartMenu.O.order.selectedInstalmentPeriod }} {{ ::cartMenu.MONTHLY_PAYMENT_LABEL }}
         price(price-value="cartMenu.O.order.paymentMonthlyDis", price-currency="cartMenu.U.userInfo.currency")
       .price-block.price-without-instalments(ng-class="{'active': !cartMenu.O.order.is_instalment}", ng-click="cartMenu.swipeDiscountBlock()")
-        .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
+        .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
         price(price-value="cartMenu.O.order.order_price_dis", price-currency="cartMenu.U.userInfo.currency")
-      button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ 'cart.ORDER' | translate }}
-      button.measure-btn(ng-click="cartMenu.openMasterDialog()") {{ 'cart.MEASURE' | translate }}
+      button.order-btn(ng-click="cartMenu.openOrderDialog()") {{ ::cartMenu.ORDER }}
+      button.measure-btn(ng-click="cartMenu.openMasterDialog()") {{ ::cartMenu.MEASURE }}
 
   .old-price-inst-tab(ng-class="{'active': cartMenu.O.order.is_old_price && cartMenu.O.order.is_instalment}")
-    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.O.order.selectedInstalmentPercent }} %
-    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}
+    .name {{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %
+    .name {{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}
     price(price-value="cartMenu.O.order.paymentFirstPrimaryDis", price-currency="cartMenu.U.userInfo.currency")
-    .name {{ cartMenu.O.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
+    .name {{ cartMenu.O.order.selectedInstalmentPeriod }} {{ ::cartMenu.MONTHLY_PAYMENT_LABEL }}
     price(price-value="cartMenu.O.order.paymentMonthlyPrimaryDis", price-currency="cartMenu.U.userInfo.currency")
   .old-price-tab(ng-class="{'active': cartMenu.O.order.is_old_price && !cartMenu.O.order.is_instalment}")
-    .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}
+    .name {{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}
     price(price-value="cartMenu.O.order.orderPricePrimaryDis", price-currency="cartMenu.U.userInfo.currency")

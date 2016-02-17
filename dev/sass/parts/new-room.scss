@@ -1,0 +1,90 @@
+  .coeff-RoomContainer {
+	position: absolute;
+	top: 0rem;
+	left: 37rem;
+	height: 83%;
+	width: 83%; 
+	}
+
+  	.coeff-room-block1 {
+  		position: absolute;
+  		z-index: -10;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; } 
+		}
+
+	.coeff-room-block2 {
+  		position: absolute;
+  		z-index: -9;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%;
+		img {
+			height: 100%;
+			width: 100%; } 
+		}
+	.coeff-room-block3 {
+  		position: absolute;
+		z-index: -8;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }
+		}
+	.coeff-room-block4 {
+  		background: url(/img/room/6.png) repeat-x ;
+  		z-index: -6;
+		top: 81.6rem;
+		left: 25.32rem;
+		max-height: 3.75%;
+		max-width: 100%; 
+		position: absolute;
+		height: 3.75%;
+		width: 100%;
+		}
+	.coeff-room-block5 {
+  		position: absolute;
+		z-index: -7;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+	.coeff-room-block6 {
+  		position: absolute;
+		z-index: -5;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+	coeff-room-block8 {
+  		position: absolute;
+		z-index: -4;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+
+

@@ -14,6 +14,8 @@
       createSVGTemplateIcon: createSVGTemplateIcon,
       collectAllPointsOut: collectAllPointsOut,
       setTemplateScale: setTemplateScale,
+      setTemplateScaleMAIN: setTemplateScaleMAIN,
+      setTemplatePositionMAIN: setTemplatePositionMAIN,
       setTemplatePosition: setTemplatePosition,
 
       centerBlock: centerBlock,
@@ -195,7 +197,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      //console.log('TEMPLATE END++++', thisObj);
+      console.log('TEMPLATE END++++', thisObj);
       //console.log('svg finish', new Date(), new Date().getMilliseconds());
       //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -226,7 +228,7 @@
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+300),
+      var templateW = (dim.maxX - dim.minX)+300,
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()
@@ -238,6 +240,7 @@
       //var tempRatio = templateW/templateH;
       //var ratio = windRatio/tempRatio;
       //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+
 
       if(templateW > templateH) {
         if(windowW > templateW) {
@@ -268,17 +271,78 @@
     }
 
 
+        //----------- SCALE MAIN
+
+    function setTemplateScaleMAIN(dim, windowW, windowH, padding) {
+    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    } if(ProductStor.product.construction_type == 2 || ProductStor.product.construction_type == 4 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    }
+
+  }
+
+
 
     //----------- TRANSLATE
 
     function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+        y: (windowH - (dim.minY + dim.maxY)*scale)/2,
       };
       return position;
     }
 
+    function setTemplatePositionMAIN(dim, windowW, windowH, scale) {
+      if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+        var position = {
+          x: 250,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-310,
+      }
+        } if(ProductStor.product.construction_type == 2) {
+           var position = {
+              x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+              y: (windowH - (dim.minY + dim.maxY)*scale)/2,
+      } 
+        } if(ProductStor.product.construction_type == 4) {
+           var position = {
+              x: 250,
+              y: (windowH - (dim.minY + dim.maxY)*scale)-120,
+      }
+        }
+        return position;
+    }
 
 
 

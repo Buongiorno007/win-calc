@@ -1,16 +1,24 @@
 .room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}", ng-swipe-up="roomInfo.switchComment($event)", ng-swipe-down="roomInfo.switchComment($event)")
-  .coeff-container
-    .coeff-block
-      .coeff.climate {{ roomInfo.O.order.climatic_zone }}
-      .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-    .coeff-block
-      .coeff.heat-transfer(ng-if="roomInfo.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total < roomInfo.O.order.heat_coef_min}") {{ roomInfo.P.product.heat_coef_total }}
-        .coeff-max {{ roomInfo.O.order.heat_coef_min }}
-      .coeff.heat-transfer(ng-if="!roomInfo.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total > roomInfo.O.order.heat_coef_min}") {{ roomInfo.P.product.heat_coef_total }}
-        .coeff-max {{ roomInfo.O.order.heat_coef_min }}
-      .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
-    .coeff-block
-      button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ 'mainpage.ROOM_SELECTION' | translate }}
-    .comment-btn(ng-click="roomInfo.switchComment()")
-  .product-comment
-    textarea.comment-field.noPreventDefault(ng-model="roomInfo.P.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")
+    .coeff-container
+      .coeff-block
+        button.select-rooms.unvisible(show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.toggleTemplateType()") {{ roomInfo.G.global.templateLabel }}
+        .tempate-type-box-main
+          .template-type-main(ng-show="roomInfo.G.global.isTemplateTypeMenu")
+            .template-type-btn-main(ng-click="roomInfo.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+            .template-type-btn-main(ng-click="roomInfo.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+            .template-type-btn-main(ng-click="roomInfo.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+            .template-type-btn-main(ng-click="roomInfo.selectNewTemplateType(4)") {{ 'panels.TEMPLATE_DOOR' | translate }}
+
+      .coeff-block
+        button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ 'mainpage.ROOM_SELECTION2' | translate }}
+      
+      .coeff-block
+        button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ 'mainpage.ROOM_SELECTION3' | translate }}
+      
+      .comment-btn(ng-click="roomInfo.switchComment()")
+    .product-comment
+      textarea.comment-field.noPreventDefault(ng-model="roomInfo.P.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")
+
+
+
+        //class="template-title ng-binding ng-isolate-scope active"

@@ -147,7 +147,7 @@
         }
 
         /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.img_in_id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = 1;
           backtoTemplatePanel();
@@ -181,7 +181,7 @@
       $location.path('/main');
     }
 
-
+ 
     //------- set Default Construction
     function setDefaultConstruction() {
       //------- close calculator if is opened
@@ -381,6 +381,7 @@
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
+      console.log('clickclickclickclickclickclickclickclickclickclick')
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
         .each(function() {
@@ -395,6 +396,7 @@
 
               if (isGlass) {
                 glass.classed('glass-active', true);
+                GlobalStor.global.isTemplateItemMenu = 1;
                 hideCornerMarks();
                 deselectAllImpost();
                 deselectAllArc();
@@ -406,6 +408,7 @@
                 $rootScope.$apply();
               } else {
                 glass.classed('glass-active', false);
+                GlobalStor.global.isTemplateItemMenu = 0;
                 //------- hide Dimensions of current Block
                 d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
 
@@ -545,7 +548,9 @@
       }
     }
 
-
+function upBackground () {
+  
+}
 
     function isExistArcInSelected(newElem, selectedArr) {
       var exist = 1,
@@ -2572,31 +2577,32 @@
 
 
 
-
+//======================clear SVG====================//
 
     function removeAllEventsInSVG() {
-      //--------- delete click on imposts
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on arcs
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on dimension
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
+      // console.log('remove remove remove remove remove remove')
+      // //--------- delete click on imposts
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on glasses
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on arcs
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete click on dimension
+      // d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+      //   .each(function() {
+      //     d3.select(this).on(clickEvent, null);
+      //   });
+      // //--------- delete event listener for keydown
+      // d3.select(window).on('keydown', null);
     }
 
 

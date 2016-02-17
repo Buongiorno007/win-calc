@@ -1,5 +1,5 @@
 .config-panel.template-container(ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.G.global.activePanel == 1}")
-  .template-inner(ng-if="templatesPanel.G.global.activePanel == 1")
+
     .template-header
       button.template-title.unvisible(ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}", ng-click="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
       .tempate-type-box
@@ -14,7 +14,7 @@
     .template-section.unvisible(ng-click="templatesPanel.gotoConstructionPage();", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
       svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="iconBig")
 
-    .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+          .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
       .other-templates(ng-show="templatesPanel.P.product.construction_type === 1")
         //.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")
         .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs", ng-click="templatesPanel.selectNewTemplate($index)")
