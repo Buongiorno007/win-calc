@@ -1,15 +1,21 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('DesignModule')
     .factory('DesignStor', designStorageFactory);
 
   function designStorageFactory($filter) {
-
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultDesign() {
+      return angular.copy(thisFactory.publicObj.designSource);
+    }
+
+    function setDefaultDoor() {
+      return angular.copy(thisFactory.publicObj.designSource.doorConfig);
+    }
 
     thisFactory.publicObj = {
       designSource: {
@@ -34,12 +40,15 @@
 
         isDimAnimate: 0,
         oldSize: 0,
+        prevSize: 0,
         tempSize: [],
 
         isMinSizeRestriction: 0,
         isMaxSizeRestriction: 0,
-        minSizeLimit: 200,
-        maxSizeLimit: 5000,
+        minSizeLimit: 0,
+        maxSizeLimit: 0,
+        isDimExtra: 0,
+        isSquareExtra: 0,
 
         //----- Door
         doorShapeList: [
@@ -125,20 +134,6 @@
 
     thisFactory.publicObj.design = setDefaultDesign();
     return thisFactory.publicObj;
-
-
-    //============ methods ================//
-
-
-    function setDefaultDesign() {
-      var publicObj = angular.copy(thisFactory.publicObj.designSource);
-      return publicObj;
-    }
-
-    function setDefaultDoor() {
-      var publicObj = angular.copy(thisFactory.publicObj.designSource.doorConfig);
-      return publicObj;
-    }
 
   }
 })();

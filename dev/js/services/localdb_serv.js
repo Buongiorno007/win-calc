@@ -619,43 +619,13 @@
 
 
 
-    thisFactory.publicObj = {
-      tablesLocalDB: tablesLocalDB,
-      tablesLocationLocalDB: tablesLocationLocalDB,
-
-      cleanLocalDB: cleanLocalDB,
-      createTablesLocalDB: createTablesLocalDB,
-      insertRowLocalDB: insertRowLocalDB,
-      insertTablesLocalDB: insertTablesLocalDB,
-      selectLocalDB: selectLocalDB,
-      updateLocalDB: updateLocalDB,
-      deleteRowLocalDB: deleteRowLocalDB,
-
-      importUser: importUser,
-      importLocation: importLocation,
-      importFactories: importFactories,
-      importAllDB: importAllDB,
-      insertServer: insertServer,
-      updateServer: updateServer,
-      createUserServer: createUserServer,
-      exportUserEntrance: exportUserEntrance,
-      deleteOrderServer: deleteOrderServer,
-      updateLocalServerDBs: updateLocalServerDBs,
-      sendIMGServer: sendIMGServer,
-      md5: md5,
-
-      calculationPrice: calculationPrice,
-      getAdditionalPrice: getAdditionalPrice,
-      currencyExgange: currencyExgange
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
 
-    //============ methods ================//
+
+    /**============ methods ================*/
 
 
 
@@ -1439,27 +1409,28 @@
 	  function parseHardwareKit(whId, sashBlocks, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
-        //        console.warn('*****hardware = ', result);
+        //console.warn('*****hardware = ', result);
         var resQty = result.length,
             hardwareKits = [],
-            sashBlocksQty = sashBlocks.length;
+            sashBlocksQty = sashBlocks.length,
+            hardware, hardware1, hardware2, openDirQty, s, dir;
         if(resQty) {
 		  //----- loop by sizes (sashesBlock)
-          for(var s = 0; s < sashBlocksQty; s++){
-		        var hardware = angular.copy(result),
-                hardware1 = [],
-                hardware2 = [],
-                openDirQty = sashBlocks[s].openDir.length;
+          for(s = 0; s < sashBlocksQty; s++){
+		        hardware = angular.copy(result);
+            hardware1 = [];
+            hardware2 = [];
+            openDirQty = sashBlocks[s].openDir.length;
 
             /** change openDir for directions
              * direction_id == 1 - не учитывать
              * 2 - право
              * 3 - лево
              * */
-            for(var dir = 0; dir < openDirQty; dir++) {
+            for(dir = 0; dir < openDirQty; dir++) {
               if(sashBlocks[s].openDir[dir] === 4) {
                 sashBlocks[s].openDir[dir] = 2;
-              } else if(sashBlocks[s].openDir[dir] == 2) {
+              } else if(sashBlocks[s].openDir[dir] === 2) {
                 sashBlocks[s].openDir[dir] = 3;
               } else {
                 sashBlocks[s].openDir[dir] = 1;
@@ -1476,7 +1447,6 @@
                 }
               }
             });
-
             hardware2 = hardware1.filter(function(item) {
               if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
                 if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
@@ -2490,6 +2460,44 @@
       });
       return deffMain.promise;
     }
+
+
+
+
+
+
+    thisFactory.publicObj = {
+      tablesLocalDB: tablesLocalDB,
+      tablesLocationLocalDB: tablesLocationLocalDB,
+
+      cleanLocalDB: cleanLocalDB,
+      createTablesLocalDB: createTablesLocalDB,
+      insertRowLocalDB: insertRowLocalDB,
+      insertTablesLocalDB: insertTablesLocalDB,
+      selectLocalDB: selectLocalDB,
+      updateLocalDB: updateLocalDB,
+      deleteRowLocalDB: deleteRowLocalDB,
+
+      importUser: importUser,
+      importLocation: importLocation,
+      importFactories: importFactories,
+      importAllDB: importAllDB,
+      insertServer: insertServer,
+      updateServer: updateServer,
+      createUserServer: createUserServer,
+      exportUserEntrance: exportUserEntrance,
+      deleteOrderServer: deleteOrderServer,
+      updateLocalServerDBs: updateLocalServerDBs,
+      sendIMGServer: sendIMGServer,
+      md5: md5,
+
+      calculationPrice: calculationPrice,
+      getAdditionalPrice: getAdditionalPrice,
+      currencyExgange: currencyExgange
+    };
+
+    return thisFactory.publicObj;
+
 
   }
 })();

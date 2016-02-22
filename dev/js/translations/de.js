@@ -200,6 +200,8 @@
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
         VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
         NOT_AVAILABLE: 'nicht Verfügbar!'
       },
       history: {

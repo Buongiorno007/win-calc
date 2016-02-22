@@ -13,14 +13,6 @@
         typingDelay: '@'
       },
       link: function (scope, elem, attrs) {
-        attrs.$observe('typing', function (mode) {
-          if (mode.toString() === 'on') {
-            typingTextWithDelay();
-          }
-        });
-        attrs.$observe('output', function () {
-            typingTextWithDelay();
-        });
 
         function typingTextWithDelay() {
           setTimeout(function () {
@@ -40,11 +32,20 @@
               }
               elem.text(text);
             }, NEXT_CHAR_DELAY);
-          }, scope.typingDelay*1);
+          }, +scope.typingDelay);
         }
+
+        attrs.$observe('typing', function (mode) {
+          if (mode.toString() === 'on') {
+            typingTextWithDelay();
+          }
+        });
+        attrs.$observe('output', function () {
+            typingTextWithDelay();
+        });
+
       }
     };
-
 
   }
 })();

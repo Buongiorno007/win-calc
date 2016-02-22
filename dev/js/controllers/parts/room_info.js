@@ -6,7 +6,7 @@
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
   function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
@@ -20,13 +20,9 @@
     };
 
 
-    //------ clicking
-
-    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
-    thisCtrl.switchComment = switchComment;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //------ Show/Close Room Selector Dialog
     function showRoomSelectorDialog() {
@@ -43,6 +39,13 @@
       //playSound('swip');
       GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
+    thisCtrl.switchComment = switchComment;
 
   }
 })();

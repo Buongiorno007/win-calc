@@ -200,6 +200,8 @@
         VOICE_SMALLEST_SIZE: 'The smallest size',
         VOICE_BIGGEST_SIZE: "The biggest size",
         VOICE_SMALL_GLASS_BLOCK: "too small skylights",
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
         NOT_AVAILABLE: 'Not Available!'
       },
       history: {

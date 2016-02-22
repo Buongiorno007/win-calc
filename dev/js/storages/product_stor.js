@@ -6,7 +6,12 @@
     .factory('ProductStor', productStorageFactory);
 
   function productStorageFactory($filter) {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultProduct() {
+      return angular.copy(thisFactory.publicObj.productSource);
+    }
 
     thisFactory.publicObj = {
       productSource: {
@@ -81,14 +86,6 @@
     thisFactory.publicObj.product = setDefaultProduct();
 
     return thisFactory.publicObj;
-
-
-    //============ methods ================//
-
-    function setDefaultProduct() {
-      var publicObj = angular.copy(thisFactory.publicObj.productSource);
-      return publicObj;
-    }
 
   }
 })();

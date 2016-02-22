@@ -5,7 +5,7 @@
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor) {
+  function designFactory($q, globalConstants, GeneralServ, GlobalStor, ProductStor, DesignStor) {
 
     var thisFactory = this;
 
@@ -33,6 +33,7 @@
       checkEqualPoints: checkEqualPoints,
       setQPointCoord: setQPointCoord,
       getCenterLine: getCenterLine,
+      calcSquare: calcSquare,
 
       checkInsidePointInLineEasy: checkInsidePointInLineEasy,
       sortByX: sortByX
@@ -195,7 +196,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      //console.log('TEMPLATE END++++', thisObj);
+      console.log('TEMPLATE END++++', thisObj);
       //console.log('svg finish', new Date(), new Date().getMilliseconds());
       //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -1419,9 +1420,9 @@
 
     function calcSquare(arrPoints) {
       var square = 0,
-          pointQty = arrPoints.length;
+          pointQty = arrPoints.length, p;
 
-      for(var p = 0; p < pointQty; p++) {
+      for(p = 0; p < pointQty; p+=1) {
         if(arrPoints[p+1]) {
           square += arrPoints[p].x * arrPoints[p+1].y - arrPoints[p].y * arrPoints[p+1].x;
         } else {
@@ -2147,7 +2148,7 @@
             dimQ: []
           },
           blocksQty = blocks.length,
-          maxSizeLimit = blocks[0].maxSizeLimit,
+          maxSizeLimit = GlobalStor.global.maxSizeLimit,
           globalLimitsX, globalLimitsY, allPoints;
       /**---------- All points ----------*/
       allPoints = collectAllPointsOut(blocks);

@@ -6,7 +6,7 @@
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
   function roomSelectorCtrl(globalConstants, MainServ, TemplatesServ, GlobalStor, ProductStor, UserStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -18,11 +18,7 @@
 
 
 
-    //------ clicking
-    thisCtrl.selectRoom = selectRoom;
-    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //---------- Room Select
     function selectRoom(id) {
@@ -30,6 +26,10 @@
     }
 
 
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
 
   }
 })();

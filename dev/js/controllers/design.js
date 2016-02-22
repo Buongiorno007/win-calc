@@ -1,14 +1,12 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
-
+  function designPageCtrl($filter, $timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
+    /*jshint validthis:true */
     var thisCtrl = this,
         delaySubMenu1 = 300,
         delaySubMenu2 = 600,
@@ -38,6 +36,33 @@
       typing: 'on'
     };
 
+
+    //------- translate
+    thisCtrl.IMPOST_SHAPE = $filter('translate')('construction.IMPOST_SHAPE');
+    thisCtrl.SASH_SHAPE = $filter('translate')('construction.SASH_SHAPE');
+    thisCtrl.ANGEL_SHAPE = $filter('translate')('construction.ANGEL_SHAPE');
+    thisCtrl.ARCH_SHAPE = $filter('translate')('construction.ARCH_SHAPE');
+    thisCtrl.POSITION_SHAPE = $filter('translate')('construction.POSITION_SHAPE');
+    thisCtrl.UNITS_DESCRIP = $filter('translate')('construction.UNITS_DESCRIP');
+    thisCtrl.PROJECT_DEFAULT = $filter('translate')('construction.PROJECT_DEFAULT');
+    thisCtrl.BACK = $filter('translate')('common_words.BACK');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
+    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('construction.DOOR_CONFIG_LABEL');
+    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('construction.DOOR_CONFIG_DESCTIPT');
+    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('construction.SASH_CONFIG_DESCTIPT');
+    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('construction.HANDLE_CONFIG_DESCTIPT');
+    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('construction.LOCK_CONFIG_DESCTIPT');
+    thisCtrl.STEP = $filter('translate')('construction.STEP');
+    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('construction.LABEL_DOOR_TYPE');
+    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('construction.LABEL_SASH_TYPE');
+    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('construction.LABEL_HANDLE_TYPE');
+    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('construction.LABEL_LOCK_TYPE');
+    thisCtrl.NOT_AVAILABLE = $filter('translate')('construction.NOT_AVAILABLE');
+    thisCtrl.DIM_EXTRA = $filter('translate')('construction.DIM_EXTRA');
+    thisCtrl.SQUARE_EXTRA = $filter('translate')('construction.SQUARE_EXTRA');
+
+
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
 
@@ -49,114 +74,11 @@
 
 
 
-    //=========== clicking ============//
-
-    thisCtrl.designSaved = DesignServ.designSaved;
-    thisCtrl.designCancel = DesignServ.designCancel;
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
-
-    //----- door config
-    thisCtrl.toggleDoorConfig = toggleDoorConfig;
-    thisCtrl.selectDoor = selectDoor;
-    thisCtrl.selectSash = selectSash;
-    thisCtrl.selectHandle = selectHandle;
-    thisCtrl.selectLock = selectLock;
-    thisCtrl.closeDoorConfig = closeDoorConfig;
-    thisCtrl.saveDoorConfig = saveDoorConfig;
-
-    //------ edit design
-    thisCtrl.insertSash = insertSash;
-    thisCtrl.insertCorner = insertCorner;
-    thisCtrl.insertImpost = insertImpost;
-    thisCtrl.insertArc = insertArc;
-    thisCtrl.initMirror = initMirror;
-    thisCtrl.positionAxis = positionAxis;
-    thisCtrl.positionGlass = positionGlass;
-
-    thisCtrl.stepBack = DesignServ.stepBack;
 
 
 
 
-
-    //============ methods ================//
-
-
-    //--------Select menu item
-    function selectMenuItem(id) {
-      if(DesignStor.design.tempSize.length) {
-        //----- finish size culculation
-        DesignServ.closeSizeCaclulator();
-      } else {
-        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
-        DesignStor.design.isDropSubMenu = 0;
-        DesignServ.hideCornerMarks();
-        DesignServ.deselectAllImpost();
-        if (id !== 4) {
-          DesignServ.deselectAllArc();
-        }
-        //----- hide culculator
-        DesignServ.hideSizeTools();
-        if (DesignStor.design.activeMenuItem) {
-          switch (DesignStor.design.activeMenuItem) {
-            case 1:
-              showAllAvailableGlass(id);
-              //------ drop submenu items
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 2;
-              }, delaySubMenu1);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 6;
-              }, delaySubMenu2);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 8;
-              }, delaySubMenu3);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 0;
-              }, delaySubMenu4);
-              break;
-            case 2:
-              DesignServ.deselectAllGlass();
-              showAllAvailableCorner(id);
-              break;
-            case 3:
-              showAllAvailableGlass(id);
-              //------ drop submenu items
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 4;
-              }, delaySubMenu1);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 8;
-              }, delaySubMenu2);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 12;
-              }, delaySubMenu3);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 0;
-              }, delaySubMenu4);
-              break;
-            case 4:
-              DesignServ.deselectAllGlass();
-              showAllAvailableArc(id);
-              break;
-            case 5:
-              //DesignServ.deselectAllGlass();
-              DesignStor.design.activeSubMenuItem = id;
-              break;
-          }
-        } else {
-          //------ if we close menu
-          DesignStor.design.activeSubMenuItem = 0;
-          //-------- delete selected glasses
-          DesignServ.deselectAllGlass();
-          DesignServ.deselectAllArc();
-          $timeout(function () {
-            DesignStor.design.isImpostDelete = 0;
-          }, 300);
-        }
-      }
-    }
+    /**============ METHODS ================*/
 
 
     function deactivMenu() {
@@ -175,7 +97,7 @@
     }
 
 
-    //++++++++++ Edit Sash ++++++++++//
+    /**++++++++++ Edit Sash ++++++++++*/
 
     function showAllAvailableGlass(menuId) {
       DesignStor.design.activeSubMenuItem = menuId;
@@ -196,12 +118,12 @@
 
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
-          i = 0;
+          i;
 
       if(sashType === 1) {
         deactivMenu();
         //----- delete sash
-        for(; i < glassQty; i++) {
+        for(i = 0; i < glassQty; i+=1) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
@@ -217,7 +139,7 @@
         if(isPermit) {
           deactivMenu();
           //----- insert sash
-          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
+          for (i = 0; i < glassQty; i+=1) { //TODO download hardare types and create submenu
             DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
           }
         }
@@ -226,7 +148,7 @@
 
 
 
-    //++++++++++ Edit Corner ++++++++//
+    /**++++++++++ Edit Corner ++++++++*/
 
     //-------- show all Corner Marks
     function showAllAvailableCorner(menuId) {
@@ -257,23 +179,23 @@
       //------ hide menu
       deactivMenu();
       var cornerQty = DesignStor.design.selectedCorner.length,
-          i = 0;
+          i;
       switch(conerType) {
         //----- delete
         case 1:
-          for(; i < cornerQty; i++) {
+          for(i = 0; i < cornerQty; i+=1) {
             DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
         //----- line angel
         case 2:
-          for(; i < cornerQty; i++) {
+          for(i = 0; i < cornerQty; i+=1) {
             DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
         //----- curv angel
         case 3:
-          for(; i < cornerQty; i++) {
+          for(i = 0; i < cornerQty; i+=1) {
             DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
@@ -284,7 +206,7 @@
 
 
 
-    //++++++++++ Edit Arc ++++++++//
+    /**++++++++++ Edit Arc ++++++++*/
 
     function showAllAvailableArc(menuId) {
       var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
@@ -343,7 +265,7 @@
 
 
 
-    //++++++++++ Edit Impost ++++++++//
+    /**++++++++++ Edit Impost ++++++++*/
 
 
     function insertImpost(impostType, event) {
@@ -351,13 +273,13 @@
       //event.srcEvent.stopPropagation();
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
-          i = 0;
+          i;
 
       if(impostType === 1) {
         deactivMenu();
         //----- delete imposts
         if (impostsQty) {
-          for (; i < impostsQty; i++) {
+          for (i = 0; i < impostsQty; i+=1) {
             DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
           }
           $timeout(function(){
@@ -381,7 +303,7 @@
             var glassQty = DesignStor.design.selectedGlass.length;
             if (glassQty) {
               //------- insert imposts
-              for (; i < glassQty; i++) {
+              for (i = 0; i < glassQty; i+=1) {
                 DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
               }
             }
@@ -424,7 +346,7 @@
 
 
 
-    /**============= DOOR ===============*/
+    /**+++++++++++++++ DOOR +++++++++++++++++++*/
 
     //---------- Show Door Configuration
     function toggleDoorConfig() {
@@ -511,9 +433,115 @@
       thisCtrl.config.isDoorConfig = 0;
     }
 
-    //=============== End Door ==================//
 
 
+
+    /**-------- Select menu item ---------*/
+
+    function selectMenuItem(id) {
+      if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
+        DesignServ.closeSizeCaclulator();
+      } else {
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              //DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = id;
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      }
+    }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+
+    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designCancel = DesignServ.designCancel;
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+
+    //----- door config
+    thisCtrl.toggleDoorConfig = toggleDoorConfig;
+    thisCtrl.selectDoor = selectDoor;
+    thisCtrl.selectSash = selectSash;
+    thisCtrl.selectHandle = selectHandle;
+    thisCtrl.selectLock = selectLock;
+    thisCtrl.closeDoorConfig = closeDoorConfig;
+    thisCtrl.saveDoorConfig = saveDoorConfig;
+
+    //------ edit design
+    thisCtrl.insertSash = insertSash;
+    thisCtrl.insertCorner = insertCorner;
+    thisCtrl.insertImpost = insertImpost;
+    thisCtrl.insertArc = insertArc;
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
+
+    thisCtrl.stepBack = DesignServ.stepBack;
 
   }
 })();

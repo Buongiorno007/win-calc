@@ -6,7 +6,7 @@
     .controller('qtyCalculatorCtrl', qtyCalcCtrl);
 
   function qtyCalcCtrl(AddElementMenuServ) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
 
     //------ clicking

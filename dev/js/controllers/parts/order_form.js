@@ -6,7 +6,7 @@
     .controller('OrderFormCtrl', orderFormCtrl);
 
   function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
@@ -26,14 +26,9 @@
       return item.countryId === UserStor.userInfo.countryId;
     });
 
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //------- Send Form Data
     function submitForm(form) {
@@ -43,6 +38,14 @@
         CartMenuServ.sendOrder();
       }
     }
+
+
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
   }
 })();

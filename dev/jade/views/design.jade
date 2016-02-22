@@ -6,27 +6,27 @@ section.construction-page
         li.figure-item(ng-click="designPage.selectMenuItem(3)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
             .figure-icon.impost-shape
-            .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+            .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(1)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
             .figure-icon.sash-shape
-            .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+            .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(2)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
             .figure-icon.angel-shape
-            .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+            .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(4)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
             .figure-icon.arch-shape
-            .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+            .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(5)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
             .figure-icon.position-shape
-            .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+            .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
       #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
         .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-click="designPage.insertImpost(2, $event)")
@@ -71,8 +71,8 @@ section.construction-page
         .constr-shape-icon.position-glass(ng-click="designPage.positionGlass($event)")
 
       .left-menu-footer
-        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-        .project-default(ng-click="designPage.setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
+        .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        .project-default(ng-click="designPage.setDefaultConstruction()") {{ ::designPage.PROJECT_DEFAULT }}
 
 
 
@@ -84,23 +84,23 @@ section.construction-page
 
 
     .right-menu-header
-      .nav-tool-box(ng-show="designPage.D.design.designSteps.length > 0")
+      .nav-tool-box(ng-if="designPage.D.design.designSteps.length > 0")
         button.construct-tools.step-back(ng-click="designPage.stepBack()")
-        .nav-tool-label {{ 'common_words.BACK' | translate }}
+        .nav-tool-label {{ ::designPage.BACK }}
       .nav-tool-box
         button.construct-tools.save-construction(ng-click="designPage.G.global.activePanel = 0;designPage.designSaved()")
-        .nav-tool-label {{ 'settings.SAVE' | translate }}
+        .nav-tool-label {{ ::designPage.SAVE }}
       .nav-tool-box
         button.construct-tools.close-construction(ng-click="designPage.designCancel()")
-        .nav-tool-label {{ 'add_elements.CANCEL' | translate }}
+        .nav-tool-label {{ ::designPage.CANCEL }}
 
-    .door-config-menu(ng-show="designPage.P.product.construction_type === 4")
+    .door-config-menu(ng-if="designPage.P.product.construction_type === 4")
       button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", ng-click="designPage.toggleDoorConfig()")
-      .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
-      .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};
-      .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};
-      .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};
-      .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
+      .door-config-label {{ ::designPage.DOOR_CONFIG_LABEL }}
+      .door-config-description {{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};
+      .door-config-description {{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};
+      .door-config-description {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};
+      .door-config-description {{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
 
     .right-menu-footer
       .calculators-box.size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
@@ -114,11 +114,11 @@ section.construction-page
         .door-config-backfon
         .door-config-header
           .door-inner
-            .door-title 1 {{ 'construction.STEP' | translate }}
-            .door-subtitle {{ 'construction.LABEL_DOOR_TYPE' | translate }}
+            .door-title 1 {{ ::designPage.STEP }}
+            .door-subtitle {{ ::designPage.LABEL_DOOR_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index)")
+            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index)")
               .door-inner
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
@@ -130,11 +130,11 @@ section.construction-page
         .door-config-backfon
         .door-config-header
           .door-inner
-            .door-title 2 {{ 'construction.STEP' | translate }}
-            .door-subtitle {{ 'construction.LABEL_SASH_TYPE' | translate }}
+            .door-title 2 {{ ::designPage.STEP }}
+            .door-subtitle {{ ::designPage.LABEL_SASH_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sash in designPage.D.design.sashShapeList", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index)")
+            li.door-config-option(ng-repeat="sash in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index)")
               .door-inner
                 .door-option-label {{ sash.shapeLabel }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
@@ -143,11 +143,11 @@ section.construction-page
         .door-config-backfon
         .door-config-header
           .door-inner
-            .door-title 3 {{ 'construction.STEP' | translate }}
-            .door-subtitle {{ 'construction.LABEL_HANDLE_TYPE' | translate }}
+            .door-title 3 {{ ::designPage.STEP }}
+            .door-subtitle {{ ::designPage.LABEL_HANDLE_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-click="designPage.selectHandle($index)")
+            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-click="designPage.selectHandle($index)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-src="{{ handle.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
@@ -159,11 +159,11 @@ section.construction-page
         .door-config-backfon
         .door-config-header
           .door-inner
-            .door-title 4 {{ 'construction.STEP' | translate }}
-            .door-subtitle {{ 'construction.LABEL_LOCK_TYPE' | translate }}
+            .door-title 4 {{ ::designPage.STEP }}
+            .door-subtitle {{ ::designPage.LABEL_LOCK_TYPE }}
         .door-config-content(ng-class="{'scroll-box': designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index)")
+            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-src="{{ lock.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")
@@ -175,4 +175,6 @@ section.construction-page
         button.door-config-finish-btn.close-door-config(ng-click="designPage.closeDoorConfig()")
         button.door-config-finish-btn.save-door-config(ng-show="designPage.config.selectedStep4", ng-click="designPage.saveDoorConfig()")
 
-    .design-attantion(ng-show="designPage.config.isDesignError") {{ 'construction.NOT_AVAILABLE' | translate }}
+    .design-attantion(ng-if="designPage.config.isDesignError") {{ ::designPage.NOT_AVAILABLE }}
+    .design-attantion(ng-if="designPage.D.design.isDimExtra") {{ ::designPage.DIM_EXTRA }}
+    .design-attantion(ng-if="designPage.D.design.isSquareExtra") {{ ::designPage.SQUARE_EXTRA }}

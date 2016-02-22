@@ -319,7 +319,7 @@
               <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
               <div class="laminat-row">
                 <div class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
-                <div class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
+                <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name" class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
               </div>
             </div>
           </div>
@@ -400,7 +400,7 @@
         </form>
         <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
           <ul class="aux-list-groups">
-            <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
+            <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName' track by $index" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
               <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
               <div class="search-elements-block"></div>
             </li>
@@ -740,8 +740,8 @@
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
-      <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ 'common_words.BUTTON_N' | translate }}</button>
-      <button ng-click="alertBox.clickYes()" class="alert-yes">{{ 'common_words.BUTTON_Y' | translate }}</button>
+      <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
     </div>
   </div>
 </div>

@@ -200,6 +200,8 @@
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
         VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
         NOT_AVAILABLE: 'nu Este Disponibil!'
       },
       history: {

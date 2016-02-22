@@ -200,6 +200,8 @@
         VOICE_SMALLEST_SIZE: 'замалий розмір',
         VOICE_BIGGEST_SIZE: "завеликий розмір",
         VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
         NOT_AVAILABLE: 'Недоступно!'
       },
       history: {

@@ -6,7 +6,7 @@
     .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
 
   function addElemGroupCtrl(AddElementsServ, AuxStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.A = AuxStor;
 

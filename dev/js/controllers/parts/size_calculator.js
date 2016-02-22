@@ -6,7 +6,7 @@
     .controller('sizeCalculatorCtrl', sizeCalcCtrl);
 
   function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;

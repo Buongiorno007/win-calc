@@ -6,7 +6,7 @@
     .controller('TemplatesCtrl', templateSelectorCtrl);
 
   function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -30,17 +30,8 @@
     });
 
 
-    //------ clicking
 
-    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
-    thisCtrl.toggleTemplateType = toggleTemplateType;
-    thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.gotoConstructionPage = gotoConstructionPage;
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //------ click on top button to change template type
@@ -80,6 +71,15 @@
       $location.path('/design');
     }
 
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    thisCtrl.gotoConstructionPage = gotoConstructionPage;
 
   }
 })();

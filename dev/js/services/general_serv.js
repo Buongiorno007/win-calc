@@ -7,6 +7,7 @@
     .factory('GeneralServ', generalFactory);
 
   function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
+    /*jshint validthis:true */
     var thisFactory = this,
         addElementDATA = [
           /** GRID */
@@ -134,21 +135,22 @@
     }
 
 
-    function roundingValue(nubmer, radix) {
-      var radix = (radix) ? radix : 2,
+    function roundingValue(nubmer, rad) {
+      var radix = rad || 2,
           numberType = typeof nubmer,
-          roundRadix = '1', i = 0;
+          roundRadix = '1', i, newValue;
 
-      for(; i < radix; i++) {
+      for(i = 0; i < radix; i+=1) {
         roundRadix += '0';
       }
       roundRadix *= 1;
 
       if(numberType === 'string') {
-        return parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
+        newValue = parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
       } else if(numberType === 'number') {
-        return parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
+        newValue = parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
       }
+      return newValue;
     }
 
     /** price Margins of Plant */

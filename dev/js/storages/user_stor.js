@@ -1,15 +1,17 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
     .factory('UserStor', userStorageFactory);
 
   function userStorageFactory() {
-
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultUser() {
+      return angular.copy(thisFactory.publicObj.userInfoSource);
+    }
 
     thisFactory.publicObj = {
       userInfoSource: {
@@ -35,16 +37,7 @@
     };
 
     thisFactory.publicObj.userInfo = setDefaultUser();
-
     return thisFactory.publicObj;
-
-
-    //============ methods ================//
-
-    function setDefaultUser() {
-      var publicObj = angular.copy(thisFactory.publicObj.userInfoSource);
-      return publicObj;
-    }
 
   }
 })();

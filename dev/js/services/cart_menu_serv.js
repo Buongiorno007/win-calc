@@ -1,14 +1,12 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .factory('CartMenuServ', cartMenuFactory);
 
   function cartMenuFactory($location, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor, UserStor) {
-
+    /*jshint validthis:true */
     var thisFactory = this;
 
 
@@ -17,24 +15,25 @@
 
 
     /**---------- join all Add Elements for Detials ---------*/
+
     function joinAllAddElements() {
       var productsQty = OrderStor.order.products.length,
           isExistElem = 0,
           typeElementsQty, elementsQty,
-          product, tempElement, prod, type, elem;
+          product, tempElement, element, prod, type, elem;
       //------ cleaning allAddElements
       CartStor.cart.allAddElements.length = 0;
       CartStor.cart.isExistAddElems = 0;
 
-      for(prod = 0; prod < productsQty; prod++) {
+      for(prod = 0; prod < productsQty; prod+=1) {
         product = [];
         typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(type = 0; type < typeElementsQty; type++) {
+        for(type = 0; type < typeElementsQty; type+=1) {
           elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
           if(elementsQty > 0) {
-            for(elem = 0; elem < elementsQty; elem++) {
+            for(elem = 0; elem < elementsQty; elem+=1) {
               tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
-              var element = {
+              element = {
                 id: tempElement.id,
                 list_group_id: tempElement.list_group_id,
                 name: tempElement.name,
@@ -50,7 +49,7 @@
           }
         }
         if(product.length) {
-          isExistElem++;
+          isExistElem+=1;
         }
         CartStor.cart.allAddElements.push(product);
       }
@@ -63,32 +62,33 @@
 
 
 
-    /** mounting margin by Day */
+    /**---------- mounting margin by Day ------------*/
+
     function setMountingMarginDay() {
       var dayIndex = new Date(OrderStor.order.new_delivery_date).getDay(),
           dayMargin = 0;
       //      console.warn('new_delivery_date', dayIndex);
       switch(dayIndex) {
         case 0: //---- Sunday
-          dayMargin = (UserStor.userInfo.mount_sun) ? UserStor.userInfo.mount_sun : 0;
+          dayMargin = UserStor.userInfo.mount_sun || 0;
           break;
         case 1: //---- Monday
-          dayMargin = (UserStor.userInfo.mount_mon) ? UserStor.userInfo.mount_mon : 0;
+          dayMargin = UserStor.userInfo.mount_mon || 0;
           break;
         case 2: //---- Tuesday
-          dayMargin = (UserStor.userInfo.mount_tue) ? UserStor.userInfo.mount_tue : 0;
+          dayMargin = UserStor.userInfo.mount_tue || 0;
           break;
         case 3: //---- Wednesday
-          dayMargin = (UserStor.userInfo.mount_wed) ? UserStor.userInfo.mount_wed : 0;
+          dayMargin = UserStor.userInfo.mount_wed || 0;
           break;
         case 4: //---- Thursday
-          dayMargin = (UserStor.userInfo.mount_thu) ? UserStor.userInfo.mount_thu : 0;
+          dayMargin = UserStor.userInfo.mount_thu || 0;
           break;
         case 5: //---- Friday
-          dayMargin = (UserStor.userInfo.mount_fri) ? UserStor.userInfo.mount_fri : 0;
+          dayMargin = UserStor.userInfo.mount_fri || 0;
           break;
         case 6: //---- Sataday
-          dayMargin = (UserStor.userInfo.mount_sat) ? UserStor.userInfo.mount_sat : 0;
+          dayMargin = UserStor.userInfo.mount_sat || 0;
           break;
       }
       //      console.log('dayMargin',dayMargin);
@@ -114,7 +114,8 @@
 
 
 
-    //-------- Calculate Total Order Price
+    /**-------- Calculate Total Order Price ------------*/
+
     function calculateTotalOrderPrice() {
       //playSound('price');
 
@@ -167,7 +168,7 @@
 
 
 
-    //------- Select dropdown menu item
+    /**------- Select dropdown MENU item ---------------*/
 
     function selectFloorPrice(currDelivery) {
       if(OrderStor.order.floor_id !== currDelivery.id) {
@@ -222,7 +223,8 @@
     }
 
 
-    //-------- Calculate All Products Price
+    /**-------- Calculate All Products Price ----------------*/
+
     function calculateAllProductsPrice() {
       var productsQty = OrderStor.order.products.length;
       OrderStor.order.templates_price = 0;
@@ -260,17 +262,19 @@
 
 
     function changeAddElemPriceAsDiscount(discount) {
-      var productQty = OrderStor.order.products.length;
-      for(var prod = 0; prod < productQty; prod++) {
-        var templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+      var productQty = OrderStor.order.products.length,
+          templatePriceDis, addElemsQty, elemQty,
+          prod, elem, item;
+      for(prod = 0; prod < productQty; prod++) {
+        templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
         OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
         OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
 
-        var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(var elem = 0; elem < addElemsQty; elem++) {
-          var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
+        addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(elem = 0; elem < addElemsQty; elem++) {
+          elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
           if (elemQty > 0) {
-            for (var item = 0; item < elemQty; item++) {
+            for (item = 0; item < elemQty; item++) {
               OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount);
             }
           }
@@ -282,7 +286,24 @@
 
 
 
-    /** Calendar */
+    function culcDeliveyPriceByDiscPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
+    }
+
+    function culcDeliveryPriceByMargPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
+    }
+
+    function hideDeliveryPriceOnCalendar() {
+      OrderStor.order.is_date_price_less = 0;
+      OrderStor.order.is_date_price_more = 0;
+      OrderStor.order.is_old_price = 0;
+    }
+
+
+
+    /**-------------- Calendar -----------------*/
+
     //------ change date
     function checkDifferentDate(lastday, newday) {
       var lastDateArr = lastday.split("."),
@@ -375,7 +396,7 @@
         calculateAllProductsPrice();
 
         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
-        CartStor.cart.marginDeliveyPlant = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
+        CartStor.cart.marginDeliveyPlant = +GlobalStor.global.deliveryCoeff.percents[marginIndex];
 //        console.info('margin', margin);
         if(CartStor.cart.marginDeliveyPlant) {
           culcDeliveryPriceByMargPlant();
@@ -399,20 +420,6 @@
       calculateTotalOrderPrice();
     }
 
-
-    function culcDeliveyPriceByDiscPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
-    }
-
-    function culcDeliveryPriceByMargPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
-    }
-
-    function hideDeliveryPriceOnCalendar() {
-      OrderStor.order.is_date_price_less = 0;
-      OrderStor.order.is_date_price_more = 0;
-      OrderStor.order.is_old_price = 0;
-    }
 
 
     function setMenuItemPriceReal(items) {
@@ -445,7 +452,7 @@
 
 
 
-    /**========== Calculate Order Price ============*/
+    /**------------- Calculate Order Price --------------*/
 
     function calculateOrderPrice() {
       calculateAllProductsPrice();
@@ -468,14 +475,11 @@
 
 
 
-
-
-
     /**-------- open/close discount block --------*/
 
     function openDiscountBlock() {
-      CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
-      CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
+      CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
       CartStor.cart.isShowDiscount = 1;
     }
 
@@ -485,41 +489,11 @@
 
     function swipeDiscountBlock() {
       if(!CartStor.cart.isShowDiscount) {
-        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
-        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+        CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
+        CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
       }
       CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
     }
-
-
-
-
-
-
-    function approveNewDisc(type) {
-      //console.info(CartStor.cart.tempConstructDisc);
-      if(type) {
-        //------- discount x add element
-        CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
-        if(CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
-          CartStor.cart.tempAddelemDisc = UserStor.userInfo.discountAddElemMax*1;
-        }
-        OrderStor.order.discount_addelem = CartStor.cart.tempAddelemDisc*1;
-        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
-
-      } else {
-        //------- discount x construction
-        CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
-        if(CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
-          CartStor.cart.tempConstructDisc = UserStor.userInfo.discountConstrMax*1;
-        }
-        OrderStor.order.discount_construct = CartStor.cart.tempConstructDisc*1;
-        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
-      }
-      //----------- start order price total calculation
-      calculateOrderPrice();
-    }
-
 
 
     function checkNewDiscount(discount) {
@@ -534,10 +508,61 @@
 
 
 
+    function approveNewDisc(type) {
+      //console.info(CartStor.cart.tempConstructDisc);
+      if(type) {
+        //------- discount x add element
+        CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
+        if(CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
+          CartStor.cart.tempAddelemDisc = +UserStor.userInfo.discountAddElemMax;
+        }
+        OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
+        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+
+      } else {
+        //------- discount x construction
+        CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
+        if(CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
+          CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
+        }
+        OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
+        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+      }
+      //----------- start order price total calculation
+      calculateOrderPrice();
+    }
+
+
+
+
+
 
     /** ========== Orders Dialogs ====== */
 
-    /** send Order in Local DB */
+    function setDefaultCustomerData() {
+      CartStor.cart.customer.customer_city_id = arguments[0];
+      CartStor.cart.customer.customer_city = arguments[1];
+      CartStor.cart.customer.customer_location = arguments[2];
+    }
+
+    /**----------- Close any Order Dialog ------------*/
+
+    function closeOrderDialog() {
+      CartStor.cart.submitted = 0;
+      CartStor.cart.isCityBox = 0;
+      if(GlobalStor.global.orderEditNumber > 0) {
+        CartStor.fillOrderForm();
+      } else{
+        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
+        CartStor.cart.customer.customer_sex = 0;
+      }
+      CartStor.cart.isMasterDialog = 0;
+      CartStor.cart.isOrderDialog = 0;
+      CartStor.cart.isCreditDialog = 0;
+    }
+
+    /**---------- send Order in Local DB ------------*/
+
     function sendOrder() {
       var orderStyle;
       GlobalStor.global.isLoader = 1;
@@ -559,23 +584,6 @@
     }
 
 
-
-    /** Close any Order Dialog */
-    function closeOrderDialog() {
-      CartStor.cart.submitted = 0;
-      CartStor.cart.isCityBox = 0;
-      if(GlobalStor.global.orderEditNumber > 0) {
-        CartStor.fillOrderForm();
-      } else{
-        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
-        CartStor.cart.customer.customer_sex = 0;
-      }
-      CartStor.cart.isMasterDialog = 0;
-      CartStor.cart.isOrderDialog = 0;
-      CartStor.cart.isCreditDialog = 0;
-    }
-
-
     function changeLocation() {
       if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = 1;
@@ -584,18 +592,15 @@
       }
     }
 
-    /** Select City in Order Dialogs */
+    /**------------ Select City in Order Dialogs -------------*/
+
     function selectCity(location) {
       setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }
 
 
-    function setDefaultCustomerData() {
-      CartStor.cart.customer.customer_city_id = arguments[0];
-      CartStor.cart.customer.customer_city = arguments[1];
-      CartStor.cart.customer.customer_location = arguments[2];
-    }
+
 
 
 

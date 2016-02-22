@@ -10,7 +10,7 @@
     return {
       restrict: 'E',
       transclude: true,
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
         minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),

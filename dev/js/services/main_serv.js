@@ -384,7 +384,7 @@
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination.img_in_id,
+              laminationId: laminatId,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,
@@ -397,7 +397,6 @@
               ],
               sizes: []
             };
-
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));

@@ -1,14 +1,12 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
   function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -53,27 +51,9 @@
 
 
 
-    //------ clicking
-    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
-    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
-    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
-    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.editProduct = CartServ.editProduct;
-    thisCtrl.showAddElementDetail = showAddElementDetail;
-    thisCtrl.closeAddElementDetail = closeAddElementDetail;
-    thisCtrl.viewSwitching = viewSwitching;
-    thisCtrl.switchProductComment = switchProductComment;
-
-    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
-    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
-    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
-    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //============= AddElements detail block
@@ -117,6 +97,28 @@
       }
     }
 
+
+
+
+    /**========== FINISH ==========*/
+
+      //------ clicking
+    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
+    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
+    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
+    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+    thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.showAddElementDetail = showAddElementDetail;
+    thisCtrl.closeAddElementDetail = closeAddElementDetail;
+    thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.switchProductComment = switchProductComment;
+
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
+
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
   }
 })();

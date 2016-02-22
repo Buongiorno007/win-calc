@@ -6,15 +6,14 @@
     .controller('infoBoxCtrl', infoBoxCtrl);
 
   function infoBoxCtrl(GlobalStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-    //------ clicking
-    thisCtrl.closeInfoBox = closeInfoBox;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
+
     /** close Info Box */
     function closeInfoBox() {
       GlobalStor.global.isInfoBox = 0;
@@ -24,6 +23,10 @@
       GlobalStor.global.infoDescrip = '';
     }
 
+
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.closeInfoBox = closeInfoBox;
 
 
   }

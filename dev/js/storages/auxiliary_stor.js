@@ -6,8 +6,12 @@
     .factory('AuxStor', auxStorageFactory);
 
   function auxStorageFactory() {
-
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultAuxiliary() {
+      return angular.copy(thisFactory.publicObj.auxiliarySource);
+    }
 
     thisFactory.publicObj = {
       auxiliarySource: {
@@ -35,16 +39,7 @@
     };
 
     thisFactory.publicObj.aux = setDefaultAuxiliary();
-
     return thisFactory.publicObj;
-
-
-    //============ methods ================//
-
-    function setDefaultAuxiliary() {
-      var publicObj = angular.copy(thisFactory.publicObj.auxiliarySource);
-      return publicObj;
-    }
 
   }
 })();

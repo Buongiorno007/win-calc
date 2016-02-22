@@ -17,4 +17,4 @@
             img(ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg")
         .laminat-row
           .laminat-label {{ ::lamCouple.laminat_in_name }}
-          .laminat-label {{ ::lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name") {{ ::lamCouple.laminat_out_name }}
