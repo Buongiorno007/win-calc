@@ -124,35 +124,7 @@
           <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
         </div>
       </div>
-      <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
-        <div ng-if="templatesPanel.G.global.activePanel == 1" class="template-inner">
-          <div class="template-header">
-            <button ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}" ng-click="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}</button>
-            <div class="tempate-type-box">
-              <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
-                <div ng-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-                <div ng-click="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
-                <div ng-click="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
-                <div ng-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
-              </div>
-            </div>
-            <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
-          </div>
-          <div ng-click="templatesPanel.gotoConstructionPage();" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
-            <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
-          </div>
-          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
-            <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
-              <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")-->
-              <div ng-repeat="templateIcon in templatesPanel.templatesImgs" ng-click="templatesPanel.selectNewTemplate($index)" class="other-template">
-                <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-                <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
-                <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!--include panels/_templates-->
       <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
         <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
           <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
@@ -243,7 +215,7 @@
         </div>
         <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
           <div class="dialog-inner">
-            <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="setGlass"></svg-template>
+            <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
           </div>
           <div ng-click="glassPanel.confirmGlass()" class="set-glass-btn"></div>
           <div ng-click="glassPanel.setGlassToAll()" class="set-glass-all-btn">{{ ::glassPanel.SELECT_ALL }}</div>
@@ -384,7 +356,7 @@
           </div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
-            <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
+            <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>
             <div ng-click="elementsPanel.closeWindowScheme()" class="close-dialog"></div>
           </div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.openAddElementListView()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
@@ -472,7 +444,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 1}" ng-click="configMenu.selectConfigPanel(1)" class="item item-header">
             <div data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="icon unvisible">
-              <svg-template template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+              <svg-template template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight" type-construction="configMenu.constants.SVG_CLASS_ICON"></svg-template>
             </div>
             <div data-output="{{ ::configMenu.CONFIGMENU_SIZING }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} *" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
@@ -613,7 +585,7 @@
         </div>
         <div ng-if="!elementsMenu.P.product.is_addelem_only" ng-class="{'active': elementsMenu.A.aux.isGridSelectorDialog}" class="grid-selector-dialog">
           <div class="dialog-inner">
-            <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="setGrid"></svg-template>
+            <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="elementsMenu.constants.SVG_ID_GRID"></svg-template>
           </div>
           <div ng-click="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
           <div ng-click="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>

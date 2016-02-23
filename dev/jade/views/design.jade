@@ -73,13 +73,14 @@ section.construction-page
       .left-menu-footer
         .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
         .project-default(ng-click="designPage.setDefaultConstruction()") {{ ::designPage.PROJECT_DEFAULT }}
+        .project-default(ng-click="designPage.showTemplates()") {{ ::designPage.ROOM_SELECTION }}
 
 
 
 
     .construction-block
       .construction-scrollbox
-        svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="edit")
+        svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="designPage.constants.SVG_ID_EDIT")
 
 
 
@@ -107,6 +108,8 @@ section.construction-page
         include parts/_size-calculator
       include parts/_voice
 
+
+    include panels/_templates
 
     section.door-configuration(ng-class="{'active': designPage.config.isDoorConfig}")
 
@@ -178,3 +181,5 @@ section.construction-page
     .design-attantion(ng-if="designPage.config.isDesignError") {{ ::designPage.NOT_AVAILABLE }}
     .design-attantion(ng-if="designPage.D.design.isDimExtra") {{ ::designPage.DIM_EXTRA }}
     .design-attantion(ng-if="designPage.D.design.isSquareExtra") {{ ::designPage.SQUARE_EXTRA }}
+
+include parts/_alert

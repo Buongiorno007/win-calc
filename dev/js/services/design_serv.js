@@ -170,6 +170,7 @@
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
       DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
     }
 
 
@@ -318,7 +319,6 @@
       DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id);
       DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id);
       DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id);
-
       //-------- set Default values in design
       DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
     }
@@ -329,16 +329,13 @@
     function setDefaultConstruction() {
       //------- close calculator if is opened
       hideSizeTools();
-      //----- do if Size Calculator is not opened
-      //if(!GlobalStor.global.isSizeCalculator) {
-        DesignStor.design = DesignStor.setDefaultDesign();
-        setDefaultTemplate();
-        //============ if Door Construction
-        if(ProductStor.product.construction_type === 4) {
-          //---- set indexes
-          setIndexDoorConfig();
-        }
-      //}
+      DesignStor.design = DesignStor.setDefaultDesign();
+      setDefaultTemplate();
+      //============ if Door Construction
+      if(ProductStor.product.construction_type === 4) {
+        //---- set indexes
+        setIndexDoorConfig();
+      }
     }
 
 
@@ -2383,9 +2380,6 @@
 
 
     function addNewSizeInTemplate(newLength) {
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
 
       //-------- change point coordinates in templateSource
       var blocks = DesignStor.design.templateSourceTEMP.details,
@@ -2393,7 +2387,14 @@
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          blocksQty = blocks.length, b;
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
+
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //          console.log('SIZE ````````curBlockId````````', curBlockId);
       //          console.log('SIZE ````````curDimType````````', curDimType);
@@ -2403,13 +2404,13 @@
       if(curDimType === 'curve') {
         //============ changing Radius
 
-        var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
 
         mainFor: for (b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === curBlockId) {
             //-------- search in PointsQ
             if(blocks[b].pointsQ) {
-              var pointsQQty = blocks[b].pointsQ.length;
+              pointsQQty = blocks[b].pointsQ.length;
               while(--pointsQQty > -1) {
                 if(blocks[b].pointsQ[pointsQQty].id === dimId) {
                   blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
@@ -2431,9 +2432,9 @@
       } else if(dimId.indexOf('qa')+1) {
         //========== changing Arc Height
 
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].level === 1) {
-            var pointsQQty = blocks[b].pointsQ.length;
+            pointsQQty = blocks[b].pointsQ.length;
             if(pointsQQty) {
               while(--pointsQQty > -1) {
                 if(blocks[b].pointsQ[pointsQQty].id === dimId) {
@@ -2446,18 +2447,13 @@
         }
 
       } else {
-        //========== changing Line dimension
-
-        var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-            oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-            axis = DesignStor.design.oldSize.attributes[13].nodeValue;
-
         //            console.log('SIZE ````````newLength````````', newLength);
         //            console.log('SIZE ````````startSize````````', startSize);
         //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
         //            console.log('SIZE ````````axis````````', axis);
 
-        for(var b = 1; b < blocksQty; b++) {
+        //========== changing Line dimension
+        for(b = 1; b < blocksQty; b+=1) {
           var pointsOutQty = blocks[b].pointsOut.length;
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
@@ -2473,7 +2469,7 @@
             }
           }
           if(blocks[b].impost) {
-            for(var i = 0; i < 2; i++) {
+            for(i = 0; i < 2; i+=1) {
               if(axis === 'x') {
                 if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
                   blocks[b].impost.impostAxis[i].x = startSize + newLength;

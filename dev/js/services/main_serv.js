@@ -181,6 +181,33 @@
     }
 
 
+    function fineItemById(id, list) {
+      var typeQty = list.length;
+      while(--typeQty > -1) {
+        var itemQty = list[typeQty].length;
+        while(--itemQty > -1) {
+          if(list[typeQty][itemQty].id === id) {
+            return list[typeQty][itemQty];
+          }
+        }
+      }
+    }
+
+
+    function downloadProfileDepth(elementId) {
+      var defer = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
+        var resultObj = {};
+        if (result.length) {
+          resultObj.a = result[0].a;
+          resultObj.b = result[0].b;
+          resultObj.c = result[0].c;
+          resultObj.d = result[0].d;
+        }
+        defer.resolve(resultObj);
+      });
+      return defer.promise;
+    }
 
 
     //-------- set default profile
@@ -209,34 +236,6 @@
       return deferred.promise;
     }
 
-
-    function fineItemById(id, list) {
-      var typeQty = list.length;
-      while(--typeQty > -1) {
-        var itemQty = list[typeQty].length;
-        while(--itemQty > -1) {
-          if(list[typeQty][itemQty].id === id) {
-            return list[typeQty][itemQty];
-          }
-        }
-      }
-    }
-
-
-    function downloadProfileDepth(elementId) {
-      var defer = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
-        var resultObj = {};
-        if (result.length) {
-          resultObj.a = result[0].a;
-          resultObj.b = result[0].b;
-          resultObj.c = result[0].c;
-          resultObj.d = result[0].d;
-        }
-        defer.resolve(resultObj);
-      });
-      return defer.promise;
-    }
 
 
 
@@ -883,10 +882,10 @@
 
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 0;
-      ProductStor.product.door_sash_shape_id = 0;
-      ProductStor.product.door_handle_shape_id = 0;
-      ProductStor.product.door_lock_shape_id = 0;
+      ProductStor.product.door_shape_id = 1;
+      ProductStor.product.door_sash_shape_id = 1;
+      ProductStor.product.door_handle_shape_id = 1;
+      ProductStor.product.door_lock_shape_id = 1;
     }
 
 

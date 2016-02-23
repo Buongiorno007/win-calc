@@ -79,11 +79,12 @@
       <div class="left-menu-footer">
         <div data-output="{{ ::designPage.UNITS_DESCRIP }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
         <div ng-click="designPage.setDefaultConstruction()" class="project-default">{{ ::designPage.PROJECT_DEFAULT }}</div>
+        <div ng-click="designPage.showTemplates()" class="project-default">{{ ::designPage.ROOM_SELECTION }}</div>
       </div>
     </div>
     <div class="construction-block">
       <div class="construction-scrollbox">
-        <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="edit"></svg-template>
+        <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="designPage.constants.SVG_ID_EDIT"></svg-template>
       </div>
     </div>
     <div class="right-menu-header">
@@ -182,6 +183,37 @@
         <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}" class="voice-input">
       </div>
     </div>
+    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
+      <div class="template-inner">
+        <div ng-click="designPage.showTemplates()" class="close-dialog"></div>
+        <div class="template-header">
+          <button ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}" ng-click="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}</button>
+          <div class="tempate-type-box">
+            <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
+              <div ng-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_WINDOW }}</div>
+              <!--.template-type-btn(ng-click="templatesPanel.selectNewTemplateType(2)") {{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}-->
+              <!--.template-type-btn(ng-click="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}-->
+              <div ng-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_DOOR }}</div>
+            </div>
+          </div>
+          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
+        </div>
+        <!--.template-section.unvisible(ng-click="templatesPanel.gotoConstructionPage();",-->
+        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
+          <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="templatesPanel.constants.SVG_ID_ICON"></svg-template>
+        </div>
+        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
+          <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
+            <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")-->
+            <div ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index" ng-click="templatesPanel.selectNewTemplate($index)" class="other-template">
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <section ng-class="{'active': designPage.config.isDoorConfig}" class="door-configuration">
       <div class="door-config-column step1">
         <div class="door-config-backfon"></div>
@@ -272,3 +304,14 @@
     <div ng-if="designPage.D.design.isSquareExtra" class="design-attantion">{{ ::designPage.SQUARE_EXTRA }}</div>
   </section>
 </section>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>

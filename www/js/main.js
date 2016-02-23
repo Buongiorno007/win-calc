@@ -464,6 +464,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.NOT_AVAILABLE = $filter('translate')('construction.NOT_AVAILABLE');
     thisCtrl.DIM_EXTRA = $filter('translate')('construction.DIM_EXTRA');
     thisCtrl.SQUARE_EXTRA = $filter('translate')('construction.SQUARE_EXTRA');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
 
 
     //--------- set template from ProductStor
@@ -916,6 +917,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    /**----- open/close template pannel -------*/
+
+    function showTemplates() {
+      if(GlobalStor.global.activePanel) {
+        GlobalStor.global.activePanel = 0;
+        DesignServ.initAllImposts();
+        DesignServ.initAllGlass();
+        DesignServ.initAllArcs();
+        DesignServ.initAllDimension();
+      } else {
+        GlobalStor.global.activePanel = 1;
+      }
+    }
+
+
+
 
     /**========== FINISH ==========*/
 
@@ -925,6 +942,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.designCancel = DesignServ.designCancel;
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+    thisCtrl.showTemplates = showTemplates;
 
     //----- door config
     thisCtrl.toggleDoorConfig = toggleDoorConfig;
@@ -3024,7 +3042,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
+  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, DesignStor, OrderStor, ProductStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -3037,6 +3055,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
       typing: 'on'
     };
+
+
+    //------- translate
+    thisCtrl.TEMPLATE_WINDOW = $filter('translate')('panels.TEMPLATE_WINDOW');
+    thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
+    thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
+    thisCtrl.TEMPLATE_BALCONY = $filter('translate')('panels.TEMPLATE_BALCONY');
 
 
     //---------- download templates Img icons
@@ -3063,6 +3088,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
 
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
@@ -3085,12 +3115,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function gotoConstructionPage() {
-      thisCtrl.G.global.activePanel = 0;
-      $location.path('/design');
-    }
-
-
 
     /**========== FINISH ==========*/
 
@@ -3098,7 +3122,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.gotoConstructionPage = gotoConstructionPage;
 
   }
 })();
@@ -4481,7 +4504,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       replace: true,
       transclude: true,
       scope: {
-        typeConstruction: '@',
+        typeConstruction: '=',
         template: '=',
         templateWidth: '=',
         templateHeight: '='
@@ -4584,7 +4607,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'tamlateSVG') {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -4599,7 +4622,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox.append('text')
             .text(dim.text)
             .attr({
-              'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+              'class': function() { return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt'; },
               'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
               'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
               'dx': 80,
@@ -4651,7 +4674,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -4694,9 +4717,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty, i, corners;
 
-            if(scope.typeConstruction === 'icon'){
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
-            } else if(scope.typeConstruction === 'edit') {
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
             }
 
@@ -4705,20 +4728,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'height': heightSVG
             });
 
-            if(scope.typeConstruction === 'icon') {
-              mainSVG.attr('class', 'tamlateIconSVG');
-            } else if(scope.typeConstruction === 'setGlass') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
-            } else if(scope.typeConstruction === 'setGrid') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GRID);
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+              mainSVG.attr('class', scope.typeConstruction);
             } else {
-              mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
+              mainSVG.attr('id', scope.typeConstruction);
             }
+
+            //if(scope.typeConstruction === 'setGlass') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
+            //} else if(scope.typeConstruction === 'setGrid') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_GRID);
+            //} else if (scope.typeConstruction === 'iconBig') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_ICON);
+            //} else  {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
+            //}
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
             }
 
@@ -4727,7 +4756,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
 
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
@@ -4736,7 +4765,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
 
             /** Defs */
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
                   pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
                     "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
@@ -4788,7 +4817,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   //'class': function(d) { return d.type; },
                   'class': function (d) {
                     var className;
-                    if(scope.typeConstruction === 'icon') {
+                    if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                       className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
                     } else {
                       if(d.doorstep) {
@@ -4823,7 +4852,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 });
 
 
-              if(scope.typeConstruction !== 'icon') {
+              if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {
                   elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
@@ -4864,7 +4893,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
                 //---- corner markers
-                if(scope.typeConstruction === 'edit') {
+                if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                   if (template.details[i].level === 1) {
                     //----- create array of frame points with corner = true
                     corners = template.details[i].pointsOut.filter(function (item) {
@@ -4892,7 +4921,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'setGlass') {
+                if (scope.typeConstruction === 'tamlateGlassSVG') {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
@@ -4905,7 +4934,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'setGrid') {
+                if (scope.typeConstruction === 'tamlateGridSVG') {
                   if(!template.details[i].children.length && template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
@@ -4921,7 +4950,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             }
 
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               //--------- dimension
               var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
@@ -4943,7 +4972,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -7177,6 +7206,13 @@ function ErrorResult(code, message) {
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
           // /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+      //------------ SVG
+      SVG_CLASS_ICON: 'tamlateIconSVG',
+      SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_ICON: 'tamlateIconBigSVG',
+      SVG_ID_GLASS: 'tamlateGlassSVG',
+      SVG_ID_GRID: 'tamlateGridSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
@@ -7191,10 +7227,7 @@ function ErrorResult(code, message) {
       minRadiusHeight: 10,
 
       activeClass: 'active',
-      //------------ SVG
-      SVG_ID_EDIT: 'tamlateSVG',
-      SVG_ID_GLASS: 'tamlateSVGGlass',
-      SVG_ID_GRID: 'tamlateSVGGrid',
+
 
       //------------ Languages
       languages: [
@@ -7386,6 +7419,7 @@ function ErrorResult(code, message) {
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
       DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
     }
 
 
@@ -7534,7 +7568,6 @@ function ErrorResult(code, message) {
       DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id);
       DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id);
       DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id);
-
       //-------- set Default values in design
       DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
     }
@@ -7545,16 +7578,13 @@ function ErrorResult(code, message) {
     function setDefaultConstruction() {
       //------- close calculator if is opened
       hideSizeTools();
-      //----- do if Size Calculator is not opened
-      //if(!GlobalStor.global.isSizeCalculator) {
-        DesignStor.design = DesignStor.setDefaultDesign();
-        setDefaultTemplate();
-        //============ if Door Construction
-        if(ProductStor.product.construction_type === 4) {
-          //---- set indexes
-          setIndexDoorConfig();
-        }
-      //}
+      DesignStor.design = DesignStor.setDefaultDesign();
+      setDefaultTemplate();
+      //============ if Door Construction
+      if(ProductStor.product.construction_type === 4) {
+        //---- set indexes
+        setIndexDoorConfig();
+      }
     }
 
 
@@ -9599,9 +9629,6 @@ function ErrorResult(code, message) {
 
 
     function addNewSizeInTemplate(newLength) {
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
 
       //-------- change point coordinates in templateSource
       var blocks = DesignStor.design.templateSourceTEMP.details,
@@ -9609,7 +9636,14 @@ function ErrorResult(code, message) {
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          blocksQty = blocks.length, b;
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
+
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //          console.log('SIZE ````````curBlockId````````', curBlockId);
       //          console.log('SIZE ````````curDimType````````', curDimType);
@@ -9619,13 +9653,13 @@ function ErrorResult(code, message) {
       if(curDimType === 'curve') {
         //============ changing Radius
 
-        var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
 
         mainFor: for (b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === curBlockId) {
             //-------- search in PointsQ
             if(blocks[b].pointsQ) {
-              var pointsQQty = blocks[b].pointsQ.length;
+              pointsQQty = blocks[b].pointsQ.length;
               while(--pointsQQty > -1) {
                 if(blocks[b].pointsQ[pointsQQty].id === dimId) {
                   blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
@@ -9647,9 +9681,9 @@ function ErrorResult(code, message) {
       } else if(dimId.indexOf('qa')+1) {
         //========== changing Arc Height
 
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].level === 1) {
-            var pointsQQty = blocks[b].pointsQ.length;
+            pointsQQty = blocks[b].pointsQ.length;
             if(pointsQQty) {
               while(--pointsQQty > -1) {
                 if(blocks[b].pointsQ[pointsQQty].id === dimId) {
@@ -9662,18 +9696,13 @@ function ErrorResult(code, message) {
         }
 
       } else {
-        //========== changing Line dimension
-
-        var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-            oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-            axis = DesignStor.design.oldSize.attributes[13].nodeValue;
-
         //            console.log('SIZE ````````newLength````````', newLength);
         //            console.log('SIZE ````````startSize````````', startSize);
         //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
         //            console.log('SIZE ````````axis````````', axis);
 
-        for(var b = 1; b < blocksQty; b++) {
+        //========== changing Line dimension
+        for(b = 1; b < blocksQty; b+=1) {
           var pointsOutQty = blocks[b].pointsOut.length;
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
@@ -9689,7 +9718,7 @@ function ErrorResult(code, message) {
             }
           }
           if(blocks[b].impost) {
-            for(var i = 0; i < 2; i++) {
+            for(i = 0; i < 2; i+=1) {
               if(axis === 'x') {
                 if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
                   blocks[b].impost.impostAxis[i].x = startSize + newLength;
@@ -14582,6 +14611,33 @@ function ErrorResult(code, message) {
     }
 
 
+    function fineItemById(id, list) {
+      var typeQty = list.length;
+      while(--typeQty > -1) {
+        var itemQty = list[typeQty].length;
+        while(--itemQty > -1) {
+          if(list[typeQty][itemQty].id === id) {
+            return list[typeQty][itemQty];
+          }
+        }
+      }
+    }
+
+
+    function downloadProfileDepth(elementId) {
+      var defer = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
+        var resultObj = {};
+        if (result.length) {
+          resultObj.a = result[0].a;
+          resultObj.b = result[0].b;
+          resultObj.c = result[0].c;
+          resultObj.d = result[0].d;
+        }
+        defer.resolve(resultObj);
+      });
+      return defer.promise;
+    }
 
 
     //-------- set default profile
@@ -14610,34 +14666,6 @@ function ErrorResult(code, message) {
       return deferred.promise;
     }
 
-
-    function fineItemById(id, list) {
-      var typeQty = list.length;
-      while(--typeQty > -1) {
-        var itemQty = list[typeQty].length;
-        while(--itemQty > -1) {
-          if(list[typeQty][itemQty].id === id) {
-            return list[typeQty][itemQty];
-          }
-        }
-      }
-    }
-
-
-    function downloadProfileDepth(elementId) {
-      var defer = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
-        var resultObj = {};
-        if (result.length) {
-          resultObj.a = result[0].a;
-          resultObj.b = result[0].b;
-          resultObj.c = result[0].c;
-          resultObj.d = result[0].d;
-        }
-        defer.resolve(resultObj);
-      });
-      return defer.promise;
-    }
 
 
 
@@ -15284,10 +15312,10 @@ function ErrorResult(code, message) {
 
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 0;
-      ProductStor.product.door_sash_shape_id = 0;
-      ProductStor.product.door_handle_shape_id = 0;
-      ProductStor.product.door_lock_shape_id = 0;
+      ProductStor.product.door_shape_id = 1;
+      ProductStor.product.door_sash_shape_id = 1;
+      ProductStor.product.door_handle_shape_id = 1;
+      ProductStor.product.door_lock_shape_id = 1;
     }
 
 
@@ -20189,52 +20217,37 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('TemplatesServ', templatesFactory);
 
-  function templatesFactory($filter, GeneralServ, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function templatesFactory($filter, GeneralServ, MainServ, DesignServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      selectNewTemplate: selectNewTemplate,
-      //backDefaultTemplate: backDefaultTemplate,
-      //newPriceForNewTemplate: newPriceForNewTemplate,
-      initNewTemplateType: initNewTemplateType
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
-
-
-    //---------- select new template and recalculate it price
-    function selectNewTemplate(templateIndex, roomInd) {
-      GlobalStor.global.isTemplateTypeMenu = 0;
-
-      function goToNewTemplate() {
-        //------ change last changed template to old one
-        backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-
-      if(GlobalStor.global.isChangedTemplate) {
-        //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate
-        );
-      } else {
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-    }
+    /**============ METHODS ================*/
 
 
-    //------- return to the initial template
-    function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+    function culcPriceNewTemplate(templateIndex) {
+      ProductStor.product.template_id = templateIndex;
+      MainServ.saveTemplateInProduct(templateIndex).then(function() {
+
+        ProductStor.product.glass.length = 0;
+        MainServ.setCurrentGlass(ProductStor.product);
+        MainServ.setCurrentHardware(ProductStor.product);
+
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        } else {
+          var hardwareIds = ProductStor.product.hardware.id || 0;
+          //------ define product price
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
+          //------ save analytics data
+          //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          /** send analytics data to Server*/
+          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+        }
+      });
     }
 
 
@@ -20268,31 +20281,72 @@ function ErrorResult(code, message) {
     }
 
 
-    function culcPriceNewTemplate(templateIndex) {
-      ProductStor.product.template_id = templateIndex;
-      MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        ProductStor.product.glass.length = 0;
-        MainServ.setCurrentGlass(ProductStor.product);
-        MainServ.setCurrentHardware(ProductStor.product);
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.img_in_id);
-        //------ save analytics data
-        //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-        /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-      });
+
+    //------- return to the initial template
+    function backDefaultTemplate() {
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
     }
+
+
+
+    //---------- select new template and recalculate it price
+    function selectNewTemplate(templateIndex, roomInd) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
+      function goToNewTemplate() {
+        //------ change last changed template to old one
+        backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        DesignStor.design.designSteps.length = 0;
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+    }
+
+
 
 
 
     function initNewTemplateType(marker) {
       ProductStor.product.construction_type = marker;
       ProductStor.product.template_id = 0;
-      MainServ.prepareTemplates(marker);
+      MainServ.prepareTemplates(marker).then(function() {
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        }
+      });
     }
 
 
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      selectNewTemplate: selectNewTemplate,
+      //backDefaultTemplate: backDefaultTemplate,
+      //newPriceForNewTemplate: newPriceForNewTemplate,
+      initNewTemplateType: initNewTemplateType
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

@@ -69,7 +69,7 @@
                 <button ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
                 <div ng-click="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" class="order-header-fon">
                   <div class="order-template">
-                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                   </div>
                   <div ng-if="cartPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &lt; cartPage.O.order.heat_coef_min}" class="order-u-coeff">
                     <div>R = {{ product.heat_coef_total }}</div>
@@ -195,7 +195,7 @@
               <button ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
                 <div ng-click="cartPage.editProduct($index, 'product')" class="order-template">
-                  <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                  <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                 </div>
               </div>
               <div class="order-content">
@@ -237,7 +237,7 @@
               <div class="addelements-detail-row">
                 <div class="product-value">
                   <div class="product-icon-thumb">
-                    <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                    <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                   </div><span class="product-template-qty">X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}</span>
                 </div>
                 <div class="product-icon-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
@@ -381,7 +381,7 @@
                 <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" ng-click="elemCartPanel.selectProductToAddElem($index)" class="product">
                   <div class="select-mark"></div>
                   <div class="product-header">
-                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                     <div ng-hide="product.is_addelem_only" class="order-value">X {{ product.product_qty }}</div>
                   </div>
                   <div class="order-content">
@@ -464,7 +464,7 @@
                   <button ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
                   <div class="addelementunit-header">
                     <div class="addelementunit-template">
-                      <svg-template template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                      <svg-template template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                     </div>
                   </div>
                   <div class="addelementunit-content">
@@ -480,7 +480,7 @@
                     <button ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
                     <div class="addelementunit-header">
                       <div class="addelementunit-template">
-                        <svg-template template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                        <svg-template template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                       </div>
                     </div>
                     <div class="addelementunit-content">
@@ -739,7 +739,7 @@
         </div>
         <div ng-if="!elementsMenu.P.product.is_addelem_only" ng-class="{'active': elementsMenu.A.aux.isGridSelectorDialog}" class="grid-selector-dialog">
           <div class="dialog-inner">
-            <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="setGrid"></svg-template>
+            <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="elementsMenu.constants.SVG_ID_GRID"></svg-template>
           </div>
           <div ng-click="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
           <div ng-click="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>

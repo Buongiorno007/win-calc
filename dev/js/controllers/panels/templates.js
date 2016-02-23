@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
+  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, DesignStor, OrderStor, ProductStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -18,6 +18,13 @@
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
       typing: 'on'
     };
+
+
+    //------- translate
+    thisCtrl.TEMPLATE_WINDOW = $filter('translate')('panels.TEMPLATE_WINDOW');
+    thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
+    thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
+    thisCtrl.TEMPLATE_BALCONY = $filter('translate')('panels.TEMPLATE_BALCONY');
 
 
     //---------- download templates Img icons
@@ -44,6 +51,11 @@
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
 
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
@@ -66,12 +78,6 @@
     }
 
 
-    function gotoConstructionPage() {
-      thisCtrl.G.global.activePanel = 0;
-      $location.path('/design');
-    }
-
-
 
     /**========== FINISH ==========*/
 
@@ -79,7 +85,6 @@
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.gotoConstructionPage = gotoConstructionPage;
 
   }
 })();

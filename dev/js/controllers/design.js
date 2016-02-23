@@ -61,6 +61,7 @@
     thisCtrl.NOT_AVAILABLE = $filter('translate')('construction.NOT_AVAILABLE');
     thisCtrl.DIM_EXTRA = $filter('translate')('construction.DIM_EXTRA');
     thisCtrl.SQUARE_EXTRA = $filter('translate')('construction.SQUARE_EXTRA');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
 
 
     //--------- set template from ProductStor
@@ -513,6 +514,22 @@
     }
 
 
+    /**----- open/close template pannel -------*/
+
+    function showTemplates() {
+      if(GlobalStor.global.activePanel) {
+        GlobalStor.global.activePanel = 0;
+        DesignServ.initAllImposts();
+        DesignServ.initAllGlass();
+        DesignServ.initAllArcs();
+        DesignServ.initAllDimension();
+      } else {
+        GlobalStor.global.activePanel = 1;
+      }
+    }
+
+
+
 
     /**========== FINISH ==========*/
 
@@ -522,6 +539,7 @@
     thisCtrl.designCancel = DesignServ.designCancel;
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+    thisCtrl.showTemplates = showTemplates;
 
     //----- door config
     thisCtrl.toggleDoorConfig = toggleDoorConfig;

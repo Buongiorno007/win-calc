@@ -12,7 +12,7 @@
       replace: true,
       transclude: true,
       scope: {
-        typeConstruction: '@',
+        typeConstruction: '=',
         template: '=',
         templateWidth: '=',
         templateHeight: '='
@@ -115,7 +115,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'tamlateSVG') {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -130,7 +130,7 @@
           sizeBox.append('text')
             .text(dim.text)
             .attr({
-              'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+              'class': function() { return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt'; },
               'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
               'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
               'dx': 80,
@@ -182,7 +182,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -225,9 +225,9 @@
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty, i, corners;
 
-            if(scope.typeConstruction === 'icon'){
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
-            } else if(scope.typeConstruction === 'edit') {
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
             }
 
@@ -236,20 +236,26 @@
               'height': heightSVG
             });
 
-            if(scope.typeConstruction === 'icon') {
-              mainSVG.attr('class', 'tamlateIconSVG');
-            } else if(scope.typeConstruction === 'setGlass') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
-            } else if(scope.typeConstruction === 'setGrid') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GRID);
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+              mainSVG.attr('class', scope.typeConstruction);
             } else {
-              mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
+              mainSVG.attr('id', scope.typeConstruction);
             }
+
+            //if(scope.typeConstruction === 'setGlass') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
+            //} else if(scope.typeConstruction === 'setGrid') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_GRID);
+            //} else if (scope.typeConstruction === 'iconBig') {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_ICON);
+            //} else  {
+            //  mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
+            //}
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
             }
 
@@ -258,7 +264,7 @@
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
 
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
@@ -267,7 +273,7 @@
             }
 
             /** Defs */
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
                   pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
                     "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
@@ -319,7 +325,7 @@
                   //'class': function(d) { return d.type; },
                   'class': function (d) {
                     var className;
-                    if(scope.typeConstruction === 'icon') {
+                    if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                       className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
                     } else {
                       if(d.doorstep) {
@@ -354,7 +360,7 @@
                 });
 
 
-              if(scope.typeConstruction !== 'icon') {
+              if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {
                   elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
@@ -395,7 +401,7 @@
 
 
                 //---- corner markers
-                if(scope.typeConstruction === 'edit') {
+                if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                   if (template.details[i].level === 1) {
                     //----- create array of frame points with corner = true
                     corners = template.details[i].pointsOut.filter(function (item) {
@@ -423,7 +429,7 @@
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'setGlass') {
+                if (scope.typeConstruction === 'tamlateGlassSVG') {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
@@ -436,7 +442,7 @@
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'setGrid') {
+                if (scope.typeConstruction === 'tamlateGridSVG') {
                   if(!template.details[i].children.length && template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
@@ -452,7 +458,7 @@
 
             }
 
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               //--------- dimension
               var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
@@ -474,7 +480,7 @@
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
