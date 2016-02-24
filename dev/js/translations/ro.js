@@ -202,7 +202,8 @@
         VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
         SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
         DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'nu Este Disponibil!'
+        NOT_AVAILABLE: 'nu Este Disponibil!',
+        TEST_STAGE: "Находится в стадии тестирования"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',

@@ -2588,9 +2588,7 @@
             }
             //------- back previous size
             d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
-            $timeout(function() {
-              cleanTempSize();
-            }, 2000);
+            DesignStor.design.tempSize.length = 0;
             deff.resolve(1);
           }
 
@@ -2598,9 +2596,7 @@
           DesignStor.design.isSquareExtra = 1;
           //------- back previous size
           d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
-          $timeout(function() {
-            cleanTempSize();
-          }, 2000);
+          DesignStor.design.tempSize.length = 0;
           deff.resolve(1);
         }
 

@@ -202,7 +202,8 @@
         VOICE_SMALL_GLASS_BLOCK: "too small skylights",
         SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
         DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'Not Available!'
+        NOT_AVAILABLE: 'Not Available!',
+        TEST_STAGE: "Находится в стадии тестирования"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',

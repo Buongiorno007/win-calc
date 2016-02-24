@@ -202,7 +202,8 @@
         VOICE_SMALL_GLASS_BLOCK: "apertura leggera troppo piccola",
         SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
         DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'È inaccessibile!'
+        NOT_AVAILABLE: 'È inaccessibile!',
+        TEST_STAGE: "Находится в стадии тестирования"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',

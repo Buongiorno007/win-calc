@@ -202,7 +202,8 @@
         VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
         SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
         DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'nicht Verfügbar!'
+        NOT_AVAILABLE: 'nicht Verfügbar!',
+        TEST_STAGE: "Находится в стадии тестирования"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

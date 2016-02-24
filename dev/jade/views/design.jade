@@ -180,6 +180,10 @@ section.construction-page
 
     .design-attantion(ng-if="designPage.config.isDesignError") {{ ::designPage.NOT_AVAILABLE }}
     .design-attantion(ng-if="designPage.D.design.isDimExtra") {{ ::designPage.DIM_EXTRA }}
+      .close-dialog(ng-click="designPage.closeAttantion()")
     .design-attantion(ng-if="designPage.D.design.isSquareExtra") {{ ::designPage.SQUARE_EXTRA }}
+      .close-dialog(ng-click="designPage.closeAttantion()")
+    .design-attantion(ng-if="designPage.config.isTest") {{ ::designPage.TEST_STAGE }}
+      .close-dialog(ng-click="designPage.closeAttantion()")
 
 include parts/_alert

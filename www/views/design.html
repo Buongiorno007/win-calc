@@ -300,8 +300,15 @@
       </div>
     </section>
     <div ng-if="designPage.config.isDesignError" class="design-attantion">{{ ::designPage.NOT_AVAILABLE }}</div>
-    <div ng-if="designPage.D.design.isDimExtra" class="design-attantion">{{ ::designPage.DIM_EXTRA }}</div>
-    <div ng-if="designPage.D.design.isSquareExtra" class="design-attantion">{{ ::designPage.SQUARE_EXTRA }}</div>
+    <div ng-if="designPage.D.design.isDimExtra" class="design-attantion">{{ ::designPage.DIM_EXTRA }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
+    <div ng-if="designPage.D.design.isSquareExtra" class="design-attantion">{{ ::designPage.SQUARE_EXTRA }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
+    <div ng-if="designPage.config.isTest" class="design-attantion">{{ ::designPage.TEST_STAGE }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
   </section>
 </section>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
