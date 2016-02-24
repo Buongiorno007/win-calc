@@ -122,7 +122,7 @@
     });
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {

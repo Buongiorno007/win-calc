@@ -667,6 +667,22 @@
 
 
 
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
+
+
     function insertRowLocalDB(row, tableName) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
@@ -689,22 +705,23 @@
           tableQty = tableKeys.length;
       //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
-        for (var t = 0; t < tableQty; t++) {
-          var colums = result.tables[tableKeys[t]].fields.join(', '),
-              rowsQty = result.tables[tableKeys[t]].rows.length;
+        var t, r, colums, rowsQty, defer, values;
+        for (t = 0; t < tableQty; t+=1) {
+          colums = result.tables[tableKeys[t]].fields.join(', ');
+          rowsQty = result.tables[tableKeys[t]].rows.length;
           //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
-            for (var r = 0; r < rowsQty; r++) {
-              var defer = $q.defer(),
-                  values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    elem = checkStringToQuote(elem);
-                    return "'" + elem + "'";
-                  }).join(', ');
+            for (r = 0; r < rowsQty; r+=1) {
+              defer = $q.defer();
+              values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                elem = checkStringToQuote(elem);
+                return "'" + elem + "'";
+              }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', tableKeys[t], colums);
+                console.log('Error!!! ', error, tableKeys[t], colums);
                 defer.resolve(0);
               });
 
@@ -717,33 +734,19 @@
     }
 
 
-    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
-
-    function checkStringToQuote(str) {
-      if(angular.isString(str)) {
-        if(str.indexOf("'")+1) {
-          //console.warn(str);
-          return str.replace(/'/g, "''");
-        } else {
-          return str;
-        }
-      } else {
-        return str;
-      }
-    }
-
 
     function selectLocalDB(tableName, options, columns) {
       var defer = $q.defer(),
-          properties = (columns) ? columns : '*',
-          vhereOptions = "";
+          properties = columns || '*',
+          vhereOptions = "",
+          optionKeys, optionQty, k;
       if(options) {
         vhereOptions = " WHERE ";
-        var optionKeys = Object.keys(options);
+        optionKeys = Object.keys(options);
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-        var optionQty = optionKeys.length;
+        optionQty = optionKeys.length;
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -751,10 +754,11 @@
       db.transaction(function (trans) {
         trans.executeSql("SELECT "+properties+" FROM " + tableName + vhereOptions, [],
           function (tx, result) {
-            var resultQty = result.rows.length;
+            var resultQty = result.rows.length,
+                resultARR, i;
             if (resultQty) {
-              var resultARR = [];
-              for(var i = 0; i < resultQty; i++) {
+              resultARR = [];
+              for(i = 0; i < resultQty; i+=1) {
                 resultARR.push(result.rows.item(i));
               }
               defer.resolve(resultARR);
@@ -779,10 +783,10 @@
           keysQty = keysArr.length,
           optionKeys = Object.keys(options),
           optionQty = optionKeys.length,
-          elements = "";
+          elements = "", k, op;
 
       if(keysQty) {
-        for(var k = 0; k < keysQty; k++) {
+        for(k = 0; k < keysQty; k+=1) {
           if(!k) {
             elements += keysArr[k] + " = '" + elem[keysArr[k]]+"'";
           } else {
@@ -794,7 +798,7 @@
         vhereOptions = " WHERE ";
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var op = 1; op < optionQty; op++) {
+          for(op = 1; op < optionQty; op+=1) {
             vhereOptions += " AND " + optionKeys[op] + " = '" + options[optionKeys[op]] + "'";
           }
         }
@@ -810,13 +814,14 @@
 
 
     function deleteRowLocalDB(tableName, options) {
-      var vhereOptions = "";
+      var vhereOptions = "",
+          optionKeys, optionQty, k;
       if(options) {
-        var optionKeys = Object.keys(options),
-            optionQty = optionKeys.length;
+        optionKeys = Object.keys(options);
+        optionQty = optionKeys.length;
         vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -833,13 +838,13 @@
 
 
 
-    //============== SERVER ===========//
+    /**============== SERVER ===========*/
 
 
     /** get User from Server by login */
     function importUser(login, type) {
       var defer = $q.defer(),
-        query = (type) ? '/api/login?type=1' : '/api/login';
+        query = type ? '/api/login?type=1' : '/api/login';
       $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);

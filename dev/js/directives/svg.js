@@ -1,3 +1,4 @@
+/* globals d3 */
 (function(){
   'use strict';
     /**@ngInject*/
@@ -22,7 +23,8 @@
         /**============ METHODS ================*/
 
         function zooming() {
-          d3.select('#main_group').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+          d3.select('#main_group')
+            .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
 
 
@@ -119,8 +121,12 @@
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
-                'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-                'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+                'x': function() {
+                  return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+                },
+                'y': function() {
+                  return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+                },
                 'rx': sizeBoxRadius,
                 'ry': sizeBoxRadius
               });
@@ -130,9 +136,15 @@
           sizeBox.append('text')
             .text(dim.text)
             .attr({
-              'class': function() { return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt'; },
-              'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-              'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+              'class': function() {
+                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+              },
+              'x': function() {
+                return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+              },
+              'y': function() {
+                return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+              },
               'dx': 80,
               'dy': 40,
               'type': 'line',
@@ -242,16 +254,6 @@
               mainSVG.attr('id', scope.typeConstruction);
             }
 
-            //if(scope.typeConstruction === 'setGlass') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
-            //} else if(scope.typeConstruction === 'setGrid') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_GRID);
-            //} else if (scope.typeConstruction === 'iconBig') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_ICON);
-            //} else  {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
-            //}
-
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
@@ -275,8 +277,10 @@
             /** Defs */
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,"+
+                    "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,"+
+                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
               /** dimension */
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');

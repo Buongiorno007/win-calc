@@ -1490,10 +1490,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         if(thisCtrl.isOnline) {
 
           ////TODO for Steko
-          ////======== IMPORT
+          //======== IMPORT
           //console.log('IMPORT');
           //checkingUser();
-
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1541,6 +1541,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
+          //*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -1825,9 +1826,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     if (GlobalStor.global.productEditNumber) {
       console.log('EDIT!!!!');
       console.log('product = ', ProductStor.product);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
-        ProductStor.product.template = data;
-      });
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(data) {
+          ProductStor.product.template = data;
+        });
     }
 
 
@@ -2214,23 +2216,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
   function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
-
-
-    thisCtrl.config = {
-      DELAY_SHOW_STEP: 0.2,
-      DELAY_SHOW_NAV_LIST: 5 * globalConstants.STEP,
-      DELAY_SHOW_NAVICON: 10 * globalConstants.STEP,
-      DELAY_TYPE_NAVTITLE: 10 * globalConstants.STEP,
-      DELAY_TYPE_DIVIDER: 10 * globalConstants.STEP,
-      DELAY_SHOW_ORDERS: 35 * globalConstants.STEP,
-      DELAY_SHOW_NEWCALC_BTN: 35 * globalConstants.STEP,
-      typing: 'on'
-    };
 
     thisCtrl.activeMenuItem = 0;
 
@@ -2248,12 +2238,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
     thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.clickNewProject = clickNewProject;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //------- Select menu item
     function selectMenuItem(id) {
@@ -2312,6 +2299,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.activeMenuItem = 0;
       NavMenuServ.clickNewProject();
     }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.clickNewProject = clickNewProject;
+
 
   }
 })();
@@ -4522,6 +4519,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 // directives/svg.js
 
+/* globals d3 */
 (function(){
   'use strict';
     /**@ngInject*/
@@ -4546,7 +4544,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         /**============ METHODS ================*/
 
         function zooming() {
-          d3.select('#main_group').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+          d3.select('#main_group')
+            .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
 
 
@@ -4643,8 +4642,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
-                'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-                'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+                'x': function() {
+                  return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+                },
+                'y': function() {
+                  return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+                },
                 'rx': sizeBoxRadius,
                 'ry': sizeBoxRadius
               });
@@ -4654,9 +4657,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox.append('text')
             .text(dim.text)
             .attr({
-              'class': function() { return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt'; },
-              'x': function() { return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-              'y': function() { return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+              'class': function() {
+                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+              },
+              'x': function() {
+                return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+              },
+              'y': function() {
+                return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+              },
               'dx': 80,
               'dy': 40,
               'type': 'line',
@@ -4766,16 +4775,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               mainSVG.attr('id', scope.typeConstruction);
             }
 
-            //if(scope.typeConstruction === 'setGlass') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
-            //} else if(scope.typeConstruction === 'setGrid') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_GRID);
-            //} else if (scope.typeConstruction === 'iconBig') {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_ICON);
-            //} else  {
-            //  mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
-            //}
-
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
@@ -4799,8 +4798,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             /** Defs */
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,"+
+                    "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,"+
+                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
               /** dimension */
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -7231,8 +7232,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      serverIP: 'http://api.steko.com.ua',
+      serverIP: 'http://api.windowscalculator.net',
+      //serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -10162,7 +10163,7 @@ function ErrorResult(code, message) {
     });
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
@@ -11619,6 +11620,22 @@ function ErrorResult(code, message) {
 
 
 
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
+
+
     function insertRowLocalDB(row, tableName) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
@@ -11641,22 +11658,23 @@ function ErrorResult(code, message) {
           tableQty = tableKeys.length;
       //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
-        for (var t = 0; t < tableQty; t++) {
-          var colums = result.tables[tableKeys[t]].fields.join(', '),
-              rowsQty = result.tables[tableKeys[t]].rows.length;
+        var t, r, colums, rowsQty, defer, values;
+        for (t = 0; t < tableQty; t+=1) {
+          colums = result.tables[tableKeys[t]].fields.join(', ');
+          rowsQty = result.tables[tableKeys[t]].rows.length;
           //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
-            for (var r = 0; r < rowsQty; r++) {
-              var defer = $q.defer(),
-                  values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                    elem = checkStringToQuote(elem);
-                    return "'" + elem + "'";
-                  }).join(', ');
+            for (r = 0; r < rowsQty; r+=1) {
+              defer = $q.defer();
+              values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                elem = checkStringToQuote(elem);
+                return "'" + elem + "'";
+              }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', tableKeys[t], colums);
+                console.log('Error!!! ', error, tableKeys[t], colums);
                 defer.resolve(0);
               });
 
@@ -11669,33 +11687,19 @@ function ErrorResult(code, message) {
     }
 
 
-    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
-
-    function checkStringToQuote(str) {
-      if(angular.isString(str)) {
-        if(str.indexOf("'")+1) {
-          //console.warn(str);
-          return str.replace(/'/g, "''");
-        } else {
-          return str;
-        }
-      } else {
-        return str;
-      }
-    }
-
 
     function selectLocalDB(tableName, options, columns) {
       var defer = $q.defer(),
-          properties = (columns) ? columns : '*',
-          vhereOptions = "";
+          properties = columns || '*',
+          vhereOptions = "",
+          optionKeys, optionQty, k;
       if(options) {
         vhereOptions = " WHERE ";
-        var optionKeys = Object.keys(options);
+        optionKeys = Object.keys(options);
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-        var optionQty = optionKeys.length;
+        optionQty = optionKeys.length;
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -11703,10 +11707,11 @@ function ErrorResult(code, message) {
       db.transaction(function (trans) {
         trans.executeSql("SELECT "+properties+" FROM " + tableName + vhereOptions, [],
           function (tx, result) {
-            var resultQty = result.rows.length;
+            var resultQty = result.rows.length,
+                resultARR, i;
             if (resultQty) {
-              var resultARR = [];
-              for(var i = 0; i < resultQty; i++) {
+              resultARR = [];
+              for(i = 0; i < resultQty; i+=1) {
                 resultARR.push(result.rows.item(i));
               }
               defer.resolve(resultARR);
@@ -11731,10 +11736,10 @@ function ErrorResult(code, message) {
           keysQty = keysArr.length,
           optionKeys = Object.keys(options),
           optionQty = optionKeys.length,
-          elements = "";
+          elements = "", k, op;
 
       if(keysQty) {
-        for(var k = 0; k < keysQty; k++) {
+        for(k = 0; k < keysQty; k+=1) {
           if(!k) {
             elements += keysArr[k] + " = '" + elem[keysArr[k]]+"'";
           } else {
@@ -11746,7 +11751,7 @@ function ErrorResult(code, message) {
         vhereOptions = " WHERE ";
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var op = 1; op < optionQty; op++) {
+          for(op = 1; op < optionQty; op+=1) {
             vhereOptions += " AND " + optionKeys[op] + " = '" + options[optionKeys[op]] + "'";
           }
         }
@@ -11762,13 +11767,14 @@ function ErrorResult(code, message) {
 
 
     function deleteRowLocalDB(tableName, options) {
-      var vhereOptions = "";
+      var vhereOptions = "",
+          optionKeys, optionQty, k;
       if(options) {
-        var optionKeys = Object.keys(options),
-            optionQty = optionKeys.length;
+        optionKeys = Object.keys(options);
+        optionQty = optionKeys.length;
         vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -11785,13 +11791,13 @@ function ErrorResult(code, message) {
 
 
 
-    //============== SERVER ===========//
+    /**============== SERVER ===========*/
 
 
     /** get User from Server by login */
     function importUser(login, type) {
       var defer = $q.defer(),
-        query = (type) ? '/api/login?type=1' : '/api/login';
+        query = type ? '/api/login?type=1' : '/api/login';
       $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
@@ -15653,24 +15659,13 @@ function ErrorResult(code, message) {
     .factory('NavMenuServ', navFactory);
 
   function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor) {
-
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getCurrentGeolocation: getCurrentGeolocation,
-      setLanguageVoiceHelper: setLanguageVoiceHelper,
-      switchVoiceHelper: switchVoiceHelper,
-      gotoHistoryPage: gotoHistoryPage,
-      createAddElementsProduct: createAddElementsProduct,
-      clickNewProject: clickNewProject
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     function getCurrentGeolocation() {
       //------ Data from GPS device
@@ -15678,43 +15673,38 @@ function ErrorResult(code, message) {
       $cordovaGeolocation.getCurrentPosition().then(successLocation, errorLocation);
 
         function successLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').
-                success(function(data, status, headers, config) {
-                    //----- save previous current location
-                    //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+          var latitude = position.coords.latitude,
+              longitude = position.coords.longitude;
 
-                    var deviceLocation = data.results[0].formatted_address.split(', ');
-                    //TODO set new currencyID!!!!
-                    //TODO before need to fine currencyId!!!!
-                    //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+          $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').then(
+            function (data) {
+              //----- save previous current location
+              //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
-                    OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-                    OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
-                    OrderStor.order.climatic_zone = 7; //TODO
-                    OrderStor.order.heat_coef_min = 0.99; //TODO
-                    OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+              var deviceLocation = data.results[0].formatted_address.split(', ');
+              //TODO set new currencyID!!!!
+              //TODO before need to fine currencyId!!!!
+              //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
 
-                }).
-                error(function(data, status, headers, config) {
-                    alert(status);
-                });
+              OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+              OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
+              OrderStor.order.climatic_zone = 7; //TODO
+              OrderStor.order.heat_coef_min = 0.99; //TODO
+              OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+            },
+            function (data, status) {
+              console.log('Something went wrong with User recive!', data, status);
+            }
+          );
+
         }
+
         function errorLocation(error) {
-            alert(error.message);
+          console.log(error.message);
         }
     }
 
 
-    function switchVoiceHelper() {
-      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
-      if(GlobalStor.global.isVoiceHelper) {
-        //------- set Language for Voice Helper
-        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
-        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
-      }
-    }
 
 
     function setLanguageVoiceHelper() {
@@ -15734,6 +15724,16 @@ function ErrorResult(code, message) {
 //        break;
 //      }
       return langLabel;
+    }
+
+
+    function switchVoiceHelper() {
+      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
+      if(GlobalStor.global.isVoiceHelper) {
+        //------- set Language for Voice Helper
+        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
+        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
+      }
     }
 
 
@@ -15806,6 +15806,23 @@ function ErrorResult(code, message) {
       }
     }
 
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      getCurrentGeolocation: getCurrentGeolocation,
+      setLanguageVoiceHelper: setLanguageVoiceHelper,
+      switchVoiceHelper: switchVoiceHelper,
+      gotoHistoryPage: gotoHistoryPage,
+      createAddElementsProduct: createAddElementsProduct,
+      clickNewProject: clickNewProject
+    };
+
+    return thisFactory.publicObj;
 
   }
 })();

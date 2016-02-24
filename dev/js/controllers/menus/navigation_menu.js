@@ -6,23 +6,11 @@
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
   function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
-
-
-    thisCtrl.config = {
-      DELAY_SHOW_STEP: 0.2,
-      DELAY_SHOW_NAV_LIST: 5 * globalConstants.STEP,
-      DELAY_SHOW_NAVICON: 10 * globalConstants.STEP,
-      DELAY_TYPE_NAVTITLE: 10 * globalConstants.STEP,
-      DELAY_TYPE_DIVIDER: 10 * globalConstants.STEP,
-      DELAY_SHOW_ORDERS: 35 * globalConstants.STEP,
-      DELAY_SHOW_NEWCALC_BTN: 35 * globalConstants.STEP,
-      typing: 'on'
-    };
 
     thisCtrl.activeMenuItem = 0;
 
@@ -40,12 +28,9 @@
     thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
     thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.clickNewProject = clickNewProject;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //------- Select menu item
     function selectMenuItem(id) {
@@ -104,6 +89,16 @@
       thisCtrl.activeMenuItem = 0;
       NavMenuServ.clickNewProject();
     }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.clickNewProject = clickNewProject;
+
 
   }
 })();
