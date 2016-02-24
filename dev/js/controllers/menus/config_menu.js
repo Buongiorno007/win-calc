@@ -3,9 +3,21 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ConfigMenuCtrl', configMenuCtrl);
+    .controller('ConfigMenuCtrl',
 
-  function configMenuCtrl($location, $filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, DesignServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    MainServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -113,5 +125,5 @@
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
 
-  }
+  });
 })();

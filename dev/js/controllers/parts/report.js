@@ -3,9 +3,17 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ReportCtrl', reportCtrl);
+    .controller('ReportCtrl',
 
-  function reportCtrl($rootScope, $filter, localDB, GeneralServ, GlobalStor, ProductStor, UserStor) {
+  function(
+    $rootScope,
+    $filter,
+    localDB,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -111,5 +119,5 @@
 
 
 
-  }
+  });
 })();

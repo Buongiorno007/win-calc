@@ -5,7 +5,18 @@
     .module('MainModule')
     .factory('TemplatesServ', templatesFactory);
 
-  function templatesFactory($filter, GeneralServ, MainServ, DesignServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
+  function templatesFactory(
+    $filter,
+    GeneralServ,
+    MainServ,
+    DesignServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -31,7 +42,7 @@
           //------ define product price
           MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
           //------ save analytics data
-          //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
           /** send analytics data to Server*/
           AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         }
@@ -72,7 +83,8 @@
 
     //------- return to the initial template
     function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      var templateTemp = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = templateTemp;
     }
 
 

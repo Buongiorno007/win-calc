@@ -4,9 +4,15 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GeneralServ', generalFactory);
+    .factory('GeneralServ',
 
-  function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
+  function(
+    $filter,
+    $window,
+    $document,
+    globalConstants,
+    GlobalStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this,
         addElementDATA = [
@@ -211,5 +217,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

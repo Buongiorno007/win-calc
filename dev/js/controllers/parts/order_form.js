@@ -3,9 +3,16 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('OrderFormCtrl', orderFormCtrl);
+    .controller('OrderFormCtrl',
 
-  function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function(
+    $filter,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
@@ -41,11 +48,12 @@
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     thisCtrl.submitForm = submitForm;
     thisCtrl.changeLocation = CartMenuServ.changeLocation;
     thisCtrl.selectCity = CartMenuServ.selectCity;
     thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
-  }
+  });
 })();

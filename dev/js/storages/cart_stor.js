@@ -3,9 +3,9 @@
     /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartStor', cartStorageFactory);
+    .factory('CartStor',
 
-  function cartStorageFactory($filter, OrderStor) {
+  function($filter, OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -101,5 +101,5 @@
     thisFactory.publicObj.cart = setDefaultCart();
     return thisFactory.publicObj;
 
-  }
+  });
 })();

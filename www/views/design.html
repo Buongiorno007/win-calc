@@ -198,8 +198,7 @@
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
         </div>
-        <!--.template-section.unvisible(ng-click="templatesPanel.gotoConstructionPage();",-->
-        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
+        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" ng-click="designPage.showTemplates()" class="template-section unvisible">
           <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="templatesPanel.constants.SVG_ID_ICON"></svg-template>
         </div>
         <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">

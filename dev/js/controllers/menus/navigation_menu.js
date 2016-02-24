@@ -3,9 +3,20 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('NavMenuCtrl', navigationMenuCtrl);
+    .controller('NavMenuCtrl',
 
-  function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    $location,
+    $window,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    NavMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -100,5 +111,5 @@
     thisCtrl.clickNewProject = clickNewProject;
 
 
-  }
+  });
 })();

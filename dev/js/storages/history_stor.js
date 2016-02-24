@@ -3,9 +3,9 @@
     /**@ngInject */
   angular
     .module('HistoryModule')
-    .factory('HistoryStor', historyStorageFactory);
+    .factory('HistoryStor',
 
-  function historyStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -59,5 +59,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

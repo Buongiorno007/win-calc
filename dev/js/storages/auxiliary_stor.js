@@ -3,9 +3,9 @@
     /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AuxStor', auxStorageFactory);
+    .factory('AuxStor',
 
-  function auxStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -41,5 +41,5 @@
     thisFactory.publicObj.aux = setDefaultAuxiliary();
     return thisFactory.publicObj;
 
-  }
+  });
 })();

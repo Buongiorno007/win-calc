@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('UserInfoCtrl', userInfoCtrl);
+    .controller('UserInfoCtrl',
 
-  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
+  function(globalConstants, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -45,10 +45,11 @@
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     thisCtrl.swipeMainPage = swipeMainPage;
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
 
-  }
+  });
 })();

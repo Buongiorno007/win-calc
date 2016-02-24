@@ -3,9 +3,9 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('UserStor', userStorageFactory);
+    .factory('UserStor',
 
-  function userStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -39,5 +39,5 @@
     thisFactory.publicObj.userInfo = setDefaultUser();
     return thisFactory.publicObj;
 
-  }
+  });
 })();

@@ -3,11 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('fileread', fileLoader);
+    .directive('fileread',
 
-
-
-  function fileLoader(SettingServ, UserStor) {
+  function(SettingServ, UserStor) {
     return {
       scope: {
         fileread: "="
@@ -30,6 +28,6 @@
         });
       }
     };
-  }
 
+  });
 })();

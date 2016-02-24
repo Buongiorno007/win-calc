@@ -3,9 +3,17 @@
   /**@ngInject*/
   angular
     .module('DesignModule')
-    .controller('DesignCtrl', designPageCtrl);
+    .controller('DesignCtrl',
 
-  function designPageCtrl($filter, $timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    DesignServ,
+    GlobalStor,
+    ProductStor,
+    DesignStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this,
         delaySubMenu1 = 300,
@@ -593,5 +601,5 @@
 
     thisCtrl.stepBack = DesignServ.stepBack;
     thisCtrl.closeAttantion = closeAttantion;
-  }
+  });
 })();

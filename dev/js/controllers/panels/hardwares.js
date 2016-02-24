@@ -3,10 +3,19 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('HardwaresCtrl', hardwareSelectorCtrl);
+    .controller('HardwaresCtrl',
 
-  function hardwareSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    MainServ,
+    AnalyticsServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -24,13 +33,10 @@
     thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
     thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
-    //------ clicking
-    thisCtrl.selectHardware = selectHardware;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    /**============ methods ================*/
 
+    /**============ METHODS ================*/
 
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
@@ -46,5 +52,12 @@
       }
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectHardware = selectHardware;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();

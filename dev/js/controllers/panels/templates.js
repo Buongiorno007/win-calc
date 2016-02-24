@@ -3,9 +3,21 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('TemplatesCtrl', templateSelectorCtrl);
+    .controller('TemplatesCtrl',
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, DesignStor, OrderStor, ProductStor) {
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    MainServ,
+    GeneralServ,
+    TemplatesServ,
+    optionsServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -86,5 +98,5 @@
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
 
-  }
+  });
 })();

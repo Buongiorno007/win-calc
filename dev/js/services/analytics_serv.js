@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('AnalyticsServ', analyticsFactory);
+    .factory('AnalyticsServ',
 
-  function analyticsFactory(localDB, UserStor) {
-
+  function(localDB, UserStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
@@ -18,7 +18,7 @@
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -104,5 +104,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

@@ -3,15 +3,23 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartMenuServ', cartMenuFactory);
+    .factory('CartMenuServ',
 
-  function cartMenuFactory($location, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor, UserStor) {
+  function(
+    $location,
+    GeneralServ,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    CartStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this;
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
     /**---------- join all Add Elements for Detials ---------*/
@@ -634,5 +642,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

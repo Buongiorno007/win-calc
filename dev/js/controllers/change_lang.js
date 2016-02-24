@@ -1,14 +1,20 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangeLangCtrl', changeLangCtrl);
+    .controller('ChangeLangCtrl',
 
-  function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
-
+  function(
+    $location,
+    $translate,
+    $timeout,
+    globalConstants,
+    GlobalStor,
+    UserStor,
+    NavMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.U = UserStor;
@@ -18,12 +24,10 @@
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.switchLang = switchLang;
-    thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     function switchLang(languageId) {
       $translate.use(globalConstants.languages[languageId].label);
@@ -41,5 +45,14 @@
     function gotoSettingsPage() {
       $location.path('/settings');
     }
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.switchLang = switchLang;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+
+  });
 })();

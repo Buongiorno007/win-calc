@@ -3,9 +3,16 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('searchCtrl', searchCtrl);
+    .controller('searchCtrl',
 
-  function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
+  function(
+    $filter,
+    GlobalStor,
+    AuxStor,
+    HistoryStor,
+    AddElementsServ,
+    AddElementMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -47,7 +54,7 @@
     }
 
 
-    //========== History Page ===========//
+    /**----------- History Page -------------*/
 
     function checkChangesHistory() {
       if(thisCtrl.searchingWord !== '') {
@@ -69,6 +76,7 @@
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     //----------- for AddElements List View
     if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
@@ -85,5 +93,5 @@
     }
 
 
-  }
+  });
 })();

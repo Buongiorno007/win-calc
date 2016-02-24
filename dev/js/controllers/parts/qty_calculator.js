@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('qtyCalculatorCtrl', qtyCalcCtrl);
+    .controller('qtyCalculatorCtrl',
 
-  function qtyCalcCtrl(AddElementMenuServ) {
+  function(AddElementMenuServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -14,5 +14,5 @@
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  }
+  });
 })();

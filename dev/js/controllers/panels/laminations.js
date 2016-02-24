@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('LaminationsCtrl', laminationSelectorCtrl);
+    .controller('LaminationsCtrl',
 
-  function laminationSelectorCtrl($filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -22,13 +30,9 @@
     thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
     thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
 
-    //------ clicking
-    thisCtrl.selectLaminat = selectLaminat;
-    thisCtrl.initLaminatFilter = initLaminatFilter;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-    //============ methods ================//
 
+    /**============ METHODS ================*/
 
     /** init Laminat Filter */
     function initLaminatFilter(typeId) {
@@ -57,5 +61,13 @@
 
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();

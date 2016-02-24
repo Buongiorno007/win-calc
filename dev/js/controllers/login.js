@@ -3,9 +3,18 @@
   /**@ngInject*/
   angular
     .module('LoginModule')
-    .controller('LoginCtrl', loginPageCtrl);
+    .controller('LoginCtrl',
 
-  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+  function(
+    $location,
+    $cordovaNetwork,
+    $filter,
+    globalConstants,
+    localDB,
+    loginServ,
+    GlobalStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -62,7 +71,7 @@
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
 
@@ -649,5 +658,5 @@
 
 
 
-  }
+  });
 })();

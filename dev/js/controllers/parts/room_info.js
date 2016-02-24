@@ -3,9 +3,15 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomInfoCtrl', roomInfoCtrl);
+    .controller('RoomInfoCtrl',
 
-  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -47,5 +53,5 @@
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
 
-  }
+  });
 })();

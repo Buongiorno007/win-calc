@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('calendarScroll', calendarScrollDir);
+    .directive('calendarScroll',
 
-  function calendarScrollDir($filter, HistoryStor) {
+  function($filter, HistoryStor) {
 
     return {
       restrict: 'E',
@@ -147,5 +147,5 @@
       }
     };
 
-  }
+  });
 })();

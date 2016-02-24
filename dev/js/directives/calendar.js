@@ -3,9 +3,14 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .directive('calendar', calendarDir);
+    .directive('calendar',
 
-  function calendarDir($filter, CartMenuServ, GlobalStor, OrderStor) {
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
 
     return {
       restrict: 'E',
@@ -44,5 +49,5 @@
       }
     };
 
-  }
+  });
 })();

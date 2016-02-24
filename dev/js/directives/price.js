@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('price', priceDir);
+    .directive('price',
 
-  function priceDir(globalConstants, SoundPlayServ) {
+  function(globalConstants, SoundPlayServ) {
 
 
     /**============ METHODS ================*/
@@ -103,5 +103,5 @@
 
 
 // event.srcEvent.stopPropagation();
-  }
+  });
 })();

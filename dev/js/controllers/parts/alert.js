@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AlertCtrl', alertCtrl);
+    .controller('AlertCtrl',
 
-  function alertCtrl($filter, GlobalStor) {
+  function($filter, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -23,5 +23,5 @@
 
     thisCtrl.clickYes = clickYes;
 
-  }
+  });
 })();

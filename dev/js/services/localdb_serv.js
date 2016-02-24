@@ -3,9 +3,18 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('localDB', globalDBFactory);
+    .factory('localDB',
 
-  function globalDBFactory($http, $q, $filter, globalConstants, GeneralServ, UserStor, GlobalStor) {
+  function(
+    $http,
+    $q,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    UserStor,
+    GlobalStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -625,7 +634,7 @@
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
 
@@ -670,16 +679,18 @@
     /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
 
     function checkStringToQuote(str) {
+      var result;
       if(angular.isString(str)) {
         if(str.indexOf("'")+1) {
           //console.warn(str);
-          return str.replace(/'/g, "''");
+          result = str.replace(/'/g, "''");
         } else {
-          return str;
+          result = str;
         }
       } else {
-        return str;
+        result = str;
       }
+      return result;
     }
 
 
@@ -1001,7 +1012,7 @@
 
 
     function deleteOrderServer(login, access, orderNumber) {
-      var dataSend = {orderId: orderNumber*1};
+      var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
           console.log(result.data);
@@ -1323,8 +1334,10 @@
 
     function parseMainKit(construction){
       var deff = $q.defer(),
+          deff1, promisKits, deff2,
+          data3, resQty, collectArr, i, data,
           promisesKit = construction.sizes.map(function(item, index, arr) {
-            var deff1 = $q.defer();
+            deff1 = $q.defer();
 			      //----- chekh is sizes and id
             if(item.length && construction.ids[index]) {
               /** if hardware */
@@ -1338,8 +1351,8 @@
                 });
               } else {
                 if(angular.isArray(construction.ids[index])) {
-                  var promisKits = construction.ids[index].map(function(item2) {
-                    var deff2 = $q.defer();
+                  promisKits = construction.ids[index].map(function(item2) {
+                    deff2 = $q.defer();
                     selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
@@ -1350,10 +1363,10 @@
                     return deff2.promise;
                   });
                   $q.all(promisKits).then(function(result3) {
-                    var data3 = angular.copy(result3),
-                        resQty = data3.length,
-                        collectArr = [];
-                    for(var i = 0; i < resQty; i++) {
+                    data3 = angular.copy(result3);
+                    resQty = data3.length;
+                    collectArr = [];
+                    for(i = 0; i < resQty; i+=1) {
                       if(data3[i]) {
                         if(data3[i][0].amendment_pruning) {
                           data3[i][0].amendment_pruning /= 1000;
@@ -1371,7 +1384,7 @@
                   })
                 } else {
                   selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    var data = angular.copy(result);
+                    data = angular.copy(result);
                     if(data && data.length) {
                       if(data[0].amendment_pruning) {
                         data[0].amendment_pruning /= 1000;
@@ -2469,6 +2482,7 @@
 
 
 
+    /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
@@ -2504,5 +2518,5 @@
     return thisFactory.publicObj;
 
 
-  }
+  });
 })();

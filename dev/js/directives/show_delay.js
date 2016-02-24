@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('showDelay', showDelayDir);
+    .directive('showDelay',
 
-  function showDelayDir() {
+  function() {
 
     return {
       scope: {
@@ -28,5 +28,5 @@
       }
     };
 
-  }
+  });
 })();

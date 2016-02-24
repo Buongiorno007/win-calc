@@ -4,9 +4,15 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('svgTemplate', svgTemplateDir);
+    .directive('svgTemplate',
 
-  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
+  function(
+    globalConstants,
+    GeneralServ,
+    ProductStor,
+    SVGServ,
+    DesignServ
+  ) {
 
     return {
       restrict: 'E',
@@ -502,5 +508,5 @@
       }
     };
 
-  }
+  });
 })();

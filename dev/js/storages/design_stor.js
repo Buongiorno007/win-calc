@@ -3,9 +3,9 @@
     /**@ngInject*/
   angular
     .module('DesignModule')
-    .factory('DesignStor', designStorageFactory);
+    .factory('DesignStor',
 
-  function designStorageFactory($filter) {
+  function($filter) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -135,5 +135,5 @@
     thisFactory.publicObj.design = setDefaultDesign();
     return thisFactory.publicObj;
 
-  }
+  });
 })();

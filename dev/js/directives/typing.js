@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('typing', typingDir);
+    .directive('typing',
 
-  function typingDir() {
+  function() {
 
     return {
       scope: {
@@ -47,5 +47,5 @@
       }
     };
 
-  }
+  });
 })();

@@ -3,19 +3,44 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AddElementsServ', addElemFactory);
+    .factory('AddElementsServ',
 
-  function addElemFactory($timeout, globalConstants, GeneralServ, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
-
+  function(
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementMenuServ,
+    GlobalStor,
+    ProductStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
-    //--------- Select additional element group
+    function downloadAddElementsData(id) {
+      var index = (id - 1);
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
+      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+    }
+
+
+    function showingAddElemMenu(id) {
+      AuxStor.aux.isFocusedAddElement = id;
+      //playSound('swip');
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      downloadAddElementsData(id);
+    }
+
+
+    /**--------- Select additional element group -----------*/
+
     function selectAddElement(id) {
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
@@ -41,26 +66,13 @@
     }
 
 
-    function showingAddElemMenu(id) {
-      AuxStor.aux.isFocusedAddElement = id;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-      downloadAddElementsData(id);
-    }
 
 
 
+    /**------------- Select Add Element Parameter --------------*/
 
-    function downloadAddElementsData(id) {
-      var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
-      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
-    }
-
-
-    //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
+      var currElem;
       /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
         AddElementMenuServ.finishCalculators();
@@ -70,7 +82,7 @@
           /** calc Price previous parameter and close caclulators */
           AddElementMenuServ.finishCalculators();
         }
-        var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+        currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
         AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
         AuxStor.aux.currentAddElementId = elementIndex;
         /** set css theme for calculator */
@@ -91,15 +103,6 @@
       }
     }
 
-    function openAddElementListView() {
-      AuxStor.aux.isAddElementListView = 1;
-      viewSwitching();
-    }
-
-    function closeAddElementListView() {
-      AuxStor.aux.isAddElementListView = 0;
-      viewSwitching();
-    }
 
 
     // Open Add Elements in List View
@@ -118,14 +121,26 @@
     }
 
 
+    function openAddElementListView() {
+      AuxStor.aux.isAddElementListView = 1;
+      viewSwitching();
+    }
+
+    function closeAddElementListView() {
+      AuxStor.aux.isAddElementListView = 0;
+      viewSwitching();
+    }
+
+
+
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          g = 0;
+          groupTempObj, g;
       AuxStor.aux.addElementGroups.length = 0;
-      for(; g < groupNamesQty; g++){
+      for(g = 0; g < groupNamesQty; g+=1){
         if(GlobalStor.global.addElementsAll[g].elementsList) {
-          var groupTempObj = {};
+          groupTempObj = {};
           groupTempObj.groupId = (g+1);
           groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
           groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
@@ -149,5 +164,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

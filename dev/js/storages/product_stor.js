@@ -3,9 +3,9 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('ProductStor', productStorageFactory);
+    .factory('ProductStor',
 
-  function productStorageFactory($filter) {
+  function($filter) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -87,5 +87,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

@@ -3,9 +3,19 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartCtrl', cartPageCtrl);
+    .controller('CartCtrl',
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    CartStor,
+    CartServ,
+    CartMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -29,6 +39,7 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -120,5 +131,5 @@
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
-  }
+  });
 })();

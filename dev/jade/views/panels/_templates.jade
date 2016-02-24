@@ -12,8 +12,7 @@
 
       .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}
 
-    //.template-section.unvisible(ng-click="templatesPanel.gotoConstructionPage();",
-    .template-section.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+    .template-section.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}", ng-click="designPage.showTemplates()")
       svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="templatesPanel.constants.SVG_ID_ICON")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")

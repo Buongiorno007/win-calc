@@ -3,9 +3,17 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('MainCtrl', mainPageCtrl);
+    .controller('MainCtrl',
 
-  function mainPageCtrl(loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
+  function(
+    loginServ,
+    MainServ,
+    SVGServ,
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -18,7 +26,7 @@
     //------- close Report
     GlobalStor.global.isReport = 0;
 
-    //=============== FIRST START =========//
+    /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
@@ -49,7 +57,8 @@
     }
 
 
-    //================ EDIT PRODUCT =================
+    /**================ EDIT PRODUCT =================*/
+
     if (GlobalStor.global.productEditNumber) {
       console.log('EDIT!!!!');
       console.log('product = ', ProductStor.product);
@@ -60,7 +69,7 @@
     }
 
 
-  }
+  });
 })();
 
 

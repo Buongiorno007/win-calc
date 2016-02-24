@@ -158,9 +158,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartCtrl', cartPageCtrl);
+    .controller('CartCtrl',
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    CartStor,
+    CartServ,
+    CartMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -184,6 +194,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -275,7 +286,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
-  }
+  });
 })();
 
 
@@ -283,15 +294,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangeLangCtrl', changeLangCtrl);
+    .controller('ChangeLangCtrl',
 
-  function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
-
+  function(
+    $location,
+    $translate,
+    $timeout,
+    globalConstants,
+    GlobalStor,
+    UserStor,
+    NavMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.U = UserStor;
@@ -301,12 +318,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.switchLang = switchLang;
-    thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     function switchLang(languageId) {
       $translate.use(globalConstants.languages[languageId].label);
@@ -324,7 +339,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function gotoSettingsPage() {
       $location.path('/settings');
     }
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.switchLang = switchLang;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+
+  });
 })();
 
 
@@ -332,15 +356,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangePassCtrl', changePassCtrl);
+    .controller('ChangePassCtrl',
 
-  function changePassCtrl(globalConstants, SettingServ, UserStor, localDB) {
-
+  function(
+    globalConstants,
+    SettingServ,
+    UserStor,
+    localDB
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -354,22 +381,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.saveNewPassword = saveNewPassword;
-    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
-    thisCtrl.checkError = checkError;
-    thisCtrl.checkErrorOld = checkErrorOld;
 
 
-    //============ methods ================//
 
-
+    /**============ METHODS ================*/
 
     function saveNewPassword() {
       if( thisCtrl.config.oldPassword && UserStor.userInfo.password == localDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
         thisCtrl.config.isErrorPassword = 0;
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
-        console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
+        //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
         localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
           //---- clean fields
@@ -394,7 +415,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isErrorOldPassword = 0;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.saveNewPassword = saveNewPassword;
+    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
+    thisCtrl.checkError = checkError;
+    thisCtrl.checkErrorOld = checkErrorOld;
+
+  });
 })();
 
 
@@ -406,9 +436,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('DesignModule')
-    .controller('DesignCtrl', designPageCtrl);
+    .controller('DesignCtrl',
 
-  function designPageCtrl($filter, $timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    DesignServ,
+    GlobalStor,
+    ProductStor,
+    DesignStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this,
         delaySubMenu1 = 300,
@@ -996,7 +1034,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.stepBack = DesignServ.stepBack;
     thisCtrl.closeAttantion = closeAttantion;
-  }
+  });
 })();
 
 
@@ -1005,16 +1043,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
-    .controller('HistoryCtrl', historyCtrl);
+    .controller('HistoryCtrl',
 
-  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
-
-
+  function(
+    GlobalStor,
+    UserStor,
+    HistoryStor,
+    HistoryServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
@@ -1045,7 +1085,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.sortingInit = HistoryServ.sortingInit;
 
 
-  }
+  });
 })();
 
 
@@ -1056,10 +1096,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('LocationCtrl', locationCtrl);
+    .controller('LocationCtrl',
 
-  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
-
+  function(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+    /*jshint validthis:true */
     var thisCtrl = this;
 
     //----- current user location
@@ -1074,12 +1114,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return item.countryId === UserStor.userInfo.countryId;
     });
 
-    //------ clicking
-    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
-    thisCtrl.selectCity = selectCity;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //-------- Select City
     function selectCity(location) {
@@ -1108,7 +1146,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+  });
 })();
 
 
@@ -1119,9 +1165,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('LoginModule')
-    .controller('LoginCtrl', loginPageCtrl);
+    .controller('LoginCtrl',
 
-  function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
+  function(
+    $location,
+    $cordovaNetwork,
+    $filter,
+    globalConstants,
+    localDB,
+    loginServ,
+    GlobalStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -1178,7 +1233,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
 
@@ -1765,7 +1820,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-  }
+  });
 })();
 
 
@@ -1776,9 +1831,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('MainCtrl', mainPageCtrl);
+    .controller('MainCtrl',
 
-  function mainPageCtrl(loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor) {
+  function(
+    loginServ,
+    MainServ,
+    SVGServ,
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -1791,7 +1854,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------- close Report
     GlobalStor.global.isReport = 0;
 
-    //=============== FIRST START =========//
+    /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
@@ -1822,7 +1885,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    //================ EDIT PRODUCT =================
+    /**================ EDIT PRODUCT =================*/
+
     if (GlobalStor.global.productEditNumber) {
       console.log('EDIT!!!!');
       console.log('product = ', ProductStor.product);
@@ -1833,7 +1897,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+  });
 })();
 
 
@@ -1844,15 +1908,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 // controllers/menus/addelems_menu.js
 
-/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('addElementMenuCtrl', addElementMenuCtrl);
+    .controller('addElementMenuCtrl',
 
-  function addElementMenuCtrl(
+  function(
     $timeout,
     $filter,
     globalConstants,
@@ -1893,32 +1956,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
-    /**============ clicking ============*/
-    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
-    thisCtrl.selectAddElement = selectAddElement;
-    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
-    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
-    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
-    thisCtrl.showFrameTabs = showFrameTabs;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
-    //------- culculator
-    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
-    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    //------- grid
-    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
-    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
-    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
 
 
 
 
-
-
-
-
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
     /**------- Show Tabs -------*/
 
@@ -1927,6 +1969,33 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
+
+    /**----------- Select Add Element when open List View ------------*/
+
+    function selectAddElementList(typeId, elementId, clickEvent) {
+      var coord;
+      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
+        AuxStor.aux.isAddElement = false;
+      } else if(AuxStor.aux.isAddElement === false) {
+        coord = $(clickEvent.target).offset();
+        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+        thisCtrl.coordinats = {'top': coord.top-17};
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
+        }, 500);
+      } else {
+        AuxStor.aux.isAddElement = false;
+        $timeout(function() {
+          coord = $(clickEvent.target).offset();
+          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+          thisCtrl.coordinats = {'top': coord.top-17};
+        }, 500);
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+        }, 1000);
+      }
+    }
 
 
     /**---------- common function to select addElem in 2 cases --------*/
@@ -1958,35 +2027,32 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    /**----------- Select Add Element when open List View ------------*/
-
-    function selectAddElementList(typeId, elementId, clickEvent) {
-      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
-        AuxStor.aux.isAddElement = false;
-      } else if(AuxStor.aux.isAddElement === false) {
-        var coord = $(clickEvent.target).offset();
-        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-        thisCtrl.coordinats = {'top': coord.top-17};
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
-        }, 500);
-      } else {
-        AuxStor.aux.isAddElement = false;
-        $timeout(function() {
-          var coord = $(clickEvent.target).offset();
-          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-          thisCtrl.coordinats = {'top': coord.top-17};
-        }, 500);
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-        }, 1000);
-      }
-    }
 
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+      //------ clicking
+    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
+    thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
+    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
+    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
+    thisCtrl.showFrameTabs = showFrameTabs;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+    //------- culculator
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    //------- grid
+    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
+    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
+    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
+
+
+  });
 })();
 
 
@@ -1998,10 +2064,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartMenuCtrl', cartMenuCtrl);
+    .controller('CartMenuCtrl',
 
-  function cartMenuCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
@@ -2037,21 +2111,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.closeInstalment = closeInstalment;
-    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
-    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
-    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
-    thisCtrl.openMasterDialog = openMasterDialog;
-    thisCtrl.openOrderDialog = openOrderDialog;
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- Select menu item
     function selectMenuItem(id) {
@@ -2081,7 +2142,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.closeInstalment = closeInstalment;
+    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
+    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
+    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
+    thisCtrl.openMasterDialog = openMasterDialog;
+    thisCtrl.openOrderDialog = openOrderDialog;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+
+  });
 })();
 
 
@@ -2092,9 +2166,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ConfigMenuCtrl', configMenuCtrl);
+    .controller('ConfigMenuCtrl',
 
-  function configMenuCtrl($location, $filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, DesignServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    MainServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -2202,7 +2288,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
 
-  }
+  });
 })();
 
 
@@ -2213,9 +2299,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('NavMenuCtrl', navigationMenuCtrl);
+    .controller('NavMenuCtrl',
 
-  function navigationMenuCtrl($location, $window, $filter, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    $location,
+    $window,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    NavMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -2310,7 +2407,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.clickNewProject = clickNewProject;
 
 
-  }
+  });
 })();
 
 
@@ -2321,10 +2418,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('AddElemCartCtrl', addElementsCartCtrl);
+    .controller('AddElemCartCtrl',
 
-  function addElementsCartCtrl(globalConstants, GeneralServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    CartServ,
+    CartMenuServ,
+    OrderStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
@@ -2338,25 +2443,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       isSwipeProdSelector: 0
     };
 
-    //=========== clicking =============//
-    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
-    thisCtrl.deleteAllAddElems = deleteAllAddElems;
-    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
-
-    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
-    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
-    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
-    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
-    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
-
-    //------ adding elements to product
-    thisCtrl.swipeProductSelector = swipeProductSelector;
-    thisCtrl.selectProductToAddElem = selectProductToAddElem;
 
 
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
 
     function closeAllAddElemsPanel() {
@@ -2369,6 +2461,37 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+    }
+
+
+
+
+    function deleteAddElemsInOrder(element) {
+      var productsQty = OrderStor.order.products.length,
+          addElemProdQty, addElemQty;
+      while(--productsQty > -1) {
+        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
+          if(addElemQty) {
+            //--------- delete one Add Element
+            if(element) {
+              while(--addElemQty > -1) {
+                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
+                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                    }
+                  }
+                }
+              }
+            } else {
+              //--------- delete All Add Element
+              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
+            }
+          }
+        }
+      }
     }
 
 
@@ -2405,59 +2528,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function deleteAddElemsInOrder(element) {
-      var productsQty = OrderStor.order.products.length,
-          addElemProdQty, addElemQty;
-      while(--productsQty > -1) {
-        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
-          if(addElemQty) {
-            //--------- delete one Add Element
-            if(element) {
-              while(--addElemQty > -1) {
-                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
-                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
-                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
-                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                    }
-                  }
-                }
-              }
-            } else {
-              //--------- delete All Add Element
-              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
-            }
-          }
-        }
-      }
-    }
-
-
-
-
-
-
-
-
-
-    function showAddElemUnitDetail(elemUnit) {
-      thisCtrl.config.selectedAddElemUnit = elemUnit;
-      collectAddElemUnitProducts();
-      thisCtrl.config.isAddElemUnitDetail = 1;
-    }
 
 
     function collectAddElemUnitProducts() {
       var allAddElemsQty = CartStor.cart.allAddElements.length,
-          addElemProdQty, addElemProd;
+          addElemProdQty, addElemProd, i, j, wagon, cloneQty;
 
       //------ clean addElemUnit array
       thisCtrl.config.addElemUnitProducts.length = 0;
-      console.log('      ', CartStor.cart.allAddElements);
-      for(var i = 0; i < allAddElemsQty; i++) {
+      //console.log('      ', CartStor.cart.allAddElements);
+      for(i = 0; i < allAddElemsQty; i+=1) {
         addElemProdQty = CartStor.cart.allAddElements[i].length;
-        for(var j = 0; j < addElemProdQty; j++) {
+        for(j = 0; j < addElemProdQty; j+=1) {
           if(CartStor.cart.allAddElements[i][j].id === thisCtrl.config.selectedAddElemUnit.id) {
             if(CartStor.cart.allAddElements[i][j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
               if(CartStor.cart.allAddElements[i][j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
@@ -2487,8 +2569,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 //                  console.info('addElemProd------', OrderStor.order.products[i]);
 //                  console.info('addElemProd------', addElemProd);
                   if(OrderStor.order.products[i].product_qty > 1) {
-                    var wagon = [],
-                        cloneQty = OrderStor.order.products[i].product_qty*1;
+                    wagon = [];
+                    cloneQty = +OrderStor.order.products[i].product_qty;
                     while(--cloneQty > -1) {
                       wagon.push(addElemProd);
                     }
@@ -2504,7 +2586,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           }
         }
       }
-      console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+      //console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+    }
+
+
+
+    function showAddElemUnitDetail(elemUnit) {
+      thisCtrl.config.selectedAddElemUnit = elemUnit;
+      collectAddElemUnitProducts();
+      thisCtrl.config.isAddElemUnitDetail = 1;
     }
 
 
@@ -2517,8 +2607,46 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
+    function delAddElemUnitInProduct(productIndex) {
+      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
+          addElemQty;
+
+      while(--addElemProdQty > -1) {
+        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
+        if(addElemQty) {
+          while(--addElemQty > -1) {
+            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
+              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
+                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function reviewAddElemUnit() {
+      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
+          noExist = 1;
+      while(--addElemsQty > -1) {
+        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
+          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
+          noExist -= 1;
+        }
+      }
+      if(noExist) {
+        closeAddElemUnitDetail();
+      }
+    }
+
+
+
+
     function deleteAddElemUnit(addElemUnit, isWagon) {
-      console.info('delet----', thisCtrl.config.selectedAddElemUnit);
+      //console.info('delet----', thisCtrl.config.selectedAddElemUnit);
 
       if(isWagon) {
         //------- decrease Product quantity
@@ -2549,46 +2677,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function delAddElemUnitInProduct(productIndex) {
-      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
-          addElemQty;
 
-      while(--addElemProdQty > -1) {
-        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
-        if(addElemQty) {
-          while(--addElemQty > -1) {
-            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
-                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-
-    function reviewAddElemUnit() {
-      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
-        noExist = 1;
-      while(--addElemsQty > -1) {
-        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
-          --noExist;
-        }
-      }
-      if(noExist) {
-        closeAddElemUnitDetail();
-      }
-    }
 
 
     /**-------- Show/Hide Explode Link Menu ------*/
     function toggleExplodeLinkMenu(prodInd, event) {
-      console.log(prodInd);
-      console.log(event.center);
+      //console.log(prodInd);
+      //console.log(event.center);
       thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
       thisCtrl.config.explodeMenuTop = event.center.y - 50;
       thisCtrl.config.explodeMenuLeft = event.center.x - 30;
@@ -2645,6 +2740,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function checkAllSelectedProducts() {
+      var isSelected = 0,
+          prodIndQty = CartStor.cart.selectedProducts.length;
+      while(--prodIndQty > -1) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+          isSelected+=1;
+        }
+      }
+      CartStor.cart.isSelectedProduct = isSelected ? 1 : 0;
+    }
+
 
     function selectProductToAddElem(prodInd) {
       var isSelected = CartStor.cart.selectedProducts[prodInd].length;
@@ -2660,19 +2766,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function checkAllSelectedProducts() {
-      var isSelected = 0,
-          prodIndQty = CartStor.cart.selectedProducts.length;
-      while(--prodIndQty > -1) {
-        if(CartStor.cart.selectedProducts[prodIndQty].length) {
-          isSelected++;
-        }
-      }
-      CartStor.cart.isSelectedProduct = (isSelected) ? 1 : 0;
-    }
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+      //=========== clicking =============//
+    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
+    thisCtrl.deleteAllAddElems = deleteAllAddElems;
+    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
+
+    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
+    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
+    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
+    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
+    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
+
+    //------ adding elements to product
+    thisCtrl.swipeProductSelector = swipeProductSelector;
+    thisCtrl.selectProductToAddElem = selectProductToAddElem;
+
+
+  });
 })();
 
 
@@ -2684,10 +2800,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsListCtrl', addElementsListCtrl);
+    .controller('AddElementsListCtrl',
 
-  function addElementsListCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, ProductStor, UserStor, AuxStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2711,7 +2836,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  }
+  });
 })();
 
 
@@ -2723,10 +2848,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsCtrl', addElementsCtrl);
+    .controller('AddElementsCtrl',
 
-  function addElementsCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, AuxStor, ProductStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -2748,17 +2881,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     // Show Window Scheme Dialog
     function showWindowScheme() {
@@ -2771,7 +2894,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
 })();
 
 
@@ -2783,10 +2917,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('GlassesCtrl', glassSelectorCtrl);
+    .controller('GlassesCtrl',
 
-  function glassSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, DesignServ, SVGServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    AnalyticsServ,
+    DesignServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -2811,15 +2957,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
     thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
 
-    //------ clicking
-    thisCtrl.selectGlass = selectGlass;
-    thisCtrl.confirmGlass = confirmGlass;
-    thisCtrl.setGlassToAll = setGlassToAll;
-    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     /** Select glass */
     function selectGlass(newId, newName) {
@@ -2833,12 +2973,34 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function changePriceAsNewGlass () {
+      var hardwareIds;
+      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
+      DesignStor.design.selectedGlass.length = 0;
+      //------- set currenct Glass
+      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+        //------ calculate price
+        hardwareIds = ProductStor.product.hardware.id || 0;
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
+        //------ save analytics data
+        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+      });
+    }
+
+    function closeGlassSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
+    }
+
 
     function confirmGlass() {
-      var selectBlockQty = DesignStor.design.selectedGlass.length;
+      var selectBlockQty = DesignStor.design.selectedGlass.length,
+          blockId;
       if(selectBlockQty) {
         while (--selectBlockQty > -1) {
-          var blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
+          blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
           MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
         }
         changePriceAsNewGlass();
@@ -2854,27 +3016,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function changePriceAsNewGlass () {
-      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
-      DesignStor.design.selectedGlass.length = 0;
-      //------- set currenct Glass
-      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ calculate price
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
-    }
 
-    function closeGlassSelectorDialog() {
-      DesignServ.removeGlassEventsInSVG();
-      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
-    }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectGlass = selectGlass;
+    thisCtrl.confirmGlass = confirmGlass;
+    thisCtrl.setGlassToAll = setGlassToAll;
+    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+
+  });
 })();
 
 
@@ -2886,10 +3041,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('HardwaresCtrl', hardwareSelectorCtrl);
+    .controller('HardwaresCtrl',
 
-  function hardwareSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    MainServ,
+    AnalyticsServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2907,13 +3071,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
     thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
-    //------ clicking
-    thisCtrl.selectHardware = selectHardware;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    /**============ methods ================*/
 
+    /**============ METHODS ================*/
 
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
@@ -2929,7 +3090,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectHardware = selectHardware;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();
 
 
@@ -2941,10 +3109,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('LaminationsCtrl', laminationSelectorCtrl);
+    .controller('LaminationsCtrl',
 
-  function laminationSelectorCtrl($filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2960,13 +3136,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
     thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
 
-    //------ clicking
-    thisCtrl.selectLaminat = selectLaminat;
-    thisCtrl.initLaminatFilter = initLaminatFilter;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-    //============ methods ================//
 
+    /**============ METHODS ================*/
 
     /** init Laminat Filter */
     function initLaminatFilter(typeId) {
@@ -2995,7 +3167,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();
 
 
@@ -3007,10 +3187,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ProfilesCtrl', profileSelectorCtrl);
+    .controller('ProfilesCtrl',
 
-  function profileSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -3030,13 +3219,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
     thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
 
-    //------ clicking
-    thisCtrl.selectProfile = selectProfile;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //---------- Select profile
     function selectProfile(newId) {
@@ -3057,7 +3244,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-  }
+
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.selectProfile = selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();
 
 
@@ -3069,9 +3262,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('TemplatesCtrl', templateSelectorCtrl);
+    .controller('TemplatesCtrl',
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, DesignStor, OrderStor, ProductStor) {
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    MainServ,
+    GeneralServ,
+    TemplatesServ,
+    optionsServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -3152,7 +3357,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
 
-  }
+  });
 })();
 
 
@@ -3163,9 +3368,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
+    .controller('AddElemGroupMenuCtrl',
 
-  function addElemGroupCtrl(AddElementsServ, AuxStor) {
+  function(AddElementsServ, AuxStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.A = AuxStor;
@@ -3173,7 +3378,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
 
-  }
+  });
 })();
 
 
@@ -3184,9 +3389,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AlertCtrl', alertCtrl);
+    .controller('AlertCtrl',
 
-  function alertCtrl($filter, GlobalStor) {
+  function($filter, GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3204,7 +3409,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.clickYes = clickYes;
 
-  }
+  });
 })();
 
 
@@ -3215,13 +3420,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('infoBoxCtrl', infoBoxCtrl);
+    .controller('infoBoxCtrl',
 
-  function infoBoxCtrl(GlobalStor) {
+  function(GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
-
 
 
     /**============ METHODS ================*/
@@ -3241,7 +3445,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeInfoBox = closeInfoBox;
 
 
-  }
+  });
 })();
 
 
@@ -3252,14 +3456,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('LoaderCtrl', loaderCtrl);
+    .controller('LoaderCtrl',
 
-  function loaderCtrl(GlobalStor) {
+  function(GlobalStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-  }
+  });
 })();
 
 
@@ -3270,9 +3474,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('OrderFormCtrl', orderFormCtrl);
+    .controller('OrderFormCtrl',
 
-  function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function(
+    $filter,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
@@ -3308,13 +3519,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     thisCtrl.submitForm = submitForm;
     thisCtrl.changeLocation = CartMenuServ.changeLocation;
     thisCtrl.selectCity = CartMenuServ.selectCity;
     thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
-  }
+  });
 })();
 
 
@@ -3325,9 +3537,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('qtyCalculatorCtrl', qtyCalcCtrl);
+    .controller('qtyCalculatorCtrl',
 
-  function qtyCalcCtrl(AddElementMenuServ) {
+  function(AddElementMenuServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -3336,7 +3548,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  }
+  });
 })();
 
 
@@ -3347,9 +3559,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ReportCtrl', reportCtrl);
+    .controller('ReportCtrl',
 
-  function reportCtrl($rootScope, $filter, localDB, GeneralServ, GlobalStor, ProductStor, UserStor) {
+  function(
+    $rootScope,
+    $filter,
+    localDB,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3455,7 +3675,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-  }
+  });
 })();
 
 
@@ -3466,9 +3686,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomInfoCtrl', roomInfoCtrl);
+    .controller('RoomInfoCtrl',
 
-  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function(
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3510,7 +3736,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
 
-  }
+  });
 })();
 
 
@@ -3521,9 +3747,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomSelectorCtrl', roomSelectorCtrl);
+    .controller('RoomSelectorCtrl',
 
-  function roomSelectorCtrl(globalConstants, MainServ, TemplatesServ, GlobalStor, ProductStor, UserStor) {
+  function(
+    globalConstants,
+    MainServ,
+    TemplatesServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3549,7 +3782,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectRoom = selectRoom;
     thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
 
-  }
+  });
 })();
 
 
@@ -3560,9 +3793,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('searchCtrl', searchCtrl);
+    .controller('searchCtrl',
 
-  function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
+  function(
+    $filter,
+    GlobalStor,
+    AuxStor,
+    HistoryStor,
+    AddElementsServ,
+    AddElementMenuServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3604,7 +3844,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    //========== History Page ===========//
+    /**----------- History Page -------------*/
 
     function checkChangesHistory() {
       if(thisCtrl.searchingWord !== '') {
@@ -3626,6 +3866,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     //----------- for AddElements List View
     if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
@@ -3642,7 +3883,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+  });
 })();
 
 
@@ -3653,9 +3894,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('sizeCalculatorCtrl', sizeCalcCtrl);
+    .controller('sizeCalculatorCtrl',
 
-  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
+  function(
+    GlobalStor,
+    DesignStor,
+    AddElementMenuServ,
+    DesignServ
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
@@ -3680,7 +3926,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
-  }
+  });
 })();
 
 
@@ -3691,9 +3937,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('UserInfoCtrl', userInfoCtrl);
+    .controller('UserInfoCtrl',
 
-  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
+  function(globalConstants, GlobalStor, UserStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -3733,12 +3979,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**========== FINISH ==========*/
+
     //------ clicking
     thisCtrl.swipeMainPage = swipeMainPage;
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;
 
-  }
+  });
 })();
 
 
@@ -3749,10 +3996,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('SettingsCtrl', settingsPageCtrl);
+    .controller('SettingsCtrl',
 
-  function settingsPageCtrl($location, globalConstants, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
-
+  function(
+    $location,
+    $timeout,
+    globalConstants,
+    localDB,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    AuxStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -3782,44 +4040,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    //------ clicking
-    thisCtrl.changeSettingData = changeSettingData;
-    thisCtrl.appendInputPhone = appendInputPhone;
-    thisCtrl.cancelAddPhone = cancelAddPhone;
-    thisCtrl.saveChanges = saveChanges;
-    thisCtrl.saveChangesBlur = saveChangesBlur;
-    thisCtrl.changeEmail = changeEmail;
-    thisCtrl.addNewPhone = addNewPhone;
-    thisCtrl.saveChangesPhone = saveChangesPhone;
-    thisCtrl.deletePhone = deletePhone;
-    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
-    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
-    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
-    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
-    thisCtrl.logOut = logOut;
 
 
 
-    //============ methods ================//
 
+    /**============ METHODS ================*/
 
-
-    function changeSettingData(id, obj) {
-      thisCtrl.config.selectedSetting = id;
-      //TODO ipad findInput(obj.currentTarget.id);
-      findInput(obj.target.id);
-    }
-
-
-    function saveChanges(marker, newTxt) {
-      if (event.which == 13) {
-        saveTxtInBD(marker, newTxt);
-      }
-    }
-
-    function saveChangesBlur(marker, newTxt) {
-        saveTxtInBD(marker, newTxt);
-    }
 
     function saveTxtInBD(marker, newTxt) {
       var updateData = {};
@@ -3844,36 +4070,48 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+    function findInput(idElement) {
+      $timeout(function() {
+        $('#'+idElement).find('input').focus();
+      }, 100);
+    }
+
+    function findInputPhone() {
+      $timeout(function() {
+        $('.set-input-phone').focus();
+      }, 100);
+    }
+
+    function changeSettingData(id, obj) {
+      thisCtrl.config.selectedSetting = id;
+      //TODO ipad findInput(obj.currentTarget.id);
+      findInput(obj.target.id);
+    }
+
+
+    function saveChanges(marker, newTxt) {
+      if (event.which === 13) {
+        saveTxtInBD(marker, newTxt);
+      }
+    }
+
+    function saveChangesBlur(marker, newTxt) {
+        saveTxtInBD(marker, newTxt);
+    }
+
+
+
     function changeEmail() {
       thisCtrl.config.isEmailError = 0;
     }
 
 
-
-    function addNewPhone() {
-      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
-        saveNewPhone();
-      } else {
-        appendInputPhone();
-      }
-    }
-
-    function appendInputPhone() {
-      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
+    //------- save phones in DB
+    function savePhoneInDB(phones) {
+      var phonesString = phones.join(',');
+      UserStor.userInfo.city_phone = phonesString;
+      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
       thisCtrl.config.tempAddPhone = '';
-      thisCtrl.config.isErrorPhone = 0;
-      findInputPhone();
-    }
-
-    function cancelAddPhone() {
-      thisCtrl.config.isInsertPhone = 0;
-      thisCtrl.config.isErrorPhone = 0;
-    }
-
-    function saveChangesPhone() {
-      if (event.which == 13) {
-        saveNewPhone();
-      }
     }
 
     function saveNewPhone() {
@@ -3890,19 +4128,43 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function appendInputPhone() {
+      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
+      thisCtrl.config.tempAddPhone = '';
+      thisCtrl.config.isErrorPhone = 0;
+      findInputPhone();
+    }
+
+
+    function addNewPhone() {
+      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
+        saveNewPhone();
+      } else {
+        appendInputPhone();
+      }
+    }
+
+
+
+    function cancelAddPhone() {
+      thisCtrl.config.isInsertPhone = 0;
+      thisCtrl.config.isErrorPhone = 0;
+    }
+
+    function saveChangesPhone() {
+      if (event.which === 13) {
+        saveNewPhone();
+      }
+    }
+
+
+
     function deletePhone(phoneId) {
       thisCtrl.config.addPhones.splice(phoneId, 1);
       //------- save phones in DB
       savePhoneInDB(thisCtrl.config.addPhones);
     }
 
-    //------- save phones in DB
-    function savePhoneInDB(phones) {
-      var phonesString = phones.join(',');
-      UserStor.userInfo.city_phone = phonesString;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
-      thisCtrl.config.tempAddPhone = '';
-    }
 
 
     function logOut() {
@@ -3915,19 +4177,30 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       $location.path('/login');
     }
 
-    function findInput(idElement) {
-      setTimeout(function() {
-        $('#'+idElement).find('input').focus();
-      }, 100);
-    }
 
-    function findInputPhone() {
-      setTimeout(function() {
-        $('.set-input-phone').focus();
-      }, 100);
-    }
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.changeSettingData = changeSettingData;
+    thisCtrl.appendInputPhone = appendInputPhone;
+    thisCtrl.cancelAddPhone = cancelAddPhone;
+    thisCtrl.saveChanges = saveChanges;
+    thisCtrl.saveChangesBlur = saveChangesBlur;
+    thisCtrl.changeEmail = changeEmail;
+    thisCtrl.addNewPhone = addNewPhone;
+    thisCtrl.saveChangesPhone = saveChangesPhone;
+    thisCtrl.deletePhone = deletePhone;
+    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
+    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
+    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
+    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
+    thisCtrl.logOut = logOut;
+
+
+  });
 })();
 
 
@@ -3938,9 +4211,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('calendarScroll', calendarScrollDir);
+    .directive('calendarScroll',
 
-  function calendarScrollDir($filter, HistoryStor) {
+  function($filter, HistoryStor) {
 
     return {
       restrict: 'E',
@@ -4082,7 +4355,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -4093,9 +4366,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('CartModule')
-    .directive('calendar', calendarDir);
+    .directive('calendar',
 
-  function calendarDir($filter, CartMenuServ, GlobalStor, OrderStor) {
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
 
     return {
       restrict: 'E',
@@ -4134,7 +4412,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -4146,11 +4424,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('fileread', fileLoader);
+    .directive('fileread',
 
-
-
-  function fileLoader(SettingServ, UserStor) {
+  function(SettingServ, UserStor) {
     return {
       scope: {
         fileread: "="
@@ -4173,8 +4449,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         });
       }
     };
-  }
 
+  });
 })();
 
 
@@ -4185,9 +4461,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .filter('locationFilter', locationFilter);
+    .filter('locationFilter',
 
-  function locationFilter($filter) {
+  function($filter) {
 
     return function(items, searchWord) {
       var itemsQty = items.length,
@@ -4213,7 +4489,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return filtered;
     };
 
-  }
+  });
 })();
 
 
@@ -4225,10 +4501,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('orderDate', orderDateDir);
+    .directive('orderDate',
 
-  function orderDateDir($filter) {
-
+  function($filter) {
 
     return {
       restrict: 'A',
@@ -4277,7 +4552,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
 
-  }
+  });
 })();
 
 
@@ -4288,9 +4563,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .filter('orderSorting', orderSortingFilter);
+    .filter('orderSorting',
 
-  function orderSortingFilter() {
+  function() {
 
     return function(items, sortType) {
       var filtered = [];
@@ -4321,7 +4596,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return filtered;
     };
 
-  }
+  });
 })();
 
 
@@ -4333,9 +4608,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('priceFixed', priceFixedDir);
+    .directive('priceFixed',
 
-  function priceFixedDir() {
+  function() {
 
     return {
       restrict: 'A',
@@ -4364,8 +4639,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-
-  }
+  });
 })();
 
 
@@ -4377,9 +4651,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('price', priceDir);
+    .directive('price',
 
-  function priceDir(globalConstants, SoundPlayServ) {
+  function(globalConstants, SoundPlayServ) {
 
 
     /**============ METHODS ================*/
@@ -4477,7 +4751,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 // event.srcEvent.stopPropagation();
-  }
+  });
 })();
 
 
@@ -4488,9 +4762,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('showDelay', showDelayDir);
+    .directive('showDelay',
 
-  function showDelayDir() {
+  function() {
 
     return {
       scope: {
@@ -4513,7 +4787,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -4525,9 +4799,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('svgTemplate', svgTemplateDir);
+    .directive('svgTemplate',
 
-  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
+  function(
+    globalConstants,
+    GeneralServ,
+    ProductStor,
+    SVGServ,
+    DesignServ
+  ) {
 
     return {
       restrict: 'E',
@@ -5023,7 +5303,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -5034,9 +5314,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('typing', typingDir);
+    .directive('typing',
 
-  function typingDir() {
+  function() {
 
     return {
       scope: {
@@ -5078,7 +5358,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -5400,9 +5680,9 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AddElementMenuServ', addElemMenuFactory);
+    .factory('AddElementMenuServ',
 
-  function addElemMenuFactory(
+  function(
     $q,
     $timeout,
     GlobalStor,
@@ -5421,26 +5701,14 @@ function ErrorResult(code, message) {
     CartServ,
     CartMenuServ
   ) {
-
+    /*jshint validthis:true */
     var thisFactory = this;
 
 
-    /**============ methods ================*/
 
-    //-------- Close AddElements Menu
-    function closeAddElementsMenu() {
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        finishCalculators();
-      }
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.isGridSelectorDialog = 0;
-      AuxStor.aux.selectedGrid = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AuxStor.aux.isAddElement = 0;
-      //playSound('swip');
-    }
+
+
+    /**============ METHODS ================*/
 
 
     function desactiveAddElementParameters() {
@@ -5451,171 +5719,13 @@ function ErrorResult(code, message) {
     }
 
 
-
-    //--------- Select AddElement
-    function chooseAddElement(typeIndex, elementIndex) {
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        finishCalculators();
-      }
-      if (typeIndex === undefined && elementIndex === undefined) {
-        /**------- if all grids deleting --------*/
-        if(AuxStor.aux.isFocusedAddElement === 1) {
-          deleteGridsInTemplate();
-        }
-        var index = (AuxStor.aux.isFocusedAddElement - 1);
-        AuxStor.aux.isAddElement = 0;
-        //-------- clean all elements in selected Type
-        ProductStor.product.chosenAddElements[index].length = 0;
-
-        //-------- Set Total Product Price
-        setAddElementsTotalPrice(ProductStor.product);
-
-      } else {
-        getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
-          pushSelectedAddElement(ProductStor.product, addElem);
-          //Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-
-          //------ save analytics data
-          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-        });
-      }
-    }
-
-
-    //--------- Select AddElement List
-    function chooseAddElementList(typeIndex, elementIndex) {
-      /** in main page */
-      if(GlobalStor.global.currOpenPage === 'main') {
-
-        /** if grid,  show grid selector dialog */
-        if(AuxStor.aux.isFocusedAddElement === 1) {
-          if(ProductStor.product.is_addelem_only) {
-            /** without window */
-            pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-            //---------- Set Total Product Price
-            setAddElementsTotalPrice(ProductStor.product);
-          } else {
-            //------- show Grid Selector Dialog
-            AuxStor.aux.selectedGrid = [typeIndex, elementIndex];
-            AuxStor.aux.isGridSelectorDialog = 1;
-            DesignServ.initAllGlassXGrid();
-          }
-        } else {
-          pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-          //---------- Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-        }
-
-      } else if(GlobalStor.global.currOpenPage === 'cart') {
-        /** in cart page */
-        var productsQty = CartStor.cart.selectedProducts.length;
-        for(var p = 0; p < productsQty; p++) {
-          if(CartStor.cart.selectedProducts[p].length) {
-            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-            //Set Total Product Price
-            CartServ.calculateAddElemsProductsPrice(1);
-            CartMenuServ.joinAllAddElements();
-            CartServ.collectAllAddElems();
-            CartServ.getAddElemsPriceTotal();
-            //------ change order Price
-            CartMenuServ.calculateOrderPrice();
-          }
-        }
-      }
-      //----- hide element price in menu
-      AuxStor.aux.currAddElementPrice = 0;
-      //------ save analytics data
-      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
-      AuxStor.aux.isAddElement = 0;
-    }
-
-
-    function getAddElementPrice(typeIndex, elementIndex) {
-      var deferred = $q.defer();
-      AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element is not grid and has price
-      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-      //
-      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      //} else {
-        calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
-          deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-        });
-      //}
-      return deferred.promise;
-    }
-
-
-
-    function pushSelectedAddElement(currProduct, currElement) {
-      var index = (AuxStor.aux.isFocusedAddElement - 1),
-          existedElement;
-
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      if(!existedElement) {
-        var newElementSource = {
-              element_type: index,
-              element_width: 0,
-              element_height: 0,
-              block_id: 0
-            },
-            newElement = angular.extend(newElementSource, currElement);
-
-        currProduct.chosenAddElements[index].push(newElement);
-        //---- open TABFrame when second element selected
-        if(currProduct.chosenAddElements[index].length === 2) {
-          AuxStor.aux.isTabFrame = 1;
-        }
-      }
-    }
-
-
-    //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
-    function checkExistedSelectAddElement(elementsArr, currElement) {
-      var elementsQty = elementsArr.length, isExist = 0;
-      while(--elementsQty > -1){
-        if(elementsArr[elementsQty].id === currElement.id) {
-          /** if element has width and height */
-          if(currElement.element_width && currElement.element_height) {
-            if(elementsArr[elementsQty].element_width === currElement.element_width) {
-              if(elementsArr[elementsQty].element_height === currElement.element_height) {
-                isExist++;
-              }
-            }
-          }
-          /** if element has only width */
-          if(currElement.element_width && !currElement.element_height) {
-            if(elementsArr[elementsQty].element_width === currElement.element_width) {
-              isExist++;
-            }
-          }
-          /** if element has only qty */
-          if(!currElement.element_width && !currElement.element_height) {
-            isExist++;
-          }
-
-          /** increase quantity if exist */
-          if(isExist) {
-            elementsArr[elementsQty].element_qty += 1;
-            break;
-          }
-        }
-
-      }
-      return isExist;
-    }
-
-
     function setAddElementsTotalPrice(currProduct) {
-      var elemTypeQty = currProduct.chosenAddElements.length;
+      var elemTypeQty = currProduct.chosenAddElements.length,
+          elemQty;
       currProduct.addelem_price = 0;
       currProduct.addelemPriceDis = 0;
       while(--elemTypeQty > -1) {
-        var elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+        elemQty = currProduct.chosenAddElements[elemTypeQty].length;
         if (elemQty > 0) {
           while(--elemQty > -1) {
             currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
@@ -5627,202 +5737,6 @@ function ErrorResult(code, message) {
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
-    }
-
-
-
-    //-------- Delete AddElement from global object
-    function deleteAddElement(typeId, elementId) {
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        finishCalculators();
-      }
-      /**------- if grid delete --------*/
-      if(AuxStor.aux.isFocusedAddElement === 1) {
-        deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
-      }
-      ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
-      //------ Set Total Product Price
-      setAddElementsTotalPrice(ProductStor.product);
-    }
-
-
-    //--------- Delete All List of selected AddElements
-    function deleteAllAddElements() {
-      var elementsQty = ProductStor.product.chosenAddElements.length, i = 0;
-      for(; i < elementsQty; i++) {
-        /**------- check grids -----*/
-        if(!i) {
-          if(ProductStor.product.chosenAddElements[i].length) {
-            deleteGridsInTemplate();
-          }
-        }
-        ProductStor.product.chosenAddElements[i].length = 0;
-      }
-      ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelemPriceDis = 0;
-      //------ Set Total Product Price
-      setAddElementsTotalPrice(ProductStor.product);
-      //------ close AddElements Menu
-      closeAddElementsMenu();
-    }
-
-
-
-    /** =========== GRID ========== */
-
-
-    /** set Selected Grids */
-    function confirmGrid() {
-      if(DesignStor.design.selectedGlass.length) {
-        var grids = DesignStor.design.selectedGlass.map(function(item) {
-          var blockId = item.attributes.block_id.nodeValue;
-          //------- collect grids relative to blocks
-          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
-        });
-        insertGrids(grids);
-      }
-    }
-
-
-
-    /** set Grids for all Sashes */
-    function setGridToAll() {
-      var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
-      insertGrids(grids);
-    }
-
-
-
-    function collectGridsAsBlock(blockId, gridIndex) {
-      var blocksQty = ProductStor.product.template_source.details.length,
-          gridElements = [];
-      while(--blocksQty > 0) {
-        if(blockId) {
-          /** set grid to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
-            /** check block to old grid
-             * delete in product.choosenAddElements if exist
-             * */
-            deleteOldGridInList(blocksQty);
-            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
-            break;
-          }
-        } else {
-          /** set grid to all template blocks */
-          if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
-            deleteOldGridInList(blocksQty);
-            gridElements.push(setCurrGridToBlock(ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex));
-          }
-        }
-      }
-      return gridElements;
-    }
-
-
-
-    function deleteOldGridInList(blockIndex) {
-      if(ProductStor.product.template_source.details[blockIndex].gridId) {
-        var chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
-        while(--chosenGridsQty > -1) {
-          if(ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
-            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
-              ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
-            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
-              ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
-            }
-          }
-        }
-      }
-    }
-
-
-
-    function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
-      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
-            return item.x;
-          }),
-          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
-            return item.y;
-          }), gridTemp;
-      //------- insert grid in block
-      ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
-      ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
-      //-------- add sizes in grid object
-      gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
-      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
-      gridTemp.block_id = blockId;
-      return gridTemp;
-    }
-
-
-
-
-
-    function insertGrids(grids) {
-      DesignServ.getGridPrice(grids).then(function(data) {
-        var dataQty = data.length;
-        AuxStor.aux.currAddElementPrice = 0;
-        if(dataQty) {
-          while(--dataQty > -1) {
-            pushSelectedAddElement(ProductStor.product, data[dataQty]);
-            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
-          }
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
-          //------ show element price
-          AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0]+'-'+AuxStor.aux.selectedGrid[1];
-          //------ Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-          //------ change SVG
-          changeSVGTemplateAsNewGrid();
-          //------ close Grid Dialog
-          closeGridSelectorDialog();
-        }
-      });
-    }
-
-
-
-    function changeSVGTemplateAsNewGrid () {
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
-    }
-
-
-
-
-    function closeGridSelectorDialog() {
-      DesignServ.removeGlassEventsInSVG();
-      DesignStor.design.selectedGlass.length = 0;
-      AuxStor.aux.selectedGrid = 0;
-      AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
-    }
-
-
-
-    function deleteGridsInTemplate(blockID) {
-      var blocksQty = ProductStor.product.template_source.details.length;
-      while(--blocksQty > 0) {
-        if(blockID) {
-          if(ProductStor.product.template_source.details[blocksQty].id === blockID) {
-            if(ProductStor.product.template_source.details[blocksQty].gridId) {
-              delete ProductStor.product.template_source.details[blocksQty].gridId;
-              delete ProductStor.product.template_source.details[blocksQty].gridTxt;
-              break;
-            }
-          }
-        } else {
-          if(ProductStor.product.template_source.details[blocksQty].gridId) {
-            delete ProductStor.product.template_source.details[blocksQty].gridId;
-            delete ProductStor.product.template_source.details[blocksQty].gridTxt;
-          }
-        }
-      }
-      changeSVGTemplateAsNewGrid();
     }
 
 
@@ -5862,6 +5776,97 @@ function ErrorResult(code, message) {
 
 
     /** ============= SIze Calculator ============= */
+
+
+    function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
+      var objXAddElementPrice = {
+        currencyId: UserStor.userInfo.currencyId,
+        elementId: addElementsList[typeIndex][elementIndex].id,
+        elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
+        elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
+      };
+      return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+        if (results) {
+          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
+          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
+          AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
+        }
+        return results;
+      });
+    }
+
+
+    //------- Close Size Calculator
+    function closeSizeCaclulator() {
+      var elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
+      AuxStor.aux.tempSize.length = 0;
+      desactiveAddElementParameters();
+      //-------- recalculate add element price
+      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+        setAddElementsTotalPrice(ProductStor.product);
+      });
+    }
+
+
+    function changeElementSize(){
+      var newElementSize = '',
+          elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
+
+      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+      if(GlobalStor.global.isQtyCalculator) {
+        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
+      } else if(GlobalStor.global.isSizeCalculator) {
+        if(GlobalStor.global.isWidthCalculator) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
+        } else {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+        }
+      }
+
+    }
+
+
+    //------- Change Size parameter
+    function setValueSize(newValue) {
+      var sizeLength = AuxStor.aux.tempSize.length;
+      //---- clean tempSize if indicate only one 0
+      if(sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if (newValue === '0') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          AuxStor.aux.tempSize.push(newValue);
+          changeElementSize();
+        }
+      } else if(newValue === '00') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          if (sizeLength < 3) {
+            AuxStor.aux.tempSize.push(0, 0);
+          } else if (sizeLength === 3) {
+            AuxStor.aux.tempSize.push(0);
+          }
+          changeElementSize();
+        }
+      } else {
+        AuxStor.aux.tempSize.push(newValue);
+        changeElementSize();
+      }
+
+    }
+
+
+
+    //------- Delete last number
+    function deleteLastNumber() {
+      AuxStor.aux.tempSize.pop();
+      if(AuxStor.aux.tempSize.length < 1) {
+        AuxStor.aux.tempSize.push(0);
+      }
+      changeElementSize();
+    }
+
 
 
     function pressCulculator(keyEvent) {
@@ -5928,107 +5933,418 @@ function ErrorResult(code, message) {
     }
 
 
-      //------- Change Size parameter
-    function setValueSize(newValue) {
-      var sizeLength = AuxStor.aux.tempSize.length;
-      //---- clean tempSize if indicate only one 0
-      if(sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
-        AuxStor.aux.tempSize.length = 0;
-      }
-      if (newValue === '0') {
-        if (sizeLength && AuxStor.aux.tempSize[0]) {
-          AuxStor.aux.tempSize.push(newValue);
-          changeElementSize();
-        }
-      } else if(newValue === '00') {
-        if (sizeLength && AuxStor.aux.tempSize[0]) {
-          if (sizeLength < 3) {
-            AuxStor.aux.tempSize.push(0, 0);
-          } else if (sizeLength === 3) {
-            AuxStor.aux.tempSize.push(0);
-          }
-          changeElementSize();
-        }
-      } else {
-        AuxStor.aux.tempSize.push(newValue);
-        changeElementSize();
-      }
 
-    }
-
-
-
-    //------- Delete last number
-    function deleteLastNumber() {
-      AuxStor.aux.tempSize.pop();
-      if(AuxStor.aux.tempSize.length < 1) {
-        AuxStor.aux.tempSize.push(0);
-      }
-      changeElementSize();
-    }
-
-
-    function changeElementSize(){
-      var newElementSize = '',
-          elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-
-      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
-      if(GlobalStor.global.isQtyCalculator) {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
-      } else if(GlobalStor.global.isSizeCalculator) {
-        if(GlobalStor.global.isWidthCalculator) {
-          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
-        } else {
-          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
-        }
-      }
-
-    }
-
-
-    //------- Close Size Calculator
-    function closeSizeCaclulator() {
-      var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
-      AuxStor.aux.tempSize.length = 0;
-      desactiveAddElementParameters();
-      //-------- recalculate add element price
-      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
-        setAddElementsTotalPrice(ProductStor.product);
-      });
-    }
-
-
-    function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
-        var objXAddElementPrice = {
-              currencyId: UserStor.userInfo.currencyId,
-              elementId: addElementsList[typeIndex][elementIndex].id,
-              elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
-              elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
-            };
-        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
-            addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
-            AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
-          }
-          return results;
-        });
-    }
 
 
     function finishCalculators() {
       //if(AuxStor.aux.tempSize.length) {
-        //changeElementSize();
-        if(GlobalStor.global.isSizeCalculator) {
-          closeSizeCaclulator();
-        } else if(GlobalStor.global.isQtyCalculator) {
-          closeQtyCaclulator();
-        }
+      //changeElementSize();
+      if(GlobalStor.global.isSizeCalculator) {
+        closeSizeCaclulator();
+      } else if(GlobalStor.global.isQtyCalculator) {
+        closeQtyCaclulator();
+      }
       //}
       AuxStor.aux.currentAddElementId = 0;
     }
+
+
+
+
+    //-------- Close AddElements Menu
+    function closeAddElementsMenu() {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isGridSelectorDialog = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
+      //playSound('swip');
+    }
+
+
+
+
+
+
+
+    /** =========== GRID ========== */
+
+
+    function deleteOldGridInList(blockIndex) {
+      var chosenGridsQty;
+      if(ProductStor.product.template_source.details[blockIndex].gridId) {
+        chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+        while(--chosenGridsQty > -1) {
+          if(ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+              ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+              ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+            }
+          }
+        }
+      }
+    }
+
+
+
+    function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.x;
+          }),
+          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.y;
+          }), gridTemp;
+      //------- insert grid in block
+      ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+      ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+      //-------- add sizes in grid object
+      gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
+      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
+      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      gridTemp.block_id = blockId;
+      return gridTemp;
+    }
+
+
+    function collectGridsAsBlock(blockId, gridIndex) {
+      var blocksQty = ProductStor.product.template_source.details.length,
+          gridElements = [];
+      while(--blocksQty > 0) {
+        if(blockId) {
+          /** set grid to template block by its Id */
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+            /** check block to old grid
+             * delete in product.choosenAddElements if exist
+             * */
+            deleteOldGridInList(blocksQty);
+            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+            break;
+          }
+        } else {
+          /** set grid to all template blocks */
+          if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+            deleteOldGridInList(blocksQty);
+            gridElements.push(setCurrGridToBlock(ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex));
+          }
+        }
+      }
+      return gridElements;
+    }
+
+
+
+    function changeSVGTemplateAsNewGrid () {
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+        //------ save analytics data
+        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+      });
+    }
+
+
+
+
+    function closeGridSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
+      DesignStor.design.selectedGlass.length = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+    }
+
+
+
+    //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist+=1;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist+=1;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist+=1;
+          }
+
+          /** increase quantity if exist */
+          if(isExist) {
+            elementsArr[elementsQty].element_qty += 1;
+            break;
+          }
+        }
+
+      }
+      return isExist;
+    }
+
+
+    function pushSelectedAddElement(currProduct, currElement) {
+      var index = (AuxStor.aux.isFocusedAddElement - 1),
+          existedElement;
+
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      if(!existedElement) {
+        var newElementSource = {
+              element_type: index,
+              element_width: 0,
+              element_height: 0,
+              block_id: 0
+            },
+            newElement = angular.extend(newElementSource, currElement);
+
+        currProduct.chosenAddElements[index].push(newElement);
+        //---- open TABFrame when second element selected
+        if(currProduct.chosenAddElements[index].length === 2) {
+          AuxStor.aux.isTabFrame = 1;
+        }
+      }
+    }
+
+
+
+    function insertGrids(grids) {
+      DesignServ.getGridPrice(grids).then(function(data) {
+        var dataQty = data.length;
+        AuxStor.aux.currAddElementPrice = 0;
+        if(dataQty) {
+          while(--dataQty > -1) {
+            pushSelectedAddElement(ProductStor.product, data[dataQty]);
+            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
+          }
+          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
+          //------ show element price
+          AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0]+'-'+AuxStor.aux.selectedGrid[1];
+          //------ Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+          //------ change SVG
+          changeSVGTemplateAsNewGrid();
+          //------ close Grid Dialog
+          closeGridSelectorDialog();
+        }
+      });
+    }
+
+
+
+    /** set Selected Grids */
+    function confirmGrid() {
+      if(DesignStor.design.selectedGlass.length) {
+        var grids = DesignStor.design.selectedGlass.map(function(item) {
+          var blockId = item.attributes.block_id.nodeValue;
+          //------- collect grids relative to blocks
+          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
+        });
+        insertGrids(grids);
+      }
+    }
+
+
+
+    /** set Grids for all Sashes */
+    function setGridToAll() {
+      var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
+      insertGrids(grids);
+    }
+
+
+
+
+
+    function deleteGridsInTemplate(blockID) {
+      var blocksQty = ProductStor.product.template_source.details.length;
+      while(--blocksQty > 0) {
+        if(blockID) {
+          if(ProductStor.product.template_source.details[blocksQty].id === blockID) {
+            if(ProductStor.product.template_source.details[blocksQty].gridId) {
+              delete ProductStor.product.template_source.details[blocksQty].gridId;
+              delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+              break;
+            }
+          }
+        } else {
+          if(ProductStor.product.template_source.details[blocksQty].gridId) {
+            delete ProductStor.product.template_source.details[blocksQty].gridId;
+            delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+          }
+        }
+      }
+      changeSVGTemplateAsNewGrid();
+    }
+
+
+
+
+
+
+    function getAddElementPrice(typeIndex, elementIndex) {
+      var deferred = $q.defer();
+      AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
+      //------- checking if add element is not grid and has price
+      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+      //
+      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      //} else {
+      calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
+        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      });
+      //}
+      return deferred.promise;
+    }
+
+
+
+
+    /**--------- Select AddElement ------------*/
+
+    function chooseAddElement(typeIndex, elementIndex) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      if (typeIndex === undefined && elementIndex === undefined) {
+        /**------- if all grids deleting --------*/
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          deleteGridsInTemplate();
+        }
+        var index = (AuxStor.aux.isFocusedAddElement - 1);
+        AuxStor.aux.isAddElement = 0;
+        //-------- clean all elements in selected Type
+        ProductStor.product.chosenAddElements[index].length = 0;
+
+        //-------- Set Total Product Price
+        setAddElementsTotalPrice(ProductStor.product);
+
+      } else {
+        getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+          pushSelectedAddElement(ProductStor.product, addElem);
+          //Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+
+          //------ save analytics data
+          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+        });
+      }
+    }
+
+
+
+    /** --------- Select AddElement List --------------*/
+
+    function chooseAddElementList(typeIndex, elementIndex) {
+      var productsQty, p;
+      /** in main page */
+      if(GlobalStor.global.currOpenPage === 'main') {
+
+        /** if grid,  show grid selector dialog */
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          if(ProductStor.product.is_addelem_only) {
+            /** without window */
+            pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //---------- Set Total Product Price
+            setAddElementsTotalPrice(ProductStor.product);
+          } else {
+            //------- show Grid Selector Dialog
+            AuxStor.aux.selectedGrid = [typeIndex, elementIndex];
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
+          }
+        } else {
+          pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+          //---------- Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+        }
+
+      } else if(GlobalStor.global.currOpenPage === 'cart') {
+        /** in cart page */
+        productsQty = CartStor.cart.selectedProducts.length;
+        for(p = 0; p < productsQty; p+=1) {
+          if(CartStor.cart.selectedProducts[p].length) {
+            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //Set Total Product Price
+            CartServ.calculateAddElemsProductsPrice(1);
+            CartMenuServ.joinAllAddElements();
+            CartServ.collectAllAddElems();
+            CartServ.getAddElemsPriceTotal();
+            //------ change order Price
+            CartMenuServ.calculateOrderPrice();
+          }
+        }
+      }
+      //----- hide element price in menu
+      AuxStor.aux.currAddElementPrice = 0;
+      //------ save analytics data
+      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      AuxStor.aux.isAddElement = 0;
+    }
+
+
+
+
+
+    /**-------- Delete AddElement from global object ---------*/
+
+    function deleteAddElement(typeId, elementId) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      /**------- if grid delete --------*/
+      if(AuxStor.aux.isFocusedAddElement === 1) {
+        deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
+      }
+      ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
+      //------ Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+    }
+
+
+
+
+    /**--------- Delete All List of selected AddElements -------------*/
+
+    function deleteAllAddElements() {
+      var elementsQty = ProductStor.product.chosenAddElements.length, i;
+      for(i = 0; i < elementsQty; i+=1) {
+        /**------- check grids -----*/
+        if(!i) {
+          if(ProductStor.product.chosenAddElements[i].length) {
+            deleteGridsInTemplate();
+          }
+        }
+        ProductStor.product.chosenAddElements[i].length = 0;
+      }
+      ProductStor.product.addelem_price = 0;
+      ProductStor.product.addelemPriceDis = 0;
+      //------ Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+      //------ close AddElements Menu
+      closeAddElementsMenu();
+    }
+
+
+
+
+
+
 
 
 
@@ -6062,7 +6378,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -6074,19 +6390,44 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AddElementsServ', addElemFactory);
+    .factory('AddElementsServ',
 
-  function addElemFactory($timeout, globalConstants, GeneralServ, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
-
+  function(
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementMenuServ,
+    GlobalStor,
+    ProductStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
-    //--------- Select additional element group
+    function downloadAddElementsData(id) {
+      var index = (id - 1);
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
+      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+    }
+
+
+    function showingAddElemMenu(id) {
+      AuxStor.aux.isFocusedAddElement = id;
+      //playSound('swip');
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      downloadAddElementsData(id);
+    }
+
+
+    /**--------- Select additional element group -----------*/
+
     function selectAddElement(id) {
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
@@ -6112,26 +6453,13 @@ function ErrorResult(code, message) {
     }
 
 
-    function showingAddElemMenu(id) {
-      AuxStor.aux.isFocusedAddElement = id;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-      downloadAddElementsData(id);
-    }
 
 
 
+    /**------------- Select Add Element Parameter --------------*/
 
-    function downloadAddElementsData(id) {
-      var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
-      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
-    }
-
-
-    //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
+      var currElem;
       /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
         AddElementMenuServ.finishCalculators();
@@ -6141,7 +6469,7 @@ function ErrorResult(code, message) {
           /** calc Price previous parameter and close caclulators */
           AddElementMenuServ.finishCalculators();
         }
-        var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+        currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
         AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
         AuxStor.aux.currentAddElementId = elementIndex;
         /** set css theme for calculator */
@@ -6162,15 +6490,6 @@ function ErrorResult(code, message) {
       }
     }
 
-    function openAddElementListView() {
-      AuxStor.aux.isAddElementListView = 1;
-      viewSwitching();
-    }
-
-    function closeAddElementListView() {
-      AuxStor.aux.isAddElementListView = 0;
-      viewSwitching();
-    }
 
 
     // Open Add Elements in List View
@@ -6189,14 +6508,26 @@ function ErrorResult(code, message) {
     }
 
 
+    function openAddElementListView() {
+      AuxStor.aux.isAddElementListView = 1;
+      viewSwitching();
+    }
+
+    function closeAddElementListView() {
+      AuxStor.aux.isAddElementListView = 0;
+      viewSwitching();
+    }
+
+
+
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          g = 0;
+          groupTempObj, g;
       AuxStor.aux.addElementGroups.length = 0;
-      for(; g < groupNamesQty; g++){
+      for(g = 0; g < groupNamesQty; g+=1){
         if(GlobalStor.global.addElementsAll[g].elementsList) {
-          var groupTempObj = {};
+          groupTempObj = {};
           groupTempObj.groupId = (g+1);
           groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
           groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
@@ -6220,7 +6551,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -6232,10 +6563,10 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('AnalyticsServ', analyticsFactory);
+    .factory('AnalyticsServ',
 
-  function analyticsFactory(localDB, UserStor) {
-
+  function(localDB, UserStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
@@ -6247,7 +6578,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -6333,7 +6664,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -6345,15 +6676,23 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartMenuServ', cartMenuFactory);
+    .factory('CartMenuServ',
 
-  function cartMenuFactory($location, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor, UserStor) {
+  function(
+    $location,
+    GeneralServ,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    CartStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this;
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
     /**---------- join all Add Elements for Detials ---------*/
@@ -6976,7 +7315,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -6985,19 +7324,28 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartServ', cartFactory);
+    .factory('CartServ',
 
-  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor, AuxStor) {
-
+  function(
+    $location,
+    $filter,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
     //------- add new product in order
     function addNewProductInOrder() {
@@ -7018,28 +7366,9 @@ function ErrorResult(code, message) {
 
 
 
-    //----- Reduce Product Qty
-    function decreaseProductQty(productIndex) {
-      //----- if product 1 - delete product completely
-      if(OrderStor.order.products[productIndex].product_qty === 1) {
-        //------ ask client to delete
-        clickDeleteProduct(productIndex);
-      } else {
-        OrderStor.order.products[productIndex].product_qty -= 1;
-        CartMenuServ.calculateOrderPrice();
-      }
-      CartMenuServ.joinAllAddElements();
-    }
-
 
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
-        deleteProduct
-      );
 
       function deleteProduct() {
         //playSound('delete');
@@ -7055,7 +7384,28 @@ function ErrorResult(code, message) {
           //TODO create new project
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+        deleteProduct
+      );
     }
+
+
+    //----- Reduce Product Qty
+    function decreaseProductQty(productIndex) {
+      //----- if product 1 - delete product completely
+      if(OrderStor.order.products[productIndex].product_qty === 1) {
+        //------ ask client to delete
+        clickDeleteProduct(productIndex);
+      } else {
+        OrderStor.order.products[productIndex].product_qty -= 1;
+        CartMenuServ.calculateOrderPrice();
+      }
+      CartMenuServ.joinAllAddElements();
+    }
+
 
 
     //----- Edit Produtct in main page
@@ -7082,14 +7432,6 @@ function ErrorResult(code, message) {
 
     /**======== ALL ADD LEMENTS PANEL ========*/
 
-    /** show All Add Elements Panel */
-    function showAllAddElements() {
-      collectAllAddElems();
-      getAddElemsPriceTotal();
-      initSelectedProductsArr();
-      CartStor.cart.isAllAddElems = 1;
-      AuxStor.aux.isAddElementListView = 1;
-    }
 
 
     function collectAllAddElems() {
@@ -7109,7 +7451,7 @@ function ErrorResult(code, message) {
                   if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
                     if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
                       CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      --noExist;
+                      noExist -= 1;
                     }
                   }
                 }
@@ -7147,6 +7489,14 @@ function ErrorResult(code, message) {
     }
 
 
+    /** show All Add Elements Panel */
+    function showAllAddElements() {
+      collectAllAddElems();
+      getAddElemsPriceTotal();
+      initSelectedProductsArr();
+      CartStor.cart.isAllAddElems = 1;
+      AuxStor.aux.isAddElementListView = 1;
+    }
 
 
     function calculateAddElemsProductsPrice(reculc) {
@@ -7177,6 +7527,11 @@ function ErrorResult(code, message) {
     }
 
 
+    function addCloneProductInOrder(cloneProduct, lastProductId) {
+      lastProductId += 1;
+      cloneProduct.product_id = lastProductId;
+      OrderStor.order.products.push(cloneProduct);
+    }
 
 
 
@@ -7191,11 +7546,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function addCloneProductInOrder(cloneProduct, lastProductId) {
-      ++lastProductId;
-      cloneProduct.product_id = lastProductId;
-      OrderStor.order.products.push(cloneProduct);
-    }
 
 
 
@@ -7219,7 +7569,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  }
+  });
 })();
 
 
@@ -7286,9 +7636,9 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('DesignModule')
-    .factory('DesignServ', designFactory);
+    .factory('DesignServ',
 
-  function designFactory(
+  function(
     $rootScope,
     $location,
     $timeout,
@@ -7371,6 +7721,286 @@ function ErrorResult(code, message) {
     }
 
 
+    function setDefaultTemplate() {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
+    }
+
+
+    //-------- Back to Template Panel
+    function backtoTemplatePanel() {
+      //------ cleaning DesignStor
+      DesignStor.design = DesignStor.setDefaultDesign();
+      //      delete DesignStor.design.templateSourceTEMP;
+      //      delete DesignStor.design.templateTEMP;
+      GlobalStor.global.activePanel = 0;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      $location.path('/main');
+    }
+
+
+
+
+
+
+    /**----------- Close Size Calculator -----------*/
+
+    function cleanTempSize() {
+      DesignStor.design.tempSize.length = 0;
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+      DesignStor.design.isDimExtra = 0;
+      DesignStor.design.isSquareExtra = 0;
+    }
+
+
+    function culcHeightQByRadiusCurve(lineLength, radius) {
+      //return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
+      return GeneralServ.roundingValue( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)), 1);
+    }
+
+
+    function addNewSizeInTemplate(newLength) {
+      //-------- change point coordinates in templateSource
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          //blocksOLD = DesignStor.design.templateTEMP.details,
+          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
+          curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
+          dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty, pointsOutQty;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      //          console.log('SIZE ````````curBlockId````````', curBlockId);
+      //          console.log('SIZE ````````curDimType````````', curDimType);
+      //          console.log('SIZE ````````dimId````````', dimId);
+
+      if(curDimType === 'curve') {
+        //============ changing Radius
+
+        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+
+        mainFor: for (b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].id === curBlockId) {
+            //-------- search in PointsQ
+            if(blocks[b].pointsQ) {
+              pointsQQty = blocks[b].pointsQ.length;
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
+                  break mainFor;
+                }
+              }
+            }
+            //-------- search in Imposts
+            if(blocks[b].impost) {
+              if(blocks[b].impost.impostAxis[2].id === dimId) {
+                blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
+                break mainFor;
+              }
+            }
+
+          }
+        }
+
+      } else if(dimId.indexOf('qa')+1) {
+        //========== changing Arc Height
+
+        for(b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].level === 1) {
+            pointsQQty = blocks[b].pointsQ.length;
+            if(pointsQQty) {
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newLength;
+                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                }
+              }
+            }
+          }
+        }
+
+      } else {
+        //            console.log('SIZE ````````newLength````````', newLength);
+        //            console.log('SIZE ````````startSize````````', startSize);
+        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
+        //            console.log('SIZE ````````axis````````', axis);
+
+        //========== changing Line dimension
+        for(b = 1; b < blocksQty; b+=1) {
+          pointsOutQty = blocks[b].pointsOut.length;
+          if(pointsOutQty) {
+            while(--pointsOutQty > -1) {
+              if(axis === 'x') {
+                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+                }
+              } else if(axis === 'y') {
+                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                }
+              }
+            }
+          }
+          if(blocks[b].impost) {
+            for(i = 0; i < 2; i+=1) {
+              if(axis === 'x') {
+                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
+                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
+                }
+              } else if (axis === 'y') {
+                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
+                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+
+    /**---------- add new size in parent block in order to recalculate overall square -----------*/
+
+    function rebuildPointsOut(newLength) {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          newPointsOut, b, pointsOutQty, isRealBlock;
+
+      for(b = 1; b < blocksQty; b+=1) {
+        if (blocks[b].level === 1) {
+          pointsOutQty = blocks[b].pointsOut.length;
+          if (pointsOutQty) {
+            isRealBlock = 0;
+            isRealBlock = blocks[b].pointsOut.some(function(item) {
+              if (axis === 'x') {
+                return item.x === oldSizeValue;
+              } else if (axis === 'y') {
+                return item.y === oldSizeValue;
+              }
+            });
+            if(isRealBlock) {
+              newPointsOut = angular.copy(blocks[b].pointsOut);
+              while (--pointsOutQty > -1) {
+                if (axis === 'x') {
+                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                    newPointsOut[pointsOutQty].x = startSize + newLength;
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                    newPointsOut[pointsOutQty].y = startSize + newLength;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return newPointsOut;
+    }
+
+
+
+
+    function closeSizeCaclulator(prom) {
+      var deff = $q.defer();
+      if(DesignStor.design.tempSize.length) {
+        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
+            newPointsOut = rebuildPointsOut(newLength),
+            currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
+
+        /** Square limits checking */
+        if(currSquare < GlobalStor.global.maxSquareLimit) {
+          /** Dimensions limits checking */
+
+          if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+            addNewSizeInTemplate(newLength);
+            //------ close size calculator and deactive size box in svg
+            hideSizeTools();
+            //----- change Template
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+              cleanTempSize();
+              deff.resolve(1);
+            });
+          } else {
+            //------ show error size
+            if(newLength < DesignStor.design.minSizeLimit) {
+              if(GlobalStor.global.isVoiceHelper) {
+                playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
+                //------- deactive size box in svg
+                //deselectAllDimension();
+                //-------- build new template
+                //rebuildSVGTemplate();
+              } else {
+                DesignStor.design.isMinSizeRestriction = 1;
+                DesignStor.design.isMaxSizeRestriction = 0;
+              }
+
+            } else if(newLength > DesignStor.design.maxSizeLimit) {
+              if(GlobalStor.global.isVoiceHelper) {
+                playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
+                //------- deactive size box in svg
+                //deselectAllDimension();
+                //-------- build new template
+                //rebuildSVGTemplate();
+              } else {
+                DesignStor.design.isMinSizeRestriction = 0;
+                DesignStor.design.isMaxSizeRestriction = 1;
+              }
+
+              //-------- if extra overall dimention
+              if(newLength > GlobalStor.global.maxSizeLimit) {
+                DesignStor.design.isDimExtra = 1;
+              }
+            }
+            //------- back previous size
+            d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
+            DesignStor.design.tempSize.length = 0;
+            deff.resolve(1);
+          }
+
+        } else {
+          DesignStor.design.isSquareExtra = 1;
+          //------- back previous size
+          d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
+          DesignStor.design.tempSize.length = 0;
+          deff.resolve(1);
+        }
+
+      } else {
+        //------ close size calculator and deselect All Dimension
+        hideSizeTools();
+        deff.resolve(1);
+      }
+      DesignStor.design.openVoiceHelper = 0;
+      DesignStor.design.loudVoice = 0;
+      DesignStor.design.quietVoice = 0;
+      //console.log('FINISH CACL');
+      if(prom) {
+        return deff.promise;
+      }
+    }
+
+
+
+
+
+
     /**--------------- GRIDs --------------*/
 
     function updateGrids() {
@@ -7447,56 +8077,6 @@ function ErrorResult(code, message) {
 
 
 
-    function setDefaultTemplate() {
-      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
-
-    }
-
-
-    //-------- Back to Template Panel
-    function backtoTemplatePanel() {
-      //------ cleaning DesignStor
-      DesignStor.design = DesignStor.setDefaultDesign();
-      //      delete DesignStor.design.templateSourceTEMP;
-      //      delete DesignStor.design.templateTEMP;
-      GlobalStor.global.activePanel = 0;
-      GlobalStor.global.isNavMenu = 0;
-      GlobalStor.global.isConfigMenu = 1;
-      $location.path('/main');
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**------- Save and Close Construction Page ----------*/
@@ -7559,7 +8139,8 @@ function ErrorResult(code, message) {
 
 
 
-    //--------- Cancel and Close Construction Page
+    /**--------- Cancel and Close Construction Page ------------*/
+
     function designCancel() {
       //------- close calculator if is opened
       hideSizeTools();
@@ -7629,7 +8210,29 @@ function ErrorResult(code, message) {
 
 
 
-    /**-------------- Edit Design --------------*/
+    /**================ Edit Design ==============*/
+
+
+    /**-------- ERROR ---------*/
+
+    function showErrorInBlock(blockID, svgSelector) {
+      var idSVG = svgSelector || globalConstants.SVG_ID_EDIT,
+          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
+          i = 1;
+      currGlass.classed('error_glass', true);
+      var interval = setInterval(function() {
+        if(i === 11) {
+          clearInterval(interval);
+        }
+        if(i%2) {
+          currGlass.classed('error_glass', false);
+        } else {
+          currGlass.classed('error_glass', true);
+        }
+        i+=1;
+      }, 50);
+    }
+
 
 
     function isExistElementInSelected(newElem, selectedArr) {
@@ -7691,7 +8294,31 @@ function ErrorResult(code, message) {
 
 
 
-
+    function showCurrentDimLevel(currDimId) {
+      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
+          dimQty = dim[0].length,
+          isXDim = 0, isYDim = 0;
+      //------- checking what kind of dimension X or Y direction
+      if(dimQty) {
+        while(--dimQty > -1) {
+          if(dim[0][dimQty].attributes.axis) {
+            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
+              isXDim += 1;
+            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
+              isYDim += 1;
+            }
+          }
+        }
+        //------- shifting overall dimensions is level0 is existed
+        if(isXDim) {
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
+        }
+        if(isYDim) {
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
+        }
+        dim.classed('dim_hidden', 0);
+      }
+    }
 
 
 
@@ -7795,32 +8422,6 @@ function ErrorResult(code, message) {
 
 
 
-    function showCurrentDimLevel(currDimId) {
-      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
-          dimQty = dim[0].length,
-          isXDim = 0, isYDim = 0;
-      //------- checking what kind of dimension X or Y direction
-      if(dimQty) {
-        while(--dimQty > -1) {
-          if(dim[0][dimQty].attributes.axis) {
-            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
-              isXDim += 1;
-            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
-              isYDim += 1;
-            }
-          }
-        }
-        //------- shifting overall dimensions is level0 is existed
-        if(isXDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
-        }
-        if(isYDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
-        }
-        dim.classed('dim_hidden', 0);
-      }
-    }
-
 
 
 
@@ -7893,23 +8494,99 @@ function ErrorResult(code, message) {
     /**++++++++++ Edit Sash +++++++++*/
 
 
-    function showErrorInBlock(blockID, svgSelector) {
-      var idSVG = svgSelector || globalConstants.SVG_ID_EDIT,
-          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
-          i = 1;
-      currGlass.classed('error_glass', true);
-      var interval = setInterval(function() {
-        if(i === 11) {
-          clearInterval(interval);
+    function sliceExtraPoints(points) {
+      var diff = 5,
+          pQty = points.length,
+          pQty2, difX, difY;
+      while(--pQty > -1) {
+        pQty2 = points.length;
+        while(--pQty2 > -1){
+          difX = Math.abs( points[pQty].x - points[pQty2].x);
+          difY = Math.abs( points[pQty].y - points[pQty2].y);
+          if(difX > 0 && difX < diff) {
+            if(difY > 0 && difY < diff) {
+              points.splice(pQty, 1);
+              break;
+            }
+          }
         }
-        if(i%2) {
-          currGlass.classed('error_glass', false);
-        } else {
-          currGlass.classed('error_glass', true);
-        }
-        i+=1;
-      }, 50);
+      }
     }
+
+
+
+    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType, isShtulp) {
+      var impPoint = {
+        type:'impost',
+        id:'ip'+curBlockN,
+        x: Math.round(coord.x),
+        y: Math.round(coord.y),
+        dir:'line',
+        dimType: dimType
+      };
+      //---------- for SHTULP
+      if(isShtulp) {
+        impPoint.type = 'shtulp';
+        impPoint.id = 'sht'+curBlockN;
+      }
+      //---- insert impostPoint in parent block
+      if(!blocks[blockIndex].impost) {
+        blocks[blockIndex].impost = {
+          impostAxis: [],
+          impostOut: [],
+          impostIn: []
+        };
+      }
+      blocks[blockIndex].impost.impostAxis.push(impPoint);
+    }
+
+
+    function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
+      var newBlock = {
+        type: 'skylight',
+        id: 'block_' + blockN,
+        level: blocks[blockIndex].level + 1,
+        blockType: 'frame',
+        parent: blocks[blockIndex].id,
+        children: [],
+        pointsOut: [],
+        pointsIn: [],
+        parts: [],
+        glassId: blocks[blockIndex].glassId,
+        glassTxt: blocks[blockIndex].glassTxt
+      };
+
+      //---------- for SHTULP
+      if(isShtulp) {
+        newBlock.blockType = 'sash';
+        angular.extend(newBlock, sashParams);
+      }
+
+      //---- add Id new block in parent block
+      blocks[blockIndex].children.push(newBlock.id);
+      //---- insert block in blocks
+      blocks.push(newBlock);
+    }
+
+
+    function removeAllChildrenBlock(blockID, blocks) {
+      var blocksQty = blocks.length, childQty;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === blockID) {
+          childQty = blocks[blocksQty].children.length;
+          if(childQty) {
+            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
+            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
+            blocks.splice(blocksQty, 1);
+          } else {
+            blocks.splice(blocksQty, 1);
+          }
+          break;
+        }
+      }
+
+    }
+
 
 
     /**----------- create SHTULP -----------*/
@@ -8066,9 +8743,6 @@ function ErrorResult(code, message) {
         }
       }
     }
-
-
-
 
 
 
@@ -8383,28 +9057,87 @@ function ErrorResult(code, message) {
     /**++++++++++ Edit Arc ++++++++*/
 
 
+    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
+      while(--pointsQty > -1) {
+        if(param) {
+          if(dir) {
+            points[pointsQty].x += shift;
+          } else {
+            points[pointsQty].x -= shift;
+          }
+        } else {
+          if(dir) {
+            points[pointsQty].y += shift;
+          } else {
+            points[pointsQty].y -= shift;
+          }
+        }
+      }
+    }
+
+
+    function shiftingAllPoints(dir, param, shift, blocks) {
+      var blocksQty = blocks.length, impostAxisQty;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].level) {
+          //------ pointsOut
+          if(blocks[blocksQty].pointsOut.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
+          }
+          //------ pointsIn
+          if(blocks[blocksQty].pointsIn.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
+          }
+          //------ impostAxis
+          if(blocks[blocksQty].impost) {
+            impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
+            if(impostAxisQty) {
+              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
+            }
+          }
+        }
+      }
+    }
+
+
+    function rebuildLinesOut(arc, blockIndex, blocks) {
+      var currLine,
+          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
+          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
+          linesOut = SVGServ.setLines(pointsOut),
+          linesQty = linesOut.length;
+      while(--linesQty > -1) {
+        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
+          currLine = linesOut[linesQty];
+        }
+      }
+      return currLine;
+    }
+
+
     function createArc(arcObj) {
-      var defer = $q.defer();
+      var defer = $q.defer(),
+          arc, arcN, blockID, blocks, blocksQty, blocksSource,
+          currBlockIndex, currLine, position, b, linesQty;
       if(!$.isEmptyObject(arcObj)) {
 
-        var arc = arcObj.__data__;
+        arc = arcObj.__data__;
 //        console.log('+++++++++++++ ARC +++++++++++++++++++++');
         //------ make changes only if element is frame, don't touch arc
         if (arc.type === 'frame') {
-          var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
-              blockID = arcObj.attributes.block_id.nodeValue,
-              blocks = angular.copy(DesignStor.design.templateTEMP.details),
-              blocksQty = blocks.length,
-              blocksSource = DesignStor.design.templateSourceTEMP.details,
-              currBlockIndex, currLine, position;
+          arcN = Number(arc.points[0].id.replace(/\D+/g, ""));
+          blockID = arcObj.attributes.block_id.nodeValue;
+          blocks = angular.copy(DesignStor.design.templateTEMP.details);
+          blocksQty = blocks.length;
+          blocksSource = DesignStor.design.templateSourceTEMP.details;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
           //------- find line and block in order to insert Q point
-          for (var b = 1; b < blocksQty; b++) {
+          for (b = 1; b < blocksQty; b+=1) {
             if (blocks[b].id === blockID) {
-              var linesQty = blocks[b].linesOut.length;
+              linesQty = blocks[b].linesOut.length;
               while (--linesQty > -1) {
                 if (blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
                   currBlockIndex = b;
@@ -8466,72 +9199,19 @@ function ErrorResult(code, message) {
     }
 
 
-    function shiftingAllPoints(dir, param, shift, blocks) {
-      var blocksQty = blocks.length;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].level) {
-          //------ pointsOut
-          if(blocks[blocksQty].pointsOut.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
-          }
-          //------ pointsIn
-          if(blocks[blocksQty].pointsIn.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
-          }
-          //------ impostAxis
-          if(blocks[blocksQty].impost) {
-            var impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
-            if(impostAxisQty) {
-              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
-            }
-          }
-        }
-      }
-    }
-
-    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
-      while(--pointsQty > -1) {
-        if(param) {
-          if(dir) {
-            points[pointsQty].x += shift;
-          } else {
-            points[pointsQty].x -= shift;
-          }
-        } else {
-          if(dir) {
-            points[pointsQty].y += shift;
-          } else {
-            points[pointsQty].y -= shift;
-          }
-        }
-      }
-    }
-
-    function rebuildLinesOut(arc, blockIndex, blocks) {
-      var currLine,
-          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
-          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
-          linesOut = SVGServ.setLines(pointsOut),
-          linesQty = linesOut.length;
-      while(--linesQty > -1) {
-        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
-          currLine = linesOut[linesQty];
-        }
-      }
-      return currLine;
-    }
 
 
 
     function deleteArc(arcObj) {
-      var defer = $q.defer();
+      var defer = $q.defer(),
+          arc, arcID, blockID, blocksSource;
       if(!$.isEmptyObject(arcObj)) {
-        var arc = arcObj.__data__;
+        arc = arcObj.__data__;
 //console.log('DELET ARC+++++++',arc);
         if (arc.type === 'arc') {
-          var arcID = arc.points[1].id,
-              blockID = arcObj.attributes.block_id.nodeValue,
-              blocksSource = DesignStor.design.templateSourceTEMP.details;
+          arcID = arc.points[1].id;
+          blockID = arcObj.attributes.block_id.nodeValue;
+          blocksSource = DesignStor.design.templateSourceTEMP.details;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -8580,7 +9260,7 @@ function ErrorResult(code, message) {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1)
+              }, 1);
             }
           });
         } else {
@@ -8588,7 +9268,7 @@ function ErrorResult(code, message) {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1)
+              }, 1);
             }
           });
         }
@@ -8599,7 +9279,142 @@ function ErrorResult(code, message) {
 
 
 
-    //++++++++++ Edit Imposts ++++++++//
+    /**++++++++++ Edit Imposts ++++++++*/
+
+
+    function getLastBlockNumber(blocks) {
+      var blocksQty = blocks.length,
+          blockN = 0, tempN;
+      while(--blocksQty > 0) {
+        tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
+        if(tempN > blockN) {
+          blockN = tempN;
+        }
+      }
+      return blockN;
+    }
+
+
+
+    function checkImpPointInCorner(linePoint, impPoint) {
+      var noMatch = 1,
+          limit = 40,
+          xDiff = impPoint.x - linePoint.x,
+          yDiff = impPoint.y - linePoint.y;
+      if(xDiff > 0 && xDiff < limit) {
+        if(yDiff > 0 && yDiff < limit) {
+          noMatch = 0;
+        }
+      }
+      return noMatch;
+    }
+
+
+
+    function getImpostCrossPointInBlock(vector, lines) {
+      var impPoints = [],
+          linesQty = lines.length,
+          l, coord, checkPoint, isCross, noExist, noInCorner1, noInCorner2;
+      for(l = 0; l < linesQty; l+=1) {
+        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
+        if(coord.x >= 0 && coord.y >= 0) {
+          //------ checking is cross point inner of line
+          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+          isCross = SVGServ.isInsidePointInLine(checkPoint);
+          if(isCross) {
+            //---- checking dublicats
+            noExist = SVGServ.checkEqualPoints(coord, impPoints);
+            if(noExist) {
+
+              //----------- avoid insert impost in corner
+              noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+              if(noInCorner1) {
+                noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+                if(noInCorner2) {
+                  //                  console.log('IMp++++++++++ line', lines[l]);
+                  //                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
+                  impPoints.push(coord);
+                }
+              }
+            }
+          }
+        }
+      }
+      return impPoints;
+    }
+
+
+
+
+    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
+      var impQPoint = {
+        blockId: blocks[blockIndex].id,
+        dir:'curv',
+        id: 'qi'+curBlockN,
+        heightQ: dist,
+        positionQ: position
+      };
+      blocks[blockIndex].impost.impostAxis.push(impQPoint);
+    }
+
+
+
+
+    function getRadiusMaxImpostCurv(position, impVector, linesIn, points) {
+      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn),
+          impLine, impRadius, pointsIn, pointsQty, currPoints,
+          currBlockCenter, distCenterToImpost,
+          coordQ, posQ, posP, radiusMax;
+
+      //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
+      if(crossPointsIn.length === 2) {
+        impLine = {
+          from: crossPointsIn[0],
+          to: crossPointsIn[1]
+        };
+        //impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) );
+        impRadius = GeneralServ.roundingValue( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2), 1 );
+        pointsIn = angular.copy(points);
+        pointsQty = pointsIn.length;
+        currPoints = [];
+
+
+        SVGServ.setLineCoef(impLine);
+        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
+        //------ if impost vert or hor
+        if (!impLine.coefA && position === 1) {
+          coordQ.y -= impRadius * 2;
+        } else if (!impLine.coefB && position === 4) {
+          coordQ.x -= impRadius * 2;
+        }
+        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
+        while (--pointsQty > -1) {
+          posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
+          if (posP > 0 && posQ > 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          } else if (posP < 0 && posQ < 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          }
+        }
+        currPoints.push(impLine.from, impLine.to);
+        //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
+        currBlockCenter = SVGServ.centerBlock(currPoints);
+        //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
+        //        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
+        //      console.log('IMP -------------',impRadius, distCenterToImpost);
+        if (impRadius < distCenterToImpost) {
+          radiusMax = impRadius / 2;
+        } else {
+          radiusMax = distCenterToImpost / 2;
+        }
+        return radiusMax;
+      }
+    }
+
+
 
 
     function createImpost(impType, glassObj) {
@@ -8609,8 +9424,9 @@ function ErrorResult(code, message) {
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
-
+          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd,
+          curBlockN, lastBlockN, impVector, crossPoints,
+          b, impPointsQty;
 
       if(minGlassSize >= globalConstants.minSizeLimit && glass.square >= globalConstants.squareLimit) {
 //      if(glass.square >= globalConstants.squareLimit) {
@@ -8697,7 +9513,7 @@ function ErrorResult(code, message) {
             break;
         }
         //------- find lines as to current block
-        for (var b = 1; b < blocksQty; b++) {
+        for (b = 1; b < blocksQty; b+=1) {
           if (blocks[b].id === blockID) {
             currBlockInd = b;
             curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
@@ -8712,13 +9528,13 @@ function ErrorResult(code, message) {
           sliceExtraPoints(crossPoints);
         }
 
-        var impPointsQty = crossPoints.length;
+        impPointsQty = crossPoints.length;
         if (impPointsQty === 2) {
 
           while (--impPointsQty > -1) {
 //            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
             createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType);
-            createChildBlock(++lastBlockN, currBlockInd, blocksSource);
+            createChildBlock(lastBlockN+=1, currBlockInd, blocksSource);
           }
           //------- if impost is curve
           if (isImpCurv) {
@@ -8738,210 +9554,6 @@ function ErrorResult(code, message) {
         //------ show error
         showErrorInBlock(blockID);
       }
-    }
-
-
-
-
-    function getLastBlockNumber(blocks) {
-      var blocksQty = blocks.length,
-          blockN = 0;
-      while(--blocksQty > 0) {
-        var tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
-        if(tempN > blockN) {
-          blockN = tempN;
-        }
-      }
-      return blockN;
-    }
-
-
-    function getImpostCrossPointInBlock(vector, lines) {
-      var impPoints = [],
-          linesQty = lines.length;
-      for(var l = 0; l < linesQty; l++) {
-        var coord, checkPoint;
-        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
-        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
-        if(coord.x >= 0 && coord.y >= 0) {
-          //------ checking is cross point inner of line
-          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
-          var isCross = SVGServ.isInsidePointInLine(checkPoint);
-          if(isCross) {
-            //---- checking dublicats
-            var noExist = SVGServ.checkEqualPoints(coord, impPoints);
-            if(noExist) {
-
-              //----------- avoid insert impost in corner
-              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
-              if(noInCorner1) {
-                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
-                if(noInCorner2) {
-//                  console.log('IMp++++++++++ line', lines[l]);
-//                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
-                  impPoints.push(coord);
-                }
-              }
-            }
-          }
-        }
-      }
-      return impPoints;
-    }
-
-
-
-    function sliceExtraPoints(points) {
-      var diff = 5,
-          pQty = points.length;
-      while(--pQty > -1) {
-        var pQty2 = points.length;
-        while(--pQty2 > -1){
-          var difX = Math.abs( points[pQty].x - points[pQty2].x),
-              difY = Math.abs( points[pQty].y - points[pQty2].y);
-          if(difX > 0 && difX < diff) {
-            if(difY > 0 && difY < diff) {
-              points.splice(pQty, 1);
-              break;
-            }
-          }
-        }
-      }
-    }
-
-
-
-    function checkImpPointInCorner(linePoint, impPoint) {
-      var noMatch = 1,
-          limit = 40,
-          xDiff = impPoint.x - linePoint.x,
-          yDiff = impPoint.y - linePoint.y;
-
-      if(xDiff > 0 && xDiff < limit) {
-        if(yDiff > 0 && yDiff < limit) {
-          noMatch = 0;
-        }
-      }
-      return noMatch;
-    }
-
-
-    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType, isShtulp) {
-      var impPoint = {
-        type:'impost',
-        id:'ip'+curBlockN,
-        x: Math.round(coord.x),
-        y: Math.round(coord.y),
-        dir:'line',
-        dimType: dimType
-      };
-      //---------- for SHTULP
-      if(isShtulp) {
-        impPoint.type = 'shtulp';
-        impPoint.id = 'sht'+curBlockN;
-      }
-      //---- insert impostPoint in parent block
-      if(!blocks[blockIndex].impost) {
-        blocks[blockIndex].impost = {
-          impostAxis: [],
-          impostOut: [],
-          impostIn: []
-        };
-      }
-      blocks[blockIndex].impost.impostAxis.push(impPoint);
-    }
-
-
-    function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
-      var newBlock = {
-        type: 'skylight',
-        id: 'block_' + blockN,
-        level: blocks[blockIndex].level + 1,
-        blockType: 'frame',
-        parent: blocks[blockIndex].id,
-        children: [],
-        pointsOut: [],
-        pointsIn: [],
-        parts: [],
-        glassId: blocks[blockIndex].glassId,
-        glassTxt: blocks[blockIndex].glassTxt
-      };
-
-      //---------- for SHTULP
-      if(isShtulp) {
-        newBlock.blockType = 'sash';
-        angular.extend(newBlock, sashParams);
-      }
-
-      //---- add Id new block in parent block
-      blocks[blockIndex].children.push(newBlock.id);
-      //---- insert block in blocks
-      blocks.push(newBlock);
-    }
-
-
-    function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsIn) {
-//      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
-
-      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
-//      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
-      if(crossPointsIn.length === 2) {
-        var impLine = {
-              from: crossPointsIn[0],
-              to: crossPointsIn[1]
-            },
-            //impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
-            impRadius = GeneralServ.roundingValue( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2), 1 ),
-            pointsIn = angular.copy(pointsIn),
-            pointsQty = pointsIn.length,
-            currPoints = [],
-            currBlockCenter,
-            distCenterToImpost,
-            coordQ, posQ;
-
-        SVGServ.setLineCoef(impLine);
-        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
-        //------ if impost vert or hor
-        if (!impLine.coefA && position === 1) {
-          coordQ.y -= impRadius * 2;
-        } else if (!impLine.coefB && position === 4) {
-          coordQ.x -= impRadius * 2;
-        }
-        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
-        while (--pointsQty > -1) {
-          var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
-          if (posP > 0 && posQ > 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          } else if (posP < 0 && posQ < 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          }
-        }
-        currPoints.push(impLine.from, impLine.to);
-//        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
-        currBlockCenter = SVGServ.centerBlock(currPoints);
-//        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-//        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
-        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
-//      console.log('IMP -------------',impRadius, distCenterToImpost);
-        if (impRadius < distCenterToImpost) {
-          return impRadius / 2;
-        } else {
-          return distCenterToImpost / 2;
-        }
-      }
-    }
-
-
-    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
-      var impQPoint = {
-        blockId: blocks[blockIndex].id,
-        dir:'curv',
-        id: 'qi'+curBlockN,
-        heightQ: dist,
-        positionQ: position
-      };
-      blocks[blockIndex].impost.impostAxis.push(impQPoint);
     }
 
 
@@ -8973,95 +9585,13 @@ function ErrorResult(code, message) {
     }
 
 
-    function removeAllChildrenBlock(blockID, blocks) {
-      var blocksQty = blocks.length;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].id === blockID) {
-          var childQty = blocks[blocksQty].children.length;
-          if(childQty) {
-            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
-            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
-            blocks.splice(blocksQty, 1);
-          } else {
-            blocks.splice(blocksQty, 1);
-          }
-          break;
-        }
-      }
 
-    }
 
 
 
 
 
     /**++++++++++ Create Mirror ++++++++*/
-
-
-    function initMirror() {
-      var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length,
-          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
-          maxX = d3.max(points, function(d) { return d.x; });
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
-
-      for(var b = 1; b < blocksQty; b++) {
-        if(blocks[b].level === 1) {
-          changeChildrenIdChildren(b, blocksQty, blocks);
-        }
-      }
-//      console.log('mirror blocks_________', blocks);
-      rebuildSVGTemplate();
-      $timeout(function() {
-        DesignStor.design.activeMenuItem = 0;
-      }, 500);
-    }
-
-
-    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
-      for(var b = 1; b < blocksQty; b++) {
-        if(blocks[b].level && blocks[b].pointsQ) {
-          var pqQty = blocks[b].pointsQ.length;
-          if(pqQty) {
-            while(--pqQty > -1) {
-              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
-                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
-              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
-                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
-              }
-            }
-          }
-        }
-        if(blocks[b].impost) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
-          //------- if impost curve - change Q
-          if(blocks[b].impost.impostAxis[2]) {
-            var tempLine = {
-              from: blocks[b].impost.impostAxis[0],
-              to: blocks[b].impost.impostAxis[1]
-            };
-            SVGServ.setLineCoef(tempLine);
-            //--------- if horizontal or vertical
-            if(!tempLine.coefA || !tempLine.coefB) {
-              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
-            } else {
-              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
-            }
-          }
-        }
-        if(blocks[b].pointsOut.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
-        }
-        if(blocks[b].pointsIn.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
-        }
-
-      }
-    }
 
 
     function setNewCoordPointsAsMirror(maxX, points) {
@@ -9102,13 +9632,59 @@ function ErrorResult(code, message) {
     }
 
 
+
+
+    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
+      var b, pqQty, tempLine;
+      for(b = 1; b < blocksQty; b+=1) {
+        if(blocks[b].level && blocks[b].pointsQ) {
+          pqQty = blocks[b].pointsQ.length;
+          if(pqQty) {
+            while(--pqQty > -1) {
+              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
+                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
+              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
+                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
+              }
+            }
+          }
+        }
+        if(blocks[b].impost) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
+          //------- if impost curve - change Q
+          if(blocks[b].impost.impostAxis[2]) {
+            tempLine = {
+              from: blocks[b].impost.impostAxis[0],
+              to: blocks[b].impost.impostAxis[1]
+            };
+            SVGServ.setLineCoef(tempLine);
+            //--------- if horizontal or vertical
+            if(!tempLine.coefA || !tempLine.coefB) {
+              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
+            } else {
+              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
+            }
+          }
+        }
+        if(blocks[b].pointsOut.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
+        }
+        if(blocks[b].pointsIn.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
+        }
+
+      }
+    }
+
+
+
     function changeChildrenIdChildren(indexBlock, blocksQty, blocks) {
-      var childQty = blocks[indexBlock].children.length;
+      var childQty = blocks[indexBlock].children.length, lastChildId, b;
       if(childQty) {
         //------- change Id place of children
-        var lastChildId = blocks[indexBlock].children.pop();
+        lastChildId = blocks[indexBlock].children.pop();
         blocks[indexBlock].children.unshift(lastChildId);
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === blocks[indexBlock].children[0] || blocks[b].id === blocks[indexBlock].children[1]) {
             //----- change children
             changeChildrenIdChildren(b, blocksQty, blocks);
@@ -9120,7 +9696,61 @@ function ErrorResult(code, message) {
 
 
 
+
+
+    function initMirror() {
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocks.length,
+          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
+          maxX = d3.max(points, function(d) { return d.x; }), b;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
+
+      for(b = 1; b < blocksQty; b+=1) {
+        if(blocks[b].level === 1) {
+          changeChildrenIdChildren(b, blocksQty, blocks);
+        }
+      }
+      //      console.log('mirror blocks_________', blocks);
+      rebuildSVGTemplate();
+      $timeout(function() {
+        DesignStor.design.activeMenuItem = 0;
+      }, 500);
+    }
+
+
+
+
+
+
     /**++++++++++ Set Position by Axises ++++++++*/
+
+
+    function isPointInsideBlock(pointsOut, pointX, pointY) {
+      var newP = {
+            x: pointX,
+            y: pointY
+          },
+          isInside = 0,
+          tempInside = 0,
+          pointsOutQty = pointsOut.length,
+          p;
+      for(p = 0; p < pointsOutQty; p+=1) {
+        if(pointsOut[p+1]) {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
+        } else {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
+        }
+        if(tempInside > 0) {
+          isInside = tempInside;
+          break;
+        }
+      }
+      return isInside;
+    }
 
 
     function positionAxises() {
@@ -9138,7 +9768,7 @@ function ErrorResult(code, message) {
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //----- find dimensions of block Level 1
-      for(b = 1; b < blocksQty; b++) {
+      for(b = 1; b < blocksQty; b+=1) {
         if(blocksSource[b].level === 1) {
           parentBlocs.push(blocksSource[b].pointsOut.map(function(point) {
             return point.x;
@@ -9148,13 +9778,13 @@ function ErrorResult(code, message) {
       //console.info('impost parent----', parentBlocs);
       //----- find vertical imosts
       parentBlocsQty = parentBlocs.length;
-      for(p = 0; p < parentBlocsQty; p++) {
+      for(p = 0; p < parentBlocsQty; p+=1) {
         impostInd = [];
         parentSizeMin = d3.min(parentBlocs[p]);
         parentSizeMax = d3.max(parentBlocs[p]);
 
         //console.log('max/min', parentSizeMin, parentSizeMax);
-        for(b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocksSource[b].impost) {
             if(blocksSource[b].impost.impostAxis) {
               //----- if impost vertical
@@ -9174,7 +9804,7 @@ function ErrorResult(code, message) {
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
-        for(i = 0; i < impostIndQty; i++) {
+        for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
             newX = (parentSizeMin + step);
@@ -9199,33 +9829,67 @@ function ErrorResult(code, message) {
 
 
 
-    function isPointInsideBlock(pointsOut, pointX, pointY) {
-      var newP = {
-            x: pointX,
-            y: pointY
-          },
-          isInside = 0,
-          tempInside = 0,
-          pointsOutQty = pointsOut.length,
-          p = 0;
-      for(; p < pointsOutQty; p++) {
-        if(pointsOut[p+1]) {
-          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
-        } else {
-          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
-        }
-        if(tempInside > 0) {
-          isInside = tempInside;
-          break;
-        }
-      }
-      return isInside;
-    }
+
 
 
 
 
     /**++++++++++ Set Position by Glass Width ++++++++*/
+
+
+    function prepareBlockXPosition(currBlock, selectedBlocks) {
+      var selectedBlock = {imps: []},
+          impostPoints = currBlock.pointsOut.filter(function(point) {
+            return point.type === 'impost' || point.type === 'shtulp';
+          }),
+          impostPointsQty = impostPoints.length,
+          isParall, isCouple, isExist, impsQty, glassXArr,
+          i, j;
+
+      for(i = 0; i < impostPointsQty; i+=1) {
+        isParall = 0;
+        isCouple = 0;
+        for(j = 0; j < impostPointsQty; j+=1) {
+          if(i !== j) {
+            if(impostPoints[j].id === impostPoints[i].id) {
+              isCouple = 1;
+              if(impostPoints[j].x === impostPoints[i].x) {
+                isParall = 1;
+              }
+            }
+          }
+        }
+        //------ if only one point of impost, deselect this block
+        if(isCouple) {
+          if(isParall) {
+            isExist = 1;
+            impsQty = selectedBlock.imps.length;
+            //------ seek dublicate
+            while(--impsQty > -1) {
+              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
+                isExist = 0;
+              }
+            }
+            if(isExist) {
+              selectedBlock.imps.push(impostPoints[i]);
+            }
+          }
+        } else {
+          break;
+        }
+      }
+
+      if(selectedBlock.imps.length) {
+        glassXArr = currBlock.glassPoints.map(function(item){
+          return item.x;
+        });
+        selectedBlock.minX = d3.min(glassXArr);
+        selectedBlock.maxX = d3.max(glassXArr);
+        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
+        selectedBlocks.push(selectedBlock);
+      }
+    }
+
 
 
     function positionGlasses() {
@@ -9247,10 +9911,10 @@ function ErrorResult(code, message) {
 
       //------- if is exist selected glasses
       if(selectedGlassQty) {
-        for(g = 0; g < selectedGlassQty; g++) {
+        for(g = 0; g < selectedGlassQty; g+=1) {
           blockID = DesignStor.design.selectedGlass[g].attributes.block_id.nodeValue;
           //----- find this block among all blocks
-          for(b = 1; b < blocksQty; b++) {
+          for(b = 1; b < blocksQty; b+=1) {
             if(blocks[b].id === blockID) {
               prepareBlockXPosition(blocks[b], selectedBlocks);
             }
@@ -9259,7 +9923,7 @@ function ErrorResult(code, message) {
       } else {
         //-------- working with all glass
         //----- collect blocks with parallele imposts
-        for(b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           //----- take block only with glass
           if(!blocks[b].children.length && blocks[b].glassPoints) {
             prepareBlockXPosition(blocks[b], selectedBlocks);
@@ -9284,8 +9948,8 @@ function ErrorResult(code, message) {
         impQty1 = selectedBlocks[0].imps.length;
         impQty2 = selectedBlocks[1].imps.length;
         isImpClone = 0;
-        circle1: for(imp1 = 0; imp1 < impQty1; imp1++) {
-          for(imp2 = 0; imp2 < impQty2; imp2++) {
+        circle1: for(imp1 = 0; imp1 < impQty1; imp1+=1) {
+          for(imp2 = 0; imp2 < impQty2; imp2+=1) {
             if(selectedBlocks[1].imps[imp2].id === selectedBlocks[0].imps[imp1].id) {
               isImpClone = selectedBlocks[1].imps[imp2].id;
               break circle1;
@@ -9294,12 +9958,12 @@ function ErrorResult(code, message) {
         }
       }
 
-      for(sb = 0; sb < selectedBlocksQty; sb++) {
+      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
         impsSBQty = selectedBlocks[sb].imps.length;
         step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
         //console.info('step----', selectedBlocks[sb]);
         //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
-        for(isb = 0; isb < impsSBQty; isb++) {
+        for(isb = 0; isb < impsSBQty; isb+=1) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             isAprove = 0;
             if(selectedBlocksQty === 2) {
@@ -9317,10 +9981,10 @@ function ErrorResult(code, message) {
               selectedBlocks[sb].imps[isb].x += step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks
-              for (sb2 = 0; sb2 < selectedBlocksQty; sb2++) {
+              for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
                 if (isb !== sb2) {
                   impsSBQty2 = selectedBlocks[sb2].imps.length;
-                  for (isb2 = 0; isb2 < impsSBQty2; isb2++) {
+                  for (isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
                     if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
                       selectedBlocks[sb2].imps[isb2].isChanged = 1;
                       selectedBlocks[sb2].width -= step;
@@ -9334,17 +9998,17 @@ function ErrorResult(code, message) {
       }
       //console.warn('FINISH----', selectedBlocks);
       //------- change imposts X in blockSource
-      for(sb = 0; sb < selectedBlocksQty; sb++) {
+      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
         impsSBQty = selectedBlocks[sb].imps.length;
-        for(isb = 0; isb < impsSBQty; isb++) {
+        for(isb = 0; isb < impsSBQty; isb+=1) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             impostN = Number(selectedBlocks[sb].imps[isb].id.replace(/\D+/g, ""));
-            for(p = 1; p < blocksQty; p++) {
+            for(p = 1; p < blocksQty; p+=1) {
               blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
               if(blockN === impostN) {
                 if(blocksSource[p].impost) {
-                  blocksSource[p].impost.impostAxis[0].x = selectedBlocks[sb].imps[isb].x*1;
-                  blocksSource[p].impost.impostAxis[1].x = selectedBlocks[sb].imps[isb].x*1;
+                  blocksSource[p].impost.impostAxis[0].x = +selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[1].x = +selectedBlocks[sb].imps[isb].x;
                 }
               }
             }
@@ -9358,57 +10022,6 @@ function ErrorResult(code, message) {
 
 
 
-    function prepareBlockXPosition(currBlock, selectedBlocks) {
-      var selectedBlock = {imps: []},
-          impostPoints = currBlock.pointsOut.filter(function(point) {
-            return point.type === 'impost' || point.type === 'shtulp';
-          }),
-          impostPointsQty = impostPoints.length,
-          isParall, isCouple, isExist, impsQty, glassXArr,
-          i = 0, j;
-
-      for(; i < impostPointsQty; i++) {
-        isParall = 0;
-        isCouple = 0;
-        for(j = 0; j < impostPointsQty; j++) {
-          if(i !== j) {
-            if(impostPoints[j].id === impostPoints[i].id) {
-              isCouple = 1;
-              if(impostPoints[j].x === impostPoints[i].x) {
-                isParall = 1
-              }
-            }
-          }
-        }
-        //------ if only one point of impost, deselect this block
-        if(!isCouple) {
-          break;
-        } else {
-          if(isParall) {
-            isExist = 1;
-            impsQty = selectedBlock.imps.length;
-            //------ seek dublicate
-            while(--impsQty > -1) {
-              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
-                isExist = 0
-              }
-            }
-            if(isExist) {
-              selectedBlock.imps.push(impostPoints[i]);
-            }
-          }
-        }
-      }
-
-      if(selectedBlock.imps.length) {
-        glassXArr = currBlock.glassPoints.map(function(item){return item.x});
-        selectedBlock.minX = d3.min(glassXArr);
-        selectedBlock.maxX = d3.max(glassXArr);
-        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
-        selectedBlocks.push(selectedBlock);
-      }
-    }
-
 
 
 
@@ -9418,101 +10031,73 @@ function ErrorResult(code, message) {
     /**=============== CHANGE CONSTRUCTION SIZE ==============*/
 
 
-    //------- set click to all Dimensions
-    function initAllDimension() {
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          var size = d3.select(this);
-          size.on(clickEvent, function() {
-            var sizeRect = size.select('.size-rect'),
-                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
-            if(DesignStor.design.tempSize.length) {
-              /** save new Size when click another size */
-              closeSizeCaclulator();
-              cleanTempSize();
-            } else {
-              if (isActive) {
-                hideSizeTools();
-              } else {
-                deselectAllDimension();
-                sizeRect.classed('active', true);
-                var dim = size.select('.size-txt-edit');
-                dim.classed('active', true);
-                DesignStor.design.oldSize = dim[0][0];
-                DesignStor.design.prevSize = dim[0][0].textContent;
-                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                //------- show caclulator or voice helper
-                if (GlobalStor.global.isVoiceHelper) {
-                  DesignStor.design.openVoiceHelper = 1;
-                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-                } else {
-                  GlobalStor.global.isSizeCalculator = 1;
-                  DesignStor.design.isMinSizeRestriction = 0;
-                  DesignStor.design.isMaxSizeRestriction = 0;
-                  DesignStor.design.isDimExtra = 0;
-                  DesignStor.design.isSquareExtra = 0;
-                }
-              }
-              $rootScope.$apply();
-            }
-          });
-        });
+    /**=============== Size Calculator ==============*/
 
-      /** switch on keyboard */
-      d3.select(window)
-        .on('keydown', function() {
-          if(GlobalStor.global.isSizeCalculator) {
-            pressCulculator(d3.event);
-          }
-        });
+
+    //------ Change size on SVG
+    function changeSize() {
+      var newSizeString = DesignStor.design.tempSize.join('');
+      d3.select(DesignStor.design.oldSize).text(newSizeString);
+      if(GlobalStor.global.isVoiceHelper) {
+        closeSizeCaclulator();
+      }
     }
 
 
+    //------ Delete last number from calculator
+    function deleteLastNumber() {
+      DesignStor.design.tempSize.pop();
+      if(DesignStor.design.tempSize.length < 1) {
+        DesignStor.design.tempSize.push(0);
+      }
+      changeSize();
+    }
 
 
+    //-------- Get number from calculator
+    function setValueSize(newValue) {
+      var sizeLength = DesignStor.design.tempSize.length,
+          tempVal;
+      //console.log('take new value = ', newValue);
+      if(GlobalStor.global.isVoiceHelper) {
 
-    function doneRecognition(value) {
-      //console.log("полученные данные", value);
-      //console.log("тип полученных данных", typeof value);
-      DesignStor.design.voiceTxt = value;
-      $rootScope.$apply();
-      $timeout(function() {
-        var intValue = parseStringToDimension(value);
-        //console.log("данные после парса", intValue);
-        //console.log("тип полученных данных", typeof intValue);
-        if (intValue === "NaN") {
-          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
+        tempVal = parseInt(newValue, 10);
+        //console.log('tempVal=====', tempVal);
+        DesignStor.design.voiceTxt = '';
+        DesignStor.design.openVoiceHelper = false;
+
+        if ((tempVal > 0) && (tempVal < 10000)) {
+          DesignStor.design.tempSize = ("" + tempVal).split('');
+          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+          changeSize();
         }
-        playTTS(intValue);
-        setValueSize(intValue);
-        $rootScope.$apply();
-      }, 1000)
-    }
-
-
-
-    //---------- define voice force
-    function recognitionProgress(value) {
-      if (value > 100) {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = true;
-        DesignStor.design.quietVoice = false;
+        deselectAllDimension();
 
       } else {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = false;
-        DesignStor.design.quietVoice = true;
+        //---- clear array from 0 after delete all number in array
+        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
+          DesignStor.design.tempSize.length = 0;
+        }
+        if (newValue === '0') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            DesignStor.design.tempSize.push(newValue);
+            changeSize();
+          }
+        } else if(newValue === '00') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            if (sizeLength < 3) {
+              DesignStor.design.tempSize.push(0, 0);
+            } else if (sizeLength === 3) {
+              DesignStor.design.tempSize.push(0);
+            }
+            changeSize();
+          }
+        } else {
+          DesignStor.design.tempSize.push(newValue);
+          changeSize();
+        }
       }
-      $rootScope.$apply();
     }
-
-
-
-
-
-
-    /**=============== Size Calculator ==============*/
 
 
     function pressCulculator(keyEvent) {
@@ -9574,332 +10159,96 @@ function ErrorResult(code, message) {
     }
 
 
-    //-------- Get number from calculator
-    function setValueSize(newValue) {
-      var sizeLength = DesignStor.design.tempSize.length;
-      //console.log('take new value = ', newValue);
-      if(GlobalStor.global.isVoiceHelper) {
 
-        var tempVal = parseInt(newValue, 10);
-        //console.log('tempVal=====', tempVal);
-        DesignStor.design.voiceTxt = '';
-        DesignStor.design.openVoiceHelper = false;
 
-        if ((tempVal > 0) && (tempVal < 10000)) {
-          DesignStor.design.tempSize = ("" + tempVal).split('');
-          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
-          changeSize();
+
+    function doneRecognition(value) {
+      //console.log("полученные данные", value);
+      //console.log("тип полученных данных", typeof value);
+      DesignStor.design.voiceTxt = value;
+      $rootScope.$apply();
+      $timeout(function() {
+        var intValue = parseStringToDimension(value);
+        //console.log("данные после парса", intValue);
+        //console.log("тип полученных данных", typeof intValue);
+        if (intValue === "NaN") {
+          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
         }
-        deselectAllDimension();
+        playTTS(intValue);
+        setValueSize(intValue);
+        $rootScope.$apply();
+      }, 1000);
+    }
+
+
+
+    //---------- define voice force
+    function recognitionProgress(value) {
+      if (value > 100) {
+        //console.log('value', value);
+        DesignStor.design.loudVoice = 1;
+        DesignStor.design.quietVoice = 0;
 
       } else {
-        //---- clear array from 0 after delete all number in array
-        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (newValue === '0') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            DesignStor.design.tempSize.push(newValue);
-            changeSize();
-          }
-        } else if(newValue === '00') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            if (sizeLength < 3) {
-              DesignStor.design.tempSize.push(0, 0);
-            } else if (sizeLength === 3) {
-              DesignStor.design.tempSize.push(0);
-            }
-            changeSize();
-          }
-        } else {
-          DesignStor.design.tempSize.push(newValue);
-          changeSize();
-        }
+        //console.log('value', value);
+        DesignStor.design.loudVoice = 0;
+        DesignStor.design.quietVoice = 1;
       }
+      $rootScope.$apply();
     }
 
 
 
-    //------ Delete last number from calculator
-    function deleteLastNumber() {
-      DesignStor.design.tempSize.pop();
-      if(DesignStor.design.tempSize.length < 1) {
-        DesignStor.design.tempSize.push(0);
-      }
-      changeSize();
-    }
-
-
-
-
-    //------ Change size on SVG
-    function changeSize() {
-      var newSizeString = DesignStor.design.tempSize.join('');
-      d3.select(DesignStor.design.oldSize).text(newSizeString);
-      if(GlobalStor.global.isVoiceHelper) {
-        closeSizeCaclulator();
-      }
-    }
-
-
-
-
-    /**----------- Close Size Calculator -----------*/
-
-    function cleanTempSize() {
-      DesignStor.design.tempSize.length = 0;
-      DesignStor.design.isMinSizeRestriction = 0;
-      DesignStor.design.isMaxSizeRestriction = 0;
-      DesignStor.design.isDimExtra = 0;
-      DesignStor.design.isSquareExtra = 0;
-    }
-
-
-    function culcHeightQByRadiusCurve(lineLength, radius) {
-      //return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
-      return GeneralServ.roundingValue( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)), 1);
-    }
-
-
-    function addNewSizeInTemplate(newLength) {
-
-      //-------- change point coordinates in templateSource
-      var blocks = DesignStor.design.templateSourceTEMP.details,
-          //blocksOLD = DesignStor.design.templateTEMP.details,
-          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
-          curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
-          dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
-
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      //          console.log('SIZE ````````curBlockId````````', curBlockId);
-      //          console.log('SIZE ````````curDimType````````', curDimType);
-      //          console.log('SIZE ````````dimId````````', dimId);
-
-
-      if(curDimType === 'curve') {
-        //============ changing Radius
-
-        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
-
-        mainFor: for (b = 1; b < blocksQty; b+=1) {
-          if(blocks[b].id === curBlockId) {
-            //-------- search in PointsQ
-            if(blocks[b].pointsQ) {
-              pointsQQty = blocks[b].pointsQ.length;
-              while(--pointsQQty > -1) {
-                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                  blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
-                  break mainFor;
-                }
-              }
-            }
-            //-------- search in Imposts
-            if(blocks[b].impost) {
-              if(blocks[b].impost.impostAxis[2].id === dimId) {
-                blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
-                break mainFor;
-              }
-            }
-
-          }
-        }
-
-      } else if(dimId.indexOf('qa')+1) {
-        //========== changing Arc Height
-
-        for(b = 1; b < blocksQty; b+=1) {
-          if(blocks[b].level === 1) {
-            pointsQQty = blocks[b].pointsQ.length;
-            if(pointsQQty) {
-              while(--pointsQQty > -1) {
-                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                  blocks[b].pointsQ[pointsQQty].heightQ = newLength;
-                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
-                }
-              }
-            }
-          }
-        }
-
-      } else {
-        //            console.log('SIZE ````````newLength````````', newLength);
-        //            console.log('SIZE ````````startSize````````', startSize);
-        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-        //            console.log('SIZE ````````axis````````', axis);
-
-        //========== changing Line dimension
-        for(b = 1; b < blocksQty; b+=1) {
-          var pointsOutQty = blocks[b].pointsOut.length;
-          if(pointsOutQty) {
-            while(--pointsOutQty > -1) {
-              if(axis === 'x') {
-                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
-                }
-              } else if(axis === 'y') {
-                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
-                }
-              }
-            }
-          }
-          if(blocks[b].impost) {
-            for(i = 0; i < 2; i+=1) {
-              if(axis === 'x') {
-                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
-                }
-              } else if (axis === 'y') {
-                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
-                }
-              }
-            }
-          }
-        }
-
-      }
-    }
-
-
-    /**---------- add new size in parent block in order to recalculate overall square -----------*/
-
-    function rebuildPointsOut(newLength) {
-      var blocks = DesignStor.design.templateTEMP.details,
-          blocksQty = blocks.length,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          newPointsOut, b, pointsOutQty, isRealBlock;
-
-      for(b = 1; b < blocksQty; b+=1) {
-        if (blocks[b].level === 1) {
-          pointsOutQty = blocks[b].pointsOut.length;
-          if (pointsOutQty) {
-            isRealBlock = 0;
-            isRealBlock = blocks[b].pointsOut.some(function(item) {
-              if (axis === 'x') {
-                return item.x === oldSizeValue;
-              } else if (axis === 'y') {
-                return item.y === oldSizeValue;
-              }
-            });
-            if(isRealBlock) {
-              newPointsOut = angular.copy(blocks[b].pointsOut);
-              while (--pointsOutQty > -1) {
-                if (axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                    newPointsOut[pointsOutQty].x = startSize + newLength;
-                  }
-                } else if (axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                    newPointsOut[pointsOutQty].y = startSize + newLength;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      return newPointsOut;
-    }
-
-
-
-
-    function closeSizeCaclulator(prom) {
-      var deff = $q.defer();
-      if(DesignStor.design.tempSize.length) {
-        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
-            newPointsOut = rebuildPointsOut(newLength),
-            currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
-
-        /** Square limits checking */
-        if(currSquare < GlobalStor.global.maxSquareLimit) {
-          /** Dimensions limits checking */
-
-          if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
-            addNewSizeInTemplate(newLength);
-            //------ close size calculator and deactive size box in svg
-            hideSizeTools();
-            //----- change Template
-            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-              DesignStor.design.templateTEMP = angular.copy(result);
+    //------- set click to all Dimensions
+    function initAllDimension() {
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          var size = d3.select(this);
+          size.on(clickEvent, function() {
+            var sizeRect = size.select('.size-rect'),
+                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+ 1,
+                dim;
+            if(DesignStor.design.tempSize.length) {
+              /** save new Size when click another size */
+              closeSizeCaclulator();
               cleanTempSize();
-              deff.resolve(1);
-            });
-          } else {
-            //------ show error size
-            if(newLength < DesignStor.design.minSizeLimit) {
-              if(GlobalStor.global.isVoiceHelper) {
-                playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
-                //------- deactive size box in svg
-                //deselectAllDimension();
-                //-------- build new template
-                //rebuildSVGTemplate();
+            } else {
+              if (isActive) {
+                hideSizeTools();
               } else {
-                DesignStor.design.isMinSizeRestriction = 1;
-                DesignStor.design.isMaxSizeRestriction = 0;
+                deselectAllDimension();
+                sizeRect.classed('active', true);
+                dim = size.select('.size-txt-edit');
+                dim.classed('active', true);
+                DesignStor.design.oldSize = dim[0][0];
+                DesignStor.design.prevSize = dim[0][0].textContent;
+                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                //------- show caclulator or voice helper
+                if (GlobalStor.global.isVoiceHelper) {
+                  DesignStor.design.openVoiceHelper = 1;
+                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                } else {
+                  GlobalStor.global.isSizeCalculator = 1;
+                  DesignStor.design.isMinSizeRestriction = 0;
+                  DesignStor.design.isMaxSizeRestriction = 0;
+                  DesignStor.design.isDimExtra = 0;
+                  DesignStor.design.isSquareExtra = 0;
+                }
               }
-
-            } else if(newLength > DesignStor.design.maxSizeLimit) {
-              if(GlobalStor.global.isVoiceHelper) {
-                playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
-                //------- deactive size box in svg
-                //deselectAllDimension();
-                //-------- build new template
-                //rebuildSVGTemplate();
-              } else {
-                DesignStor.design.isMinSizeRestriction = 0;
-                DesignStor.design.isMaxSizeRestriction = 1;
-              }
-
-              //-------- if extra overall dimention
-              if(newLength > GlobalStor.global.maxSizeLimit) {
-                DesignStor.design.isDimExtra = 1;
-              }
+              $rootScope.$apply();
             }
-            //------- back previous size
-            d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
-            DesignStor.design.tempSize.length = 0;
-            deff.resolve(1);
+          });
+        });
+
+      /** switch on keyboard */
+      d3.select(window)
+        .on('keydown', function() {
+          if(GlobalStor.global.isSizeCalculator) {
+            pressCulculator(d3.event);
           }
-
-        } else {
-          DesignStor.design.isSquareExtra = 1;
-          //------- back previous size
-          d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
-          DesignStor.design.tempSize.length = 0;
-          deff.resolve(1);
-        }
-
-      } else {
-        //------ close size calculator and deselect All Dimension
-        hideSizeTools();
-        deff.resolve(1);
-      }
-      DesignStor.design.openVoiceHelper = 0;
-      DesignStor.design.loudVoice = 0;
-      DesignStor.design.quietVoice = 0;
-      //console.log('FINISH CACL');
-      if(prom) {
-        return deff.promise;
-      }
+        });
     }
-
-
-
-
-
 
 
 
@@ -10032,7 +10381,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -10045,9 +10394,15 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GeneralServ', generalFactory);
+    .factory('GeneralServ',
 
-  function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
+  function(
+    $filter,
+    $window,
+    $document,
+    globalConstants,
+    GlobalStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this,
         addElementDATA = [
@@ -10252,7 +10607,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -10264,36 +10619,34 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .factory('HistoryServ', historyFactory);
+    .factory('HistoryServ',
 
-  function historyFactory($location, $filter, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
-
+  function(
+    $location,
+    $filter,
+    $q,
+    localDB,
+    GeneralServ,
+    MainServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    HistoryStor,
+    CartStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
 
-    thisFactory.publicObj = {
-      toCurrentCalculation: toCurrentCalculation,
-      downloadOrders: downloadOrders,
-      sendOrderToFactory: sendOrderToFactory,
-      makeOrderCopy: makeOrderCopy,
-      clickDeleteOrder: clickDeleteOrder,
-      editOrder: editOrder,
-      viewSwitching: viewSwitching,
-
-      orderSearching: orderSearching,
-      orderDateSelecting: orderDateSelecting,
-      openCalendarScroll: openCalendarScroll,
-      orderSorting: orderSorting,
-      sortingInit: sortingInit
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
 
     //------ go to current calculations
@@ -10352,21 +10705,13 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Send Order to Factory ========//
+    /**----------- Send Order to Factory -----------*/
 
     function sendOrderToFactory(orderStyle, orderNum) {
 
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.SEND_ORDER_TITLE'),
-          $filter('translate')('common_words.SEND_ORDER_TXT'),
-          sendOrder
-        );
-      }
-
       function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length;
-        for(var ord = 0; ord < ordersQty; ord++) {
+        var ordersQty = HistoryStor.history.orders.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
@@ -10376,7 +10721,13 @@ function ErrorResult(code, message) {
           }
         }
       }
-
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.SEND_ORDER_TITLE'),
+          $filter('translate')('common_words.SEND_ORDER_TXT'),
+          sendOrder
+        );
+      }
     }
 
 
@@ -10384,24 +10735,45 @@ function ErrorResult(code, message) {
 
 
 
-    //========= make Order Copy =========//
+    /**----------- make Order Copy -----------*/
 
     function makeOrderCopy(orderStyle, orderNum) {
 
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
-          copyOrder
-        );
+      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
+        //------ Download elements of order from localDB
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
+          //          console.log('result+++++', result);
+          if(result.length) {
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
+                i;
+
+            if (allElemQty > 0) {
+              //-------- set new orderId in all elements of order
+              for (i = 0; i < allElemQty; i+=1) {
+                delete allElements[i].id;
+                allElements[i].modified = new Date();
+                allElements[i].order_id = newOrderNum;
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
+              }
+            }
+
+          } else {
+            console.log('Empty result = ', result);
+          }
+        });
+
       }
 
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy;
+            newOrderCopy, ord;
 
-        for(var ord = 0; ord < ordersQty; ord++) {
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -10431,35 +10803,12 @@ function ErrorResult(code, message) {
       }
 
 
-
-      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
-//          console.log('result+++++', result);
-          if(result.length) {
-            var allElements = angular.copy(result),
-                allElemQty = allElements.length,
-                i = 0;
-
-            if (allElemQty > 0) {
-              //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
-                delete allElements[i].id;
-                allElements[i].modified = new Date();
-                allElements[i].order_id = newOrderNum;
-
-                //-------- insert all elements in LocalDB
-                localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
-              }
-            }
-
-          } else {
-            console.log('Empty result = ', result);
-          }
-        });
-
-
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.COPY_ORDER_TITLE'),
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder
+        );
       }
 
     }
@@ -10468,17 +10817,11 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Delete order ==========//
+    /**--------------- Delete order -----------*/
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
       event.stopPropagation();
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-        $filter('translate')('common_words.DELETE_ORDER_TXT'),
-        deleteOrder
-      );
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -10511,12 +10854,177 @@ function ErrorResult(code, message) {
           localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+        deleteOrder
+      );
     }
 
 
 
 
+
+
+
     /** =========== Edit Order & Draft =========== */
+
+
+    function setOrderOptions(param, id, data) {
+      if(id) {
+        var dataQty = data.length;
+        while(--dataQty > -1) {
+          if(data[dataQty].id === id) {
+            switch(param) {
+              case 1:
+                OrderStor.order.floorName = angular.copy(data[dataQty].name);
+                break;
+              case 2:
+                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
+                break;
+              case 3:
+                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
+                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
+                break;
+            }
+          }
+        }
+      }
+    }
+
+
+    function setGlassXOrder(product, id) {
+      //----- set default glass in ProductStor
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        return item.profileId === product.profile.id;
+      });
+      //      console.log('tempGlassArr = ', tempGlassArr);
+      if(tempGlassArr.length) {
+        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
+      }
+
+    }
+
+
+    //------ Download All Products Data for Order
+    function downloadProducts() {
+      var deferred = $q.defer(),
+          products, productPromises, defer1, tempProd,
+          glassIDs, glassIDsQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+        products = angular.copy(result);
+        if(products.length) {
+
+          //------------- parsing All Templates Source and Icons for Order
+          productPromises = products.map(function(prod) {
+            defer1 = $q.defer();
+            tempProd = ProductStor.setDefaultProduct();
+            angular.extend(tempProd, prod);
+            delete tempProd.id;
+            delete tempProd.modified;
+            //----- checking product with design or only addElements
+            if(!tempProd.is_addelem_only) {
+              //----- parsing design from string to object
+              tempProd.template_source = JSON.parse(tempProd.template_source);
+
+              //----- find depths and build design icon
+              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+                if(tempProd.glass_id) {
+                  glassIDs = tempProd.glass_id.split(', ');
+                  glassIDsQty = glassIDs.length;
+                  if(glassIDsQty) {
+                    while(--glassIDsQty > -1) {
+                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
+                    }
+                  }
+                }
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
+                defer1.resolve(tempProd);
+              });
+
+            } else {
+              defer1.resolve(1);
+            }
+            return defer1.promise;
+          });
+
+          $q.all(productPromises).then(function(data) {
+            var deferIcon,
+            iconPromise = data.map(function(item) {
+              deferIcon = $q.defer();
+              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
+                item.templateIcon = data;
+                delete item.profile_id;
+                delete item.glass_id;
+                delete item.hardware_id;
+
+                //----- set price Discounts
+                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+
+                OrderStor.order.products.push(item);
+                deferIcon.resolve(1);
+              });
+              return deferIcon.promise;
+            });
+
+            deferred.resolve($q.all(iconPromise));
+          });
+
+        } else {
+          deferred.reject(products);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+
+
+
+    //------ Download All Add Elements from LocalDB
+    function downloadAddElements() {
+      var deferred = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+        var elementsAdd = angular.copy(result),
+            allAddElemQty = elementsAdd.length,
+            orderProductsQty = OrderStor.order.products.length,
+            prod;
+
+        if(allAddElemQty) {
+          while(--allAddElemQty > -1) {
+            for(prod = 0; prod < orderProductsQty; prod+=1) {
+              if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
+                delete elementsAdd[allAddElemQty].element_id;
+                delete elementsAdd[allAddElemQty].modified;
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
+                if(!allAddElemQty) {
+                  deferred.resolve(1);
+                }
+              }
+            }
+          }
+
+        } else {
+          deferred.resolve(1);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+
 
     function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
@@ -10524,7 +11032,7 @@ function ErrorResult(code, message) {
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -10567,177 +11075,13 @@ function ErrorResult(code, message) {
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-//          console.warn('ORDER ====', OrderStor.order);
+          //          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
 
     }
 
-
-    function setOrderOptions(param, id, data) {
-      if(id) {
-        var dataQty = data.length;
-        while(--dataQty > -1) {
-          if(data[dataQty].id === id) {
-            switch(param) {
-              case 1:
-                OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break;
-              case 2:
-                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
-                break;
-              case 3:
-                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
-                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
-                break;
-            }
-          }
-        }
-      }
-    }
-
-
-    //------ Download All Products Data for Order
-    function downloadProducts() {
-      var deferred = $q.defer();
-
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var products = angular.copy(result);
-        if(products.length) {
-
-          //------------- parsing All Templates Source and Icons for Order
-          var productPromises = products.map(function(prod) {
-            var defer1 = $q.defer(),
-                tempProd = ProductStor.setDefaultProduct();
-            angular.extend(tempProd, prod);
-            delete tempProd.id;
-            delete tempProd.modified;
-            //----- checking product with design or only addElements
-            if(!tempProd.is_addelem_only) {
-              //----- parsing design from string to object
-              tempProd.template_source = JSON.parse(tempProd.template_source);
-
-              //----- find depths and build design icon
-              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
-                if(tempProd.glass_id) {
-                  var glassIDs = tempProd.glass_id.split(', '),
-                      glassIDsQty = glassIDs.length;
-                  if(glassIDsQty) {
-                    while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
-                    }
-                  }
-                }
-                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
-                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
-                delete tempProd.lamination_id;
-                delete tempProd.lamination_in_id;
-                delete tempProd.lamination_out_id;
-                defer1.resolve(tempProd);
-              });
-
-            } else {
-              defer1.resolve(1);
-            }
-            return defer1.promise;
-          });
-
-          $q.all(productPromises).then(function(data) {
-
-            var iconPromise = data.map(function(item) {
-              var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
-                item.templateIcon = data;
-                delete item.profile_id;
-                delete item.glass_id;
-                delete item.hardware_id;
-
-                //----- set price Discounts
-                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
-
-                OrderStor.order.products.push(item);
-                deferIcon.resolve(1);
-              });
-              return deferIcon.promise;
-            });
-
-            deferred.resolve($q.all(iconPromise));
-          });
-
-        } else {
-          deferred.reject(products);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-
-    function setGlassXOrder(product, id) {
-      //----- set default glass in ProductStor
-      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        return item.profileId === product.profile.id;
-      });
-      //      console.log('tempGlassArr = ', tempGlassArr);
-      if(tempGlassArr.length) {
-        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
-      }
-
-    }
-
-
-    //------ Download All Add Elements from LocalDB
-    function downloadAddElements() {
-      var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var elementsAdd = angular.copy(result),
-            allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length;
-
-        if(allAddElemQty) {
-          while(--allAddElemQty > -1) {
-            for(var prod = 0; prod < orderProductsQty; prod++) {
-              if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
-                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
-                delete elementsAdd[allAddElemQty].element_id;
-                delete elementsAdd[allAddElemQty].modified;
-                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
-                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
-                if(!allAddElemQty) {
-                  deferred.resolve(1);
-                }
-              }
-            }
-          }
-
-        } else {
-          deferred.resolve(1);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-
-
-
-
-
-
-    //------- Orders/Drafts View switcher
-    function viewSwitching() {
-      HistoryStor.history.isOrderDate = 0;
-      HistoryStor.history.isOrderDateDraft = 0;
-      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
-
-      //------ Download Drafts from localDB in first open
-      if(!HistoryStor.history.drafts.length) {
-        downloadDrafts();
-      }
-    }
 
 
 
@@ -10766,9 +11110,21 @@ function ErrorResult(code, message) {
     }
 
 
+    //------- Orders/Drafts View switcher
+    function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
+      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
+
+      //------ Download Drafts from localDB in first open
+      if(!HistoryStor.history.drafts.length) {
+        downloadDrafts();
+      }
+    }
 
 
-    //============= HISTORY TOOLS ============//
+
+    /**============= HISTORY TOOLS ============*/
 
     //=========== Searching
 
@@ -10785,6 +11141,33 @@ function ErrorResult(code, message) {
 
 
     //=========== Filtering by Date
+
+    //------- filtering orders by Dates
+    function filteringByDate(obj, start, end) {
+      var newObj, startDate, finishDate,
+          t, objDate, result;
+
+      if(start !== '' || end !== '') {
+        newObj = angular.copy(obj);
+        startDate = new Date(start).valueOf();
+        finishDate = new Date(end).valueOf();
+        if(start !== '' && end !== '' && startDate > finishDate) {
+          return false;
+        }
+        for(t = newObj.length-1;  t >= 0; t-=1) {
+          objDate = new Date(newObj[t].created).valueOf();
+          if(objDate < startDate || objDate > finishDate) {
+            newObj.splice(t, 1);
+          }
+        }
+        result = newObj;
+      } else {
+        result = 0;
+      }
+      return result;
+    }
+
+
 
     //------- show Date filter tool dialog
     function orderDateSelecting() {
@@ -10816,27 +11199,7 @@ function ErrorResult(code, message) {
       }
     }
 
-    //------- filtering orders by Dates
-    function filteringByDate(obj, start, end) {
-      if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
-        newObj = angular.copy(obj);
-        startDate = new Date(start).valueOf();
-        finishDate = new Date(end).valueOf();
-        if(start !== '' && end !== '' && startDate > finishDate) {
-          return false;
-        }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
-          if(objDate < startDate || objDate > finishDate) {
-            newObj.splice(t, 1);
-          }
-        }
-        return newObj;
-      } else {
-        return false;
-      }
-    }
+
 
 
     //------ Select calendar-scroll
@@ -10944,7 +11307,29 @@ function ErrorResult(code, message) {
 
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      toCurrentCalculation: toCurrentCalculation,
+      downloadOrders: downloadOrders,
+      sendOrderToFactory: sendOrderToFactory,
+      makeOrderCopy: makeOrderCopy,
+      clickDeleteOrder: clickDeleteOrder,
+      editOrder: editOrder,
+      viewSwitching: viewSwitching,
+
+      orderSearching: orderSearching,
+      orderDateSelecting: orderDateSelecting,
+      openCalendarScroll: openCalendarScroll,
+      orderSorting: orderSorting,
+      sortingInit: sortingInit
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -10956,9 +11341,18 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('localDB', globalDBFactory);
+    .factory('localDB',
 
-  function globalDBFactory($http, $q, $filter, globalConstants, GeneralServ, UserStor, GlobalStor) {
+  function(
+    $http,
+    $q,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    UserStor,
+    GlobalStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -11578,7 +11972,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
 
 
@@ -11623,16 +12017,18 @@ function ErrorResult(code, message) {
     /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
 
     function checkStringToQuote(str) {
+      var result;
       if(angular.isString(str)) {
         if(str.indexOf("'")+1) {
           //console.warn(str);
-          return str.replace(/'/g, "''");
+          result = str.replace(/'/g, "''");
         } else {
-          return str;
+          result = str;
         }
       } else {
-        return str;
+        result = str;
       }
+      return result;
     }
 
 
@@ -11954,7 +12350,7 @@ function ErrorResult(code, message) {
 
 
     function deleteOrderServer(login, access, orderNumber) {
-      var dataSend = {orderId: orderNumber*1};
+      var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
           console.log(result.data);
@@ -12276,8 +12672,10 @@ function ErrorResult(code, message) {
 
     function parseMainKit(construction){
       var deff = $q.defer(),
+          deff1, promisKits, deff2,
+          data3, resQty, collectArr, i, data,
           promisesKit = construction.sizes.map(function(item, index, arr) {
-            var deff1 = $q.defer();
+            deff1 = $q.defer();
 			      //----- chekh is sizes and id
             if(item.length && construction.ids[index]) {
               /** if hardware */
@@ -12291,8 +12689,8 @@ function ErrorResult(code, message) {
                 });
               } else {
                 if(angular.isArray(construction.ids[index])) {
-                  var promisKits = construction.ids[index].map(function(item2) {
-                    var deff2 = $q.defer();
+                  promisKits = construction.ids[index].map(function(item2) {
+                    deff2 = $q.defer();
                     selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
@@ -12303,10 +12701,10 @@ function ErrorResult(code, message) {
                     return deff2.promise;
                   });
                   $q.all(promisKits).then(function(result3) {
-                    var data3 = angular.copy(result3),
-                        resQty = data3.length,
-                        collectArr = [];
-                    for(var i = 0; i < resQty; i++) {
+                    data3 = angular.copy(result3);
+                    resQty = data3.length;
+                    collectArr = [];
+                    for(i = 0; i < resQty; i+=1) {
                       if(data3[i]) {
                         if(data3[i][0].amendment_pruning) {
                           data3[i][0].amendment_pruning /= 1000;
@@ -12324,7 +12722,7 @@ function ErrorResult(code, message) {
                   })
                 } else {
                   selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    var data = angular.copy(result);
+                    data = angular.copy(result);
                     if(data && data.length) {
                       if(data[0].amendment_pruning) {
                         data[0].amendment_pruning /= 1000;
@@ -13422,6 +13820,7 @@ function ErrorResult(code, message) {
 
 
 
+    /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
@@ -13457,7 +13856,7 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
-  }
+  });
 })();
 
 
@@ -13469,28 +13868,45 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('LoginModule')
-    .factory('loginServ', startFactory);
+    .factory('loginServ',
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $q,
+    $cordovaGlobalization,
+    $cordovaFileTransfer,
+    $translate,
+    $location,
+    $filter,
+    localDB,
+    globalConstants,
+    GeneralServ,
+    optionsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getDeviceLanguage: getDeviceLanguage,
-      initExport: initExport,
-      isLocalDBExist: isLocalDBExist,
-      prepareLocationToUse: prepareLocationToUse,
-      downloadAllCities: downloadAllCities,
-      collectCityIdsAsCountry: collectCityIdsAsCountry,
-      setUserLocation: setUserLocation,
-      setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
+
+
+    //------ compare device language with existing dictionary,
+    // if not exist set default language = English
+    function checkLangDictionary(lang) {
+      var langQty = globalConstants.languages.length;
+      while(--langQty > -1) {
+        if(globalConstants.languages[langQty].label.indexOf(lang)+1) {
+          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
+          UserStor.userInfo.langName = globalConstants.languages[langQty].name;
+          break;
+        }
+      }
+    }
 
 
     //------- defined system language
@@ -13524,17 +13940,7 @@ function ErrorResult(code, message) {
 
 
 
-    //------ compare device language with existing dictionary, if not exist set default language = English
-    function checkLangDictionary(lang) {
-      var langQty = globalConstants.languages.length;
-      while(--langQty > -1) {
-        if(globalConstants.languages[langQty].label.indexOf(lang)+1) {
-          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
-          UserStor.userInfo.langName = globalConstants.languages[langQty].name;
-          break;
-        }
-      }
-    }
+
 
 
 
@@ -13581,6 +13987,46 @@ function ErrorResult(code, message) {
 
 
 
+    function downloadAllCities(allCityParam) {
+      var deff = $q.defer(),
+          cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
+          countryQty, regionQty, cityQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+        //console.log('cities!!!', data);
+        cityQty = data.length;
+        if(cityQty) {
+          GlobalStor.global.locations.cities = angular.copy(data);
+          while(--cityQty > -1) {
+            regionQty = GlobalStor.global.locations.regions.length;
+            while(--regionQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                GlobalStor.global.locations.cities[cityQty].fullLocation = GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                countryQty = GlobalStor.global.locations.countries.length;
+                while(--countryQty > -1) {
+                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+
+                  }
+                }
+              }
+            }
+          }
+          //console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+          deff.resolve(1);
+        } else {
+          deff.resolve(0);
+        }
+      });
+      return deff.promise;
+    }
+
+
+
     //------- collecting cities, regions and countries in one object for registration form
     function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
@@ -13623,43 +14069,7 @@ function ErrorResult(code, message) {
 
 
 
-    function downloadAllCities(allCityParam) {
-      var deff = $q.defer(),
-          cityOption = (allCityParam) ? null : {'id': UserStor.userInfo.city_id},
-          countryQty, regionQty, cityQty;
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
-        //console.log('cities!!!', data);
-        cityQty = data.length;
-        if(cityQty) {
-          GlobalStor.global.locations.cities = angular.copy(data);
-          while(--cityQty > -1) {
-            regionQty = GlobalStor.global.locations.regions.length;
-            while(--regionQty > -1) {
-              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
-                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
-                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
-                countryQty = GlobalStor.global.locations.countries.length;
-                while(--countryQty > -1) {
-                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
-                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
-                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
-
-                  }
-                }
-              }
-            }
-          }
-          //console.info('generalLocations', GlobalStor.global.locations);
-          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
-          deff.resolve(1);
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
 
 
 
@@ -13672,6 +14082,16 @@ function ErrorResult(code, message) {
           }).join(',');
       defer.resolve(cityIds);
       return defer.promise;
+    }
+
+
+    //--------- set current user geolocation
+    function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
+      OrderStor.order.customer_city_id = cityId;
+      OrderStor.order.customer_city = cityName;
+      OrderStor.order.climatic_zone = climatic;
+      OrderStor.order.heat_coef_min = heat;
+      OrderStor.order.customer_location = fullLocation;
     }
 
 
@@ -13691,14 +14111,7 @@ function ErrorResult(code, message) {
       }
     }
 
-    //--------- set current user geolocation
-    function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
-      OrderStor.order.customer_city_id = cityId;
-      OrderStor.order.customer_city = cityName;
-      OrderStor.order.climatic_zone = climatic;
-      OrderStor.order.heat_coef_min = heat;
-      OrderStor.order.customer_location = fullLocation;
-    }
+
 
 
 
@@ -13706,13 +14119,698 @@ function ErrorResult(code, message) {
 
     /** =========== DOWNLOAD ALL DATA =========== */
 
+
+
+
+    function setCurrency() {
+      var defer = $q.defer();
+      /** download All Currencies */
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
+        var currencQty = currencies.length;
+        if(currencies && currencQty) {
+          GlobalStor.global.currencies = currencies;
+          /** set current currency */
+          while(--currencQty > -1) {
+            if(currencies[currencQty].is_base === 1) {
+              UserStor.userInfo.currencyId = currencies[currencQty].id;
+              if( /uah/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\u20b4';//'₴';
+              } else if( /rub/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
+              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '$';
+              } else if( /eur/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\u20AC';//'€';
+              } else {
+                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+              }
+            }
+          }
+          defer.resolve(1);
+        } else {
+          console.error('not find currencies!');
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+    function setUserDiscounts() {
+      var defer = $q.defer(),
+          discounts, disKeys, disQty, dis;
+      //-------- add server url to avatar img
+      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
+//        console.log('DISCTOUN=====', result);
+        discounts = angular.copy(result[0]);
+        if(discounts) {
+          UserStor.userInfo.discountConstr = discounts.default_construct*1;
+          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
+          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
+          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
+
+          disKeys = Object.keys(discounts);
+          disQty = disKeys.length;
+          for(dis = 0; dis < disQty; dis+=1) {
+            if(disKeys[dis].indexOf('week')+1) {
+              if(disKeys[dis].indexOf('construct')+1) {
+                UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
+              } else if(disKeys[dis].indexOf('add_elem')+1) {
+                UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
+              }
+            }
+          }
+          defer.resolve(1);
+        } else {
+          console.error('not find users_discounts!');
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+
+    /** price Margins of Plant */
+    function downloadPriceMargin() {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
+        return margins;
+      });
+    }
+
+    /** delivery Coeff of Plant */
+    function downloadDeliveryCoeff() {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
+        return coeff;
+      });
+    }
+
+
+    /** change Images Path and save in device */
+    function downloadElemImg(urlSource) {
+      var result;
+      if(urlSource) {
+        /** check image */
+        if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
+          var url = globalConstants.serverIP + '' + urlSource;
+          if (GlobalStor.global.isDevice) {
+            var imgName = urlSource.split('/').pop(),
+                targetPath = cordova.file.documentsDirectory + '' + imgName,
+                trustHosts = true,
+                options = {};
+
+            console.log('image name ====', imgName);
+            console.log('image path ====', targetPath);
+            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+              console.log('Success!', result);
+            }, function (err) {
+              console.log('Error!', err);
+            }, function (progress) {
+              console.log('progress!', progress);
+              //            $timeout(function () {
+              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+              //            })
+            });
+            result = targetPath;
+          } else {
+            result = url;
+          }
+        } else {
+          result = '';
+        }
+      }
+      return result;
+    }
+
+
+    //----------- get all elements as to groups
+
+    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
+      var defer = $q.defer(),
+          types, typesQty, promises, defer2,
+          elem, resQty, existType, r, elemsQty,
+          existTypeQty, groupQty, isExist, t;
+      //------- get all Folders
+      localDB.selectLocalDB(tableGroup).then(function(result) {
+        /** sorting types by position */
+        types = angular.copy(result).sort(function(a, b) {
+          return GeneralServ.sorting(a.position, b.position);
+        });
+        typesQty = types.length;
+        if (typesQty) {
+          groups.length = 0;
+          angular.extend(groups, types);
+          promises = types.map(function(type) {
+            defer2 = $q.defer();
+
+            /** change Images Path and save in device */
+            type.img = downloadElemImg(type.img);
+
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
+              if (result2.length) {
+                elem = angular.copy(result2).sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
+                defer2.resolve(elem);
+              } else {
+                defer2.resolve(0);
+              }
+            });
+            return defer2.promise;
+          });
+          $q.all(promises).then(function(result3){
+            resQty = result3.length;
+            existType = [];
+            for(r = 0; r < resQty; r+=1) {
+              elemsQty = result3[r].length;
+              if(result3[r] && elemsQty) {
+                /** change Images Path and save in device */
+                while(--elemsQty > -1) {
+                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
+                }
+                elements.push(result3[r]);
+                existType.push(result3[r][0].folder_id);
+              }
+            }
+            /** delete empty group */
+            existTypeQty = existType.length;
+            groupQty = groups.length;
+            if(existTypeQty) {
+              while(--groupQty > -1) {
+                isExist = 0;
+                for(t = 0; t < existTypeQty; t+=1) {
+                  if(groups[groupQty].id === existType[t]) {
+                    isExist = 1;
+                  }
+                }
+                if(!isExist) {
+                  groups.splice(groupQty, 1);
+                }
+              }
+            }
+            defer.resolve(1);
+          });
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+
+
+
+
+
+    function downloadAllGlasses() {
+      var defer = $q.defer(),
+          profilesQty = GlobalStor.global.profiles.length,
+          profileIds = [],
+          profileQty, promises2, defer2, glassObj,
+          promises3, defer3, glassIdQty,
+          glassIdsQty, promises4, promises6, i,
+          defer4, promises5, defer5,
+          glass, glassQty, j, defer6,
+          promises7, defer7, list, listQty, glassesQty, listsQty;
+
+      //----- collect profiles in one array
+      while(--profilesQty > -1) {
+        profileQty = GlobalStor.global.profiles[profilesQty].length;
+        while(--profileQty > -1) {
+          profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
+        }
+      }
+
+      //------ create structure of GlobalStor.global.glassesAll
+      //------ insert profile Id and glass Types
+      promises2 = profileIds.map(function(item) {
+        defer2 = $q.defer();
+        glassObj = {profileId: item, glassTypes: [], glasses: []};
+        localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
+          if(types.length) {
+            glassObj.glassTypes = angular.copy(types);
+            GlobalStor.global.glassesAll.push(glassObj);
+            defer2.resolve(1);
+          } else {
+            defer2.resolve(0);
+          }
+        });
+        return defer2.promise;
+      });
+
+      $q.all(promises2).then(function(data){
+        //        console.log('data!!!!', data);
+        if(data) {
+          //-------- select all glass Ids as to profile Id
+          promises3 = GlobalStor.global.glassesAll.map(function(item) {
+            defer3 = $q.defer();
+            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId})
+              .then(function (glassId) {
+                glassIdQty = glassId.length;
+                if(glassIdQty){
+                  defer3.resolve(glassId);
+                } else {
+                  defer3.resolve(0);
+                }
+              });
+            return defer3.promise;
+          });
+
+          $q.all(promises3).then(function(glassIds) {
+            //-------- get glass as to its Id
+            glassIdsQty = glassIds.length;
+            promises4 = [];
+            promises6 = [];
+//                        console.log('glassIds!!!!', glassIds);
+            for(i = 0; i < glassIdsQty; i+=1) {
+              defer4 = $q.defer();
+              if(glassIds[i]) {
+                promises5 = glassIds[i].map(function (item) {
+                  defer5 = $q.defer();
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
+                    .then(function (result) {
+                      //                  console.log('glass!!!!', glass);
+                      glass = angular.copy(result);
+                      glassQty = glass.length;
+                      if (glassQty) {
+                        defer5.resolve(glass[0]);
+                      } else {
+                        defer5.resolve(0);
+                      }
+                    });
+                  return defer5.promise;
+                });
+                defer4.resolve($q.all(promises5));
+              } else {
+                defer4.resolve(0);
+              }
+              promises4.push(defer4.promise);
+            }
+
+            for(j = 0; j < glassIdsQty; j+=1) {
+              defer6 = $q.defer();
+              console.warn(glassIds[j]);//TODO error
+              promises7 = glassIds[j].map(function(item) {
+                defer7 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
+                  .then(function (result2) {
+                    list = angular.copy(result2);
+                    listQty = list.length;
+                    if(listQty){
+                      defer7.resolve(list[0]);
+                    } else {
+                      defer7.resolve(0);
+                    }
+                  });
+                return defer7.promise;
+              });
+
+              defer6.resolve($q.all(promises7));
+              promises6.push(defer6.promise);
+            }
+
+            $q.all(promises4).then(function(glasses) {
+              //              console.log('glasses after 1111!!!!', glasses);
+              glassesQty = glasses.length;
+              if(glassesQty) {
+                for(i = 0; i < glassesQty; i+=1) {
+                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                }
+              }
+            });
+            $q.all(promises6).then(function(lists) {
+              //              console.log('glasses after 2222!!!!', lists);
+              listsQty = lists.length;
+              if(listsQty) {
+                for(i = 0; i < listsQty; i+=1) {
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
+                  defer.resolve(1);
+                }
+              }
+            });
+
+          });
+
+        }
+      });
+      return defer.promise;
+    }
+
+
+
+    function sortingGlasses() {
+      var glassAllQty = GlobalStor.global.glassesAll.length,
+          listQty, glassTypeQty, newGlassesType, newGlasses, g, l;
+
+      for(g = 0; g < glassAllQty; g+=1) {
+        //------- merge glassList to glasses
+        listQty = GlobalStor.global.glassesAll[g].glassLists.length;
+        glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length;
+        newGlassesType = [];
+        newGlasses = [];
+        /** merge glassList to glasses */
+        for(l = 0; l < listQty; l+=1) {
+          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
+            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
+            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+            /** change Images Path and save in device */
+            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+
+            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
+            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
+          }
+        }
+
+        /** sorting glassTypes by position */
+        GlobalStor.global.glassesAll[g].glassTypes.sort(function(a, b) {
+          return GeneralServ.sorting(a.position, b.position);
+        });
+
+        /** sorting glasses by type */
+        while(--glassTypeQty > -1) {
+          /** change Images Path and save in device */
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
+
+          var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
+            return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
+          });
+          //          console.log('glassByType!!!!!', glassByType);
+          if(glassByType.length) {
+            newGlassesType.unshift(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
+            /** sorting glasses by position */
+            glassByType.sort(function(a, b) {
+              return GeneralServ.sorting(a.position, b.position);
+            });
+            newGlasses.unshift(glassByType);
+          }
+        }
+
+        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
+        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
+        delete GlobalStor.global.glassesAll[g].glassLists;
+      }
+
+    }
+
+
+    //TODO
+    ///** download all Templates */
+    //function downloadAllTemplates() {
+    //
+    //}
+
+
+
+
+    /** download all Backgrounds */
+    function downloadAllBackgrounds() {
+      var deff = $q.defer(), rooms, roomQty;
+      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName)
+        .then(function(result) {
+          rooms = angular.copy(result);
+          roomQty = rooms.length;
+          if(roomQty) {
+            /** sorting types by position */
+            rooms = rooms.sort(function(a, b) {
+              return GeneralServ.sorting(a.position, b.position);
+            });
+
+            while(--roomQty > -1) {
+              rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+              //---- prerendering img
+              $("<img />").attr("src", rooms[roomQty].img);
+            }
+            GlobalStor.global.rooms = rooms;
+          }
+          deff.resolve(1);
+        });
+      return deff.promise;
+    }
+
+
+    /** download all lamination */
+    function downloadAllLamination() {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
+        .then(function(lamin) {
+          return lamin;
+        });
+    }
+
+
+    /** download lamination couples */
+    function downloadLamCouples() {
+      var deff = $q.defer(),
+          coupleQty, laminatQty, lam;
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
+        if(lamins) {
+          GlobalStor.global.laminatCouples = angular.copy(lamins);
+          /** add lamination names */
+          coupleQty = GlobalStor.global.laminatCouples.length;
+          laminatQty = GlobalStor.global.laminats.length;
+          while(--coupleQty > -1) {
+            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
+            delete GlobalStor.global.laminatCouples[coupleQty].modified;
+            for(lam = 0; lam < laminatQty; lam+=1) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+              }
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+              }
+            }
+          }
+          deff.resolve(1);
+        } else {
+          deff.resolve(1);
+        }
+      });
+      return deff.promise;
+    }
+
+
+
+
+
+
+    function getAllAddKits() {
+      var defer = $q.defer(),
+          promises = GeneralServ.addElementDATA.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
+          }),
+          addKits, resultQty, elemGroupObj, i;
+      $q.all(promises).then(function (result) {
+        addKits = angular.copy(result);
+        resultQty = addKits.length;
+        for(i = 0; i < resultQty; i+=1) {
+          elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          GlobalStor.global.addElementsAll.push(elemGroupObj);
+        }
+        defer.resolve(1);
+      });
+      return defer.promise;
+    }
+
+
+    function getAllAddElems() {
+      var deff = $q.defer(),
+          deff1, promElems, deff2,
+          promGroup = GlobalStor.global.addElementsAll.map(function(group) {
+            deff1 = $q.defer();
+            if(group.elementsList && group.elementsList.length) {
+              promElems = group.elementsList.map(function(item) {
+                deff2 = $q.defer();
+
+                /** change Images Path and save in device */
+                item.img = downloadElemImg(item.img);
+
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
+                  .then(function(result) {
+                    if(result && result.length) {
+                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                      deff2.resolve(1);
+                    } else {
+                      deff2.resolve(0);
+                    }
+                  });
+                return deff2.promise;
+              });
+              deff1.resolve($q.all(promElems));
+            } else {
+              deff1.resolve(0);
+            }
+            return deff1.promise;
+          });
+      deff.resolve($q.all(promGroup));
+      return deff.promise;
+    }
+
+
+    function sortingAllAddElem() {
+      var deff = $q.defer(),
+          elemAllQty, defaultGroup,
+          newElemList, typeDelete, typeQty, elemQty,
+          tempElemQty, t, elements, el,
+          widthTemp, heightTemp, k, delQty;
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+
+        elemAllQty = GlobalStor.global.addElementsAll.length;
+        defaultGroup = {
+          id: 0,
+          name: $filter('translate')('add_elements.OTHERS')
+        };
+
+        /** sorting types by position */
+        if(groups && groups.length) {
+          groups = groups.sort(function (a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
+        }
+        //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
+        while(--elemAllQty > -1) {
+          if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
+            if(groups && groups.length) {
+              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
+            }
+            GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
+            //------- sorting
+            newElemList = [];
+            typeDelete = [];
+            typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length;
+            elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length;
+            tempElemQty = GlobalStor.global.tempAddElements.length;
+            for(t = 0; t < typeQty; t+=1) {
+              elements = [];
+              for(el = 0; el < elemQty; el+=1) {
+                if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
+                  widthTemp = 0;
+                  heightTemp = 0;
+                  switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
+                    case 21: // 1 - visors
+                    case 9: // 2 - spillways
+                    case 8: // 8 - windowSill
+                    case 19: // 3 - outSlope & inSlope
+                    case 12: // 6 - connectors
+                      widthTemp = 1000;
+                      break;
+                    case 20: // 0 - grids
+                    case 26: // 4 - louvers
+                      widthTemp = 1000;
+                      heightTemp = 1000;
+                      break;
+                  }
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
+                  /** get price of element */
+                  for(k = 0; k < tempElemQty; k+=1) {
+                    if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
+                      ///** add price margin */
+                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
+                      /** currency conversion */
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
+                    }
+                  }
+                  elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
+                }
+              }
+              if(elements.length) {
+                ///** sorting elements by position */
+                //elements = elements.sort(function(a, b) {
+                //  return GeneralServ.sorting(a.position, b.position);
+                //});
+                /** sorting by name */
+                elements = $filter('orderBy')(elements, 'name');
+
+                newElemList.push(elements);
+              } else {
+                typeDelete.push(t);
+              }
+            }
+
+            if(newElemList.length) {
+              GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+            } else {
+              GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
+            }
+
+            /** delete empty groups */
+            delQty = typeDelete.length;
+            if(delQty) {
+              while(--delQty > -1) {
+                GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+              }
+            }
+          }
+          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
+        }
+        deff.resolve(1);
+      });
+      return deff.promise;
+    }
+
+
+    function downloadAllAddElements() {
+      var defer = $q.defer();
+      /** get All kits of addElements */
+      getAllAddKits().then(function() {
+        /** get All elements of addElements*/
+        getAllAddElems().then(function() {
+          sortingAllAddElem().then(function() {
+            defer.resolve(1);
+          });
+        });
+      });
+      return defer.promise;
+    }
+
+
+
+
+    function downloadCartMenuData() {
+      /** download Supply Data */
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
+        if (supply.length) {
+          GlobalStor.global.supplyData = angular.copy(supply);
+          //console.warn('supplyData=', GlobalStor.global.supplyData);
+        }
+      });
+      /** download Mounting Data */
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function(mounting) {
+        if (mounting.length) {
+          GlobalStor.global.assemblingData = angular.copy(mounting);
+          //console.warn('assemblingData=', GlobalStor.global.assemblingData);
+        }
+      });
+      /** download Instalment Data */
+      optionsServ.getInstalment(function (results) {
+        if (results.status) {
+          GlobalStor.global.instalmentsData = results.data.instalment;
+        } else {
+          console.log(results);
+        }
+      });
+    }
+
+
+
+
     function downloadAllData() {
       //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
         if(data) {
           /** download user discounts */
-          //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
+            //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
           setUserDiscounts().then(function(data) {
             if(data) {
               //console.log('TIME user discounts!!!!!!', new Date(), new Date().getMilliseconds());
@@ -13728,7 +14826,7 @@ function ErrorResult(code, message) {
                       //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return item * 1;
+                        return +item;
                       });
                       //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
@@ -13809,653 +14907,29 @@ function ErrorResult(code, message) {
 
 
 
-    function setCurrency() {
-      var defer = $q.defer();
-      /** download All Currencies */
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
-        var currencQty = currencies.length;
-        if(currencies && currencQty) {
-          GlobalStor.global.currencies = currencies;
-          /** set current currency */
-          while(--currencQty > -1) {
-            if(currencies[currencQty].is_base === 1) {
-              UserStor.userInfo.currencyId = currencies[currencQty].id;
-              if( /uah/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20b4';//'₴';
-              } else if( /rub/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
-              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '$';
-              } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€';
-              } else {
-                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
-              }
-            }
-          }
-          defer.resolve(1);
-        } else {
-          console.error('not find currencies!');
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
-    }
 
 
-    function setUserDiscounts() {
-      var defer = $q.defer();
-      //-------- add server url to avatar img
-      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-//        console.log('DISCTOUN=====', result);
-        var discounts = angular.copy(result[0]);
-        if(discounts) {
-          UserStor.userInfo.discountConstr = discounts.default_construct*1;
-          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
-          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
 
-          var disKeys = Object.keys(discounts),
-              disQty = disKeys.length;
-          for(var dis = 0; dis < disQty; dis++) {
-            if(disKeys[dis].indexOf('week')+1) {
-              if(disKeys[dis].indexOf('construct')+1) {
-                UserStor.userInfo.discConstrByWeek.push(discounts[disKeys[dis]]*1);
-              } else if(disKeys[dis].indexOf('add_elem')+1) {
-                UserStor.userInfo.discAddElemByWeek.push(discounts[disKeys[dis]]*1);
-              }
-            }
-          }
-          defer.resolve(1);
-        } else {
-          console.error('not find users_discounts!');
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
-    }
 
+    /**========== FINISH ==========*/
 
+    thisFactory.publicObj = {
+      getDeviceLanguage: getDeviceLanguage,
+      initExport: initExport,
+      isLocalDBExist: isLocalDBExist,
+      prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
+      collectCityIdsAsCountry: collectCityIdsAsCountry,
+      setUserLocation: setUserLocation,
+      setUserGeoLocation: setUserGeoLocation,
+      downloadAllData: downloadAllData
+    };
 
-    /** price Margins of Plant */
-    function downloadPriceMargin() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
-        return margins;
-      });
-    }
+    return thisFactory.publicObj;
 
-    /** delivery Coeff of Plant */
-    function downloadDeliveryCoeff() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
-        return coeff;
-      });
-    }
 
-
-
-    //----------- get all elements as to groups
-
-    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-      var defer = $q.defer();
-      //------- get all Folders
-      localDB.selectLocalDB(tableGroup).then(function(result) {
-        /** sorting types by position */
-        var types = angular.copy(result).sort(function(a, b) {
-          return GeneralServ.sorting(a.position, b.position);
-        }),
-        typesQty = types.length;
-        if (typesQty) {
-          groups.length = 0;
-          angular.extend(groups, types);
-          var promises = types.map(function(type) {
-            var defer2 = $q.defer();
-
-            /** change Images Path and save in device */
-            type.img = downloadElemImg(type.img);
-
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
-              if (result2.length) {
-                var elem = angular.copy(result2).sort(function(a, b) {
-                  return GeneralServ.sorting(a.position, b.position);
-                });
-                defer2.resolve(elem);
-              } else {
-                defer2.resolve(0);
-              }
-            });
-            return defer2.promise;
-          });
-          $q.all(promises).then(function(result3){
-            var resQty = result3.length,
-                existType = [],
-                r = 0;
-            for(; r < resQty; r++) {
-              var elemsQty = result3[r].length;
-              if(result3[r] && elemsQty) {
-                /** change Images Path and save in device */
-                while(--elemsQty > -1) {
-                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
-                }
-                elements.push(result3[r]);
-                existType.push(result3[r][0].folder_id);
-              }
-            }
-            /** delete empty group */
-            var existTypeQty = existType.length,
-            groupQty = groups.length;
-            if(existTypeQty) {
-              while(--groupQty > -1) {
-                var isExist = 0, t = 0;
-                for(; t < existTypeQty; t++) {
-                  if(groups[groupQty].id === existType[t]) {
-                    isExist = 1;
-                  }
-                }
-                if(!isExist) {
-                  groups.splice(groupQty, 1);
-                }
-              }
-            }
-            defer.resolve(1);
-          });
-        } else {
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
-    }
-
-
-
-    /** change Images Path and save in device */
-    function downloadElemImg(urlSource) {
-      if(urlSource) {
-        /** check image */
-        if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
-          var url = globalConstants.serverIP + '' + urlSource;
-          if (GlobalStor.global.isDevice) {
-            var imgName = urlSource.split('/').pop(),
-                targetPath = cordova.file.documentsDirectory + '' + imgName,
-                trustHosts = true,
-                options = {};
-
-            console.log('image name ====', imgName);
-            console.log('image path ====', targetPath);
-            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-              console.log('Success!', result);
-            }, function (err) {
-              console.log('Error!', err);
-            }, function (progress) {
-              console.log('progress!', progress);
-//            $timeout(function () {
-//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-//            })
-            });
-            return targetPath;
-          } else {
-            return url;
-          }
-        } else {
-          return '';
-        }
-      }
-    }
-
-
-
-    function downloadAllGlasses() {
-      var defer = $q.defer(),
-          profilesQty = GlobalStor.global.profiles.length,
-          profileIds = [];
-      //----- collect profiles in one array
-      while(--profilesQty > -1) {
-        var profileQty = GlobalStor.global.profiles[profilesQty].length;
-        while(--profileQty > -1) {
-          profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
-        }
-      }
-
-      //------ create structure of GlobalStor.global.glassesAll
-      //------ insert profile Id and glass Types
-      var promises2 = profileIds.map(function(item) {
-        var defer2 = $q.defer(),
-            glassObj = {profileId: item, glassTypes: [], glasses: []};
-        localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
-          if(types.length) {
-            glassObj.glassTypes = angular.copy(types);
-            GlobalStor.global.glassesAll.push(glassObj);
-            defer2.resolve(1);
-          } else {
-            defer2.resolve(0);
-          }
-        });
-        return defer2.promise;
-      });
-
-      $q.all(promises2).then(function(data){
-        //        console.log('data!!!!', data);
-        if(data) {
-          //-------- select all glass Ids as to profile Id
-          var promises3 = GlobalStor.global.glassesAll.map(function(item) {
-            var defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
-              var glassIdQty = glassId.length;
-              if(glassIdQty){
-                defer3.resolve(glassId);
-              } else {
-                defer3.resolve(0);
-              }
-            });
-            return defer3.promise;
-          });
-
-          $q.all(promises3).then(function(glassIds) {
-            //-------- get glass as to its Id
-            var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [];
-//                        console.log('glassIds!!!!', glassIds);
-            for(var i = 0; i < glassIdsQty; i++) {
-              var defer4 = $q.defer();
-              if(glassIds[i]) {
-                var promises5 = glassIds[i].map(function (item) {
-                  var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
-                    //                  console.log('glass!!!!', glass);
-                    var glass = angular.copy(result), glassQty = glass.length;
-                    if (glassQty) {
-                      defer5.resolve(glass[0]);
-                    } else {
-                      defer5.resolve(0);
-                    }
-                  });
-                  return defer5.promise;
-                });
-                defer4.resolve($q.all(promises5));
-              } else {
-                defer4.resolve(0);
-              }
-              promises4.push(defer4.promise);
-            }
-
-            for(var j = 0; j < glassIdsQty; j++) {
-              var defer6 = $q.defer();
-              console.warn(glassIds[j]);//TODO error
-              var promises7 = glassIds[j].map(function(item) {
-                var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
-                  var list = angular.copy(result2),
-                      listQty = list.length;
-                  if(listQty){
-                    defer7.resolve(list[0]);
-                  } else {
-                    defer7.resolve(0);
-                  }
-                });
-                return defer7.promise;
-              });
-
-              defer6.resolve($q.all(promises7));
-              promises6.push(defer6.promise);
-            }
-
-            $q.all(promises4).then(function(glasses) {
-              //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length;
-              if(glassesQty) {
-                for(var i = 0; i < glassesQty; i++) {
-                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
-                }
-              }
-            });
-            $q.all(promises6).then(function(lists) {
-              //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length;
-              if(listsQty) {
-                for(var i = 0; i < listsQty; i++) {
-                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
-                  defer.resolve(1);
-                }
-              }
-            });
-
-          });
-
-        }
-      });
-      return defer.promise;
-    }
-
-
-    function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length, g = 0;
-
-      for(; g < glassAllQty; g++) {
-        //------- merge glassList to glasses
-        var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
-            glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
-            newGlassesType = [],
-            newGlasses = [];
-        /** merge glassList to glasses */
-        for(var l = 0; l < listQty; l++) {
-          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
-            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
-            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
-            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
-            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
-            /** change Images Path and save in device */
-            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
-
-            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
-            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
-          }
-        }
-
-        /** sorting glassTypes by position */
-        GlobalStor.global.glassesAll[g].glassTypes.sort(function(a, b) {
-          return GeneralServ.sorting(a.position, b.position);
-        });
-
-        /** sorting glasses by type */
-        while(--glassTypeQty > -1) {
-          /** change Images Path and save in device */
-          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
-
-          var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
-            return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
-          });
-          //          console.log('glassByType!!!!!', glassByType);
-          if(glassByType.length) {
-            newGlassesType.unshift(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
-            /** sorting glasses by position */
-            glassByType.sort(function(a, b) {
-              return GeneralServ.sorting(a.position, b.position);
-            });
-            newGlasses.unshift(glassByType);
-          }
-        }
-
-        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
-        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
-        delete GlobalStor.global.glassesAll[g].glassLists;
-      }
-
-    }
-
-    /** download all Templates */
-    function downloadAllTemplates() {
-//TODO
-    }
-
-
-    /** download all Backgrounds */
-    function downloadAllBackgrounds() {
-      var deff = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
-        var rooms = angular.copy(result),
-            roomQty = rooms.length;
-        if(roomQty) {
-          /** sorting types by position */
-          rooms = rooms.sort(function(a, b) {
-            return GeneralServ.sorting(a.position, b.position);
-          });
-
-          while(--roomQty > -1) {
-            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
-            //---- prerendering img
-            $("<img />").attr("src", rooms[roomQty].img);
-          }
-          GlobalStor.global.rooms = rooms;
-        }
-        deff.resolve(1);
-      });
-      return deff.promise;
-    }
-
-
-    /** download all lamination */
-    function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
-        return lamin;
-      });
-    }
-
-
-    /** download lamination couples */
-    function downloadLamCouples() {
-      var deff = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
-        if(lamins) {
-          GlobalStor.global.laminatCouples = angular.copy(lamins);
-          /** add lamination names */
-          var coupleQty = GlobalStor.global.laminatCouples.length,
-              laminatQty = GlobalStor.global.laminats.length,
-              lam;
-          while(--coupleQty > -1) {
-            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
-            delete GlobalStor.global.laminatCouples[coupleQty].modified;
-            for(lam = 0; lam < laminatQty; lam++) {
-              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
-                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
-                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
-              }
-              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
-                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
-                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
-              }
-            }
-          }
-          deff.resolve(1);
-        } else {
-          deff.resolve(1);
-        }
-      });
-      return deff.promise;
-    }
-
-
-    function downloadAllAddElements() {
-      var defer = $q.defer();
-      /** get All kits of addElements */
-      getAllAddKits().then(function() {
-        /** get All elements of addElements*/
-        getAllAddElems().then(function() {
-          sortingAllAddElem().then(function() {
-            defer.resolve(1);
-          });
-        })
-      });
-      return defer.promise;
-    }
-
-
-
-    function getAllAddKits() {
-      var defer = $q.defer(),
-          promises = GeneralServ.addElementDATA.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
-          });
-      $q.all(promises).then(function (result) {
-        var addKits = angular.copy(result),
-            resultQty = addKits.length,
-            i = 0;
-        for(; i < resultQty; i++) {
-          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
-          GlobalStor.global.addElementsAll.push(elemGroupObj);
-        }
-        defer.resolve(1);
-      });
-      return defer.promise;
-    }
-
-
-    function getAllAddElems() {
-      var deff = $q.defer(),
-          promGroup = GlobalStor.global.addElementsAll.map(function(group) {
-            var deff1 = $q.defer();
-            if(group.elementsList && group.elementsList.length) {
-              var promElems = group.elementsList.map(function(item) {
-                var deff2 = $q.defer();
-
-                /** change Images Path and save in device */
-                item.img = downloadElemImg(item.img);
-
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
-                  if(result && result.length) {
-                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                    deff2.resolve(1);
-                  } else {
-                    deff2.resolve(0);
-                  }
-                });
-                return deff2.promise;
-              });
-              deff1.resolve($q.all(promElems));
-            } else {
-              deff1.resolve(0);
-            }
-            return deff1.promise;
-          });
-      deff.resolve($q.all(promGroup));
-      return deff.promise;
-    }
-
-
-    function sortingAllAddElem() {
-      var deff = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
-
-        var elemAllQty = GlobalStor.global.addElementsAll.length,
-            defaultGroup = {
-              id: 0,
-              name: $filter('translate')('add_elements.OTHERS')
-            };
-
-        /** sorting types by position */
-        if(groups && groups.length) {
-          groups = groups.sort(function (a, b) {
-            return GeneralServ.sorting(a.position, b.position);
-          });
-        }
-        //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
-        while(--elemAllQty > -1) {
-          if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
-            if(groups && groups.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
-            }
-            GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
-            //------- sorting
-            var newElemList = [],
-                typeDelete = [],
-                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
-                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                tempElemQty = GlobalStor.global.tempAddElements.length;
-            for(var t = 0; t < typeQty; t++) {
-              var elements = [];
-              for(var el = 0; el < elemQty; el++) {
-                if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                  var widthTemp = 0,
-                      heightTemp = 0;
-                  switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
-                    case 21: // 1 - visors
-                    case 9: // 2 - spillways
-                    case 8: // 8 - windowSill
-                    case 19: // 3 - outSlope & inSlope
-                    case 12: // 6 - connectors
-                      widthTemp = 1000;
-                      break;
-                    case 20: // 0 - grids
-                    case 26: // 4 - louvers
-                      widthTemp = 1000;
-                      heightTemp = 1000;
-                      break;
-                  }
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
-                  /** get price of element */
-                  for(var k = 0; k < tempElemQty; k++) {
-                    if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      ///** add price margin */
-                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
-                      /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
-                    }
-                  }
-                  elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
-                }
-              }
-              if(elements.length) {
-                ///** sorting elements by position */
-                //elements = elements.sort(function(a, b) {
-                //  return GeneralServ.sorting(a.position, b.position);
-                //});
-                /** sorting by name */
-                elements = $filter('orderBy')(elements, 'name');
-
-                newElemList.push(elements);
-              } else {
-                typeDelete.push(t);
-              }
-            }
-
-            if(newElemList.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
-            } else {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
-            }
-
-            /** delete empty groups */
-            var delQty = typeDelete.length;
-            if(delQty) {
-              while(--delQty > -1) {
-                GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
-              }
-            }
-          }
-          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
-        }
-        deff.resolve(1);
-      });
-      return deff.promise;
-    }
-
-
-
-
-    function downloadCartMenuData() {
-      /** download Supply Data */
-      localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
-        if (supply.length) {
-          GlobalStor.global.supplyData = angular.copy(supply);
-          //console.warn('supplyData=', GlobalStor.global.supplyData);
-        }
-      });
-      /** download Mounting Data */
-      localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function(mounting) {
-        if (mounting.length) {
-          GlobalStor.global.assemblingData = angular.copy(mounting);
-          //console.warn('assemblingData=', GlobalStor.global.assemblingData);
-        }
-      });
-      /** download Instalment Data */
-      optionsServ.getInstalment(function (results) {
-        if (results.status) {
-          GlobalStor.global.instalmentsData = results.data.instalment;
-        } else {
-          console.log(results);
-        }
-      });
-    }
-
-
-
-
-
-  }
+  });
 })();
 
 
@@ -14467,56 +14941,34 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('MainServ', navFactory);
+    .factory('MainServ',
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor, CartStor) {
-
+  function(
+    $location,
+    $q,
+    $filter,
+    $timeout,
+    localDB,
+    GeneralServ,
+    SVGServ,
+    loginServ,
+    optionsServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    AuxStor,
+    CartStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      saveUserEntry: saveUserEntry,
-      createOrderData: createOrderData,
-      createOrderID: createOrderID,
-      setCurrDiscounts: setCurrDiscounts,
-      setCurrTemplate: setCurrTemplate,
-      prepareTemplates: prepareTemplates,
-      downloadAllTemplates: downloadAllTemplates,
-
-      setCurrentProfile: setCurrentProfile,
-      setCurrentGlass: setCurrentGlass,
-      setGlassToTemplateBlocks: setGlassToTemplateBlocks,
-      setCurrentHardware: setCurrentHardware,
-      fineItemById: fineItemById,
-      parseTemplate: parseTemplate,
-      saveTemplateInProduct: saveTemplateInProduct,
-      checkSashInTemplate: checkSashInTemplate,
-      preparePrice: preparePrice,
-      setProductPriceTOTAL: setProductPriceTOTAL,
-      showInfoBox: showInfoBox,
-      closeRoomSelectorDialog: closeRoomSelectorDialog,
-      laminatFiltering: laminatFiltering,
-      setCurrLamination: setCurrLamination,
-      setProfileByLaminat: setProfileByLaminat,
-
-      createNewProject: createNewProject,
-      createNewProduct: createNewProduct,
-      setDefaultDoorConfig: setDefaultDoorConfig,
-      prepareMainPage: prepareMainPage,
-      setDefaultAuxParam: setDefaultAuxParam,
-
-      inputProductInOrder: inputProductInOrder,
-      goToCart: goToCart,
-      saveOrderInDB: saveOrderInDB,
-      deleteOrderInDB: deleteOrderInDB
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     function saveUserEntry() {
@@ -14543,7 +14995,13 @@ function ErrorResult(code, message) {
 
 
 
-    /**  Create Order Id and Date */
+    /**-----------  Create Order Id and Date ------------*/
+
+    function createOrderID() {
+      var currTime = new Date().getTime();
+      return +(UserStor.userInfo.id + '' + currTime);
+    }
+
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
@@ -14555,10 +15013,7 @@ function ErrorResult(code, message) {
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
 
-    function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
-    }
+
 
 
     function setCurrDiscounts() {
@@ -14573,25 +15028,7 @@ function ErrorResult(code, message) {
     }
 
 
-    function prepareTemplates(type) {
-      var deferred = $q.defer();
-      downloadAllTemplates(type).then(function(data) {
-        if(data) {
-          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-          GlobalStor.global.templatesSource = angular.copy(data);
 
-          //--------- set current profile in ProductStor
-          setCurrentProfile(ProductStor.product).then(function(){
-            parseTemplate().then(function() {
-              deferred.resolve(1);
-            });
-          });
-        } else {
-          deferred.resolve(0);
-        }
-      });
-      return deferred.promise;
-    }
 
 
 
@@ -14646,9 +15083,9 @@ function ErrorResult(code, message) {
 
 
     function fineItemById(id, list) {
-      var typeQty = list.length;
+      var typeQty = list.length, itemQty;
       while(--typeQty > -1) {
-        var itemQty = list[typeQty].length;
+        itemQty = list[typeQty].length;
         while(--itemQty > -1) {
           if(list[typeQty][itemQty].id === id) {
             return list[typeQty][itemQty];
@@ -14659,9 +15096,9 @@ function ErrorResult(code, message) {
 
 
     function downloadProfileDepth(elementId) {
-      var defer = $q.defer();
+      var defer = $q.defer(), resultObj;
       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
-        var resultObj = {};
+        resultObj = {};
         if (result.length) {
           resultObj.a = result[0].a;
           resultObj.b = result[0].b;
@@ -14702,86 +15139,6 @@ function ErrorResult(code, message) {
 
 
 
-
-
-    function parseTemplate() {
-      var deferred = $q.defer();
-      //------- set current template for product
-      saveTemplateInProduct(ProductStor.product.template_id).then(function() {
-        setCurrentHardware(ProductStor.product);
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
-          deferred.resolve(1);
-        });
-      });
-      return deferred.promise;
-    }
-
-
-
-    function saveTemplateInProduct(templateIndex) {
-      var defer = $q.defer();
-      if(!GlobalStor.global.isChangedTemplate) {
-        ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-      }
-      setCurrentGlass(ProductStor.product);
-      //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
-//        console.log('TEMPLATE +++', ProductStor.product.template);
-        //----- create template icon
-        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-          ProductStor.product.templateIcon = angular.copy(result);
-          defer.resolve(1);
-        });
-      });
-      return defer.promise;
-    }
-
-
-
-    function checkSashInTemplate(product) {
-      var templQty = product.template_source.details.length,
-          counter = 0;
-      while(--templQty > 0) {
-        if(product.template_source.details[templQty].blockType === 'sash') {
-          ++counter;
-        }
-      }
-      return counter;
-    }
-
-
-
-    function setCurrentGlass(product, id) {
-      //------- cleaning glass in product
-      product.glass.length = 0;
-      if(id) {
-        //----- get Glass Ids from template and check dublicates
-        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
-            glassIdsQty = glassIds.length;
-        //------- glass filling by new elements
-        while(--glassIdsQty > -1) {
-          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
-        }
-      } else {
-        //----- set default glass in ProductStor
-        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === product.profile.id;
-        });
-        if(tempGlassArr.length) {
-          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
-          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-          GlobalStor.global.selectLastGlassId = product.glass[0].id;
-          /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
-        }
-      }
-    }
-
-
     function getGlassFromTemplateBlocks() {
       var blocksQty = ProductStor.product.template_source.details.length,
           glassIds = [];
@@ -14809,13 +15166,81 @@ function ErrorResult(code, message) {
           }
         } else {
           /** set glass to all template blocks */
-          //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-            ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-            ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+            //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
+          ProductStor.product.template_source.details[blocksQty].glassId = glassId;
+          ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
           //}
         }
       }
     }
+
+
+
+    function setCurrentGlass(product, id) {
+      var glassIds, glassIdsQty, tempGlassArr;
+      //------- cleaning glass in product
+      product.glass.length = 0;
+      if(id) {
+        //----- get Glass Ids from template and check dublicates
+        glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks());
+        glassIdsQty = glassIds.length;
+        //------- glass filling by new elements
+        while(--glassIdsQty > -1) {
+          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
+        }
+      } else {
+        //----- set default glass in ProductStor
+        tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === product.profile.id;
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+          GlobalStor.global.selectLastGlassId = product.glass[0].id;
+          /** set Glass to all template blocks without children */
+          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+        }
+      }
+    }
+
+
+
+    function checkSashInTemplate(product) {
+      var templQty = product.template_source.details.length,
+          counter = 0;
+      while(--templQty > 0) {
+        if(product.template_source.details[templQty].blockType === 'sash') {
+          counter+=1;
+        }
+      }
+      return counter;
+    }
+
+
+    function saveTemplateInProduct(templateIndex) {
+      var defer = $q.defer();
+      if(!GlobalStor.global.isChangedTemplate) {
+        ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+      }
+      setCurrentGlass(ProductStor.product);
+      //----- create template
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+        GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
+//        console.log('TEMPLATE +++', ProductStor.product.template);
+        //----- create template icon
+        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+          defer.resolve(1);
+        });
+      });
+      return defer.promise;
+    }
+
+
+
+
 
 
     function setCurrentHardware(product, id) {
@@ -14832,103 +15257,28 @@ function ErrorResult(code, message) {
     }
 
 
-    //--------- create object to send in server for price calculation
-    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      var deferred = $q.defer();
-      GlobalStor.global.isLoader = 1;
-      setBeadId(profileId, laminatId).then(function(beadResult) {
-        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-              var beadQty = template.priceElements.beadsSize.length;
-              while(--beadQty > -1) {
-                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
-              }
-              return item.beadId;
-            })),
-            objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                hardwareId
-              ],
-              sizes: []
-            };
-        //------- fill objXFormedPrice for sizes
-        for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-        }
 
-        //------- set Overall Dimensions
-        ProductStor.product.template_width = 0;
-        ProductStor.product.template_height = 0;
-        ProductStor.product.template_square = 0;
-        var overallQty = ProductStor.product.template.details[0].overallDim.length;
-        while(--overallQty > -1) {
-          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-        }
+    /**----------- set Bead Id -------------*/
 
-//        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-//        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-//        console.log('objXFormedPrice+++++++', objXFormedPrice);
-
-        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-        //--------- get product price
-        calculationPrice(objXFormedPrice).then(function(result) {
-          deferred.resolve(1);
-          /** set Report */
-          if(result) {
-            //---- only for this type of user
-            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-              ProductStor.product.report = prepareReport(result.constrElements);
-              //console.log('REPORT', ProductStor.product.report);
-            }
-          }
-        });
-
-        /** calculate coeffs */
-        calculateCoeffs(objXFormedPrice);
-
-        /** save analytics data first time */
-        if(GlobalStor.global.startProgramm) {
-//          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-          /** send analytics data to Server*/
-          //------ profile
-          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-    /** set Bead Id */
     function setBeadId(profileId, laminatId) {
       var deff = $q.defer(),
+          deff2, beadsQty, beadObj, pomisList, deff3, resultQty,
           promisBeads = ProductStor.product.glass.map(function(item) {
-            var deff2 = $q.defer();
+            deff2 = $q.defer();
             if(item.glass_width) {
               localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(beadIds) {
-                var beadsQty = beadIds.length,
-                    beadObj = {
-                      glassId: item.id,
-                      beadId: 0
-                    };
+                beadsQty = beadIds.length;
+                beadObj = {
+                  glassId: item.id,
+                  beadId: 0
+                };
                 if(beadsQty) {
                   //console.log('beads++++', beadIds);
                   //----- if beads more one
                   if(beadsQty > 1) {
                     //----- go to kits and find bead width required laminat Id
-                    var pomisList = beadIds.map(function(item2) {
-                      var deff3 = $q.defer();
+                    pomisList = beadIds.map(function(item2) {
+                      deff3 = $q.defer();
                       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'beed_lamination_id as id').then(function(lamId) {
                         //console.log('lamId++++', lamId);
                         if(lamId) {
@@ -14946,7 +15296,7 @@ function ErrorResult(code, message) {
 
                     $q.all(pomisList).then(function(results) {
                       //console.log('finish++++', results);
-                      var resultQty = results.length;
+                      resultQty = results.length;
                       while(--resultQty > -1) {
                         if(results[resultQty]) {
                           beadObj.beadId = beadIds[resultQty].list_id;
@@ -14979,6 +15329,22 @@ function ErrorResult(code, message) {
 
 
 
+
+
+    function setProductPriceTOTAL(Product) {
+      var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+      //playSound('price');
+      Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
+      Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
+      //------ add Discount of standart delivery day of Plant
+      if(default_delivery_plant) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, default_delivery_plant);
+      }
+      GlobalStor.global.isLoader = 0;
+    }
+
+
+
     //---------- Price define
     function calculationPrice(obj) {
       var deferred = $q.defer();
@@ -15001,10 +15367,10 @@ function ErrorResult(code, message) {
     function prepareReport(elementList) {
       var report = [],
           elementListQty = elementList.length,
-          ind = 0,
-          tempObj, reportQty, exist;
+          ind, tempObj, reportQty, exist;
+
       if(elementListQty) {
-        for (; ind < elementListQty; ind++) {
+        for (ind = 0; ind < elementListQty; ind+=1) {
           tempObj = angular.copy(elementList[ind]);
           tempObj.element_id = angular.copy(tempObj.id);
           tempObj.amount = angular.copy(tempObj.qty);
@@ -15054,12 +15420,13 @@ function ErrorResult(code, message) {
           glassQty = ProductStor.product.glass.length,
           glassHeatCoeffTotal = 0,
           profileHeatCoeffTotal = 0,
-          commonHeatCoeffTotal = 0;
+          commonHeatCoeffTotal = 0,
+          g;
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
         /** culculate glass Heat Coeff Total */
-        for(var g = 0; g < glassQty; g++) {
+        for(g = 0; g < glassQty; g+=1) {
           if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
             //$.isNumeric
             if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
@@ -15094,17 +15461,137 @@ function ErrorResult(code, message) {
 
 
 
-    function setProductPriceTOTAL(Product) {
-      var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
-      //playSound('price');
-      Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
-      Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
-      //------ add Discount of standart delivery day of Plant
-      if(default_delivery_plant) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, default_delivery_plant);
-      }
-      GlobalStor.global.isLoader = 0;
+
+
+
+
+
+    //--------- create object to send in server for price calculation
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
+      var deferred = $q.defer(),
+          beadIds, objXFormedPrice, beadQty, size, overallQty;
+      GlobalStor.global.isLoader = 1;
+      setBeadId(profileId, laminatId).then(function(beadResult) {
+        beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
+          beadQty = template.priceElements.beadsSize.length;
+          while(--beadQty > -1) {
+            if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+              template.priceElements.beadsSize[beadQty].elemId = item.beadId;
+            }
+          }
+          return item.beadId;
+        }));
+        objXFormedPrice = {
+          laminationId: laminatId,
+          ids: [
+            ProductStor.product.profile.rama_list_id,
+            ProductStor.product.profile.rama_still_list_id,
+            ProductStor.product.profile.stvorka_list_id,
+            ProductStor.product.profile.impost_list_id,
+            ProductStor.product.profile.shtulp_list_id,
+            (glassIds.length > 1) ? glassIds.map(function(item){
+              return item.id;
+            }) : glassIds[0].id,
+            (beadIds.length > 1) ? beadIds : beadIds[0],
+            hardwareId
+          ],
+          sizes: []
+        };
+        //------- fill objXFormedPrice for sizes
+        for(size in template.priceElements) {
+          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+        }
+
+        //------- set Overall Dimensions
+        ProductStor.product.template_width = 0;
+        ProductStor.product.template_height = 0;
+        ProductStor.product.template_square = 0;
+        overallQty = ProductStor.product.template.details[0].overallDim.length;
+        while(--overallQty > -1) {
+          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
+        }
+
+        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+
+        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+        //--------- get product price
+        calculationPrice(objXFormedPrice).then(function(result) {
+          deferred.resolve(1);
+          /** set Report */
+          if(result) {
+            //---- only for this type of user
+            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+              ProductStor.product.report = prepareReport(result.constrElements);
+              //console.log('REPORT', ProductStor.product.report);
+            }
+          }
+        });
+
+        /** calculate coeffs */
+        calculateCoeffs(objXFormedPrice);
+
+        /** save analytics data first time */
+        if(GlobalStor.global.startProgramm) {
+          //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          /** send analytics data to Server*/
+            //------ profile
+          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+        }
+      });
+      return deferred.promise;
     }
+
+
+
+
+
+    function parseTemplate() {
+      var deferred = $q.defer(), hardwareIds;
+      //------- set current template for product
+      saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+        setCurrentHardware(ProductStor.product);
+        hardwareIds = ProductStor.product.hardware.id || 0;
+        preparePrice(
+          ProductStor.product.template,
+          ProductStor.product.profile.id,
+          ProductStor.product.glass,
+          hardwareIds,
+          ProductStor.product.lamination.lamination_in_id
+        ).then(function() {
+            deferred.resolve(1);
+          });
+      });
+      return deferred.promise;
+    }
+
+
+
+
+    function prepareTemplates(type) {
+      var deferred = $q.defer();
+      downloadAllTemplates(type).then(function(data) {
+        if(data) {
+          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+          GlobalStor.global.templatesSource = angular.copy(data);
+
+          //--------- set current profile in ProductStor
+          setCurrentProfile(ProductStor.product).then(function(){
+            parseTemplate().then(function() {
+              deferred.resolve(1);
+            });
+          });
+        } else {
+          deferred.resolve(0);
+        }
+      });
+      return deferred.promise;
+    }
+
 
 
 
@@ -15112,10 +15599,12 @@ function ErrorResult(code, message) {
 
     /** show Info Box of element or group */
     function showInfoBox(id, itemArr) {
+      var itemArrQty, tempObj;
+
       if(GlobalStor.global.isInfoBox !== id) {
 //        console.info(id, itemArr);
-        var itemArrQty = itemArr.length,
-            tempObj = {};
+        itemArrQty = itemArr.length;
+        tempObj = {};
         while(--itemArrQty > -1) {
           if(itemArr[itemArrQty].lamination_type_id) {
             if(itemArr[itemArrQty].lamination_type_id === id) {
@@ -15149,6 +15638,18 @@ function ErrorResult(code, message) {
 
 
     /**-------- filtering Lamination Groupes -----------*/
+
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
+      }
+      return noExist;
+    }
+
 
     function laminatFiltering() {
       var laminatQty = GlobalStor.global.laminats.length,
@@ -15192,15 +15693,12 @@ function ErrorResult(code, message) {
     }
 
 
-    function checkLamGroupExist(lamId) {
-      var lamQty = GlobalStor.global.lamGroupFiltered.length,
-          noExist = 1;
-      while(--lamQty > -1) {
-        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
-          noExist = 0;
-        }
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
       }
-      return noExist;
     }
 
 
@@ -15224,18 +15722,12 @@ function ErrorResult(code, message) {
     }
 
 
-    function cleanLamFilter() {
-      var laminatQty = GlobalStor.global.laminats.length;
-      //---- deselect filter
-      while(--laminatQty > -1) {
-        GlobalStor.global.laminats[laminatQty].isActive = 0;
-      }
-    }
+
 
 
 
     function setProfileByLaminat(lamId) {
-      var deff = $q.defer();
+      var deff = $q.defer(), hardwareIds;
       if(lamId) {
         //------ set profiles parameters
         ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
@@ -15262,10 +15754,11 @@ function ErrorResult(code, message) {
 
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.template = angular.copy(result);
-          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
-            deff.resolve(1);
-          });
+          hardwareIds = ProductStor.product.hardware.id || 0;
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id)
+            .then(function() {
+              deff.resolve(1);
+            });
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
             ProductStor.product.templateIcon = angular.copy(result);
@@ -15278,6 +15771,39 @@ function ErrorResult(code, message) {
 
 
 
+
+    function setDefaultDoorConfig() {
+      ProductStor.product.door_shape_id = 1;
+      ProductStor.product.door_sash_shape_id = 1;
+      ProductStor.product.door_handle_shape_id = 1;
+      ProductStor.product.door_lock_shape_id = 1;
+    }
+
+    function setDefaultAuxParam() {
+      AuxStor.aux.isWindowSchemeDialog = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
+      AuxStor.aux.isGridSelectorDialog = 0;
+    }
+
+
+    function prepareMainPage() {
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.activePanel = 0;
+      setDefaultAuxParam();
+      if(GlobalStor.global.startProgramm) {
+        $timeout(function() {
+          GlobalStor.global.showRoomSelectorDialog = 1;
+        }, 2000);
+        $timeout(closeRoomSelectorDialog, 5000);
+      }
+    }
 
 
 
@@ -15345,39 +15871,8 @@ function ErrorResult(code, message) {
     }
 
 
-    function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
-    }
 
 
-    function prepareMainPage() {
-      GlobalStor.global.isNavMenu = 0;
-      GlobalStor.global.isConfigMenu = 1;
-      GlobalStor.global.activePanel = 0;
-      setDefaultAuxParam();
-      if(GlobalStor.global.startProgramm) {
-        $timeout(function() {
-          GlobalStor.global.showRoomSelectorDialog = 1;
-        }, 2000);
-        $timeout(closeRoomSelectorDialog, 5000);
-      }
-    }
-
-
-    function setDefaultAuxParam() {
-      AuxStor.aux.isWindowSchemeDialog = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.searchingWord = '';
-      AuxStor.aux.isGridSelectorDialog = 0;
-    }
 
 
 
@@ -15385,9 +15880,23 @@ function ErrorResult(code, message) {
 
     /**========== SAVE PRODUCT ==========*/
 
+    function checkEmptyChoosenAddElems() {
+      var addElemQty = ProductStor.product.chosenAddElements.length,
+          isExist = 0;
+
+      while(--addElemQty > -1) {
+        if(ProductStor.product.chosenAddElements[addElemQty].length) {
+          isExist+=1;
+        }
+      }
+      return isExist;
+    }
+
+
+
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
-      var permission = 1;
+      var permission = 1, productsQty;
       //------- if AddElems only, check is there selected AddElems
       if(ProductStor.product.is_addelem_only) {
         permission = checkEmptyChoosenAddElems();
@@ -15401,7 +15910,7 @@ function ErrorResult(code, message) {
 
         /**============ EDIT Product =======*/
         if (GlobalStor.global.productEditNumber) {
-          var productsQty = OrderStor.order.products.length;
+          productsQty = OrderStor.order.products.length;
           //-------- replace product in order
           while (--productsQty > -1) {
             if (OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
@@ -15425,17 +15934,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function checkEmptyChoosenAddElems() {
-      var addElemQty = ProductStor.product.chosenAddElements.length,
-          isExist = 0;
-
-      while(--addElemQty > -1) {
-        if(ProductStor.product.chosenAddElements[addElemQty].length) {
-          isExist++;
-        }
-      }
-      return isExist;
-    }
 
 
     //--------- moving to Cart when click on Cart button
@@ -15453,9 +15951,23 @@ function ErrorResult(code, message) {
 
     /** ========== SAVE ORDER ==========*/
 
-    //-------- save Order into Local DB
+
+    //-------- delete order from LocalDB
+    function deleteOrderInDB(orderNum) {
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
+    }
+
+
+
+    /**-------- save Order into Local DB ------------*/
+
     function saveOrderInDB(newOptions, orderType, orderStyle) {
-      var deferred = $q.defer();
+      var deferred = $q.defer(), p, prodQty,
+          productData, productReportData, reportQty,
+          addElemQty, add, elemQty, elem, addElementsData,
+          orderData;
 
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
@@ -15467,16 +15979,16 @@ function ErrorResult(code, message) {
 
       /** ===== SAVE PRODUCTS =====*/
 
-      var prodQty = OrderStor.order.products.length;
-      for(var p = 0; p < prodQty; p++) {
-        var productData = angular.copy(OrderStor.order.products[p]);
+      prodQty = OrderStor.order.products.length;
+      for(p = 0; p < prodQty; p+=1) {
+        productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
         productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
+        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
@@ -15509,8 +16021,8 @@ function ErrorResult(code, message) {
 
         /** ====== SAVE Report Data ===== */
 
-        var productReportData = angular.copy(OrderStor.order.products[p].report),
-            reportQty = productReportData.length;
+        productReportData = angular.copy(OrderStor.order.products[p].report);
+        reportQty = productReportData.length;
         //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
@@ -15524,13 +16036,13 @@ function ErrorResult(code, message) {
 
         /**============= SAVE ADDELEMENTS ============ */
 
-        var addElemQty = OrderStor.order.products[p].chosenAddElements.length;
-        for(var add = 0; add < addElemQty; add++) {
-          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
+        addElemQty = OrderStor.order.products[p].chosenAddElements.length;
+        for(add = 0; add < addElemQty; add+=1) {
+          elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
           if(elemQty > 0) {
-            for (var elem = 0; elem < elemQty; elem++) {
+            for (elem = 0; elem < elemQty; elem+=1) {
 
-              var addElementsData = {
+              addElementsData = {
                 order_id: OrderStor.order.id,
                 product_id: OrderStor.order.products[p].product_id,
                 element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
@@ -15543,7 +16055,6 @@ function ErrorResult(code, message) {
                 block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
                 modified: new Date()
               };
-
 
               console.log('SEND ADD',addElementsData);
               localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
@@ -15558,7 +16069,7 @@ function ErrorResult(code, message) {
       /** ============ SAVE ORDER =========== */
 
 //      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
-      var orderData = angular.copy(OrderStor.order);
+      orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
       orderData.order_style = orderStyle;
@@ -15566,7 +16077,7 @@ function ErrorResult(code, message) {
       orderData.user_id = UserStor.userInfo.id;
       orderData.delivery_date = new Date(OrderStor.order.delivery_date);
       orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
-      orderData.customer_sex = (OrderStor.order.customer_sex) ? +OrderStor.order.customer_sex : 0;
+      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
       orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
       orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
@@ -15635,16 +16146,51 @@ function ErrorResult(code, message) {
 
 
 
-    //-------- delete order from LocalDB
-    function deleteOrderInDB(orderNum) {
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-    }
 
 
+    /**========== FINISH ==========*/
 
-  }
+
+    thisFactory.publicObj = {
+      saveUserEntry: saveUserEntry,
+      createOrderData: createOrderData,
+      createOrderID: createOrderID,
+      setCurrDiscounts: setCurrDiscounts,
+      setCurrTemplate: setCurrTemplate,
+      prepareTemplates: prepareTemplates,
+      downloadAllTemplates: downloadAllTemplates,
+
+      setCurrentProfile: setCurrentProfile,
+      setCurrentGlass: setCurrentGlass,
+      setGlassToTemplateBlocks: setGlassToTemplateBlocks,
+      setCurrentHardware: setCurrentHardware,
+      fineItemById: fineItemById,
+      parseTemplate: parseTemplate,
+      saveTemplateInProduct: saveTemplateInProduct,
+      checkSashInTemplate: checkSashInTemplate,
+      preparePrice: preparePrice,
+      setProductPriceTOTAL: setProductPriceTOTAL,
+      showInfoBox: showInfoBox,
+      closeRoomSelectorDialog: closeRoomSelectorDialog,
+      laminatFiltering: laminatFiltering,
+      setCurrLamination: setCurrLamination,
+      setProfileByLaminat: setProfileByLaminat,
+
+      createNewProject: createNewProject,
+      createNewProduct: createNewProduct,
+      setDefaultDoorConfig: setDefaultDoorConfig,
+      prepareMainPage: prepareMainPage,
+      setDefaultAuxParam: setDefaultAuxParam,
+
+      inputProductInOrder: inputProductInOrder,
+      goToCart: goToCart,
+      saveOrderInDB: saveOrderInDB,
+      deleteOrderInDB: deleteOrderInDB
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -15656,9 +16202,20 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('NavMenuServ', navFactory);
+    .factory('NavMenuServ',
 
-  function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor) {
+  function(
+    $location,
+    $http,
+    $filter,
+    $cordovaGeolocation,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -15676,26 +16233,29 @@ function ErrorResult(code, message) {
           var latitude = position.coords.latitude,
               longitude = position.coords.longitude;
 
-          $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').then(
-            function (data) {
-              //----- save previous current location
-              //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+          $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru')
+            .then(
+              function (data) {
+                //----- save previous current location
+                //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
-              var deviceLocation = data.results[0].formatted_address.split(', ');
-              //TODO set new currencyID!!!!
-              //TODO before need to fine currencyId!!!!
-              //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
-
-              OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-              OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
-              OrderStor.order.climatic_zone = 7; //TODO
-              OrderStor.order.heat_coef_min = 0.99; //TODO
-              OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
-            },
-            function (data, status) {
-              console.log('Something went wrong with User recive!', data, status);
-            }
-          );
+                var deviceLocation = data.results[0].formatted_address.split(', ');
+                //TODO set new currencyID!!!!
+                //TODO before need to fine currencyId!!!!
+                //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+                //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                OrderStor.order.customer_city_id = 156;
+                OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
+                OrderStor.order.climatic_zone = 7; //TODO
+                OrderStor.order.heat_coef_min = 0.99; //TODO
+                OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] +
+                  ', ' + deviceLocation[deviceLocation.length-2] +
+                  ', ' + deviceLocation[deviceLocation.length-1];
+              },
+              function (data, status) {
+                console.log('Something went wrong with User recive!', data, status);
+              }
+            );
 
         }
 
@@ -15824,7 +16384,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -15836,9 +16396,9 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('optionsServ', optionFactory);
+    .factory('optionsServ',
 
-  function optionFactory($filter) {
+  function($filter) {
 
     return {
 
@@ -17422,7 +17982,7 @@ function ErrorResult(code, message) {
     }
 
 
-  }
+  });
 })();
 
 
@@ -17434,29 +17994,22 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .factory('SettingServ', settingsFactory);
+    .factory('SettingServ',
 
-  function settingsFactory($rootScope, $location, localDB, GlobalStor, UserStor) {
-
+  function(
+    $rootScope,
+    $location,
+    localDB,
+    GlobalStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      changeAvatar: changeAvatar,
-      //downloadLocations: downloadLocations,
-      closeLocationPage: closeLocationPage,
-      gotoLocationPage: gotoLocationPage,
-      gotoPasswordPage: gotoPasswordPage,
-      gotoLanguagePage: gotoLanguagePage,
-      gotoSettingsPage: gotoSettingsPage,
-      closeSettingsPage: closeSettingsPage
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- change avatar
     function changeAvatar(newAvatar, form) {
@@ -17514,7 +18067,25 @@ function ErrorResult(code, message) {
       $location.path(GlobalStor.global.prevOpenPage);
     }
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      changeAvatar: changeAvatar,
+      //downloadLocations: downloadLocations,
+      closeLocationPage: closeLocationPage,
+      gotoLocationPage: gotoLocationPage,
+      gotoPasswordPage: gotoPasswordPage,
+      gotoLanguagePage: gotoLanguagePage,
+      gotoSettingsPage: gotoSettingsPage,
+      closeSettingsPage: closeSettingsPage
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -17526,10 +18097,10 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('SoundPlayServ', soundPlayFactory);
+    .factory('SoundPlayServ',
 
-  function soundPlayFactory() {
-
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.soundsIntervals = {
@@ -17540,14 +18111,10 @@ function ErrorResult(code, message) {
       switching: {start: 1.81, end: 2.88}
     };
 
-    thisFactory.publicObj = {
-      playSound: playSound
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //----------- Play audio sounds
     function playSound() {
@@ -17576,7 +18143,16 @@ function ErrorResult(code, message) {
      }
      */
 
-  }
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      playSound: playSound
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -17588,287 +18164,31 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('SVGServ', designFactory);
+    .factory('SVGServ',
 
-  function designFactory($q, globalConstants, GeneralServ, GlobalStor, ProductStor, DesignStor) {
-
+  function(
+    $q,
+    globalConstants,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    DesignStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      createSVGTemplate: createSVGTemplate,
-      createSVGTemplateIcon: createSVGTemplateIcon,
-      collectAllPointsOut: collectAllPointsOut,
-      setTemplateScale: setTemplateScale,
-      setTemplatePosition: setTemplatePosition,
-
-      centerBlock: centerBlock,
-      sortingPoints: sortingPoints,
-      getAngelPoint: getAngelPoint,
-      setLines: setLines,
-      setLineCoef: setLineCoef,
-      getNewCoefC: getNewCoefC,
-      setPointLocationToLine: setPointLocationToLine,
-      intersectionQ: intersectionQ,
-      cteateLineByAngel: cteateLineByAngel,
-      getIntersectionInCurve: getIntersectionInCurve,
-      getCoordCrossPoint: getCoordCrossPoint,
-      checkLineOwnPoint: checkLineOwnPoint,
-      isInsidePointInLine: isInsidePointInLine,
-      getCoordSideQPCurve: getCoordSideQPCurve,
-      checkEqualPoints: checkEqualPoints,
-      setQPointCoord: setQPointCoord,
-      getCenterLine: getCenterLine,
-      calcSquare: calcSquare,
-
-      checkInsidePointInLineEasy: checkInsidePointInLineEasy,
-      sortByX: sortByX
-    };
-
-    return thisFactory.publicObj;
 
 
 
+    /**============ METHODS ================*/
 
-    //============ methods ================//
-
-
-    function createSVGTemplate(sourceObj, depths) {
-      //console.log('------------------------------------------------------');
-//      console.log('svg start', new Date(), new Date().getMilliseconds());
-      var thisObj = {},
-          defer = $q.defer();
-      //  thisObj.name = sourceObj.name;
-      thisObj.details = angular.copy(sourceObj.details);
-      thisObj.priceElements = {
-        framesSize: [],
-        frameSillSize: [],
-        sashsSize: [],
-        impostsSize: [],
-        shtulpsSize: [],
-        glassSquares: [],
-        beadsSize: [],
-        sashesBlock: []
+    function getCenterLine(pointStart, pointEnd) {
+      var center = {
+        x: (pointStart.x + pointEnd.x)/2,
+        y: (pointStart.y + pointEnd.y)/2
       };
-
-      var blocksQty = thisObj.details.length;
-
-
-      for(var i = 0; i < blocksQty; i++) {
-
-        //------ block 0
-        if(!thisObj.details[i].level) {
-
-          var childQty = thisObj.details[i].children.length,
-              b = 0;
-          if(childQty === 1) {
-            for(; b < blocksQty; b++) {
-              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'single';
-              }
-            }
-          } else if(childQty > 1) {
-            for(; b < blocksQty; b++) {
-              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'first';
-              } else if(thisObj.details[i].children[childQty-1] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'last';
-              }
-            }
-          }
-
-          thisObj.details[i].overallDim = [];
-
-        } else {
-//          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
-//          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
-          //----- create point Q for arc or curve corner in block 1
-          if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
-            setQPInMainBlock(thisObj.details[i]);
-          }
-          thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
-          thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
-//          console.log('+++++++++ block ++++++++++pointsOut');
-          thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
-          if(thisObj.details[i].level === 1) {
-            thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
-          } else {
-            thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-//            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
-            thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
-//            console.log('+++++++++ block ++++++++++pointsIn');
-          }
-          thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
-
-          if(thisObj.details[i].level === 1) {
-            setCornerProp(thisObj.details);
-            //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
-          }
-
-
-          //-------- if block has children and type is sash
-          if(thisObj.details[i].children.length) {
-
-            if(thisObj.details[i].blockType === 'sash') {
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
-              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
-              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
-              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
-
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-
-              //----- set openPoints for sash
-              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
-            }
-
-          //------- if block is empty
-          } else {
-            //------ if block is frame
-            if(thisObj.details[i].blockType === 'frame') {
-//              console.log('+++++++++ block ++++++++++beads');
-              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
-              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
-              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
-              //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
-
-              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
-              /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
-
-            } else if(thisObj.details[i].blockType === 'sash') {
-              //console.info('-------', i, thisObj.details[i]);
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
-              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
-              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
-              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
-
-              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
-              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
-              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
-              //------ for defined open directions of sash
-              thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
-
-              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
-              //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
-
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
-
-              //----- set openPoints for sash
-              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
-            }
-          }
-          setPointsXChildren(thisObj.details[i], thisObj.details, depths);
-          //----- create impost parts
-          if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
-          }
-
-
-        }
-      }
-
-      thisObj.dimension = initDimensions(thisObj.details);
-
-      console.log('TEMPLATE END++++', thisObj);
-      //console.log('svg finish', new Date(), new Date().getMilliseconds());
-      //console.log('------------------------------------------------------');
-      defer.resolve(thisObj);
-      return defer.promise;
+      return center;
     }
-
-
-
-
-    //----------- ICON
-
-    function createSVGTemplateIcon(sourceObj, depths) {
-      var defer = $q.defer(),
-          newDepth = angular.copy(depths),
-          coeffScale = 2;
-      for(var p in newDepth) {
-        for(var el in newDepth[p]) {
-          newDepth[p][el] *= coeffScale;
-        }
-      }
-      createSVGTemplate(sourceObj, newDepth).then(function(result) {
-        defer.resolve(result);
-      });
-      return defer.promise;
-    }
-
-
-    //----------- SCALE
-
-    function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+300),
-          templateH = (dim.maxY - dim.minY),
-          scaleTmp,
-          d3scaling = d3.scale.linear()
-            .domain([0, 1])
-            .range([0, padding]);
-
-      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
-      //var windRatio = windowW/windowH;
-      //var tempRatio = templateW/templateH;
-      //var ratio = windRatio/tempRatio;
-      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
-
-      if(templateW > templateH) {
-        if(windowW > templateW) {
-          scaleTmp = d3scaling(templateW/windowW);
-          //console.info('W < =====', templateW/windowW, scaleTmp);
-        } else if(windowW < templateW) {
-          scaleTmp = d3scaling(windowW/templateW);
-          //console.info('W > =====', windowW/templateW, scaleTmp);
-        } else {
-          scaleTmp = d3scaling(1);
-          //console.info('W======', scaleTmp);
-        }
-        //console.info('W > H --', scaleTmp);
-      } else if(templateW <= templateH) {
-        if(windowH > templateH) {
-          scaleTmp = d3scaling(templateH/windowH);
-          //console.info('H < =====', templateH/windowH, scaleTmp);
-        } else if(windowH < templateH) {
-          scaleTmp = d3scaling(windowH/templateH);
-          //console.info('H > =====', (windowH/templateH), scaleTmp);
-        } else {
-          scaleTmp = d3scaling(1);
-          //console.info('H======', scaleTmp);
-        }
-        //console.info('H > W --', scaleTmp);
-      }
-      return scaleTmp;
-    }
-
-
-
-    //----------- TRANSLATE
-
-    function setTemplatePosition(dim, windowW, windowH, scale) {
-      var position = {
-        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
-      };
-      return position;
-    }
-
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -17895,9 +18215,9 @@ function ErrorResult(code, message) {
 
 
     function sortingPoints(points, center) {
-      var pointsQty = points.length;
+      var pointsQty = points.length, i;
 
-      for(var i = 0; i < pointsQty; i++) {
+      for(i = 0; i < pointsQty; i+=1) {
         points[i].fi = getAngelPoint(center, points[i]);
       }
       points.sort(function(a, b){
@@ -17922,17 +18242,52 @@ function ErrorResult(code, message) {
     }
 
 
+    function setLineCoef(line) {
+      line.coefA = (line.from.y - line.to.y);
+      line.coefB = (line.to.x - line.from.x);
+      line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
+    }
+
+
+    //    function setLineType(from, to) {
+    //      var type = '';
+    //      if(from === to) {
+    //        if(from === 'impost') {
+    //          type = 'impost';
+    //        } else {
+    //          type = 'frame';
+    //        }
+    //      } else {
+    //        type = 'frame';
+    //      }
+    //      return type;
+    //    }
+
+
+    function setLineType(from, to) {
+      var type = '';
+      if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
+        type = 'impost';
+        //} else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
+      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1 && from === to) {
+        type = 'shtulp';
+      } else {
+        type = 'frame';
+      }
+      return type;
+    }
+
 
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length;
+          pointsQty = points.length, i, line, index;
 
-      for(var i = 0; i < pointsQty; i++) {
+      for(i = 0; i < pointsQty; i+=1) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
         }
-        var line = {}, index;
+        line = {};
         //------- first
         line.from = angular.copy(points[i]);
         line.dir = points[i].dir;
@@ -17970,64 +18325,7 @@ function ErrorResult(code, message) {
     }
 
 
-    function setLineCoef(line) {
-      line.coefA = (line.from.y - line.to.y);
-      line.coefB = (line.to.x - line.from.x);
-      line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
-    }
 
-
-//    function setLineType(from, to) {
-//      var type = '';
-//      if(from === to) {
-//        if(from === 'impost') {
-//          type = 'impost';
-//        } else {
-//          type = 'frame';
-//        }
-//      } else {
-//        type = 'frame';
-//      }
-//      return type;
-//    }
-
-    function setLineType(from, to) {
-      var type = '';
-      if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
-        type = 'impost';
-      //} else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
-      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1 && from === to) {
-        type = 'shtulp';
-      } else {
-        type = 'frame';
-      }
-      return type;
-    }
-
-
-
-    function setPointsIn(lines, depths, group) {
-      var pointsIn = [],
-          linesQty = lines.length;
-//console.info('lines+++', lines);
-      for(var i = 0; i < linesQty; i++) {
-        var newLine1 = angular.copy(lines[i]),
-            newLine2 = {},
-            crossPoint = {},
-            index;
-        newLine1.coefC = getNewCoefC(depths, newLine1, group);
-        if(i === (linesQty - 1)) {
-          index = 0;
-        } else {
-          index = i+1;
-        }
-        newLine2 = angular.copy(lines[index]);
-        newLine2.coefC = getNewCoefC(depths, newLine2, group);
-        crossPoint = getCrossPoint2Lines(newLine1, newLine2);
-        pointsIn.push(crossPoint);
-      }
-      return pointsIn;
-    }
 
 
     function getNewCoefC(depths, line, group) {
@@ -18078,15 +18376,58 @@ function ErrorResult(code, message) {
         //  depth = depths.frameDepth.b + depths.sashDepth.c;
         //  break;
       }
-      var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
-      return newCoefC;
+      return (line.coefC - (depth * Math.hypot(line.coefA, line.coefB)));
+    }
+
+
+
+    function checkParallelCoef(line) {
+      var x1 = line.from.x,
+          y1 = line.from.y,
+          x2 = line.to.x,
+          y2 = line.to.y;
+      //      if(line.from.dir === 'curv') {
+      //        x1 = line.from.xQ;
+      //        y1 = line.from.yQ;
+      //      }
+      //      if(line.to.dir === 'curv') {
+      //        x2 = line.to.xQ;
+      //        y2 = line.to.yQ;
+      //      }
+      return Math.round( (y2 - y1) / (x2 - x1) );
+    }
+
+
+
+    function checkParallel(line1, line2) {
+      var k1 = checkParallelCoef(line1),
+          k2 = checkParallelCoef(line2);
+      return (k1 === k2) ? 1 : 0;
+    }
+
+
+    function getCoordCrossPoint(line1, line2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
+          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
+          crossPoint = {
+            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
+            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
+          };
+      if(crossPoint.x === -0) {
+        crossPoint.x = 0;
+      } else if(crossPoint.y === -0) {
+        crossPoint.y = 0;
+      }
+      return crossPoint;
     }
 
 
     function getCrossPoint2Lines(line1, line2) {
       var crossPoint = {},
           coord = {},
-          isParall = checkParallel(line1, line2);
+          isParall = checkParallel(line1, line2),
+          x2, y2, normal;
 
       //------- if lines are paralles
       if(isParall) {
@@ -18098,13 +18439,13 @@ function ErrorResult(code, message) {
         //      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
         //    };
 
-        var x2 = line1.to.x,
-            y2 = line1.to.y;
+        x2 = line1.to.x;
+        y2 = line1.to.y;
 //        if(line1.to.dir === 'curv') {
 //          x2 = line1.to.xQ;
 //          y2 = line1.to.yQ;
 //        }
-        var normal = {
+        normal = {
           coefA: line1.coefB,
           coefB: -line1.coefA,
           coefC: (line1.coefA * y2 - line1.coefB * x2)
@@ -18139,37 +18480,107 @@ function ErrorResult(code, message) {
     }
 
 
-    function checkParallel(line1, line2) {
-      var k1 = checkParallelCoef(line1),
-          k2 = checkParallelCoef(line2);
-      return (k1 === k2) ? 1 : 0;
+
+    function setPointsIn(lines, depths, group) {
+      var pointsIn = [],
+          linesQty = lines.length, i,
+          newLine1, newLine2, crossPoint, index;
+      //console.info('lines+++', lines);
+      for(i = 0; i < linesQty; i+=1) {
+        newLine1 = angular.copy(lines[i]);
+        newLine2 = {};
+        crossPoint = {};
+        newLine1.coefC = getNewCoefC(depths, newLine1, group);
+        if(i === (linesQty - 1)) {
+          index = 0;
+        } else {
+          index = i+1;
+        }
+        newLine2 = angular.copy(lines[index]);
+        newLine2.coefC = getNewCoefC(depths, newLine2, group);
+        crossPoint = getCrossPoint2Lines(newLine1, newLine2);
+        pointsIn.push(crossPoint);
+      }
+      return pointsIn;
     }
 
 
-    function checkParallelCoef(line) {
-      var x1 = line.from.x,
-          y1 = line.from.y,
-          x2 = line.to.x,
-          y2 = line.to.y;
-//      if(line.from.dir === 'curv') {
-//        x1 = line.from.xQ;
-//        y1 = line.from.yQ;
-//      }
-//      if(line.to.dir === 'curv') {
-//        x2 = line.to.xQ;
-//        y2 = line.to.yQ;
-//      }
-      return Math.round( (y2 - y1) / (x2 - x1) );
+
+
+    function setQPointCoord(side, line, dist) {
+      var middle = getCenterLine(line.from, line.to),
+          coordQP = {};
+      //      console.log('setQPointCoord-----------', line, middle);
+      //------- line vert or hor
+      if(!line.coefA || !line.coefB) {
+        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
+        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
+        //        console.log('line vert or hor');
+      } else {
+        switch(side) {
+          case 1:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('1');
+            break;
+          case 2:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('2');
+            break;
+          case 3:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('3');
+            break;
+          case 4:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('4');
+
+            break;
+        }
+      }
+      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
+      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
+      //      console.log('ERROR coordQP!!!', coordQP);
+      return coordQP;
+    }
+
+
+
+    //---------- linear interpolation utility
+    function getCoordCurveByT(P0, P1, P2, t) {
+      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
+    }
+
+
+    function culcRadiusCurve(lineLength, heightQ) {
+      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) );
+    }
+
+
+    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
+      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
+      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
+      pointQ.lengthChord = GeneralServ.roundingValue( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
+      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
+      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
+      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);
     }
 
 
 
     function setQPInMainBlock(currBlock) {
-      var qpQty = currBlock.pointsQ.length;
+      var qpQty = currBlock.pointsQ.length, q, p,
+          pointsOutQty, curvP0, curvP1,
+          curvLine, centerLine, curvQP, coordQP;
       if(qpQty) {
-        for (var q = 0; q < qpQty; q++) {
-          var pointsOutQty = currBlock.pointsOut.length, curvP0 = 0, curvP1 = 0;
-          for (var p = 0; p < pointsOutQty; p++) {
+        for (q = 0; q < qpQty; q+=1) {
+          pointsOutQty = currBlock.pointsOut.length;
+          curvP0 = 0;
+          curvP1 = 0;
+          for (p = 0; p < pointsOutQty; p+=1) {
             if (currBlock.pointsQ[q].fromPId === currBlock.pointsOut[p].id) {
               curvP0 = currBlock.pointsOut[p];
             }
@@ -18179,18 +18590,18 @@ function ErrorResult(code, message) {
           }
 
           if (curvP0 && curvP1) {
-            var curvLine = {
-                  from: curvP0,
-                  to: curvP1
-                },
-                centerLine = getCenterLine(curvP0, curvP1),
-                curvQP = {
-                  type: currBlock.pointsQ[q].type,
-                  id: currBlock.pointsQ[q].id,
-                  dir: 'curv',
-                  xQ: centerLine.x,
-                  yQ: centerLine.y
-                }, coordQP;
+            curvLine = {
+              from: curvP0,
+              to: curvP1
+            };
+            centerLine = getCenterLine(curvP0, curvP1);
+            curvQP = {
+              type: currBlock.pointsQ[q].type,
+              id: currBlock.pointsQ[q].id,
+              dir: 'curv',
+              xQ: centerLine.x,
+              yQ: centerLine.y
+            };
 
             setLineCoef(curvLine);
 
@@ -18221,175 +18632,116 @@ function ErrorResult(code, message) {
     }
 
 
-    function setPointsXChildren(currBlock, blocks, depths) {
-      if(currBlock.children.length) {
-        var blocksQty = blocks.length,
-            impPointsQty = currBlock.impost.impostAxis.length,
-            impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
-            impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
-            pointsOut = angular.copy(currBlock.pointsOut),
-            pointsIn, linesIn,
-            indexChildBlock1, indexChildBlock2;
 
-//console.log('-------------setPointsXChildren -----------');
-        if(currBlock.blockType === 'sash') {
-          pointsIn = angular.copy(currBlock.sashPointsIn);
-          linesIn = currBlock.sashLinesIn;
-        } else {
-          pointsIn = angular.copy(currBlock.pointsIn);
-          linesIn = currBlock.linesIn;
-        }
-        var linesInQty = linesIn.length;
+    function getCoordSideQPCurve(t, p0, p1) {
+      var qpi = {
+        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
+        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
+      };
+      return qpi;
+    }
 
-        //-------- get indexes of children blocks
-        for(var i = 1; i < blocksQty; i++) {
-          if(blocks[i].id === currBlock.children[0]) {
-            indexChildBlock1 = i;
-          } else if(blocks[i].id === currBlock.children[1]) {
-            indexChildBlock2 = i;
+
+
+    function checkEqualPoints(newPoint, pointsArr) {
+      var noExist = 1,
+          pointsQty = pointsArr.length;
+      if (pointsQty) {
+        while (--pointsQty > -1) {
+          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
+            noExist = 0;
           }
-        }
-
-        //------- create 2 impost vectors
-        var impVectorAx1 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx0,
-              to: impAx1
-            },
-            impVectorAx2 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx1,
-              to: impAx0
-            };
-        setLineCoef(impVectorAx1);
-        setLineCoef(impVectorAx2);
-
-        var impVector1 = angular.copy(impVectorAx1),
-            impVector2 = angular.copy(impVectorAx2);
-
-        impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
-        impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
-//        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
-//        console.log('IMP impVector1++++++++++', impVector1);
-//        console.log('IMP impVector2++++++++++', impVector2);
-//        console.log('IMP linesIn++++++++++', linesIn);
-        //-------- finde cross points each impost vectors with lineIn of block
-        for(var i = 0; i < linesInQty; i++) {
-//          console.log('!!!!! impVector1 -----');
-          getCPImpostInsideBlock(0, 0, i, linesInQty, linesIn, impVector1, impAx0, currBlock.impost.impostIn);
-//          console.log('!!!!! impVector2 -----');
-          getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
-//          console.log('!!!!! impVectorAx1 -----');
-          getCPImpostInsideBlock(0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn);
-        }
-
-        //------- if curve impost
-        if(impPointsQty === 3) {
-          //----- make order for impostOut
-          var impostOutQty = currBlock.impost.impostOut.length, impAxQ;
-          for(var i = 0; i < impostOutQty; i++) {
-            currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
-            currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
-          }
-          if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
-            currBlock.impost.impostOut.reverse();
-          }
-
-          impAxQ = getImpostQP(0, 1, currBlock.impost);
-          getImpostQP(0, 0, currBlock.impost);
-          getImpostQP(1, 0, currBlock.impost);
-
-          blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
-          blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
-
-          //------ for R dimension, get coordinates for Radius location
-          currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
-          currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
-          setRadiusCoordXCurve(currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]);
-        }
-
-
-        var impostAx = angular.copy(currBlock.impost.impostAxis);
-        //------- insert pointsOut of parent block in pointsOut of children blocks
-//        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
-//        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
-        collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
-        //------- insert impostOut of impost in pointsOut of children blocks
-//        for(var i = 0; i < 2; i++) {
-//          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
-//          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
-//        }
-//        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
-        //------- insert pointsIn of parent block in pointsIn of children blocks
-        collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
-        //------- insert impostIn of impost in pointsIn of children blocks
-        collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
-//        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
-//        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
-        //-------- set real impostAxis coord for dimensions
-        var linesOutQty = currBlock.linesOut.length,
-            impostQP;
-        if(currBlock.impost.impostAxis[2]) {
-          impostQP = angular.copy(currBlock.impost.impostAxis[2]);
-        }
-        currBlock.impost.impostAxis.length = 0;
-        for(var i = 0; i < linesOutQty; i++) {
-          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
-        }
-        if(impostQP) {
-          currBlock.impost.impostAxis.push(impostQP);
-        }
-        for(var i = 0; i < 2; i++) {
-          blocks[indexChildBlock1].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
-          blocks[indexChildBlock2].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
         }
       }
+      return noExist;
+    }
+
+
+
+    function setSideQPCurve(i, linesInQty, linesIn, intersect, pointsIn) {
+      var sideQP1, sideQP2, index, curvP0, curvP2,
+          impostQP1, impostQP2, impostQPCenter1, impostQPCenter2,
+          pQty, noExist1, noExist2;
+
+      if (linesIn[i].from.id.indexOf('q')+1) {
+        index = i - 1;
+        if (!linesIn[index]) {
+          index = linesInQty - 1;
+        }
+        curvP0 = linesIn[index].from;
+        curvP2 = linesIn[i].to;
+        sideQP1 = angular.copy(linesIn[i].from);
+      } else if (linesIn[i].to.id.indexOf('q') + 1) {
+        index = i + 1;
+        if (!linesIn[index]) {
+          index = 0;
+        }
+        curvP0 = linesIn[i].from;
+        curvP2 = linesIn[index].to;
+        sideQP1 = angular.copy(linesIn[i].to);
+      }
+      sideQP2 = angular.copy(sideQP1);
+
+      impostQP1 = getCoordSideQPCurve(intersect.t, curvP0, sideQP1);
+      impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2);
+      impostQPCenter1 = getCenterLine(curvP0, intersect);
+      impostQPCenter2 = getCenterLine(intersect, curvP2);
+
+      sideQP1.x = impostQP1.x;
+      sideQP1.y = impostQP1.y;
+      sideQP1.xQ = impostQPCenter1.x;
+      sideQP1.yQ = impostQPCenter1.y;
+
+      sideQP2.x = impostQP2.x;
+      sideQP2.y = impostQP2.y;
+      sideQP2.xQ = impostQPCenter2.x;
+      sideQP2.yQ = impostQPCenter2.y;
+      //      console.log('QQQQ--------', sideQP1);
+      //      console.log('QQQQ--------', sideQP2);
+
+      //----- delete Q point parent
+      pQty = pointsIn.length;
+      while(--pQty > -1) {
+        if(pointsIn[pQty].id === sideQP1.id) {
+          pointsIn.splice(pQty, 1);
+        }
+      }
+      //      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
+
+      noExist1 = checkEqualPoints(sideQP1, pointsIn);
+      if(noExist1) {
+        //        console.log('noExist1-------');
+        pointsIn.push(sideQP1);
+      }
+      noExist2 = checkEqualPoints(sideQP2, pointsIn);
+      if(noExist2) {
+        //        console.log('noExist2-------');
+        pointsIn.push(sideQP2);
+      }
+      //      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
     }
 
 
 
 
-
-    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
-      var impCP = getCoordCrossPoint(linesIn[i], impVector),
-          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
-          isCross = isInsidePointInLine(isInside);
-
-      if (isCross) {
-        var ip = angular.copy(impAx);
-        ip.group = group;
-        ip.x = impCP.x;
-        ip.y = impCP.y;
-
-        if (linesIn[i].dir === 'curv') {
-          var impCenterP = findImpostCenter(markAx, impVector);
-          var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-//          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
-//          console.log('intersect +++', intersect[0]);
-          if (intersect.length) {
-            ip.x = intersect[0].x;
-            ip.y = intersect[0].y;
-            ip.t = intersect[0].t;
-//            var noExist = checkEqualPoints(ip, impost);
-//            if(noExist) {
-//              if (markAx) {
-//                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
-//              }
-//              impost.push(angular.copy(ip));
-//            }
-          }
-        }
-        var noExist = checkEqualPoints(ip, impost);
-        if(noExist) {
-          if (linesIn[i].dir === 'curv' && markAx) {
-            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
-          }
-//            console.log('impCP++++++++', JSON.stringify(ip));
-          impost.push(angular.copy(ip));
-//            console.log('impost++++++++', JSON.stringify(impost));
-        }
+    function checkLineOwnPoint(point, lineTo, lineFrom) {
+      var check = {
+        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
+        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
+      };
+      if(check.x === -Infinity) {
+        check.x = Infinity;
+      } else if(check.y === -Infinity) {
+        check.y = Infinity;
       }
+      if(check.x === -0) {
+        check.x = 0;
+      } else if(check.y === -0) {
+        check.y = 0;
+      }
+      return check;
     }
+
 
 
     function isInsidePointInLine(checkCrossPoint) {
@@ -18418,15 +18770,17 @@ function ErrorResult(code, message) {
     }
 
 
+
     function findImpostCenter(markAx, impost) {
       //---- take middle point of impost
-      var centerImpost = getCenterLine(impost.from, impost.to);
+      var centerImpost = getCenterLine(impost.from, impost.to),
+          normal;
       //---- if impost Axis line
       if(markAx) {
         return centerImpost;
       } else {
-      //---- if impost inner line
-        var normal = {
+        //---- if impost inner line
+        normal = {
           coefA: impost.coefB,
           coefB: -impost.coefA,
           coefC: (impost.coefA * centerImpost.y - impost.coefB * centerImpost.x)
@@ -18436,71 +18790,57 @@ function ErrorResult(code, message) {
     }
 
 
-    function setSideQPCurve(i, linesInQty, linesIn, intersect, pointsIn) {
-      var sideQP1, sideQP2, index, curvP0, curvP2;
-      if (linesIn[i].from.id.indexOf('q')+1) {
-        index = i - 1;
-        if (!linesIn[index]) {
-          index = linesInQty - 1;
+
+    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
+      var impCP = getCoordCrossPoint(linesIn[i], impVector),
+          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
+          isCross = isInsidePointInLine(isInside),
+          ip, impCenterP, intersect, noExist;
+
+      if (isCross) {
+        ip = angular.copy(impAx);
+        ip.group = group;
+        ip.x = impCP.x;
+        ip.y = impCP.y;
+
+        if (linesIn[i].dir === 'curv') {
+          impCenterP = findImpostCenter(markAx, impVector);
+          intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
+//          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
+//          console.log('intersect +++', intersect[0]);
+          if (intersect.length) {
+            ip.x = intersect[0].x;
+            ip.y = intersect[0].y;
+            ip.t = intersect[0].t;
+//            var noExist = checkEqualPoints(ip, impost);
+//            if(noExist) {
+//              if (markAx) {
+//                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+//              }
+//              impost.push(angular.copy(ip));
+//            }
+          }
         }
-        curvP0 = linesIn[index].from;
-        curvP2 = linesIn[i].to;
-        sideQP1 = angular.copy(linesIn[i].from);
-      } else if (linesIn[i].to.id.indexOf('q') + 1) {
-        index = i + 1;
-        if (!linesIn[index]) {
-          index = 0;
-        }
-        curvP0 = linesIn[i].from;
-        curvP2 = linesIn[index].to;
-        sideQP1 = angular.copy(linesIn[i].to);
-      }
-      sideQP2 = angular.copy(sideQP1);
-
-      var impostQP1 = getCoordSideQPCurve(intersect.t, curvP0, sideQP1),
-          impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2),
-          impostQPCenter1 = getCenterLine(curvP0, intersect),
-          impostQPCenter2 = getCenterLine(intersect, curvP2);
-
-      sideQP1.x = impostQP1.x;
-      sideQP1.y = impostQP1.y;
-      sideQP1.xQ = impostQPCenter1.x;
-      sideQP1.yQ = impostQPCenter1.y;
-
-      sideQP2.x = impostQP2.x;
-      sideQP2.y = impostQP2.y;
-      sideQP2.xQ = impostQPCenter2.x;
-      sideQP2.yQ = impostQPCenter2.y;
-//      console.log('QQQQ--------', sideQP1);
-//      console.log('QQQQ--------', sideQP2);
-
-      //----- delete Q point parent
-      var pQty = pointsIn.length;
-      while(--pQty > -1) {
-        if(pointsIn[pQty].id === sideQP1.id) {
-          pointsIn.splice(pQty, 1);
+        noExist = checkEqualPoints(ip, impost);
+        if(noExist) {
+          if (linesIn[i].dir === 'curv' && markAx) {
+            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
+          }
+//            console.log('impCP++++++++', JSON.stringify(ip));
+          impost.push(angular.copy(ip));
+//            console.log('impost++++++++', JSON.stringify(impost));
         }
       }
-//      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
-
-      var noExist1 = checkEqualPoints(sideQP1, pointsIn);
-      if(noExist1) {
-//        console.log('noExist1-------');
-        pointsIn.push(sideQP1);
-      }
-      var noExist2 = checkEqualPoints(sideQP2, pointsIn);
-      if(noExist2) {
-//        console.log('noExist2-------');
-        pointsIn.push(sideQP2);
-      }
-//      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
     }
 
 
 
 
+
+
     function getImpostQP(group, paramAx, impostBlock) {
-      var impQP, impCurvPoints = [];
+      var impQP, impCurvPoints = [],
+          impChord, centerImpChord, coordQP;
 
       //-------- for impostAxis
       if(paramAx) {
@@ -18519,14 +18859,12 @@ function ErrorResult(code, message) {
         });
       }
 
-
       if(impCurvPoints.length === 2) {
-        var impChord = {
-              from: angular.copy(impCurvPoints[0]),
-              to: angular.copy(impCurvPoints[1])
-            },
-            centerImpChord = getCenterLine(impChord.from, impChord.to),
-            coordQP;
+        impChord = {
+          from: angular.copy(impCurvPoints[0]),
+          to: angular.copy(impCurvPoints[1])
+        };
+        centerImpChord = getCenterLine(impChord.from, impChord.to);
 
         setLineCoef(impChord);
 
@@ -18557,15 +18895,38 @@ function ErrorResult(code, message) {
 
 
 
+    function setPointLocationToLine(lineP1, lineP2, newP) {
+      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+    }
+
+
+
+    function checkDoubleQPoints(newPointId, pointsIn) {
+      //      console.log('-----------', newPointId, pointsIn);
+      var isExist = 0,
+          pointsInQty = pointsIn.length;
+      if (pointsInQty) {
+        while (--pointsInQty > -1) {
+          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
+            //            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
+            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
+              isExist = 1;
+            }
+          }
+        }
+      }
+      return isExist;
+    }
+
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
+      var pointsQty = points.length, i, position, exist;
+      for(i = 0; i < pointsQty; i+=1) {
         //------- check pointsIn of parent block as to impost
-        var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
+        position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
         //------ block right side
         if(position > 0) {
-          var exist = 0;
+          exist = 0;
           if(pointsBlock2.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock2);
           }
@@ -18574,7 +18935,7 @@ function ErrorResult(code, message) {
           }
         //------ block left side
         } else if(position < 0){
-          var exist = 0;
+          exist = 0;
           if(pointsBlock1.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock1);
           }
@@ -18587,8 +18948,8 @@ function ErrorResult(code, message) {
 
 
     function collectImpPointsXChildBlock(points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
+      var pointsQty = points.length, i;
+      for(i = 0; i < pointsQty; i+=1) {
         //------ block right side
         if(points[i].group) {
           pointsBlock2.push(angular.copy(points[i]));
@@ -18600,120 +18961,244 @@ function ErrorResult(code, message) {
     }
 
 
-    function setPointLocationToLine(lineP1, lineP2, newP) {
-      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
-    }
 
 
-    function checkEqualPoints(newPoint, pointsArr) {
-      var noExist = 1,
-          pointsQty = pointsArr.length;
-      if (pointsQty) {
-        while (--pointsQty > -1) {
-          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
-            noExist = 0;
+
+    function setPointsXChildren(currBlock, blocks, depths) {
+      var blocksQty, impPointsQty, impAx0, impAx1,
+          pointsOut, pointsIn, linesIn, linesInQty,
+          indexChildBlock1, indexChildBlock2, i,
+          impVectorAx1, impVectorAx2,
+          impVector1, impVector2, impostOutQty,
+          impostAx, linesOutQty, impostQP;
+
+      if(currBlock.children.length) {
+        blocksQty = blocks.length;
+        impPointsQty = currBlock.impost.impostAxis.length;
+        impAx0 = angular.copy(currBlock.impost.impostAxis[0]);
+        impAx1 = angular.copy(currBlock.impost.impostAxis[1]);
+        pointsOut = angular.copy(currBlock.pointsOut);
+
+        //console.log('-------------setPointsXChildren -----------');
+        if(currBlock.blockType === 'sash') {
+          pointsIn = angular.copy(currBlock.sashPointsIn);
+          linesIn = currBlock.sashLinesIn;
+        } else {
+          pointsIn = angular.copy(currBlock.pointsIn);
+          linesIn = currBlock.linesIn;
+        }
+        linesInQty = linesIn.length;
+
+        //-------- get indexes of children blocks
+        for(i = 1; i < blocksQty; i+=1) {
+          if(blocks[i].id === currBlock.children[0]) {
+            indexChildBlock1 = i;
+          } else if(blocks[i].id === currBlock.children[1]) {
+            indexChildBlock2 = i;
           }
         }
-      }
-      return noExist;
-    }
 
+        //------- create 2 impost vectors
+        impVectorAx1 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx0,
+          to: impAx1
+        };
+        impVectorAx2 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx1,
+          to: impAx0
+        };
+        setLineCoef(impVectorAx1);
+        setLineCoef(impVectorAx2);
 
-    function checkDoubleQPoints(newPointId, pointsIn) {
-      //      console.log('-----------', newPointId, pointsIn);
-      var isExist = 0,
-          pointsInQty = pointsIn.length;
-      if (pointsInQty) {
-        while (--pointsInQty > -1) {
-          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-//            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
-            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
-              isExist = 1;
-            }
+        impVector1 = angular.copy(impVectorAx1);
+        impVector2 = angular.copy(impVectorAx2);
+
+        impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
+        impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
+        //        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
+        //        console.log('IMP impVector1++++++++++', impVector1);
+        //        console.log('IMP impVector2++++++++++', impVector2);
+        //        console.log('IMP linesIn++++++++++', linesIn);
+        //-------- finde cross points each impost vectors with lineIn of block
+        for(i = 0; i < linesInQty; i+=1) {
+          //          console.log('!!!!! impVector1 -----');
+          getCPImpostInsideBlock(0, 0, i, linesInQty, linesIn, impVector1, impAx0, currBlock.impost.impostIn);
+          //          console.log('!!!!! impVector2 -----');
+          getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
+          //          console.log('!!!!! impVectorAx1 -----');
+          getCPImpostInsideBlock(0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn);
+        }
+
+        //------- if curve impost
+        if(impPointsQty === 3) {
+          //----- make order for impostOut
+          impostOutQty = currBlock.impost.impostOut.length, impAxQ;
+          for(i = 0; i < impostOutQty; i+=1) {
+            currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
+            currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
           }
+          if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
+            currBlock.impost.impostOut.reverse();
+          }
+
+          impAxQ = getImpostQP(0, 1, currBlock.impost);
+          getImpostQP(0, 0, currBlock.impost);
+          getImpostQP(1, 0, currBlock.impost);
+
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
+
+          //------ for R dimension, get coordinates for Radius location
+          currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
+          currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
+          setRadiusCoordXCurve(currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]);
+        }
+
+
+        impostAx = angular.copy(currBlock.impost.impostAxis);
+        //------- insert pointsOut of parent block in pointsOut of children blocks
+        //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
+        //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
+        collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
+        //------- insert impostOut of impost in pointsOut of children blocks
+        //        for(var i = 0; i < 2; i++) {
+        //          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
+        //          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
+        //        }
+        //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
+        //------- insert pointsIn of parent block in pointsIn of children blocks
+        collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        //------- insert impostIn of impost in pointsIn of children blocks
+        collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
+        //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
+        //-------- set real impostAxis coord for dimensions
+        linesOutQty = currBlock.linesOut.length;
+        if(currBlock.impost.impostAxis[2]) {
+          impostQP = angular.copy(currBlock.impost.impostAxis[2]);
+        }
+        currBlock.impost.impostAxis.length = 0;
+        for(i = 0; i < linesOutQty; i+=1) {
+          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
+        }
+        if(impostQP) {
+          currBlock.impost.impostAxis.push(impostQP);
+        }
+        for(i = 0; i < 2; i+=1) {
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
         }
       }
-      return isExist;
     }
 
 
-    function getCoordSideQPCurve(t, p0, p1) {
-      var qpi = {
-        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
-        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
-      };
-      return qpi;
+
+
+
+
+
+    /**------------ create PARTS --------------*/
+
+
+    function collectPointsInParts(part, point1, point2, point3, point4) {
+      part.points.push(point1, point2, point3, point4);
+      if(point1.type === 'corner' || point2.type === 'corner') {
+        part.type = 'corner';
+      }
+      //-------- set sill
+      if(point1.sill && point2.sill) {
+        part.sill = 1;
+      }
     }
 
 
-    function setQPointCoord(side, line, dist) {
-      var middle = getCenterLine(line.from, line.to),
-          coordQP = {};
-//      console.log('setQPointCoord-----------', line, middle);
-      //------- line vert or hor
-      if(!line.coefA || !line.coefB) {
-        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
-        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
-//        console.log('line vert or hor');
-      } else {
-        switch(side) {
-          case 1:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-//            console.log('1');
-            break;
-          case 2:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-//            console.log('2');
-            break;
-          case 3:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-//            console.log('3');
-            break;
-          case 4:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-//            console.log('4');
+    function assamblingPath(arrPoints) {
+      var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
+          p, pointQty = arrPoints.length;
 
-            break;
+      //------- Line
+      if(pointQty === 4) {
+        for(p = 1; p < pointQty; p+=1) {
+
+          path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+
+          if(p === (pointQty - 1)) {
+            path += ' Z';
+          }
+
+        }
+        //--------- Curve
+      } else if(pointQty === 6) {
+        for(p = 1; p < pointQty; p+=1) {
+          if(p === 3) {
+            path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+          } else {
+            path += ' Q '+ arrPoints[p].x +','+ arrPoints[p].y + ' ' + arrPoints[p+1].x +','+ arrPoints[p+1].y;
+            p+=1;
+          }
+
+          if(p === (pointQty - 1)) {
+            path += ' Z';
+          }
+
         }
       }
-      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
-      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
-//      console.log('ERROR coordQP!!!', coordQP);
-      return coordQP;
+      //  console.log(arrPoints);
+
+      return path;
     }
 
 
 
+    function culcLength(arrPoints) {
+      var pointQty = arrPoints.length,
+          size = 0, step, t, sizeX, sizeY;
+      //------- Line
+      if(pointQty === 2 || pointQty === 4) {
+        size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
+
+        //--------- Curve
+      } else if(pointQty === 3 || pointQty === 6) {
+        step = 0.01;
+        t = 0;
+        while(t <= 1) {
+          sizeX = 2*((1-t)*(arrPoints[1].x - arrPoints[0].x) + t*(arrPoints[2].x - arrPoints[1].x));
+          sizeY = 2*((1-t)*(arrPoints[1].y - arrPoints[0].y) + t*(arrPoints[2].y - arrPoints[1].y));
+          size += Math.hypot(sizeX, sizeY)*step;
+          t += step;
+        }
+      }
+      return size;
+    }
 
 
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
-      var newPointsOut = pointsOut.filter(function (item) {
-        if(item.type === 'frame' && !item.view) {
-          return false;
-        } else {
-          return true;
-        }
-      });
-
       var parts = [],
+          newPointsOut = pointsOut.filter(function (item) {
+            if(item.type === 'frame' && !item.view) {
+              return false;
+            } else {
+              return true;
+            }
+          }),
           pointsQty = newPointsOut.length,
           beadObj = {
             glassId: currGlassId,
             sizes: []
-          }, tempPoint, tempPoint2;
+          },
+          tempPoint, tempPoint2, index, part;
 
-      for(var index = 0; index < pointsQty; index++) {
+
+      for(index = 0; index < pointsQty; index+=1) {
         //----- passing if first point is curv
         if(index === 0 && newPointsOut[index].dir === 'curv') {
           continue;
         }
-        var part = {
+        part = {
           type: newPointsOut[index].type,
           dir: 'line',
           points: []
@@ -18778,7 +19263,7 @@ function ErrorResult(code, message) {
             }
             part.points.push(pointsIn[index+1], pointsIn[index]);
             part.dir = 'curv';
-            index++;
+            index+=1;
           } else {
             /**----- DOOR -----*/
             if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
@@ -18873,76 +19358,69 @@ function ErrorResult(code, message) {
     }
 
 
-    function collectPointsInParts(part, point1, point2, point3, point4) {
-      part.points.push(point1, point2, point3, point4);
-      if(point1.type === 'corner' || point2.type === 'corner') {
-        part.type = 'corner';
+
+
+    function calcSquare(arrPoints) {
+      var square = 0,
+          pointQty = arrPoints.length, p;
+
+      for(p = 0; p < pointQty; p+=1) {
+        if(arrPoints[p+1]) {
+          square += arrPoints[p].x * arrPoints[p+1].y - arrPoints[p].y * arrPoints[p+1].x;
+        } else {
+          square += arrPoints[p].x * arrPoints[0].y - arrPoints[p].y * arrPoints[0].x;
+        }
       }
-      //-------- set sill
-      if(point1.sill && point2.sill) {
-        part.sill = 1;
-      }
+      square /= (2 * 1000000);
+
+      //  console.log('square = ', square);
+      return square;
     }
 
 
-    function assamblingPath(arrPoints) {
-      var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
-          p = 1,
-          pointQty = arrPoints.length;
+    function culcLengthGlass(points) {
+      var pointQty = points.length,
+          sizes = [], p, size, indNext,
+          step, t, ind2, sizeX, sizeY;
 
-      //------- Line
-      if(pointQty === 4) {
-        for(; p < pointQty; p++) {
-
-          path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
-
-          if(p === (pointQty - 1)) {
-            path += ' Z';
-          }
-
+      for(p = 0; p < pointQty; p+=1) {
+        size = 0;
+        if(p === 0 && points[p].dir === 'curve') {
+          continue;
+        }
+        if(points[p+1]) {
+          indNext = p+1;
+        } else {
+          indNext = 0;
         }
         //--------- Curve
-      } else if(pointQty === 6) {
-        for(; p < pointQty; p++) {
-          if(p === 3) {
-            path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+        if(points[indNext].dir === 'curve') {
+          step = 0.01;
+          t = 0;
+          if(points[p+2]) {
+            ind2 = p+2;
           } else {
-            path += ' Q '+ arrPoints[p].x +','+ arrPoints[p].y + ' ' + arrPoints[p+1].x +','+ arrPoints[p+1].y;
-            p++;
+            ind2 = 1;
           }
-
-          if(p === (pointQty - 1)) {
-            path += ' Z';
+          while (t <= 1) {
+            sizeX = 2 * ((1 - t) * (points[indNext].x - points[p].x) + t * (points[ind2].x - points[indNext].x));
+            sizeY = 2 * ((1 - t) * (points[indNext].y - points[p].y) + t * (points[ind2].y - points[indNext].y));
+            size += Math.hypot(sizeX, sizeY) * step;
+            t += step;
           }
-
+          p += 1;
+        } else {
+          //------- Line
+          size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
         }
-      }
-      //  console.log(arrPoints);
 
-      return path;
+        sizes.push(size);
+      }
+
+      return sizes;
     }
 
 
-    function culcLength(arrPoints) {
-      var pointQty = arrPoints.length,
-          size = 0;
-      //------- Line
-      if(pointQty === 2 || pointQty === 4) {
-        size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
-
-        //--------- Curve
-      } else if(pointQty === 3 || pointQty === 6) {
-        var step = 0.01,
-            t = 0;
-        while(t <= 1) {
-          var sizeX = 2*((1-t)*(arrPoints[1].x - arrPoints[0].x) + t*(arrPoints[2].x - arrPoints[1].x));
-          var sizeY = 2*((1-t)*(arrPoints[1].y - arrPoints[0].y) + t*(arrPoints[2].y - arrPoints[1].y));
-          size += Math.hypot(sizeX, sizeY)*step;
-          t += step;
-        }
-      }
-      return size;
-    }
 
 
     function setGlass(glassPoints, priceElements, currGlassId) {
@@ -18956,9 +19434,9 @@ function ErrorResult(code, message) {
             elemId: currGlassId
           },
           pointsQty = glassPoints.length,
-          i = 0;
+          i;
 
-      for(; i < pointsQty; i++) {
+      for(i = 0; i < pointsQty; i+=1) {
         //----- if first point
         if(i === 0) {
           //----- if first point is curve
@@ -18978,7 +19456,7 @@ function ErrorResult(code, message) {
           } else {
             part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
           }
-          i++;
+          i+=1;
         //-------- if line
         } else {
           part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
@@ -19002,98 +19480,6 @@ function ErrorResult(code, message) {
       return part;
     }
 
-
-    function calcSquare(arrPoints) {
-      var square = 0,
-          pointQty = arrPoints.length, p;
-
-      for(p = 0; p < pointQty; p+=1) {
-        if(arrPoints[p+1]) {
-          square += arrPoints[p].x * arrPoints[p+1].y - arrPoints[p].y * arrPoints[p+1].x;
-        } else {
-          square += arrPoints[p].x * arrPoints[0].y - arrPoints[p].y * arrPoints[0].x
-        }
-      }
-      square /= (2 * 1000000);
-
-      //  console.log('square = ', square);
-      return square;
-    }
-
-
-    function culcLengthGlass(points) {
-      var pointQty = points.length,
-          sizes = [];
-
-      for(var p = 0; p < pointQty; p++) {
-        var size = 0, indNext;
-        if(p === 0 && points[p].dir === 'curve') {
-          continue;
-        }
-        if(points[p+1]) {
-          indNext = p+1;
-        } else {
-          indNext = 0;
-        }
-        //--------- Curve
-        if(points[indNext].dir === 'curve') {
-          var step = 0.01, t = 0, ind2;
-          if(points[p+2]) {
-            ind2 = p+2;
-          } else {
-            ind2 = 1;
-          }
-          while (t <= 1) {
-            var sizeX = 2 * ((1 - t) * (points[indNext].x - points[p].x) + t * (points[ind2].x - points[indNext].x));
-            var sizeY = 2 * ((1 - t) * (points[indNext].y - points[p].y) + t * (points[ind2].y - points[indNext].y));
-            size += Math.hypot(sizeX, sizeY) * step;
-            t += step;
-          }
-          ++p;
-        } else {
-          //------- Line
-          size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
-        }
-
-        sizes.push(size);
-      }
-
-      return sizes;
-    }
-
-
-
-
-    function setCornerProp(blocks) {
-      var blocksQty = blocks.length;
-
-      for(var b = 1; b < blocksQty; b++) {
-        //------- if block 1
-        if(blocks[b].level === 1) {
-          var pointsQty = blocks[b].pointsOut.length,
-              i = 0;
-          if(blocks[b].position === 'single') {
-            for(; i < pointsQty; i++){
-              blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-            }
-          } else if(blocks[b].position === 'first') {
-            for(; i < pointsQty; i++){
-              if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
-                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-              }
-            }
-          } else if(blocks[b].position === 'last') {
-            for(; i < pointsQty; i++){
-              if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
-                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-              }
-            }
-          }
-
-        }
-      }
-
-    }
 
 
     function checkPointXCorner(points, last, curr) {
@@ -19121,6 +19507,41 @@ function ErrorResult(code, message) {
 
 
 
+    function setCornerProp(blocks) {
+      var blocksQty = blocks.length, b, i, pointsQty;
+
+      for(b = 1; b < blocksQty; b+=1) {
+        //------- if block 1
+        if(blocks[b].level === 1) {
+          pointsQty = blocks[b].pointsOut.length;
+          if(blocks[b].position === 'single') {
+            for(i = 0; i < pointsQty; i+=1){
+              blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+            }
+          } else if(blocks[b].position === 'first') {
+            for(i = 0; i < pointsQty; i+=1){
+              if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
+                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+              }
+            }
+          } else if(blocks[b].position === 'last') {
+            for(i = 0; i < pointsQty; i+=1){
+              if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
+                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+
+
+
+
+
+
     function copyPointsOut(pointsArr, label) {
       var newPointsArr = angular.copy(pointsArr),
           newPointsQty = newPointsArr.length;
@@ -19132,90 +19553,8 @@ function ErrorResult(code, message) {
 
 
 
-
-    function setOpenDir(direction, beadLines) {
-      var parts = [],
-          newPoints = preparePointsXMaxMin(beadLines),
-          center = centerBlock(newPoints),
-//          dim = GeneralServ.getMaxMinCoord(newPoints),
-//          center = {
-//            x: (dim.minX + dim.maxX)/2,
-//            y: (dim.minY + dim.maxY)/2
-//          },
-          dirQty = direction.length;
-//      console.log('DIR line===', beadLines);
-//      console.log('DIR newPoints===', newPoints);
-//      console.log('DIR geomCenter===', geomCenter);
-
-      for(var index = 0; index < dirQty; index++) {
-        var part = {
-          type: 'sash-dir',
-          points: []
-        };
-
-        switch(direction[index]) {
-          //----- 'up'
-          case 1:
-            part.points.push(getCrossPointSashDir(1, center, 225, beadLines), getCrossPointSashDir(3, center, 90, beadLines), getCrossPointSashDir(1, center, 315, beadLines));
-            break;
-          //----- 'right'
-          case 2:
-            part.points.push(getCrossPointSashDir(2, center, 225, beadLines), getCrossPointSashDir(4, center, 180, beadLines), getCrossPointSashDir(2, center, 135, beadLines));
-            break;
-          //------ 'down'
-          case 3:
-            part.points.push(getCrossPointSashDir(3, center, 135, beadLines), getCrossPointSashDir(1, center, 270, beadLines), getCrossPointSashDir(3, center, 45, beadLines));
-            break;
-          //----- 'left'
-          case 4:
-            part.points.push(getCrossPointSashDir(4, center, 45, beadLines), getCrossPointSashDir(2, center, 180, beadLines), getCrossPointSashDir(4, center, 315, beadLines));
-            break;
-        }
-        parts.push(part);
-      }
-
-      return parts;
-    }
-
-
-    function preparePointsXMaxMin(lines) {
-      var points = [],
-          linesQty = lines.length;
-      for(var l = 0; l < linesQty; l++) {
-        if(lines[l].dir === 'curv') {
-          var t = 0.5,
-              peak = {}, ind0, ind1 = l, ind2;
-          if(l === 0) {
-            ind0 = linesQty - 1;
-            ind2 = l + 1;
-          } else if(l === (linesQty - 1)) {
-            ind0 = l - 1;
-            ind2 = 0;
-          } else {
-            ind0 = l - 1;
-            ind2 = l + 1;
-          }
-          peak.x = getCoordCurveByT(lines[ind0].to.x, lines[ind1].to.x, lines[ind2].to.x, t);
-          peak.y = getCoordCurveByT(lines[ind0].to.y, lines[ind1].to.y, lines[ind2].to.y, t);
-          points.push(peak);
-        } else {
-          points.push(lines[l].to);
-        }
-      }
-      return points;
-    }
-
-
-    function getCrossPointSashDir(position, centerGeom, angel, lines) {
-      var sashDirVector = cteateLineByAngel(centerGeom, angel);
-      var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
-//      console.log('DIR new coord----------', crossPoints);
-      return crossPoints;
-    }
-
-
     function cteateLineByAngel(center, angel) {
-//      console.log(angel);
+      //      console.log(angel);
       var k =  Math.tan(angel * Math.PI / 180),
           lineMark = {
             center: center,
@@ -19228,11 +19567,11 @@ function ErrorResult(code, message) {
 
 
     function getCrossPointInBlock(position, vector, lines) {
-      var linesQty = lines.length;
-//      console.log('lines @@@@@@', lines);
-      for(var l = 0; l < linesQty; l++) {
+      var linesQty = lines.length, l;
+      //      console.log('lines @@@@@@', lines);
+      for(l = 0; l < linesQty; l+=1) {
         var coord, isInside, isCross, intersect;
-//        console.log('DIR line ++++', lines[l]);
+        //        console.log('DIR line ++++', lines[l]);
 
         coord = getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
@@ -19280,6 +19619,90 @@ function ErrorResult(code, message) {
         }
       }
     }
+
+    function getCrossPointSashDir(position, centerGeom, angel, lines) {
+      var sashDirVector = cteateLineByAngel(centerGeom, angel);
+      var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
+      //      console.log('DIR new coord----------', crossPoints);
+      return crossPoints;
+    }
+
+
+    function setOpenDir(direction, beadLines) {
+      var parts = [],
+          newPoints = preparePointsXMaxMin(beadLines),
+          center = centerBlock(newPoints),
+//          dim = GeneralServ.getMaxMinCoord(newPoints),
+//          center = {
+//            x: (dim.minX + dim.maxX)/2,
+//            y: (dim.minY + dim.maxY)/2
+//          },
+          dirQty = direction.length, index;
+//      console.log('DIR line===', beadLines);
+//      console.log('DIR newPoints===', newPoints);
+//      console.log('DIR geomCenter===', geomCenter);
+
+      for(index = 0; index < dirQty; index+=1) {
+        var part = {
+          type: 'sash-dir',
+          points: []
+        };
+
+        switch(direction[index]) {
+          //----- 'up'
+          case 1:
+            part.points.push(getCrossPointSashDir(1, center, 225, beadLines), getCrossPointSashDir(3, center, 90, beadLines), getCrossPointSashDir(1, center, 315, beadLines));
+            break;
+          //----- 'right'
+          case 2:
+            part.points.push(getCrossPointSashDir(2, center, 225, beadLines), getCrossPointSashDir(4, center, 180, beadLines), getCrossPointSashDir(2, center, 135, beadLines));
+            break;
+          //------ 'down'
+          case 3:
+            part.points.push(getCrossPointSashDir(3, center, 135, beadLines), getCrossPointSashDir(1, center, 270, beadLines), getCrossPointSashDir(3, center, 45, beadLines));
+            break;
+          //----- 'left'
+          case 4:
+            part.points.push(getCrossPointSashDir(4, center, 45, beadLines), getCrossPointSashDir(2, center, 180, beadLines), getCrossPointSashDir(4, center, 315, beadLines));
+            break;
+        }
+        parts.push(part);
+      }
+
+      return parts;
+    }
+
+
+    function preparePointsXMaxMin(lines) {
+      var points = [],
+          linesQty = lines.length, l;
+      for(l = 0; l < linesQty; l+=1) {
+        if(lines[l].dir === 'curv') {
+          var t = 0.5,
+              peak = {}, ind0, ind1 = l, ind2;
+          if(l === 0) {
+            ind0 = linesQty - 1;
+            ind2 = l + 1;
+          } else if(l === (linesQty - 1)) {
+            ind0 = l - 1;
+            ind2 = 0;
+          } else {
+            ind0 = l - 1;
+            ind2 = l + 1;
+          }
+          peak.x = getCoordCurveByT(lines[ind0].to.x, lines[ind1].to.x, lines[ind2].to.x, t);
+          peak.y = getCoordCurveByT(lines[ind0].to.y, lines[ind1].to.y, lines[ind2].to.y, t);
+          points.push(peak);
+        } else {
+          points.push(lines[l].to);
+        }
+      }
+      return points;
+    }
+
+
+
+
 
 
 
@@ -19409,10 +19832,7 @@ function ErrorResult(code, message) {
     }
 
 
-    //---------- linear interpolation utility
-    function getCoordCurveByT(P0, P1, P2, t) {
-      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
-    }
+
 
 
 
@@ -19549,51 +19969,15 @@ function ErrorResult(code, message) {
 
 
 
-    function getCoordCrossPoint(line1, line2) {
-      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
-          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
-          crossPoint = {
-            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
-            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
-          };
-      if(crossPoint.x === -0) {
-        crossPoint.x = 0;
-      } else if(crossPoint.y === -0) {
-        crossPoint.y = 0;
-      }
-      return crossPoint;
-    }
 
 
 
-    function checkLineOwnPoint(point, lineTo, lineFrom) {
-      var check = {
-        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
-        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
-      };
-      if(check.x === -Infinity) {
-        check.x = Infinity;
-      } else if(check.y === -Infinity) {
-        check.y = Infinity;
-      }
-      if(check.x === -0) {
-        check.x = 0;
-      } else if(check.y === -0) {
-        check.y = 0;
-      }
-      return check;
-    }
 
 
 
-    function getCenterLine(pointStart, pointEnd) {
-      var center = {
-        x: (pointStart.x + pointEnd.x)/2,
-        y: (pointStart.y + pointEnd.y)/2
-      };
-      return center;
-    }
+
+
+
 
 
 
@@ -20232,23 +20616,295 @@ function ErrorResult(code, message) {
 
 
 
-    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
-      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
-      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
-      pointQ.lengthChord = GeneralServ.roundingValue( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
-      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
-      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
-      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    function createSVGTemplate(sourceObj, depths) {
+      //console.log('------------------------------------------------------');
+      //      console.log('svg start', new Date(), new Date().getMilliseconds());
+      var thisObj = {},
+          defer = $q.defer(),
+          blocksQty, i, childQty, b;
+
+      //  thisObj.name = sourceObj.name;
+      thisObj.details = angular.copy(sourceObj.details);
+      thisObj.priceElements = {
+        framesSize: [],
+        frameSillSize: [],
+        sashsSize: [],
+        impostsSize: [],
+        shtulpsSize: [],
+        glassSquares: [],
+        beadsSize: [],
+        sashesBlock: []
+      };
+
+      blocksQty = thisObj.details.length;
+
+
+      for(i = 0; i < blocksQty; i+=1) {
+
+        //------ block 0
+        if(!thisObj.details[i].level) {
+
+          childQty = thisObj.details[i].children.length;
+          if(childQty === 1) {
+            for(b = 0; b < blocksQty; b+=1) {
+              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'single';
+              }
+            }
+          } else if(childQty > 1) {
+            for(b = 0; b < blocksQty; b+=1) {
+              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'first';
+              } else if(thisObj.details[i].children[childQty-1] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'last';
+              }
+            }
+          }
+
+          thisObj.details[i].overallDim = [];
+
+        } else {
+          //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
+          //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
+          //----- create point Q for arc or curve corner in block 1
+          if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
+            setQPInMainBlock(thisObj.details[i]);
+          }
+          thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
+          thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
+          //          console.log('+++++++++ block ++++++++++pointsOut');
+          thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
+          if(thisObj.details[i].level === 1) {
+            thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
+          } else {
+            thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
+            //            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
+            thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
+            //            console.log('+++++++++ block ++++++++++pointsIn');
+          }
+          thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
+
+          if(thisObj.details[i].level === 1) {
+            setCornerProp(thisObj.details);
+            //------- set points for each part of construction
+            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
+          }
+
+
+          //-------- if block has children and type is sash
+          if(thisObj.details[i].children.length) {
+
+            if(thisObj.details[i].blockType === 'sash') {
+              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
+
+              //----- set openPoints for sash
+              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
+              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+            }
+
+            //------- if block is empty
+          } else {
+            //------ if block is frame
+            if(thisObj.details[i].blockType === 'frame') {
+              //              console.log('+++++++++ block ++++++++++beads');
+              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
+              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
+              //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+
+              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
+              /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
+
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+
+            } else if(thisObj.details[i].blockType === 'sash') {
+              //console.info('-------', i, thisObj.details[i]);
+              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+
+              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
+              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
+              //------ for defined open directions of sash
+              thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+
+              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
+              //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
+
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+
+              //----- set openPoints for sash
+              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
+              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+            }
+          }
+          setPointsXChildren(thisObj.details[i], thisObj.details, depths);
+          //----- create impost parts
+          if(thisObj.details[i].children.length) {
+            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
+          }
+
+
+        }
+      }
+
+      thisObj.dimension = initDimensions(thisObj.details);
+
+      //console.log('TEMPLATE END++++', thisObj);
+      //console.log('svg finish', new Date(), new Date().getMilliseconds());
+      //console.log('------------------------------------------------------');
+      defer.resolve(thisObj);
+      return defer.promise;
     }
 
 
-    function culcRadiusCurve(lineLength, heightQ) {
-      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) );
+
+    //----------- ICON
+
+    function createSVGTemplateIcon(sourceObj, depths) {
+      var defer = $q.defer(),
+          newDepth = angular.copy(depths),
+          coeffScale = 2, p, el;
+      for(p in newDepth) {
+        for(el in newDepth[p]) {
+          newDepth[p][el] *= coeffScale;
+        }
+      }
+      createSVGTemplate(sourceObj, newDepth).then(function(result) {
+        defer.resolve(result);
+      });
+      return defer.promise;
+    }
+
+
+    //----------- SCALE
+
+    function setTemplateScale(dim, windowW, windowH, padding) {
+      var templateW = ((dim.maxX - dim.minX)+300),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/windowW);
+          //console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/templateW);
+          //console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('W======', scaleTmp);
+        }
+        //console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          //console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          //console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('H======', scaleTmp);
+        }
+        //console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
     }
 
 
 
-  }
+    //----------- TRANSLATE
+
+    function setTemplatePosition(dim, windowW, windowH, scale) {
+      var position = {
+        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+      };
+      return position;
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      createSVGTemplate: createSVGTemplate,
+      createSVGTemplateIcon: createSVGTemplateIcon,
+      collectAllPointsOut: collectAllPointsOut,
+      setTemplateScale: setTemplateScale,
+      setTemplatePosition: setTemplatePosition,
+
+      centerBlock: centerBlock,
+      sortingPoints: sortingPoints,
+      getAngelPoint: getAngelPoint,
+      setLines: setLines,
+      setLineCoef: setLineCoef,
+      getNewCoefC: getNewCoefC,
+      setPointLocationToLine: setPointLocationToLine,
+      intersectionQ: intersectionQ,
+      cteateLineByAngel: cteateLineByAngel,
+      getIntersectionInCurve: getIntersectionInCurve,
+      getCoordCrossPoint: getCoordCrossPoint,
+      checkLineOwnPoint: checkLineOwnPoint,
+      isInsidePointInLine: isInsidePointInLine,
+      getCoordSideQPCurve: getCoordSideQPCurve,
+      checkEqualPoints: checkEqualPoints,
+      setQPointCoord: setQPointCoord,
+      getCenterLine: getCenterLine,
+      calcSquare: calcSquare,
+
+      checkInsidePointInLineEasy: checkInsidePointInLineEasy,
+      sortByX: sortByX
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -20262,7 +20918,18 @@ function ErrorResult(code, message) {
     .module('MainModule')
     .factory('TemplatesServ', templatesFactory);
 
-  function templatesFactory($filter, GeneralServ, MainServ, DesignServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
+  function templatesFactory(
+    $filter,
+    GeneralServ,
+    MainServ,
+    DesignServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20288,7 +20955,7 @@ function ErrorResult(code, message) {
           //------ define product price
           MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
           //------ save analytics data
-          //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
           /** send analytics data to Server*/
           AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         }
@@ -20329,7 +20996,8 @@ function ErrorResult(code, message) {
 
     //------- return to the initial template
     function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      var templateTemp = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = templateTemp;
     }
 
 
@@ -20405,9 +21073,9 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AuxStor', auxStorageFactory);
+    .factory('AuxStor',
 
-  function auxStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20443,7 +21111,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.aux = setDefaultAuxiliary();
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -20455,9 +21123,9 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartStor', cartStorageFactory);
+    .factory('CartStor',
 
-  function cartStorageFactory($filter, OrderStor) {
+  function($filter, OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20553,7 +21221,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.cart = setDefaultCart();
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -20565,9 +21233,9 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('DesignModule')
-    .factory('DesignStor', designStorageFactory);
+    .factory('DesignStor',
 
-  function designStorageFactory($filter) {
+  function($filter) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20697,7 +21365,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.design = setDefaultDesign();
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -20709,10 +21377,10 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GlobalStor', globalStorageFactory);
+    .factory('GlobalStor',
 
 
-  function globalStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20827,7 +21495,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -20839,9 +21507,9 @@ function ErrorResult(code, message) {
     /**@ngInject */
   angular
     .module('HistoryModule')
-    .factory('HistoryStor', historyStorageFactory);
+    .factory('HistoryStor',
 
-  function historyStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -20895,7 +21563,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -20907,9 +21575,9 @@ function ErrorResult(code, message) {
     /**@ngInject */
   angular
     .module('BauVoiceApp')
-    .factory('OrderStor', orderStorageFactory);
+    .factory('OrderStor',
 
-  function orderStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -21004,7 +21672,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -21016,9 +21684,9 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('ProductStor', productStorageFactory);
+    .factory('ProductStor',
 
-  function productStorageFactory($filter) {
+  function($filter) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -21100,7 +21768,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
@@ -21112,9 +21780,9 @@ function ErrorResult(code, message) {
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('UserStor', userStorageFactory);
+    .factory('UserStor',
 
-  function userStorageFactory() {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -21148,7 +21816,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.userInfo = setDefaultUser();
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 
