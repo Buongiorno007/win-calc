@@ -27,11 +27,11 @@
 
 
 
+
     /**============ METHODS ================*/
 
 
-    //------ compare device language with existing dictionary,
-    // if not exist set default language = English
+    //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(lang) {
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
@@ -63,21 +63,14 @@
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-//        console.info(window.navigator.language);
-//        console.info(window.navigator.userLanguage);
-//        console.info(window.navigator.browserLanguage);
-//        console.info("The language is: " + browserLang);
+        //        console.info(window.navigator.language);
+        //        console.info(window.navigator.userLanguage);
+        //        console.info(window.navigator.browserLanguage);
+        //        console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
     }
-
-
-
-
-
-
-
 
 
     function initExport() {
@@ -108,9 +101,9 @@
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+      //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
       localDB.selectLocalDB('sqlite_sequence').then(function(data) {
-//        console.log('data ===', data);
+        //        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
         } else {
@@ -136,7 +129,7 @@
             regionQty = GlobalStor.global.locations.regions.length;
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                GlobalStor.global.locations.cities[cityQty].fullLocation = GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
                 GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                 GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                 countryQty = GlobalStor.global.locations.countries.length;
@@ -161,51 +154,45 @@
     }
 
 
-
     //------- collecting cities, regions and countries in one object for registration form
     function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
           countryQty, regionQty;
       //if(!GlobalStor.global.locations.cities.length) {
-        //console.info('start time+++', new Date(), new Date().getMilliseconds());
-        //---- get all counties
-        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
-          //console.log('country!!!', data);
-          countryQty = data.length;
-          if (countryQty) {
-            GlobalStor.global.locations.countries = angular.copy(data);
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
+      //---- get all counties
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
+        //console.log('country!!!', data);
+        countryQty = data.length;
+        if (countryQty) {
+          GlobalStor.global.locations.countries = angular.copy(data);
+        } else {
+          console.log('Error!!!', data);
+        }
+      }).then(function () {
+
+        //--------- get all regions
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
+          //console.log('regions!!!', data);
+          regionQty = data.length;
+          if (regionQty) {
+            GlobalStor.global.locations.regions = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+
         }).then(function () {
-
-          //--------- get all regions
-          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
-            //console.log('regions!!!', data);
-            regionQty = data.length;
-            if (regionQty) {
-              GlobalStor.global.locations.regions = angular.copy(data);
-            } else {
-              console.log('Error!!!', data);
-            }
-
-          }).then(function () {
-            //--------- get city
-            downloadAllCities(allCityParam).then(function () {
-              deferred.resolve(1);
-            });
+          //--------- get city
+          downloadAllCities(allCityParam).then(function () {
+            deferred.resolve(1);
           });
         });
+      });
       //} else {
       //  deferred.resolve(1);
       //}
       return deferred.promise;
     }
-
-
-
-
-
 
 
     function collectCityIdsAsCountry() {
@@ -220,6 +207,7 @@
     }
 
 
+
     //--------- set current user geolocation
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
@@ -228,6 +216,7 @@
       OrderStor.order.heat_coef_min = heat;
       OrderStor.order.customer_location = fullLocation;
     }
+
 
 
     //--------- set user location
@@ -250,9 +239,6 @@
 
 
 
-
-
-    /** =========== DOWNLOAD ALL DATA =========== */
 
 
 
@@ -292,22 +278,21 @@
 
 
     function setUserDiscounts() {
-      var defer = $q.defer(),
-          discounts, disKeys, disQty, dis;
+      var defer = $q.defer();
       //-------- add server url to avatar img
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-//        console.log('DISCTOUN=====', result);
-        discounts = angular.copy(result[0]);
+        //        console.log('DISCTOUN=====', result);
+        var discounts = angular.copy(result[0]);
         if(discounts) {
-          UserStor.userInfo.discountConstr = discounts.default_construct*1;
-          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
-          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
+          UserStor.userInfo.discountConstr = +discounts.default_construct;
+          UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+          UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+          UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
 
-          disKeys = Object.keys(discounts);
-          disQty = disKeys.length;
+          var disKeys = Object.keys(discounts),
+              disQty = disKeys.length, dis;
           for(dis = 0; dis < disQty; dis+=1) {
             if(disKeys[dis].indexOf('week')+1) {
               if(disKeys[dis].indexOf('construct')+1) {
@@ -343,9 +328,9 @@
     }
 
 
+
     /** change Images Path and save in device */
     function downloadElemImg(urlSource) {
-      var result;
       if(urlSource) {
         /** check image */
         if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
@@ -368,44 +353,40 @@
               //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
               //            })
             });
-            result = targetPath;
+            return targetPath;
           } else {
-            result = url;
+            return url;
           }
         } else {
-          result = '';
+          return '';
         }
       }
-      return result;
     }
 
 
     //----------- get all elements as to groups
 
     function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-      var defer = $q.defer(),
-          types, typesQty, promises, defer2,
-          elem, resQty, existType, r, elemsQty,
-          existTypeQty, groupQty, isExist, t;
+      var defer = $q.defer();
       //------- get all Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
         /** sorting types by position */
-        types = angular.copy(result).sort(function(a, b) {
+        var types = angular.copy(result).sort(function(a, b) {
           return GeneralServ.sorting(a.position, b.position);
-        });
-        typesQty = types.length;
+        }),
+            typesQty = types.length;
         if (typesQty) {
           groups.length = 0;
           angular.extend(groups, types);
-          promises = types.map(function(type) {
-            defer2 = $q.defer();
+          var promises = types.map(function(type) {
+            var defer2 = $q.defer();
 
             /** change Images Path and save in device */
             type.img = downloadElemImg(type.img);
 
             localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
               if (result2.length) {
-                elem = angular.copy(result2).sort(function(a, b) {
+                var elem = angular.copy(result2).sort(function(a, b) {
                   return GeneralServ.sorting(a.position, b.position);
                 });
                 defer2.resolve(elem);
@@ -416,10 +397,10 @@
             return defer2.promise;
           });
           $q.all(promises).then(function(result3){
-            resQty = result3.length;
-            existType = [];
+            var resQty = result3.length,
+                existType = [], r;
             for(r = 0; r < resQty; r+=1) {
-              elemsQty = result3[r].length;
+              var elemsQty = result3[r].length;
               if(result3[r] && elemsQty) {
                 /** change Images Path and save in device */
                 while(--elemsQty > -1) {
@@ -430,11 +411,11 @@
               }
             }
             /** delete empty group */
-            existTypeQty = existType.length;
-            groupQty = groups.length;
+            var existTypeQty = existType.length,
+                groupQty = groups.length;
             if(existTypeQty) {
               while(--groupQty > -1) {
-                isExist = 0;
+                var isExist = 0, t;
                 for(t = 0; t < existTypeQty; t+=1) {
                   if(groups[groupQty].id === existType[t]) {
                     isExist = 1;
@@ -463,17 +444,10 @@
     function downloadAllGlasses() {
       var defer = $q.defer(),
           profilesQty = GlobalStor.global.profiles.length,
-          profileIds = [],
-          profileQty, promises2, defer2, glassObj,
-          promises3, defer3, glassIdQty,
-          glassIdsQty, promises4, promises6, i,
-          defer4, promises5, defer5,
-          glass, glassQty, j, defer6,
-          promises7, defer7, list, listQty, glassesQty, listsQty;
-
+          profileIds = [];
       //----- collect profiles in one array
       while(--profilesQty > -1) {
-        profileQty = GlobalStor.global.profiles[profilesQty].length;
+        var profileQty = GlobalStor.global.profiles[profilesQty].length;
         while(--profileQty > -1) {
           profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
         }
@@ -481,9 +455,9 @@
 
       //------ create structure of GlobalStor.global.glassesAll
       //------ insert profile Id and glass Types
-      promises2 = profileIds.map(function(item) {
-        defer2 = $q.defer();
-        glassObj = {profileId: item, glassTypes: [], glasses: []};
+      var promises2 = profileIds.map(function(item) {
+        var defer2 = $q.defer(),
+            glassObj = {profileId: item, glassTypes: [], glasses: []};
         localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
           if(types.length) {
             glassObj.glassTypes = angular.copy(types);
@@ -500,42 +474,38 @@
         //        console.log('data!!!!', data);
         if(data) {
           //-------- select all glass Ids as to profile Id
-          promises3 = GlobalStor.global.glassesAll.map(function(item) {
-            defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId})
-              .then(function (glassId) {
-                glassIdQty = glassId.length;
-                if(glassIdQty){
-                  defer3.resolve(glassId);
-                } else {
-                  defer3.resolve(0);
-                }
-              });
+          var promises3 = GlobalStor.global.glassesAll.map(function(item) {
+            var defer3 = $q.defer();
+            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
+              var glassIdQty = glassId.length;
+              if(glassIdQty){
+                defer3.resolve(glassId);
+              } else {
+                defer3.resolve(0);
+              }
+            });
             return defer3.promise;
           });
 
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
-            glassIdsQty = glassIds.length;
-            promises4 = [];
-            promises6 = [];
-//                        console.log('glassIds!!!!', glassIds);
+            var glassIdsQty = glassIds.length,
+                promises4 = [], promises6 = [], i, j;
+            //                        console.log('glassIds!!!!', glassIds);
             for(i = 0; i < glassIdsQty; i+=1) {
-              defer4 = $q.defer();
+              var defer4 = $q.defer();
               if(glassIds[i]) {
-                promises5 = glassIds[i].map(function (item) {
-                  defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      glass = angular.copy(result);
-                      glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
+                var promises5 = glassIds[i].map(function (item) {
+                  var defer5 = $q.defer();
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
+                    //                  console.log('glass!!!!', glass);
+                    var glass = angular.copy(result), glassQty = glass.length;
+                    if (glassQty) {
+                      defer5.resolve(glass[0]);
+                    } else {
+                      defer5.resolve(0);
+                    }
+                  });
                   return defer5.promise;
                 });
                 defer4.resolve($q.all(promises5));
@@ -546,20 +516,19 @@
             }
 
             for(j = 0; j < glassIdsQty; j+=1) {
-              defer6 = $q.defer();
+              var defer6 = $q.defer();
               console.warn(glassIds[j]);//TODO error
-              promises7 = glassIds[j].map(function(item) {
-                defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
-                    list = angular.copy(result2);
-                    listQty = list.length;
-                    if(listQty){
-                      defer7.resolve(list[0]);
-                    } else {
-                      defer7.resolve(0);
-                    }
-                  });
+              var promises7 = glassIds[j].map(function(item) {
+                var defer7 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
+                  var list = angular.copy(result2),
+                      listQty = list.length;
+                  if(listQty){
+                    defer7.resolve(list[0]);
+                  } else {
+                    defer7.resolve(0);
+                  }
+                });
                 return defer7.promise;
               });
 
@@ -569,7 +538,7 @@
 
             $q.all(promises4).then(function(glasses) {
               //              console.log('glasses after 1111!!!!', glasses);
-              glassesQty = glasses.length;
+              var glassesQty = glasses.length, i;
               if(glassesQty) {
                 for(i = 0; i < glassesQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
@@ -578,7 +547,7 @@
             });
             $q.all(promises6).then(function(lists) {
               //              console.log('glasses after 2222!!!!', lists);
-              listsQty = lists.length;
+              var listsQty = lists.length, i;
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glassLists = lists[i];
@@ -595,17 +564,16 @@
     }
 
 
-
     function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length,
-          listQty, glassTypeQty, newGlassesType, newGlasses, g, l;
+      var glassAllQty = GlobalStor.global.glassesAll.length, g;
 
       for(g = 0; g < glassAllQty; g+=1) {
         //------- merge glassList to glasses
-        listQty = GlobalStor.global.glassesAll[g].glassLists.length;
-        glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length;
-        newGlassesType = [];
-        newGlasses = [];
+        var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
+            glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
+            newGlassesType = [],
+            newGlasses = [],
+            l;
         /** merge glassList to glasses */
         for(l = 0; l < listQty; l+=1) {
           if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
@@ -654,61 +622,56 @@
 
     }
 
-
     //TODO
-    ///** download all Templates */
+    /** download all Templates */
     //function downloadAllTemplates() {
     //
     //}
 
 
-
-
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
-      var deff = $q.defer(), rooms, roomQty;
-      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName)
-        .then(function(result) {
-          rooms = angular.copy(result);
-          roomQty = rooms.length;
-          if(roomQty) {
-            /** sorting types by position */
-            rooms = rooms.sort(function(a, b) {
-              return GeneralServ.sorting(a.position, b.position);
-            });
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
+        var rooms = angular.copy(result),
+            roomQty = rooms.length;
+        if(roomQty) {
+          /** sorting types by position */
+          rooms = rooms.sort(function(a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
 
-            while(--roomQty > -1) {
-              rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
-              //---- prerendering img
-              $("<img />").attr("src", rooms[roomQty].img);
-            }
-            GlobalStor.global.rooms = rooms;
+          while(--roomQty > -1) {
+            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            //---- prerendering img
+            $("<img />").attr("src", rooms[roomQty].img);
           }
-          deff.resolve(1);
-        });
+          GlobalStor.global.rooms = rooms;
+        }
+        deff.resolve(1);
+      });
       return deff.promise;
     }
 
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
-        .then(function(lamin) {
-          return lamin;
-        });
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
+        return lamin;
+      });
     }
 
 
     /** download lamination couples */
     function downloadLamCouples() {
-      var deff = $q.defer(),
-          coupleQty, laminatQty, lam;
+      var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
         if(lamins) {
           GlobalStor.global.laminatCouples = angular.copy(lamins);
           /** add lamination names */
-          coupleQty = GlobalStor.global.laminatCouples.length;
-          laminatQty = GlobalStor.global.laminats.length;
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
           while(--coupleQty > -1) {
             delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
             delete GlobalStor.global.laminatCouples[coupleQty].modified;
@@ -734,19 +697,17 @@
 
 
 
-
-
     function getAllAddKits() {
       var defer = $q.defer(),
           promises = GeneralServ.addElementDATA.map(function(item) {
             return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
-          }),
-          addKits, resultQty, elemGroupObj, i;
+          });
       $q.all(promises).then(function (result) {
-        addKits = angular.copy(result);
-        resultQty = addKits.length;
+        var addKits = angular.copy(result),
+            resultQty = addKits.length,
+            i;
         for(i = 0; i < resultQty; i+=1) {
-          elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
         defer.resolve(1);
@@ -757,25 +718,23 @@
 
     function getAllAddElems() {
       var deff = $q.defer(),
-          deff1, promElems, deff2,
           promGroup = GlobalStor.global.addElementsAll.map(function(group) {
-            deff1 = $q.defer();
+            var deff1 = $q.defer();
             if(group.elementsList && group.elementsList.length) {
-              promElems = group.elementsList.map(function(item) {
-                deff2 = $q.defer();
+              var promElems = group.elementsList.map(function(item) {
+                var deff2 = $q.defer();
 
                 /** change Images Path and save in device */
                 item.img = downloadElemImg(item.img);
 
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
-                  .then(function(result) {
-                    if(result && result.length) {
-                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                      deff2.resolve(1);
-                    } else {
-                      deff2.resolve(0);
-                    }
-                  });
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
+                  if(result && result.length) {
+                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                    deff2.resolve(1);
+                  } else {
+                    deff2.resolve(0);
+                  }
+                });
                 return deff2.promise;
               });
               deff1.resolve($q.all(promElems));
@@ -790,19 +749,14 @@
 
 
     function sortingAllAddElem() {
-      var deff = $q.defer(),
-          elemAllQty, defaultGroup,
-          newElemList, typeDelete, typeQty, elemQty,
-          tempElemQty, t, elements, el,
-          widthTemp, heightTemp, k, delQty;
-
+      var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
 
-        elemAllQty = GlobalStor.global.addElementsAll.length;
-        defaultGroup = {
-          id: 0,
-          name: $filter('translate')('add_elements.OTHERS')
-        };
+        var elemAllQty = GlobalStor.global.addElementsAll.length,
+            defaultGroup = {
+              id: 0,
+              name: $filter('translate')('add_elements.OTHERS')
+            };
 
         /** sorting types by position */
         if(groups && groups.length) {
@@ -818,17 +772,19 @@
             }
             GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
             //------- sorting
-            newElemList = [];
-            typeDelete = [];
-            typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length;
-            elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length;
-            tempElemQty = GlobalStor.global.tempAddElements.length;
+            var newElemList = [],
+                typeDelete = [],
+                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
+                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
+                tempElemQty = GlobalStor.global.tempAddElements.length,
+                t;
             for(t = 0; t < typeQty; t+=1) {
-              elements = [];
+              var elements = [], el;
               for(el = 0; el < elemQty; el+=1) {
                 if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                  widthTemp = 0;
-                  heightTemp = 0;
+                  var widthTemp = 0,
+                      heightTemp = 0,
+                      k;
                   switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
                     case 21: // 1 - visors
                     case 9: // 2 - spillways
@@ -879,7 +835,7 @@
             }
 
             /** delete empty groups */
-            delQty = typeDelete.length;
+            var delQty = typeDelete.length;
             if(delQty) {
               while(--delQty > -1) {
                 GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
@@ -903,7 +859,7 @@
           sortingAllAddElem().then(function() {
             defer.resolve(1);
           });
-        });
+        })
       });
       return defer.promise;
     }
@@ -939,6 +895,12 @@
 
 
 
+
+
+
+
+    /** =========== DOWNLOAD ALL DATA =========== */
+
     function downloadAllData() {
       //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
       /** download All Currencies and set currency symbol */
@@ -961,7 +923,7 @@
                       //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return +item;
+                        return item * 1;
                       });
                       //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
@@ -1046,7 +1008,6 @@
 
 
 
-
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -1062,6 +1023,7 @@
     };
 
     return thisFactory.publicObj;
+
 
 
   });

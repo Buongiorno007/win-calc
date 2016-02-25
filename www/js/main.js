@@ -516,8 +516,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DesignServ.setIndexDoorConfig();
     }
 
-
-
+    /**----- initialize Events again in order to svg in template pannel -------*/
+    $timeout(function(){
+      DesignServ.initAllImposts();
+      DesignServ.initAllGlass();
+      DesignServ.initAllArcs();
+      DesignServ.initAllDimension();
+    }, 50);
 
 
 
@@ -1535,6 +1540,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /** =========== SIGN IN ======== */
 
     function enterForm(form) {
+      var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
@@ -1546,9 +1552,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1561,7 +1567,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
-                  var newUserPassword = localDB.md5(thisCtrl.user.password);
+                  newUserPassword = localDB.md5(thisCtrl.user.password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -1596,7 +1602,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-          //*/
+ */
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -7582,8 +7588,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      //serverIP: 'http://api.steko.com.ua',
+      //serverIP: 'http://api.windowscalculator.net',
+      serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -7721,30 +7727,28 @@ function ErrorResult(code, message) {
     }
 
 
-    function setDefaultTemplate() {
-      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
-
+    function showErrorInBlock(blockID, svgSelector) {
+      var idSVG = svgSelector || globalConstants.SVG_ID_EDIT,
+          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
+          i = 1;
+      currGlass.classed('error_glass', true);
+      var interval = setInterval(function() {
+        if(i === 11) {
+          clearInterval(interval);
+        }
+        if(i%2) {
+          currGlass.classed('error_glass', false);
+        } else {
+          currGlass.classed('error_glass', true);
+        }
+        i+=1;
+      }, 50);
     }
 
 
-    //-------- Back to Template Panel
-    function backtoTemplatePanel() {
-      //------ cleaning DesignStor
-      DesignStor.design = DesignStor.setDefaultDesign();
-      //      delete DesignStor.design.templateSourceTEMP;
-      //      delete DesignStor.design.templateTEMP;
-      GlobalStor.global.activePanel = 0;
-      GlobalStor.global.isNavMenu = 0;
-      GlobalStor.global.isConfigMenu = 1;
-      $location.path('/main');
-    }
 
 
-
-
+    /**=============== CHANGE CONSTRUCTION SIZE ==============*/
 
 
     /**----------- Close Size Calculator -----------*/
@@ -7765,6 +7769,7 @@ function ErrorResult(code, message) {
 
 
     function addNewSizeInTemplate(newLength) {
+
       //-------- change point coordinates in templateSource
       var blocks = DesignStor.design.templateSourceTEMP.details,
           //blocksOLD = DesignStor.design.templateTEMP.details,
@@ -7774,7 +7779,8 @@ function ErrorResult(code, message) {
           startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
           oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty, pointsOutQty;
+          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
+
 
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -7782,6 +7788,7 @@ function ErrorResult(code, message) {
       //          console.log('SIZE ````````curBlockId````````', curBlockId);
       //          console.log('SIZE ````````curDimType````````', curDimType);
       //          console.log('SIZE ````````dimId````````', dimId);
+
 
       if(curDimType === 'curve') {
         //============ changing Radius
@@ -7836,7 +7843,7 @@ function ErrorResult(code, message) {
 
         //========== changing Line dimension
         for(b = 1; b < blocksQty; b+=1) {
-          pointsOutQty = blocks[b].pointsOut.length;
+          var pointsOutQty = blocks[b].pointsOut.length;
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
               if(axis === 'x') {
@@ -7912,8 +7919,6 @@ function ErrorResult(code, message) {
       }
       return newPointsOut;
     }
-
-
 
 
     function closeSizeCaclulator(prom) {
@@ -7997,6 +8002,221 @@ function ErrorResult(code, message) {
     }
 
 
+    //------ Change size on SVG
+    function changeSize() {
+      var newSizeString = DesignStor.design.tempSize.join('');
+      d3.select(DesignStor.design.oldSize).text(newSizeString);
+      if(GlobalStor.global.isVoiceHelper) {
+        closeSizeCaclulator();
+      }
+    }
+
+    /**=============== Size Calculator ==============*/
+
+    //-------- Get number from calculator
+    function setValueSize(newValue) {
+      var sizeLength = DesignStor.design.tempSize.length;
+      //console.log('take new value = ', newValue);
+      if(GlobalStor.global.isVoiceHelper) {
+
+        var tempVal = parseInt(newValue, 10);
+        //console.log('tempVal=====', tempVal);
+        DesignStor.design.voiceTxt = '';
+        DesignStor.design.openVoiceHelper = false;
+
+        if ((tempVal > 0) && (tempVal < 10000)) {
+          DesignStor.design.tempSize = ("" + tempVal).split('');
+          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+          changeSize();
+        }
+        deselectAllDimension();
+
+      } else {
+        //---- clear array from 0 after delete all number in array
+        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
+          DesignStor.design.tempSize.length = 0;
+        }
+        if (newValue === '0') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            DesignStor.design.tempSize.push(newValue);
+            changeSize();
+          }
+        } else if(newValue === '00') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            if (sizeLength < 3) {
+              DesignStor.design.tempSize.push(0, 0);
+            } else if (sizeLength === 3) {
+              DesignStor.design.tempSize.push(0);
+            }
+            changeSize();
+          }
+        } else {
+          DesignStor.design.tempSize.push(newValue);
+          changeSize();
+        }
+      }
+    }
+
+
+    //------ Delete last number from calculator
+    function deleteLastNumber() {
+      DesignStor.design.tempSize.pop();
+      if(DesignStor.design.tempSize.length < 1) {
+        DesignStor.design.tempSize.push(0);
+      }
+      changeSize();
+    }
+
+
+    function pressCulculator(keyEvent) {
+      var newValue;
+      //--------- Enter
+      if (keyEvent.which === 13) {
+        closeSizeCaclulator();
+        $rootScope.$apply();
+      } else if(keyEvent.which === 8) {
+        //-------- Backspace
+        deleteLastNumber();
+      } else {
+        switch(keyEvent.which) {
+          case 48:
+          case 96:
+            newValue = 0;
+            break;
+          case 49:
+          case 97:
+            newValue = 1;
+            break;
+          case 50:
+          case 98:
+            newValue = 2;
+            break;
+          case 51:
+          case 99:
+            newValue = 3;
+            break;
+          case 52:
+          case 100:
+            newValue = 4;
+            break;
+          case 53:
+          case 101:
+            newValue = 5;
+            break;
+          case 54:
+          case 102:
+            newValue = 6;
+            break;
+          case 55:
+          case 103:
+            newValue = 7;
+            break;
+          case 56:
+          case 104:
+            newValue = 8;
+            break;
+          case 57:
+          case 105:
+            newValue = 9;
+            break;
+        }
+        if(newValue !== undefined) {
+          setValueSize(newValue);
+        }
+      }
+    }
+
+
+
+
+    function doneRecognition(value) {
+      //console.log("полученные данные", value);
+      //console.log("тип полученных данных", typeof value);
+      DesignStor.design.voiceTxt = value;
+      $rootScope.$apply();
+      $timeout(function() {
+        var intValue = parseStringToDimension(value);
+        //console.log("данные после парса", intValue);
+        //console.log("тип полученных данных", typeof intValue);
+        if (intValue === "NaN") {
+          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
+        }
+        playTTS(intValue);
+        setValueSize(intValue);
+        $rootScope.$apply();
+      }, 1000)
+    }
+
+
+
+    //---------- define voice force
+    function recognitionProgress(value) {
+      if (value > 100) {
+        //console.log('value', value);
+        DesignStor.design.loudVoice = true;
+        DesignStor.design.quietVoice = false;
+
+      } else {
+        //console.log('value', value);
+        DesignStor.design.loudVoice = false;
+        DesignStor.design.quietVoice = true;
+      }
+      $rootScope.$apply();
+    }
+
+
+
+    //------- set click to all Dimensions
+    function initAllDimension() {
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          var size = d3.select(this);
+          size.on(clickEvent, function() {
+            var sizeRect = size.select('.size-rect'),
+                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
+            if(DesignStor.design.tempSize.length) {
+              /** save new Size when click another size */
+              closeSizeCaclulator();
+              cleanTempSize();
+            } else {
+              if (isActive) {
+                hideSizeTools();
+              } else {
+                deselectAllDimension();
+                sizeRect.classed('active', true);
+                var dim = size.select('.size-txt-edit');
+                dim.classed('active', true);
+                DesignStor.design.oldSize = dim[0][0];
+                DesignStor.design.prevSize = dim[0][0].textContent;
+                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                //------- show caclulator or voice helper
+                if (GlobalStor.global.isVoiceHelper) {
+                  DesignStor.design.openVoiceHelper = 1;
+                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                } else {
+                  GlobalStor.global.isSizeCalculator = 1;
+                  DesignStor.design.isMinSizeRestriction = 0;
+                  DesignStor.design.isMaxSizeRestriction = 0;
+                  DesignStor.design.isDimExtra = 0;
+                  DesignStor.design.isSquareExtra = 0;
+                }
+              }
+              $rootScope.$apply();
+            }
+          });
+        });
+
+      /** switch on keyboard */
+      d3.select(window)
+        .on('keydown', function() {
+          if(GlobalStor.global.isSizeCalculator) {
+            pressCulculator(d3.event);
+          }
+        });
+    }
+
+
 
 
 
@@ -8077,76 +8297,34 @@ function ErrorResult(code, message) {
 
 
 
+    function setDefaultTemplate() {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
+    }
 
 
-    /**------- Save and Close Construction Page ----------*/
-
-    function designSaved() {
-      closeSizeCaclulator(1).then(function() {
-        /** save new template in product */
-        ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-        ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-        /** create template icon */
-        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-          ProductStor.product.templateIcon = angular.copy(result);
-        });
-
-        /** if Door Construction */
-        if(ProductStor.product.construction_type === 4) {
-          //------- save new door config
-          ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-          ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-          ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-          ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-        }
-
-        /** save new template in templates Array */
-        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
-
-        /** if sash was added/removed in template */
-        var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
-        if (isSashesInTemplate) {
-          if(!GlobalStor.global.isSashesInTemplate) {
-            GlobalStor.global.isSashesInTemplate = 1;
-            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            //------ save analytics data
-            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
-          }
-        } else {
-          ProductStor.product.hardware = {};
-          ProductStor.product.hardware.id = 0;
-          GlobalStor.global.isSashesInTemplate = 0;
-        }
-
-        /** check grids */
-        var isChanged = updateGrids();
-        if(isChanged) {
-          //------ get new grids price
-          getGridPrice(ProductStor.product.chosenAddElements[0]);
-        }
-
-        /** refresh price of new template */
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id).then(function() {
-          //-------- template was changed
-          GlobalStor.global.isChangedTemplate = 1;
-          backtoTemplatePanel();
-        });
-
-      });
+    //-------- Back to Template Panel
+    function backtoTemplatePanel() {
+      //------ cleaning DesignStor
+      DesignStor.design = DesignStor.setDefaultDesign();
+      //      delete DesignStor.design.templateSourceTEMP;
+      //      delete DesignStor.design.templateTEMP;
+      GlobalStor.global.activePanel = 0;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      $location.path('/main');
     }
 
 
 
 
-    /**--------- Cancel and Close Construction Page ------------*/
 
-    function designCancel() {
-      //------- close calculator if is opened
-      hideSizeTools();
-      //------ go to Main Page
-      backtoTemplatePanel();
-    }
+
+
+
 
 
 
@@ -8210,29 +8388,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**================ Edit Design ==============*/
-
-
-    /**-------- ERROR ---------*/
-
-    function showErrorInBlock(blockID, svgSelector) {
-      var idSVG = svgSelector || globalConstants.SVG_ID_EDIT,
-          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
-          i = 1;
-      currGlass.classed('error_glass', true);
-      var interval = setInterval(function() {
-        if(i === 11) {
-          clearInterval(interval);
-        }
-        if(i%2) {
-          currGlass.classed('error_glass', false);
-        } else {
-          currGlass.classed('error_glass', true);
-        }
-        i+=1;
-      }, 50);
-    }
-
+    /**-------------- Edit Design --------------*/
 
 
     function isExistElementInSelected(newElem, selectedArr) {
@@ -8319,6 +8475,7 @@ function ErrorResult(code, message) {
         dim.classed('dim_hidden', 0);
       }
     }
+
 
 
 
@@ -8425,6 +8582,7 @@ function ErrorResult(code, message) {
 
 
 
+
     function isExistArcInSelected(newElem, selectedArr) {
       var exist = 1,
           newElemId = newElem.attributes.item_id.nodeValue,
@@ -8493,26 +8651,19 @@ function ErrorResult(code, message) {
 
     /**++++++++++ Edit Sash +++++++++*/
 
+    function checkImpPointInCorner(linePoint, impPoint) {
+      var noMatch = 1,
+          limit = 40,
+          xDiff = impPoint.x - linePoint.x,
+          yDiff = impPoint.y - linePoint.y;
 
-    function sliceExtraPoints(points) {
-      var diff = 5,
-          pQty = points.length,
-          pQty2, difX, difY;
-      while(--pQty > -1) {
-        pQty2 = points.length;
-        while(--pQty2 > -1){
-          difX = Math.abs( points[pQty].x - points[pQty2].x);
-          difY = Math.abs( points[pQty].y - points[pQty2].y);
-          if(difX > 0 && difX < diff) {
-            if(difY > 0 && difY < diff) {
-              points.splice(pQty, 1);
-              break;
-            }
-          }
+      if(xDiff > 0 && xDiff < limit) {
+        if(yDiff > 0 && yDiff < limit) {
+          noMatch = 0;
         }
       }
+      return noMatch;
     }
-
 
 
     function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType, isShtulp) {
@@ -8569,24 +8720,139 @@ function ErrorResult(code, message) {
     }
 
 
-    function removeAllChildrenBlock(blockID, blocks) {
-      var blocksQty = blocks.length, childQty;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].id === blockID) {
-          childQty = blocks[blocksQty].children.length;
-          if(childQty) {
-            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
-            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
-            blocks.splice(blocksQty, 1);
-          } else {
-            blocks.splice(blocksQty, 1);
+    function sliceExtraPoints(points) {
+      var diff = 5,
+          pQty = points.length;
+      while(--pQty > -1) {
+        var pQty2 = points.length;
+        while(--pQty2 > -1){
+          var difX = Math.abs( points[pQty].x - points[pQty2].x),
+              difY = Math.abs( points[pQty].y - points[pQty2].y);
+          if(difX > 0 && difX < diff) {
+            if(difY > 0 && difY < diff) {
+              points.splice(pQty, 1);
+              break;
+            }
           }
-          break;
         }
       }
-
     }
 
+
+
+    function getLastBlockNumber(blocks) {
+      var blocksQty = blocks.length,
+          blockN = 0;
+      while(--blocksQty > 0) {
+        var tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
+        if(tempN > blockN) {
+          blockN = tempN;
+        }
+      }
+      return blockN;
+    }
+
+
+    function getImpostCrossPointInBlock(vector, lines) {
+      var impPoints = [],
+          linesQty = lines.length;
+      for(var l = 0; l < linesQty; l++) {
+        var coord, checkPoint;
+        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
+        if(coord.x >= 0 && coord.y >= 0) {
+          //------ checking is cross point inner of line
+          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+          var isCross = SVGServ.isInsidePointInLine(checkPoint);
+          if(isCross) {
+            //---- checking dublicats
+            var noExist = SVGServ.checkEqualPoints(coord, impPoints);
+            if(noExist) {
+
+              //----------- avoid insert impost in corner
+              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+              if(noInCorner1) {
+                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+                if(noInCorner2) {
+                  //                  console.log('IMp++++++++++ line', lines[l]);
+                  //                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
+                  impPoints.push(coord);
+                }
+              }
+            }
+          }
+        }
+      }
+      return impPoints;
+    }
+
+
+
+
+
+    function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsIn) {
+      //      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
+
+      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
+      //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
+      if(crossPointsIn.length === 2) {
+        var impLine = {
+              from: crossPointsIn[0],
+              to: crossPointsIn[1]
+            },
+            //impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
+            impRadius = GeneralServ.roundingValue( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2), 1 ),
+            pointsIn = angular.copy(pointsIn),
+            pointsQty = pointsIn.length,
+            currPoints = [],
+            currBlockCenter,
+            distCenterToImpost,
+            coordQ, posQ;
+
+        SVGServ.setLineCoef(impLine);
+        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
+        //------ if impost vert or hor
+        if (!impLine.coefA && position === 1) {
+          coordQ.y -= impRadius * 2;
+        } else if (!impLine.coefB && position === 4) {
+          coordQ.x -= impRadius * 2;
+        }
+        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
+        while (--pointsQty > -1) {
+          var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
+          if (posP > 0 && posQ > 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          } else if (posP < 0 && posQ < 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          }
+        }
+        currPoints.push(impLine.from, impLine.to);
+        //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
+        currBlockCenter = SVGServ.centerBlock(currPoints);
+        //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
+        //        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
+        //      console.log('IMP -------------',impRadius, distCenterToImpost);
+        if (impRadius < distCenterToImpost) {
+          return impRadius / 2;
+        } else {
+          return distCenterToImpost / 2;
+        }
+      }
+    }
+
+
+    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
+      var impQPoint = {
+        blockId: blocks[blockIndex].id,
+        dir:'curv',
+        id: 'qi'+curBlockN,
+        heightQ: dist,
+        positionQ: position
+      };
+      blocks[blockIndex].impost.impostAxis.push(impQPoint);
+    }
 
 
     /**----------- create SHTULP -----------*/
@@ -8743,6 +9009,7 @@ function ErrorResult(code, message) {
         }
       }
     }
+
 
 
 
@@ -9057,87 +9324,28 @@ function ErrorResult(code, message) {
     /**++++++++++ Edit Arc ++++++++*/
 
 
-    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
-      while(--pointsQty > -1) {
-        if(param) {
-          if(dir) {
-            points[pointsQty].x += shift;
-          } else {
-            points[pointsQty].x -= shift;
-          }
-        } else {
-          if(dir) {
-            points[pointsQty].y += shift;
-          } else {
-            points[pointsQty].y -= shift;
-          }
-        }
-      }
-    }
-
-
-    function shiftingAllPoints(dir, param, shift, blocks) {
-      var blocksQty = blocks.length, impostAxisQty;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].level) {
-          //------ pointsOut
-          if(blocks[blocksQty].pointsOut.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
-          }
-          //------ pointsIn
-          if(blocks[blocksQty].pointsIn.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
-          }
-          //------ impostAxis
-          if(blocks[blocksQty].impost) {
-            impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
-            if(impostAxisQty) {
-              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
-            }
-          }
-        }
-      }
-    }
-
-
-    function rebuildLinesOut(arc, blockIndex, blocks) {
-      var currLine,
-          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
-          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
-          linesOut = SVGServ.setLines(pointsOut),
-          linesQty = linesOut.length;
-      while(--linesQty > -1) {
-        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
-          currLine = linesOut[linesQty];
-        }
-      }
-      return currLine;
-    }
-
-
     function createArc(arcObj) {
-      var defer = $q.defer(),
-          arc, arcN, blockID, blocks, blocksQty, blocksSource,
-          currBlockIndex, currLine, position, b, linesQty;
+      var defer = $q.defer();
       if(!$.isEmptyObject(arcObj)) {
 
-        arc = arcObj.__data__;
+        var arc = arcObj.__data__;
 //        console.log('+++++++++++++ ARC +++++++++++++++++++++');
         //------ make changes only if element is frame, don't touch arc
         if (arc.type === 'frame') {
-          arcN = Number(arc.points[0].id.replace(/\D+/g, ""));
-          blockID = arcObj.attributes.block_id.nodeValue;
-          blocks = angular.copy(DesignStor.design.templateTEMP.details);
-          blocksQty = blocks.length;
-          blocksSource = DesignStor.design.templateSourceTEMP.details;
+          var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
+              blockID = arcObj.attributes.block_id.nodeValue,
+              blocks = angular.copy(DesignStor.design.templateTEMP.details),
+              blocksQty = blocks.length,
+              blocksSource = DesignStor.design.templateSourceTEMP.details,
+              currBlockIndex, currLine, position;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
           //------- find line and block in order to insert Q point
-          for (b = 1; b < blocksQty; b+=1) {
+          for (var b = 1; b < blocksQty; b++) {
             if (blocks[b].id === blockID) {
-              linesQty = blocks[b].linesOut.length;
+              var linesQty = blocks[b].linesOut.length;
               while (--linesQty > -1) {
                 if (blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
                   currBlockIndex = b;
@@ -9199,19 +9407,75 @@ function ErrorResult(code, message) {
     }
 
 
+    function shiftingAllPoints(dir, param, shift, blocks) {
+      var blocksQty = blocks.length;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].level) {
+          //------ pointsOut
+          if(blocks[blocksQty].pointsOut.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
+          }
+          //------ pointsIn
+          if(blocks[blocksQty].pointsIn.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
+          }
+          //------ impostAxis
+          if(blocks[blocksQty].impost) {
+            var impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
+            if(impostAxisQty) {
+              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
+            }
+          }
+        }
+      }
+    }
+
+
+
+
+    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
+      while(--pointsQty > -1) {
+        if(param) {
+          if(dir) {
+            points[pointsQty].x += shift;
+          } else {
+            points[pointsQty].x -= shift;
+          }
+        } else {
+          if(dir) {
+            points[pointsQty].y += shift;
+          } else {
+            points[pointsQty].y -= shift;
+          }
+        }
+      }
+    }
+
+    function rebuildLinesOut(arc, blockIndex, blocks) {
+      var currLine,
+          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
+          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
+          linesOut = SVGServ.setLines(pointsOut),
+          linesQty = linesOut.length;
+      while(--linesQty > -1) {
+        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
+          currLine = linesOut[linesQty];
+        }
+      }
+      return currLine;
+    }
 
 
 
     function deleteArc(arcObj) {
-      var defer = $q.defer(),
-          arc, arcID, blockID, blocksSource;
+      var defer = $q.defer();
       if(!$.isEmptyObject(arcObj)) {
-        arc = arcObj.__data__;
+        var arc = arcObj.__data__;
 //console.log('DELET ARC+++++++',arc);
         if (arc.type === 'arc') {
-          arcID = arc.points[1].id;
-          blockID = arcObj.attributes.block_id.nodeValue;
-          blocksSource = DesignStor.design.templateSourceTEMP.details;
+          var arcID = arc.points[1].id,
+              blockID = arcObj.attributes.block_id.nodeValue,
+              blocksSource = DesignStor.design.templateSourceTEMP.details;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -9260,7 +9524,7 @@ function ErrorResult(code, message) {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1);
+              }, 1)
             }
           });
         } else {
@@ -9268,7 +9532,7 @@ function ErrorResult(code, message) {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1);
+              }, 1)
             }
           });
         }
@@ -9282,139 +9546,6 @@ function ErrorResult(code, message) {
     /**++++++++++ Edit Imposts ++++++++*/
 
 
-    function getLastBlockNumber(blocks) {
-      var blocksQty = blocks.length,
-          blockN = 0, tempN;
-      while(--blocksQty > 0) {
-        tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
-        if(tempN > blockN) {
-          blockN = tempN;
-        }
-      }
-      return blockN;
-    }
-
-
-
-    function checkImpPointInCorner(linePoint, impPoint) {
-      var noMatch = 1,
-          limit = 40,
-          xDiff = impPoint.x - linePoint.x,
-          yDiff = impPoint.y - linePoint.y;
-      if(xDiff > 0 && xDiff < limit) {
-        if(yDiff > 0 && yDiff < limit) {
-          noMatch = 0;
-        }
-      }
-      return noMatch;
-    }
-
-
-
-    function getImpostCrossPointInBlock(vector, lines) {
-      var impPoints = [],
-          linesQty = lines.length,
-          l, coord, checkPoint, isCross, noExist, noInCorner1, noInCorner2;
-      for(l = 0; l < linesQty; l+=1) {
-        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
-        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
-        if(coord.x >= 0 && coord.y >= 0) {
-          //------ checking is cross point inner of line
-          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
-          isCross = SVGServ.isInsidePointInLine(checkPoint);
-          if(isCross) {
-            //---- checking dublicats
-            noExist = SVGServ.checkEqualPoints(coord, impPoints);
-            if(noExist) {
-
-              //----------- avoid insert impost in corner
-              noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
-              if(noInCorner1) {
-                noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
-                if(noInCorner2) {
-                  //                  console.log('IMp++++++++++ line', lines[l]);
-                  //                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
-                  impPoints.push(coord);
-                }
-              }
-            }
-          }
-        }
-      }
-      return impPoints;
-    }
-
-
-
-
-    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
-      var impQPoint = {
-        blockId: blocks[blockIndex].id,
-        dir:'curv',
-        id: 'qi'+curBlockN,
-        heightQ: dist,
-        positionQ: position
-      };
-      blocks[blockIndex].impost.impostAxis.push(impQPoint);
-    }
-
-
-
-
-    function getRadiusMaxImpostCurv(position, impVector, linesIn, points) {
-      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn),
-          impLine, impRadius, pointsIn, pointsQty, currPoints,
-          currBlockCenter, distCenterToImpost,
-          coordQ, posQ, posP, radiusMax;
-
-      //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
-      if(crossPointsIn.length === 2) {
-        impLine = {
-          from: crossPointsIn[0],
-          to: crossPointsIn[1]
-        };
-        //impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) );
-        impRadius = GeneralServ.roundingValue( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2), 1 );
-        pointsIn = angular.copy(points);
-        pointsQty = pointsIn.length;
-        currPoints = [];
-
-
-        SVGServ.setLineCoef(impLine);
-        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
-        //------ if impost vert or hor
-        if (!impLine.coefA && position === 1) {
-          coordQ.y -= impRadius * 2;
-        } else if (!impLine.coefB && position === 4) {
-          coordQ.x -= impRadius * 2;
-        }
-        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
-        while (--pointsQty > -1) {
-          posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
-          if (posP > 0 && posQ > 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          } else if (posP < 0 && posQ < 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          }
-        }
-        currPoints.push(impLine.from, impLine.to);
-        //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
-        currBlockCenter = SVGServ.centerBlock(currPoints);
-        //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        //        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
-        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
-        //      console.log('IMP -------------',impRadius, distCenterToImpost);
-        if (impRadius < distCenterToImpost) {
-          radiusMax = impRadius / 2;
-        } else {
-          radiusMax = distCenterToImpost / 2;
-        }
-        return radiusMax;
-      }
-    }
-
-
 
 
     function createImpost(impType, glassObj) {
@@ -9424,9 +9555,8 @@ function ErrorResult(code, message) {
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd,
-          curBlockN, lastBlockN, impVector, crossPoints,
-          b, impPointsQty;
+          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
+
 
       if(minGlassSize >= globalConstants.minSizeLimit && glass.square >= globalConstants.squareLimit) {
 //      if(glass.square >= globalConstants.squareLimit) {
@@ -9513,7 +9643,7 @@ function ErrorResult(code, message) {
             break;
         }
         //------- find lines as to current block
-        for (b = 1; b < blocksQty; b+=1) {
+        for (var b = 1; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
             currBlockInd = b;
             curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
@@ -9528,13 +9658,13 @@ function ErrorResult(code, message) {
           sliceExtraPoints(crossPoints);
         }
 
-        impPointsQty = crossPoints.length;
+        var impPointsQty = crossPoints.length;
         if (impPointsQty === 2) {
 
           while (--impPointsQty > -1) {
 //            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
             createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType);
-            createChildBlock(lastBlockN+=1, currBlockInd, blocksSource);
+            createChildBlock(++lastBlockN, currBlockInd, blocksSource);
           }
           //------- if impost is curve
           if (isImpCurv) {
@@ -9585,13 +9715,95 @@ function ErrorResult(code, message) {
     }
 
 
+    function removeAllChildrenBlock(blockID, blocks) {
+      var blocksQty = blocks.length;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === blockID) {
+          var childQty = blocks[blocksQty].children.length;
+          if(childQty) {
+            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
+            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
+            blocks.splice(blocksQty, 1);
+          } else {
+            blocks.splice(blocksQty, 1);
+          }
+          break;
+        }
+      }
 
+    }
 
 
 
 
 
     /**++++++++++ Create Mirror ++++++++*/
+
+
+    function initMirror() {
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocks.length,
+          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
+          maxX = d3.max(points, function(d) { return d.x; });
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
+
+      for(var b = 1; b < blocksQty; b++) {
+        if(blocks[b].level === 1) {
+          changeChildrenIdChildren(b, blocksQty, blocks);
+        }
+      }
+//      console.log('mirror blocks_________', blocks);
+      rebuildSVGTemplate();
+      $timeout(function() {
+        DesignStor.design.activeMenuItem = 0;
+      }, 500);
+    }
+
+
+    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
+      for(var b = 1; b < blocksQty; b++) {
+        if(blocks[b].level && blocks[b].pointsQ) {
+          var pqQty = blocks[b].pointsQ.length;
+          if(pqQty) {
+            while(--pqQty > -1) {
+              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
+                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
+              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
+                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
+              }
+            }
+          }
+        }
+        if(blocks[b].impost) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
+          //------- if impost curve - change Q
+          if(blocks[b].impost.impostAxis[2]) {
+            var tempLine = {
+              from: blocks[b].impost.impostAxis[0],
+              to: blocks[b].impost.impostAxis[1]
+            };
+            SVGServ.setLineCoef(tempLine);
+            //--------- if horizontal or vertical
+            if(!tempLine.coefA || !tempLine.coefB) {
+              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
+            } else {
+              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
+            }
+          }
+        }
+        if(blocks[b].pointsOut.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
+        }
+        if(blocks[b].pointsIn.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
+        }
+
+      }
+    }
 
 
     function setNewCoordPointsAsMirror(maxX, points) {
@@ -9632,59 +9844,13 @@ function ErrorResult(code, message) {
     }
 
 
-
-
-    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
-      var b, pqQty, tempLine;
-      for(b = 1; b < blocksQty; b+=1) {
-        if(blocks[b].level && blocks[b].pointsQ) {
-          pqQty = blocks[b].pointsQ.length;
-          if(pqQty) {
-            while(--pqQty > -1) {
-              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
-                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
-              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
-                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
-              }
-            }
-          }
-        }
-        if(blocks[b].impost) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
-          //------- if impost curve - change Q
-          if(blocks[b].impost.impostAxis[2]) {
-            tempLine = {
-              from: blocks[b].impost.impostAxis[0],
-              to: blocks[b].impost.impostAxis[1]
-            };
-            SVGServ.setLineCoef(tempLine);
-            //--------- if horizontal or vertical
-            if(!tempLine.coefA || !tempLine.coefB) {
-              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
-            } else {
-              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
-            }
-          }
-        }
-        if(blocks[b].pointsOut.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
-        }
-        if(blocks[b].pointsIn.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
-        }
-
-      }
-    }
-
-
-
     function changeChildrenIdChildren(indexBlock, blocksQty, blocks) {
-      var childQty = blocks[indexBlock].children.length, lastChildId, b;
+      var childQty = blocks[indexBlock].children.length;
       if(childQty) {
         //------- change Id place of children
-        lastChildId = blocks[indexBlock].children.pop();
+        var lastChildId = blocks[indexBlock].children.pop();
         blocks[indexBlock].children.unshift(lastChildId);
-        for(b = 1; b < blocksQty; b+=1) {
+        for(var b = 1; b < blocksQty; b++) {
           if(blocks[b].id === blocks[indexBlock].children[0] || blocks[b].id === blocks[indexBlock].children[1]) {
             //----- change children
             changeChildrenIdChildren(b, blocksQty, blocks);
@@ -9696,61 +9862,7 @@ function ErrorResult(code, message) {
 
 
 
-
-
-    function initMirror() {
-      var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length,
-          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
-          maxX = d3.max(points, function(d) { return d.x; }), b;
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
-
-      for(b = 1; b < blocksQty; b+=1) {
-        if(blocks[b].level === 1) {
-          changeChildrenIdChildren(b, blocksQty, blocks);
-        }
-      }
-      //      console.log('mirror blocks_________', blocks);
-      rebuildSVGTemplate();
-      $timeout(function() {
-        DesignStor.design.activeMenuItem = 0;
-      }, 500);
-    }
-
-
-
-
-
-
     /**++++++++++ Set Position by Axises ++++++++*/
-
-
-    function isPointInsideBlock(pointsOut, pointX, pointY) {
-      var newP = {
-            x: pointX,
-            y: pointY
-          },
-          isInside = 0,
-          tempInside = 0,
-          pointsOutQty = pointsOut.length,
-          p;
-      for(p = 0; p < pointsOutQty; p+=1) {
-        if(pointsOut[p+1]) {
-          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
-        } else {
-          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
-        }
-        if(tempInside > 0) {
-          isInside = tempInside;
-          break;
-        }
-      }
-      return isInside;
-    }
 
 
     function positionAxises() {
@@ -9768,7 +9880,7 @@ function ErrorResult(code, message) {
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //----- find dimensions of block Level 1
-      for(b = 1; b < blocksQty; b+=1) {
+      for(b = 1; b < blocksQty; b++) {
         if(blocksSource[b].level === 1) {
           parentBlocs.push(blocksSource[b].pointsOut.map(function(point) {
             return point.x;
@@ -9778,13 +9890,13 @@ function ErrorResult(code, message) {
       //console.info('impost parent----', parentBlocs);
       //----- find vertical imosts
       parentBlocsQty = parentBlocs.length;
-      for(p = 0; p < parentBlocsQty; p+=1) {
+      for(p = 0; p < parentBlocsQty; p++) {
         impostInd = [];
         parentSizeMin = d3.min(parentBlocs[p]);
         parentSizeMax = d3.max(parentBlocs[p]);
 
         //console.log('max/min', parentSizeMin, parentSizeMax);
-        for(b = 1; b < blocksQty; b+=1) {
+        for(b = 1; b < blocksQty; b++) {
           if(blocksSource[b].impost) {
             if(blocksSource[b].impost.impostAxis) {
               //----- if impost vertical
@@ -9804,7 +9916,7 @@ function ErrorResult(code, message) {
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
-        for(i = 0; i < impostIndQty; i+=1) {
+        for(i = 0; i < impostIndQty; i++) {
           //-------- insert back imposts X
           if(!i) {
             newX = (parentSizeMin + step);
@@ -9829,67 +9941,33 @@ function ErrorResult(code, message) {
 
 
 
-
+    function isPointInsideBlock(pointsOut, pointX, pointY) {
+      var newP = {
+            x: pointX,
+            y: pointY
+          },
+          isInside = 0,
+          tempInside = 0,
+          pointsOutQty = pointsOut.length,
+          p = 0;
+      for(; p < pointsOutQty; p++) {
+        if(pointsOut[p+1]) {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
+        } else {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
+        }
+        if(tempInside > 0) {
+          isInside = tempInside;
+          break;
+        }
+      }
+      return isInside;
+    }
 
 
 
 
     /**++++++++++ Set Position by Glass Width ++++++++*/
-
-
-    function prepareBlockXPosition(currBlock, selectedBlocks) {
-      var selectedBlock = {imps: []},
-          impostPoints = currBlock.pointsOut.filter(function(point) {
-            return point.type === 'impost' || point.type === 'shtulp';
-          }),
-          impostPointsQty = impostPoints.length,
-          isParall, isCouple, isExist, impsQty, glassXArr,
-          i, j;
-
-      for(i = 0; i < impostPointsQty; i+=1) {
-        isParall = 0;
-        isCouple = 0;
-        for(j = 0; j < impostPointsQty; j+=1) {
-          if(i !== j) {
-            if(impostPoints[j].id === impostPoints[i].id) {
-              isCouple = 1;
-              if(impostPoints[j].x === impostPoints[i].x) {
-                isParall = 1;
-              }
-            }
-          }
-        }
-        //------ if only one point of impost, deselect this block
-        if(isCouple) {
-          if(isParall) {
-            isExist = 1;
-            impsQty = selectedBlock.imps.length;
-            //------ seek dublicate
-            while(--impsQty > -1) {
-              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
-                isExist = 0;
-              }
-            }
-            if(isExist) {
-              selectedBlock.imps.push(impostPoints[i]);
-            }
-          }
-        } else {
-          break;
-        }
-      }
-
-      if(selectedBlock.imps.length) {
-        glassXArr = currBlock.glassPoints.map(function(item){
-          return item.x;
-        });
-        selectedBlock.minX = d3.min(glassXArr);
-        selectedBlock.maxX = d3.max(glassXArr);
-        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
-        selectedBlocks.push(selectedBlock);
-      }
-    }
-
 
 
     function positionGlasses() {
@@ -9911,10 +9989,10 @@ function ErrorResult(code, message) {
 
       //------- if is exist selected glasses
       if(selectedGlassQty) {
-        for(g = 0; g < selectedGlassQty; g+=1) {
+        for(g = 0; g < selectedGlassQty; g++) {
           blockID = DesignStor.design.selectedGlass[g].attributes.block_id.nodeValue;
           //----- find this block among all blocks
-          for(b = 1; b < blocksQty; b+=1) {
+          for(b = 1; b < blocksQty; b++) {
             if(blocks[b].id === blockID) {
               prepareBlockXPosition(blocks[b], selectedBlocks);
             }
@@ -9923,7 +10001,7 @@ function ErrorResult(code, message) {
       } else {
         //-------- working with all glass
         //----- collect blocks with parallele imposts
-        for(b = 1; b < blocksQty; b+=1) {
+        for(b = 1; b < blocksQty; b++) {
           //----- take block only with glass
           if(!blocks[b].children.length && blocks[b].glassPoints) {
             prepareBlockXPosition(blocks[b], selectedBlocks);
@@ -9948,8 +10026,8 @@ function ErrorResult(code, message) {
         impQty1 = selectedBlocks[0].imps.length;
         impQty2 = selectedBlocks[1].imps.length;
         isImpClone = 0;
-        circle1: for(imp1 = 0; imp1 < impQty1; imp1+=1) {
-          for(imp2 = 0; imp2 < impQty2; imp2+=1) {
+        circle1: for(imp1 = 0; imp1 < impQty1; imp1++) {
+          for(imp2 = 0; imp2 < impQty2; imp2++) {
             if(selectedBlocks[1].imps[imp2].id === selectedBlocks[0].imps[imp1].id) {
               isImpClone = selectedBlocks[1].imps[imp2].id;
               break circle1;
@@ -9958,12 +10036,12 @@ function ErrorResult(code, message) {
         }
       }
 
-      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
+      for(sb = 0; sb < selectedBlocksQty; sb++) {
         impsSBQty = selectedBlocks[sb].imps.length;
         step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
         //console.info('step----', selectedBlocks[sb]);
         //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
-        for(isb = 0; isb < impsSBQty; isb+=1) {
+        for(isb = 0; isb < impsSBQty; isb++) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             isAprove = 0;
             if(selectedBlocksQty === 2) {
@@ -9981,10 +10059,10 @@ function ErrorResult(code, message) {
               selectedBlocks[sb].imps[isb].x += step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks
-              for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
+              for (sb2 = 0; sb2 < selectedBlocksQty; sb2++) {
                 if (isb !== sb2) {
                   impsSBQty2 = selectedBlocks[sb2].imps.length;
-                  for (isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
+                  for (isb2 = 0; isb2 < impsSBQty2; isb2++) {
                     if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
                       selectedBlocks[sb2].imps[isb2].isChanged = 1;
                       selectedBlocks[sb2].width -= step;
@@ -9998,17 +10076,17 @@ function ErrorResult(code, message) {
       }
       //console.warn('FINISH----', selectedBlocks);
       //------- change imposts X in blockSource
-      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
+      for(sb = 0; sb < selectedBlocksQty; sb++) {
         impsSBQty = selectedBlocks[sb].imps.length;
-        for(isb = 0; isb < impsSBQty; isb+=1) {
+        for(isb = 0; isb < impsSBQty; isb++) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             impostN = Number(selectedBlocks[sb].imps[isb].id.replace(/\D+/g, ""));
-            for(p = 1; p < blocksQty; p+=1) {
+            for(p = 1; p < blocksQty; p++) {
               blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
               if(blockN === impostN) {
                 if(blocksSource[p].impost) {
-                  blocksSource[p].impost.impostAxis[0].x = +selectedBlocks[sb].imps[isb].x;
-                  blocksSource[p].impost.impostAxis[1].x = +selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[0].x = selectedBlocks[sb].imps[isb].x*1;
+                  blocksSource[p].impost.impostAxis[1].x = selectedBlocks[sb].imps[isb].x*1;
                 }
               }
             }
@@ -10022,232 +10100,55 @@ function ErrorResult(code, message) {
 
 
 
+    function prepareBlockXPosition(currBlock, selectedBlocks) {
+      var selectedBlock = {imps: []},
+          impostPoints = currBlock.pointsOut.filter(function(point) {
+            return point.type === 'impost' || point.type === 'shtulp';
+          }),
+          impostPointsQty = impostPoints.length,
+          isParall, isCouple, isExist, impsQty, glassXArr,
+          i, j;
 
-
-
-
-
-
-    /**=============== CHANGE CONSTRUCTION SIZE ==============*/
-
-
-    /**=============== Size Calculator ==============*/
-
-
-    //------ Change size on SVG
-    function changeSize() {
-      var newSizeString = DesignStor.design.tempSize.join('');
-      d3.select(DesignStor.design.oldSize).text(newSizeString);
-      if(GlobalStor.global.isVoiceHelper) {
-        closeSizeCaclulator();
-      }
-    }
-
-
-    //------ Delete last number from calculator
-    function deleteLastNumber() {
-      DesignStor.design.tempSize.pop();
-      if(DesignStor.design.tempSize.length < 1) {
-        DesignStor.design.tempSize.push(0);
-      }
-      changeSize();
-    }
-
-
-    //-------- Get number from calculator
-    function setValueSize(newValue) {
-      var sizeLength = DesignStor.design.tempSize.length,
-          tempVal;
-      //console.log('take new value = ', newValue);
-      if(GlobalStor.global.isVoiceHelper) {
-
-        tempVal = parseInt(newValue, 10);
-        //console.log('tempVal=====', tempVal);
-        DesignStor.design.voiceTxt = '';
-        DesignStor.design.openVoiceHelper = false;
-
-        if ((tempVal > 0) && (tempVal < 10000)) {
-          DesignStor.design.tempSize = ("" + tempVal).split('');
-          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
-          changeSize();
-        }
-        deselectAllDimension();
-
-      } else {
-        //---- clear array from 0 after delete all number in array
-        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (newValue === '0') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            DesignStor.design.tempSize.push(newValue);
-            changeSize();
-          }
-        } else if(newValue === '00') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            if (sizeLength < 3) {
-              DesignStor.design.tempSize.push(0, 0);
-            } else if (sizeLength === 3) {
-              DesignStor.design.tempSize.push(0);
-            }
-            changeSize();
-          }
-        } else {
-          DesignStor.design.tempSize.push(newValue);
-          changeSize();
-        }
-      }
-    }
-
-
-    function pressCulculator(keyEvent) {
-      var newValue;
-      //--------- Enter
-      if (keyEvent.which === 13) {
-        closeSizeCaclulator();
-        $rootScope.$apply();
-      } else if(keyEvent.which === 8) {
-        //-------- Backspace
-        deleteLastNumber();
-      } else {
-        switch(keyEvent.which) {
-          case 48:
-          case 96:
-            newValue = 0;
-            break;
-          case 49:
-          case 97:
-            newValue = 1;
-            break;
-          case 50:
-          case 98:
-            newValue = 2;
-            break;
-          case 51:
-          case 99:
-            newValue = 3;
-            break;
-          case 52:
-          case 100:
-            newValue = 4;
-            break;
-          case 53:
-          case 101:
-            newValue = 5;
-            break;
-          case 54:
-          case 102:
-            newValue = 6;
-            break;
-          case 55:
-          case 103:
-            newValue = 7;
-            break;
-          case 56:
-          case 104:
-            newValue = 8;
-            break;
-          case 57:
-          case 105:
-            newValue = 9;
-            break;
-        }
-        if(newValue !== undefined) {
-          setValueSize(newValue);
-        }
-      }
-    }
-
-
-
-
-
-    function doneRecognition(value) {
-      //console.log("полученные данные", value);
-      //console.log("тип полученных данных", typeof value);
-      DesignStor.design.voiceTxt = value;
-      $rootScope.$apply();
-      $timeout(function() {
-        var intValue = parseStringToDimension(value);
-        //console.log("данные после парса", intValue);
-        //console.log("тип полученных данных", typeof intValue);
-        if (intValue === "NaN") {
-          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
-        }
-        playTTS(intValue);
-        setValueSize(intValue);
-        $rootScope.$apply();
-      }, 1000);
-    }
-
-
-
-    //---------- define voice force
-    function recognitionProgress(value) {
-      if (value > 100) {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = 1;
-        DesignStor.design.quietVoice = 0;
-
-      } else {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = 0;
-        DesignStor.design.quietVoice = 1;
-      }
-      $rootScope.$apply();
-    }
-
-
-
-    //------- set click to all Dimensions
-    function initAllDimension() {
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          var size = d3.select(this);
-          size.on(clickEvent, function() {
-            var sizeRect = size.select('.size-rect'),
-                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+ 1,
-                dim;
-            if(DesignStor.design.tempSize.length) {
-              /** save new Size when click another size */
-              closeSizeCaclulator();
-              cleanTempSize();
-            } else {
-              if (isActive) {
-                hideSizeTools();
-              } else {
-                deselectAllDimension();
-                sizeRect.classed('active', true);
-                dim = size.select('.size-txt-edit');
-                dim.classed('active', true);
-                DesignStor.design.oldSize = dim[0][0];
-                DesignStor.design.prevSize = dim[0][0].textContent;
-                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                //------- show caclulator or voice helper
-                if (GlobalStor.global.isVoiceHelper) {
-                  DesignStor.design.openVoiceHelper = 1;
-                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-                } else {
-                  GlobalStor.global.isSizeCalculator = 1;
-                  DesignStor.design.isMinSizeRestriction = 0;
-                  DesignStor.design.isMaxSizeRestriction = 0;
-                  DesignStor.design.isDimExtra = 0;
-                  DesignStor.design.isSquareExtra = 0;
-                }
+      for(i = 0; i < impostPointsQty; i++) {
+        isParall = 0;
+        isCouple = 0;
+        for(j = 0; j < impostPointsQty; j++) {
+          if(i !== j) {
+            if(impostPoints[j].id === impostPoints[i].id) {
+              isCouple = 1;
+              if(impostPoints[j].x === impostPoints[i].x) {
+                isParall = 1
               }
-              $rootScope.$apply();
             }
-          });
-        });
-
-      /** switch on keyboard */
-      d3.select(window)
-        .on('keydown', function() {
-          if(GlobalStor.global.isSizeCalculator) {
-            pressCulculator(d3.event);
           }
-        });
+        }
+        //------ if only one point of impost, deselect this block
+        if(!isCouple) {
+          break;
+        } else {
+          if(isParall) {
+            isExist = 1;
+            impsQty = selectedBlock.imps.length;
+            //------ seek dublicate
+            while(--impsQty > -1) {
+              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
+                isExist = 0
+              }
+            }
+            if(isExist) {
+              selectedBlock.imps.push(impostPoints[i]);
+            }
+          }
+        }
+      }
+
+      if(selectedBlock.imps.length) {
+        glassXArr = currBlock.glassPoints.map(function(item){return item.x});
+        selectedBlock.minX = d3.min(glassXArr);
+        selectedBlock.maxX = d3.max(glassXArr);
+        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
+        selectedBlocks.push(selectedBlock);
+      }
     }
 
 
@@ -10319,6 +10220,81 @@ function ErrorResult(code, message) {
       hideSizeTools();
     }
 
+
+
+
+
+
+
+
+
+    /**------- Save and Close Construction Page ----------*/
+
+    function designSaved() {
+      closeSizeCaclulator(1).then(function() {
+        /** save new template in product */
+        ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+        ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+        /** create template icon */
+        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
+
+        /** if Door Construction */
+        if(ProductStor.product.construction_type === 4) {
+          //------- save new door config
+          ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
+          ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
+          ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
+          ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
+        }
+
+        /** save new template in templates Array */
+        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
+
+        /** if sash was added/removed in template */
+        var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
+        if (isSashesInTemplate) {
+          if(!GlobalStor.global.isSashesInTemplate) {
+            GlobalStor.global.isSashesInTemplate = 1;
+            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            //------ save analytics data
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
+          }
+        } else {
+          ProductStor.product.hardware = {};
+          ProductStor.product.hardware.id = 0;
+          GlobalStor.global.isSashesInTemplate = 0;
+        }
+
+        /** check grids */
+        var isChanged = updateGrids();
+        if(isChanged) {
+          //------ get new grids price
+          getGridPrice(ProductStor.product.chosenAddElements[0]);
+        }
+
+        /** refresh price of new template */
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id).then(function() {
+          //-------- template was changed
+          GlobalStor.global.isChangedTemplate = 1;
+          backtoTemplatePanel();
+        });
+
+      });
+    }
+
+
+
+
+    //--------- Cancel and Close Construction Page
+    function designCancel() {
+      //------- close calculator if is opened
+      hideSizeTools();
+      //------ go to Main Page
+      backtoTemplatePanel();
+    }
 
 
 
@@ -10506,9 +10482,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -10645,7 +10621,6 @@ function ErrorResult(code, message) {
 
 
 
-
     /**============ METHODS ================*/
 
 
@@ -10705,13 +10680,12 @@ function ErrorResult(code, message) {
 
 
 
-    /**----------- Send Order to Factory -----------*/
+    //========== Send Order to Factory ========//
 
     function sendOrderToFactory(orderStyle, orderNum) {
-
       function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length, ord;
-        for(ord = 0; ord < ordersQty; ord+=1) {
+        var ordersQty = HistoryStor.history.orders.length;
+        for(var ord = 0; ord < ordersQty; ord++) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
@@ -10728,6 +10702,7 @@ function ErrorResult(code, message) {
           sendOrder
         );
       }
+
     }
 
 
@@ -10735,7 +10710,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**----------- make Order Copy -----------*/
+    //========= make Order Copy =========//
 
     function makeOrderCopy(orderStyle, orderNum) {
 
@@ -10746,11 +10721,11 @@ function ErrorResult(code, message) {
           if(result.length) {
             var allElements = angular.copy(result),
                 allElemQty = allElements.length,
-                i;
+                i = 0;
 
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
-              for (i = 0; i < allElemQty; i+=1) {
+              for (; i < allElemQty; i++) {
                 delete allElements[i].id;
                 allElements[i].modified = new Date();
                 allElements[i].order_id = newOrderNum;
@@ -10765,15 +10740,14 @@ function ErrorResult(code, message) {
             console.log('Empty result = ', result);
           }
         });
-
       }
 
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy, ord;
+            newOrderCopy;
 
-        for(ord = 0; ord < ordersQty; ord+=1) {
+        for(var ord = 0; ord < ordersQty; ord++) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -10802,7 +10776,6 @@ function ErrorResult(code, message) {
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
-
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
@@ -10817,7 +10790,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**--------------- Delete order -----------*/
+    //========== Delete order ==========//
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
@@ -10865,11 +10838,7 @@ function ErrorResult(code, message) {
 
 
 
-
-
-
     /** =========== Edit Order & Draft =========== */
-
 
     function setOrderOptions(param, id, data) {
       if(id) {
@@ -10909,18 +10878,16 @@ function ErrorResult(code, message) {
 
     //------ Download All Products Data for Order
     function downloadProducts() {
-      var deferred = $q.defer(),
-          products, productPromises, defer1, tempProd,
-          glassIDs, glassIDsQty;
+      var deferred = $q.defer();
 
       localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        products = angular.copy(result);
+        var products = angular.copy(result);
         if(products.length) {
 
           //------------- parsing All Templates Source and Icons for Order
-          productPromises = products.map(function(prod) {
-            defer1 = $q.defer();
-            tempProd = ProductStor.setDefaultProduct();
+          var productPromises = products.map(function(prod) {
+            var defer1 = $q.defer(),
+                tempProd = ProductStor.setDefaultProduct();
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
@@ -10932,11 +10899,11 @@ function ErrorResult(code, message) {
               //----- find depths and build design icon
               MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
                 if(tempProd.glass_id) {
-                  glassIDs = tempProd.glass_id.split(', ');
-                  glassIDsQty = glassIDs.length;
+                  var glassIDs = tempProd.glass_id.split(', '),
+                      glassIDsQty = glassIDs.length;
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
+                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
                     }
                   }
                 }
@@ -10956,9 +10923,9 @@ function ErrorResult(code, message) {
           });
 
           $q.all(productPromises).then(function(data) {
-            var deferIcon,
-            iconPromise = data.map(function(item) {
-              deferIcon = $q.defer();
+
+            var iconPromise = data.map(function(item) {
+              var deferIcon = $q.defer();
               SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
                 item.templateIcon = data;
                 delete item.profile_id;
@@ -10989,19 +10956,17 @@ function ErrorResult(code, message) {
 
 
 
-
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length,
-            prod;
+            orderProductsQty = OrderStor.order.products.length;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
-            for(prod = 0; prod < orderProductsQty; prod+=1) {
+            for(var prod = 0; prod < orderProductsQty; prod++) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
@@ -11025,14 +10990,13 @@ function ErrorResult(code, message) {
 
 
 
-
     function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -11085,6 +11049,8 @@ function ErrorResult(code, message) {
 
 
 
+
+
     //------ Download draft Orders from localDB
     function downloadDrafts() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(result) {
@@ -11123,8 +11089,7 @@ function ErrorResult(code, message) {
     }
 
 
-
-    /**============= HISTORY TOOLS ============*/
+    //============= HISTORY TOOLS ============//
 
     //=========== Searching
 
@@ -11144,30 +11109,25 @@ function ErrorResult(code, message) {
 
     //------- filtering orders by Dates
     function filteringByDate(obj, start, end) {
-      var newObj, startDate, finishDate,
-          t, objDate, result;
-
       if(start !== '' || end !== '') {
+        var newObj, startDate, finishDate;
         newObj = angular.copy(obj);
         startDate = new Date(start).valueOf();
         finishDate = new Date(end).valueOf();
         if(start !== '' && end !== '' && startDate > finishDate) {
           return false;
         }
-        for(t = newObj.length-1;  t >= 0; t-=1) {
-          objDate = new Date(newObj[t].created).valueOf();
+        for(var t = newObj.length-1;  t >= 0; t--) {
+          var objDate = new Date(newObj[t].created).valueOf();
           if(objDate < startDate || objDate > finishDate) {
             newObj.splice(t, 1);
           }
         }
-        result = newObj;
+        return newObj;
       } else {
-        result = 0;
+        return false;
       }
-      return result;
     }
-
-
 
     //------- show Date filter tool dialog
     function orderDateSelecting() {
@@ -11307,7 +11267,6 @@ function ErrorResult(code, message) {
 
 
 
-
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -11327,6 +11286,7 @@ function ErrorResult(code, message) {
     };
 
     return thisFactory.publicObj;
+
 
 
   });
@@ -11352,7 +11312,6 @@ function ErrorResult(code, message) {
     UserStor,
     GlobalStor
   ) {
-    /*jshint validthis:true */
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -11360,12 +11319,12 @@ function ErrorResult(code, message) {
           'addition_folders': {
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
-              ' addition_type_id INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' img VARCHAR,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR',
+            ' addition_type_id INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' img VARCHAR,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
@@ -11401,31 +11360,31 @@ function ErrorResult(code, message) {
           'glass_folders': {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
-              ' img VARCHAR,' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR,' +
-              ' is_base INTEGER',
+            ' img VARCHAR,' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR,' +
+            ' is_base INTEGER',
             'foreignKey': ''
           },
           'glass_prices': {
             'tableName': 'glass_prices',
             'prop': 'element_id INTEGER,' +
-              ' col_1_range NUMERIC(10, 2),' +
-              ' col_1_price NUMERIC(10, 2),' +
-              ' col_2_range_1 NUMERIC(10, 2),' +
-              ' col_2_range_2 NUMERIC(10, 2),' +
-              ' col_2_price NUMERIC(10, 2),' +
-              ' col_3_range_1 NUMERIC(10, 2),' +
-              ' col_3_range_2 NUMERIC(10, 2),' +
-              ' col_3_price NUMERIC(10, 2),' +
-              ' col_4_range_1 NUMERIC(10, 2),' +
-              ' col_4_range_2 NUMERIC(10, 2),' +
-              ' col_4_price NUMERIC(10, 2),' +
-              ' col_5_range NUMERIC(10, 2),' +
-              ' col_5_price NUMERIC(10, 2),' +
-              ' table_width INTEGER',
+            ' col_1_range NUMERIC(10, 2),' +
+            ' col_1_price NUMERIC(10, 2),' +
+            ' col_2_range_1 NUMERIC(10, 2),' +
+            ' col_2_range_2 NUMERIC(10, 2),' +
+            ' col_2_price NUMERIC(10, 2),' +
+            ' col_3_range_1 NUMERIC(10, 2),' +
+            ' col_3_range_2 NUMERIC(10, 2),' +
+            ' col_3_price NUMERIC(10, 2),' +
+            ' col_4_range_1 NUMERIC(10, 2),' +
+            ' col_4_range_2 NUMERIC(10, 2),' +
+            ' col_4_price NUMERIC(10, 2),' +
+            ' col_5_range NUMERIC(10, 2),' +
+            ' col_5_price NUMERIC(10, 2),' +
+            ' table_width INTEGER',
             'foreignKey': ''
           },
           'lamination_factory_colors': {
@@ -11451,117 +11410,117 @@ function ErrorResult(code, message) {
           'options_coefficients': {
             'tableName': 'options_coefficients',
             'prop': 'rentability_percent INTEGER,' +
-              ' rentability_hrn_m INTEGER,' +
-              ' rentability_hrn INTEGER,' +
-              ' others_percent INTEGER,' +
-              ' others_hrn_m INTEGER,' +
-              ' others_hrn INTEGER,' +
-              ' transport_cost_percent INTEGER,' +
-              ' transport_cost_hrn_m INTEGER,' +
-              ' transport_cost_hrn INTEGER,' +
-              ' salary_manager_percent INTEGER,' +
-              ' salary_manager_hrn_m INTEGER,' +
-              ' salary_manager_hrn INTEGER,' +
-              ' rent_offices_percent INTEGER,' +
-              ' rent_offices_hrn_m INTEGER,' +
-              ' rent_offices_hrn INTEGER,' +
-              ' salary_itr_percent INTEGER,' +
-              ' salary_itr_hrn_m INTEGER,' +
-              ' salary_itr_hrn INTEGER,' +
-              ' rent_production_percent INTEGER,' +
-              ' rent_production_hrn_m INTEGER,' +
-              ' rent_production_hrn INTEGER,' +
-              ' salary_glass_percent INTEGER,' +
-              ' salary_glass_hrn_m INTEGER,' +
-              ' salary_glass_hrn INTEGER,' +
-              ' salary_assembly_percent INTEGER,' +
-              ' salary_assembly_hrn_m INTEGER,' +
-              ' salary_assembly_hrn INTEGER,' +
-              ' estimated_cost INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' plan_production INTEGER,' +
-              ' margin NUMERIC(10, 2),' +
-              ' coeff NUMERIC(10, 2)',
+            ' rentability_hrn_m INTEGER,' +
+            ' rentability_hrn INTEGER,' +
+            ' others_percent INTEGER,' +
+            ' others_hrn_m INTEGER,' +
+            ' others_hrn INTEGER,' +
+            ' transport_cost_percent INTEGER,' +
+            ' transport_cost_hrn_m INTEGER,' +
+            ' transport_cost_hrn INTEGER,' +
+            ' salary_manager_percent INTEGER,' +
+            ' salary_manager_hrn_m INTEGER,' +
+            ' salary_manager_hrn INTEGER,' +
+            ' rent_offices_percent INTEGER,' +
+            ' rent_offices_hrn_m INTEGER,' +
+            ' rent_offices_hrn INTEGER,' +
+            ' salary_itr_percent INTEGER,' +
+            ' salary_itr_hrn_m INTEGER,' +
+            ' salary_itr_hrn INTEGER,' +
+            ' rent_production_percent INTEGER,' +
+            ' rent_production_hrn_m INTEGER,' +
+            ' rent_production_hrn INTEGER,' +
+            ' salary_glass_percent INTEGER,' +
+            ' salary_glass_hrn_m INTEGER,' +
+            ' salary_glass_hrn INTEGER,' +
+            ' salary_assembly_percent INTEGER,' +
+            ' salary_assembly_hrn_m INTEGER,' +
+            ' salary_assembly_hrn INTEGER,' +
+            ' estimated_cost INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' plan_production INTEGER,' +
+            ' margin NUMERIC(10, 2),' +
+            ' coeff NUMERIC(10, 2)',
             'foreignKey': ''
           },
           'options_discounts': {
             'tableName': 'options_discounts',
             'prop': 'factory_id INTEGER,' +
-              ' min_time INTEGER,' +
-              ' standart_time INTEGER,' +
-              ' base_time INTEGER,' +
-              ' week_1 INTEGER,' +
-              ' week_2 INTEGER,' +
-              ' week_3 INTEGER,' +
-              ' week_4 INTEGER,' +
-              ' week_5 INTEGER,' +
-              ' week_6 INTEGER,' +
-              ' week_7 INTEGER,' +
-              ' week_8 INTEGER,' +
-              ' percents ARRAY',
+            ' min_time INTEGER,' +
+            ' standart_time INTEGER,' +
+            ' base_time INTEGER,' +
+            ' week_1 INTEGER,' +
+            ' week_2 INTEGER,' +
+            ' week_3 INTEGER,' +
+            ' week_4 INTEGER,' +
+            ' week_5 INTEGER,' +
+            ' week_6 INTEGER,' +
+            ' week_7 INTEGER,' +
+            ' week_8 INTEGER,' +
+            ' percents ARRAY',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'elements': {
             'tableName': 'elements',
             'prop': 'heat_coeff INTEGER,' +
-              ' name VARCHAR(255),' +
-              ' element_group_id INTEGER,' +
-              ' currency_id INTEGER,' +
-              ' supplier_id INTEGER,' +
-              ' margin_id INTEGER,' +
-              ' waste NUMERIC(10, 2),' +
-              ' is_optimized INTEGER,' +
-              ' is_virtual INTEGER,' +
-              ' is_additional INTEGER,' +
-              ' weight_accounting_unit NUMERIC(10, 3),' +
-              ' glass_folder_id INTEGER,' +
-              ' min_width NUMERIC,' +
-              ' min_height NUMERIC,' +
-              ' max_width NUMERIC,' +
-              ' max_height NUMERIC,' +
-              ' max_sq NUMERIC,' +
-              ' transcalency NUMERIC(10, 2),' +
-              ' glass_width INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' price NUMERIC(10, 2),' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' noise_coeff NUMERIC,' +
-              ' sku VARCHAR(100),' +
-              ' lamination_in_id INTEGER,' +
-              ' lamination_out_id INTEGER',
+            ' name VARCHAR(255),' +
+            ' element_group_id INTEGER,' +
+            ' currency_id INTEGER,' +
+            ' supplier_id INTEGER,' +
+            ' margin_id INTEGER,' +
+            ' waste NUMERIC(10, 2),' +
+            ' is_optimized INTEGER,' +
+            ' is_virtual INTEGER,' +
+            ' is_additional INTEGER,' +
+            ' weight_accounting_unit NUMERIC(10, 3),' +
+            ' glass_folder_id INTEGER,' +
+            ' min_width NUMERIC,' +
+            ' min_height NUMERIC,' +
+            ' max_width NUMERIC,' +
+            ' max_height NUMERIC,' +
+            ' max_sq NUMERIC,' +
+            ' transcalency NUMERIC(10, 2),' +
+            ' glass_width INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' price NUMERIC(10, 2),' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' noise_coeff NUMERIC,' +
+            ' sku VARCHAR(100),' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
             'tableName': 'profile_system_folders',
             'prop': 'name VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'profile_systems': {
             'tableName': 'profile_systems',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' rama_list_id INTEGER,' +
-              ' rama_still_list_id INTEGER,' +
-              ' stvorka_list_id INTEGER,' +
-              ' impost_list_id INTEGER,' +
-              ' shtulp_list_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' country VARCHAR(100),' +
-              ' cameras INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff_value NUMERIC(5,2),' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' country VARCHAR(100),' +
+            ' cameras INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff_value NUMERIC(5,2),' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
           'profile_laminations': {
@@ -11590,108 +11549,108 @@ function ErrorResult(code, message) {
           'users': {
             'tableName': 'users',
             'prop':
-              ' email VARCHAR(255),' +
-              ' password VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' name VARCHAR(255),' +
-              ' phone VARCHAR(100),' +
-              ' locked INTEGER,' +
-              ' user_type INTEGER,' +
-              ' city_phone VARCHAR(100),' +
-              ' city_id INTEGER,' +
-              ' fax VARCHAR(100),' +
-              ' avatar VARCHAR(255),' +
-              ' birthday DATE,' +
-              ' sex VARCHAR(100),' +
-              ' mount_mon NUMERIC(5,2),' +
-              ' mount_tue NUMERIC(5,2),' +
-              ' mount_wed NUMERIC(5,2),' +
-              ' mount_thu NUMERIC(5,2),' +
-              ' mount_fri NUMERIC(5,2),' +
-              ' mount_sat NUMERIC(5,2),' +
-              ' mount_sun NUMERIC(5,2),' +
-              ' device_code VARCHAR(250),'+
-              ' last_sync TIMESTAMP,' +
-              ' address VARCHAR,' +
-              ' therm_coeff_id INTEGER,' +
-              ' factoryLink VARCHAR',
+            ' email VARCHAR(255),' +
+            ' password VARCHAR(255),' +
+            ' factory_id INTEGER,' +
+            ' name VARCHAR(255),' +
+            ' phone VARCHAR(100),' +
+            ' locked INTEGER,' +
+            ' user_type INTEGER,' +
+            ' city_phone VARCHAR(100),' +
+            ' city_id INTEGER,' +
+            ' fax VARCHAR(100),' +
+            ' avatar VARCHAR(255),' +
+            ' birthday DATE,' +
+            ' sex VARCHAR(100),' +
+            ' mount_mon NUMERIC(5,2),' +
+            ' mount_tue NUMERIC(5,2),' +
+            ' mount_wed NUMERIC(5,2),' +
+            ' mount_thu NUMERIC(5,2),' +
+            ' mount_fri NUMERIC(5,2),' +
+            ' mount_sat NUMERIC(5,2),' +
+            ' mount_sun NUMERIC(5,2),' +
+            ' device_code VARCHAR(250),'+
+            ' last_sync TIMESTAMP,' +
+            ' address VARCHAR,' +
+            ' therm_coeff_id INTEGER,' +
+            ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
             'tableName': 'users_discounts',
             'prop': 'user_id INTEGER,' +
-              ' max_construct NUMERIC(5,1),' +
-              ' max_add_elem NUMERIC(5,1),' +
-              ' default_construct NUMERIC(5,1),' +
-              ' default_add_elem NUMERIC(5,1),' +
-              ' week_1_construct NUMERIC(5,1),' +
-              ' week_1_add_elem NUMERIC(5,1),' +
-              ' week_2_construct NUMERIC(5,1),' +
-              ' week_2_add_elem NUMERIC(5,1),' +
-              ' week_3_construct NUMERIC(5,1),' +
-              ' week_3_add_elem NUMERIC(5,1),' +
-              ' week_4_construct NUMERIC(5,1),' +
-              ' week_4_add_elem NUMERIC(5,1),' +
-              ' week_5_construct NUMERIC(5,1),' +
-              ' week_5_add_elem NUMERIC(5,1),' +
-              ' week_6_construct NUMERIC(5,1),' +
-              ' week_6_add_elem NUMERIC(5,1),' +
-              ' week_7_construct NUMERIC(5,1),' +
-              ' week_7_add_elem NUMERIC(5,1),' +
-              ' week_8_construct NUMERIC(5,1),' +
-              ' week_8_add_elem NUMERIC(5,1)',
+            ' max_construct NUMERIC(5,1),' +
+            ' max_add_elem NUMERIC(5,1),' +
+            ' default_construct NUMERIC(5,1),' +
+            ' default_add_elem NUMERIC(5,1),' +
+            ' week_1_construct NUMERIC(5,1),' +
+            ' week_1_add_elem NUMERIC(5,1),' +
+            ' week_2_construct NUMERIC(5,1),' +
+            ' week_2_add_elem NUMERIC(5,1),' +
+            ' week_3_construct NUMERIC(5,1),' +
+            ' week_3_add_elem NUMERIC(5,1),' +
+            ' week_4_construct NUMERIC(5,1),' +
+            ' week_4_add_elem NUMERIC(5,1),' +
+            ' week_5_construct NUMERIC(5,1),' +
+            ' week_5_add_elem NUMERIC(5,1),' +
+            ' week_6_construct NUMERIC(5,1),' +
+            ' week_6_add_elem NUMERIC(5,1),' +
+            ' week_7_construct NUMERIC(5,1),' +
+            ' week_7_add_elem NUMERIC(5,1),' +
+            ' week_8_construct NUMERIC(5,1),' +
+            ' week_8_add_elem NUMERIC(5,1)',
             'foreignKey': ''
           },
           'users_deliveries': {
             'tableName': 'users_deliveries',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'users_mountings': {
             'tableName': 'users_mountings',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'lists': {
             'tableName': 'lists',
             'prop': 'name VARCHAR(255),' +
-              ' list_group_id INTEGER,' +
-              ' list_type_id INTEGER,' +
-              ' a NUMERIC(10, 2),' +
-              ' b NUMERIC(10, 2),' +
-              ' c NUMERIC(10, 2),' +
-              ' d NUMERIC(10, 2),' +
-              ' parent_element_id INTEGER,' +
-              ' position NUMERIC,' +
-              ' add_color_id INTEGER,' +
-              ' addition_folder_id INTEGER,' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' waste NUMERIC(10, 2),' +
-              ' cameras INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR,' +
-              ' beed_lamination_id INTEGER',
+            ' list_group_id INTEGER,' +
+            ' list_type_id INTEGER,' +
+            ' a NUMERIC(10, 2),' +
+            ' b NUMERIC(10, 2),' +
+            ' c NUMERIC(10, 2),' +
+            ' d NUMERIC(10, 2),' +
+            ' parent_element_id INTEGER,' +
+            ' position NUMERIC,' +
+            ' add_color_id INTEGER,' +
+            ' addition_folder_id INTEGER,' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' waste NUMERIC(10, 2),' +
+            ' cameras INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR,' +
+            ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
             'tableName': 'list_contents',
             'prop': 'parent_list_id INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(255),' +
-              ' value NUMERIC(10, 7),' +
-              ' rules_type_id INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' lamination_type_id INTEGER',
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(255),' +
+            ' value NUMERIC(10, 7),' +
+            ' rules_type_id INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' lamination_type_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
@@ -11702,52 +11661,52 @@ function ErrorResult(code, message) {
           'window_hardware_folders': {
             'tableName': 'window_hardware_folders',
             'prop': 'name VARCHAR,' +
-              ' factory_id INTEGER,'+
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,'+
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
 
           'window_hardware_groups': {
             'tableName': 'window_hardware_groups',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_group INTEGER,' +
-              ' is_in_calculation INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' producer VARCHAR(255),' +
-              ' country VARCHAR(255),' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_group INTEGER,' +
+            ' is_in_calculation INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' producer VARCHAR(255),' +
+            ' country VARCHAR(255),' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
           'window_hardwares': {
             'tableName': 'window_hardwares',
             'prop': 'window_hardware_type_id INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' length INTEGER,' +
-              ' count INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(100),' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' window_hardware_group_id INTEGER',
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' length INTEGER,' +
+            ' count INTEGER,' +
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(100),' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' window_hardware_group_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_colors': {
@@ -11770,138 +11729,138 @@ function ErrorResult(code, message) {
           'orders': {
             'tableName': 'orders',
             'prop':
-              'order_number VARCHAR,' +
-              ' order_hz VARCHAR,' +
-              ' order_date TIMESTAMP,' +
-              ' order_type INTEGER,' +
-              ' order_style VARCHAR,' +
-              ' user_id INTEGER,' +
-              ' created TIMESTAMP,' +
-              ' additional_payment VARCHAR,' +
-              ' sended TIMESTAMP,' +
-              ' state_to TIMESTAMP,' +
-              ' state_buch TIMESTAMP,' +
-              ' batch VARCHAR,' +
-              ' base_price NUMERIC(13, 2),' +
-              ' factory_margin NUMERIC(11, 2),'+
-              ' factory_id INTEGER,' +
-              ' purchase_price NUMERIC(10, 2),' +
-              ' sale_price NUMERIC(10, 2),' +
-              ' climatic_zone INTEGER,' +
-              ' heat_coef_min NUMERIC,' +
+            'order_number VARCHAR,' +
+            ' order_hz VARCHAR,' +
+            ' order_date TIMESTAMP,' +
+            ' order_type INTEGER,' +
+            ' order_style VARCHAR,' +
+            ' user_id INTEGER,' +
+            ' created TIMESTAMP,' +
+            ' additional_payment VARCHAR,' +
+            ' sended TIMESTAMP,' +
+            ' state_to TIMESTAMP,' +
+            ' state_buch TIMESTAMP,' +
+            ' batch VARCHAR,' +
+            ' base_price NUMERIC(13, 2),' +
+            ' factory_margin NUMERIC(11, 2),'+
+            ' factory_id INTEGER,' +
+            ' purchase_price NUMERIC(10, 2),' +
+            ' sale_price NUMERIC(10, 2),' +
+            ' climatic_zone INTEGER,' +
+            ' heat_coef_min NUMERIC,' +
 
-              ' products_qty INTEGER,' +
-              ' templates_price NUMERIC,' +
-              ' addelems_price NUMERIC,' +
-              ' products_price NUMERIC,'+
+            ' products_qty INTEGER,' +
+            ' templates_price NUMERIC,' +
+            ' addelems_price NUMERIC,' +
+            ' products_price NUMERIC,'+
 
-              ' delivery_date TIMESTAMP,' +
-              ' new_delivery_date TIMESTAMP,' +
-              ' delivery_price NUMERIC,'+
-              ' is_date_price_less INTEGER,' +
-              ' is_date_price_more INTEGER,' +
-              ' floor_id INTEGER,' +
-              ' floor_price NUMERIC,' +
-              ' mounting_id INTEGER,' +
-              ' mounting_price NUMERIC,'+
-              ' is_instalment INTEGER,' +
-              ' instalment_id INTEGER,' +
+            ' delivery_date TIMESTAMP,' +
+            ' new_delivery_date TIMESTAMP,' +
+            ' delivery_price NUMERIC,'+
+            ' is_date_price_less INTEGER,' +
+            ' is_date_price_more INTEGER,' +
+            ' floor_id INTEGER,' +
+            ' floor_price NUMERIC,' +
+            ' mounting_id INTEGER,' +
+            ' mounting_price NUMERIC,'+
+            ' is_instalment INTEGER,' +
+            ' instalment_id INTEGER,' +
 
-              ' is_old_price INTEGER,' +
-              ' payment_first NUMERIC,' +
-              ' payment_monthly NUMERIC,' +
-              ' payment_first_primary NUMERIC,' +
-              ' payment_monthly_primary NUMERIC,' +
-              ' order_price NUMERIC,' +
-              ' order_price_dis NUMERIC,' +
-              ' order_price_primary NUMERIC,' +
+            ' is_old_price INTEGER,' +
+            ' payment_first NUMERIC,' +
+            ' payment_monthly NUMERIC,' +
+            ' payment_first_primary NUMERIC,' +
+            ' payment_monthly_primary NUMERIC,' +
+            ' order_price NUMERIC,' +
+            ' order_price_dis NUMERIC,' +
+            ' order_price_primary NUMERIC,' +
 
-              ' discount_construct NUMERIC,' +
-              ' discount_addelem NUMERIC,' +
-              ' discount_construct_max NUMERIC,' +
-              ' discount_addelem_max NUMERIC,' +
-              ' delivery_user_id NUMERIC,' +
-              ' mounting_user_id NUMERIC,' +
-              ' default_term_plant NUMERIC,' +
-              ' disc_term_plant NUMERIC,' +
-              ' margin_plant NUMERIC,' +
+            ' discount_construct NUMERIC,' +
+            ' discount_addelem NUMERIC,' +
+            ' discount_construct_max NUMERIC,' +
+            ' discount_addelem_max NUMERIC,' +
+            ' delivery_user_id NUMERIC,' +
+            ' mounting_user_id NUMERIC,' +
+            ' default_term_plant NUMERIC,' +
+            ' disc_term_plant NUMERIC,' +
+            ' margin_plant NUMERIC,' +
 
-              ' customer_name TEXT,' +
-              ' customer_email TEXT,' +
-              ' customer_phone VARCHAR(30),' +
-              ' customer_phone_city VARCHAR(20),' +
-              ' customer_city_id INTEGER,' +
-              ' customer_city VARCHAR,' +
-              ' customer_address TEXT,' +
-              ' customer_location VARCHAR,' +
-              ' customer_itn INTEGER,' +
-              ' customer_starttime VARCHAR,' +
-              ' customer_endtime VARCHAR,' +
-              ' customer_target VARCHAR,' +
-              ' customer_sex INTEGER,' +
-              ' customer_age INTEGER,' +
-              ' customer_education INTEGER,' +
-              ' customer_occupation INTEGER,' +
-              ' customer_infoSource INTEGER',
+            ' customer_name TEXT,' +
+            ' customer_email TEXT,' +
+            ' customer_phone VARCHAR(30),' +
+            ' customer_phone_city VARCHAR(20),' +
+            ' customer_city_id INTEGER,' +
+            ' customer_city VARCHAR,' +
+            ' customer_address TEXT,' +
+            ' customer_location VARCHAR,' +
+            ' customer_itn INTEGER,' +
+            ' customer_starttime VARCHAR,' +
+            ' customer_endtime VARCHAR,' +
+            ' customer_target VARCHAR,' +
+            ' customer_sex INTEGER,' +
+            ' customer_age INTEGER,' +
+            ' customer_education INTEGER,' +
+            ' customer_occupation INTEGER,' +
+            ' customer_infoSource INTEGER',
             'foreignKey': ''
           },
           'order_products': {
             'tableName': 'order_products',
             'prop':
-              'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' is_addelem_only INTEGER,' +
-              ' room_id INTEGER,' +
-              ' construction_type INTEGER,' +
-              ' template_id INTEGER,' +
-              ' template_source TEXT,' +
-              ' template_width NUMERIC,' +
-              ' template_height NUMERIC,' +
-              ' template_square NUMERIC,' +
-              ' profile_id INTEGER,' +
-              ' glass_id VARCHAR,' +
-              ' hardware_id INTEGER,' +
-              ' lamination_id INTEGER,' +
-              ' lamination_out_id INTEGER,' +
-              ' lamination_in_id INTEGER,' +
-              ' door_shape_id INTEGER,' +
-              ' door_sash_shape_id INTEGER,' +
-              ' door_handle_shape_id INTEGER,' +
-              ' door_lock_shape_id INTEGER,' +
-              ' heat_coef_total NUMERIC,' +
-              ' template_price NUMERIC,' +
-              ' addelem_price NUMERIC,' +
-              ' product_price NUMERIC,' +
-              ' comment TEXT,' +
-              ' product_qty INTEGER',
+            'order_id NUMERIC,' +
+            ' product_id INTEGER,' +
+            ' is_addelem_only INTEGER,' +
+            ' room_id INTEGER,' +
+            ' construction_type INTEGER,' +
+            ' template_id INTEGER,' +
+            ' template_source TEXT,' +
+            ' template_width NUMERIC,' +
+            ' template_height NUMERIC,' +
+            ' template_square NUMERIC,' +
+            ' profile_id INTEGER,' +
+            ' glass_id VARCHAR,' +
+            ' hardware_id INTEGER,' +
+            ' lamination_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' door_shape_id INTEGER,' +
+            ' door_sash_shape_id INTEGER,' +
+            ' door_handle_shape_id INTEGER,' +
+            ' door_lock_shape_id INTEGER,' +
+            ' heat_coef_total NUMERIC,' +
+            ' template_price NUMERIC,' +
+            ' addelem_price NUMERIC,' +
+            ' product_price NUMERIC,' +
+            ' comment TEXT,' +
+            ' product_qty INTEGER',
             'foreignKey': ''
           },
           'order_addelements': {
             'tableName': 'order_addelements',
             'prop': 'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' element_type INTEGER,' +
-              ' element_id INTEGER,' +
-              ' name VARCHAR,' +
-              ' element_width NUMERIC,' +
-              ' element_height NUMERIC,' +
-              ' element_price NUMERIC,' +
-              ' element_qty INTEGER,' +
-              ' block_id INTEGER',
+            ' product_id INTEGER,' +
+            ' element_type INTEGER,' +
+            ' element_id INTEGER,' +
+            ' name VARCHAR,' +
+            ' element_width NUMERIC,' +
+            ' element_height NUMERIC,' +
+            ' element_price NUMERIC,' +
+            ' element_qty INTEGER,' +
+            ' block_id INTEGER',
             'foreignKey': ''
           },
-//          'order_elements': {
-//            'tableName': 'order_elements',
-//            'prop': 'order_id NUMERIC,' +
-//              ' element_id INTEGER,' +
-//              ' element_group_id INTEGER,' +
-//              ' name VARCHAR,' +
-//              ' sku VARCHAR,' +
-//              ' size NUMERIC,' +
-//              ' amount INTEGER,' +
-//              ' price NUMERIC',
-//            'foreignKey': ''
-//          },
+          //          'order_elements': {
+          //            'tableName': 'order_elements',
+          //            'prop': 'order_id NUMERIC,' +
+          //              ' element_id INTEGER,' +
+          //              ' element_group_id INTEGER,' +
+          //              ' name VARCHAR,' +
+          //              ' sku VARCHAR,' +
+          //              ' size NUMERIC,' +
+          //              ' amount INTEGER,' +
+          //              ' price NUMERIC',
+          //            'foreignKey': ''
+          //          },
           'template_groups':{
             'tableName': 'template_groups',
             'prop': 'name VARCHAR(255)',
@@ -11910,9 +11869,9 @@ function ErrorResult(code, message) {
           'templates':{
             'tableName': 'templates',
             'prop': 'group_id INTEGER,'+
-              'name VARCHAR(255),' +
-              'icon TEXT,' +
-              'template_object TEXT',
+            'name VARCHAR(255),' +
+            'icon TEXT,' +
+            'template_object TEXT',
             'foreignKey': ''
           },
           'background_templates':{
@@ -11928,11 +11887,11 @@ function ErrorResult(code, message) {
           },
 
           //-------- inner temables
-//          'analytics': {
-//            'tableName': 'analytics',
-//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
-//            'foreignKey': ''
-//          },
+          //          'analytics': {
+          //            'tableName': 'analytics',
+          //            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+          //            'foreignKey': ''
+          //          },
 
           'export': {
             'tableName': 'export',
@@ -11972,7 +11931,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**============ METHODS ================*/
+    /**============ methods ================*/
 
 
 
@@ -12014,24 +11973,6 @@ function ErrorResult(code, message) {
 
 
 
-    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
-
-    function checkStringToQuote(str) {
-      var result;
-      if(angular.isString(str)) {
-        if(str.indexOf("'")+1) {
-          //console.warn(str);
-          result = str.replace(/'/g, "''");
-        } else {
-          result = str;
-        }
-      } else {
-        result = str;
-      }
-      return result;
-    }
-
-
     function insertRowLocalDB(row, tableName) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
@@ -12054,23 +11995,22 @@ function ErrorResult(code, message) {
           tableQty = tableKeys.length;
       //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
-        var t, r, colums, rowsQty, defer, values;
-        for (t = 0; t < tableQty; t+=1) {
-          colums = result.tables[tableKeys[t]].fields.join(', ');
-          rowsQty = result.tables[tableKeys[t]].rows.length;
+        for (var t = 0; t < tableQty; t++) {
+          var colums = result.tables[tableKeys[t]].fields.join(', '),
+              rowsQty = result.tables[tableKeys[t]].rows.length;
           //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
-            for (r = 0; r < rowsQty; r+=1) {
-              defer = $q.defer();
-              values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                elem = checkStringToQuote(elem);
-                return "'" + elem + "'";
-              }).join(', ');
+            for (var r = 0; r < rowsQty; r++) {
+              var defer = $q.defer(),
+                  values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                    elem = checkStringToQuote(elem);
+                    return "'" + elem + "'";
+                  }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', error, tableKeys[t], colums);
+                console.log('Error!!! ', tableKeys[t], colums);
                 defer.resolve(0);
               });
 
@@ -12083,19 +12023,33 @@ function ErrorResult(code, message) {
     }
 
 
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
+
 
     function selectLocalDB(tableName, options, columns) {
       var defer = $q.defer(),
-          properties = columns || '*',
-          vhereOptions = "",
-          optionKeys, optionQty, k;
+          properties = (columns) ? columns : '*',
+          vhereOptions = "";
       if(options) {
         vhereOptions = " WHERE ";
-        optionKeys = Object.keys(options);
+        var optionKeys = Object.keys(options);
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-        optionQty = optionKeys.length;
+        var optionQty = optionKeys.length;
         if(optionQty > 1) {
-          for(k = 1; k < optionQty; k+=1) {
+          for(var k = 1; k < optionQty; k++) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -12103,11 +12057,10 @@ function ErrorResult(code, message) {
       db.transaction(function (trans) {
         trans.executeSql("SELECT "+properties+" FROM " + tableName + vhereOptions, [],
           function (tx, result) {
-            var resultQty = result.rows.length,
-                resultARR, i;
+            var resultQty = result.rows.length;
             if (resultQty) {
-              resultARR = [];
-              for(i = 0; i < resultQty; i+=1) {
+              var resultARR = [];
+              for(var i = 0; i < resultQty; i++) {
                 resultARR.push(result.rows.item(i));
               }
               defer.resolve(resultARR);
@@ -12132,10 +12085,10 @@ function ErrorResult(code, message) {
           keysQty = keysArr.length,
           optionKeys = Object.keys(options),
           optionQty = optionKeys.length,
-          elements = "", k, op;
+          elements = "";
 
       if(keysQty) {
-        for(k = 0; k < keysQty; k+=1) {
+        for(var k = 0; k < keysQty; k++) {
           if(!k) {
             elements += keysArr[k] + " = '" + elem[keysArr[k]]+"'";
           } else {
@@ -12147,7 +12100,7 @@ function ErrorResult(code, message) {
         vhereOptions = " WHERE ";
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(op = 1; op < optionQty; op+=1) {
+          for(var op = 1; op < optionQty; op++) {
             vhereOptions += " AND " + optionKeys[op] + " = '" + options[optionKeys[op]] + "'";
           }
         }
@@ -12163,14 +12116,13 @@ function ErrorResult(code, message) {
 
 
     function deleteRowLocalDB(tableName, options) {
-      var vhereOptions = "",
-          optionKeys, optionQty, k;
+      var vhereOptions = "";
       if(options) {
-        optionKeys = Object.keys(options);
-        optionQty = optionKeys.length;
+        var optionKeys = Object.keys(options),
+            optionQty = optionKeys.length;
         vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(k = 1; k < optionQty; k+=1) {
+          for(var k = 1; k < optionQty; k++) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -12187,13 +12139,13 @@ function ErrorResult(code, message) {
 
 
 
-    /**============== SERVER ===========*/
+    //============== SERVER ===========//
 
 
     /** get User from Server by login */
     function importUser(login, type) {
       var defer = $q.defer(),
-        query = type ? '/api/login?type=1' : '/api/login';
+          query = (type) ? '/api/login?type=1' : '/api/login';
       $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
@@ -12350,7 +12302,7 @@ function ErrorResult(code, message) {
 
 
     function deleteOrderServer(login, access, orderNumber) {
-      var dataSend = {orderId: +orderNumber};
+      var dataSend = {orderId: orderNumber*1};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
           console.log(result.data);
@@ -12672,11 +12624,9 @@ function ErrorResult(code, message) {
 
     function parseMainKit(construction){
       var deff = $q.defer(),
-          deff1, promisKits, deff2,
-          data3, resQty, collectArr, i, data,
           promisesKit = construction.sizes.map(function(item, index, arr) {
-            deff1 = $q.defer();
-			      //----- chekh is sizes and id
+            var deff1 = $q.defer();
+            //----- chekh is sizes and id
             if(item.length && construction.ids[index]) {
               /** if hardware */
               if(index === arr.length-1) {
@@ -12689,8 +12639,8 @@ function ErrorResult(code, message) {
                 });
               } else {
                 if(angular.isArray(construction.ids[index])) {
-                  promisKits = construction.ids[index].map(function(item2) {
-                    deff2 = $q.defer();
+                  var promisKits = construction.ids[index].map(function(item2) {
+                    var deff2 = $q.defer();
                     selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
@@ -12701,10 +12651,10 @@ function ErrorResult(code, message) {
                     return deff2.promise;
                   });
                   $q.all(promisKits).then(function(result3) {
-                    data3 = angular.copy(result3);
-                    resQty = data3.length;
-                    collectArr = [];
-                    for(i = 0; i < resQty; i+=1) {
+                    var data3 = angular.copy(result3),
+                        resQty = data3.length,
+                        collectArr = [];
+                    for(var i = 0; i < resQty; i++) {
                       if(data3[i]) {
                         if(data3[i][0].amendment_pruning) {
                           data3[i][0].amendment_pruning /= 1000;
@@ -12712,7 +12662,7 @@ function ErrorResult(code, message) {
                         collectArr.push(data3[i][0]);
                       }
                     }
-					          if(collectArr.length > 1) {
+                    if(collectArr.length > 1) {
                       deff1.resolve(collectArr);
                     } else if(collectArr.length === 1) {
                       deff1.resolve(collectArr[0]);
@@ -12722,7 +12672,7 @@ function ErrorResult(code, message) {
                   })
                 } else {
                   selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    data = angular.copy(result);
+                    var data = angular.copy(result);
                     if(data && data.length) {
                       if(data[0].amendment_pruning) {
                         data[0].amendment_pruning /= 1000;
@@ -12739,7 +12689,7 @@ function ErrorResult(code, message) {
             }
             return deff1.promise;
           });
-	    deff.resolve($q.all(promisesKit));
+      deff.resolve($q.all(promisesKit));
       return deff.promise;
     }
 
@@ -12762,7 +12712,7 @@ function ErrorResult(code, message) {
 
 
 
-	  function parseHardwareKit(whId, sashBlocks, color){
+    function parseHardwareKit(whId, sashBlocks, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
         //console.warn('*****hardware = ', result);
@@ -12771,9 +12721,9 @@ function ErrorResult(code, message) {
             sashBlocksQty = sashBlocks.length,
             hardware, hardware1, hardware2, openDirQty, s, dir;
         if(resQty) {
-		  //----- loop by sizes (sashesBlock)
+          //----- loop by sizes (sashesBlock)
           for(s = 0; s < sashBlocksQty; s++){
-		        hardware = angular.copy(result);
+            hardware = angular.copy(result);
             hardware1 = [];
             hardware2 = [];
             openDirQty = sashBlocks[s].openDir.length;
@@ -12825,7 +12775,7 @@ function ErrorResult(code, message) {
             hardwareKits.push(hardware2);
           }
           if(hardwareKits.length) {
-		        deff.resolve(hardwareKits);
+            deff.resolve(hardwareKits);
           } else {
             deff.resolve(0);
           }
@@ -13067,7 +13017,7 @@ function ErrorResult(code, message) {
 
 
 
-	function getElementByListId(isArray, listID) {
+    function getElementByListId(isArray, listID) {
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
         if(result.length) {
@@ -13085,7 +13035,7 @@ function ErrorResult(code, message) {
 
 
 
-	
+
     function parseConsistElem(consists) {
       var deff = $q.defer();
       if(consists.length) {
@@ -13175,12 +13125,12 @@ function ErrorResult(code, message) {
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
           if(angular.isArray(priceObj.kitsElem[ke])) {
-//            console.info('culcKitPrice ===== array');
+            //            console.info('culcKitPrice ===== array');
             var kitElemChildQty = priceObj.kitsElem[ke].length;
             for(var child = 0; child < kitElemChildQty; child++) {
               /** hardware */
               if(angular.isArray(priceObj.kitsElem[ke][child])) {
-//                console.info('culcKitPrice ===== hardware');
+                //                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
                   culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
@@ -13190,7 +13140,7 @@ function ErrorResult(code, message) {
               }
             }
           } else {
-//            console.info('culcKitPrice ===== object');
+            //            console.info('culcKitPrice ===== object');
             culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
           }
         }
@@ -13210,7 +13160,7 @@ function ErrorResult(code, message) {
           constrElem = {},
           waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
 
-//      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+      //      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
 
       /** beads */
       if(group === 6) {
@@ -13231,7 +13181,7 @@ function ErrorResult(code, message) {
               constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
               constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
               priceObj.priceTotal += priceTemp;
-//              console.warn('finish bead-________',constrElem);
+              //              console.warn('finish bead-________',constrElem);
               constrElements.push(constrElem);
             }
           }
@@ -13293,7 +13243,7 @@ function ErrorResult(code, message) {
           }
         }
       }
-//      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
+      //      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
       if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
         price *= GlobalStor.global.currencies[elemIndex].value;
       }
@@ -13320,12 +13270,12 @@ function ErrorResult(code, message) {
           if(consistQty) {
 
             if(angular.isArray(priceObj.kits[group])) {
-//              console.info('culcConsistPrice ===== array');
-//                console.info('1-----', group);
-//                console.info('2-----', construction.sizes[group]);
-//                console.info('3-----', priceObj.kits[group]);
-//                console.info('4-----', priceObj.consist[group]);
-//                console.info('5-----', priceObj.consistElem[group]);
+              //              console.info('culcConsistPrice ===== array');
+              //                console.info('1-----', group);
+              //                console.info('2-----', construction.sizes[group]);
+              //                console.info('3-----', priceObj.kits[group]);
+              //                console.info('4-----', priceObj.consist[group]);
+              //                console.info('5-----', priceObj.consistElem[group]);
 
               for(var elem = 0; elem < consistQty; elem++) {
                 /** if glass or beads */
@@ -13347,7 +13297,7 @@ function ErrorResult(code, message) {
               }
 
             } else {
-//              console.info('culcConsistPrice ===== object');
+              //              console.info('culcConsistPrice ===== object');
               for(var s = 0; s < sizeQty; s++) {
                 for (var elem = 0; elem < consistQty; elem++) {
                   if(priceObj.consistElem[group][elem]) {
@@ -13386,13 +13336,13 @@ function ErrorResult(code, message) {
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
-//                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
-//                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
+                  //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+                  //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
 
                   var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
 
                   if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
-//                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
+                    //                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
                     wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
                     objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
                     if (currConsist[hwInd][hwInd2].child_type === "list") {
@@ -13401,7 +13351,7 @@ function ErrorResult(code, message) {
                   } else {
                     for (var el = 0; el < hwElemQty2; el++) {
                       if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
-//                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
+                        //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                         if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
                           continue hwElemLoop;
                         }
@@ -13423,8 +13373,8 @@ function ErrorResult(code, message) {
                     }
                     objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
                     objTmp.size = 0;
-//                    console.info('finish -------priceObj------- ', priceObj);
-//                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+                    //                    console.info('finish -------priceObj------- ', priceObj);
+                    //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
                     priceObj.constrElements.push(objTmp);
                     priceObj.priceTotal += objTmp.priceReal;
                   }
@@ -13437,7 +13387,7 @@ function ErrorResult(code, message) {
         }
 
       } else {
-//        console.log('nooo hardware');
+        //        console.log('nooo hardware');
         if(angular.isArray(currConsistElem)) {
           //console.log('array');
           //console.info('1-----', group);
@@ -13445,13 +13395,13 @@ function ErrorResult(code, message) {
           //console.info('3-----', mainKit);
           var elemQty = currConsistElem.length, elemInd = 0;
           for (; elemInd < elemQty; elemInd++) {
-//            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
+            //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
 
             /** if beads */
             if (group === 6) {
               var sizeQty = currConstrSize.sizes.length;
               while (--sizeQty > -1) {
-//                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
+                //                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
                 prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
               }
             } else {
@@ -13459,7 +13409,7 @@ function ErrorResult(code, message) {
             }
           }
         } else {
-//          console.log('object');
+          //          console.log('object');
           /** if beads */
           if(group === 6) {
             var sizeQty = currConstrSize.sizes.length;
@@ -13547,7 +13497,7 @@ function ErrorResult(code, message) {
 
 
     function getValueByRule(parentValue, childValue, rule){
-//      console.info('rule++', parentValue, childValue, rule);
+      //      console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -13579,7 +13529,7 @@ function ErrorResult(code, message) {
           value = childValue;
           break;
       }
-//      console.info('rule++value+++', value);
+      //      console.info('rule++value+++', value);
       return value;
     }
 
@@ -13678,8 +13628,8 @@ function ErrorResult(code, message) {
           finishPriceObj = {};
 
       //console.info('START+++', construction);
-	  
-	    parseMainKit(construction).then(function(kits) {
+
+      parseMainKit(construction).then(function(kits) {
         //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
@@ -13698,7 +13648,7 @@ function ErrorResult(code, message) {
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-                //console.info('FINISH====:', priceObj);
+              //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
@@ -13768,7 +13718,7 @@ function ErrorResult(code, message) {
                   constrElem.priceReal = priceTemp;
                   priceObj.priceTotal += priceTemp;
                   priceObj.constrElements.push(constrElem);
-                    //console.warn('constrElem!!!!!!+', constrElem);
+                  //console.warn('constrElem!!!!!!+', constrElem);
 
                   /** culc Consist Price */
 
@@ -13776,7 +13726,7 @@ function ErrorResult(code, message) {
                     var consistQty = priceObj.consist.length;
                     if(consistQty) {
                       for(var cons = 0; cons < consistQty; cons++) {
-//                          console.warn('child++++', priceObj.consist[cons]);
+                        //                          console.warn('child++++', priceObj.consist[cons]);
                         if(priceObj.consist[cons]) {
                           if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
                             if(priceObj.consist[cons].child_type === "list") {
@@ -13786,7 +13736,7 @@ function ErrorResult(code, message) {
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
-//                                  console.warn('parent++++', priceObj.consist[el]);
+                                //                                  console.warn('parent++++', priceObj.consist[el]);
                                 wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
                                   priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
@@ -13819,8 +13769,8 @@ function ErrorResult(code, message) {
 
 
 
-
     /**========== FINISH ==========*/
+
 
 
     thisFactory.publicObj = {
@@ -13860,7 +13810,6 @@ function ErrorResult(code, message) {
 })();
 
 
-
 // services/login_serv.js
 
 (function(){
@@ -13892,11 +13841,11 @@ function ErrorResult(code, message) {
 
 
 
+
     /**============ METHODS ================*/
 
 
-    //------ compare device language with existing dictionary,
-    // if not exist set default language = English
+    //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(lang) {
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
@@ -13928,21 +13877,14 @@ function ErrorResult(code, message) {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-//        console.info(window.navigator.language);
-//        console.info(window.navigator.userLanguage);
-//        console.info(window.navigator.browserLanguage);
-//        console.info("The language is: " + browserLang);
+        //        console.info(window.navigator.language);
+        //        console.info(window.navigator.userLanguage);
+        //        console.info(window.navigator.browserLanguage);
+        //        console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
     }
-
-
-
-
-
-
-
 
 
     function initExport() {
@@ -13973,9 +13915,9 @@ function ErrorResult(code, message) {
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+      //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
       localDB.selectLocalDB('sqlite_sequence').then(function(data) {
-//        console.log('data ===', data);
+        //        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
         } else {
@@ -14001,7 +13943,7 @@ function ErrorResult(code, message) {
             regionQty = GlobalStor.global.locations.regions.length;
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                GlobalStor.global.locations.cities[cityQty].fullLocation = GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
                 GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                 GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                 countryQty = GlobalStor.global.locations.countries.length;
@@ -14026,51 +13968,45 @@ function ErrorResult(code, message) {
     }
 
 
-
     //------- collecting cities, regions and countries in one object for registration form
     function prepareLocationToUse(allCityParam) {
       var deferred = $q.defer(),
           countryQty, regionQty;
       //if(!GlobalStor.global.locations.cities.length) {
-        //console.info('start time+++', new Date(), new Date().getMilliseconds());
-        //---- get all counties
-        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
-          //console.log('country!!!', data);
-          countryQty = data.length;
-          if (countryQty) {
-            GlobalStor.global.locations.countries = angular.copy(data);
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
+      //---- get all counties
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
+        //console.log('country!!!', data);
+        countryQty = data.length;
+        if (countryQty) {
+          GlobalStor.global.locations.countries = angular.copy(data);
+        } else {
+          console.log('Error!!!', data);
+        }
+      }).then(function () {
+
+        //--------- get all regions
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
+          //console.log('regions!!!', data);
+          regionQty = data.length;
+          if (regionQty) {
+            GlobalStor.global.locations.regions = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+
         }).then(function () {
-
-          //--------- get all regions
-          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
-            //console.log('regions!!!', data);
-            regionQty = data.length;
-            if (regionQty) {
-              GlobalStor.global.locations.regions = angular.copy(data);
-            } else {
-              console.log('Error!!!', data);
-            }
-
-          }).then(function () {
-            //--------- get city
-            downloadAllCities(allCityParam).then(function () {
-              deferred.resolve(1);
-            });
+          //--------- get city
+          downloadAllCities(allCityParam).then(function () {
+            deferred.resolve(1);
           });
         });
+      });
       //} else {
       //  deferred.resolve(1);
       //}
       return deferred.promise;
     }
-
-
-
-
-
 
 
     function collectCityIdsAsCountry() {
@@ -14085,6 +14021,7 @@ function ErrorResult(code, message) {
     }
 
 
+
     //--------- set current user geolocation
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
@@ -14093,6 +14030,7 @@ function ErrorResult(code, message) {
       OrderStor.order.heat_coef_min = heat;
       OrderStor.order.customer_location = fullLocation;
     }
+
 
 
     //--------- set user location
@@ -14115,9 +14053,6 @@ function ErrorResult(code, message) {
 
 
 
-
-
-    /** =========== DOWNLOAD ALL DATA =========== */
 
 
 
@@ -14157,22 +14092,21 @@ function ErrorResult(code, message) {
 
 
     function setUserDiscounts() {
-      var defer = $q.defer(),
-          discounts, disKeys, disQty, dis;
+      var defer = $q.defer();
       //-------- add server url to avatar img
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-//        console.log('DISCTOUN=====', result);
-        discounts = angular.copy(result[0]);
+        //        console.log('DISCTOUN=====', result);
+        var discounts = angular.copy(result[0]);
         if(discounts) {
-          UserStor.userInfo.discountConstr = discounts.default_construct*1;
-          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
-          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
+          UserStor.userInfo.discountConstr = +discounts.default_construct;
+          UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+          UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+          UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
 
-          disKeys = Object.keys(discounts);
-          disQty = disKeys.length;
+          var disKeys = Object.keys(discounts),
+              disQty = disKeys.length, dis;
           for(dis = 0; dis < disQty; dis+=1) {
             if(disKeys[dis].indexOf('week')+1) {
               if(disKeys[dis].indexOf('construct')+1) {
@@ -14208,9 +14142,9 @@ function ErrorResult(code, message) {
     }
 
 
+
     /** change Images Path and save in device */
     function downloadElemImg(urlSource) {
-      var result;
       if(urlSource) {
         /** check image */
         if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
@@ -14233,44 +14167,40 @@ function ErrorResult(code, message) {
               //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
               //            })
             });
-            result = targetPath;
+            return targetPath;
           } else {
-            result = url;
+            return url;
           }
         } else {
-          result = '';
+          return '';
         }
       }
-      return result;
     }
 
 
     //----------- get all elements as to groups
 
     function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-      var defer = $q.defer(),
-          types, typesQty, promises, defer2,
-          elem, resQty, existType, r, elemsQty,
-          existTypeQty, groupQty, isExist, t;
+      var defer = $q.defer();
       //------- get all Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
         /** sorting types by position */
-        types = angular.copy(result).sort(function(a, b) {
+        var types = angular.copy(result).sort(function(a, b) {
           return GeneralServ.sorting(a.position, b.position);
-        });
-        typesQty = types.length;
+        }),
+            typesQty = types.length;
         if (typesQty) {
           groups.length = 0;
           angular.extend(groups, types);
-          promises = types.map(function(type) {
-            defer2 = $q.defer();
+          var promises = types.map(function(type) {
+            var defer2 = $q.defer();
 
             /** change Images Path and save in device */
             type.img = downloadElemImg(type.img);
 
             localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
               if (result2.length) {
-                elem = angular.copy(result2).sort(function(a, b) {
+                var elem = angular.copy(result2).sort(function(a, b) {
                   return GeneralServ.sorting(a.position, b.position);
                 });
                 defer2.resolve(elem);
@@ -14281,10 +14211,10 @@ function ErrorResult(code, message) {
             return defer2.promise;
           });
           $q.all(promises).then(function(result3){
-            resQty = result3.length;
-            existType = [];
+            var resQty = result3.length,
+                existType = [], r;
             for(r = 0; r < resQty; r+=1) {
-              elemsQty = result3[r].length;
+              var elemsQty = result3[r].length;
               if(result3[r] && elemsQty) {
                 /** change Images Path and save in device */
                 while(--elemsQty > -1) {
@@ -14295,11 +14225,11 @@ function ErrorResult(code, message) {
               }
             }
             /** delete empty group */
-            existTypeQty = existType.length;
-            groupQty = groups.length;
+            var existTypeQty = existType.length,
+                groupQty = groups.length;
             if(existTypeQty) {
               while(--groupQty > -1) {
-                isExist = 0;
+                var isExist = 0, t;
                 for(t = 0; t < existTypeQty; t+=1) {
                   if(groups[groupQty].id === existType[t]) {
                     isExist = 1;
@@ -14328,17 +14258,10 @@ function ErrorResult(code, message) {
     function downloadAllGlasses() {
       var defer = $q.defer(),
           profilesQty = GlobalStor.global.profiles.length,
-          profileIds = [],
-          profileQty, promises2, defer2, glassObj,
-          promises3, defer3, glassIdQty,
-          glassIdsQty, promises4, promises6, i,
-          defer4, promises5, defer5,
-          glass, glassQty, j, defer6,
-          promises7, defer7, list, listQty, glassesQty, listsQty;
-
+          profileIds = [];
       //----- collect profiles in one array
       while(--profilesQty > -1) {
-        profileQty = GlobalStor.global.profiles[profilesQty].length;
+        var profileQty = GlobalStor.global.profiles[profilesQty].length;
         while(--profileQty > -1) {
           profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
         }
@@ -14346,9 +14269,9 @@ function ErrorResult(code, message) {
 
       //------ create structure of GlobalStor.global.glassesAll
       //------ insert profile Id and glass Types
-      promises2 = profileIds.map(function(item) {
-        defer2 = $q.defer();
-        glassObj = {profileId: item, glassTypes: [], glasses: []};
+      var promises2 = profileIds.map(function(item) {
+        var defer2 = $q.defer(),
+            glassObj = {profileId: item, glassTypes: [], glasses: []};
         localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
           if(types.length) {
             glassObj.glassTypes = angular.copy(types);
@@ -14365,42 +14288,38 @@ function ErrorResult(code, message) {
         //        console.log('data!!!!', data);
         if(data) {
           //-------- select all glass Ids as to profile Id
-          promises3 = GlobalStor.global.glassesAll.map(function(item) {
-            defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId})
-              .then(function (glassId) {
-                glassIdQty = glassId.length;
-                if(glassIdQty){
-                  defer3.resolve(glassId);
-                } else {
-                  defer3.resolve(0);
-                }
-              });
+          var promises3 = GlobalStor.global.glassesAll.map(function(item) {
+            var defer3 = $q.defer();
+            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
+              var glassIdQty = glassId.length;
+              if(glassIdQty){
+                defer3.resolve(glassId);
+              } else {
+                defer3.resolve(0);
+              }
+            });
             return defer3.promise;
           });
 
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
-            glassIdsQty = glassIds.length;
-            promises4 = [];
-            promises6 = [];
-//                        console.log('glassIds!!!!', glassIds);
+            var glassIdsQty = glassIds.length,
+                promises4 = [], promises6 = [], i, j;
+            //                        console.log('glassIds!!!!', glassIds);
             for(i = 0; i < glassIdsQty; i+=1) {
-              defer4 = $q.defer();
+              var defer4 = $q.defer();
               if(glassIds[i]) {
-                promises5 = glassIds[i].map(function (item) {
-                  defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      glass = angular.copy(result);
-                      glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
+                var promises5 = glassIds[i].map(function (item) {
+                  var defer5 = $q.defer();
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
+                    //                  console.log('glass!!!!', glass);
+                    var glass = angular.copy(result), glassQty = glass.length;
+                    if (glassQty) {
+                      defer5.resolve(glass[0]);
+                    } else {
+                      defer5.resolve(0);
+                    }
+                  });
                   return defer5.promise;
                 });
                 defer4.resolve($q.all(promises5));
@@ -14411,20 +14330,19 @@ function ErrorResult(code, message) {
             }
 
             for(j = 0; j < glassIdsQty; j+=1) {
-              defer6 = $q.defer();
+              var defer6 = $q.defer();
               console.warn(glassIds[j]);//TODO error
-              promises7 = glassIds[j].map(function(item) {
-                defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
-                    list = angular.copy(result2);
-                    listQty = list.length;
-                    if(listQty){
-                      defer7.resolve(list[0]);
-                    } else {
-                      defer7.resolve(0);
-                    }
-                  });
+              var promises7 = glassIds[j].map(function(item) {
+                var defer7 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
+                  var list = angular.copy(result2),
+                      listQty = list.length;
+                  if(listQty){
+                    defer7.resolve(list[0]);
+                  } else {
+                    defer7.resolve(0);
+                  }
+                });
                 return defer7.promise;
               });
 
@@ -14434,7 +14352,7 @@ function ErrorResult(code, message) {
 
             $q.all(promises4).then(function(glasses) {
               //              console.log('glasses after 1111!!!!', glasses);
-              glassesQty = glasses.length;
+              var glassesQty = glasses.length, i;
               if(glassesQty) {
                 for(i = 0; i < glassesQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
@@ -14443,7 +14361,7 @@ function ErrorResult(code, message) {
             });
             $q.all(promises6).then(function(lists) {
               //              console.log('glasses after 2222!!!!', lists);
-              listsQty = lists.length;
+              var listsQty = lists.length, i;
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glassLists = lists[i];
@@ -14460,17 +14378,16 @@ function ErrorResult(code, message) {
     }
 
 
-
     function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length,
-          listQty, glassTypeQty, newGlassesType, newGlasses, g, l;
+      var glassAllQty = GlobalStor.global.glassesAll.length, g;
 
       for(g = 0; g < glassAllQty; g+=1) {
         //------- merge glassList to glasses
-        listQty = GlobalStor.global.glassesAll[g].glassLists.length;
-        glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length;
-        newGlassesType = [];
-        newGlasses = [];
+        var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
+            glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
+            newGlassesType = [],
+            newGlasses = [],
+            l;
         /** merge glassList to glasses */
         for(l = 0; l < listQty; l+=1) {
           if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
@@ -14519,61 +14436,56 @@ function ErrorResult(code, message) {
 
     }
 
-
     //TODO
-    ///** download all Templates */
+    /** download all Templates */
     //function downloadAllTemplates() {
     //
     //}
 
 
-
-
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
-      var deff = $q.defer(), rooms, roomQty;
-      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName)
-        .then(function(result) {
-          rooms = angular.copy(result);
-          roomQty = rooms.length;
-          if(roomQty) {
-            /** sorting types by position */
-            rooms = rooms.sort(function(a, b) {
-              return GeneralServ.sorting(a.position, b.position);
-            });
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
+        var rooms = angular.copy(result),
+            roomQty = rooms.length;
+        if(roomQty) {
+          /** sorting types by position */
+          rooms = rooms.sort(function(a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
 
-            while(--roomQty > -1) {
-              rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
-              //---- prerendering img
-              $("<img />").attr("src", rooms[roomQty].img);
-            }
-            GlobalStor.global.rooms = rooms;
+          while(--roomQty > -1) {
+            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            //---- prerendering img
+            $("<img />").attr("src", rooms[roomQty].img);
           }
-          deff.resolve(1);
-        });
+          GlobalStor.global.rooms = rooms;
+        }
+        deff.resolve(1);
+      });
       return deff.promise;
     }
 
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
-        .then(function(lamin) {
-          return lamin;
-        });
+      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
+        return lamin;
+      });
     }
 
 
     /** download lamination couples */
     function downloadLamCouples() {
-      var deff = $q.defer(),
-          coupleQty, laminatQty, lam;
+      var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
         if(lamins) {
           GlobalStor.global.laminatCouples = angular.copy(lamins);
           /** add lamination names */
-          coupleQty = GlobalStor.global.laminatCouples.length;
-          laminatQty = GlobalStor.global.laminats.length;
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
           while(--coupleQty > -1) {
             delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
             delete GlobalStor.global.laminatCouples[coupleQty].modified;
@@ -14599,19 +14511,17 @@ function ErrorResult(code, message) {
 
 
 
-
-
     function getAllAddKits() {
       var defer = $q.defer(),
           promises = GeneralServ.addElementDATA.map(function(item) {
             return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
-          }),
-          addKits, resultQty, elemGroupObj, i;
+          });
       $q.all(promises).then(function (result) {
-        addKits = angular.copy(result);
-        resultQty = addKits.length;
+        var addKits = angular.copy(result),
+            resultQty = addKits.length,
+            i;
         for(i = 0; i < resultQty; i+=1) {
-          elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
         defer.resolve(1);
@@ -14622,25 +14532,23 @@ function ErrorResult(code, message) {
 
     function getAllAddElems() {
       var deff = $q.defer(),
-          deff1, promElems, deff2,
           promGroup = GlobalStor.global.addElementsAll.map(function(group) {
-            deff1 = $q.defer();
+            var deff1 = $q.defer();
             if(group.elementsList && group.elementsList.length) {
-              promElems = group.elementsList.map(function(item) {
-                deff2 = $q.defer();
+              var promElems = group.elementsList.map(function(item) {
+                var deff2 = $q.defer();
 
                 /** change Images Path and save in device */
                 item.img = downloadElemImg(item.img);
 
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
-                  .then(function(result) {
-                    if(result && result.length) {
-                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                      deff2.resolve(1);
-                    } else {
-                      deff2.resolve(0);
-                    }
-                  });
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
+                  if(result && result.length) {
+                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                    deff2.resolve(1);
+                  } else {
+                    deff2.resolve(0);
+                  }
+                });
                 return deff2.promise;
               });
               deff1.resolve($q.all(promElems));
@@ -14655,19 +14563,14 @@ function ErrorResult(code, message) {
 
 
     function sortingAllAddElem() {
-      var deff = $q.defer(),
-          elemAllQty, defaultGroup,
-          newElemList, typeDelete, typeQty, elemQty,
-          tempElemQty, t, elements, el,
-          widthTemp, heightTemp, k, delQty;
-
+      var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
 
-        elemAllQty = GlobalStor.global.addElementsAll.length;
-        defaultGroup = {
-          id: 0,
-          name: $filter('translate')('add_elements.OTHERS')
-        };
+        var elemAllQty = GlobalStor.global.addElementsAll.length,
+            defaultGroup = {
+              id: 0,
+              name: $filter('translate')('add_elements.OTHERS')
+            };
 
         /** sorting types by position */
         if(groups && groups.length) {
@@ -14683,17 +14586,19 @@ function ErrorResult(code, message) {
             }
             GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
             //------- sorting
-            newElemList = [];
-            typeDelete = [];
-            typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length;
-            elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length;
-            tempElemQty = GlobalStor.global.tempAddElements.length;
+            var newElemList = [],
+                typeDelete = [],
+                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
+                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
+                tempElemQty = GlobalStor.global.tempAddElements.length,
+                t;
             for(t = 0; t < typeQty; t+=1) {
-              elements = [];
+              var elements = [], el;
               for(el = 0; el < elemQty; el+=1) {
                 if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                  widthTemp = 0;
-                  heightTemp = 0;
+                  var widthTemp = 0,
+                      heightTemp = 0,
+                      k;
                   switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
                     case 21: // 1 - visors
                     case 9: // 2 - spillways
@@ -14744,7 +14649,7 @@ function ErrorResult(code, message) {
             }
 
             /** delete empty groups */
-            delQty = typeDelete.length;
+            var delQty = typeDelete.length;
             if(delQty) {
               while(--delQty > -1) {
                 GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
@@ -14768,7 +14673,7 @@ function ErrorResult(code, message) {
           sortingAllAddElem().then(function() {
             defer.resolve(1);
           });
-        });
+        })
       });
       return defer.promise;
     }
@@ -14804,6 +14709,12 @@ function ErrorResult(code, message) {
 
 
 
+
+
+
+
+    /** =========== DOWNLOAD ALL DATA =========== */
+
     function downloadAllData() {
       //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
       /** download All Currencies and set currency symbol */
@@ -14826,7 +14737,7 @@ function ErrorResult(code, message) {
                       //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return +item;
+                        return item * 1;
                       });
                       //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
@@ -14911,7 +14822,6 @@ function ErrorResult(code, message) {
 
 
 
-
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -14929,9 +14839,9 @@ function ErrorResult(code, message) {
     return thisFactory.publicObj;
 
 
+
   });
 })();
-
 
 
 // services/main_serv.js
@@ -14974,32 +14884,32 @@ function ErrorResult(code, message) {
     function saveUserEntry() {
       localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
       //TODO offline
-//      ++UserStor.userInfo.entries;
-//      var data = {entries: UserStor.userInfo.entries},
-//          dataToSend = [
-//            {
-//              model: 'users',
-//              rowId: UserStor.userInfo.id,
-//              field: JSON.stringify(data)
-//            }
-//          ];
-//      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
-//      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
-//        if(!data) {
-//          //----- if no connect with Server save in Export LocalDB
-//          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
-//        }
-//      });
+      //      ++UserStor.userInfo.entries;
+      //      var data = {entries: UserStor.userInfo.entries},
+      //          dataToSend = [
+      //            {
+      //              model: 'users',
+      //              rowId: UserStor.userInfo.id,
+      //              field: JSON.stringify(data)
+      //            }
+      //          ];
+      //      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
+      //      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+      //        if(!data) {
+      //          //----- if no connect with Server save in Export LocalDB
+      //          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
+      //        }
+      //      });
     }
 
 
 
 
-    /**-----------  Create Order Id and Date ------------*/
+    /**  Create Order Id and Date */
 
     function createOrderID() {
       var currTime = new Date().getTime();
-      return +(UserStor.userInfo.id + '' + currTime);
+      return (UserStor.userInfo.id + '' + currTime)*1;
     }
 
     function createOrderData() {
@@ -15012,7 +14922,6 @@ function ErrorResult(code, message) {
       OrderStor.order.delivery_date = new Date().setDate(productDay);
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
-
 
 
 
@@ -15083,9 +14992,9 @@ function ErrorResult(code, message) {
 
 
     function fineItemById(id, list) {
-      var typeQty = list.length, itemQty;
+      var typeQty = list.length;
       while(--typeQty > -1) {
-        itemQty = list[typeQty].length;
+        var itemQty = list[typeQty].length;
         while(--itemQty > -1) {
           if(list[typeQty][itemQty].id === id) {
             return list[typeQty][itemQty];
@@ -15096,9 +15005,9 @@ function ErrorResult(code, message) {
 
 
     function downloadProfileDepth(elementId) {
-      var defer = $q.defer(), resultObj;
+      var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
-        resultObj = {};
+        var resultObj = {};
         if (result.length) {
           resultObj.a = result[0].a;
           resultObj.b = result[0].b;
@@ -15153,7 +15062,6 @@ function ErrorResult(code, message) {
     }
 
 
-
     function setGlassToTemplateBlocks(blockId, glassId, glassName) {
       var blocksQty = ProductStor.product.template_source.details.length;
       while(--blocksQty > 0) {
@@ -15177,20 +15085,19 @@ function ErrorResult(code, message) {
 
 
     function setCurrentGlass(product, id) {
-      var glassIds, glassIdsQty, tempGlassArr;
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {
         //----- get Glass Ids from template and check dublicates
-        glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks());
-        glassIdsQty = glassIds.length;
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
+            glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
           product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
         }
       } else {
         //----- set default glass in ProductStor
-        tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === product.profile.id;
         });
         if(tempGlassArr.length) {
@@ -15206,16 +15113,18 @@ function ErrorResult(code, message) {
 
 
 
+
     function checkSashInTemplate(product) {
       var templQty = product.template_source.details.length,
           counter = 0;
       while(--templQty > 0) {
         if(product.template_source.details[templQty].blockType === 'sash') {
-          counter+=1;
+          ++counter;
         }
       }
       return counter;
     }
+
 
 
     function saveTemplateInProduct(templateIndex) {
@@ -15228,7 +15137,7 @@ function ErrorResult(code, message) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
         GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
-//        console.log('TEMPLATE +++', ProductStor.product.template);
+        //        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
         SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
@@ -15237,7 +15146,6 @@ function ErrorResult(code, message) {
       });
       return defer.promise;
     }
-
 
 
 
@@ -15258,27 +15166,26 @@ function ErrorResult(code, message) {
 
 
 
-    /**----------- set Bead Id -------------*/
 
+    /** set Bead Id */
     function setBeadId(profileId, laminatId) {
       var deff = $q.defer(),
-          deff2, beadsQty, beadObj, pomisList, deff3, resultQty,
           promisBeads = ProductStor.product.glass.map(function(item) {
-            deff2 = $q.defer();
+            var deff2 = $q.defer();
             if(item.glass_width) {
               localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function(beadIds) {
-                beadsQty = beadIds.length;
-                beadObj = {
-                  glassId: item.id,
-                  beadId: 0
-                };
+                var beadsQty = beadIds.length,
+                    beadObj = {
+                      glassId: item.id,
+                      beadId: 0
+                    };
                 if(beadsQty) {
                   //console.log('beads++++', beadIds);
                   //----- if beads more one
                   if(beadsQty > 1) {
                     //----- go to kits and find bead width required laminat Id
-                    pomisList = beadIds.map(function(item2) {
-                      deff3 = $q.defer();
+                    var pomisList = beadIds.map(function(item2) {
+                      var deff3 = $q.defer();
                       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'beed_lamination_id as id').then(function(lamId) {
                         //console.log('lamId++++', lamId);
                         if(lamId) {
@@ -15296,7 +15203,7 @@ function ErrorResult(code, message) {
 
                     $q.all(pomisList).then(function(results) {
                       //console.log('finish++++', results);
-                      resultQty = results.length;
+                      var resultQty = results.length;
                       while(--resultQty > -1) {
                         if(results[resultQty]) {
                           beadObj.beadId = beadIds[resultQty].list_id;
@@ -15329,8 +15236,6 @@ function ErrorResult(code, message) {
 
 
 
-
-
     function setProductPriceTOTAL(Product) {
       var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
       //playSound('price');
@@ -15342,6 +15247,8 @@ function ErrorResult(code, message) {
       }
       GlobalStor.global.isLoader = 0;
     }
+
+
 
 
 
@@ -15367,10 +15274,10 @@ function ErrorResult(code, message) {
     function prepareReport(elementList) {
       var report = [],
           elementListQty = elementList.length,
-          ind, tempObj, reportQty, exist;
-
+          ind = 0,
+          tempObj, reportQty, exist;
       if(elementListQty) {
-        for (ind = 0; ind < elementListQty; ind+=1) {
+        for (; ind < elementListQty; ind++) {
           tempObj = angular.copy(elementList[ind]);
           tempObj.element_id = angular.copy(tempObj.id);
           tempObj.amount = angular.copy(tempObj.qty);
@@ -15420,13 +15327,12 @@ function ErrorResult(code, message) {
           glassQty = ProductStor.product.glass.length,
           glassHeatCoeffTotal = 0,
           profileHeatCoeffTotal = 0,
-          commonHeatCoeffTotal = 0,
-          g;
+          commonHeatCoeffTotal = 0;
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
         /** culculate glass Heat Coeff Total */
-        for(g = 0; g < glassQty; g+=1) {
+        for(var g = 0; g < glassQty; g++) {
           if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
             //$.isNumeric
             if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
@@ -15463,42 +15369,36 @@ function ErrorResult(code, message) {
 
 
 
-
-
-
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      var deferred = $q.defer(),
-          beadIds, objXFormedPrice, beadQty, size, overallQty;
+      var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-          beadQty = template.priceElements.beadsSize.length;
-          while(--beadQty > -1) {
-            if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-              template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-            }
-          }
-          return item.beadId;
-        }));
-        objXFormedPrice = {
-          laminationId: laminatId,
-          ids: [
-            ProductStor.product.profile.rama_list_id,
-            ProductStor.product.profile.rama_still_list_id,
-            ProductStor.product.profile.stvorka_list_id,
-            ProductStor.product.profile.impost_list_id,
-            ProductStor.product.profile.shtulp_list_id,
-            (glassIds.length > 1) ? glassIds.map(function(item){
-              return item.id;
-            }) : glassIds[0].id,
-            (beadIds.length > 1) ? beadIds : beadIds[0],
-            hardwareId
-          ],
-          sizes: []
-        };
+        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
+              var beadQty = template.priceElements.beadsSize.length;
+              while(--beadQty > -1) {
+                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
+                }
+              }
+              return item.beadId;
+            })),
+            objXFormedPrice = {
+              laminationId: laminatId,
+              ids: [
+                ProductStor.product.profile.rama_list_id,
+                ProductStor.product.profile.rama_still_list_id,
+                ProductStor.product.profile.stvorka_list_id,
+                ProductStor.product.profile.impost_list_id,
+                ProductStor.product.profile.shtulp_list_id,
+                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
+                (beadIds.length > 1) ? beadIds : beadIds[0],
+                hardwareId
+              ],
+              sizes: []
+            };
         //------- fill objXFormedPrice for sizes
-        for(size in template.priceElements) {
+        for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
         }
 
@@ -15506,7 +15406,7 @@ function ErrorResult(code, message) {
         ProductStor.product.template_width = 0;
         ProductStor.product.template_height = 0;
         ProductStor.product.template_square = 0;
-        overallQty = ProductStor.product.template.details[0].overallDim.length;
+        var overallQty = ProductStor.product.template.details[0].overallDim.length;
         while(--overallQty > -1) {
           ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
           ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
@@ -15549,26 +15449,18 @@ function ErrorResult(code, message) {
 
 
 
-
     function parseTemplate() {
-      var deferred = $q.defer(), hardwareIds;
+      var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentHardware(ProductStor.product);
-        hardwareIds = ProductStor.product.hardware.id || 0;
-        preparePrice(
-          ProductStor.product.template,
-          ProductStor.product.profile.id,
-          ProductStor.product.glass,
-          hardwareIds,
-          ProductStor.product.lamination.lamination_in_id
-        ).then(function() {
-            deferred.resolve(1);
-          });
+        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
+          deferred.resolve(1);
+        });
       });
       return deferred.promise;
     }
-
 
 
 
@@ -15596,15 +15488,12 @@ function ErrorResult(code, message) {
 
 
 
-
     /** show Info Box of element or group */
     function showInfoBox(id, itemArr) {
-      var itemArrQty, tempObj;
-
       if(GlobalStor.global.isInfoBox !== id) {
-//        console.info(id, itemArr);
-        itemArrQty = itemArr.length;
-        tempObj = {};
+        //        console.info(id, itemArr);
+        var itemArrQty = itemArr.length,
+            tempObj = {};
         while(--itemArrQty > -1) {
           if(itemArr[itemArrQty].lamination_type_id) {
             if(itemArr[itemArrQty].lamination_type_id === id) {
@@ -15623,7 +15512,7 @@ function ErrorResult(code, message) {
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;
         }
-//        console.info(GlobalStor.global.infoTitle, GlobalStor.global.infoImg, GlobalStor.global.infoLink, GlobalStor.global.infoDescrip);
+        //        console.info(GlobalStor.global.infoTitle, GlobalStor.global.infoImg, GlobalStor.global.infoLink, GlobalStor.global.infoDescrip);
       }
     }
 
@@ -15638,18 +15527,6 @@ function ErrorResult(code, message) {
 
 
     /**-------- filtering Lamination Groupes -----------*/
-
-    function checkLamGroupExist(lamId) {
-      var lamQty = GlobalStor.global.lamGroupFiltered.length,
-          noExist = 1;
-      while(--lamQty > -1) {
-        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
-          noExist = 0;
-        }
-      }
-      return noExist;
-    }
-
 
     function laminatFiltering() {
       var laminatQty = GlobalStor.global.laminats.length,
@@ -15693,12 +15570,15 @@ function ErrorResult(code, message) {
     }
 
 
-    function cleanLamFilter() {
-      var laminatQty = GlobalStor.global.laminats.length;
-      //---- deselect filter
-      while(--laminatQty > -1) {
-        GlobalStor.global.laminats[laminatQty].isActive = 0;
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
       }
+      return noExist;
     }
 
 
@@ -15722,12 +15602,18 @@ function ErrorResult(code, message) {
     }
 
 
-
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
+      }
+    }
 
 
 
     function setProfileByLaminat(lamId) {
-      var deff = $q.defer(), hardwareIds;
+      var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
         ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
@@ -15754,11 +15640,10 @@ function ErrorResult(code, message) {
 
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.template = angular.copy(result);
-          hardwareIds = ProductStor.product.hardware.id || 0;
-          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id)
-            .then(function() {
-              deff.resolve(1);
-            });
+          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
+          preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id).then(function() {
+            deff.resolve(1);
+          });
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
             ProductStor.product.templateIcon = angular.copy(result);
@@ -15771,39 +15656,6 @@ function ErrorResult(code, message) {
 
 
 
-
-    function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
-    }
-
-    function setDefaultAuxParam() {
-      AuxStor.aux.isWindowSchemeDialog = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.searchingWord = '';
-      AuxStor.aux.isGridSelectorDialog = 0;
-    }
-
-
-    function prepareMainPage() {
-      GlobalStor.global.isNavMenu = 0;
-      GlobalStor.global.isConfigMenu = 1;
-      GlobalStor.global.activePanel = 0;
-      setDefaultAuxParam();
-      if(GlobalStor.global.startProgramm) {
-        $timeout(function() {
-          GlobalStor.global.showRoomSelectorDialog = 1;
-        }, 2000);
-        $timeout(closeRoomSelectorDialog, 5000);
-      }
-    }
 
 
 
@@ -15871,8 +15723,39 @@ function ErrorResult(code, message) {
     }
 
 
+    function setDefaultDoorConfig() {
+      ProductStor.product.door_shape_id = 1;
+      ProductStor.product.door_sash_shape_id = 1;
+      ProductStor.product.door_handle_shape_id = 1;
+      ProductStor.product.door_lock_shape_id = 1;
+    }
 
 
+    function prepareMainPage() {
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.activePanel = 0;
+      setDefaultAuxParam();
+      if(GlobalStor.global.startProgramm) {
+        $timeout(function() {
+          GlobalStor.global.showRoomSelectorDialog = 1;
+        }, 2000);
+        $timeout(closeRoomSelectorDialog, 5000);
+      }
+    }
+
+
+    function setDefaultAuxParam() {
+      AuxStor.aux.isWindowSchemeDialog = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
+      AuxStor.aux.isGridSelectorDialog = 0;
+    }
 
 
 
@@ -15880,23 +15763,9 @@ function ErrorResult(code, message) {
 
     /**========== SAVE PRODUCT ==========*/
 
-    function checkEmptyChoosenAddElems() {
-      var addElemQty = ProductStor.product.chosenAddElements.length,
-          isExist = 0;
-
-      while(--addElemQty > -1) {
-        if(ProductStor.product.chosenAddElements[addElemQty].length) {
-          isExist+=1;
-        }
-      }
-      return isExist;
-    }
-
-
-
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
-      var permission = 1, productsQty;
+      var permission = 1;
       //------- if AddElems only, check is there selected AddElems
       if(ProductStor.product.is_addelem_only) {
         permission = checkEmptyChoosenAddElems();
@@ -15910,7 +15779,7 @@ function ErrorResult(code, message) {
 
         /**============ EDIT Product =======*/
         if (GlobalStor.global.productEditNumber) {
-          productsQty = OrderStor.order.products.length;
+          var productsQty = OrderStor.order.products.length;
           //-------- replace product in order
           while (--productsQty > -1) {
             if (OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
@@ -15934,6 +15803,17 @@ function ErrorResult(code, message) {
     }
 
 
+    function checkEmptyChoosenAddElems() {
+      var addElemQty = ProductStor.product.chosenAddElements.length,
+          isExist = 0;
+
+      while(--addElemQty > -1) {
+        if(ProductStor.product.chosenAddElements[addElemQty].length) {
+          isExist++;
+        }
+      }
+      return isExist;
+    }
 
 
     //--------- moving to Cart when click on Cart button
@@ -15951,23 +15831,9 @@ function ErrorResult(code, message) {
 
     /** ========== SAVE ORDER ==========*/
 
-
-    //-------- delete order from LocalDB
-    function deleteOrderInDB(orderNum) {
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-    }
-
-
-
-    /**-------- save Order into Local DB ------------*/
-
+    //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
-      var deferred = $q.defer(), p, prodQty,
-          productData, productReportData, reportQty,
-          addElemQty, add, elemQty, elem, addElementsData,
-          orderData;
+      var deferred = $q.defer();
 
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
@@ -15979,16 +15845,16 @@ function ErrorResult(code, message) {
 
       /** ===== SAVE PRODUCTS =====*/
 
-      prodQty = OrderStor.order.products.length;
-      for(p = 0; p < prodQty; p+=1) {
-        productData = angular.copy(OrderStor.order.products[p]);
+      var prodQty = OrderStor.order.products.length;
+      for(var p = 0; p < prodQty; p++) {
+        var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
         productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
@@ -16021,28 +15887,28 @@ function ErrorResult(code, message) {
 
         /** ====== SAVE Report Data ===== */
 
-        productReportData = angular.copy(OrderStor.order.products[p].report);
-        reportQty = productReportData.length;
+        var productReportData = angular.copy(OrderStor.order.products[p].report),
+            reportQty = productReportData.length;
         //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
           productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
           delete productReportData[reportQty].priceReal;
           //-------- insert product Report into local DB
-//          localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+          //          localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-//TODO          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          //TODO          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */
 
-        addElemQty = OrderStor.order.products[p].chosenAddElements.length;
-        for(add = 0; add < addElemQty; add+=1) {
-          elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
+        var addElemQty = OrderStor.order.products[p].chosenAddElements.length;
+        for(var add = 0; add < addElemQty; add++) {
+          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
           if(elemQty > 0) {
-            for (elem = 0; elem < elemQty; elem+=1) {
+            for (var elem = 0; elem < elemQty; elem++) {
 
-              addElementsData = {
+              var addElementsData = {
                 order_id: OrderStor.order.id,
                 product_id: OrderStor.order.products[p].product_id,
                 element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
@@ -16056,6 +15922,7 @@ function ErrorResult(code, message) {
                 modified: new Date()
               };
 
+
               console.log('SEND ADD',addElementsData);
               localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
               if(orderType) {
@@ -16068,8 +15935,8 @@ function ErrorResult(code, message) {
 
       /** ============ SAVE ORDER =========== */
 
-//      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
-      orderData = angular.copy(OrderStor.order);
+              //      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
+      var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
       orderData.order_style = orderStyle;
@@ -16077,7 +15944,7 @@ function ErrorResult(code, message) {
       orderData.user_id = UserStor.userInfo.id;
       orderData.delivery_date = new Date(OrderStor.order.delivery_date);
       orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
-      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
+      orderData.customer_sex = (OrderStor.order.customer_sex) ? +OrderStor.order.customer_sex : 0;
       orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
       orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
@@ -16133,7 +16000,7 @@ function ErrorResult(code, message) {
 
       //TODO
       //------ send analytics data to Server
-//      AnalyticsServ.sendAnalyticsDB();
+      //      AnalyticsServ.sendAnalyticsDB();
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
@@ -16143,6 +16010,16 @@ function ErrorResult(code, message) {
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
+
+
+
+    //-------- delete order from LocalDB
+    function deleteOrderInDB(orderNum) {
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
+    }
+
 
 
 
@@ -18182,12 +18059,266 @@ function ErrorResult(code, message) {
 
     /**============ METHODS ================*/
 
+
+
+    function getCoordCrossPoint(line1, line2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
+          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
+          crossPoint = {
+            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
+            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
+          };
+      if(crossPoint.x === -0) {
+        crossPoint.x = 0;
+      } else if(crossPoint.y === -0) {
+        crossPoint.y = 0;
+      }
+      return crossPoint;
+    }
+
+
+
+    function checkLineOwnPoint(point, lineTo, lineFrom) {
+      var check = {
+        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
+        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
+      };
+      if(check.x === -Infinity) {
+        check.x = Infinity;
+      } else if(check.y === -Infinity) {
+        check.y = Infinity;
+      }
+      if(check.x === -0) {
+        check.x = 0;
+      } else if(check.y === -0) {
+        check.y = 0;
+      }
+      return check;
+    }
+
+
+
     function getCenterLine(pointStart, pointEnd) {
       var center = {
         x: (pointStart.x + pointEnd.x)/2,
         y: (pointStart.y + pointEnd.y)/2
       };
       return center;
+    }
+
+
+
+
+
+    function cleanDublicat(param, arr) {
+      var pQty = arr.length;
+      while(--pQty > -1) {
+        var pQty2 = arr.length,
+            exist = 0, i;
+        for(i = 0; i < pQty2; i+=1) {
+          switch(param) {
+            case 1:
+              if(arr[i].x === arr[pQty].x) {
+                exist+=1;
+              }
+              break;
+            case 2:
+              if(arr[i].y === arr[pQty].y) {
+                exist+=1;
+              }
+              break;
+            case 3:
+              if(arr[i].x === arr[pQty].x && arr[i].y === arr[pQty].y) {
+                exist+=1;
+              }
+              break;
+          }
+        }
+        if(exist > 1) {
+          arr.splice(pQty, 1);
+        }
+      }
+    }
+
+
+
+    function collectAllPointsOut(blocks) {
+      var points = [],
+          blocksQty = blocks.length;
+
+      while(--blocksQty > 0) {
+        var pointsOutQty = blocks[blocksQty].pointsOut.length;
+        if(pointsOutQty) {
+          while(--pointsOutQty > -1) {
+            points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
+          }
+        }
+      }
+      //------ delete dublicates
+      cleanDublicat(3, points);
+      return points;
+    }
+
+
+
+    function cleanDublicatNoFP(param, points) {
+      //      console.log('points******** ', points);
+      var pQty = points.length;
+
+      while(--pQty > -1) {
+        var pQty2 = points.length;
+
+        while(--pQty2 > -1) {
+          if(pQty !== pQty2) {
+            //            console.log('********', points[pQty], points[pQty2]);
+            if(points[pQty] && points[pQty2]) {
+              switch(param) {
+                case 1:
+                  if(points[pQty].x === points[pQty2].x) {
+                    //                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+                    //                      delete points[pQty];
+                    //                    points.splice(pQty, 1);
+                    //                    } else
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                      delete points[pQty2];
+                      //                    points.splice(pQty2, 1);
+                    } else {
+                      delete points[pQty];
+                    }
+                    //                    console.log('***** delete');
+                  }
+                  break;
+                case 2:
+                  if(points[pQty].y === points[pQty2].y) {
+                    //                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+                    //                      delete points[pQty];
+                    //                    points.splice(pQty, 1);
+                    //                    } else
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                      //                    points.splice(pQty2, 1);
+                      delete points[pQty2];
+                    } else {
+                      delete points[pQty];
+                    }
+                    //                    console.log('***** delete');
+                  }
+                  break;
+              }
+            }
+          }
+
+        }
+      }
+      return points.filter(function(item) {
+        return (item) ? 1 : 0;
+      });
+    }
+
+
+    function sortByX(a, b) {
+      return a.x - b.x;
+    }
+
+
+    function sortByY(a, b) {
+      return a.y - b.y;
+    }
+
+
+    function setPointLocationToLine(lineP1, lineP2, newP) {
+      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+    }
+
+
+    function checkEqualPoints(newPoint, pointsArr) {
+      var noExist = 1,
+          pointsQty = pointsArr.length;
+      if (pointsQty) {
+        while (--pointsQty > -1) {
+          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
+            noExist = 0;
+          }
+        }
+      }
+      return noExist;
+    }
+
+
+    function checkDoubleQPoints(newPointId, pointsIn) {
+      //      console.log('-----------', newPointId, pointsIn);
+      var isExist = 0,
+          pointsInQty = pointsIn.length;
+      if (pointsInQty) {
+        while (--pointsInQty > -1) {
+          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
+            //            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
+            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
+              isExist = 1;
+            }
+          }
+        }
+      }
+      return isExist;
+    }
+
+
+
+
+    function getCoordSideQPCurve(t, p0, p1) {
+      var qpi = {
+        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
+        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
+      };
+      return qpi;
+    }
+
+
+    function setQPointCoord(side, line, dist) {
+      var middle = getCenterLine(line.from, line.to),
+          coordQP = {};
+      //      console.log('setQPointCoord-----------', line, middle);
+      //------- line vert or hor
+      if(!line.coefA || !line.coefB) {
+        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
+        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
+        //        console.log('line vert or hor');
+      } else {
+        switch(side) {
+          case 1:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('1');
+            break;
+          case 2:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('2');
+            break;
+          case 3:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('3');
+            break;
+          case 4:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('4');
+
+            break;
+        }
+      }
+      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
+      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
+      //      console.log('ERROR coordQP!!!', coordQP);
+      return coordQP;
+    }
+
+
+
+    //---------- linear interpolation utility
+    function getCoordCurveByT(P0, P1, P2, t) {
+      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
     }
 
 
@@ -18214,19 +18345,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function sortingPoints(points, center) {
-      var pointsQty = points.length, i;
-
-      for(i = 0; i < pointsQty; i+=1) {
-        points[i].fi = getAngelPoint(center, points[i]);
-      }
-      points.sort(function(a, b){
-        return b.fi - a.fi;
-      });
-//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
-      return points;
-    }
-
 
     function getAngelPoint(center, point) {
       var fi;
@@ -18239,6 +18357,20 @@ function ErrorResult(code, message) {
         fi += 360;
       }
       return fi;
+    }
+
+
+    function sortingPoints(points, center) {
+      var pointsQty = points.length, i;
+
+      for(i = 0; i < pointsQty; i+=1) {
+        points[i].fi = getAngelPoint(center, points[i]);
+      }
+      points.sort(function(a, b){
+        return b.fi - a.fi;
+      });
+//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
+      return points;
     }
 
 
@@ -18263,7 +18395,6 @@ function ErrorResult(code, message) {
     //      return type;
     //    }
 
-
     function setLineType(from, to) {
       var type = '';
       if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
@@ -18278,16 +18409,17 @@ function ErrorResult(code, message) {
     }
 
 
+
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length, i, line, index;
+          pointsQty = points.length, i;
 
       for(i = 0; i < pointsQty; i+=1) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
         }
-        line = {};
+        var line = {}, index;
         //------- first
         line.from = angular.copy(points[i]);
         line.dir = points[i].dir;
@@ -18323,6 +18455,7 @@ function ErrorResult(code, message) {
 
       return lines;
     }
+
 
 
 
@@ -18376,7 +18509,8 @@ function ErrorResult(code, message) {
         //  depth = depths.frameDepth.b + depths.sashDepth.c;
         //  break;
       }
-      return (line.coefC - (depth * Math.hypot(line.coefA, line.coefB)));
+      var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
+      return newCoefC;
     }
 
 
@@ -18406,28 +18540,11 @@ function ErrorResult(code, message) {
     }
 
 
-    function getCoordCrossPoint(line1, line2) {
-      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
-          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
-          crossPoint = {
-            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
-            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
-          };
-      if(crossPoint.x === -0) {
-        crossPoint.x = 0;
-      } else if(crossPoint.y === -0) {
-        crossPoint.y = 0;
-      }
-      return crossPoint;
-    }
-
 
     function getCrossPoint2Lines(line1, line2) {
       var crossPoint = {},
           coord = {},
-          isParall = checkParallel(line1, line2),
-          x2, y2, normal;
+          isParall = checkParallel(line1, line2);
 
       //------- if lines are paralles
       if(isParall) {
@@ -18439,13 +18556,13 @@ function ErrorResult(code, message) {
         //      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
         //    };
 
-        x2 = line1.to.x;
-        y2 = line1.to.y;
+        var x2 = line1.to.x,
+            y2 = line1.to.y;
 //        if(line1.to.dir === 'curv') {
 //          x2 = line1.to.xQ;
 //          y2 = line1.to.yQ;
 //        }
-        normal = {
+        var normal = {
           coefA: line1.coefB,
           coefB: -line1.coefA,
           coefC: (line1.coefA * y2 - line1.coefB * x2)
@@ -18481,15 +18598,17 @@ function ErrorResult(code, message) {
 
 
 
+
+
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
-          linesQty = lines.length, i,
-          newLine1, newLine2, crossPoint, index;
+          linesQty = lines.length;
       //console.info('lines+++', lines);
-      for(i = 0; i < linesQty; i+=1) {
-        newLine1 = angular.copy(lines[i]);
-        newLine2 = {};
-        crossPoint = {};
+      for(var i = 0; i < linesQty; i++) {
+        var newLine1 = angular.copy(lines[i]),
+            newLine2 = {},
+            crossPoint = {},
+            index;
         newLine1.coefC = getNewCoefC(depths, newLine1, group);
         if(i === (linesQty - 1)) {
           index = 0;
@@ -18504,55 +18623,6 @@ function ErrorResult(code, message) {
       return pointsIn;
     }
 
-
-
-
-    function setQPointCoord(side, line, dist) {
-      var middle = getCenterLine(line.from, line.to),
-          coordQP = {};
-      //      console.log('setQPointCoord-----------', line, middle);
-      //------- line vert or hor
-      if(!line.coefA || !line.coefB) {
-        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
-        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
-        //        console.log('line vert or hor');
-      } else {
-        switch(side) {
-          case 1:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-            //            console.log('1');
-            break;
-          case 2:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-            //            console.log('2');
-            break;
-          case 3:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-            //            console.log('3');
-            break;
-          case 4:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-            //            console.log('4');
-
-            break;
-        }
-      }
-      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
-      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
-      //      console.log('ERROR coordQP!!!', coordQP);
-      return coordQP;
-    }
-
-
-
-    //---------- linear interpolation utility
-    function getCoordCurveByT(P0, P1, P2, t) {
-      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
-    }
 
 
     function culcRadiusCurve(lineLength, heightQ) {
@@ -18571,15 +18641,13 @@ function ErrorResult(code, message) {
 
 
 
+
+
     function setQPInMainBlock(currBlock) {
-      var qpQty = currBlock.pointsQ.length, q, p,
-          pointsOutQty, curvP0, curvP1,
-          curvLine, centerLine, curvQP, coordQP;
+      var qpQty = currBlock.pointsQ.length, q;
       if(qpQty) {
         for (q = 0; q < qpQty; q+=1) {
-          pointsOutQty = currBlock.pointsOut.length;
-          curvP0 = 0;
-          curvP1 = 0;
+          var pointsOutQty = currBlock.pointsOut.length, curvP0 = 0, curvP1 = 0, p;
           for (p = 0; p < pointsOutQty; p+=1) {
             if (currBlock.pointsQ[q].fromPId === currBlock.pointsOut[p].id) {
               curvP0 = currBlock.pointsOut[p];
@@ -18590,18 +18658,18 @@ function ErrorResult(code, message) {
           }
 
           if (curvP0 && curvP1) {
-            curvLine = {
-              from: curvP0,
-              to: curvP1
-            };
-            centerLine = getCenterLine(curvP0, curvP1);
-            curvQP = {
-              type: currBlock.pointsQ[q].type,
-              id: currBlock.pointsQ[q].id,
-              dir: 'curv',
-              xQ: centerLine.x,
-              yQ: centerLine.y
-            };
+            var curvLine = {
+                  from: curvP0,
+                  to: curvP1
+                },
+                centerLine = getCenterLine(curvP0, curvP1),
+                curvQP = {
+                  type: currBlock.pointsQ[q].type,
+                  id: currBlock.pointsQ[q].id,
+                  dir: 'curv',
+                  xQ: centerLine.x,
+                  yQ: centerLine.y
+                }, coordQP;
 
             setLineCoef(curvLine);
 
@@ -18633,114 +18701,6 @@ function ErrorResult(code, message) {
 
 
 
-    function getCoordSideQPCurve(t, p0, p1) {
-      var qpi = {
-        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
-        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
-      };
-      return qpi;
-    }
-
-
-
-    function checkEqualPoints(newPoint, pointsArr) {
-      var noExist = 1,
-          pointsQty = pointsArr.length;
-      if (pointsQty) {
-        while (--pointsQty > -1) {
-          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
-            noExist = 0;
-          }
-        }
-      }
-      return noExist;
-    }
-
-
-
-    function setSideQPCurve(i, linesInQty, linesIn, intersect, pointsIn) {
-      var sideQP1, sideQP2, index, curvP0, curvP2,
-          impostQP1, impostQP2, impostQPCenter1, impostQPCenter2,
-          pQty, noExist1, noExist2;
-
-      if (linesIn[i].from.id.indexOf('q')+1) {
-        index = i - 1;
-        if (!linesIn[index]) {
-          index = linesInQty - 1;
-        }
-        curvP0 = linesIn[index].from;
-        curvP2 = linesIn[i].to;
-        sideQP1 = angular.copy(linesIn[i].from);
-      } else if (linesIn[i].to.id.indexOf('q') + 1) {
-        index = i + 1;
-        if (!linesIn[index]) {
-          index = 0;
-        }
-        curvP0 = linesIn[i].from;
-        curvP2 = linesIn[index].to;
-        sideQP1 = angular.copy(linesIn[i].to);
-      }
-      sideQP2 = angular.copy(sideQP1);
-
-      impostQP1 = getCoordSideQPCurve(intersect.t, curvP0, sideQP1);
-      impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2);
-      impostQPCenter1 = getCenterLine(curvP0, intersect);
-      impostQPCenter2 = getCenterLine(intersect, curvP2);
-
-      sideQP1.x = impostQP1.x;
-      sideQP1.y = impostQP1.y;
-      sideQP1.xQ = impostQPCenter1.x;
-      sideQP1.yQ = impostQPCenter1.y;
-
-      sideQP2.x = impostQP2.x;
-      sideQP2.y = impostQP2.y;
-      sideQP2.xQ = impostQPCenter2.x;
-      sideQP2.yQ = impostQPCenter2.y;
-      //      console.log('QQQQ--------', sideQP1);
-      //      console.log('QQQQ--------', sideQP2);
-
-      //----- delete Q point parent
-      pQty = pointsIn.length;
-      while(--pQty > -1) {
-        if(pointsIn[pQty].id === sideQP1.id) {
-          pointsIn.splice(pQty, 1);
-        }
-      }
-      //      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
-
-      noExist1 = checkEqualPoints(sideQP1, pointsIn);
-      if(noExist1) {
-        //        console.log('noExist1-------');
-        pointsIn.push(sideQP1);
-      }
-      noExist2 = checkEqualPoints(sideQP2, pointsIn);
-      if(noExist2) {
-        //        console.log('noExist2-------');
-        pointsIn.push(sideQP2);
-      }
-      //      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
-    }
-
-
-
-
-    function checkLineOwnPoint(point, lineTo, lineFrom) {
-      var check = {
-        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
-        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
-      };
-      if(check.x === -Infinity) {
-        check.x = Infinity;
-      } else if(check.y === -Infinity) {
-        check.y = Infinity;
-      }
-      if(check.x === -0) {
-        check.x = 0;
-      } else if(check.y === -0) {
-        check.y = 0;
-      }
-      return check;
-    }
 
 
 
@@ -18770,17 +18730,15 @@ function ErrorResult(code, message) {
     }
 
 
-
     function findImpostCenter(markAx, impost) {
       //---- take middle point of impost
-      var centerImpost = getCenterLine(impost.from, impost.to),
-          normal;
+      var centerImpost = getCenterLine(impost.from, impost.to);
       //---- if impost Axis line
       if(markAx) {
         return centerImpost;
       } else {
-        //---- if impost inner line
-        normal = {
+      //---- if impost inner line
+        var normal = {
           coefA: impost.coefB,
           coefB: -impost.coefA,
           coefC: (impost.coefA * centerImpost.y - impost.coefB * centerImpost.x)
@@ -18790,57 +18748,71 @@ function ErrorResult(code, message) {
     }
 
 
-
-    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
-      var impCP = getCoordCrossPoint(linesIn[i], impVector),
-          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
-          isCross = isInsidePointInLine(isInside),
-          ip, impCenterP, intersect, noExist;
-
-      if (isCross) {
-        ip = angular.copy(impAx);
-        ip.group = group;
-        ip.x = impCP.x;
-        ip.y = impCP.y;
-
-        if (linesIn[i].dir === 'curv') {
-          impCenterP = findImpostCenter(markAx, impVector);
-          intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-//          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
-//          console.log('intersect +++', intersect[0]);
-          if (intersect.length) {
-            ip.x = intersect[0].x;
-            ip.y = intersect[0].y;
-            ip.t = intersect[0].t;
-//            var noExist = checkEqualPoints(ip, impost);
-//            if(noExist) {
-//              if (markAx) {
-//                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
-//              }
-//              impost.push(angular.copy(ip));
-//            }
-          }
+    function setSideQPCurve(i, linesInQty, linesIn, intersect, pointsIn) {
+      var sideQP1, sideQP2, index, curvP0, curvP2;
+      if (linesIn[i].from.id.indexOf('q')+1) {
+        index = i - 1;
+        if (!linesIn[index]) {
+          index = linesInQty - 1;
         }
-        noExist = checkEqualPoints(ip, impost);
-        if(noExist) {
-          if (linesIn[i].dir === 'curv' && markAx) {
-            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
-          }
-//            console.log('impCP++++++++', JSON.stringify(ip));
-          impost.push(angular.copy(ip));
-//            console.log('impost++++++++', JSON.stringify(impost));
+        curvP0 = linesIn[index].from;
+        curvP2 = linesIn[i].to;
+        sideQP1 = angular.copy(linesIn[i].from);
+      } else if (linesIn[i].to.id.indexOf('q') + 1) {
+        index = i + 1;
+        if (!linesIn[index]) {
+          index = 0;
+        }
+        curvP0 = linesIn[i].from;
+        curvP2 = linesIn[index].to;
+        sideQP1 = angular.copy(linesIn[i].to);
+      }
+      sideQP2 = angular.copy(sideQP1);
+
+      var impostQP1 = getCoordSideQPCurve(intersect.t, curvP0, sideQP1),
+          impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2),
+          impostQPCenter1 = getCenterLine(curvP0, intersect),
+          impostQPCenter2 = getCenterLine(intersect, curvP2);
+
+      sideQP1.x = impostQP1.x;
+      sideQP1.y = impostQP1.y;
+      sideQP1.xQ = impostQPCenter1.x;
+      sideQP1.yQ = impostQPCenter1.y;
+
+      sideQP2.x = impostQP2.x;
+      sideQP2.y = impostQP2.y;
+      sideQP2.xQ = impostQPCenter2.x;
+      sideQP2.yQ = impostQPCenter2.y;
+//      console.log('QQQQ--------', sideQP1);
+//      console.log('QQQQ--------', sideQP2);
+
+      //----- delete Q point parent
+      var pQty = pointsIn.length;
+      while(--pQty > -1) {
+        if(pointsIn[pQty].id === sideQP1.id) {
+          pointsIn.splice(pQty, 1);
         }
       }
+//      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
+
+      var noExist1 = checkEqualPoints(sideQP1, pointsIn);
+      if(noExist1) {
+//        console.log('noExist1-------');
+        pointsIn.push(sideQP1);
+      }
+      var noExist2 = checkEqualPoints(sideQP2, pointsIn);
+      if(noExist2) {
+//        console.log('noExist2-------');
+        pointsIn.push(sideQP2);
+      }
+//      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
     }
 
 
 
 
-
-
     function getImpostQP(group, paramAx, impostBlock) {
-      var impQP, impCurvPoints = [],
-          impChord, centerImpChord, coordQP;
+      var impQP, impCurvPoints = [];
 
       //-------- for impostAxis
       if(paramAx) {
@@ -18859,12 +18831,14 @@ function ErrorResult(code, message) {
         });
       }
 
+
       if(impCurvPoints.length === 2) {
-        impChord = {
-          from: angular.copy(impCurvPoints[0]),
-          to: angular.copy(impCurvPoints[1])
-        };
-        centerImpChord = getCenterLine(impChord.from, impChord.to);
+        var impChord = {
+              from: angular.copy(impCurvPoints[0]),
+              to: angular.copy(impCurvPoints[1])
+            },
+            centerImpChord = getCenterLine(impChord.from, impChord.to),
+            coordQP;
 
         setLineCoef(impChord);
 
@@ -18895,35 +18869,12 @@ function ErrorResult(code, message) {
 
 
 
-    function setPointLocationToLine(lineP1, lineP2, newP) {
-      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
-    }
-
-
-
-    function checkDoubleQPoints(newPointId, pointsIn) {
-      //      console.log('-----------', newPointId, pointsIn);
-      var isExist = 0,
-          pointsInQty = pointsIn.length;
-      if (pointsInQty) {
-        while (--pointsInQty > -1) {
-          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-            //            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
-            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
-              isExist = 1;
-            }
-          }
-        }
-      }
-      return isExist;
-    }
-
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length, i, position, exist;
+      var pointsQty = points.length, i, exist;
       for(i = 0; i < pointsQty; i+=1) {
         //------- check pointsIn of parent block as to impost
-        position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
+        var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
         //------ block right side
         if(position > 0) {
           exist = 0;
@@ -18962,22 +18913,193 @@ function ErrorResult(code, message) {
 
 
 
+    function intersectionQ(p1, p2, p3, a1, a2) {
+      var intersections = [],
+          //------- inverse line normal
+          normal = {
+            x: a1.y-a2.y,//coefA
+            y: a2.x-a1.x//coefB
+          },
+          //------- Q-coefficients
+          c2 = {
+            x: p1.x - 2*p2.x + p3.x,
+            y: p1.y - 2*p2.y + p3.y
+          },
+          c1 = {
+            x: 2*(p2.x - p1.x),
+            y: 2*(p2.y - p1.y)
+          },
+          c0 = {
+            x: p1.x,
+            y: p1.y
+          },
+          //--------- Transform to line
+          coefficient = a1.x*a2.y - a2.x*a1.y,//coefC
+          roots = [],
+          a, b, c, d, i;
+
+      if(Math.abs(normal.x) === Math.abs(normal.y)) {
+        a = Math.abs(normal.x*c2.x) + Math.abs(normal.y*c2.y);
+        //------ if line is vert or horisontal
+      } else if(!Math.abs(normal.x)) {
+        a = c2.x + normal.y*c2.y;
+      } else if(!Math.abs(normal.y)) {
+        a = normal.x*c2.x + c2.y;
+      } else {
+        a = normal.x*c2.x + normal.y*c2.y;
+      }
+
+      b = (normal.x*c1.x + normal.y*c1.y)/a ;
+      c = (normal.x*c0.x + normal.y*c0.y + coefficient)/a;
+      d = (b*b - 4*c);
+
+      //        console.log('normal ++++',normal);
+      //        console.log('c1 ++++',c1);
+      //      console.log('c2 ++++',c2);
+      //      console.log('c0 ++++',c0);
+      //        console.log('a ++++',a);
+      //        console.log('b ++++',b);
+      //        console.log('c ++++',c);
+      //        console.log('d ++++',d);
+      // solve the roots
+      if(d > 0) {
+        var delta = Math.sqrt(d);
+        //        console.log('delta ++++', b, delta);
+        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ), GeneralServ.roundingValue( (-b - delta)/2 ) );
+        //        roots.push( (-b + delta)/2 );
+        //        roots.push( (-b - delta)/2 );
+      } else if(d === 0) {
+        roots.push( GeneralServ.roundingValue( -b/2 ) );
+        //        roots.push( -b/2 );
+      }
+      //TODO проблема с точкой пересечения
+      //      console.log('t++++',roots);
+
+      //---------- calc the solution points
+      for(i=0; i<roots.length; i+=1) {
+        var t = roots[i];
+
+        //    if(t >= 0 && t <= 1) {
+        if(t > 0 && t < 1) {
+          // possible point -- pending bounds check
+          var point = {
+                t: t,
+                x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
+                y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
+              },
+              minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
+              minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
+              maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
+              maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
+          //---------- bounds checks
+          //          console.log('t++++',point);
+          if(a1.x === a2.x && point.y >= minY && point.y <= maxY){
+            //-------- vertical line
+            intersections.push(point);
+          } else if(a1.y === a2.y && point.x >= minX && point.x <= maxX){
+            //-------- horizontal line
+            intersections.push(point);
+          } else if(point.x >= minX && point.y >= minY && point.x <= maxX && point.y <= maxY){
+            //--------- line passed bounds check
+            intersections.push(point);
+          }
+        }
+      }
+      //      console.log('~~~~~~~intersections ===', intersections);
+      return intersections;
+    }
+
+
+
+
+    function getIntersectionInCurve(i, linesQty, lines, vector, coord) {
+      var p1, p2, p3, l1, l2, index;
+
+      if (lines[i].from.id.indexOf('q') + 1) {
+        index = i - 1;
+        if (!lines[index]) {
+          index = linesQty - 1;
+        }
+        p1 = lines[index].from;
+        p2 = lines[i].from;
+        p3 = lines[i].to;
+      } else if (lines[i].to.id.indexOf('q') + 1) {
+        index = i + 1;
+        if (!lines[index]) {
+          index = 0;
+        }
+        p1 = lines[i].from;
+        p2 = lines[i].to;
+        p3 = lines[index].to;
+      }
+
+      l1 = vector;
+      l2 = coord;
+      //--------- calc the intersections
+      return intersectionQ(p1, p2, p3, l1, l2);
+    }
+
+
+
+
+
+    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
+      var impCP = getCoordCrossPoint(linesIn[i], impVector),
+          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
+          isCross = isInsidePointInLine(isInside);
+
+      if (isCross) {
+        var ip = angular.copy(impAx);
+        ip.group = group;
+        ip.x = impCP.x;
+        ip.y = impCP.y;
+
+        if (linesIn[i].dir === 'curv') {
+          var impCenterP = findImpostCenter(markAx, impVector);
+          var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
+          //          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
+          //          console.log('intersect +++', intersect[0]);
+          if (intersect.length) {
+            ip.x = intersect[0].x;
+            ip.y = intersect[0].y;
+            ip.t = intersect[0].t;
+            //            var noExist = checkEqualPoints(ip, impost);
+            //            if(noExist) {
+            //              if (markAx) {
+            //                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+            //              }
+            //              impost.push(angular.copy(ip));
+            //            }
+          }
+        }
+        var noExist = checkEqualPoints(ip, impost);
+        if(noExist) {
+          if (linesIn[i].dir === 'curv' && markAx) {
+            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
+          }
+          //            console.log('impCP++++++++', JSON.stringify(ip));
+          impost.push(angular.copy(ip));
+          //            console.log('impost++++++++', JSON.stringify(impost));
+        }
+      }
+    }
+
+
+
+
+
 
 
     function setPointsXChildren(currBlock, blocks, depths) {
-      var blocksQty, impPointsQty, impAx0, impAx1,
-          pointsOut, pointsIn, linesIn, linesInQty,
-          indexChildBlock1, indexChildBlock2, i,
-          impVectorAx1, impVectorAx2,
-          impVector1, impVector2, impostOutQty,
-          impostAx, linesOutQty, impostQP;
-
       if(currBlock.children.length) {
-        blocksQty = blocks.length;
-        impPointsQty = currBlock.impost.impostAxis.length;
-        impAx0 = angular.copy(currBlock.impost.impostAxis[0]);
-        impAx1 = angular.copy(currBlock.impost.impostAxis[1]);
-        pointsOut = angular.copy(currBlock.pointsOut);
+        var blocksQty = blocks.length,
+            impPointsQty = currBlock.impost.impostAxis.length,
+            impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
+            impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
+            pointsOut = angular.copy(currBlock.pointsOut),
+            pointsIn, linesIn,
+            indexChildBlock1, indexChildBlock2,
+            i;
 
         //console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
@@ -18987,7 +19109,7 @@ function ErrorResult(code, message) {
           pointsIn = angular.copy(currBlock.pointsIn);
           linesIn = currBlock.linesIn;
         }
-        linesInQty = linesIn.length;
+        var linesInQty = linesIn.length;
 
         //-------- get indexes of children blocks
         for(i = 1; i < blocksQty; i+=1) {
@@ -18999,21 +19121,21 @@ function ErrorResult(code, message) {
         }
 
         //------- create 2 impost vectors
-        impVectorAx1 = {
-          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-          from: impAx0,
-          to: impAx1
-        };
-        impVectorAx2 = {
-          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-          from: impAx1,
-          to: impAx0
-        };
+        var impVectorAx1 = {
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+              from: impAx0,
+              to: impAx1
+            },
+            impVectorAx2 = {
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+              from: impAx1,
+              to: impAx0
+            };
         setLineCoef(impVectorAx1);
         setLineCoef(impVectorAx2);
 
-        impVector1 = angular.copy(impVectorAx1);
-        impVector2 = angular.copy(impVectorAx2);
+        var impVector1 = angular.copy(impVectorAx1),
+            impVector2 = angular.copy(impVectorAx2);
 
         impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
         impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
@@ -19034,7 +19156,7 @@ function ErrorResult(code, message) {
         //------- if curve impost
         if(impPointsQty === 3) {
           //----- make order for impostOut
-          impostOutQty = currBlock.impost.impostOut.length, impAxQ;
+          var impostOutQty = currBlock.impost.impostOut.length, impAxQ;
           for(i = 0; i < impostOutQty; i+=1) {
             currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
             currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
@@ -19057,7 +19179,7 @@ function ErrorResult(code, message) {
         }
 
 
-        impostAx = angular.copy(currBlock.impost.impostAxis);
+        var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
         //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
         //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
@@ -19075,7 +19197,8 @@ function ErrorResult(code, message) {
         //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
         //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
         //-------- set real impostAxis coord for dimensions
-        linesOutQty = currBlock.linesOut.length;
+        var linesOutQty = currBlock.linesOut.length,
+            impostQP;
         if(currBlock.impost.impostAxis[2]) {
           impostQP = angular.copy(currBlock.impost.impostAxis[2]);
         }
@@ -19099,9 +19222,6 @@ function ErrorResult(code, message) {
 
 
 
-    /**------------ create PARTS --------------*/
-
-
     function collectPointsInParts(part, point1, point2, point3, point4) {
       part.points.push(point1, point2, point3, point4);
       if(point1.type === 'corner' || point2.type === 'corner') {
@@ -19116,11 +19236,12 @@ function ErrorResult(code, message) {
 
     function assamblingPath(arrPoints) {
       var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
-          p, pointQty = arrPoints.length;
+          p = 1,
+          pointQty = arrPoints.length;
 
       //------- Line
       if(pointQty === 4) {
-        for(p = 1; p < pointQty; p+=1) {
+        for(; p < pointQty; p+=1) {
 
           path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
 
@@ -19131,7 +19252,7 @@ function ErrorResult(code, message) {
         }
         //--------- Curve
       } else if(pointQty === 6) {
-        for(p = 1; p < pointQty; p+=1) {
+        for(; p < pointQty; p+=1) {
           if(p === 3) {
             path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
           } else {
@@ -19151,21 +19272,20 @@ function ErrorResult(code, message) {
     }
 
 
-
     function culcLength(arrPoints) {
       var pointQty = arrPoints.length,
-          size = 0, step, t, sizeX, sizeY;
+          size = 0;
       //------- Line
       if(pointQty === 2 || pointQty === 4) {
         size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
 
         //--------- Curve
       } else if(pointQty === 3 || pointQty === 6) {
-        step = 0.01;
-        t = 0;
+        var step = 0.01,
+            t = 0;
         while(t <= 1) {
-          sizeX = 2*((1-t)*(arrPoints[1].x - arrPoints[0].x) + t*(arrPoints[2].x - arrPoints[1].x));
-          sizeY = 2*((1-t)*(arrPoints[1].y - arrPoints[0].y) + t*(arrPoints[2].y - arrPoints[1].y));
+          var sizeX = 2*((1-t)*(arrPoints[1].x - arrPoints[0].x) + t*(arrPoints[2].x - arrPoints[1].x));
+          var sizeY = 2*((1-t)*(arrPoints[1].y - arrPoints[0].y) + t*(arrPoints[2].y - arrPoints[1].y));
           size += Math.hypot(sizeX, sizeY)*step;
           t += step;
         }
@@ -19175,30 +19295,28 @@ function ErrorResult(code, message) {
 
 
 
-
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      var newPointsOut = pointsOut.filter(function (item) {
+        if(item.type === 'frame' && !item.view) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+
       var parts = [],
-          newPointsOut = pointsOut.filter(function (item) {
-            if(item.type === 'frame' && !item.view) {
-              return false;
-            } else {
-              return true;
-            }
-          }),
           pointsQty = newPointsOut.length,
           beadObj = {
             glassId: currGlassId,
             sizes: []
-          },
-          tempPoint, tempPoint2, index, part;
-
+          }, tempPoint, tempPoint2, index;
 
       for(index = 0; index < pointsQty; index+=1) {
         //----- passing if first point is curv
         if(index === 0 && newPointsOut[index].dir === 'curv') {
           continue;
         }
-        part = {
+        var part = {
           type: newPointsOut[index].type,
           dir: 'line',
           points: []
@@ -19360,6 +19478,7 @@ function ErrorResult(code, message) {
 
 
 
+
     function calcSquare(arrPoints) {
       var square = 0,
           pointQty = arrPoints.length, p;
@@ -19380,11 +19499,10 @@ function ErrorResult(code, message) {
 
     function culcLengthGlass(points) {
       var pointQty = points.length,
-          sizes = [], p, size, indNext,
-          step, t, ind2, sizeX, sizeY;
+          sizes = [], p;
 
       for(p = 0; p < pointQty; p+=1) {
-        size = 0;
+        var size = 0, indNext;
         if(p === 0 && points[p].dir === 'curve') {
           continue;
         }
@@ -19395,20 +19513,19 @@ function ErrorResult(code, message) {
         }
         //--------- Curve
         if(points[indNext].dir === 'curve') {
-          step = 0.01;
-          t = 0;
+          var step = 0.01, t = 0, ind2;
           if(points[p+2]) {
             ind2 = p+2;
           } else {
             ind2 = 1;
           }
           while (t <= 1) {
-            sizeX = 2 * ((1 - t) * (points[indNext].x - points[p].x) + t * (points[ind2].x - points[indNext].x));
-            sizeY = 2 * ((1 - t) * (points[indNext].y - points[p].y) + t * (points[ind2].y - points[indNext].y));
+            var sizeX = 2 * ((1 - t) * (points[indNext].x - points[p].x) + t * (points[ind2].x - points[indNext].x));
+            var sizeY = 2 * ((1 - t) * (points[indNext].y - points[p].y) + t * (points[ind2].y - points[indNext].y));
             size += Math.hypot(sizeX, sizeY) * step;
             t += step;
           }
-          p += 1;
+          p+=1;
         } else {
           //------- Line
           size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
@@ -19419,7 +19536,6 @@ function ErrorResult(code, message) {
 
       return sizes;
     }
-
 
 
 
@@ -19457,7 +19573,7 @@ function ErrorResult(code, message) {
             part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
           }
           i+=1;
-        //-------- if line
+          //-------- if line
         } else {
           part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
           if(i === (pointsQty - 1)) {
@@ -19479,6 +19595,8 @@ function ErrorResult(code, message) {
 
       return part;
     }
+
+
 
 
 
@@ -19506,14 +19624,14 @@ function ErrorResult(code, message) {
 
 
 
-
     function setCornerProp(blocks) {
-      var blocksQty = blocks.length, b, i, pointsQty;
+      var blocksQty = blocks.length, b;
 
       for(b = 1; b < blocksQty; b+=1) {
         //------- if block 1
         if(blocks[b].level === 1) {
-          pointsQty = blocks[b].pointsOut.length;
+          var pointsQty = blocks[b].pointsOut.length,
+              i;
           if(blocks[b].position === 'single') {
             for(i = 0; i < pointsQty; i+=1){
               blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
@@ -19538,10 +19656,6 @@ function ErrorResult(code, message) {
     }
 
 
-
-
-
-
     function copyPointsOut(pointsArr, label) {
       var newPointsArr = angular.copy(pointsArr),
           newPointsQty = newPointsArr.length;
@@ -19553,8 +19667,42 @@ function ErrorResult(code, message) {
 
 
 
+
+
+
+
+    function preparePointsXMaxMin(lines) {
+      var points = [],
+          linesQty = lines.length, l;
+      for(l = 0; l < linesQty; l+=1) {
+        if(lines[l].dir === 'curv') {
+          var t = 0.5,
+              peak = {}, ind0, ind1 = l, ind2;
+          if(l === 0) {
+            ind0 = linesQty - 1;
+            ind2 = l + 1;
+          } else if(l === (linesQty - 1)) {
+            ind0 = l - 1;
+            ind2 = 0;
+          } else {
+            ind0 = l - 1;
+            ind2 = l + 1;
+          }
+          peak.x = getCoordCurveByT(lines[ind0].to.x, lines[ind1].to.x, lines[ind2].to.x, t);
+          peak.y = getCoordCurveByT(lines[ind0].to.y, lines[ind1].to.y, lines[ind2].to.y, t);
+          points.push(peak);
+        } else {
+          points.push(lines[l].to);
+        }
+      }
+      return points;
+    }
+
+
+
+
     function cteateLineByAngel(center, angel) {
-      //      console.log(angel);
+//      console.log(angel);
       var k =  Math.tan(angel * Math.PI / 180),
           lineMark = {
             center: center,
@@ -19566,12 +19714,22 @@ function ErrorResult(code, message) {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     function getCrossPointInBlock(position, vector, lines) {
       var linesQty = lines.length, l;
-      //      console.log('lines @@@@@@', lines);
+//      console.log('lines @@@@@@', lines);
       for(l = 0; l < linesQty; l+=1) {
         var coord, isInside, isCross, intersect;
-        //        console.log('DIR line ++++', lines[l]);
+//        console.log('DIR line ++++', lines[l]);
 
         coord = getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
@@ -19620,6 +19778,8 @@ function ErrorResult(code, message) {
       }
     }
 
+
+
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
       var sashDirVector = cteateLineByAngel(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
@@ -19628,19 +19788,20 @@ function ErrorResult(code, message) {
     }
 
 
+
     function setOpenDir(direction, beadLines) {
       var parts = [],
           newPoints = preparePointsXMaxMin(beadLines),
           center = centerBlock(newPoints),
-//          dim = GeneralServ.getMaxMinCoord(newPoints),
-//          center = {
-//            x: (dim.minX + dim.maxX)/2,
-//            y: (dim.minY + dim.maxY)/2
-//          },
+          //          dim = GeneralServ.getMaxMinCoord(newPoints),
+          //          center = {
+          //            x: (dim.minX + dim.maxX)/2,
+          //            y: (dim.minY + dim.maxY)/2
+          //          },
           dirQty = direction.length, index;
-//      console.log('DIR line===', beadLines);
-//      console.log('DIR newPoints===', newPoints);
-//      console.log('DIR geomCenter===', geomCenter);
+      //      console.log('DIR line===', beadLines);
+      //      console.log('DIR newPoints===', newPoints);
+      //      console.log('DIR geomCenter===', geomCenter);
 
       for(index = 0; index < dirQty; index+=1) {
         var part = {
@@ -19673,165 +19834,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function preparePointsXMaxMin(lines) {
-      var points = [],
-          linesQty = lines.length, l;
-      for(l = 0; l < linesQty; l+=1) {
-        if(lines[l].dir === 'curv') {
-          var t = 0.5,
-              peak = {}, ind0, ind1 = l, ind2;
-          if(l === 0) {
-            ind0 = linesQty - 1;
-            ind2 = l + 1;
-          } else if(l === (linesQty - 1)) {
-            ind0 = l - 1;
-            ind2 = 0;
-          } else {
-            ind0 = l - 1;
-            ind2 = l + 1;
-          }
-          peak.x = getCoordCurveByT(lines[ind0].to.x, lines[ind1].to.x, lines[ind2].to.x, t);
-          peak.y = getCoordCurveByT(lines[ind0].to.y, lines[ind1].to.y, lines[ind2].to.y, t);
-          points.push(peak);
-        } else {
-          points.push(lines[l].to);
-        }
-      }
-      return points;
-    }
-
-
-
-
-
-
-
-
-    function getIntersectionInCurve(i, linesQty, lines, vector, coord) {
-      var p1, p2, p3, l1, l2, index;
-
-      if (lines[i].from.id.indexOf('q') + 1) {
-        index = i - 1;
-        if (!lines[index]) {
-          index = linesQty - 1;
-        }
-        p1 = lines[index].from;
-        p2 = lines[i].from;
-        p3 = lines[i].to;
-      } else if (lines[i].to.id.indexOf('q') + 1) {
-        index = i + 1;
-        if (!lines[index]) {
-          index = 0;
-        }
-        p1 = lines[i].from;
-        p2 = lines[i].to;
-        p3 = lines[index].to;
-      }
-
-      l1 = vector;
-      l2 = coord;
-      //--------- calc the intersections
-      return intersectionQ(p1, p2, p3, l1, l2);
-    }
-
-
-    function intersectionQ(p1, p2, p3, a1, a2) {
-      var intersections = [],
-          //------- inverse line normal
-          normal = {
-            x: a1.y-a2.y,//coefA
-            y: a2.x-a1.x//coefB
-          },
-          //------- Q-coefficients
-          c2 = {
-            x: p1.x - 2*p2.x + p3.x,
-            y: p1.y - 2*p2.y + p3.y
-          },
-          c1 = {
-            x: 2*(p2.x - p1.x),
-            y: 2*(p2.y - p1.y)
-          },
-          c0 = {
-            x: p1.x,
-            y: p1.y
-          },
-          //--------- Transform to line
-          coefficient = a1.x*a2.y - a2.x*a1.y,//coefC
-          roots = [],
-          a, b, c, d;
-
-      if(Math.abs(normal.x) === Math.abs(normal.y)) {
-        a = Math.abs(normal.x*c2.x) + Math.abs(normal.y*c2.y);
-        //------ if line is vert or horisontal
-      } else if(!Math.abs(normal.x)) {
-        a = c2.x + normal.y*c2.y;
-      } else if(!Math.abs(normal.y)) {
-        a = normal.x*c2.x + c2.y;
-      } else {
-        a = normal.x*c2.x + normal.y*c2.y;
-      }
-
-      b = (normal.x*c1.x + normal.y*c1.y)/a ;
-      c = (normal.x*c0.x + normal.y*c0.y + coefficient)/a;
-      d = (b*b - 4*c);
-
-//        console.log('normal ++++',normal);
-//        console.log('c1 ++++',c1);
-//      console.log('c2 ++++',c2);
-//      console.log('c0 ++++',c0);
-//        console.log('a ++++',a);
-//        console.log('b ++++',b);
-//        console.log('c ++++',c);
-//        console.log('d ++++',d);
-      // solve the roots
-      if(d > 0) {
-        var delta = Math.sqrt(d);
-//        console.log('delta ++++', b, delta);
-        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ), GeneralServ.roundingValue( (-b - delta)/2 ) );
-//        roots.push( (-b + delta)/2 );
-//        roots.push( (-b - delta)/2 );
-      } else if(d === 0) {
-        roots.push( GeneralServ.roundingValue( -b/2 ) );
-//        roots.push( -b/2 );
-      }
-//TODO проблема с точкой пересечения
-//      console.log('t++++',roots);
-
-      //---------- calc the solution points
-      for(var i=0; i<roots.length; i++) {
-        var t = roots[i];
-
-        //    if(t >= 0 && t <= 1) {
-        if(t > 0 && t < 1) {
-          // possible point -- pending bounds check
-          var point = {
-                t: t,
-                x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
-                y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
-              },
-              minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
-              minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
-              maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
-              maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
-          //---------- bounds checks
-//          console.log('t++++',point);
-          if(a1.x === a2.x && point.y >= minY && point.y <= maxY){
-            //-------- vertical line
-            intersections.push(point);
-          } else if(a1.y === a2.y && point.x >= minX && point.x <= maxX){
-            //-------- horizontal line
-            intersections.push(point);
-          } else if(point.x >= minX && point.y >= minY && point.x <= maxX && point.y <= maxY){
-            //--------- line passed bounds check
-            intersections.push(point);
-          }
-        }
-      }
-//      console.log('~~~~~~~intersections ===', intersections);
-      return intersections;
-    }
-
-
 
 
 
@@ -19851,6 +19853,85 @@ function ErrorResult(code, message) {
 
 
 
+
+
+
+    function sortingQImpostPoints(points) {
+      var newPoints = [],
+          pointsLeft = [],
+          pointsRight = [],
+          impLineP1, impLineP2,
+          pointsQty = points.length,
+          i, l, r;
+      for(i = 0; i < pointsQty; i+=1) {
+        if(points[i].id.indexOf('qi')+1) {
+          if(points[i].group) {
+            impLineP2 = points[i];
+          } else {
+            impLineP1 = points[i];
+          }
+        }
+      }
+      for(i = 0; i < pointsQty; i+=1) {
+        if(points[i].id.indexOf('qi')+1) {
+          continue;
+        }
+        var position = setPointLocationToLine(impLineP1, impLineP2, points[i]);
+        if(position > 0) {
+          pointsLeft.push(points[i]);
+        } else {
+          pointsRight.push(points[i]);
+        }
+      }
+      for(l = 0; l < pointsLeft.length; l+=1) {
+        if(pointsLeft[l].group) {
+          newPoints.unshift(pointsLeft[l]);
+        } else {
+          newPoints.push(pointsLeft[l]);
+        }
+      }
+      newPoints.unshift(impLineP2);
+      newPoints.push(impLineP1);
+      for(r = 0; r < pointsRight.length; r+=1) {
+        if(pointsRight[r].group) {
+          newPoints.unshift(pointsRight[r]);
+        } else {
+          newPoints.push(pointsRight[r]);
+        }
+      }
+//      console.log('-----------IMPOST Q -----------', newPoints);
+      return newPoints;
+    }
+
+
+    function sortingImpPXSizes(pointsQty, impPoints) {
+      var newImpPoints = [], i;
+      if(pointsQty === 4) {
+        while(--pointsQty > -1) {
+          if(impPoints[pointsQty].group) {
+            newImpPoints.push(impPoints[pointsQty]);
+          }
+        }
+      } else if(pointsQty === 6) {
+        for(i = 0; i < pointsQty; i+=1) {
+          if(impPoints[i].group) {
+            if(impPoints[i].id.indexOf('ip')+1 || impPoints[i].id.indexOf('sht')+1) {
+              newImpPoints.push(impPoints[i]);
+            }
+          }
+        }
+        for(i = 0; i < pointsQty; i+=1) {
+          if(impPoints[i].group) {
+            if(impPoints[i].id.indexOf('qi')+1) {
+              newImpPoints.splice(1, 0, impPoints[i]);
+            }
+          }
+        }
+      }
+      return newImpPoints;
+    }
+
+
     //---------- for impost
 
 
@@ -19865,10 +19946,10 @@ function ErrorResult(code, message) {
       if(pointsQty === 4) {
         var center = centerBlock(points);
         part.points = sortingPoints(points, center);
-      //------- if impost is curve
+        //------- if impost is curve
       } else if(pointsQty === 6){
         part.dir = 'curv';
-//        console.log('-----------IMPOST Q -----------', points);
+        //        console.log('-----------IMPOST Q -----------', points);
         part.points = sortingQImpostPoints(points);
       }
       part.path = assamblingPath(part.points);
@@ -19892,396 +19973,12 @@ function ErrorResult(code, message) {
 
 
 
-    function sortingQImpostPoints(points) {
-      var newPoints = [],
-          pointsLeft = [],
-          pointsRight = [],
-          impLineP1, impLineP2,
-          pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
-        if(points[i].id.indexOf('qi')+1) {
-          if(points[i].group) {
-            impLineP2 = points[i];
-          } else {
-            impLineP1 = points[i];
-          }
-        }
-      }
-      for(var i = 0; i < pointsQty; i++) {
-        if(points[i].id.indexOf('qi')+1) {
-          continue;
-        }
-        var position = setPointLocationToLine(impLineP1, impLineP2, points[i]);
-        if(position > 0) {
-          pointsLeft.push(points[i]);
-        } else {
-          pointsRight.push(points[i]);
-        }
-      }
-      for(var l = 0; l < pointsLeft.length; l++) {
-        if(pointsLeft[l].group) {
-          newPoints.unshift(pointsLeft[l]);
-        } else {
-          newPoints.push(pointsLeft[l]);
-        }
-      }
-      newPoints.unshift(impLineP2);
-      newPoints.push(impLineP1);
-      for(var r = 0; r < pointsRight.length; r++) {
-        if(pointsRight[r].group) {
-          newPoints.unshift(pointsRight[r]);
-        } else {
-          newPoints.push(pointsRight[r]);
-        }
-      }
-//      console.log('-----------IMPOST Q -----------', newPoints);
-      return newPoints;
-    }
-
-
-    function sortingImpPXSizes(pointsQty, impPoints) {
-      var newImpPoints = [];
-      if(pointsQty === 4) {
-        while(--pointsQty > -1) {
-          if(impPoints[pointsQty].group) {
-            newImpPoints.push(impPoints[pointsQty]);
-          }
-        }
-      } else if(pointsQty === 6) {
-        for(var i = 0; i < pointsQty; i++) {
-          if(impPoints[i].group) {
-            if(impPoints[i].id.indexOf('ip')+1 || impPoints[i].id.indexOf('sht')+1) {
-              newImpPoints.push(impPoints[i]);
-            }
-          }
-        }
-        for(var i = 0; i < pointsQty; i++) {
-          if(impPoints[i].group) {
-            if(impPoints[i].id.indexOf('qi')+1) {
-              newImpPoints.splice(1, 0, impPoints[i]);
-            }
-          }
-        }
-      }
-      return newImpPoints;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function collectAllPointsOut(blocks) {
-      var points = [],
-          blocksQty = blocks.length;
-
-      while(--blocksQty > 0) {
-        var pointsOutQty = blocks[blocksQty].pointsOut.length;
-        if(pointsOutQty) {
-          while(--pointsOutQty > -1) {
-            points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
-          }
-        }
-      }
-      //------ delete dublicates
-      cleanDublicat(3, points);
-      return points;
-    }
-
-
-    function cleanDublicat(param, arr) {
-      var pQty = arr.length;
-      while(--pQty > -1) {
-        var pQty2 = arr.length,
-            exist = 0;
-        for(var i = 0; i < pQty2; i++) {
-          switch(param) {
-            case 1:
-              if(arr[i].x === arr[pQty].x) {
-                exist++;
-              }
-              break;
-            case 2:
-              if(arr[i].y === arr[pQty].y) {
-                exist++;
-              }
-              break;
-            case 3:
-              if(arr[i].x === arr[pQty].x && arr[i].y === arr[pQty].y) {
-                exist++;
-              }
-              break;
-          }
-        }
-        if(exist > 1) {
-          arr.splice(pQty, 1);
-        }
-      }
-    }
-
-
-    function cleanDublicatNoFP(param, points) {
-//      console.log('points******** ', points);
-      var pQty = points.length;
-
-      while(--pQty > -1) {
-        var pQty2 = points.length;
-
-        while(--pQty2 > -1) {
-          if(pQty !== pQty2) {
-//            console.log('********', points[pQty], points[pQty2]);
-            if(points[pQty] && points[pQty2]) {
-              switch(param) {
-                case 1:
-                  if(points[pQty].x === points[pQty2].x) {
-//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-//                      delete points[pQty];
-                      //                    points.splice(pQty, 1);
-//                    } else
-                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
-                      delete points[pQty2];
-                      //                    points.splice(pQty2, 1);
-                    } else {
-                      delete points[pQty];
-                    }
-//                    console.log('***** delete');
-                  }
-                  break;
-                case 2:
-                  if(points[pQty].y === points[pQty2].y) {
-//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-//                      delete points[pQty];
-                      //                    points.splice(pQty, 1);
-//                    } else
-                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
-                      //                    points.splice(pQty2, 1);
-                      delete points[pQty2];
-                    } else {
-                      delete points[pQty];
-                    }
-//                    console.log('***** delete');
-                  }
-                  break;
-              }
-            }
-          }
-
-        }
-      }
-      return points.filter(function(item) {
-        return (item) ? 1 : 0;
-      })
-    }
-
-
-    function sortByX(a, b) {
-      return a.x - b.x;
-    }
-
-
-    function sortByY(a, b) {
-      return a.y - b.y;
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 
     /**=============== DIMENSION ============*/
-
-
-    function initDimensions(blocks) {
-      var dimension = {
-            dimX: [],
-            dimY: [],
-            dimQ: []
-          },
-          blocksQty = blocks.length,
-          maxSizeLimit = GlobalStor.global.maxSizeLimit,
-          globalLimitsX, globalLimitsY, allPoints;
-      /**---------- All points ----------*/
-      allPoints = collectAllPointsOut(blocks);
-      //------ except Q points
-      allPoints = allPoints.filter(function (elem) {
-        return (elem.dir === 'curv' || elem.t) ? 0 : 1;
-      });
-      globalLimitsX = angular.copy(allPoints);
-      globalLimitsY = angular.copy(allPoints);
-      //------ delete dublicates
-      cleanDublicat(1, globalLimitsX);
-      cleanDublicat(2, globalLimitsY);
-      //---- sorting
-      globalLimitsX.sort(sortByX);
-      globalLimitsY.sort(sortByY);
-      //console.log('``````````allPoints``````', allPoints);
-      //console.log('``````````globalLimitsX``````', globalLimitsX);
-      //console.log('``````````globalLimitsY``````', globalLimitsY);
-
-      /**-------- on eah block --------*/
-      for (var b = 1; b < blocksQty; b++) {
-        var pointsOutQty = blocks[b].pointsOut.length;
-        //console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
-
-        /** Global Dimension of Blocks level 1 */
-        if (blocks[b].level === 1) {
-          //console.log('========= block 1===========');
-          var globalDimX = [],
-              globalDimY,
-              arcHeights = [],
-              overallDim = {w: 0, h: 0};
-
-          for (var i = 0; i < pointsOutQty; i++) {
-            if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
-              globalDimX.push(blocks[b].pointsOut[i]);
-            } else if(blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
-              arcHeights.push(blocks[b].pointsOut[i]);
-            }
-          }
-          globalDimY = angular.copy(globalDimX);
-          //------ delete dublicates
-          cleanDublicat(1, globalDimX);
-          cleanDublicat(2, globalDimY);
-          //---- sorting
-          globalDimX.sort(sortByX);
-          globalDimY.sort(sortByY);
-
-          //console.log('``````````globalDimX ``````', globalDimX);
-          //console.log('``````````globalDimY ``````', globalDimY);
-          //console.log('``````````heightArcX ``````', arcHeights);
-          collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
-          collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
-          //------ collect dim for arc height
-          createArcDim(1, blocks[b].id, arcHeights, dimension, blocks, blocksQty);
-
-          //----------- collect Curver Radius
-          if (blocks[b].pointsQ) {
-            var curveQty = blocks[b].pointsQ.length;
-            if (curveQty) {
-              while (--curveQty > -1) {
-                dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
-              }
-            }
-          }
-
-          //--------- get Overall Dimension
-//          console.log('for overall------', dimension.dimX, dimension.dimY);
-          collectOverallDim(overallDim, dimension);
-//          console.log('for overall finish ------', overallDim);
-
-          overallDim.square = calcSquare(blocks[b].pointsOut);
-          //--------- push Overall Dimension
-          blocks[0].overallDim.push(overallDim);
-        }
-
-
-
-        /**========= Dimension in Block without children ==========*/
-
-        if (!blocks[b].children.length) {
-          var blockDimX = [],
-              blockDimY,
-              blockLimits = [];
-
-          cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
-          //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
-
-          //------ go to parent and another children for Limits
-          for (var bp = 1; bp < blocksQty; bp++) {
-            if (blocks[bp].id === blocks[b].parent) {
-              //------- add impost
-              if(blocks[bp].impost) {
-                //============ collect Curver Radius of impost
-                if (blocks[bp].impost.impostAxis[2]) {
-                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
-                }
-              }
-            }
-          }
-/*
-          //-------- set block Limits
-          //------ go to parent and another children for Limits
-          for (var bp = 1; bp < blocksQty; bp++) {
-            if (blocks[bp].id === blocks[b].parent) {
-              var childQty = blocks[bp].children.length;
-              //------- add parent pointsOut
-              cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
-              //------- add impost
-              if(blocks[bp].impost) {
-//                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
-                if(!blocks[bp].impost.impostAxis[0].t) {
-                  blockLimits.push(blocks[bp].impost.impostAxis[0]);
-                }
-                if(!blocks[bp].impost.impostAxis[1].t) {
-                  blockLimits.push(blocks[bp].impost.impostAxis[1]);
-                }
-
-                //============ collect Curver Radius of impost
-                if (blocks[bp].impost.impostAxis[2]) {
-//                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
-                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
-                }
-              }
-              //------- add imposts of childern
-              while(--childQty > -1) {
-                if(blocks[bp].children[childQty] !== blocks[b].id) {
-                  getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
-                }
-              }
-            }
-          }
-*/
-
-          blockLimits = angular.copy(allPoints);
-          //console.log('`````````` blockLimits ``````````', blockLimits);
-          blockDimY = angular.copy(blockDimX);
-
-          /**-------- build Dimension -----------*/
-          if (blockDimX.length > 1) {
-            /** X */
-            //------ delete dublicates
-            blockDimX = cleanDublicatNoFP(1, blockDimX);
-            //---- sorting
-            blockDimX.sort(sortByX);
-            //console.log('`````````` new dim X ``````````', blockDimX);
-            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
-
-            /** Y */
-            //------ delete dublicates
-            blockDimY = cleanDublicatNoFP(2, blockDimY);
-            //---- sorting
-            blockDimY.sort(sortByY);
-            //console.log('`````````` new dim Y ``````````', blockDimY);
-            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
-          }
-        }
-
-      }
-
-      dimension.dimX = angular.copy(deleteDublicatDim(dimension.dimX));
-      dimension.dimY = angular.copy(deleteDublicatDim(dimension.dimY));
-      return dimension;
-    }
-
 
 
 
@@ -20294,14 +19991,15 @@ function ErrorResult(code, message) {
           level: level,
           dimId: arcDims[arcQty].id,
           minLimit: globalConstants.minRadiusHeight
-        };
+        },
+            b, q;
         //---------- find point Q in pointsQ
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].level === 1) {
             if(blocks[b].pointsQ) {
               var pointsQQty = blocks[b].pointsQ.length;
               if(pointsQQty) {
-                for(var q = 0; q < pointsQQty; q++) {
+                for(q = 0; q < pointsQQty; q+=1) {
                   if(blocks[b].pointsQ[q].id === dim.dimId) {
                     //                    console.log('DIM HEIGHT ARC pointsQ ------------', blocks[b].pointsQ[q]);
                     switch(blocks[b].pointsQ[q].positionQ) {
@@ -20377,22 +20075,6 @@ function ErrorResult(code, message) {
 
 
 
-    function getAllImpostDim(blockLimits, childBlockId, blocksQty, blocks) {
-      for(var i = 1; i < blocksQty; i++) {
-        if(blocks[i].id === childBlockId) {
-          if(blocks[i].children.length) {
-            if(!blocks[i].impost.impostAxis[0].t) {
-              blockLimits.push(blocks[i].impost.impostAxis[0]);
-            }
-            if(!blocks[i].impost.impostAxis[1].t) {
-              blockLimits.push(blocks[i].impost.impostAxis[1]);
-            }
-            getAllImpostDim(blockLimits, blocks[i].children[0], blocksQty, blocks);
-            getAllImpostDim(blockLimits, blocks[i].children[1], blocksQty, blocks);
-          }
-        }
-      }
-    }
 
 
 
@@ -20403,10 +20085,10 @@ function ErrorResult(code, message) {
           }),
           dimXLevel1Qty = dimXLevel1.length,
           dimX = dimension.filter(function(item) {
-            var count = 0;
-            for(var d = 0; d < dimXLevel1Qty; d++) {
+            var count = 0, d;
+            for(d = 0; d < dimXLevel1Qty; d+=1) {
               if(!item.level && item.from === dimXLevel1[d].from && item.to === dimXLevel1[d].to) {
-                ++count;
+                count+=1;
               }
             }
             if(!count) {
@@ -20420,56 +20102,15 @@ function ErrorResult(code, message) {
 
 
 
-    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId, maxSizeLimit) {
-      var dimQty = pointsDim.length - 1;
-//      console.log('-------- points ---------', JSON.stringify(pointsDim));
-      for(var d = 0; d < dimQty; d++) {
-        //TODO----- not create global dim in block level 0
-        //if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
-        //  break;
-        //} else {
-          dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
-        //}
-      }
-    }
 
-
-
-    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit) {
-//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
-      var dim = {
-            blockId: currBlockId,
-            level: level,
-            axis: axis,
-            dimId: blockDim[indexNext].id,
-            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
-            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
-          },
-          currLimit;
-      dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
-//      console.log('FINISH limits---------', dim, limits);
-      //=========== set Limints
-      //-------- for global
-      if(level) {
-//                console.log('FINISH global---------');
-        currLimit = setLimitsGlobalDim(dim, limits, maxSizeLimit);
-      } else {
-        //-------- for block
-        //        console.log('FINISH block---------');
-        currLimit = setLimitsDim(axis, blockDim[indexNext], dim.from, limits, maxSizeLimit);
-      }
-      dim.minLimit = currLimit.minL;
-      dim.maxLimit = currLimit.maxL;
-//      console.log('---------------DIM FINISH ------------');
-      return dim;
-    }
 
 
 
     function setLimitsGlobalDim(dim, limits, maxSizeLimit) {
       var dimLimit = {},
-          limitsQty = limits.length;
-      for(var i = 0; i < limitsQty; i++) {
+          limitsQty = limits.length,
+          i;
+      for(i = 0; i < limitsQty; i+=1) {
         if(dim.axis === 'x') {
           if(limits[i].x === dim.to) {
             dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].x + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
@@ -20487,17 +20128,49 @@ function ErrorResult(code, message) {
 
 
 
+    function setNewLimitsInBlock(axis, pointDim, limits) {
+      var currLimits = [],
+          limitsQty = limits.length,
+          lim;
+      if(axis === 'x') {
+        for(lim = 0; lim < limitsQty; lim+=1) {
+          if(pointDim.y === limits[lim].y || limits[lim].id.indexOf('fp')+1) {
+            currLimits.push(limits[lim]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(1, currLimits);
+        //---- sorting
+        currLimits.sort(sortByX);
+      } else {
+        for(lim = 0; lim < limitsQty; lim+=1) {
+          if (pointDim.x === limits[lim].x || limits[lim].id.indexOf('fp')+1) {
+            currLimits.push(limits[lim]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(2, currLimits);
+        //---- sorting
+        currLimits.sort(sortByY);
+      }
+      return currLimits;
+    }
+
+
+
+
     function setLimitsDim(axis, pointDim, startDim, limits, maxSizeLimit) {
 //      console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
       var dimLimit = {},
           //------ set new Limints by X or Y
           currLimits = setNewLimitsInBlock(axis, pointDim, limits),
-          currLimitsQty = currLimits.length;
+          currLimitsQty = currLimits.length,
+          i;
       //console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
-      for(var i = 0; i < currLimitsQty; i++) {
+      for(i = 0; i < currLimitsQty; i+=1) {
         //---- find left second imp point
-        var isSecondImpP = 0;
-        for(var s = 0; s < currLimitsQty; s++) {
+        var isSecondImpP = 0, s;
+        for(s = 0; s < currLimitsQty; s+=1) {
           if(currLimits[s].id === pointDim.id){
             var difX = pointDim.x - currLimits[s].x,
                 difY = pointDim.y - currLimits[s].y;
@@ -20554,42 +20227,51 @@ function ErrorResult(code, message) {
 
 
 
-
-    function setNewLimitsInBlock(axis, pointDim, limits) {
-      var currLimits = [],
-          limitsQty = limits.length,
-          lim = 0;
-      if(axis === 'x') {
-        for(; lim < limitsQty; lim++) {
-          if(pointDim.y === limits[lim].y || limits[lim].id.indexOf('fp')+1) {
-            currLimits.push(limits[lim]);
-          }
-        }
-        //------ delete dublicates
-        cleanDublicat(1, currLimits);
-        //---- sorting
-        currLimits.sort(sortByX);
+    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit) {
+      //      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+      var dim = {
+            blockId: currBlockId,
+            level: level,
+            axis: axis,
+            dimId: blockDim[indexNext].id,
+            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
+            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
+          },
+          currLimit;
+      dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
+      //      console.log('FINISH limits---------', dim, limits);
+      //=========== set Limints
+      //-------- for global
+      if(level) {
+        //                console.log('FINISH global---------');
+        currLimit = setLimitsGlobalDim(dim, limits, maxSizeLimit);
       } else {
-        for(; lim < limitsQty; lim++) {
-          if (pointDim.x === limits[lim].x || limits[lim].id.indexOf('fp')+1) {
-            currLimits.push(limits[lim]);
-          }
-        }
-        //------ delete dublicates
-        cleanDublicat(2, currLimits);
-        //---- sorting
-        currLimits.sort(sortByY);
+        //-------- for block
+        //        console.log('FINISH block---------');
+        currLimit = setLimitsDim(axis, blockDim[indexNext], dim.from, limits, maxSizeLimit);
       }
-      return currLimits;
+      dim.minLimit = currLimit.minL;
+      dim.maxLimit = currLimit.maxL;
+      //      console.log('---------------DIM FINISH ------------');
+      return dim;
     }
 
 
 
 
-
-
-
-
+    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId, maxSizeLimit) {
+      var dimQty = pointsDim.length - 1,
+          d;
+      //      console.log('-------- points ---------', JSON.stringify(pointsDim));
+      for(d = 0; d < dimQty; d+=1) {
+        //TODO----- not create global dim in block level 0
+        //if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
+        //  break;
+        //} else {
+        dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
+        //}
+      }
+    }
 
 
 
@@ -20614,9 +20296,201 @@ function ErrorResult(code, message) {
 
 
 
+    //function getAllImpostDim(blockLimits, childBlockId, blocksQty, blocks) {
+    //  var i;
+    //  for(i = 1; i < blocksQty; i+=1) {
+    //    if(blocks[i].id === childBlockId) {
+    //      if(blocks[i].children.length) {
+    //        if(!blocks[i].impost.impostAxis[0].t) {
+    //          blockLimits.push(blocks[i].impost.impostAxis[0]);
+    //        }
+    //        if(!blocks[i].impost.impostAxis[1].t) {
+    //          blockLimits.push(blocks[i].impost.impostAxis[1]);
+    //        }
+    //        getAllImpostDim(blockLimits, blocks[i].children[0], blocksQty, blocks);
+    //        getAllImpostDim(blockLimits, blocks[i].children[1], blocksQty, blocks);
+    //      }
+    //    }
+    //  }
+    //}
 
 
 
+
+
+    function initDimensions(blocks) {
+      var dimension = {
+            dimX: [],
+            dimY: [],
+            dimQ: []
+          },
+          blocksQty = blocks.length,
+          maxSizeLimit = GlobalStor.global.maxSizeLimit,
+          globalLimitsX, globalLimitsY, allPoints, b;
+      /**---------- All points ----------*/
+      allPoints = collectAllPointsOut(blocks);
+      //------ except Q points
+      allPoints = allPoints.filter(function (elem) {
+        return (elem.dir === 'curv' || elem.t) ? 0 : 1;
+      });
+      globalLimitsX = angular.copy(allPoints);
+      globalLimitsY = angular.copy(allPoints);
+      //------ delete dublicates
+      cleanDublicat(1, globalLimitsX);
+      cleanDublicat(2, globalLimitsY);
+      //---- sorting
+      globalLimitsX.sort(sortByX);
+      globalLimitsY.sort(sortByY);
+      //console.log('``````````allPoints``````', allPoints);
+      //console.log('``````````globalLimitsX``````', globalLimitsX);
+      //console.log('``````````globalLimitsY``````', globalLimitsY);
+
+      /**-------- on eah block --------*/
+      for (b = 1; b < blocksQty; b+=1) {
+        var pointsOutQty = blocks[b].pointsOut.length;
+        //console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+
+        /** Global Dimension of Blocks level 1 */
+        if (blocks[b].level === 1) {
+          //console.log('========= block 1===========');
+          var globalDimX = [],
+              globalDimY,
+              arcHeights = [],
+              overallDim = {w: 0, h: 0},
+              i;
+
+          for (i = 0; i < pointsOutQty; i+=1) {
+            if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
+              globalDimX.push(blocks[b].pointsOut[i]);
+            } else if(blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
+              arcHeights.push(blocks[b].pointsOut[i]);
+            }
+          }
+          globalDimY = angular.copy(globalDimX);
+          //------ delete dublicates
+          cleanDublicat(1, globalDimX);
+          cleanDublicat(2, globalDimY);
+          //---- sorting
+          globalDimX.sort(sortByX);
+          globalDimY.sort(sortByY);
+
+          //console.log('``````````globalDimX ``````', globalDimX);
+          //console.log('``````````globalDimY ``````', globalDimY);
+          //console.log('``````````heightArcX ``````', arcHeights);
+          collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
+          collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
+          //------ collect dim for arc height
+          createArcDim(1, blocks[b].id, arcHeights, dimension, blocks, blocksQty);
+
+          //----------- collect Curver Radius
+          if (blocks[b].pointsQ) {
+            var curveQty = blocks[b].pointsQ.length;
+            if (curveQty) {
+              while (--curveQty > -1) {
+                dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
+              }
+            }
+          }
+
+          //--------- get Overall Dimension
+          //          console.log('for overall------', dimension.dimX, dimension.dimY);
+          collectOverallDim(overallDim, dimension);
+          //          console.log('for overall finish ------', overallDim);
+
+          overallDim.square = calcSquare(blocks[b].pointsOut);
+          //--------- push Overall Dimension
+          blocks[0].overallDim.push(overallDim);
+        }
+
+
+
+        /**========= Dimension in Block without children ==========*/
+
+        if (!blocks[b].children.length) {
+          var blockDimX = [],
+              blockDimY,
+              blockLimits = [],
+              bp;
+
+          cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
+          //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
+
+          //------ go to parent and another children for Limits
+          for (bp = 1; bp < blocksQty; bp+=1) {
+            if (blocks[bp].id === blocks[b].parent) {
+              //------- add impost
+              if(blocks[bp].impost) {
+                //============ collect Curver Radius of impost
+                if (blocks[bp].impost.impostAxis[2]) {
+                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+                }
+              }
+            }
+          }
+          /*
+           //-------- set block Limits
+           //------ go to parent and another children for Limits
+           for (var bp = 1; bp < blocksQty; bp++) {
+           if (blocks[bp].id === blocks[b].parent) {
+           var childQty = blocks[bp].children.length;
+           //------- add parent pointsOut
+           cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
+           //------- add impost
+           if(blocks[bp].impost) {
+           //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+           if(!blocks[bp].impost.impostAxis[0].t) {
+           blockLimits.push(blocks[bp].impost.impostAxis[0]);
+           }
+           if(!blocks[bp].impost.impostAxis[1].t) {
+           blockLimits.push(blocks[bp].impost.impostAxis[1]);
+           }
+
+           //============ collect Curver Radius of impost
+           if (blocks[bp].impost.impostAxis[2]) {
+           //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
+           dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+           }
+           }
+           //------- add imposts of childern
+           while(--childQty > -1) {
+           if(blocks[bp].children[childQty] !== blocks[b].id) {
+           getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
+           }
+           }
+           }
+           }
+           */
+
+          blockLimits = angular.copy(allPoints);
+          //console.log('`````````` blockLimits ``````````', blockLimits);
+          blockDimY = angular.copy(blockDimX);
+
+          /**-------- build Dimension -----------*/
+          if (blockDimX.length > 1) {
+            /** X */
+              //------ delete dublicates
+            blockDimX = cleanDublicatNoFP(1, blockDimX);
+            //---- sorting
+            blockDimX.sort(sortByX);
+            //console.log('`````````` new dim X ``````````', blockDimX);
+            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
+
+            /** Y */
+              //------ delete dublicates
+            blockDimY = cleanDublicatNoFP(2, blockDimY);
+            //---- sorting
+            blockDimY.sort(sortByY);
+            //console.log('`````````` new dim Y ``````````', blockDimY);
+            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
+          }
+        }
+
+      }
+
+      dimension.dimX = angular.copy(deleteDublicatDim(dimension.dimX));
+      dimension.dimY = angular.copy(deleteDublicatDim(dimension.dimY));
+      return dimension;
+    }
 
 
 
@@ -20630,8 +20504,7 @@ function ErrorResult(code, message) {
       //console.log('------------------------------------------------------');
       //      console.log('svg start', new Date(), new Date().getMilliseconds());
       var thisObj = {},
-          defer = $q.defer(),
-          blocksQty, i, childQty, b;
+          defer = $q.defer(), i;
 
       //  thisObj.name = sourceObj.name;
       thisObj.details = angular.copy(sourceObj.details);
@@ -20646,7 +20519,7 @@ function ErrorResult(code, message) {
         sashesBlock: []
       };
 
-      blocksQty = thisObj.details.length;
+      var blocksQty = thisObj.details.length;
 
 
       for(i = 0; i < blocksQty; i+=1) {
@@ -20654,7 +20527,8 @@ function ErrorResult(code, message) {
         //------ block 0
         if(!thisObj.details[i].level) {
 
-          childQty = thisObj.details[i].children.length;
+          var childQty = thisObj.details[i].children.length,
+              b;
           if(childQty === 1) {
             for(b = 0; b < blocksQty; b+=1) {
               if(thisObj.details[i].children[0] === thisObj.details[b].id) {
@@ -20785,14 +20659,15 @@ function ErrorResult(code, message) {
 
 
 
+
     //----------- ICON
 
     function createSVGTemplateIcon(sourceObj, depths) {
       var defer = $q.defer(),
           newDepth = angular.copy(depths),
-          coeffScale = 2, p, el;
-      for(p in newDepth) {
-        for(el in newDepth[p]) {
+          coeffScale = 2;
+      for(var p in newDepth) {
+        for(var el in newDepth[p]) {
           newDepth[p][el] *= coeffScale;
         }
       }
@@ -20866,8 +20741,6 @@ function ErrorResult(code, message) {
 
 
 
-
-
     /**========== FINISH ==========*/
 
 
@@ -20916,9 +20789,9 @@ function ErrorResult(code, message) {
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('TemplatesServ', templatesFactory);
+    .factory('TemplatesServ',
 
-  function templatesFactory(
+  function(
     $filter,
     GeneralServ,
     MainServ,
@@ -20985,9 +20858,9 @@ function ErrorResult(code, message) {
         }
 
       } else {
-        if(ProductStor.product.template_id !== templateIndex) {
+        //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);
-        }
+        //}
       }
 
     }
@@ -21061,7 +20934,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();
 
 

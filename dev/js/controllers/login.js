@@ -373,6 +373,7 @@
     /** =========== SIGN IN ======== */
 
     function enterForm(form) {
+      var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
@@ -399,7 +400,7 @@
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
-                  var newUserPassword = localDB.md5(thisCtrl.user.password);
+                  newUserPassword = localDB.md5(thisCtrl.user.password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -434,7 +435,7 @@
               checkingUser();
             }
           });
-          //*/
+ //*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');

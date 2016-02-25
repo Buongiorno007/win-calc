@@ -15,7 +15,7 @@ $img_logo: 'login/logo.png';
   margin: auto;
   padding: rem(60px) rem(110px);
   border-radius: rem($radius_login-container);
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.7);
 
   .text-container {
     @include roboto-lt(rem(48px));
@@ -26,6 +26,10 @@ $img_logo: 'login/logo.png';
     &.error {
       color: red;
     }
+  }
+
+  .user-field {
+    background-color: #FAF3C9;
   }
 }
 

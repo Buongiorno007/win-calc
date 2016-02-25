@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('TemplatesServ', templatesFactory);
+    .factory('TemplatesServ',
 
-  function templatesFactory(
+  function(
     $filter,
     GeneralServ,
     MainServ,
@@ -72,9 +72,9 @@
         }
 
       } else {
-        if(ProductStor.product.template_id !== templateIndex) {
+        //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);
-        }
+        //}
       }
 
     }
@@ -148,5 +148,5 @@
 
     return thisFactory.publicObj;
 
-  }
+  });
 })();

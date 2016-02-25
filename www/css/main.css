@@ -3876,7 +3876,7 @@ div.drum figure {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1447154485') no-repeat;
+  background: url('../img/login/login-bg.jpg?1456407345') no-repeat;
   background-size: cover;
 }
 
@@ -3890,7 +3890,7 @@ div.drum figure {
   margin: auto;
   padding: 3.75rem 6.875rem;
   border-radius: 2rem;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 /* line 20, ../../dev/sass/pages/login.scss */
 .login-container .text-container {
@@ -3903,8 +3903,12 @@ div.drum figure {
 .login-container .text-container.error {
   color: red;
 }
+/* line 31, ../../dev/sass/pages/login.scss */
+.login-container .user-field, .login-container .user-select-field {
+  background-color: #FAF3C9;
+}
 
-/* line 32, ../../dev/sass/pages/login.scss */
+/* line 36, ../../dev/sass/pages/login.scss */
 .close_dialog {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
@@ -3918,32 +3922,32 @@ div.drum figure {
   background: transparent;
   outline: none;
 }
-/* line 47, ../../dev/sass/pages/login.scss */
+/* line 51, ../../dev/sass/pages/login.scss */
 .close_dialog:before {
   content: "";
   color: #f98000;
 }
 
-/* line 54, ../../dev/sass/pages/login.scss */
+/* line 58, ../../dev/sass/pages/login.scss */
 .logo {
-  width: 12.25rem;
-  height: 12.25rem;
+  width: 6.125rem;
+  height: 6.125rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1447154483') no-repeat;
+  background: url('../img/login/logo.png?1456319652') no-repeat;
   background-size: cover;
 }
 
-/* line 63, ../../dev/sass/pages/login.scss */
+/* line 67, ../../dev/sass/pages/login.scss */
 .input-field {
   position: relative;
   margin-bottom: 2.75rem;
 }
-/* line 66, ../../dev/sass/pages/login.scss */
+/* line 70, ../../dev/sass/pages/login.scss */
 .input-field.has-error > .user-field, .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 71, ../../dev/sass/pages/login.scss */
+/* line 75, ../../dev/sass/pages/login.scss */
 .user-field, .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -3954,12 +3958,12 @@ div.drum figure {
   border-radius: 2rem;
   outline: none;
 }
-/* line 81, ../../dev/sass/pages/login.scss */
+/* line 85, ../../dev/sass/pages/login.scss */
 .user-field.ng-invalid-minlength, .ng-invalid-minlength.user-select-field, .user-field.ng-invalid-pattern, .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 87, ../../dev/sass/pages/login.scss */
+/* line 91, ../../dev/sass/pages/login.scss */
 .error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
@@ -3972,7 +3976,7 @@ div.drum figure {
   border-radius: 1.25rem;
   background: #f74f2e;
 }
-/* line 98, ../../dev/sass/pages/login.scss */
+/* line 102, ../../dev/sass/pages/login.scss */
 .error-tooltip:before, .setting-container .set-email-error:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -3989,14 +3993,14 @@ div.drum figure {
   content: '';
 }
 
-/* line 113, ../../dev/sass/pages/login.scss */
+/* line 117, ../../dev/sass/pages/login.scss */
 .login-submit {
   display: block;
   width: 23.875rem;
   margin: 3.875rem auto 0 auto;
 }
 
-/* line 121, ../../dev/sass/pages/login.scss */
+/* line 125, ../../dev/sass/pages/login.scss */
 .attantion, .design-attantion {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4011,19 +4015,19 @@ div.drum figure {
   z-index: 12;
 }
 
-/* line 135, ../../dev/sass/pages/login.scss */
+/* line 139, ../../dev/sass/pages/login.scss */
 .inet_ok {
   display: block;
   margin: auto auto;
   margin-top: 1rem;
 }
 
-/* line 141, ../../dev/sass/pages/login.scss */
+/* line 145, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
 }
 
-/* line 145, ../../dev/sass/pages/login.scss */
+/* line 149, ../../dev/sass/pages/login.scss */
 .factory_box {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4040,46 +4044,46 @@ div.drum figure {
   z-index: 10;
 }
 
-/* line 160, ../../dev/sass/pages/login.scss */
+/* line 164, ../../dev/sass/pages/login.scss */
 .factory_title {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.625rem;
   text-align: center;
 }
 
-/* line 165, ../../dev/sass/pages/login.scss */
+/* line 169, ../../dev/sass/pages/login.scss */
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
-/* line 170, ../../dev/sass/pages/login.scss */
+/* line 174, ../../dev/sass/pages/login.scss */
 table.factory_table {
   border: none;
 }
-/* line 172, ../../dev/sass/pages/login.scss */
+/* line 176, ../../dev/sass/pages/login.scss */
 table.factory_table td {
   padding: 1.5625rem 0;
 }
 
-/* line 176, ../../dev/sass/pages/login.scss */
+/* line 180, ../../dev/sass/pages/login.scss */
 tr.factory_item {
   vertical-align: top;
 }
 
-/* line 179, ../../dev/sass/pages/login.scss */
+/* line 183, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 183, ../../dev/sass/pages/login.scss */
+/* line 187, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 186, ../../dev/sass/pages/login.scss */
+/* line 190, ../../dev/sass/pages/login.scss */
 .factory_name, .factory_place {
   text-align: left;
 }

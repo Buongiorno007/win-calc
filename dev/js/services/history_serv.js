@@ -29,7 +29,6 @@
 
 
 
-
     /**============ METHODS ================*/
 
 
@@ -89,13 +88,12 @@
 
 
 
-    /**----------- Send Order to Factory -----------*/
+    //========== Send Order to Factory ========//
 
     function sendOrderToFactory(orderStyle, orderNum) {
-
       function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length, ord;
-        for(ord = 0; ord < ordersQty; ord+=1) {
+        var ordersQty = HistoryStor.history.orders.length;
+        for(var ord = 0; ord < ordersQty; ord++) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
@@ -112,6 +110,7 @@
           sendOrder
         );
       }
+
     }
 
 
@@ -119,7 +118,7 @@
 
 
 
-    /**----------- make Order Copy -----------*/
+    //========= make Order Copy =========//
 
     function makeOrderCopy(orderStyle, orderNum) {
 
@@ -130,11 +129,11 @@
           if(result.length) {
             var allElements = angular.copy(result),
                 allElemQty = allElements.length,
-                i;
+                i = 0;
 
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
-              for (i = 0; i < allElemQty; i+=1) {
+              for (; i < allElemQty; i++) {
                 delete allElements[i].id;
                 allElements[i].modified = new Date();
                 allElements[i].order_id = newOrderNum;
@@ -149,15 +148,14 @@
             console.log('Empty result = ', result);
           }
         });
-
       }
 
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy, ord;
+            newOrderCopy;
 
-        for(ord = 0; ord < ordersQty; ord+=1) {
+        for(var ord = 0; ord < ordersQty; ord++) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -186,7 +184,6 @@
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
-
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
@@ -201,7 +198,7 @@
 
 
 
-    /**--------------- Delete order -----------*/
+    //========== Delete order ==========//
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
@@ -249,11 +246,7 @@
 
 
 
-
-
-
     /** =========== Edit Order & Draft =========== */
-
 
     function setOrderOptions(param, id, data) {
       if(id) {
@@ -293,18 +286,16 @@
 
     //------ Download All Products Data for Order
     function downloadProducts() {
-      var deferred = $q.defer(),
-          products, productPromises, defer1, tempProd,
-          glassIDs, glassIDsQty;
+      var deferred = $q.defer();
 
       localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        products = angular.copy(result);
+        var products = angular.copy(result);
         if(products.length) {
 
           //------------- parsing All Templates Source and Icons for Order
-          productPromises = products.map(function(prod) {
-            defer1 = $q.defer();
-            tempProd = ProductStor.setDefaultProduct();
+          var productPromises = products.map(function(prod) {
+            var defer1 = $q.defer(),
+                tempProd = ProductStor.setDefaultProduct();
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
@@ -316,11 +307,11 @@
               //----- find depths and build design icon
               MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
                 if(tempProd.glass_id) {
-                  glassIDs = tempProd.glass_id.split(', ');
-                  glassIDsQty = glassIDs.length;
+                  var glassIDs = tempProd.glass_id.split(', '),
+                      glassIDsQty = glassIDs.length;
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
+                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
                     }
                   }
                 }
@@ -340,9 +331,9 @@
           });
 
           $q.all(productPromises).then(function(data) {
-            var deferIcon,
-            iconPromise = data.map(function(item) {
-              deferIcon = $q.defer();
+
+            var iconPromise = data.map(function(item) {
+              var deferIcon = $q.defer();
               SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
                 item.templateIcon = data;
                 delete item.profile_id;
@@ -373,19 +364,17 @@
 
 
 
-
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length,
-            prod;
+            orderProductsQty = OrderStor.order.products.length;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
-            for(prod = 0; prod < orderProductsQty; prod+=1) {
+            for(var prod = 0; prod < orderProductsQty; prod++) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
@@ -409,14 +398,13 @@
 
 
 
-
     function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -469,6 +457,8 @@
 
 
 
+
+
     //------ Download draft Orders from localDB
     function downloadDrafts() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(result) {
@@ -507,8 +497,7 @@
     }
 
 
-
-    /**============= HISTORY TOOLS ============*/
+    //============= HISTORY TOOLS ============//
 
     //=========== Searching
 
@@ -528,30 +517,25 @@
 
     //------- filtering orders by Dates
     function filteringByDate(obj, start, end) {
-      var newObj, startDate, finishDate,
-          t, objDate, result;
-
       if(start !== '' || end !== '') {
+        var newObj, startDate, finishDate;
         newObj = angular.copy(obj);
         startDate = new Date(start).valueOf();
         finishDate = new Date(end).valueOf();
         if(start !== '' && end !== '' && startDate > finishDate) {
           return false;
         }
-        for(t = newObj.length-1;  t >= 0; t-=1) {
-          objDate = new Date(newObj[t].created).valueOf();
+        for(var t = newObj.length-1;  t >= 0; t--) {
+          var objDate = new Date(newObj[t].created).valueOf();
           if(objDate < startDate || objDate > finishDate) {
             newObj.splice(t, 1);
           }
         }
-        result = newObj;
+        return newObj;
       } else {
-        result = 0;
+        return false;
       }
-      return result;
     }
-
-
 
     //------- show Date filter tool dialog
     function orderDateSelecting() {
@@ -691,7 +675,6 @@
 
 
 
-
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -711,6 +694,7 @@
     };
 
     return thisFactory.publicObj;
+
 
 
   });

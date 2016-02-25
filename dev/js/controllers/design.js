@@ -83,8 +83,13 @@
       DesignServ.setIndexDoorConfig();
     }
 
-
-
+    /**----- initialize Events again in order to svg in template pannel -------*/
+    $timeout(function(){
+      DesignServ.initAllImposts();
+      DesignServ.initAllGlass();
+      DesignServ.initAllArcs();
+      DesignServ.initAllDimension();
+    }, 50);
 
 
 

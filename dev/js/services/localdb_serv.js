@@ -14,7 +14,6 @@
     UserStor,
     GlobalStor
   ) {
-    /*jshint validthis:true */
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -22,12 +21,12 @@
           'addition_folders': {
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
-              ' addition_type_id INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' img VARCHAR,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR',
+            ' addition_type_id INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' img VARCHAR,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
@@ -63,31 +62,31 @@
           'glass_folders': {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
-              ' img VARCHAR,' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR,' +
-              ' is_base INTEGER',
+            ' img VARCHAR,' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR,' +
+            ' is_base INTEGER',
             'foreignKey': ''
           },
           'glass_prices': {
             'tableName': 'glass_prices',
             'prop': 'element_id INTEGER,' +
-              ' col_1_range NUMERIC(10, 2),' +
-              ' col_1_price NUMERIC(10, 2),' +
-              ' col_2_range_1 NUMERIC(10, 2),' +
-              ' col_2_range_2 NUMERIC(10, 2),' +
-              ' col_2_price NUMERIC(10, 2),' +
-              ' col_3_range_1 NUMERIC(10, 2),' +
-              ' col_3_range_2 NUMERIC(10, 2),' +
-              ' col_3_price NUMERIC(10, 2),' +
-              ' col_4_range_1 NUMERIC(10, 2),' +
-              ' col_4_range_2 NUMERIC(10, 2),' +
-              ' col_4_price NUMERIC(10, 2),' +
-              ' col_5_range NUMERIC(10, 2),' +
-              ' col_5_price NUMERIC(10, 2),' +
-              ' table_width INTEGER',
+            ' col_1_range NUMERIC(10, 2),' +
+            ' col_1_price NUMERIC(10, 2),' +
+            ' col_2_range_1 NUMERIC(10, 2),' +
+            ' col_2_range_2 NUMERIC(10, 2),' +
+            ' col_2_price NUMERIC(10, 2),' +
+            ' col_3_range_1 NUMERIC(10, 2),' +
+            ' col_3_range_2 NUMERIC(10, 2),' +
+            ' col_3_price NUMERIC(10, 2),' +
+            ' col_4_range_1 NUMERIC(10, 2),' +
+            ' col_4_range_2 NUMERIC(10, 2),' +
+            ' col_4_price NUMERIC(10, 2),' +
+            ' col_5_range NUMERIC(10, 2),' +
+            ' col_5_price NUMERIC(10, 2),' +
+            ' table_width INTEGER',
             'foreignKey': ''
           },
           'lamination_factory_colors': {
@@ -113,117 +112,117 @@
           'options_coefficients': {
             'tableName': 'options_coefficients',
             'prop': 'rentability_percent INTEGER,' +
-              ' rentability_hrn_m INTEGER,' +
-              ' rentability_hrn INTEGER,' +
-              ' others_percent INTEGER,' +
-              ' others_hrn_m INTEGER,' +
-              ' others_hrn INTEGER,' +
-              ' transport_cost_percent INTEGER,' +
-              ' transport_cost_hrn_m INTEGER,' +
-              ' transport_cost_hrn INTEGER,' +
-              ' salary_manager_percent INTEGER,' +
-              ' salary_manager_hrn_m INTEGER,' +
-              ' salary_manager_hrn INTEGER,' +
-              ' rent_offices_percent INTEGER,' +
-              ' rent_offices_hrn_m INTEGER,' +
-              ' rent_offices_hrn INTEGER,' +
-              ' salary_itr_percent INTEGER,' +
-              ' salary_itr_hrn_m INTEGER,' +
-              ' salary_itr_hrn INTEGER,' +
-              ' rent_production_percent INTEGER,' +
-              ' rent_production_hrn_m INTEGER,' +
-              ' rent_production_hrn INTEGER,' +
-              ' salary_glass_percent INTEGER,' +
-              ' salary_glass_hrn_m INTEGER,' +
-              ' salary_glass_hrn INTEGER,' +
-              ' salary_assembly_percent INTEGER,' +
-              ' salary_assembly_hrn_m INTEGER,' +
-              ' salary_assembly_hrn INTEGER,' +
-              ' estimated_cost INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' plan_production INTEGER,' +
-              ' margin NUMERIC(10, 2),' +
-              ' coeff NUMERIC(10, 2)',
+            ' rentability_hrn_m INTEGER,' +
+            ' rentability_hrn INTEGER,' +
+            ' others_percent INTEGER,' +
+            ' others_hrn_m INTEGER,' +
+            ' others_hrn INTEGER,' +
+            ' transport_cost_percent INTEGER,' +
+            ' transport_cost_hrn_m INTEGER,' +
+            ' transport_cost_hrn INTEGER,' +
+            ' salary_manager_percent INTEGER,' +
+            ' salary_manager_hrn_m INTEGER,' +
+            ' salary_manager_hrn INTEGER,' +
+            ' rent_offices_percent INTEGER,' +
+            ' rent_offices_hrn_m INTEGER,' +
+            ' rent_offices_hrn INTEGER,' +
+            ' salary_itr_percent INTEGER,' +
+            ' salary_itr_hrn_m INTEGER,' +
+            ' salary_itr_hrn INTEGER,' +
+            ' rent_production_percent INTEGER,' +
+            ' rent_production_hrn_m INTEGER,' +
+            ' rent_production_hrn INTEGER,' +
+            ' salary_glass_percent INTEGER,' +
+            ' salary_glass_hrn_m INTEGER,' +
+            ' salary_glass_hrn INTEGER,' +
+            ' salary_assembly_percent INTEGER,' +
+            ' salary_assembly_hrn_m INTEGER,' +
+            ' salary_assembly_hrn INTEGER,' +
+            ' estimated_cost INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' plan_production INTEGER,' +
+            ' margin NUMERIC(10, 2),' +
+            ' coeff NUMERIC(10, 2)',
             'foreignKey': ''
           },
           'options_discounts': {
             'tableName': 'options_discounts',
             'prop': 'factory_id INTEGER,' +
-              ' min_time INTEGER,' +
-              ' standart_time INTEGER,' +
-              ' base_time INTEGER,' +
-              ' week_1 INTEGER,' +
-              ' week_2 INTEGER,' +
-              ' week_3 INTEGER,' +
-              ' week_4 INTEGER,' +
-              ' week_5 INTEGER,' +
-              ' week_6 INTEGER,' +
-              ' week_7 INTEGER,' +
-              ' week_8 INTEGER,' +
-              ' percents ARRAY',
+            ' min_time INTEGER,' +
+            ' standart_time INTEGER,' +
+            ' base_time INTEGER,' +
+            ' week_1 INTEGER,' +
+            ' week_2 INTEGER,' +
+            ' week_3 INTEGER,' +
+            ' week_4 INTEGER,' +
+            ' week_5 INTEGER,' +
+            ' week_6 INTEGER,' +
+            ' week_7 INTEGER,' +
+            ' week_8 INTEGER,' +
+            ' percents ARRAY',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'elements': {
             'tableName': 'elements',
             'prop': 'heat_coeff INTEGER,' +
-              ' name VARCHAR(255),' +
-              ' element_group_id INTEGER,' +
-              ' currency_id INTEGER,' +
-              ' supplier_id INTEGER,' +
-              ' margin_id INTEGER,' +
-              ' waste NUMERIC(10, 2),' +
-              ' is_optimized INTEGER,' +
-              ' is_virtual INTEGER,' +
-              ' is_additional INTEGER,' +
-              ' weight_accounting_unit NUMERIC(10, 3),' +
-              ' glass_folder_id INTEGER,' +
-              ' min_width NUMERIC,' +
-              ' min_height NUMERIC,' +
-              ' max_width NUMERIC,' +
-              ' max_height NUMERIC,' +
-              ' max_sq NUMERIC,' +
-              ' transcalency NUMERIC(10, 2),' +
-              ' glass_width INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' price NUMERIC(10, 2),' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' noise_coeff NUMERIC,' +
-              ' sku VARCHAR(100),' +
-              ' lamination_in_id INTEGER,' +
-              ' lamination_out_id INTEGER',
+            ' name VARCHAR(255),' +
+            ' element_group_id INTEGER,' +
+            ' currency_id INTEGER,' +
+            ' supplier_id INTEGER,' +
+            ' margin_id INTEGER,' +
+            ' waste NUMERIC(10, 2),' +
+            ' is_optimized INTEGER,' +
+            ' is_virtual INTEGER,' +
+            ' is_additional INTEGER,' +
+            ' weight_accounting_unit NUMERIC(10, 3),' +
+            ' glass_folder_id INTEGER,' +
+            ' min_width NUMERIC,' +
+            ' min_height NUMERIC,' +
+            ' max_width NUMERIC,' +
+            ' max_height NUMERIC,' +
+            ' max_sq NUMERIC,' +
+            ' transcalency NUMERIC(10, 2),' +
+            ' glass_width INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' price NUMERIC(10, 2),' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' noise_coeff NUMERIC,' +
+            ' sku VARCHAR(100),' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
             'tableName': 'profile_system_folders',
             'prop': 'name VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'profile_systems': {
             'tableName': 'profile_systems',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' rama_list_id INTEGER,' +
-              ' rama_still_list_id INTEGER,' +
-              ' stvorka_list_id INTEGER,' +
-              ' impost_list_id INTEGER,' +
-              ' shtulp_list_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' country VARCHAR(100),' +
-              ' cameras INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff_value NUMERIC(5,2),' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' country VARCHAR(100),' +
+            ' cameras INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff_value NUMERIC(5,2),' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
           'profile_laminations': {
@@ -252,108 +251,108 @@
           'users': {
             'tableName': 'users',
             'prop':
-              ' email VARCHAR(255),' +
-              ' password VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' name VARCHAR(255),' +
-              ' phone VARCHAR(100),' +
-              ' locked INTEGER,' +
-              ' user_type INTEGER,' +
-              ' city_phone VARCHAR(100),' +
-              ' city_id INTEGER,' +
-              ' fax VARCHAR(100),' +
-              ' avatar VARCHAR(255),' +
-              ' birthday DATE,' +
-              ' sex VARCHAR(100),' +
-              ' mount_mon NUMERIC(5,2),' +
-              ' mount_tue NUMERIC(5,2),' +
-              ' mount_wed NUMERIC(5,2),' +
-              ' mount_thu NUMERIC(5,2),' +
-              ' mount_fri NUMERIC(5,2),' +
-              ' mount_sat NUMERIC(5,2),' +
-              ' mount_sun NUMERIC(5,2),' +
-              ' device_code VARCHAR(250),'+
-              ' last_sync TIMESTAMP,' +
-              ' address VARCHAR,' +
-              ' therm_coeff_id INTEGER,' +
-              ' factoryLink VARCHAR',
+            ' email VARCHAR(255),' +
+            ' password VARCHAR(255),' +
+            ' factory_id INTEGER,' +
+            ' name VARCHAR(255),' +
+            ' phone VARCHAR(100),' +
+            ' locked INTEGER,' +
+            ' user_type INTEGER,' +
+            ' city_phone VARCHAR(100),' +
+            ' city_id INTEGER,' +
+            ' fax VARCHAR(100),' +
+            ' avatar VARCHAR(255),' +
+            ' birthday DATE,' +
+            ' sex VARCHAR(100),' +
+            ' mount_mon NUMERIC(5,2),' +
+            ' mount_tue NUMERIC(5,2),' +
+            ' mount_wed NUMERIC(5,2),' +
+            ' mount_thu NUMERIC(5,2),' +
+            ' mount_fri NUMERIC(5,2),' +
+            ' mount_sat NUMERIC(5,2),' +
+            ' mount_sun NUMERIC(5,2),' +
+            ' device_code VARCHAR(250),'+
+            ' last_sync TIMESTAMP,' +
+            ' address VARCHAR,' +
+            ' therm_coeff_id INTEGER,' +
+            ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
             'tableName': 'users_discounts',
             'prop': 'user_id INTEGER,' +
-              ' max_construct NUMERIC(5,1),' +
-              ' max_add_elem NUMERIC(5,1),' +
-              ' default_construct NUMERIC(5,1),' +
-              ' default_add_elem NUMERIC(5,1),' +
-              ' week_1_construct NUMERIC(5,1),' +
-              ' week_1_add_elem NUMERIC(5,1),' +
-              ' week_2_construct NUMERIC(5,1),' +
-              ' week_2_add_elem NUMERIC(5,1),' +
-              ' week_3_construct NUMERIC(5,1),' +
-              ' week_3_add_elem NUMERIC(5,1),' +
-              ' week_4_construct NUMERIC(5,1),' +
-              ' week_4_add_elem NUMERIC(5,1),' +
-              ' week_5_construct NUMERIC(5,1),' +
-              ' week_5_add_elem NUMERIC(5,1),' +
-              ' week_6_construct NUMERIC(5,1),' +
-              ' week_6_add_elem NUMERIC(5,1),' +
-              ' week_7_construct NUMERIC(5,1),' +
-              ' week_7_add_elem NUMERIC(5,1),' +
-              ' week_8_construct NUMERIC(5,1),' +
-              ' week_8_add_elem NUMERIC(5,1)',
+            ' max_construct NUMERIC(5,1),' +
+            ' max_add_elem NUMERIC(5,1),' +
+            ' default_construct NUMERIC(5,1),' +
+            ' default_add_elem NUMERIC(5,1),' +
+            ' week_1_construct NUMERIC(5,1),' +
+            ' week_1_add_elem NUMERIC(5,1),' +
+            ' week_2_construct NUMERIC(5,1),' +
+            ' week_2_add_elem NUMERIC(5,1),' +
+            ' week_3_construct NUMERIC(5,1),' +
+            ' week_3_add_elem NUMERIC(5,1),' +
+            ' week_4_construct NUMERIC(5,1),' +
+            ' week_4_add_elem NUMERIC(5,1),' +
+            ' week_5_construct NUMERIC(5,1),' +
+            ' week_5_add_elem NUMERIC(5,1),' +
+            ' week_6_construct NUMERIC(5,1),' +
+            ' week_6_add_elem NUMERIC(5,1),' +
+            ' week_7_construct NUMERIC(5,1),' +
+            ' week_7_add_elem NUMERIC(5,1),' +
+            ' week_8_construct NUMERIC(5,1),' +
+            ' week_8_add_elem NUMERIC(5,1)',
             'foreignKey': ''
           },
           'users_deliveries': {
             'tableName': 'users_deliveries',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'users_mountings': {
             'tableName': 'users_mountings',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'lists': {
             'tableName': 'lists',
             'prop': 'name VARCHAR(255),' +
-              ' list_group_id INTEGER,' +
-              ' list_type_id INTEGER,' +
-              ' a NUMERIC(10, 2),' +
-              ' b NUMERIC(10, 2),' +
-              ' c NUMERIC(10, 2),' +
-              ' d NUMERIC(10, 2),' +
-              ' parent_element_id INTEGER,' +
-              ' position NUMERIC,' +
-              ' add_color_id INTEGER,' +
-              ' addition_folder_id INTEGER,' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' waste NUMERIC(10, 2),' +
-              ' cameras INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR,' +
-              ' beed_lamination_id INTEGER',
+            ' list_group_id INTEGER,' +
+            ' list_type_id INTEGER,' +
+            ' a NUMERIC(10, 2),' +
+            ' b NUMERIC(10, 2),' +
+            ' c NUMERIC(10, 2),' +
+            ' d NUMERIC(10, 2),' +
+            ' parent_element_id INTEGER,' +
+            ' position NUMERIC,' +
+            ' add_color_id INTEGER,' +
+            ' addition_folder_id INTEGER,' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' waste NUMERIC(10, 2),' +
+            ' cameras INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR,' +
+            ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
             'tableName': 'list_contents',
             'prop': 'parent_list_id INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(255),' +
-              ' value NUMERIC(10, 7),' +
-              ' rules_type_id INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' lamination_type_id INTEGER',
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(255),' +
+            ' value NUMERIC(10, 7),' +
+            ' rules_type_id INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' lamination_type_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
@@ -364,52 +363,52 @@
           'window_hardware_folders': {
             'tableName': 'window_hardware_folders',
             'prop': 'name VARCHAR,' +
-              ' factory_id INTEGER,'+
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,'+
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
 
           'window_hardware_groups': {
             'tableName': 'window_hardware_groups',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_group INTEGER,' +
-              ' is_in_calculation INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' producer VARCHAR(255),' +
-              ' country VARCHAR(255),' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_group INTEGER,' +
+            ' is_in_calculation INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' producer VARCHAR(255),' +
+            ' country VARCHAR(255),' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
           'window_hardwares': {
             'tableName': 'window_hardwares',
             'prop': 'window_hardware_type_id INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' length INTEGER,' +
-              ' count INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(100),' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' window_hardware_group_id INTEGER',
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' length INTEGER,' +
+            ' count INTEGER,' +
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(100),' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' window_hardware_group_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_colors': {
@@ -432,138 +431,138 @@
           'orders': {
             'tableName': 'orders',
             'prop':
-              'order_number VARCHAR,' +
-              ' order_hz VARCHAR,' +
-              ' order_date TIMESTAMP,' +
-              ' order_type INTEGER,' +
-              ' order_style VARCHAR,' +
-              ' user_id INTEGER,' +
-              ' created TIMESTAMP,' +
-              ' additional_payment VARCHAR,' +
-              ' sended TIMESTAMP,' +
-              ' state_to TIMESTAMP,' +
-              ' state_buch TIMESTAMP,' +
-              ' batch VARCHAR,' +
-              ' base_price NUMERIC(13, 2),' +
-              ' factory_margin NUMERIC(11, 2),'+
-              ' factory_id INTEGER,' +
-              ' purchase_price NUMERIC(10, 2),' +
-              ' sale_price NUMERIC(10, 2),' +
-              ' climatic_zone INTEGER,' +
-              ' heat_coef_min NUMERIC,' +
+            'order_number VARCHAR,' +
+            ' order_hz VARCHAR,' +
+            ' order_date TIMESTAMP,' +
+            ' order_type INTEGER,' +
+            ' order_style VARCHAR,' +
+            ' user_id INTEGER,' +
+            ' created TIMESTAMP,' +
+            ' additional_payment VARCHAR,' +
+            ' sended TIMESTAMP,' +
+            ' state_to TIMESTAMP,' +
+            ' state_buch TIMESTAMP,' +
+            ' batch VARCHAR,' +
+            ' base_price NUMERIC(13, 2),' +
+            ' factory_margin NUMERIC(11, 2),'+
+            ' factory_id INTEGER,' +
+            ' purchase_price NUMERIC(10, 2),' +
+            ' sale_price NUMERIC(10, 2),' +
+            ' climatic_zone INTEGER,' +
+            ' heat_coef_min NUMERIC,' +
 
-              ' products_qty INTEGER,' +
-              ' templates_price NUMERIC,' +
-              ' addelems_price NUMERIC,' +
-              ' products_price NUMERIC,'+
+            ' products_qty INTEGER,' +
+            ' templates_price NUMERIC,' +
+            ' addelems_price NUMERIC,' +
+            ' products_price NUMERIC,'+
 
-              ' delivery_date TIMESTAMP,' +
-              ' new_delivery_date TIMESTAMP,' +
-              ' delivery_price NUMERIC,'+
-              ' is_date_price_less INTEGER,' +
-              ' is_date_price_more INTEGER,' +
-              ' floor_id INTEGER,' +
-              ' floor_price NUMERIC,' +
-              ' mounting_id INTEGER,' +
-              ' mounting_price NUMERIC,'+
-              ' is_instalment INTEGER,' +
-              ' instalment_id INTEGER,' +
+            ' delivery_date TIMESTAMP,' +
+            ' new_delivery_date TIMESTAMP,' +
+            ' delivery_price NUMERIC,'+
+            ' is_date_price_less INTEGER,' +
+            ' is_date_price_more INTEGER,' +
+            ' floor_id INTEGER,' +
+            ' floor_price NUMERIC,' +
+            ' mounting_id INTEGER,' +
+            ' mounting_price NUMERIC,'+
+            ' is_instalment INTEGER,' +
+            ' instalment_id INTEGER,' +
 
-              ' is_old_price INTEGER,' +
-              ' payment_first NUMERIC,' +
-              ' payment_monthly NUMERIC,' +
-              ' payment_first_primary NUMERIC,' +
-              ' payment_monthly_primary NUMERIC,' +
-              ' order_price NUMERIC,' +
-              ' order_price_dis NUMERIC,' +
-              ' order_price_primary NUMERIC,' +
+            ' is_old_price INTEGER,' +
+            ' payment_first NUMERIC,' +
+            ' payment_monthly NUMERIC,' +
+            ' payment_first_primary NUMERIC,' +
+            ' payment_monthly_primary NUMERIC,' +
+            ' order_price NUMERIC,' +
+            ' order_price_dis NUMERIC,' +
+            ' order_price_primary NUMERIC,' +
 
-              ' discount_construct NUMERIC,' +
-              ' discount_addelem NUMERIC,' +
-              ' discount_construct_max NUMERIC,' +
-              ' discount_addelem_max NUMERIC,' +
-              ' delivery_user_id NUMERIC,' +
-              ' mounting_user_id NUMERIC,' +
-              ' default_term_plant NUMERIC,' +
-              ' disc_term_plant NUMERIC,' +
-              ' margin_plant NUMERIC,' +
+            ' discount_construct NUMERIC,' +
+            ' discount_addelem NUMERIC,' +
+            ' discount_construct_max NUMERIC,' +
+            ' discount_addelem_max NUMERIC,' +
+            ' delivery_user_id NUMERIC,' +
+            ' mounting_user_id NUMERIC,' +
+            ' default_term_plant NUMERIC,' +
+            ' disc_term_plant NUMERIC,' +
+            ' margin_plant NUMERIC,' +
 
-              ' customer_name TEXT,' +
-              ' customer_email TEXT,' +
-              ' customer_phone VARCHAR(30),' +
-              ' customer_phone_city VARCHAR(20),' +
-              ' customer_city_id INTEGER,' +
-              ' customer_city VARCHAR,' +
-              ' customer_address TEXT,' +
-              ' customer_location VARCHAR,' +
-              ' customer_itn INTEGER,' +
-              ' customer_starttime VARCHAR,' +
-              ' customer_endtime VARCHAR,' +
-              ' customer_target VARCHAR,' +
-              ' customer_sex INTEGER,' +
-              ' customer_age INTEGER,' +
-              ' customer_education INTEGER,' +
-              ' customer_occupation INTEGER,' +
-              ' customer_infoSource INTEGER',
+            ' customer_name TEXT,' +
+            ' customer_email TEXT,' +
+            ' customer_phone VARCHAR(30),' +
+            ' customer_phone_city VARCHAR(20),' +
+            ' customer_city_id INTEGER,' +
+            ' customer_city VARCHAR,' +
+            ' customer_address TEXT,' +
+            ' customer_location VARCHAR,' +
+            ' customer_itn INTEGER,' +
+            ' customer_starttime VARCHAR,' +
+            ' customer_endtime VARCHAR,' +
+            ' customer_target VARCHAR,' +
+            ' customer_sex INTEGER,' +
+            ' customer_age INTEGER,' +
+            ' customer_education INTEGER,' +
+            ' customer_occupation INTEGER,' +
+            ' customer_infoSource INTEGER',
             'foreignKey': ''
           },
           'order_products': {
             'tableName': 'order_products',
             'prop':
-              'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' is_addelem_only INTEGER,' +
-              ' room_id INTEGER,' +
-              ' construction_type INTEGER,' +
-              ' template_id INTEGER,' +
-              ' template_source TEXT,' +
-              ' template_width NUMERIC,' +
-              ' template_height NUMERIC,' +
-              ' template_square NUMERIC,' +
-              ' profile_id INTEGER,' +
-              ' glass_id VARCHAR,' +
-              ' hardware_id INTEGER,' +
-              ' lamination_id INTEGER,' +
-              ' lamination_out_id INTEGER,' +
-              ' lamination_in_id INTEGER,' +
-              ' door_shape_id INTEGER,' +
-              ' door_sash_shape_id INTEGER,' +
-              ' door_handle_shape_id INTEGER,' +
-              ' door_lock_shape_id INTEGER,' +
-              ' heat_coef_total NUMERIC,' +
-              ' template_price NUMERIC,' +
-              ' addelem_price NUMERIC,' +
-              ' product_price NUMERIC,' +
-              ' comment TEXT,' +
-              ' product_qty INTEGER',
+            'order_id NUMERIC,' +
+            ' product_id INTEGER,' +
+            ' is_addelem_only INTEGER,' +
+            ' room_id INTEGER,' +
+            ' construction_type INTEGER,' +
+            ' template_id INTEGER,' +
+            ' template_source TEXT,' +
+            ' template_width NUMERIC,' +
+            ' template_height NUMERIC,' +
+            ' template_square NUMERIC,' +
+            ' profile_id INTEGER,' +
+            ' glass_id VARCHAR,' +
+            ' hardware_id INTEGER,' +
+            ' lamination_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' door_shape_id INTEGER,' +
+            ' door_sash_shape_id INTEGER,' +
+            ' door_handle_shape_id INTEGER,' +
+            ' door_lock_shape_id INTEGER,' +
+            ' heat_coef_total NUMERIC,' +
+            ' template_price NUMERIC,' +
+            ' addelem_price NUMERIC,' +
+            ' product_price NUMERIC,' +
+            ' comment TEXT,' +
+            ' product_qty INTEGER',
             'foreignKey': ''
           },
           'order_addelements': {
             'tableName': 'order_addelements',
             'prop': 'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' element_type INTEGER,' +
-              ' element_id INTEGER,' +
-              ' name VARCHAR,' +
-              ' element_width NUMERIC,' +
-              ' element_height NUMERIC,' +
-              ' element_price NUMERIC,' +
-              ' element_qty INTEGER,' +
-              ' block_id INTEGER',
+            ' product_id INTEGER,' +
+            ' element_type INTEGER,' +
+            ' element_id INTEGER,' +
+            ' name VARCHAR,' +
+            ' element_width NUMERIC,' +
+            ' element_height NUMERIC,' +
+            ' element_price NUMERIC,' +
+            ' element_qty INTEGER,' +
+            ' block_id INTEGER',
             'foreignKey': ''
           },
-//          'order_elements': {
-//            'tableName': 'order_elements',
-//            'prop': 'order_id NUMERIC,' +
-//              ' element_id INTEGER,' +
-//              ' element_group_id INTEGER,' +
-//              ' name VARCHAR,' +
-//              ' sku VARCHAR,' +
-//              ' size NUMERIC,' +
-//              ' amount INTEGER,' +
-//              ' price NUMERIC',
-//            'foreignKey': ''
-//          },
+          //          'order_elements': {
+          //            'tableName': 'order_elements',
+          //            'prop': 'order_id NUMERIC,' +
+          //              ' element_id INTEGER,' +
+          //              ' element_group_id INTEGER,' +
+          //              ' name VARCHAR,' +
+          //              ' sku VARCHAR,' +
+          //              ' size NUMERIC,' +
+          //              ' amount INTEGER,' +
+          //              ' price NUMERIC',
+          //            'foreignKey': ''
+          //          },
           'template_groups':{
             'tableName': 'template_groups',
             'prop': 'name VARCHAR(255)',
@@ -572,9 +571,9 @@
           'templates':{
             'tableName': 'templates',
             'prop': 'group_id INTEGER,'+
-              'name VARCHAR(255),' +
-              'icon TEXT,' +
-              'template_object TEXT',
+            'name VARCHAR(255),' +
+            'icon TEXT,' +
+            'template_object TEXT',
             'foreignKey': ''
           },
           'background_templates':{
@@ -590,11 +589,11 @@
           },
 
           //-------- inner temables
-//          'analytics': {
-//            'tableName': 'analytics',
-//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
-//            'foreignKey': ''
-//          },
+          //          'analytics': {
+          //            'tableName': 'analytics',
+          //            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+          //            'foreignKey': ''
+          //          },
 
           'export': {
             'tableName': 'export',
@@ -634,7 +633,7 @@
 
 
 
-    /**============ METHODS ================*/
+    /**============ methods ================*/
 
 
 
@@ -679,18 +678,16 @@
     /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
 
     function checkStringToQuote(str) {
-      var result;
       if(angular.isString(str)) {
         if(str.indexOf("'")+1) {
           //console.warn(str);
-          result = str.replace(/'/g, "''");
+          return str.replace(/'/g, "''");
         } else {
-          result = str;
+          return str;
         }
       } else {
-        result = str;
+        return str;
       }
-      return result;
     }
 
 
@@ -716,18 +713,19 @@
           tableQty = tableKeys.length;
       //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
-        var t, r, colums, rowsQty, defer, values;
+        var t;
         for (t = 0; t < tableQty; t+=1) {
-          colums = result.tables[tableKeys[t]].fields.join(', ');
-          rowsQty = result.tables[tableKeys[t]].rows.length;
+          var colums = result.tables[tableKeys[t]].fields.join(', '),
+              rowsQty = result.tables[tableKeys[t]].rows.length,
+              r;
           //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
             for (r = 0; r < rowsQty; r+=1) {
-              defer = $q.defer();
-              values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                elem = checkStringToQuote(elem);
-                return "'" + elem + "'";
-              }).join(', ');
+              var defer = $q.defer(),
+                  values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                    elem = checkStringToQuote(elem);
+                    return "'" + elem + "'";
+                  }).join(', ');
               //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
@@ -746,16 +744,17 @@
 
 
 
+
+
     function selectLocalDB(tableName, options, columns) {
       var defer = $q.defer(),
           properties = columns || '*',
-          vhereOptions = "",
-          optionKeys, optionQty, k;
+          vhereOptions = "";
       if(options) {
         vhereOptions = " WHERE ";
-        optionKeys = Object.keys(options);
+        var optionKeys = Object.keys(options);
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-        optionQty = optionKeys.length;
+        var optionQty = optionKeys.length, k;
         if(optionQty > 1) {
           for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
@@ -765,10 +764,9 @@
       db.transaction(function (trans) {
         trans.executeSql("SELECT "+properties+" FROM " + tableName + vhereOptions, [],
           function (tx, result) {
-            var resultQty = result.rows.length,
-                resultARR, i;
+            var resultQty = result.rows.length;
             if (resultQty) {
-              resultARR = [];
+              var resultARR = [], i;
               for(i = 0; i < resultQty; i+=1) {
                 resultARR.push(result.rows.item(i));
               }
@@ -825,11 +823,10 @@
 
 
     function deleteRowLocalDB(tableName, options) {
-      var vhereOptions = "",
-          optionKeys, optionQty, k;
+      var vhereOptions = "";
       if(options) {
-        optionKeys = Object.keys(options);
-        optionQty = optionKeys.length;
+        var optionKeys = Object.keys(options),
+            optionQty = optionKeys.length, k;
         vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
           for(k = 1; k < optionQty; k+=1) {
@@ -849,13 +846,13 @@
 
 
 
-    /**============== SERVER ===========*/
+    //============== SERVER ===========//
 
 
     /** get User from Server by login */
     function importUser(login, type) {
       var defer = $q.defer(),
-        query = type ? '/api/login?type=1' : '/api/login';
+          query = type ? '/api/login?type=1' : '/api/login';
       $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
@@ -1332,99 +1329,7 @@
     /********* PRICE *********/
 
 
-    function parseMainKit(construction){
-      var deff = $q.defer(),
-          deff1, promisKits, deff2,
-          data3, resQty, collectArr, i, data,
-          promisesKit = construction.sizes.map(function(item, index, arr) {
-            deff1 = $q.defer();
-			      //----- chekh is sizes and id
-            if(item.length && construction.ids[index]) {
-              /** if hardware */
-              if(index === arr.length-1) {
-                parseHardwareKit(construction.ids[index], item, construction.laminationId).then(function(hardwares) {
-                  if(hardwares.length) {
-                    deff1.resolve(hardwares);
-                  } else {
-                    deff1.resolve(0);
-                  }
-                });
-              } else {
-                if(angular.isArray(construction.ids[index])) {
-                  promisKits = construction.ids[index].map(function(item2) {
-                    deff2 = $q.defer();
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
-                      if(result2.length) {
-                        deff2.resolve(result2);
-                      } else {
-                        deff2.resolve(0);
-                      }
-                    });
-                    return deff2.promise;
-                  });
-                  $q.all(promisKits).then(function(result3) {
-                    data3 = angular.copy(result3);
-                    resQty = data3.length;
-                    collectArr = [];
-                    for(i = 0; i < resQty; i+=1) {
-                      if(data3[i]) {
-                        if(data3[i][0].amendment_pruning) {
-                          data3[i][0].amendment_pruning /= 1000;
-                        }
-                        collectArr.push(data3[i][0]);
-                      }
-                    }
-					          if(collectArr.length > 1) {
-                      deff1.resolve(collectArr);
-                    } else if(collectArr.length === 1) {
-                      deff1.resolve(collectArr[0]);
-                    } else {
-                      deff1.resolve(0);
-                    }
-                  })
-                } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    data = angular.copy(result);
-                    if(data && data.length) {
-                      if(data[0].amendment_pruning) {
-                        data[0].amendment_pruning /= 1000;
-                      }
-                      deff1.resolve(data[0]);
-                    } else {
-                      deff1.resolve(0);
-                    }
-                  });
-                }
-              }
-            } else {
-              deff1.resolve(0);
-            }
-            return deff1.promise;
-          });
-	    deff.resolve($q.all(promisesKit));
-      return deff.promise;
-    }
-
-
-
-    function getKitByID(kitID) {
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
-        if(result && result.length) {
-          if(result[0].amendment_pruning) {
-            result[0].amendment_pruning /= 1000;
-          }
-          deff.resolve(result[0]);
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
-
-
-
-	  function parseHardwareKit(whId, sashBlocks, color){
+    function parseHardwareKit(whId, sashBlocks, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
         //console.warn('*****hardware = ', result);
@@ -1433,9 +1338,9 @@
             sashBlocksQty = sashBlocks.length,
             hardware, hardware1, hardware2, openDirQty, s, dir;
         if(resQty) {
-		  //----- loop by sizes (sashesBlock)
-          for(s = 0; s < sashBlocksQty; s++){
-		        hardware = angular.copy(result);
+          //----- loop by sizes (sashesBlock)
+          for(s = 0; s < sashBlocksQty; s+=1){
+            hardware = angular.copy(result);
             hardware1 = [];
             hardware2 = [];
             openDirQty = sashBlocks[s].openDir.length;
@@ -1445,7 +1350,7 @@
              * 2 - право
              * 3 - лево
              * */
-            for(dir = 0; dir < openDirQty; dir++) {
+            for(dir = 0; dir < openDirQty; dir+=1) {
               if(sashBlocks[s].openDir[dir] === 4) {
                 sashBlocks[s].openDir[dir] = 2;
               } else if(sashBlocks[s].openDir[dir] === 2) {
@@ -1487,7 +1392,7 @@
             hardwareKits.push(hardware2);
           }
           if(hardwareKits.length) {
-		        deff.resolve(hardwareKits);
+            deff.resolve(hardwareKits);
           } else {
             deff.resolve(0);
           }
@@ -1497,6 +1402,147 @@
       });
       return deff.promise;
     }
+
+
+    function parseMainKit(construction){
+      var deff = $q.defer(),
+          promisesKit = construction.sizes.map(function(item, index, arr) {
+            var deff1 = $q.defer();
+            //----- chekh is sizes and id
+            if(item.length && construction.ids[index]) {
+              /** if hardware */
+              if(index === arr.length-1) {
+                parseHardwareKit(construction.ids[index], item, construction.laminationId).then(function(hardwares) {
+                  if(hardwares.length) {
+                    deff1.resolve(hardwares);
+                  } else {
+                    deff1.resolve(0);
+                  }
+                });
+              } else {
+                if(angular.isArray(construction.ids[index])) {
+                  var promisKits = construction.ids[index].map(function(item2) {
+                    var deff2 = $q.defer();
+                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
+                      if(result2.length) {
+                        deff2.resolve(result2);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                    return deff2.promise;
+                  });
+                  $q.all(promisKits).then(function(result3) {
+                    var data3 = angular.copy(result3),
+                        resQty = data3.length,
+                        collectArr = [];
+                    for(var i = 0; i < resQty; i++) {
+                      if(data3[i]) {
+                        if(data3[i][0].amendment_pruning) {
+                          data3[i][0].amendment_pruning /= 1000;
+                        }
+                        collectArr.push(data3[i][0]);
+                      }
+                    }
+                    if(collectArr.length > 1) {
+                      deff1.resolve(collectArr);
+                    } else if(collectArr.length === 1) {
+                      deff1.resolve(collectArr[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
+                  })
+                } else {
+                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+                    var data = angular.copy(result);
+                    if(data && data.length) {
+                      if(data[0].amendment_pruning) {
+                        data[0].amendment_pruning /= 1000;
+                      }
+                      deff1.resolve(data[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
+                  });
+                }
+              }
+            } else {
+              deff1.resolve(0);
+            }
+            return deff1.promise;
+          });
+      deff.resolve($q.all(promisesKit));
+      return deff.promise;
+    }
+
+
+
+    function getKitByID(kitID) {
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
+        if(result && result.length) {
+          if(result[0].amendment_pruning) {
+            result[0].amendment_pruning /= 1000;
+          }
+          deff.resolve(result[0]);
+        } else {
+          deff.resolve(0);
+        }
+      });
+      return deff.promise;
+    }
+
+
+
+    function parseListContent(listId){
+      var defer = $q.defer(),
+          lists = [],
+          elemLists = [];
+      if(angular.isArray(listId)) {
+        lists = listId;
+      } else {
+        lists.push(listId);
+      }
+      (function nextRecord() {
+        if (lists.length) {
+          var firstKit = lists.shift(0),
+              firstKitId = 0;
+          if(typeof firstKit === 'object') {
+            firstKitId = firstKit.childId;
+          } else {
+            firstKitId = firstKit;
+          }
+          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: firstKitId}).then(function(result) {
+            var resQty = result.length, i;
+            if(resQty) {
+              for (i = 0; i < resQty; i+=1) {
+                if(typeof firstKit === 'object') {
+                  result[i].parentId = firstKit.parentId;
+                }
+                elemLists.push(result[i]);
+                if(result[i].child_type === 'list') {
+                  var nextKit = {
+                    childId: result[i].child_id,
+                    parentId: result[i].id
+                  };
+                  lists.push(nextKit);
+                }
+              }
+            }
+            nextRecord();
+          });
+        } else {
+          if(elemLists.length) {
+            defer.resolve(elemLists);
+          } else {
+            defer.resolve(0);
+          }
+        }
+      })();
+      return defer.promise;
+    }
+
+
 
 
 
@@ -1537,9 +1583,9 @@
                 });
                 $q.all(promisElem).then(function(result3) {
                   var resQty = result3.length,
-                      collectArr = [];
+                      collectArr = [], i;
                   if(resQty) {
-                    for(var i = 0; i < resQty; i++) {
+                    for(i = 0; i < resQty; i+=1) {
                       if(angular.isArray(result3[i])) {
                         collectArr.push(result3[i]);
                       } else {
@@ -1588,53 +1634,23 @@
 
 
 
-    function parseListContent(listId){
-      var defer = $q.defer(),
-          lists = [],
-          elemLists = [];
-      if(angular.isArray(listId)) {
-        lists = listId;
-      } else {
-        lists.push(listId);
-      }
-      (function nextRecord() {
-        if (lists.length) {
-          var firstKit = lists.shift(0),
-              firstKitId = 0;
-          if(typeof firstKit === 'object') {
-            firstKitId = firstKit.childId;
+    function getElementByListId(isArray, listID) {
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
+        if(result.length) {
+          if(isArray) {
+            deff.resolve(result);
           } else {
-            firstKitId = firstKit;
+            deff.resolve(result[0]);
           }
-          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: firstKitId}).then(function(result) {
-            var resQty = result.length;
-            if(resQty) {
-              for (var i = 0; i < resQty; i++) {
-                if(typeof firstKit === 'object') {
-                  result[i].parentId = firstKit.parentId;
-                }
-                elemLists.push(result[i]);
-                if(result[i].child_type === 'list') {
-                  var nextKit = {
-                    childId: result[i].child_id,
-                    parentId: result[i].id
-                  };
-                  lists.push(nextKit);
-                }
-              }
-            }
-            nextRecord();
-          });
         } else {
-          if(elemLists.length) {
-            defer.resolve(elemLists);
-          } else {
-            defer.resolve(0);
-          }
+          deff.resolve(0);
         }
-      })();
-      return defer.promise;
+      });
+      return deff.promise;
     }
+
+
 
 
 
@@ -1672,18 +1688,18 @@
 
                 $q.all(promisElem).then(function(result2) {
                   var resQty = result2.length,
-                      collectArr = [];
+                      collectArr = [], i;
                   if(resQty) {
                     /** if glass or beads */
                     if(index === 5 || index === 6) {
                       collectArr = result2;
                     } else {
-                      for (var i = 0; i < resQty; i++) {
+                      for (i = 0; i < resQty; i+=1) {
                         if (result2[i]) {
                           if (angular.isArray(result2[i])) {
-                            var innerArr = [], innerQty = result2[i].length;
+                            var innerArr = [], innerQty = result2[i].length, j;
                             //                          console.info(result2[i]);
-                            for (var j = 0; j < innerQty; j++) {
+                            for (j = 0; j < innerQty; j+=1) {
                               if (result2[i][j]) {
                                 innerArr.push(result2[i][j][0]);
                               }
@@ -1729,25 +1745,8 @@
 
 
 
-	function getElementByListId(isArray, listID) {
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
-        if(result.length) {
-          if(isArray) {
-            deff.resolve(result);
-          } else {
-            deff.resolve(result[0]);
-          }
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
 
 
-
-	
     function parseConsistElem(consists) {
       var deff = $q.defer();
       if(consists.length) {
@@ -1826,40 +1825,26 @@
 
 
 
-
-    function culcKitPrice(priceObj, sizes) {
-      var kitElemQty = priceObj.kitsElem.length,
-          sizeQty = 0,
-          constrElements = [];
-      priceObj.priceTotal = 0;
-
-      for(var ke = 0; ke < kitElemQty; ke++) {
-        if(priceObj.kitsElem[ke]) {
-          sizeQty = sizes[ke].length;
-          if(angular.isArray(priceObj.kitsElem[ke])) {
-//            console.info('culcKitPrice ===== array');
-            var kitElemChildQty = priceObj.kitsElem[ke].length;
-            for(var child = 0; child < kitElemChildQty; child++) {
-              /** hardware */
-              if(angular.isArray(priceObj.kitsElem[ke][child])) {
-//                console.info('culcKitPrice ===== hardware');
-                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
-                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
-                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
-                }
-              } else {
-                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
-              }
-            }
-          } else {
-//            console.info('culcKitPrice ===== object');
-            culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
+    function currencyExgange(price, currencyElemId) {
+      var currencyQty = GlobalStor.global.currencies.length,
+          c, currIndex, elemIndex;
+      if(currencyQty) {
+        for (c = 0; c < currencyQty; c+=1) {
+          if(GlobalStor.global.currencies[c].id === UserStor.userInfo.currencyId) {
+            currIndex = c;
+          }
+          if(GlobalStor.global.currencies[c].id === currencyElemId){
+            elemIndex = c;
           }
         }
       }
-
-      return constrElements;
+      //      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
+      if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
+        price *= GlobalStor.global.currencies[elemIndex].value;
+      }
+      return price;
     }
+
 
 
 
@@ -1870,13 +1855,14 @@
           sizeLabelTemp = 0,
           qtyTemp = 1,
           constrElem = {},
+          block,
           waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
 
-//      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+      //      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
 
       /** beads */
       if(group === 6) {
-        for (var block = 0; block < sizeQty; block++) {
+        for (block = 0; block < sizeQty; block+=1) {
           /** check beadId */
           if (sizes[block].elemId === kits.id) {
             var sizeBeadQty = sizes[block].sizes.length;
@@ -1893,7 +1879,7 @@
               constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
               constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
               priceObj.priceTotal += priceTemp;
-//              console.warn('finish bead-________',constrElem);
+              //              console.warn('finish bead-________',constrElem);
               constrElements.push(constrElem);
             }
           }
@@ -1939,201 +1925,44 @@
 
 
 
+    function culcKitPrice(priceObj, sizes) {
+      var kitElemQty = priceObj.kitsElem.length,
+          sizeQty = 0,
+          constrElements = [];
+      priceObj.priceTotal = 0;
 
-
-    function currencyExgange(price, currencyElemId) {
-      var currencyQty = GlobalStor.global.currencies.length,
-          c = 0,
-          currIndex, elemIndex;
-      if(currencyQty) {
-        for (; c < currencyQty; c++) {
-          if(GlobalStor.global.currencies[c].id === UserStor.userInfo.currencyId) {
-            currIndex = c;
-          }
-          if(GlobalStor.global.currencies[c].id === currencyElemId){
-            elemIndex = c;
-          }
-        }
-      }
-//      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
-      if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
-        price *= GlobalStor.global.currencies[elemIndex].value;
-      }
-      return price;
-    }
-
-
-
-
-
-
-
-    function culcConsistPrice(priceObj, construction) {
-      var groupQty = priceObj.consist.length,
-          group = 0;
-
-      for(; group < groupQty; group++) {
-        if(priceObj.consist[group]) {
-          //console.log('         ');
-          //console.log('Group  ---------------------', group);
-          var sizeQty = construction.sizes[group].length,
-              consistQty = priceObj.consist[group].length;
-
-          if(consistQty) {
-
-            if(angular.isArray(priceObj.kits[group])) {
-//              console.info('culcConsistPrice ===== array');
-//                console.info('1-----', group);
-//                console.info('2-----', construction.sizes[group]);
-//                console.info('3-----', priceObj.kits[group]);
-//                console.info('4-----', priceObj.consist[group]);
-//                console.info('5-----', priceObj.consistElem[group]);
-
-              for(var elem = 0; elem < consistQty; elem++) {
-                /** if glass or beads */
-                if(group === 5 || group === 6) {
-                  var sizeObjQty = construction.sizes[group].length;
-                  for(var s = 0; s < sizeObjQty; s++) {
-                    if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
-                      if(priceObj.consistElem[group][elem]) {
-                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
-                      }
-                    }
-                  }
-                } else {
-                  if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
-                  }
+      for(var ke = 0; ke < kitElemQty; ke++) {
+        if(priceObj.kitsElem[ke]) {
+          sizeQty = sizes[ke].length;
+          if(angular.isArray(priceObj.kitsElem[ke])) {
+            //            console.info('culcKitPrice ===== array');
+            var kitElemChildQty = priceObj.kitsElem[ke].length;
+            for(var child = 0; child < kitElemChildQty; child++) {
+              /** hardware */
+              if(angular.isArray(priceObj.kitsElem[ke][child])) {
+                //                console.info('culcKitPrice ===== hardware');
+                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
+                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
+                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
                 }
-
+              } else {
+                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
               }
-
-            } else {
-//              console.info('culcConsistPrice ===== object');
-              for(var s = 0; s < sizeQty; s++) {
-                for (var elem = 0; elem < consistQty; elem++) {
-                  if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
-                  }
-                }
-              }
-            }
-
-          }
-
-        }
-        //console.log('Group - конец ---------------------');
-      }
-
-    }
-
-
-
-
-    function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
-      /** if hardware */
-      if(group === priceObj.consist.length-1) {
-        //console.warn('-------hardware------- currConsist', currConsist);
-        //console.warn('-------hardware------- currConsistElem', currConsistElem);
-        //console.warn('-------hardware------- mainKit', mainKit);
-        //console.warn('-------hardware------- currConstrSize', currConstrSize);
-        if(angular.isArray(currConsistElem)) {
-          var hwElemQty = currConsistElem.length,
-              openDirQty = currConstrSize.openDir.length,
-              hwInd = 0;
-          for(; hwInd < hwElemQty; hwInd++) {
-            if(angular.isArray(currConsistElem[hwInd])) {
-              var hwElemQty2 = currConsistElem[hwInd].length,
-                  hwInd2 = 0;
-              hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
-                //------ check direction
-                if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
-//                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
-//                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
-
-                  var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
-
-                  if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
-//                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
-                    wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
-                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
-                    if (currConsist[hwInd][hwInd2].child_type === "list") {
-                      currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
-                    }
-                  } else {
-                    for (var el = 0; el < hwElemQty2; el++) {
-                      if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
-//                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
-                        if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
-                          continue hwElemLoop;
-                        }
-                        wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
-                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
-                        if (currConsist[hwInd][hwInd2].child_type === "list") {
-                          currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
-                        }
-                      }
-                    }
-                  }
-
-                  priceReal = objTmp.qty * currConsistElem[hwInd][hwInd2].price * wasteValue;
-                  //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
-                  if (priceReal) {
-                    /** currency conversion */
-                    if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
-                      priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
-                    }
-                    objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
-                    objTmp.size = 0;
-//                    console.info('finish -------priceObj------- ', priceObj);
-//                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
-                    priceObj.constrElements.push(objTmp);
-                    priceObj.priceTotal += objTmp.priceReal;
-                  }
-                }
-              }
-            }
-
-
-          }
-        }
-
-      } else {
-//        console.log('nooo hardware');
-        if(angular.isArray(currConsistElem)) {
-          //console.log('array');
-          //console.info('1-----', group);
-          //console.info('2-----', currConstrSize);
-          //console.info('3-----', mainKit);
-          var elemQty = currConsistElem.length, elemInd = 0;
-          for (; elemInd < elemQty; elemInd++) {
-//            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
-
-            /** if beads */
-            if (group === 6) {
-              var sizeQty = currConstrSize.sizes.length;
-              while (--sizeQty > -1) {
-//                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
-                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
-              }
-            } else {
-              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
-            }
-          }
-        } else {
-//          console.log('object');
-          /** if beads */
-          if(group === 6) {
-            var sizeQty = currConstrSize.sizes.length;
-            while(--sizeQty > -1) {
-              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
             }
           } else {
-            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            //            console.info('culcKitPrice ===== object');
+            culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
           }
         }
       }
+
+      return constrElements;
     }
+
+
+
+
+
 
 
     function checkDirectionConsistElem(currConsist, openDir, openDirQty) {
@@ -2152,64 +1981,9 @@
     }
 
 
-    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
-      //console.info('1-----', group);
-      //console.info('2-----', currConsist, currConsistElem);
-      //console.info('3-----', currConstrSize, mainKit);
-      if (currConsist.parent_list_id === mainKit.id) {
-
-        var fullSize = 1,
-            currSize = 1,
-            sizeLabel = 0,
-            wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
-        /** if glasses */
-        if(group === 5) {
-          if(currConsist.rules_type_id === 5) {
-            fullSize = currConstrSize.square;
-            currSize = currConstrSize.square;
-            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
-          } else if(currConsist.rules_type_id === 21) {
-            fullSize = currConstrSize.sizes[0];
-            currSize = currConstrSize.sizes[0];
-          } else if(currConsist.rules_type_id === 22) {
-            fullSize = currConstrSize.sizes[1];
-            currSize = currConstrSize.sizes[1];
-          } else {
-            currSize = currConstrSize.square;
-          }
-        } else {
-          fullSize = GeneralServ.roundingValue((currConstrSize + mainKit.amendment_pruning), 3);
-          currSize = currConstrSize;
-        }
-        if(currConsist.child_type === "list") {
-          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
-        }
-        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj, sizeLabel);
-
-      } else {
-        var consistQty = consistArr.length;
-        for (var el = 0; el < consistQty; el++) {
-          if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
-            var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
-                newValue = 1;
-            if(currConsist.child_type === "list") {
-              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
-            }
-            if(consistArr[el].rules_type_id === 2) {
-              if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
-                newValue = consistArr[el].newValue;
-              }
-            }
-            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
-          }
-        }
-      }
-    }
-
-
 
     function getValueByRule(parentValue, childValue, rule){
-//      console.info('rule++', parentValue, childValue, rule);
+      //      console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -2241,12 +2015,9 @@
           value = childValue;
           break;
       }
-//      console.info('rule++value+++', value);
+      //      console.info('rule++value+++', value);
       return value;
     }
-
-
-
 
 
 
@@ -2329,6 +2100,246 @@
 
 
 
+    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
+      //console.info('1-----', group);
+      //console.info('2-----', currConsist, currConsistElem);
+      //console.info('3-----', currConstrSize, mainKit);
+      if (currConsist.parent_list_id === mainKit.id) {
+
+        var fullSize = 1,
+            currSize = 1,
+            sizeLabel = 0,
+            wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
+        /** if glasses */
+        if(group === 5) {
+          if(currConsist.rules_type_id === 5) {
+            fullSize = currConstrSize.square;
+            currSize = currConstrSize.square;
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
+          } else if(currConsist.rules_type_id === 21) {
+            fullSize = currConstrSize.sizes[0];
+            currSize = currConstrSize.sizes[0];
+          } else if(currConsist.rules_type_id === 22) {
+            fullSize = currConstrSize.sizes[1];
+            currSize = currConstrSize.sizes[1];
+          } else {
+            currSize = currConstrSize.square;
+          }
+        } else {
+          fullSize = GeneralServ.roundingValue((currConstrSize + mainKit.amendment_pruning), 3);
+          currSize = currConstrSize;
+        }
+        if(currConsist.child_type === "list") {
+          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
+        }
+        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj, sizeLabel);
+
+      } else {
+        var consistQty = consistArr.length;
+        for (var el = 0; el < consistQty; el++) {
+          if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
+            var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
+                newValue = 1;
+            if(currConsist.child_type === "list") {
+              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
+            }
+            if(consistArr[el].rules_type_id === 2) {
+              if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
+                newValue = consistArr[el].newValue;
+              }
+            }
+            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
+          }
+        }
+      }
+    }
+
+
+
+
+
+    function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
+      /** if hardware */
+      if(group === priceObj.consist.length-1) {
+        //console.warn('-------hardware------- currConsist', currConsist);
+        //console.warn('-------hardware------- currConsistElem', currConsistElem);
+        //console.warn('-------hardware------- mainKit', mainKit);
+        //console.warn('-------hardware------- currConstrSize', currConstrSize);
+        if(angular.isArray(currConsistElem)) {
+          var hwElemQty = currConsistElem.length,
+              openDirQty = currConstrSize.openDir.length,
+              hwInd = 0;
+          for(; hwInd < hwElemQty; hwInd++) {
+            if(angular.isArray(currConsistElem[hwInd])) {
+              var hwElemQty2 = currConsistElem[hwInd].length,
+                  hwInd2 = 0;
+              hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
+                //------ check direction
+                if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
+                  //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+                  //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
+
+                  var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
+
+                  if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
+                    //                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
+                    wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
+                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                    if (currConsist[hwInd][hwInd2].child_type === "list") {
+                      currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
+                    }
+                  } else {
+                    for (var el = 0; el < hwElemQty2; el++) {
+                      if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
+                        //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
+                        if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
+                          continue hwElemLoop;
+                        }
+                        wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
+                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                        if (currConsist[hwInd][hwInd2].child_type === "list") {
+                          currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
+                        }
+                      }
+                    }
+                  }
+
+                  priceReal = objTmp.qty * currConsistElem[hwInd][hwInd2].price * wasteValue;
+                  //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
+                  if (priceReal) {
+                    /** currency conversion */
+                    if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
+                      priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
+                    }
+                    objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
+                    objTmp.size = 0;
+                    //                    console.info('finish -------priceObj------- ', priceObj);
+                    //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+                    priceObj.constrElements.push(objTmp);
+                    priceObj.priceTotal += objTmp.priceReal;
+                  }
+                }
+              }
+            }
+
+
+          }
+        }
+
+      } else {
+        //        console.log('nooo hardware');
+        if(angular.isArray(currConsistElem)) {
+          //console.log('array');
+          //console.info('1-----', group);
+          //console.info('2-----', currConstrSize);
+          //console.info('3-----', mainKit);
+          var elemQty = currConsistElem.length, elemInd = 0;
+          for (; elemInd < elemQty; elemInd++) {
+            //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
+
+            /** if beads */
+            if (group === 6) {
+              var sizeQty = currConstrSize.sizes.length;
+              while (--sizeQty > -1) {
+                //                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
+                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+              }
+            } else {
+              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+            }
+          }
+        } else {
+          //          console.log('object');
+          /** if beads */
+          if(group === 6) {
+            var sizeQty = currConstrSize.sizes.length;
+            while(--sizeQty > -1) {
+              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            }
+          } else {
+            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+          }
+        }
+      }
+    }
+
+
+
+
+
+    function culcConsistPrice(priceObj, construction) {
+      var groupQty = priceObj.consist.length,
+          group = 0;
+
+      for(; group < groupQty; group++) {
+        if(priceObj.consist[group]) {
+          //console.log('         ');
+          //console.log('Group  ---------------------', group);
+          var sizeQty = construction.sizes[group].length,
+              consistQty = priceObj.consist[group].length;
+
+          if(consistQty) {
+
+            if(angular.isArray(priceObj.kits[group])) {
+              //              console.info('culcConsistPrice ===== array');
+              //                console.info('1-----', group);
+              //                console.info('2-----', construction.sizes[group]);
+              //                console.info('3-----', priceObj.kits[group]);
+              //                console.info('4-----', priceObj.consist[group]);
+              //                console.info('5-----', priceObj.consistElem[group]);
+
+              for(var elem = 0; elem < consistQty; elem++) {
+                /** if glass or beads */
+                if(group === 5 || group === 6) {
+                  var sizeObjQty = construction.sizes[group].length;
+                  for(var s = 0; s < sizeObjQty; s++) {
+                    if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
+                      if(priceObj.consistElem[group][elem]) {
+                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                      }
+                    }
+                  }
+                } else {
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                  }
+                }
+
+              }
+
+            } else {
+              //              console.info('culcConsistPrice ===== object');
+              for(var s = 0; s < sizeQty; s++) {
+                for (var elem = 0; elem < consistQty; elem++) {
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                  }
+                }
+              }
+            }
+
+          }
+
+        }
+        //console.log('Group - конец ---------------------');
+      }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2340,8 +2351,8 @@
           finishPriceObj = {};
 
       //console.info('START+++', construction);
-	  
-	    parseMainKit(construction).then(function(kits) {
+
+      parseMainKit(construction).then(function(kits) {
         //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
@@ -2360,7 +2371,7 @@
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-                //console.info('FINISH====:', priceObj);
+              //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
@@ -2430,7 +2441,7 @@
                   constrElem.priceReal = priceTemp;
                   priceObj.priceTotal += priceTemp;
                   priceObj.constrElements.push(constrElem);
-                    //console.warn('constrElem!!!!!!+', constrElem);
+                  //console.warn('constrElem!!!!!!+', constrElem);
 
                   /** culc Consist Price */
 
@@ -2438,7 +2449,7 @@
                     var consistQty = priceObj.consist.length;
                     if(consistQty) {
                       for(var cons = 0; cons < consistQty; cons++) {
-//                          console.warn('child++++', priceObj.consist[cons]);
+                        //                          console.warn('child++++', priceObj.consist[cons]);
                         if(priceObj.consist[cons]) {
                           if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
                             if(priceObj.consist[cons].child_type === "list") {
@@ -2448,7 +2459,7 @@
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
-//                                  console.warn('parent++++', priceObj.consist[el]);
+                                //                                  console.warn('parent++++', priceObj.consist[el]);
                                 wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
                                   priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
@@ -2481,8 +2492,8 @@
 
 
 
-
     /**========== FINISH ==========*/
+
 
 
     thisFactory.publicObj = {
