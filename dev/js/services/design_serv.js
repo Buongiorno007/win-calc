@@ -506,7 +506,7 @@
         playTTS(intValue);
         setValueSize(intValue);
         $rootScope.$apply();
-      }, 1000)
+      }, 1000);
     }
 
 
@@ -2594,6 +2594,10 @@
 
     function designSaved() {
       closeSizeCaclulator(1).then(function() {
+
+        /** check sizes of all glass */
+        MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+
         /** save new template in product */
         ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);

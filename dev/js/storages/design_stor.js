@@ -50,6 +50,9 @@
         isDimExtra: 0,
         isSquareExtra: 0,
 
+        //------- extra glasses
+        extraGlass: [],
+
         //----- Door
         doorShapeList: [
           {
