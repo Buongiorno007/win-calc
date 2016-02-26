@@ -132,7 +132,9 @@
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
-        LOCK_TYPE2: 'la multichiusura con una serratura a scatto'
+        LOCK_TYPE2: 'la multichiusura con una serratura a scatto',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Scegliere',

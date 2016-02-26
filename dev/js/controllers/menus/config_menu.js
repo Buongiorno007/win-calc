@@ -16,6 +16,7 @@
     GlobalStor,
     OrderStor,
     ProductStor,
+    DesignStor,
     UserStor
   ) {
     /*jshint validthis:true */
@@ -89,6 +90,7 @@
 
       if(id === 1) {
         GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
       } else {
         GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;

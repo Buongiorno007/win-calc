@@ -132,7 +132,9 @@
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch'
+        LOCK_TYPE2: 'multilocking with a latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'select',

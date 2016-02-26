@@ -1,0 +1,4 @@
+.glass-attantion(ng-controller="AttantCtrl as attantBox", ng-show="attantBox.D.design.isGlassExtra && attantBox.D.design.extraGlass.length")
+  .close-dialog(ng-click="attantBox.closeAttantion()")
+  .glass-list
+    .extra-glass(ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index") {{ glassExtra }}

@@ -187,9 +187,9 @@
 
 
     function fineItemById(id, list) {
-      var typeQty = list.length;
+      var typeQty = list.length, itemQty;
       while(--typeQty > -1) {
-        var itemQty = list[typeQty].length;
+        itemQty = list[typeQty].length;
         while(--itemQty > -1) {
           if(list[typeQty][itemQty].id === id) {
             return list[typeQty][itemQty];
@@ -269,7 +269,7 @@
           }
         } else {
           /** set glass to all template blocks */
-            //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
+          //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
           ProductStor.product.template_source.details[blocksQty].glassId = glassId;
           ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
           //}
@@ -713,35 +713,11 @@
 
 
 
-    /** show Info Box of element or group */
-    function showInfoBox(id, itemArr) {
-      if(GlobalStor.global.isInfoBox !== id) {
-        //        console.info(id, itemArr);
-        var itemArrQty = itemArr.length,
-            tempObj = {};
-        while(--itemArrQty > -1) {
-          if(itemArr[itemArrQty].lamination_type_id) {
-            if(itemArr[itemArrQty].lamination_type_id === id) {
-              tempObj = itemArr[itemArrQty];
-            }
-          } else {
-            if(itemArr[itemArrQty].id === id) {
-              tempObj = itemArr[itemArrQty];
-            }
-          }
-        }
-        if(!$.isEmptyObject(tempObj)) {
-          GlobalStor.global.infoTitle = tempObj.name;
-          GlobalStor.global.infoImg =  tempObj.img;
-          GlobalStor.global.infoLink = tempObj.link;
-          GlobalStor.global.infoDescrip = tempObj.description;
-          GlobalStor.global.isInfoBox = id;
-        }
-      }
-    }
 
 
 
+
+    /**-------- filtering Lamination Groupes -----------*/
 
 
     function checkLamGroupExist(lamId) {
@@ -756,7 +732,7 @@
     }
 
 
-    /**-------- filtering Lamination Groupes -----------*/
+
 
     function laminatFiltering() {
       var laminatQty = GlobalStor.global.laminats.length,
@@ -798,6 +774,9 @@
         }
       }
     }
+
+
+    /**-------- set Lamination in product -----------*/
 
 
     function cleanLamFilter() {
@@ -895,37 +874,36 @@
           currWidth, currHeight, currSquare,
           isSizeError, b;
 
-      console.log('glass-----', blocks, ProductStor.product.glass);
+      /** clean extraGlass */
+      DesignStor.design.extraGlass.length = 0;
 
       /** glass loop */
       ProductStor.product.glass.forEach(function(item) {
-        item.max_sq = 2;
-        item.max_width = 50;
-        item.max_height = 50;
+        //item.max_sq = 0.2;
+        //item.max_width = 0.50;
+        //item.max_height = 0.50;
         /** check available max_sq and max/min sizes */
         if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
           /** template loop */
           for (b = 1; b < blocksQty; b += 1) {
             isSizeError = 0;
-            if (item.id === blocks[b].glassId) {
+            if (blocks[b].glassId === item.id) {
               if (blocks[b].glassPoints) {
                 if (blocks[b].glassPoints.length) {
 
-                  console.log('glass-----', item, blocks[b]);
                   /** estimate current glass sizes */
                   overallGlass = GeneralServ.getMaxMinCoord(blocks[b].glassPoints);
-                  currWidth = overallGlass.maxX - overallGlass.minX;
-                  currHeight = overallGlass.maxY - overallGlass.minY;
-                  currSquare = currWidth * currHeight;
+                  currWidth = GeneralServ.roundingValue((overallGlass.maxX - overallGlass.minX)/1000, 3);
+                  currHeight = GeneralServ.roundingValue((overallGlass.maxY - overallGlass.minY)/1000, 3);
+                  currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
 
-                  console.log('glass--dim---', overallGlass, currWidth, currHeight, currSquare);
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('construction.GLASS') +
                       ' ' + item.name + ' ' +
                       $filter('translate')('construction.GLASS_SQUARE') +
                       ' ' + currSquare + ' ' +
                       $filter('translate')('construction.MAX_VALUE_HIGHER') +
-                      ' ' + item.max_width + ' x ' + item.max_height +
+                      ' ' + item.max_sq + ' ' +
                       $filter('translate')('common_words.LETTER_M') + '2.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
@@ -954,12 +932,42 @@
           }
         }
       });
-console.info('result', DesignStor.design.extraGlass);
-      //max_width, max_height и
-      //"Стеклопакет "........" размером ddd x eee  aaa x bbb. "
-      //  "Стеклопакет "........"  ccc  fff м2. "
-
+console.info('glass result', DesignStor.design.extraGlass);
     }
+
+
+
+
+
+
+    /**-------------- show Info Box of element or group ------------*/
+
+    function showInfoBox(id, itemArr) {
+      if(GlobalStor.global.isInfoBox !== id) {
+        //        console.info(id, itemArr);
+        var itemArrQty = itemArr.length,
+            tempObj = {};
+        while(--itemArrQty > -1) {
+          if(itemArr[itemArrQty].lamination_type_id) {
+            if(itemArr[itemArrQty].lamination_type_id === id) {
+              tempObj = itemArr[itemArrQty];
+            }
+          } else {
+            if(itemArr[itemArrQty].id === id) {
+              tempObj = itemArr[itemArrQty];
+            }
+          }
+        }
+        if(!$.isEmptyObject(tempObj)) {
+          GlobalStor.global.infoTitle = tempObj.name;
+          GlobalStor.global.infoImg =  tempObj.img;
+          GlobalStor.global.infoLink = tempObj.link;
+          GlobalStor.global.infoDescrip = tempObj.description;
+          GlobalStor.global.isInfoBox = id;
+        }
+      }
+    }
+
 
 
 
@@ -1033,6 +1041,19 @@ console.info('result', DesignStor.design.extraGlass);
 
     /**========== SAVE PRODUCT ==========*/
 
+    function checkEmptyChoosenAddElems() {
+      var addElemQty = ProductStor.product.chosenAddElements.length,
+          isExist = 0;
+
+      while(--addElemQty > -1) {
+        if(ProductStor.product.chosenAddElements[addElemQty].length) {
+          isExist++;
+        }
+      }
+      return isExist;
+    }
+
+
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
       var permission = 1;
@@ -1073,17 +1094,6 @@ console.info('result', DesignStor.design.extraGlass);
     }
 
 
-    function checkEmptyChoosenAddElems() {
-      var addElemQty = ProductStor.product.chosenAddElements.length,
-          isExist = 0;
-
-      while(--addElemQty > -1) {
-        if(ProductStor.product.chosenAddElements[addElemQty].length) {
-          isExist++;
-        }
-      }
-      return isExist;
-    }
 
 
     //--------- moving to Cart when click on Cart button

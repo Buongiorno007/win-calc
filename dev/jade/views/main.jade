@@ -1,7 +1,9 @@
 section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   section.left-side
     include menus/_navigation-menu
-  section.right-side(ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}", ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}")
+  section.right-side(
+    ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}",
+    ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}")
     section.main-content(tabindex="0")
       include parts/_user-info
       include parts/_room-info
@@ -24,5 +26,6 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
       .calculators-box.qty-calculator(ng-class="[{'active': mainPage.G.global.isQtyCalculator}, mainPage.A.aux.calculatorStyle]")
         include parts/_qty-calculator
   include parts/_info-box
+  include parts/_attantions
 include parts/_loader
 include parts/_alert

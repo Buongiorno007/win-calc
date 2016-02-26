@@ -132,7 +132,9 @@
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
-        LOCK_TYPE2: 'Multipoint-Latch'
+        LOCK_TYPE2: 'Multipoint-Latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Wählen',

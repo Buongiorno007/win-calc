@@ -702,11 +702,17 @@
       <div ng-click="infoBox.closeInfoBox()" class="close-dialog"></div>
     </div>
   </div>
+  <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+    <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+    <div class="glass-list">
+      <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+    </div>
+  </div>
 </section>
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
   <div class="loader"></div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-if="alertBox.G.global.isAlert" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>

@@ -120,7 +120,11 @@
           cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
           countryQty, regionQty, cityQty;
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.cities.tableName,
+        cityOption,
+        'id as cityId, name as cityName, region_id as regionId'
+      ).then(function(data) {
         //console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
@@ -161,33 +165,38 @@
       //if(!GlobalStor.global.locations.cities.length) {
       //console.info('start time+++', new Date(), new Date().getMilliseconds());
       //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
-        //console.log('country!!!', data);
-        countryQty = data.length;
-        if (countryQty) {
-          GlobalStor.global.locations.countries = angular.copy(data);
-        } else {
-          console.log('Error!!!', data);
-        }
-      }).then(function () {
-
-        //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
-          //console.log('regions!!!', data);
-          regionQty = data.length;
-          if (regionQty) {
-            GlobalStor.global.locations.regions = angular.copy(data);
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency')
+        .then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
-
         }).then(function () {
-          //--------- get city
-          downloadAllCities(allCityParam).then(function () {
-            deferred.resolve(1);
-          });
+
+          //--------- get all regions
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.regions.tableName,
+            null,
+            'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer')
+            .then(function (data) {
+              //console.log('regions!!!', data);
+              regionQty = data.length;
+              if (regionQty) {
+                GlobalStor.global.locations.regions = angular.copy(data);
+              } else {
+                console.log('Error!!!', data);
+              }
+
+            }).then(function () {
+              //--------- get city
+              downloadAllCities(allCityParam).then(function () {
+                deferred.resolve(1);
+              });
+            });
         });
-      });
       //} else {
       //  deferred.resolve(1);
       //}
@@ -230,7 +239,13 @@
           UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           //------ set current GeoLocation
-          setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
+          setUserGeoLocation(
+            UserStor.userInfo.city_id,
+            UserStor.userInfo.cityName,
+            UserStor.userInfo.climaticZone,
+            UserStor.userInfo.heatTransfer,
+            UserStor.userInfo.fullLocation
+          );
         }
       }
     }
@@ -246,33 +261,34 @@
     function setCurrency() {
       var defer = $q.defer();
       /** download All Currencies */
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
-        var currencQty = currencies.length;
-        if(currencies && currencQty) {
-          GlobalStor.global.currencies = currencies;
-          /** set current currency */
-          while(--currencQty > -1) {
-            if(currencies[currencQty].is_base === 1) {
-              UserStor.userInfo.currencyId = currencies[currencQty].id;
-              if( /uah/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20b4';//'₴';
-              } else if( /rub/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
-              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '$';
-              } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€';
-              } else {
-                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
+        .then(function(currencies) {
+          var currencQty = currencies.length;
+          if(currencies && currencQty) {
+            GlobalStor.global.currencies = currencies;
+            /** set current currency */
+            while(--currencQty > -1) {
+              if(currencies[currencQty].is_base === 1) {
+                UserStor.userInfo.currencyId = currencies[currencQty].id;
+                if( /uah/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20b4';//'₴';
+                } else if( /rub/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
+                } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '$';
+                } else if( /eur/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20AC';//'€';
+                } else {
+                  UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+                }
               }
             }
+            defer.resolve(1);
+          } else {
+            console.error('not find currencies!');
+            defer.resolve(0);
           }
-          defer.resolve(1);
-        } else {
-          console.error('not find currencies!');
-          defer.resolve(0);
-        }
-      });
+        });
       return defer.promise;
     }
 
@@ -315,9 +331,10 @@
 
     /** price Margins of Plant */
     function downloadPriceMargin() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
-        return margins;
-      });
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff')
+        .then(function(margins) {
+          return margins;
+        });
     }
 
     /** delivery Coeff of Plant */
@@ -476,14 +493,17 @@
           //-------- select all glass Ids as to profile Id
           var promises3 = GlobalStor.global.glassesAll.map(function(item) {
             var defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
-              var glassIdQty = glassId.length;
-              if(glassIdQty){
-                defer3.resolve(glassId);
-              } else {
-                defer3.resolve(0);
-              }
-            });
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'profile_system_id': item.profileId})
+              .then(function (glassId) {
+                var glassIdQty = glassId.length;
+                if(glassIdQty){
+                  defer3.resolve(glassId);
+                } else {
+                  defer3.resolve(0);
+                }
+              });
             return defer3.promise;
           });
 
@@ -497,15 +517,16 @@
               if(glassIds[i]) {
                 var promises5 = glassIds[i].map(function (item) {
                   var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
-                    //                  console.log('glass!!!!', glass);
-                    var glass = angular.copy(result), glassQty = glass.length;
-                    if (glassQty) {
-                      defer5.resolve(glass[0]);
-                    } else {
-                      defer5.resolve(0);
-                    }
-                  });
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
+                    .then(function (result) {
+                      //                  console.log('glass!!!!', glass);
+                      var glass = angular.copy(result), glassQty = glass.length;
+                      if (glassQty) {
+                        defer5.resolve(glass[0]);
+                      } else {
+                        defer5.resolve(0);
+                      }
+                    });
                   return defer5.promise;
                 });
                 defer4.resolve($q.all(promises5));
@@ -520,15 +541,16 @@
               console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
-                  var list = angular.copy(result2),
-                      listQty = list.length;
-                  if(listQty){
-                    defer7.resolve(list[0]);
-                  } else {
-                    defer7.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
+                  .then(function (result2) {
+                    var list = angular.copy(result2),
+                        listQty = list.length;
+                    if(listQty){
+                      defer7.resolve(list[0]);
+                    } else {
+                      defer7.resolve(0);
+                    }
+                  });
                 return defer7.promise;
               });
 
@@ -538,7 +560,7 @@
 
             $q.all(promises4).then(function(glasses) {
               //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length, i;
+              var glassesQty = glasses.length;
               if(glassesQty) {
                 for(i = 0; i < glassesQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
@@ -547,7 +569,7 @@
             });
             $q.all(promises6).then(function(lists) {
               //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length, i;
+              var listsQty = lists.length;
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glassLists = lists[i];
@@ -576,19 +598,19 @@
             l;
         /** merge glassList to glasses */
         for(l = 0; l < listQty; l+=1) {
-          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
-            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
-            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
-            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
-            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
-            /** change Images Path and save in device */
-            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+  GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+  GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
+  GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
+  GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+  /** change Images Path and save in device */
+  GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
-            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
-            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
-          }
+  GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
+  GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
+}
         }
 
         /** sorting glassTypes by position */
@@ -599,7 +621,9 @@
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           /** change Images Path and save in device */
-          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+            GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+          );
 
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -656,9 +680,11 @@
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
-        return lamin;
-      });
+      return localDB.selectLocalDB(
+        localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
+        .then(function(lamin) {
+          return lamin;
+        });
     }
 
 
@@ -727,14 +753,15 @@
                 /** change Images Path and save in device */
                 item.img = downloadElemImg(item.img);
 
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
-                  if(result && result.length) {
-                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                    deff2.resolve(1);
-                  } else {
-                    deff2.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
+                  .then(function(result) {
+                    if(result && result.length) {
+                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                      deff2.resolve(1);
+                    } else {
+                      deff2.resolve(0);
+                    }
+                  });
                 return deff2.promise;
               });
               deff1.resolve($q.all(promElems));
@@ -902,21 +929,18 @@
     /** =========== DOWNLOAD ALL DATA =========== */
 
     function downloadAllData() {
-      //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
+      //console.time('start')
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
         if(data) {
           /** download user discounts */
-            //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
           setUserDiscounts().then(function(data) {
             if(data) {
-              //console.log('TIME user discounts!!!!!!', new Date(), new Date().getMilliseconds());
               /** download price Margins of Plant */
               downloadPriceMargin().then(function(margins) {
                 if(margins && margins.length) {
                   GlobalStor.global.margins = angular.copy(margins[0]);
                   //console.warn('Margins!!', margins);
-                  //console.log('TIME  Margins of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                   /** download delivery Coeff of Plant */
                   downloadDeliveryCoeff().then(function(coeff){
                     if(coeff && coeff.length) {
@@ -925,30 +949,34 @@
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
                         return item * 1;
                       });
-                      //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
                       /** download All Profiles */
-                      downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
+                      downloadAllElemAsGroup(
+                        localDB.tablesLocalDB.profile_system_folders.tableName,
+                        localDB.tablesLocalDB.profile_systems.tableName,
+                        GlobalStor.global.profilesType,
+                        GlobalStor.global.profiles
+                      ).then(function(data) {
                         if(data) {
-                          //console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
-                          //console.log('TIME Profiles!!!!!!', new Date(), new Date().getMilliseconds());
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
                               /** sorting glasses as to Type */
                               sortingGlasses();
                               //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
-                              //console.log('TIME Glasses!!!!!!', new Date(), new Date().getMilliseconds());
                               /** download All Hardwares */
-                              downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
+                              downloadAllElemAsGroup(
+                                localDB.tablesLocalDB.window_hardware_folders.tableName,
+                                localDB.tablesLocalDB.window_hardware_groups.tableName,
+                                GlobalStor.global.hardwareTypes,
+                                GlobalStor.global.hardwares
+                              ).then(function(data){
                                 if(data) {
-                                  //console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-                                  //console.log('TIME Hardwares!!!!!!', new Date(), new Date().getMilliseconds());
+                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwares);
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
-                                    //console.log('TIME Backgrounds!!!!!!', new Date(), new Date().getMilliseconds());
                                     /** download All AddElements */
                                     downloadAllAddElements().then(function() {
-                                      //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
                                         //console.log('LAMINATION++++', result);
@@ -967,15 +995,14 @@
                                           /** download lamination couples */
                                           downloadLamCouples().then(function() {
                                             /** add white-white couple */
-                                            GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
-                                            //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
+                                    GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
                                           });
                                         }
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
                                         GlobalStor.global.isLoader = 0;
                                         $location.path('/main');
-                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                        //console.timeEnd('start');
                                       });
                                     });
                                   });

@@ -74,10 +74,10 @@
 
 
     function cleanDublicat(param, arr) {
-      var pQty = arr.length;
+      var pQty = arr.length,
+          pQty2 = arr.length,
+          exist = 0, i;
       while(--pQty > -1) {
-        var pQty2 = arr.length,
-            exist = 0, i;
         for(i = 0; i < pQty2; i+=1) {
           switch(param) {
             case 1:
@@ -107,10 +107,11 @@
 
     function collectAllPointsOut(blocks) {
       var points = [],
-          blocksQty = blocks.length;
+          blocksQty = blocks.length,
+          pointsOutQty;
 
       while(--blocksQty > 0) {
-        var pointsOutQty = blocks[blocksQty].pointsOut.length;
+        pointsOutQty = blocks[blocksQty].pointsOut.length;
         if(pointsOutQty) {
           while(--pointsOutQty > -1) {
             points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
@@ -126,10 +127,10 @@
 
     function cleanDublicatNoFP(param, points) {
       //      console.log('points******** ', points);
-      var pQty = points.length;
+      var pQty = points.length, pQty2;
 
       while(--pQty > -1) {
-        var pQty2 = points.length;
+        pQty2 = points.length;
 
         while(--pQty2 > -1) {
           if(pQty !== pQty2) {
@@ -138,25 +139,27 @@
               switch(param) {
                 case 1:
                   if(points[pQty].x === points[pQty2].x) {
-                    //                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-                    //                      delete points[pQty];
-                    //                    points.splice(pQty, 1);
-                    //                    } else
+                    //if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
+                    // points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+                    //delete points[pQty];
+                    //points.splice(pQty, 1);
+                    //} else
                     if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
                       delete points[pQty2];
-                      //                    points.splice(pQty2, 1);
+                      //points.splice(pQty2, 1);
                     } else {
                       delete points[pQty];
                     }
-                    //                    console.log('***** delete');
+                    //console.log('***** delete');
                   }
                   break;
                 case 2:
                   if(points[pQty].y === points[pQty2].y) {
-                    //                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-                    //                      delete points[pQty];
-                    //                    points.splice(pQty, 1);
-                    //                    } else
+//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
+                    // points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+//                      delete points[pQty];
+//                    points.splice(pQty, 1);
+//                    } else
                     if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
                       //                    points.splice(pQty2, 1);
                       delete points[pQty2];
@@ -173,7 +176,7 @@
         }
       }
       return points.filter(function(item) {
-        return (item) ? 1 : 0;
+        return item ? 1 : 0;
       });
     }
 
@@ -214,7 +217,8 @@
       if (pointsInQty) {
         while (--pointsInQty > -1) {
           if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-            //            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
+            //if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 ||
+            // pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
             if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
               isExist = 1;
             }
@@ -564,9 +568,9 @@
 
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
-          linesQty = lines.length;
+          linesQty = lines.length, i;
       //console.info('lines+++', lines);
-      for(var i = 0; i < linesQty; i++) {
+      for(i = 0; i < linesQty; i+=1) {
         var newLine1 = angular.copy(lines[i]),
             newLine2 = {},
             crossPoint = {},
@@ -676,9 +680,8 @@
         isCross = 1;
       } else if(checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && isNaN(checkCrossPoint.y)) {
         isCross = 1;
-      } else if (checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && checkCrossPoint.y >= 0 && checkCrossPoint.y <= 1) {
+      } else if(checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1 && checkCrossPoint.y >= 0 && checkCrossPoint.y <= 1) {
         isCross = 1;
-        //            }
       } else if (checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && $.isNumeric(checkCrossPoint.y)) {
         if(checkCrossPoint.y < -2 || checkCrossPoint.y > 2) {
           isCross = 1;
@@ -833,10 +836,10 @@
 
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length, i, exist;
+      var pointsQty = points.length, i, exist, position;
       for(i = 0; i < pointsQty; i+=1) {
         //------- check pointsIn of parent block as to impost
-        var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
+        position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
         //------ block right side
         if(position > 0) {
           exist = 0;
@@ -1112,7 +1115,9 @@
           //          console.log('!!!!! impVector2 -----');
           getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
           //          console.log('!!!!! impVectorAx1 -----');
-          getCPImpostInsideBlock(0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn);
+          getCPImpostInsideBlock(
+            0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn
+          );
         }
 
         //------- if curve impost
@@ -1137,7 +1142,9 @@
           //------ for R dimension, get coordinates for Radius location
           currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
           currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
-          setRadiusCoordXCurve(currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]);
+          setRadiusCoordXCurve(
+            currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]
+          );
         }
 
 
@@ -1145,7 +1152,9 @@
         //------- insert pointsOut of parent block in pointsOut of children blocks
         //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
         //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
-        collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
+        collectPointsXChildBlock(
+          impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut
+        );
         //------- insert impostOut of impost in pointsOut of children blocks
         //        for(var i = 0; i < 2; i++) {
         //          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
@@ -1153,7 +1162,9 @@
         //        }
         //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
         //------- insert pointsIn of parent block in pointsIn of children blocks
-        collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        collectPointsXChildBlock(
+          impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
+        );
         //------- insert impostIn of impost in pointsIn of children blocks
         collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
         //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));

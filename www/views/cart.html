@@ -980,7 +980,7 @@
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
   <div class="loader"></div>
 </div>
-<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+<div ng-controller="AlertCtrl as alertBox" ng-if="alertBox.G.global.isAlert" class="alert-overlay">
   <div class="alert-block">
     <div class="alert-sign"></div>
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
