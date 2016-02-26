@@ -1188,7 +1188,7 @@ body {
   width: 96rem;
   height: 100%;
   outline: none;
-  z-index: 0;
+  z-index: 4;
 }
 
 /* line 75, ../../dev/sass/base/general.scss */
@@ -1885,32 +1885,33 @@ div.drum figure {
   background-size: cover;
 }
 
-/* line 3, ../../dev/sass/parts/svg.scss */
+/* line 1, ../../dev/sass/parts/svg.scss */
 .frame {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
   stroke: #363636;
-  stroke-width: 2;
+  opasity: 0.6;
+  stroke-width: 1;
   cursor: pointer;
 }
 
-/* line 9, ../../dev/sass/parts/svg.scss */
+/* line 8, ../../dev/sass/parts/svg.scss */
 .frame-icon {
   fill: #aaa;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 14, ../../dev/sass/parts/svg.scss */
+/* line 13, ../../dev/sass/parts/svg.scss */
 .glass {
   -moz-transition: all 0.1s linear;
   -o-transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
   transition: all 0.1s linear;
-  fill: rgba(155, 204, 255, 0.2);
   cursor: pointer;
+  fill: url(#background);
 }
 
 /* line 19, ../../dev/sass/parts/svg.scss */
@@ -1923,54 +1924,48 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 24, ../../dev/sass/parts/svg.scss */
-.active_svg-main {
-  fill: url(#background);
-  fill: rgba(34, 34, 255, 0.5) !important;
-}
-
-/* line 28, ../../dev/sass/parts/svg.scss */
+/* line 25, ../../dev/sass/parts/svg.scss */
 .glass-icon {
   fill: #94DEEE;
 }
 
-/* line 32, ../../dev/sass/parts/svg.scss */
+/* line 29, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #000;
   stroke: #000;
 }
 
-/* line 36, ../../dev/sass/parts/svg.scss */
+/* line 33, ../../dev/sass/parts/svg.scss */
 .active_svg, .frame-active, .glass-active, .corner_mark {
   fill: rgba(34, 34, 255, 0.5) !important;
 }
 
-/* line 42, ../../dev/sass/parts/svg.scss */
+/* line 39, ../../dev/sass/parts/svg.scss */
 .sash_mark {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 47, ../../dev/sass/parts/svg.scss */
+/* line 44, ../../dev/sass/parts/svg.scss */
 .corner_mark {
   stroke: none;
   cursor: pointer;
 }
 
-/* line 52, ../../dev/sass/parts/svg.scss */
+/* line 49, ../../dev/sass/parts/svg.scss */
 .handle-mark {
   fill: #f9f9f9;
   stroke: #5E5E5E;
   stroke-width: 1;
 }
 
-/* line 57, ../../dev/sass/parts/svg.scss */
+/* line 54, ../../dev/sass/parts/svg.scss */
 .error_glass {
   fill: #f74f2e;
 }
 
-/* line 61, ../../dev/sass/parts/svg.scss */
+/* line 58, ../../dev/sass/parts/svg.scss */
 .dim_blockX, .dim_blockY {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -1978,7 +1973,7 @@ div.drum figure {
   transition: all 0.5s linear;
 }
 
-/* line 64, ../../dev/sass/parts/svg.scss */
+/* line 61, ../../dev/sass/parts/svg.scss */
 .dim_shiftX {
   -moz-transform: translate(0, -150px);
   -ms-transform: translate(0, -150px);
@@ -1986,7 +1981,7 @@ div.drum figure {
   transform: translate(0, -150px);
 }
 
-/* line 67, ../../dev/sass/parts/svg.scss */
+/* line 64, ../../dev/sass/parts/svg.scss */
 .dim_shiftY {
   -moz-transform: translate(-200px, 0);
   -ms-transform: translate(-200px, 0);
@@ -1994,7 +1989,7 @@ div.drum figure {
   transform: translate(-200px, 0);
 }
 
-/* line 71, ../../dev/sass/parts/svg.scss */
+/* line 68, ../../dev/sass/parts/svg.scss */
 .dim_block {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -2004,20 +1999,20 @@ div.drum figure {
   visibility: visible;
 }
 
-/* line 76, ../../dev/sass/parts/svg.scss */
+/* line 73, ../../dev/sass/parts/svg.scss */
 .dim_hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-/* line 81, ../../dev/sass/parts/svg.scss */
+/* line 78, ../../dev/sass/parts/svg.scss */
 .size-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-/* line 87, ../../dev/sass/parts/svg.scss */
+/* line 84, ../../dev/sass/parts/svg.scss */
 .size-rect {
   width: 160px;
   height: 70px;
@@ -2026,13 +2021,13 @@ div.drum figure {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 94, ../../dev/sass/parts/svg.scss */
+/* line 91, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 99, ../../dev/sass/parts/svg.scss */
+/* line 96, ../../dev/sass/parts/svg.scss */
 .size-txt, .size-txt-edit, .glass-txt {
   font-size: 5.625rem;
   stroke: #000;
@@ -2042,29 +2037,29 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 107, ../../dev/sass/parts/svg.scss */
+/* line 104, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 112, ../../dev/sass/parts/svg.scss */
+/* line 109, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 118, ../../dev/sass/parts/svg.scss */
+/* line 115, ../../dev/sass/parts/svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 125, ../../dev/sass/parts/svg.scss */
+/* line 122, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 129, ../../dev/sass/parts/svg.scss */
+/* line 126, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -2154,7 +2149,7 @@ div.drum figure {
   left: 0;
   width: 100%;
   height: 20.5rem;
-  z-index: 11;
+  z-index: 21;
 }
 /* line 10, ../../dev/sass/parts/_room-info.scss */
 .room-info-container.show-comment {
@@ -2185,35 +2180,7 @@ div.drum figure {
   height: 5.5rem;
   padding: 0.5rem 1.5rem;
 }
-/* line 36, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .tempate-type-box-main {
-  position: relative;
-  display: block;
-  margin: auto;
-}
-/* line 43, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .template-type-main {
-  font: normal 2.25rem/4.0625rem roboto-light, sans-serif, icons;
-  position: relative;
-  bottom: 24rem;
-  left: 0rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 1rem;
-  background-color: #242424;
-  text-align: center;
-  color: #fff;
-  white-space: nowrap;
-  cursor: pointer;
-}
-/* line 58, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .template-type-btn-main {
-  border-bottom: 1px solid #bebebe;
-}
-/* line 60, ../../dev/sass/parts/_room-info.scss */
-.room-info-container .template-type-btn-main:last-child {
-  border-bottom: none;
-}
-/* line 65, ../../dev/sass/parts/_room-info.scss */
+/* line 35, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -2227,24 +2194,23 @@ div.drum figure {
   position: absolute;
   width: 100%;
 }
-/* line 74, ../../dev/sass/parts/_room-info.scss */
+/* line 44, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.4);
   margin: 0;
-  min-width: 520 px;
-  padding: 0 4.0625rem;
+  padding: 0 2.8125rem;
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 82, ../../dev/sass/parts/_room-info.scss */
+/* line 51, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 85, ../../dev/sass/parts/_room-info.scss */
+/* line 54, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   max-width: 32.5rem;
 }
-/* line 90, ../../dev/sass/parts/_room-info.scss */
+/* line 59, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
   font: normal 2.25rem/1 roboto-medium, sans-serif, icons;
   position: absolute;
@@ -2252,13 +2218,13 @@ div.drum figure {
   right: 0;
   color: #fff;
 }
-/* line 98, ../../dev/sass/parts/_room-info.scss */
+/* line 67, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   font: normal 5rem/1 roboto-light, sans-serif, icons;
   position: relative;
   float: left;
 }
-/* line 106, ../../dev/sass/parts/_room-info.scss */
+/* line 75, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/2.5rem roboto-light, sans-serif, icons;
   float: left;
@@ -2268,25 +2234,25 @@ div.drum figure {
   word-wrap: break-word;
   overflow: auto;
 }
-/* line 116, ../../dev/sass/parts/_room-info.scss */
+/* line 85, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn {
   position: absolute;
   bottom: 0;
   right: 1rem;
 }
-/* line 120, ../../dev/sass/parts/_room-info.scss */
+/* line 89, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
   cursor: pointer;
 }
-/* line 129, ../../dev/sass/parts/_room-info.scss */
+/* line 98, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 133, ../../dev/sass/parts/_room-info.scss */
+/* line 102, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   width: 90%;
@@ -4009,7 +3975,7 @@ div.drum figure {
 /* line 9, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block1 {
   position: absolute;
-  z-index: -10;
+  z-index: -20;
   top: 0rem;
   left: 0rem;
   max-height: 100%;
@@ -4024,7 +3990,7 @@ div.drum figure {
 /* line 21, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block2 {
   position: absolute;
-  z-index: -9;
+  z-index: -19;
   top: 0rem;
   left: 0rem;
   max-height: 100%;
@@ -4036,27 +4002,27 @@ div.drum figure {
   width: 100%;
 }
 
-/* line 32, ../../dev/sass/parts/new-room.scss */
+/* line 33, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block3 {
   position: absolute;
-  z-index: -8;
+  z-index: -18;
   top: 0rem;
   left: 0rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 39, ../../dev/sass/parts/new-room.scss */
+/* line 40, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block3 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 43, ../../dev/sass/parts/new-room.scss */
+/* line 45, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block4 {
   background: url(/img/room/6.png) repeat-x;
-  z-index: -6;
+  z-index: -17;
   top: 81.6rem;
-  left: 25.32rem;
+  left: 25.15rem;
   max-height: 3.75%;
   max-width: 100%;
   position: absolute;
@@ -4064,49 +4030,228 @@ div.drum figure {
   width: 100%;
 }
 
-/* line 54, ../../dev/sass/parts/new-room.scss */
+/* line 57, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block5 {
   position: absolute;
-  z-index: -7;
-  top: 0rem;
-  left: 0rem;
+  z-index: -16;
+  top: 456px;
+  left: 0px;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 61, ../../dev/sass/parts/new-room.scss */
+/* line 64, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block5 img {
-  height: 100%;
-  width: 100%;
+  height: 32%;
+  width: 32%;
 }
 
-/* line 66, ../../dev/sass/parts/new-room.scss */
+/* line 69, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block6 {
   position: absolute;
-  z-index: -5;
+  z-index: -15;
   top: 0rem;
   left: 0rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 73, ../../dev/sass/parts/new-room.scss */
+/* line 76, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block6 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 77, ../../dev/sass/parts/new-room.scss */
-coeff-room-block8 {
+/* line 81, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block7 {
   position: absolute;
-  z-index: -4;
+  z-index: -14;
   top: 0rem;
   left: 0rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 84, ../../dev/sass/parts/new-room.scss */
-coeff-room-block8 img {
+/* line 88, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block7 img {
   height: 100%;
   width: 100%;
+}
+
+/* line 93, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block8 {
+  position: absolute;
+  z-index: -13;
+  top: 653px;
+  left: 0px;
+  max-height: 90%;
+  min-width: 90%;
+}
+/* line 100, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block8 img {
+  height: 90%;
+  width: 90%;
+}
+
+/* line 105, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block9 {
+  position: absolute;
+  z-index: -12;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 112, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block9 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 117, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block10 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -11;
+  top: 582px;
+  left: 267px;
+  max-height: 11%;
+  min-width: 11%;
+}
+/* line 125, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block10 img {
+  height: 11%;
+  width: 11%;
+}
+
+/* line 130, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block11 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -10;
+  top: 572px;
+  max-height: 12%;
+  min-width: 12%;
+}
+/* line 137, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block11 img {
+  height: 11.5%;
+  width: 11.5%;
+}
+
+/* line 142, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block12 {
+  position: absolute;
+  z-index: -9;
+  top: 15rem;
+  left: 180px;
+}
+/* line 147, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block12 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 152, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block13 {
+  position: absolute;
+  z-index: -8;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 159, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block13 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 164, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block14 {
+  position: absolute;
+  z-index: -7;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 171, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block14 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 176, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block15 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -6;
+  top: 0px;
+  left: 60px;
+  opacity: 0.6;
+}
+/* line 183, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block15 img {
+  height: 80%;
+  width: 80%;
+}
+
+/* line 188, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block16 {
+  position: absolute;
+  z-index: -5;
+  top: 337px;
+  left: 0px;
+  opacity: 0.7;
+  max-height: 45%;
+  min-width: 45%;
+}
+/* line 196, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block16 img {
+  height: 30%;
+  width: 30%;
+}
+
+/* line 201, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block17 {
+  position: absolute;
+  z-index: -4;
+  top: 0px;
+  height: 57%;
+  width: 57%;
+}
+/* line 207, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block17 img {
+  height: 57%;
+  width: 57%;
+}
+
+/* line 212, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block22 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: 23;
+  top: 100px;
+  left: -320px;
+  opacity: 0.5;
+}
+/* line 219, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block22 img {
+  height: 130%;
+  width: 130%;
+}
+
+/* line 223, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block23 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -7;
+  top: 0px;
+  left: 0px;
+  opacity: 0.5;
+}
+/* line 231, ../../dev/sass/parts/new-room.scss */
+.coeff-room-block23 img {
+  height: 95%;
+  width: 95%;
 }
 
 /* line 3, ../../dev/sass/pages/login.scss */
@@ -5792,6 +5937,11 @@ tr.factory_item {
 }
 
 /* line 18, ../../dev/sass/pages/design.scss */
+.soffits {
+  fill: url(#clipPolygon);
+}
+
+/* line 22, ../../dev/sass/pages/design.scss */
 .construction-label, .construction-left-menu .figure-label, .door-config-label {
   font: normal 1.5rem/1.5rem roboto-bold, sans-serif, icons;
   margin-top: 1.25rem;
@@ -5799,26 +5949,26 @@ tr.factory_item {
   color: #363636;
 }
 
-/* line 26, ../../dev/sass/pages/design.scss */
+/* line 30, ../../dev/sass/pages/design.scss */
 .construction-descrip, .construction-left-menu .footer-description, .nav-tool-label, .door-config-description {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 0.625rem;
   color: #666;
 }
 
-/* line 35, ../../dev/sass/pages/design.scss */
+/* line 39, ../../dev/sass/pages/design.scss */
 .construction-left-menu {
   top: 0rem;
   left: 0rem;
   left: -50rem;
   transition: all 0.5s ease;
 }
-/* line 40, ../../dev/sass/pages/design.scss */
+/* line 44, ../../dev/sass/pages/design.scss */
 .construction-left-menu.selected {
   transition: all 0.5s ease;
   left: 0rem;
 }
-/* line 45, ../../dev/sass/pages/design.scss */
+/* line 49, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-lists {
   width: 13.75rem;
   list-style: none;
@@ -5827,12 +5977,12 @@ tr.factory_item {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 53, ../../dev/sass/pages/design.scss */
+/* line 57, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-item {
   position: relative;
   height: 13.4375rem;
 }
-/* line 57, ../../dev/sass/pages/design.scss */
+/* line 61, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-item-block {
   position: absolute;
   top: 0;
@@ -5847,47 +5997,47 @@ tr.factory_item {
   text-align: center;
   z-index: 10;
 }
-/* line 71, ../../dev/sass/pages/design.scss */
+/* line 75, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-item-block.selected {
   background-color: #6ed44a;
 }
-/* line 73, ../../dev/sass/pages/design.scss */
+/* line 77, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-item-block.selected .figure-icon {
   color: #fff;
 }
-/* line 79, ../../dev/sass/pages/design.scss */
+/* line 83, ../../dev/sass/pages/design.scss */
 .construction-left-menu .figure-icon {
   font: normal 5.5rem/1 icons, sans-serif;
   color: #6ed44a;
 }
-/* line 86, ../../dev/sass/pages/design.scss */
+/* line 90, ../../dev/sass/pages/design.scss */
 .construction-left-menu .sash-shape:after {
   content: "";
 }
-/* line 91, ../../dev/sass/pages/design.scss */
+/* line 95, ../../dev/sass/pages/design.scss */
 .construction-left-menu .angel-shape:after {
   content: "";
 }
-/* line 96, ../../dev/sass/pages/design.scss */
+/* line 100, ../../dev/sass/pages/design.scss */
 .construction-left-menu .impost-shape:after {
   content: "";
 }
-/* line 101, ../../dev/sass/pages/design.scss */
+/* line 105, ../../dev/sass/pages/design.scss */
 .construction-left-menu .arch-shape:after {
   content: "";
 }
-/* line 106, ../../dev/sass/pages/design.scss */
+/* line 110, ../../dev/sass/pages/design.scss */
 .construction-left-menu .position-shape:after {
   content: "";
 }
-/* line 116, ../../dev/sass/pages/design.scss */
+/* line 120, ../../dev/sass/pages/design.scss */
 .construction-left-menu .left-menu-footer {
   position: absolute;
   left: 3.75rem;
   bottom: 8rem;
   width: 21.875rem;
 }
-/* line 125, ../../dev/sass/pages/design.scss */
+/* line 129, ../../dev/sass/pages/design.scss */
 .construction-left-menu .project-default {
   display: inline-block;
   height: 4.5rem;
@@ -5896,7 +6046,7 @@ tr.factory_item {
   background-color: #6ed44a;
 }
 
-/* line 140, ../../dev/sass/pages/design.scss */
+/* line 144, ../../dev/sass/pages/design.scss */
 .edit_submenu {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -5914,37 +6064,37 @@ tr.factory_item {
   cursor: pointer;
   z-index: 5;
 }
-/* line 153, ../../dev/sass/pages/design.scss */
+/* line 157, ../../dev/sass/pages/design.scss */
 .edit_submenu.active {
   left: 14rem;
 }
 
-/* line 158, ../../dev/sass/pages/design.scss */
+/* line 162, ../../dev/sass/pages/design.scss */
 #impost-shape-menu {
   top: 3rem;
 }
 
-/* line 161, ../../dev/sass/pages/design.scss */
+/* line 165, ../../dev/sass/pages/design.scss */
 #sash-shape-menu {
   top: 17rem;
 }
 
-/* line 164, ../../dev/sass/pages/design.scss */
+/* line 168, ../../dev/sass/pages/design.scss */
 #angel-shape-menu {
   top: 31rem;
 }
 
-/* line 167, ../../dev/sass/pages/design.scss */
+/* line 171, ../../dev/sass/pages/design.scss */
 #arc-shape-menu {
   top: 44rem;
 }
 
-/* line 170, ../../dev/sass/pages/design.scss */
+/* line 174, ../../dev/sass/pages/design.scss */
 #position-menu {
   top: 58rem;
 }
 
-/* line 174, ../../dev/sass/pages/design.scss */
+/* line 178, ../../dev/sass/pages/design.scss */
 .constr-shape-icon, .drop-shape-icon {
   font: normal 3.125rem/5rem icons, sans-serif;
   position: relative;
@@ -5955,12 +6105,12 @@ tr.factory_item {
   background-color: #242424;
   z-index: 5;
 }
-/* line 183, ../../dev/sass/pages/design.scss */
+/* line 187, ../../dev/sass/pages/design.scss */
 .constr-shape-icon:last-child, .drop-shape-icon:last-child {
   border-right: none;
 }
 
-/* line 189, ../../dev/sass/pages/design.scss */
+/* line 193, ../../dev/sass/pages/design.scss */
 .drop-shape-icon {
   -moz-transition: top 0.3s linear;
   -o-transition: top 0.3s linear;
@@ -5972,274 +6122,274 @@ tr.factory_item {
   z-index: 4;
 }
 
-/* line 198, ../../dev/sass/pages/design.scss */
+/* line 202, ../../dev/sass/pages/design.scss */
 .clean:after {
   content: "";
 }
 
-/* line 201, ../../dev/sass/pages/design.scss */
+/* line 205, ../../dev/sass/pages/design.scss */
 .sash-left:after {
   content: "";
 }
 
-/* line 204, ../../dev/sass/pages/design.scss */
+/* line 208, ../../dev/sass/pages/design.scss */
 .sash-right {
   left: 5.9rem;
 }
-/* line 206, ../../dev/sass/pages/design.scss */
+/* line 210, ../../dev/sass/pages/design.scss */
 .sash-right:after {
   content: "";
 }
-/* line 209, ../../dev/sass/pages/design.scss */
+/* line 213, ../../dev/sass/pages/design.scss */
 .sash-right.active {
   top: 5.1rem;
 }
 
-/* line 213, ../../dev/sass/pages/design.scss */
+/* line 217, ../../dev/sass/pages/design.scss */
 .sash-up {
   left: 5.9rem;
 }
-/* line 215, ../../dev/sass/pages/design.scss */
+/* line 219, ../../dev/sass/pages/design.scss */
 .sash-up:after {
   content: "";
 }
-/* line 218, ../../dev/sass/pages/design.scss */
+/* line 222, ../../dev/sass/pages/design.scss */
 .sash-up.active {
   top: 10.2rem;
 }
 
-/* line 222, ../../dev/sass/pages/design.scss */
+/* line 226, ../../dev/sass/pages/design.scss */
 .sash-down {
   left: 5.9rem;
 }
-/* line 224, ../../dev/sass/pages/design.scss */
+/* line 228, ../../dev/sass/pages/design.scss */
 .sash-down:after {
   content: "";
 }
-/* line 227, ../../dev/sass/pages/design.scss */
+/* line 231, ../../dev/sass/pages/design.scss */
 .sash-down.active {
   top: 15.4rem;
 }
 
-/* line 231, ../../dev/sass/pages/design.scss */
+/* line 235, ../../dev/sass/pages/design.scss */
 .sash-right-up:after {
   content: "";
 }
 
-/* line 234, ../../dev/sass/pages/design.scss */
+/* line 238, ../../dev/sass/pages/design.scss */
 .sash-left-up {
   left: 10.5rem;
 }
-/* line 236, ../../dev/sass/pages/design.scss */
+/* line 240, ../../dev/sass/pages/design.scss */
 .sash-left-up:after {
   content: "";
 }
-/* line 239, ../../dev/sass/pages/design.scss */
+/* line 243, ../../dev/sass/pages/design.scss */
 .sash-left-up.active {
   top: 5.1rem;
 }
 
-/* line 243, ../../dev/sass/pages/design.scss */
+/* line 247, ../../dev/sass/pages/design.scss */
 .sash-shtulp-left:after {
   content: "";
 }
 
-/* line 246, ../../dev/sass/pages/design.scss */
+/* line 250, ../../dev/sass/pages/design.scss */
 .sash-shtulp-right {
   left: 15.18rem;
 }
-/* line 248, ../../dev/sass/pages/design.scss */
+/* line 252, ../../dev/sass/pages/design.scss */
 .sash-shtulp-right:after {
   content: "";
 }
-/* line 251, ../../dev/sass/pages/design.scss */
+/* line 255, ../../dev/sass/pages/design.scss */
 .sash-shtulp-right.active {
   top: 5.1rem;
 }
 
-/* line 257, ../../dev/sass/pages/design.scss */
+/* line 261, ../../dev/sass/pages/design.scss */
 .door-sash .sash-right {
   left: 1.2rem;
 }
-/* line 260, ../../dev/sass/pages/design.scss */
+/* line 264, ../../dev/sass/pages/design.scss */
 .door-sash .sash-up {
   left: 1.2rem;
 }
-/* line 263, ../../dev/sass/pages/design.scss */
+/* line 267, ../../dev/sass/pages/design.scss */
 .door-sash .sash-down {
   left: 1.2rem;
 }
-/* line 266, ../../dev/sass/pages/design.scss */
+/* line 270, ../../dev/sass/pages/design.scss */
 .door-sash .sash-left-up {
   left: 5.9rem;
 }
-/* line 269, ../../dev/sass/pages/design.scss */
+/* line 273, ../../dev/sass/pages/design.scss */
 .door-sash .sash-shtulp-right {
   left: 10.5rem;
 }
 
-/* line 274, ../../dev/sass/pages/design.scss */
+/* line 278, ../../dev/sass/pages/design.scss */
 .impost-vert:after {
   content: "";
 }
 
-/* line 277, ../../dev/sass/pages/design.scss */
+/* line 281, ../../dev/sass/pages/design.scss */
 .impost-hor:after {
   content: "";
 }
 
-/* line 280, ../../dev/sass/pages/design.scss */
+/* line 284, ../../dev/sass/pages/design.scss */
 .impost-inc-hor:after {
   content: "";
 }
 
-/* line 283, ../../dev/sass/pages/design.scss */
+/* line 287, ../../dev/sass/pages/design.scss */
 .impost-inc-vert {
   left: 10.5rem;
 }
-/* line 285, ../../dev/sass/pages/design.scss */
+/* line 289, ../../dev/sass/pages/design.scss */
 .impost-inc-vert:after {
   content: "";
 }
-/* line 288, ../../dev/sass/pages/design.scss */
+/* line 292, ../../dev/sass/pages/design.scss */
 .impost-inc-vert.active {
   top: 5.1rem;
 }
 
-/* line 292, ../../dev/sass/pages/design.scss */
+/* line 296, ../../dev/sass/pages/design.scss */
 .impost-inc-hor2 {
   left: 10.5rem;
 }
-/* line 294, ../../dev/sass/pages/design.scss */
+/* line 298, ../../dev/sass/pages/design.scss */
 .impost-inc-hor2:after {
   content: "";
 }
-/* line 297, ../../dev/sass/pages/design.scss */
+/* line 301, ../../dev/sass/pages/design.scss */
 .impost-inc-hor2.active {
   top: 10.2rem;
 }
 
-/* line 301, ../../dev/sass/pages/design.scss */
+/* line 305, ../../dev/sass/pages/design.scss */
 .impost-inc-vert2 {
   left: 10.5rem;
 }
-/* line 303, ../../dev/sass/pages/design.scss */
+/* line 307, ../../dev/sass/pages/design.scss */
 .impost-inc-vert2:after {
   content: "";
 }
-/* line 306, ../../dev/sass/pages/design.scss */
+/* line 310, ../../dev/sass/pages/design.scss */
 .impost-inc-vert2.active {
   top: 15.4rem;
 }
 
-/* line 310, ../../dev/sass/pages/design.scss */
+/* line 314, ../../dev/sass/pages/design.scss */
 .impost-curv-right:after {
   content: "";
 }
 
-/* line 313, ../../dev/sass/pages/design.scss */
+/* line 317, ../../dev/sass/pages/design.scss */
 .impost-curv-left {
   left: 15.18rem;
 }
-/* line 315, ../../dev/sass/pages/design.scss */
+/* line 319, ../../dev/sass/pages/design.scss */
 .impost-curv-left:after {
   content: "";
 }
-/* line 318, ../../dev/sass/pages/design.scss */
+/* line 322, ../../dev/sass/pages/design.scss */
 .impost-curv-left.active {
   top: 5.1rem;
 }
 
-/* line 322, ../../dev/sass/pages/design.scss */
+/* line 326, ../../dev/sass/pages/design.scss */
 .impost-curv-up {
   left: 15.18rem;
 }
-/* line 324, ../../dev/sass/pages/design.scss */
+/* line 328, ../../dev/sass/pages/design.scss */
 .impost-curv-up:after {
   content: "";
 }
-/* line 327, ../../dev/sass/pages/design.scss */
+/* line 331, ../../dev/sass/pages/design.scss */
 .impost-curv-up.active {
   top: 10.2rem;
 }
 
-/* line 331, ../../dev/sass/pages/design.scss */
+/* line 335, ../../dev/sass/pages/design.scss */
 .impost-curv-down {
   left: 15.18rem;
 }
-/* line 333, ../../dev/sass/pages/design.scss */
+/* line 337, ../../dev/sass/pages/design.scss */
 .impost-curv-down:after {
   content: "";
 }
-/* line 336, ../../dev/sass/pages/design.scss */
+/* line 340, ../../dev/sass/pages/design.scss */
 .impost-curv-down.active {
   top: 15.4rem;
 }
 
-/* line 340, ../../dev/sass/pages/design.scss */
+/* line 344, ../../dev/sass/pages/design.scss */
 .impost-curv1:after {
   content: "";
 }
 
-/* line 343, ../../dev/sass/pages/design.scss */
+/* line 347, ../../dev/sass/pages/design.scss */
 .impost-curv3 {
   left: 19.9rem;
 }
-/* line 345, ../../dev/sass/pages/design.scss */
+/* line 349, ../../dev/sass/pages/design.scss */
 .impost-curv3:after {
   content: "";
 }
-/* line 348, ../../dev/sass/pages/design.scss */
+/* line 352, ../../dev/sass/pages/design.scss */
 .impost-curv3.active {
   top: 5.1rem;
 }
 
-/* line 352, ../../dev/sass/pages/design.scss */
+/* line 356, ../../dev/sass/pages/design.scss */
 .impost-curv4:after {
   content: "";
 }
 
-/* line 355, ../../dev/sass/pages/design.scss */
+/* line 359, ../../dev/sass/pages/design.scss */
 .impost-curv2:after {
   content: "";
 }
 
-/* line 358, ../../dev/sass/pages/design.scss */
+/* line 362, ../../dev/sass/pages/design.scss */
 .arc:after {
   content: "";
 }
 
-/* line 361, ../../dev/sass/pages/design.scss */
+/* line 365, ../../dev/sass/pages/design.scss */
 .corner:after {
   content: "";
 }
 
-/* line 364, ../../dev/sass/pages/design.scss */
+/* line 368, ../../dev/sass/pages/design.scss */
 .corner-curv:after {
   content: "";
 }
 
-/* line 367, ../../dev/sass/pages/design.scss */
+/* line 371, ../../dev/sass/pages/design.scss */
 .mirror:after {
   content: "";
 }
 
-/* line 370, ../../dev/sass/pages/design.scss */
+/* line 374, ../../dev/sass/pages/design.scss */
 .position-axis:after {
   content: "";
 }
 
-/* line 373, ../../dev/sass/pages/design.scss */
+/* line 377, ../../dev/sass/pages/design.scss */
 .position-glass:after {
   content: "";
 }
 
-/* line 379, ../../dev/sass/pages/design.scss */
+/* line 383, ../../dev/sass/pages/design.scss */
 .construction-block {
   text-align: center;
 }
 
-/* line 382, ../../dev/sass/pages/design.scss */
+/* line 386, ../../dev/sass/pages/design.scss */
 .construction-scrollbox {
   width: 100%;
   height: 100%;
@@ -6248,92 +6398,93 @@ tr.factory_item {
   overflow: auto;
 }
 
-/* line 389, ../../dev/sass/pages/design.scss */
+/* line 393, ../../dev/sass/pages/design.scss */
 .design-attantion {
   top: 45%;
   left: 35%;
 }
 
-/* line 398, ../../dev/sass/pages/design.scss */
+/* line 402, ../../dev/sass/pages/design.scss */
 .construction-block-main {
   text-align: center;
 }
 
-/* line 402, ../../dev/sass/pages/design.scss */
+/* line 406, ../../dev/sass/pages/design.scss */
 .construction-scrollbox-main {
   width: 100%;
   height: 100%;
   margin: auto;
   text-align: center;
   overflow: auto;
+  box-shadow: 10px 5px 5px black;
 }
 
-/* line 410, ../../dev/sass/pages/design.scss */
+/* line 415, ../../dev/sass/pages/design.scss */
 .design-attantion-main {
   top: 45%;
   left: 35%;
 }
 
-/* line 419, ../../dev/sass/pages/design.scss */
+/* line 424, ../../dev/sass/pages/design.scss */
 .right-menu-header {
   position: absolute;
   right: 0;
   top: 3%;
 }
 
-/* line 424, ../../dev/sass/pages/design.scss */
+/* line 429, ../../dev/sass/pages/design.scss */
 .nav-tool-box {
   float: left;
   width: 8rem;
   text-align: center;
 }
 
-/* line 429, ../../dev/sass/pages/design.scss */
+/* line 434, ../../dev/sass/pages/design.scss */
 .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
 }
-/* line 435, ../../dev/sass/pages/design.scss */
+/* line 440, ../../dev/sass/pages/design.scss */
 .construct-tools:after {
   top: 25%;
   left: 25%;
 }
 
-/* line 440, ../../dev/sass/pages/design.scss */
+/* line 445, ../../dev/sass/pages/design.scss */
 .save-construction {
   font: normal 1.75rem/1.5 icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 444, ../../dev/sass/pages/design.scss */
+/* line 449, ../../dev/sass/pages/design.scss */
 .save-construction:after {
   content: "";
 }
 
-/* line 448, ../../dev/sass/pages/design.scss */
+/* line 453, ../../dev/sass/pages/design.scss */
 .close-construction {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
 
-/* line 453, ../../dev/sass/pages/design.scss */
+/* line 458, ../../dev/sass/pages/design.scss */
 .step-back {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 456, ../../dev/sass/pages/design.scss */
+/* line 461, ../../dev/sass/pages/design.scss */
 .step-back:after {
   content: "";
 }
 
-/* line 463, ../../dev/sass/pages/design.scss */
+/* line 468, ../../dev/sass/pages/design.scss */
 .right-menu-footer {
   position: absolute;
   right: 0;
   width: 32rem;
 }
 
-/* line 468, ../../dev/sass/pages/design.scss */
+/* line 473, ../../dev/sass/pages/design.scss */
 .door-config-menu {
   position: absolute;
   top: 25%;
@@ -6342,29 +6493,29 @@ tr.factory_item {
   text-align: right;
 }
 
-/* line 475, ../../dev/sass/pages/design.scss */
+/* line 480, ../../dev/sass/pages/design.scss */
 .door-config-btn {
   font: normal 8.125rem/1 icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 484, ../../dev/sass/pages/design.scss */
+/* line 489, ../../dev/sass/pages/design.scss */
 .door-config-btn:after {
   color: #6ed44a;
   content: "";
 }
-/* line 489, ../../dev/sass/pages/design.scss */
+/* line 494, ../../dev/sass/pages/design.scss */
 .door-config-btn.active:after {
   content: "";
 }
 
-/* line 494, ../../dev/sass/pages/design.scss */
+/* line 499, ../../dev/sass/pages/design.scss */
 .door-config-label {
   margin-bottom: 1.875rem;
 }
 
-/* line 506, ../../dev/sass/pages/design.scss */
+/* line 511, ../../dev/sass/pages/design.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -6378,12 +6529,12 @@ tr.factory_item {
   background-color: #fafafa;
   z-index: 12;
 }
-/* line 516, ../../dev/sass/pages/design.scss */
+/* line 521, ../../dev/sass/pages/design.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 520, ../../dev/sass/pages/design.scss */
+/* line 525, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -6394,40 +6545,40 @@ tr.factory_item {
   position: absolute;
   width: 32rem;
 }
-/* line 527, ../../dev/sass/pages/design.scss */
+/* line 532, ../../dev/sass/pages/design.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 532, ../../dev/sass/pages/design.scss */
+/* line 537, ../../dev/sass/pages/design.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 534, ../../dev/sass/pages/design.scss */
+/* line 539, ../../dev/sass/pages/design.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 538, ../../dev/sass/pages/design.scss */
+/* line 543, ../../dev/sass/pages/design.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 540, ../../dev/sass/pages/design.scss */
+/* line 545, ../../dev/sass/pages/design.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 544, ../../dev/sass/pages/design.scss */
+/* line 549, ../../dev/sass/pages/design.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 546, ../../dev/sass/pages/design.scss */
+/* line 551, ../../dev/sass/pages/design.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 550, ../../dev/sass/pages/design.scss */
+/* line 555, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -6441,58 +6592,58 @@ tr.factory_item {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 561, ../../dev/sass/pages/design.scss */
+/* line 566, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 566, ../../dev/sass/pages/design.scss */
+/* line 571, ../../dev/sass/pages/design.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 571, ../../dev/sass/pages/design.scss */
+/* line 576, ../../dev/sass/pages/design.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 576, ../../dev/sass/pages/design.scss */
+/* line 581, ../../dev/sass/pages/design.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 581, ../../dev/sass/pages/design.scss */
+/* line 586, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 584, ../../dev/sass/pages/design.scss */
+/* line 589, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 589, ../../dev/sass/pages/design.scss */
+/* line 594, ../../dev/sass/pages/design.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 595, ../../dev/sass/pages/design.scss */
+/* line 600, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 600, ../../dev/sass/pages/design.scss */
+/* line 605, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 604, ../../dev/sass/pages/design.scss */
+/* line 609, ../../dev/sass/pages/design.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
@@ -6502,19 +6653,19 @@ tr.factory_item {
   background: url('../img/door-arrow.png?1455704306') no-repeat;
   background-size: 100% 100%;
 }
-/* line 613, ../../dev/sass/pages/design.scss */
+/* line 618, ../../dev/sass/pages/design.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
-/* line 618, ../../dev/sass/pages/design.scss */
+/* line 623, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 624, ../../dev/sass/pages/design.scss */
+/* line 629, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-finish-btn {
   font: normal 3.75rem/1 icons, sans-serif;
   width: 100%;
@@ -6522,29 +6673,29 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 634, ../../dev/sass/pages/design.scss */
+/* line 639, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 637, ../../dev/sass/pages/design.scss */
+/* line 642, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
   content: "";
 }
-/* line 641, ../../dev/sass/pages/design.scss */
+/* line 646, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 644, ../../dev/sass/pages/design.scss */
+/* line 649, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
   content: "";
 }
-/* line 648, ../../dev/sass/pages/design.scss */
+/* line 653, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 651, ../../dev/sass/pages/design.scss */
+/* line 656, ../../dev/sass/pages/design.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }

@@ -15,6 +15,10 @@ $door-config-content: $ipad-height - $door-config-header;
   height: 100%;
 }
 
+.soffits {
+  fill: url(#clipPolygon)
+}
+
 .construction-label {
   @include roboto-bd(rem(24px), rem(24px));
 

@@ -8,7 +8,7 @@
 
   	.coeff-room-block1 {
   		position: absolute;
-  		z-index: -10;
+  		z-index: -20;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
@@ -20,7 +20,7 @@
 
 	.coeff-room-block2 {
   		position: absolute;
-  		z-index: -9;
+  		z-index: -19;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
@@ -29,9 +29,10 @@
 			height: 100%;
 			width: 100%; } 
 		}
+		
 	.coeff-room-block3 {
   		position: absolute;
-		z-index: -8;
+		z-index: -18;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
@@ -40,32 +41,34 @@
 			height: 100%;
 			width: 100%; }
 		}
+
 	.coeff-room-block4 {
   		background: url(/img/room/6.png) repeat-x ;
-  		z-index: -6;
+  		z-index: -17;
 		top: 81.6rem;
-		left: 25.32rem;
+		left: 25.15rem;
 		max-height: 3.75%;
 		max-width: 100%; 
 		position: absolute;
 		height: 3.75%;
 		width: 100%;
 		}
+
 	.coeff-room-block5 {
   		position: absolute;
-		z-index: -7;
-		top: 0rem;
-		left: 0rem;
+		z-index: -16;
+		top: 456px;
+		left: 0px;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
-			height: 100%;
-			width: 100%; }  
+			height: 32%;
+			width: 32%; }  
 		}
 
 	.coeff-room-block6 {
   		position: absolute;
-		z-index: -5;
+		z-index: -15;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
@@ -74,17 +77,158 @@
 			height: 100%;
 			width: 100%; }  
 		}
-	coeff-room-block8 {
+
+	.coeff-room-block7 {
+  		position: absolute;
+		z-index: -14;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+	.coeff-room-block8 {
+  		position: absolute;
+		z-index: -13;
+		top: 653px;
+		left: 0px;
+		max-height: 90%;
+		min-width: 90%; 
+		img {
+			height: 90%;
+			width: 90%; }  
+		}
+
+	.coeff-room-block9 {
+  		position: absolute;
+		z-index: -12;
+		top: 0rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+	.coeff-room-block10 {
+		transition-delay: 300;
+  		position: absolute;
+		z-index: -11;
+		top: 582px;
+		left: 267px;
+		max-height: 11%;
+		min-width: 11%; 
+		img {
+			height: 11%;
+			width: 11%; }  
+		}
+
+	.coeff-room-block11 {
+		transition-delay: 300;
+  		position: absolute;
+		z-index: -10;
+		top: 572px;
+		max-height: 12%;
+		min-width: 12%; 
+		img {
+			height: 11.5%;
+			width: 11.5%; }  
+		}
+
+	.coeff-room-block12 {
+  		position: absolute;
+		z-index: -9;
+		top: 15rem;
+		left: 180px;
+		img {
+			height: 100%;
+			width: 100%; }   
+		}
+
+	.coeff-room-block13 {
+  		position: absolute;
+		z-index: -8;
+		top: -5.5rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+	.coeff-room-block14 {
+  		position: absolute;
+		z-index: -7;
+		top: -5.5rem;
+		left: 0rem;
+		max-height: 100%;
+		min-width: 100%; 
+		img {
+			height: 100%;
+			width: 100%; }  
+		}
+
+	.coeff-room-block15 {
+		transition-delay: 300;
+  		position: absolute;
+		z-index: -6;
+		top: 0px;
+		left: 60px;
+		opacity: 0.6;
+		img {
+			height: 80%;
+			width: 80%; }  
+		}
+
+	.coeff-room-block16 {
+  		position: absolute;
+		z-index: -5;
+		top: 337px;
+		left: 0px;
+		opacity: 0.7;
+		max-height: 45%;
+		min-width: 45%; 
+		img {
+			height: 30%;
+			width: 30%; }  
+		}
+
+	.coeff-room-block17 {
   		position: absolute;
 		z-index: -4;
-		top: 0rem;
-		left: 0rem;
-		max-height: 100%;
-		min-width: 100%; 
+		top: 0px;
+		height: 57%;
+		width: 57%; 
 		img {
-			height: 100%;
-			width: 100%; }  
+			height: 57%;
+			width: 57%; }  
 		}
+	
+	.coeff-room-block22 {
+		transition-delay: 300;
+  		position: absolute;
+		z-index: 23;
+		top: 100px;
+		left: -320px;
+		opacity: 0.5;
+		img {
+			height: 130%;
+			width: 130%; }  
+		}
+  	.coeff-room-block23 {
+  	 	transition-delay: 300;
+  		position: absolute;
+		z-index: -7;
+		top: 0px;
+		left: 0px;
+		opacity: 0.5;
 
-
-
+		img {
+			height: 95%;
+			width: 95%; }  
+		}

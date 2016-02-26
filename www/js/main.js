@@ -5098,32 +5098,375 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .attr('width', 600)
                   .attr('height', 400);
 
-
+              /** background */
+              if(scope.typeConstruction ==='MainEdit') {
+                if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
                 defs.append('pattern')
                   .attr('id', 'background')
                   .attr('patternUnits', 'userSpaceOnUse')
-                  .attr('width', 4200)
-                  .attr('height', 2800)
+                  .attr('width', 2520*1.2)
+                  .attr('height', 1680*1.2)
                   .append("image")
-                  .attr("xlink:href", "img/room/fon.jpg")
-                  .attr('width', 4200)
-                  .attr('height', 2800);
-
-           
-                  //  defs.append('mask')
-                  // .attr('id', 'masking')
-                  // .attr('maskUnits', 'objectBoundingBox')
-                  // .attr('fill', 'img/room/2.jpg')
-                  // .attr('width', 4200)
-                  // .attr('height', 2800)
-                  // .append("circle")
-                  // .attr('cx', 5)
-                  // .attr('cy', 5)
-                  // .attr('r', .35)
-                  // .attr('fill', 'white');
+                  .attr("xlink:href", "img/room/fon.gif")
+                  .attr('width', 2520*1.2)
+                  .attr('height', 1680*1.2);
+                }
+              
+                if(ProductStor.product.construction_type == 4) {
+                  defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 2520*1.2)
+                  .attr('height', 1680*1.2)
+                  .append("image")
+                  .attr("xlink:href", "img/room/33.gif")
+                  .attr('width', 2520*1.2)
+                  .attr('height', 1680*1.2);
+                }
+              } else {
+                   defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 2520*1.2)
+                  .attr('height', 1680*1.2)
+                  .attr('fill','#94DEEE')
+                  .attr('width', 2520*2)
+                  .attr('height', 1680*2);
+                }
             }
+
+            var blockQty = template.details.length,
+                fullPath = '', 
+                noVievNullPath = '',    //без  Viev = 0
+                fpTop = '',             //верх точки
+                fpDgLR ='',             //диагональ с лево на право
+                fpDgRL ='',             //диагональ с право на лево
+                fpBottom = '',          //низ точки
+                heightWmd = '',         //Высота окна
+                widthWmd = '',          //Ширина окна
+                wind = '',              //Выход на болкон
+                door = '';              //Выход на болкон
+                while(--blockQty > 0) {
+                  if (template.details[blockQty].level === 1) {
+                    var pointsOutQty =  template.details[blockQty].pointsOut.length;
+                    while(--pointsOutQty > -1) {
+                    
+                      if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
+                          noVievNullPath += (template.details[blockQty].pointsOut[pointsOutQty].x); 
+                      if(!pointsOutQty) {
+                          noVievNullPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                      } else {
+                          noVievNullPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                        }
+                      }
+                      
+                      if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
+                          fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                      if(!pointsOutQty) {
+                          fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                      } else {
+                          fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                        }
+                      }
+
+                      if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+                          fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                      if(!pointsOutQty) {
+                          fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                      } else {
+                          fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                        }
+                      }
+
+                      if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+                          wind += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                      if(!pointsOutQty) {
+                          wind += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                      } else {
+                          wind += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                        }
+                      }
+
+                      if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp5') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp6') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp7') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp8')) {
+                          door += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                      if(!pointsOutQty) {
+                          door += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                      } else {
+                          door += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                        }
+                      }
+
+                      if (template.details[blockQty].pointsOut[pointsOutQty]) {
+                          fullPath += (template.details[blockQty].pointsOut[pointsOutQty].x); 
+                      if(!pointsOutQty) {
+                          fullPath += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                      } else {
+                          fullPath += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                        }                                          
+                      }
+
+                      if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {                        
+                        if(!pointsOutQty) {
+                          heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                        } else {
+                          heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                        }
+                      }
+
+                      if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {                        
+                        widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                      }
+
+                      if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp2') {
+                          fpTop += (template.details[blockQty].pointsOut[pointsOutQty].x)/2;
+                      } 
+                      if (template.details[blockQty].pointsOut[pointsOutQty].id === 'fp3' || template.details[blockQty].pointsOut[pointsOutQty].id === 'fp4') {
+                          fpBottom += (template.details[blockQty].pointsOut[pointsOutQty].x); 
+                      if (!pointsOutQty) {
+                          fpBottom += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                      } else {
+                          fpBottom += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                        }
+                      }
+                    }
+                  }
+                }
+
+               
+
+          //============================elements room==========================//
+
+                  if(scope.typeConstruction ==='MainEdit') {
+                    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
+                      var lchHeight = (((0.18*heightWmd)-252)+520),
+                          lchWidth = (((0.18*widthWmd)-234)+520),
+                          heightDisplay = 768,
+                          topWindowsill = '',
+                          block15Height = '',
+                          windowsill2 = '',
+                          block15Top = '';
+
+
+                        if (ProductStor.product.template_height < 1648) {
+                          topWindowsill = '' + 456,
+                          block15Height = '' + 90,
+                          windowsill2 = 100,
+                          block15Top = '' + 720;
+                        }
+                        if (1648 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 526,
+                          block15Height = '' + 90,
+                          windowsill2 = 60,
+                          block15Top =  '' + 720;
+                        }
+                        if (1848 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 576,
+                          block15Height = '' + 90,
+                          windowsill2 = (0),
+                          block15Top = '' + 720;
+                        }
+                        if (2148 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 646,
+                          block15Height = '' + 90,
+                          windowsill2 = (-30),
+                          block15Top =  '' + 720;
+                        }
+
+                          if (widthWmd > 900 && heightWmd < 1648) {
+                            d3.select('.coeff-room-block5').style('left' , (109+(0.48*(fpTop-700*0.32))/2) + 'px');
+                          } else { 
+                              d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                            }
+                              d3.select('.coeff-room-block15').style({
+                                'width' : (90+(0.48*fpTop)) + 'px',
+                                'height' : block15Height + 'px',
+                                'top' : block15Top + 'px',
+                              }),                      
+                              d3.select('.coeff-room-block11').style('left' , (10000) + 'px'),
+                              d3.select('.coeff-room-block16').style('left' , 9 + 'px'),
+                              d3.select('.coeff-room-block8').style('left' , (10000) + 'px'),                                         
+                              d3.select('.coeff-room-block7').style('opacity' , 0),
+                              d3.select('.coeff-room-block9').style('opacity' , 1),                      
+                              d3.select('.coeff-room-block23').style('left' , (10000) + 'px'),
+                              d3.select('.coeff-room-block10').style('opacity' , 0),
+                              d3.select('.shadow-main').style(),
+                              d3.select('.coeff-room-block17').style({
+                                'width' : (0.4*(fpTop*2+350)) + 'px',
+                                'height' : 41 + 'px',
+                                'left' : 215 + 'px',
+                                'top' : topWindowsill + 'px',
+                              }),
+                              d3.select('.coeff-room-block22').style({
+                                  'width' : lchWidth + 'px',
+                                  'height' : lchHeight + 'px',
+                                  'left' : (-80) + 'px',
+                                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px',
+                              });     
+                    } 
+
+                    if(ProductStor.product.construction_type == 4) { 
+                      var lchHeight = (((0.18*heightWmd)-252)+520),
+                          lchWidth = (((0.18*widthWmd)-234)+420),
+                          heightDisplay = 768;
+                            d3.select('.coeff-room-block23').style({
+                              'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
+                              'top' : 665 + 'px',
+                              'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px',
+                            }),
+                            d3.select('.coeff-room-block15').style({
+                              'top': (10000) + 'px',
+                            }), 
+                            d3.select('.coeff-room-block17').style({
+                              'width' : 0 + 'px',
+                              'height' : 0 + 'px',
+                              'left' : 0 + 'px',
+                            }),   
+                            d3.select('.coeff-room-block22').style({
+                              'width' : lchWidth + 'px',
+                              'height' : lchHeight + 'px',
+                              'left' : (60) + 'px',
+                              'top' : (heightDisplay - lchHeight + 30) + 'px',
+                          });   
+                            d3.select('.coeff-room-block11').style('left' , ((0.23*fpTop*2)+278) + 'px'),
+                            d3.select('.coeff-room-block8').style('left' , ((0.23*fpTop*2)+275) + 'px'),                      
+                            d3.select('.coeff-room-block5').style('left' , 5000 + 'px'), 
+                            d3.select('.coeff-room-block10').style('opacity' , 1),                   
+                            d3.select('.coeff-room-block7').style('opacity' , 1),
+                            d3.select('.coeff-room-block16').style('left' , 5000 + 'px'),                      
+                            d3.select('.coeff-room-block9').style('opacity' , 0);
+                    }
+
+                  // if(ProductStor.product.construction_type == 2) { 
+                  //     d3.select('.coeff-room-block15').style({
+                  //       'width': (100+(0.48*fpTop)) + 'px',
+                  //     }), 
+                  //     d3.select('.coeff-room-block17').style({
+                  //       'width' : 0 + 'px',
+                  //       'height' : 0 + 'px',
+                  //       'left' : 10000 + 'px',
+                  //     }), 
+                  //     d3.select('.coeff-room-block11').style('opacity' , 0),
+                  //     d3.select('.coeff-room-block8').style('opacity' , 0),                      
+                  //     d3.select('.coeff-room-block5').style('left' , 5000 + 'px'), 
+                  //     d3.select('.coeff-room-block10').style('opacity' , 0),                   
+                  //     d3.select('.coeff-room-block7').style('opacity' , 0),                      
+                  //     d3.select('.coeff-room-block9').style('opacity' , 0);
+                  //     }       
+                  }
+
+          //============================soffits================================//
+
+                  if(scope.typeConstruction ==='MainEdit') {
+                    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3){
+                      if(1 < ProductStor.product.template_height < 30000) {
+                       var positionX1 = position.x-160,
+                           positionY1 = 18,
+                           positionX2 = position.x-340,
+                           positionY2 = -100;
+                      } 
+
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow1',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (positionX1) + ', ' + (positionY1) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow2',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (positionX2) + ', ' + (positionY1) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow3',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (positionX1) + ', ' + (positionY2) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow4',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (positionX2) + ', ' + (positionY2) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+
+                    if(ProductStor.product.construction_type == 4) {
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonDoor3',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonDoor4',
+                        'fill' : '#FFFAFA',
+                        'points' : noVievNullPath,
+                        'transform': 'translate(' + (position.x-333) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+                    if(ProductStor.product.construction_type == 2) {  
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow1',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow2',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow3',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow4',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygondoor3',
+                        'fill' : '#FFFAFA',
+                        'points' : door,
+                        'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygondoor4',
+                        'fill' : '#FFFAFA',
+                        'points' : door,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+                  }
                   
-  
 
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
@@ -5168,8 +5511,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     if(ProductStor.product.lamination.img_in_id > 1) {
                       return (d.type !== 'glass') ? 'url(#laminat)' : '';
                     } else {
-                      return '#f9f9f9';
-                    }
+                      if (scope.typeConstruction ==='MainEdit') {
+                         return '#DCDCDC';
+                      } else {
+                      return '#FFFFFF';
+                        }
+                      }
                   }
                 });
 
@@ -5272,38 +5619,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
 
 
-        
-           var blockQty = template.details.length,
-                path = '';
-                while(--blockQty > 0) {
-                   if (template.details[blockQty].level === 1) {
-                console.info('333333-', template.details[blockQty].pointsOut);
-                var pointsOutQty =  template.details[blockQty].pointsOut.length;
-                while(--pointsOutQty > -1) {
-                  path += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                   if(pointsOutQty == 0) {
-              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                } else {
-              path += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                  }
-                }
-              }
-            }
-          
-           if(scope.typeConstruction !== 'icon') {
-               mainGroup.append('g').append("polygon")
-              .attr({
-                'id' : 'clipPolygon',
-                'points' : path,
-              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ (scale/100)*500 +','+ (scale/100)*500 +')'
-            });
-
-          }
-       
-
-
-
-
             if(scope.typeConstruction !== 'icon') {
               //--------- dimension
               var dimXQty = template.dimension.dimX.length,
@@ -5324,8 +5639,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
+            console.log('//---Events------ set clicking to all elements--------------//')
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
+            if (scope.typeConstruction === 'edit') {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -5358,8 +5674,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
-          if (scope.typeConstruction === !'MainEdit') {
-          var dimLineHeight = -150,
+          if (scope.typeConstruction !== 'MainEdit') {
+              var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
               sizeBoxWidth = 160,
@@ -5428,7 +5744,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
            .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
+          if(scope.typeConstruction === 'edit') {
             sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
@@ -5443,7 +5759,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox.append('text')
            .text(dim.text)
            .attr({
-             'class': function() { return (scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit' ) ? 'size-txt-edit' : 'size-txt'; },
+             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
              'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
              'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
              'dx': 80,
@@ -5458,9 +5774,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
              'to_point': dim.to,
              'axis': dim.axis
            });
-
+          }
         }
-}
+
 
         function createRadiusDimension(dimQ, dimGroup, lineCreator) {
 
@@ -18254,22 +18570,47 @@ function upBackground () {
 
     function setTemplatePositionMAIN(dim, windowW, windowH, scale) {
       if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
-        var position = {
-          x: 250,
-          y: (windowH - (dim.minY + dim.maxY)*scale)-310,
-      }
-        } if(ProductStor.product.construction_type == 2) {
-           var position = {
-              x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-              y: (windowH - (dim.minY + dim.maxY)*scale)/2,
-      } 
-        } if(ProductStor.product.construction_type == 4) {
-           var position = {
-              x: 250,
-              y: (windowH - (dim.minY + dim.maxY)*scale)-120,
-      }
+        if(ProductStor.product.template_height < 1648) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-310,
+          } 
+        } 
+        if( 1648 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-240,
+          } 
         }
-        return position;
+        if( 1848 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-190,
+          } 
+        }
+        if( 2148 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-130,
+          } 
+        }      
+      }
+
+
+      if(ProductStor.product.construction_type == 2) {
+        var position = {
+          x: 220,
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35,
+        } 
+      } 
+
+      if(ProductStor.product.construction_type == 4) {
+        var position = {
+          x: 276,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-110,
+        }
+      }
+          return position;
     }
 
 

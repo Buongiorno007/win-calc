@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   height: 20.5rem;
-  z-index: 11;
+  z-index: 21;
 
   &.show-comment {
     height: 95.5rem;
@@ -32,36 +32,6 @@
     height: 5.5rem;
     padding: 0.5rem 1.5rem;
   }
-
-   .tempate-type-box-main {
-    position: relative;
-    display: block;
-    margin: auto;
-
-  }
-
-    .template-type-main {
-    @include roboto-lt(rem(36px), rem(65px));
-    position: relative;
-    bottom: 24rem;
-    left: 0rem;
-    padding: rem(10px) rem(20px);
-    border-radius: rem(16px);
-    background-color: #242424;
-    text-align: center;
-    color: #fff;
-    white-space: nowrap;
-    cursor: pointer;
-  
-  }
-
-  .template-type-btn-main {
-    border-bottom: 1px solid $main_gray_btn;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-
   .coeff-container {
     @include display-flex();
     @include flex-flow(row wrap);
@@ -75,8 +45,7 @@
     @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
 
     margin: 0;
-    min-width: 520 px;
-    padding: 0 rem(65px);
+    padding: 0 rem(45px);
     color: #fff;
     border-left: 2px dotted #fff;
     &:first-child {

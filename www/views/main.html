@@ -50,99 +50,30 @@
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url()'}" class="right-side">
     <div class="coeff-RoomContainer">
       <div class="coeff-room-block1"><img src="/img/room/1.png"></div>
-      <div class="coeff-room-block2"><img src="/img/room/4.png"></div>
-      <div class="coeff-room-block3"><img src="/img/room/5.png"></div>
-      <div class="coeff-room-block4"></div>
-      <div class="coeff-room-block5"><img src="/img/room/8.png"></div>
-      <div class="coeff-room-block6"><img src="/img/room/12.png"></div>
+      <div class="coeff-room-block2"><img src="/img/room/2.png"></div>
+      <div class="coeff-room-block3"><img src="/img/room/3.png"></div>
+      <div class="coeff-room-block5"><img src="/img/room/4.png"></div>
+      <div class="coeff-room-block6"><img src="/img/room/5.png"></div>
+      <div class="coeff-room-block7"><img src="/img/room/6.png"></div>
+      <div class="coeff-room-block8"><img src="/img/room/7.png"></div>
+      <div class="coeff-room-block9"><img src="/img/room/8.png"></div>
+      <div class="coeff-room-block10"><img src="/img/room/9.png"></div>
+      <div class="coeff-room-block11"><img src="/img/room/10.png"></div>
+      <div class="coeff-room-block12"></div>
+      <div class="coeff-room-block15"><img src="/img/room/25.png"></div>
+      <div class="coeff-room-block16"><img src="/img/room/26.png"></div>
+      <div class="coeff-room-block17"><img src="/img/room/11.png"></div>
+      <div class="coeff-room-block22"><img src="/img/room/12.png"></div>
+      <div class="coeff-room-block23"><img src="/img/room/41.png"></div>
     </div>
     <section tabindex="0" class="main-content">
-      <section class="construction-page">
-        <section class="construction-container">
-          <div ng-class="{'selected': mainPage.G.global.isTemplateItemMenu}" class="construction-left-menu">
-            <ul class="figure-lists">
-              <li ng-click="mainPage.selectMenuItem(3)" class="figure-item">
-                <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 3}" class="figure-item-block">
-                  <div class="figure-icon impost-shape"></div>
-                  <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-                </div>
-              </li>
-              <li ng-click="mainPage.selectMenuItem(1)" class="figure-item">
-                <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 1}" class="figure-item-block">
-                  <div class="figure-icon sash-shape"></div>
-                  <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-                </div>
-              </li>
-              <li ng-click="mainPage.selectMenuItem(2)" class="figure-item">
-                <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 2}" class="figure-item-block">
-                  <div class="figure-icon angel-shape"></div>
-                  <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-                </div>
-              </li>
-              <li ng-click="mainPage.selectMenuItem(4)" class="figure-item">
-                <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 4}" class="figure-item-block">
-                  <div class="figure-icon arch-shape"></div>
-                  <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-                </div>
-              </li>
-              <li ng-click="mainPage.selectMenuItem(5)" class="figure-item">
-                <div ng-class="{'selected': mainPage.D.design.activeMenuItem == 5}" class="figure-item-block">
-                  <div class="figure-icon position-shape"></div>
-                  <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ mainPage.config.typing }}" typing-delay="{{ mainPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-                </div>
-              </li>
-            </ul>
-            <div id="impost-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(4, $event)" class="constr-shape-icon impost-inc-hor"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(5, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(6, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(7, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(8, $event)" class="constr-shape-icon impost-curv-right"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(9, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(10, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(11, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(12, $event)" class="constr-shape-icon impost-curv1"></div>
-              <div ng-hide="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(13, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
-              <!--.constr-shape-icon.impost-curv4(ng-hide="mainPage.D.design.isImpostDelete", ng-click="mainPage.insertImpost(14, $event)")-->
-              <!--.constr-shape-icon.impost-curv2(ng-hide="mainPage.D.design.isImpostDelete", ng-click="mainPage.insertImpost(15, $event)")-->
-              <div ng-show="mainPage.D.design.isImpostDelete" ng-click="mainPage.insertImpost(1, $event)" class="constr-shape-icon clean"></div>
-            </div>
-            <div id="sash-shape-menu" ng-class="{'selected': mainPage.D.design.activeSubMenuItem, 'door-sash': mainPage.P.product.construction_type === 4}" class="edit_submenu">
-              <div ng-hide="mainPage.P.product.construction_type === 4" ng-click="mainPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
-              <div ng-click="mainPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></div>
-              <div ng-click="mainPage.insertSash(3, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
-              <div ng-click="mainPage.insertSash(4, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
-              <div ng-click="mainPage.insertSash(5, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
-              <div ng-click="mainPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></div>
-              <div ng-click="mainPage.insertSash(7, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 6}" class="drop-shape-icon sash-left-up"></div>
-              <div ng-click="mainPage.insertSash(8, $event)" class="constr-shape-icon sash-shtulp-left"></div>
-              <div ng-click="mainPage.insertSash(9, $event)" ng-class="{'active': mainPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon sash-shtulp-right"></div>
-            </div>
-            <div id="angel-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
-              <div ng-click="mainPage.insertCorner(1, $event)" class="constr-shape-icon clean"></div>
-              <div ng-click="mainPage.insertCorner(2, $event)" class="constr-shape-icon corner"></div>
-              <div ng-click="mainPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></div>
-            </div>
-            <div id="arc-shape-menu" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
-              <div ng-click="mainPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
-              <div ng-click="mainPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
-            </div>
-            <div id="position-menu" ng-hide="mainPage.P.product.construction_type === 4" ng-class="{'active': mainPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
-              <div ng-click="mainPage.initMirror($event)" class="constr-shape-icon mirror"></div>
-              <div ng-click="mainPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
-              <div ng-click="mainPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
-            </div>
+      <svg-template-points template="mainPage.D.design.templateTEMP">
+        <div class="construction-block-main">  
+          <div class="construction-scrollbox-main">
+            <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="MainEdit"></svg-template>
           </div>
-          <svg-template-points template="mainPage.D.design.templateTEMP"></svg-template-points>
-          <div class="construction-block-main">  
-            <div class="construction-scrollbox-main">
-              <svg-template template="mainPage.D.design.templateTEMP" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="MainEdit"></svg-template>
-            </div>
-          </div>
-        </section>
-      </section>
+        </div>
+      </svg-template-points>
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
@@ -154,18 +85,17 @@
       <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">
-            <button show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.toggleTemplateType()" class="select-rooms unvisible">{{ roomInfo.G.global.templateLabel }}</button>
-            <div class="tempate-type-box-main">
-              <div ng-show="roomInfo.G.global.isTemplateTypeMenu" class="template-type-main">
-                <div ng-click="roomInfo.selectNewTemplateType(1)" class="template-type-btn-main">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-                <div ng-click="roomInfo.selectNewTemplateType(2)" class="template-type-btn-main">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
-                <div ng-click="roomInfo.selectNewTemplateType(3)" class="template-type-btn-main">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
-                <div ng-click="roomInfo.selectNewTemplateType(4)" class="template-type-btn-main">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
-              </div>
-            </div>
+            <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
+            <div data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION2' | translate }}</button>
+            <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+            </div>
+            <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+            </div>
+            <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
             <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION3' | translate }}</button>
@@ -173,9 +103,7 @@
           <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
         </div>
         <div class="product-comment">
-          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field noPreventDefault">
-            <!--class="template-title ng-binding ng-isolate-scope active"-->
-          </textarea>
+          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field noPreventDefault"></textarea>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
@@ -225,7 +153,7 @@
           <div class="tempate-type-box">
             <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
               <div ng-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-              <div ng-click="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
+              <div ng-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
               <div ng-click="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
               <div ng-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
             </div>

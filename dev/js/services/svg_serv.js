@@ -326,22 +326,47 @@
 
     function setTemplatePositionMAIN(dim, windowW, windowH, scale) {
       if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
-        var position = {
-          x: 250,
-          y: (windowH - (dim.minY + dim.maxY)*scale)-310,
-      }
-        } if(ProductStor.product.construction_type == 2) {
-           var position = {
-              x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-              y: (windowH - (dim.minY + dim.maxY)*scale)/2,
-      } 
-        } if(ProductStor.product.construction_type == 4) {
-           var position = {
-              x: 250,
-              y: (windowH - (dim.minY + dim.maxY)*scale)-120,
-      }
+        if(ProductStor.product.template_height < 1648) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-310,
+          } 
+        } 
+        if( 1648 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-240,
+          } 
         }
-        return position;
+        if( 1848 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-190,
+          } 
+        }
+        if( 2148 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-130,
+          } 
+        }      
+      }
+
+
+      if(ProductStor.product.construction_type == 2) {
+        var position = {
+          x: 220,
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35,
+        } 
+      } 
+
+      if(ProductStor.product.construction_type == 4) {
+        var position = {
+          x: 276,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-110,
+        }
+      }
+          return position;
     }
 
 
