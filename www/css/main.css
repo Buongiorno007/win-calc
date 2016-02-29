@@ -4018,19 +4018,6 @@ div.drum figure {
 }
 
 /* line 45, ../../dev/sass/parts/new-room.scss */
-.coeff-room-block4 {
-  background: url(/img/room/6.png) repeat-x;
-  z-index: -17;
-  top: 81.6rem;
-  left: 25.15rem;
-  max-height: 3.75%;
-  max-width: 100%;
-  position: absolute;
-  height: 3.75%;
-  width: 100%;
-}
-
-/* line 57, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block5 {
   position: absolute;
   z-index: -16;
@@ -4039,13 +4026,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 64, ../../dev/sass/parts/new-room.scss */
+/* line 52, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block5 img {
   height: 32%;
   width: 32%;
 }
 
-/* line 69, ../../dev/sass/parts/new-room.scss */
+/* line 57, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block6 {
   position: absolute;
   z-index: -15;
@@ -4054,13 +4041,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 76, ../../dev/sass/parts/new-room.scss */
+/* line 64, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block6 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 81, ../../dev/sass/parts/new-room.scss */
+/* line 69, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block7 {
   position: absolute;
   z-index: -14;
@@ -4069,13 +4056,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 88, ../../dev/sass/parts/new-room.scss */
+/* line 76, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block7 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 93, ../../dev/sass/parts/new-room.scss */
+/* line 81, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block8 {
   position: absolute;
   z-index: -13;
@@ -4084,13 +4071,13 @@ div.drum figure {
   max-height: 90%;
   min-width: 90%;
 }
-/* line 100, ../../dev/sass/parts/new-room.scss */
+/* line 88, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block8 img {
   height: 90%;
   width: 90%;
 }
 
-/* line 105, ../../dev/sass/parts/new-room.scss */
+/* line 93, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block9 {
   position: absolute;
   z-index: -12;
@@ -4099,13 +4086,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 112, ../../dev/sass/parts/new-room.scss */
+/* line 100, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block9 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 117, ../../dev/sass/parts/new-room.scss */
+/* line 105, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block10 {
   transition-delay: 300;
   position: absolute;
@@ -4115,13 +4102,13 @@ div.drum figure {
   max-height: 11%;
   min-width: 11%;
 }
-/* line 125, ../../dev/sass/parts/new-room.scss */
+/* line 113, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block10 img {
   height: 11%;
   width: 11%;
 }
 
-/* line 130, ../../dev/sass/parts/new-room.scss */
+/* line 118, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block11 {
   transition-delay: 300;
   position: absolute;
@@ -4130,26 +4117,26 @@ div.drum figure {
   max-height: 12%;
   min-width: 12%;
 }
-/* line 137, ../../dev/sass/parts/new-room.scss */
+/* line 125, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block11 img {
   height: 11.5%;
   width: 11.5%;
 }
 
-/* line 142, ../../dev/sass/parts/new-room.scss */
+/* line 130, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block12 {
   position: absolute;
   z-index: -9;
   top: 15rem;
   left: 180px;
 }
-/* line 147, ../../dev/sass/parts/new-room.scss */
+/* line 135, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block12 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 152, ../../dev/sass/parts/new-room.scss */
+/* line 140, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block13 {
   position: absolute;
   z-index: -8;
@@ -4158,13 +4145,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 159, ../../dev/sass/parts/new-room.scss */
+/* line 147, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block13 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 164, ../../dev/sass/parts/new-room.scss */
+/* line 152, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block14 {
   position: absolute;
   z-index: -7;
@@ -4173,13 +4160,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 171, ../../dev/sass/parts/new-room.scss */
+/* line 159, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block14 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 176, ../../dev/sass/parts/new-room.scss */
+/* line 164, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block15 {
   transition-delay: 300;
   position: absolute;
@@ -4188,13 +4175,13 @@ div.drum figure {
   left: 60px;
   opacity: 0.6;
 }
-/* line 183, ../../dev/sass/parts/new-room.scss */
+/* line 171, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block15 img {
   height: 80%;
   width: 80%;
 }
 
-/* line 188, ../../dev/sass/parts/new-room.scss */
+/* line 176, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block16 {
   position: absolute;
   z-index: -5;
@@ -4204,13 +4191,13 @@ div.drum figure {
   max-height: 45%;
   min-width: 45%;
 }
-/* line 196, ../../dev/sass/parts/new-room.scss */
+/* line 184, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block16 img {
   height: 30%;
   width: 30%;
 }
 
-/* line 201, ../../dev/sass/parts/new-room.scss */
+/* line 189, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block17 {
   position: absolute;
   z-index: -4;
@@ -4218,13 +4205,13 @@ div.drum figure {
   height: 57%;
   width: 57%;
 }
-/* line 207, ../../dev/sass/parts/new-room.scss */
+/* line 195, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block17 img {
   height: 57%;
   width: 57%;
 }
 
-/* line 212, ../../dev/sass/parts/new-room.scss */
+/* line 200, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block22 {
   transition-delay: 300;
   position: absolute;
@@ -4233,13 +4220,13 @@ div.drum figure {
   left: -320px;
   opacity: 0.5;
 }
-/* line 219, ../../dev/sass/parts/new-room.scss */
+/* line 207, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block22 img {
   height: 130%;
   width: 130%;
 }
 
-/* line 223, ../../dev/sass/parts/new-room.scss */
+/* line 211, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block23 {
   transition-delay: 300;
   position: absolute;
@@ -4248,7 +4235,7 @@ div.drum figure {
   left: 0px;
   opacity: 0.5;
 }
-/* line 231, ../../dev/sass/parts/new-room.scss */
+/* line 219, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block23 img {
   height: 95%;
   width: 95%;
