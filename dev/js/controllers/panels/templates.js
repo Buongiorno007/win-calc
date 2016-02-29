@@ -3,10 +3,22 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('TemplatesCtrl', templateSelectorCtrl);
+    .controller('TemplatesCtrl',
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
-
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    MainServ,
+    GeneralServ,
+    TemplatesServ,
+    optionsServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -20,6 +32,13 @@
     };
 
 
+    //------- translate
+    thisCtrl.TEMPLATE_WINDOW = $filter('translate')('panels.TEMPLATE_WINDOW');
+    thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
+    thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
+    thisCtrl.TEMPLATE_BALCONY = $filter('translate')('panels.TEMPLATE_BALCONY');
+
+
     //---------- download templates Img icons
     optionsServ.getTemplateImgIcons(function (results) {
       if (results.status) {
@@ -30,17 +49,8 @@
     });
 
 
-    //------ clicking
 
-    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
-    thisCtrl.toggleTemplateType = toggleTemplateType;
-    thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.gotoConstructionPage = gotoConstructionPage;
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //------ click on top button to change template type
@@ -52,6 +62,11 @@
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
+
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
 
       function goToNewTemplateType() {
         if (marker === 4) {
@@ -75,11 +90,13 @@
     }
 
 
-    function gotoConstructionPage() {
-      thisCtrl.G.global.activePanel = 0;
-      $location.path('/design');
-    }
 
+    /**========== FINISH ==========*/
 
-  }
+    //------ clicking
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+
+  });
 })();

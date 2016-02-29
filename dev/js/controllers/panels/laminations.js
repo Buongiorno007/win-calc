@@ -3,10 +3,24 @@
   /**@ngInject*/
   angular
     .module('MainModule')
+<<<<<<< HEAD
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
   function laminationSelectorCtrl(globalConstants, MainServ, DesignServ ,GlobalStor, OrderStor, ProductStor, UserStor) {
+=======
+    .controller('LaminationsCtrl',
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -18,16 +32,25 @@
       typing: 'on'
     };
 
+<<<<<<< HEAD
     //------ clicking
     thisCtrl.selectLaminat = selectLaminat;
     thisCtrl.initLaminatFilter = initLaminatFilter;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
+=======
+    //------- translate
+    thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
+    thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     /** init Laminat Filter */
     function initLaminatFilter(typeId) {
       //console.info('init filter --- ', typeId);
@@ -51,10 +74,22 @@
         //------ save analytics data
         /** send analytics data to Server*/
         //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+<<<<<<< HEAD
       })
       DesignServ.rebuildSVGTemplate();
+=======
+      });
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();

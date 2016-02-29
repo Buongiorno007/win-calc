@@ -3,10 +3,17 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomSelectorCtrl', roomSelectorCtrl);
+    .controller('RoomSelectorCtrl',
 
-  function roomSelectorCtrl(globalConstants, MainServ, TemplatesServ, GlobalStor, ProductStor, UserStor) {
-
+  function(
+    globalConstants,
+    MainServ,
+    TemplatesServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -18,11 +25,7 @@
 
 
 
-    //------ clicking
-    thisCtrl.selectRoom = selectRoom;
-    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //---------- Room Select
    
@@ -31,6 +34,10 @@
     }
 
 
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
 
-  }
+  });
 })();

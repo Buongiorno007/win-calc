@@ -202,7 +202,15 @@
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
         VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
-        NOT_AVAILABLE: 'nicht Verfügbar!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'nicht Verfügbar!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

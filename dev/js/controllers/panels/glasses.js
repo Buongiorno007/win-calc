@@ -3,10 +3,22 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('GlassesCtrl', glassSelectorCtrl);
+    .controller('GlassesCtrl',
 
-  function glassSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, DesignServ, SVGServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    AnalyticsServ,
+    DesignServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -24,16 +36,16 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
+    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
 
-    //------ clicking
-    thisCtrl.selectGlass = selectGlass;
-    thisCtrl.confirmGlass = confirmGlass;
-    thisCtrl.setGlassToAll = setGlassToAll;
-    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     /** Select glass */
     function selectGlass(newId, newName) {
@@ -47,12 +59,34 @@
     }
 
 
+    function changePriceAsNewGlass () {
+      var hardwareIds;
+      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
+      DesignStor.design.selectedGlass.length = 0;
+      //------- set currenct Glass
+      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+        //------ calculate price
+        hardwareIds = ProductStor.product.hardware.id || 0;
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
+        //------ save analytics data
+        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+      });
+    }
+
+    function closeGlassSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
+    }
+
 
     function confirmGlass() {
-      var selectBlockQty = DesignStor.design.selectedGlass.length;
+      var selectBlockQty = DesignStor.design.selectedGlass.length,
+          blockId;
       if(selectBlockQty) {
         while (--selectBlockQty > -1) {
-          var blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
+          blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
           MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
         }
         changePriceAsNewGlass();
@@ -68,6 +102,7 @@
     }
 
 
+<<<<<<< HEAD
     function changePriceAsNewGlass () {
       GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
       DesignStor.design.selectedGlass.length = 0;
@@ -82,11 +117,20 @@
         //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
       });
     }
+=======
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
-    function closeGlassSelectorDialog() {
-      DesignServ.removeGlassEventsInSVG();
-      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
-    }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectGlass = selectGlass;
+    thisCtrl.confirmGlass = confirmGlass;
+    thisCtrl.setGlassToAll = setGlassToAll;
+    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+
+  });
 })();

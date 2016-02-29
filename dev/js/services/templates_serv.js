@@ -3,54 +3,50 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('TemplatesServ', templatesFactory);
+    .factory('TemplatesServ',
 
-  function templatesFactory($filter, GeneralServ, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    GeneralServ,
+    MainServ,
+    DesignServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      selectNewTemplate: selectNewTemplate,
-      //backDefaultTemplate: backDefaultTemplate,
-      //newPriceForNewTemplate: newPriceForNewTemplate,
-      initNewTemplateType: initNewTemplateType
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
-
-
-    //---------- select new template and recalculate it price
-    function selectNewTemplate(templateIndex, roomInd) {
-      GlobalStor.global.isTemplateTypeMenu = 0;
-
-      function goToNewTemplate() {
-        //------ change last changed template to old one
-        backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-
-      if(GlobalStor.global.isChangedTemplate) {
-        //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate
-        );
-      } else {
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-    }
+    /**============ METHODS ================*/
 
 
-    //------- return to the initial template
-    function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+    function culcPriceNewTemplate(templateIndex) {
+      ProductStor.product.template_id = templateIndex;
+      MainServ.saveTemplateInProduct(templateIndex).then(function() {
+
+        ProductStor.product.glass.length = 0;
+        MainServ.setCurrentGlass(ProductStor.product);
+        MainServ.setCurrentHardware(ProductStor.product);
+
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        } else {
+          var hardwareIds = ProductStor.product.hardware.id || 0;
+          //------ define product price
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
+          //------ save analytics data
+          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          /** send analytics data to Server*/
+          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+        }
+      });
     }
 
 
@@ -76,14 +72,15 @@
         }
 
       } else {
-        if(ProductStor.product.template_id !== templateIndex) {
+        //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);
-        }
+        //}
       }
 
     }
 
 
+<<<<<<< HEAD
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
@@ -98,17 +95,75 @@
         /** send analytics data to Server*/
         AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
       });
+=======
+
+    //------- return to the initial template
+    function backDefaultTemplate() {
+      var templateTemp = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = templateTemp;
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     }
+
+
+
+    //---------- select new template and recalculate it price
+    function selectNewTemplate(templateIndex, roomInd) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
+      function goToNewTemplate() {
+        //------ change last changed template to old one
+        backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        DesignStor.design.designSteps.length = 0;
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+    }
+
+
 
 
 
     function initNewTemplateType(marker) {
       ProductStor.product.construction_type = marker;
       ProductStor.product.template_id = 0;
-      MainServ.prepareTemplates(marker);
+      MainServ.prepareTemplates(marker).then(function() {
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        }
+      });
     }
 
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      selectNewTemplate: selectNewTemplate,
+      //backDefaultTemplate: backDefaultTemplate,
+      //newPriceForNewTemplate: newPriceForNewTemplate,
+      initNewTemplateType: initNewTemplateType
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();

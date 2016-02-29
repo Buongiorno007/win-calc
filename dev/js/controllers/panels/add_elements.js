@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsCtrl', addElementsCtrl);
+    .controller('AddElementsCtrl',
 
-  function addElementsCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, AuxStor, ProductStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -28,17 +36,7 @@
 
 
 
-    //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     // Show Window Scheme Dialog
     function showWindowScheme() {
@@ -51,5 +49,16 @@
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
 })();

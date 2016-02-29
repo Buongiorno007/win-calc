@@ -3,12 +3,12 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('LoaderCtrl', loaderCtrl);
+    .controller('LoaderCtrl',
 
-  function loaderCtrl(GlobalStor) {
-
+  function(GlobalStor) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-  }
+  });
 })();

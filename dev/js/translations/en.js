@@ -202,7 +202,15 @@
         VOICE_SMALLEST_SIZE: 'The smallest size',
         VOICE_BIGGEST_SIZE: "The biggest size",
         VOICE_SMALL_GLASS_BLOCK: "too small skylights",
-        NOT_AVAILABLE: 'Not Available!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'Not Available!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',

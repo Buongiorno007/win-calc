@@ -202,7 +202,15 @@
         VOICE_SMALLEST_SIZE: 'замалий розмір',
         VOICE_BIGGEST_SIZE: "завеликий розмір",
         VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
-        NOT_AVAILABLE: 'Недоступно!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'Недоступно!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',

@@ -202,7 +202,15 @@
         VOICE_SMALLEST_SIZE: 'dimensioni troppo piccole',
         VOICE_BIGGEST_SIZE: "dimensioni troppo grandi",
         VOICE_SMALL_GLASS_BLOCK: "apertura leggera troppo piccola",
-        NOT_AVAILABLE: 'È inaccessibile!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'È inaccessibile!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',

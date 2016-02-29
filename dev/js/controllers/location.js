@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('LocationCtrl', locationCtrl);
+    .controller('LocationCtrl',
 
-  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
-
+  function(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+    /*jshint validthis:true */
     var thisCtrl = this;
 
     //----- current user location
@@ -21,12 +21,10 @@
       return item.countryId === UserStor.userInfo.countryId;
     });
 
-    //------ clicking
-    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
-    thisCtrl.selectCity = selectCity;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //-------- Select City
     function selectCity(location) {
@@ -55,5 +53,13 @@
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+  });
 })();

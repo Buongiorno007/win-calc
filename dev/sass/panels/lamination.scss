@@ -53,7 +53,11 @@
     @include display-flex();
     @include flex-flow(row wrap);
     @include justify-content(space-around);
+<<<<<<< HEAD
     height: 77%;
+=======
+    height: 76%;
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     overflow: auto;
     padding-top: 3rem;
 

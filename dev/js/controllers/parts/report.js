@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ReportCtrl', reportCtrl);
+    .controller('ReportCtrl',
 
-  function reportCtrl($rootScope, $filter, localDB, GeneralServ, GlobalStor, ProductStor, UserStor) {
-
+  function(
+    $rootScope,
+    $filter,
+    localDB,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -15,30 +23,56 @@
     thisCtrl.config = {
       reportMenu: [],
       reportFilterId: undefined,
-      reportPriceTotal: 0
+      reportPriceTotal: 0,
+      reportPriceBase: 0
     };
 
-    //------ clicking
+    //------- translate
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.ARTICUL_LABEL = $filter('translate')('add_elements.ARTICUL_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.SIZE_LABEL = $filter('translate')('add_elements.SIZE_LABEL');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
 
-    //thisCtrl.showReport = showReport;
-    thisCtrl.sortReport = sortReport;
-
-
-    //============ methods ================//
 
 
 
-    $('.main-content').off("keypress").keypress(function(event) {
-      //      console.log(UserStor.userInfo.user_type);
-      //console.log('RRRRRRRRR', event.keyCode);
-      //------ show report only for Plands (5,7)
-      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-        //----- Button 'R'
-        if(event.keyCode === 82 || event.keyCode === 114) {
-          showReport();
-        }
+    /**============ METHODS ================*/
+
+
+    function culcReportPriceTotal(group) {
+      var currReportList;
+      if(group) {
+        currReportList = ProductStor.product.report.filter(function(item) {
+          return item.element_group_id === group;
+        });
+      } else {
+        currReportList = angular.copy(ProductStor.product.report);
       }
-    });
+      if(currReportList.length) {
+        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+          return {priceReal: sum.priceReal + item.priceReal};
+        }).priceReal, 2);
+        thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+          return {price: sum.price + item.price};
+        }).price, 2);
+      } else {
+        thisCtrl.config.reportPriceTotal = 0;
+        thisCtrl.config.reportPriceBase = 0;
+      }
+    }
+
+
+    function sortReport(groupId) {
+      /** cuclulate Total Price of group of Report */
+      culcReportPriceTotal(groupId);
+      if(groupId) {
+        thisCtrl.config.reportFilterId = groupId;
+      } else {
+        thisCtrl.config.reportFilterId = undefined;
+      }
+    }
 
 
     function showReport() {
@@ -62,32 +96,28 @@
 
 
 
-    function sortReport(groupId) {
-      /** cuclulate Total Price of group of Report */
-      culcReportPriceTotal(groupId);
-      if(groupId) {
-        thisCtrl.config.reportFilterId = groupId;
-      } else {
-        thisCtrl.config.reportFilterId = undefined;
+    $('.main-content').off("keypress").keypress(function(event) {
+      //      console.log(UserStor.userInfo.user_type);
+      //console.log('RRRRRRRRR', event.keyCode);
+      //------ show report only for Plands (5,7)
+      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+        //----- Button 'R'
+        if(event.keyCode === 82 || event.keyCode === 114) {
+          showReport();
+        }
       }
-    }
+    });
 
 
 
-    function culcReportPriceTotal(group) {
-      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
-        return item.element_group_id === group;
-      }) : angular.copy(ProductStor.product.report);
 
-      if(currReportList.length) {
-        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
-          return {priceReal: sum.priceReal + item.priceReal};
-        }).priceReal, 2);
-      } else {
-        thisCtrl.config.reportPriceTotal = 0;
-      }
-    }
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    //thisCtrl.showReport = showReport;
+    thisCtrl.sortReport = sortReport;
 
 
-  }
+
+  });
 })();

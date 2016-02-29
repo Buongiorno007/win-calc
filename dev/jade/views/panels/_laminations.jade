@@ -3,6 +3,7 @@
 
     .laminat-filter
       .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index")
+<<<<<<< HEAD
 
         .laminat-img(ng-class="{'selected': lamin.isActive}", ng-click="laminPanel.initLaminatFilter(lamin.type_id)")
 
@@ -24,3 +25,20 @@
 
           .laminat-label(data-output="{{ lamCouple.laminat_out_name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
+=======
+        .laminat-img(ng-class="{'selected': lamin.isActive}", ng-click="laminPanel.initLaminatFilter(lamin.type_id)")
+          img(ng-src="img/lamination/{{ lamin.type_id }}.jpg")
+        .laminat-label(data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+
+    .laminat-groups
+      .laminat-box(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index")
+        .laminat-row
+          .laminat-label {{ ::laminPanel.LAMINAT_INSIDE }}
+          .laminat-label {{ ::laminPanel.LAMINAT_OUTSIDE }}
+        .laminat-row.laminat-img(ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }", ng-click="laminPanel.selectLaminat(lamCouple.id)")
+            img(ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg")
+            img(ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg")
+        .laminat-row
+          .laminat-label {{ ::lamCouple.laminat_in_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name") {{ ::lamCouple.laminat_out_name }}
+>>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d

@@ -3,18 +3,16 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('infoBoxCtrl', infoBoxCtrl);
+    .controller('infoBoxCtrl',
 
-  function infoBoxCtrl(GlobalStor) {
-
+  function(GlobalStor) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-    //------ clicking
-    thisCtrl.closeInfoBox = closeInfoBox;
 
+    /**============ METHODS ================*/
 
-    //============ methods ================//
     /** close Info Box */
     function closeInfoBox() {
       GlobalStor.global.isInfoBox = 0;
@@ -25,6 +23,10 @@
     }
 
 
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.closeInfoBox = closeInfoBox;
 
-  }
+
+  });
 })();

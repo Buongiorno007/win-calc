@@ -3,16 +3,14 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('fileread', fileLoader);
+    .directive('fileread',
 
-
-
-  function fileLoader(SettingServ, UserStor) {
+  function(SettingServ, UserStor) {
     return {
       scope: {
         fileread: "="
       },
-      link: function (scope, element, attributes) {
+      link: function (scope, element) {
         element.bind("change", function (changeEvent) {
           var fd = new FormData(),
               reader = new FileReader();
@@ -30,6 +28,6 @@
         });
       }
     };
-  }
 
+  });
 })();

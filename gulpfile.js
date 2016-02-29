@@ -1,4 +1,4 @@
-
+'use strict';
 // Инициализируем плагины
 var gulp        = require('gulp'),       // Собственно Gulp JS
     config      = require('./config.json'),   // Конфиг для проектов
@@ -17,7 +17,9 @@ var gulp        = require('gulp'),       // Собственно Gulp JS
     csscomb     = require('gulp-csscomb'),    // Форматирование стилей
     wrapper     = require('gulp-wrapper'),    // Добавляет к файлу текстовую шапку и/или подвал
     plumber     = require('gulp-plumber'),    // Перехватчик ошибок
-    notify      = require("gulp-notify");     // Нотификатор
+    notify      = require("gulp-notify"),     // Нотификатор
+    ngAnnotate  = require('gulp-ng-annotate'),
+    htmlmin = require('gulp-htmlmin');
 
 
 // Очистка результирующей папки
@@ -135,19 +137,19 @@ gulp.task('audio', function() {
 });
 
 
-/** copy files from different folders
+///** copy files from different folders */
+//
+//gulp.task('copy', function() {
+//  return gulp.src([
+//      'dev/js/directives/location_filter.js', 'dev/js/directives/typing.js',
+//      'dev/audio/*.js',
+//      'adminka/*.js'
+//    ])
+//    .pipe(concat('plugins2.js'))
+//    .pipe( gulp.dest('www/'));
+//});
 
-gulp.task('copy', function() {
-  return gulp.src([
-      'dev/js/directives/location_filter.js', 'dev/js/directives/typing.js',
-      'dev/audio/*.js',
-      'adminka/*.js'
-    ])
-    .pipe(concat('plugins2.js'))
-    .pipe( gulp.dest('www/'));
-});
 
-*/
 
 // Локальный сервер для разработки
 // http://www.browsersync.io/docs/options/
@@ -196,72 +198,107 @@ gulp.task('build', ['clean'], function () {
 
 
 // Сборка минимизированного проекта
-gulp.task('production', ['clean'], function() {
+//gulp.task('production', ['clean'], function() {
+//  // css
+//  compassTask()
+//    .pipe(csso())
+//    .pipe(gulp.dest(config.build.dest.css));
+//
+//  // jade
+//  gulp.src(config.build.src.html)
+//    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+//    .pipe(jade())
+//    .pipe(gulp.dest(config.build.dest.html));
+//
+//  // js
+//  gulp.src(config.build.src.js)
+//    .pipe(concat('main.js'))
+//    .pipe(uglify())
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  gulp.src(config.build.src.js_vendor)
+//    .pipe(order(config.build.src.js_order))
+//    .pipe(concat('plugins.js'))
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  gulp.src(config.build.src.js_other)
+//    .pipe(uglify())
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  // image
+//  gulp.src(config.build.src.img)
+//    .pipe(imagemin())
+//    .pipe(gulp.dest(config.build.dest.img));
+//
+//  // fonts
+//  gulp.src(config.build.src.fonts)
+//    .pipe(gulp.dest(config.build.dest.fonts));
+//});
+
+
+/** PRODUCTION css and js min */
+gulp.task('prod', function() {
   // css
   compassTask()
     .pipe(csso())
-    .pipe(gulp.dest(config.build.dest.css));
-
-  // jade
-  gulp.src(config.build.src.html)
-    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-    .pipe(jade())
-    .pipe(gulp.dest(config.build.dest.html));
+    .pipe(gulp.dest(config.build.dest.product));
 
   // js
   gulp.src(config.build.src.js)
-    .pipe(concat('main.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(config.build.dest.js));
-
-  gulp.src(config.build.src.js_vendor)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
     .pipe(order(config.build.src.js_order))
-    .pipe(concat('plugins.js'))
-    .pipe(gulp.dest(config.build.dest.js));
+    .pipe(concat('main.js'))
+    .pipe(ngAnnotate({add: true}))
+    .pipe(uglify({mangle: true}))
+    .pipe(gulp.dest(config.build.dest.product));
 
-  gulp.src(config.build.src.js_other)
-    .pipe(uglify())
-    .pipe(gulp.dest(config.build.dest.js));
-
-  // image
-  gulp.src(config.build.src.img)
-    .pipe(imagemin())
-    .pipe(gulp.dest(config.build.dest.img));
-
-  // fonts
-  gulp.src(config.build.src.fonts)
-    .pipe(gulp.dest(config.build.dest.fonts));
+  // html
+  gulp.src(config.build.src.html)
+    .pipe(newer(config.build.dest.html, '.html'))
+    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+    .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+    .pipe(gulp.dest(config.build.dest.product));
 });
 
 
 /**========= Загрузка на удаленный сервер =========*/
 
+var server = config.server;
+//var server = config.serverSteko;
+
 /** upload index */
 gulp.task('upload-index', function () {
   gulp.src(config.build.dest.html + 'index.html')
-    .pipe(ftp(config.server));
+    .pipe(ftp(server));
 });
 /** upload html */
 gulp.task('upload-html', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/views';
-  gulp.src(config.build.dest.html + 'views/*.html')
+  gulp.src(config.build.dest.product + '/views/*.html')
     .pipe(ftp(settings));
 });
 
 /** upload js */
 gulp.task('upload-js', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/js';
-  gulp.src(config.build.dest.js + '/**/*')
+  gulp.src(config.build.dest.product + '/*.js')
     .pipe(ftp(settings));
 });
 
 /** upload css */
 gulp.task('upload-css', function () {
-  var settings = JSON.parse(JSON.stringify(config.server));
+  var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/css';
-  gulp.src(config.build.dest.css + '/**/*')
+  gulp.src(config.build.dest.product + '/*.css')
     .pipe(ftp(settings));
 });
 
