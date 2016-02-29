@@ -11,13 +11,6 @@
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
           // /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-
-      //------------ SVG
-      SVG_CLASS_ICON: 'tamlateIconSVG',
-      SVG_ID_EDIT: 'tamlateSVG',
-      SVG_ID_ICON: 'tamlateIconBigSVG',
-      SVG_ID_GLASS: 'tamlateGlassSVG',
-      SVG_ID_GRID: 'tamlateGridSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
@@ -32,7 +25,10 @@
       minRadiusHeight: 10,
 
       activeClass: 'active',
-
+      //------------ SVG
+      SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_GLASS: 'tamlateSVGGlass',
+      SVG_ID_GRID: 'tamlateSVGGrid',
 
       //------------ Languages
       languages: [

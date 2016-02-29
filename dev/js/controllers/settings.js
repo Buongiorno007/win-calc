@@ -3,21 +3,10 @@
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('SettingsCtrl',
+    .controller('SettingsCtrl', settingsPageCtrl);
 
-  function(
-    $location,
-    $timeout,
-    globalConstants,
-    localDB,
-    SettingServ,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    AuxStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
+  function settingsPageCtrl($location, globalConstants, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
+
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -47,12 +36,44 @@
     }
 
 
+    //------ clicking
+    thisCtrl.changeSettingData = changeSettingData;
+    thisCtrl.appendInputPhone = appendInputPhone;
+    thisCtrl.cancelAddPhone = cancelAddPhone;
+    thisCtrl.saveChanges = saveChanges;
+    thisCtrl.saveChangesBlur = saveChangesBlur;
+    thisCtrl.changeEmail = changeEmail;
+    thisCtrl.addNewPhone = addNewPhone;
+    thisCtrl.saveChangesPhone = saveChangesPhone;
+    thisCtrl.deletePhone = deletePhone;
+    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
+    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
+    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
+    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
+    thisCtrl.logOut = logOut;
 
 
 
+    //============ methods ================//
 
-    /**============ METHODS ================*/
 
+
+    function changeSettingData(id, obj) {
+      thisCtrl.config.selectedSetting = id;
+      //TODO ipad findInput(obj.currentTarget.id);
+      findInput(obj.target.id);
+    }
+
+
+    function saveChanges(marker, newTxt) {
+      if (event.which == 13) {
+        saveTxtInBD(marker, newTxt);
+      }
+    }
+
+    function saveChangesBlur(marker, newTxt) {
+        saveTxtInBD(marker, newTxt);
+    }
 
     function saveTxtInBD(marker, newTxt) {
       var updateData = {};
@@ -77,48 +98,36 @@
       }
     }
 
-    function findInput(idElement) {
-      $timeout(function() {
-        $('#'+idElement).find('input').focus();
-      }, 100);
-    }
-
-    function findInputPhone() {
-      $timeout(function() {
-        $('.set-input-phone').focus();
-      }, 100);
-    }
-
-    function changeSettingData(id, obj) {
-      thisCtrl.config.selectedSetting = id;
-      //TODO ipad findInput(obj.currentTarget.id);
-      findInput(obj.target.id);
-    }
-
-
-    function saveChanges(marker, newTxt) {
-      if (event.which === 13) {
-        saveTxtInBD(marker, newTxt);
-      }
-    }
-
-    function saveChangesBlur(marker, newTxt) {
-        saveTxtInBD(marker, newTxt);
-    }
-
-
-
     function changeEmail() {
       thisCtrl.config.isEmailError = 0;
     }
 
 
-    //------- save phones in DB
-    function savePhoneInDB(phones) {
-      var phonesString = phones.join(',');
-      UserStor.userInfo.city_phone = phonesString;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
+
+    function addNewPhone() {
+      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
+        saveNewPhone();
+      } else {
+        appendInputPhone();
+      }
+    }
+
+    function appendInputPhone() {
+      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
       thisCtrl.config.tempAddPhone = '';
+      thisCtrl.config.isErrorPhone = 0;
+      findInputPhone();
+    }
+
+    function cancelAddPhone() {
+      thisCtrl.config.isInsertPhone = 0;
+      thisCtrl.config.isErrorPhone = 0;
+    }
+
+    function saveChangesPhone() {
+      if (event.which == 13) {
+        saveNewPhone();
+      }
     }
 
     function saveNewPhone() {
@@ -135,43 +144,19 @@
     }
 
 
-    function appendInputPhone() {
-      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
-      thisCtrl.config.tempAddPhone = '';
-      thisCtrl.config.isErrorPhone = 0;
-      findInputPhone();
-    }
-
-
-    function addNewPhone() {
-      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
-        saveNewPhone();
-      } else {
-        appendInputPhone();
-      }
-    }
-
-
-
-    function cancelAddPhone() {
-      thisCtrl.config.isInsertPhone = 0;
-      thisCtrl.config.isErrorPhone = 0;
-    }
-
-    function saveChangesPhone() {
-      if (event.which === 13) {
-        saveNewPhone();
-      }
-    }
-
-
-
     function deletePhone(phoneId) {
       thisCtrl.config.addPhones.splice(phoneId, 1);
       //------- save phones in DB
       savePhoneInDB(thisCtrl.config.addPhones);
     }
 
+    //------- save phones in DB
+    function savePhoneInDB(phones) {
+      var phonesString = phones.join(',');
+      UserStor.userInfo.city_phone = phonesString;
+      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
+      thisCtrl.config.tempAddPhone = '';
+    }
 
 
     function logOut() {
@@ -184,28 +169,17 @@
       $location.path('/login');
     }
 
+    function findInput(idElement) {
+      setTimeout(function() {
+        $('#'+idElement).find('input').focus();
+      }, 100);
+    }
 
+    function findInputPhone() {
+      setTimeout(function() {
+        $('.set-input-phone').focus();
+      }, 100);
+    }
 
-
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.changeSettingData = changeSettingData;
-    thisCtrl.appendInputPhone = appendInputPhone;
-    thisCtrl.cancelAddPhone = cancelAddPhone;
-    thisCtrl.saveChanges = saveChanges;
-    thisCtrl.saveChangesBlur = saveChangesBlur;
-    thisCtrl.changeEmail = changeEmail;
-    thisCtrl.addNewPhone = addNewPhone;
-    thisCtrl.saveChangesPhone = saveChangesPhone;
-    thisCtrl.deletePhone = deletePhone;
-    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
-    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
-    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
-    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
-    thisCtrl.logOut = logOut;
-
-
-  });
+  }
 })();

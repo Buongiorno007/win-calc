@@ -3,22 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ConfigMenuCtrl',
+    .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function(
-    $location,
-    $filter,
-    globalConstants,
-    GeneralServ,
-    MainServ,
-    AddElementMenuServ,
-    DesignServ,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
+  function configMenuCtrl($filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, DesignServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -58,16 +46,15 @@
     thisCtrl.SAVE = $filter('translate')('settings.SAVE');
     thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
     thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
-<<<<<<< HEAD
-
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
 
+    //------ clicking
+    thisCtrl.selectConfigPanel = selectConfigPanel;
+    thisCtrl.inputProductInOrder = saveProduct;
+    thisCtrl.showNextTip = showNextTip;
 
 
-
-    /**============ METHODS ================*/
+    //============ methods ================//
 
 
     //------- Select menu item
@@ -77,6 +64,7 @@
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
       }
+      GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       //---- hide rooms if opened
       GlobalStor.global.showRoomSelectorDialog = 0;
       //---- hide tips
@@ -90,15 +78,7 @@
       //------ delete events on Glass/Grid Selector Dialogs
       DesignServ.removeGlassEventsInSVG();
       GlobalStor.global.showGlassSelectorDialog = 0;
-
-      if(id === 1) {
-        GlobalStor.global.activePanel = 0;
-        $location.path('/design');
-      } else {
-        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
-      }
     }
-
 
     function saveProduct() {
       if(MainServ.inputProductInOrder()){
@@ -107,27 +87,18 @@
       }
     }
 
-
     function showNextTip() {
       var tipQty = thisCtrl.config.TOOLTIP.length;
-      GlobalStor.global.configMenuTips +=1;
+      ++GlobalStor.global.configMenuTips;
       if(GlobalStor.global.configMenuTips === tipQty) {
         GlobalStor.global.configMenuTips = 0;
         //------ open templates
-        //GlobalStor.global.activePanel = 1;
+        GlobalStor.global.activePanel = 1;
         //------ close rooms
-        //GlobalStor.global.showRoomSelectorDialog = 0;
+        GlobalStor.global.showRoomSelectorDialog = 0;
       }
     }
 
 
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.selectConfigPanel = selectConfigPanel;
-    thisCtrl.inputProductInOrder = saveProduct;
-    thisCtrl.showNextTip = showNextTip;
-
-  });
+  }
 })();

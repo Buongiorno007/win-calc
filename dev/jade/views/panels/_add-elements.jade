@@ -58,7 +58,7 @@
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", ng-click="elementsPanel.showWindowScheme()")
 
     .scheme-view-dialog(ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}")
-      svg-template(template="elementsPanel.P.product.template", template-width="elementsPanel.constants.svgTemplateIconBigWidth", template-height="elementsPanel.constants.svgTemplateIconBigHeight", type-construction="elementsPanel.constants.SVG_ID_ICON")
+      svg-template(template="elementsPanel.P.product.template", template-width="elementsPanel.constants.svgTemplateIconBigWidth", template-height="elementsPanel.constants.svgTemplateIconBigHeight", type-construction="iconBig")
       .close-dialog(ng-click="elementsPanel.closeWindowScheme()")
 
     button.view-switch-tab.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", ng-click="elementsPanel.openAddElementListView()") {{ 'add_elements.LIST_VIEW' | translate }}

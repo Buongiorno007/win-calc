@@ -3,9 +3,10 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('orderDate',
+    .directive('orderDate', orderDateDir);
 
-  function($filter) {
+  function orderDateDir($filter) {
+
 
     return {
       restrict: 'A',
@@ -54,5 +55,5 @@
     };
 
 
-  });
+  }
 })();

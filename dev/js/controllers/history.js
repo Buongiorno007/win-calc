@@ -1,17 +1,15 @@
 (function(){
   'use strict';
-  /**@ngInject*/
+  /**
+   * @ngInject
+   */
   angular
     .module('HistoryModule')
-    .controller('HistoryCtrl',
+    .controller('HistoryCtrl', historyCtrl);
 
-  function(
-    GlobalStor,
-    UserStor,
-    HistoryStor,
-    HistoryServ
-  ) {
-    /*jshint validthis:true */
+  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
+
+
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
@@ -42,5 +40,5 @@
     thisCtrl.sortingInit = HistoryServ.sortingInit;
 
 
-  });
+  }
 })();

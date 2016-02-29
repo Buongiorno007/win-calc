@@ -3,15 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('sizeCalculatorCtrl',
+    .controller('sizeCalculatorCtrl', sizeCalcCtrl);
 
-  function(
-    GlobalStor,
-    DesignStor,
-    AddElementMenuServ,
-    DesignServ
-  ) {
-    /*jshint validthis:true */
+  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
+
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;
@@ -34,5 +29,5 @@
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
-  });
+  }
 })();

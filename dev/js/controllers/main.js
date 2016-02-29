@@ -3,7 +3,6 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-<<<<<<< HEAD
     .controller('MainCtrl', mainPageCtrl);
 
     
@@ -15,21 +14,6 @@
     delaySubMenu3 = 900,
     delaySubMenu4 = 1200;
 
-=======
-    .controller('MainCtrl',
-
-  function(
-    loginServ,
-    MainServ,
-    SVGServ,
-    GlobalStor,
-    ProductStor,
-    UserStor,
-    AuxStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
@@ -83,7 +67,7 @@
     thisCtrl.stepBack = DesignServ.stepBack;
 
 
-    /**=============== FIRST START =========*/
+    //=============== FIRST START =========//
 
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
@@ -103,27 +87,19 @@
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();
-<<<<<<< HEAD
       /** start lamination filtering */
         MainServ.laminatFiltering();
 
-=======
-        /** start lamination filtering */
-        MainServ.laminatFiltering();
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
         /** download all cities */
         if(GlobalStor.global.locations.cities.length === 1) {
           loginServ.downloadAllCities(1);
         }
-<<<<<<< HEAD
 
 
         //--------- set template from ProductStor
         DesignServ.setDefaultTemplate();
        
 
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
         //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
@@ -140,19 +116,16 @@
     //------- close Report
     GlobalStor.global.isReport = 0;
 
-    /**================ EDIT PRODUCT =================*/
-
+    //================ EDIT PRODUCT =================
     if (GlobalStor.global.productEditNumber) {
       console.log('EDIT!!!!');
       console.log('product = ', ProductStor.product);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-        .then(function(data) {
-          ProductStor.product.template = data;
-        });
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
+        ProductStor.product.template = data;
+      });
     }
 
 
-<<<<<<< HEAD
 //========= methods  ================//
 
 
@@ -589,9 +562,6 @@
 
 
     }
-=======
-  });
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 })();
 
 

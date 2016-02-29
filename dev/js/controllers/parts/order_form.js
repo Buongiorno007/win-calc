@@ -3,17 +3,10 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('OrderFormCtrl',
+    .controller('OrderFormCtrl', orderFormCtrl);
 
-  function(
-    $filter,
-    GlobalStor,
-    OrderStor,
-    UserStor,
-    CartStor,
-    CartMenuServ
-  ) {
-    /*jshint validthis:true */
+  function orderFormCtrl($filter, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
+
     var thisCtrl = this;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
@@ -33,9 +26,14 @@
       return item.countryId === UserStor.userInfo.countryId;
     });
 
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
-    /**============ METHODS ================*/
+    //============ methods ================//
 
     //------- Send Form Data
     function submitForm(form) {
@@ -46,14 +44,5 @@
       }
     }
 
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-  });
+  }
 })();

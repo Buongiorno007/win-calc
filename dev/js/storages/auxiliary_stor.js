@@ -3,15 +3,11 @@
     /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AuxStor',
+    .factory('AuxStor', auxStorageFactory);
 
-  function() {
-    /*jshint validthis:true */
+  function auxStorageFactory() {
+
     var thisFactory = this;
-
-    function setDefaultAuxiliary() {
-      return angular.copy(thisFactory.publicObj.auxiliarySource);
-    }
 
     thisFactory.publicObj = {
       auxiliarySource: {
@@ -39,7 +35,16 @@
     };
 
     thisFactory.publicObj.aux = setDefaultAuxiliary();
+
     return thisFactory.publicObj;
 
-  });
+
+    //============ methods ================//
+
+    function setDefaultAuxiliary() {
+      var publicObj = angular.copy(thisFactory.publicObj.auxiliarySource);
+      return publicObj;
+    }
+
+  }
 })();

@@ -1,6 +1,6 @@
 .grid-selector-dialog(ng-if="!elementsMenu.P.product.is_addelem_only", ng-class="{'active': elementsMenu.A.aux.isGridSelectorDialog}")
   .dialog-inner
-    svg-template(template="elementsMenu.P.product.template", template-width="elementsMenu.constants.svgTemplateIconBigWidth", template-height="elementsMenu.constants.svgTemplateIconBigHeight", type-construction="elementsMenu.constants.SVG_ID_GRID")
+    svg-template(template="elementsMenu.P.product.template", template-width="elementsMenu.constants.svgTemplateIconBigWidth", template-height="elementsMenu.constants.svgTemplateIconBigHeight", type-construction="setGrid")
   .set-grid-btn(ng-click="elementsMenu.confirmGrid()")
   .set-grid-all-btn(ng-click="elementsMenu.setGridToAll()") {{ 'mainpage.SELECT_ALL' | translate }}
   .set-grid-warning <span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}

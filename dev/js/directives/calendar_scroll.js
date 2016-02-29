@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('calendarScroll',
+    .directive('calendarScroll', calendarScrollDir);
 
-  function($filter, HistoryStor) {
+  function calendarScrollDir($filter, HistoryStor) {
 
     return {
       restrict: 'E',
@@ -16,7 +16,7 @@
         orderType: '='
       },
       template: function(elem, attr){
-        var typeTemplate = +attr.calendarType,
+        var typeTemplate = attr.calendarType* 1,
             templateBody = '',
             dateRange = '',
             formName = '',
@@ -63,35 +63,35 @@
         /** Day generating */
         while(dayIndex < 32) {
           templateBody += '<option value="'+dayIndex+'">'+dayIndex+'</option>';
-          dayIndex+=1;
+          dayIndex++;
         }
         templateBody += '</select><select class="date" id="'+selectMonthId+'" name="'+selectMonthName+'">';
 
         /** Month generating */
         while(monthIndex < monthQty) {
           templateBody += '<option value="'+monthIndex+'">'+monthArr[monthIndex]+'</option>';
-          monthIndex+=1;
+          monthIndex++;
         }
         templateBody += '</select><select class="date" id="'+selectYearId+'" name="'+selectYearName+'">';
 
         /** Year generating */
         while(yearIndex <= yearEnd) {
           templateBody += '<option value="'+yearIndex+'">'+yearIndex+'</option>';
-          yearIndex+=1;
+          yearIndex++;
         }
         templateBody += '</select></form></div></div></div>';
 
         return templateBody;
 
       },
-      link: function (scope) {
+      link: function (scope, element, attrs) {
 
 //      Hammer.plugins.fakeMultitouch();
 
         function getIndexForValue(selectTag, value) {
           var selectQty = selectTag.options.length;
           while(--selectQty > -1) {
-            if (selectTag.options[selectQty].value === value) {
+            if (selectTag.options[selectQty].value == value) {
               return selectQty;
             }
           }
@@ -108,11 +108,11 @@
             onChange : function (elem) {
               var elemNameArr = elem.name.split('_'),
                   section = elemNameArr[0],
-                  isOrder = +elemNameArr[2],
+                  isOrder = elemNameArr[2]*1,
                   arr = {'date' : 'setDate', 'month' : 'setMonth', 'fullYear' : 'setFullYear'},
-                  date = new Date(), s, i;
-              for (s in arr) {
-                i = ($("form[name='date_" + section + "'] select[id='" + section + "_" + s + "']"))[0].value;
+                  date = new Date();
+              for (var s in arr) {
+                var i = ($("form[name='date_" + section + "'] select[id='" + section + "_" + s + "']"))[0].value;
                 eval ("date." + arr[s] + "(" + i + ")");
               }
 
@@ -147,5 +147,5 @@
       }
     };
 
-  });
+  }
 })();

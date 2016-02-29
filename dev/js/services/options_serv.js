@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('optionsServ',
+    .factory('optionsServ', optionFactory);
 
-  function($filter) {
+  function optionFactory($filter) {
 
     return {
 
@@ -1589,5 +1589,5 @@
     }
 
 
-  });
+  }
 })();

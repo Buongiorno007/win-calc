@@ -3,19 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ProfilesCtrl',
+    .controller('ProfilesCtrl', profileSelectorCtrl);
 
-  function(
-    $filter,
-    globalConstants,
-    MainServ,
-    AnalyticsServ,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
+  function profileSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -30,16 +21,13 @@
       typing: 'on'
     };
 
-    //------- translate
-    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
-    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
-    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+    //------ clicking
+    thisCtrl.selectProfile = selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 
-
-
-    /**============ METHODS ================*/
+    //============ methods ================//
 
     //---------- Select profile
     function selectProfile(newId) {
@@ -60,11 +48,5 @@
       }
     }
 
-
-    /**========== FINISH ==========*/
-    //------ clicking
-    thisCtrl.selectProfile = selectProfile;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
-
-  });
+  }
 })();

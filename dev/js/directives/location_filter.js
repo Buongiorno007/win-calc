@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .filter('locationFilter',
+    .filter('locationFilter', locationFilter);
 
-  function($filter) {
+  function locationFilter($filter) {
 
     return function(items, searchWord) {
       var itemsQty = items.length,
@@ -31,5 +31,5 @@
       return filtered;
     };
 
-  });
+  }
 })();

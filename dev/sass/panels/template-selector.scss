@@ -1,6 +1,5 @@
 .template-container {
   padding: rem(50px);
-  left: -135rem;
 
   .template-header {
     text-align: center;
@@ -64,7 +63,7 @@
   }
 
   .template-section {
-    //width: rem(1500px);
+    width: rem(1500px);
     height: rem(1000px);
     text-align: center;
     cursor: pointer;

@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('UserInfoCtrl',
+    .controller('UserInfoCtrl', userInfoCtrl);
 
-  function(globalConstants, GlobalStor, UserStor) {
-    /*jshint validthis:true */
+  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
+
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
@@ -17,17 +17,21 @@
       checked: false
     };
 
+    //------ clicking
 
+    thisCtrl.swipeMainPage = swipeMainPage;
+    thisCtrl.swipeLeft = swipeLeft;
+    thisCtrl.swipeRight = swipeRight;
 
-    /**============ METHODS ================*/
+    //============ methods ================//
 
-    function swipeMainPage() {
+    function swipeMainPage(event) {
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
       //playSound('swip');
     }
 
-    function swipeLeft() {
+    function swipeLeft(event) {
       if(GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
@@ -35,7 +39,7 @@
       }
     }
 
-    function swipeRight() {
+    function swipeRight(event) {
       if(!GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 1;
         GlobalStor.global.isConfigMenu = 0;
@@ -43,13 +47,5 @@
       }
     }
 
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.swipeMainPage = swipeMainPage;
-    thisCtrl.swipeLeft = swipeLeft;
-    thisCtrl.swipeRight = swipeRight;
-
-  });
+  }
 })();

@@ -3,30 +3,28 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('showDelay',
+    .directive('showDelay', showDelayDir);
 
-  function() {
+  function showDelayDir() {
 
     return {
       scope: {
         showDelay: '@'
       },
       link: function (scope, elem, attrs) {
+        attrs.$observe('showDelay', function () {
+          showElementWithDelay();
+        });
 
         function showElementWithDelay() {
           var unvisibleClass = 'unvisible';
 
           setTimeout(function () {
             elem.removeClass(unvisibleClass);
-          }, +scope.showDelay);
+          }, scope.showDelay*1);
         }
-
-        attrs.$observe('showDelay', function () {
-          showElementWithDelay();
-        });
-
       }
     };
 
-  });
+  }
 })();

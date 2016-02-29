@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('AnalyticsServ',
+    .factory('AnalyticsServ', analyticsFactory);
 
-  function(localDB, UserStor) {
-    /*jshint validthis:true */
+  function analyticsFactory(localDB, UserStor) {
+
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
@@ -16,9 +16,16 @@
       element_type: 0
     };
 
+    thisFactory.publicObj = {
+      sendAnalyticsData: sendAnalyticsData//,
+//      saveAnalyticDB: insertAnalyticsDB,
+//      sendAnalyticsDB: sendAnalyticsDB
+    };
+
+    return thisFactory.publicObj;
 
 
-    /**============ METHODS ================*/
+    //============ methods ================//
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -91,18 +98,5 @@
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
 
-
-
-
-    /**========== FINISH ==========*/
-
-    thisFactory.publicObj = {
-      sendAnalyticsData: sendAnalyticsData//,
-      //      saveAnalyticDB: insertAnalyticsDB,
-      //      sendAnalyticsDB: sendAnalyticsDB
-    };
-
-    return thisFactory.publicObj;
-
-  });
+  }
 })();

@@ -3,21 +3,12 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('ProductStor',
+    .factory('ProductStor', productStorageFactory);
 
-  function($filter) {
-    /*jshint validthis:true */
+  function productStorageFactory($filter) {
     var thisFactory = this;
 
-<<<<<<< HEAD
     thisFactory.publicObj = { 
-=======
-    function setDefaultProduct() {
-      return angular.copy(thisFactory.publicObj.productSource);
-    }
-
-    thisFactory.publicObj = {
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
       productSource: {
         product_id: 0,
         is_addelem_only: 0,
@@ -53,10 +44,7 @@
           img_in_id: 1,
           img_out_id: 1
         },
-<<<<<<< HEAD
 
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
         chosenAddElements: [
           [], // 0 - grids
           [], // 1 - visors
@@ -95,5 +83,13 @@
 
     return thisFactory.publicObj;
 
-  });
+
+    //============ methods ================//
+
+    function setDefaultProduct() {
+      var publicObj = angular.copy(thisFactory.publicObj.productSource);
+      return publicObj;
+    }
+
+  }
 })();

@@ -10,17 +10,10 @@
           .value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
       ul.items-list(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
-<<<<<<< HEAD
         .title {{ ::elementsMenu.A.aux.addElementsType[$index].name }}
 
         li.item(ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}")
           .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ ::addElement.name }}
-=======
-        .title {{ elementsMenu.A.aux.addElementsType[$index].name }}
-
-        li.item(ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}")
-          .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
           button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", ng-click="elementsMenu.showInfoBox(addElement.id, type)")
 
     footer.menu-footer

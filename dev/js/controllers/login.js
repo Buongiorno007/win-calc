@@ -3,26 +3,10 @@
   /**@ngInject*/
   angular
     .module('LoginModule')
-<<<<<<< HEAD
     .controller('LoginCtrl', loginPageCtrl);
 
   function loginPageCtrl($location, $cordovaNetwork, $filter, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
-=======
-    .controller('LoginCtrl',
-
-  function(
-    $location,
-    $cordovaNetwork,
-    $filter,
-    globalConstants,
-    localDB,
-    loginServ,
-    GlobalStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
@@ -75,7 +59,6 @@
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
-<<<<<<< HEAD
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
@@ -85,156 +68,22 @@
     thisCtrl.selectFactory = selectFactory;
     thisCtrl.closeFactoryDialog = closeFactoryDialog;
     thisCtrl.closeOfflineAlert = closeOfflineAlert;
-=======
 
 
 
-    /**============ METHODS ================*/
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
+    //------- defined system language
+    loginServ.getDeviceLanguage();
 
 
+    //------- export data
+    if(thisCtrl.isOnline) {
+      loginServ.initExport();
 
-    function importDBfromServer() {
-      thisCtrl.isStartImport = 1;
-      //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-        if(data) {
-          /** download all data */
-          loginServ.downloadAllData();
-          thisCtrl.isStartImport = 0;
-        } else {
-          console.log('Error!');
-        }
-      });
+      entriyWithoutLogin();
     }
 
 
-    function setFactoryLocation(factories) {
-      var factoryQty = factories.length,
-          locationQty;
-      while(--factoryQty > -1) {
-        locationQty = GlobalStor.global.locations.cities.length;
-        while(--locationQty > -1) {
-          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
-            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
-          }
-        }
-      }
-      return factories;
-    }
-
-
-    function checkingFactory() {
-      //------- set User Location
-      loginServ.setUserLocation();
-      if((+UserStor.userInfo.factory_id) > 0) {
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-          if (thisCtrl.isLocalDB) {
-            //------- current FactoryId matches to user FactoryId, go to main page without importDB
-            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-            /** download all data */
-            loginServ.downloadAllData();
-            //});
-          } else {
-            //------ LocalDB is empty
-            importDBfromServer(UserStor.userInfo.factory_id);
-          }
-        });
-      } else {
-        //---- show Factory List
-        //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
-          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
-            //            console.log('Factories++++++', result);
-            GlobalStor.global.isLoader = 0;
-            if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories);
-              //-------- close Factory Dialog
-              thisCtrl.isFactoryId = 1;
-            } else {
-              console.log('can not get factories!');
-            }
-          });
-        });
-      }
-    }
-
-
-    function importDBProsses(user) {
-
-      //----- checking user activation
-      if(user.locked) {
-        //------- clean all tables in LocalDB
-        //              console.log('CLEEN START!!!!');
-        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-          if(data) {
-            //                  console.log('CLEEN DONE!!!!');
-            //------- creates all tables in LocalDB
-            //                  console.log('CREATE START!!!!');
-            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //                      console.log('CREATE DONE!!!!');
-                //------- save user in LocalDB
-                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
-                //------- save user in Stor
-                angular.extend(UserStor.userInfo, user);
-                //------- import Location
-                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-                  if(data) {
-                    //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function() {
-                      checkingFactory();
-                    });
-                  }
-                });
-              }
-            });
-          }
-        });
-      } else {
-        GlobalStor.global.isLoader = 0;
-        //---- show attantion
-        thisCtrl.isUserNotActive = 1;
-      }
-
-    }
-
-
-    function checkingUser() {
-      localDB.importUser(thisCtrl.user.phone).then(function(result) {
-        if(result.status) {
-          var userTemp = angular.copy(result.user);
-          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-          //---------- check user password
-          var newUserPassword = localDB.md5(thisCtrl.user.password);
-          if(newUserPassword === userTemp.password) {
-
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
-            importDBProsses(userTemp);
-          } else {
-            GlobalStor.global.isLoader = 0;
-            //---- user not exists
-            thisCtrl.isUserPasswordError = 1;
-          }
-        } else {
-          GlobalStor.global.isLoader = 0;
-          //---- user not exists
-          thisCtrl.isUserNotExist = 1;
-        }
-
-      });
-    }
-
-
-
-
-
-    /**============== ENTRY BY LINK ===============*/
+    //============ methods ================//
 
 
     function entriyWithoutLogin() {
@@ -246,7 +95,6 @@
             '9aefeef9c7e53f9de9bb36f32649dc3f',
             'a2da6d85764368b24392740020efbc92',
             'ceb60bfed037baaa484bd7b88d274c98',
-            '632b3213660804acb71fe045c6e321ed',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -281,7 +129,6 @@
             '22274313',
             '9201922876',
             '903528981',
-            '9301600441',
 
             '000001',
             '000002',
@@ -316,7 +163,6 @@
             '22274313',
             '9201922876',
             '903528981',
-            '9301600441',
 
             '000001',
             '000002',
@@ -350,8 +196,7 @@
 
       if(url.access) {
 
-        while(accessQty > -1) {
-          accessQty -= 1;
+        while(--accessQty > -1) {
           if(accessArr[accessQty] === url.access) {
             thisCtrl.user.phone = phoneArr[accessQty];
             thisCtrl.user.password = passwordArr[accessQty];
@@ -392,7 +237,6 @@
     /** =========== SIGN IN ======== */
 
     function enterForm(form) {
-      var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
@@ -401,12 +245,6 @@
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
-
-          ////TODO for Steko
-          //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -419,7 +257,7 @@
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
-                  newUserPassword = localDB.md5(thisCtrl.user.password);
+                  var newUserPassword = localDB.md5(thisCtrl.user.password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -454,7 +292,6 @@
               checkingUser();
             }
           });
- //*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -506,7 +343,6 @@
     }
 
 
-<<<<<<< HEAD
     function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
@@ -647,10 +483,7 @@
       return factories;
     }
 
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
-    /**--------- FACTORIES ------------*/
 
     function selectFactory() {
       if(thisCtrl.user.factoryId > 0) {
@@ -686,8 +519,7 @@
 
 
 
-    /**============ Registration ============*/
-
+    /**============ registration ============*/
 
     function switchRegistration() {
       //------ check Internet
@@ -789,37 +621,5 @@
     }
 
 
-
-
-
-
-    /**========== FINISH ==========*/
-
-
-    //------ clicking
-    thisCtrl.switchRegistration = switchRegistration;
-    thisCtrl.closeRegistration = closeRegistration;
-    thisCtrl.enterForm = enterForm;
-    thisCtrl.registrForm = registrForm;
-    thisCtrl.selectLocation = selectLocation;
-    thisCtrl.selectFactory = selectFactory;
-    thisCtrl.closeFactoryDialog = closeFactoryDialog;
-    thisCtrl.closeOfflineAlert = closeOfflineAlert;
-
-
-
-    //------- defined system language
-    loginServ.getDeviceLanguage();
-
-
-    //------- export data
-    if(thisCtrl.isOnline) {
-      loginServ.initExport();
-
-      entriyWithoutLogin();
-    }
-
-
-
-  });
+  }
 })();

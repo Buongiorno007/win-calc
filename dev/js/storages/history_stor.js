@@ -1,17 +1,15 @@
 (function(){
   'use strict';
-    /**@ngInject */
+    /**
+     * @ngInject
+     */
   angular
     .module('HistoryModule')
-    .factory('HistoryStor',
+    .factory('HistoryStor', historyStorageFactory);
 
-  function() {
-    /*jshint validthis:true */
+  function historyStorageFactory() {
+
     var thisFactory = this;
-
-    function setDefaultHistory() {
-      return angular.copy(thisFactory.publicObj.historySource);
-    }
 
     thisFactory.publicObj = {
       historySource: {
@@ -59,5 +57,13 @@
 
     return thisFactory.publicObj;
 
-  });
+
+    //============ methods ================//
+
+    function setDefaultHistory() {
+      var publicObj = angular.copy(thisFactory.publicObj.historySource);
+      return publicObj;
+    }
+
+  }
 })();

@@ -3,23 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-<<<<<<< HEAD
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
   function roomInfoCtrl($filter, MainServ, GeneralServ, TemplatesServ, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
 
-=======
-    .controller('RoomInfoCtrl',
-
-  function(
-    globalConstants,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -35,7 +22,6 @@
     };
   
 
-<<<<<<< HEAD
     //------ clicking
 
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
@@ -48,11 +34,6 @@
 
 
     //========================= selection rooms ========================================//
-=======
-
-
-    /**============ METHODS ================*/
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
     //------ Show/Close Room Selector Dialog
     function showRoomSelectorDialog() {
@@ -83,7 +64,6 @@
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
 
-<<<<<<< HEAD
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
@@ -106,14 +86,4 @@
     }
   }
 
-=======
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
-    thisCtrl.switchComment = switchComment;
-
-  });
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 })();

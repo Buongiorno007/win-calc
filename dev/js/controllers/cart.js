@@ -1,22 +1,14 @@
 (function(){
   'use strict';
-  /**@ngInject*/
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
-    .controller('CartCtrl',
+    .controller('CartCtrl', cartPageCtrl);
 
-  function(
-    $filter,
-    globalConstants,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor,
-    CartStor,
-    CartServ,
-    CartMenuServ
-  ) {
-    /*jshint validthis:true */
+  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
+
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -39,7 +31,6 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
-
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -62,9 +53,27 @@
 
 
 
+    //------ clicking
+    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
+    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
+    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
+    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+    thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.showAddElementDetail = showAddElementDetail;
+    thisCtrl.closeAddElementDetail = closeAddElementDetail;
+    thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.switchProductComment = switchProductComment;
+
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
+
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
 
-    /**============ METHODS ================*/
+
+    //============ methods ================//
 
 
     //============= AddElements detail block
@@ -109,27 +118,5 @@
     }
 
 
-
-
-    /**========== FINISH ==========*/
-
-      //------ clicking
-    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
-    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
-    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
-    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.editProduct = CartServ.editProduct;
-    thisCtrl.showAddElementDetail = showAddElementDetail;
-    thisCtrl.closeAddElementDetail = closeAddElementDetail;
-    thisCtrl.viewSwitching = viewSwitching;
-    thisCtrl.switchProductComment = switchProductComment;
-
-    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
-    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
-    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
-    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-
-  });
+  }
 })();

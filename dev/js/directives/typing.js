@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('typing',
+    .directive('typing', typingDir);
 
-  function() {
+  function typingDir() {
 
     return {
       scope: {
@@ -13,6 +13,14 @@
         typingDelay: '@'
       },
       link: function (scope, elem, attrs) {
+        attrs.$observe('typing', function (mode) {
+          if (mode.toString() === 'on') {
+            typingTextWithDelay();
+          }
+        });
+        attrs.$observe('output', function () {
+            typingTextWithDelay();
+        });
 
         function typingTextWithDelay() {
           setTimeout(function () {
@@ -32,20 +40,11 @@
               }
               elem.text(text);
             }, NEXT_CHAR_DELAY);
-          }, +scope.typingDelay);
+          }, scope.typingDelay*1);
         }
-
-        attrs.$observe('typing', function (mode) {
-          if (mode.toString() === 'on') {
-            typingTextWithDelay();
-          }
-        });
-        attrs.$observe('output', function () {
-            typingTextWithDelay();
-        });
-
       }
     };
 
-  });
+
+  }
 })();

@@ -1,22 +1,20 @@
 .report-container(ng-controller="ReportCtrl as reportBox", ng-show="reportBox.G.global.isReport")
   .close_report(ng-click="reportBox.G.global.isReport = 0")
   .report-menu
-    .report-menu-item(ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index", ng-click="reportBox.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}") {{ ::reportMenu.name }}
+    .report-menu-item(ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position", ng-click="reportBox.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}") {{ reportMenu.name }}
   .report-box
     table
       tr.report-item
-        th.report-elem {{ ::reportBox.NAME_LABEL }}
-        th.report-elem {{ ::reportBox.ARTICUL_LABEL }}
-        th.report-elem {{ ::reportBox.QTY_LABEL }}
-        th.report-elem {{ ::reportBox.SIZE_LABEL }} ({{ ::reportBox.LETTER_M }})
-        th.report-elem base
-        th.report-elem {{ ::reportBox.U.userInfo.currency }}
-      tr.report-item(ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name' track by $index")
+        th.report-elem {{ 'add_elements.NAME_LABEL' | translate }}
+        th.report-elem {{ 'add_elements.ARTICUL_LABEL' | translate }}
+        th.report-elem {{ 'add_elements.QTY_LABEL' | translate }}
+        th.report-elem {{ 'add_elements.SIZE_LABEL' | translate }} ({{ 'common_words.LETTER_M' | translate }})
+        th.report-elem {{ reportBox.U.userInfo.currency }}
+      tr.report-item(ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name'")
         td.report-elem {{report.name}}
         td.report-elem {{report.sku}}
         td.report-elem {{report.amount}}
         td.report-elem {{ (report.sizeLabel) ? report.sizeLabel : report.size }}
-        td.report-elem {{report.price}}
         td.report-elem {{report.priceReal}}
-    .report-price-total {{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}
+    .report-price-total {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{reportBox.config.reportPriceTotal}} {{ reportBox.U.userInfo.currency }}
 

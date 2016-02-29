@@ -3,17 +3,11 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GlobalStor',
+    .factory('GlobalStor', globalStorageFactory);
 
+  function globalStorageFactory() {
 
-  function() {
-    /*jshint validthis:true */
     var thisFactory = this;
-
-
-    function setDefaultGlobal() {
-      return angular.copy(thisFactory.publicObj.globalSource);
-    }
 
     thisFactory.publicObj = {
 
@@ -71,13 +65,9 @@
         //------ Lamination
         laminats: [],
         laminatCouples: [],
-<<<<<<< HEAD
 
         lamGroupFiltered: [],
 
-=======
-        lamGroupFiltered: [],
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
         //------ Add Elements
         addElementsAll: [],
@@ -116,9 +106,7 @@
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        maxSizeLimit: 3200,
-        maxSquareLimit: 6
+        isWidthCalculator: 0
       },
 
       setDefaultGlobal: setDefaultGlobal
@@ -128,5 +116,14 @@
 
     return thisFactory.publicObj;
 
-  });
+
+    //============ methods ================//
+
+    function setDefaultGlobal() {
+      var publicObj = angular.copy(thisFactory.publicObj.globalSource);
+      return publicObj;
+    }
+
+
+  }
 })();

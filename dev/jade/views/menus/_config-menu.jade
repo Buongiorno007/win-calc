@@ -4,11 +4,7 @@
     li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1}", ng-click="configMenu.selectConfigPanel(1)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-<<<<<<< HEAD
         svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="icon")
-=======
-        svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="configMenu.constants.SVG_CLASS_ICON")
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
       .name(data-output="{{ ::configMenu.CONFIGMENU_SIZING }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} *", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -28,10 +24,7 @@
       .value(data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 5}", ng-click="configMenu.selectConfigPanel(5)")
-<<<<<<< HEAD
 
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
       .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name }} / {{ configMenu.P.product.lamination.laminat_out_name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")

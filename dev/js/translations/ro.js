@@ -202,15 +202,7 @@
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
         VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
-        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
-        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'nu Este Disponibil!',
-        TEST_STAGE: "Находится в стадии тестирования",
-        GLASS: "Стеклопакет",
-        GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
-        GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        NOT_AVAILABLE: 'nu Este Disponibil!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',

@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('SoundPlayServ',
+    .factory('SoundPlayServ', soundPlayFactory);
 
-  function() {
-    /*jshint validthis:true */
+  function soundPlayFactory() {
+
     var thisFactory = this;
 
     thisFactory.soundsIntervals = {
@@ -17,10 +17,14 @@
       switching: {start: 1.81, end: 2.88}
     };
 
+    thisFactory.publicObj = {
+      playSound: playSound
+    };
+
+    return thisFactory.publicObj;
 
 
-
-    /**============ METHODS ================*/
+    //============ methods ================//
 
     //----------- Play audio sounds
     function playSound() {
@@ -49,14 +53,5 @@
      }
      */
 
-
-    /**========== FINISH ==========*/
-
-    thisFactory.publicObj = {
-      playSound: playSound
-    };
-
-    return thisFactory.publicObj;
-
-  });
+  }
 })();

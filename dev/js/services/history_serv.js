@@ -3,33 +3,36 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .factory('HistoryServ',
+    .factory('HistoryServ', historyFactory);
 
-  function(
-    $location,
-    $filter,
-    $q,
-    localDB,
-    GeneralServ,
-    MainServ,
-    SVGServ,
-    GlobalStor,
-    OrderStor,
-    ProductStor,
-    UserStor,
-    HistoryStor,
-    CartStor
-  ) {
-    /*jshint validthis:true */
+  function historyFactory($location, $filter, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
+
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
 
+    thisFactory.publicObj = {
+      toCurrentCalculation: toCurrentCalculation,
+      downloadOrders: downloadOrders,
+      sendOrderToFactory: sendOrderToFactory,
+      makeOrderCopy: makeOrderCopy,
+      clickDeleteOrder: clickDeleteOrder,
+      editOrder: editOrder,
+      viewSwitching: viewSwitching,
+
+      orderSearching: orderSearching,
+      orderDateSelecting: orderDateSelecting,
+      openCalendarScroll: openCalendarScroll,
+      orderSorting: orderSorting,
+      sortingInit: sortingInit
+    };
+
+    return thisFactory.publicObj;
 
 
 
 
-    /**============ METHODS ================*/
+    //============ methods ================//
 
 
     //------ go to current calculations
@@ -91,6 +94,15 @@
     //========== Send Order to Factory ========//
 
     function sendOrderToFactory(orderStyle, orderNum) {
+
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.SEND_ORDER_TITLE'),
+          $filter('translate')('common_words.SEND_ORDER_TXT'),
+          sendOrder
+        );
+      }
+
       function sendOrder() {
         var ordersQty = HistoryStor.history.orders.length;
         for(var ord = 0; ord < ordersQty; ord++) {
@@ -102,13 +114,6 @@
             localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()});
           }
         }
-      }
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.SEND_ORDER_TITLE'),
-          $filter('translate')('common_words.SEND_ORDER_TXT'),
-          sendOrder
-        );
       }
 
     }
@@ -122,32 +127,12 @@
 
     function makeOrderCopy(orderStyle, orderNum) {
 
-      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
-          //          console.log('result+++++', result);
-          if(result.length) {
-            var allElements = angular.copy(result),
-                allElemQty = allElements.length,
-                i = 0;
-
-            if (allElemQty > 0) {
-              //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
-                delete allElements[i].id;
-                allElements[i].modified = new Date();
-                allElements[i].order_id = newOrderNum;
-
-                //-------- insert all elements in LocalDB
-                localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
-              }
-            }
-
-          } else {
-            console.log('Empty result = ', result);
-          }
-        });
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.COPY_ORDER_TITLE'),
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder
+        );
       }
 
       function copyOrder() {
@@ -184,12 +169,36 @@
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
-          copyOrder
-        );
+
+
+      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
+        //------ Download elements of order from localDB
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
+//          console.log('result+++++', result);
+          if(result.length) {
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
+                i = 0;
+
+            if (allElemQty > 0) {
+              //-------- set new orderId in all elements of order
+              for (; i < allElemQty; i++) {
+                delete allElements[i].id;
+                allElements[i].modified = new Date();
+                allElements[i].order_id = newOrderNum;
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
+              }
+            }
+
+          } else {
+            console.log('Empty result = ', result);
+          }
+        });
+
+
       }
 
     }
@@ -203,6 +212,12 @@
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
       event.stopPropagation();
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+        deleteOrder
+      );
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -235,18 +250,69 @@
           localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
         }
       }
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-        $filter('translate')('common_words.DELETE_ORDER_TXT'),
-        deleteOrder
-      );
     }
 
 
 
 
     /** =========== Edit Order & Draft =========== */
+
+    function editOrder(typeOrder, orderNum) {
+      GlobalStor.global.isLoader = 1;
+      GlobalStor.global.orderEditNumber = orderNum;
+      //----- cleaning order
+      OrderStor.order = OrderStor.setDefaultOrder();
+
+      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      while(--ordersQty > -1) {
+        if(typeOrder) {
+          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        } else {
+          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        }
+
+      }
+      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
+      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
+      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
+      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
+      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+
+      delete OrderStor.order.additional_payment;
+      delete OrderStor.order.created;
+      delete OrderStor.order.sended;
+      delete OrderStor.order.state_to;
+      delete OrderStor.order.state_buch;
+      delete OrderStor.order.batch;
+      delete OrderStor.order.base_price;
+      delete OrderStor.order.factory_margin;
+      delete OrderStor.order.purchase_price;
+      delete OrderStor.order.sale_price;
+      delete OrderStor.order.modified;
+
+      //------ Download All Products of edited Order
+      downloadProducts().then(function() {
+        //------ Download All Add Elements from LocalDB
+        downloadAddElements().then(function () {
+          GlobalStor.global.isConfigMenu = 1;
+          GlobalStor.global.isNavMenu = 0;
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
+          GlobalStor.global.isLoader = 0;
+//          console.warn('ORDER ====', OrderStor.order);
+          $location.path('/cart');
+        });
+      });
+
+    }
+
 
     function setOrderOptions(param, id, data) {
       if(id) {
@@ -268,19 +334,6 @@
           }
         }
       }
-    }
-
-
-    function setGlassXOrder(product, id) {
-      //----- set default glass in ProductStor
-      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        return item.profileId === product.profile.id;
-      });
-      //      console.log('tempGlassArr = ', tempGlassArr);
-      if(tempGlassArr.length) {
-        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
-      }
-
     }
 
 
@@ -362,7 +415,6 @@
 
 
 
-<<<<<<< HEAD
     function setGlassXOrder(product, id) {
       //----- set default glass in ProductStor
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
@@ -374,8 +426,6 @@
       }
 
     }
-=======
->>>>>>> 221ce689c2bdefe907a83a1e0f88b55fdd61c84d
 
 
     //------ Download All Add Elements from LocalDB
@@ -412,64 +462,21 @@
 
 
 
-    function editOrder(typeOrder, orderNum) {
-      GlobalStor.global.isLoader = 1;
-      GlobalStor.global.orderEditNumber = orderNum;
-      //----- cleaning order
-      OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
-      while(--ordersQty > -1) {
-        if(typeOrder) {
-          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
-            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-            CartStor.fillOrderForm();
-          }
-        } else {
-          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
-            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
-            CartStor.fillOrderForm();
-          }
-        }
 
+
+
+    //------- Orders/Drafts View switcher
+    function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
+      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
+
+      //------ Download Drafts from localDB in first open
+      if(!HistoryStor.history.drafts.length) {
+        downloadDrafts();
       }
-      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
-      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
-      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
-      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
-      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
-      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
-
-      delete OrderStor.order.additional_payment;
-      delete OrderStor.order.created;
-      delete OrderStor.order.sended;
-      delete OrderStor.order.state_to;
-      delete OrderStor.order.state_buch;
-      delete OrderStor.order.batch;
-      delete OrderStor.order.base_price;
-      delete OrderStor.order.factory_margin;
-      delete OrderStor.order.purchase_price;
-      delete OrderStor.order.sale_price;
-      delete OrderStor.order.modified;
-
-      //------ Download All Products of edited Order
-      downloadProducts().then(function() {
-        //------ Download All Add Elements from LocalDB
-        downloadAddElements().then(function () {
-          GlobalStor.global.isConfigMenu = 1;
-          GlobalStor.global.isNavMenu = 0;
-          //------- set previos Page
-          GeneralServ.setPreviosPage();
-          GlobalStor.global.isLoader = 0;
-          //          console.warn('ORDER ====', OrderStor.order);
-          $location.path('/cart');
-        });
-      });
-
     }
-
-
-
 
 
 
@@ -498,17 +505,6 @@
     }
 
 
-    //------- Orders/Drafts View switcher
-    function viewSwitching() {
-      HistoryStor.history.isOrderDate = 0;
-      HistoryStor.history.isOrderDateDraft = 0;
-      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
-
-      //------ Download Drafts from localDB in first open
-      if(!HistoryStor.history.drafts.length) {
-        downloadDrafts();
-      }
-    }
 
 
     //============= HISTORY TOOLS ============//
@@ -528,28 +524,6 @@
 
 
     //=========== Filtering by Date
-
-    //------- filtering orders by Dates
-    function filteringByDate(obj, start, end) {
-      if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
-        newObj = angular.copy(obj);
-        startDate = new Date(start).valueOf();
-        finishDate = new Date(end).valueOf();
-        if(start !== '' && end !== '' && startDate > finishDate) {
-          return false;
-        }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
-          if(objDate < startDate || objDate > finishDate) {
-            newObj.splice(t, 1);
-          }
-        }
-        return newObj;
-      } else {
-        return false;
-      }
-    }
 
     //------- show Date filter tool dialog
     function orderDateSelecting() {
@@ -581,7 +555,27 @@
       }
     }
 
-
+    //------- filtering orders by Dates
+    function filteringByDate(obj, start, end) {
+      if(start !== '' || end !== '') {
+        var newObj, startDate, finishDate;
+        newObj = angular.copy(obj);
+        startDate = new Date(start).valueOf();
+        finishDate = new Date(end).valueOf();
+        if(start !== '' && end !== '' && startDate > finishDate) {
+          return false;
+        }
+        for(var t = newObj.length-1;  t >= 0; t--) {
+          var objDate = new Date(newObj[t].created).valueOf();
+          if(objDate < startDate || objDate > finishDate) {
+            newObj.splice(t, 1);
+          }
+        }
+        return newObj;
+      } else {
+        return false;
+      }
+    }
 
 
     //------ Select calendar-scroll
@@ -689,27 +683,5 @@
 
 
 
-    /**========== FINISH ==========*/
-
-    thisFactory.publicObj = {
-      toCurrentCalculation: toCurrentCalculation,
-      downloadOrders: downloadOrders,
-      sendOrderToFactory: sendOrderToFactory,
-      makeOrderCopy: makeOrderCopy,
-      clickDeleteOrder: clickDeleteOrder,
-      editOrder: editOrder,
-      viewSwitching: viewSwitching,
-
-      orderSearching: orderSearching,
-      orderDateSelecting: orderDateSelecting,
-      openCalendarScroll: openCalendarScroll,
-      orderSorting: orderSorting,
-      sortingInit: sortingInit
-    };
-
-    return thisFactory.publicObj;
-
-
-
-  });
+  }
 })();

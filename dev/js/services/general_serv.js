@@ -1,19 +1,11 @@
-/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GeneralServ',
+    .factory('GeneralServ', generalFactory);
 
-  function(
-    $filter,
-    $window,
-    $document,
-    globalConstants,
-    GlobalStor
-  ) {
-    /*jshint validthis:true */
+  function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
     var thisFactory = this,
         addElementDATA = [
           /** GRID */
@@ -106,6 +98,18 @@
           }
         ];
 
+    thisFactory.publicObj = {
+      addElementDATA: addElementDATA,
+      stopStartProg: stopStartProg,
+      setPreviosPage: setPreviosPage,
+      roundingValue: roundingValue,
+      addMarginToPrice: addMarginToPrice,
+      setPriceDis: setPriceDis,
+      sorting: sorting,
+      removeDuplicates: removeDuplicates,
+      getMaxMinCoord: getMaxMinCoord,
+      confirmAlert: confirmAlert
+    };
 
     //TODO desktop
     //------- IMG rooms preload
@@ -127,8 +131,10 @@
       }
     });
 
+    return thisFactory.publicObj;
 
-    /**============ METHODS ================*/
+
+    //============ methods ================//
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
@@ -141,22 +147,21 @@
     }
 
 
-    function roundingValue(nubmer, rad) {
-      var radix = rad || 2,
+    function roundingValue(nubmer, radix) {
+      var radix = (radix) ? radix : 2,
           numberType = typeof nubmer,
-          roundRadix = '1', i, newValue;
+          roundRadix = '1', i = 0;
 
-      for(i = 0; i < radix; i+=1) {
+      for(; i < radix; i++) {
         roundRadix += '0';
       }
       roundRadix *= 1;
 
       if(numberType === 'string') {
-        newValue = parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
+        return parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
       } else if(numberType === 'number') {
-        newValue = parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
+        return parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
       }
-      return newValue;
     }
 
     /** price Margins of Plant */
@@ -174,7 +179,7 @@
 
     function removeDuplicates(arr) {
       return arr.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
+        return index == self.indexOf(elem);
       });
     }
 
@@ -197,25 +202,5 @@
       GlobalStor.global.confirmAction = callback;
     }
 
-
-
-
-    /**========== FINISH ==========*/
-
-    thisFactory.publicObj = {
-      addElementDATA: addElementDATA,
-      stopStartProg: stopStartProg,
-      setPreviosPage: setPreviosPage,
-      roundingValue: roundingValue,
-      addMarginToPrice: addMarginToPrice,
-      setPriceDis: setPriceDis,
-      sorting: sorting,
-      removeDuplicates: removeDuplicates,
-      getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
-    };
-
-    return thisFactory.publicObj;
-
-  });
+  }
 })();

@@ -3,19 +3,10 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsListCtrl',
+    .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function(
-    globalConstants,
-    GeneralServ,
-    AddElementsServ,
-    AddElementMenuServ,
-    GlobalStor,
-    ProductStor,
-    UserStor,
-    AuxStor
-  ) {
-    /*jshint validthis:true */
+  function addElementsListCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, ProductStor, UserStor, AuxStor) {
+
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -39,5 +30,5 @@
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  });
+  }
 })();
