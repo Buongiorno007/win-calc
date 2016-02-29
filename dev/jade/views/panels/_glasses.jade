@@ -9,7 +9,7 @@
 
       .glass-block-footer.clearfix
         .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectLastGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
+          .box.glass-box.unvisible(ng-repeat="glass in typeGlass track by $index", ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .box_inner(ng-click="glassPanel.selectGlass(glass.id, glass.sku)")
               .glass-box-view
                 .glass-img(ng-switch="glass.cameras")
@@ -43,6 +43,6 @@
     .dialog-inner
       svg-template(template="glassPanel.P.product.template", template-width="glassPanel.constants.svgTemplateIconBigWidth", template-height="glassPanel.constants.svgTemplateIconBigHeight", type-construction="glassPanel.constants.SVG_ID_GLASS")
     .set-glass-btn(ng-click="glassPanel.confirmGlass()")
-    .set-glass-all-btn(ng-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}
-    .set-glass-warning <span></span> {{ ::glassPanel.SELECT_GLASS_WARN }}
-    .close-dialog(ng-click="glassPanel.closeGlassSelectorDialog()")
+    //.set-glass-all-btn(ng-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}
+    //.set-glass-warning <span></span> {{ ::glassPanel.SELECT_GLASS_WARN }}
+    .close-dialog(ng-click="glassPanel.closeGlassSelectorDialog(1)")

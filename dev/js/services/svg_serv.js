@@ -75,9 +75,10 @@
 
     function cleanDublicat(param, arr) {
       var pQty = arr.length,
-          pQty2 = arr.length,
-          exist = 0, i;
+          pQty2, exist, i;
       while(--pQty > -1) {
+        pQty2 = arr.length;
+        exist = 0;
         for(i = 0; i < pQty2; i+=1) {
           switch(param) {
             case 1:
@@ -1166,7 +1167,9 @@
           impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
         );
         //------- insert impostIn of impost in pointsIn of children blocks
-        collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        collectImpPointsXChildBlock(
+          currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
+        );
         //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
         //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
         //-------- set real impostAxis coord for dimensions
@@ -1177,7 +1180,9 @@
         }
         currBlock.impost.impostAxis.length = 0;
         for(i = 0; i < linesOutQty; i+=1) {
-          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
+          getCPImpostInsideBlock(
+            0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis
+          );
         }
         if(impostQP) {
           currBlock.impost.impostAxis.push(impostQP);
@@ -1250,7 +1255,9 @@
           size = 0;
       //------- Line
       if(pointQty === 2 || pointQty === 4) {
-        size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
+        size = GeneralServ.roundingValue(
+          (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1
+        );
 
         //--------- Curve
       } else if(pointQty === 3 || pointQty === 6) {
@@ -1302,7 +1309,9 @@
             break;
           } else if(newPointsOut[0].dir === 'curv') {
             part.type = 'arc';
-            part.points.push(newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]);
+            part.points.push(
+              newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]
+            );
             if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
               part.type = 'arc-corner';
             }
@@ -1319,7 +1328,7 @@
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
@@ -1386,10 +1395,12 @@
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                   /** if line */
-                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
                 }
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
               /** doorstep Al outer */
               //-------- change fp3-fp4 frame to outer doorstep
               if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
@@ -1409,12 +1420,16 @@
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                   /** if line */
-                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
                 }
               }
             } else {
               /** if line */
-              collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
+              collectPointsInParts(
+                part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]
+              );
             }
           }
 
@@ -1501,7 +1516,9 @@
           p+=1;
         } else {
           //------- Line
-          size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
+          size = GeneralServ.roundingValue(
+            Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1
+          );
         }
 
         sizes.push(size);
@@ -1785,19 +1802,35 @@
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(getCrossPointSashDir(1, center, 225, beadLines), getCrossPointSashDir(3, center, 90, beadLines), getCrossPointSashDir(1, center, 315, beadLines));
+            part.points.push(
+              getCrossPointSashDir(1, center, 225, beadLines),
+              getCrossPointSashDir(3, center, 90, beadLines),
+              getCrossPointSashDir(1, center, 315, beadLines)
+            );
             break;
           //----- 'right'
           case 2:
-            part.points.push(getCrossPointSashDir(2, center, 225, beadLines), getCrossPointSashDir(4, center, 180, beadLines), getCrossPointSashDir(2, center, 135, beadLines));
+            part.points.push(
+              getCrossPointSashDir(2, center, 225, beadLines),
+              getCrossPointSashDir(4, center, 180, beadLines),
+              getCrossPointSashDir(2, center, 135, beadLines)
+            );
             break;
           //------ 'down'
           case 3:
-            part.points.push(getCrossPointSashDir(3, center, 135, beadLines), getCrossPointSashDir(1, center, 270, beadLines), getCrossPointSashDir(3, center, 45, beadLines));
+            part.points.push(
+              getCrossPointSashDir(3, center, 135, beadLines),
+              getCrossPointSashDir(1, center, 270, beadLines),
+              getCrossPointSashDir(3, center, 45, beadLines)
+            );
             break;
           //----- 'left'
           case 4:
-            part.points.push(getCrossPointSashDir(4, center, 45, beadLines), getCrossPointSashDir(2, center, 180, beadLines), getCrossPointSashDir(4, center, 315, beadLines));
+            part.points.push(
+              getCrossPointSashDir(4, center, 45, beadLines),
+              getCrossPointSashDir(2, center, 180, beadLines),
+              getCrossPointSashDir(4, center, 315, beadLines)
+            );
             break;
         }
         parts.push(part);
@@ -2086,13 +2119,21 @@
       for(i = 0; i < limitsQty; i+=1) {
         if(dim.axis === 'x') {
           if(limits[i].x === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].x + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].x + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(limits[i].y === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].y + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].y + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -2163,7 +2204,9 @@
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1 );
+                  dimLimit.minL = GeneralServ.roundingValue(
+                    (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1
+                  );
                 }
               } else {
                 dimLimit.minL = globalConstants.minSizeLimit;
@@ -2171,7 +2214,9 @@
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
@@ -2189,7 +2234,9 @@
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -2400,39 +2447,39 @@
               }
             }
           }
-          /*
-           //-------- set block Limits
-           //------ go to parent and another children for Limits
-           for (var bp = 1; bp < blocksQty; bp++) {
-           if (blocks[bp].id === blocks[b].parent) {
-           var childQty = blocks[bp].children.length;
-           //------- add parent pointsOut
-           cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
-           //------- add impost
-           if(blocks[bp].impost) {
-           //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
-           if(!blocks[bp].impost.impostAxis[0].t) {
-           blockLimits.push(blocks[bp].impost.impostAxis[0]);
-           }
-           if(!blocks[bp].impost.impostAxis[1].t) {
-           blockLimits.push(blocks[bp].impost.impostAxis[1]);
-           }
+/*
+ //-------- set block Limits
+ //------ go to parent and another children for Limits
+ for (var bp = 1; bp < blocksQty; bp++) {
+ if (blocks[bp].id === blocks[b].parent) {
+ var childQty = blocks[bp].children.length;
+ //------- add parent pointsOut
+ cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
+ //------- add impost
+ if(blocks[bp].impost) {
+ //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+ if(!blocks[bp].impost.impostAxis[0].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[0]);
+ }
+ if(!blocks[bp].impost.impostAxis[1].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[1]);
+ }
 
-           //============ collect Curver Radius of impost
-           if (blocks[bp].impost.impostAxis[2]) {
-           //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
-           dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
-           }
-           }
-           //------- add imposts of childern
-           while(--childQty > -1) {
-           if(blocks[bp].children[childQty] !== blocks[b].id) {
-           getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
-           }
-           }
-           }
-           }
-           */
+ //============ collect Curver Radius of impost
+ if (blocks[bp].impost.impostAxis[2]) {
+ //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
+ dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+ }
+ }
+ //------- add imposts of childern
+ while(--childQty > -1) {
+ if(blocks[bp].children[childQty] !== blocks[b].id) {
+ getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
+ }
+ }
+ }
+ }
+ */
 
           blockLimits = angular.copy(allPoints);
           //console.log('`````````` blockLimits ``````````', blockLimits);
@@ -2535,7 +2582,7 @@
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
           } else {
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-            //            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
+            //console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
             //            console.log('+++++++++ block ++++++++++pointsIn');
           }
@@ -2544,7 +2591,9 @@
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
+            $.merge(thisObj.details[i].parts, setParts(
+              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+            ));
           }
 
 
@@ -2552,7 +2601,9 @@
           if(thisObj.details[i].children.length) {
 
             if(thisObj.details[i].blockType === 'sash') {
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
+                thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
@@ -2560,11 +2611,18 @@
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
             }
 
             //------- if block is empty
@@ -2580,12 +2638,21 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
 
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
 
             } else if(thisObj.details[i].blockType === 'sash') {
               //console.info('-------', i, thisObj.details[i]);
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashPointsOut = copyPointsOut(
+                setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
@@ -2602,19 +2669,33 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
             }
           }
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
           //----- create impost parts
           if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
+            thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
           }
 
 

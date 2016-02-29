@@ -92,14 +92,16 @@
 
     function sendOrderToFactory(orderStyle, orderNum) {
       function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length;
-        for(var ord = 0; ord < ordersQty; ord++) {
+        var ordersQty = HistoryStor.history.orders.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
             HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
             //------ update in Local BD
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()});
+            localDB.updateLocalServerDBs(
+              localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()}
+            );
           }
         }
       }
@@ -129,18 +131,20 @@
           if(result.length) {
             var allElements = angular.copy(result),
                 allElemQty = allElements.length,
-                i = 0;
+                i;
 
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
+              for (i = 0; i < allElemQty; i+=1) {
                 delete allElements[i].id;
                 allElements[i].modified = new Date();
                 allElements[i].order_id = newOrderNum;
 
                 //-------- insert all elements in LocalDB
                 localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
+                localDB.insertServer(
+                  UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]
+                );
               }
             }
 
@@ -153,9 +157,9 @@
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy;
+            newOrderCopy, ord;
 
-        for(var ord = 0; ord < ordersQty; ord++) {
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -166,7 +170,9 @@
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
 
-        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+        localDB.insertServer(
+          UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
+        ).then(function(respond) {
           if(respond.status) {
             newOrderCopy.order_number = respond.order_number;
           }
@@ -241,6 +247,7 @@
         $filter('translate')('common_words.DELETE_ORDER_TXT'),
         deleteOrder
       );
+
     }
 
 
@@ -288,7 +295,9 @@
     function downloadProducts() {
       var deferred = $q.defer();
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
 
@@ -342,7 +351,9 @@
 
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+                item.productPriceDis = (GeneralServ.setPriceDis(
+                  item.template_price, OrderStor.order.discount_construct
+                ) + item.addelemPriceDis);
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
@@ -367,7 +378,9 @@
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length;
@@ -379,7 +392,9 @@
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
-                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
+                  elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
+                );
                 OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
@@ -544,7 +559,9 @@
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(
+            HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft
+          );
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }
@@ -556,7 +573,9 @@
       } else {
         if(HistoryStor.history.isOrderDate) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate);
+          filterResult = filteringByDate(
+            HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate
+          );
           if(filterResult) {
             HistoryStor.history.orders = filterResult;
           }

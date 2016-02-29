@@ -52,27 +52,29 @@
 
 
     function deleteAddElemsInOrder(element) {
-      var productsQty = OrderStor.order.products.length,
-          addElemProdQty, addElemQty;
+      var products = OrderStor.order.products,
+          productsQty = products.length,
+          addElemProdQty, addElemQty, addElem;
       while(--productsQty > -1) {
-        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
         while(--addElemProdQty > -1) {
-          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
+          addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             //--------- delete one Add Element
             if(element) {
               while(--addElemQty > -1) {
-                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
-                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
-                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
-                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                if(addElem[addElemProdQty][addElemQty].id === element.id) {
+                  if(addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      addElem[addElemProdQty].splice(addElemQty, 1);
                     }
                   }
                 }
               }
             } else {
               //--------- delete All Add Element
-              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
+              addElem[addElemProdQty].length = 0;
             }
           }
         }
@@ -117,28 +119,29 @@
 
     function collectAddElemUnitProducts() {
       var allAddElemsQty = CartStor.cart.allAddElements.length,
-          addElemProdQty, addElemProd, i, j, wagon, cloneQty;
+          addElemProdQty, addElemProd, i, j, wagon, cloneQty, addElem;
 
       //------ clean addElemUnit array
       thisCtrl.config.addElemUnitProducts.length = 0;
       //console.log('      ', CartStor.cart.allAddElements);
       for(i = 0; i < allAddElemsQty; i+=1) {
-        addElemProdQty = CartStor.cart.allAddElements[i].length;
+        addElem = CartStor.cart.allAddElements[i];
+        addElemProdQty = addElem.length;
         for(j = 0; j < addElemProdQty; j+=1) {
-          if(CartStor.cart.allAddElements[i][j].id === thisCtrl.config.selectedAddElemUnit.id) {
-            if(CartStor.cart.allAddElements[i][j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-              if(CartStor.cart.allAddElements[i][j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
+          if(addElem[j].id === thisCtrl.config.selectedAddElemUnit.id) {
+            if(addElem[j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+              if(addElem[j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
 
                 //-------- if product is addElems only
                 if(OrderStor.order.products[i].is_addelem_only) {
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    name: CartStor.cart.allAddElements[i][j].name,
-                    element_width: CartStor.cart.allAddElements[i][j].element_width,
-                    element_height: CartStor.cart.allAddElements[i][j].element_height,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
-                    elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
+                    name: addElem[j].name,
+                    element_width: addElem[j].element_width,
+                    element_height: addElem[j].element_height,
+                    element_qty: addElem[j].element_qty,
+                    elementPriceDis: addElem[j].elementPriceDis
                   };
                   thisCtrl.config.addElemUnitProducts.push(addElemProd);
 
@@ -147,7 +150,7 @@
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
+                    element_qty: addElem[j].element_qty / OrderStor.order.products[i].product_qty
                   };
 //                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
 //                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
@@ -193,17 +196,19 @@
 
 
     function delAddElemUnitInProduct(productIndex) {
-      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
+      var addElem = OrderStor.order.products[productIndex].chosenAddElements,
+          addElemProdQty = addElem.length,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
           addElemQty;
 
       while(--addElemProdQty > -1) {
-        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
+        addElemQty = addElem[addElemProdQty].length;
         if(addElemQty) {
           while(--addElemQty > -1) {
-            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
-                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+            if(addElem[addElemProdQty][addElemQty].id === addElemUnit.id) {
+              if(addElem[addElemProdQty][addElemQty].element_width === addElemUnit.element_width) {
+                if(addElem[addElemProdQty][addElemQty].element_height === addElemUnit.element_height) {
+                  addElem[addElemProdQty].splice(addElemQty, 1);
                 }
               }
             }
@@ -214,11 +219,13 @@
 
 
     function reviewAddElemUnit() {
-      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
+      var addElems = CartStor.cart.allAddElemsOrder,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemsQty = addElems.length,
           noExist = 1;
       while(--addElemsQty > -1) {
-        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
+        if(addElems[addElemsQty].id === addElemUnit.id) {
+          addElemUnit.element_qty = angular.copy(addElems[addElemsQty].element_qty);
           noExist -= 1;
         }
       }

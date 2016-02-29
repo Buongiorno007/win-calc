@@ -84,9 +84,10 @@
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      //------ delete events on Glass/Grid Selector Dialogs
-      DesignServ.removeGlassEventsInSVG();
-      GlobalStor.global.showGlassSelectorDialog = 0;
+      //------ close Glass Selector Dialogs
+      if(GlobalStor.global.showGlassSelectorDialog) {
+        DesignServ.closeGlassSelectorDialog(1);
+      }
 
       if(id === 1) {
         GlobalStor.global.activePanel = 0;

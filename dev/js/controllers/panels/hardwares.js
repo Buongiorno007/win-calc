@@ -44,11 +44,23 @@
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id);
+        MainServ.preparePrice(
+          ProductStor.product.template,
+          ProductStor.product.profile.id,
+          ProductStor.product.glass,
+          ProductStor.product.hardware.id,
+          ProductStor.product.lamination.lamination_in_id
+        );
         //------ save analytics data
-//        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+//AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+        AnalyticsServ.sendAnalyticsData(
+          UserStor.userInfo.id,
+          OrderStor.order.id,
+          ProductStor.product.template_id,
+          newId,
+          3
+        );
       }
     }
 

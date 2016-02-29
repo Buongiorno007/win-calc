@@ -588,12 +588,12 @@
             'foreignKey': ''
           },
 
-          //-------- inner temables
-          //          'analytics': {
-          //            'tableName': 'analytics',
-          //            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
-          //            'foreignKey': ''
-          //          },
+//-------- inner temables
+//          'analytics': {
+//            'tableName': 'analytics',
+//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+//            'foreignKey': ''
+//          },
 
           'export': {
             'tableName': 'export',
@@ -1423,7 +1423,11 @@
                 if(angular.isArray(construction.ids[index])) {
                   var promisKits = construction.ids[index].map(function(item2) {
                     var deff2 = $q.defer();
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
+                    selectLocalDB(
+                      tablesLocalDB.lists.tableName,
+                      {id: item2},
+                      'id, parent_element_id, name, waste, amendment_pruning'
+                    ).then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
                       } else {
@@ -1453,7 +1457,11 @@
                     }
                   })
                 } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+                  selectLocalDB(
+                    tablesLocalDB.lists.tableName,
+                    {id: construction.ids[index]},
+                    'id, parent_element_id, name, waste, amendment_pruning'
+                  ).then(function(result) {
                     var data = angular.copy(result);
                     if(data && data.length) {
                       if(data[0].amendment_pruning) {
@@ -1479,7 +1487,9 @@
 
     function getKitByID(kitID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
+      selectLocalDB(
+        tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning'
+      ).then(function(result) {
         if(result && result.length) {
           if(result[0].amendment_pruning) {
             result[0].amendment_pruning /= 1000;
@@ -1636,7 +1646,9 @@
 
     function getElementByListId(isArray, listID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
+      selectLocalDB(
+        tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id'
+      ).then(function(result) {
         if(result.length) {
           if(isArray) {
             deff.resolve(result);
@@ -1838,7 +1850,7 @@
           }
         }
       }
-      //      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
+//console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
       if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
         price *= GlobalStor.global.currencies[elemIndex].value;
       }
@@ -1943,10 +1955,26 @@
                 //                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
-                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
+                  culcPriceAsSize(
+                    ke,
+                    priceObj.kits[ke][child][child2],
+                    priceObj.kitsElem[ke][child][child2],
+                    sizes[ke][child],
+                    1,
+                    priceObj,
+                    constrElements
+                  );
                 }
               } else {
-                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
+                culcPriceAsSize(
+                  ke,
+                  priceObj.kits[ke][child],
+                  priceObj.kitsElem[ke][child],
+                  sizes[ke],
+                  sizeQty,
+                  priceObj,
+                  constrElements
+                );
               }
             }
           } else {
@@ -2021,7 +2049,9 @@
 
 
 
-    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
+    function culcPriceAsRule(
+      parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
+    ) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
@@ -2100,7 +2130,9 @@
 
 
 
-    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
+    function prepareConsistElemPrice(
+      group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj
+    ) {
       //console.info('1-----', group);
       //console.info('2-----', currConsist, currConsistElem);
       //console.info('3-----', currConstrSize, mainKit);
@@ -2132,7 +2164,16 @@
         if(currConsist.child_type === "list") {
           currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
         }
-        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj, sizeLabel);
+        culcPriceAsRule(
+          1,
+          currSize,
+          currConsist,
+          currConsistElem,
+          mainKit.amendment_pruning,
+          wasteValue,
+          priceObj,
+          sizeLabel
+        );
 
       } else {
         var consistQty = consistArr.length;
@@ -2141,14 +2182,24 @@
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
             if(currConsist.child_type === "list") {
-              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
+              currConsist.newValue = getValueByRule(
+                consistArr[el].newValue, currConsist.value, currConsist.rules_type_id
+              );
             }
             if(consistArr[el].rules_type_id === 2) {
               if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
                 newValue = consistArr[el].newValue;
               }
             }
-            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
+            culcPriceAsRule(
+              newValue,
+              consistArr[el].newValue,
+              currConsist,
+              currConsistElem,
+              consistArr[el].amendment_pruning,
+              wasteValue,
+              priceObj
+            );
           }
         }
       }
@@ -2176,15 +2227,17 @@
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
-                  //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
-                  //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
 
                   var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
 
                   if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
                     //                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
                     wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
-                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                    objTmp.qty = getValueByRule(
+                      mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id
+                    );
                     if (currConsist[hwInd][hwInd2].child_type === "list") {
                       currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                     }
@@ -2196,7 +2249,11 @@
                           continue hwElemLoop;
                         }
                         wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
-                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                        objTmp.qty = getValueByRule(
+                          currConsist[hwInd][el].newValue,
+                          currConsist[hwInd][hwInd2].value,
+                          currConsist[hwInd][hwInd2].rules_type_id
+                        );
                         if (currConsist[hwInd][hwInd2].child_type === "list") {
                           currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                         }
@@ -2213,8 +2270,8 @@
                     }
                     objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
                     objTmp.size = 0;
-                    //                    console.info('finish -------priceObj------- ', priceObj);
-                    //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+  //                    console.info('finish -------priceObj------- ', priceObj);
+  //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
                     priceObj.constrElements.push(objTmp);
                     priceObj.priceTotal += objTmp.priceReal;
                   }
@@ -2242,10 +2299,20 @@
               var sizeQty = currConstrSize.sizes.length;
               while (--sizeQty > -1) {
                 //                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
-                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+                prepareConsistElemPrice(
+                  group,
+                  currConstrSize.sizes[sizeQty],
+                  mainKit,
+                  currConsist[elemInd],
+                  currConsistElem[elemInd],
+                  currConsist,
+                  priceObj
+                );
               }
             } else {
-              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+              prepareConsistElemPrice(
+                group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj
+              );
             }
           }
         } else {
@@ -2254,10 +2321,20 @@
           if(group === 6) {
             var sizeQty = currConstrSize.sizes.length;
             while(--sizeQty > -1) {
-              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+              prepareConsistElemPrice(
+                group,
+                currConstrSize.sizes[sizeQty],
+                mainKit,
+                currConsist,
+                currConsistElem,
+                priceObj.consist[group],
+                priceObj
+              );
             }
           } else {
-            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            prepareConsistElemPrice(
+              group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj
+            );
           }
         }
       }
@@ -2295,13 +2372,27 @@
                   for(var s = 0; s < sizeObjQty; s++) {
                     if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
                       if(priceObj.consistElem[group][elem]) {
-                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                        culcPriceConsistElem(
+                          group,
+                          priceObj.consist[group][elem],
+                          priceObj.consistElem[group][elem],
+                          construction.sizes[group][s],
+                          priceObj.kits[group][elem],
+                          priceObj
+                        );
                       }
                     }
                   }
                 } else {
                   if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][elem],
+                      priceObj.kits[group][elem],
+                      priceObj
+                    );
                   }
                 }
 
@@ -2312,7 +2403,14 @@
               for(var s = 0; s < sizeQty; s++) {
                 for (var elem = 0; elem < consistQty; elem++) {
                   if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][s],
+                      priceObj.kits[group],
+                      priceObj
+                    );
                   }
                 }
               }
@@ -2453,18 +2551,40 @@
                         if(priceObj.consist[cons]) {
                           if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
                             if(priceObj.consist[cons].child_type === "list") {
-                              priceObj.consist[cons].newValue = getValueByRule(sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                              priceObj.consist[cons].newValue = getValueByRule(
+                                sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id
+                              );
                             }
-                            culcPriceAsRule(1, sizeSource, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
+                            culcPriceAsRule(
+                              1,
+                              sizeSource,
+                              priceObj.consist[cons],
+                              priceObj.consistElem[cons],
+                              priceObj.kits.amendment_pruning,
+                              wasteValue,
+                              priceObj
+                            );
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
                                 //                                  console.warn('parent++++', priceObj.consist[el]);
-                                wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
+                                wasteValue = (priceObj.consist[el].waste) ? (1+(priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
-                                  priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                                  priceObj.consist[cons].newValue = getValueByRule(
+                                    priceObj.consist[el].newValue,
+                                    priceObj.consist[cons].value,
+                                    priceObj.consist[cons].rules_type_id
+                                  );
                                 }
-                                culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.consist[el].amendment_pruning, wasteValue, priceObj);
+                                culcPriceAsRule(
+                                  priceObj.consist[cons].newValue,
+                                  priceObj.consist[el].newValue,
+                                  priceObj.consist[cons],
+                                  priceObj.consistElem[cons],
+                                  priceObj.consist[el].amendment_pruning,
+                                  wasteValue,
+                                  priceObj
+                                );
                               }
                             }
                           }

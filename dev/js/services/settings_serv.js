@@ -31,7 +31,9 @@
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {
 //        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-//        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//        localDB.updateLocalServerDBs(
+      // localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar}
+      // );
 //        $rootScope.$apply();
 //      }, function( error ) {
 //        console.log( 'Error upload user avatar' + error );

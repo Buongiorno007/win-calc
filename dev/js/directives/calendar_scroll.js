@@ -100,7 +100,9 @@
         function update(panel, section, datetime) {
           $('.'+panel).find("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
           $('.'+panel).find("#" + section + "_month").drum('setIndex', datetime.getMonth());
-          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear()));
+          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue(
+            $("#" + section + "_fullYear")[0], datetime.getFullYear())
+          );
         }
 
         $(function(){

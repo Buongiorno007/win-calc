@@ -56,7 +56,7 @@
       MainServ.setProfileByLaminat(id).then(function() {
         //------ save analytics data
         /** send analytics data to Server*/
-        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+//TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
       });
 
     }

@@ -1,4 +1,4 @@
-.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-if="alertBox.G.global.isAlert")
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isAlert")
   .alert-block
     .alert-sign
     .alert-title {{ alertBox.G.global.alertTitle }}

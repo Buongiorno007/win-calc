@@ -56,7 +56,9 @@
         }
       }
       currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
-      currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
+      currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+        currProduct.addelem_price, OrderStor.order.discount_addelem
+      );
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -110,8 +112,14 @@
       };
       return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
         if (results) {
-          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
-          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
+          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
+            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
+          );
+          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
+            GeneralServ.setPriceDis(
+              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
+            )
+          );
           AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
         }
         return results;
@@ -353,7 +361,9 @@
           /** set grid to all template blocks */
           if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
             deleteOldGridInList(blocksQty);
-            gridElements.push(setCurrGridToBlock(ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex));
+            gridElements.push(setCurrGridToBlock(
+              ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+            ));
           }
         }
       }
@@ -363,11 +373,13 @@
 
 
     function changeSVGTemplateAsNewGrid () {
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          //------ save analytics data
+          //TODO ?? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
     }
 
 
@@ -382,7 +394,8 @@
 
 
 
-    //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
+    //--------- when we select new addElement, function checks
+    // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
@@ -520,9 +533,9 @@
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element is not grid and has price
-      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
       //
       //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       //} else {
@@ -563,7 +576,8 @@
           setAddElementsTotalPrice(ProductStor.product);
 
           //------ save analytics data
-          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+          //TODO ??? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
         });
       }
     }
@@ -615,7 +629,9 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      //TODO ??? AnalyticsServ.saveAnalyticDB(
+      // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id,
+      // AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
       AuxStor.aux.isAddElement = 0;
     }
 

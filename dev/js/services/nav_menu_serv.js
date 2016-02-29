@@ -34,17 +34,18 @@
           var latitude = position.coords.latitude,
               longitude = position.coords.longitude;
 
-          $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru')
-            .then(
+          $http.get(
+            'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru'
+          ).then(
               function (data) {
                 //----- save previous current location
                 //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
                 var deviceLocation = data.results[0].formatted_address.split(', ');
-                //TODO set new currencyID!!!!
-                //TODO before need to fine currencyId!!!!
-                //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
-                //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+//TODO set new currencyID!!!!
+//TODO before need to fine currencyId!!!!
+//TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+//TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
                 OrderStor.order.customer_city_id = 156;
                 OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
                 OrderStor.order.climatic_zone = 7; //TODO

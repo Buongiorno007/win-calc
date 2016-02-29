@@ -61,7 +61,10 @@
         glassesAll: [],
         glassTypes: [],
         glasses: [],
-        selectLastGlassId: 0,
+        selectGlassId: 0,
+        selectGlassName: '',
+        prevGlassId: 0,
+        prevGlassName: '',
 
         //------ Hardwares
         hardwares: [],

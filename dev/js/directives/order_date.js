@@ -34,7 +34,7 @@
             }
           } else {
             oldDateFormat = new Date();
-            newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+            newDateFormat = oldDateFormat.getDate()+' '+monthsArr[oldDateFormat.getMonth()]+', '+oldDateFormat.getFullYear();
           }
 
           if(!type && oldD === '') {

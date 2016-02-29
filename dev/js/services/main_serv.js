@@ -243,13 +243,13 @@
 
 
 
-    function getGlassFromTemplateBlocks() {
-      var blocksQty = ProductStor.product.template_source.details.length,
+    function getGlassFromTemplateBlocks(template) {
+      var blocksQty = template.details.length,
           glassIds = [];
       while(--blocksQty > 0) {
-        if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-          if(ProductStor.product.template_source.details[blocksQty].glassId) {
-            glassIds.push(angular.copy(ProductStor.product.template_source.details[blocksQty].glassId));
+        if(!template.details[blocksQty].children.length) {
+          if(template.details[blocksQty].glassId) {
+            glassIds.push(angular.copy(template.details[blocksQty].glassId));
           }
         }
       }
@@ -257,21 +257,21 @@
     }
 
 
-    function setGlassToTemplateBlocks(blockId, glassId, glassName) {
-      var blocksQty = ProductStor.product.template_source.details.length;
+    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+      var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
           /** set glass to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
-            ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-            ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+          if(template.details[blocksQty].id === blockId) {
+            template.details[blocksQty].glassId = glassId;
+            template.details[blocksQty].glassTxt = glassName;
             break;
           }
         } else {
           /** set glass to all template blocks */
-          //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-          ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-          ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+          //if(!template.details[blocksQty].children.length) {
+          template.details[blocksQty].glassId = glassId;
+          template.details[blocksQty].glassTxt = glassName;
           //}
         }
       }
@@ -284,7 +284,7 @@
       product.glass.length = 0;
       if(id) {
         //----- get Glass Ids from template and check dublicates
-        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(ProductStor.product.template)),
             glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
@@ -299,9 +299,10 @@
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
           product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-          GlobalStor.global.selectLastGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
@@ -932,7 +933,7 @@
           }
         }
       });
-console.info('glass result', DesignStor.design.extraGlass);
+//console.info('glass result', DesignStor.design.extraGlass);
     }
 
 
@@ -1194,7 +1195,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           //-------- insert product Report into local DB
           //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-// TODO localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+// TODO localDB.insertServer(
+// UserStor.userInfo.phone, UserStor.userInfo.device_code,
+// localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */

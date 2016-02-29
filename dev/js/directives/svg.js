@@ -444,6 +444,7 @@
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
                       .attr({
+                        'block_id': template.details[i].id,
                         'class': 'glass-txt',
                         'x': template.details[i].center.x,
                         'y': template.details[i].center.y

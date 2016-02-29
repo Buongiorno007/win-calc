@@ -56,7 +56,9 @@
             delete analytics[analytQty].id;
             delete analytics[analytQty].modified;
             //----- send Analytics Data to Server
-            localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]);
+            localDB.insertServer(
+            UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]
+            );
           }
           //---- clear Analytics Table in localDB
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);

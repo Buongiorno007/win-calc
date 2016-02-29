@@ -36,13 +36,17 @@
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
         //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName,
+          UserStor.userInfo.id,
+          {'password': UserStor.userInfo.password}
+        ).then(function() {
           //---- clean fields
           thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
           SettingServ.gotoSettingsPage();
         });
       } else {
-        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword))) {
           thisCtrl.config.isErrorOldPassword = 1;
         } else {
           thisCtrl.config.isErrorPassword = 1;

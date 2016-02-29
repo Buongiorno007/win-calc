@@ -41,12 +41,16 @@
         UserStor.userInfo.heatTransfer = location.heatTransfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId}
+        );
 
         //-------- if current geolocation changing
       } else if(GlobalStor.global.currOpenPage === 'main'){
         //----- build new currentGeoLocation
-        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
+        loginServ.setUserGeoLocation(
+          location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation
+        );
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();

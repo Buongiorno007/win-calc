@@ -117,7 +117,9 @@
     function savePhoneInDB(phones) {
       var phonesString = phones.join(',');
       UserStor.userInfo.city_phone = phonesString;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
+      localDB.updateLocalServerDBs(
+        localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString}
+      );
       thisCtrl.config.tempAddPhone = '';
     }
 

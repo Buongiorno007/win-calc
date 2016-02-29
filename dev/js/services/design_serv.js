@@ -911,15 +911,51 @@
           var glass = d3.select(this);
           glass.on(clickEvent, function() {
               //========= select glass
-              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                  blockID = glass[0][0].attributes.block_id.nodeValue;
+
               if (isGlass) {
                 glass.classed('glass-active', true);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.selectGlassId,
+                  GlobalStor.global.selectGlassName,
+                  blockID
+                );
               } else {
                 glass.classed('glass-active', false);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.prevGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.prevGlassId,
+                  GlobalStor.global.prevGlassName,
+                  blockID
+                );
               }
           });
         });
     }
+
+
+
+    /**-------- close Glass Selector Dialog --------*/
+
+    function closeGlassSelectorDialog(isEmpty) {
+      if(isEmpty) {
+        GlobalStor.global.selectGlassId = GlobalStor.global.prevGlassId;
+        GlobalStor.global.selectGlassName = GlobalStor.global.prevGlassName;
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+          .then(function(result) {
+            ProductStor.product.template = angular.copy(result);
+          });
+      }
+      removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = 0;
+    }
+
+
+
 
     /**------- set click to all Glass for Grid selector ---------- */
 
@@ -1171,8 +1207,6 @@
 
 
     function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsInSours) {
-      //      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
-
       var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
       //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
       if(crossPointsIn.length === 2) {
@@ -2762,6 +2796,7 @@
       positionGlasses: positionGlasses,
       removeAllEventsInSVG: removeAllEventsInSVG,
       removeGlassEventsInSVG: removeGlassEventsInSVG,
+      closeGlassSelectorDialog: closeGlassSelectorDialog,
 
       //---- change sizes
       setValueSize: setValueSize,

@@ -97,9 +97,9 @@
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
         PROFILE_TIP: 'To select a profile, click here',
-        GLASS_TIP: 'To select a double-glazed window, click here',
-        SELECT_ALL: 'Take all',
-        SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
+        GLASS_TIP: 'To select a double-glazed window, click here'//,
+        //SELECT_ALL: 'Take all',
+        //SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',

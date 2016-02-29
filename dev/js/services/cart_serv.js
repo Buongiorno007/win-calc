@@ -191,8 +191,12 @@
               while (--addElemQty > -1) {
                 OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
               }
-              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(OrderStor.order.products[productsQty].addelem_price);
-              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(
+                OrderStor.order.products[productsQty].addelem_price
+              );
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem
+              );
             }
           }
         }

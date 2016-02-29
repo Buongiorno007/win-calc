@@ -392,13 +392,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
         //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName,
+          UserStor.userInfo.id,
+          {'password': UserStor.userInfo.password}
+        ).then(function() {
           //---- clean fields
           thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
           SettingServ.gotoSettingsPage();
         });
       } else {
-        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword))) {
           thisCtrl.config.isErrorOldPassword = 1;
         } else {
           thisCtrl.config.isErrorPassword = 1;
@@ -1139,12 +1143,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         UserStor.userInfo.heatTransfer = location.heatTransfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId}
+        );
 
         //-------- if current geolocation changing
       } else if(GlobalStor.global.currOpenPage === 'main'){
         //----- build new currentGeoLocation
-        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
+        loginServ.setUserGeoLocation(
+          location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation
+        );
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
@@ -1293,17 +1301,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //---- show Factory List
         //----- collect city Ids regarding to user country
         loginServ.collectCityIdsAsCountry().then(function(cityIds) {
-          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
-            //            console.log('Factories++++++', result);
-            GlobalStor.global.isLoader = 0;
-            if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories);
-              //-------- close Factory Dialog
-              thisCtrl.isFactoryId = 1;
-            } else {
-              console.log('can not get factories!');
-            }
-          });
+          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
+            .then(function(result) {
+              //            console.log('Factories++++++', result);
+              GlobalStor.global.isLoader = 0;
+              if(result.status) {
+                thisCtrl.factories = setFactoryLocation(result.factories);
+                //-------- close Factory Dialog
+                thisCtrl.isFactoryId = 1;
+              } else {
+                console.log('can not get factories!');
+              }
+            });
         });
       }
     }
@@ -1563,37 +1572,37 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-                //---- user exists
-                if(data.length) {
-                  //---------- check user password
-                  newUserPassword = localDB.md5(thisCtrl.user.password);
-                  if(newUserPassword === data[0].password) {
-                    //----- checking user activation
-                    if(data[0].locked) {
-                      angular.extend(UserStor.userInfo, data[0]);
-                      //------- set User Location
-                      loginServ.prepareLocationToUse().then(function() {
-                        checkingFactory();
-                      });
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
                     } else {
                       GlobalStor.global.isLoader = 0;
-                      //---- show attantion
-                      thisCtrl.isUserNotActive = 1;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
                     }
                   } else {
-                    GlobalStor.global.isLoader = 0;
-                    //---- user not exists
-                    thisCtrl.isUserPasswordError = 1;
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
                   }
-                } else {
-                  //======== IMPORT
-                  console.log('Sync IMPORT');
-                  checkingUser();
-                }
-
-              });
+                });
 
 
             } else {
@@ -1607,44 +1616,44 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
           //---- checking user in LocalDB
-          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-            //---- user exists
-            if(data.length) {
-              //---------- check user password
-              var newUserPassword = localDB.md5(thisCtrl.user.password);
-              if(newUserPassword === data[0].password) {
-                //----- checking user activation
-                if(data[0].locked) {
-                  //------- checking user FactoryId
-                  if(data[0].factory_id > 0) {
-                    angular.extend(UserStor.userInfo, data[0]);
-                    //------- set User Location
-                    loginServ.prepareLocationToUse().then(function() {
-                      loginServ.setUserLocation();
-                      /** download all data */
-                      loginServ.downloadAllData();
-                    });
+          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+            .then(function(data) {
+              //---- user exists
+              if(data.length) {
+                //---------- check user password
+                var newUserPassword = localDB.md5(thisCtrl.user.password);
+                if(newUserPassword === data[0].password) {
+                  //----- checking user activation
+                  if(data[0].locked) {
+                    //------- checking user FactoryId
+                    if(data[0].factory_id > 0) {
+                      angular.extend(UserStor.userInfo, data[0]);
+                      //------- set User Location
+                      loginServ.prepareLocationToUse().then(function() {
+                        loginServ.setUserLocation();
+                        /** download all data */
+                        loginServ.downloadAllData();
+                      });
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      thisCtrl.isOffline = 1;
+                    }
                   } else {
                     GlobalStor.global.isLoader = 0;
-                    thisCtrl.isOffline = 1;
+                    //---- show attantion
+                    thisCtrl.isUserNotActive = 1;
                   }
                 } else {
                   GlobalStor.global.isLoader = 0;
-                  //---- show attantion
-                  thisCtrl.isUserNotActive = 1;
+                  //---- user not exists
+                  thisCtrl.isUserPasswordError = 1;
                 }
               } else {
                 GlobalStor.global.isLoader = 0;
                 //---- user not exists
-                thisCtrl.isUserPasswordError = 1;
+                thisCtrl.isUserNotExist = 1;
               }
-            } else {
-              GlobalStor.global.isLoader = 0;
-              //---- user not exists
-              thisCtrl.isUserNotExist = 1;
-            }
-
-          });
+            });
 
         } else {
           GlobalStor.global.isLoader = 0;
@@ -1666,7 +1675,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
 //                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
-          localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
+          localDB.updateLocalServerDBs(
+            localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
+          ).then(function() {
             //-------- close Factory Dialog
             thisCtrl.isFactoryId = 0;
             importDBfromServer();
@@ -2253,9 +2264,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      //------ delete events on Glass/Grid Selector Dialogs
-      DesignServ.removeGlassEventsInSVG();
-      GlobalStor.global.showGlassSelectorDialog = 0;
+      //------ close Glass Selector Dialogs
+      if(GlobalStor.global.showGlassSelectorDialog) {
+        DesignServ.closeGlassSelectorDialog(1);
+      }
 
       if(id === 1) {
         GlobalStor.global.activePanel = 0;
@@ -2475,27 +2487,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function deleteAddElemsInOrder(element) {
-      var productsQty = OrderStor.order.products.length,
-          addElemProdQty, addElemQty;
+      var products = OrderStor.order.products,
+          productsQty = products.length,
+          addElemProdQty, addElemQty, addElem;
       while(--productsQty > -1) {
-        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
         while(--addElemProdQty > -1) {
-          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
+          addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             //--------- delete one Add Element
             if(element) {
               while(--addElemQty > -1) {
-                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
-                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
-                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
-                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+                if(addElem[addElemProdQty][addElemQty].id === element.id) {
+                  if(addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      addElem[addElemProdQty].splice(addElemQty, 1);
                     }
                   }
                 }
               }
             } else {
               //--------- delete All Add Element
-              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
+              addElem[addElemProdQty].length = 0;
             }
           }
         }
@@ -2540,28 +2554,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function collectAddElemUnitProducts() {
       var allAddElemsQty = CartStor.cart.allAddElements.length,
-          addElemProdQty, addElemProd, i, j, wagon, cloneQty;
+          addElemProdQty, addElemProd, i, j, wagon, cloneQty, addElem;
 
       //------ clean addElemUnit array
       thisCtrl.config.addElemUnitProducts.length = 0;
       //console.log('      ', CartStor.cart.allAddElements);
       for(i = 0; i < allAddElemsQty; i+=1) {
-        addElemProdQty = CartStor.cart.allAddElements[i].length;
+        addElem = CartStor.cart.allAddElements[i];
+        addElemProdQty = addElem.length;
         for(j = 0; j < addElemProdQty; j+=1) {
-          if(CartStor.cart.allAddElements[i][j].id === thisCtrl.config.selectedAddElemUnit.id) {
-            if(CartStor.cart.allAddElements[i][j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-              if(CartStor.cart.allAddElements[i][j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
+          if(addElem[j].id === thisCtrl.config.selectedAddElemUnit.id) {
+            if(addElem[j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+              if(addElem[j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
 
                 //-------- if product is addElems only
                 if(OrderStor.order.products[i].is_addelem_only) {
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    name: CartStor.cart.allAddElements[i][j].name,
-                    element_width: CartStor.cart.allAddElements[i][j].element_width,
-                    element_height: CartStor.cart.allAddElements[i][j].element_height,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
-                    elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
+                    name: addElem[j].name,
+                    element_width: addElem[j].element_width,
+                    element_height: addElem[j].element_height,
+                    element_qty: addElem[j].element_qty,
+                    elementPriceDis: addElem[j].elementPriceDis
                   };
                   thisCtrl.config.addElemUnitProducts.push(addElemProd);
 
@@ -2570,7 +2585,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
+                    element_qty: addElem[j].element_qty / OrderStor.order.products[i].product_qty
                   };
 //                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
 //                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
@@ -2616,17 +2631,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function delAddElemUnitInProduct(productIndex) {
-      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
+      var addElem = OrderStor.order.products[productIndex].chosenAddElements,
+          addElemProdQty = addElem.length,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
           addElemQty;
 
       while(--addElemProdQty > -1) {
-        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
+        addElemQty = addElem[addElemProdQty].length;
         if(addElemQty) {
           while(--addElemQty > -1) {
-            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
-                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
+            if(addElem[addElemProdQty][addElemQty].id === addElemUnit.id) {
+              if(addElem[addElemProdQty][addElemQty].element_width === addElemUnit.element_width) {
+                if(addElem[addElemProdQty][addElemQty].element_height === addElemUnit.element_height) {
+                  addElem[addElemProdQty].splice(addElemQty, 1);
                 }
               }
             }
@@ -2637,11 +2654,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function reviewAddElemUnit() {
-      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
+      var addElems = CartStor.cart.allAddElemsOrder,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemsQty = addElems.length,
           noExist = 1;
       while(--addElemsQty > -1) {
-        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
+        if(addElems[addElemsQty].id === addElemUnit.id) {
+          addElemUnit.element_qty = angular.copy(addElems[addElemsQty].element_qty);
           noExist -= 1;
         }
       }
@@ -2859,6 +2878,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('AddElementsCtrl',
 
   function(
+    $filter,
     globalConstants,
     GeneralServ,
     AddElementsServ,
@@ -2887,6 +2907,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
 
 
     /**============ METHODS ================*/
@@ -2947,8 +2975,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
-      selectGlassId: 0,
-      selectGlassName: '',
+      prevGlassId: 0,
+      prevGlassName: '',
       camera: $filter('translate')('panels.CAMERa'),
       camer: $filter('translate')('panels.CAMER'),
       camers: $filter('translate')('panels.CAMERs'),
@@ -2962,69 +2990,114 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
     thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
     thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
-    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
 
 
 
     /**============ METHODS ================*/
 
-    /** Select glass */
+    /**-------- Select glass --------*/
     function selectGlass(newId, newName) {
-      //if(ProductStor.product.glass[0].id !== newId) {
-        thisCtrl.config.selectGlassId = newId;
-        thisCtrl.config.selectGlassName = newName;
-        //----- open glass selector dialog
-        GlobalStor.global.showGlassSelectorDialog = 1;
-        DesignServ.initAllGlassXGlass();
-      //}
+      GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
+      GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
+      GlobalStor.global.selectGlassId = newId;
+      GlobalStor.global.selectGlassName = newName;
+      //----- open glass selector dialog
+      GlobalStor.global.showGlassSelectorDialog = 1;
+      DesignServ.initAllGlassXGlass();
     }
+
 
 
     function changePriceAsNewGlass () {
       var hardwareIds;
-      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
       DesignStor.design.selectedGlass.length = 0;
-      //------- set currenct Glass
-      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ calculate price
-        hardwareIds = ProductStor.product.hardware.id || 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
-    }
-
-    function closeGlassSelectorDialog() {
-      DesignServ.removeGlassEventsInSVG();
-      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
-    }
-
-
-    function confirmGlass() {
-      var selectBlockQty = DesignStor.design.selectedGlass.length,
-          blockId;
-      if(selectBlockQty) {
-        while (--selectBlockQty > -1) {
-          blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
-          MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
-        }
-        changePriceAsNewGlass();
-        closeGlassSelectorDialog();
-      }
+      /** set current Glass */
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          /** calculate price */
+          hardwareIds = ProductStor.product.hardware.id || 0;
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            hardwareIds,
+            ProductStor.product.lamination.lamination_in_id
+          );
+          //------ save analytics data
+          //TODO ??
+  //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
     }
 
 
     function setGlassToAll() {
-      MainServ.setGlassToTemplateBlocks(0, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
+      MainServ.setGlassToTemplateBlocks(
+        ProductStor.product.template_source,
+        GlobalStor.global.selectGlassId,
+        GlobalStor.global.selectGlassName
+      );
       changePriceAsNewGlass();
-      closeGlassSelectorDialog();
+      DesignServ.closeGlassSelectorDialog();
     }
 
 
 
+
+
+    function confirmGlass() {
+      var selectBlockQty = DesignStor.design.selectedGlass.length,
+          glassesTEMP = angular.copy(ProductStor.product.glass),
+          blockId;
+
+      /** there are selected glasses */
+      if(!selectBlockQty) {
+        MainServ.setGlassToTemplateBlocks(
+          ProductStor.product.template,
+          GlobalStor.global.selectGlassId,
+          GlobalStor.global.selectGlassName
+        );
+      }
+
+      /** set new Glass in product */
+      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectGlassId);
+
+      /** Extra Glass finding */
+      MainServ.checkGlassSizes(ProductStor.product.template);
+
+      if(DesignStor.design.extraGlass.length) {
+        /** there are incorrect glasses
+         * expose Alert */
+        DesignStor.design.isGlassExtra = 1;
+        /** return previous Glasses */
+        ProductStor.product.glass = angular.copy(glassesTEMP);
+        /** return prev value in template */
+        MainServ.setGlassToTemplateBlocks(
+          ProductStor.product.template,
+          GlobalStor.global.prevGlassId,
+          GlobalStor.global.prevGlassName
+        );
+      } else {
+        /** there are selected glasses */
+        if(selectBlockQty) {
+          while (--selectBlockQty > -1) {
+            blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
+            MainServ.setGlassToTemplateBlocks(
+              ProductStor.product.template_source,
+              GlobalStor.global.selectGlassId,
+              GlobalStor.global.selectGlassName,
+              blockId
+            );
+          }
+          changePriceAsNewGlass();
+          DesignServ.closeGlassSelectorDialog();
+        } else {
+          /** apply current glass to all skylights */
+          setGlassToAll();
+        }
+      }
+
+    }
 
 
     /**========== FINISH ==========*/
@@ -3033,7 +3106,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectGlass = selectGlass;
     thisCtrl.confirmGlass = confirmGlass;
     thisCtrl.setGlassToAll = setGlassToAll;
-    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
+    thisCtrl.closeGlassSelectorDialog = DesignServ.closeGlassSelectorDialog;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
@@ -3090,11 +3163,23 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id, ProductStor.product.lamination.lamination_in_id);
+        MainServ.preparePrice(
+          ProductStor.product.template,
+          ProductStor.product.profile.id,
+          ProductStor.product.glass,
+          ProductStor.product.hardware.id,
+          ProductStor.product.lamination.lamination_in_id
+        );
         //------ save analytics data
-//        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+//AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+        AnalyticsServ.sendAnalyticsData(
+          UserStor.userInfo.id,
+          OrderStor.order.id,
+          ProductStor.product.template_id,
+          newId,
+          3
+        );
       }
     }
 
@@ -3170,7 +3255,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       MainServ.setProfileByLaminat(id).then(function() {
         //------ save analytics data
         /** send analytics data to Server*/
-        //TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+//TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
       });
 
     }
@@ -4176,7 +4261,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function savePhoneInDB(phones) {
       var phonesString = phones.join(',');
       UserStor.userInfo.city_phone = phonesString;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
+      localDB.updateLocalServerDBs(
+        localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString}
+      );
       thisCtrl.config.tempAddPhone = '';
     }
 
@@ -4374,7 +4461,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         function update(panel, section, datetime) {
           $('.'+panel).find("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
           $('.'+panel).find("#" + section + "_month").drum('setIndex', datetime.getMonth());
-          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear()));
+          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue(
+            $("#" + section + "_fullYear")[0], datetime.getFullYear())
+          );
         }
 
         $(function(){
@@ -4598,7 +4687,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
           } else {
             oldDateFormat = new Date();
-            newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+            newDateFormat = oldDateFormat.getDate()+' '+monthsArr[oldDateFormat.getMonth()]+', '+oldDateFormat.getFullYear();
           }
 
           if(!type && oldD === '') {
@@ -4689,7 +4778,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       link: function (scope, element, attrs) {
 
         function getNewPrice(priceAtr, qty, currency) {
-          var newPrice = parseFloat( ((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2) ) + ' ' + currency;
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
           element.text(newPrice);
         }
 
@@ -5305,6 +5394,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
                       .attr({
+                        'block_id': template.details[i].id,
                         'class': 'glass-txt',
                         'x': template.details[i].center.x,
                         'y': template.details[i].center.y
@@ -5799,7 +5889,9 @@ function ErrorResult(code, message) {
         }
       }
       currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
-      currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
+      currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+        currProduct.addelem_price, OrderStor.order.discount_addelem
+      );
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -5853,8 +5945,14 @@ function ErrorResult(code, message) {
       };
       return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
         if (results) {
-          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2);
-          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(GeneralServ.setPriceDis(addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem));
+          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
+            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
+          );
+          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
+            GeneralServ.setPriceDis(
+              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
+            )
+          );
           AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
         }
         return results;
@@ -6096,7 +6194,9 @@ function ErrorResult(code, message) {
           /** set grid to all template blocks */
           if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
             deleteOldGridInList(blocksQty);
-            gridElements.push(setCurrGridToBlock(ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex));
+            gridElements.push(setCurrGridToBlock(
+              ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+            ));
           }
         }
       }
@@ -6106,11 +6206,13 @@ function ErrorResult(code, message) {
 
 
     function changeSVGTemplateAsNewGrid () {
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          //------ save analytics data
+          //TODO ?? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
     }
 
 
@@ -6125,7 +6227,8 @@ function ErrorResult(code, message) {
 
 
 
-    //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
+    //--------- when we select new addElement, function checks
+    // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
@@ -6263,9 +6366,9 @@ function ErrorResult(code, message) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element is not grid and has price
-      //if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-      //  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-      //  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
       //
       //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       //} else {
@@ -6306,7 +6409,8 @@ function ErrorResult(code, message) {
           setAddElementsTotalPrice(ProductStor.product);
 
           //------ save analytics data
-          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+          //TODO ??? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
         });
       }
     }
@@ -6358,7 +6462,9 @@ function ErrorResult(code, message) {
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      //TODO ??? AnalyticsServ.saveAnalyticDB(
+      // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id,
+      // AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
       AuxStor.aux.isAddElement = 0;
     }
 
@@ -6682,7 +6788,9 @@ function ErrorResult(code, message) {
             delete analytics[analytQty].id;
             delete analytics[analytQty].modified;
             //----- send Analytics Data to Server
-            localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]);
+            localDB.insertServer(
+            UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]
+            );
           }
           //---- clear Analytics Table in localDB
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);
@@ -6839,22 +6947,38 @@ function ErrorResult(code, message) {
           break;
       }
       //      console.log('dayMargin',dayMargin);
-      OrderStor.order.mounting_price = GeneralServ.roundingValue(OrderStor.order.mounting_price * (1 + (dayMargin/100)));
+      OrderStor.order.mounting_price = GeneralServ.roundingValue(OrderStor.order.mounting_price * (1+(dayMargin/100)));
     }
 
 
 
     function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
       if(OrderStor.order.is_instalment) {
-        OrderStor.order.payment_first = GeneralServ.roundingValue( (price * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.payment_monthly = GeneralServ.roundingValue( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
-        OrderStor.order.paymentFirstDis = GeneralServ.roundingValue( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingValue( ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
+        OrderStor.order.payment_first = GeneralServ.roundingValue(
+          (price * OrderStor.order.selectedInstalmentPercent / 100)
+        );
+        OrderStor.order.payment_monthly = GeneralServ.roundingValue(
+          ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod)
+        );
+        OrderStor.order.paymentFirstDis = GeneralServ.roundingValue(
+          (priceDis * OrderStor.order.selectedInstalmentPercent / 100)
+        );
+        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingValue(
+          ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod)
+        );
         if(pricePrimary) {
-          OrderStor.order.payment_first_primary = GeneralServ.roundingValue( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.payment_monthly_primary = GeneralServ.roundingValue( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
-          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingValue( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingValue( ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
+          OrderStor.order.payment_first_primary = GeneralServ.roundingValue(
+            (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100)
+          );
+          OrderStor.order.payment_monthly_primary = GeneralServ.roundingValue(
+            ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod)
+          );
+          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingValue(
+            (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100)
+          );
+          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingValue(
+            ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod)
+          );
         }
       }
     }
@@ -6873,9 +6997,12 @@ function ErrorResult(code, message) {
       setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
-      //OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      //OrderStor.order.order_price = GeneralServ.roundingValue(
+      // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
       OrderStor.order.order_price = OrderStor.order.products_price;
-      OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(
+        (OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price)
+      );
 
       //----- save primary total price
       OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
@@ -6903,10 +7030,17 @@ function ErrorResult(code, message) {
 
       OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(OrderStor.order.order_price - OrderStor.order.order_price_dis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(
+        OrderStor.order.order_price - OrderStor.order.order_price_dis
+      );
 
       //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
+      calculateInstalmentPrice(
+        OrderStor.order.order_price,
+        OrderStor.order.order_price_primary,
+        OrderStor.order.order_price_dis,
+        OrderStor.order.orderPricePrimaryDis
+      );
     }
 
 
@@ -6955,7 +7089,12 @@ function ErrorResult(code, message) {
         OrderStor.order.instalment_id = id;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
+        calculateInstalmentPrice(
+          OrderStor.order.order_price,
+          OrderStor.order.order_price_primary,
+          OrderStor.order.order_price_dis,
+          OrderStor.order.orderPricePrimaryDis
+        );
       }
     }
 
@@ -6964,7 +7103,9 @@ function ErrorResult(code, message) {
       var productQty = OrderStor.order.products.length,
           tempPrice;
       while(--productQty > -1) {
-        tempPrice = GeneralServ.setPriceDis(OrderStor.order.products[productQty].template_price, discount) + OrderStor.order.products[productQty].addelemPriceDis;
+        tempPrice = GeneralServ.setPriceDis(
+            OrderStor.order.products[productQty].template_price, discount
+          ) + OrderStor.order.products[productQty].addelemPriceDis;
         OrderStor.order.products[productQty].productPriceDis = angular.copy( GeneralServ.roundingValue(tempPrice));
       }
     }
@@ -7014,15 +7155,21 @@ function ErrorResult(code, message) {
           prod, elem, item;
       for(prod = 0; prod < productQty; prod++) {
         templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
-        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
-        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
+        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
+          OrderStor.order.products[prod].addelem_price, discount
+        );
+        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
+          templatePriceDis + OrderStor.order.products[prod].addelemPriceDis
+        );
 
         addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
         for(elem = 0; elem < addElemsQty; elem++) {
           elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
           if (elemQty > 0) {
             for (item = 0; item < elemQty; item++) {
-              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount);
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount
+              );
             }
           }
         }
@@ -7034,11 +7181,15 @@ function ErrorResult(code, message) {
 
 
     function culcDeliveyPriceByDiscPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(
+        OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100
+      );
     }
 
     function culcDeliveryPriceByMargPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingValue(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(
+        OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100
+      );
     }
 
     function hideDeliveryPriceOnCalendar() {
@@ -7300,7 +7451,9 @@ function ErrorResult(code, message) {
       if(GlobalStor.global.orderEditNumber > 0) {
         CartStor.fillOrderForm();
       } else{
-        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
+        setDefaultCustomerData(
+          OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location
+        );
         CartStor.cart.customer.customer_sex = 0;
       }
       CartStor.cart.isMasterDialog = 0;
@@ -7581,8 +7734,12 @@ function ErrorResult(code, message) {
               while (--addElemQty > -1) {
                 OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
               }
-              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(OrderStor.order.products[productsQty].addelem_price);
-              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(
+                OrderStor.order.products[productsQty].addelem_price
+              );
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem
+              );
             }
           }
         }
@@ -8609,15 +8766,51 @@ function ErrorResult(code, message) {
           var glass = d3.select(this);
           glass.on(clickEvent, function() {
               //========= select glass
-              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                  blockID = glass[0][0].attributes.block_id.nodeValue;
+
               if (isGlass) {
                 glass.classed('glass-active', true);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.selectGlassId,
+                  GlobalStor.global.selectGlassName,
+                  blockID
+                );
               } else {
                 glass.classed('glass-active', false);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.prevGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.prevGlassId,
+                  GlobalStor.global.prevGlassName,
+                  blockID
+                );
               }
           });
         });
     }
+
+
+
+    /**-------- close Glass Selector Dialog --------*/
+
+    function closeGlassSelectorDialog(isEmpty) {
+      if(isEmpty) {
+        GlobalStor.global.selectGlassId = GlobalStor.global.prevGlassId;
+        GlobalStor.global.selectGlassName = GlobalStor.global.prevGlassName;
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+          .then(function(result) {
+            ProductStor.product.template = angular.copy(result);
+          });
+      }
+      removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = 0;
+    }
+
+
+
 
     /**------- set click to all Glass for Grid selector ---------- */
 
@@ -8869,8 +9062,6 @@ function ErrorResult(code, message) {
 
 
     function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsInSours) {
-      //      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
-
       var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
       //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
       if(crossPointsIn.length === 2) {
@@ -10460,6 +10651,7 @@ function ErrorResult(code, message) {
       positionGlasses: positionGlasses,
       removeAllEventsInSVG: removeAllEventsInSVG,
       removeGlassEventsInSVG: removeGlassEventsInSVG,
+      closeGlassSelectorDialog: closeGlassSelectorDialog,
 
       //---- change sizes
       setValueSize: setValueSize,
@@ -10804,14 +10996,16 @@ function ErrorResult(code, message) {
 
     function sendOrderToFactory(orderStyle, orderNum) {
       function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length;
-        for(var ord = 0; ord < ordersQty; ord++) {
+        var ordersQty = HistoryStor.history.orders.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             //-------- change style for order
             HistoryStor.history.orders[ord].order_style = orderDoneStyle;
             HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
             //------ update in Local BD
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()});
+            localDB.updateLocalServerDBs(
+              localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()}
+            );
           }
         }
       }
@@ -10841,18 +11035,20 @@ function ErrorResult(code, message) {
           if(result.length) {
             var allElements = angular.copy(result),
                 allElemQty = allElements.length,
-                i = 0;
+                i;
 
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
+              for (i = 0; i < allElemQty; i+=1) {
                 delete allElements[i].id;
                 allElements[i].modified = new Date();
                 allElements[i].order_id = newOrderNum;
 
                 //-------- insert all elements in LocalDB
                 localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
+                localDB.insertServer(
+                  UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]
+                );
               }
             }
 
@@ -10865,9 +11061,9 @@ function ErrorResult(code, message) {
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy;
+            newOrderCopy, ord;
 
-        for(var ord = 0; ord < ordersQty; ord++) {
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -10878,7 +11074,9 @@ function ErrorResult(code, message) {
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
 
-        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+        localDB.insertServer(
+          UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
+        ).then(function(respond) {
           if(respond.status) {
             newOrderCopy.order_number = respond.order_number;
           }
@@ -10953,6 +11151,7 @@ function ErrorResult(code, message) {
         $filter('translate')('common_words.DELETE_ORDER_TXT'),
         deleteOrder
       );
+
     }
 
 
@@ -11000,7 +11199,9 @@ function ErrorResult(code, message) {
     function downloadProducts() {
       var deferred = $q.defer();
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
 
@@ -11054,7 +11255,9 @@ function ErrorResult(code, message) {
 
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+                item.productPriceDis = (GeneralServ.setPriceDis(
+                  item.template_price, OrderStor.order.discount_construct
+                ) + item.addelemPriceDis);
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
@@ -11079,7 +11282,9 @@ function ErrorResult(code, message) {
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length;
@@ -11091,7 +11296,9 @@ function ErrorResult(code, message) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
-                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
+                  elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
+                );
                 OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
@@ -11256,7 +11463,9 @@ function ErrorResult(code, message) {
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(
+            HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft
+          );
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }
@@ -11268,7 +11477,9 @@ function ErrorResult(code, message) {
       } else {
         if(HistoryStor.history.isOrderDate) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate);
+          filterResult = filteringByDate(
+            HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate
+          );
           if(filterResult) {
             HistoryStor.history.orders = filterResult;
           }
@@ -12006,12 +12217,12 @@ function ErrorResult(code, message) {
             'foreignKey': ''
           },
 
-          //-------- inner temables
-          //          'analytics': {
-          //            'tableName': 'analytics',
-          //            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
-          //            'foreignKey': ''
-          //          },
+//-------- inner temables
+//          'analytics': {
+//            'tableName': 'analytics',
+//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+//            'foreignKey': ''
+//          },
 
           'export': {
             'tableName': 'export',
@@ -12841,7 +13052,11 @@ function ErrorResult(code, message) {
                 if(angular.isArray(construction.ids[index])) {
                   var promisKits = construction.ids[index].map(function(item2) {
                     var deff2 = $q.defer();
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
+                    selectLocalDB(
+                      tablesLocalDB.lists.tableName,
+                      {id: item2},
+                      'id, parent_element_id, name, waste, amendment_pruning'
+                    ).then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
                       } else {
@@ -12871,7 +13086,11 @@ function ErrorResult(code, message) {
                     }
                   })
                 } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+                  selectLocalDB(
+                    tablesLocalDB.lists.tableName,
+                    {id: construction.ids[index]},
+                    'id, parent_element_id, name, waste, amendment_pruning'
+                  ).then(function(result) {
                     var data = angular.copy(result);
                     if(data && data.length) {
                       if(data[0].amendment_pruning) {
@@ -12897,7 +13116,9 @@ function ErrorResult(code, message) {
 
     function getKitByID(kitID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
+      selectLocalDB(
+        tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning'
+      ).then(function(result) {
         if(result && result.length) {
           if(result[0].amendment_pruning) {
             result[0].amendment_pruning /= 1000;
@@ -13054,7 +13275,9 @@ function ErrorResult(code, message) {
 
     function getElementByListId(isArray, listID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
+      selectLocalDB(
+        tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id'
+      ).then(function(result) {
         if(result.length) {
           if(isArray) {
             deff.resolve(result);
@@ -13256,7 +13479,7 @@ function ErrorResult(code, message) {
           }
         }
       }
-      //      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
+//console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
       if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
         price *= GlobalStor.global.currencies[elemIndex].value;
       }
@@ -13361,10 +13584,26 @@ function ErrorResult(code, message) {
                 //                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
-                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
+                  culcPriceAsSize(
+                    ke,
+                    priceObj.kits[ke][child][child2],
+                    priceObj.kitsElem[ke][child][child2],
+                    sizes[ke][child],
+                    1,
+                    priceObj,
+                    constrElements
+                  );
                 }
               } else {
-                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
+                culcPriceAsSize(
+                  ke,
+                  priceObj.kits[ke][child],
+                  priceObj.kitsElem[ke][child],
+                  sizes[ke],
+                  sizeQty,
+                  priceObj,
+                  constrElements
+                );
               }
             }
           } else {
@@ -13439,7 +13678,9 @@ function ErrorResult(code, message) {
 
 
 
-    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel) {
+    function culcPriceAsRule(
+      parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
+    ) {
       if(currConsistElem) {
         var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
@@ -13518,7 +13759,9 @@ function ErrorResult(code, message) {
 
 
 
-    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
+    function prepareConsistElemPrice(
+      group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj
+    ) {
       //console.info('1-----', group);
       //console.info('2-----', currConsist, currConsistElem);
       //console.info('3-----', currConstrSize, mainKit);
@@ -13550,7 +13793,16 @@ function ErrorResult(code, message) {
         if(currConsist.child_type === "list") {
           currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
         }
-        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj, sizeLabel);
+        culcPriceAsRule(
+          1,
+          currSize,
+          currConsist,
+          currConsistElem,
+          mainKit.amendment_pruning,
+          wasteValue,
+          priceObj,
+          sizeLabel
+        );
 
       } else {
         var consistQty = consistArr.length;
@@ -13559,14 +13811,24 @@ function ErrorResult(code, message) {
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
             if(currConsist.child_type === "list") {
-              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
+              currConsist.newValue = getValueByRule(
+                consistArr[el].newValue, currConsist.value, currConsist.rules_type_id
+              );
             }
             if(consistArr[el].rules_type_id === 2) {
               if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
                 newValue = consistArr[el].newValue;
               }
             }
-            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
+            culcPriceAsRule(
+              newValue,
+              consistArr[el].newValue,
+              currConsist,
+              currConsistElem,
+              consistArr[el].amendment_pruning,
+              wasteValue,
+              priceObj
+            );
           }
         }
       }
@@ -13594,15 +13856,17 @@ function ErrorResult(code, message) {
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
-                  //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
-                  //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
 
                   var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
 
                   if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
                     //                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
                     wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
-                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                    objTmp.qty = getValueByRule(
+                      mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id
+                    );
                     if (currConsist[hwInd][hwInd2].child_type === "list") {
                       currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                     }
@@ -13614,7 +13878,11 @@ function ErrorResult(code, message) {
                           continue hwElemLoop;
                         }
                         wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
-                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                        objTmp.qty = getValueByRule(
+                          currConsist[hwInd][el].newValue,
+                          currConsist[hwInd][hwInd2].value,
+                          currConsist[hwInd][hwInd2].rules_type_id
+                        );
                         if (currConsist[hwInd][hwInd2].child_type === "list") {
                           currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                         }
@@ -13631,8 +13899,8 @@ function ErrorResult(code, message) {
                     }
                     objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
                     objTmp.size = 0;
-                    //                    console.info('finish -------priceObj------- ', priceObj);
-                    //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+  //                    console.info('finish -------priceObj------- ', priceObj);
+  //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
                     priceObj.constrElements.push(objTmp);
                     priceObj.priceTotal += objTmp.priceReal;
                   }
@@ -13660,10 +13928,20 @@ function ErrorResult(code, message) {
               var sizeQty = currConstrSize.sizes.length;
               while (--sizeQty > -1) {
                 //                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
-                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+                prepareConsistElemPrice(
+                  group,
+                  currConstrSize.sizes[sizeQty],
+                  mainKit,
+                  currConsist[elemInd],
+                  currConsistElem[elemInd],
+                  currConsist,
+                  priceObj
+                );
               }
             } else {
-              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+              prepareConsistElemPrice(
+                group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj
+              );
             }
           }
         } else {
@@ -13672,10 +13950,20 @@ function ErrorResult(code, message) {
           if(group === 6) {
             var sizeQty = currConstrSize.sizes.length;
             while(--sizeQty > -1) {
-              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+              prepareConsistElemPrice(
+                group,
+                currConstrSize.sizes[sizeQty],
+                mainKit,
+                currConsist,
+                currConsistElem,
+                priceObj.consist[group],
+                priceObj
+              );
             }
           } else {
-            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            prepareConsistElemPrice(
+              group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj
+            );
           }
         }
       }
@@ -13713,13 +14001,27 @@ function ErrorResult(code, message) {
                   for(var s = 0; s < sizeObjQty; s++) {
                     if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
                       if(priceObj.consistElem[group][elem]) {
-                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                        culcPriceConsistElem(
+                          group,
+                          priceObj.consist[group][elem],
+                          priceObj.consistElem[group][elem],
+                          construction.sizes[group][s],
+                          priceObj.kits[group][elem],
+                          priceObj
+                        );
                       }
                     }
                   }
                 } else {
                   if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][elem],
+                      priceObj.kits[group][elem],
+                      priceObj
+                    );
                   }
                 }
 
@@ -13730,7 +14032,14 @@ function ErrorResult(code, message) {
               for(var s = 0; s < sizeQty; s++) {
                 for (var elem = 0; elem < consistQty; elem++) {
                   if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][s],
+                      priceObj.kits[group],
+                      priceObj
+                    );
                   }
                 }
               }
@@ -13871,18 +14180,40 @@ function ErrorResult(code, message) {
                         if(priceObj.consist[cons]) {
                           if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
                             if(priceObj.consist[cons].child_type === "list") {
-                              priceObj.consist[cons].newValue = getValueByRule(sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                              priceObj.consist[cons].newValue = getValueByRule(
+                                sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id
+                              );
                             }
-                            culcPriceAsRule(1, sizeSource, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
+                            culcPriceAsRule(
+                              1,
+                              sizeSource,
+                              priceObj.consist[cons],
+                              priceObj.consistElem[cons],
+                              priceObj.kits.amendment_pruning,
+                              wasteValue,
+                              priceObj
+                            );
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
                                 //                                  console.warn('parent++++', priceObj.consist[el]);
-                                wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
+                                wasteValue = (priceObj.consist[el].waste) ? (1+(priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
-                                  priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                                  priceObj.consist[cons].newValue = getValueByRule(
+                                    priceObj.consist[el].newValue,
+                                    priceObj.consist[cons].value,
+                                    priceObj.consist[cons].rules_type_id
+                                  );
                                 }
-                                culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.consist[el].amendment_pruning, wasteValue, priceObj);
+                                culcPriceAsRule(
+                                  priceObj.consist[cons].newValue,
+                                  priceObj.consist[el].newValue,
+                                  priceObj.consist[cons],
+                                  priceObj.consistElem[cons],
+                                  priceObj.consist[el].amendment_pruning,
+                                  wasteValue,
+                                  priceObj
+                                );
                               }
                             }
                           }
@@ -14191,7 +14522,9 @@ function ErrorResult(code, message) {
           UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
           UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
           UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(
+            1/GlobalStor.global.locations.cities[cityQty].heatTransfer
+          ) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           //------ set current GeoLocation
           setUserGeoLocation(
@@ -14557,14 +14890,20 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
   GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
   GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
-  GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
-  GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
+  GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].cameras
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].position
+  );
   GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
   /** change Images Path and save in device */
   GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
-  GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
+  GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
 }
         }
 
@@ -14661,7 +15000,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
                 GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
               }
-              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id){
                 GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
                 GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
               }
@@ -15259,13 +15598,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function getGlassFromTemplateBlocks() {
-      var blocksQty = ProductStor.product.template_source.details.length,
+    function getGlassFromTemplateBlocks(template) {
+      var blocksQty = template.details.length,
           glassIds = [];
       while(--blocksQty > 0) {
-        if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-          if(ProductStor.product.template_source.details[blocksQty].glassId) {
-            glassIds.push(angular.copy(ProductStor.product.template_source.details[blocksQty].glassId));
+        if(!template.details[blocksQty].children.length) {
+          if(template.details[blocksQty].glassId) {
+            glassIds.push(angular.copy(template.details[blocksQty].glassId));
           }
         }
       }
@@ -15273,21 +15612,21 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
-    function setGlassToTemplateBlocks(blockId, glassId, glassName) {
-      var blocksQty = ProductStor.product.template_source.details.length;
+    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+      var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
           /** set glass to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
-            ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-            ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+          if(template.details[blocksQty].id === blockId) {
+            template.details[blocksQty].glassId = glassId;
+            template.details[blocksQty].glassTxt = glassName;
             break;
           }
         } else {
           /** set glass to all template blocks */
-          //if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-          ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-          ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+          //if(!template.details[blocksQty].children.length) {
+          template.details[blocksQty].glassId = glassId;
+          template.details[blocksQty].glassTxt = glassName;
           //}
         }
       }
@@ -15300,7 +15639,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       product.glass.length = 0;
       if(id) {
         //----- get Glass Ids from template and check dublicates
-        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(ProductStor.product.template)),
             glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
@@ -15315,9 +15654,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
           product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-          GlobalStor.global.selectLastGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
@@ -15948,7 +16288,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
       });
-console.info('glass result', DesignStor.design.extraGlass);
+//console.info('glass result', DesignStor.design.extraGlass);
     }
 
 
@@ -16210,7 +16550,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           //-------- insert product Report into local DB
           //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-// TODO localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+// TODO localDB.insertServer(
+// UserStor.userInfo.phone, UserStor.userInfo.device_code,
+// localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */
@@ -16435,17 +16777,18 @@ console.info('glass result', DesignStor.design.extraGlass);
           var latitude = position.coords.latitude,
               longitude = position.coords.longitude;
 
-          $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru')
-            .then(
+          $http.get(
+            'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru'
+          ).then(
               function (data) {
                 //----- save previous current location
                 //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
                 var deviceLocation = data.results[0].formatted_address.split(', ');
-                //TODO set new currencyID!!!!
-                //TODO before need to fine currencyId!!!!
-                //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
-                //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+//TODO set new currencyID!!!!
+//TODO before need to fine currencyId!!!!
+//TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+//TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
                 OrderStor.order.customer_city_id = 156;
                 OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
                 OrderStor.order.climatic_zone = 7; //TODO
@@ -18224,7 +18567,9 @@ console.info('glass result', DesignStor.design.extraGlass);
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {
 //        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-//        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//        localDB.updateLocalServerDBs(
+      // localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar}
+      // );
 //        $rootScope.$apply();
 //      }, function( error ) {
 //        console.log( 'Error upload user avatar' + error );
@@ -18438,9 +18783,10 @@ console.info('glass result', DesignStor.design.extraGlass);
 
     function cleanDublicat(param, arr) {
       var pQty = arr.length,
-          pQty2 = arr.length,
-          exist = 0, i;
+          pQty2, exist, i;
       while(--pQty > -1) {
+        pQty2 = arr.length;
+        exist = 0;
         for(i = 0; i < pQty2; i+=1) {
           switch(param) {
             case 1:
@@ -19529,7 +19875,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
         );
         //------- insert impostIn of impost in pointsIn of children blocks
-        collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        collectImpPointsXChildBlock(
+          currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
+        );
         //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
         //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
         //-------- set real impostAxis coord for dimensions
@@ -19540,7 +19888,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         }
         currBlock.impost.impostAxis.length = 0;
         for(i = 0; i < linesOutQty; i+=1) {
-          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
+          getCPImpostInsideBlock(
+            0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis
+          );
         }
         if(impostQP) {
           currBlock.impost.impostAxis.push(impostQP);
@@ -19613,7 +19963,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           size = 0;
       //------- Line
       if(pointQty === 2 || pointQty === 4) {
-        size = GeneralServ.roundingValue( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1 );
+        size = GeneralServ.roundingValue(
+          (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1
+        );
 
         //--------- Curve
       } else if(pointQty === 3 || pointQty === 6) {
@@ -19665,7 +20017,9 @@ console.info('glass result', DesignStor.design.extraGlass);
             break;
           } else if(newPointsOut[0].dir === 'curv') {
             part.type = 'arc';
-            part.points.push(newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]);
+            part.points.push(
+              newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]
+            );
             if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
               part.type = 'arc-corner';
             }
@@ -19682,7 +20036,7 @@ console.info('glass result', DesignStor.design.extraGlass);
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
@@ -19749,10 +20103,12 @@ console.info('glass result', DesignStor.design.extraGlass);
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                   /** if line */
-                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
                 }
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3) {
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
               /** doorstep Al outer */
               //-------- change fp3-fp4 frame to outer doorstep
               if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
@@ -19772,12 +20128,16 @@ console.info('glass result', DesignStor.design.extraGlass);
               } else {
                 if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
                   /** if line */
-                  collectPointsInParts(part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]);
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
                 }
               }
             } else {
               /** if line */
-              collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
+              collectPointsInParts(
+                part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]
+              );
             }
           }
 
@@ -19864,7 +20224,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           p+=1;
         } else {
           //------- Line
-          size = GeneralServ.roundingValue( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1 );
+          size = GeneralServ.roundingValue(
+            Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1
+          );
         }
 
         sizes.push(size);
@@ -20148,19 +20510,35 @@ console.info('glass result', DesignStor.design.extraGlass);
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(getCrossPointSashDir(1, center, 225, beadLines), getCrossPointSashDir(3, center, 90, beadLines), getCrossPointSashDir(1, center, 315, beadLines));
+            part.points.push(
+              getCrossPointSashDir(1, center, 225, beadLines),
+              getCrossPointSashDir(3, center, 90, beadLines),
+              getCrossPointSashDir(1, center, 315, beadLines)
+            );
             break;
           //----- 'right'
           case 2:
-            part.points.push(getCrossPointSashDir(2, center, 225, beadLines), getCrossPointSashDir(4, center, 180, beadLines), getCrossPointSashDir(2, center, 135, beadLines));
+            part.points.push(
+              getCrossPointSashDir(2, center, 225, beadLines),
+              getCrossPointSashDir(4, center, 180, beadLines),
+              getCrossPointSashDir(2, center, 135, beadLines)
+            );
             break;
           //------ 'down'
           case 3:
-            part.points.push(getCrossPointSashDir(3, center, 135, beadLines), getCrossPointSashDir(1, center, 270, beadLines), getCrossPointSashDir(3, center, 45, beadLines));
+            part.points.push(
+              getCrossPointSashDir(3, center, 135, beadLines),
+              getCrossPointSashDir(1, center, 270, beadLines),
+              getCrossPointSashDir(3, center, 45, beadLines)
+            );
             break;
           //----- 'left'
           case 4:
-            part.points.push(getCrossPointSashDir(4, center, 45, beadLines), getCrossPointSashDir(2, center, 180, beadLines), getCrossPointSashDir(4, center, 315, beadLines));
+            part.points.push(
+              getCrossPointSashDir(4, center, 45, beadLines),
+              getCrossPointSashDir(2, center, 180, beadLines),
+              getCrossPointSashDir(4, center, 315, beadLines)
+            );
             break;
         }
         parts.push(part);
@@ -20449,13 +20827,21 @@ console.info('glass result', DesignStor.design.extraGlass);
       for(i = 0; i < limitsQty; i+=1) {
         if(dim.axis === 'x') {
           if(limits[i].x === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].x + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].x + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(limits[i].y === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue( (limits[i-1].y + globalConstants.minSizeLimit), 1 ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue( (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1 ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].y + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -20526,7 +20912,9 @@ console.info('glass result', DesignStor.design.extraGlass);
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1 );
+                  dimLimit.minL = GeneralServ.roundingValue(
+                    (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1
+                  );
                 }
               } else {
                 dimLimit.minL = globalConstants.minSizeLimit;
@@ -20534,7 +20922,9 @@ console.info('glass result', DesignStor.design.extraGlass);
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
@@ -20552,7 +20942,9 @@ console.info('glass result', DesignStor.design.extraGlass);
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue( ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1 ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -20763,39 +21155,39 @@ console.info('glass result', DesignStor.design.extraGlass);
               }
             }
           }
-          /*
-           //-------- set block Limits
-           //------ go to parent and another children for Limits
-           for (var bp = 1; bp < blocksQty; bp++) {
-           if (blocks[bp].id === blocks[b].parent) {
-           var childQty = blocks[bp].children.length;
-           //------- add parent pointsOut
-           cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
-           //------- add impost
-           if(blocks[bp].impost) {
-           //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
-           if(!blocks[bp].impost.impostAxis[0].t) {
-           blockLimits.push(blocks[bp].impost.impostAxis[0]);
-           }
-           if(!blocks[bp].impost.impostAxis[1].t) {
-           blockLimits.push(blocks[bp].impost.impostAxis[1]);
-           }
+/*
+ //-------- set block Limits
+ //------ go to parent and another children for Limits
+ for (var bp = 1; bp < blocksQty; bp++) {
+ if (blocks[bp].id === blocks[b].parent) {
+ var childQty = blocks[bp].children.length;
+ //------- add parent pointsOut
+ cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
+ //------- add impost
+ if(blocks[bp].impost) {
+ //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+ if(!blocks[bp].impost.impostAxis[0].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[0]);
+ }
+ if(!blocks[bp].impost.impostAxis[1].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[1]);
+ }
 
-           //============ collect Curver Radius of impost
-           if (blocks[bp].impost.impostAxis[2]) {
-           //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
-           dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
-           }
-           }
-           //------- add imposts of childern
-           while(--childQty > -1) {
-           if(blocks[bp].children[childQty] !== blocks[b].id) {
-           getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
-           }
-           }
-           }
-           }
-           */
+ //============ collect Curver Radius of impost
+ if (blocks[bp].impost.impostAxis[2]) {
+ //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
+ dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+ }
+ }
+ //------- add imposts of childern
+ while(--childQty > -1) {
+ if(blocks[bp].children[childQty] !== blocks[b].id) {
+ getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
+ }
+ }
+ }
+ }
+ */
 
           blockLimits = angular.copy(allPoints);
           //console.log('`````````` blockLimits ``````````', blockLimits);
@@ -20898,7 +21290,7 @@ console.info('glass result', DesignStor.design.extraGlass);
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
           } else {
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-            //            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
+            //console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
             //            console.log('+++++++++ block ++++++++++pointsIn');
           }
@@ -20907,7 +21299,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
+            $.merge(thisObj.details[i].parts, setParts(
+              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+            ));
           }
 
 
@@ -20915,7 +21309,9 @@ console.info('glass result', DesignStor.design.extraGlass);
           if(thisObj.details[i].children.length) {
 
             if(thisObj.details[i].blockType === 'sash') {
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
+                thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
@@ -20923,11 +21319,18 @@ console.info('glass result', DesignStor.design.extraGlass);
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
             }
 
             //------- if block is empty
@@ -20943,12 +21346,21 @@ console.info('glass result', DesignStor.design.extraGlass);
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
 
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
 
             } else if(thisObj.details[i].blockType === 'sash') {
               //console.info('-------', i, thisObj.details[i]);
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details[i].sashPointsOut = copyPointsOut(
+                setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
@@ -20965,19 +21377,33 @@ console.info('glass result', DesignStor.design.extraGlass);
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
             }
           }
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
           //----- create impost parts
           if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
+            thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
           }
 
 
@@ -21162,11 +21588,21 @@ console.info('glass result', DesignStor.design.extraGlass);
         } else {
           var hardwareIds = ProductStor.product.hardware.id || 0;
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds, ProductStor.product.lamination.lamination_in_id);
-          //------ save analytics data
-          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            hardwareIds,
+            ProductStor.product.lamination.lamination_in_id
+          );
           /** send analytics data to Server*/
-          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          AnalyticsServ.sendAnalyticsData(
+            UserStor.userInfo.id,
+            OrderStor.order.id,
+            ProductStor.product.template_id,
+            ProductStor.product.profile.id,
+            1
+          );
         }
       });
     }
@@ -21648,7 +22084,10 @@ console.info('glass result', DesignStor.design.extraGlass);
         glassesAll: [],
         glassTypes: [],
         glasses: [],
-        selectLastGlassId: 0,
+        selectGlassId: 0,
+        selectGlassName: '',
+        prevGlassId: 0,
+        prevGlassName: '',
 
         //------ Hardwares
         hardwares: [],
@@ -22135,9 +22574,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
-        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
-        SELECT_ALL: 'Alle auswählen',
-        SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
+        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier'//,
+        //SELECT_ALL: 'Alle auswählen',
+        //SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',
@@ -22495,9 +22934,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
         PROFILE_TIP: 'To select a profile, click here',
-        GLASS_TIP: 'To select a double-glazed window, click here',
-        SELECT_ALL: 'Take all',
-        SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
+        GLASS_TIP: 'To select a double-glazed window, click here'//,
+        //SELECT_ALL: 'Take all',
+        //SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
@@ -22853,9 +23292,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
-        SELECT_ALL: 'Selezionare tutto',
-        SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'//,
+        //SELECT_ALL: 'Selezionare tutto',
+        //SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',
@@ -23212,9 +23651,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Selectați toate',
-        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
+        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici"//,
+        //SELECT_ALL: 'Selectați toate',
+        //SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
@@ -23570,9 +24009,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
         PROFILE_TIP: 'Для выбора профиля нажмите сюда',
-        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда',
-        SELECT_ALL: 'Выбрать все',
-        SELECT_GLASS_WARN: 'Кликните на стеклопакет, который хотите изменить'
+        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда'//,
+        //SELECT_ALL: 'Выбрать все',
+        //SELECT_GLASS_WARN: 'Кликните на стеклопакет, который хотите изменить'
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',
@@ -23928,9 +24367,9 @@ console.info('glass result', DesignStor.design.extraGlass);
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
         PROFILE_TIP: 'Для вибору профілю натисніть сюди',
-        GLASS_TIP: 'Для вибору склопакета натисніть сюди',
-        SELECT_ALL: 'Вибрати все',
-        SELECT_GLASS_WARN: 'Натисніть на склопакет, який хочете змінити'
+        GLASS_TIP: 'Для вибору склопакета натисніть сюди'//,
+        //SELECT_ALL: 'Вибрати все',
+        //SELECT_GLASS_WARN: 'Натисніть на склопакет, який хочете змінити'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',
