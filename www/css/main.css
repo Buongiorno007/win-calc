@@ -6402,7 +6402,7 @@ tr.factory_item {
   height: 100%;
   margin: auto;
   text-align: center;
-  overflow: auto;
+  overflow: hidden;
 }
 
 /* line 414, ../../dev/sass/pages/design.scss */
