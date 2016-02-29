@@ -1337,7 +1337,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1', 'block_2'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 2300
                 },
                 //------- Level 1
                 {
@@ -1402,7 +1402,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 2300
                 },
 //------- Level 1
                 {
@@ -1515,7 +1515,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 2300
                 },
                 //------- Level 1
                 {

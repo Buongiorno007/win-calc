@@ -147,25 +147,21 @@
                 }
               
                 if(ProductStor.product.construction_type == 4) {
-                  defs.append('pattern')
-                  .attr('id', 'background')
-                  .attr('patternUnits', 'userSpaceOnUse')
-                  .attr('width', 2520*1.2)
-                  .attr('height', 1680*1.2)
-                  .append("image")
-                  .attr("xlink:href", "img/room/33.gif")
-                  .attr('width', 2520*1.2)
-                  .attr('height', 1680*1.2);
+                    defs.append('pattern')
+                    .attr('id', 'background')
+                    .attr('patternUnits', 'userSpaceOnUse')
+                    .attr('width', 2520*1.2)
+                    .attr('height', 1680*1.2)
+                    .append("image")
+                    .attr("xlink:href", "img/room/333.gif")
+                    .attr('width', 2520*1.2)
+                    .attr('height', 1680*1.2);
                 }
               } else {
                    defs.append('pattern')
                   .attr('id', 'background')
                   .attr('patternUnits', 'userSpaceOnUse')
-                  .attr('width', 2520*1.2)
-                  .attr('height', 1680*1.2)
-                  .attr('fill','#94DEEE')
-                  .attr('width', 2520*2)
-                  .attr('height', 1680*2);
+                  .attr('fill','#94DEEE');
                 }
             }
 
@@ -200,7 +196,7 @@
                               fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
                           } else {
                               fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                            }
+                            } console.log('fpDgLR', fpDgLR)
                           }
 
                           if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
@@ -376,7 +372,8 @@
                         'fill' : '#FFFAFA',
                         'points' : noVvPath,
                         'transform': 'translate(' + (positionX1) + ', ' + (positionY1) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                      });
+                      })
+
 
                       mainGroup.append('g').append("polygon")            
                       .attr({
@@ -402,6 +399,7 @@
                         'transform': 'translate(' + (positionX2) + ', ' + (positionY2) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                       });
                     }
+
 
                     if(ProductStor.product.construction_type == 4) {
                     
@@ -661,6 +659,7 @@
         }
 
 
+
         function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
           defs.append("marker")
             .classed(classMarker, true)
@@ -826,7 +825,6 @@
                 'ry': sizeBoxRadius
               });
           }
-
 
           sizeBox.append('text')
             .text(dimQ.radius)

@@ -4218,7 +4218,7 @@ div.drum figure {
   z-index: -3;
   top: 100px;
   left: -320px;
-  opacity: 0.5;
+  opacity: 1;
 }
 /* line 207, ../../dev/sass/parts/new-room.scss */
 .coeff-room-block22 img {

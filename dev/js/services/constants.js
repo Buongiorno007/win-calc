@@ -20,7 +20,7 @@
 
       //---Edit Design
       squareLimit: 0.15,
-      minSizeLimit: 700,
+      minSizeLimit: 300,
       minSizeLimitStulp: 300,
       minRadiusHeight: 10,
 
