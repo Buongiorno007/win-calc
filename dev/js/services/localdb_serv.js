@@ -588,6 +588,47 @@
             'foreignKey': ''
           },
 
+          'factories':{
+            'tableName': 'factories',
+            'prop': 'name VARCHAR,'+
+            'app_token VARCHAR,' +
+            'link VARCHAR,' +
+            'therm_coeff_id INTEGER,' +
+            'max_construct_square INTEGER,' +
+            'max_construct_size INTEGER',
+            'foreignKey': ''
+          },
+
+          'mosquitos':{
+            'tableName': 'mosquitos',
+            'prop': 'profile_id INTEGER,'+
+            'name VARCHAR,' +
+            'bottom_id INTEGER,' +
+            'bottom_waste INTEGER,' +
+            'left_id INTEGER,' +
+            'left_waste INTEGER,'+
+            'top_id INTEGER,'+
+            'top_waste INTEGER,'+
+            'right_id INTEGER,'+
+            'right_waste INTEGER,'+
+            'cloth_id INTEGER,'+
+            'cloth_waste INTEGER',
+            'foreignKey': ''
+          },
+
+          'window_hardware_type_ranges':{
+            'tableName': 'window_hardware_type_ranges',
+            'prop': 'factory_id INTEGER,'+
+            'type_id INTEGER,' +
+            'max_width INTEGER,' +
+            'min_width INTEGER,' +
+            'max_height INTEGER,' +
+            'min_height INTEGER',
+            'foreignKey': ''
+          },
+
+
+
 //-------- inner temables
 //          'analytics': {
 //            'tableName': 'analytics',

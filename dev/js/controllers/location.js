@@ -5,7 +5,15 @@
     .module('SettingsModule')
     .controller('LocationCtrl',
 
-  function(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+  function(
+    localDB,
+    GeneralServ,
+    loginServ,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -30,6 +38,13 @@
     function selectCity(location) {
       thisCtrl.userNewLocation = location.fullLocation;
 
+      //----- change heatTransfer
+      if (UserStor.userInfo.therm_coeff_id) {
+        UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/location.heatTransfer );
+      } else {
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+      }
+
       //----- if user settings changing
       if(GlobalStor.global.currOpenPage === 'settings') {
         UserStor.userInfo.city_id = location.cityId;
@@ -38,7 +53,7 @@
         //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
         UserStor.userInfo.climaticZone = location.climaticZone;
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //UserStor.userInfo.heatTransfer = location.heatTransfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
         localDB.updateLocalServerDBs(
@@ -49,7 +64,11 @@
       } else if(GlobalStor.global.currOpenPage === 'main'){
         //----- build new currentGeoLocation
         loginServ.setUserGeoLocation(
-          location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation
+          location.cityId,
+          location.cityName,
+          location.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          location.fullLocation
         );
       }
       GlobalStor.global.startProgramm = false;

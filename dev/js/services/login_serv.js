@@ -216,8 +216,7 @@
     }
 
 
-
-    //--------- set current user geolocation
+    /**--------- set current user geolocation ---------*/
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
       OrderStor.order.customer_city = cityName;
@@ -227,8 +226,51 @@
     }
 
 
+    /**-------- get values from Factory --------*/
+    function downloadFactoryData() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.factories.tableName,
+        null,
+        'therm_coeff_id, link, max_construct_size, max_construct_square'
+      ).then(function(result) {
+        var heatTransfer = UserStor.userInfo.heatTransfer,
+            resQty;
+        if(result) {
+          resQty = result.length;
+          if(resQty) {
+            //------- Heat Coeff
+            UserStor.userInfo.therm_coeff_id = angular.copy(result[0].therm_coeff_id);
+            if (UserStor.userInfo.therm_coeff_id) {
+              UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/heatTransfer );
+            }
+            //-------- check factory Link
+            if(result[0].link.length && result[0].link !== 'null') {
+              UserStor.userInfo.factoryLink = angular.copy(result[0].link);
+            }
+            //-------- sizes limits
+            if(+result[0].max_construct_square > 0) {
+              GlobalStor.global.maxSquareLimit = angular.copy(+result[0].max_construct_square);
+            }
+            if(+result[0].max_construct_size > 0) {
+              GlobalStor.global.maxSizeLimit = angular.copy(+result[0].max_construct_size);
+            }
+          }
+        }
 
-    //--------- set user location
+        /** set current GeoLocation */
+        setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
+        );
+
+      });
+    }
+
+
+    /**--------- set user location -------*/
     function setUserLocation() {
       var cityQty = GlobalStor.global.locations.cities.length;
       while(--cityQty > -1) {
@@ -236,25 +278,11 @@
           UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
           UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
           UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(
-            1/GlobalStor.global.locations.cities[cityQty].heatTransfer
-          ) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-          //------ set current GeoLocation
-          setUserGeoLocation(
-            UserStor.userInfo.city_id,
-            UserStor.userInfo.cityName,
-            UserStor.userInfo.climaticZone,
-            UserStor.userInfo.heatTransfer,
-            UserStor.userInfo.fullLocation
-          );
         }
       }
     }
-
-
-
-
 
 
 
@@ -957,6 +985,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
                         return item * 1;
                       });
+                      /** download factory data */
+                      downloadFactoryData();
                       /** download All Profiles */
                       downloadAllElemAsGroup(
                         localDB.tablesLocalDB.profile_system_folders.tableName,

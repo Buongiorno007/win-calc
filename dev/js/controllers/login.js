@@ -148,15 +148,11 @@
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
-        //              console.log('CLEEN START!!!!');
         localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
           if(data) {
-            //                  console.log('CLEEN DONE!!!!');
             //------- creates all tables in LocalDB
-            //                  console.log('CREATE START!!!!');
             localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
               if(data) {
-                //                      console.log('CREATE DONE!!!!');
                 //------- save user in LocalDB
                 localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
                 //------- save user in Stor
@@ -191,12 +187,6 @@
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
-
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
             importDBProsses(userTemp);
           } else {
             GlobalStor.global.isLoader = 0;
@@ -350,11 +340,6 @@
           localDB.importUser(url.access, 1).then(function(result) {
             var userTemp = angular.copy(result.user);
             GlobalStor.global.isLoader = 1;
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
             importDBProsses(userTemp);
           });
         }

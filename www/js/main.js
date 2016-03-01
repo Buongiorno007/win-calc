@@ -1107,7 +1107,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule')
     .controller('LocationCtrl',
 
-  function(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+  function(
+    localDB,
+    GeneralServ,
+    loginServ,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    UserStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
 
@@ -1132,6 +1140,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function selectCity(location) {
       thisCtrl.userNewLocation = location.fullLocation;
 
+      //----- change heatTransfer
+      if (UserStor.userInfo.therm_coeff_id) {
+        UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/location.heatTransfer );
+      } else {
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+      }
+
       //----- if user settings changing
       if(GlobalStor.global.currOpenPage === 'settings') {
         UserStor.userInfo.city_id = location.cityId;
@@ -1140,7 +1155,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
         UserStor.userInfo.climaticZone = location.climaticZone;
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //UserStor.userInfo.heatTransfer = location.heatTransfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
         localDB.updateLocalServerDBs(
@@ -1151,7 +1166,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else if(GlobalStor.global.currOpenPage === 'main'){
         //----- build new currentGeoLocation
         loginServ.setUserGeoLocation(
-          location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation
+          location.cityId,
+          location.cityName,
+          location.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          location.fullLocation
         );
       }
       GlobalStor.global.startProgramm = false;
@@ -1323,15 +1342,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
-        //              console.log('CLEEN START!!!!');
         localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
           if(data) {
-            //                  console.log('CLEEN DONE!!!!');
             //------- creates all tables in LocalDB
-            //                  console.log('CREATE START!!!!');
             localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
               if(data) {
-                //                      console.log('CREATE DONE!!!!');
                 //------- save user in LocalDB
                 localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
                 //------- save user in Stor
@@ -1366,12 +1381,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           //---------- check user password
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === userTemp.password) {
-
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
             importDBProsses(userTemp);
           } else {
             GlobalStor.global.isLoader = 0;
@@ -1525,11 +1534,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           localDB.importUser(url.access, 1).then(function(result) {
             var userTemp = angular.copy(result.user);
             GlobalStor.global.isLoader = 1;
-            userTemp.therm_coeff_id = angular.copy(result.thermCoeffId);
-            //-------- check factory Link
-            if(result.factoryLink !== null) {
-              userTemp.factoryLink = angular.copy(result.factoryLink);
-            }
             importDBProsses(userTemp);
           });
         }
@@ -2396,12 +2400,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         case 8:
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          if(UserStor.userInfo.factoryLink.length) {
-            if (GlobalStor.global.isDevice) {
-              var ref = window.open(UserStor.userInfo.factoryLink);
-              ref.close();
-            } else {
-              $window.open(UserStor.userInfo.factoryLink);
+          if(UserStor.userInfo.factoryLink) {
+            if (UserStor.userInfo.factoryLink.length) {
+              if (GlobalStor.global.isDevice) {
+                var ref = window.open(UserStor.userInfo.factoryLink);
+                ref.close();
+              } else {
+                $window.open(UserStor.userInfo.factoryLink);
+              }
             }
           }
           break;
@@ -7965,6 +7971,49 @@ function ErrorResult(code, message) {
 
 
 
+    function removeAllEventsInSVG() {
+      //--------- delete click on imposts
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on arcs
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on dimension
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
+    function removeGlassEventsInSVG() {
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
 
     /**=============== CHANGE CONSTRUCTION SIZE ==============*/
 
@@ -10460,56 +10509,6 @@ function ErrorResult(code, message) {
 
 
 
-
-
-
-
-
-
-    function removeAllEventsInSVG() {
-      //--------- delete click on imposts
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on arcs
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on dimension
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
-    }
-
-
-    function removeGlassEventsInSVG() {
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null)
-            .classed('glass-active', false);
-        });
-      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null)
-            .classed('glass-active', false);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
-    }
-
-
-
     function stepBack() {
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
@@ -10805,6 +10804,7 @@ function ErrorResult(code, message) {
       }
     });
 
+    //http://windowscalculator.net:3002/orders/get-order-pdf/13941456576563824?userId=897
 
     /**============ METHODS ================*/
 
@@ -12216,6 +12216,47 @@ function ErrorResult(code, message) {
             'img VARCHAR',
             'foreignKey': ''
           },
+
+          'factories':{
+            'tableName': 'factories',
+            'prop': 'name VARCHAR,'+
+            'app_token VARCHAR,' +
+            'link VARCHAR,' +
+            'therm_coeff_id INTEGER,' +
+            'max_construct_square INTEGER,' +
+            'max_construct_size INTEGER',
+            'foreignKey': ''
+          },
+
+          'mosquitos':{
+            'tableName': 'mosquitos',
+            'prop': 'profile_id INTEGER,'+
+            'name VARCHAR,' +
+            'bottom_id INTEGER,' +
+            'bottom_waste INTEGER,' +
+            'left_id INTEGER,' +
+            'left_waste INTEGER,'+
+            'top_id INTEGER,'+
+            'top_waste INTEGER,'+
+            'right_id INTEGER,'+
+            'right_waste INTEGER,'+
+            'cloth_id INTEGER,'+
+            'cloth_waste INTEGER',
+            'foreignKey': ''
+          },
+
+          'window_hardware_type_ranges':{
+            'tableName': 'window_hardware_type_ranges',
+            'prop': 'factory_id INTEGER,'+
+            'type_id INTEGER,' +
+            'max_width INTEGER,' +
+            'min_width INTEGER,' +
+            'max_height INTEGER,' +
+            'min_height INTEGER',
+            'foreignKey': ''
+          },
+
+
 
 //-------- inner temables
 //          'analytics': {
@@ -14502,8 +14543,7 @@ function ErrorResult(code, message) {
     }
 
 
-
-    //--------- set current user geolocation
+    /**--------- set current user geolocation ---------*/
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
       OrderStor.order.customer_city = cityName;
@@ -14513,8 +14553,51 @@ function ErrorResult(code, message) {
     }
 
 
+    /**-------- get values from Factory --------*/
+    function downloadFactoryData() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.factories.tableName,
+        null,
+        'therm_coeff_id, link, max_construct_size, max_construct_square'
+      ).then(function(result) {
+        var heatTransfer = UserStor.userInfo.heatTransfer,
+            resQty;
+        if(result) {
+          resQty = result.length;
+          if(resQty) {
+            //------- Heat Coeff
+            UserStor.userInfo.therm_coeff_id = angular.copy(result[0].therm_coeff_id);
+            if (UserStor.userInfo.therm_coeff_id) {
+              UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/heatTransfer );
+            }
+            //-------- check factory Link
+            if(result[0].link.length && result[0].link !== 'null') {
+              UserStor.userInfo.factoryLink = angular.copy(result[0].link);
+            }
+            //-------- sizes limits
+            if(+result[0].max_construct_square > 0) {
+              GlobalStor.global.maxSquareLimit = angular.copy(+result[0].max_construct_square);
+            }
+            if(+result[0].max_construct_size > 0) {
+              GlobalStor.global.maxSizeLimit = angular.copy(+result[0].max_construct_size);
+            }
+          }
+        }
 
-    //--------- set user location
+        /** set current GeoLocation */
+        setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
+        );
+
+      });
+    }
+
+
+    /**--------- set user location -------*/
     function setUserLocation() {
       var cityQty = GlobalStor.global.locations.cities.length;
       while(--cityQty > -1) {
@@ -14522,25 +14605,11 @@ function ErrorResult(code, message) {
           UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
           UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
           UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(
-            1/GlobalStor.global.locations.cities[cityQty].heatTransfer
-          ) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-          //------ set current GeoLocation
-          setUserGeoLocation(
-            UserStor.userInfo.city_id,
-            UserStor.userInfo.cityName,
-            UserStor.userInfo.climaticZone,
-            UserStor.userInfo.heatTransfer,
-            UserStor.userInfo.fullLocation
-          );
         }
       }
     }
-
-
-
-
 
 
 
@@ -15243,6 +15312,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
                         return item * 1;
                       });
+                      /** download factory data */
+                      downloadFactoryData();
                       /** download All Profiles */
                       downloadAllElemAsGroup(
                         localDB.tablesLocalDB.profile_system_folders.tableName,

@@ -110,6 +110,49 @@
 
 
 
+    function removeAllEventsInSVG() {
+      //--------- delete click on imposts
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on arcs
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on dimension
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
+    function removeGlassEventsInSVG() {
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
 
     /**=============== CHANGE CONSTRUCTION SIZE ==============*/
 
@@ -2602,56 +2645,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-    function removeAllEventsInSVG() {
-      //--------- delete click on imposts
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on arcs
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on dimension
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
-    }
-
-
-    function removeGlassEventsInSVG() {
-      //--------- delete click on glasses
-      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null)
-            .classed('glass-active', false);
-        });
-      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null)
-            .classed('glass-active', false);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
-    }
 
 
 
