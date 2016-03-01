@@ -18139,7 +18139,7 @@ function upBackground () {
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor, GlobalStor) {
+  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor) {
 
     var thisFactory = this;
 
@@ -18484,8 +18484,7 @@ function upBackground () {
             y: (windowH - (dim.minY + dim.maxY)*scale)-130,
           } 
         }      
-      }      
-      
+      }
 
 
       if(ProductStor.product.construction_type == 2) {
