@@ -254,6 +254,32 @@
 }
 
 
+ .user-field {
+   &.street {
+     display: inline-block;
+     width: 60%;
+   }
+   &.small {
+     display: inline-block;
+     width: 12.5%;
+   }
+ }
+
+.cart-dialogs .error-tooltip {
+  top: 1rem;
+  &.street {
+    left: 20rem;
+  }
+  &.house {
+    left: 40rem;
+  }
+  &.flat {
+    left: 48rem;
+  }
+  &.floor {
+    left: 55rem;
+  }
+}
 /*
 .error-tooltip {
   @include top_left_coord(-10px, 600px);

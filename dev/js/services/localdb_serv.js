@@ -494,6 +494,9 @@
             ' customer_city_id INTEGER,' +
             ' customer_city VARCHAR,' +
             ' customer_address TEXT,' +
+            ' customer_house TEXT,' +
+            ' customer_flat TEXT,' +
+            ' customer_floor TEXT,' +
             ' customer_location VARCHAR,' +
             ' customer_itn INTEGER,' +
             ' customer_starttime VARCHAR,' +

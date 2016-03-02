@@ -3743,6 +3743,48 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       months: $filter('translate')('common_words.MONTHS_LABEL')
     };
 
+
+    //------- translate
+    thisCtrl.CALL_ORDER = $filter('translate')('cart.CALL_ORDER');
+    thisCtrl.CALL_ORDER_DESCRIP = $filter('translate')('cart.CALL_ORDER_DESCRIP');
+    thisCtrl.CALL_ORDER_CLIENT_INFO = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.CALL_ORDER_DELIVERY = $filter('translate')('cart.CALL_ORDER_DELIVERY');
+    thisCtrl.CLIENT_LOCATION = $filter('translate')('cart.CLIENT_LOCATION');
+    thisCtrl.CLIENT_ADDRESS = $filter('translate')('cart.CLIENT_ADDRESS');
+    thisCtrl.CLIENT_HOUSE = $filter('translate')('cart.CLIENT_HOUSE');
+    thisCtrl.CLIENT_FLAT = $filter('translate')('cart.CLIENT_FLAT');
+    thisCtrl.CLIENT_FLOOR = $filter('translate')('cart.CLIENT_FLOOR');
+    thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
+    thisCtrl.CALL_ORDER_ADD_INFO = $filter('translate')('cart.CALL_ORDER_ADD_INFO');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+    thisCtrl.ADD_PHONE = $filter('translate')('cart.ADD_PHONE');
+    thisCtrl.CLIENT_SEX = $filter('translate')('cart.CLIENT_SEX');
+    thisCtrl.CLIENT_SEX_M = $filter('translate')('cart.CLIENT_SEX_M');
+    thisCtrl.CLIENT_SEX_F = $filter('translate')('cart.CLIENT_SEX_F');
+    thisCtrl.CLIENT_AGE = $filter('translate')('cart.CLIENT_AGE');
+    thisCtrl.SELECT_PLACEHOLD = $filter('translate')('cart.SELECT_PLACEHOLD');
+    thisCtrl.CLIENT_EDUCATION = $filter('translate')('cart.CLIENT_EDUCATION');
+    thisCtrl.CLIENT_OCCUPATION = $filter('translate')('cart.CLIENT_OCCUPATION');
+    thisCtrl.CLIENT_INFO_SOURCE = $filter('translate')('cart.CLIENT_INFO_SOURCE');
+    thisCtrl.READY = $filter('translate')('cart.READY');
+    thisCtrl.CALL_MASTER = $filter('translate')('cart.CALL_MASTER');
+    thisCtrl.CALL_MASTER_DESCRIP = $filter('translate')('cart.CALL_MASTER_DESCRIP');
+    thisCtrl.CALL_CREDIT = $filter('translate')('cart.CALL_CREDIT');
+    thisCtrl.CALL_CREDIT_DESCRIP = $filter('translate')('cart.CALL_CREDIT_DESCRIP');
+    thisCtrl.CALL_CREDIT_CLIENT_INFO = $filter('translate')('cart.CALL_CREDIT_CLIENT_INFO');
+    thisCtrl.CREDIT_TARGET = $filter('translate')('cart.CREDIT_TARGET');
+    thisCtrl.CLIENT_ITN = $filter('translate')('cart.CLIENT_ITN');
+    thisCtrl.CALL_START_TIME = $filter('translate')('cart.CALL_START_TIME');
+    thisCtrl.CALL_END_TIME = $filter('translate')('cart.CALL_END_TIME');
+    thisCtrl.CALL_CREDIT_PARTIAL_PRICE = $filter('translate')('cart.CALL_CREDIT_PARTIAL_PRICE');
+
+
+
     //SettingServ.downloadLocations().then(function(data) {
     //    thisCtrl.locations = data;
     //});
@@ -12263,6 +12305,9 @@ function ErrorResult(code, message) {
             ' customer_city_id INTEGER,' +
             ' customer_city VARCHAR,' +
             ' customer_address TEXT,' +
+            ' customer_house TEXT,' +
+            ' customer_flat TEXT,' +
+            ' customer_floor TEXT,' +
             ' customer_location VARCHAR,' +
             ' customer_itn INTEGER,' +
             ' customer_starttime VARCHAR,' +
@@ -22078,6 +22123,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
       thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
       thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
+      thisFactory.publicObj.cart.customer.customer_house = angular.copy(OrderStor.order.customer_house);
+      thisFactory.publicObj.cart.customer.customer_flat = angular.copy(OrderStor.order.customer_flat);
+      thisFactory.publicObj.cart.customer.customer_floor = angular.copy(OrderStor.order.customer_floor);
       thisFactory.publicObj.cart.customer.customer_city = angular.copy(OrderStor.order.customer_city);
       thisFactory.publicObj.cart.customer.customer_city_id = angular.copy(OrderStor.order.customer_city_id);
       thisFactory.publicObj.cart.customer.customer_email = angular.copy(OrderStor.order.customer_email);
@@ -23046,6 +23094,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER_DESCRIP: 'Um Gager nennen wir brauchen etwas für Sie zu wissen. Beide Felder sind Pflichtfelder.',
         CLIENT_LOCATION: 'Lage',
         CLIENT_ADDRESS: 'Anschrift',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Bestellung zur Berechnung',
         CALL_ORDER_DESCRIP: 'Um den Auftrag zu erfüllen, müssen wir etwas über Sie wissen.',
         CALL_ORDER_CLIENT_INFO: 'Kundeninformation (muss ausgefüllt werden):',
@@ -23409,6 +23460,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER_DESCRIP: 'To call gager we need something for you to know. Both fields are required.',
         CLIENT_LOCATION: 'Location',
         CLIENT_ADDRESS: 'address',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Ordering for calculating',
         CALL_ORDER_DESCRIP: 'In order to fulfill the order, we need to something about you know.',
         CALL_ORDER_CLIENT_INFO: 'Customer Information (must be filled):',
@@ -23770,6 +23824,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER_DESCRIP: 'Per la telefonata del measurer abbiamo bisogno di sapere qualcosa su Lei. Entrambi i campi sono obbligatori per riempitura.',
         CLIENT_LOCATION: 'Località',
         CLIENT_ADDRESS: 'Indirizzo',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Stesura dell’ordine per il conteggio',
         CALL_ORDER_DESCRIP: 'Per poter eseguire il vostro ordine dobbiamo sapere qualccosa di voi.',
         CALL_ORDER_CLIENT_INFO: 'Informazioni sul cliente (campo obbligatorio):',
@@ -24132,6 +24189,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER_DESCRIP: 'Pentru a solicita inginerul, avem nevoie de ceva informatie despre dvs. Ambele campurile sunt obligatorii.',
         CLIENT_LOCATION: 'locație',
         CLIENT_ADDRESS: 'adresa',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Pentru a calcula',
         CALL_ORDER_DESCRIP: 'Pentru a îndeplini comanda,este necesar informatie despre dvs.',
         CALL_ORDER_CLIENT_INFO: 'Informații client (câmpuri obligatorii):',
@@ -24493,6 +24553,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER_DESCRIP: 'Для вызова замерщика нам нужно кое-что о вас знать. Оба поля являются обязательными для заполнения.',
         CLIENT_LOCATION: 'Местоположение',
         CLIENT_ADDRESS: 'Адрес',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Оформление заказа для рассчета',
         CALL_ORDER_DESCRIP: 'Для того, чтобы выполнить заказ, мы должны кое-что о вас знать.',
         CALL_ORDER_CLIENT_INFO: 'Информация о клиенте (заполняйте обязательно):',
@@ -24853,7 +24916,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CALL_MASTER: 'Виклик замірювача для розрахунку',
         CALL_MASTER_DESCRIP: 'Для виклику замірювача нам потрібно дещо про вас знати. Обидва поля є обов`язковими для заповнення.',
         CLIENT_LOCATION: 'Місце розташування',
-        CLIENT_ADDRESS: 'Адреса',
+        CLIENT_ADDRESS: "Адреса",
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Оформлення замовлення для розрахунку',
         CALL_ORDER_DESCRIP: 'Для того, щоб виконати замовлення, ми повинні дещо про вас знати.',
         CALL_ORDER_CLIENT_INFO: 'Інформація про клієнта (заповнюйте обов`язково):',

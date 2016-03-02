@@ -3602,6 +3602,38 @@ div.drum figure {
   background-color: #fff;
 }
 
+/* line 258, ../../dev/sass/parts/_cart-dialogs.scss */
+.user-field.street, .street.user-select-field {
+  display: inline-block;
+  width: 60%;
+}
+/* line 262, ../../dev/sass/parts/_cart-dialogs.scss */
+.user-field.small, .small.user-select-field {
+  display: inline-block;
+  width: 12.5%;
+}
+
+/* line 268, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs .error-tooltip, .cart-dialogs .setting-container .set-email-error, .setting-container .cart-dialogs .set-email-error {
+  top: 1rem;
+}
+/* line 270, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs .error-tooltip.street, .cart-dialogs .setting-container .street.set-email-error, .setting-container .cart-dialogs .street.set-email-error {
+  left: 20rem;
+}
+/* line 273, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs .error-tooltip.house, .cart-dialogs .setting-container .house.set-email-error, .setting-container .cart-dialogs .house.set-email-error {
+  left: 40rem;
+}
+/* line 276, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs .error-tooltip.flat, .cart-dialogs .setting-container .flat.set-email-error, .setting-container .cart-dialogs .flat.set-email-error {
+  left: 48rem;
+}
+/* line 279, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs .error-tooltip.floor, .cart-dialogs .setting-container .floor.set-email-error, .setting-container .cart-dialogs .floor.set-email-error {
+  left: 55rem;
+}
+
 /*
 .error-tooltip {
   @include top_left_coord(-10px, 600px);

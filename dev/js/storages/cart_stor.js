@@ -18,6 +18,9 @@
       thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
       thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
       thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
+      thisFactory.publicObj.cart.customer.customer_house = angular.copy(OrderStor.order.customer_house);
+      thisFactory.publicObj.cart.customer.customer_flat = angular.copy(OrderStor.order.customer_flat);
+      thisFactory.publicObj.cart.customer.customer_floor = angular.copy(OrderStor.order.customer_floor);
       thisFactory.publicObj.cart.customer.customer_city = angular.copy(OrderStor.order.customer_city);
       thisFactory.publicObj.cart.customer.customer_city_id = angular.copy(OrderStor.order.customer_city_id);
       thisFactory.publicObj.cart.customer.customer_email = angular.copy(OrderStor.order.customer_email);
