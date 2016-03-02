@@ -58,6 +58,12 @@
             /** Extra Glass finding */
             MainServ.checkGlassSizes(ProductStor.product.template);
 
+            /** Extra Sash finding */
+            if (GlobalStor.global.isSashesInTemplate) {
+              /** check sizes of all hardware in sashes */
+              MainServ.checkHardwareSizes(ProductStor.product.template);
+            }
+
             /** return previous Product */
             ProductStor.product = angular.copy(productTEMP);
 
@@ -66,21 +72,27 @@
                * expose Alert */
               DesignStor.design.isGlassExtra = 1;
             } else {
-              /** set default white lamination */
-              MainServ.setCurrLamination();
-              /** set new Profile */
-              MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-                MainServ.parseTemplate().then(function () {
-                  /** change lamination groups as of new profile */
-                  MainServ.laminatFiltering();
-                  /** send analytics data to Server*/
-                  AnalyticsServ.sendAnalyticsData(
-                    UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
-                  );
-                });
-              });
-            }
 
+              if(DesignStor.design.extraHardware.length){
+                /** there are incorrect sashes
+                 * expose Alert */
+                DesignStor.design.isHardwareExtra = 1;
+              } else {
+                /** set default white lamination */
+                MainServ.setCurrLamination();
+                /** set new Profile */
+                MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+                  MainServ.parseTemplate().then(function () {
+                    /** change lamination groups as of new profile */
+                    MainServ.laminatFiltering();
+                    /** send analytics data to Server*/
+                    AnalyticsServ.sendAnalyticsData(
+                      UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
+                    );
+                  });
+                });
+              }
+            }
           });
         });
 

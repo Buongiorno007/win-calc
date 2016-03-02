@@ -93,6 +93,7 @@
                   id:'block_1',
                   level: 1,
                   blockType:'frame',
+                  //blockType:'sash',
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
@@ -104,7 +105,9 @@
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: ''
+                  glassTxt: ''//,
+                  //sashType: 2,
+                  //openDir: [1]
                 }
               ]
             },

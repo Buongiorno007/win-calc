@@ -195,6 +195,49 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+
+    //------- translate
+    thisCtrl.ALL_ADD_ELEMENTS = $filter('translate')('cart.ALL_ADD_ELEMENTS');
+    thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.PRODUCT_QTY = $filter('translate')('cart.PRODUCT_QTY');
+    thisCtrl.ORDER_COMMENT = $filter('translate')('cart.ORDER_COMMENT');
+    thisCtrl.LIGHT_VIEW = $filter('translate')('cart.LIGHT_VIEW');
+    thisCtrl.DISCOUNT_SELECT = $filter('translate')('cart.DISCOUNT_SELECT');
+    thisCtrl.MAX = $filter('translate')('common_words.MAX');
+    thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
+    thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+    thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
+    thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
+    thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');
+    thisCtrl.FULL_VIEW = $filter('translate')('cart.FULL_VIEW');
+    thisCtrl.ADDELEMENTS_EDIT_LIST = $filter('translate')('cart.ADDELEMENTS_EDIT_LIST');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.ADDELEMENTS_PRODUCT_COST = $filter('translate')('cart.ADDELEMENTS_PRODUCT_COST');
+    thisCtrl.GRID = $filter('translate')('add_elements.GRID');
+    thisCtrl.VISOR = $filter('translate')('add_elements.VISOR');
+    thisCtrl.SPILLWAY = $filter('translate')('add_elements.SPILLWAY');
+    thisCtrl.OUTSIDE = $filter('translate')('add_elements.OUTSIDE');
+    thisCtrl.LOUVERS = $filter('translate')('add_elements.LOUVERS');
+    thisCtrl.INSIDE = $filter('translate')('add_elements.INSIDE');
+    thisCtrl.CONNECTORS = $filter('translate')('add_elements.CONNECTORS');
+    thisCtrl.FAN = $filter('translate')('add_elements.FAN');
+    thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
+    thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -484,31 +527,31 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     //------- translate
-    thisCtrl.IMPOST_SHAPE = $filter('translate')('construction.IMPOST_SHAPE');
-    thisCtrl.SASH_SHAPE = $filter('translate')('construction.SASH_SHAPE');
-    thisCtrl.ANGEL_SHAPE = $filter('translate')('construction.ANGEL_SHAPE');
-    thisCtrl.ARCH_SHAPE = $filter('translate')('construction.ARCH_SHAPE');
-    thisCtrl.POSITION_SHAPE = $filter('translate')('construction.POSITION_SHAPE');
-    thisCtrl.UNITS_DESCRIP = $filter('translate')('construction.UNITS_DESCRIP');
-    thisCtrl.PROJECT_DEFAULT = $filter('translate')('construction.PROJECT_DEFAULT');
+    thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
+    thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
+    thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
+    thisCtrl.ARCH_SHAPE = $filter('translate')('design.ARCH_SHAPE');
+    thisCtrl.POSITION_SHAPE = $filter('translate')('design.POSITION_SHAPE');
+    thisCtrl.UNITS_DESCRIP = $filter('translate')('design.UNITS_DESCRIP');
+    thisCtrl.PROJECT_DEFAULT = $filter('translate')('design.PROJECT_DEFAULT');
     thisCtrl.BACK = $filter('translate')('common_words.BACK');
     thisCtrl.SAVE = $filter('translate')('settings.SAVE');
     thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
-    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('construction.DOOR_CONFIG_LABEL');
-    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('construction.DOOR_CONFIG_DESCTIPT');
-    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('construction.SASH_CONFIG_DESCTIPT');
-    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('construction.HANDLE_CONFIG_DESCTIPT');
-    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('construction.LOCK_CONFIG_DESCTIPT');
-    thisCtrl.STEP = $filter('translate')('construction.STEP');
-    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('construction.LABEL_DOOR_TYPE');
-    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('construction.LABEL_SASH_TYPE');
-    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('construction.LABEL_HANDLE_TYPE');
-    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('construction.LABEL_LOCK_TYPE');
-    thisCtrl.NOT_AVAILABLE = $filter('translate')('construction.NOT_AVAILABLE');
-    thisCtrl.DIM_EXTRA = $filter('translate')('construction.DIM_EXTRA');
-    thisCtrl.SQUARE_EXTRA = $filter('translate')('construction.SQUARE_EXTRA');
+    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('design.DOOR_CONFIG_LABEL');
+    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('design.DOOR_CONFIG_DESCTIPT');
+    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('design.SASH_CONFIG_DESCTIPT');
+    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('design.HANDLE_CONFIG_DESCTIPT');
+    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('design.LOCK_CONFIG_DESCTIPT');
+    thisCtrl.STEP = $filter('translate')('design.STEP');
+    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('design.LABEL_DOOR_TYPE');
+    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('design.LABEL_SASH_TYPE');
+    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('design.LABEL_HANDLE_TYPE');
+    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('design.LABEL_LOCK_TYPE');
+    thisCtrl.NOT_AVAILABLE = $filter('translate')('design.NOT_AVAILABLE');
+    thisCtrl.DIM_EXTRA = $filter('translate')('design.DIM_EXTRA');
+    thisCtrl.SQUARE_EXTRA = $filter('translate')('design.SQUARE_EXTRA');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
-    thisCtrl.TEST_STAGE = $filter('translate')('construction.TEST_STAGE');
+    thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
 
 
     //--------- set template from ProductStor
@@ -1058,6 +1101,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('HistoryCtrl',
 
   function(
+    $filter,
     GlobalStor,
     UserStor,
     HistoryStor,
@@ -1069,6 +1113,37 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
 
+    //------- translate
+    thisCtrl.FROM = $filter('translate')('history.FROM');
+    thisCtrl.UNTIL = $filter('translate')('history.UNTIL');
+    thisCtrl.DATE_RANGE = $filter('translate')('history.DATE_RANGE');
+    thisCtrl.ALL_TIME = $filter('translate')('history.ALL_TIME');
+    thisCtrl.SORTING = $filter('translate')('history.SORTING');
+    thisCtrl.NEWEST_FIRST = $filter('translate')('history.NEWEST_FIRST');
+    thisCtrl.NEWEST_LAST = $filter('translate')('history.NEWEST_LAST');
+    thisCtrl.SORT_BY_TYPE = $filter('translate')('history.SORT_BY_TYPE');
+    thisCtrl.SORT_SHOW = $filter('translate')('history.SORT_SHOW');
+    thisCtrl.ALL = $filter('translate')('common_words.ALL');
+    thisCtrl.SORT_SHOW_ACTIVE = $filter('translate')('history.SORT_SHOW_ACTIVE');
+    thisCtrl.SORT_SHOW_WAIT = $filter('translate')('history.SORT_SHOW_WAIT');
+    thisCtrl.SORT_SHOW_DONE = $filter('translate')('history.SORT_SHOW_DONE');
+    thisCtrl.INCLUDED = $filter('translate')('history.INCLUDED');
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.AND = $filter('translate')('common_words.AND');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.CLIENT = $filter('translate')('history.CLIENT');
+    thisCtrl.PHONE = $filter('translate')('history.PHONE');
+    thisCtrl.ADDRESS = $filter('translate')('history.ADDRESS');
+    thisCtrl.PAYMENTS = $filter('translate')('history.PAYMENTS');
+    thisCtrl.WAIT_MASTER = $filter('translate')('history.WAIT_MASTER');
+    thisCtrl.ALLPRODUCTS = $filter('translate')('history.ALLPRODUCTS');
+    thisCtrl.ON = $filter('translate')('history.ON');
+    thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.BY_YOUR_REQUEST = $filter('translate')('history.BY_YOUR_REQUEST');
+    thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
+    thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
+    thisCtrl.DRAFT = $filter('translate')('history.DRAFT');
+    thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'history';
@@ -1085,6 +1160,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
     thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
     thisCtrl.editOrder = HistoryServ.editOrder;
+    thisCtrl.orderPrint = HistoryServ.orderPrint;
     thisCtrl.viewSwitching = HistoryServ.viewSwitching;
 
     thisCtrl.orderSearching = HistoryServ.orderSearching;
@@ -1261,7 +1337,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-
 
 
 
@@ -2402,12 +2477,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           thisCtrl.activeMenuItem = 0;
           if(UserStor.userInfo.factoryLink) {
             if (UserStor.userInfo.factoryLink.length) {
-              if (GlobalStor.global.isDevice) {
-                var ref = window.open(UserStor.userInfo.factoryLink);
-                ref.close();
-              } else {
-                $window.open(UserStor.userInfo.factoryLink);
-              }
+              GeneralServ.goToLink(UserStor.userInfo.factoryLink);
             }
           }
           break;
@@ -3341,6 +3411,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             /** Extra Glass finding */
             MainServ.checkGlassSizes(ProductStor.product.template);
 
+            /** Extra Sash finding */
+            if (GlobalStor.global.isSashesInTemplate) {
+              /** check sizes of all hardware in sashes */
+              MainServ.checkHardwareSizes(ProductStor.product.template);
+            }
+
             /** return previous Product */
             ProductStor.product = angular.copy(productTEMP);
 
@@ -3349,21 +3425,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                * expose Alert */
               DesignStor.design.isGlassExtra = 1;
             } else {
-              /** set default white lamination */
-              MainServ.setCurrLamination();
-              /** set new Profile */
-              MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-                MainServ.parseTemplate().then(function () {
-                  /** change lamination groups as of new profile */
-                  MainServ.laminatFiltering();
-                  /** send analytics data to Server*/
-                  AnalyticsServ.sendAnalyticsData(
-                    UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
-                  );
-                });
-              });
-            }
 
+              if(DesignStor.design.extraHardware.length){
+                /** there are incorrect sashes
+                 * expose Alert */
+                DesignStor.design.isHardwareExtra = 1;
+              } else {
+                /** set default white lamination */
+                MainServ.setCurrLamination();
+                /** set new Profile */
+                MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+                  MainServ.parseTemplate().then(function () {
+                    /** change lamination groups as of new profile */
+                    MainServ.laminatFiltering();
+                    /** send analytics data to Server*/
+                    AnalyticsServ.sendAnalyticsData(
+                      UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
+                    );
+                  });
+                });
+              }
+            }
           });
         });
 
@@ -3548,16 +3630,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('AttantCtrl',
 
-  function(DesignStor) {
+  function($filter, DesignStor, HistoryStor) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.D = DesignStor;
+    thisCtrl.H = HistoryStor;
+
+    //------- translate
+    thisCtrl.NO_PRINT = $filter('translate')('history.NO_PRINT');
+    thisCtrl.EXTRA_SASH = $filter('translate')('design.EXTRA_SASH');
+    thisCtrl.CHANGE_SIZE = $filter('translate')('design.CHANGE_SIZE') ;
 
 
     /**============ METHODS ================*/
 
     function closeAttantion() {
       DesignStor.design.isGlassExtra = 0;
+      DesignStor.design.isHardwareExtra = 0;
+      HistoryStor.history.isNoPrint = 0;
     }
 
 
@@ -7037,7 +7127,7 @@ function ErrorResult(code, message) {
       OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(
-        OrderStor.order.order_price - OrderStor.order.order_price_dis
+        OrderStor.order.order_price - OrderStor.order.productsPriceDis
       );
 
       //------ get price with instalment
@@ -10527,6 +10617,9 @@ function ErrorResult(code, message) {
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
+      var doorShapeList = DesignStor.design.doorShapeList,
+          doorConfig = DesignStor.design.doorConfig,
+          isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
         /** check sizes of all glass */
@@ -10535,61 +10628,81 @@ function ErrorResult(code, message) {
           /** expose Alert */
           DesignStor.design.isGlassExtra = 1;
         } else {
-
-          /** save new template in product */
-          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-          /** create template icon */
-          SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-            .then(function (result) {
-              ProductStor.product.templateIcon = angular.copy(result);
-            });
-
-          /** if Door Construction */
-          if (ProductStor.product.construction_type === 4) {
-            //------- save new door config
-            ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-            ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-            ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-            ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-          }
-
-          /** save new template in templates Array */
-          GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
-
           /** if sash was added/removed in template */
-          var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
+          isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
           if (isSashesInTemplate) {
-            if (!GlobalStor.global.isSashesInTemplate) {
-              GlobalStor.global.isSashesInTemplate = 1;
-              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            }
+
+            /** check sizes of all hardware in sashes */
+            MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
+
           } else {
+            /** sashes were removed */
             ProductStor.product.hardware = {};
             ProductStor.product.hardware.id = 0;
             GlobalStor.global.isSashesInTemplate = 0;
+            //------ clean Extra Hardware
+            DesignStor.design.extraHardware.length = 0;
           }
 
-          /** check grids */
-          var isChanged = updateGrids();
-          if (isChanged) {
-            //------ get new grids price
-            getGridPrice(ProductStor.product.chosenAddElements[0]);
+          if(DesignStor.design.extraHardware.length){
+            /** expose Alert */
+            DesignStor.design.isHardwareExtra = 1;
+          } else {
+
+            if (isSashesInTemplate) {
+              /** set first hardware if sash were not existed before */
+              if (!GlobalStor.global.isSashesInTemplate) {
+                GlobalStor.global.isSashesInTemplate = 1;
+                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+              }
+            }
+
+            /** save new template in product */
+            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** create template icon */
+            SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.templateIcon = angular.copy(result);
+              });
+
+            /** if Door Construction */
+            if (ProductStor.product.construction_type === 4) {
+              //------- save new door config
+              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
+              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
+              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
+              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+            }
+
+            /** save new template in templates Array */
+            GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+              ProductStor.product.template_source
+            );
+
+            /** check grids */
+            var isChanged = updateGrids();
+            if (isChanged) {
+              //------ get new grids price
+              getGridPrice(ProductStor.product.chosenAddElements[0]);
+            }
+
+            /** refresh price of new template */
+            MainServ.preparePrice(
+              ProductStor.product.template,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              ProductStor.product.hardware.id,
+              ProductStor.product.lamination.lamination_in_id
+            ).then(function () {
+              //-------- template was changed
+              GlobalStor.global.isChangedTemplate = 1;
+              backtoTemplatePanel();
+            });
+
           }
 
-          /** refresh price of new template */
-          MainServ.preparePrice(
-            ProductStor.product.template,
-            ProductStor.product.profile.id,
-            ProductStor.product.glass,
-            ProductStor.product.hardware.id,
-            ProductStor.product.lamination.lamination_in_id
-          ).then(function () {
-            //-------- template was changed
-            GlobalStor.global.isChangedTemplate = 1;
-            backtoTemplatePanel();
-          });
         }
 
       });
@@ -10804,7 +10917,7 @@ function ErrorResult(code, message) {
       }
     });
 
-    //http://windowscalculator.net:3002/orders/get-order-pdf/13941456576563824?userId=897
+
 
     /**============ METHODS ================*/
 
@@ -10876,6 +10989,14 @@ function ErrorResult(code, message) {
     }
 
 
+    function goToLink(link) {
+      if(GlobalStor.global.isDevice) {
+        var ref = window.open(link);
+        ref.close();
+      } else {
+        $window.open(link);
+      }
+    }
 
 
     /**========== FINISH ==========*/
@@ -10890,7 +11011,8 @@ function ErrorResult(code, message) {
       sorting: sorting,
       removeDuplicates: removeDuplicates,
       getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
+      confirmAlert: confirmAlert,
+      goToLink: goToLink
     };
 
     return thisFactory.publicObj;
@@ -10913,6 +11035,7 @@ function ErrorResult(code, message) {
     $location,
     $filter,
     $q,
+    globalConstants,
     localDB,
     GeneralServ,
     MainServ,
@@ -10992,7 +11115,7 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Send Order to Factory ========//
+    /**========== Send Order to Factory ========*/
 
     function sendOrderToFactory(orderStyle, orderNum) {
       function sendOrder() {
@@ -11024,7 +11147,7 @@ function ErrorResult(code, message) {
 
 
 
-    //========= make Order Copy =========//
+    /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
 
@@ -11108,7 +11231,7 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Delete order ==========//
+    /**========== Delete order ==========*/
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
@@ -11224,7 +11347,7 @@ function ErrorResult(code, message) {
                       glassIDsQty = glassIDs.length;
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
+                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
                     }
                   }
                 }
@@ -11287,11 +11410,12 @@ function ErrorResult(code, message) {
       ).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length;
+            orderProductsQty = OrderStor.order.products.length,
+            prod;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
-            for(var prod = 0; prod < orderProductsQty; prod++) {
+            for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
@@ -11323,7 +11447,7 @@ function ErrorResult(code, message) {
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -11416,7 +11540,21 @@ function ErrorResult(code, message) {
     }
 
 
-    //============= HISTORY TOOLS ============//
+    function orderPrint(orderId) {
+      var domainLink = globalConstants.serverIP.split('api.').join(''),
+          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      /** check internet */
+      if(navigator.onLine) {
+        GeneralServ.goToLink(printLink);
+      } else {
+        HistoryStor.history.isNoPrint = 1;
+      }
+    }
+
+
+
+    /**============= HISTORY TOOLS ============*/
 
     //=========== Searching
 
@@ -11436,16 +11574,17 @@ function ErrorResult(code, message) {
 
     //------- filtering orders by Dates
     function filteringByDate(obj, start, end) {
+      var newObj, startDate, finishDate,
+          t, objDate;
       if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
         newObj = angular.copy(obj);
         startDate = new Date(start).valueOf();
         finishDate = new Date(end).valueOf();
         if(start !== '' && end !== '' && startDate > finishDate) {
           return false;
         }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
+        for(t = newObj.length-1;  t >= 0; t-=1) {
+          objDate = new Date(newObj[t].created).valueOf();
           if(objDate < startDate || objDate > finishDate) {
             newObj.splice(t, 1);
           }
@@ -11607,6 +11746,7 @@ function ErrorResult(code, message) {
       makeOrderCopy: makeOrderCopy,
       clickDeleteOrder: clickDeleteOrder,
       editOrder: editOrder,
+      orderPrint: orderPrint,
       viewSwitching: viewSwitching,
 
       orderSearching: orderSearching,
@@ -15009,11 +15149,31 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     }
 
+
+
+
+    /**---------- download Hardware Limits --------*/
+
+    function downloadHardwareLimits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
+        null,
+        'type_id, min_width, max_width, min_height, max_height'
+      ).then(function(result) {
+        if(result && result.length) {
+          GlobalStor.global.hardwareLimits = angular.copy(result);
+        }
+      });
+    }
+
+
     //TODO
     /** download all Templates */
     //function downloadAllTemplates() {
     //
     //}
+
+
 
 
     /** download all Backgrounds */
@@ -15310,7 +15470,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return item * 1;
+                        return +item;
                       });
                       /** download factory data */
                       downloadFactoryData();
@@ -15337,7 +15497,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
-                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwares);
+                                  /** download Hardware Limits */
+                                  downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
                                     /** download All AddElements */
@@ -15736,11 +15897,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function checkSashInTemplate(product) {
-      var templQty = product.template_source.details.length,
+    function checkSashInTemplate(template) {
+      var templQty = template.details.length,
           counter = 0;
       while(--templQty > 0) {
-        if(product.template_source.details[templQty].blockType === 'sash') {
+        if(template.details[templQty].blockType === 'sash') {
           counter+=1;
         }
       }
@@ -15759,7 +15920,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
-          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
+          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -16301,7 +16462,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           currWidth, currHeight, currSquare,
           isSizeError, b;
 
-      /** clean extraGlass */
+      /** clean extra Glass */
       DesignStor.design.extraGlass.length = 0;
 
       /** glass loop */
@@ -16325,11 +16486,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
 
                   if (currSquare > item.max_sq) {
-                    wranGlass = $filter('translate')('construction.GLASS') +
+                    wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
-                      $filter('translate')('construction.GLASS_SQUARE') +
+                      $filter('translate')('design.GLASS_SQUARE') +
                       ' ' + currSquare + ' ' +
-                      $filter('translate')('construction.MAX_VALUE_HIGHER') +
+                      $filter('translate')('design.MAX_VALUE_HIGHER') +
                       ' ' + item.max_sq + ' ' +
                       $filter('translate')('common_words.LETTER_M') + '2.';
 
@@ -16343,11 +16504,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     isSizeError = 1;
                   }
                   if(isSizeError) {
-                    wranGlass = $filter('translate')('construction.GLASS') +
+                    wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
-                      $filter('translate')('construction.GLASS_SIZE') +
+                      $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
-                      $filter('translate')('construction.NO_AVAILABLE_GLASS_SIZE') +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
                       ' ' + item.max_width + ' x ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
@@ -16364,6 +16525,65 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+    /**----------- Hardware sizes checking -------------*/
+
+    function checkHardwareSizes(template) {
+      var blocks = template.details,
+          blocksQty = blocks.length,
+          limits = GlobalStor.global.hardwareLimits,
+          limitsQty = GlobalStor.global.hardwareLimits.length,
+          currLimit = 0,
+          overallSize, currWidth, currHeight,
+          wranSash, isSizeError, b, lim;
+
+      /** clean extra Hardware */
+      DesignStor.design.extraHardware.length = 0;
+
+      /** template loop */
+      for (b = 1; b < blocksQty; b += 1) {
+        isSizeError = 0;
+        if (blocks[b].blockType === 'sash') {
+          /** finde limit for current sash */
+          for(lim = 0; lim < limitsQty; lim+=1) {
+            if(limits[lim].type_id === blocks[b].sashType) {
+              /** check available max/min sizes */
+              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                currLimit = limits[lim];
+              }
+              break;
+            }
+          }
+          if (currLimit) {
+            if (blocks[b].hardwarePoints.length) {
+              /** estimate current sash sizes */
+              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+              currWidth = Math.round(overallSize.maxX - overallSize.minX);
+              currHeight = Math.round(overallSize.maxY - overallSize.minY);
+              currLimit.max_width = 50;
+              currLimit.max_height = 50;
+              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                isSizeError = 1;
+              }
+              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                isSizeError = 1;
+              }
+
+              if(isSizeError) {
+                wranSash = currWidth + ' x ' + currHeight + ' ' +
+                  $filter('translate')('design.NO_MATCH_RANGE') +
+                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+
+                DesignStor.design.extraHardware.push(wranSash);
+              }
+
+            }
+          }
+        }
+      }
+
+      //console.info('glass result', DesignStor.design.extraHardware);
+    }
 
 
 
@@ -16790,6 +17010,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       setCurrLamination: setCurrLamination,
       setProfileByLaminat: setProfileByLaminat,
       checkGlassSizes: checkGlassSizes,
+      checkHardwareSizes: checkHardwareSizes,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -17102,6 +17323,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   id:'block_1',
                   level: 1,
                   blockType:'frame',
+                  //blockType:'sash',
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
@@ -17113,7 +17335,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: ''
+                  glassTxt: ''//,
+                  //sashType: 2,
+                  //openDir: [1]
                 }
               ]
             },
@@ -22000,6 +22224,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         extraGlass: [],
         isGlassExtra: 0,
 
+        //------- extra hardware
+        extraHardware: [],
+        isHardwareExtra: 0,
+
         //----- Door
         doorShapeList: [
           {
@@ -22163,6 +22391,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //------ Hardwares
         hardwares: [],
         hardwareTypes: [],
+        hardwareLimits: [],
 
         //------ Lamination
         laminats: [],
@@ -22727,7 +22956,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'Flügel',
         ANGEL_SHAPE: 'Winkel',
         IMPOST_SHAPE: 'Abgaben',
@@ -22756,9 +22985,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -22786,7 +23017,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
         WAIT_MASTER: 'erwartet Gager',
-        INCLUDED: 'inbegriffen'
+        INCLUDED: 'inbegriffen',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',
@@ -23087,7 +23319,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'Composite structure',
         TAB_EMPTY_EXPLAIN: 'Please select the first item to start up construction.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'shutters',
         ANGEL_SHAPE: 'corners',
         IMPOST_SHAPE: 'imposts',
@@ -23116,9 +23348,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -23146,7 +23380,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'According to your request',
         NOT_FIND: 'nothing found',
         WAIT_MASTER: 'expects gager',
-        INCLUDED: 'included'
+        INCLUDED: 'included',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'All additional elements order',
@@ -23445,7 +23680,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'Schema complesso',
         TAB_EMPTY_EXPLAIN: 'Scegliete il primo elemento dalla lista.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'battenti',
         ANGEL_SHAPE: 'angoli',
         IMPOST_SHAPE: 'imposte',
@@ -23474,9 +23709,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -23504,7 +23741,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'Su vostra richiesta',
         NOT_FIND: 'Non è stato trovato niente',
         WAIT_MASTER: 'Aspetta il misuratore ',
-        INCLUDED: 'sono inclusi'
+        INCLUDED: 'sono inclusi',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Tutti gli elementi supplementari dell’oedine',
@@ -23804,7 +24042,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'cercevea',
         ANGEL_SHAPE: 'unghiuri',
         IMPOST_SHAPE: 'impost',
@@ -23833,9 +24071,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -23863,7 +24103,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
         WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus'
+        INCLUDED: 'inclus',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
@@ -24162,7 +24403,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'Составная конструкция',
         TAB_EMPTY_EXPLAIN: 'Выберите из списка первый элемент, чтобы начать составлять конструкцию.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'створки',
         ANGEL_SHAPE: 'углы',
         IMPOST_SHAPE: 'импосты',
@@ -24191,9 +24432,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -24221,7 +24464,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'По вашему запросу',
         NOT_FIND: 'ничего не найдено',
         WAIT_MASTER: 'ожидает замерщика',
-        INCLUDED: 'включены'
+        INCLUDED: 'включены',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
@@ -24520,7 +24764,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TAB_NAME_HARD_FRAME: 'Складена конструкція',
         TAB_EMPTY_EXPLAIN: 'Виберіть зі списку перший елемент, щоб почати складати конструкцію.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'стулки',
         ANGEL_SHAPE: 'кути',
         IMPOST_SHAPE: 'імпости',
@@ -24549,9 +24793,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
@@ -24579,7 +24825,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BY_YOUR_REQUEST: 'По вашому запиту',
         NOT_FIND: 'нічого не знайдено',
         WAIT_MASTER: 'очікує замірювача',
-        INCLUDED: 'включені'
+        INCLUDED: 'включені',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Всі дод.елементи замовлення',

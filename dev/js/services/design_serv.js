@@ -2666,6 +2666,9 @@
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
+      var doorShapeList = DesignStor.design.doorShapeList,
+          doorConfig = DesignStor.design.doorConfig,
+          isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
         /** check sizes of all glass */
@@ -2674,61 +2677,81 @@
           /** expose Alert */
           DesignStor.design.isGlassExtra = 1;
         } else {
-
-          /** save new template in product */
-          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-          /** create template icon */
-          SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-            .then(function (result) {
-              ProductStor.product.templateIcon = angular.copy(result);
-            });
-
-          /** if Door Construction */
-          if (ProductStor.product.construction_type === 4) {
-            //------- save new door config
-            ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-            ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-            ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-            ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-          }
-
-          /** save new template in templates Array */
-          GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
-
           /** if sash was added/removed in template */
-          var isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
+          isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
           if (isSashesInTemplate) {
-            if (!GlobalStor.global.isSashesInTemplate) {
-              GlobalStor.global.isSashesInTemplate = 1;
-              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-            }
+
+            /** check sizes of all hardware in sashes */
+            MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
+
           } else {
+            /** sashes were removed */
             ProductStor.product.hardware = {};
             ProductStor.product.hardware.id = 0;
             GlobalStor.global.isSashesInTemplate = 0;
+            //------ clean Extra Hardware
+            DesignStor.design.extraHardware.length = 0;
           }
 
-          /** check grids */
-          var isChanged = updateGrids();
-          if (isChanged) {
-            //------ get new grids price
-            getGridPrice(ProductStor.product.chosenAddElements[0]);
+          if(DesignStor.design.extraHardware.length){
+            /** expose Alert */
+            DesignStor.design.isHardwareExtra = 1;
+          } else {
+
+            if (isSashesInTemplate) {
+              /** set first hardware if sash were not existed before */
+              if (!GlobalStor.global.isSashesInTemplate) {
+                GlobalStor.global.isSashesInTemplate = 1;
+                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+              }
+            }
+
+            /** save new template in product */
+            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** create template icon */
+            SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.templateIcon = angular.copy(result);
+              });
+
+            /** if Door Construction */
+            if (ProductStor.product.construction_type === 4) {
+              //------- save new door config
+              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
+              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
+              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
+              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+            }
+
+            /** save new template in templates Array */
+            GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+              ProductStor.product.template_source
+            );
+
+            /** check grids */
+            var isChanged = updateGrids();
+            if (isChanged) {
+              //------ get new grids price
+              getGridPrice(ProductStor.product.chosenAddElements[0]);
+            }
+
+            /** refresh price of new template */
+            MainServ.preparePrice(
+              ProductStor.product.template,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              ProductStor.product.hardware.id,
+              ProductStor.product.lamination.lamination_in_id
+            ).then(function () {
+              //-------- template was changed
+              GlobalStor.global.isChangedTemplate = 1;
+              backtoTemplatePanel();
+            });
+
           }
 
-          /** refresh price of new template */
-          MainServ.preparePrice(
-            ProductStor.product.template,
-            ProductStor.product.profile.id,
-            ProductStor.product.glass,
-            ProductStor.product.hardware.id,
-            ProductStor.product.lamination.lamination_in_id
-          ).then(function () {
-            //-------- template was changed
-            GlobalStor.global.isChangedTemplate = 1;
-            backtoTemplatePanel();
-          });
         }
 
       });

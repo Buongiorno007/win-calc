@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'Flügel',
         ANGEL_SHAPE: 'Winkel',
         IMPOST_SHAPE: 'Abgaben',
@@ -208,9 +208,11 @@
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -238,7 +240,8 @@
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
         WAIT_MASTER: 'erwartet Gager',
-        INCLUDED: 'inbegriffen'
+        INCLUDED: 'inbegriffen',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',

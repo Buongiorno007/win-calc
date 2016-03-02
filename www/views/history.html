@@ -78,54 +78,54 @@
               </div>
               <div ng-class="{ 'active': historyPage.H.history.isOrderDate }" class="tools-block tool-drop">
                 <button ng-click="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.H.history.startDate === '' &amp;&amp;  historyPage.H.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDate !== ''">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</span><span ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDate !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</span></div>
+                <div ng-class="{ 'empty': historyPage.H.history.startDate === '' &amp;&amp;  historyPage.H.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDate !== ''">{{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</span><span ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDate !== ''">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</span></div>
                 <div ng-if="!historyPage.H.history.isDraftView" class="dropdown-tool-dialog date-filter">
-                  <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isStartDate }" ng-click="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</div>
+                  <div class="filter-title">{{ ::historyPage.DATE_RANGE }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isStartDate }" ng-click="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</div>
                   <div ng-class="{ 'active': historyPage.H.history.isStartDate }" class="dropdown-calendar-scroll">
                     <calendar-scroll order-type="1" calendar-type="1"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDate }" ng-click="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDate }" ng-click="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</div>
                   <div ng-class="{ 'active': historyPage.H.history.isFinishDate }" class="dropdown-calendar-scroll">
                     <calendar-scroll order-type="1" calendar-type="0"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriod }" ng-click="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriod }" ng-click="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ ::historyPage.ALL_TIME }}</div>
                 </div>
               </div>
               <div ng-class="{ 'active': historyPage.H.history.isOrderSort }" class="tools-block tool-drop">
                 <button ng-click="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
-                  <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
+                  <div class="filter-divider">{{ ::historyPage.SORTING }}</div>
                   <ul class="filter-list">
                     <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" ng-click="historyPage.sortingInit(0, 'first')" class="filter-item">
-                      <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.NEWEST_FIRST }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" ng-click="historyPage.sortingInit(0, 'last')" class="filter-item">
-                      <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.NEWEST_LAST }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" ng-click="historyPage.sortingInit(0, 'type')" class="filter-item">
-                      <div class="filter-label">{{ 'history.SORT_BY_TYPE' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.SORT_BY_TYPE }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                   </ul>
-                  <div class="filter-divider">{{ 'history.SORT_SHOW' | translate }}</div>
+                  <div class="filter-divider">{{ ::historyPage.SORT_SHOW }}</div>
                   <ul class="filter-list">
                     <li ng-class="{ 'selected': !historyPage.H.history.isFilterType }" ng-click="historyPage.sortingInit(1, undefined)" class="filter-item">
-                      <div class="filter-label">{{ 'common_words.ALL' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.ALL }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }" ng-click="historyPage.sortingInit(1, 'order')" class="filter-item">
-                      <div class="filter-label">{{ 'history.SORT_SHOW_ACTIVE' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.SORT_SHOW_ACTIVE }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }" ng-click="historyPage.sortingInit(1, 'master')" class="filter-item">
-                      <div class="filter-label">{{ 'history.SORT_SHOW_WAIT' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.SORT_SHOW_WAIT }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }" ng-click="historyPage.sortingInit(1, 'done')" class="filter-item">
-                      <div class="filter-label">{{ 'history.SORT_SHOW_DONE' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.SORT_SHOW_DONE }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                   </ul>
@@ -140,50 +140,50 @@
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
                     <div ng-if="order.order_number" class="account-id">id {{ order.order_number }}<span ng-if="order.order_hz &amp;&amp; order.order_hz !== '---'">{{ order.order_hz }}</span></div>
-                    <div class="account-addinfo"><span ng-hide="!order.floor_id &amp;&amp; !order.mounting_id">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="!order.floor_id">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="!order.floor_id || !order.mounting_id">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="!order.mounting_id">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
+                    <div class="account-addinfo"><span ng-hide="!order.floor_id &amp;&amp; !order.mounting_id">- {{ ::historyPage.INCLUDED }}:</span><span ng-hide="!order.floor_id">&nbsp; {{ ::historyPage.DELIVERY }}</span><span ng-hide="!order.floor_id || !order.mounting_id">&nbsp; {{ ::historyPage.AND }}</span><span ng-hide="!order.mounting_id">&nbsp; {{ ::historyPage.ASSEMBLING }}</span></div>
                   </div>
                   <div class="account-data">
-                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{order.order_date | date:"dd MMMM, yyyy"}}</div>
+                    <div class="account-label account-date-filter">{{ ::historyPage.FROM }} {{order.order_date | date:"dd MMMM, yyyy"}}</div>
                   </div>
                 </div>
                 <div class="account-row">
                   <div class="account-data">
                     <div class="user-data account-user">{{ order.customer_name }}</div>
-                    <div class="account-label">{{ 'history.CLIENT' | translate }}</div>
+                    <div class="account-label">{{ ::historyPage.CLIENT }}</div>
                   </div>
                 </div>
                 <div class="account-row">
                   <div class="account-data phone">
                     <div class="user-data account-user-phone">{{ order.customer_phone }}</div>
-                    <div class="account-label">{{ 'history.PHONE' | translate }}</div>
+                    <div class="account-label">{{ ::historyPage.PHONE }}</div>
                   </div>
                   <div class="account-data">
                     <div class="user-data account-user-adress">{{ order.customer_location }}, {{ order.customer_address }}</div>
-                    <div class="account-label">{{ 'history.ADDRESS' | translate }}</div>
+                    <div class="account-label">{{ ::historyPage.ADDRESS }}</div>
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
-                  <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
-                  <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+                  <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
+                  <div ng-show="order.order_style == 'master'" class="account-value">{{ ::historyPage.WAIT_MASTER }}</div>
+                  <div class="account-date">{{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
               <button ng-hide="order.order_style == 'done'" ng-click="historyPage.sendOrderToFactory(order.order_style, order.id)" class="account-tool account-select-btn"></button>
               <button ng-hide="order.order_style == 'done'" ng-click="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"></button>
-              <button ng-click="" class="account-tool account-print-btn"></button>
+              <button ng-click="historyPage.orderPrint(order.id)" class="account-tool account-print-btn"></button>
               <button ng-hide="order.order_style == 'done'" ng-click="historyPage.clickDeleteOrder(order.order_type, order.id, $event)" class="account-delete-btn"></button>
-              <button ng-hide="order.order_style == 'done'" ng-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
+              <button ng-hide="order.order_style == 'done'" ng-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ ::historyPage.CHANGE }}</button>
             </div>
             <div ng-show="historyPage.H.history.searchingWord.length &amp;&amp; (historyPage.H.history.orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
-              <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.</div>
+              <div class="result-text">{{ ::historyPage.BY_YOUR_REQUEST }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ ::historyPage.NOT_FIND }}.</div>
             </div>
             <div ng-show="!historyPage.H.history.searchingWord.length &amp;&amp; ((historyPage.H.history.orders | filter:{order_style: historyPage.H.history.isFilterType}).length == 0 || historyPage.H.history.isEmptyResult)" class="empty-search-result">
               <div class="result-icon"></div>
-              <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
+              <div class="result-text">{{ ::historyPage.BY_YOUR_REQUEST }} {{ ::historyPage.NOT_FIND }}.</div>
             </div>
           </div>
-          <button ng-click="historyPage.viewSwitching()" class="view-switch-tab">{{ 'history.DRAFT_VIEW' | translate }}</button>
+          <button ng-click="historyPage.viewSwitching()" class="view-switch-tab">{{ ::historyPage.DRAFT_VIEW }}</button>
         </section>
         <section ng-class="{'active': historyPage.H.history.isDraftView, 'dark-fon': historyPage.H.history.isOrderDateDraft || historyPage.H.history.isOrderSortDraft }" class="accounts-container draft-view">
           <div class="history-header">
@@ -198,31 +198,31 @@
             <div class="history-tools-panel">
               <div ng-class="{ 'active': historyPage.H.history.isOrderDateDraft }" class="tools-block tool-drop">
                 <button ng-click="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.H.history.startDateDraft === '' &amp;&amp; historyPage.H.history.finishDateDraft === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDateDraft !== ''">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}</span><span ng-show="historyPage.H.history.startDateDraft !== ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDateDraft !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}</span></div>
+                <div ng-class="{ 'empty': historyPage.H.history.startDateDraft === '' &amp;&amp; historyPage.H.history.finishDateDraft === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDateDraft !== ''">{{ ::historyPage.FROM }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}</span><span ng-show="historyPage.H.history.startDateDraft !== ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDateDraft !== ''">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}</span></div>
                 <div ng-if="historyPage.H.history.isDraftView" class="dropdown-tool-dialog date-filter">
-                  <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isStartDateDraft }" ng-click="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}</div>
+                  <div class="filter-title">{{ ::historyPage.DATE_RANGE }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isStartDateDraft }" ng-click="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ ::historyPage.FROM }} {{historyPage.H.history.startDateDraft | date:"dd.MM.yyyy"}}</div>
                   <div ng-class="{ 'active': historyPage.H.history.isStartDateDraft }" class="dropdown-calendar-scroll">
                     <calendar-scroll order-type="0" calendar-type="1"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDateDraft }" ng-click="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDateDraft }" ng-click="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDateDraft | date:"dd.MM.yyyy"}}</div>
                   <div ng-class="{ 'active': historyPage.H.history.isFinishDateDraft }" class="dropdown-calendar-scroll">
                     <calendar-scroll order-type="0" calendar-type="0"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriodDraft }" ng-click="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriodDraft }" ng-click="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ ::historyPage.ALL_TIME }}</div>
                 </div>
               </div>
               <div ng-class="{ 'active': historyPage.H.history.isOrderSortDraft }" class="tools-block tool-drop">
                 <button ng-click="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
-                  <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
+                  <div class="filter-divider">{{ ::historyPage.SORTING }}</div>
                   <ul class="filter-list">
                     <li ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'first' }" ng-click="historyPage.sortingInit('first')" class="filter-item">
-                      <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.NEWEST_FIRST }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                     <li ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'last' }" ng-click="historyPage.sortingInit('last')" class="filter-item">
-                      <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
+                      <div class="filter-label">{{ ::historyPage.NEWEST_LAST }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                   </ul>
@@ -235,12 +235,12 @@
               <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" class="account-block">
                 <div ng-click="historyPage.editOrder(0, draft.id)" class="account">
                   <div class="account-row header">
-                    <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
-                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}</div>
+                    <div class="account-id">{{ ::historyPage.DRAFT }}</div>
+                    <div class="account-label account-date-filter">{{ ::historyPage.FROM }} {{draft.order_date | date:"dd MMMM, yyyy"}}</div>
                   </div>
                   <div class="account-row footer">
-                    <div class="account-value">{{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="draft.is_instalment">, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
-                    <div class="account-qty">{{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+                    <div class="account-value">{{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="draft.is_instalment">, {{ draft.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
+                    <div class="account-qty">{{ draft.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>
                 <button ng-click="" class="account-tool account-print-btn"></button>
@@ -249,15 +249,33 @@
             </div>
             <div ng-show="historyPage.H.history.isEmptyResultDraft" class="empty-search-result">
               <div class="result-icon"></div>
-              <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
+              <div class="result-text">{{ ::historyPage.BY_YOUR_REQUEST }} {{ ::historyPage.NOT_FIND }}.</div>
             </div>
           </div>
-          <button ng-click="historyPage.viewSwitching()" class="view-switch-tab">{{ 'history.HISTORY_VIEW' | translate }}</button>
+          <button ng-click="historyPage.viewSwitching()" class="view-switch-tab">{{ ::historyPage.HISTORY_VIEW }}</button>
         </section>
       </section>
     </section>
   </section>
 </section>
+<div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint" class="attantion-block">
+  <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+    <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+    <div class="glass-list">
+      <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+    </div>
+  </div>
+  <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+    <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+  </div>
+  <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
+    <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+    <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
+      <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+      <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+    </div>
+  </div>
+</div>
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
   <div class="loader"></div>
 </div>

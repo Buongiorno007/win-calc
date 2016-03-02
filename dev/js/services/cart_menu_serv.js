@@ -184,7 +184,7 @@
       OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
       OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
       CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(
-        OrderStor.order.order_price - OrderStor.order.order_price_dis
+        OrderStor.order.order_price - OrderStor.order.productsPriceDis
       );
 
       //------ get price with instalment

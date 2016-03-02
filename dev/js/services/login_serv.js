@@ -682,11 +682,31 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     }
 
+
+
+
+    /**---------- download Hardware Limits --------*/
+
+    function downloadHardwareLimits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
+        null,
+        'type_id, min_width, max_width, min_height, max_height'
+      ).then(function(result) {
+        if(result && result.length) {
+          GlobalStor.global.hardwareLimits = angular.copy(result);
+        }
+      });
+    }
+
+
     //TODO
     /** download all Templates */
     //function downloadAllTemplates() {
     //
     //}
+
+
 
 
     /** download all Backgrounds */
@@ -983,7 +1003,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       //console.warn('delivery Coeff!!', coeff);
                       GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
                       GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return item * 1;
+                        return +item;
                       });
                       /** download factory data */
                       downloadFactoryData();
@@ -1010,7 +1030,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
-                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwares);
+                                  /** download Hardware Limits */
+                                  downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
                                     /** download All AddElements */

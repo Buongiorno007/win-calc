@@ -54,6 +54,10 @@
         extraGlass: [],
         isGlassExtra: 0,
 
+        //------- extra hardware
+        extraHardware: [],
+        isHardwareExtra: 0,
+
         //----- Door
         doorShapeList: [
           {

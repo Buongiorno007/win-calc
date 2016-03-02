@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'Schema complesso',
         TAB_EMPTY_EXPLAIN: 'Scegliete il primo elemento dalla lista.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'battenti',
         ANGEL_SHAPE: 'angoli',
         IMPOST_SHAPE: 'imposte',
@@ -208,9 +208,11 @@
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -238,7 +240,8 @@
         BY_YOUR_REQUEST: 'Su vostra richiesta',
         NOT_FIND: 'Non è stato trovato niente',
         WAIT_MASTER: 'Aspetta il misuratore ',
-        INCLUDED: 'sono inclusi'
+        INCLUDED: 'sono inclusi',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Tutti gli elementi supplementari dell’oedine',

@@ -122,20 +122,6 @@ $img_logo: 'login/logo.png';
   margin: rem(62px) auto 0 auto;
 }
 
-.attantion {
-  @include roboto-lt(rem(36px));
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  width: rem(600px);
-  padding: rem(20px) rem(40px);
-  color: #fff;
-  border-radius: rem($radius_general-small_button);
-  background: $error_color;
-  text-align: center;
-  z-index: 12;
-}
-
 .inet_ok {
   display: block;
   margin: auto auto;

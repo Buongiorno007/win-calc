@@ -60,8 +60,8 @@
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button ng-show="cartPage.C.cart.isExistAddElems" ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
-            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
+            <button ng-show="cartPage.C.cart.isExistAddElems" ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
           </div>
           <div class="scroll-hor-container">
             <div class="order-block">
@@ -73,49 +73,49 @@
                   </div>
                   <div ng-if="cartPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &lt; cartPage.O.order.heat_coef_min}" class="order-u-coeff">
                     <div>R = {{ product.heat_coef_total }}</div>
-                    <div>{{'common_words.LETTER_M'| translate}} &sup2;&middot;&deg;C/{{'mainpage.HEATCOEF_VAL' | translate}}</div>
+                    <div>{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}</div>
                   </div>
                   <div ng-if="!cartPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; cartPage.O.order.heat_coef_min}" class="order-u-coeff">
                     <div>U = {{ product.heat_coef_total }}</div>
-                    <div>{{'mainpage.HEATCOEF_VAL' | translate}}/{{'common_words.LETTER_M'| translate}} &sup2;&middot;&deg;C</div>
+                    <div>{{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C</div>
                   </div>
                 </div>
                 <div class="order-content">
                   <ul class="order-list">
                     <li class="order-item">
-                      <div class="order-value">{{ product.template_width }} {{ 'mainpage.MM' | translate }}</div>
-                      <div class="order-value">{{ product.template_height }} {{ 'mainpage.MM' | translate }}</div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_SIZING' | translate }}</div>
+                      <div class="order-value">{{ product.template_width }} {{ ::cartPage.MM }}</div>
+                      <div class="order-value">{{ product.template_height }} {{ ::cartPage.MM }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_SIZING }}</div>
                     </li>
                     <li class="order-item">
                       <div class="order-value">{{ product.profile.name }}</div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_PROFILE' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
                     </li>
                     <li class="order-item">
                       <div class="order-value">{{ product.glass[0].sku }}</div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_GLASS' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
                     </li>
                     <li class="order-item">
                       <div class="order-value">{{ product.hardware.name }}</div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}</div>
                       <div class="order-value">{{ product.lamination.laminat_out_name }} / {{ product.lamination.laminat_in_name }}</div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION }}</div>
                     </li>
                     <li ng-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                       <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                         <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                       </div>
-                      <div class="order-label">{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
                     </li>
                   </ul>
                   <div class="order-qty">
                     <button ng-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                     <div class="order-value">{{ product.product_qty }}</div>
                     <button ng-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
-                    <div class="order-label qty-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
+                    <div class="order-label qty-label">{{ ::cartPage.PRODUCT_QTY }}</div>
                   </div>
                 </div>
                 <div class="order-footer">
@@ -124,54 +124,54 @@
                 </div>
                 <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                   <div class="order-comment-box">
-                    <div class="order-comment-title">{{ 'cart.ORDER_COMMENT' | translate }}</div>
+                    <div class="order-comment-title">{{ ::cartPage.ORDER_COMMENT }}</div>
                     <div class="order-comment-content">{{ product.comment }}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
+            <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.LIGHT_VIEW }}</button>
           </div>
           <div class="discount-container">
-            <div class="discount-title">{{ 'cart.DISCOUNT_SELECT' | translate }}</div>
+            <div class="discount-title">{{ ::cartPage.DISCOUNT_SELECT }}</div>
             <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
               <div ng-click="cartPage.openDiscInput(0)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
-                  <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
+                  <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
               <div ng-click="cartPage.approveNewDisc(0)" class="discount-txt">
-                <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
+                <div class="discounts-label">{{ ::cartPage.DISCOUNT_WINDOW }}</div>
               </div>
             </div>
             <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
               <div ng-click="cartPage.openDiscInput(1)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
-                  <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
+                  <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
               <div ng-click="cartPage.approveNewDisc(1)" class="discount-txt">
-                <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
+                <div class="discounts-label">{{ ::cartPage.DISCOUNT_ADDELEM }}</div>
               </div>
             </div>
           </div>
           <div class="discount-container">
-            <div class="discount-title">{{ 'cart.DISCOUNT' | translate }}</div>
+            <div class="discount-title">{{ ::cartPage.DISCOUNT }}</div>
             <div class="discount-price-container">
               <div class="discount-price-box">
-                <div class="discount-price-label">{{ 'cart.DISCOUNT_WITHOUT' | translate }}</div>
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITHOUT }}</div>
                 <div class="discount-price">{{ cartPage.O.order.order_price }} {{cartPage.U.userInfo.currency}}</div>
               </div>
               <div class="discount-price-box">
-                <div class="discount-price-label">{{ 'cart.DISCOUNT_WITH' | translate }}</div>
-                <div class="discount-price">{{ cartPage.O.order.order_price_dis }} {{cartPage.U.userInfo.currency}}</div>
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITH }}</div>
+                <div class="discount-price">{{ cartPage.O.order.productsPriceDis }} {{cartPage.U.userInfo.currency}}</div>
               </div>
               <div class="discount-price-box">
-                <div class="discount-price-label">{{ 'cart.DISCOUNT' | translate }}</div>
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT }}</div>
                 <div class="discount-price">{{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currency}}</div>
               </div>
             </div>
@@ -187,8 +187,8 @@
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
-            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
+            <button ng-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button ng-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
           </div>
           <div class="order-block scroll-vert-container">
             <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
@@ -199,19 +199,19 @@
                 </div>
               </div>
               <div class="order-content">
-                <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ 'mainpage.MM' | translate }}</div>
+                <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}</div>
                 <div ng-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                   <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                     <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                   </div>
-                  <div class="order-label">{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}</div>
+                  <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
                 </div>
                 <div class="order-qty">
                   <button ng-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                   <div class="order-value">{{ product.product_qty }}</div>
                   <button ng-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
                 </div>
-                <div class="order-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
+                <div class="order-label">{{ ::cartPage.PRODUCT_QTY }}</div>
               </div>
               <div class="order-footer">
                 <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
@@ -219,18 +219,18 @@
               </div>
               <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                 <div class="order-comment-box">
-                  <div class="order-comment-title">{{ 'cart.ORDER_COMMENT' | translate }}</div>
+                  <div class="order-comment-title">{{ ::cartPage.ORDER_COMMENT }}</div>
                   <div class="order-comment-content">{{ product.comment }}</div>
                 </div>
               </div>
             </div>
           </div>
-          <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.FULL_VIEW' | translate }}</button>
+          <button ng-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.FULL_VIEW }}</button>
         </section>
         <div ng-if="cartPage.config.isAddElementDetail" class="addelements-detail">
           <div class="addelements-detail-header">
             <div class="addelements-detail-tools">
-              <button ng-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
+              <button ng-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ ::cartPage.ADDELEMENTS_EDIT_LIST }}</button>
               <button ng-click="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
             </div>
             <div ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only" class="product-template">
@@ -240,15 +240,15 @@
                     <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                   </div><span class="product-template-qty">X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}</span>
                 </div>
-                <div class="product-icon-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
+                <div class="product-icon-label">{{ ::cartPage.PRODUCT_QTY }}</div>
               </div>
               <div class="addelements-detail-row">
-                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ 'mainpage.MM' | translate }} *</div>
-                <div class="product-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *</div>
+                <div class="product-label">{{ ::cartPage.WIDTH_LABEL }}</div>
               </div>
               <div class="addelements-detail-row">
-                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ 'mainpage.MM' | translate }}</div>
-                <div class="product-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}</div>
+                <div class="product-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
               </div>
             </div>
           </div>
@@ -256,29 +256,29 @@
             <ul class="addelements-detail-list">
               <li ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item">
                 <div class="product-value">{{ addelement.name }}</div>
-                <div ng-switch-when="0" class="product-value">{{ 'add_elements.GRID' | translate }}</div>
-                <div ng-switch-when="1" class="product-value">{{ 'add_elements.VISOR' | translate }}</div>
-                <div ng-switch-when="2" class="product-value">{{ 'add_elements.SPILLWAY' | translate }}</div>
-                <div ng-switch-when="3" class="product-value">{{ 'add_elements.OUTSIDE' | translate }}</div>
-                <div ng-switch-when="4" class="product-value">{{ 'add_elements.LOUVERS' | translate }}</div>
-                <div ng-switch-when="5" class="product-value">{{ 'add_elements.INSIDE' | translate }}</div>
-                <div ng-switch-when="6" class="product-value">{{ 'add_elements.CONNECTORS' | translate }}</div>
-                <div ng-switch-when="7" class="product-value">{{ 'add_elements.FAN' | translate }}</div>
-                <div ng-switch-when="8" class="product-value">{{ 'add_elements.WINDOWSILL' | translate }}</div>
-                <div ng-switch-when="9" class="product-value">{{ 'add_elements.HANDLEL' | translate }}</div>
-                <div ng-switch-when="10" class="product-value">{{ 'add_elements.OTHERS' | translate }}</div>
+                <div ng-switch-when="0" class="product-value">{{ ::cartPage.GRID }}</div>
+                <div ng-switch-when="1" class="product-value">{{ ::cartPage.VISOR }}</div>
+                <div ng-switch-when="2" class="product-value">{{ ::cartPage.SPILLWAY }}</div>
+                <div ng-switch-when="3" class="product-value">{{ ::cartPage.OUTSIDE }}</div>
+                <div ng-switch-when="4" class="product-value">{{ ::cartPage.LOUVERS }}</div>
+                <div ng-switch-when="5" class="product-value">{{ ::cartPage.INSIDE }}</div>
+                <div ng-switch-when="6" class="product-value">{{ ::cartPage.CONNECTORS }}</div>
+                <div ng-switch-when="7" class="product-value">{{ ::cartPage.FAN }}</div>
+                <div ng-switch-when="8" class="product-value">{{ ::cartPage.WINDOWSILL }}</div>
+                <div ng-switch-when="9" class="product-value">{{ ::cartPage.HANDLEL }}</div>
+                <div ng-switch-when="10" class="product-value">{{ ::cartPage.OTHERS }}</div>
                 <div class="addelement-parameters">
                   <div ng-show="addelement.element_width" class="addelement-parameter">
                     <div class="addelement-value">{{ addelement.element_width }}</div>
-                    <div class="addelement-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
+                    <div class="addelement-label">{{ ::cartPage.WIDTH_LABEL }}</div>
                   </div>
                   <div ng-show="addelement.element_height" class="addelement-parameter">
                     <div class="addelement-value">{{ addelement.element_height }}</div>
-                    <div class="addelement-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
+                    <div class="addelement-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
                   </div>
                   <div ng-show="addelement.element_qty" class="addelement-parameter">
                     <div class="addelement-value">{{ addelement.element_qty }}</div>
-                    <div class="addelement-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                    <div class="addelement-label">{{ ::cartPage.QTY_LABEL }}</div>
                   </div>
                 </div>
                 <div class="addelement-parameters">
@@ -289,7 +289,7 @@
             </ul>
             <div class="addelements-detail-row price-one-product">
               <div price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currency}}" class="addelement-price-value"></div>
-              <div class="product-label">{{ 'cart.ADDELEMENTS_PRODUCT_COST' | translate }}</div>
+              <div class="product-label">{{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}</div>
             </div>
           </div>
           <div class="addelements-detail-footer">

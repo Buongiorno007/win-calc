@@ -308,10 +308,22 @@
     <div ng-if="designPage.config.isTest" class="design-attantion">{{ ::designPage.TEST_STAGE }}
       <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
     </div>
-    <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
-      <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
-      <div class="glass-list">
-        <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+    <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint" class="attantion-block">
+      <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        <div class="glass-list">
+          <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+        </div>
+      </div>
+      <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      </div>
+      <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
+          <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+          <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+        </div>
       </div>
     </div>
   </section>

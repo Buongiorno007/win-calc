@@ -127,7 +127,7 @@
       }
     });
 
-    //http://windowscalculator.net:3002/orders/get-order-pdf/13941456576563824?userId=897
+
 
     /**============ METHODS ================*/
 
@@ -199,6 +199,14 @@
     }
 
 
+    function goToLink(link) {
+      if(GlobalStor.global.isDevice) {
+        var ref = window.open(link);
+        ref.close();
+      } else {
+        $window.open(link);
+      }
+    }
 
 
     /**========== FINISH ==========*/
@@ -213,7 +221,8 @@
       sorting: sorting,
       removeDuplicates: removeDuplicates,
       getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
+      confirmAlert: confirmAlert,
+      goToLink: goToLink
     };
 
     return thisFactory.publicObj;

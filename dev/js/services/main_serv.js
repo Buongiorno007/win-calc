@@ -310,11 +310,11 @@
 
 
 
-    function checkSashInTemplate(product) {
-      var templQty = product.template_source.details.length,
+    function checkSashInTemplate(template) {
+      var templQty = template.details.length,
           counter = 0;
       while(--templQty > 0) {
-        if(product.template_source.details[templQty].blockType === 'sash') {
+        if(template.details[templQty].blockType === 'sash') {
           counter+=1;
         }
       }
@@ -333,7 +333,7 @@
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
-          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
+          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -875,7 +875,7 @@
           currWidth, currHeight, currSquare,
           isSizeError, b;
 
-      /** clean extraGlass */
+      /** clean extra Glass */
       DesignStor.design.extraGlass.length = 0;
 
       /** glass loop */
@@ -899,11 +899,11 @@
                   currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
 
                   if (currSquare > item.max_sq) {
-                    wranGlass = $filter('translate')('construction.GLASS') +
+                    wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
-                      $filter('translate')('construction.GLASS_SQUARE') +
+                      $filter('translate')('design.GLASS_SQUARE') +
                       ' ' + currSquare + ' ' +
-                      $filter('translate')('construction.MAX_VALUE_HIGHER') +
+                      $filter('translate')('design.MAX_VALUE_HIGHER') +
                       ' ' + item.max_sq + ' ' +
                       $filter('translate')('common_words.LETTER_M') + '2.';
 
@@ -917,11 +917,11 @@
                     isSizeError = 1;
                   }
                   if(isSizeError) {
-                    wranGlass = $filter('translate')('construction.GLASS') +
+                    wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
-                      $filter('translate')('construction.GLASS_SIZE') +
+                      $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
-                      $filter('translate')('construction.NO_AVAILABLE_GLASS_SIZE') +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
                       ' ' + item.max_width + ' x ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
@@ -938,6 +938,65 @@
 
 
 
+    /**----------- Hardware sizes checking -------------*/
+
+    function checkHardwareSizes(template) {
+      var blocks = template.details,
+          blocksQty = blocks.length,
+          limits = GlobalStor.global.hardwareLimits,
+          limitsQty = GlobalStor.global.hardwareLimits.length,
+          currLimit = 0,
+          overallSize, currWidth, currHeight,
+          wranSash, isSizeError, b, lim;
+
+      /** clean extra Hardware */
+      DesignStor.design.extraHardware.length = 0;
+
+      /** template loop */
+      for (b = 1; b < blocksQty; b += 1) {
+        isSizeError = 0;
+        if (blocks[b].blockType === 'sash') {
+          /** finde limit for current sash */
+          for(lim = 0; lim < limitsQty; lim+=1) {
+            if(limits[lim].type_id === blocks[b].sashType) {
+              /** check available max/min sizes */
+              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                currLimit = limits[lim];
+              }
+              break;
+            }
+          }
+          if (currLimit) {
+            if (blocks[b].hardwarePoints.length) {
+              /** estimate current sash sizes */
+              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+              currWidth = Math.round(overallSize.maxX - overallSize.minX);
+              currHeight = Math.round(overallSize.maxY - overallSize.minY);
+              currLimit.max_width = 50;
+              currLimit.max_height = 50;
+              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                isSizeError = 1;
+              }
+              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                isSizeError = 1;
+              }
+
+              if(isSizeError) {
+                wranSash = currWidth + ' x ' + currHeight + ' ' +
+                  $filter('translate')('design.NO_MATCH_RANGE') +
+                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+
+                DesignStor.design.extraHardware.push(wranSash);
+              }
+
+            }
+          }
+        }
+      }
+
+      //console.info('glass result', DesignStor.design.extraHardware);
+    }
 
 
 
@@ -1364,6 +1423,7 @@
       setCurrLamination: setCurrLamination,
       setProfileByLaminat: setProfileByLaminat,
       checkGlassSizes: checkGlassSizes,
+      checkHardwareSizes: checkHardwareSizes,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,

@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'cercevea',
         ANGEL_SHAPE: 'unghiuri',
         IMPOST_SHAPE: 'impost',
@@ -208,9 +208,11 @@
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -238,7 +240,8 @@
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
         WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus'
+        INCLUDED: 'inclus',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',

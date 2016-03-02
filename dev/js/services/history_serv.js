@@ -9,6 +9,7 @@
     $location,
     $filter,
     $q,
+    globalConstants,
     localDB,
     GeneralServ,
     MainServ,
@@ -88,7 +89,7 @@
 
 
 
-    //========== Send Order to Factory ========//
+    /**========== Send Order to Factory ========*/
 
     function sendOrderToFactory(orderStyle, orderNum) {
       function sendOrder() {
@@ -120,7 +121,7 @@
 
 
 
-    //========= make Order Copy =========//
+    /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
 
@@ -204,7 +205,7 @@
 
 
 
-    //========== Delete order ==========//
+    /**========== Delete order ==========*/
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
@@ -320,7 +321,7 @@
                       glassIDsQty = glassIDs.length;
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
+                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
                     }
                   }
                 }
@@ -383,11 +384,12 @@
       ).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length;
+            orderProductsQty = OrderStor.order.products.length,
+            prod;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
-            for(var prod = 0; prod < orderProductsQty; prod++) {
+            for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
@@ -419,7 +421,7 @@
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -512,7 +514,21 @@
     }
 
 
-    //============= HISTORY TOOLS ============//
+    function orderPrint(orderId) {
+      var domainLink = globalConstants.serverIP.split('api.').join(''),
+          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      /** check internet */
+      if(navigator.onLine) {
+        GeneralServ.goToLink(printLink);
+      } else {
+        HistoryStor.history.isNoPrint = 1;
+      }
+    }
+
+
+
+    /**============= HISTORY TOOLS ============*/
 
     //=========== Searching
 
@@ -532,16 +548,17 @@
 
     //------- filtering orders by Dates
     function filteringByDate(obj, start, end) {
+      var newObj, startDate, finishDate,
+          t, objDate;
       if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
         newObj = angular.copy(obj);
         startDate = new Date(start).valueOf();
         finishDate = new Date(end).valueOf();
         if(start !== '' && end !== '' && startDate > finishDate) {
           return false;
         }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
+        for(t = newObj.length-1;  t >= 0; t-=1) {
+          objDate = new Date(newObj[t].created).valueOf();
           if(objDate < startDate || objDate > finishDate) {
             newObj.splice(t, 1);
           }
@@ -703,6 +720,7 @@
       makeOrderCopy: makeOrderCopy,
       clickDeleteOrder: clickDeleteOrder,
       editOrder: editOrder,
+      orderPrint: orderPrint,
       viewSwitching: viewSwitching,
 
       orderSearching: orderSearching,

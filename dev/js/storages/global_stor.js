@@ -69,6 +69,7 @@
         //------ Hardwares
         hardwares: [],
         hardwareTypes: [],
+        hardwareLimits: [],
 
         //------ Lamination
         laminats: [],

@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'Composite structure',
         TAB_EMPTY_EXPLAIN: 'Please select the first item to start up construction.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'shutters',
         ANGEL_SHAPE: 'corners',
         IMPOST_SHAPE: 'imposts',
@@ -208,9 +208,11 @@
         TEST_STAGE: "Находится в стадии тестирования",
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
-        NO_AVAILABLE_GLASS_SIZE: "не соответствует допустимому диапазону",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
         GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение"
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -238,7 +240,8 @@
         BY_YOUR_REQUEST: 'According to your request',
         NOT_FIND: 'nothing found',
         WAIT_MASTER: 'expects gager',
-        INCLUDED: 'included'
+        INCLUDED: 'included',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'All additional elements order',

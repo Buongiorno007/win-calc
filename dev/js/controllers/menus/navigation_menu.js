@@ -82,12 +82,7 @@
           thisCtrl.activeMenuItem = 0;
           if(UserStor.userInfo.factoryLink) {
             if (UserStor.userInfo.factoryLink.length) {
-              if (GlobalStor.global.isDevice) {
-                var ref = window.open(UserStor.userInfo.factoryLink);
-                ref.close();
-              } else {
-                $window.open(UserStor.userInfo.factoryLink);
-              }
+              GeneralServ.goToLink(UserStor.userInfo.factoryLink);
             }
           }
           break;

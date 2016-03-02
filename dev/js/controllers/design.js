@@ -47,31 +47,31 @@
 
 
     //------- translate
-    thisCtrl.IMPOST_SHAPE = $filter('translate')('construction.IMPOST_SHAPE');
-    thisCtrl.SASH_SHAPE = $filter('translate')('construction.SASH_SHAPE');
-    thisCtrl.ANGEL_SHAPE = $filter('translate')('construction.ANGEL_SHAPE');
-    thisCtrl.ARCH_SHAPE = $filter('translate')('construction.ARCH_SHAPE');
-    thisCtrl.POSITION_SHAPE = $filter('translate')('construction.POSITION_SHAPE');
-    thisCtrl.UNITS_DESCRIP = $filter('translate')('construction.UNITS_DESCRIP');
-    thisCtrl.PROJECT_DEFAULT = $filter('translate')('construction.PROJECT_DEFAULT');
+    thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
+    thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
+    thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
+    thisCtrl.ARCH_SHAPE = $filter('translate')('design.ARCH_SHAPE');
+    thisCtrl.POSITION_SHAPE = $filter('translate')('design.POSITION_SHAPE');
+    thisCtrl.UNITS_DESCRIP = $filter('translate')('design.UNITS_DESCRIP');
+    thisCtrl.PROJECT_DEFAULT = $filter('translate')('design.PROJECT_DEFAULT');
     thisCtrl.BACK = $filter('translate')('common_words.BACK');
     thisCtrl.SAVE = $filter('translate')('settings.SAVE');
     thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
-    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('construction.DOOR_CONFIG_LABEL');
-    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('construction.DOOR_CONFIG_DESCTIPT');
-    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('construction.SASH_CONFIG_DESCTIPT');
-    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('construction.HANDLE_CONFIG_DESCTIPT');
-    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('construction.LOCK_CONFIG_DESCTIPT');
-    thisCtrl.STEP = $filter('translate')('construction.STEP');
-    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('construction.LABEL_DOOR_TYPE');
-    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('construction.LABEL_SASH_TYPE');
-    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('construction.LABEL_HANDLE_TYPE');
-    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('construction.LABEL_LOCK_TYPE');
-    thisCtrl.NOT_AVAILABLE = $filter('translate')('construction.NOT_AVAILABLE');
-    thisCtrl.DIM_EXTRA = $filter('translate')('construction.DIM_EXTRA');
-    thisCtrl.SQUARE_EXTRA = $filter('translate')('construction.SQUARE_EXTRA');
+    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('design.DOOR_CONFIG_LABEL');
+    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('design.DOOR_CONFIG_DESCTIPT');
+    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('design.SASH_CONFIG_DESCTIPT');
+    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('design.HANDLE_CONFIG_DESCTIPT');
+    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('design.LOCK_CONFIG_DESCTIPT');
+    thisCtrl.STEP = $filter('translate')('design.STEP');
+    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('design.LABEL_DOOR_TYPE');
+    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('design.LABEL_SASH_TYPE');
+    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('design.LABEL_HANDLE_TYPE');
+    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('design.LABEL_LOCK_TYPE');
+    thisCtrl.NOT_AVAILABLE = $filter('translate')('design.NOT_AVAILABLE');
+    thisCtrl.DIM_EXTRA = $filter('translate')('design.DIM_EXTRA');
+    thisCtrl.SQUARE_EXTRA = $filter('translate')('design.SQUARE_EXTRA');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
-    thisCtrl.TEST_STAGE = $filter('translate')('construction.TEST_STAGE');
+    thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
 
 
     //--------- set template from ProductStor
