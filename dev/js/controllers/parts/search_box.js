@@ -17,7 +17,8 @@
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-
+    //------- translate
+    thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
 
 
     /**============ METHODS ================*/
