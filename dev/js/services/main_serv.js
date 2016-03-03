@@ -880,9 +880,9 @@
 
       /** glass loop */
       ProductStor.product.glass.forEach(function(item) {
-        item.max_sq = 0.2;
-        item.max_width = 0.50;
-        item.max_height = 0.50;
+        //item.max_sq = 0.2;
+        //item.max_width = 0.50;
+        //item.max_height = 0.50;
         /** check available max_sq and max/min sizes */
         if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
           /** template loop */

@@ -6,6 +6,7 @@
     .controller('RoomInfoCtrl',
 
   function(
+    $filter,
     globalConstants,
     GlobalStor,
     OrderStor,
@@ -25,7 +26,11 @@
       typing: 'on'
     };
 
-
+    //------- translate
+    thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
+    thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
 
 
     /**============ METHODS ================*/
