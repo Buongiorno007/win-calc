@@ -880,9 +880,9 @@
 
       /** glass loop */
       ProductStor.product.glass.forEach(function(item) {
-        //item.max_sq = 0.2;
-        //item.max_width = 0.50;
-        //item.max_height = 0.50;
+        item.max_sq = 0.2;
+        item.max_width = 0.50;
+        item.max_height = 0.50;
         /** check available max_sq and max/min sizes */
         if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
           /** template loop */
@@ -894,9 +894,9 @@
 
                   /** estimate current glass sizes */
                   overallGlass = GeneralServ.getMaxMinCoord(blocks[b].glassPoints);
-                  currWidth = GeneralServ.roundingValue((overallGlass.maxX - overallGlass.minX)/1000, 3);
-                  currHeight = GeneralServ.roundingValue((overallGlass.maxY - overallGlass.minY)/1000, 3);
-                  currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
+                  currWidth = Math.round(overallGlass.maxX - overallGlass.minX);
+                  currHeight = Math.round(overallGlass.maxY - overallGlass.minY);
+                  currSquare = GeneralServ.roundingValue((currWidth * currHeight/1000000), 3);
 
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('design.GLASS') +
@@ -922,7 +922,7 @@
                       $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
                       $filter('translate')('design.NO_MATCH_RANGE') +
-                      ' ' + item.max_width + ' x ' + item.max_height + '.';
+                      ' ' + item.max_width + ' - ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
                   }

@@ -16557,7 +16557,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
                       $filter('translate')('design.NO_MATCH_RANGE') +
-                      ' ' + item.max_width + ' x ' + item.max_height + '.';
+                      ' ' + item.max_width + ' - ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
                   }
