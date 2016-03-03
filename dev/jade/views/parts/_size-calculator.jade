@@ -7,11 +7,11 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 0
           .calc-value-limit(ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}") {{ sizeCalc.D.design.minSizeLimit }}
-          .calc-label-limit {{ 'common_words.MIN' | translate }}
+          .calc-label-limit {{ ::sizeCalc.MIN }}
         .interval
           .calc-value-limit(ng-hide="sizeCalc.isDesignPage") 5000
           .calc-value-limit(ng-show="sizeCalc.isDesignPage", ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}") {{ sizeCalc.D.design.maxSizeLimit }}
-          .calc-label-limit {{ 'common_words.MAX' | translate }}
+          .calc-label-limit {{ ::sizeCalc.MAX }}
   tr
     - for (var cell = 1; cell < 4; ++cell) {
       td

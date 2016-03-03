@@ -6,6 +6,7 @@
     .controller('sizeCalculatorCtrl',
 
   function(
+    $filter,
     GlobalStor,
     DesignStor,
     AddElementMenuServ,
@@ -16,7 +17,9 @@
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;
 
-
+    //------- translate
+    thisCtrl.MIN = $filter('translate')('common_words.MIN');
+    thisCtrl.MAX = $filter('translate')('common_words.MAX');
 
     //------ clicking
     //------ for Add Elements Panel
