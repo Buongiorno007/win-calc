@@ -2,6 +2,6 @@
   .dialog-inner
     svg-template(template="elementsMenu.P.product.template", template-width="elementsMenu.constants.svgTemplateIconBigWidth", template-height="elementsMenu.constants.svgTemplateIconBigHeight", type-construction="elementsMenu.constants.SVG_ID_GRID")
   .set-grid-btn(ng-click="elementsMenu.confirmGrid()")
-  .set-grid-all-btn(ng-click="elementsMenu.setGridToAll()") {{ 'mainpage.SELECT_ALL' | translate }}
-  .set-grid-warning <span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}
+  .set-grid-all-btn(ng-click="elementsMenu.setGridToAll()") {{ ::elementsMenu.SELECT_ALL }}
+  .set-grid-warning <span></span> {{ ::elementsMenu.SELECT_GLASS_WARN }}
   .close-dialog(ng-click="elementsMenu.closeGridSelectorDialog()")

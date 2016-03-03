@@ -588,8 +588,8 @@
             <svg-template template="elementsMenu.P.product.template" template-width="elementsMenu.constants.svgTemplateIconBigWidth" template-height="elementsMenu.constants.svgTemplateIconBigHeight" type-construction="elementsMenu.constants.SVG_ID_GRID"></svg-template>
           </div>
           <div ng-click="elementsMenu.confirmGrid()" class="set-grid-btn"></div>
-          <div ng-click="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>
-          <div class="set-grid-warning"><span></span> {{ 'mainpage.SELECT_GLASS_WARN' | translate }}</div>
+          <div ng-click="elementsMenu.setGridToAll()" class="set-grid-all-btn">{{ ::elementsMenu.SELECT_ALL }}</div>
+          <div class="set-grid-warning"><span></span> {{ ::elementsMenu.SELECT_GLASS_WARN }}</div>
           <div ng-click="elementsMenu.closeGridSelectorDialog()" class="close-dialog"></div>
         </div>
       </div>
