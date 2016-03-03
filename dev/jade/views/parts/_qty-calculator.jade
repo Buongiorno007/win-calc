@@ -6,7 +6,7 @@ table.qty-calc-container(ng-controller="qtyCalculatorCtrl as qtyCalc", ng-keyup=
       .calc-interval
         .interval
           .calc-qty-limit 1000
-          .calc-label-limit {{ 'add_elements.QTY_LABEL' | translate }}
+          .calc-label-limit {{ ::qtyCalc.QTY_LABEL }}
     td
       button.cell.calc-digit(ng-click="qtyCalc.setValueQty(+1)") +1
   tr
