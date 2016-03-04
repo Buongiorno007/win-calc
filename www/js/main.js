@@ -236,7 +236,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
     thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
     thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
-
+    //---- add elements pannel
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+    thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
+    thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
@@ -307,6 +311,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function pressEnterInDisc(keyEvent) {
+      //--------- Enter
+      if (keyEvent.which === 13) {
+        CartMenuServ.closeDiscountBlock();
+      }
+    }
+
 
 
     /**========== FINISH ==========*/
@@ -326,9 +337,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
     thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.pressEnterInDisc = pressEnterInDisc;
   });
 })();
 
@@ -552,6 +563,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.SQUARE_EXTRA = $filter('translate')('design.SQUARE_EXTRA');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
+    thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
 
 
     //--------- set template from ProductStor
@@ -1690,7 +1702,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
- //*/
+//*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -2546,7 +2558,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
     /**============ METHODS ================*/
 
 
@@ -2909,6 +2920,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('AddElementsListCtrl',
 
   function(
+    $filter,
     globalConstants,
     GeneralServ,
     AddElementsServ,
@@ -2933,6 +2945,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       filteredGroups: [],
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+    thisCtrl.SCHEME_VIEW = $filter('translate')('add_elements.SCHEME_VIEW');
 
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
@@ -3831,9 +3851,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('qtyCalculatorCtrl',
 
-  function(AddElementMenuServ) {
+  function($filter, AddElementMenuServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
+
+    //------- translate
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
 
     //------ clicking
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
@@ -3981,6 +4004,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('RoomInfoCtrl',
 
   function(
+    $filter,
     globalConstants,
     GlobalStor,
     OrderStor,
@@ -4000,7 +4024,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-
+    //------- translate
+    thisCtrl.CLIMATE_ZONE = $filter('translate')('mainpage.CLIMATE_ZONE');
+    thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
 
 
     /**============ METHODS ================*/
@@ -4099,7 +4127,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
-
+    //------- translate
+    thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
 
 
     /**============ METHODS ================*/
@@ -4189,6 +4218,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('sizeCalculatorCtrl',
 
   function(
+    $filter,
     GlobalStor,
     DesignStor,
     AddElementMenuServ,
@@ -4199,7 +4229,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;
 
-
+    //------- translate
+    thisCtrl.MIN = $filter('translate')('common_words.MIN');
+    thisCtrl.MAX = $filter('translate')('common_words.MAX');
 
     //------ clicking
     //------ for Add Elements Panel
@@ -7549,10 +7581,10 @@ function ErrorResult(code, message) {
 
     function approveNewDisc(type) {
       //console.info(CartStor.cart.tempConstructDisc);
-      if(type) {
+      if (type) {
         //------- discount x add element
         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
-        if(CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
+        if (CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
           CartStor.cart.tempAddelemDisc = +UserStor.userInfo.discountAddElemMax;
         }
         OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
@@ -7561,7 +7593,7 @@ function ErrorResult(code, message) {
       } else {
         //------- discount x construction
         CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
-        if(CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
+        if (CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
           CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
         }
         OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
@@ -7570,7 +7602,6 @@ function ErrorResult(code, message) {
       //----------- start order price total calculation
       calculateOrderPrice();
     }
-
 
 
 
@@ -7947,7 +7978,9 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
       serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -11396,7 +11429,7 @@ function ErrorResult(code, message) {
                     }
                   }
                 }
-                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
                 MainServ.setCurrLamination(tempProd.lamination_id);
                 delete tempProd.lamination_id;
@@ -11586,9 +11619,10 @@ function ErrorResult(code, message) {
 
 
     function orderPrint(orderId) {
-      var domainLink = globalConstants.serverIP.split('api.').join(''),
-          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      //var domainLink = globalConstants.serverIP.split('api.').join(''),
+      //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+      //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
       if(navigator.onLine) {
         GeneralServ.goToLink(printLink);
@@ -15083,7 +15117,7 @@ function ErrorResult(code, message) {
 
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
-              console.warn(glassIds[j]);//TODO error
+              //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
@@ -16529,9 +16563,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
                   /** estimate current glass sizes */
                   overallGlass = GeneralServ.getMaxMinCoord(blocks[b].glassPoints);
-                  currWidth = GeneralServ.roundingValue((overallGlass.maxX - overallGlass.minX)/1000, 3);
-                  currHeight = GeneralServ.roundingValue((overallGlass.maxY - overallGlass.minY)/1000, 3);
-                  currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
+                  currWidth = Math.round(overallGlass.maxX - overallGlass.minX);
+                  currHeight = Math.round(overallGlass.maxY - overallGlass.minY);
+                  currSquare = GeneralServ.roundingValue((currWidth * currHeight/1000000), 3);
 
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('design.GLASS') +

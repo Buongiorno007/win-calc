@@ -420,7 +420,7 @@
               checkingUser();
             }
           });
- //*/
+//*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');

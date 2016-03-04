@@ -69,24 +69,23 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .discount-container
             .discount-title {{ ::cartPage.DISCOUNT_SELECT }}
 
-            .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
+            .discount-box.selected
               .discount-data(ng-click="cartPage.openDiscInput(0)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
                   .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
-                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
-              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
+                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc" ng-change="cartPage.approveNewDisc(0)", ng-keyup="cartPage.pressEnterInDisc($event)")
+              .discount-txt(ng-click="cartPage.closeDiscountBlock()")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
-            .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
+            .discount-box.selected
               .discount-data(ng-click="cartPage.openDiscInput(1)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                   .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
-              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
+                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc" ng-change="cartPage.approveNewDisc(1)", ng-keyup="cartPage.pressEnterInDisc($event)")
+              .discount-txt(ng-click="cartPage.closeDiscountBlock()")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
-
 
           .discount-container
             .discount-title {{ ::cartPage.DISCOUNT }}

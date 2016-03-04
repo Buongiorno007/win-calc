@@ -7916,23 +7916,28 @@ tr.factory_item {
 }
 /* line 35, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-filter {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row nowrap;
-  flex-flow: row nowrap;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 2rem;
 }
-/* line 41, ../../dev/sass/panels/lamination.scss */
-.lamination-container .laminat-filter .laminat-box {
-  margin-right: 3rem;
+/* line 40, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-filter .laminat-inner {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
 }
 /* line 45, ../../dev/sass/panels/lamination.scss */
+.lamination-container .laminat-filter .laminat-box {
+  min-width: 25rem;
+  margin-right: 3rem;
+  float: left;
+}
+/* line 51, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-filter .laminat-img img {
   width: 25.4rem;
 }
-/* line 52, ../../dev/sass/panels/lamination.scss */
+/* line 58, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-groups {
   display: -webkit-flex;
   display: flex;
@@ -7944,11 +7949,11 @@ tr.factory_item {
   overflow: auto;
   padding-top: 3rem;
 }
-/* line 60, ../../dev/sass/panels/lamination.scss */
+/* line 66, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-groups .laminat-box {
   margin-bottom: 3rem;
 }
-/* line 63, ../../dev/sass/panels/lamination.scss */
+/* line 69, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-groups .laminat-row {
   display: -webkit-flex;
   display: flex;
@@ -7957,20 +7962,20 @@ tr.factory_item {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 69, ../../dev/sass/panels/lamination.scss */
+/* line 75, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-groups .laminat-img img {
   width: 12rem;
 }
-/* line 73, ../../dev/sass/panels/lamination.scss */
+/* line 79, ../../dev/sass/panels/lamination.scss */
 .lamination-container .laminat-groups .laminat-label {
   font-size: 2rem;
 }
-/* line 79, ../../dev/sass/panels/lamination.scss */
+/* line 85, ../../dev/sass/panels/lamination.scss */
 .lamination-container .info {
   top: -1.25rem;
   right: 3.125rem;
 }
-/* line 83, ../../dev/sass/panels/lamination.scss */
+/* line 89, ../../dev/sass/panels/lamination.scss */
 .lamination-container .lamination-img.selected ~ .info {
   top: -1.875rem;
   right: 1.875rem;
@@ -8536,7 +8541,7 @@ tr.factory_item {
 
 /* line 1, ../../dev/sass/panels/add-elements-list.scss */
 .additional-list-container {
-  position: relative;
+  position: absolute;
   padding: 3.125rem 5rem;
   z-index: 30;
 }

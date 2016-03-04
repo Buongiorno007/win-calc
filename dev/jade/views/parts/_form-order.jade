@@ -33,8 +33,8 @@
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callOrderForm.address.$error.required }")
           input.user-field.street(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ADDRESS }}", required)
           input.user-field.small(type="text", name="house", ng-model="orderForm.C.cart.customer.customer_house", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_HOUSE }}", required)
-          input.user-field.small(type="number", name="flat", ng-model="orderForm.C.cart.customer.customer_flat", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLAT }}", required)
-          input.user-field.small(type="number", name="floor", ng-model="orderForm.C.cart.customer.customer_floor", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLOOR }}", required)
+          input.user-field.small(type="text", name="flat", ng-model="orderForm.C.cart.customer.customer_flat", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLAT }}", required)
+          input.user-field.small(type="text", name="floor", ng-model="orderForm.C.cart.customer.customer_floor", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLOOR }}", required)
           .error-tooltip.street(ng-show="orderForm.C.cart.submitted && callOrderForm.address.$error.required") {{ ::orderForm.EMPTY_FIELD }}
           .error-tooltip.house(ng-show="orderForm.C.cart.submitted && callOrderForm.house.$error.required") {{ ::orderForm.EMPTY_FIELD }}
           .error-tooltip.flat(ng-show="orderForm.C.cart.submitted && callOrderForm.flat.$error.required") {{ ::orderForm.EMPTY_FIELD }}

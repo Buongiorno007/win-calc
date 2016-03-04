@@ -81,7 +81,11 @@
     thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
     thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
     thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
-
+    //---- add elements pannel
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+    thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
+    thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
@@ -152,6 +156,13 @@
     }
 
 
+    function pressEnterInDisc(keyEvent) {
+      //--------- Enter
+      if (keyEvent.which === 13) {
+        CartMenuServ.closeDiscountBlock();
+      }
+    }
+
 
 
     /**========== FINISH ==========*/
@@ -171,8 +182,8 @@
 
     thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
     thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
-
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.pressEnterInDisc = pressEnterInDisc;
   });
 })();

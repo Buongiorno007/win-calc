@@ -325,7 +325,7 @@
                     }
                   }
                 }
-                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
                 MainServ.setCurrLamination(tempProd.lamination_id);
                 delete tempProd.lamination_id;
@@ -515,9 +515,10 @@
 
 
     function orderPrint(orderId) {
-      var domainLink = globalConstants.serverIP.split('api.').join(''),
-          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      //var domainLink = globalConstants.serverIP.split('api.').join(''),
+      //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+      //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
       if(navigator.onLine) {
         GeneralServ.goToLink(printLink);

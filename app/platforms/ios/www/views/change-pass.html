@@ -1,9 +1,9 @@
 
 <section class="settings password-page">
   <div class="header">
-    <button hm-tap="passwordPage.gotoSettingsPage()" class="back"></button>
+    <button ng-click="passwordPage.gotoSettingsPage()" class="back"></button>
     <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="title"></div>
-    <button hm-tap="passwordPage.saveNewPassword()" class="save">{{ 'settings.SAVE' | translate }}</button>
+    <button ng-click="passwordPage.saveNewPassword()" class="save">{{ 'settings.SAVE' | translate }}</button>
   </div>
   <div class="psw-container">
     <div class="lists">

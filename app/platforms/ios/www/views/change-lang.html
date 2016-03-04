@@ -1,13 +1,13 @@
 
 <section class="settings language-page">
   <div class="header">
-    <button hm-tap="languagePage.gotoSettingsPage()" class="back"></button>
+    <button ng-click="languagePage.gotoSettingsPage()" class="back"></button>
     <div data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}" typing="{{ languagePage.config.typing }}" typing-delay="{{ languagePage.config.DELAY_START }}" class="title"></div>
   </div>
   <div class="lang-container">
     <div class="lists">
       <ul class="list">
-        <li ng-repeat="lang in languagePage.constants.languages" ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}" hm-tap="languagePage.switchLang($index)" class="item click">
+        <li ng-repeat="lang in languagePage.constants.languages" ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}" ng-click="languagePage.switchLang($index)" class="item click">
           <div class="lang-label">{{ lang.name }}</div>
         </li>
       </ul>

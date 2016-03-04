@@ -121,12 +121,12 @@
                 <div class="interval">
                   <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
                   <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
-                  <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
+                  <div class="calc-label-limit">{{ ::sizeCalc.MIN }}</div>
                 </div>
                 <div class="interval">
                   <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
                   <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
-                  <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
+                  <div class="calc-label-limit">{{ ::sizeCalc.MAX }}</div>
                 </div>
               </div>
             </td>
@@ -180,7 +180,7 @@
       <div ng-class="{'active': designPage.D.design.openVoiceHelper}" class="voice-container">
         <div ng-class="{'loud-voice': designPage.D.design.loudVoice == true, 'quiet-voice': designPage.D.design.quietVoice == true}" class="voice-icon"></div>
         <div class="voice-title">Укажите размер:</div>
-        <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}" class="voice-input">
+        <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ ::designPage.VOICE_SPEACH }}" class="voice-input">
       </div>
     </div>
     <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">

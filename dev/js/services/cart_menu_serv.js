@@ -561,10 +561,10 @@
 
     function approveNewDisc(type) {
       //console.info(CartStor.cart.tempConstructDisc);
-      if(type) {
+      if (type) {
         //------- discount x add element
         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
-        if(CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
+        if (CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
           CartStor.cart.tempAddelemDisc = +UserStor.userInfo.discountAddElemMax;
         }
         OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
@@ -573,7 +573,7 @@
       } else {
         //------- discount x construction
         CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
-        if(CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
+        if (CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
           CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
         }
         OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
@@ -582,7 +582,6 @@
       //----------- start order price total calculation
       calculateOrderPrice();
     }
-
 
 
 

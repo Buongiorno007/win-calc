@@ -6,6 +6,7 @@
     .controller('AddElementsListCtrl',
 
   function(
+    $filter,
     globalConstants,
     GeneralServ,
     AddElementsServ,
@@ -30,6 +31,14 @@
       filteredGroups: [],
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
+    thisCtrl.SCHEME_VIEW = $filter('translate')('add_elements.SCHEME_VIEW');
 
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;

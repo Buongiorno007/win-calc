@@ -68,7 +68,7 @@
                 <div class="search-block">
                   <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
                   <button ng-click="searchBox.deleteSearchChart()" class="delete-search"></button>
-                  <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+                  <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
                 </div>
               </form>
             </div>

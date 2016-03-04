@@ -568,7 +568,7 @@
 
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
-              console.warn(glassIds[j]);//TODO error
+              //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})

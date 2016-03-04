@@ -2,10 +2,11 @@
   .panel-inner(ng-if="laminPanel.G.global.activePanel == 5")
 
     .laminat-filter
-      .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index")
-        .laminat-img(ng-class="{'selected': lamin.isActive}", ng-click="laminPanel.initLaminatFilter(lamin.type_id)")
-          img(ng-src="img/lamination/{{ lamin.type_id }}.jpg")
-        .laminat-label(data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+      .laminat-inner
+        .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index")
+          .laminat-img(ng-class="{'selected': lamin.isActive}", ng-click="laminPanel.initLaminatFilter(lamin.type_id)")
+            img(ng-src="img/lamination/{{ lamin.type_id }}.jpg")
+          .laminat-label(data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
     .laminat-groups
       .laminat-box(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index")

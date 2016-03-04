@@ -53,8 +53,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   angular.module('BauVoiceApp', [
     'ngRoute',
     'pascalprecht.translate',
-    'hmTouchEvents',
+    'ngTouch',
     'ngCordova',
+    'swipe',
 
     'LoginModule',
     'MainModule',
@@ -62,7 +63,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     'CartModule',
     'HistoryModule',
     'SettingsModule'
-  ]).config(configurationApp);
+  ]).config(/*@ngInject*/ configurationApp);
 
   //============== Modules ============//
   angular
@@ -79,75 +80,57 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  configurationApp.$inject = [
-    '$routeProvider',
-    '$locationProvider',
-    '$httpProvider',
-    '$translateProvider',
+  function configurationApp($routeProvider, $locationProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
 
-    'ukrainianDictionary',
-    'russianDictionary',
-    'englishDictionary',
-    'germanDictionary',
-    'romanianDictionary',
-    'italianDictionary'
-  ];
-
-  function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
-
+    //-------- delete # !!!
+    //$locationProvider.html5Mode({
+    //  enabled: true,
+    //  requireBase: false
+    //});
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'loginPage',
+        controller: 'LoginCtrl as loginPage',
         title: 'Login'
       })
       .when('/main', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'mainPage',
+        controller: 'MainCtrl as mainPage',
         title: 'Main'
       })
       .when('/settings', {
         templateUrl: 'views/settings.html',
-        controller: 'SettingsCtrl',
-        controllerAs: 'settingsPage',
+        controller: 'SettingsCtrl as settingsPage',
         title: 'Settings'
       })
       .when('/change-pass', {
         templateUrl: 'views/change-pass.html',
-        controller: 'ChangePassCtrl',
-        controllerAs: 'passwordPage',
+        controller: 'ChangePassCtrl as passwordPage',
         title: 'Change Pass'
       })
       .when('/change-lang', {
         templateUrl: 'views/change-lang.html',
-        controller: 'ChangeLangCtrl',
-        controllerAs: 'languagePage',
+        controller: 'ChangeLangCtrl as languagePage',
         title: 'Change Language'
       })
       .when('/location', {
         templateUrl: 'views/location.html',
-        controller: 'LocationCtrl',
-        controllerAs: 'locationPage',
+        controller: 'LocationCtrl as locationPage',
         title: 'Location'
       })
       .when('/history', {
         templateUrl: 'views/history.html',
-        controller: 'HistoryCtrl',
-        controllerAs: 'historyPage',
+        controller: 'HistoryCtrl as historyPage',
         title: 'History'
       })
       .when('/cart', {
         templateUrl: 'views/cart.html',
-        controller: 'CartCtrl',
-        controllerAs: 'cartPage',
+        controller: 'CartCtrl as cartPage',
         title: 'Cart'
       })
       .when('/design', {
         templateUrl: 'views/design.html',
-        controller: 'DesignCtrl',
-        controllerAs: 'designPage',
+        controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
       .otherwise({
@@ -155,13 +138,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       });
 
     $translateProvider.translations('ru', russianDictionary);
-    $translateProvider.translations('ua', ukrainianDictionary);
+    $translateProvider.translations('uk', ukrainianDictionary);
     $translateProvider.translations('en', englishDictionary);
     $translateProvider.translations('de', germanDictionary);
     $translateProvider.translations('ro', romanianDictionary);
     $translateProvider.translations('it', italianDictionary);
 
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
 
   }
 
@@ -172,15 +155,23 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartCtrl', cartPageCtrl);
+    .controller('CartCtrl',
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    CartStor,
+    CartServ,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -204,11 +195,54 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+
+    //------- translate
+    thisCtrl.ALL_ADD_ELEMENTS = $filter('translate')('cart.ALL_ADD_ELEMENTS');
+    thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.PRODUCT_QTY = $filter('translate')('cart.PRODUCT_QTY');
+    thisCtrl.ORDER_COMMENT = $filter('translate')('cart.ORDER_COMMENT');
+    thisCtrl.LIGHT_VIEW = $filter('translate')('cart.LIGHT_VIEW');
+    thisCtrl.DISCOUNT_SELECT = $filter('translate')('cart.DISCOUNT_SELECT');
+    thisCtrl.MAX = $filter('translate')('common_words.MAX');
+    thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
+    thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+    thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
+    thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
+    thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');
+    thisCtrl.FULL_VIEW = $filter('translate')('cart.FULL_VIEW');
+    thisCtrl.ADDELEMENTS_EDIT_LIST = $filter('translate')('cart.ADDELEMENTS_EDIT_LIST');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.ADDELEMENTS_PRODUCT_COST = $filter('translate')('cart.ADDELEMENTS_PRODUCT_COST');
+    thisCtrl.GRID = $filter('translate')('add_elements.GRID');
+    thisCtrl.VISOR = $filter('translate')('add_elements.VISOR');
+    thisCtrl.SPILLWAY = $filter('translate')('add_elements.SPILLWAY');
+    thisCtrl.OUTSIDE = $filter('translate')('add_elements.OUTSIDE');
+    thisCtrl.LOUVERS = $filter('translate')('add_elements.LOUVERS');
+    thisCtrl.INSIDE = $filter('translate')('add_elements.INSIDE');
+    thisCtrl.CONNECTORS = $filter('translate')('add_elements.CONNECTORS');
+    thisCtrl.FAN = $filter('translate')('add_elements.FAN');
+    thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
+    thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
     //------- collect all AddElements of Order
-    CartServ.joinAllAddElements();
+    CartMenuServ.joinAllAddElements();
     //----------- start order price total calculation
     CartMenuServ.calculateOrderPrice();
 
@@ -226,27 +260,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    //------ clicking
-    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
-    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
-    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
-    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.editProduct = CartServ.editProduct;
-    thisCtrl.showAddElementDetail = showAddElementDetail;
-    thisCtrl.closeAddElementDetail = closeAddElementDetail;
-    thisCtrl.viewSwitching = viewSwitching;
-    thisCtrl.switchProductComment = switchProductComment;
-
-    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
-    thisCtrl.setNewDiscont = setNewDiscont;
-    thisCtrl.approveNewDisc = approveNewDisc;
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //============= AddElements detail block
@@ -291,37 +307,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function setNewDiscont(type) {
-      //------- discount x add element
-      if(type) {
-        if(!CartStor.cart.tempAddelemDisc) {
-          CartStor.cart.tempAddelemDisc = UserStor.userInfo.discountAddElemMax*1;
-        }
-      //------- discount x construction
-      } else {
-        if(!CartStor.cart.tempConstructDisc) {
-          CartStor.cart.tempConstructDisc = UserStor.userInfo.discountConstrMax*1;
-        }
-      }
-    }
 
 
-    function approveNewDisc(type) {
-      if(type) {
-        //------- discount x add element
-        OrderStor.order.discount_addelem = CartStor.cart.tempAddelemDisc*1;
-        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+    /**========== FINISH ==========*/
 
-      } else {
-        //------- discount x construction
-        OrderStor.order.discount_construct = CartStor.cart.tempConstructDisc*1;
-        CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
-      }
-      //----------- start order price total calculation
-      CartMenuServ.calculateOrderPrice();
-    }
+      //------ clicking
+    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
+    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
+    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
+    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+    thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.showAddElementDetail = showAddElementDetail;
+    thisCtrl.closeAddElementDetail = closeAddElementDetail;
+    thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.switchProductComment = switchProductComment;
 
-  }
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
+
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
+
+  });
 })();
 
 
@@ -329,15 +337,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangeLangCtrl', changeLangCtrl);
+    .controller('ChangeLangCtrl',
 
-  function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
-
+  function(
+    $location,
+    $translate,
+    $timeout,
+    globalConstants,
+    GlobalStor,
+    UserStor,
+    NavMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.U = UserStor;
@@ -347,12 +361,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.switchLang = switchLang;
-    thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     function switchLang(languageId) {
       $translate.use(globalConstants.languages[languageId].label);
@@ -370,7 +382,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function gotoSettingsPage() {
       $location.path('/settings');
     }
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.switchLang = switchLang;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+
+  });
 })();
 
 
@@ -378,15 +399,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangePassCtrl', changePassCtrl);
+    .controller('ChangePassCtrl',
 
-  function changePassCtrl(globalConstants, SettingServ, UserStor, localDB) {
-
+  function(
+    globalConstants,
+    SettingServ,
+    UserStor,
+    localDB
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -400,30 +424,28 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.saveNewPassword = saveNewPassword;
-    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
-    thisCtrl.checkError = checkError;
-    thisCtrl.checkErrorOld = checkErrorOld;
 
 
-    //============ methods ================//
 
-
+    /**============ METHODS ================*/
 
     function saveNewPassword() {
       if( thisCtrl.config.oldPassword && UserStor.userInfo.password == localDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
         thisCtrl.config.isErrorPassword = 0;
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
-        console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
+        //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName,
+          UserStor.userInfo.id,
+          {'password': UserStor.userInfo.password}
+        ).then(function() {
           //---- clean fields
           thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
           SettingServ.gotoSettingsPage();
         });
       } else {
-        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword))) {
           thisCtrl.config.isErrorOldPassword = 1;
         } else {
           thisCtrl.config.isErrorPassword = 1;
@@ -440,7 +462,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isErrorOldPassword = 0;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.saveNewPassword = saveNewPassword;
+    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
+    thisCtrl.checkError = checkError;
+    thisCtrl.checkErrorOld = checkErrorOld;
+
+  });
 })();
 
 
@@ -449,16 +480,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('DesignModule')
-    .controller('DesignCtrl', designPageCtrl);
+    .controller('DesignCtrl',
 
-  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
-
-    var thisCtrl = this;
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    DesignServ,
+    GlobalStor,
+    ProductStor,
+    DesignStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this,
+        delaySubMenu1 = 300,
+        delaySubMenu2 = 600,
+        delaySubMenu3 = 900,
+        delaySubMenu4 = 1200;
 
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -469,6 +510,1444 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     GlobalStor.global.currOpenPage = 'design';
 
     thisCtrl.config = {
+      //---- design menu
+      isDesignError: 0,
+      isTest: 0,
+
+      //----- door
+      isDoorConfig: 0,
+      selectedStep1: 0,
+      selectedStep2: 0,
+      selectedStep3: 0,
+      selectedStep4: 0,
+
+      DELAY_SHOW_FIGURE_ITEM: 1000,
+      typing: 'on'
+    };
+
+
+    //------- translate
+    thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
+    thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
+    thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
+    thisCtrl.ARCH_SHAPE = $filter('translate')('design.ARCH_SHAPE');
+    thisCtrl.POSITION_SHAPE = $filter('translate')('design.POSITION_SHAPE');
+    thisCtrl.UNITS_DESCRIP = $filter('translate')('design.UNITS_DESCRIP');
+    thisCtrl.PROJECT_DEFAULT = $filter('translate')('design.PROJECT_DEFAULT');
+    thisCtrl.BACK = $filter('translate')('common_words.BACK');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.CANCEL = $filter('translate')('add_elements.CANCEL');
+    thisCtrl.DOOR_CONFIG_LABEL = $filter('translate')('design.DOOR_CONFIG_LABEL');
+    thisCtrl.DOOR_CONFIG_DESCTIPT = $filter('translate')('design.DOOR_CONFIG_DESCTIPT');
+    thisCtrl.SASH_CONFIG_DESCTIPT = $filter('translate')('design.SASH_CONFIG_DESCTIPT');
+    thisCtrl.HANDLE_CONFIG_DESCTIPT = $filter('translate')('design.HANDLE_CONFIG_DESCTIPT');
+    thisCtrl.LOCK_CONFIG_DESCTIPT = $filter('translate')('design.LOCK_CONFIG_DESCTIPT');
+    thisCtrl.STEP = $filter('translate')('design.STEP');
+    thisCtrl.LABEL_DOOR_TYPE = $filter('translate')('design.LABEL_DOOR_TYPE');
+    thisCtrl.LABEL_SASH_TYPE = $filter('translate')('design.LABEL_SASH_TYPE');
+    thisCtrl.LABEL_HANDLE_TYPE = $filter('translate')('design.LABEL_HANDLE_TYPE');
+    thisCtrl.LABEL_LOCK_TYPE = $filter('translate')('design.LABEL_LOCK_TYPE');
+    thisCtrl.NOT_AVAILABLE = $filter('translate')('design.NOT_AVAILABLE');
+    thisCtrl.DIM_EXTRA = $filter('translate')('design.DIM_EXTRA');
+    thisCtrl.SQUARE_EXTRA = $filter('translate')('design.SQUARE_EXTRA');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
+
+
+    //--------- set template from ProductStor
+    DesignServ.setDefaultTemplate();
+
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
+    }
+
+    /**----- initialize Events again in order to svg in template pannel -------*/
+    $timeout(function(){
+      DesignServ.initAllImposts();
+      DesignServ.initAllGlass();
+      DesignServ.initAllArcs();
+      DesignServ.initAllDimension();
+    }, 50);
+
+
+
+
+    /**============ METHODS ================*/
+
+
+    function deactivMenu() {
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      DesignStor.design.isDropSubMenu = 0;
+    }
+
+    function showDesignError() {
+      thisCtrl.config.isDesignError = 1;
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      $timeout(function(){
+        thisCtrl.config.isDesignError = 0;
+      }, 800);
+    }
+
+
+    /**++++++++++ Edit Sash ++++++++++*/
+
+    function showAllAvailableGlass(menuId) {
+      DesignStor.design.activeSubMenuItem = menuId;
+      if(!DesignStor.design.selectedGlass.length) {
+        //----- show all glasses
+        var glasses = d3.selectAll('#tamlateSVG .glass');
+        DesignStor.design.selectedGlass = glasses[0];
+        glasses.classed('glass-active', true);
+      }
+    }
+
+
+
+    function insertSash(sashType, event) {
+//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+      event.preventDefault();
+//      event.srcEvent.stopPropagation();
+
+      var isPermit = 1,
+          glassQty = DesignStor.design.selectedGlass.length,
+          i;
+
+      if(sashType === 1) {
+        deactivMenu();
+        //----- delete sash
+        for(i = 0; i < glassQty; i+=1) {
+          DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
+        }
+      } else {
+        if(sashType === 2 || sashType === 6 || sashType === 8) {
+          if(DesignStor.design.isDropSubMenu === sashType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = sashType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          //----- insert sash
+          for (i = 0; i < glassQty; i+=1) { //TODO download hardare types and create submenu
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+          }
+        }
+      }
+    }
+
+
+
+    /**++++++++++ Edit Corner ++++++++*/
+
+    //-------- show all Corner Marks
+    function showAllAvailableCorner(menuId) {
+      var corners = d3.selectAll('#tamlateSVG .corner_mark');
+      if(corners[0].length) {
+        //---- show submenu
+        DesignStor.design.activeSubMenuItem = menuId;
+        corners.transition().duration(300).ease("linear").attr('r', 50);
+        DesignStor.design.selectedCorner = corners[0];
+//        corners.on('touchstart', function () {
+        corners.on('click', function () {
+          //----- hide all cornerMark
+          DesignServ.hideCornerMarks();
+
+          //----- show selected cornerMark
+          var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
+          DesignStor.design.selectedCorner.push(corner[0][0]);
+
+        });
+      } else {
+        showDesignError();
+      }
+    }
+
+    function insertCorner(conerType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      //------ hide menu
+      deactivMenu();
+      //TODO testing stage
+      thisCtrl.config.isTest = 1;
+      DesignServ.hideCornerMarks();
+
+      //var cornerQty = DesignStor.design.selectedCorner.length,
+      //    i;
+      //switch(conerType) {
+      //  //----- delete
+      //  case 1:
+      //    for(i = 0; i < cornerQty; i+=1) {
+      //      DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
+      //    }
+      //    break;
+      //  //----- line angel
+      //  case 2:
+      //    for(i = 0; i < cornerQty; i+=1) {
+      //      DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
+      //    }
+      //    break;
+      //  //----- curv angel
+      //  case 3:
+      //    for(i = 0; i < cornerQty; i+=1) {
+      //      DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
+      //    }
+      //    break;
+      //}
+    }
+
+
+
+
+
+    /**++++++++++ Edit Arc ++++++++*/
+
+    function showAllAvailableArc(menuId) {
+      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
+        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+          return true;
+        }
+      });
+      //----- if not corners
+      if(arcs.length) {
+        DesignStor.design.activeSubMenuItem = menuId;
+//        console.log('Arcs++++++', DesignStor.design.selectedArc);
+        if(!DesignStor.design.selectedArc.length) {
+          //----- show all frames and arc
+          var arcsD3 = d3.selectAll(arcs);
+          DesignStor.design.selectedArc = arcsD3[0];
+          arcsD3.classed('active_svg', true);
+        }
+      } else {
+        showDesignError();
+      }
+    }
+
+
+
+    function insertArc(arcType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      deactivMenu();
+      //TODO testing stage
+      thisCtrl.config.isTest = 1;
+      DesignServ.deselectAllArc();
+
+      ////---- get quantity of arcs
+      //var arcQty = DesignStor.design.selectedArc.length;
+      //
+      ///** delete arc */
+      //if(arcType === 1) {
+      //  //------ delete all arcs
+      //  if (arcQty > 1) {
+      //    DesignServ.workingWithAllArcs(0);
+      //  } else {
+      //    //------ delete one selected arc
+      //    DesignServ.deleteArc(DesignStor.design.selectedArc[0]);
+      //    DesignStor.design.selectedArc.length = 0;
+      //  }
+      //
+      ///** insert arc */
+      //} else {
+      //  //------ insert all arcs
+      //  if(arcQty > 1) {
+      //    DesignServ.workingWithAllArcs(1);
+      //  } else {
+      //    //------ insert one selected arc
+      //    DesignServ.createArc(DesignStor.design.selectedArc[0]);
+      //    DesignStor.design.selectedArc.length = 0;
+      //  }
+      //}
+
+    }
+
+
+
+
+    /**++++++++++ Edit Impost ++++++++*/
+
+
+    function insertImpost(impostType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      var isPermit = 1,
+          impostsQty = DesignStor.design.selectedImpost.length,
+          i;
+
+      if(impostType === 1) {
+        deactivMenu();
+        /** delete imposts */
+        if (impostsQty) {
+          for (i = 0; i < impostsQty; i+=1) {
+            DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
+          }
+          $timeout(function(){
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      } else {
+        //TODO testing stage
+        if(impostType === 2 || impostType === 3) {
+
+          /** show drop submenu */
+          if (impostType === 4 || impostType === 8 || impostType === 12) {
+            if (DesignStor.design.isDropSubMenu === impostType) {
+              DesignStor.design.isDropSubMenu = 0;
+            } else {
+              DesignStor.design.isDropSubMenu = impostType;
+              isPermit = 0;
+            }
+          }
+
+          if (isPermit) {
+            deactivMenu();
+            if (!impostsQty) {
+              var glassQty = DesignStor.design.selectedGlass.length;
+              if (glassQty) {
+                /** insert imposts */
+                for (i = 0; i < glassQty; i += 1) {
+                  DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
+                }
+              }
+            } else {
+              DesignServ.deselectAllImpost();
+            }
+          }
+        } else {
+          deactivMenu();
+          thisCtrl.config.isTest = 1;
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllImpost();
+        }
+
+      }
+    }
+
+
+    /**++++++++++ create Mirror ++++++++*/
+
+    function initMirror(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.initMirror();
+    }
+
+
+    /**++++++++++ position by Axises ++++++++*/
+
+    function positionAxis(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionAxises();
+    }
+
+
+    /**++++++++++ position by Glasses ++++++++*/
+
+    function positionGlass(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionGlasses();
+    }
+
+
+
+
+
+
+    /**+++++++++++++++ DOOR +++++++++++++++++++*/
+
+    //---------- Show Door Configuration
+    function toggleDoorConfig() {
+      thisCtrl.config.isDoorConfig = 1;
+      DesignServ.closeSizeCaclulator();
+      //----- set emplty index values
+//      DesignStor.design.doorConfig.doorShapeIndex = '';
+//      DesignStor.design.doorConfig.sashShapeIndex = '';
+//      DesignStor.design.doorConfig.handleShapeIndex = '';
+//      DesignStor.design.doorConfig.lockShapeIndex = '';
+    }
+
+    //---------- Select door shape
+    function selectDoor(id) {
+      if(!thisCtrl.config.selectedStep2) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+          DesignStor.design.doorConfig.doorShapeIndex = '';
+          thisCtrl.config.selectedStep1 = 0;
+        } else {
+          DesignStor.design.doorConfig.doorShapeIndex = id;
+          thisCtrl.config.selectedStep1 = 1;
+        }
+      }
+    }
+    //---------- Select sash shape
+    function selectSash(id) {
+      if(!thisCtrl.config.selectedStep3) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+          DesignStor.design.doorConfig.sashShapeIndex = '';
+          thisCtrl.config.selectedStep2 = 0;
+        } else {
+          DesignStor.design.doorConfig.sashShapeIndex = id;
+          thisCtrl.config.selectedStep2 = 1;
+        }
+      }
+    }
+    //-------- Select handle shape
+    function selectHandle(id) {
+      if(!thisCtrl.config.selectedStep4) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          thisCtrl.config.selectedStep3 = 0;
+        } else {
+          DesignStor.design.doorConfig.handleShapeIndex = id;
+          thisCtrl.config.selectedStep3 = 1;
+        }
+      }
+    }
+    //--------- Select lock shape
+    function selectLock(id) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        thisCtrl.config.selectedStep4 = 0;
+      } else {
+        DesignStor.design.doorConfig.lockShapeIndex = id;
+        thisCtrl.config.selectedStep4 = 1;
+      }
+    }
+
+    //--------- Close Door Configuration
+    function closeDoorConfig() {
+      if(thisCtrl.config.selectedStep3) {
+        thisCtrl.config.selectedStep3 = 0;
+        thisCtrl.config.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep2) {
+        thisCtrl.config.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep1) {
+        thisCtrl.config.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+      } else {
+        //------ close door config
+        thisCtrl.config.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+      }
+    }
+
+    //--------- Save Door Configuration
+    function saveDoorConfig() {
+      DesignServ.rebuildSVGTemplate();
+      thisCtrl.config.isDoorConfig = 0;
+    }
+
+
+
+
+    /**-------- Select menu item ---------*/
+
+    function selectMenuItem(id) {
+      if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
+        DesignServ.closeSizeCaclulator();
+      } else {
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              //DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = id;
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      }
+    }
+
+
+    /**----- open/close template pannel -------*/
+
+    function showTemplates() {
+      if(GlobalStor.global.activePanel) {
+        GlobalStor.global.activePanel = 0;
+        DesignServ.initAllImposts();
+        DesignServ.initAllGlass();
+        DesignServ.initAllArcs();
+        DesignServ.initAllDimension();
+      } else {
+        GlobalStor.global.activePanel = 1;
+      }
+    }
+
+
+    /**----------- close Attantion dialog ----------*/
+
+    function closeAttantion() {
+      thisCtrl.config.isTest = 0;
+      DesignStor.design.isDimExtra = 0;
+      DesignStor.design.isSquareExtra = 0;
+    }
+
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+
+    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designCancel = DesignServ.designCancel;
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+    thisCtrl.showTemplates = showTemplates;
+
+    //----- door config
+    thisCtrl.toggleDoorConfig = toggleDoorConfig;
+    thisCtrl.selectDoor = selectDoor;
+    thisCtrl.selectSash = selectSash;
+    thisCtrl.selectHandle = selectHandle;
+    thisCtrl.selectLock = selectLock;
+    thisCtrl.closeDoorConfig = closeDoorConfig;
+    thisCtrl.saveDoorConfig = saveDoorConfig;
+
+    //------ edit design
+    thisCtrl.insertSash = insertSash;
+    thisCtrl.insertCorner = insertCorner;
+    thisCtrl.insertImpost = insertImpost;
+    thisCtrl.insertArc = insertArc;
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
+
+    thisCtrl.stepBack = DesignServ.stepBack;
+    thisCtrl.closeAttantion = closeAttantion;
+  });
+})();
+
+
+
+// controllers/history.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('HistoryModule')
+    .controller('HistoryCtrl',
+
+  function(
+    $filter,
+    GlobalStor,
+    UserStor,
+    HistoryStor,
+    HistoryServ
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.H = HistoryStor;
+    thisCtrl.U = UserStor;
+
+    //------- translate
+    thisCtrl.FROM = $filter('translate')('history.FROM');
+    thisCtrl.UNTIL = $filter('translate')('history.UNTIL');
+    thisCtrl.DATE_RANGE = $filter('translate')('history.DATE_RANGE');
+    thisCtrl.ALL_TIME = $filter('translate')('history.ALL_TIME');
+    thisCtrl.SORTING = $filter('translate')('history.SORTING');
+    thisCtrl.NEWEST_FIRST = $filter('translate')('history.NEWEST_FIRST');
+    thisCtrl.NEWEST_LAST = $filter('translate')('history.NEWEST_LAST');
+    thisCtrl.SORT_BY_TYPE = $filter('translate')('history.SORT_BY_TYPE');
+    thisCtrl.SORT_SHOW = $filter('translate')('history.SORT_SHOW');
+    thisCtrl.ALL = $filter('translate')('common_words.ALL');
+    thisCtrl.SORT_SHOW_ACTIVE = $filter('translate')('history.SORT_SHOW_ACTIVE');
+    thisCtrl.SORT_SHOW_WAIT = $filter('translate')('history.SORT_SHOW_WAIT');
+    thisCtrl.SORT_SHOW_DONE = $filter('translate')('history.SORT_SHOW_DONE');
+    thisCtrl.INCLUDED = $filter('translate')('history.INCLUDED');
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.AND = $filter('translate')('common_words.AND');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.CLIENT = $filter('translate')('history.CLIENT');
+    thisCtrl.PHONE = $filter('translate')('history.PHONE');
+    thisCtrl.ADDRESS = $filter('translate')('history.ADDRESS');
+    thisCtrl.PAYMENTS = $filter('translate')('history.PAYMENTS');
+    thisCtrl.WAIT_MASTER = $filter('translate')('history.WAIT_MASTER');
+    thisCtrl.ALLPRODUCTS = $filter('translate')('history.ALLPRODUCTS');
+    thisCtrl.ON = $filter('translate')('history.ON');
+    thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.BY_YOUR_REQUEST = $filter('translate')('history.BY_YOUR_REQUEST');
+    thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
+    thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
+    thisCtrl.DRAFT = $filter('translate')('history.DRAFT');
+    thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'history';
+
+    //----- variables for drafts sorting
+    thisCtrl.createdDate = 'created';
+
+    HistoryServ.downloadOrders();
+
+
+    //------ clicking
+    thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
+    thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
+    thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
+    thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
+    thisCtrl.editOrder = HistoryServ.editOrder;
+    thisCtrl.orderPrint = HistoryServ.orderPrint;
+    thisCtrl.viewSwitching = HistoryServ.viewSwitching;
+
+    thisCtrl.orderSearching = HistoryServ.orderSearching;
+    thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
+    thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
+    thisCtrl.orderSorting = HistoryServ.orderSorting;
+    thisCtrl.sortingInit = HistoryServ.sortingInit;
+
+
+  });
+})();
+
+
+// controllers/location.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('SettingsModule')
+    .controller('LocationCtrl',
+
+  function(
+    localDB,
+    GeneralServ,
+    loginServ,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+
+    //----- current user location
+    thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
+
+
+    //SettingServ.downloadLocations().then(function(data) {
+    //  thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
+
+
+
+
+    /**============ METHODS ================*/
+
+    //-------- Select City
+    function selectCity(location) {
+      thisCtrl.userNewLocation = location.fullLocation;
+
+      //----- change heatTransfer
+      if (UserStor.userInfo.therm_coeff_id) {
+        UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/location.heatTransfer );
+      } else {
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+      }
+
+      //----- if user settings changing
+      if(GlobalStor.global.currOpenPage === 'settings') {
+        UserStor.userInfo.city_id = location.cityId;
+        UserStor.userInfo.cityName = location.cityName;
+        UserStor.userInfo.countryId = location.countryId;
+        //UserStor.userInfo.countryName = location.countryName;
+        UserStor.userInfo.fullLocation = location.fullLocation;
+        UserStor.userInfo.climaticZone = location.climaticZone;
+        //UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //----- save new City Id in LocalDB & Server
+        //----- update password in LocalDB & Server
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId}
+        );
+
+        //-------- if current geolocation changing
+      } else if(GlobalStor.global.currOpenPage === 'main'){
+        //----- build new currentGeoLocation
+        loginServ.setUserGeoLocation(
+          location.cityId,
+          location.cityName,
+          location.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          location.fullLocation
+        );
+      }
+      GlobalStor.global.startProgramm = false;
+      SettingServ.closeLocationPage();
+    }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+  });
+})();
+
+
+// controllers/login.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('LoginModule')
+    .controller('LoginCtrl',
+
+  function(
+    $location,
+    $cordovaNetwork,
+    $filter,
+    globalConstants,
+    localDB,
+    loginServ,
+    GlobalStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
+    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+    thisCtrl.isOnline = 1;
+    thisCtrl.isOffline = 0;
+    thisCtrl.isLocalDB = 0;
+    thisCtrl.isRegistration = 0;
+    thisCtrl.submitted = 0;
+    thisCtrl.isUserExist = 0;
+    thisCtrl.isUserNotExist = 0;
+    thisCtrl.isUserPasswordError = 0;
+    thisCtrl.isSendEmail = 0;
+    thisCtrl.isUserNotActive = 0;
+    thisCtrl.isFactoryId = 0;
+    thisCtrl.isFactoryNotSelect = 0;
+    thisCtrl.isStartImport = 0;
+    thisCtrl.user = {};
+    thisCtrl.factories = 0;
+    thisCtrl.regPhone = globalConstants.REG_PHONE;
+    thisCtrl.regName = globalConstants.REG_NAME;
+    thisCtrl.regMail = globalConstants.REG_MAIL;
+
+    //------- translate
+    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+    thisCtrl.OK = $filter('translate')('common_words.OK');
+    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.ENTER = $filter('translate')('login.ENTER');
+    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+
+
+
+    /**============ METHODS ================*/
+
+
+
+    function importDBfromServer() {
+      thisCtrl.isStartImport = 1;
+      //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+        if(data) {
+          /** download all data */
+          loginServ.downloadAllData();
+          thisCtrl.isStartImport = 0;
+        } else {
+          console.log('Error!');
+        }
+      });
+    }
+
+
+    function setFactoryLocation(factories) {
+      var factoryQty = factories.length,
+          locationQty;
+      while(--factoryQty > -1) {
+        locationQty = GlobalStor.global.locations.cities.length;
+        while(--locationQty > -1) {
+          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
+            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
+          }
+        }
+      }
+      return factories;
+    }
+
+
+    function checkingFactory() {
+      //------- set User Location
+      loginServ.setUserLocation();
+      if((+UserStor.userInfo.factory_id) > 0) {
+        loginServ.isLocalDBExist().then(function(data) {
+          thisCtrl.isLocalDB = data;
+          if (thisCtrl.isLocalDB) {
+            //------- current FactoryId matches to user FactoryId, go to main page without importDB
+            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+            /** download all data */
+            loginServ.downloadAllData();
+            //});
+          } else {
+            //------ LocalDB is empty
+            importDBfromServer(UserStor.userInfo.factory_id);
+          }
+        });
+      } else {
+        //---- show Factory List
+        //----- collect city Ids regarding to user country
+        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
+          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
+            .then(function(result) {
+              //            console.log('Factories++++++', result);
+              GlobalStor.global.isLoader = 0;
+              if(result.status) {
+                thisCtrl.factories = setFactoryLocation(result.factories);
+                //-------- close Factory Dialog
+                thisCtrl.isFactoryId = 1;
+              } else {
+                console.log('can not get factories!');
+              }
+            });
+        });
+      }
+    }
+
+
+    function importDBProsses(user) {
+
+      //----- checking user activation
+      if(user.locked) {
+        //------- clean all tables in LocalDB
+        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+          if(data) {
+            //------- creates all tables in LocalDB
+            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //------- save user in LocalDB
+                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                //------- save user in Stor
+                angular.extend(UserStor.userInfo, user);
+                //------- import Location
+                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                  if(data) {
+                    //------ save Location Data in local obj
+                    loginServ.prepareLocationToUse().then(function() {
+                      checkingFactory();
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        GlobalStor.global.isLoader = 0;
+        //---- show attantion
+        thisCtrl.isUserNotActive = 1;
+      }
+
+    }
+
+
+    function checkingUser() {
+      localDB.importUser(thisCtrl.user.phone).then(function(result) {
+        if(result.status) {
+          var userTemp = angular.copy(result.user);
+          console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+          //---------- check user password
+          var newUserPassword = localDB.md5(thisCtrl.user.password);
+          if(newUserPassword === userTemp.password) {
+            importDBProsses(userTemp);
+          } else {
+            GlobalStor.global.isLoader = 0;
+            //---- user not exists
+            thisCtrl.isUserPasswordError = 1;
+          }
+        } else {
+          GlobalStor.global.isLoader = 0;
+          //---- user not exists
+          thisCtrl.isUserNotExist = 1;
+        }
+
+      });
+    }
+
+
+
+
+
+    /**============== ENTRY BY LINK ===============*/
+
+
+    function entriyWithoutLogin() {
+      var url = $location.search(),
+          accessArr = [
+            '7d537b6746f925b1703aefa9b8a9a4bc',
+            '3f5f0c7d46d318e026f9ba60dceffc65',
+            '799e078b084c6d57cea0b0d53a7e3008',
+            '9aefeef9c7e53f9de9bb36f32649dc3f',
+            'a2da6d85764368b24392740020efbc92',
+            'ceb60bfed037baaa484bd7b88d274c98',
+            '632b3213660804acb71fe045c6e321ed',
+
+            '04fc711301f3c784d66955d98d399afb',
+            '768c1c687efe184ae6dd2420710b8799',
+            'f7a5c99c58103f6b65c451efd0f81826',
+            '27701bd8dd141b953b94a5c9a44697c0',
+            '7f7d5f9f3a660f2b09e3aae62a15e29b',
+            '23ff17389acbfd020043268fb49e7048',
+            'cd714cc33cfd23e74f414cbb8b9787fe',
+            '2959f1aea8db0f7fbba61f0f8474d0ef',
+            'a28a19e19b283845c851b4876b97cef4',
+            '661e67f8ce5eaf9d63c1b5be6fce1afb',
+            '0653e359db756493450c3fb1fc6790b2',
+            'ec5fefce8d1d81849b47923d6d1b52c0',
+            'd4ccb0f347163d9ee1cd5a106e1ec48b',
+            'c500ea6c5baf3deb447be25b90cf5f1c',
+            '59a6670111970ede6a77e9b43a5c4787',
+            '266021e24dd0bfaaa96f2b5e21d7c800',
+            'b8c4b7f74db12fadbe2d979ed93f392b',
+            '2482b711a07d1da3efa733aa7014f947',
+            '573b8926f015aa477cb6604901b92aea',
+            'b54d11c86eb7c8955a50d20f6b3be2f2',
+            '3a55b7218a5ca395ac71b3ec9904b6ed',
+            '3615d9213b1b3d5fe760901f43a8405f',
+            'e50137601a90943ce98b03e90d73272e',
+            'd4651afb4e1c749f0bacc7ff5d101982',
+            '988a8fa4855bf7ea54057717655d3fc9'
+          ],
+          phoneArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+            '9301600441',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          passwordArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+            '9201922876',
+            '903528981',
+            '9301600441',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          accessQty = accessArr.length,
+          isCustomer = 0;
+
+
+      if(url.access) {
+
+        while(accessQty > -1) {
+          accessQty -= 1;
+          if(accessArr[accessQty] === url.access) {
+            thisCtrl.user.phone = phoneArr[accessQty];
+            thisCtrl.user.password = passwordArr[accessQty];
+            isCustomer = 1;
+          }
+        }
+
+        if(isCustomer) {
+          if(thisCtrl.user.phone && thisCtrl.user.password) {
+            GlobalStor.global.isLoader = 1;
+            checkingUser();
+          }
+        } else {
+          localDB.importUser(url.access, 1).then(function(result) {
+            var userTemp = angular.copy(result.user);
+            GlobalStor.global.isLoader = 1;
+            importDBProsses(userTemp);
+          });
+        }
+
+      }
+    }
+
+
+
+
+    function closeOfflineAlert() {
+      thisCtrl.isOffline = false;
+    }
+
+
+
+    /** =========== SIGN IN ======== */
+
+    function enterForm(form) {
+      var newUserPassword;
+//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+      //------ Trigger validation flag.
+      thisCtrl.submitted = 1;
+      if (form.$valid) {
+        GlobalStor.global.isLoader = 1;
+        //------ check Internet
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+
+          ////TODO for Steko
+          //======== IMPORT
+          //console.log('IMPORT');
+          //checkingUser();
+///*
+          //------- check available Local DB
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
+
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
+
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
+
+
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
+ //*/
+        //-------- check LocalDB
+        } else if(thisCtrl.isLocalDB) {
+          console.log('OFFLINE');
+          //---- checking user in LocalDB
+          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+            .then(function(data) {
+              //---- user exists
+              if(data.length) {
+                //---------- check user password
+                var newUserPassword = localDB.md5(thisCtrl.user.password);
+                if(newUserPassword === data[0].password) {
+                  //----- checking user activation
+                  if(data[0].locked) {
+                    //------- checking user FactoryId
+                    if(data[0].factory_id > 0) {
+                      angular.extend(UserStor.userInfo, data[0]);
+                      //------- set User Location
+                      loginServ.prepareLocationToUse().then(function() {
+                        loginServ.setUserLocation();
+                        /** download all data */
+                        loginServ.downloadAllData();
+                      });
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      thisCtrl.isOffline = 1;
+                    }
+                  } else {
+                    GlobalStor.global.isLoader = 0;
+                    //---- show attantion
+                    thisCtrl.isUserNotActive = 1;
+                  }
+                } else {
+                  GlobalStor.global.isLoader = 0;
+                  //---- user not exists
+                  thisCtrl.isUserPasswordError = 1;
+                }
+              } else {
+                GlobalStor.global.isLoader = 0;
+                //---- user not exists
+                thisCtrl.isUserNotExist = 1;
+              }
+            });
+
+        } else {
+          GlobalStor.global.isLoader = 0;
+          thisCtrl.isOffline = 1;
+        }
+      }
+    }
+
+
+
+    /**--------- FACTORIES ------------*/
+
+    function selectFactory() {
+      if(thisCtrl.user.factoryId > 0) {
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          GlobalStor.global.isLoader = 1;
+          //-------- send selected Factory Id in Server
+          UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
+//                  console.log(UserStor.userInfo.factory_id);
+          //----- update factoryId in LocalDB & Server
+          localDB.updateLocalServerDBs(
+            localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
+          ).then(function() {
+            //-------- close Factory Dialog
+            thisCtrl.isFactoryId = 0;
+            importDBfromServer();
+          });
+        } else {
+          thisCtrl.isOffline = 1;
+        }
+      } else {
+        //---- show attantion if any factory was chosen
+        thisCtrl.isFactoryNotSelect = 1;
+      }
+
+    }
+
+    function closeFactoryDialog() {
+      thisCtrl.isFactoryNotSelect = 0;
+      thisCtrl.isFactoryId = 0;
+      delete thisCtrl.user.factoryId;
+    }
+
+
+
+
+
+    /**============ Registration ============*/
+
+
+    function switchRegistration() {
+      //------ check Internet
+      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+      if(thisCtrl.isOnline) {
+        //------- check available Local DB
+        loginServ.isLocalDBExist().then(function(data) {
+          thisCtrl.isLocalDB = data;
+//          console.log('REG', data);
+          //------ if locations is not exists refresh Location and Users
+          if(thisCtrl.isLocalDB) {
+            GlobalStor.global.isLoader = 1;
+            loginServ.prepareLocationToUse(1).then(function() {
+              GlobalStor.global.isLoader = 0;
+              thisCtrl.isRegistration = 1;
+            });
+          } else {
+            GlobalStor.global.isLoader = 1;
+            //------- clean all tables in LocalDB
+            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //------- creates all tables in LocalDB
+                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
+                  if(data) {
+                    //------- import Location
+                    localDB.importLocation().then(function(data) {
+                      if(data) {
+                        //------ save Location Data in local obj
+                        loginServ.prepareLocationToUse(1).then(function() {
+                          GlobalStor.global.isLoader = 0;
+                          thisCtrl.isRegistration = 1;
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+          thisCtrl.user = {};
+          //angular.element('#first_input').focus();
+        });
+      } else {
+        thisCtrl.isOffline = 1;
+      }
+    }
+
+
+    function closeRegistration() {
+      thisCtrl.user = {};
+      thisCtrl.isRegistration = 0;
+    }
+
+    function registrForm(form) {
+      // Trigger validation flag.
+      thisCtrl.submitted = true;
+      if (form.$valid) {
+        //------ check Internet
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          GlobalStor.global.isLoader = 1;
+          //--- checking user in server
+          localDB.importUser(thisCtrl.user.phone).then(function(result) {
+            if(result.status) {
+              GlobalStor.global.isLoader = 0;
+              //---- show attantion
+              thisCtrl.isUserExist = 1;
+            } else {
+              var userData = {
+                name: thisCtrl.user.name,
+                phone: thisCtrl.user.phone,
+                email: thisCtrl.user.mail,
+                cityId: thisCtrl.user.city.id,
+                password: localDB.md5(thisCtrl.user.phone)
+              };
+              console.log('CREATE USER!!!!!!!!!!!!', userData);
+              //--- create new user in Server
+              localDB.createUserServer(userData);
+              GlobalStor.global.isLoader = 0;
+              //-------- sent confirmed email
+              thisCtrl.isSendEmail = 1;
+              closeRegistration();
+            }
+          });
+        } else {
+          thisCtrl.isOffline = 1;
+        }
+      }
+    }
+
+    //--------- if was empty option selected in select after choosing
+    function selectLocation() {
+      if(!thisCtrl.user.country) {
+        delete thisCtrl.user.region;
+        delete thisCtrl.user.city;
+      } else if(!thisCtrl.user.region) {
+        delete thisCtrl.user.city;
+      }
+    }
+
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    //------ clicking
+    thisCtrl.switchRegistration = switchRegistration;
+    thisCtrl.closeRegistration = closeRegistration;
+    thisCtrl.enterForm = enterForm;
+    thisCtrl.registrForm = registrForm;
+    thisCtrl.selectLocation = selectLocation;
+    thisCtrl.selectFactory = selectFactory;
+    thisCtrl.closeFactoryDialog = closeFactoryDialog;
+    thisCtrl.closeOfflineAlert = closeOfflineAlert;
+
+
+
+    //------- defined system language
+    loginServ.getDeviceLanguage();
+
+
+    //------- export data
+    if(thisCtrl.isOnline) {
+      loginServ.initExport();
+
+      entriyWithoutLogin();
+    }
+
+
+
+  });
+})();
+
+
+// controllers/main.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('MainCtrl', mainPageCtrl);
+
+    
+  function mainPageCtrl($timeout, DesignServ, DesignStor, loginServ, MainServ, SVGServ, GlobalStor, ProductStor, UserStor, AuxStor, globalConstants) {
+
+   var thisCtrl = this,
+    delaySubMenu1 = 300,
+    delaySubMenu2 = 600,
+    delaySubMenu3 = 900,
+    delaySubMenu4 = 1200;
+
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+    thisCtrl.A = AuxStor;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.D = DesignStor;
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'main';
+
+      thisCtrl.config = {
       //---- design menu
       isDesignError: 0,
 
@@ -483,18 +1962,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //--------- set template from ProductStor
-    DesignServ.setDefaultTemplate();
 
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-//      DesignServ.downloadDoorConfig();
-      DesignServ.setIndexDoorConfig();
-    }
-
-
-
-    //=========== clicking ============//
+//=========== clicking ============//
 
     thisCtrl.designSaved = DesignServ.designSaved;
     thisCtrl.designCancel = DesignServ.designCancel;
@@ -515,22 +1984,83 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.insertCorner = insertCorner;
     thisCtrl.insertImpost = insertImpost;
     thisCtrl.insertArc = insertArc;
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
 
     thisCtrl.stepBack = DesignServ.stepBack;
 
 
+    //=============== FIRST START =========//
+
+    if(GlobalStor.global.startProgramm) {
+//      GlobalStor.global.isLoader = 1;
+//      console.log('START main CTRL!!!!!!');
+//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
+      //playSound('menu');
+
+      /** save first User entrance */
+      MainServ.saveUserEntry();
+      /** create order date */
+      MainServ.createOrderData();
+      /** set Curr Discounts */
+      MainServ.setCurrDiscounts();
+
+      /** set first Template */
+      MainServ.setCurrTemplate();
+      /** set Templates */
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        MainServ.prepareMainPage();
+      /** start lamination filtering */
+        MainServ.laminatFiltering();
+
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+        }
 
 
+        //--------- set template from ProductStor
+        DesignServ.setDefaultTemplate();
+       
 
-    //============ methods ================//
+        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
+      });
+    }
+
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
+    }
+
+
+      
+ 
+    //------- close Report
+    GlobalStor.global.isReport = 0;
+
+    //================ EDIT PRODUCT =================
+    if (GlobalStor.global.productEditNumber) {
+      console.log('EDIT!!!!');
+      console.log('product = ', ProductStor.product);
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
+        ProductStor.product.template = data;
+      });
+    }
+
+
+//========= methods  ================//
 
 
     //--------Select menu item
     function selectMenuItem(id) {
       if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
         DesignServ.closeSizeCaclulator();
       } else {
         DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
         DesignServ.hideCornerMarks();
         DesignServ.deselectAllImpost();
         if (id !== 4) {
@@ -542,6 +2072,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           switch (DesignStor.design.activeMenuItem) {
             case 1:
               showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
               break;
             case 2:
               DesignServ.deselectAllGlass();
@@ -549,15 +2092,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               break;
             case 3:
               showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
               break;
             case 4:
               DesignServ.deselectAllGlass();
               showAllAvailableArc(id);
               break;
             case 5:
-              DesignServ.deselectAllGlass();
-              DesignStor.design.activeSubMenuItem = 0;
-              DesignServ.initMirror();
+              //DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = id;
               break;
           }
         } else {
@@ -573,6 +2128,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+
+    function deactivMenu() {
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      DesignStor.design.isDropSubMenu = 0;
+    }
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
@@ -602,22 +2163,35 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 //      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
       event.preventDefault();
 //      event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      var glassQty = DesignStor.design.selectedGlass.length,
+
+      var isPermit = 1,
+          glassQty = DesignStor.design.selectedGlass.length,
           i = 0;
+
       if(sashType === 1) {
+        deactivMenu();
         //----- delete sash
         for(; i < glassQty; i++) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
-        //----- insert sash
-        for(; i < glassQty; i++) { //TODO download hardare types and create submenu
-          DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+        if(sashType === 2 || sashType === 6 || sashType === 8) {
+          if(DesignStor.design.isDropSubMenu === sashType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = sashType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          //----- insert sash
+          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+          }
         }
       }
-//      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
     }
 
 
@@ -648,10 +2222,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function insertCorner(conerType, event) {
-      event.srcEvent.stopPropagation();
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
       //------ hide menu
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
+      deactivMenu();
       var cornerQty = DesignStor.design.selectedCorner.length,
           i = 0;
       switch(conerType) {
@@ -706,9 +2280,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function insertArc(arcType, event) {
-      event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      deactivMenu();
       //---- get quantity of arcs
       var arcQty = DesignStor.design.selectedArc.length;
 
@@ -743,13 +2317,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function insertImpost(impostType, event) {
-      event.srcEvent.stopPropagation();
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      var impostsQty = DesignStor.design.selectedImpost.length,
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      var isPermit = 1,
+          impostsQty = DesignStor.design.selectedImpost.length,
           i = 0;
 
       if(impostType === 1) {
+        deactivMenu();
         //----- delete imposts
         if (impostsQty) {
           for (; i < impostsQty; i++) {
@@ -760,20 +2335,59 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           }, 300);
         }
       } else {
-        if(!impostsQty) {
-          var glassQty = DesignStor.design.selectedGlass.length;
-          if(glassQty) {
-            //------- insert imposts
-            for(; i < glassQty; i++) {
-              DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
-            }
+        //----- show drop submenu
+        if(impostType === 4 || impostType === 8 || impostType === 12) {
+          if(DesignStor.design.isDropSubMenu === impostType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = impostType;
+            isPermit = 0;
           }
-        } else {
-          DesignServ.deselectAllImpost();
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          if (!impostsQty) {
+            var glassQty = DesignStor.design.selectedGlass.length;
+            if (glassQty) {
+              //------- insert imposts
+              for (; i < glassQty; i++) {
+                DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
+              }
+            }
+          } else {
+            DesignServ.deselectAllImpost();
+          }
         }
       }
     }
 
+
+    /**++++++++++ create Mirror ++++++++*/
+
+    function initMirror(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.initMirror();
+    }
+
+
+    /**++++++++++ position by Axises ++++++++*/
+
+    function positionAxis(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionAxises();
+    }
+
+
+    /**++++++++++ position by Glasses ++++++++*/
+
+    function positionGlass(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionGlasses();
+    }
 
 
 
@@ -871,807 +2485,39 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-  }
+    }
 })();
 
 
-
-// controllers/history.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('HistoryModule')
-    .controller('HistoryCtrl', historyCtrl);
-
-  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
-
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.H = HistoryStor;
-    thisCtrl.U = UserStor;
-
-
-    //------- set current Page
-    GlobalStor.global.currOpenPage = 'history';
-
-    //----- variables for drafts sorting
-    thisCtrl.createdDate = 'created';
-
-    HistoryServ.downloadOrders();
-
-
-    //------ clicking
-    thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
-    thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
-    thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
-    thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
-    thisCtrl.editOrder = HistoryServ.editOrder;
-    thisCtrl.viewSwitching = HistoryServ.viewSwitching;
-
-    thisCtrl.orderSearching = HistoryServ.orderSearching;
-    thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
-    thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
-    thisCtrl.orderSorting = HistoryServ.orderSorting;
-    thisCtrl.sortingInit = HistoryServ.sortingInit;
-
-
-  }
-})();
-
-
-// controllers/location.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('SettingsModule')
-    .controller('LocationCtrl', locationCtrl);
-
-  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
-
-    var thisCtrl = this;
-
-    //----- current user location
-    thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
-
-
-    //------ get all regions and cities
-    //TODO база городов и регионов долны быть только одной страны завода
-    SettingServ.downloadLocations().then(function(data) {
-      thisCtrl.locations = data;
-    });
-
-
-    //------ clicking
-    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
-    thisCtrl.selectCity = selectCity;
-
-
-    //============ methods ================//
-
-    //-------- Select City
-    function selectCity(location) {
-      thisCtrl.userNewLocation = location.fullLocation;
-
-      //----- if user settings changing
-      if(GlobalStor.global.currOpenPage === 'settings') {
-        UserStor.userInfo.city_id = location.cityId;
-        UserStor.userInfo.cityName = location.cityName;
-        UserStor.userInfo.countryId = location.countryId;
-        UserStor.userInfo.countryName = location.countryName;
-        UserStor.userInfo.fullLocation = location.fullLocation;
-        UserStor.userInfo.climaticZone = location.climaticZone;
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
-        //----- save new City Id in LocalDB & Server
-        //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
-
-        //-------- if current geolocation changing
-      } else if(GlobalStor.global.currOpenPage === 'main'){
-        //----- build new currentGeoLocation
-        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
-      }
-      GlobalStor.global.startProgramm = false;
-      SettingServ.closeLocationPage();
-    }
-
-
-  }
-})();
-
-
-// controllers/login.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('LoginModule')
-    .controller('LoginCtrl', loginPageCtrl);
-
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
-
-    var thisCtrl = this;
-    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-    thisCtrl.isOnline = 1;
-    thisCtrl.isOffline = 0;
-    thisCtrl.isLocalDB = 0;
-    thisCtrl.isRegistration = 0;
-    thisCtrl.generalLocations = {};
-    thisCtrl.submitted = 0;
-    thisCtrl.isUserExist = 0;
-    thisCtrl.isUserNotExist = 0;
-    thisCtrl.isUserPasswordError = 0;
-    thisCtrl.isSendEmail = 0;
-    thisCtrl.isUserNotActive = 0;
-    thisCtrl.isFactoryId = 0;
-    thisCtrl.isFactoryNotSelect = 0;
-    thisCtrl.isStartImport = 0;
-    thisCtrl.user = {};
-    thisCtrl.factories = 0;
-    thisCtrl.regPhone = globalConstants.REG_PHONE;
-    thisCtrl.regName = globalConstants.REG_NAME;
-    thisCtrl.regMail = globalConstants.REG_MAIL;
-
-    //------ clicking
-    thisCtrl.switchRegistration = switchRegistration;
-    thisCtrl.closeRegistration = closeRegistration;
-    thisCtrl.enterForm = enterForm;
-    thisCtrl.registrForm = registrForm;
-    thisCtrl.selectLocation = selectLocation;
-    thisCtrl.selectFactory = selectFactory;
-    thisCtrl.closeFactoryDialog = closeFactoryDialog;
-    thisCtrl.closeOfflineAlert = closeOfflineAlert;
-
-
-
-    //------- defined system language
-    loginServ.getDeviceLanguage();
-
-
-    //------- export data
-    if(thisCtrl.isOnline) {
-      loginServ.initExport();
-
-      entriyWithoutLogin();
-    }
-
-
-    //============ methods ================//
-
-
-    function entriyWithoutLogin() {
-      var url = $location.search(),
-          accessArr = [
-            '7d537b6746f925b1703aefa9b8a9a4bc',
-            '3f5f0c7d46d318e026f9ba60dceffc65',
-            '799e078b084c6d57cea0b0d53a7e3008',
-            '9aefeef9c7e53f9de9bb36f32649dc3f',
-
-            '04fc711301f3c784d66955d98d399afb',
-            '768c1c687efe184ae6dd2420710b8799',
-            'f7a5c99c58103f6b65c451efd0f81826',
-            '27701bd8dd141b953b94a5c9a44697c0',
-            '7f7d5f9f3a660f2b09e3aae62a15e29b',
-            '23ff17389acbfd020043268fb49e7048',
-            'cd714cc33cfd23e74f414cbb8b9787fe',
-            '2959f1aea8db0f7fbba61f0f8474d0ef',
-            'a28a19e19b283845c851b4876b97cef4',
-            '661e67f8ce5eaf9d63c1b5be6fce1afb',
-            '0653e359db756493450c3fb1fc6790b2',
-            'ec5fefce8d1d81849b47923d6d1b52c0',
-            'd4ccb0f347163d9ee1cd5a106e1ec48b',
-            'c500ea6c5baf3deb447be25b90cf5f1c',
-            '59a6670111970ede6a77e9b43a5c4787',
-            '266021e24dd0bfaaa96f2b5e21d7c800',
-            'b8c4b7f74db12fadbe2d979ed93f392b',
-            '2482b711a07d1da3efa733aa7014f947',
-            '573b8926f015aa477cb6604901b92aea',
-            'b54d11c86eb7c8955a50d20f6b3be2f2',
-            '3a55b7218a5ca395ac71b3ec9904b6ed',
-            '3615d9213b1b3d5fe760901f43a8405f',
-            'e50137601a90943ce98b03e90d73272e',
-            'd4651afb4e1c749f0bacc7ff5d101982',
-            '988a8fa4855bf7ea54057717655d3fc9'
-          ],
-          phoneArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028'
-          ],
-          passwordArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028'
-          ],
-          accessQty = accessArr.length,
-          isCustomer = 0;
-
-
-      if(url.access) {
-
-        while(--accessQty > -1) {
-          if(accessArr[accessQty] === url.access) {
-            thisCtrl.user.phone = phoneArr[accessQty];
-            thisCtrl.user.password = passwordArr[accessQty];
-            isCustomer = 1;
-          }
-        }
-
-        if(isCustomer) {
-          if(thisCtrl.user.phone && thisCtrl.user.password) {
-            GlobalStor.global.isLoader = 1;
-            checkingUser();
-          }
-        } else {
-          localDB.importUser(url.access, 1).then(function(result) {
-            GlobalStor.global.isLoader = 1;
-            importDBProsses(result.user);
-          });
-        }
-
-      }
-    }
-
-
-
-
-    function closeOfflineAlert() {
-      thisCtrl.isOffline = false;
-    }
-
-
-
-    /** =========== SIGN IN ======== */
-
-    function enterForm(form) {
-//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.
-      thisCtrl.submitted = 1;
-      if (form.$valid) {
-        GlobalStor.global.isLoader = 1;
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          //------- check available Local DB
-          loginServ.isLocalDBExist().then(function(data){
-            thisCtrl.isLocalDB = data;
-            if(thisCtrl.isLocalDB) {
-
-              //======== SYNC
-              console.log('SYNC');
-              //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-                //---- user exists
-                if(data.length) {
-                  //---------- check user password
-                  var newUserPassword = localDB.md5(thisCtrl.user.password);
-                  if(newUserPassword === data[0].password) {
-                    //----- checking user activation
-                    if(data[0].locked) {
-                      angular.extend(UserStor.userInfo, data[0]);
-                      //------- set User Location
-                      loginServ.prepareLocationToUse().then(function(data) {
-                        thisCtrl.generalLocations = data;
-                        checkingFactory();
-                      });
-
-                    } else {
-                      GlobalStor.global.isLoader = 0;
-                      //---- show attantion
-                      thisCtrl.isUserNotActive = 1;
-                    }
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    //---- user not exists
-                    thisCtrl.isUserPasswordError = 1;
-                  }
-                } else {
-                  //======== IMPORT
-                  console.log('Sync IMPORT');
-                  checkingUser();
-                }
-
-              });
-
-
-            } else {
-              //======== IMPORT
-              console.log('IMPORT');
-              checkingUser();
-            }
-          });
-        //-------- check LocalDB
-        } else if(thisCtrl.isLocalDB) {
-          console.log('OFFLINE');
-          //---- checking user in LocalDB
-          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-            //---- user exists
-            if(data.length) {
-              //---------- check user password
-              var newUserPassword = localDB.md5(thisCtrl.user.password);
-              if(newUserPassword === data[0].password) {
-                //----- checking user activation
-                if(data[0].locked) {
-                  //------- checking user FactoryId
-                  if(data[0].factory_id > 0) {
-                    angular.extend(UserStor.userInfo, data[0]);
-                    //------- set User Location
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-                      /** download all data */
-                      loginServ.downloadAllData();
-                    });
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    thisCtrl.isOffline = 1;
-                  }
-                } else {
-                  GlobalStor.global.isLoader = 0;
-                  //---- show attantion
-                  thisCtrl.isUserNotActive = 1;
-                }
-              } else {
-                GlobalStor.global.isLoader = 0;
-                //---- user not exists
-                thisCtrl.isUserPasswordError = 1;
-              }
-            } else {
-              GlobalStor.global.isLoader = 0;
-              //---- user not exists
-              thisCtrl.isUserNotExist = 1;
-            }
-
-          });
-
-        } else {
-          GlobalStor.global.isLoader = 0;
-          thisCtrl.isOffline = 1;
-        }
-      }
-    }
-
-
-    function checkingUser() {
-      localDB.importUser(thisCtrl.user.phone).then(function(result) {
-//        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-        if(result.status) {
-          //---------- check user password
-          var newUserPassword = localDB.md5(thisCtrl.user.password);
-          if(newUserPassword === result.user.password) {
-
-            importDBProsses(result.user);
-
-          } else {
-            GlobalStor.global.isLoader = 0;
-            //---- user not exists
-            thisCtrl.isUserPasswordError = 1;
-          }
-        } else {
-          GlobalStor.global.isLoader = 0;
-          //---- user not exists
-          thisCtrl.isUserNotExist = 1;
-        }
-
-      });
-    }
-
-
-
-    function importDBProsses(user) {
-
-      //----- checking user activation
-      if(user.locked) {
-        //------- clean all tables in LocalDB
-        //              console.log('CLEEN START!!!!');
-        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-          if(data) {
-            //                  console.log('CLEEN DONE!!!!');
-            //------- creates all tables in LocalDB
-            //                  console.log('CREATE START!!!!');
-            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //                      console.log('CREATE DONE!!!!');
-                //------- save user in LocalDB
-                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
-                //------- save user in Stor
-                angular.extend(UserStor.userInfo, user);
-
-                //------- import Location
-                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-                  if(data) {
-                    //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function (data) {
-                      thisCtrl.generalLocations = data;
-                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
-                      checkingFactory();
-                    });
-                  }
-                });
-              }
-            });
-          }
-        });
-      } else {
-        GlobalStor.global.isLoader = 0;
-        //---- show attantion
-        thisCtrl.isUserNotActive = 1;
-      }
-
-    }
-
-
-
-    function checkingFactory() {
-      //------- set User Location
-      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-      if(+UserStor.userInfo.factory_id > 0) {
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-          if (thisCtrl.isLocalDB) {
-            //------- current FactoryId matches to user FactoryId, go to main page without importDB
-            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-            /** download all data */
-            loginServ.downloadAllData();
-            //});
-          } else {
-            //------ LocalDB is empty
-            importDBfromServer(UserStor.userInfo.factory_id);
-          }
-        });
-      } else {
-        //---- show Factory List
-        //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
-          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
-//            console.log('Factories++++++', result);
-            GlobalStor.global.isLoader = 0;
-            if(result.status) {
-              thisCtrl.factories = setFactoryLocation(result.factories, thisCtrl.generalLocations.mergerLocation);
-              //-------- close Factory Dialog
-              thisCtrl.isFactoryId = 1;
-            } else {
-              console.log('can not get factories!');
-            }
-          });
-        });
-      }
-    }
-
-
-
-    function importDBfromServer() {
-      thisCtrl.isStartImport = 1;
-//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-        if(data) {
-          /** download all data */
-          loginServ.downloadAllData();
-          thisCtrl.isStartImport = 0;
-        } else {
-          console.log('Error!');
-        }
-      });
-    }
-
-
-
-    function setFactoryLocation(factories, location) {
-      var factoryQty = factories.length,
-          locationQty = location.length;
-      while(--factoryQty > -1) {
-        for(var l = 0; l < locationQty; l++) {
-          if(factories[factoryQty].city_id === location[l].cityId) {
-            factories[factoryQty].location = location[l].fullLocation;
-          }
-        }
-      }
-      return factories;
-    }
-
-
-
-    function selectFactory() {
-      if(thisCtrl.user.factoryId > 0) {
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //-------- send selected Factory Id in Server
-          UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-//                  console.log(UserStor.userInfo.factory_id);
-          //----- update factoryId in LocalDB & Server
-          localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
-            //-------- close Factory Dialog
-            thisCtrl.isFactoryId = 0;
-            importDBfromServer();
-          });
-        } else {
-          thisCtrl.isOffline = 1;
-        }
-      } else {
-        //---- show attantion if any factory was chosen
-        thisCtrl.isFactoryNotSelect = 1;
-      }
-
-    }
-
-    function closeFactoryDialog() {
-      thisCtrl.isFactoryNotSelect = 0;
-      thisCtrl.isFactoryId = 0;
-      delete thisCtrl.user.factoryId;
-    }
-
-
-
-
-
-    //-------- user registration
-
-    function switchRegistration() {
-      //------ check Internet
-      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-      if(thisCtrl.isOnline) {
-        //------- check available Local DB
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-//          console.log('REG', data);
-          //------ if generalLocations is not exists refresh Location and Users
-          if(thisCtrl.isLocalDB) {
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-//              console.log('DOWNLOAD LOCATION 1', data);
-              thisCtrl.isRegistration = 1;
-            });
-          } else {
-            GlobalStor.global.isLoader = 1;
-            //------- clean all tables in LocalDB
-            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //------- creates all tables in LocalDB
-                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
-                  if(data) {
-                    //------- import Location
-                    localDB.importLocation().then(function(data) {
-                      if(data) {
-                        //------ save Location Data in local obj
-                        loginServ.prepareLocationToUse().then(function(data) {
-                          thisCtrl.generalLocations = data;
-//                          console.log('DOWNLOAD LOCATION 2', data);
-                          GlobalStor.global.isLoader = 0;
-                          thisCtrl.isRegistration = 1;
-                        });
-                      }
-                    });
-                  }
-                });
-              }
-            });
-          }
-          thisCtrl.user = {};
-          //angular.element('#first_input').focus();
-        });
-      } else {
-        thisCtrl.isOffline = 1;
-      }
-    }
-
-
-    function closeRegistration() {
-      thisCtrl.user = {};
-      thisCtrl.isRegistration = 0;
-    }
-
-    function registrForm(form) {
-      // Trigger validation flag.
-      thisCtrl.submitted = true;
-      if (form.$valid) {
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //--- checking user in server
-          localDB.importUser(thisCtrl.user.phone).then(function(result) {
-            if(result.status) {
-              GlobalStor.global.isLoader = 0;
-              //---- show attantion
-              thisCtrl.isUserExist = 1;
-            } else {
-              var userData = {
-                name: thisCtrl.user.name,
-                phone: thisCtrl.user.phone,
-                email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.id,
-                password: localDB.md5(thisCtrl.user.phone)
-              };
-              console.log('CREATE USER!!!!!!!!!!!!', userData);
-              //--- create new user in Server
-              localDB.createUserServer(userData);
-              GlobalStor.global.isLoader = 0;
-              //-------- sent confirmed email
-              thisCtrl.isSendEmail = 1;
-              closeRegistration();
-            }
-          });
-        } else {
-          thisCtrl.isOffline = 1;
-        }
-      }
-    }
-
-    //--------- if was empty option selected in select after choosing
-    function selectLocation() {
-      if(!thisCtrl.user.country) {
-        delete thisCtrl.user.region;
-        delete thisCtrl.user.city;
-      } else if(!thisCtrl.user.region) {
-        delete thisCtrl.user.city;
-      }
-    }
-
-
-  }
-})();
-
-
-// controllers/main.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('MainCtrl', mainPageCtrl);
-
-  function mainPageCtrl(MainServ, SVGServ, GlobalStor, ProductStor, UserStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.U = UserStor;
-
-    //------- set current Page
-    GlobalStor.global.currOpenPage = 'main';
-    //------- close Report
-    GlobalStor.global.isReport = 0;
-
-    //=============== FIRST START =========//
-
-    if(GlobalStor.global.startProgramm) {
-//      GlobalStor.global.isLoader = 1;
-//      console.log('START main CTRL!!!!!!');
-      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
-      //playSound('menu');
-
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
-      });
-    }
-
-
-    //================ EDIT PRODUCT =================
-    if (GlobalStor.global.productEditNumber) {
-      console.log('EDIT!!!!');
-      console.log('product = ', ProductStor.product);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
-        ProductStor.product.template = data;
-      });
-    }
-
-
-  }
-})();
 
 
 //event.srcEvent.stopPropagation();
 //event.preventDefault();
 //$event.stopImmediatePropagation();
 
-/*
-
- hm-pinch="pinch($event)" hm-rotate="rotate($event)"
-
- $scope.rotate = function(event) {
- $scope.rotation = event.gesture.rotation % 360;
- event.gesture.preventDefault();
- }
- $scope.pinch = function(event) {
- $scope.scaleFactor = event.gesture.scale;
- event.gesture.preventDefault();
- }
-
- */
-
 
 // controllers/menus/addelems_menu.js
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('addElementMenuCtrl', addElementMenuCtrl);
+    .controller('addElementMenuCtrl',
 
-  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, MainServ, AddElementMenuServ, AddElementsServ) {
+  function(
+    $timeout,
+    $filter,
+    globalConstants,
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor,
+    MainServ,
+    AddElementMenuServ,
+    AddElementsServ,
+    DesignServ
+  ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -1687,58 +2533,41 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-
-
-    //------ clicking
-    thisCtrl.selectAddElement = selectAddElement;
-    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
-    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
-    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
-    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
-    thisCtrl.showFrameTabs = showFrameTabs;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
-
-    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
-    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    //------- translate
+    thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
+    thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.ADD = $filter('translate')('add_elements.ADD');
+    thisCtrl.TAB_NAME_SIMPLE_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_SIMPLE_FRAME');
+    thisCtrl.TAB_NAME_HARD_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_HARD_FRAME');
+    thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
 
 
 
 
+    /**============ METHODS ================*/
 
+    /**------- Show Tabs -------*/
 
-    //============ methods ================//
-
-    //------- Show Tabs
     function showFrameTabs() {
       //playSound('swip');
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
 
+    /**----------- Select Add Element when open List View ------------*/
 
-    /** common function to select addElem in 2 cases*/
-    function selectAddElement(typeId, elementId, clickEvent) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        /** if isAddElementListView = 1 is list view otherwise is common view */
-        if (AuxStor.aux.isAddElementListView) {
-          selectAddElementList(typeId, elementId, clickEvent);
-        } else {
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
-        }
-      }
-    }
-
-
-    // Select Add Element when open List View
     function selectAddElementList(typeId, elementId, clickEvent) {
+      var coord;
       if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
         AuxStor.aux.isAddElement = false;
       } else if(AuxStor.aux.isAddElement === false) {
-        var coord = $(clickEvent.target).offset();
+        coord = $(clickEvent.target).offset();
         //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
         thisCtrl.coordinats = {'top': coord.top-17};
         $timeout(function() {
@@ -1748,7 +2577,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else {
         AuxStor.aux.isAddElement = false;
         $timeout(function() {
-          var coord = $(clickEvent.target).offset();
+          coord = $(clickEvent.target).offset();
           //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
           thisCtrl.coordinats = {'top': coord.top-17};
         }, 500);
@@ -1758,7 +2587,62 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-  }
+
+    /**---------- common function to select addElem in 2 cases --------*/
+
+    function selectAddElement(typeId, elementId, clickEvent) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if ListView is opened */
+      if (AuxStor.aux.isAddElementListView) {
+        selectAddElementList(typeId, elementId, clickEvent);
+      } else {
+        /** if grid,  show grid selector dialog */
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          if(ProductStor.product.is_addelem_only) {
+            /** without window */
+            AddElementMenuServ.chooseAddElement(typeId, elementId);
+          } else {
+            /** show Grid Selector Dialog */
+            AuxStor.aux.selectedGrid = [typeId, elementId];
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
+          }
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        }
+      }
+    }
+
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+      //------ clicking
+    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
+    thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
+    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
+    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
+    thisCtrl.showFrameTabs = showFrameTabs;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+    //------- culculator
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    //------- grid
+    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
+    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
+    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
+
+
+  });
 })();
 
 
@@ -1767,15 +2651,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartMenuCtrl', cartMenuCtrl);
+    .controller('CartMenuCtrl',
 
-  function cartMenuCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
@@ -1792,22 +2682,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.DELIVERY = $filter('translate')('cart.DELIVERY');
+    thisCtrl.SELF_EXPORT = $filter('translate')('cart.SELF_EXPORT');
+    thisCtrl.FLOOR = $filter('translate')('cart.FLOOR');
+    thisCtrl.ASSEMBLING = $filter('translate')('cart.ASSEMBLING');
+    thisCtrl.WITHOUT_ASSEMBLING = $filter('translate')('cart.WITHOUT_ASSEMBLING');
+    thisCtrl.FREE = $filter('translate')('cart.FREE');
+    thisCtrl.PAYMENT_BY_INSTALMENTS = $filter('translate')('cart.PAYMENT_BY_INSTALMENTS');
+    thisCtrl.WITHOUT_INSTALMENTS = $filter('translate')('cart.WITHOUT_INSTALMENTS');
+    thisCtrl.DELIVERY_DATE = $filter('translate')('cart.DELIVERY_DATE');
+    thisCtrl.FIRST_PAYMENT_LABEL = $filter('translate')('cart.FIRST_PAYMENT_LABEL');
+    thisCtrl.DATE_DELIVERY_LABEL = $filter('translate')('cart.DATE_DELIVERY_LABEL');
+    thisCtrl.MONTHLY_PAYMENT_LABEL = $filter('translate')('cart.MONTHLY_PAYMENT_LABEL');
+    thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
+    thisCtrl.ORDER = $filter('translate')('cart.ORDER');
+    thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.closeInstalment = closeInstalment;
-    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
-    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
-    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
-    thisCtrl.openMasterDialog = openMasterDialog;
-    thisCtrl.openOrderDialog = openOrderDialog;
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
 
 
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- Select menu item
     function selectMenuItem(id) {
@@ -1837,7 +2732,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.closeInstalment = closeInstalment;
+    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
+    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
+    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
+    thisCtrl.openMasterDialog = openMasterDialog;
+    thisCtrl.openOrderDialog = openOrderDialog;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+
+  });
 })();
 
 
@@ -1845,17 +2753,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-
-  /**
-   * @ngInject
-   */
-
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ConfigMenuCtrl', configMenuCtrl);
+    .controller('ConfigMenuCtrl',
 
-  function configMenuCtrl($filter, globalConstants, GeneralServ, MainServ, AddElementMenuServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    MainServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -1880,22 +2797,36 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    GlobalStor.global.isOpenedCartPage = 0;
-    GlobalStor.global.isOpenedHistoryPage = 0;
+    //------- translate
+    thisCtrl.CONFIGMENU_CONFIGURATION = $filter('translate')('mainpage.CONFIGMENU_CONFIGURATION');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.CONFIGMENU_NO_ADDELEMENTS = $filter('translate')('mainpage.CONFIGMENU_NO_ADDELEMENTS');
+    thisCtrl.CONFIGMENU_IN_CART = $filter('translate')('mainpage.CONFIGMENU_IN_CART');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
 
-    //------ clicking
-    thisCtrl.selectConfigPanel = selectConfigPanel;
-    thisCtrl.inputProductInOrder = saveProduct;
-    thisCtrl.showNextTip = showNextTip;
 
 
-    //============ methods ================//
+
+
+    /**============ METHODS ================*/
 
 
     //------- Select menu item
 
     function selectConfigPanel(id) {
-      GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
       //---- hide rooms if opened
       GlobalStor.global.showRoomSelectorDialog = 0;
       //---- hide tips
@@ -1906,30 +2837,51 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
-      AddElementMenuServ.desactiveAddElementParameters();
-    }
+      //------ close Glass Selector Dialogs
+      if(GlobalStor.global.showGlassSelectorDialog) {
+        DesignServ.closeGlassSelectorDialog(1);
+      }
 
-    function saveProduct() {
-      MainServ.inputProductInOrder().then(function() {
-        //--------- moving to Cart when click on Cart button
-        MainServ.goToCart();
-      });
-    }
-
-    function showNextTip() {
-      var tipQty = thisCtrl.config.TOOLTIP.length;
-      ++GlobalStor.global.configMenuTips;
-      if(GlobalStor.global.configMenuTips === tipQty) {
-        GlobalStor.global.configMenuTips = 0;
-        //------ open templates
-        GlobalStor.global.activePanel = 1;
-        //------ close rooms
-        GlobalStor.global.showRoomSelectorDialog = 0;
+      if(id === 1) {
+        GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
+        $location.path('/design');
+      } else {
+        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       }
     }
 
 
-  }
+    function saveProduct() {
+      if(MainServ.inputProductInOrder()){
+        //--------- moving to Cart when click on Cart button
+        MainServ.goToCart();
+      }
+    }
+
+
+    function showNextTip() {
+      var tipQty = thisCtrl.config.TOOLTIP.length;
+      GlobalStor.global.configMenuTips +=1;
+      if(GlobalStor.global.configMenuTips === tipQty) {
+        GlobalStor.global.configMenuTips = 0;
+        //------ open templates
+        //GlobalStor.global.activePanel = 1;
+        //------ close rooms
+        //GlobalStor.global.showRoomSelectorDialog = 0;
+      }
+    }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectConfigPanel = selectConfigPanel;
+    thisCtrl.inputProductInOrder = saveProduct;
+    thisCtrl.showNextTip = showNextTip;
+
+  });
 })();
 
 
@@ -1937,49 +2889,54 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-
-  /**
-   * @ngInject
-   */
-
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('NavMenuCtrl', navigationMenuCtrl);
+    .controller('NavMenuCtrl',
 
-  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
-
+  function(
+    $location,
+    $window,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    NavMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
 
-
-    thisCtrl.config = {
-      DELAY_SHOW_STEP: 0.2,
-      DELAY_SHOW_NAV_LIST: 5 * globalConstants.STEP,
-      DELAY_SHOW_NAVICON: 10 * globalConstants.STEP,
-      DELAY_TYPE_NAVTITLE: 10 * globalConstants.STEP,
-      DELAY_TYPE_DIVIDER: 10 * globalConstants.STEP,
-      DELAY_SHOW_ORDERS: 35 * globalConstants.STEP,
-      DELAY_SHOW_NEWCALC_BTN: 35 * globalConstants.STEP,
-      typing: 'on'
-    };
-
     thisCtrl.activeMenuItem = 0;
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.clickNewProject = NavMenuServ.clickNewProject;
+    //------- translate
+    thisCtrl.NAVMENU_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_GEOLOCATION');
+    thisCtrl.NAVMENU_CURRENT_GEOLOCATION = $filter('translate')('mainpage.NAVMENU_CURRENT_GEOLOCATION');
+    thisCtrl.NAVMENU_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_CALCULATIONS');
+    thisCtrl.NAVMENU_CURRENT_CALCULATION = $filter('translate')('mainpage.NAVMENU_CURRENT_CALCULATION');
+    thisCtrl.NAVMENU_CART = $filter('translate')('mainpage.NAVMENU_CART');
+    thisCtrl.NAVMENU_ADD_ELEMENTS = $filter('translate')('mainpage.NAVMENU_ADD_ELEMENTS');
+    thisCtrl.NAVMENU_ALL_CALCULATIONS = $filter('translate')('mainpage.NAVMENU_ALL_CALCULATIONS');
+    thisCtrl.NAVMENU_APPENDIX = $filter('translate')('mainpage.NAVMENU_APPENDIX');
+    thisCtrl.NAVMENU_SETTINGS = $filter('translate')('mainpage.NAVMENU_SETTINGS');
+    thisCtrl.NAVMENU_MORE_INFO = $filter('translate')('mainpage.NAVMENU_MORE_INFO');
+    thisCtrl.NAVMENU_VOICE_HELPER = $filter('translate')('mainpage.NAVMENU_VOICE_HELPER');
+    thisCtrl.NAVMENU_NEW_CALC = $filter('translate')('mainpage.NAVMENU_NEW_CALC');
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //------- Select menu item
     function selectMenuItem(id) {
       thisCtrl.activeMenuItem = (thisCtrl.activeMenuItem === id) ? 0 : id;
-
       //-------- go to...
-      switch(thisCtrl.activeMenuItem) {
+      switch(id) {
         case 1:
           GeneralServ.stopStartProg();
           $location.path('/location');
@@ -2010,12 +2967,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           $location.path('/settings');
           break;
         case 8:
-          $window.open('http://windowscalculator.net:3002/login');
-
-          //TODO ipad var ref = window.open('http://axorindustry.com', '_system');
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          //TODO ipad ref.close();
+          if(UserStor.userInfo.factoryLink) {
+            if (UserStor.userInfo.factoryLink.length) {
+              GeneralServ.goToLink(UserStor.userInfo.factoryLink);
+            }
+          }
           break;
         case 9:
           NavMenuServ.switchVoiceHelper();
@@ -2024,7 +2982,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+    function clickNewProject() {
+      thisCtrl.activeMenuItem = 0;
+      NavMenuServ.clickNewProject();
+    }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.clickNewProject = clickNewProject;
+
+
+  });
 })();
 
 
@@ -2032,19 +3005,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('AddElemCartCtrl', addElementsCartCtrl);
+    .controller('AddElemCartCtrl',
 
-  function addElementsCartCtrl(globalConstants, localDB, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    CartServ,
+    CartMenuServ,
+    OrderStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
-      addElemsTypes: localDB.addElementDBId,
+      addElementDATA: GeneralServ.addElementDATA,
       selectedAddElemUnit: {id: 0},
       isAddElemUnitDetail: 0,
       addElemUnitProducts: [],
@@ -2054,25 +3033,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       isSwipeProdSelector: 0
     };
 
-    //=========== clicking =============//
-    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
-    thisCtrl.deleteAllAddElems = deleteAllAddElems;
-    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
-
-    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
-    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
-    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
-    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
-    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
-
-    //------ adding elements to product
-    thisCtrl.swipeProductSelector = swipeProductSelector;
-    thisCtrl.selectProductToAddElem = selectProductToAddElem;
 
 
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
 
     function closeAllAddElemsPanel() {
@@ -2089,9 +3055,42 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
+
+    function deleteAddElemsInOrder(element) {
+      var products = OrderStor.order.products,
+          productsQty = products.length,
+          addElemProdQty, addElemQty, addElem;
+      while(--productsQty > -1) {
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = addElem[addElemProdQty].length;
+          if(addElemQty) {
+            //--------- delete one Add Element
+            if(element) {
+              while(--addElemQty > -1) {
+                if(addElem[addElemProdQty][addElemQty].id === element.id) {
+                  if(addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      addElem[addElemProdQty].splice(addElemQty, 1);
+                    }
+                  }
+                }
+              }
+            } else {
+              //--------- delete All Add Element
+              addElem[addElemProdQty].length = 0;
+            }
+          }
+        }
+      }
+    }
+
+
+
     function deleteAddElemsItem(addElem) {
       deleteAddElemsInOrder(addElem);
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ if last AddElem was delete
       if(!CartStor.cart.isExistAddElems) {
         //------ go back in cart
@@ -2114,79 +3113,40 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       CartServ.calculateAddElemsProductsPrice();
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       //------ go back in cart
       closeAllAddElemsPanel();
     }
 
 
 
-    function deleteAddElemsInOrder(element) {
-      var productsQty = OrderStor.order.products.length,
-          addElemProdQty, addElemQty;
-      while(--productsQty > -1) {
-        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
-          if(addElemQty) {
-            //--------- delete one Add Element
-            if(element) {
-              while(--addElemQty > -1) {
-                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
-                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
-                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
-                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                    }
-                  }
-                }
-              }
-            } else {
-              //--------- delete All Add Element
-              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
-            }
-          }
-        }
-      }
-    }
-
-
-
-
-
-
-
-
-
-    function showAddElemUnitDetail(elemUnit) {
-      thisCtrl.config.selectedAddElemUnit = elemUnit;
-      collectAddElemUnitProducts();
-      thisCtrl.config.isAddElemUnitDetail = 1;
-    }
 
 
     function collectAddElemUnitProducts() {
       var allAddElemsQty = CartStor.cart.allAddElements.length,
-          addElemProdQty, addElemProd;
+          addElemProdQty, addElemProd, i, j, wagon, cloneQty, addElem;
 
       //------ clean addElemUnit array
       thisCtrl.config.addElemUnitProducts.length = 0;
-      console.log('      ', CartStor.cart.allAddElements);
-      for(var i = 0; i < allAddElemsQty; i++) {
-        addElemProdQty = CartStor.cart.allAddElements[i].length;
-        for(var j = 0; j < addElemProdQty; j++) {
-          if(thisCtrl.config.selectedAddElemUnit.id === CartStor.cart.allAddElements[i][j].id) {
-            if(thisCtrl.config.selectedAddElemUnit.element_width === CartStor.cart.allAddElements[i][j].element_width) {
-              if(thisCtrl.config.selectedAddElemUnit.element_height === CartStor.cart.allAddElements[i][j].element_height) {
+      //console.log('      ', CartStor.cart.allAddElements);
+      for(i = 0; i < allAddElemsQty; i+=1) {
+        addElem = CartStor.cart.allAddElements[i];
+        addElemProdQty = addElem.length;
+        for(j = 0; j < addElemProdQty; j+=1) {
+          if(addElem[j].id === thisCtrl.config.selectedAddElemUnit.id) {
+            if(addElem[j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+              if(addElem[j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
 
                 //-------- if product is addElems only
                 if(OrderStor.order.products[i].is_addelem_only) {
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_width: CartStor.cart.allAddElements[i][j].element_width,
-                    element_height: CartStor.cart.allAddElements[i][j].element_height,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
-                    elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
+                    name: addElem[j].name,
+                    element_width: addElem[j].element_width,
+                    element_height: addElem[j].element_height,
+                    element_qty: addElem[j].element_qty,
+                    elementPriceDis: addElem[j].elementPriceDis
                   };
                   thisCtrl.config.addElemUnitProducts.push(addElemProd);
 
@@ -2195,15 +3155,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
+                    element_qty: addElem[j].element_qty / OrderStor.order.products[i].product_qty
                   };
 //                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
 //                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
 //                  console.info('addElemProd------', OrderStor.order.products[i]);
 //                  console.info('addElemProd------', addElemProd);
                   if(OrderStor.order.products[i].product_qty > 1) {
-                    var wagon = [],
-                        cloneQty = OrderStor.order.products[i].product_qty*1;
+                    wagon = [];
+                    cloneQty = +OrderStor.order.products[i].product_qty;
                     while(--cloneQty > -1) {
                       wagon.push(addElemProd);
                     }
@@ -2219,7 +3179,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           }
         }
       }
-      console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+      //console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+    }
+
+
+
+    function showAddElemUnitDetail(elemUnit) {
+      thisCtrl.config.selectedAddElemUnit = elemUnit;
+      collectAddElemUnitProducts();
+      thisCtrl.config.isAddElemUnitDetail = 1;
     }
 
 
@@ -2232,8 +3200,50 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
+    function delAddElemUnitInProduct(productIndex) {
+      var addElem = OrderStor.order.products[productIndex].chosenAddElements,
+          addElemProdQty = addElem.length,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemQty;
+
+      while(--addElemProdQty > -1) {
+        addElemQty = addElem[addElemProdQty].length;
+        if(addElemQty) {
+          while(--addElemQty > -1) {
+            if(addElem[addElemProdQty][addElemQty].id === addElemUnit.id) {
+              if(addElem[addElemProdQty][addElemQty].element_width === addElemUnit.element_width) {
+                if(addElem[addElemProdQty][addElemQty].element_height === addElemUnit.element_height) {
+                  addElem[addElemProdQty].splice(addElemQty, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function reviewAddElemUnit() {
+      var addElems = CartStor.cart.allAddElemsOrder,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemsQty = addElems.length,
+          noExist = 1;
+      while(--addElemsQty > -1) {
+        if(addElems[addElemsQty].id === addElemUnit.id) {
+          addElemUnit.element_qty = angular.copy(addElems[addElemsQty].element_qty);
+          noExist -= 1;
+        }
+      }
+      if(noExist) {
+        closeAddElemUnitDetail();
+      }
+    }
+
+
+
+
     function deleteAddElemUnit(addElemUnit, isWagon) {
-      console.info('delet----', thisCtrl.config.selectedAddElemUnit);
+      //console.info('delet----', thisCtrl.config.selectedAddElemUnit);
 
       if(isWagon) {
         //------- decrease Product quantity
@@ -2241,7 +3251,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else {
         //------- delete AddElem in Product
         delAddElemUnitInProduct(addElemUnit);
-        CartServ.joinAllAddElements();
+        CartMenuServ.joinAllAddElements();
       }
 
       //------ if last AddElem was delete
@@ -2264,46 +3274,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function delAddElemUnitInProduct(productIndex) {
-      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
-          addElemQty;
 
-      while(--addElemProdQty > -1) {
-        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
-        if(addElemQty) {
-          while(--addElemQty > -1) {
-            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
-                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-
-    function reviewAddElemUnit() {
-      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
-        noExist = 1;
-      while(--addElemsQty > -1) {
-        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
-          --noExist;
-        }
-      }
-      if(noExist) {
-        closeAddElemUnitDetail();
-      }
-    }
 
 
     /**-------- Show/Hide Explode Link Menu ------*/
     function toggleExplodeLinkMenu(prodInd, event) {
-      console.log(prodInd);
-      console.log(event.center);
+      //console.log(prodInd);
+      //console.log(event.center);
       thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
       thisCtrl.config.explodeMenuTop = event.center.y - 50;
       thisCtrl.config.explodeMenuLeft = event.center.x - 30;
@@ -2333,7 +3310,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
 
       thisCtrl.config.isLinkExplodeMenu = 0;
-      CartServ.joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
 
       CartServ.showAllAddElements();
       collectAddElemUnitProducts();
@@ -2360,6 +3337,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function checkAllSelectedProducts() {
+      var isSelected = 0,
+          prodIndQty = CartStor.cart.selectedProducts.length;
+      while(--prodIndQty > -1) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+          isSelected+=1;
+        }
+      }
+      CartStor.cart.isSelectedProduct = isSelected ? 1 : 0;
+    }
+
 
     function selectProductToAddElem(prodInd) {
       var isSelected = CartStor.cart.selectedProducts[prodInd].length;
@@ -2375,19 +3363,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    function checkAllSelectedProducts() {
-      var isSelected = 0,
-          prodIndQty = CartStor.cart.selectedProducts.length;
-      while(--prodIndQty > -1) {
-        if(CartStor.cart.selectedProducts[prodIndQty].length) {
-          isSelected++;
-        }
-      }
-      CartStor.cart.isSelectedProduct = (isSelected) ? 1 : 0;
-    }
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+      //=========== clicking =============//
+    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
+    thisCtrl.deleteAllAddElems = deleteAllAddElems;
+    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
+
+    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
+    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
+    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
+    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
+    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
+
+    //------ adding elements to product
+    thisCtrl.swipeProductSelector = swipeProductSelector;
+    thisCtrl.selectProductToAddElem = selectProductToAddElem;
+
+
+  });
 })();
 
 
@@ -2396,17 +3394,23 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsListCtrl', addElementsListCtrl);
+    .controller('AddElementsListCtrl',
 
-  function addElementsListCtrl(globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    ProductStor,
+    UserStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
@@ -2414,6 +3418,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     thisCtrl.config = {
+      addElementDATA: GeneralServ.addElementDATA,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
       filteredGroups: [],
@@ -2428,7 +3433,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
-  }
+  });
 })();
 
 
@@ -2437,15 +3442,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsCtrl', addElementsCtrl);
+    .controller('AddElementsCtrl',
 
-  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ, AddElementMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -2454,44 +3466,28 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
-      delays: [
-        globalConstants.STEP * 5, //GRID
-        globalConstants.STEP * 6, //VISOR
-        globalConstants.STEP * 6, //SPILLWAY
-        globalConstants.STEP * 10, //OUTSIDE
-        globalConstants.STEP * 13, //WINDOWSILL
-        globalConstants.STEP * 15, //LOUVER
-        globalConstants.STEP * 20, //INSIDESLOPE
-        globalConstants.STEP * 30, //CONNECTORS
-        globalConstants.STEP * 28, //HANDLE
-        globalConstants.STEP * 31, //FAN
-        globalConstants.STEP * 31 //OTHERS
-      ],
-
+      addElementDATA: GeneralServ.addElementDATA,
       DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
       DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
       DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
       DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
-
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
 
 
-    //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     // Show Window Scheme Dialog
     function showWindowScheme() {
@@ -2504,7 +3500,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
 })();
 
 
@@ -2513,23 +3520,33 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('GlassesCtrl', glassSelectorCtrl);
+    .controller('GlassesCtrl',
 
-  function glassSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, DesignServ, SVGServ, GlobalStor, OrderStor, ProductStor, DesignStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    AnalyticsServ,
+    DesignServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
-      selectGlassId: 0,
-      selectGlassName: '',
+      prevGlassId: 0,
+      prevGlassName: '',
       camera: $filter('translate')('panels.CAMERa'),
       camer: $filter('translate')('panels.CAMER'),
       camers: $filter('translate')('panels.CAMERs'),
@@ -2539,71 +3556,131 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+
+
+
+    /**============ METHODS ================*/
+
+    /**-------- Select glass --------*/
+    function selectGlass(newId, newName) {
+      GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
+      GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
+      GlobalStor.global.selectGlassId = newId;
+      GlobalStor.global.selectGlassName = newName;
+      //----- open glass selector dialog
+      GlobalStor.global.showGlassSelectorDialog = 1;
+      DesignServ.initAllGlassXGlass();
+    }
+
+
+
+    function changePriceAsNewGlass () {
+      var hardwareIds;
+      DesignStor.design.selectedGlass.length = 0;
+      /** set current Glass */
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          /** calculate price */
+          hardwareIds = ProductStor.product.hardware.id || 0;
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            hardwareIds,
+            ProductStor.product.lamination.lamination_in_id
+          );
+          //------ save analytics data
+          //TODO ??
+  //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
+    }
+
+
+    function setGlassToAll() {
+      MainServ.setGlassToTemplateBlocks(
+        ProductStor.product.template_source,
+        GlobalStor.global.selectGlassId,
+        GlobalStor.global.selectGlassName
+      );
+      changePriceAsNewGlass();
+      DesignServ.closeGlassSelectorDialog();
+    }
+
+
+
+
+
+    function confirmGlass() {
+      var selectBlockQty = DesignStor.design.selectedGlass.length,
+          glassesTEMP = angular.copy(ProductStor.product.glass),
+          blockId;
+
+      /** there are selected glasses */
+      if(!selectBlockQty) {
+        MainServ.setGlassToTemplateBlocks(
+          ProductStor.product.template,
+          GlobalStor.global.selectGlassId,
+          GlobalStor.global.selectGlassName
+        );
+      }
+
+      /** set new Glass in product */
+      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectGlassId);
+
+      /** Extra Glass finding */
+      MainServ.checkGlassSizes(ProductStor.product.template);
+
+      if(DesignStor.design.extraGlass.length) {
+        /** there are incorrect glasses
+         * expose Alert */
+        DesignStor.design.isGlassExtra = 1;
+        /** return previous Glasses */
+        ProductStor.product.glass = angular.copy(glassesTEMP);
+        /** return prev value in template */
+        MainServ.setGlassToTemplateBlocks(
+          ProductStor.product.template,
+          GlobalStor.global.prevGlassId,
+          GlobalStor.global.prevGlassName
+        );
+      } else {
+        /** there are selected glasses */
+        if(selectBlockQty) {
+          while (--selectBlockQty > -1) {
+            blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
+            MainServ.setGlassToTemplateBlocks(
+              ProductStor.product.template_source,
+              GlobalStor.global.selectGlassId,
+              GlobalStor.global.selectGlassName,
+              blockId
+            );
+          }
+          changePriceAsNewGlass();
+          DesignServ.closeGlassSelectorDialog();
+        } else {
+          /** apply current glass to all skylights */
+          setGlassToAll();
+        }
+      }
+
+    }
+
+
+    /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.selectGlass = selectGlass;
     thisCtrl.confirmGlass = confirmGlass;
     thisCtrl.setGlassToAll = setGlassToAll;
-    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
+    thisCtrl.closeGlassSelectorDialog = DesignServ.closeGlassSelectorDialog;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    //============ methods ================//
-
-    /** Select glass */
-    function selectGlass(newId, newName) {
-      //if(ProductStor.product.glass[0].id !== newId) {
-        thisCtrl.config.selectGlassId = newId;
-        thisCtrl.config.selectGlassName = newName;
-        //----- open glass selector dialog
-        GlobalStor.global.showGlassSelectorDialog = 1;
-        DesignServ.initAllGlass();
-      //}
-    }
-
-
-
-    function confirmGlass() {
-      var selectBlockQty = DesignStor.design.selectedGlass.length;
-      if(selectBlockQty) {
-        while (--selectBlockQty > -1) {
-          var blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
-          MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
-        }
-        changePriceAsNewGlass();
-        closeGlassSelectorDialog();
-      }
-    }
-
-
-    function setGlassToAll() {
-      MainServ.setGlassToTemplateBlocks(0, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
-      changePriceAsNewGlass();
-      closeGlassSelectorDialog();
-    }
-
-
-    function changePriceAsNewGlass () {
-      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
-      DesignStor.design.selectedGlass.length = 0;
-      DesignServ.removeAllEventsInSVG();
-      //------- set currenct Glass
-      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        //------ calculate price
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
-        //------ save analytics data
-        //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
-      });
-    }
-
-    function closeGlassSelectorDialog() {
-      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
-    }
-
-  }
+  });
 })();
 
 
@@ -2612,15 +3689,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('HardwaresCtrl', hardwareSelectorCtrl);
+    .controller('HardwaresCtrl',
 
-  function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    MainServ,
+    AnalyticsServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2632,14 +3716,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.BRAND = $filter('translate')('panels.BRAND');
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.CORROSION_COEFF = $filter('translate')('panels.CORROSION_COEFF');
+    thisCtrl.BURGLAR_COEFF = $filter('translate')('panels.BURGLAR_COEFF');
 
-    //------ clicking
-    thisCtrl.selectHardware = selectHardware;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    /**============ methods ================*/
 
+    /**============ METHODS ================*/
 
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
@@ -2647,15 +3733,34 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         //-------- set current Hardware
         MainServ.setCurrentHardware(ProductStor.product, newId);
         //------ calculate price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id);
+        MainServ.preparePrice(
+          ProductStor.product.template,
+          ProductStor.product.profile.id,
+          ProductStor.product.glass,
+          ProductStor.product.hardware.id,
+          ProductStor.product.lamination.lamination_in_id
+        );
         //------ save analytics data
-//        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+//AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
         /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+        AnalyticsServ.sendAnalyticsData(
+          UserStor.userInfo.id,
+          OrderStor.order.id,
+          ProductStor.product.template_id,
+          newId,
+          3
+        );
       }
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectHardware = selectHardware;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();
 
 
@@ -2664,15 +3769,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('LaminationsCtrl', laminationSelectorCtrl);
+    .controller('LaminationsCtrl',
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2684,53 +3795,50 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.selectLaminat = selectLaminat;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
+    //------- translate
+    thisCtrl.LAMINAT_INSIDE = $filter('translate')('panels.LAMINAT_INSIDE');
+    thisCtrl.LAMINAT_OUTSIDE = $filter('translate')('panels.LAMINAT_OUTSIDE');
 
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
-    //------------ Select lamination
-    function selectLaminat(type, id, name) {
-      if(type) {
-        if(ProductStor.product.lamination_out_id !== id) {
-          ProductStor.product.lamination_out_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationOutName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationOutName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
-        }
-      } else {
-        if(ProductStor.product.lamination_in_id !== id) {
-          ProductStor.product.lamination_in_id = id;
-          if (id === 1) {
-            ProductStor.product.laminationInName = $filter('translate')('mainpage.WHITE_LAMINATION');
-          } else {
-            ProductStor.product.laminationInName = name;
-          }
-          setLaminationTotalPrice();
-          //------ save analytics data
-          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
+    /** init Laminat Filter */
+    function initLaminatFilter(typeId) {
+      //console.info('init filter --- ', typeId);
+      var laminatQty = GlobalStor.global.laminats.length;
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].type_id === typeId) {
+          GlobalStor.global.laminats[laminatQty].isActive = !GlobalStor.global.laminats[laminatQty].isActive;
+          //console.info('init filter --- ', GlobalStor.global.laminats[laminatQty]);
+          MainServ.laminatFiltering();
         }
       }
     }
 
 
-    //TODO?????
-    function setLaminationTotalPrice() {
-//      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
-//      $timeout(function() {
-//        MainServ.setProductPriceTOTAL();
-//      }, 50);
+    //------------ Select lamination
+    function selectLaminat(id) {
+      //console.info('select lamin --- ', id);
+      MainServ.setCurrLamination(id);
+
+      MainServ.setProfileByLaminat(id).then(function() {
+        //------ save analytics data
+        /** send analytics data to Server*/
+//TODO AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id,OrderStor.order.id,ProductStor.product.template_id, id, 4);
+      });
+
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectLaminat = selectLaminat;
+    thisCtrl.initLaminatFilter = initLaminatFilter;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+
+  });
 })();
 
 
@@ -2739,15 +3847,23 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('ProfilesCtrl', profileSelectorCtrl);
+    .controller('ProfilesCtrl',
 
-  function profileSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    MainServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -2762,30 +3878,81 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.COUNTRY = $filter('translate')('panels.COUNTRY');
+    thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
+    thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
+
+
+
+
+
+    /**============ METHODS ================*/
+
+    //---------- Select profile
+    function selectProfile(newId) {
+      var productTEMP;
+      if(ProductStor.product.profile.id !== newId) {
+
+        /** save previous Product */
+        productTEMP = angular.copy(ProductStor.product);
+
+        /** check new Profile */
+        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+          //------- set current template for product
+          MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+
+            /** Extra Glass finding */
+            MainServ.checkGlassSizes(ProductStor.product.template);
+
+            /** Extra Sash finding */
+            if (GlobalStor.global.isSashesInTemplate) {
+              /** check sizes of all hardware in sashes */
+              MainServ.checkHardwareSizes(ProductStor.product.template);
+            }
+
+            /** return previous Product */
+            ProductStor.product = angular.copy(productTEMP);
+
+            if(DesignStor.design.extraGlass.length) {
+              /** there are incorrect glasses
+               * expose Alert */
+              DesignStor.design.isGlassExtra = 1;
+            } else {
+
+              if(DesignStor.design.extraHardware.length){
+                /** there are incorrect sashes
+                 * expose Alert */
+                DesignStor.design.isHardwareExtra = 1;
+              } else {
+                /** set default white lamination */
+                MainServ.setCurrLamination();
+                /** set new Profile */
+                MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+                  MainServ.parseTemplate().then(function () {
+                    /** change lamination groups as of new profile */
+                    MainServ.laminatFiltering();
+                    /** send analytics data to Server*/
+                    AnalyticsServ.sendAnalyticsData(
+                      UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1
+                    );
+                  });
+                });
+              }
+            }
+          });
+        });
+
+      }
+    }
+
+
+    /**========== FINISH ==========*/
     //------ clicking
     thisCtrl.selectProfile = selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-
-
-    //============ methods ================//
-
-    //---------- Select profile
-    function selectProfile(newId) {
-      if(ProductStor.product.profile.id !== newId) {
-        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-          ProductStor.product.glass.length = 0;
-          MainServ.parseTemplate().then(function () {
-            //------ save analytics data
-//            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
-            /** send analytics data to Server*/
-            AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
-          });
-        });
-      }
-    }
-
-  }
+  });
 })();
 
 
@@ -2794,15 +3961,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
 'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('TemplatesCtrl', templateSelectorCtrl);
+    .controller('TemplatesCtrl',
 
-  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
-
+  function(
+    $location,
+    $filter,
+    globalConstants,
+    MainServ,
+    GeneralServ,
+    TemplatesServ,
+    optionsServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -2816,6 +3993,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
 
+    //------- translate
+    thisCtrl.TEMPLATE_WINDOW = $filter('translate')('panels.TEMPLATE_WINDOW');
+    thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
+    thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
+    thisCtrl.TEMPLATE_BALCONY = $filter('translate')('panels.TEMPLATE_BALCONY');
+
+
     //---------- download templates Img icons
     optionsServ.getTemplateImgIcons(function (results) {
       if (results.status) {
@@ -2826,17 +4010,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     });
 
 
-    //------ clicking
 
-    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
-    thisCtrl.toggleTemplateType = toggleTemplateType;
-    thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.gotoConstructionPage = gotoConstructionPage;
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //------ click on top button to change template type
@@ -2846,6 +4021,506 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     //------- Select new Template Type
+    function selectNewTemplateType(marker) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
+      function goToNewTemplateType() {
+        if (marker === 4) {
+          MainServ.setDefaultDoorConfig();
+        }
+        GlobalStor.global.isChangedTemplate = 0;
+        TemplatesServ.initNewTemplateType(marker);
+      }
+
+      if (GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplateType
+        );
+      } else {
+        TemplatesServ.initNewTemplateType(marker);
+      }
+
+    }
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+
+  });
+})();
+
+
+// controllers/parts/addelems_group_menu.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AddElemGroupMenuCtrl',
+
+  function(AddElementsServ, AuxStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.A = AuxStor;
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+
+  });
+})();
+
+
+// controllers/parts/alert.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AlertCtrl',
+
+  function($filter, GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.BUTTON_N = $filter('translate')('common_words.BUTTON_N');
+    thisCtrl.BUTTON_Y = $filter('translate')('common_words.BUTTON_Y');
+
+    /**============ METHODS ================*/
+
+    function clickYes() {
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.confirmAction();
+    }
+
+    /**========== FINISH ==========*/
+
+    thisCtrl.clickYes = clickYes;
+
+  });
+})();
+
+
+// controllers/parts/attantions.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AttantCtrl',
+
+  function($filter, DesignStor, HistoryStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.D = DesignStor;
+    thisCtrl.H = HistoryStor;
+
+    //------- translate
+    thisCtrl.NO_PRINT = $filter('translate')('history.NO_PRINT');
+    thisCtrl.EXTRA_SASH = $filter('translate')('design.EXTRA_SASH');
+    thisCtrl.CHANGE_SIZE = $filter('translate')('design.CHANGE_SIZE') ;
+
+
+    /**============ METHODS ================*/
+
+    function closeAttantion() {
+      DesignStor.design.isGlassExtra = 0;
+      DesignStor.design.isHardwareExtra = 0;
+      HistoryStor.history.isNoPrint = 0;
+    }
+
+
+
+    /**========== FINISH ==========*/
+      //------ clicking
+    thisCtrl.closeAttantion = closeAttantion;
+
+  });
+})();
+
+
+// controllers/parts/info_box.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('infoBoxCtrl',
+
+  function(GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
+
+    /**============ METHODS ================*/
+
+    /** close Info Box */
+    function closeInfoBox() {
+      GlobalStor.global.isInfoBox = 0;
+      GlobalStor.global.infoTitle = '';
+      GlobalStor.global.infoImg =  '';
+      GlobalStor.global.infoLink = '';
+      GlobalStor.global.infoDescrip = '';
+    }
+
+
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.closeInfoBox = closeInfoBox;
+
+
+  });
+})();
+
+
+// controllers/parts/loader.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('LoaderCtrl',
+
+  function(GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
+  });
+})();
+
+
+// controllers/parts/order_form.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .controller('OrderFormCtrl',
+
+  function(
+    $filter,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      month: $filter('translate')('common_words.MONTH_LABEL'),
+      montha: $filter('translate')('common_words.MONTHA_LABEL'),
+      months: $filter('translate')('common_words.MONTHS_LABEL')
+    };
+
+
+    //------- translate
+    thisCtrl.CALL_ORDER = $filter('translate')('cart.CALL_ORDER');
+    thisCtrl.CALL_ORDER_DESCRIP = $filter('translate')('cart.CALL_ORDER_DESCRIP');
+    thisCtrl.CALL_ORDER_CLIENT_INFO = $filter('translate')('cart.CALL_ORDER_CLIENT_INFO');
+    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.CALL_ORDER_DELIVERY = $filter('translate')('cart.CALL_ORDER_DELIVERY');
+    thisCtrl.CLIENT_LOCATION = $filter('translate')('cart.CLIENT_LOCATION');
+    thisCtrl.CLIENT_ADDRESS = $filter('translate')('cart.CLIENT_ADDRESS');
+    thisCtrl.CLIENT_HOUSE = $filter('translate')('cart.CLIENT_HOUSE');
+    thisCtrl.CLIENT_FLAT = $filter('translate')('cart.CLIENT_FLAT');
+    thisCtrl.CLIENT_FLOOR = $filter('translate')('cart.CLIENT_FLOOR');
+    thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
+    thisCtrl.CALL_ORDER_ADD_INFO = $filter('translate')('cart.CALL_ORDER_ADD_INFO');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+    thisCtrl.ADD_PHONE = $filter('translate')('cart.ADD_PHONE');
+    thisCtrl.CLIENT_SEX = $filter('translate')('cart.CLIENT_SEX');
+    thisCtrl.CLIENT_SEX_M = $filter('translate')('cart.CLIENT_SEX_M');
+    thisCtrl.CLIENT_SEX_F = $filter('translate')('cart.CLIENT_SEX_F');
+    thisCtrl.CLIENT_AGE = $filter('translate')('cart.CLIENT_AGE');
+    thisCtrl.SELECT_PLACEHOLD = $filter('translate')('cart.SELECT_PLACEHOLD');
+    thisCtrl.CLIENT_EDUCATION = $filter('translate')('cart.CLIENT_EDUCATION');
+    thisCtrl.CLIENT_OCCUPATION = $filter('translate')('cart.CLIENT_OCCUPATION');
+    thisCtrl.CLIENT_INFO_SOURCE = $filter('translate')('cart.CLIENT_INFO_SOURCE');
+    thisCtrl.READY = $filter('translate')('cart.READY');
+    thisCtrl.CALL_MASTER = $filter('translate')('cart.CALL_MASTER');
+    thisCtrl.CALL_MASTER_DESCRIP = $filter('translate')('cart.CALL_MASTER_DESCRIP');
+    thisCtrl.CALL_CREDIT = $filter('translate')('cart.CALL_CREDIT');
+    thisCtrl.CALL_CREDIT_DESCRIP = $filter('translate')('cart.CALL_CREDIT_DESCRIP');
+    thisCtrl.CALL_CREDIT_CLIENT_INFO = $filter('translate')('cart.CALL_CREDIT_CLIENT_INFO');
+    thisCtrl.CREDIT_TARGET = $filter('translate')('cart.CREDIT_TARGET');
+    thisCtrl.CLIENT_ITN = $filter('translate')('cart.CLIENT_ITN');
+    thisCtrl.CALL_START_TIME = $filter('translate')('cart.CALL_START_TIME');
+    thisCtrl.CALL_END_TIME = $filter('translate')('cart.CALL_END_TIME');
+    thisCtrl.CALL_CREDIT_PARTIAL_PRICE = $filter('translate')('cart.CALL_CREDIT_PARTIAL_PRICE');
+
+
+
+    //SettingServ.downloadLocations().then(function(data) {
+    //    thisCtrl.locations = data;
+    //});
+    /** база городов и регионов долны быть только одной страны завода */
+    thisCtrl.locations = GlobalStor.global.locations.cities.filter(function(item) {
+      return item.countryId === UserStor.userInfo.countryId;
+    });
+
+
+
+    /**============ METHODS ================*/
+
+    //------- Send Form Data
+    function submitForm(form) {
+      //------- Trigger validation flag.
+      CartStor.cart.submitted = true;
+      if(form.$valid) {
+        CartMenuServ.sendOrder();
+      }
+    }
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.submitForm = submitForm;
+    thisCtrl.changeLocation = CartMenuServ.changeLocation;
+    thisCtrl.selectCity = CartMenuServ.selectCity;
+    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+
+  });
+})();
+
+
+// controllers/parts/qty_calculator.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('qtyCalculatorCtrl',
+
+  function(AddElementMenuServ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+
+    //------ clicking
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+
+  });
+})();
+
+
+// controllers/parts/report.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('ReportCtrl',
+
+  function(
+    $rootScope,
+    $filter,
+    localDB,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      reportMenu: [],
+      reportFilterId: undefined,
+      reportPriceTotal: 0,
+      reportPriceBase: 0
+    };
+
+    //------- translate
+    thisCtrl.NAME_LABEL = $filter('translate')('add_elements.NAME_LABEL');
+    thisCtrl.ARTICUL_LABEL = $filter('translate')('add_elements.ARTICUL_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.SIZE_LABEL = $filter('translate')('add_elements.SIZE_LABEL');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
+
+
+
+
+    /**============ METHODS ================*/
+
+
+    function culcReportPriceTotal(group) {
+      var currReportList;
+      if(group) {
+        currReportList = ProductStor.product.report.filter(function(item) {
+          return item.element_group_id === group;
+        });
+      } else {
+        currReportList = angular.copy(ProductStor.product.report);
+      }
+      if(currReportList.length) {
+        thisCtrl.config.reportPriceTotal = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+          return {priceReal: sum.priceReal + item.priceReal};
+        }).priceReal, 2);
+        thisCtrl.config.reportPriceBase = GeneralServ.roundingValue(currReportList.reduce(function (sum, item) {
+          return {price: sum.price + item.price};
+        }).price, 2);
+      } else {
+        thisCtrl.config.reportPriceTotal = 0;
+        thisCtrl.config.reportPriceBase = 0;
+      }
+    }
+
+
+    function sortReport(groupId) {
+      /** cuclulate Total Price of group of Report */
+      culcReportPriceTotal(groupId);
+      if(groupId) {
+        thisCtrl.config.reportFilterId = groupId;
+      } else {
+        thisCtrl.config.reportFilterId = undefined;
+      }
+    }
+
+
+    function showReport() {
+      GlobalStor.global.isReport = !GlobalStor.global.isReport;
+      /** cuclulate Total Price of Report */
+      culcReportPriceTotal();
+      /** download report Menu */
+      if(GlobalStor.global.isReport) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
+          thisCtrl.config.reportMenu = result.filter(function(item) {
+            return item.position > 0;
+          });
+          thisCtrl.config.reportMenu.push({
+            id: 0,
+            name: $filter('translate')('common_words.ALL')
+          });
+        });
+      }
+      $rootScope.$apply();
+    }
+
+
+
+    $('.main-content').off("keypress").keypress(function(event) {
+      //      console.log(UserStor.userInfo.user_type);
+      //console.log('RRRRRRRRR', event.keyCode);
+      //------ show report only for Plands (5,7)
+      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+        //----- Button 'R'
+        if(event.keyCode === 82 || event.keyCode === 114) {
+          showReport();
+        }
+      }
+    });
+
+
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    //thisCtrl.showReport = showReport;
+    thisCtrl.sortReport = sortReport;
+
+
+
+  });
+})();
+
+
+// controllers/parts/room_info.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('RoomInfoCtrl',
+
+  function(
+    globalConstants,
+    TemplatesServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.O = OrderStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
+      DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
+      DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
+      typing: 'on'
+    };
+
+
+
+
+    /**============ METHODS ================*/
+
+    //------ Show/Close Room Selector Dialog
+    function showRoomSelectorDialog() {
+      //----- open if comment block is closed
+      if(!GlobalStor.global.isShowCommentBlock) {
+//        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+        GlobalStor.global.showRoomSelectorDialog = 1;
+        //playSound('fly');
+      }
+    }
+
+    //----- Show Comments
+    function switchComment() {
+      //playSound('swip');
+      GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
+    }
+
+
+    function toggleTemplateType() {
+      GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
+    }
+
+    //================== Select new Template Type ========================//
+  
+
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
 
@@ -2871,425 +4546,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function gotoConstructionPage() {
-      thisCtrl.G.global.activePanel = 0;
-      $location.path('/design');
-    }
-
-
-  }
-})();
-
-
-// controllers/parts/addelems_group_menu.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
-
-  function addElemGroupCtrl(AddElementsServ, AuxStor) {
-
-    var thisCtrl = this;
-    thisCtrl.A = AuxStor;
+    /**========== FINISH ==========*/
 
     //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-
-  }
-})();
-
-
-// controllers/parts/alert.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('AlertCtrl', alertCtrl);
-
-  function alertCtrl(GlobalStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-
-    thisCtrl.clickYes = clickYes;
-
-    function clickYes() {
-      GlobalStor.global.isAlert = 0;
-      GlobalStor.global.confirmAction();
-    }
-
-  }
-})();
-
-
-// controllers/parts/call_credit.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('CartModule')
-    .controller('CallCreditCtrl', callCreditCtrl);
-
-  function callCreditCtrl($filter, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-    thisCtrl.config = {
-      month: $filter('translate')('common_words.MONTH_LABEL'),
-      montha: $filter('translate')('common_words.MONTHA_LABEL'),
-      months: $filter('translate')('common_words.MONTHS_LABEL')
-
-      //DELAY_START: globalConstants.STEP,
-      //typing: 'on'
-    };
-
-    //------ get all regions and cities
-    //TODO база городов и регионов долны быть только одной страны завода
-    SettingServ.downloadLocations().then(function(data) {
-      thisCtrl.locations = data;
-    });
-
-
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.changeLocation = CartMenuServ.changeLocation;
-    thisCtrl.selectCity = CartMenuServ.selectCity;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-
-    //--------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-
-
-  }
-})();
-
-
-// controllers/parts/call_master.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('CartModule')
-    .controller('CallMasterCtrl', callMasterCtrl);
-
-  function callMasterCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-    //------ get all regions and cities
-      //TODO база городов и регионов долны быть только одной страны завода
-      SettingServ.downloadLocations().then(function(data) {
-          thisCtrl.locations = data;
-      });
-
-
-      //------ clicking
-      thisCtrl.submitForm = submitForm;
-      thisCtrl.changeLocation = CartMenuServ.changeLocation;
-      thisCtrl.selectCity = CartMenuServ.selectCity;
-      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-    //------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-  }
-})();
-
-
-// controllers/parts/call_order.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('CartModule')
-    .controller('CallOrderCtrl', callOrderCtrl);
-
-  function callOrderCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
-
-    var thisCtrl = this;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-      //------ get all regions and cities
-      //TODO база городов и регионов долны быть только одной страны завода
-      SettingServ.downloadLocations().then(function(data) {
-          thisCtrl.locations = data;
-      });
-
-
-      //------ clicking
-      thisCtrl.submitForm = submitForm;
-      thisCtrl.changeLocation = CartMenuServ.changeLocation;
-      thisCtrl.selectCity = CartMenuServ.selectCity;
-      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
-
-
-    //============ methods ================//
-
-    //------- Send Form Data
-    function submitForm(form) {
-      //------- Trigger validation flag.
-      CartStor.cart.submitted = true;
-      if(form.$valid) {
-        CartMenuServ.sendOrder();
-      }
-    }
-
-
-  }
-})();
-
-
-// controllers/parts/info_box.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('infoBoxCtrl', infoBoxCtrl);
-
-  function infoBoxCtrl(GlobalStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-
-    //------ clicking
-    thisCtrl.closeInfoBox = closeInfoBox;
-
-
-    //============ methods ================//
-    /** close Info Box */
-    function closeInfoBox() {
-      GlobalStor.global.isInfoBox = 0;
-      GlobalStor.global.infoTitle = '';
-      GlobalStor.global.infoImg =  '';
-      GlobalStor.global.infoLink = '';
-      GlobalStor.global.infoDescrip = '';
-    }
-
-
-
-  }
-})();
-
-
-// controllers/parts/loader.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('LoaderCtrl', loaderCtrl);
-
-  function loaderCtrl(GlobalStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-
-  }
-})();
-
-
-// controllers/parts/report.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('ReportCtrl', reportCtrl);
-
-  function reportCtrl($rootScope, $filter, localDB, GeneralServ, GlobalStor, ProductStor, UserStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.U = UserStor;
-
-    thisCtrl.config = {
-      reportMenu: [],
-      reportFilterId: undefined,
-      reportPriceTotal: 0
-    };
-
-    //------ clicking
-
-    //thisCtrl.showReport = showReport;
-    thisCtrl.sortReport = sortReport;
-
-
-    //============ methods ================//
-
-
-
-    $('.main-content').off("keypress").keypress(function(event) {
-      //      console.log(UserStor.userInfo.user_type);
-      //console.log('RRRRRRRRR', event.keyCode);
-      //------ show report only for Plands (5,7)
-      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-        //----- Button 'R'
-        if(event.keyCode === 82 || event.keyCode === 114) {
-          showReport();
-        }
-      }
-    });
-
-
-    function showReport() {
-      GlobalStor.global.isReport = !GlobalStor.global.isReport;
-      /** cuclulate Total Price of Report */
-      culcReportPriceTotal();
-      /** download report Menu */
-      if(GlobalStor.global.isReport) {
-        localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
-          thisCtrl.config.reportMenu = result.filter(function(item) {
-            return item.position > 0;
-          });
-          thisCtrl.config.reportMenu.push({
-            id: 0,
-            name: $filter('translate')('common_words.ALL')
-          });
-        });
-      }
-      $rootScope.$apply();
-    }
-
-
-
-    function sortReport(groupId) {
-      /** cuclulate Total Price of group of Report */
-      culcReportPriceTotal(groupId);
-      if(groupId) {
-        thisCtrl.config.reportFilterId = groupId;
-      } else {
-        thisCtrl.config.reportFilterId = undefined;
-      }
-    }
-
-
-
-    function culcReportPriceTotal(group) {
-      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
-        return item.element_group_id === group;
-      }) : angular.copy(ProductStor.product.report);
-
-      if(currReportList.length) {
-        thisCtrl.config.reportPriceTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(currReportList.reduce(function (sum, item) {
-          return {priceReal: sum.priceReal + item.priceReal};
-        }).priceReal), 3);
-      } else {
-        thisCtrl.config.reportPriceTotal = 0;
-      }
-    }
-
-
-  }
-})();
-
-
-// controllers/parts/room_info.js
-
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .controller('RoomInfoCtrl', roomInfoCtrl);
-
-  function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor) {
-
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.O = OrderStor;
-    thisCtrl.P = ProductStor;
-
-    thisCtrl.config = {
-      DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
-      DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
-      typing: 'on'
-    };
-
-
-    //------ clicking
-
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    
 
 
-    //============ methods ================//
 
-    //------ Show/Close Room Selector Dialog
-    function showRoomSelectorDialog(event) {
-      //----- open if comment block is closed
-      if(!GlobalStor.global.isShowCommentBlock) {
-//        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
-        GlobalStor.global.showRoomSelectorDialog = 1;
-        //playSound('fly');
-      }
-    }
-
-    //----- Show Comments
-    function switchComment(event) {
-      //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
-    }
-
-  }
+  });
 })();
 
 
@@ -3297,15 +4566,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomSelectorCtrl', roomSelectorCtrl);
+    .controller('RoomSelectorCtrl',
 
-  function roomSelectorCtrl(globalConstants, MainServ, TemplatesServ, GlobalStor, ProductStor, UserStor) {
-
+  function(
+    globalConstants,
+    MainServ,
+    TemplatesServ,
+    GlobalStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -3317,11 +4591,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    //------ clicking
-    thisCtrl.selectRoom = selectRoom;
-    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //---------- Room Select
     function selectRoom(id) {
@@ -3329,8 +4599,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
 
-  }
+  });
 })();
 
 
@@ -3338,38 +4612,38 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('searchCtrl', searchCtrl);
+    .controller('searchCtrl',
 
-  function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
-
+  function(
+    $filter,
+    GlobalStor,
+    AuxStor,
+    HistoryStor,
+    AddElementsServ,
+    AddElementMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
 
 
-    //------ clicking
-    //----------- for AddElements List View
-    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
-      thisCtrl.placeholder = $filter('translate')('add_elements.INPUT_ADD_ELEMENT');
-      thisCtrl.checkChanges = checkChanges;
-      thisCtrl.cancelSearching = cancelSearching;
-      thisCtrl.deleteSearchChart = deleteSearchChart;
-    } else if(GlobalStor.global.currOpenPage === 'history'){
-      //----------- for History Page
-      thisCtrl.placeholder = $filter('translate')('history.SEARCH_PLACEHOLDER');
-      thisCtrl.checkChanges = checkChangesHistory;
-      thisCtrl.cancelSearching = cancelSearchingHistory;
-      thisCtrl.deleteSearchChart = deleteSearchChartHistory;
+
+
+    /**============ METHODS ================*/
+
+
+    //------- Delete searching word
+    function cancelSearching() {
+      thisCtrl.searchingWord = '';
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+      AddElementMenuServ.closeAddElementsMenu();
     }
 
-    //============ methods ================//
-
     //----------- Searching Block in AddElements List View
-
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
         if(thisCtrl.searchingWord.length === 1) {
@@ -3379,14 +4653,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       } else {
         cancelSearching();
       }
-    }
-
-    //------- Delete searching word
-    function cancelSearching() {
-      thisCtrl.searchingWord = '';
-      AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.searchingWord = thisCtrl.searchingWord;
-      AddElementMenuServ.closeAddElementsMenu();
     }
 
     //-------- Delete last chart searching word
@@ -3400,7 +4666,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    //========== History Page ===========//
+    /**----------- History Page -------------*/
 
     function checkChangesHistory() {
       if(thisCtrl.searchingWord !== '') {
@@ -3421,7 +4687,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    //----------- for AddElements List View
+    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
+      thisCtrl.placeholder = $filter('translate')('add_elements.INPUT_ADD_ELEMENT');
+      thisCtrl.checkChanges = checkChanges;
+      thisCtrl.cancelSearching = cancelSearching;
+      thisCtrl.deleteSearchChart = deleteSearchChart;
+    } else if(GlobalStor.global.currOpenPage === 'history'){
+      //----------- for History Page
+      thisCtrl.placeholder = $filter('translate')('history.SEARCH_PLACEHOLDER');
+      thisCtrl.checkChanges = checkChangesHistory;
+      thisCtrl.cancelSearching = cancelSearchingHistory;
+      thisCtrl.deleteSearchChart = deleteSearchChartHistory;
+    }
+
+
+  });
 })();
 
 
@@ -3429,15 +4713,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('sizeCalculatorCtrl', sizeCalcCtrl);
+    .controller('sizeCalculatorCtrl',
 
-  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
-
+  function(
+    GlobalStor,
+    DesignStor,
+    AddElementMenuServ,
+    DesignServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;
@@ -3461,7 +4748,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
-  }
+  });
 })();
 
 
@@ -3469,15 +4756,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('UserInfoCtrl', userInfoCtrl);
+    .controller('UserInfoCtrl',
 
-  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
-
+  function(globalConstants, GlobalStor, UserStor) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
@@ -3488,23 +4773,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       checked: false
     };
 
-    //------ clicking
-
-    thisCtrl.swipeMainPage = swipeMainPage;
-    thisCtrl.swipeLeft = swipeLeft;
-    thisCtrl.swipeRight = swipeRight;
 
 
+    /**============ METHODS ================*/
 
-    //============ methods ================//
-
-    function swipeMainPage(event) {
+    function swipeMainPage() {
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
       //playSound('swip');
     }
 
-    function swipeLeft(event) {
+    function swipeLeft() {
       if(GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
@@ -3512,7 +4791,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    function swipeRight(event) {
+    function swipeRight() {
       if(!GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 1;
         GlobalStor.global.isConfigMenu = 0;
@@ -3521,7 +4800,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  }
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.swipeMainPage = swipeMainPage;
+    thisCtrl.swipeLeft = swipeLeft;
+    thisCtrl.swipeRight = swipeRight;
+
+  });
 })();
 
 
@@ -3529,15 +4815,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('SettingsCtrl', settingsPageCtrl);
+    .controller('SettingsCtrl',
 
-  function settingsPageCtrl($location, globalConstants, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
-
+  function(
+    $location,
+    $timeout,
+    globalConstants,
+    localDB,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    AuxStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -3567,44 +4862,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    //------ clicking
-    thisCtrl.changeSettingData = changeSettingData;
-    thisCtrl.appendInputPhone = appendInputPhone;
-    thisCtrl.cancelAddPhone = cancelAddPhone;
-    thisCtrl.saveChanges = saveChanges;
-    thisCtrl.saveChangesBlur = saveChangesBlur;
-    thisCtrl.changeEmail = changeEmail;
-    thisCtrl.addNewPhone = addNewPhone;
-    thisCtrl.saveChangesPhone = saveChangesPhone;
-    thisCtrl.deletePhone = deletePhone;
-    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
-    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
-    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
-    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
-    thisCtrl.logOut = logOut;
 
 
 
-    //============ methods ================//
 
+    /**============ METHODS ================*/
 
-
-    function changeSettingData(id, obj) {
-      thisCtrl.config.selectedSetting = id;
-      //TODO ipad findInput(obj.currentTarget.id);
-      findInput(obj.target.id);
-    }
-
-
-    function saveChanges(marker, newTxt) {
-      if (event.which == 13) {
-        saveTxtInBD(marker, newTxt);
-      }
-    }
-
-    function saveChangesBlur(marker, newTxt) {
-        saveTxtInBD(marker, newTxt);
-    }
 
     function saveTxtInBD(marker, newTxt) {
       var updateData = {};
@@ -3629,36 +4892,50 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+    function findInput(idElement) {
+      $timeout(function() {
+        $('#'+idElement).find('input').focus();
+      }, 100);
+    }
+
+    function findInputPhone() {
+      $timeout(function() {
+        $('.set-input-phone').focus();
+      }, 100);
+    }
+
+    function changeSettingData(id, obj) {
+      thisCtrl.config.selectedSetting = id;
+      //TODO ipad findInput(obj.currentTarget.id);
+      findInput(obj.target.id);
+    }
+
+
+    function saveChanges(marker, newTxt) {
+      if (event.which === 13) {
+        saveTxtInBD(marker, newTxt);
+      }
+    }
+
+    function saveChangesBlur(marker, newTxt) {
+        saveTxtInBD(marker, newTxt);
+    }
+
+
+
     function changeEmail() {
       thisCtrl.config.isEmailError = 0;
     }
 
 
-
-    function addNewPhone() {
-      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
-        saveNewPhone();
-      } else {
-        appendInputPhone();
-      }
-    }
-
-    function appendInputPhone() {
-      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
+    //------- save phones in DB
+    function savePhoneInDB(phones) {
+      var phonesString = phones.join(',');
+      UserStor.userInfo.city_phone = phonesString;
+      localDB.updateLocalServerDBs(
+        localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString}
+      );
       thisCtrl.config.tempAddPhone = '';
-      thisCtrl.config.isErrorPhone = 0;
-      findInputPhone();
-    }
-
-    function cancelAddPhone() {
-      thisCtrl.config.isInsertPhone = 0;
-      thisCtrl.config.isErrorPhone = 0;
-    }
-
-    function saveChangesPhone() {
-      if (event.which == 13) {
-        saveNewPhone();
-      }
     }
 
     function saveNewPhone() {
@@ -3675,19 +4952,43 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    function appendInputPhone() {
+      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
+      thisCtrl.config.tempAddPhone = '';
+      thisCtrl.config.isErrorPhone = 0;
+      findInputPhone();
+    }
+
+
+    function addNewPhone() {
+      if(thisCtrl.config.tempAddPhone && thisCtrl.config.tempAddPhone !== '') {
+        saveNewPhone();
+      } else {
+        appendInputPhone();
+      }
+    }
+
+
+
+    function cancelAddPhone() {
+      thisCtrl.config.isInsertPhone = 0;
+      thisCtrl.config.isErrorPhone = 0;
+    }
+
+    function saveChangesPhone() {
+      if (event.which === 13) {
+        saveNewPhone();
+      }
+    }
+
+
+
     function deletePhone(phoneId) {
       thisCtrl.config.addPhones.splice(phoneId, 1);
       //------- save phones in DB
       savePhoneInDB(thisCtrl.config.addPhones);
     }
 
-    //------- save phones in DB
-    function savePhoneInDB(phones) {
-      var phonesString = phones.join(',');
-      UserStor.userInfo.city_phone = phonesString;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"city_phone": phonesString});
-      thisCtrl.config.tempAddPhone = '';
-    }
 
 
     function logOut() {
@@ -3700,19 +5001,30 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       $location.path('/login');
     }
 
-    function findInput(idElement) {
-      setTimeout(function() {
-        $('#'+idElement).find('input').focus();
-      }, 100);
-    }
 
-    function findInputPhone() {
-      setTimeout(function() {
-        $('.set-input-phone').focus();
-      }, 100);
-    }
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.changeSettingData = changeSettingData;
+    thisCtrl.appendInputPhone = appendInputPhone;
+    thisCtrl.cancelAddPhone = cancelAddPhone;
+    thisCtrl.saveChanges = saveChanges;
+    thisCtrl.saveChangesBlur = saveChangesBlur;
+    thisCtrl.changeEmail = changeEmail;
+    thisCtrl.addNewPhone = addNewPhone;
+    thisCtrl.saveChangesPhone = saveChangesPhone;
+    thisCtrl.deletePhone = deletePhone;
+    thisCtrl.gotoPasswordPage = SettingServ.gotoPasswordPage;
+    thisCtrl.gotoLanguagePage = SettingServ.gotoLanguagePage;
+    thisCtrl.gotoLocationPage = SettingServ.gotoLocationPage;
+    thisCtrl.closeSettingsPage = SettingServ.closeSettingsPage;
+    thisCtrl.logOut = logOut;
+
+
+  });
 })();
 
 
@@ -3720,14 +5032,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('calendarScroll', calendarScrollDir);
+    .directive('calendarScroll',
 
-  function calendarScrollDir($filter, HistoryStor) {
+  function($filter, HistoryStor) {
 
     return {
       restrict: 'E',
@@ -3738,7 +5048,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         orderType: '='
       },
       template: function(elem, attr){
-        var typeTemplate = attr.calendarType* 1,
+        var typeTemplate = +attr.calendarType,
             templateBody = '',
             dateRange = '',
             formName = '',
@@ -3785,35 +5095,35 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         /** Day generating */
         while(dayIndex < 32) {
           templateBody += '<option value="'+dayIndex+'">'+dayIndex+'</option>';
-          dayIndex++;
+          dayIndex+=1;
         }
         templateBody += '</select><select class="date" id="'+selectMonthId+'" name="'+selectMonthName+'">';
 
         /** Month generating */
         while(monthIndex < monthQty) {
           templateBody += '<option value="'+monthIndex+'">'+monthArr[monthIndex]+'</option>';
-          monthIndex++;
+          monthIndex+=1;
         }
         templateBody += '</select><select class="date" id="'+selectYearId+'" name="'+selectYearName+'">';
 
         /** Year generating */
         while(yearIndex <= yearEnd) {
           templateBody += '<option value="'+yearIndex+'">'+yearIndex+'</option>';
-          yearIndex++;
+          yearIndex+=1;
         }
         templateBody += '</select></form></div></div></div>';
 
         return templateBody;
 
       },
-      link: function (scope, element, attrs) {
+      link: function (scope) {
 
 //      Hammer.plugins.fakeMultitouch();
 
         function getIndexForValue(selectTag, value) {
           var selectQty = selectTag.options.length;
           while(--selectQty > -1) {
-            if (selectTag.options[selectQty].value == value) {
+            if (selectTag.options[selectQty].value === value) {
               return selectQty;
             }
           }
@@ -3822,7 +5132,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         function update(panel, section, datetime) {
           $('.'+panel).find("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
           $('.'+panel).find("#" + section + "_month").drum('setIndex', datetime.getMonth());
-          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear()));
+          $('.'+panel).find("#" + section + "_fullYear").drum('setIndex', getIndexForValue(
+            $("#" + section + "_fullYear")[0], datetime.getFullYear())
+          );
         }
 
         $(function(){
@@ -3830,11 +5142,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             onChange : function (elem) {
               var elemNameArr = elem.name.split('_'),
                   section = elemNameArr[0],
-                  isOrder = elemNameArr[2]*1,
+                  isOrder = +elemNameArr[2],
                   arr = {'date' : 'setDate', 'month' : 'setMonth', 'fullYear' : 'setFullYear'},
-                  date = new Date();
-              for (var s in arr) {
-                var i = ($("form[name='date_" + section + "'] select[id='" + section + "_" + s + "']"))[0].value;
+                  date = new Date(), s, i;
+              for (s in arr) {
+                i = ($("form[name='date_" + section + "'] select[id='" + section + "_" + s + "']"))[0].value;
                 eval ("date." + arr[s] + "(" + i + ")");
               }
 
@@ -3869,7 +5181,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -3877,19 +5189,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .directive('calendar', calendarDir);
+    .directive('calendar',
 
-  function calendarDir($filter, CartMenuServ, GlobalStor, OrderStor) {
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
 
     return {
       restrict: 'E',
       transclude: true,
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
         minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
@@ -3923,7 +5238,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-  }
+  });
 })();
 
 
@@ -3932,21 +5247,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('fileread', fileLoader);
+    .directive('fileread',
 
-
-
-  function fileLoader(SettingServ, UserStor) {
+  function(SettingServ, UserStor) {
     return {
       scope: {
         fileread: "="
       },
-      link: function (scope, element, attributes) {
+      link: function (scope, element) {
         element.bind("change", function (changeEvent) {
           var fd = new FormData(),
               reader = new FileReader();
@@ -3964,24 +5275,61 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         });
       }
     };
-  }
 
+  });
 })();
+
+
+// directives/location_filter.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .filter('locationFilter',
+
+  function($filter) {
+
+    return function(items, searchWord) {
+      var itemsQty = items.length,
+          searchWTemp,
+          filtered = [];
+          //regexp = new RegExp('^'+searchWord+'\\.*','i');
+
+      if(searchWord && (searchWord.length > 2)) {
+        //------- slower!!!!
+        //while(--itemsQty > -1) {
+        //  if(regexp.test(items[itemsQty].fullLocation)) {
+        //    filtered.push(items[itemsQty]);
+        //  }
+        //}
+        searchWTemp = searchWord.toLowerCase();
+        while(--itemsQty > -1) {
+          if(items[itemsQty].fullLocation.toLowerCase().indexOf(searchWTemp) === 0) {
+            filtered.push(items[itemsQty]);
+          }
+        }
+      }
+      filtered = $filter('orderBy')(filtered, 'cityName', false);
+      return filtered;
+    };
+
+  });
+})();
+
 
 
 // directives/order_date.js
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('orderDate', orderDateDir);
+    .directive('orderDate',
 
-  function orderDateDir($filter) {
-
+  function($filter) {
 
     return {
       restrict: 'A',
@@ -4010,7 +5358,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
           } else {
             oldDateFormat = new Date();
-            newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+            newDateFormat = oldDateFormat.getDate()+' '+monthsArr[oldDateFormat.getMonth()]+', '+oldDateFormat.getFullYear();
           }
 
           if(!type && oldD === '') {
@@ -4030,7 +5378,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
 
-  }
+  });
 })();
 
 
@@ -4038,14 +5386,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
-    .filter('orderSorting', orderSortingFilter);
+    .filter('orderSorting',
 
-  function orderSortingFilter() {
+  function() {
 
     return function(items, sortType) {
       var filtered = [];
@@ -4076,7 +5422,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return filtered;
     };
 
-  }
+  });
 })();
 
 
@@ -4085,14 +5431,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('priceFixed', priceFixedDir);
+    .directive('priceFixed',
 
-  function priceFixedDir() {
+  function() {
 
     return {
       restrict: 'A',
@@ -4105,11 +5449,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       link: function (scope, element, attrs) {
 
         function getNewPrice(priceAtr, qty, currency) {
-          var price = priceAtr;
-          if(typeof price === 'string') {
-            price = parseFloat(price);
-          }
-          var newPrice = parseFloat( (parseFloat(price.toFixed(2)) * qty).toFixed(2) ) + ' ' + currency;
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
           element.text(newPrice);
         }
 
@@ -4125,8 +5465,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     };
 
-
-  }
+  });
 })();
 
 
@@ -4135,14 +5474,74 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('price', priceDir);
+    .directive('price',
 
-  function priceDir(globalConstants, SoundPlayServ) {
+  function(globalConstants, SoundPlayServ) {
+
+
+    /**============ METHODS ================*/
+
+    function changePrice(price, elem) {
+      var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
+          DIGIT_CELL_HEIGHT = 64,
+          priceByDigit,
+          digitCells = elem.find('#price').children(),
+          MAX_DIGITS = digitCells.length,
+          COLUMN_LENGTH = $(digitCells[0]).children().length,
+          n = 0,
+          $digitCell,
+          digit, scrollDigitY,
+          i;
+
+      if(price !== undefined) {
+        //playSound('price');
+        SoundPlayServ.playSound();
+        //priceByDigit = price.toString().split('');
+        if(typeof price === 'string') {
+          priceByDigit = price.split('');
+        } else {
+          priceByDigit = price.toFixed(2).split('');
+        }
+
+      }
+
+      changePrice.revertDigitState = function () {
+        $digitCell.animate({ top: 0 }, 'fast');
+      };
+
+      changePrice.initDigit = function () {
+        digit = priceByDigit.shift();
+      };
+
+      changePrice.animateDigit = function () {
+        if (digit === '.') {
+          scrollDigitY = (COLUMN_LENGTH - 1) * DIGIT_CELL_HEIGHT;
+        } else {
+          scrollDigitY = (parseInt(digit, 10) + 1) * DIGIT_CELL_HEIGHT;
+        }
+
+        $digitCell
+          .delay(n * DELAY_PRICE_DIGIT)
+          .animate({ top: (-scrollDigitY/16) + "rem" }, 'fast');
+      };
+
+      for (i = MAX_DIGITS; i > 0; i-=1) {
+        $digitCell = $(digitCells[n]);
+
+        if (i > priceByDigit.length) {
+          changePrice.revertDigitState();
+        } else {
+          changePrice.initDigit();
+          changePrice.animateDigit();
+        }
+
+        n+=1;
+      }
+    }
+
 
     return {
       restrict: 'E',
@@ -4177,71 +5576,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
 
-    //============ methods ================//
-
-    function changePrice(price, elem) {
-      var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
-          DIGIT_CELL_HEIGHT = 64,
-          priceByDigit,
-          digitCells = elem.find('#price').children(),
-          MAX_DIGITS = digitCells.length,
-          COLUMN_LENGTH = $(digitCells[0]).children().length,
-          n = 0,
-          $digitCell,
-          digit, scrollDigitY,
-          i;
-
-      if(price === undefined) {
-        return false;
-      } else {
-
-        //playSound('price');
-        SoundPlayServ.playSound();
-
-        //priceByDigit = price.toString().split('');
-        if(typeof price === 'string') {
-          priceByDigit = price.split('');
-        } else {
-          priceByDigit = price.toFixed(2).split('');
-        }
-
-      }
-      changePrice.revertDigitState = function () {
-        $digitCell.animate({ top: 0 }, 'fast');
-      };
-
-      changePrice.initDigit = function () {
-        digit = priceByDigit.shift();
-      };
-
-      changePrice.animateDigit = function () {
-        if (digit === '.') {
-          scrollDigitY = (COLUMN_LENGTH - 1) * DIGIT_CELL_HEIGHT;
-        } else {
-          scrollDigitY = (parseInt(digit, 10) + 1) * DIGIT_CELL_HEIGHT;
-        }
-
-        $digitCell
-          .delay(n * DELAY_PRICE_DIGIT)
-          .animate({ top: (-scrollDigitY/16) + "rem" }, 'fast');
-      };
-
-      for (i = MAX_DIGITS; i > 0; i--) {
-        $digitCell = $(digitCells[n]);
-
-        if (i > priceByDigit.length) {
-          changePrice.revertDigitState();
-        } else {
-          changePrice.initDigit();
-          changePrice.animateDigit();
-        }
-
-        n++;
-      }
-    }
-
 // event.srcEvent.stopPropagation();
-  }
+  });
 })();
 
 
@@ -4249,291 +5585,73 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('showDelay', showDelayDir);
+    .directive('showDelay',
 
-  function showDelayDir() {
+  function() {
 
     return {
       scope: {
         showDelay: '@'
       },
       link: function (scope, elem, attrs) {
-        attrs.$observe('showDelay', function () {
-          showElementWithDelay();
-        });
 
         function showElementWithDelay() {
           var unvisibleClass = 'unvisible';
 
           setTimeout(function () {
             elem.removeClass(unvisibleClass);
-          }, scope.showDelay*1);
+          }, +scope.showDelay);
         }
+
+        attrs.$observe('showDelay', function () {
+          showElementWithDelay();
+        });
+
       }
     };
 
-  }
+  });
 })();
 
 
 // directives/svg.js
 
+/* globals d3 */
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('svgTemplate', svgTemplateDir);
+    .directive('svgTemplate',
 
-  function svgTemplateDir(GeneralServ, SVGServ, DesignServ) {
+  function(
+    globalConstants,
+    GeneralServ,
+    ProductStor,
+    SVGServ,
+    DesignServ
+  ) {
 
     return {
       restrict: 'E',
       replace: true,
       transclude: true,
       scope: {
-        typeConstruction: '@',
+        typeConstruction: '=',
         template: '=',
         templateWidth: '=',
         templateHeight: '='
       },
-      link: function (scope, elem, attrs) {
+      link: function (scope, elem) {
 
-        scope.$watch('template', function () {
-          buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
-        });
-
-
-
-        function buildSVG(template, widthSVG, heightSVG) {
-          if(template && !$.isEmptyObject(template)) {
-            var container = document.createElement('div'),
-                lineCreator = d3.svg.line()
-                  .x(function(d) { return d.x; })
-                  .y(function(d) { return d.y; })
-                  .interpolate("linear"),
-                padding = 0.7,
-                position = {x: 0, y: 0},
-                mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
-
-            if(scope.typeConstruction === 'icon'){
-              padding = 1;
-            } else if(scope.typeConstruction === 'edit') {
-              padding = 0.63;
-            }
-
-            mainSVG = d3.select(container).append('svg').attr({
-              'width': widthSVG,
-              'height': heightSVG
-            });
-
-            if(scope.typeConstruction === 'icon') {
-              mainSVG.attr('class', 'tamlateIconSVG');
-            } else {
-              mainSVG.attr('id', 'tamlateSVG');
-            }
-
-            points = SVGServ.collectAllPointsOut(template.details);
-            dimMaxMin = GeneralServ.getMaxMinCoord(points);
-            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
-            if(scope.typeConstruction !== 'icon') {
-              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
-            }
-
-            mainGroup = mainSVG.append("g").attr({
-              'id': 'main_group',
-              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
-            });
-
-            if (scope.typeConstruction === 'edit') {
-              mainSVG.call(d3.behavior.zoom()
-                .translate([position.x, position.y])
-                .scale(scale)
-                .scaleExtent([0, 8])
-                .on("zoom", zooming));
-            }
-
-            elementsGroup = mainGroup.append("g").attr({
-              'id': 'elem_group'
-            });
-            dimGroup = mainGroup.append("g").attr({
-              'id': 'dim_group'
-            });
-
-
-            //          console.log('++++++ template +++++++', mainGroup);
-            blocksQty = template.details.length;
-            for (var i = 1; i < blocksQty; i++) {
-
-              elementsGroup.selectAll('path.' + template.details[i].id)
-                .data(template.details[i].parts)
-                .enter().append('path')
-                .attr({
-                  'block_id': template.details[i].id,
-                  'parent_id': template.details[i].parent,
-                  //'class': function(d) { return d.type; },
-                  'class': function (d) {
-                    if(scope.typeConstruction === 'icon') {
-                      return (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
-                    } else {
-                      return (d.type === 'glass') ? 'glass' : 'frame';
-                    }
-                  },
-                  'item_type': function (d) {
-                    return d.type;
-                  },
-                  'item_dir': function (d) {
-                    return d.dir;
-                  },
-                  'item_id': function(d) {
-                    return d.points[0].id;
-                  },
-                  'd': function (d) {
-                    return d.path;
-                  }
-                });
-
-
-              if(scope.typeConstruction !== 'icon') {
-                //----- sash open direction
-                if (template.details[i].sashOpenDir) {
-                  elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
-                    .data(template.details[i].sashOpenDir)
-                    .enter()
-                    .append('path')
-                    .classed('sash_mark', true)
-                    .attr({
-                      'd': function (d) {
-                            return lineCreator(d.points);
-                          },
-                      'marker-mid': function(d) {
-                        var dirQty = template.details[i].sashOpenDir.length;
-                        if(dirQty === 1) {
-                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                            return 'url(#handleR)';
-                          } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
-                            return 'url(#handleU)';
-                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                            return 'url(#handleL)';
-                          } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
-                            return 'url(#handleD)';
-                          }
-                        } else if(dirQty === 2) {
-                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
-                            return 'url(#handleR)';
-                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
-                            return 'url(#handleL)';
-                          }
-                        }
-                      }
-                    });
-                }
-
-
-                //---- corner markers
-                if(scope.typeConstruction === 'edit') {
-                  if (template.details[i].level === 1) {
-                    //----- create array of frame points with corner = true
-                    var corners = template.details[i].pointsOut.filter(function (item) {
-                      return item.corner > 0;
-                    });
-                    elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
-                      .data(corners)
-                      .enter()
-                      .append('circle')
-                      .attr({
-                        'block_id': template.details[i].id,
-                        'class': 'corner_mark',
-                        'parent_id': function (d) {
-                          return d.id;
-                        },
-                        'cx': function (d) {
-                          return d.x;
-                        },
-                        'cy': function (d) {
-                          return d.y;
-                        },
-                        'r': 0
-                      });
-                  }
-                }
-
-                /** type Glass names */
-                if (scope.typeConstruction === 'setGlass') {
-                  if(!template.details[i].children.length) {
-                    elementsGroup.append('text')
-                      .text(template.details[i].glassTxt)
-                      .attr({
-                        'class': 'glass-txt',
-                        'x': template.details[i].center.x,
-                        'y': template.details[i].center.y
-                      });
-                  }
-                }
-              }
-
-            }
-
-            if(scope.typeConstruction !== 'icon') {
-              //--------- dimension
-              var defs = dimGroup.append("defs"),
-                  dimXQty = template.dimension.dimX.length,
-                  dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length,
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-  "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
-
-              //----- horizontal marker arrow
-              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
-              //------- vertical marker arrow
-              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-
-              //------- marker handle
-              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
-
-              //            console.log('SVG=========dim==', template.dimension);
-              for (var dx = 0; dx < dimXQty; dx++) {
-                createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
-              }
-              for (var dy = 0; dy < dimYQty; dy++) {
-                createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
-              }
-              for (var dq = 0; dq < dimQQty; dq++) {
-                createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
-              }
-
-            }
-            elem.html(container);
-
-            //======= set Events on elements
-            DesignServ.removeAllEventsInSVG();
-            //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
-              DesignServ.initAllImposts();
-              DesignServ.initAllGlass();
-              DesignServ.initAllArcs();
-              DesignServ.initAllDimension();
-            }
-          }
-        }
-
-
+        /**============ METHODS ================*/
+ 
         function zooming() {
-          d3.select('#main_group').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+          d3.select('#main_group')
+            .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
 
 
@@ -4555,6 +5673,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
+          if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -4566,95 +5685,107 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               lineCenter = [],
               dimBlock, sizeBox,
               pointL1 = {
-                x: (dir) ? dimMarginBottom : dim.from,
-                y: (dir) ? dim.from : dimMarginBottom
+                x: dir ? dimMarginBottom : dim.from,
+                y: dir ? dim.from : dimMarginBottom
               },
               pointL2 = {
-                x: (dir) ? dimLineHeight : dim.from,
-                y: (dir) ? dim.from : dimLineHeight
+                x: dir ? dimLineHeight : dim.from,
+                y: dir ? dim.from : dimLineHeight
               },
               pointR1 = {
-                x: (dir) ? dimMarginBottom : dim.to,
-                y: (dir) ? dim.to : dimMarginBottom
+                x: dir ? dimMarginBottom : dim.to,
+                y: dir ? dim.to : dimMarginBottom
               },
               pointR2 = {
-                x: (dir) ? dimLineHeight : dim.to,
-                y: (dir) ? dim.to : dimLineHeight
+                x: dir ? dimLineHeight : dim.to,
+                y: dir ? dim.to : dimLineHeight
               },
               pointC1 = {
-                x: (dir) ? dimLineHeight + dimEdger : dim.from,
-                y: (dir) ? dim.from : dimLineHeight + dimEdger
+                x: dir ? dimLineHeight + dimEdger : dim.from,
+                y: dir ? dim.from : dimLineHeight + dimEdger
               },
               pointC2 = {
-                x: (dir) ? dimLineHeight + dimEdger : dim.to,
-                y: (dir) ? dim.to : dimLineHeight + dimEdger
+                x: dir ? dimLineHeight + dimEdger : dim.to,
+                y: dir ? dim.to : dimLineHeight + dimEdger
               };
           lineSideL.push(pointL1, pointL2);
           lineSideR.push(pointR1, pointR2);
           lineCenter.push(pointC1, pointC2);
 
           dimBlock = dimGroup.append('g')
-           .attr({
-             'class': function() {
-               if(dir) {
-                 return (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
-               } else {
-                 return (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
-               }
-             },
-             'block_id': dim.blockId,
-             'axis': dim.axis
-           });
+            .attr({
+              'class': function() {
+                var className;
+                if(dir) {
+                  className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                } else {
+                  className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                }
+                return className;
+              },
+              'block_id': dim.blockId,
+              'axis': dim.axis
+            });
 
           dimBlock.append('path')
-           .classed('size-line', true)
-           .attr('d', lineCreator(lineSideR));
+            .classed('size-line', true)
+            .attr('d', lineCreator(lineSideR));
           dimBlock.append('path')
-           .classed('size-line', true)
-           .attr('d', lineCreator(lineSideL));
+            .classed('size-line', true)
+            .attr('d', lineCreator(lineSideL));
 
           dimBlock.append('path')
-           .classed('size-line', true)
-           .attr({
-             'd': lineCreator(lineCenter),
-             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)'; },
-             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)'; }
-           });
+            .classed('size-line', true)
+            .attr({
+              'd': lineCreator(lineCenter),
+              'marker-start': function() { return dir ? 'url(#dimVertR)' : 'url(#dimHorL)'; },
+              'marker-end': function() { return dir ? 'url(#dimVertL)' : 'url(#dimHorR)'; }
+            });
 
           sizeBox = dimBlock.append('g')
-           .classed('size-box', true);
+            .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === 'tamlateSVG') {
             sizeBox.append('rect')
-             .classed('size-rect', true)
-             .attr({
-               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-               'rx': sizeBoxRadius,
-               'ry': sizeBoxRadius
-             });
+              .classed('size-rect', true)
+              .attr({
+                'x': function() {
+                  return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+                },
+                'y': function() {
+                  return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+                },
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
+              });
           }
 
 
           sizeBox.append('text')
-           .text(dim.text)
-           .attr({
-             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
-             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-             'dx': 80,
-             'dy': 40,
-             'type': 'line',
-             'block_id': dim.blockId,
-             'size_val': dim.text,
-             'min_val': dim.minLimit,
-             'max_val': dim.maxLimit,
-             'dim_id': dim.dimId,
-             'from_point': dim.from,
-             'to_point': dim.to,
-             'axis': dim.axis
-           });
-
+            .text(dim.text)
+            .attr({
+              'class': function() {
+                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+              },
+              'x': function() {
+                return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+              },
+              'y': function() {
+                return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+              },
+              'dx': 80,
+              'dy': 40,
+              'type': 'line',
+              'block_id': dim.blockId,
+              'size_val': dim.text,
+              'min_val': dim.minLimit,
+              'max_val': dim.maxLimit,
+              'dim_id': dim.dimId,
+              'from_point': dim.from,
+              'to_point': dim.to,
+              'axis': dim.axis
+            });
+          }
         }
 
 
@@ -4691,7 +5822,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'edit') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -4722,10 +5853,760 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
         }
 
+
+        function buildSVG(template, widthSVG, heightSVG) {
+          if(template && !$.isEmptyObject(template)) {
+            var container = document.createElement('div'),
+                lineCreator = d3.svg.line()
+                  .x(function(d) { return d.x; })
+                  .y(function(d) { return d.y; })
+                  .interpolate("linear"),
+                padding = 0.7,
+                position = {x: 0, y: 0},
+                mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty, i, corners;
+
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
+              padding = 1;
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+              padding = 0.6;
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_MAIN){
+              padding = 0.6;
+            }
+
+
+            mainSVG = d3.select(container).append('svg').attr({
+              'width': widthSVG,
+              'height': heightSVG
+            });
+
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+              mainSVG.attr('class', scope.typeConstruction);
+            } else {
+              mainSVG.attr('id', scope.typeConstruction);
+            }
+
+            points = SVGServ.collectAllPointsOut(template.details);
+            dimMaxMin = GeneralServ.getMaxMinCoord(points);
+
+
+
+            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+             scale = SVGServ.setTemplateScaleMAIN(dimMaxMin, widthSVG, heightSVG, padding);
+              } else {
+             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding); 
+               console.log('scalescalescale', scale)
+                }
+
+console.log('scope.typeConstruction'  , scope.typeConstruction )
+
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
+              if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              position = SVGServ.setTemplatePositionMAIN(dimMaxMin, widthSVG, heightSVG, scale);
+              } else {
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+                }
+                console.log('positionfffffffffff', position)
+            }
+
+
+
+            mainGroup = mainSVG.append("g").attr({
+              'id': 'main_group',
+              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
+            });
+
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+              mainSVG.call(d3.behavior.zoom()
+                .translate([position.x, position.y])
+                .scale(scale)
+                .scaleExtent([0, 8])
+                .on("zoom", zooming));
+            }
+
+            /** Defs */
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
+              var defs = mainGroup.append("defs"),
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,"+
+                    "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,"+
+                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+              /** dimension */
+              //----- horizontal marker arrow
+              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              //------- vertical marker arrow
+              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              /** handle */
+              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
+
+              /** lamination */
+              if(ProductStor.product.lamination.img_in_id > 1) {
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+              }
+                            /** background */
+
+              if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                if (ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
+                                  var kk = '';
+                    if (ProductStor.product.template_height <= 2049) {
+                      kk = 1.2;
+                    }
+                    if (2050 <= ProductStor.product.template_height) {
+                      kk = 1.26;
+                    }
+                    if ( 2101 <= ProductStor.product.template_height) {
+                      kk = 1.28;
+                    }
+                    if ( 2171 <= ProductStor.product.template_height) {
+                      kk = 1.32;
+                    }
+                    if ( 2191 <= ProductStor.product.template_height) {
+                      kk = 1.35;
+                    }
+                    if ( 2211 <= ProductStor.product.template_height) {
+                      kk = 1.38;
+                    }
+                    if ( 2231 <= ProductStor.product.template_height) {
+                      kk = 1.4;
+                    }
+                    if ( 2251 <= ProductStor.product.template_height) {
+                      kk = 1.42;
+                    }5
+                    if ( 2271 <= ProductStor.product.template_height) {
+                      kk = 1.44;
+                    }
+                    if ( 2291 <=ProductStor.product.template_height) {
+                      kk = 1.46;
+                    }
+                    if ( 2311 <=ProductStor.product.template_height) {
+                      kk = 1.48;
+                    }
+                    if ( 2331 <= ProductStor.product.template_height) {
+                      kk = 1.5;
+                    }
+                    if ( 2351 <= ProductStor.product.template_height) {
+                      kk = 1.52;
+                    }
+                    if ( 2371 <= ProductStor.product.template_height) {
+                      kk = 1.54;
+                    }
+                    if ( 2391 <= ProductStor.product.template_height) {
+                      kk = 1.56;
+                    }
+                defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk)
+                  .append("image")
+                  .attr("xlink:href", "img/room/fon.gif")
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk);
+                }
+              
+                if(ProductStor.product.construction_type == 4) {
+                   var kk = '';
+                    if (ProductStor.product.template_height > 100) {
+                      kk = 1.03;
+                    }
+                    if (1800 <= ProductStor.product.template_height) {
+                      kk = 1.05;
+                    }
+                    if (1850 <= ProductStor.product.template_height) {
+                      kk = 1.07;
+                    }
+                    if (1900 <= ProductStor.product.template_height) {
+                      kk = 1.11;
+                    }                    
+                    if (1950 <= ProductStor.product.template_height) {
+                      kk = 1.14;
+                    }                    
+                    if (2000 <= ProductStor.product.template_height) {
+                      kk = 1.17;
+                    }
+                    if (2050 <= ProductStor.product.template_height) {
+                      kk = 1.2;
+                    }
+                    if ( 2101 <= ProductStor.product.template_height) {
+                      kk = 1.23;
+                    }
+                    if ( 2171 <= ProductStor.product.template_height) {
+                      kk = 1.24;
+                    }
+                    if ( 2191 <= ProductStor.product.template_height) {
+                      kk = 1.25;
+                    }
+                    if ( 2211 <= ProductStor.product.template_height) {
+                      kk = 1.27;
+                    }
+                    if ( 2231 <= ProductStor.product.template_height) {
+                      kk = 1.29;
+                    }
+                    if ( 2251 <= ProductStor.product.template_height) {
+                      kk = 1.31;
+                    }
+                    if ( 2271 <= ProductStor.product.template_height) {
+                      kk = 1.33;
+                    }
+                    if ( 2291 <=ProductStor.product.template_height) {
+                      kk = 1.35;
+                    }
+                    if ( 2311 <=ProductStor.product.template_height) {
+                      kk = 1.37;
+                    }
+                    if ( 2331 <= ProductStor.product.template_height) {
+                      kk = 1.38;
+                    }
+                    if ( 2351 <= ProductStor.product.template_height) {
+                      kk = 1.40;
+                    }
+                    if ( 2371 <= ProductStor.product.template_height) {
+                      kk = 1.41;
+                    }
+                    if ( 2391 <= ProductStor.product.template_height) {
+                      kk = 1.43;
+                    }
+                    defs.append('pattern')
+                    .attr('id', 'background')
+                    .attr('patternUnits', 'userSpaceOnUse')
+                    .attr('width', 2520*kk)
+                    .attr('height', 1680*kk)
+                    .append("image")
+                    .attr("xlink:href", "img/room/333.gif")
+                    .attr('width', 2520*kk)
+                    .attr('height', 1680*kk);
+                }
+              } 
+            }
+
+  //=============================Points==============================//
+
+                var blockQty = template.details.length,
+                    path = '', 
+                    noVvPath = '',    //без  Viev = 0
+                    fpDgLR ='',             //диагональ с лево на право
+                    fpDgRL ='',             //диагональ с право на лево
+                    heightWmd = '',         //Высота окна
+                    widthWmd = '';          //Ширина окна
+                    // wind = '',              //Выход на болкон
+                    // door = '';              //Выход на болкон
+                    while(--blockQty > 0) {
+                      if (template.details[blockQty].level === 1) {
+                        var pointsOutQty =  template.details[blockQty].pointsOut.length;
+                        while(--pointsOutQty > -1) {
+                        
+                          if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
+                              noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x); 
+                          if(!pointsOutQty) {
+                              noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                          } else {
+                              noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                            }
+                          }
+                          
+                          if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
+                              fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                          if(!pointsOutQty) {
+                              fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                          } else {
+                              fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                            } console.log('fpDgLR', fpDgLR)
+                          }
+
+                          if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+                              fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                          if(!pointsOutQty) {
+                              fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                          } else {
+                              fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                            }
+                          }
+
+                          // if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+                          //     wind += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                          // if(!pointsOutQty) {
+                          //     wind += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                          // } else {
+                          //     wind += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                          //   }
+                          // }
+
+                          // if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp5') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp6') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp7') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp8')) {
+                          //     door += (template.details[blockQty].pointsOut[pointsOutQty].x);                        
+                          // if(!pointsOutQty) {
+                          //     door += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                          // } else {
+                          //     door += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                          //   }
+                          // }
+
+                          if (template.details[blockQty].pointsOut[pointsOutQty]) {
+                              path += (template.details[blockQty].pointsOut[pointsOutQty].x); 
+                          if(!pointsOutQty) {
+                              path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                          } else {
+                              path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                            }                                          
+                          }
+
+                          if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {                        
+                            if(!pointsOutQty) {
+                              heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                            } else {
+                              heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                            }
+                          }
+
+                          if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {                        
+                            widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                          }
+                        }
+                      }
+                    }
+
+               
+
+          //============================elements room==========================//
+
+                  if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
+                      var lchHeight = (((0.18*heightWmd)-252)+520),
+                          lchWidth = (((0.18*widthWmd)-234)+520),
+                          heightDisplay = 768,
+                          topWindowsill = '',
+                          block15Height = '',
+                          windowsill2 = '',
+                          block15Top = '';
+
+
+                        if (ProductStor.product.template_height < 1648) {
+                          topWindowsill = '' + 456,
+                          block15Height = '' + 90,
+                          windowsill2 = 100,
+                          block15Top = '' + 720;
+                        }
+                        if (1648 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 526,
+                          block15Height = '' + 90,
+                          windowsill2 = 60,
+                          block15Top =  '' + 720;
+                        }
+                        if (1848 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 576,
+                          block15Height = '' + 90,
+                          windowsill2 = (0),
+                          block15Top = '' + 720;
+                        }
+                        if (2148 < ProductStor.product.template_height) {
+                          topWindowsill = '' + 637,
+                          block15Height = '' + 90,
+                          windowsill2 = (-30),
+                          block15Top =  '' + 720;
+                        }
+
+                          if (widthWmd > 900 && heightWmd < 1648) {
+                            d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                          } else { 
+                              d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                            }
+                              d3.select('.coeff-room-block15').style({
+                                'width' : ((0.48*(widthWmd/2))) + 'px',
+                                'height' : block15Height + 'px',
+                                'top' : block15Top + 'px',
+                              }),                      
+                              d3.select('.coeff-room-block11').style('left' , (10000) + 'px'),
+                              d3.select('.coeff-room-block16').style('left' , 9 + 'px'),
+                              d3.select('.coeff-room-block8').style('left' , (10000) + 'px'),                                         
+                              d3.select('.coeff-room-block7').style('opacity' , 0),
+                              d3.select('.coeff-room-block9').style('opacity' , 1),                      
+                              d3.select('.coeff-room-block23').style('left' , (10000) + 'px'),
+                              d3.select('.coeff-room-block10').style('opacity' , 0),
+                              d3.select('.shadow-main').style(),
+                              d3.select('.coeff-room-block17').style({
+                                'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
+                                'height' : 41 + 'px',
+                                'left' : 215 + 'px',
+                                'top' : topWindowsill + 'px',
+                              }),
+                              d3.select('.coeff-room-block22').style({
+                                  'width' : lchWidth + 'px',
+                                  'height' : lchHeight + 'px',
+                                  'left' : (-80) + 'px',
+                                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px',
+                              });     
+                    } 
+
+                    if(ProductStor.product.construction_type == 4) { 
+                      var lchHeight = (((0.18*heightWmd)-252)+520),
+                          lchWidth = (((0.18*widthWmd)-234)+420),
+                          heightDisplay = 768;
+                            d3.select('.coeff-room-block23').style({
+                              'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
+                              'top' : 665 + 'px',
+                              'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px',
+                            }),
+                            d3.select('.coeff-room-block15').style({
+                              'top': (10000) + 'px',
+                            }), 
+                            d3.select('.coeff-room-block17').style({
+                              'width' : 0 + 'px',
+                              'height' : 0 + 'px',
+                              'left' : 0 + 'px',
+                            }),   
+                            d3.select('.coeff-room-block22').style({
+                              'width' : lchWidth + 'px',
+                              'height' : lchHeight + 'px',
+                              'left' : (60) + 'px',
+                              'top' : (heightDisplay - lchHeight + 30) + 'px',
+                          });   
+                            d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px'),
+                            d3.select('.coeff-room-block8').style('left' , (0.23*(widthWmd)+275) + 'px'),                      
+                            d3.select('.coeff-room-block5').style('left' , 5000 + 'px'), 
+                            d3.select('.coeff-room-block10').style('opacity' , 1),                   
+                            d3.select('.coeff-room-block7').style('opacity' , 1),
+                            d3.select('.coeff-room-block16').style('left' , 5000 + 'px'),                      
+                            d3.select('.coeff-room-block9').style('opacity' , 0);
+                    }      
+                  }
+
+          //============================soffits================================//
+
+
+
+                  if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3){
+                      if(1 < ProductStor.product.template_height < 30000) {
+                       var positionX1 = position.x-160,
+                           positionY1 = 18,
+                           positionX2 = position.x-340,
+                           positionY2 = -100;
+
+
+                      } 
+
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow1',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (positionX1) + ', ' + (positionY1) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      })
+
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow2',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (positionX2) + ', ' + (positionY1) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow3',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (positionX1) + ', ' + (positionY2) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow4',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (positionX2) + ', ' + (positionY2) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+
+
+                    if(ProductStor.product.construction_type == 4) {
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonDoor3',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonDoor4',
+                        'fill' : '#FFFAFA',
+                        'points' : noVvPath,
+                        'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+                    if(ProductStor.product.construction_type == 2) {  
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow1',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow2',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygonWindow3',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygonWindow4',
+                        'fill' : '#FFFAFA',
+                        'points' : wind,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });    
+                    
+                      mainGroup.append('g').append("polygon")
+                      .attr({
+                        'id' : 'clipPolygondoor3',
+                        'fill' : '#FFFAFA',
+                        'points' : door,
+                        'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+
+                      mainGroup.append('g').append("polygon")            
+                      .attr({
+                        'id' : 'clipPolygondoor4',
+                        'fill' : '#FFFAFA',
+                        'points' : door,
+                        'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                      });
+                    }
+                  }
+
+            elementsGroup = mainGroup.append("g").attr({
+              'id': 'elem_group'
+            });
+            dimGroup = mainGroup.append("g").attr({
+              'id': 'dim_group'
+            });
+
+            blocksQty = template.details.length;
+            for (i = 1; i < blocksQty; i+=1) {
+              elementsGroup.selectAll('path.' + template.details[i].id)
+                .data(template.details[i].parts)
+                .enter().append('path')
+                .attr({
+                  'block_id': template.details[i].id,
+                  'parent_id': template.details[i].parent,
+                  //'class': function(d) { return d.type; },
+                  'class': function (d) {
+                    var className;
+                    if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+                      className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
+                    } else {
+                      if(d.doorstep) {
+                        className = 'doorstep';
+                      } else {
+                        className = (d.type === 'glass') ? 'glass' : 'frame';
+                      }
+                    }
+                    return className;
+                  },
+
+                  'item_type': function (d) {
+                    return d.type;
+                  },
+                  'item_dir': function (d) {
+                    return d.dir;
+                  },
+                  'item_id': function(d) {
+                    return d.points[0].id;
+                  },
+                  'd': function (d) {
+                    return d.path;
+                  },
+                  'fill': function(d) {
+                    var fillName;
+                    if (d.type === 'glass') {
+                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          fillName = 'url(#background)';
+                      } else {
+                          fillName = 'rgba(155, 204, 255, 0.20)';
+                        }
+                      } else {
+                          if(ProductStor.product.lamination.img_in_id > 1) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                          } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                              fillName = '#DCDCDC';
+                            } else {
+                              fillName = '#f9f9f9';
+                              }
+                    }
+                    return fillName;
+                  }
+                });
+
+
+              if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
+                //----- sash open direction
+                if (template.details[i].sashOpenDir) {
+                  elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                    .data(template.details[i].sashOpenDir)
+                    .enter()
+                    .append('path')
+                    .classed('sash_mark', true)
+                    .attr({
+                      'd': function (d) {
+                            return lineCreator(d.points);
+                          },
+                      'marker-mid': function(d) {
+                        var dirQty = template.details[i].sashOpenDir.length,
+                            handle;
+                        if(template.details[i].handlePos) {
+                          if (dirQty === 1) {
+                            if (template.details[i].handlePos === 2) {
+                              handle = 'url(#handleR)';
+                            } else if (template.details[i].handlePos === 1) {
+                              handle = 'url(#handleU)';
+                            } else if (template.details[i].handlePos === 4) {
+                              handle = 'url(#handleL)';
+                            } else if (template.details[i].handlePos === 3) {
+                              handle = 'url(#handleD)';
+                            }
+                          } else if (dirQty === 2) {
+                            if (d.points[1].fi < 45 || d.points[1].fi > 315) {
+                              handle = 'url(#handleR)';
+                            } else if (d.points[1].fi > 135 && d.points[1].fi < 225) {
+                              handle = 'url(#handleL)';
+                            }
+                          }
+                          return handle;
+                        }
+                      }
+                    });
+                }
+
+
+                //---- corner markers
+                if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+                  if (template.details[i].level === 1) {
+                    //----- create array of frame points with corner = true
+                    corners = template.details[i].pointsOut.filter(function (item) {
+                      return item.corner > 0;
+                    });
+                    elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                      .data(corners)
+                      .enter()
+                      .append('circle')
+                      .attr({
+                        'block_id': template.details[i].id,
+                        'class': 'corner_mark',
+                        'parent_id': function (d) {
+                          return d.id;
+                        },
+                        'cx': function (d) {
+                          return d.x;
+                        },
+                        'cy': function (d) {
+                          return d.y;
+                        },
+                        'r': 0
+                      });
+                  }
+                }
+
+                /** type Glass names */
+                if (scope.typeConstruction === 'tamlateGlassSVG') {
+                  if(!template.details[i].children.length) {
+                    elementsGroup.append('text')
+                      .text(template.details[i].glassTxt)
+                      .attr({
+                        'block_id': template.details[i].id,
+                        'class': 'glass-txt',
+                        'x': template.details[i].center.x,
+                        'y': template.details[i].center.y
+                      });
+                  }
+                }
+
+                /** type Grid names */
+                if (scope.typeConstruction === 'tamlateGridSVG') {
+                  if(!template.details[i].children.length && template.details[i].gridId) {
+                    elementsGroup.append('text')
+                      .text(template.details[i].gridTxt)
+                      .attr({
+                        'class': 'glass-txt',
+                        'x': template.details[i].center.x,
+                        'y': template.details[i].center.y
+                      });
+                  }
+                }
+
+              }
+
+            }
+
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON ) {
+              //--------- dimension
+              var dimXQty = template.dimension.dimX.length,
+                  dimYQty = template.dimension.dimY.length,
+                  dimQQty = template.dimension.dimQ.length,
+                  dx, dy, dq;
+              for (dx = 0; dx < dimXQty; dx+=1) {
+                createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
+              }
+              for (dy = 0; dy < dimYQty; dy+=1) {
+                createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+              }
+              for (dq = 0; dq < dimQQty; dq+=1) {
+                createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
+              }
+            }
+
+            elem.html(container);
+
+            //======= set Events on elements
+            DesignServ.removeAllEventsInSVG();
+            //--------- set clicking to all elements
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+              DesignServ.initAllImposts();
+              DesignServ.initAllGlass();
+              DesignServ.initAllArcs();
+              DesignServ.initAllDimension();
+            }
+          }
+        }
+
+
+
+        scope.$watch('template', function () {
+          buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
+        });
+
       }
     };
 
-  }
+  });
 })();
 
 
@@ -4733,14 +6614,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('typing', typingDir);
+    .directive('typing',
 
-  function typingDir() {
+  function() {
 
     return {
       scope: {
@@ -4748,14 +6627,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         typingDelay: '@'
       },
       link: function (scope, elem, attrs) {
-        attrs.$observe('typing', function (mode) {
-          if (mode.toString() === 'on') {
-            typingTextWithDelay();
-          }
-        });
-        attrs.$observe('output', function () {
-            typingTextWithDelay();
-        });
 
         function typingTextWithDelay() {
           setTimeout(function () {
@@ -4775,13 +6646,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
               elem.text(text);
             }, NEXT_CHAR_DELAY);
-          }, scope.typingDelay*1);
+          }, +scope.typingDelay);
         }
+
+        attrs.$observe('typing', function (mode) {
+          if (mode.toString() === 'on') {
+            typingTextWithDelay();
+          }
+        });
+        attrs.$observe('output', function () {
+            typingTextWithDelay();
+        });
+
       }
     };
 
-
-  }
+  });
 })();
 
 
@@ -5100,58 +6980,38 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AddElementMenuServ', addElemMenuFactory);
+    .factory('AddElementMenuServ',
 
-  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AnalyticsServ, CartServ, CartMenuServ) {
-
-    var thisFactory = this,
-        delayShowElementsMenu = globalConstants.STEP * 12;
-
-    thisFactory.publicObj = {
-      closeAddElementsMenu: closeAddElementsMenu,
-      chooseAddElement: chooseAddElement,
-      chooseAddElementList: chooseAddElementList,
-      getAddElementPrice: getAddElementPrice,
-      deleteAddElement: deleteAddElement,
-      deleteAllAddElements: deleteAllAddElements,
-      desactiveAddElementParameters: desactiveAddElementParameters,
-      //---- calculators:
-      pressCulculator: pressCulculator,
-      setValueQty: setValueQty,
-      closeQtyCaclulator: closeQtyCaclulator,
-      setValueSize: setValueSize,
-      deleteLastNumber: deleteLastNumber,
-      changeElementSize: changeElementSize,
-      closeSizeCaclulator: closeSizeCaclulator
-    };
-
-    return thisFactory.publicObj;
+  function(
+    $q,
+    $timeout,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    CartStor,
+    AuxStor,
+    DesignStor,
+    UserStor,
+    localDB,
+    GeneralServ,
+    MainServ,
+    SVGServ,
+    DesignServ,
+    AnalyticsServ,
+    CartServ,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
+    var thisFactory = this;
 
 
 
 
-    //============ methods ================//
 
-    //-------- Close AddElements Menu
-    function closeAddElementsMenu() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        AuxStor.aux.isFocusedAddElement = 0;
-        AuxStor.aux.isTabFrame = 0;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = 0;
-        desactiveAddElementParameters();
-        $timeout(function () {
-          AuxStor.aux.isAddElement = 0;
-          //playSound('swip');
-          AuxStor.aux.addElementsMenuStyle = 0;
-        }, delayShowElementsMenu);
-      }
-    }
+    /**============ METHODS ================*/
 
 
     function desactiveAddElementParameters() {
@@ -5162,150 +7022,23 @@ function ErrorResult(code, message) {
     }
 
 
-
-    //--------- Select AddElement
-    function chooseAddElement(typeIndex, elementIndex) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (typeIndex === undefined && elementIndex === undefined) {
-          var index = (AuxStor.aux.isFocusedAddElement - 1);
-          desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          //-------- clean all elements in selected Type
-          ProductStor.product.chosenAddElements[index].length = 0;
-
-          //-------- Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
-
-        } else {
-          getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
-            pushSelectedAddElement(ProductStor.product, addElem);
-            //Set Total Product Price
-            setAddElementsTotalPrice(ProductStor.product);
-
-            //------ save analytics data
-            //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-          });
-        }
-      }
-    }
-
-
-    //--------- Select AddElement List
-    function chooseAddElementList(typeIndex, elementIndex) {
-      /** in main page */
-      if(GlobalStor.global.currOpenPage === 'main') {
-
-        pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-        //Set Total Product Price
-        setAddElementsTotalPrice(ProductStor.product);
-
-      } else if(GlobalStor.global.currOpenPage === 'cart') {
-        /** in cart page */
-        var productsQty = CartStor.cart.selectedProducts.length;
-        for(var p = 0; p < productsQty; p++) {
-          if(CartStor.cart.selectedProducts[p].length) {
-            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-            //Set Total Product Price
-            CartServ.calculateAddElemsProductsPrice(1);
-            CartServ.joinAllAddElements();
-            CartServ.collectAllAddElems();
-            CartServ.getAddElemsPriceTotal();
-            //------ change order Price
-            CartMenuServ.calculateOrderPrice();
-          }
-        }
-      }
-      //----- hide element price in menu
-      AuxStor.aux.currAddElementPrice = 0;
-      //------ save analytics data
-      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
-      AuxStor.aux.isAddElement = 0;
-    }
-
-
-    function getAddElementPrice(typeIndex, elementIndex) {
-      var deferred = $q.defer();
-      AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element price is
-      if(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-        AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-
-        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      } else {
-        var objXAddElementPrice = {
-          currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
-          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)
-        };
-//                console.log('objXAddElementPrice=====', objXAddElementPrice);
-        //-------- get current add element price
-        localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-            deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-          } else {
-            deferred.reject(results);
-          }
-        });
-      }
-      return deferred.promise;
-    }
-
-
-
-    function pushSelectedAddElement(currProduct, currElement) {
-      var index = (AuxStor.aux.isFocusedAddElement - 1),
-          existedElement;
-
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement.id);
-      if(existedElement === undefined) {
-        var newElementSource = {
-              element_type: index,
-              element_width: 0,
-              element_height: 0
-            },
-            newElement = angular.extend(newElementSource, currElement);
-
-        currProduct.chosenAddElements[index].push(newElement);
-        //---- open TABFrame when second element selected
-        if(currProduct.chosenAddElements[index].length === 2) {
-          AuxStor.aux.isTabFrame = 1;
-        }
-      } else {
-        currProduct.chosenAddElements[index][existedElement].element_qty += 1;
-      }
-
-    }
-
-
-    //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
-    function checkExistedSelectAddElement(elementsArr, elementId) {
-      for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].id === elementId) {
-          return j;
-        }
-      }
-    }
-
-
     function setAddElementsTotalPrice(currProduct) {
-      var elemTypeQty = currProduct.chosenAddElements.length;
+      var elemTypeQty = currProduct.chosenAddElements.length,
+          elemQty;
       currProduct.addelem_price = 0;
       currProduct.addelemPriceDis = 0;
       while(--elemTypeQty > -1) {
-        var elemQty = currProduct.chosenAddElements[elemTypeQty].length;
+        elemQty = currProduct.chosenAddElements[elemTypeQty].length;
         if (elemQty > 0) {
           while(--elemQty > -1) {
             currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
           }
         }
       }
-      currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
-      currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
-      //console.info('setAddElementsTotalPrice', currProduct.addelem_price, currProduct.addelemPriceDis);
+      currProduct.addelem_price = GeneralServ.roundingValue(currProduct.addelem_price);
+      currProduct.addelemPriceDis = GeneralServ.setPriceDis(
+        currProduct.addelem_price, OrderStor.order.discount_addelem
+      );
       $timeout(function() {
         MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
@@ -5313,39 +7046,12 @@ function ErrorResult(code, message) {
 
 
 
-    //-------- Delete AddElement from global object
-    function deleteAddElement(typeId, elementId) {
-      var index = (typeId - 1);
-      ProductStor.product.chosenAddElements[index].splice(elementId, 1);
-      desactiveAddElementParameters();
-      //Set Total Product Price
-      setAddElementsTotalPrice(ProductStor.product);
-    }
-
-
-    //--------- Delete All List of selected AddElements
-    function deleteAllAddElements() {
-      var elementsQty = ProductStor.product.chosenAddElements.length;
-      while(--elementsQty > -1) {
-        ProductStor.product.chosenAddElements[elementsQty].length = 0;
-      }
-      ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelemPriceDis = 0;
-      //Set Total Product Price
-      setAddElementsTotalPrice(ProductStor.product);
-    }
-
-
-
-
-
-
-    /** Qty Calculator */
+    /** =========== Qty Calculator ========== */
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
       } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
@@ -5358,9 +7064,6 @@ function ErrorResult(code, message) {
           ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
         }
       }
-      //console.info('Qty-----', AuxStor.aux.tempSize, ProductStor.product.chosenAddElements[index][elementIndex].element_qty);
-      //--------- Set Total Product Price
-      //setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -5377,7 +7080,104 @@ function ErrorResult(code, message) {
 
 
 
-    /** SIze Calculator */
+    /** ============= SIze Calculator ============= */
+
+
+    function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
+      var objXAddElementPrice = {
+        currencyId: UserStor.userInfo.currencyId,
+        elementId: addElementsList[typeIndex][elementIndex].id,
+        elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
+        elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
+      };
+      return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+        if (results) {
+          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
+            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
+          );
+          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
+            GeneralServ.setPriceDis(
+              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
+            )
+          );
+          AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
+        }
+        return results;
+      });
+    }
+
+
+    //------- Close Size Calculator
+    function closeSizeCaclulator() {
+      var elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
+      AuxStor.aux.tempSize.length = 0;
+      desactiveAddElementParameters();
+      //-------- recalculate add element price
+      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+        setAddElementsTotalPrice(ProductStor.product);
+      });
+    }
+
+
+    function changeElementSize(){
+      var newElementSize = '',
+          elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
+
+      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+      if(GlobalStor.global.isQtyCalculator) {
+        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
+      } else if(GlobalStor.global.isSizeCalculator) {
+        if(GlobalStor.global.isWidthCalculator) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
+        } else {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+        }
+      }
+
+    }
+
+
+    //------- Change Size parameter
+    function setValueSize(newValue) {
+      var sizeLength = AuxStor.aux.tempSize.length;
+      //---- clean tempSize if indicate only one 0
+      if(sizeLength === 4 || (sizeLength === 1 && !AuxStor.aux.tempSize[0])) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if (newValue === '0') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          AuxStor.aux.tempSize.push(newValue);
+          changeElementSize();
+        }
+      } else if(newValue === '00') {
+        if (sizeLength && AuxStor.aux.tempSize[0]) {
+          if (sizeLength < 3) {
+            AuxStor.aux.tempSize.push(0, 0);
+          } else if (sizeLength === 3) {
+            AuxStor.aux.tempSize.push(0);
+          }
+          changeElementSize();
+        }
+      } else {
+        AuxStor.aux.tempSize.push(newValue);
+        changeElementSize();
+      }
+
+    }
+
+
+
+    //------- Delete last number
+    function deleteLastNumber() {
+      AuxStor.aux.tempSize.pop();
+      if(AuxStor.aux.tempSize.length < 1) {
+        AuxStor.aux.tempSize.push(0);
+      }
+      changeElementSize();
+    }
+
 
 
     function pressCulculator(keyEvent) {
@@ -5438,110 +7238,466 @@ function ErrorResult(code, message) {
             break;
         }
         if(newValue !== undefined) {
-          //if (GlobalStor.global.isQtyCalculator) {
-          //  setValueQty(newValue);
-          //} else if (GlobalStor.global.isSizeCalculator) {
-            setValueSize(newValue);
-          //}
-        }
-      }
-    }
-
-
-      //------- Change Size parameter
-    function setValueSize(newValue) {
-      //console.info('tempSize====', AuxStor.aux.tempSize);
-      //---- clean tempSize if indicate only one 0
-      if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
-        AuxStor.aux.tempSize.length = 0;
-      }
-      if(AuxStor.aux.tempSize.length === 4) {
-        AuxStor.aux.tempSize.length = 0;
-      }
-      if(newValue === '00'){
-        if(AuxStor.aux.tempSize.length === 1 || AuxStor.aux.tempSize.length === 2) {
-          AuxStor.aux.tempSize.push(0, 0);
-          changeElementSize();
-        } else if(AuxStor.aux.tempSize.length === 3) {
-          AuxStor.aux.tempSize.push(0);
-          changeElementSize();
-        }
-      } else {
-        if(AuxStor.aux.tempSize.length < 4) {
-          AuxStor.aux.tempSize.push(newValue);
-          changeElementSize();
+          setValueSize(newValue);
         }
       }
     }
 
 
 
-    //------- Delete last number
-    function deleteLastNumber() {
-      AuxStor.aux.tempSize.pop();
-      if(AuxStor.aux.tempSize.length < 1) {
-        AuxStor.aux.tempSize.push(0);
+
+
+    function finishCalculators() {
+      //if(AuxStor.aux.tempSize.length) {
+      //changeElementSize();
+      if(GlobalStor.global.isSizeCalculator) {
+        closeSizeCaclulator();
+      } else if(GlobalStor.global.isQtyCalculator) {
+        closeQtyCaclulator();
       }
-      changeElementSize();
+      //}
+      AuxStor.aux.currentAddElementId = 0;
     }
 
 
-    function changeElementSize(){
-      var newElementSize = '',
-          elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
 
-      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
 
-      if(GlobalStor.global.isQtyCalculator) {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
-      } else if(GlobalStor.global.isSizeCalculator) {
-        if(GlobalStor.global.isWidthCalculator) {
-          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
-        } else {
-          if(index === 4) {
-            ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+    //-------- Close AddElements Menu
+    function closeAddElementsMenu() {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isGridSelectorDialog = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
+      //playSound('swip');
+    }
+
+
+
+
+
+
+
+    /** =========== GRID ========== */
+
+
+    function deleteOldGridInList(blockIndex) {
+      var chosenGridsQty;
+      if(ProductStor.product.template_source.details[blockIndex].gridId) {
+        chosenGridsQty = ProductStor.product.chosenAddElements[0].length;
+        while(--chosenGridsQty > -1) {
+          if(ProductStor.product.chosenAddElements[0][chosenGridsQty].block_id === ProductStor.product.template_source.details[blockIndex].id) {
+            if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty === 1) {
+              ProductStor.product.chosenAddElements[0].splice(chosenGridsQty, 1);
+            } else if (ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty > 1) {
+              ProductStor.product.chosenAddElements[0][chosenGridsQty].element_qty -= 1;
+            }
           }
         }
       }
-
     }
 
 
-    //------- Close Size Calculator
-    function closeSizeCaclulator() {
-      var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
-//console.info('closeSizeCaclulator');
-      GlobalStor.global.isWidthCalculator = false;
-      AuxStor.aux.tempSize.length = 0;
-      desactiveAddElementParameters();
 
-      //-------- recalculate add element price
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width / 1000)
-      };
+    function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
+      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.x;
+          }),
+          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+            return item.y;
+          }), gridTemp;
+      //------- insert grid in block
+      ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
+      ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
+      //-------- add sizes in grid object
+      gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
+      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
+      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      gridTemp.block_id = blockId;
+      return gridTemp;
+    }
 
-      //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
-      localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          //          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers(results.priceTotal));
-          ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-          //console.info('closeSizeCaclulator', ProductStor.product.chosenAddElements[index][elementIndex].element_price, ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis);
-          //------- Set Total Product Price
-          setAddElementsTotalPrice(ProductStor.product);
+
+    function collectGridsAsBlock(blockId, gridIndex) {
+      var blocksQty = ProductStor.product.template_source.details.length,
+          gridElements = [];
+      while(--blocksQty > 0) {
+        if(blockId) {
+          /** set grid to template block by its Id */
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+            /** check block to old grid
+             * delete in product.choosenAddElements if exist
+             * */
+            deleteOldGridInList(blocksQty);
+            gridElements.push(setCurrGridToBlock(blockId, blocksQty, gridIndex));
+            break;
+          }
         } else {
-          console.log(results);
+          /** set grid to all template blocks */
+          if(ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
+            deleteOldGridInList(blocksQty);
+            gridElements.push(setCurrGridToBlock(
+              ProductStor.product.template_source.details[blocksQty].id, blocksQty, gridIndex
+            ));
+          }
+        }
+      }
+      return gridElements;
+    }
+
+
+
+    function changeSVGTemplateAsNewGrid () {
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          //------ save analytics data
+          //TODO ?? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
+        });
+    }
+
+
+
+
+    function closeGridSelectorDialog() {
+      DesignServ.removeGlassEventsInSVG();
+      DesignStor.design.selectedGlass.length = 0;
+      AuxStor.aux.selectedGrid = 0;
+      AuxStor.aux.isGridSelectorDialog = !AuxStor.aux.isGridSelectorDialog;
+    }
+
+
+
+    //--------- when we select new addElement, function checks
+    // is there this addElements in order to increase only elementQty
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist+=1;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist+=1;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist+=1;
+          }
+
+          /** increase quantity if exist */
+          if(isExist) {
+            elementsArr[elementsQty].element_qty += 1;
+            break;
+          }
+        }
+
+      }
+      return isExist;
+    }
+
+
+    function pushSelectedAddElement(currProduct, currElement) {
+      var index = (AuxStor.aux.isFocusedAddElement - 1),
+          existedElement;
+
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      if(!existedElement) {
+        var newElementSource = {
+              element_type: index,
+              element_width: 0,
+              element_height: 0,
+              block_id: 0
+            },
+            newElement = angular.extend(newElementSource, currElement);
+
+        currProduct.chosenAddElements[index].push(newElement);
+        //---- open TABFrame when second element selected
+        if(currProduct.chosenAddElements[index].length === 2) {
+          AuxStor.aux.isTabFrame = 1;
+        }
+      }
+    }
+
+
+
+    function insertGrids(grids) {
+      DesignServ.getGridPrice(grids).then(function(data) {
+        var dataQty = data.length;
+        AuxStor.aux.currAddElementPrice = 0;
+        if(dataQty) {
+          while(--dataQty > -1) {
+            pushSelectedAddElement(ProductStor.product, data[dataQty]);
+            AuxStor.aux.currAddElementPrice += data[dataQty].elementPriceDis;
+          }
+          AuxStor.aux.currAddElementPrice = GeneralServ.roundingValue(AuxStor.aux.currAddElementPrice);
+          //------ show element price
+          AuxStor.aux.isAddElement = AuxStor.aux.selectedGrid[0]+'-'+AuxStor.aux.selectedGrid[1];
+          //------ Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+          //------ change SVG
+          changeSVGTemplateAsNewGrid();
+          //------ close Grid Dialog
+          closeGridSelectorDialog();
         }
       });
     }
 
 
-  }
+
+    /** set Selected Grids */
+    function confirmGrid() {
+      if(DesignStor.design.selectedGlass.length) {
+        var grids = DesignStor.design.selectedGlass.map(function(item) {
+          var blockId = item.attributes.block_id.nodeValue;
+          //------- collect grids relative to blocks
+          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
+        });
+        insertGrids(grids);
+      }
+    }
+
+
+
+    /** set Grids for all Sashes */
+    function setGridToAll() {
+      var grids = collectGridsAsBlock(0, AuxStor.aux.selectedGrid);
+      insertGrids(grids);
+    }
+
+
+
+
+
+    function deleteGridsInTemplate(blockID) {
+      var blocksQty = ProductStor.product.template_source.details.length;
+      while(--blocksQty > 0) {
+        if(blockID) {
+          if(ProductStor.product.template_source.details[blocksQty].id === blockID) {
+            if(ProductStor.product.template_source.details[blocksQty].gridId) {
+              delete ProductStor.product.template_source.details[blocksQty].gridId;
+              delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+              break;
+            }
+          }
+        } else {
+          if(ProductStor.product.template_source.details[blocksQty].gridId) {
+            delete ProductStor.product.template_source.details[blocksQty].gridId;
+            delete ProductStor.product.template_source.details[blocksQty].gridTxt;
+          }
+        }
+      }
+      changeSVGTemplateAsNewGrid();
+    }
+
+
+
+
+
+
+    function getAddElementPrice(typeIndex, elementIndex) {
+      var deferred = $q.defer();
+      AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
+      //------- checking if add element is not grid and has price
+//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
+//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
+      //
+      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      //} else {
+      calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
+        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      });
+      //}
+      return deferred.promise;
+    }
+
+
+
+
+    /**--------- Select AddElement ------------*/
+
+    function chooseAddElement(typeIndex, elementIndex) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      if (typeIndex === undefined && elementIndex === undefined) {
+        /**------- if all grids deleting --------*/
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          deleteGridsInTemplate();
+        }
+        var index = (AuxStor.aux.isFocusedAddElement - 1);
+        AuxStor.aux.isAddElement = 0;
+        //-------- clean all elements in selected Type
+        ProductStor.product.chosenAddElements[index].length = 0;
+
+        //-------- Set Total Product Price
+        setAddElementsTotalPrice(ProductStor.product);
+
+      } else {
+        getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+          pushSelectedAddElement(ProductStor.product, addElem);
+          //Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+
+          //------ save analytics data
+          //TODO ??? AnalyticsServ.saveAnalyticDB(
+          // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+        });
+      }
+    }
+
+
+
+    /** --------- Select AddElement List --------------*/
+
+    function chooseAddElementList(typeIndex, elementIndex) {
+      var productsQty, p;
+      /** in main page */
+      if(GlobalStor.global.currOpenPage === 'main') {
+
+        /** if grid,  show grid selector dialog */
+        if(AuxStor.aux.isFocusedAddElement === 1) {
+          if(ProductStor.product.is_addelem_only) {
+            /** without window */
+            pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //---------- Set Total Product Price
+            setAddElementsTotalPrice(ProductStor.product);
+          } else {
+            //------- show Grid Selector Dialog
+            AuxStor.aux.selectedGrid = [typeIndex, elementIndex];
+            AuxStor.aux.isGridSelectorDialog = 1;
+            DesignServ.initAllGlassXGrid();
+          }
+        } else {
+          pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+          //---------- Set Total Product Price
+          setAddElementsTotalPrice(ProductStor.product);
+        }
+
+      } else if(GlobalStor.global.currOpenPage === 'cart') {
+        /** in cart page */
+        productsQty = CartStor.cart.selectedProducts.length;
+        for(p = 0; p < productsQty; p+=1) {
+          if(CartStor.cart.selectedProducts[p].length) {
+            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //Set Total Product Price
+            CartServ.calculateAddElemsProductsPrice(1);
+            CartMenuServ.joinAllAddElements();
+            CartServ.collectAllAddElems();
+            CartServ.getAddElemsPriceTotal();
+            //------ change order Price
+            CartMenuServ.calculateOrderPrice();
+          }
+        }
+      }
+      //----- hide element price in menu
+      AuxStor.aux.currAddElementPrice = 0;
+      //------ save analytics data
+      //TODO ??? AnalyticsServ.saveAnalyticDB(
+      // UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id,
+      // AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      AuxStor.aux.isAddElement = 0;
+    }
+
+
+
+
+
+    /**-------- Delete AddElement from global object ---------*/
+
+    function deleteAddElement(typeId, elementId) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        finishCalculators();
+      }
+      /**------- if grid delete --------*/
+      if(AuxStor.aux.isFocusedAddElement === 1) {
+        deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
+      }
+      ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
+      //------ Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+    }
+
+
+
+
+    /**--------- Delete All List of selected AddElements -------------*/
+
+    function deleteAllAddElements() {
+      var elementsQty = ProductStor.product.chosenAddElements.length, i;
+      for(i = 0; i < elementsQty; i+=1) {
+        /**------- check grids -----*/
+        if(!i) {
+          if(ProductStor.product.chosenAddElements[i].length) {
+            deleteGridsInTemplate();
+          }
+        }
+        ProductStor.product.chosenAddElements[i].length = 0;
+      }
+      ProductStor.product.addelem_price = 0;
+      ProductStor.product.addelemPriceDis = 0;
+      //------ Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+      //------ close AddElements Menu
+      closeAddElementsMenu();
+    }
+
+
+
+
+
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      closeAddElementsMenu: closeAddElementsMenu,
+      chooseAddElement: chooseAddElement,
+      chooseAddElementList: chooseAddElementList,
+      getAddElementPrice: getAddElementPrice,
+      deleteAddElement: deleteAddElement,
+      deleteAllAddElements: deleteAllAddElements,
+      finishCalculators: finishCalculators,
+
+      //---- grid
+      confirmGrid: confirmGrid,
+      setGridToAll: setGridToAll,
+      closeGridSelectorDialog: closeGridSelectorDialog,
+
+      //---- calculators:
+      pressCulculator: pressCulculator,
+      setValueQty: setValueQty,
+      closeQtyCaclulator: closeQtyCaclulator,
+      setValueSize: setValueSize,
+      deleteLastNumber: deleteLastNumber,
+      changeElementSize: changeElementSize,
+      closeSizeCaclulator: closeSizeCaclulator
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -5550,17 +7706,159 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AddElementsServ', addElemFactory);
+    .factory('AddElementsServ',
 
-  function addElemFactory($filter, $timeout, globalConstants, AddElementMenuServ, GlobalStor, ProductStor, AuxStor) {
-
+  function(
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementMenuServ,
+    GlobalStor,
+    ProductStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
+
+
+
+    /**============ METHODS ================*/
+
+
+    function downloadAddElementsData(id) {
+      var index = (id - 1);
+      AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
+      AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+    }
+
+
+    function showingAddElemMenu(id) {
+      AuxStor.aux.isFocusedAddElement = id;
+      //playSound('swip');
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      downloadAddElementsData(id);
+    }
+
+
+    /**--------- Select additional element group -----------*/
+
+    function selectAddElement(id) {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if AddElem Menu is opened yet */
+      if(AuxStor.aux.showAddElementsMenu) {
+        if (AuxStor.aux.isFocusedAddElement === id) {
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
+        } else {
+          //-------- close menu
+          AddElementMenuServ.closeAddElementsMenu();
+          //-------- next open new menu
+          $timeout(function () {
+            showingAddElemMenu(id);
+          }, delayShowElementsMenu);
+        }
+      } else {
+        /** first open of AddElem Menu */
+        showingAddElemMenu(id);
+      }
+    }
+
+
+
+
+
+    /**------------- Select Add Element Parameter --------------*/
+
+    function initAddElementTools(groupId, toolsId, elementIndex) {
+      var currElem;
+      /** click to the same parameter => calc Price and close caclulators */
+      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
+        AddElementMenuServ.finishCalculators();
+      } else {
+        /** click another parameter */
+        if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
+        AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
+        AuxStor.aux.currentAddElementId = elementIndex;
+        /** set css theme for calculator */
+        AuxStor.aux.calculatorStyle = GeneralServ.addElementDATA[groupId-1].typeClass + '-theme';
+        switch (toolsId) {
+          case 1:
+            GlobalStor.global.isQtyCalculator = 1;
+            break;
+          case 2:
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 1;
+            break;
+          case 3:
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 0;
+            break;
+        }
+      }
+    }
+
+
+
+    // Open Add Elements in List View
+    function viewSwitching() {
+      //playSound('swip');
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
+      //------ close Grid Selector Dialog
+      AuxStor.aux.isGridSelectorDialog = 0;
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+    }
+
+
+    function openAddElementListView() {
+      AuxStor.aux.isAddElementListView = 1;
+      viewSwitching();
+    }
+
+    function closeAddElementListView() {
+      AuxStor.aux.isAddElementListView = 0;
+      viewSwitching();
+    }
+
+
+
+    //----------- create AddElement Groups for Searching
+    function createAddElementGroups() {
+      var groupNamesQty = GeneralServ.addElementDATA.length,
+          groupTempObj, g;
+      AuxStor.aux.addElementGroups.length = 0;
+      for(g = 0; g < groupNamesQty; g+=1){
+        if(GlobalStor.global.addElementsAll[g].elementsList) {
+          groupTempObj = {};
+          groupTempObj.groupId = (g+1);
+          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
+          AuxStor.aux.addElementGroups.push(groupTempObj);
+          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
+        }
+      }
+    }
+
+
+
+    /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
@@ -5572,144 +7870,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-
-
-
-    //============ methods ================//
-
-
-    //--------- Select additional element
-    function selectAddElement(id) {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        if (AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
-          AuxStor.aux.isFocusedAddElement = id;
-          AuxStor.aux.isTabFrame = 0;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = 0;
-
-          AddElementMenuServ.desactiveAddElementParameters();
-          AuxStor.aux.isAddElement = 0;
-          $timeout(function () {
-            AuxStor.aux.addElementsMenuStyle = 0;
-            //playSound('swip');
-            AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-            downloadAddElementsData(id);
-          }, delayShowElementsMenu);
-        } else {
-          AuxStor.aux.isFocusedAddElement = id;
-          //playSound('swip');
-          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-          downloadAddElementsData(id);
-        }
-      }
-    }
-
-
-
-
-    function downloadAddElementsData(id) {
-      var index = (id - 1);
-      AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
-      AuxStor.aux.addElementsType = GlobalStor.global.addElementsAll[index].elementType;
-      AuxStor.aux.addElementsList = GlobalStor.global.addElementsAll[index].elementsList;
-    }
-
-
-    //------- Select Add Element Parameter
-    function initAddElementTools(groupId, toolsId, elementIndex) {
-      //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
-      //----- close caclulator if opened
-      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
-        if(AuxStor.aux.tempSize.length) {
-          AddElementMenuServ.changeElementSize();
-          if(GlobalStor.global.isSizeCalculator) {
-            AddElementMenuServ.closeSizeCaclulator();
-          } else if(GlobalStor.global.isQtyCalculator) {
-            AddElementMenuServ.closeQtyCaclulator();
-          }
-        }
-        //AddElementMenuServ.desactiveAddElementParameters();
-        AuxStor.aux.currentAddElementId = 0;
-        //console.log('close-'+$scope.global.auxParameter);
-      } else {
-        if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-          if(AuxStor.aux.isFocusedAddElement === groupId) {
-            var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
-            AddElementMenuServ.desactiveAddElementParameters();
-            AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
-            AuxStor.aux.currentAddElementId = elementIndex;
-            switch (toolsId) {
-              case 1:
-                if(currElem.element_qty) {
-                  AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
-                }
-                GlobalStor.global.isQtyCalculator = 1;
-                break;
-              case 2:
-                if(currElem.element_width) {
-                  AuxStor.aux.tempSize = currElem.element_width.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 1;
-                break;
-              case 3:
-                if(currElem.element_height) {
-                  AuxStor.aux.tempSize = currElem.element_height.toString().split('');
-                }
-                GlobalStor.global.isSizeCalculator = 1;
-                GlobalStor.global.isWidthCalculator = 0;
-                break;
-            }
-          }
-        }
-      }
-    }
-
-    function openAddElementListView() {
-      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
-        AuxStor.aux.isAddElementListView = 1;
-        viewSwitching();
-      }
-    }
-
-    function closeAddElementListView() {
-      AuxStor.aux.isAddElementListView = 0;
-      viewSwitching();
-    }
-
-
-    // Open Add Elements in List View
-    function viewSwitching() {
-      //playSound('swip');
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AuxStor.aux.isAddElement = 0;
-      AddElementMenuServ.desactiveAddElementParameters();
-      $timeout(function() {
-        AuxStor.aux.addElementsMenuStyle = 0;
-      }, delayShowElementsMenu);
-    }
-
-
-    //----------- create AddElement Groups for Searching
-    function createAddElementGroups() {
-      var groupNamesQty = AuxStor.aux.groupNames.length,
-          g = 0;
-      AuxStor.aux.addElementGroups.length = 0;
-      for(; g < groupNamesQty; g++){
-        if(GlobalStor.global.addElementsAll[g].elementsList) {
-          var groupTempObj = {};
-          groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = AuxStor.aux.groupNames[g];
-          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
-          AuxStor.aux.addElementGroups.push(groupTempObj);
-        }
-      }
-    }
-
-
-  }
+  });
 })();
 
 
@@ -5718,15 +7879,13 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('AnalyticsServ', analyticsFactory);
+    .factory('AnalyticsServ',
 
-  function analyticsFactory(localDB, UserStor) {
-
+  function(localDB, UserStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
@@ -5736,16 +7895,9 @@ function ErrorResult(code, message) {
       element_type: 0
     };
 
-    thisFactory.publicObj = {
-      sendAnalyticsData: sendAnalyticsData//,
-//      saveAnalyticDB: insertAnalyticsDB,
-//      sendAnalyticsDB: sendAnalyticsDB
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -5783,7 +7935,9 @@ function ErrorResult(code, message) {
             delete analytics[analytQty].id;
             delete analytics[analytQty].modified;
             //----- send Analytics Data to Server
-            localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]);
+            localDB.insertServer(
+            UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]
+            );
           }
           //---- clear Analytics Table in localDB
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);
@@ -5818,7 +7972,20 @@ function ErrorResult(code, message) {
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
 
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      sendAnalyticsData: sendAnalyticsData//,
+      //      saveAnalyticDB: insertAnalyticsDB,
+      //      sendAnalyticsDB: sendAnalyticsDB
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -5827,70 +7994,237 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartMenuServ', cartMenuFactory);
+    .factory('CartMenuServ',
 
-  function cartMenuFactory($location, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor, UserStor) {
-
+  function(
+    $location,
+    GeneralServ,
+    MainServ,
+    GlobalStor,
+    OrderStor,
+    CartStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      //---- menu
-      selectFloorPrice: selectFloorPrice,
-      selectAssembling: selectAssembling,
-      selectInstalment: selectInstalment,
-      checkDifferentDate: checkDifferentDate,
-      //---- price
-      calculateOrderPrice: calculateOrderPrice,
-      calculateAllProductsPrice: calculateAllProductsPrice,
-      calculateTotalOrderPrice: calculateTotalOrderPrice,
-      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
-      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
-      swipeDiscountBlock: swipeDiscountBlock,
-
-      //---- sent order
-      closeOrderDialog: closeOrderDialog,
-      changeLocation: changeLocation,
-      selectCity: selectCity,
-      sendOrder: sendOrder
-    };
-
-    return thisFactory.publicObj;
 
 
+    /**============ METHODS ================*/
 
 
-    //============ methods ================//
+    /**---------- join all Add Elements for Detials ---------*/
 
-    //------- Select dropdown menu item
+    function joinAllAddElements() {
+      var productsQty = OrderStor.order.products.length,
+          isExistElem = 0,
+          typeElementsQty, elementsQty,
+          product, tempElement, element, prod, type, elem;
+      //------ cleaning allAddElements
+      CartStor.cart.allAddElements.length = 0;
+      CartStor.cart.isExistAddElems = 0;
 
-    function selectFloorPrice(id, name, price) {
-      if(OrderStor.order.floor_id !== id) {
-        OrderStor.order.floor_id = id;
-        if(id) {
-          OrderStor.order.floorName = name;
-          OrderStor.order.floor_price = parseFloat(price);
+      for(prod = 0; prod < productsQty; prod+=1) {
+        product = [];
+        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(type = 0; type < typeElementsQty; type+=1) {
+          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
+          if(elementsQty > 0) {
+            for(elem = 0; elem < elementsQty; elem+=1) {
+              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              element = {
+                id: tempElement.id,
+                list_group_id: tempElement.list_group_id,
+                name: tempElement.name,
+                elementPriceDis: tempElement.elementPriceDis,
+                element_price: tempElement.element_price,
+                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
+                element_type: tempElement.element_type,
+                element_width: tempElement.element_width,
+                element_height: tempElement.element_height
+              };
+              product.push(element);
+            }
+          }
+        }
+        if(product.length) {
+          isExistElem+=1;
+        }
+        CartStor.cart.allAddElements.push(product);
+      }
+      //------ to show button All AddElements
+      if(isExistElem) {
+        CartStor.cart.isExistAddElems = 1;
+      }
+    }
+
+
+
+
+    /**---------- mounting margin by Day ------------*/
+
+    function setMountingMarginDay() {
+      var dayIndex = new Date(OrderStor.order.new_delivery_date).getDay(),
+          dayMargin = 0;
+      //      console.warn('new_delivery_date', dayIndex);
+      switch(dayIndex) {
+        case 0: //---- Sunday
+          dayMargin = UserStor.userInfo.mount_sun || 0;
+          break;
+        case 1: //---- Monday
+          dayMargin = UserStor.userInfo.mount_mon || 0;
+          break;
+        case 2: //---- Tuesday
+          dayMargin = UserStor.userInfo.mount_tue || 0;
+          break;
+        case 3: //---- Wednesday
+          dayMargin = UserStor.userInfo.mount_wed || 0;
+          break;
+        case 4: //---- Thursday
+          dayMargin = UserStor.userInfo.mount_thu || 0;
+          break;
+        case 5: //---- Friday
+          dayMargin = UserStor.userInfo.mount_fri || 0;
+          break;
+        case 6: //---- Sataday
+          dayMargin = UserStor.userInfo.mount_sat || 0;
+          break;
+      }
+      //      console.log('dayMargin',dayMargin);
+      OrderStor.order.mounting_price = GeneralServ.roundingValue(OrderStor.order.mounting_price * (1+(dayMargin/100)));
+    }
+
+
+
+    function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
+      if(OrderStor.order.is_instalment) {
+        OrderStor.order.payment_first = GeneralServ.roundingValue(
+          (price * OrderStor.order.selectedInstalmentPercent / 100)
+        );
+        OrderStor.order.payment_monthly = GeneralServ.roundingValue(
+          ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod)
+        );
+        OrderStor.order.paymentFirstDis = GeneralServ.roundingValue(
+          (priceDis * OrderStor.order.selectedInstalmentPercent / 100)
+        );
+        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingValue(
+          ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod)
+        );
+        if(pricePrimary) {
+          OrderStor.order.payment_first_primary = GeneralServ.roundingValue(
+            (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100)
+          );
+          OrderStor.order.payment_monthly_primary = GeneralServ.roundingValue(
+            ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod)
+          );
+          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingValue(
+            (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100)
+          );
+          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingValue(
+            ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod)
+          );
+        }
+      }
+    }
+
+
+
+    /**-------- Calculate Total Order Price ------------*/
+
+    function calculateTotalOrderPrice() {
+      //playSound('price');
+
+      OrderStor.order.order_price = 0;
+      OrderStor.order.order_price_dis = 0;
+
+      //----- add mounting margin by Day
+      setMountingMarginDay();
+
+      //----- add product prices, floor price, assembling price
+      //OrderStor.order.order_price = GeneralServ.roundingValue(
+      // OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price);
+      OrderStor.order.order_price = OrderStor.order.products_price;
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(
+        (OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price)
+      );
+
+      //----- save primary total price
+      OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
+      OrderStor.order.orderPricePrimaryDis = angular.copy(OrderStor.order.order_price_dis);
+
+      //----- add delivery price if order edit
+      if(OrderStor.order.delivery_price) {
+        if(OrderStor.order.is_date_price_more) {
+          if(CartStor.cart.marginDeliveyPlant) {
+            OrderStor.order.order_price += (OrderStor.order.products_price * CartStor.cart.marginDeliveyPlant / 100);
+          }
+          OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
+        } else if(OrderStor.order.is_date_price_less) {
+          if(CartStor.cart.discountDeliveyPlant) {
+            OrderStor.order.order_price -= (OrderStor.order.products_price * CartStor.cart.discountDeliveyPlant / 100);
+          }
+          OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
+        } else {
+          var default_delivery_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+          if(default_delivery_plant) {
+            OrderStor.order.order_price -= (OrderStor.order.products_price * default_delivery_plant / 100);
+          }
+        }
+      }
+
+      OrderStor.order.order_price = GeneralServ.roundingValue(OrderStor.order.order_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingValue(OrderStor.order.order_price_dis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingValue(
+        OrderStor.order.order_price - OrderStor.order.productsPriceDis
+      );
+
+      //------ get price with instalment
+      calculateInstalmentPrice(
+        OrderStor.order.order_price,
+        OrderStor.order.order_price_primary,
+        OrderStor.order.order_price_dis,
+        OrderStor.order.orderPricePrimaryDis
+      );
+    }
+
+
+
+
+
+
+
+    /**------- Select dropdown MENU item ---------------*/
+
+    function selectFloorPrice(currDelivery) {
+      if(OrderStor.order.floor_id !== currDelivery.id) {
+        OrderStor.order.floor_id = currDelivery.id;
+        if(currDelivery.id) {
+          OrderStor.order.floorName = currDelivery.name;
+          OrderStor.order.floor_price = currDelivery.priceReal;
+          OrderStor.order.delivery_user_id = currDelivery.user_id;
         } else {
           OrderStor.order.floorName = '';
           OrderStor.order.floor_price = 0;
+          OrderStor.order.delivery_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
     }
 
-    function selectAssembling(id, name, price) {
-      if(OrderStor.order.mounting_id !== id) {
-        OrderStor.order.mounting_id = id;
-        if(id) {
-          OrderStor.order.mountingName = name;
-          OrderStor.order.mounting_price = parseFloat(price);
+    function selectAssembling(currAssemb) {
+      if(OrderStor.order.mounting_id !== currAssemb.id) {
+        OrderStor.order.mounting_id = currAssemb.id;
+        if(currAssemb.id) {
+          OrderStor.order.mountingName = currAssemb.name;
+          OrderStor.order.mounting_price = currAssemb.priceReal;
+          OrderStor.order.mounting_user_id = currAssemb.user_id;
         } else {
           OrderStor.order.mountingName = '';
           OrderStor.order.mounting_price = 0;
+          OrderStor.order.mounting_user_id = 0;
         }
         calculateTotalOrderPrice();
       }
@@ -5902,12 +8236,119 @@ function ErrorResult(code, message) {
         OrderStor.order.instalment_id = id;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
+        calculateInstalmentPrice(
+          OrderStor.order.order_price,
+          OrderStor.order.order_price_primary,
+          OrderStor.order.order_price_dis,
+          OrderStor.order.orderPricePrimaryDis
+        );
       }
     }
 
 
-    /** Calendar */
+    function changeProductPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length,
+          tempPrice;
+      while(--productQty > -1) {
+        tempPrice = GeneralServ.setPriceDis(
+            OrderStor.order.products[productQty].template_price, discount
+          ) + OrderStor.order.products[productQty].addelemPriceDis;
+        OrderStor.order.products[productQty].productPriceDis = angular.copy( GeneralServ.roundingValue(tempPrice));
+      }
+    }
+
+
+    /**-------- Calculate All Products Price ----------------*/
+
+    function calculateAllProductsPrice() {
+      var productsQty = OrderStor.order.products.length;
+      OrderStor.order.templates_price = 0;
+      OrderStor.order.addelems_price = 0;
+      OrderStor.order.products_price = 0;
+      OrderStor.order.productsPriceDis = 0;
+      CartStor.cart.squareTotal = 0;
+      CartStor.cart.perimeterTotal = 0;
+      CartStor.cart.qtyTotal = 0;
+      while(--productsQty > -1) {
+        OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.productsPriceDis += OrderStor.order.products[productsQty].productPriceDis * OrderStor.order.products[productsQty].product_qty;
+        //------ data for cuclulate Supply and Mounting Prices Submenu
+        CartStor.cart.squareTotal += (OrderStor.order.products[productsQty].template_square * OrderStor.order.products[productsQty].product_qty);
+        CartStor.cart.perimeterTotal += 0.002 * (OrderStor.order.products[productsQty].template_width + OrderStor.order.products[productsQty].template_height) * OrderStor.order.products[productsQty].product_qty;
+        CartStor.cart.qtyTotal += OrderStor.order.products[productsQty].product_qty;
+      }
+      OrderStor.order.addelems_price = GeneralServ.roundingValue(OrderStor.order.addelems_price);
+      OrderStor.order.templates_price = GeneralServ.roundingValue(OrderStor.order.templates_price);
+      OrderStor.order.products_price = GeneralServ.roundingValue(OrderStor.order.products_price);
+      CartStor.cart.squareTotal = GeneralServ.roundingValue(CartStor.cart.squareTotal);
+      CartStor.cart.perimeterTotal = GeneralServ.roundingValue(CartStor.cart.perimeterTotal);
+      CartStor.cart.qtyTotal = GeneralServ.roundingValue(CartStor.cart.qtyTotal);
+
+      /** if default user discount = 0 */
+      if(OrderStor.order.productsPriceDis) {
+        OrderStor.order.productsPriceDis = GeneralServ.roundingValue(OrderStor.order.productsPriceDis);
+      } else {
+        OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
+      }
+    }
+
+
+
+    function changeAddElemPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length,
+          templatePriceDis, addElemsQty, elemQty,
+          prod, elem, item;
+      for(prod = 0; prod < productQty; prod++) {
+        templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(
+          OrderStor.order.products[prod].addelem_price, discount
+        );
+        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingValue(
+          templatePriceDis + OrderStor.order.products[prod].addelemPriceDis
+        );
+
+        addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(elem = 0; elem < addElemsQty; elem++) {
+          elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
+          if (elemQty > 0) {
+            for (item = 0; item < elemQty; item++) {
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount
+              );
+            }
+          }
+        }
+      }
+      /** recollect AllAddElements for Details */
+      joinAllAddElements();
+    }
+
+
+
+    function culcDeliveyPriceByDiscPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(
+        OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100
+      );
+    }
+
+    function culcDeliveryPriceByMargPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingValue(
+        OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100
+      );
+    }
+
+    function hideDeliveryPriceOnCalendar() {
+      OrderStor.order.is_date_price_less = 0;
+      OrderStor.order.is_date_price_more = 0;
+      OrderStor.order.is_old_price = 0;
+    }
+
+
+
+    /**-------------- Calendar -----------------*/
+
     //------ change date
     function checkDifferentDate(lastday, newday) {
       var lastDateArr = lastday.split("."),
@@ -6000,7 +8441,7 @@ function ErrorResult(code, message) {
         calculateAllProductsPrice();
 
         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
-        CartStor.cart.marginDeliveyPlant = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
+        CartStor.cart.marginDeliveyPlant = +GlobalStor.global.deliveryCoeff.percents[marginIndex];
 //        console.info('margin', margin);
         if(CartStor.cart.marginDeliveyPlant) {
           culcDeliveryPriceByMargPlant();
@@ -6025,20 +8466,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function culcDeliveyPriceByDiscPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
-    }
-
-    function culcDeliveryPriceByMargPlant() {
-      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
-    }
-
-    function hideDeliveryPriceOnCalendar() {
-      OrderStor.order.is_date_price_less = 0;
-      OrderStor.order.is_date_price_more = 0;
-      OrderStor.order.is_old_price = 0;
-    }
-
 
     function setMenuItemPriceReal(items) {
       if(items) {
@@ -6059,7 +8486,7 @@ function ErrorResult(code, message) {
                 items[itemQty].priceReal = Math.round(OrderStor.order.productsPriceDis * items[itemQty].price/100);
                 break;
               default:
-                items[itemQty].priceReal = 0;
+                items[itemQty].priceReal = Math.round(items[itemQty].price); //----- type = 5 price per order
                 break;
             }
           }
@@ -6070,7 +8497,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**========== Calculate Order Price ============*/
+    /**------------- Calculate Order Price --------------*/
 
     function calculateOrderPrice() {
       calculateAllProductsPrice();
@@ -6091,174 +8518,98 @@ function ErrorResult(code, message) {
 
 
 
-    //-------- Calculate All Products Price
-    function calculateAllProductsPrice() {
-      var productsQty = OrderStor.order.products.length;
-      OrderStor.order.templates_price = 0;
-      OrderStor.order.addelems_price = 0;
-      OrderStor.order.products_price = 0;
-      OrderStor.order.productsPriceDis = 0;
-      CartStor.cart.squareTotal = 0;
-      CartStor.cart.perimeterTotal = 0;
-      CartStor.cart.qtyTotal = 0;
-      while(--productsQty > -1) {
-        OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
-        OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
-        OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
-        OrderStor.order.productsPriceDis += OrderStor.order.products[productsQty].productPriceDis * OrderStor.order.products[productsQty].product_qty;
-        //------ data for cuclulate Supply and Mounting Prices Submenu
-        CartStor.cart.squareTotal += (OrderStor.order.products[productsQty].template_square * OrderStor.order.products[productsQty].product_qty);
-        CartStor.cart.perimeterTotal += 0.002 * (OrderStor.order.products[productsQty].template_width + OrderStor.order.products[productsQty].template_height) * OrderStor.order.products[productsQty].product_qty;
-        CartStor.cart.qtyTotal += OrderStor.order.products[productsQty].product_qty;
-      }
-      OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
-      OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
-      OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
-      CartStor.cart.squareTotal = GeneralServ.roundingNumbers(CartStor.cart.squareTotal);
-      CartStor.cart.perimeterTotal = GeneralServ.roundingNumbers(CartStor.cart.perimeterTotal);
-      CartStor.cart.qtyTotal = GeneralServ.roundingNumbers(CartStor.cart.qtyTotal);
 
-      /** if default user discount = 0 */
-      if(OrderStor.order.productsPriceDis) {
-        OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
-      } else {
-        OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
-      }
+
+    /**-------- open/close discount block --------*/
+
+    function openDiscountBlock() {
+      CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
+      CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
+      CartStor.cart.isShowDiscount = 1;
     }
 
-
-    //-------- Calculate Total Order Price
-    function calculateTotalOrderPrice() {
-      //playSound('price');
-
-      OrderStor.order.order_price = 0;
-      OrderStor.order.order_price_dis = 0;
-
-      //----- add mounting margin by Day
-      setMountingMarginDay();
-
-      //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price = OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-      OrderStor.order.order_price_dis = OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-
-      //----- save primary total price
-      OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
-      OrderStor.order.orderPricePrimaryDis = angular.copy(OrderStor.order.order_price_dis);
-
-      //----- add delivery price if order edit
-      if(OrderStor.order.delivery_price) {
-        if(OrderStor.order.is_date_price_more) {
-          OrderStor.order.order_price += OrderStor.order.delivery_price;
-          OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
-        } else if(OrderStor.order.is_date_price_less) {
-          OrderStor.order.order_price -= OrderStor.order.delivery_price;
-          OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
-        }
-      }
-
-      OrderStor.order.order_price = GeneralServ.roundingNumbers(OrderStor.order.order_price);
-      OrderStor.order.order_price_dis = GeneralServ.roundingNumbers(OrderStor.order.order_price_dis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price - OrderStor.order.order_price_dis);
-
-      //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
+    function closeDiscountBlock() {
+      CartStor.cart.isShowDiscount = 0;
     }
 
-
-
-    function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
-      if(OrderStor.order.is_instalment) {
-        OrderStor.order.payment_first = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.payment_monthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
-        OrderStor.order.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
-        if(pricePrimary) {
-          OrderStor.order.payment_first_primary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.payment_monthly_primary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
-          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
-        }
-      }
-    }
-
-
-    /** mounting margin by Day */
-    function setMountingMarginDay() {
-      var dayIndex = new Date(OrderStor.order.new_delivery_date).getDay(),
-          dayMargin = 0;
-//      console.warn('new_delivery_date', dayIndex);
-      switch(dayIndex) {
-        case 0: //---- Sunday
-          dayMargin = (UserStor.userInfo.mount_sun) ? UserStor.userInfo.mount_sun : 0;
-          break;
-        case 1: //---- Monday
-          dayMargin = (UserStor.userInfo.mount_mon) ? UserStor.userInfo.mount_mon : 0;
-          break;
-        case 2: //---- Tuesday
-          dayMargin = (UserStor.userInfo.mount_tue) ? UserStor.userInfo.mount_tue : 0;
-          break;
-        case 3: //---- Wednesday
-          dayMargin = (UserStor.userInfo.mount_wed) ? UserStor.userInfo.mount_wed : 0;
-          break;
-        case 4: //---- Thursday
-          dayMargin = (UserStor.userInfo.mount_thu) ? UserStor.userInfo.mount_thu : 0;
-          break;
-        case 5: //---- Friday
-          dayMargin = (UserStor.userInfo.mount_fri) ? UserStor.userInfo.mount_fri : 0;
-          break;
-        case 6: //---- Sataday
-          dayMargin = (UserStor.userInfo.mount_sat) ? UserStor.userInfo.mount_sat : 0;
-          break;
-      }
-//      console.log('dayMargin',dayMargin);
-      OrderStor.order.mounting_price = GeneralServ.roundingNumbers(OrderStor.order.mounting_price * (1 + (dayMargin/100)));
-    }
-
-
-
-    /** open/close discount block */
     function swipeDiscountBlock() {
       if(!CartStor.cart.isShowDiscount) {
-        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
-        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+        CartStor.cart.tempConstructDisc = +OrderStor.order.discount_construct;
+        CartStor.cart.tempAddelemDisc = +OrderStor.order.discount_addelem;
       }
       CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
     }
 
 
-    function changeAddElemPriceAsDiscount(discount) {
-      var productQty = OrderStor.order.products.length;
-      for(var prod = 0; prod < productQty; prod++) {
-        var templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
-        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
-        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingNumbers(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
+    function checkNewDiscount(discount) {
+      if(discount == null) {
+        discount = 0;
+      } else if(discount % 1) {
+        //--- float
+        discount = parseFloat(discount.toFixed(1));
+      }
+      return discount;
+    }
 
-        var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(var elem = 0; elem < addElemsQty; elem++) {
-          var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
-          if (elemQty > 0) {
-            for (var item = 0; item < elemQty; item++) {
-              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount);
-            }
-          }
+
+
+    function approveNewDisc(type) {
+      //console.info(CartStor.cart.tempConstructDisc);
+      if(type) {
+        //------- discount x add element
+        CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
+        if(CartStor.cart.tempAddelemDisc > UserStor.userInfo.discountAddElemMax) {
+          CartStor.cart.tempAddelemDisc = +UserStor.userInfo.discountAddElemMax;
         }
+        OrderStor.order.discount_addelem = +CartStor.cart.tempAddelemDisc;
+        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+
+      } else {
+        //------- discount x construction
+        CartStor.cart.tempConstructDisc = checkNewDiscount(CartStor.cart.tempConstructDisc);
+        if(CartStor.cart.tempConstructDisc > UserStor.userInfo.discountConstrMax) {
+          CartStor.cart.tempConstructDisc = +UserStor.userInfo.discountConstrMax;
+        }
+        OrderStor.order.discount_construct = +CartStor.cart.tempConstructDisc;
+        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
+      //----------- start order price total calculation
+      calculateOrderPrice();
     }
 
 
-    function changeProductPriceAsDiscount(discount) {
-      var productQty = OrderStor.order.products.length;
-      for(var prod = 0; prod < productQty; prod++) {
-        OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingNumbers( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
-      }
-    }
 
 
 
 
     /** ========== Orders Dialogs ====== */
 
-    /** send Order in Local DB */
+    function setDefaultCustomerData() {
+      CartStor.cart.customer.customer_city_id = arguments[0];
+      CartStor.cart.customer.customer_city = arguments[1];
+      CartStor.cart.customer.customer_location = arguments[2];
+    }
+
+    /**----------- Close any Order Dialog ------------*/
+
+    function closeOrderDialog() {
+      CartStor.cart.submitted = 0;
+      CartStor.cart.isCityBox = 0;
+      if(GlobalStor.global.orderEditNumber > 0) {
+        CartStor.fillOrderForm();
+      } else{
+        setDefaultCustomerData(
+          OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location
+        );
+        CartStor.cart.customer.customer_sex = 0;
+      }
+      CartStor.cart.isMasterDialog = 0;
+      CartStor.cart.isOrderDialog = 0;
+      CartStor.cart.isCreditDialog = 0;
+    }
+
+    /**---------- send Order in Local DB ------------*/
+
     function sendOrder() {
       var orderStyle;
       GlobalStor.global.isLoader = 1;
@@ -6280,23 +8631,6 @@ function ErrorResult(code, message) {
     }
 
 
-
-    /** Close any Order Dialog */
-    function closeOrderDialog() {
-      CartStor.cart.submitted = 0;
-      CartStor.cart.isCityBox = 0;
-      if(GlobalStor.global.orderEditNumber > 0) {
-        CartStor.fillOrderForm();
-      } else{
-        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
-        CartStor.cart.customer.customer_sex = 0;
-      }
-      CartStor.cart.isMasterDialog = 0;
-      CartStor.cart.isOrderDialog = 0;
-      CartStor.cart.isCreditDialog = 0;
-    }
-
-
     function changeLocation() {
       if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = 1;
@@ -6305,20 +8639,49 @@ function ErrorResult(code, message) {
       }
     }
 
-    /** Select City in Order Dialogs */
+    /**------------ Select City in Order Dialogs -------------*/
+
     function selectCity(location) {
       setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }
 
 
-    function setDefaultCustomerData(cityId, cityName, fullLocation) {
-      CartStor.cart.customer.customer_city_id = cityId;
-      CartStor.cart.customer.customer_city = cityName;
-      CartStor.cart.customer.customer_location = fullLocation;
-    }
 
-  }
+
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      joinAllAddElements: joinAllAddElements,
+      //---- menu
+      selectFloorPrice: selectFloorPrice,
+      selectAssembling: selectAssembling,
+      selectInstalment: selectInstalment,
+      checkDifferentDate: checkDifferentDate,
+      //---- price
+      calculateOrderPrice: calculateOrderPrice,
+      calculateAllProductsPrice: calculateAllProductsPrice,
+      calculateTotalOrderPrice: calculateTotalOrderPrice,
+      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
+      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
+      openDiscountBlock: openDiscountBlock,
+      closeDiscountBlock: closeDiscountBlock,
+      swipeDiscountBlock: swipeDiscountBlock,
+      approveNewDisc: approveNewDisc,
+
+      //---- sent order
+      closeOrderDialog: closeOrderDialog,
+      changeLocation: changeLocation,
+      selectCity: selectCity,
+      sendOrder: sendOrder
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -6327,87 +8690,28 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartServ', cartFactory);
+    .factory('CartServ',
 
-  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor, AuxStor) {
-
+  function(
+    $location,
+    $filter,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      joinAllAddElements: joinAllAddElements,
-      increaseProductQty: increaseProductQty,
-      decreaseProductQty: decreaseProductQty,
-      addNewProductInOrder: addNewProductInOrder,
-      clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct,
 
-      showAllAddElements: showAllAddElements,
-      collectAllAddElems: collectAllAddElems,
-      getAddElemsPriceTotal: getAddElemsPriceTotal,
-      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
-      createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
-    };
-
-    return thisFactory.publicObj;
-
-
-
-
-    //============ methods ================//
-
-
-
-    //---------- parse Add Elements from LocalStorage
-    function joinAllAddElements() {
-      var productsQty = OrderStor.order.products.length,
-          isExistElem = 0,
-          typeElementsQty, elementsQty,
-          product, tempElement;
-      //------ cleaning allAddElements
-      CartStor.cart.allAddElements.length = 0;
-      CartStor.cart.isExistAddElems = 0;
-
-      for(var prod = 0; prod < productsQty; prod++) {
-        product = [];
-        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
-        for(var type = 0; type < typeElementsQty; type++) {
-          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
-          if(elementsQty > 0) {
-            for(var elem = 0; elem < elementsQty; elem++) {
-              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
-              var element = {
-                id: tempElement.id,
-                list_group_id: tempElement.list_group_id,
-                name: tempElement.name,
-                elementPriceDis: tempElement.elementPriceDis,
-                element_price: tempElement.element_price,
-                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
-                element_type: tempElement.element_type,
-                element_width: tempElement.element_width,
-                element_height: tempElement.element_height
-              };
-              product.push(element);
-            }
-          }
-        }
-        if(product.length) {
-          isExistElem++;
-        }
-        CartStor.cart.allAddElements.push(product);
-      }
-      //------ to show button All AddElements
-      if(isExistElem) {
-        CartStor.cart.isExistAddElems = 1;
-      }
-    }
-
-
+    /**============ METHODS ================*/
 
     //------- add new product in order
     function addNewProductInOrder() {
@@ -6422,34 +8726,15 @@ function ErrorResult(code, message) {
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
       OrderStor.order.products[productIndex].product_qty += 1;
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
 
 
-    //----- Reduce Product Qty
-    function decreaseProductQty(productIndex) {
-      //----- if product 1 - delete product completely
-      if(OrderStor.order.products[productIndex].product_qty === 1) {
-        //------ ask client to delete
-        clickDeleteProduct(productIndex);
-      } else {
-        OrderStor.order.products[productIndex].product_qty -= 1;
-        CartMenuServ.calculateOrderPrice();
-      }
-      joinAllAddElements();
-    }
-
 
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
-        deleteProduct
-      );
 
       function deleteProduct() {
         //playSound('delete');
@@ -6465,7 +8750,28 @@ function ErrorResult(code, message) {
           //TODO create new project
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+        deleteProduct
+      );
     }
+
+
+    //----- Reduce Product Qty
+    function decreaseProductQty(productIndex) {
+      //----- if product 1 - delete product completely
+      if(OrderStor.order.products[productIndex].product_qty === 1) {
+        //------ ask client to delete
+        clickDeleteProduct(productIndex);
+      } else {
+        OrderStor.order.products[productIndex].product_qty -= 1;
+        CartMenuServ.calculateOrderPrice();
+      }
+      CartMenuServ.joinAllAddElements();
+    }
+
 
 
     //----- Edit Produtct in main page
@@ -6492,14 +8798,6 @@ function ErrorResult(code, message) {
 
     /**======== ALL ADD LEMENTS PANEL ========*/
 
-    /** show All Add Elements Panel */
-    function showAllAddElements() {
-      collectAllAddElems();
-      getAddElemsPriceTotal();
-      initSelectedProductsArr();
-      CartStor.cart.isAllAddElems = 1;
-      AuxStor.aux.isAddElementListView = 1;
-    }
 
 
     function collectAllAddElems() {
@@ -6518,8 +8816,8 @@ function ErrorResult(code, message) {
                 if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
                   if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
                     if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
-                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingNumbers(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      --noExist;
+                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
+                      noExist -= 1;
                     }
                   }
                 }
@@ -6544,7 +8842,7 @@ function ErrorResult(code, message) {
       while(--productsQty > -1) {
         CartStor.cart.addElemsOrderPriceTOTAL += (OrderStor.order.products[productsQty].addelemPriceDis * OrderStor.order.products[productsQty].product_qty);
       }
-      CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingNumbers(CartStor.cart.addElemsOrderPriceTOTAL);
+      CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingValue(CartStor.cart.addElemsOrderPriceTOTAL);
     }
 
 
@@ -6557,6 +8855,14 @@ function ErrorResult(code, message) {
     }
 
 
+    /** show All Add Elements Panel */
+    function showAllAddElements() {
+      collectAllAddElems();
+      getAddElemsPriceTotal();
+      initSelectedProductsArr();
+      CartStor.cart.isAllAddElems = 1;
+      AuxStor.aux.isAddElementListView = 1;
+    }
 
 
     function calculateAddElemsProductsPrice(reculc) {
@@ -6575,8 +8881,12 @@ function ErrorResult(code, message) {
               while (--addElemQty > -1) {
                 OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
               }
-              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingNumbers(OrderStor.order.products[productsQty].addelem_price);
-              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(
+                OrderStor.order.products[productsQty].addelem_price
+              );
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem
+              );
             }
           }
         }
@@ -6587,6 +8897,11 @@ function ErrorResult(code, message) {
     }
 
 
+    function addCloneProductInOrder(cloneProduct, lastProductId) {
+      lastProductId += 1;
+      cloneProduct.product_id = lastProductId;
+      OrderStor.order.products.push(cloneProduct);
+    }
 
 
 
@@ -6596,19 +8911,35 @@ function ErrorResult(code, message) {
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
       addCloneProductInOrder(cloneProduct, lastProductId);
-      joinAllAddElements();
+      CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
 
-    function addCloneProductInOrder(cloneProduct, lastProductId) {
-      ++lastProductId;
-      cloneProduct.product_id = lastProductId;
-      OrderStor.order.products.push(cloneProduct);
-    }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      increaseProductQty: increaseProductQty,
+      decreaseProductQty: decreaseProductQty,
+      addNewProductInOrder: addNewProductInOrder,
+      clickDeleteProduct: clickDeleteProduct,
+      editProduct: editProduct,
+
+      showAllAddElements: showAllAddElements,
+      collectAllAddElems: collectAllAddElems,
+      getAddElemsPriceTotal: getAddElemsPriceTotal,
+      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
+      createProductCopy: createProductCopy,
+      addCloneProductInOrder: addCloneProductInOrder
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -6621,14 +8952,21 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-//      serverIP: 'http://192.168.1.147:3002',
-//      serverIP: 'http://windowscalculator.net:3002',
       serverIP: 'http://api.windowscalculator.net',
+      //serverIP: 'http://api.steko.com.ua',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
           // /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+      //------------ SVG
+      SVG_CLASS_ICON: 'tamlateIconSVG',
+      SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_MAIN: 'tamlateMainSVG',
+      SVG_ID_ICON: 'tamlateIconBigSVG',
+      SVG_ID_GLASS: 'tamlateGlassSVG',
+      SVG_ID_GRID: 'tamlateGridSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
@@ -6639,25 +8977,15 @@ function ErrorResult(code, message) {
       //---Edit Design
       squareLimit: 0.15,
       minSizeLimit: 100,
+      minSizeLimitStulp: 300,
       minRadiusHeight: 10,
 
       activeClass: 'active',
-      addElementsGroupClass: [
-        'aux_color_connect',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_connect',
-        'aux_color_small',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_small'
-      ],
+
+
       //------------ Languages
       languages: [
-        {label: 'ua', name: 'Українська'},
+        {label: 'uk', name: 'Українська'},
         {label: 'ru', name: 'Русский'},
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
@@ -6676,71 +9004,711 @@ function ErrorResult(code, message) {
 /* globals d3, startRecognition, parseStringToDimension, playTTS */
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('DesignModule')
-    .factory('DesignServ', designFactory);
+    .factory('DesignServ',
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, globalConstants, GeneralServ, MainServ, AnalyticsServ, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $rootScope,
+    $location,
+    $timeout,
+    $filter,
+    $q,
+    globalConstants,
+    GeneralServ,
+    localDB,
+    MainServ,
+    AnalyticsServ,
+    optionsServ,
+    SVGServ,
+    GlobalStor,
+    DesignStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
 
-    thisFactory.publicObj = {
-      setDefaultTemplate: setDefaultTemplate,
-      designSaved: designSaved,
-      designCancel: designCancel,
-      setDefaultConstruction: setDefaultConstruction,
 
-      initAllImposts: initAllImposts,
-      initAllGlass: initAllGlass,
-      initAllArcs: initAllArcs,
-      initAllDimension: initAllDimension,
-      hideCornerMarks: hideCornerMarks,
-      deselectAllImpost: deselectAllImpost,
-      deselectAllArc: deselectAllArc,
-      deselectAllGlass: deselectAllGlass,
-      rebuildSVGTemplate: rebuildSVGTemplate,
 
-      //------- edit sash
-      createSash: createSash,
-      deleteSash: deleteSash,
-      //------- edit corners
-      setCornerPoints: setCornerPoints,
-      setCurvCornerPoints: setCurvCornerPoints,
-      deleteCornerPoints: deleteCornerPoints,
-      //-------- edit arc
-      createArc: createArc,
-      deleteArc: deleteArc,
-      workingWithAllArcs: workingWithAllArcs,
-      //-------- edit impost
-      createImpost: createImpost,
-      deleteImpost: deleteImpost,
-      //-------- mirror
-      initMirror: initMirror,
-      removeAllEventsInSVG: removeAllEventsInSVG,
-
-      //---- change sizes
-      setValueSize: setValueSize,
-      deleteLastNumber: deleteLastNumber,
-      closeSizeCaclulator: closeSizeCaclulator,
-      hideSizeTools: hideSizeTools,
-
-      stepBack: stepBack,
-
-      //---- door
-//      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
-    };
-
-    return thisFactory.publicObj;
+    /**============ METHODS ================*/
 
 
 
+    function hideAllDimension() {
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block').classed('dim_hidden', true);
+    }
 
-    //============ methods ================//
+
+    function hideCornerMarks() {
+      DesignStor.design.selectedCorner.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .corner_mark')
+        .transition()
+        .duration(300)
+        .ease("linear")
+        .attr('r', 0);
+    }
+
+    function deselectAllImpost() {
+      DesignStor.design.selectedImpost.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]').classed('frame-active', false);
+    }
+
+
+    function deselectAllArc() {
+      DesignStor.design.selectedArc.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame').classed('active_svg', false);
+    }
+
+
+    function deselectAllGlass() {
+      DesignStor.design.selectedGlass.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass').classed('glass-active', false);
+    }
+
+
+    function deselectAllDimension() {
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-rect').classed('active', false);
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-txt-edit').classed('active', false);
+    }
+
+
+    function hideSizeTools() {
+      deselectAllDimension();
+      GlobalStor.global.isSizeCalculator = 0;
+      DesignStor.design.openVoiceHelper = 0;
+    }
+
+
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+        });
+    }
+
+
+    function showErrorInBlock(blockID, svgSelector) {
+      var idSVG = svgSelector || globalConstants.SVG_ID_EDIT,
+          currGlass = d3.select('#'+idSVG+' .glass[block_id='+blockID+']'),
+          i = 1;
+      currGlass.classed('error_glass', true);
+      var interval = setInterval(function() {
+        if(i === 11) {
+          clearInterval(interval);
+        }
+        if(i%2) {
+          currGlass.classed('error_glass', false);
+        } else {
+          currGlass.classed('error_glass', true);
+        }
+        i+=1;
+      }, 50);
+    }
+
+
+
+    function removeAllEventsInSVG() {
+      //--------- delete click on imposts
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on arcs
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete click on dimension
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          d3.select(this).on(clickEvent, null);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
+    function removeGlassEventsInSVG() {
+      //--------- delete click on glasses
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
+        .each(function() {
+          d3.select(this).on(clickEvent, null)
+            .classed('glass-active', false);
+        });
+      //--------- delete event listener for keydown
+      d3.select(window).on('keydown', null);
+    }
+
+
+
+    /**=============== CHANGE CONSTRUCTION SIZE ==============*/
+
+
+    /**----------- Close Size Calculator -----------*/
+
+    function cleanTempSize() {
+      DesignStor.design.tempSize.length = 0;
+      DesignStor.design.isMinSizeRestriction = 0;
+      DesignStor.design.isMaxSizeRestriction = 0;
+      DesignStor.design.isDimExtra = 0;
+      DesignStor.design.isSquareExtra = 0;
+    }
+
+
+    function culcHeightQByRadiusCurve(lineLength, radius) {
+      return GeneralServ.roundingValue( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)), 1);
+    }
+
+
+    function addNewSizeInTemplate(newLength) {
+
+      //-------- change point coordinates in templateSource
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          //blocksOLD = DesignStor.design.templateTEMP.details,
+          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
+          curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
+          dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
+
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      //          console.log('SIZE ````````curBlockId````````', curBlockId);
+      //          console.log('SIZE ````````curDimType````````', curDimType);
+      //          console.log('SIZE ````````dimId````````', dimId);
+
+
+      if(curDimType === 'curve') {
+        //============ changing Radius
+
+        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+
+        mainFor: for (b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].id === curBlockId) {
+            //-------- search in PointsQ
+            if(blocks[b].pointsQ) {
+              pointsQQty = blocks[b].pointsQ.length;
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
+                  break mainFor;
+                }
+              }
+            }
+            //-------- search in Imposts
+            if(blocks[b].impost) {
+              if(blocks[b].impost.impostAxis[2].id === dimId) {
+                blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
+                break mainFor;
+              }
+            }
+
+          }
+        }
+
+      } else if(dimId.indexOf('qa')+1) {
+        //========== changing Arc Height
+
+        for(b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].level === 1) {
+            pointsQQty = blocks[b].pointsQ.length;
+            if(pointsQQty) {
+              while(--pointsQQty > -1) {
+                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                  blocks[b].pointsQ[pointsQQty].heightQ = newLength;
+                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                }
+              }
+            }
+          }
+        }
+
+      } else {
+        //            console.log('SIZE ````````newLength````````', newLength);
+        //            console.log('SIZE ````````startSize````````', startSize);
+        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
+        //            console.log('SIZE ````````axis````````', axis);
+
+        //========== changing Line dimension
+        for(b = 1; b < blocksQty; b+=1) {
+          var pointsOutQty = blocks[b].pointsOut.length;
+          if(pointsOutQty) {
+            while(--pointsOutQty > -1) {
+              if(axis === 'x') {
+                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+                }
+              } else if(axis === 'y') {
+                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                }
+              }
+            }
+          }
+          if(blocks[b].impost) {
+            for(i = 0; i < 2; i+=1) {
+              if(axis === 'x') {
+                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
+                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
+                }
+              } else if (axis === 'y') {
+                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
+                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
+                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+
+    /**---------- add new size in parent block in order to recalculate overall square -----------*/
+
+    function rebuildPointsOut(newLength) {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          newPointsOut, b, pointsOutQty, isRealBlock;
+
+      for(b = 1; b < blocksQty; b+=1) {
+        if (blocks[b].level === 1) {
+          pointsOutQty = blocks[b].pointsOut.length;
+          if (pointsOutQty) {
+            isRealBlock = 0;
+            isRealBlock = blocks[b].pointsOut.some(function(item) {
+              if (axis === 'x') {
+                return item.x === oldSizeValue;
+              } else if (axis === 'y') {
+                return item.y === oldSizeValue;
+              }
+            });
+            if(isRealBlock) {
+              newPointsOut = angular.copy(blocks[b].pointsOut);
+              while (--pointsOutQty > -1) {
+                if (axis === 'x') {
+                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                    newPointsOut[pointsOutQty].x = startSize + newLength;
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                    newPointsOut[pointsOutQty].y = startSize + newLength;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return newPointsOut;
+    }
+
+
+    function closeSizeCaclulator(prom) {
+      var deff = $q.defer();
+      if(DesignStor.design.tempSize.length) {
+        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10),
+            newPointsOut = rebuildPointsOut(newLength),
+            currSquare = newPointsOut ? SVGServ.calcSquare(newPointsOut) : 0;
+
+        /** Square limits checking */
+        if(currSquare < GlobalStor.global.maxSquareLimit) {
+          /** Dimensions limits checking */
+
+          if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+            addNewSizeInTemplate(newLength);
+            //------ close size calculator and deactive size box in svg
+            hideSizeTools();
+            //----- change Template
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+              .then(function(result) {
+                DesignStor.design.templateTEMP = angular.copy(result);
+                cleanTempSize();
+                deff.resolve(1);
+              });
+          } else {
+            //------ show error size
+            if(newLength < DesignStor.design.minSizeLimit) {
+              if(GlobalStor.global.isVoiceHelper) {
+                playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'),GlobalStor.global.voiceHelperLanguage);
+                //------- deactive size box in svg
+                //deselectAllDimension();
+                //-------- build new template
+                //rebuildSVGTemplate();
+              } else {
+                DesignStor.design.isMinSizeRestriction = 1;
+                DesignStor.design.isMaxSizeRestriction = 0;
+              }
+
+            } else if(newLength > DesignStor.design.maxSizeLimit) {
+              if(GlobalStor.global.isVoiceHelper) {
+                playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'),GlobalStor.global.voiceHelperLanguage);
+                //------- deactive size box in svg
+                //deselectAllDimension();
+                //-------- build new template
+                //rebuildSVGTemplate();
+              } else {
+                DesignStor.design.isMinSizeRestriction = 0;
+                DesignStor.design.isMaxSizeRestriction = 1;
+              }
+
+              //-------- if extra overall dimention
+              if(newLength > GlobalStor.global.maxSizeLimit) {
+                DesignStor.design.isDimExtra = 1;
+              }
+            }
+            //------- back previous size
+            d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
+            DesignStor.design.tempSize.length = 0;
+            deff.resolve(1);
+          }
+
+        } else {
+          DesignStor.design.isSquareExtra = 1;
+          //------- back previous size
+          d3.select(DesignStor.design.oldSize).text(DesignStor.design.prevSize);
+          DesignStor.design.tempSize.length = 0;
+          deff.resolve(1);
+        }
+
+      } else {
+        //------ close size calculator and deselect All Dimension
+        hideSizeTools();
+        deff.resolve(1);
+      }
+      DesignStor.design.openVoiceHelper = 0;
+      DesignStor.design.loudVoice = 0;
+      DesignStor.design.quietVoice = 0;
+      //console.log('FINISH CACL');
+      if(prom) {
+        return deff.promise;
+      }
+    }
+
+
+    //------ Change size on SVG
+    function changeSize() {
+      var newSizeString = DesignStor.design.tempSize.join('');
+      d3.select(DesignStor.design.oldSize).text(newSizeString);
+      if(GlobalStor.global.isVoiceHelper) {
+        closeSizeCaclulator();
+      }
+    }
+
+    /**=============== Size Calculator ==============*/
+
+    //-------- Get number from calculator
+    function setValueSize(newValue) {
+      var sizeLength = DesignStor.design.tempSize.length;
+      //console.log('take new value = ', newValue);
+      if(GlobalStor.global.isVoiceHelper) {
+
+        var tempVal = parseInt(newValue, 10);
+        //console.log('tempVal=====', tempVal);
+        DesignStor.design.voiceTxt = '';
+        DesignStor.design.openVoiceHelper = false;
+
+        if ((tempVal > 0) && (tempVal < 10000)) {
+          DesignStor.design.tempSize = ("" + tempVal).split('');
+          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+          changeSize();
+        }
+        deselectAllDimension();
+
+      } else {
+        //---- clear array from 0 after delete all number in array
+        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
+          DesignStor.design.tempSize.length = 0;
+        }
+        if (newValue === '0') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            DesignStor.design.tempSize.push(newValue);
+            changeSize();
+          }
+        } else if(newValue === '00') {
+          if (sizeLength && DesignStor.design.tempSize[0]) {
+            if (sizeLength < 3) {
+              DesignStor.design.tempSize.push(0, 0);
+            } else if (sizeLength === 3) {
+              DesignStor.design.tempSize.push(0);
+            }
+            changeSize();
+          }
+        } else {
+          DesignStor.design.tempSize.push(newValue);
+          changeSize();
+        }
+      }
+    }
+
+
+    //------ Delete last number from calculator
+    function deleteLastNumber() {
+      DesignStor.design.tempSize.pop();
+      if(DesignStor.design.tempSize.length < 1) {
+        DesignStor.design.tempSize.push(0);
+      }
+      changeSize();
+    }
+
+
+    function pressCulculator(keyEvent) {
+      var newValue;
+      //--------- Enter
+      if (keyEvent.which === 13) {
+        closeSizeCaclulator();
+        $rootScope.$apply();
+      } else if(keyEvent.which === 8) {
+        //-------- Backspace
+        deleteLastNumber();
+      } else {
+        switch(keyEvent.which) {
+          case 48:
+          case 96:
+            newValue = 0;
+            break;
+          case 49:
+          case 97:
+            newValue = 1;
+            break;
+          case 50:
+          case 98:
+            newValue = 2;
+            break;
+          case 51:
+          case 99:
+            newValue = 3;
+            break;
+          case 52:
+          case 100:
+            newValue = 4;
+            break;
+          case 53:
+          case 101:
+            newValue = 5;
+            break;
+          case 54:
+          case 102:
+            newValue = 6;
+            break;
+          case 55:
+          case 103:
+            newValue = 7;
+            break;
+          case 56:
+          case 104:
+            newValue = 8;
+            break;
+          case 57:
+          case 105:
+            newValue = 9;
+            break;
+        }
+        if(newValue !== undefined) {
+          setValueSize(newValue);
+        }
+      }
+    }
+
+
+
+
+    function doneRecognition(value) {
+      //console.log("полученные данные", value);
+      //console.log("тип полученных данных", typeof value);
+      DesignStor.design.voiceTxt = value;
+      $rootScope.$apply();
+      $timeout(function() {
+        var intValue = parseStringToDimension(value);
+        //console.log("данные после парса", intValue);
+        //console.log("тип полученных данных", typeof intValue);
+        if (intValue === "NaN") {
+          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
+        }
+        playTTS(intValue);
+        setValueSize(intValue);
+        $rootScope.$apply();
+      }, 1000);
+    }
+
+
+
+    //---------- define voice force
+    function recognitionProgress(value) {
+      if (value > 100) {
+        //console.log('value', value);
+        DesignStor.design.loudVoice = true;
+        DesignStor.design.quietVoice = false;
+
+      } else {
+        //console.log('value', value);
+        DesignStor.design.loudVoice = false;
+        DesignStor.design.quietVoice = true;
+      }
+      $rootScope.$apply();
+    }
+
+
+
+    //------- set click to all Dimensions
+    function initAllDimension() {
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
+        .each(function() {
+          var size = d3.select(this);
+          size.on(clickEvent, function() {
+            var sizeRect = size.select('.size-rect'),
+                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
+            if(DesignStor.design.tempSize.length) {
+              /** save new Size when click another size */
+              closeSizeCaclulator();
+              cleanTempSize();
+            } else {
+              if (isActive) {
+                hideSizeTools();
+              } else {
+                deselectAllDimension();
+                sizeRect.classed('active', true);
+                var dim = size.select('.size-txt-edit');
+                dim.classed('active', true);
+                DesignStor.design.oldSize = dim[0][0];
+                DesignStor.design.prevSize = dim[0][0].textContent;
+                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                //------- show caclulator or voice helper
+                if (GlobalStor.global.isVoiceHelper) {
+                  DesignStor.design.openVoiceHelper = 1;
+                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+                } else {
+                  GlobalStor.global.isSizeCalculator = 1;
+                  DesignStor.design.isMinSizeRestriction = 0;
+                  DesignStor.design.isMaxSizeRestriction = 0;
+                  DesignStor.design.isDimExtra = 0;
+                  DesignStor.design.isSquareExtra = 0;
+                }
+              }
+              $rootScope.$apply();
+            }
+          });
+        });
+
+      /** switch on keyboard */
+      d3.select(window)
+        .on('keydown', function() {
+          if(GlobalStor.global.isSizeCalculator) {
+            pressCulculator(d3.event);
+          }
+        });
+    }
+
+
+
+
+
+
+    /**--------------- GRIDs --------------*/
+
+    function updateGrids() {
+      var grids = ProductStor.product.chosenAddElements[0],
+          gridQty = grids.length,
+          blocks = ProductStor.product.template.details,
+          isChanged = 0, blockQty, sizeGridX, sizeGridY, gridTemp;
+      if(gridQty) {
+        GridArr: while(--gridQty > -1) {
+          //----- find grid in template
+          blockQty = blocks.length;
+          while(--blockQty > 0) {
+            if(blocks[blockQty].id === grids[gridQty].block_id) {
+              //------- if grid there is in this block
+              if(blocks[blockQty].gridId) {
+
+                //------ defined inner block sizes
+                sizeGridX = blocks[blockQty].pointsIn.map(function(item) {
+                  return item.x;
+                });
+                sizeGridY = blocks[blockQty].pointsIn.map(function(item) {
+                  return item.y;
+                });
+                gridTemp = {};
+                gridTemp.width = (d3.max(sizeGridX) - d3.min(sizeGridX));
+                gridTemp.height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+                //----- if width or height are defferented - reculculate grid price
+                if(grids[gridQty].element_width!==gridTemp.width || grids[gridQty].element_height!==gridTemp.height) {
+                  grids[gridQty].element_width = gridTemp.width;
+                  grids[gridQty].element_height = gridTemp.height;
+                  isChanged = 1;
+                }
+
+              } else {
+                //----- delete grid in chosenAddElements
+                ProductStor.product.chosenAddElements[0].splice(gridQty, 1);
+                continue GridArr;
+              }
+            }
+          }
+        }
+      }
+      return isChanged;
+    }
+
+
+    function getGridPrice(grids) {
+      var deff = $q.defer(),
+          proms = grids.map(function(item) {
+            var deff2 = $q.defer(),
+                objXAddElementPrice = {
+                  currencyId: UserStor.userInfo.currencyId,
+                  elementId: item.id,
+                  elementWidth: (item.element_width/1000),
+                  elementHeight: (item.element_height/1000)
+                };
+            //console.log('objXAddElementPrice=====', objXAddElementPrice);
+            //-------- get current add element price
+            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+              if (results) {
+                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
+                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(
+                  results.priceTotal,
+                  OrderStor.order.discount_addelem
+                ));
+                //console.log('objXAddElementPrice====result +++', results, item);
+                deff2.resolve(item);
+              } else {
+                deff2.reject(results);
+              }
+            });
+
+            return deff2.promise;
+          });
+
+      deff.resolve($q.all(proms));
+      return deff.promise;
+    }
+
 
 
     function setDefaultTemplate() {
@@ -6748,69 +9716,8 @@ function ErrorResult(code, message) {
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
       DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+
     }
-
-
-
-    //------- Save and Close Construction Page
-    function designSaved() {
-      closeSizeCaclulator(1).then(function() {
-        //------ if calculator is closed
-        //if(!GlobalStor.global.isSizeCalculator) {
-          //----- save new template in product
-          ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
-          ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-
-          //----- create template icon
-          SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-            ProductStor.product.templateIcon = angular.copy(result);
-          });
-
-          //============ if Door Construction
-          if(ProductStor.product.construction_type === 4) {
-            //------- save new door config
-            ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-            ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-            ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-            ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
-          }
-
-          //------ save new template in templates Array
-          GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
-
-          //------- if sash was added in empty template
-          if(!GlobalStor.global.isSashesInTemplate) {
-            GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
-            if (GlobalStor.global.isSashesInTemplate) {
-              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-              //------ save analytics data
-              //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
-            } else {
-              ProductStor.product.hardware.id = 0;
-            }
-          }
-          //------- refresh price of new template
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
-            //-------- template was changed
-            GlobalStor.global.isChangedTemplate = 1;
-            backtoTemplatePanel();
-          });
-
-        //}
-      });
-    }
-
-
-
-
-    //--------- Cancel and Close Construction Page
-    function designCancel() {
-      //------- close calculator if is opened
-      hideSizeTools();
-      //------ go to Main Page
-      backtoTemplatePanel();
-    }
-
 
 
     //-------- Back to Template Panel
@@ -6826,57 +9733,35 @@ function ErrorResult(code, message) {
     }
 
 
-    //------- set Default Construction
-    function setDefaultConstruction() {
-      //------- close calculator if is opened
-      hideSizeTools();
-      //----- do if Size Calculator is not opened
-      //if(!GlobalStor.global.isSizeCalculator) {
-        DesignStor.design = DesignStor.setDefaultDesign();
-        setDefaultTemplate();
-        //============ if Door Construction
-        if(ProductStor.product.construction_type === 4) {
-          //---- set indexes
-          setIndexDoorConfig();
-        }
-      //}
-    }
 
 
 
 
 
-    //============== Door ============//
 
-//    function downloadDoorConfig() {
-//      optionsServ.getDoorConfig(function (results) {
-//        if (results.status) {
-//          DesignStor.design.doorShapeList = results.data.doorType;
-//          DesignStor.design.sashShapeList = results.data.sashType;
-//          DesignStor.design.handleShapeList = results.data.handleType;
-//          DesignStor.design.lockShapeList = results.data.lockType;
-          //---- set indexes
-//          setIndexDoorConfig();
-//        } else {
-//          console.log(results);
-//        }
-//      });
-//    }
 
-    function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_shape_id);
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id);
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id);
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id);
 
-      //-------- set Default values in design
-      DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
-    }
 
+    /**---------------- DOORs--------------*/
+
+    //    function downloadDoorConfig() {
+    //      optionsServ.getDoorConfig(function (results) {
+    //        if (results.status) {
+    //          DesignStor.design.doorShapeList = results.data.doorType;
+    //          DesignStor.design.sashShapeList = results.data.sashType;
+    //          DesignStor.design.handleShapeList = results.data.handleType;
+    //          DesignStor.design.lockShapeList = results.data.lockType;
+    //---- set indexes
+    //          setIndexDoorConfig();
+    //        } else {
+    //          console.log(results);
+    //        }
+    //      });
+    //    }
 
     function setDoorConfigIndex(list, configId) {
-      var listQty = list.length;
-      for(var i = 0; i < listQty; i++) {
+      var listQty = list.length, i;
+      for(i = 0; i < listQty; i+=1) {
         if(list[i].shapeId === configId) {
           return i;
         }
@@ -6884,16 +9769,73 @@ function ErrorResult(code, message) {
     }
 
 
+    function setIndexDoorConfig() {
+      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(
+        DesignStor.design.doorShapeList, ProductStor.product.door_shape_id
+      );
+      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(
+        DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id
+      );
+      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(
+        DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id
+      );
+      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(
+        DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id
+      );
+      //-------- set Default values in design
+      DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+    }
 
 
 
-    //========== Edit Design =============//
+    //------- set Default Construction
+    function setDefaultConstruction() {
+      //------- close calculator if is opened
+      hideSizeTools();
+      DesignStor.design = DesignStor.setDefaultDesign();
+      setDefaultTemplate();
+      //============ if Door Construction
+      if(ProductStor.product.construction_type === 4) {
+        //---- set indexes
+        setIndexDoorConfig();
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+    /**-------------- Edit Design --------------*/
+
+
+    function isExistElementInSelected(newElem, selectedArr) {
+      var exist = 1,
+          newElemId = newElem.attributes.block_id.nodeValue,
+          selectedQty = selectedArr.length;
+      while(--selectedQty > -1) {
+        if(selectedArr[selectedQty].attributes.block_id.nodeValue === newElemId) {
+          selectedArr.splice(selectedQty, 1);
+          exist = 0;
+          break;
+        }
+      }
+      //-------- if the element is new one
+      if(exist){
+        selectedArr.push(newElem);
+      }
+      return exist;
+    }
 
 
     //------ add to all imposts event on click
     function initAllImposts() {
       DesignStor.design.selectedImpost.length = 0;
-      d3.selectAll('#tamlateSVG [item_type=impost]')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' [item_type=impost]')
         .each(function() {
           var impost = d3.select(this);
           impost.on(clickEvent, function() {
@@ -6930,30 +9872,39 @@ function ErrorResult(code, message) {
 
 
 
-    function isExistElementInSelected(newElem, selectedArr) {
-      var exist = 1,
-          newElemId = newElem.attributes.block_id.nodeValue,
-          selectedQty = selectedArr.length;
-      while(--selectedQty > -1) {
-        if(selectedArr[selectedQty].attributes.block_id.nodeValue === newElemId) {
-          selectedArr.splice(selectedQty, 1);
-          exist = 0;
-          break;
+    function showCurrentDimLevel(currDimId) {
+      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
+          dimQty = dim[0].length,
+          isXDim = 0, isYDim = 0;
+      //------- checking what kind of dimension X or Y direction
+      if(dimQty) {
+        while(--dimQty > -1) {
+          if(dim[0][dimQty].attributes.axis) {
+            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
+              isXDim += 1;
+            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
+              isYDim += 1;
+            }
+          }
         }
+        //------- shifting overall dimensions is level0 is existed
+        if(isXDim) {
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
+        }
+        if(isYDim) {
+          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
+        }
+        dim.classed('dim_hidden', 0);
       }
-      //-------- if the element is new one
-      if(exist){
-        selectedArr.push(newElem);
-      }
-      return exist;
     }
+
 
 
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
       DesignStor.design.selectedGlass.length = 0;
-      d3.selectAll('#tamlateSVG .glass')
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .glass')
         .each(function() {
           var glass = d3.select(this);
           glass.on(clickEvent, function() {
@@ -6962,7 +9913,8 @@ function ErrorResult(code, message) {
               cleanTempSize();
             } else {
               //========= select glass
-              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass), blockID = glass[0][0].attributes.block_id.nodeValue;
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                  blockID = glass[0][0].attributes.block_id.nodeValue;
 
               if (isGlass) {
                 glass.classed('glass-active', true);
@@ -6978,7 +9930,8 @@ function ErrorResult(code, message) {
               } else {
                 glass.classed('glass-active', false);
                 //------- hide Dimensions of current Block
-                d3.selectAll('#tamlateSVG .dim_block[block_id=' + blockID + ']').classed('dim_hidden', true);
+                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']')
+                  .classed('dim_hidden', true);
 
                 if (!DesignStor.design.selectedGlass.length) {
                   //------- close glass menu and submenu
@@ -6995,39 +9948,122 @@ function ErrorResult(code, message) {
     }
 
 
-    function showCurrentDimLevel(currDimId) {
-      var dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+currDimId+']'),
-          dimQty = dim[0].length;
+    /**------- set click to all Glass for Glass selector ---------- */
 
-      if(dimQty) {
-        var isXDim = 0, isYDim = 0;
-        while(--dimQty > -1) {
-          if(dim[0][dimQty].attributes.axis) {
-            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
-              ++isXDim;
-            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
-              ++isYDim;
-            }
-          }
-        }
-        //------- hide all dimension Level 0
-//        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+    function initAllGlassXGlass() {
+      DesignStor.design.selectedGlass.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_GLASS+' .glass')
+        .each(function() {
+          var glass = d3.select(this);
+          glass.on(clickEvent, function() {
+              //========= select glass
+              var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                  blockID = glass[0][0].attributes.block_id.nodeValue;
 
-        if(isXDim) {
-          d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', true);
-        }
-        if(isYDim) {
-          d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', true);
-        }
-        dim.classed('dim_hidden', false);
+              if (isGlass) {
+                glass.classed('glass-active', true);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.selectGlassId,
+                  GlobalStor.global.selectGlassName,
+                  blockID
+                );
+              } else {
+                glass.classed('glass-active', false);
+                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.prevGlassName);
+                MainServ.setGlassToTemplateBlocks(
+                  ProductStor.product.template,
+                  GlobalStor.global.prevGlassId,
+                  GlobalStor.global.prevGlassName,
+                  blockID
+                );
+              }
+          });
+        });
+    }
+
+
+
+    /**-------- close Glass Selector Dialog --------*/
+
+    function closeGlassSelectorDialog(isEmpty) {
+      if(isEmpty) {
+        GlobalStor.global.selectGlassId = GlobalStor.global.prevGlassId;
+        GlobalStor.global.selectGlassName = GlobalStor.global.prevGlassName;
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+          .then(function(result) {
+            ProductStor.product.template = angular.copy(result);
+          });
       }
+      removeGlassEventsInSVG();
+      GlobalStor.global.showGlassSelectorDialog = 0;
     }
 
 
 
 
+    /**------- set click to all Glass for Grid selector ---------- */
+
+    function initAllGlassXGrid() {
+      DesignStor.design.selectedGlass.length = 0;
+      d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
+        .each(function() {
+          var glass = d3.select(this);
+          glass.on(clickEvent, function() {
+            var blocks = ProductStor.product.template.details,
+                blocksQty = blocks.length,
+                blockID = glass[0][0].attributes.block_id.nodeValue,
+                isGlass;
+            //-------- check glass per sash
+            while(--blocksQty > 0) {
+              if(blocks[blocksQty].id === blockID) {
+                if (blocks[blocksQty].blockType === "sash") {
+                  isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+                  //========= select glass
+                  if (isGlass) {
+                    glass.classed('glass-active', true);
+                  } else {
+                    glass.classed('glass-active', false);
+                  }
+                } else {
+                  //------ show error
+                  showErrorInBlock(blockID, globalConstants.SVG_ID_GRID);
+                }
+              }
+            }
+
+          });
+        });
+    }
+
+
+
+
+
+
+
+    function isExistArcInSelected(newElem, selectedArr) {
+      var exist = 1,
+          newElemId = newElem.attributes.item_id.nodeValue,
+          selectedQty = selectedArr.length;
+      while(--selectedQty > -1) {
+        if(selectedArr[selectedQty].attributes.item_id.nodeValue === newElemId) {
+          selectedArr.splice(selectedQty, 1);
+          exist = 0;
+          break;
+        }
+      }
+      //-------- if the element is new one
+      if(exist){
+        selectedArr.push(newElem);
+      }
+      return exist;
+    }
+
+
     function initAllArcs() {
-      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
+      var arcs = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')[0].filter(function (item) {
         if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
           return true;
         }
@@ -7066,128 +10102,257 @@ function ErrorResult(code, message) {
 
 
 
-    function isExistArcInSelected(newElem, selectedArr) {
-      var exist = 1,
-          newElemId = newElem.attributes.item_id.nodeValue,
-          selectedQty = selectedArr.length;
-      while(--selectedQty > -1) {
-        if(selectedArr[selectedQty].attributes.item_id.nodeValue === newElemId) {
-          selectedArr.splice(selectedQty, 1);
-          exist = 0;
-          break;
+
+
+
+
+
+
+
+    /**++++++++++ Edit Sash +++++++++*/
+
+    function checkImpPointInCorner(linePoint, impPoint) {
+      var noMatch = 1,
+          limit = 40,
+          xDiff = impPoint.x - linePoint.x,
+          yDiff = impPoint.y - linePoint.y;
+
+      if(xDiff > 0 && xDiff < limit) {
+        if(yDiff > 0 && yDiff < limit) {
+          noMatch = 0;
         }
       }
-      //-------- if the element is new one
-      if(exist){
-        selectedArr.push(newElem);
+      return noMatch;
+    }
+
+
+    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType, isShtulp) {
+      var impPoint = {
+        type:'impost',
+        id:'ip'+curBlockN,
+        x: Math.round(coord.x),
+        y: Math.round(coord.y),
+        dir:'line',
+        dimType: dimType
+      };
+      //---------- for SHTULP
+      if(isShtulp) {
+        impPoint.type = 'shtulp';
+        impPoint.id = 'sht'+curBlockN;
       }
-      return exist;
+      //---- insert impostPoint in parent block
+      if(!blocks[blockIndex].impost) {
+        blocks[blockIndex].impost = {
+          impostAxis: [],
+          impostOut: [],
+          impostIn: []
+        };
+      }
+      blocks[blockIndex].impost.impostAxis.push(impPoint);
     }
 
 
+    function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
+      var newBlock = {
+        type: 'skylight',
+        id: 'block_' + blockN,
+        level: blocks[blockIndex].level + 1,
+        blockType: 'frame',
+        parent: blocks[blockIndex].id,
+        children: [],
+        pointsOut: [],
+        pointsIn: [],
+        parts: [],
+        glassId: blocks[blockIndex].glassId,
+        glassTxt: blocks[blockIndex].glassTxt
+      };
 
-    function hideAllDimension() {
-      d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
-      d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
-      d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+      //---------- for SHTULP
+      if(isShtulp) {
+        newBlock.blockType = 'sash';
+        angular.extend(newBlock, sashParams);
+      }
+
+      //---- add Id new block in parent block
+      blocks[blockIndex].children.push(newBlock.id);
+      //---- insert block in blocks
+      blocks.push(newBlock);
     }
 
 
-    function hideCornerMarks() {
-      DesignStor.design.selectedCorner.length = 0;
-      d3.selectAll('#tamlateSVG .corner_mark')
-        .transition()
-        .duration(300)
-        .ease("linear")
-        .attr('r', 0);
-    }
-
-    function deselectAllImpost() {
-      DesignStor.design.selectedImpost.length = 0;
-      d3.selectAll('#tamlateSVG [item_type=impost]').classed('frame-active', false);
-    }
-
-
-    function deselectAllArc() {
-      DesignStor.design.selectedArc.length = 0;
-      d3.selectAll('#tamlateSVG .frame').classed('active_svg', false);
-    }
-
-
-    function deselectAllGlass() {
-      DesignStor.design.selectedGlass.length = 0;
-      d3.selectAll('#tamlateSVG .glass').classed('glass-active', false);
-    }
-
-
-    function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
-    }
-
-
-    //++++++++++ Edit Sash +++++++++//
-
-    function createSash(type, glassObj) {
-      var glass = glassObj.__data__,
-          blockID = glassObj.attributes.block_id.nodeValue,
-          blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length,
-          minGlassSize = d3.min(glass.sizes);
-//console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
-      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
-
-        //---- save last step
-        DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-        for (var b = 1; b < blocksQty; b++) {
-          if (blocks[b].id === blockID) {
-            blocks[b].blockType = 'sash';
-            blocks[b].gridId = 0;
-
-            switch (type) {
-              //----- 'left'
-              case 2:
-                blocks[b].openDir = [4];
-                blocks[b].handlePos = 4;
-                blocks[b].sashType = 2;
-                break;
-              //----- 'right'
-              case 3:
-                blocks[b].openDir = [2];
-                blocks[b].handlePos = 2;
-                blocks[b].sashType = 2;
-                break;
-              //----- 'up'
-              case 4:
-                blocks[b].openDir = [1];
-                blocks[b].handlePos = 1;
-                blocks[b].sashType = 7;
-                break;
-              //------ 'down'
-              case 5:
-                blocks[b].openDir = [3];
-                blocks[b].handlePos = 3;
-                blocks[b].sashType = 2;
-                break;
-              //------ 'up', 'right'
-              case 6:
-                blocks[b].openDir = [1, 2];
-                blocks[b].handlePos = 2;
-                blocks[b].sashType = 6;
-                break;
-              //------ 'up', 'left'
-              case 7:
-                blocks[b].openDir = [1, 4];
-                blocks[b].handlePos = 4;
-                blocks[b].sashType = 6;
-                break;
+    function sliceExtraPoints(points) {
+      var diff = 5,
+          pQty = points.length;
+      while(--pQty > -1) {
+        var pQty2 = points.length;
+        while(--pQty2 > -1){
+          var difX = Math.abs( points[pQty].x - points[pQty2].x),
+              difY = Math.abs( points[pQty].y - points[pQty2].y);
+          if(difX > 0 && difX < diff) {
+            if(difY > 0 && difY < diff) {
+              points.splice(pQty, 1);
+              break;
             }
-            //----- change Template
-            rebuildSVGTemplate();
           }
         }
+      }
+    }
+
+
+
+    function getLastBlockNumber(blocks) {
+      var blocksQty = blocks.length,
+          blockN = 0, tempN;
+      while(--blocksQty > 0) {
+        tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
+        if(tempN > blockN) {
+          blockN = tempN;
+        }
+      }
+      return blockN;
+    }
+
+
+    function getImpostCrossPointInBlock(vector, lines) {
+      var impPoints = [],
+          linesQty = lines.length, l,
+          coord, checkPoint, isCross, noExist,
+          noInCorner1, noInCorner2;
+      for(l = 0; l < linesQty; l+=1) {
+        //console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
+        if(coord.x >= 0 && coord.y >= 0) {
+          //------ checking is cross point inner of line
+          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+          //console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+          isCross = SVGServ.isInsidePointInLine(checkPoint);
+          if(isCross) {
+            //---- checking dublicats
+            noExist = SVGServ.checkEqualPoints(coord, impPoints);
+            if(noExist) {
+
+              //----------- avoid insert impost in corner
+              noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+              if(noInCorner1) {
+                noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+                if(noInCorner2) {
+                  //console.log('IMp++++++++++ line', lines[l]);
+                  //console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
+                  impPoints.push(coord);
+                }
+              }
+            }
+          }
+        }
+      }
+      return impPoints;
+    }
+
+
+
+
+
+    function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsInSours) {
+      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
+      //      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
+      if(crossPointsIn.length === 2) {
+        var impLine = {
+              from: crossPointsIn[0],
+              to: crossPointsIn[1]
+            },
+            impRadius = GeneralServ.roundingValue(
+              (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2),
+              1
+            ),
+            pointsIn = angular.copy(pointsInSours),
+            pointsQty = pointsIn.length,
+            currPoints = [],
+            currBlockCenter,
+            distCenterToImpost,
+            coordQ, posQ;
+
+        SVGServ.setLineCoef(impLine);
+        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
+        //------ if impost vert or hor
+        if (!impLine.coefA && position === 1) {
+          coordQ.y -= impRadius * 2;
+        } else if (!impLine.coefB && position === 4) {
+          coordQ.x -= impRadius * 2;
+        }
+        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
+        while (--pointsQty > -1) {
+          var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
+          if (posP > 0 && posQ > 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          } else if (posP < 0 && posQ < 0) {
+            currPoints.push(pointsIn[pointsQty]);
+          }
+        }
+        currPoints.push(impLine.from, impLine.to);
+        //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
+        currBlockCenter = SVGServ.centerBlock(currPoints);
+        //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
+        //      console.log('IMP -------------',impRadius, distCenterToImpost);
+        if (impRadius < distCenterToImpost) {
+          return impRadius / 2;
+        } else {
+          return distCenterToImpost / 2;
+        }
+      }
+    }
+
+
+    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
+      var impQPoint = {
+        blockId: blocks[blockIndex].id,
+        dir:'curv',
+        id: 'qi'+curBlockN,
+        heightQ: dist,
+        positionQ: position
+      };
+      blocks[blockIndex].impost.impostAxis.push(impQPoint);
+    }
+
+
+    /**----------- create SHTULP -----------*/
+
+    function createShtulp(blockID, sashesParams) {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          angel = 90, dimType = 0, currBlockInd, curBlockN,
+          lastBlockN,
+          impVector,
+          crossPoints;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+
+      //------- find lines as to current block
+      while (--blocksQty > 0) {
+        if (blocks[blocksQty].id === blockID) {
+          currBlockInd = +blocksQty;
+          curBlockN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
+        }
+      }
+      lastBlockN = getLastBlockNumber(blocksSource);
+      impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
+      crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
+
+      if(crossPoints.length > 2) {
+        sliceExtraPoints(crossPoints);
+      }
+
+      var impPointsQty = crossPoints.length;
+      if (impPointsQty === 2) {
+        while (--impPointsQty > -1) {
+          createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType, 1);
+          createChildBlock(lastBlockN+=1, currBlockInd, blocksSource, 1, sashesParams[impPointsQty]);
+        }
+        //----- change Template
+        rebuildSVGTemplate();
       } else {
         //------ show error
         showErrorInBlock(blockID);
@@ -7196,42 +10361,131 @@ function ErrorResult(code, message) {
 
 
 
-    function showErrorInBlock(blockID) {
-      var currGlass = d3.select('#tamlateSVG .glass[block_id='+blockID+']'),
-          i = 1;
-      currGlass.classed('error_glass', true);
+    function createSash(type, glassObj) {
+      var glass = glassObj.__data__,
+          blockID = glassObj.attributes.block_id.nodeValue,
+          blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocks.length,
+          minGlassSize = d3.min(glass.sizes),
+          sashesParams, b;
 
-      var interval = setInterval(function() {
-        if(i === 11) {
-          clearInterval(interval);
-        }
-        if(i%2) {
-          currGlass.classed('error_glass', false);
+      /**---- shtulps ---*/
+      if(type === 8 || type === 9) {
+        if(minGlassSize >= globalConstants.minSizeLimitStulp) {
+
+          if(type === 8) {
+            sashesParams = [
+              {
+                openDir: [4],
+                handlePos: 0,
+                sashType: 4
+              },
+              {
+                openDir: [1, 2],
+                handlePos: 2,
+                sashType: 17
+              }
+            ];
+          } else if(type === 9) {
+            sashesParams = [
+              {
+                openDir: [1, 4],
+                handlePos: 4,
+                sashType: 17
+              },
+              {
+                openDir: [2],
+                handlePos: 0,
+                sashType: 4
+              }
+            ];
+          }
+
+          createShtulp(blockID, sashesParams);
+
         } else {
-          currGlass.classed('error_glass', true);
+          //------ show error
+          showErrorInBlock(blockID);
         }
-        i++;
-      }, 50);
+
+      } else {
+
+        if (minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+
+          //---- save last step
+          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+          for (b = 1; b < blocksQty; b+=1) {
+            if (blocks[b].id === blockID) {
+              blocks[b].blockType = 'sash';
+              blocks[b].gridId = 0;
+              blocks[b].gridTxt = '';
+
+              switch (type) {
+                //----- 'left'
+                case 2:
+                  blocks[b].openDir = [4];
+                  blocks[b].handlePos = 4;
+                  blocks[b].sashType = 2;
+                  break;
+                //----- 'right'
+                case 3:
+                  blocks[b].openDir = [2];
+                  blocks[b].handlePos = 2;
+                  blocks[b].sashType = 2;
+                  break;
+                //----- 'up'
+                case 4:
+                  blocks[b].openDir = [1];
+                  blocks[b].handlePos = 1;
+                  blocks[b].sashType = 7;
+                  break;
+                //------ 'down'
+                case 5:
+                  blocks[b].openDir = [3];
+                  blocks[b].handlePos = 3;
+                  blocks[b].sashType = 2;
+                  break;
+                //------ 'up', 'right'
+                case 6:
+                  blocks[b].openDir = [1, 2];
+                  blocks[b].handlePos = 2;
+                  blocks[b].sashType = 6;
+                  break;
+                //------ 'up', 'left'
+                case 7:
+                  blocks[b].openDir = [1, 4];
+                  blocks[b].handlePos = 4;
+                  blocks[b].sashType = 6;
+                  break;
+              }
+              //----- change Template
+              rebuildSVGTemplate();
+            }
+          }
+        } else {
+          //------ show error
+          showErrorInBlock(blockID);
+        }
+      }
     }
 
 
 
 
-    function deleteSash(glassObj) {
-      var blockID = glassObj.attributes.block_id.nodeValue,
-          blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length;
 
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      for(var b = 1; b < blocksQty; b++) {
-        if (blocks[b].id === blockID) {
-          removeSashPropInBlock(blocks[b]);
+    function checkShtulp(parentId, blocks, blocksQty) {
+      var isShtulp = 0;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === parentId) {
+          if(blocks[blocksQty].impost) {
+            if(blocks[blocksQty].impost.impostAxis[0].type === 'shtulp') {
+              isShtulp = blocksQty;
+            }
+          }
         }
       }
-      //----- change Template
-      rebuildSVGTemplate();
+      return isShtulp;
     }
 
 
@@ -7239,21 +10493,81 @@ function ErrorResult(code, message) {
       block.blockType = 'frame';
       delete block.openDir;
       delete block.handlePos;
+      delete block.sashType;
       delete block.gridId;
+      delete block.gridTxt;
     }
+
+
+
+    function removeAllChildrenBlock(blockID, blocks) {
+      var blocksQty = blocks.length, childQty;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === blockID) {
+          childQty = blocks[blocksQty].children.length;
+          if(childQty) {
+            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
+            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
+            blocks.splice(blocksQty, 1);
+          } else {
+            blocks.splice(blocksQty, 1);
+          }
+          break;
+        }
+      }
+
+    }
+
+
+
+
+
+    function deleteSash(glassObj) {
+      var blockID = glassObj.attributes.block_id.nodeValue,
+          blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocks.length,
+          isShtulp = 0, b;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      for(b = 1; b < blocksQty; b+=1) {
+        if (blocks[b].id === blockID) {
+          //console.log('delete sash-----', blocks[b]);
+
+          //------- checking existing SHTULP
+          isShtulp = checkShtulp(blocks[b].parent, blocks, blocksQty);
+          if(isShtulp) {
+            //----- delete children blocks and impost points
+            removeAllChildrenBlock(blocks[isShtulp].children[0], blocks);
+            removeAllChildrenBlock(blocks[isShtulp].children[1], blocks);
+            blocks[isShtulp].children.length = 0;
+            delete blocks[isShtulp].impost;
+
+          } else {
+            removeSashPropInBlock(blocks[b]);
+          }
+          break;
+        }
+      }
+      //----- change Template
+      rebuildSVGTemplate();
+    }
+
+
 
 
     //------ delete sash if block sizes are small (add/remove arc)
     function checkSashesBySizeBlock(template) {
       var blocksSource = DesignStor.design.templateSourceTEMP.details,
           blocksQty = template.details.length,
-          isSashDelet = 0;
+          isSashDelet = 0, partsQty, minGlassSize;
       while(--blocksQty > 0) {
         if(template.details[blocksQty].level && template.details[blocksQty].blockType === 'sash') {
-          var partsQty = template.details[blocksQty].parts.length;
+          partsQty = template.details[blocksQty].parts.length;
           while(--partsQty > -1) {
             if(template.details[blocksQty].parts[partsQty].type === 'glass') {
-              var minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
+              minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
 //              console.log('GLASS SIZES', minGlassSize);
               if(minGlassSize <= globalConstants.minSizeLimit && minGlassSize <= globalConstants.minSizeLimit) {
                 //------ delete sash
@@ -7271,89 +10585,7 @@ function ErrorResult(code, message) {
 
 
 
-    //++++++++++ Edit Corners ++++++++//
-
-
-
-    function setCornerPoints(cornerObj) {
-      var cornerID = cornerObj.__data__.id,
-          cornerN = Number(cornerID.replace(/\D+/g, "")),
-          blockID = cornerObj.attributes.block_id.nodeValue,
-          blocksSource = DesignStor.design.templateSourceTEMP.details,
-          blocks = DesignStor.design.templateTEMP.details,
-          blocksQty = blocks.length;
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].id === blockID) {
-          //---- set simple corner
-          if(cornerObj.__data__.view) {
-            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
-
-          //----- change curve corner to simple
-          } else {
-            //---- delete qc point in blocks
-            removePointQ('qc'+cornerN, blockID, blocksSource);
-          }
-        }
-      }
-      //----- change Template
-      rebuildSVGTemplate();
-    }
-
-
-    function setCurvCornerPoints(cornerObj) {
-      var cornerID = cornerObj.__data__.id,
-          cornerN = Number(cornerID.replace(/\D+/g, "")),
-          blockID = cornerObj.attributes.block_id.nodeValue,
-          blocksSource = DesignStor.design.templateSourceTEMP.details,
-          blocks = DesignStor.design.templateTEMP.details,
-          blocksQty = blocks.length;
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].id === blockID) {
-          //----- set curve corner
-          if (cornerObj.__data__.view) {
-            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
-            createQCPoint(cornerN, blocksQty, blocksSource);
-          //----- change simple corner to corve
-          } else {
-            var linesQty = blocks[blocksQty].linesOut.length;
-            for (var l = 0; l < linesQty; l++) {
-              if (blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
-                createCurveQPoint('corner', 'qc'+cornerN, blocks[blocksQty].linesOut[l], cornerN, blocksQty, blocksSource);
-              }
-            }
-          }
-        }
-      }
-      //----- change Template
-      rebuildSVGTemplate();
-    }
-
-
-    function startCreateCornerPoint(cornerID, cornerN, lines, blockIndex, blocks) {
-      var linesQty = lines.length;
-      for(var l = 0; l < linesQty; l++) {
-        if(lines[l].from.id === cornerID) {
-          createCornerPoint(1, cornerN, lines[l], blockIndex, blocks);
-        } else if(lines[l].to.id === cornerID) {
-          createCornerPoint(2, cornerN, lines[l], blockIndex, blocks);
-        }
-      }
-      //----- hide this point
-      var pointsOutQty = blocks[blockIndex].pointsOut.length;
-      while(--pointsOutQty > -1) {
-        if(blocks[blockIndex].pointsOut[pointsOutQty].id === cornerID) {
-          blocks[blockIndex].pointsOut[pointsOutQty].view = 0;
-        }
-      }
-    }
+    /**++++++++++ Edit Corners ++++++++*/
 
 
     function createCornerPoint(pointN, cornerN, line, blockIndex, blocks) {
@@ -7374,22 +10606,41 @@ function ErrorResult(code, message) {
     }
 
 
-    function createQCPoint(cornerN, blocksInd, blocks) {
-      var pointOutQty = blocks[blocksInd].pointsOut.length,
-          currLine = {};
-      while (--pointOutQty > -1) {
-        if(blocks[blocksInd].pointsOut[pointOutQty].type === 'corner') {
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-2') {
-            currLine.from = blocks[blocksInd].pointsOut[pointOutQty];
-          }
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-1') {
-            currLine.to = blocks[blocksInd].pointsOut[pointOutQty];
+    function startCreateCornerPoint(cornerID, cornerN, lines, blockIndex, blocks) {
+      var linesQty = lines.length, l;
+      for(l = 0; l < linesQty; l+=1) {
+        if(lines[l].from.id === cornerID) {
+          createCornerPoint(1, cornerN, lines[l], blockIndex, blocks);
+        } else if(lines[l].to.id === cornerID) {
+          createCornerPoint(2, cornerN, lines[l], blockIndex, blocks);
+        }
+      }
+      //----- hide this point
+      var pointsOutQty = blocks[blockIndex].pointsOut.length;
+      while(--pointsOutQty > -1) {
+        if(blocks[blockIndex].pointsOut[pointsOutQty].id === cornerID) {
+          blocks[blockIndex].pointsOut[pointsOutQty].view = 0;
+        }
+      }
+    }
+
+
+    function removePoint(criterions, blockId, blocks) {
+      var blockQty = blocks.length, pointsQty, critQty;
+      while(--blockQty > 0) {
+        if(blocks[blockQty].id === blockId) {
+          pointsQty = blocks[blockQty].pointsOut.length;
+          while(--pointsQty > -1) {
+            critQty = criterions.length;
+            while(--critQty > -1) {
+              if(blocks[blockQty].pointsOut[pointsQty].id === criterions[critQty]) {
+                blocks[blockQty].pointsOut.splice(pointsQty, 1);
+                break;
+              }
+            }
           }
         }
       }
-      SVGServ.setLineCoef(currLine);
-      currLine.size = GeneralServ.rounding10( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))) );
-      createCurveQPoint('corner', 'qc'+cornerN, currLine, cornerN, blocksInd, blocks);
     }
 
 
@@ -7411,6 +10662,112 @@ function ErrorResult(code, message) {
     }
 
 
+    function createQCPoint(cornerN, blocksInd, blocks) {
+      var pointOutQty = blocks[blocksInd].pointsOut.length,
+          currLine = {};
+      while (--pointOutQty > -1) {
+        if(blocks[blocksInd].pointsOut[pointOutQty].type === 'corner') {
+          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-2') {
+            currLine.from = blocks[blocksInd].pointsOut[pointOutQty];
+          }
+          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-1') {
+            currLine.to = blocks[blocksInd].pointsOut[pointOutQty];
+          }
+        }
+      }
+      SVGServ.setLineCoef(currLine);
+      currLine.size = GeneralServ.roundingValue(
+        (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))),
+        1
+      );
+      createCurveQPoint('corner', 'qc'+cornerN, currLine, cornerN, blocksInd, blocks);
+    }
+
+
+
+
+    function removePointQ(criterion, blockId, blocks) {
+      var blockQty = blocks.length, qQty;
+      while(--blockQty > 0) {
+        if(blocks[blockQty].id === blockId) {
+          if(blocks[blockQty].pointsQ) {
+            qQty = blocks[blockQty].pointsQ.length;
+            while(--qQty > -1) {
+              if(blocks[blockQty].pointsQ[qQty].id === criterion) {
+                blocks[blockQty].pointsQ.splice(qQty, 1);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function setCornerPoints(cornerObj) {
+      var cornerID = cornerObj.__data__.id,
+          cornerN = Number(cornerID.replace(/\D+/g, "")),
+          blockID = cornerObj.attributes.block_id.nodeValue,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === blockID) {
+          //---- set simple corner
+          if(cornerObj.__data__.view) {
+            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
+
+            //----- change curve corner to simple
+          } else {
+            //---- delete qc point in blocks
+            removePointQ('qc'+cornerN, blockID, blocksSource);
+          }
+        }
+      }
+      //----- change Template
+      rebuildSVGTemplate();
+    }
+
+
+    function setCurvCornerPoints(cornerObj) {
+      var cornerID = cornerObj.__data__.id,
+          cornerN = Number(cornerID.replace(/\D+/g, "")),
+          blockID = cornerObj.attributes.block_id.nodeValue,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length, linesQty, l;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].id === blockID) {
+          //----- set curve corner
+          if (cornerObj.__data__.view) {
+            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
+            createQCPoint(cornerN, blocksQty, blocksSource);
+            //----- change simple corner to corve
+          } else {
+            linesQty = blocks[blocksQty].linesOut.length;
+            for (l = 0; l < linesQty; l+=1) {
+              if (blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+                createCurveQPoint(
+                  'corner', 'qc'+cornerN, blocks[blocksQty].linesOut[l], cornerN, blocksQty, blocksSource
+                );
+              }
+            }
+          }
+        }
+      }
+      //----- change Template
+      rebuildSVGTemplate();
+    }
+
+
 
 
 
@@ -7419,7 +10776,7 @@ function ErrorResult(code, message) {
           cornerN = Number(cornerID.replace(/\D+/g, "")),
           blockID = cornerObj.attributes.block_id.nodeValue,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          blocksSourceQty = blocksSource.length;
+          blocksSourceQty = blocksSource.length, pointsOutQty;
 
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -7432,7 +10789,7 @@ function ErrorResult(code, message) {
 
       while(--blocksSourceQty > 0) {
         if(blocksSource[blocksSourceQty].id === blockID) {
-          var pointsOutQty = blocksSource[blocksSourceQty].pointsOut.length;
+          pointsOutQty = blocksSource[blocksSourceQty].pointsOut.length;
           while(--pointsOutQty > -1) {
             if(blocksSource[blocksSourceQty].pointsOut[pointsOutQty].id === cornerID) {
               blocksSource[blocksSourceQty].pointsOut[pointsOutQty].view = 1;
@@ -7446,18 +10803,50 @@ function ErrorResult(code, message) {
     }
 
 
-    function removePoint(criterions, blockId, blocks) {
-      var blockQty = blocks.length;
-      while(--blockQty > 0) {
-        if(blocks[blockQty].id === blockId) {
-          var pointsQty = blocks[blockQty].pointsOut.length;
-          while(--pointsQty > -1) {
-            var critQty = criterions.length;
-            while(--critQty > -1) {
-              if(blocks[blockQty].pointsOut[pointsQty].id === criterions[critQty]) {
-                blocks[blockQty].pointsOut.splice(pointsQty, 1);
-                break;
-              }
+
+
+
+
+
+    /**++++++++++ Edit Arc ++++++++*/
+
+
+    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
+      while(--pointsQty > -1) {
+        if(param) {
+          if(dir) {
+            points[pointsQty].x += shift;
+          } else {
+            points[pointsQty].x -= shift;
+          }
+        } else {
+          if(dir) {
+            points[pointsQty].y += shift;
+          } else {
+            points[pointsQty].y -= shift;
+          }
+        }
+      }
+    }
+
+
+    function shiftingAllPoints(dir, param, shift, blocks) {
+      var blocksQty = blocks.length, impostAxisQty;
+      while(--blocksQty > 0) {
+        if(blocks[blocksQty].level) {
+          //------ pointsOut
+          if(blocks[blocksQty].pointsOut.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
+          }
+          //------ pointsIn
+          if(blocks[blocksQty].pointsIn.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
+          }
+          //------ impostAxis
+          if(blocks[blocksQty].impost) {
+            impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
+            if(impostAxisQty) {
+              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
             }
           }
         }
@@ -7465,27 +10854,22 @@ function ErrorResult(code, message) {
     }
 
 
-    function removePointQ(criterion, blockId, blocks) {
-      var blockQty = blocks.length;
-      while(--blockQty > 0) {
-        if(blocks[blockQty].id === blockId) {
-          if(blocks[blockQty].pointsQ) {
-            var qQty = blocks[blockQty].pointsQ.length;
-            while(--qQty > -1) {
-              if(blocks[blockQty].pointsQ[qQty].id === criterion) {
-                blocks[blockQty].pointsQ.splice(qQty, 1);
-                break;
-              }
-            }
-          }
+
+    function rebuildLinesOut(arc, blockIndex, blocks) {
+      var currLine,
+          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
+          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
+          linesOut = SVGServ.setLines(pointsOut),
+          linesQty = linesOut.length;
+      while(--linesQty > -1) {
+        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
+          currLine = linesOut[linesQty];
         }
       }
+      return currLine;
     }
 
 
-
-
-    //++++++++++ Edit Arc ++++++++//
 
 
     function createArc(arcObj) {
@@ -7501,15 +10885,15 @@ function ErrorResult(code, message) {
               blocks = angular.copy(DesignStor.design.templateTEMP.details),
               blocksQty = blocks.length,
               blocksSource = DesignStor.design.templateSourceTEMP.details,
-              currBlockIndex, currLine, position;
+              currBlockIndex, currLine, position, b, linesQty;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
           //------- find line and block in order to insert Q point
-          for (var b = 1; b < blocksQty; b++) {
+          for (b = 1; b < blocksQty; b+=1) {
             if (blocks[b].id === blockID) {
-              var linesQty = blocks[b].linesOut.length;
+              linesQty = blocks[b].linesOut.length;
               while (--linesQty > -1) {
                 if (blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
                   currBlockIndex = b;
@@ -7548,20 +10932,22 @@ function ErrorResult(code, message) {
           createCurveQPoint('arc', 'qa'+arcN, currLine, position, currBlockIndex, blocksSource);
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
-            //------ delete sash if block sizes are small
-            var wasSashDelet = checkSashesBySizeBlock(result);
-            if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+            .then(function (result) {
+              //------ delete sash if block sizes are small
+              var wasSashDelet = checkSashesBySizeBlock(result);
+              if (wasSashDelet) {
+                SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                  .then(function (result) {
+                    DesignStor.design.templateTEMP = angular.copy(result);
+                    defer.resolve('done');
+                  });
+              } else {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
-              });
-            } else {
-              DesignStor.design.templateTEMP = angular.copy(result);
-              defer.resolve('done');
-            }
+              }
 
-          });
+            });
 
         } else {
           defer.resolve('done');
@@ -7571,60 +10957,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function shiftingAllPoints(dir, param, shift, blocks) {
-      var blocksQty = blocks.length;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].level) {
-          //------ pointsOut
-          if(blocks[blocksQty].pointsOut.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
-          }
-          //------ pointsIn
-          if(blocks[blocksQty].pointsIn.length) {
-            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
-          }
-          //------ impostAxis
-          if(blocks[blocksQty].impost) {
-            var impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
-            if(impostAxisQty) {
-              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
-            }
-          }
-        }
-      }
-    }
-
-    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
-      while(--pointsQty > -1) {
-        if(param) {
-          if(dir) {
-            points[pointsQty].x += shift;
-          } else {
-            points[pointsQty].x -= shift;
-          }
-        } else {
-          if(dir) {
-            points[pointsQty].y += shift;
-          } else {
-            points[pointsQty].y -= shift;
-          }
-        }
-      }
-    }
-
-    function rebuildLinesOut(arc, blockIndex, blocks) {
-      var currLine,
-          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
-          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
-          linesOut = SVGServ.setLines(pointsOut),
-          linesQty = linesOut.length;
-      while(--linesQty > -1) {
-        if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
-          currLine = linesOut[linesQty];
-        }
-      }
-      return currLine;
-    }
 
 
 
@@ -7652,20 +10984,22 @@ function ErrorResult(code, message) {
           }
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
-            //------ delete sash if block sizes are small
-            var wasSashDelet = checkSashesBySizeBlock(result);
-            if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+            .then(function (result) {
+              //------ delete sash if block sizes are small
+              var wasSashDelet = checkSashesBySizeBlock(result);
+              if (wasSashDelet) {
+                SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+                  .then(function (result) {
+                    DesignStor.design.templateTEMP = angular.copy(result);
+                    defer.resolve('done');
+                  });
+              } else {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
-              });
-            } else {
-              DesignStor.design.templateTEMP = angular.copy(result);
-              defer.resolve('done');
-            }
+              }
 
-          });
+            });
 
         } else {
           defer.resolve('done');
@@ -7678,14 +11012,14 @@ function ErrorResult(code, message) {
     function workingWithAllArcs(param) {
       var firstArc = DesignStor.design.selectedArc.shift(),
           arcId = firstArc.attributes.item_id.nodeValue,
-          currElem = d3.select('#tamlateSVG [item_id='+arcId+']');
+          currElem = d3.select('#'+globalConstants.SVG_ID_EDIT+' [item_id='+arcId+']');
       if(currElem[0].length) {
         if(param) {
           createArc(currElem[0][0]).then(function() {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1)
+              }, 1);
             }
           });
         } else {
@@ -7693,7 +11027,7 @@ function ErrorResult(code, message) {
             if(DesignStor.design.selectedArc.length) {
               $timeout(function() {
                 workingWithAllArcs(param);
-              }, 1)
+              }, 1);
             }
           });
         }
@@ -7704,7 +11038,9 @@ function ErrorResult(code, message) {
 
 
 
-    //++++++++++ Edit Imposts ++++++++//
+    /**++++++++++ Edit Imposts ++++++++*/
+
+
 
 
     function createImpost(impType, glassObj) {
@@ -7714,7 +11050,8 @@ function ErrorResult(code, message) {
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
+          angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd,
+          curBlockN, lastBlockN, impVector, crossPoints, b;
 
 
       if(minGlassSize >= globalConstants.minSizeLimit && glass.square >= globalConstants.squareLimit) {
@@ -7802,7 +11139,7 @@ function ErrorResult(code, message) {
             break;
         }
         //------- find lines as to current block
-        for (var b = 1; b < blocksQty; b++) {
+        for (b = 1; b < blocksQty; b+=1) {
           if (blocks[b].id === blockID) {
             currBlockInd = b;
             curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
@@ -7827,7 +11164,9 @@ function ErrorResult(code, message) {
           }
           //------- if impost is curve
           if (isImpCurv) {
-            var distMax = getRadiusMaxImpostCurv(positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn);
+            var distMax = getRadiusMaxImpostCurv(
+              positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn
+            );
             createImpostQPoint(distMax, positionQ, curBlockN, currBlockInd, blocksSource);
           }
 
@@ -7843,196 +11182,6 @@ function ErrorResult(code, message) {
         //------ show error
         showErrorInBlock(blockID);
       }
-    }
-
-
-
-
-    function getLastBlockNumber(blocks) {
-      var blocksQty = blocks.length,
-          blockN = 0;
-      while(--blocksQty > 0) {
-        var tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
-        if(tempN > blockN) {
-          blockN = tempN;
-        }
-      }
-      return blockN;
-    }
-
-
-    function getImpostCrossPointInBlock(vector, lines) {
-      var impPoints = [],
-          linesQty = lines.length;
-      for(var l = 0; l < linesQty; l++) {
-        var coord, checkPoint;
-//        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
-        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
-        if(coord.x >= 0 && coord.y >= 0) {
-          //------ checking is cross point inner of line
-          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-//          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
-          var isCross = SVGServ.isInsidePointInLine(checkPoint);
-          if(isCross) {
-            //---- checking dublicats
-            var noExist = SVGServ.checkEqualPoints(coord, impPoints);
-            if(noExist) {
-
-              //----------- avoid insert impost in corner
-              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
-              if(noInCorner1) {
-                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
-                if(noInCorner2) {
-//                  console.log('IMp++++++++++ line', lines[l]);
-//                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
-                  impPoints.push(coord);
-                }
-              }
-            }
-          }
-        }
-      }
-      return impPoints;
-    }
-
-
-
-    function sliceExtraPoints(points) {
-      var diff = 5,
-          pQty = points.length;
-      while(--pQty > -1) {
-        var pQty2 = points.length;
-        while(--pQty2 > -1){
-          var difX = Math.abs( points[pQty].x - points[pQty2].x),
-              difY = Math.abs( points[pQty].y - points[pQty2].y);
-          if(difX > 0 && difX < diff) {
-            if(difY > 0 && difY < diff) {
-              points.splice(pQty, 1);
-              break;
-            }
-          }
-        }
-      }
-    }
-
-
-
-    function checkImpPointInCorner(linePoint, impPoint) {
-      var noMatch = 1,
-          limit = 40,
-          xDiff = impPoint.x - linePoint.x,
-          yDiff = impPoint.y - linePoint.y;
-
-      if(xDiff > 0 && xDiff < limit) {
-        if(yDiff > 0 && yDiff < limit) {
-          noMatch = 0;
-        }
-      }
-      return noMatch;
-    }
-
-
-    function createImpostPoint(coord, curBlockN, blockIndex, blocks, dimType) {
-      var impPoint = {
-        type:'impost',
-        id:'ip'+curBlockN,
-        x: coord.x,
-        y: coord.y,
-        dir:'line',
-        dimType: dimType
-      };
-      //---- insert impostPoint in parent block
-      if(!blocks[blockIndex].impost) {
-        blocks[blockIndex].impost = {
-          impostAxis: [],
-          impostOut: [],
-          impostIn: []
-        };
-      }
-      blocks[blockIndex].impost.impostAxis.push(impPoint);
-    }
-
-
-    function createChildBlock (blockN, blockIndex, blocks) {
-      var newBlock = {
-        type: 'skylight',
-        id: 'block_' + blockN,
-        level: blocks[blockIndex].level + 1,
-        blockType: 'frame',
-        parent: blocks[blockIndex].id,
-        children: [],
-        pointsOut: [],
-        pointsIn: [],
-        parts: [],
-        glassId: blocks[blockIndex].glassId,
-        glassTxt: blocks[blockIndex].glassTxt
-      };
-      //---- add Id new block in parent block
-      blocks[blockIndex].children.push(newBlock.id);
-      //---- insert block in blocks
-      blocks.push(newBlock);
-    }
-
-
-    function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsIn) {
-//      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
-
-      var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
-//      console.log('!!!!!!!!!!crossPointsIn!!!!!!!!!', crossPointsIn);
-      if(crossPointsIn.length === 2) {
-        var impLine = {
-              from: crossPointsIn[0],
-              to: crossPointsIn[1]
-            },
-            impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
-            pointsIn = angular.copy(pointsIn),
-            pointsQty = pointsIn.length,
-            currPoints = [],
-            currBlockCenter,
-            distCenterToImpost,
-            coordQ, posQ;
-
-        SVGServ.setLineCoef(impLine);
-        coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
-        //------ if impost vert or hor
-        if (!impLine.coefA && position === 1) {
-          coordQ.y -= impRadius * 2;
-        } else if (!impLine.coefB && position === 4) {
-          coordQ.x -= impRadius * 2;
-        }
-        posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
-        while (--pointsQty > -1) {
-          var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
-          if (posP > 0 && posQ > 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          } else if (posP < 0 && posQ < 0) {
-            currPoints.push(pointsIn[pointsQty]);
-          }
-        }
-        currPoints.push(impLine.from, impLine.to);
-//        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
-        currBlockCenter = SVGServ.centerBlock(currPoints);
-//        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
-//      console.log('IMP -------------',impRadius, distCenterToImpost);
-        if (impRadius < distCenterToImpost) {
-          return impRadius / 2;
-        } else {
-          return distCenterToImpost / 2;
-        }
-      }
-    }
-
-
-    function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
-      var impQPoint = {
-        blockId: blocks[blockIndex].id,
-        dir:'curv',
-        id: 'qi'+curBlockN,
-        heightQ: dist,
-        positionQ: position
-      };
-      blocks[blockIndex].impost.impostAxis.push(impQPoint);
     }
 
 
@@ -8064,95 +11213,13 @@ function ErrorResult(code, message) {
     }
 
 
-    function removeAllChildrenBlock(blockID, blocks) {
-      var blocksQty = blocks.length;
-      while(--blocksQty > 0) {
-        if(blocks[blocksQty].id === blockID) {
-          var childQty = blocks[blocksQty].children.length;
-          if(childQty) {
-            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
-            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
-            blocks.splice(blocksQty, 1);
-          } else {
-            blocks.splice(blocksQty, 1);
-          }
-          break;
-        }
-      }
-
-    }
 
 
 
 
 
-    //++++++++++ Create Mirror ++++++++//
+    /**++++++++++ Create Mirror ++++++++*/
 
-
-    function initMirror() {
-      var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksQty = blocks.length,
-          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
-          maxX = d3.max(points, function(d) { return d.x; });
-
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
-
-      for(var b = 1; b < blocksQty; b++) {
-        if(blocks[b].level === 1) {
-          changeChildrenIdChildren(b, blocksQty, blocks);
-        }
-      }
-//      console.log('mirror blocks_________', blocks);
-      rebuildSVGTemplate();
-      $timeout(function() {
-        DesignStor.design.activeMenuItem = 0;
-      }, 500);
-    }
-
-
-    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
-      for(var b = 1; b < blocksQty; b++) {
-        if(blocks[b].level && blocks[b].pointsQ) {
-          var pqQty = blocks[b].pointsQ.length;
-          if(pqQty) {
-            while(--pqQty > -1) {
-              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
-                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
-              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
-                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
-              }
-            }
-          }
-        }
-        if(blocks[b].impost) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
-          //------- if impost curve - change Q
-          if(blocks[b].impost.impostAxis[2]) {
-            var tempLine = {
-              from: blocks[b].impost.impostAxis[0],
-              to: blocks[b].impost.impostAxis[1]
-            };
-            SVGServ.setLineCoef(tempLine);
-            //--------- if horizontal or vertical
-            if(!tempLine.coefA || !tempLine.coefB) {
-              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
-            } else {
-              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
-            }
-          }
-        }
-        if(blocks[b].pointsOut.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
-        }
-        if(blocks[b].pointsIn.length) {
-          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
-        }
-
-      }
-    }
 
 
     function setNewCoordPointsAsMirror(maxX, points) {
@@ -8194,12 +11261,13 @@ function ErrorResult(code, message) {
 
 
     function changeChildrenIdChildren(indexBlock, blocksQty, blocks) {
-      var childQty = blocks[indexBlock].children.length;
+      var childQty = blocks[indexBlock].children.length,
+          lastChildId, b;
       if(childQty) {
         //------- change Id place of children
-        var lastChildId = blocks[indexBlock].children.pop();
+        lastChildId = blocks[indexBlock].children.pop();
         blocks[indexBlock].children.unshift(lastChildId);
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === blocks[indexBlock].children[0] || blocks[b].id === blocks[indexBlock].children[1]) {
             //----- change children
             changeChildrenIdChildren(b, blocksQty, blocks);
@@ -8211,486 +11279,374 @@ function ErrorResult(code, message) {
 
 
 
-
-
-
-
-
-    //=============== CHANGE CONSTRUCTION SIZE ==============//
-
-
-    //------- set click to all Dimensions
-    function initAllDimension() {
-      d3.selectAll('#tamlateSVG .size-box')
-        .each(function() {
-          var size = d3.select(this);
-          size.on(clickEvent, function() {
-            var sizeRect = size.select('.size-rect'),
-                isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
-
-            if(DesignStor.design.tempSize.length) {
-              /** save new Size when click another size */
-              closeSizeCaclulator();
-              cleanTempSize();
-            } else {
-              if (isActive) {
-                hideSizeTools();
-              } else {
-                deselectAllDimension();
-                sizeRect.classed('active', true);
-                var dim = size.select('.size-txt-edit');
-                dim.classed('active', true);
-                DesignStor.design.oldSize = dim[0][0];
-                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
-                //------- show caclulator or voice helper
-                if (GlobalStor.global.isVoiceHelper) {
-                  DesignStor.design.openVoiceHelper = 1;
-                  startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
-                } else {
-                  GlobalStor.global.isSizeCalculator = 1;
-                  DesignStor.design.isMinSizeRestriction = 0;
-                  DesignStor.design.isMaxSizeRestriction = 0;
-                }
+    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
+      var pqQty, b;
+      for(b = 1; b < blocksQty; b+=1) {
+        if(blocks[b].level && blocks[b].pointsQ) {
+          pqQty = blocks[b].pointsQ.length;
+          if(pqQty) {
+            while(--pqQty > -1) {
+              if(blocks[b].pointsQ[pqQty].id.indexOf('qa')+1) {
+                setOppositDirRadiusAsMirror(blocks[b].pointsQ[pqQty]);
+              } else if(blocks[b].pointsQ[pqQty].id.indexOf('qc')+1) {
+                setOppositDirRadiusInclinedAsMirror(blocks[b].pointsQ[pqQty]);
               }
-              $rootScope.$apply();
             }
-          });
-        });
-
-      /** switch on keyboard */
-      d3.select(window)
-        .on('keydown', function() {
-          if(GlobalStor.global.isSizeCalculator) {
-            pressCulculator(d3.event);
-          }
-        });
-    }
-
-
-
-
-
-    function doneRecognition(value) {
-      //console.log("полученные данные", value);
-      //console.log("тип полученных данных", typeof value);
-      DesignStor.design.voiceTxt = value;
-      $rootScope.$apply();
-      $timeout(function() {
-        var intValue = parseStringToDimension(value);
-        //console.log("данные после парса", intValue);
-        //console.log("тип полученных данных", typeof intValue);
-        if (intValue == "NaN") {
-          intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
-        }
-        playTTS(intValue);
-        setValueSize(intValue);
-        $rootScope.$apply();
-      }, 1000)
-    }
-
-
-
-    //---------- define voice force
-    function recognitionProgress(value) {
-      if (value > 100) {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = true;
-        DesignStor.design.quietVoice = false;
-
-      } else {
-        //console.log('value', value);
-        DesignStor.design.loudVoice = false;
-        DesignStor.design.quietVoice = true;
-      }
-      $rootScope.$apply();
-    }
-
-
-
-
-
-
-    /**=============== Size Calculator ==============*/
-
-
-    function pressCulculator(keyEvent) {
-      var newValue;
-      //--------- Enter
-      if (keyEvent.which === 13) {
-        closeSizeCaclulator();
-        $rootScope.$apply();
-      } else if(keyEvent.which === 8) {
-        //-------- Backspace
-        deleteLastNumber();
-      } else {
-        switch(keyEvent.which) {
-          case 48:
-          case 96:
-            newValue = 0;
-            break;
-          case 49:
-          case 97:
-            newValue = 1;
-            break;
-          case 50:
-          case 98:
-            newValue = 2;
-            break;
-          case 51:
-          case 99:
-            newValue = 3;
-            break;
-          case 52:
-          case 100:
-            newValue = 4;
-            break;
-          case 53:
-          case 101:
-            newValue = 5;
-            break;
-          case 54:
-          case 102:
-            newValue = 6;
-            break;
-          case 55:
-          case 103:
-            newValue = 7;
-            break;
-          case 56:
-          case 104:
-            newValue = 8;
-            break;
-          case 57:
-          case 105:
-            newValue = 9;
-            break;
-        }
-        if(newValue !== undefined) {
-          setValueSize(newValue);
-        }
-      }
-    }
-
-
-    //-------- Get number from calculator
-    function setValueSize(newValue) {
-      //console.log('take new value = ', newValue);
-      if(GlobalStor.global.isVoiceHelper) {
-
-        var tempVal = parseInt(newValue, 10);
-        //console.log('tempVal=====', tempVal);
-        DesignStor.design.voiceTxt = '';
-        DesignStor.design.openVoiceHelper = false;
-
-        if ((tempVal > 0) && (tempVal < 10000)) {
-          DesignStor.design.tempSize = ("" + tempVal).split('');
-          //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
-          changeSize();
-        }
-        deselectAllDimension();
-
-      } else {
-        //---- clear array from 0 after delete all number in array
-        if (DesignStor.design.tempSize.length === 1 && DesignStor.design.tempSize[0] === 0) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (DesignStor.design.tempSize.length === 4) {
-          DesignStor.design.tempSize.length = 0;
-        }
-        if (newValue === '0') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
-            DesignStor.design.tempSize.push(newValue);
-            changeSize();
           }
         }
-        if(newValue === '00') {
-          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
-            if (DesignStor.design.tempSize.length < 3) {
-              DesignStor.design.tempSize.push(0, 0);
-            } else if (DesignStor.design.tempSize.length === 3) {
-              DesignStor.design.tempSize.push(0);
-            }
-            changeSize();
-          }
-        }
-        if(newValue !== '0' && newValue !== '00') {
-          DesignStor.design.tempSize.push(newValue);
-          changeSize();
-        }
-      }
-    }
-
-
-
-    //------ Delete last number from calculator
-    function deleteLastNumber() {
-      DesignStor.design.tempSize.pop();
-      if(DesignStor.design.tempSize.length < 1) {
-        DesignStor.design.tempSize.push(0);
-      }
-      changeSize();
-    }
-
-
-
-
-
-    //------ Change size on SVG
-    function changeSize() {
-      var newSizeString = '';
-      for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
-        newSizeString += DesignStor.design.tempSize[numer].toString();
-      }
-      var dim = d3.select(DesignStor.design.oldSize);
-      dim.text(newSizeString);
-      if(GlobalStor.global.isVoiceHelper) {
-        closeSizeCaclulator();
-      }
-    }
-
-
-
-
-    //------- Close Size Calculator
-    function closeSizeCaclulator(prom) {
-      var deff = $q.defer();
-      if(DesignStor.design.tempSize.length) {
-        var newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
-        //------- Dimensions limits checking
-        if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
-
-          addNewSizeInTemplate(newLength);
-          //------ close size calculator and deactive size box in svg
-          hideSizeTools();
-          //----- change Template
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-            DesignStor.design.templateTEMP = angular.copy(result);
-            cleanTempSize();
-            deff.resolve(1);
-          });
-        } else {
-
-          //------ show error size
-          if(newLength < DesignStor.design.minSizeLimit) {
-            if(GlobalStor.global.isVoiceHelper) {
-              playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
-              //------- deactive size box in svg
-              deselectAllDimension();
-              //-------- build new template
-              rebuildSVGTemplate();
+        if(blocks[b].impost) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
+          //------- if impost curve - change Q
+          if(blocks[b].impost.impostAxis[2]) {
+            var tempLine = {
+              from: blocks[b].impost.impostAxis[0],
+              to: blocks[b].impost.impostAxis[1]
+            };
+            SVGServ.setLineCoef(tempLine);
+            //--------- if horizontal or vertical
+            if(!tempLine.coefA || !tempLine.coefB) {
+              setOppositDirRadiusAsMirror(blocks[b].impost.impostAxis[2]);
             } else {
-              DesignStor.design.isMinSizeRestriction = 1;
-              DesignStor.design.isMaxSizeRestriction = 0;
-            }
-          } else if(newLength > DesignStor.design.maxSizeLimit) {
-            if(GlobalStor.global.isVoiceHelper) {
-              playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), GlobalStor.global.voiceHelperLanguage);
-              //------- deactive size box in svg
-              deselectAllDimension();
-              //-------- build new template
-              rebuildSVGTemplate();
-            } else {
-              DesignStor.design.isMinSizeRestriction = 0;
-              DesignStor.design.isMaxSizeRestriction = 1;
+              setOppositDirRadiusInclinedAsMirror(blocks[b].impost.impostAxis[2]);
             }
           }
-          deff.resolve(1);
         }
-      } else {
-        //------ close size calculator and deselect All Dimension
-        hideSizeTools();
-        deff.resolve(1);
-      }
-      DesignStor.design.openVoiceHelper = 0;
-      DesignStor.design.loudVoice = 0;
-      DesignStor.design.quietVoice = 0;
-      console.log('FINISH CACL');
-      if(prom) {
-        return deff.promise;
+        if(blocks[b].pointsOut.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
+        }
+        if(blocks[b].pointsIn.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
+        }
+
       }
     }
 
 
 
-
-
-    function addNewSizeInTemplate(newLength) {
-      DesignStor.design.isMinSizeRestriction = 0;
-      DesignStor.design.isMaxSizeRestriction = 0;
+    function initMirror() {
+      var blocks = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocks.length,
+          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
+          maxX = d3.max(points, function(d) { return d.x; }), b;
 
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
+      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
 
-      //-------- change point coordinates in templateSource
-      var blocks = DesignStor.design.templateSourceTEMP.details,
-          blocksOLD = DesignStor.design.templateTEMP.details,
-          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
-          curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
-          dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          blocksQty = blocks.length;
-
-      //          console.log('SIZE ````````curBlockId````````', curBlockId);
-      //          console.log('SIZE ````````curDimType````````', curDimType);
-      //          console.log('SIZE ````````dimId````````', dimId);
-
-
-      if(curDimType === 'curve') {
-        //============ changing Radius
-
-        var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
-
-        mainFor: for (var b = 1; b < blocksQty; b++) {
-          if(blocks[b].id === curBlockId) {
-            //-------- search in PointsQ
-            if(blocks[b].pointsQ) {
-              var pointsQQty = blocks[b].pointsQ.length;
-              while(--pointsQQty > -1) {
-                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                  blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
-                  break mainFor;
-                }
-              }
-            }
-            //-------- search in Imposts
-            if(blocks[b].impost) {
-              if(blocks[b].impost.impostAxis[2].id === dimId) {
-                blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
-                break mainFor;
-              }
-            }
-
-          }
+      for(b = 1; b < blocksQty; b+=1) {
+        if(blocks[b].level === 1) {
+          changeChildrenIdChildren(b, blocksQty, blocks);
         }
+      }
+      //      console.log('mirror blocks_________', blocks);
+      rebuildSVGTemplate();
+      $timeout(function() {
+        DesignStor.design.activeMenuItem = 0;
+      }, 500);
+    }
 
-      } else if(dimId.indexOf('qa')+1) {
-        //========== changing Arc Height
 
-        for(var b = 1; b < blocksQty; b++) {
-          if(blocks[b].level === 1) {
-            var pointsQQty = blocks[b].pointsQ.length;
-            if(pointsQQty) {
-              while(--pointsQQty > -1) {
-                if(blocks[b].pointsQ[pointsQQty].id === dimId) {
-                  blocks[b].pointsQ[pointsQQty].heightQ = newLength;
-                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
-                }
-              }
-            }
-          }
+
+
+
+    /**++++++++++ Set Position by Axises ++++++++*/
+
+
+
+    function isPointInsideBlock(pointsOut, pointX, pointY) {
+      var newP = {
+            x: pointX,
+            y: pointY
+          },
+          isInside = 0,
+          tempInside = 0,
+          pointsOutQty = pointsOut.length,
+          p;
+      for(p = 0; p < pointsOutQty; p+=1) {
+        if(pointsOut[p+1]) {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[p+1], newP);
+        } else {
+          tempInside = SVGServ.setPointLocationToLine(pointsOut[p], pointsOut[0], newP);
         }
+        if(tempInside > 0) {
+          isInside = tempInside;
+          break;
+        }
+      }
+      return isInside;
+    }
 
-      } else {
-        //========== changing Line dimension
 
-        var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-            oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
-            axis = DesignStor.design.oldSize.attributes[13].nodeValue;
 
-        //            console.log('SIZE ````````newLength````````', newLength);
-        //            console.log('SIZE ````````startSize````````', startSize);
-        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-        //            console.log('SIZE ````````axis````````', axis);
+    function positionAxises() {
+      var blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocksQty = blocksSource.length,
+          blocks = DesignStor.design.templateTEMP.details,
+          parentBlocs = [], parentBlocsQty,
+          impostInd = [],
+          parentSizeMin, parentSizeMax, tempImpost,
+          step, impostIndSort, impostIndQty, newX,
+          isInside1, isInside2,
+          b, p, i;
 
-        for(var b = 1; b < blocksQty; b++) {
-          var pointsOutQty = blocks[b].pointsOut.length;
-          if(pointsOutQty) {
-            while(--pointsOutQty > -1) {
-              if(axis === 'x') {
-                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
-                }
-              } else if(axis === 'y') {
-                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
-                }
-              }
-            }
-          }
-          if(blocks[b].impost) {
-            for(var i = 0; i < 2; i++) {
-              if(axis === 'x') {
-                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
-                }
-              } else if (axis === 'y') {
-                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      //----- find dimensions of block Level 1
+      for(b = 1; b < blocksQty; b+=1) {
+        if(blocksSource[b].level === 1) {
+          parentBlocs.push(blocksSource[b].pointsOut.map(function(point) {
+            return point.x;
+          }));
+        }
+      }
+      //console.info('impost parent----', parentBlocs);
+      //----- find vertical imosts
+      parentBlocsQty = parentBlocs.length;
+      for(p = 0; p < parentBlocsQty; p+=1) {
+        impostInd = [];
+        parentSizeMin = d3.min(parentBlocs[p]);
+        parentSizeMax = d3.max(parentBlocs[p]);
+
+        //console.log('max/min', parentSizeMin, parentSizeMax);
+        for(b = 1; b < blocksQty; b+=1) {
+          if(blocksSource[b].impost) {
+            if(blocksSource[b].impost.impostAxis) {
+              //----- if impost vertical
+              if(blocksSource[b].impost.impostAxis[0].x === blocksSource[b].impost.impostAxis[1].x) {
+                //----- if impost belong to parent Block
+                if(blocksSource[b].impost.impostAxis[0].x > parentSizeMin && blocksSource[b].impost.impostAxis[0].x < parentSizeMax) {
+                  tempImpost = {ind: b, x: blocksSource[b].impost.impostAxis[0].x};
+                  impostInd.push(tempImpost);
+                  //console.info('impost', blocksSource[b].impost.impostAxis, tempImpost);
                 }
               }
             }
           }
         }
+        //----- set new step
+        step = Math.round(parentSizeMax/(impostInd.length+1));
+        impostIndSort = impostInd.sort(SVGServ.sortByX);
+        impostIndQty = impostIndSort.length;
 
+        for(i = 0; i < impostIndQty; i+=1) {
+          //-------- insert back imposts X
+          if(!i) {
+            newX = (parentSizeMin + step);
+          } else {
+            newX = (impostIndSort[i-1].x + step);
+          }
+          //console.warn('final----', newX);
+          //--------- checking is new impost Position inside of block
+          isInside1 = isPointInsideBlock(
+            blocks[impostIndSort[i].ind].pointsOut, newX, blocksSource[impostIndSort[i].ind].impost.impostAxis[0].y
+          );
+          isInside2 = isPointInsideBlock(
+            blocks[impostIndSort[i].ind].pointsOut, newX, blocksSource[impostIndSort[i].ind].impost.impostAxis[1].y
+          );
+          //----- if inside
+          if(!isInside1 && !isInside2) {
+            impostIndSort[i].x = newX;
+            blocksSource[impostIndSort[i].ind].impost.impostAxis[0].x = newX;
+            blocksSource[impostIndSort[i].ind].impost.impostAxis[1].x = newX;
+          }
+
+        }
+      }
+      rebuildSVGTemplate();
+    }
+
+
+
+
+
+
+
+    /**++++++++++ Set Position by Glass Width ++++++++*/
+
+
+    function prepareBlockXPosition(currBlock, selectedBlocks) {
+      var selectedBlock = {imps: []},
+          impostPoints = currBlock.pointsOut.filter(function(point) {
+            return point.type === 'impost' || point.type === 'shtulp';
+          }),
+          impostPointsQty = impostPoints.length,
+          isParall, isCouple, isExist, impsQty, glassXArr,
+          i, j;
+
+      for(i = 0; i < impostPointsQty; i+=1) {
+        isParall = 0;
+        isCouple = 0;
+        for(j = 0; j < impostPointsQty; j+=1) {
+          if(i !== j) {
+            if(impostPoints[j].id === impostPoints[i].id) {
+              isCouple = 1;
+              if(impostPoints[j].x === impostPoints[i].x) {
+                isParall = 1;
+              }
+            }
+          }
+        }
+        //------ if only one point of impost, deselect this block
+        if(isCouple) {
+          if(isParall) {
+            isExist = 1;
+            impsQty = selectedBlock.imps.length;
+            //------ seek dublicate
+            while(--impsQty > -1) {
+              if(selectedBlock.imps[impsQty].id === impostPoints[i].id) {
+                isExist = 0;
+              }
+            }
+            if(isExist) {
+              selectedBlock.imps.push(impostPoints[i]);
+            }
+          }
+        } else {
+          break;
+        }
+      }
+
+      if(selectedBlock.imps.length) {
+        glassXArr = currBlock.glassPoints.map(function(item){return item.x;});
+        selectedBlock.minX = d3.min(glassXArr);
+        selectedBlock.maxX = d3.max(glassXArr);
+        selectedBlock.width = (selectedBlock.maxX - selectedBlock.minX);
+        selectedBlocks.push(selectedBlock);
       }
     }
 
 
 
+    function positionGlasses() {
+      var blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          selectedGlassQty = DesignStor.design.selectedGlass.length,
+          blockID,
+          selectedBlocks = [], selectedBlocksQty,
+          glassWidthAvg,
+          impQty1, impQty2, isImpClone,
+          impsSBQty, impsSBQty2,
+          step, isAprove,
+          impostN, blockN,
+          g, b, imp1, imp2, sb, isb, sb2, isb2, p;
+
+      //---- save last step
+      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+      //------- if is exist selected glasses
+      if(selectedGlassQty) {
+        for(g = 0; g < selectedGlassQty; g+=1) {
+          blockID = DesignStor.design.selectedGlass[g].attributes.block_id.nodeValue;
+          //----- find this block among all blocks
+          for(b = 1; b < blocksQty; b+=1) {
+            if(blocks[b].id === blockID) {
+              prepareBlockXPosition(blocks[b], selectedBlocks);
+            }
+          }
+        }
+      } else {
+        //-------- working with all glass
+        //----- collect blocks with parallele imposts
+        for(b = 1; b < blocksQty; b+=1) {
+          //----- take block only with glass
+          if(!blocks[b].children.length && blocks[b].glassPoints) {
+            prepareBlockXPosition(blocks[b], selectedBlocks);
+          }
+        }
+      }
 
 
+      selectedBlocksQty = selectedBlocks.length;
+      //------ common glass width for each selectedBlocks
+      //glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
+      glassWidthAvg = GeneralServ.roundingValue(selectedBlocks.reduce(function(summ, item) {
+        return {width: (summ.width + item.width)};
+      }).width/selectedBlocksQty);
+
+      //console.info(selectedBlocks, glassWidthAvg);
 
 
-    function cleanTempSize() {
-      DesignStor.design.tempSize.length = 0;
-      DesignStor.design.isMinSizeRestriction = 0;
-      DesignStor.design.isMaxSizeRestriction = 0;
+      //---- find common impost if 2 selectedBlocks
+      if(selectedBlocksQty === 2) {
+        //console.info('when 2 glass----');
+        impQty1 = selectedBlocks[0].imps.length;
+        impQty2 = selectedBlocks[1].imps.length;
+        isImpClone = 0;
+        circle1: for(imp1 = 0; imp1 < impQty1; imp1+=1) {
+          for(imp2 = 0; imp2 < impQty2; imp2+=1) {
+            if(selectedBlocks[1].imps[imp2].id === selectedBlocks[0].imps[imp1].id) {
+              isImpClone = selectedBlocks[1].imps[imp2].id;
+              break circle1;
+            }
+          }
+        }
+      }
+
+      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
+        impsSBQty = selectedBlocks[sb].imps.length;
+        step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
+        //console.info('step----', selectedBlocks[sb]);
+        //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
+        for(isb = 0; isb < impsSBQty; isb+=1) {
+          if(!selectedBlocks[sb].imps[isb].isChanged) {
+            isAprove = 0;
+            if(selectedBlocksQty === 2) {
+              if(selectedBlocks[sb].imps[isb].id === isImpClone) {
+                isAprove = 1;
+              }
+            } else {
+              isAprove = 1;
+            }
+            if(isAprove) {
+              if(selectedBlocks[sb].imps[isb].x < selectedBlocks[sb].maxX) {
+                //----- if impost is left, it shoud be decrece if glass is bigger
+                step *= -1;
+              }
+              selectedBlocks[sb].imps[isb].x += step;
+              //console.info('impst----', selectedBlocks[sb].imps[isb].x);
+              //------- set mark in equals impost other blocks
+              for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
+                if (isb !== sb2) {
+                  impsSBQty2 = selectedBlocks[sb2].imps.length;
+                  for (isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
+                    if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
+                      selectedBlocks[sb2].imps[isb2].isChanged = 1;
+                      selectedBlocks[sb2].width -= step;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      //console.warn('FINISH----', selectedBlocks);
+      //------- change imposts X in blockSource
+      for(sb = 0; sb < selectedBlocksQty; sb+=1) {
+        impsSBQty = selectedBlocks[sb].imps.length;
+        for(isb = 0; isb < impsSBQty; isb+=1) {
+          if(!selectedBlocks[sb].imps[isb].isChanged) {
+            impostN = Number(selectedBlocks[sb].imps[isb].id.replace(/\D+/g, ""));
+            for(p = 1; p < blocksQty; p+=1) {
+              blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
+              if(blockN === impostN) {
+                if(blocksSource[p].impost) {
+                  blocksSource[p].impost.impostAxis[0].x = +selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[1].x = +selectedBlocks[sb].imps[isb].x;
+                }
+              }
+            }
+
+          }
+        }
+      }
+      rebuildSVGTemplate();
     }
 
 
-    function culcHeightQByRadiusCurve(lineLength, radius) {
-      return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
-    }
-
-
-    function hideSizeTools() {
-      deselectAllDimension();
-      GlobalStor.global.isSizeCalculator = 0;
-      DesignStor.design.openVoiceHelper = 0;
-    }
-
-
-    function deselectAllDimension() {
-      d3.selectAll('#tamlateSVG .size-rect').classed('active', false);
-      d3.selectAll('#tamlateSVG .size-txt-edit').classed('active', false);
-    }
-
-
-
-
-
-
-    function removeAllEventsInSVG() {
-      //--------- delete click on imposts
-      d3.selectAll('#tamlateSVG [item_type=impost]')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on glasses
-      d3.selectAll('#tamlateSVG .glass')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-//          d3.select(this).on("touchstart", null);
-//          d3.select(this).on("mousedown", null);
-//          d3.select(this).on("touchend", null);
-//          d3.select(this).on("mouseup", null);
-        });
-      //--------- delete click on arcs
-      d3.selectAll('#tamlateSVG .frame')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete click on dimension
-      d3.selectAll('#tamlateSVG .size-box')
-        .each(function() {
-          d3.select(this).on(clickEvent, null);
-        });
-      //--------- delete event listener for keydown
-      d3.select(window).on('keydown', null);
-    }
 
 
 
@@ -8698,9 +11654,7 @@ function ErrorResult(code, message) {
     function stepBack() {
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
+      rebuildSVGTemplate();
       DesignStor.design.designSteps.pop();
       cleanTempSize();
       hideSizeTools();
@@ -8708,39 +11662,292 @@ function ErrorResult(code, message) {
 
 
 
-  }
+
+
+
+
+    /**------- Save and Close Construction Page ----------*/
+
+    function designSaved() {
+      var doorShapeList = DesignStor.design.doorShapeList,
+          doorConfig = DesignStor.design.doorConfig,
+          isSashesInTemplate;
+      closeSizeCaclulator(1).then(function() {
+
+        /** check sizes of all glass */
+        MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
+        if(DesignStor.design.extraGlass.length){
+          /** expose Alert */
+          DesignStor.design.isGlassExtra = 1;
+        } else {
+          /** if sash was added/removed in template */
+          isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
+          if (isSashesInTemplate) {
+
+            /** check sizes of all hardware in sashes */
+            MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
+
+          } else {
+            /** sashes were removed */
+            ProductStor.product.hardware = {};
+            ProductStor.product.hardware.id = 0;
+            GlobalStor.global.isSashesInTemplate = 0;
+            //------ clean Extra Hardware
+            DesignStor.design.extraHardware.length = 0;
+          }
+
+          if(DesignStor.design.extraHardware.length){
+            /** expose Alert */
+            DesignStor.design.isHardwareExtra = 1;
+          } else {
+
+            if (isSashesInTemplate) {
+              /** set first hardware if sash were not existed before */
+              if (!GlobalStor.global.isSashesInTemplate) {
+                GlobalStor.global.isSashesInTemplate = 1;
+                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+              }
+            }
+
+            /** save new template in product */
+            ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
+            ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** create template icon */
+            SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.templateIcon = angular.copy(result);
+              });
+
+            /** if Door Construction */
+            if (ProductStor.product.construction_type === 4) {
+              //------- save new door config
+              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
+              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
+              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
+              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+            }
+
+            /** save new template in templates Array */
+            GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
+              ProductStor.product.template_source
+            );
+
+            /** check grids */
+            var isChanged = updateGrids();
+            if (isChanged) {
+              //------ get new grids price
+              getGridPrice(ProductStor.product.chosenAddElements[0]);
+            }
+
+            /** refresh price of new template */
+            MainServ.preparePrice(
+              ProductStor.product.template,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              ProductStor.product.hardware.id,
+              ProductStor.product.lamination.lamination_in_id
+            ).then(function () {
+              //-------- template was changed
+              GlobalStor.global.isChangedTemplate = 1;
+              backtoTemplatePanel();
+            });
+
+          }
+
+        }
+
+      });
+    }
+
+
+
+
+    //--------- Cancel and Close Construction Page
+    function designCancel() {
+      //------- close calculator if is opened
+      hideSizeTools();
+      //------ go to Main Page
+      backtoTemplatePanel();
+    }
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      setDefaultTemplate: setDefaultTemplate,
+      designSaved: designSaved,
+      designCancel: designCancel,
+      setDefaultConstruction: setDefaultConstruction,
+
+      initAllImposts: initAllImposts,
+      initAllGlass: initAllGlass,
+      initAllGlassXGlass: initAllGlassXGlass,
+      initAllGlassXGrid: initAllGlassXGrid,
+      initAllArcs: initAllArcs,
+      initAllDimension: initAllDimension,
+      hideCornerMarks: hideCornerMarks,
+      deselectAllImpost: deselectAllImpost,
+      deselectAllArc: deselectAllArc,
+      deselectAllGlass: deselectAllGlass,
+      rebuildSVGTemplate: rebuildSVGTemplate,
+
+      //------- edit sash
+      createSash: createSash,
+      deleteSash: deleteSash,
+      //------- edit corners
+      setCornerPoints: setCornerPoints,
+      setCurvCornerPoints: setCurvCornerPoints,
+      deleteCornerPoints: deleteCornerPoints,
+      //-------- edit arc
+      createArc: createArc,
+      deleteArc: deleteArc,
+      workingWithAllArcs: workingWithAllArcs,
+      //-------- edit impost
+      createImpost: createImpost,
+      deleteImpost: deleteImpost,
+      //-------- mirror
+      initMirror: initMirror,
+      positionAxises: positionAxises,
+      positionGlasses: positionGlasses,
+      removeAllEventsInSVG: removeAllEventsInSVG,
+      removeGlassEventsInSVG: removeGlassEventsInSVG,
+      closeGlassSelectorDialog: closeGlassSelectorDialog,
+
+      //---- change sizes
+      setValueSize: setValueSize,
+      deleteLastNumber: deleteLastNumber,
+      closeSizeCaclulator: closeSizeCaclulator,
+      hideSizeTools: hideSizeTools,
+
+      stepBack: stepBack,
+      getGridPrice: getGridPrice,
+
+      //---- door
+      //      downloadDoorConfig: downloadDoorConfig,
+      setIndexDoorConfig: setIndexDoorConfig
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
 
 // services/general_serv.js
 
+/* globals d3 */
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GeneralServ', generalFactory);
+    .factory('GeneralServ',
 
-  function generalFactory($filter, $window, $document, GlobalStor) {
+  function(
+    $filter,
+    $window,
+    $document,
+    globalConstants,
+    GlobalStor
+  ) {
+    /*jshint validthis:true */
+    var thisFactory = this,
+        addElementDATA = [
+          /** GRID */
+          {
+            id: 20,
+            name: $filter('translate')('add_elements.GRIDS'),
+            typeClass: 'aux-grid',
+            //colorClass: 'aux_color_connect',
+            delay: globalConstants.STEP * 5
+          },
+          /** VISOR */
+          {
+            id: 21,
+            name: $filter('translate')('add_elements.VISORS'),
+            typeClass: 'aux-visor',
+            //colorClass: 'aux_color_big',
+            delay: globalConstants.STEP * 6
+          },
+          /**SPILLWAY*/
+          {
+            id: 9,
+            name: $filter('translate')('add_elements.SPILLWAYS'),
+            typeClass: 'aux-spillway',
+            //colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 6
+          },
+          /**OUTSIDE*/
+          {
+            id: 19,
+            name: $filter('translate')('add_elements.OUTSIDE'),
+            typeClass: 'aux-outside',
+            //colorClass: 'aux_color_slope',
+            delay: globalConstants.STEP * 10
+          },
+          /**LOUVER*/
+          {
+            id: 26,
+            name: $filter('translate')('add_elements.LOUVERS'),
+            typeClass: 'aux-louver',
+            //colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 15
+          },
+          /**INSIDESLOPE*/
+          {
+            id: 19,
+            name: $filter('translate')('add_elements.INSIDE'),
+            typeClass: 'aux-inside',
+            //colorClass: 'aux_color_slope',
+            delay: globalConstants.STEP * 20
+          },
+          /**CONNECTORS*/
+          {
+            id: 12,
+            name: $filter('translate')('add_elements.CONNECTORS'),
+            typeClass: 'aux-connectors',
+            //colorClass: 'aux_color_connect',
+            delay: globalConstants.STEP * 30
+          },
+          /**FAN*/
+          {
+            id: 27,
+            name: $filter('translate')('add_elements.FAN'),
+            typeClass: 'aux-fan',
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+          /**WINDOWSILL*/
+          {
+            id: 8,
+            name: $filter('translate')('add_elements.WINDOWSILLS'),
+            typeClass: 'aux-windowsill',
+            //colorClass: 'aux_color_big',
+            delay: globalConstants.STEP * 13
+          },
+          /**HANDLE*/
+          {
+            id: 24,
+            name: $filter('translate')('add_elements.HANDLELS'),
+            typeClass: 'aux-handle',
+            //colorClass: 'aux_color_middle',
+            delay: globalConstants.STEP * 28
+          },
+          /**OTHERS*/
+          {
+            id: 18,
+            name: $filter('translate')('add_elements.OTHERS'),
+            typeClass: 'aux-others',
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          }
+        ];
 
-    var thisFactory = this;
-
-    thisFactory.publicObj = {
-      stopStartProg: stopStartProg,
-      setPreviosPage: setPreviosPage,
-      rounding10: rounding10,
-      rounding100: rounding100,
-      roundingNumbers: roundingNumbers,
-      addMarginToPrice: addMarginToPrice,
-      setPriceDis: setPriceDis,
-      sorting: sorting,
-      removeDuplicates: removeDuplicates,
-      getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
-    };
 
     //TODO desktop
     //------- IMG rooms preload
@@ -8762,10 +11969,9 @@ function ErrorResult(code, message) {
       }
     });
 
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
@@ -8778,22 +11984,22 @@ function ErrorResult(code, message) {
     }
 
 
-    function rounding10(value) {
-      return Math.round(value * 10) / 10;
-    }
+    function roundingValue(nubmer, rad) {
+      var radix = rad || 2,
+          numberType = typeof nubmer,
+          roundRadix = '1', i, newValue;
 
-    function rounding100(value) {
-      return Math.round(value * 100) / 100;
-    }
-
-    function roundingNumbers(nubmer, radix) {
-      var radix = (radix) ? radix : 2,
-          numberType = typeof nubmer;
-      if(numberType === 'string') {
-        return parseFloat( parseFloat(nubmer).toFixed(radix) );
-      } else if(numberType === 'number') {
-        return parseFloat(nubmer.toFixed(radix));
+      for(i = 0; i < radix; i+=1) {
+        roundRadix += '0';
       }
+      roundRadix *= 1;
+
+      if(numberType === 'string') {
+        newValue = parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
+      } else if(numberType === 'number') {
+        newValue = parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
+      }
+      return newValue;
     }
 
     /** price Margins of Plant */
@@ -8802,7 +12008,7 @@ function ErrorResult(code, message) {
     }
 
     function setPriceDis(price, discount) {
-      return roundingNumbers( price * (1 - discount/100) );
+      return roundingValue( price * (1 - discount/100) );
     }
 
     function sorting(a, b) {
@@ -8811,7 +12017,7 @@ function ErrorResult(code, message) {
 
     function removeDuplicates(arr) {
       return arr.filter(function(elem, index, self) {
-        return index == self.indexOf(elem);
+        return index === self.indexOf(elem);
       });
     }
 
@@ -8834,7 +12040,36 @@ function ErrorResult(code, message) {
       GlobalStor.global.confirmAction = callback;
     }
 
-  }
+
+    function goToLink(link) {
+      if(GlobalStor.global.isDevice) {
+        var ref = window.open(link);
+        ref.close();
+      } else {
+        $window.open(link);
+      }
+    }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      addElementDATA: addElementDATA,
+      stopStartProg: stopStartProg,
+      setPreviosPage: setPreviosPage,
+      roundingValue: roundingValue,
+      addMarginToPrice: addMarginToPrice,
+      setPriceDis: setPriceDis,
+      sorting: sorting,
+      removeDuplicates: removeDuplicates,
+      getMaxMinCoord: getMaxMinCoord,
+      confirmAlert: confirmAlert,
+      goToLink: goToLink
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -8843,41 +12078,37 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('HistoryModule')
-    .factory('HistoryServ', historyFactory);
+    .factory('HistoryServ',
 
-  function historyFactory($location, $filter, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
-
+  function(
+    $location,
+    $filter,
+    $q,
+    globalConstants,
+    localDB,
+    GeneralServ,
+    MainServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    HistoryStor,
+    CartStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
 
-    thisFactory.publicObj = {
-      toCurrentCalculation: toCurrentCalculation,
-      downloadOrders: downloadOrders,
-      sendOrderToFactory: sendOrderToFactory,
-      makeOrderCopy: makeOrderCopy,
-      clickDeleteOrder: clickDeleteOrder,
-      editOrder: editOrder,
-      viewSwitching: viewSwitching,
-
-      orderSearching: orderSearching,
-      orderDateSelecting: orderDateSelecting,
-      openCalendarScroll: openCalendarScroll,
-      orderSorting: orderSorting,
-      sortingInit: sortingInit
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //------ go to current calculations
@@ -8936,30 +12167,29 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Send Order to Factory ========//
+    /**========== Send Order to Factory ========*/
 
     function sendOrderToFactory(orderStyle, orderNum) {
-
+      function sendOrder() {
+        var ordersQty = HistoryStor.history.orders.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {
+          if(HistoryStor.history.orders[ord].id === orderNum) {
+            //-------- change style for order
+            HistoryStor.history.orders[ord].order_style = orderDoneStyle;
+            HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
+            //------ update in Local BD
+            localDB.updateLocalServerDBs(
+              localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()}
+            );
+          }
+        }
+      }
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.SEND_ORDER_TITLE'),
           $filter('translate')('common_words.SEND_ORDER_TXT'),
           sendOrder
         );
-      }
-
-      function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length;
-        for(var ord = 0; ord < ordersQty; ord++) {
-          if(HistoryStor.history.orders[ord].id === orderNum) {
-            //-------- change style for order
-            HistoryStor.history.orders[ord].order_style = orderDoneStyle;
-            HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
-
-            //------ update in Local BD
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
-          }
-        }
       }
 
     }
@@ -8969,24 +12199,46 @@ function ErrorResult(code, message) {
 
 
 
-    //========= make Order Copy =========//
+    /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
 
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
-          copyOrder
-        );
+      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
+        //------ Download elements of order from localDB
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
+          //          console.log('result+++++', result);
+          if(result.length) {
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
+                i;
+
+            if (allElemQty > 0) {
+              //-------- set new orderId in all elements of order
+              for (i = 0; i < allElemQty; i+=1) {
+                delete allElements[i].id;
+                allElements[i].modified = new Date();
+                allElements[i].order_id = newOrderNum;
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(
+                  UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]
+                );
+              }
+            }
+
+          } else {
+            console.log('Empty result = ', result);
+          }
+        });
       }
 
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy;
+            newOrderCopy, ord;
 
-        for(var ord = 0; ord < ordersQty; ord++) {
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -8997,7 +12249,9 @@ function ErrorResult(code, message) {
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
 
-        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+        localDB.insertServer(
+          UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
+        ).then(function(respond) {
           if(respond.status) {
             newOrderCopy.order_number = respond.order_number;
           }
@@ -9015,36 +12269,12 @@ function ErrorResult(code, message) {
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
-
-
-      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
-//          console.log('result+++++', result);
-          if(result.length) {
-            var allElements = angular.copy(result),
-                allElemQty = allElements.length,
-                i = 0;
-
-            if (allElemQty > 0) {
-              //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
-                delete allElements[i].id;
-                allElements[i].modified = new Date();
-                allElements[i].order_id = newOrderNum;
-
-                //-------- insert all elements in LocalDB
-                localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
-              }
-            }
-
-          } else {
-            console.log('Empty result = ', result);
-          }
-        });
-
-
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.COPY_ORDER_TITLE'),
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder
+        );
       }
 
     }
@@ -9053,17 +12283,11 @@ function ErrorResult(code, message) {
 
 
 
-    //========== Delete order ==========//
+    /**========== Delete order ==========*/
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
-      event.srcEvent.stopPropagation();
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-        $filter('translate')('common_words.DELETE_ORDER_TXT'),
-        deleteOrder
-      );
+      event.stopPropagation();
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -9096,69 +12320,19 @@ function ErrorResult(code, message) {
           localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+        deleteOrder
+      );
+
     }
 
 
 
 
     /** =========== Edit Order & Draft =========== */
-
-    function editOrder(typeOrder, orderNum) {
-      GlobalStor.global.isLoader = 1;
-      GlobalStor.global.orderEditNumber = orderNum;
-      //----- cleaning order
-      OrderStor.order = OrderStor.setDefaultOrder();
-
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
-      while(--ordersQty > -1) {
-        if(typeOrder) {
-          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
-            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-            CartStor.fillOrderForm();
-          }
-        } else {
-          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
-            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
-            CartStor.fillOrderForm();
-          }
-        }
-
-      }
-      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
-      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
-      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
-      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.floorData);
-      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
-      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
-
-      delete OrderStor.order.additional_payment;
-      delete OrderStor.order.created;
-      delete OrderStor.order.sended;
-      delete OrderStor.order.state_to;
-      delete OrderStor.order.state_buch;
-      delete OrderStor.order.batch;
-      delete OrderStor.order.base_price;
-      delete OrderStor.order.factory_margin;
-      delete OrderStor.order.purchase_price;
-      delete OrderStor.order.sale_price;
-      delete OrderStor.order.modified;
-
-      //------ Download All Products of edited Order
-      downloadProducts().then(function() {
-        //------ Download All Add Elements from LocalDB
-        downloadAddElements().then(function () {
-          GlobalStor.global.isConfigMenu = 1;
-          GlobalStor.global.isNavMenu = 0;
-          //------- set previos Page
-          GeneralServ.setPreviosPage();
-          GlobalStor.global.isLoader = 0;
-//          console.warn('ORDER ====', OrderStor.order);
-          $location.path('/cart');
-        });
-      });
-
-    }
-
 
     function setOrderOptions(param, id, data) {
       if(id) {
@@ -9183,11 +12357,26 @@ function ErrorResult(code, message) {
     }
 
 
+    function setGlassXOrder(product, id) {
+      //----- set default glass in ProductStor
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        return item.profileId === product.profile.id;
+      });
+      //      console.log('tempGlassArr = ', tempGlassArr);
+      if(tempGlassArr.length) {
+        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
+      }
+
+    }
+
+
     //------ Download All Products Data for Order
     function downloadProducts() {
       var deferred = $q.defer();
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
 
@@ -9198,7 +12387,6 @@ function ErrorResult(code, message) {
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
-
             //----- checking product with design or only addElements
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
@@ -9211,13 +12399,16 @@ function ErrorResult(code, message) {
                       glassIDsQty = glassIDs.length;
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
+                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
                     }
                   }
                 }
-                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                setLaminationXOrder(tempProd);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
                 defer1.resolve(tempProd);
               });
 
@@ -9239,7 +12430,9 @@ function ErrorResult(code, message) {
 
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+                item.productPriceDis = (GeneralServ.setPriceDis(
+                  item.template_price, OrderStor.order.discount_construct
+                ) + item.addelemPriceDis);
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
@@ -9259,55 +12452,29 @@ function ErrorResult(code, message) {
 
 
 
-    function setGlassXOrder(product, id) {
-      //----- set default glass in ProductStor
-      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        return item.profileId === product.profile.id;
-      });
-      //      console.log('tempGlassArr = ', tempGlassArr);
-      if(tempGlassArr.length) {
-        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
-      }
-
-    }
-
-
-    function setLaminationXOrder(product) {
-      if(product.lamination_in_id) {
-        var lamInQty = GlobalStor.global.laminationsIn.length;
-        while(--lamInQty > -1) {
-          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
-            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
-          }
-        }
-      }
-      if(product.lamination_out_id) {
-        var lamOutQty = GlobalStor.global.laminationsOut.length;
-        while(--lamOutQty > -1) {
-          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
-            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
-          }
-        }
-      }
-    }
 
 
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length;
+            orderProductsQty = OrderStor.order.products.length,
+            prod;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
-            for(var prod = 0; prod < orderProductsQty; prod++) {
+            for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
-                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
+                  elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
+                );
                 OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
@@ -9326,21 +12493,64 @@ function ErrorResult(code, message) {
 
 
 
+    function editOrder(typeOrder, orderNum) {
+      GlobalStor.global.isLoader = 1;
+      GlobalStor.global.orderEditNumber = orderNum;
+      //----- cleaning order
+      OrderStor.order = OrderStor.setDefaultOrder();
 
+      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      while(--ordersQty > -1) {
+        if(typeOrder) {
+          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        } else {
+          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        }
 
-
-
-    //------- Orders/Drafts View switcher
-    function viewSwitching() {
-      HistoryStor.history.isOrderDate = 0;
-      HistoryStor.history.isOrderDateDraft = 0;
-      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
-
-      //------ Download Drafts from localDB in first open
-      if(!HistoryStor.history.drafts.length) {
-        downloadDrafts();
       }
+      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
+      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
+      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
+      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
+      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+
+      delete OrderStor.order.additional_payment;
+      delete OrderStor.order.created;
+      delete OrderStor.order.sended;
+      delete OrderStor.order.state_to;
+      delete OrderStor.order.state_buch;
+      delete OrderStor.order.batch;
+      delete OrderStor.order.base_price;
+      delete OrderStor.order.factory_margin;
+      delete OrderStor.order.purchase_price;
+      delete OrderStor.order.sale_price;
+      delete OrderStor.order.modified;
+
+      //------ Download All Products of edited Order
+      downloadProducts().then(function() {
+        //------ Download All Add Elements from LocalDB
+        downloadAddElements().then(function () {
+          GlobalStor.global.isConfigMenu = 1;
+          GlobalStor.global.isNavMenu = 0;
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
+          GlobalStor.global.isLoader = 0;
+          //          console.warn('ORDER ====', OrderStor.order);
+          $location.path('/cart');
+        });
+      });
+
     }
+
+
+
 
 
 
@@ -9369,9 +12579,34 @@ function ErrorResult(code, message) {
     }
 
 
+    //------- Orders/Drafts View switcher
+    function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
+      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
+
+      //------ Download Drafts from localDB in first open
+      if(!HistoryStor.history.drafts.length) {
+        downloadDrafts();
+      }
+    }
 
 
-    //============= HISTORY TOOLS ============//
+    function orderPrint(orderId) {
+      var domainLink = globalConstants.serverIP.split('api.').join(''),
+          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      /** check internet */
+      if(navigator.onLine) {
+        GeneralServ.goToLink(printLink);
+      } else {
+        HistoryStor.history.isNoPrint = 1;
+      }
+    }
+
+
+
+    /**============= HISTORY TOOLS ============*/
 
     //=========== Searching
 
@@ -9389,6 +12624,29 @@ function ErrorResult(code, message) {
 
     //=========== Filtering by Date
 
+    //------- filtering orders by Dates
+    function filteringByDate(obj, start, end) {
+      var newObj, startDate, finishDate,
+          t, objDate;
+      if(start !== '' || end !== '') {
+        newObj = angular.copy(obj);
+        startDate = new Date(start).valueOf();
+        finishDate = new Date(end).valueOf();
+        if(start !== '' && end !== '' && startDate > finishDate) {
+          return false;
+        }
+        for(t = newObj.length-1;  t >= 0; t-=1) {
+          objDate = new Date(newObj[t].created).valueOf();
+          if(objDate < startDate || objDate > finishDate) {
+            newObj.splice(t, 1);
+          }
+        }
+        return newObj;
+      } else {
+        return false;
+      }
+    }
+
     //------- show Date filter tool dialog
     function orderDateSelecting() {
       var filterResult;
@@ -9396,7 +12654,9 @@ function ErrorResult(code, message) {
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(
+            HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft
+          );
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }
@@ -9408,7 +12668,9 @@ function ErrorResult(code, message) {
       } else {
         if(HistoryStor.history.isOrderDate) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate);
+          filterResult = filteringByDate(
+            HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate
+          );
           if(filterResult) {
             HistoryStor.history.orders = filterResult;
           }
@@ -9419,27 +12681,7 @@ function ErrorResult(code, message) {
       }
     }
 
-    //------- filtering orders by Dates
-    function filteringByDate(obj, start, end) {
-      if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
-        newObj = angular.copy(obj);
-        startDate = new Date(start).valueOf();
-        finishDate = new Date(end).valueOf();
-        if(start !== '' && end !== '' && startDate > finishDate) {
-          return false;
-        }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
-          if(objDate < startDate || objDate > finishDate) {
-            newObj.splice(t, 1);
-          }
-        }
-        return newObj;
-      } else {
-        return false;
-      }
-    }
+
 
 
     //------ Select calendar-scroll
@@ -9547,7 +12789,30 @@ function ErrorResult(code, message) {
 
 
 
-  }
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      toCurrentCalculation: toCurrentCalculation,
+      downloadOrders: downloadOrders,
+      sendOrderToFactory: sendOrderToFactory,
+      makeOrderCopy: makeOrderCopy,
+      clickDeleteOrder: clickDeleteOrder,
+      editOrder: editOrder,
+      orderPrint: orderPrint,
+      viewSwitching: viewSwitching,
+
+      orderSearching: orderSearching,
+      orderDateSelecting: orderDateSelecting,
+      openCalendarScroll: openCalendarScroll,
+      orderSorting: orderSorting,
+      sortingInit: sortingInit
+    };
+
+    return thisFactory.publicObj;
+
+
+
+  });
 })();
 
 
@@ -9556,14 +12821,20 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('localDB', globalDBFactory);
+    .factory('localDB',
 
-  function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor, GlobalStor) {
+  function(
+    $http,
+    $q,
+    $filter,
+    globalConstants,
+    GeneralServ,
+    UserStor,
+    GlobalStor
+  ) {
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -9571,12 +12842,12 @@ function ErrorResult(code, message) {
           'addition_folders': {
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
-              ' addition_type_id INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' img VARCHAR,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR',
+            ' addition_type_id INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' img VARCHAR,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
@@ -9612,31 +12883,31 @@ function ErrorResult(code, message) {
           'glass_folders': {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
-              ' img VARCHAR,' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' description VARCHAR,' +
-              ' link VARCHAR,' +
-              ' is_base INTEGER',
+            ' img VARCHAR,' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR,' +
+            ' is_base INTEGER',
             'foreignKey': ''
           },
           'glass_prices': {
             'tableName': 'glass_prices',
             'prop': 'element_id INTEGER,' +
-              ' col_1_range NUMERIC(10, 2),' +
-              ' col_1_price NUMERIC(10, 2),' +
-              ' col_2_range_1 NUMERIC(10, 2),' +
-              ' col_2_range_2 NUMERIC(10, 2),' +
-              ' col_2_price NUMERIC(10, 2),' +
-              ' col_3_range_1 NUMERIC(10, 2),' +
-              ' col_3_range_2 NUMERIC(10, 2),' +
-              ' col_3_price NUMERIC(10, 2),' +
-              ' col_4_range_1 NUMERIC(10, 2),' +
-              ' col_4_range_2 NUMERIC(10, 2),' +
-              ' col_4_price NUMERIC(10, 2),' +
-              ' col_5_range NUMERIC(10, 2),' +
-              ' col_5_price NUMERIC(10, 2),' +
-              ' table_width INTEGER',
+            ' col_1_range NUMERIC(10, 2),' +
+            ' col_1_price NUMERIC(10, 2),' +
+            ' col_2_range_1 NUMERIC(10, 2),' +
+            ' col_2_range_2 NUMERIC(10, 2),' +
+            ' col_2_price NUMERIC(10, 2),' +
+            ' col_3_range_1 NUMERIC(10, 2),' +
+            ' col_3_range_2 NUMERIC(10, 2),' +
+            ' col_3_price NUMERIC(10, 2),' +
+            ' col_4_range_1 NUMERIC(10, 2),' +
+            ' col_4_range_2 NUMERIC(10, 2),' +
+            ' col_4_price NUMERIC(10, 2),' +
+            ' col_5_range NUMERIC(10, 2),' +
+            ' col_5_price NUMERIC(10, 2),' +
+            ' table_width INTEGER',
             'foreignKey': ''
           },
           'lamination_factory_colors': {
@@ -9662,117 +12933,130 @@ function ErrorResult(code, message) {
           'options_coefficients': {
             'tableName': 'options_coefficients',
             'prop': 'rentability_percent INTEGER,' +
-              ' rentability_hrn_m INTEGER,' +
-              ' rentability_hrn INTEGER,' +
-              ' others_percent INTEGER,' +
-              ' others_hrn_m INTEGER,' +
-              ' others_hrn INTEGER,' +
-              ' transport_cost_percent INTEGER,' +
-              ' transport_cost_hrn_m INTEGER,' +
-              ' transport_cost_hrn INTEGER,' +
-              ' salary_manager_percent INTEGER,' +
-              ' salary_manager_hrn_m INTEGER,' +
-              ' salary_manager_hrn INTEGER,' +
-              ' rent_offices_percent INTEGER,' +
-              ' rent_offices_hrn_m INTEGER,' +
-              ' rent_offices_hrn INTEGER,' +
-              ' salary_itr_percent INTEGER,' +
-              ' salary_itr_hrn_m INTEGER,' +
-              ' salary_itr_hrn INTEGER,' +
-              ' rent_production_percent INTEGER,' +
-              ' rent_production_hrn_m INTEGER,' +
-              ' rent_production_hrn INTEGER,' +
-              ' salary_glass_percent INTEGER,' +
-              ' salary_glass_hrn_m INTEGER,' +
-              ' salary_glass_hrn INTEGER,' +
-              ' salary_assembly_percent INTEGER,' +
-              ' salary_assembly_hrn_m INTEGER,' +
-              ' salary_assembly_hrn INTEGER,' +
-              ' estimated_cost INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' plan_production INTEGER,' +
-              ' margin NUMERIC(10, 2),' +
-              ' coeff NUMERIC(10, 2)',
+            ' rentability_hrn_m INTEGER,' +
+            ' rentability_hrn INTEGER,' +
+            ' others_percent INTEGER,' +
+            ' others_hrn_m INTEGER,' +
+            ' others_hrn INTEGER,' +
+            ' transport_cost_percent INTEGER,' +
+            ' transport_cost_hrn_m INTEGER,' +
+            ' transport_cost_hrn INTEGER,' +
+            ' salary_manager_percent INTEGER,' +
+            ' salary_manager_hrn_m INTEGER,' +
+            ' salary_manager_hrn INTEGER,' +
+            ' rent_offices_percent INTEGER,' +
+            ' rent_offices_hrn_m INTEGER,' +
+            ' rent_offices_hrn INTEGER,' +
+            ' salary_itr_percent INTEGER,' +
+            ' salary_itr_hrn_m INTEGER,' +
+            ' salary_itr_hrn INTEGER,' +
+            ' rent_production_percent INTEGER,' +
+            ' rent_production_hrn_m INTEGER,' +
+            ' rent_production_hrn INTEGER,' +
+            ' salary_glass_percent INTEGER,' +
+            ' salary_glass_hrn_m INTEGER,' +
+            ' salary_glass_hrn INTEGER,' +
+            ' salary_assembly_percent INTEGER,' +
+            ' salary_assembly_hrn_m INTEGER,' +
+            ' salary_assembly_hrn INTEGER,' +
+            ' estimated_cost INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' plan_production INTEGER,' +
+            ' margin NUMERIC(10, 2),' +
+            ' coeff NUMERIC(10, 2)',
             'foreignKey': ''
           },
           'options_discounts': {
             'tableName': 'options_discounts',
             'prop': 'factory_id INTEGER,' +
-              ' min_time INTEGER,' +
-              ' standart_time INTEGER,' +
-              ' base_time INTEGER,' +
-              ' week_1 INTEGER,' +
-              ' week_2 INTEGER,' +
-              ' week_3 INTEGER,' +
-              ' week_4 INTEGER,' +
-              ' week_5 INTEGER,' +
-              ' week_6 INTEGER,' +
-              ' week_7 INTEGER,' +
-              ' week_8 INTEGER,' +
-              ' percents ARRAY',
+            ' min_time INTEGER,' +
+            ' standart_time INTEGER,' +
+            ' base_time INTEGER,' +
+            ' week_1 INTEGER,' +
+            ' week_2 INTEGER,' +
+            ' week_3 INTEGER,' +
+            ' week_4 INTEGER,' +
+            ' week_5 INTEGER,' +
+            ' week_6 INTEGER,' +
+            ' week_7 INTEGER,' +
+            ' week_8 INTEGER,' +
+            ' percents ARRAY',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'elements': {
             'tableName': 'elements',
-            'prop': 'sku VARCHAR(100),' +
-              ' name VARCHAR(255),' +
-              ' element_group_id INTEGER,' +
-              ' currency_id INTEGER,' +
-              ' supplier_id INTEGER,' +
-              ' margin_id INTEGER,' +
-              ' waste NUMERIC(10, 2),' +
-              ' is_optimized INTEGER,' +
-              ' is_virtual INTEGER,' +
-              ' is_additional INTEGER,' +
-              ' weight_accounting_unit NUMERIC(10, 3),' +
-              ' glass_folder_id INTEGER,' +
-              ' min_width NUMERIC,' +
-              ' min_height NUMERIC,' +
-              ' max_width NUMERIC,' +
-              ' max_height NUMERIC,' +
-              ' max_sq NUMERIC,' +
-              ' transcalency NUMERIC(10, 2),' +
-              ' glass_width INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' price NUMERIC(10, 2),' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' noise_coeff NUMERIC,' +
-              ' heat_coeff INTEGER,' +
-              ' lamination_in_id INTEGER,' +
-              ' lamination_out_id INTEGER',
+            'prop': 'heat_coeff INTEGER,' +
+            ' name VARCHAR(255),' +
+            ' element_group_id INTEGER,' +
+            ' currency_id INTEGER,' +
+            ' supplier_id INTEGER,' +
+            ' margin_id INTEGER,' +
+            ' waste NUMERIC(10, 2),' +
+            ' is_optimized INTEGER,' +
+            ' is_virtual INTEGER,' +
+            ' is_additional INTEGER,' +
+            ' weight_accounting_unit NUMERIC(10, 3),' +
+            ' glass_folder_id INTEGER,' +
+            ' min_width NUMERIC,' +
+            ' min_height NUMERIC,' +
+            ' max_width NUMERIC,' +
+            ' max_height NUMERIC,' +
+            ' max_sq NUMERIC,' +
+            ' transcalency NUMERIC(10, 2),' +
+            ' glass_width INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' price NUMERIC(10, 2),' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' noise_coeff NUMERIC,' +
+            ' sku VARCHAR(100),' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
             'tableName': 'profile_system_folders',
             'prop': 'name VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' position INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'profile_systems': {
             'tableName': 'profile_systems',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' rama_list_id INTEGER,' +
-              ' rama_still_list_id INTEGER,' +
-              ' stvorka_list_id INTEGER,' +
-              ' impost_list_id INTEGER,' +
-              ' shtulp_list_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' country VARCHAR(100),' +
-              ' cameras INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff_value NUMERIC(5,2),' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' country VARCHAR(100),' +
+            ' cameras INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff_value NUMERIC(5,2),' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
+            'foreignKey': ''
+          },
+          'profile_laminations': {
+            'tableName': 'profile_laminations',
+            'prop': 'profile_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' code_sync VARCHAR',
             'foreignKey': ''
           },
           'rules_types': {
@@ -9788,105 +13072,108 @@ function ErrorResult(code, message) {
           'users': {
             'tableName': 'users',
             'prop':
-              'email VARCHAR(255),' +
-              ' password VARCHAR(255),' +
-              ' factory_id INTEGER,' +
-              ' name VARCHAR(255),' +
-              ' phone VARCHAR(100),' +
-              ' locked INTEGER,' +
-              ' user_type INTEGER,' +
-              ' city_phone VARCHAR(100),' +
-              ' city_id INTEGER,' +
-              ' fax VARCHAR(100),' +
-              ' avatar VARCHAR(255),' +
-              ' birthday DATE,' +
-              ' sex VARCHAR(100),' +
-              ' mount_mon NUMERIC(5,2),' +
-              ' mount_tue NUMERIC(5,2),' +
-              ' mount_wed NUMERIC(5,2),' +
-              ' mount_thu NUMERIC(5,2),' +
-              ' mount_fri NUMERIC(5,2),' +
-              ' mount_sat NUMERIC(5,2),' +
-              ' mount_sun NUMERIC(5,2),' +
-              ' device_code VARCHAR(250),'+
-              ' last_sync TIMESTAMP,' +
-              ' address VARCHAR',
+            ' email VARCHAR(255),' +
+            ' password VARCHAR(255),' +
+            ' factory_id INTEGER,' +
+            ' name VARCHAR(255),' +
+            ' phone VARCHAR(100),' +
+            ' locked INTEGER,' +
+            ' user_type INTEGER,' +
+            ' city_phone VARCHAR(100),' +
+            ' city_id INTEGER,' +
+            ' fax VARCHAR(100),' +
+            ' avatar VARCHAR(255),' +
+            ' birthday DATE,' +
+            ' sex VARCHAR(100),' +
+            ' mount_mon NUMERIC(5,2),' +
+            ' mount_tue NUMERIC(5,2),' +
+            ' mount_wed NUMERIC(5,2),' +
+            ' mount_thu NUMERIC(5,2),' +
+            ' mount_fri NUMERIC(5,2),' +
+            ' mount_sat NUMERIC(5,2),' +
+            ' mount_sun NUMERIC(5,2),' +
+            ' device_code VARCHAR(250),'+
+            ' last_sync TIMESTAMP,' +
+            ' address VARCHAR,' +
+            ' therm_coeff_id INTEGER,' +
+            ' factoryLink VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
             'tableName': 'users_discounts',
             'prop': 'user_id INTEGER,' +
-              ' max_construct NUMERIC(5,1),' +
-              ' max_add_elem NUMERIC(5,1),' +
-              ' default_construct NUMERIC(5,1),' +
-              ' default_add_elem NUMERIC(5,1),' +
-              ' week_1_construct NUMERIC(5,1),' +
-              ' week_1_add_elem NUMERIC(5,1),' +
-              ' week_2_construct NUMERIC(5,1),' +
-              ' week_2_add_elem NUMERIC(5,1),' +
-              ' week_3_construct NUMERIC(5,1),' +
-              ' week_3_add_elem NUMERIC(5,1),' +
-              ' week_4_construct NUMERIC(5,1),' +
-              ' week_4_add_elem NUMERIC(5,1),' +
-              ' week_5_construct NUMERIC(5,1),' +
-              ' week_5_add_elem NUMERIC(5,1),' +
-              ' week_6_construct NUMERIC(5,1),' +
-              ' week_6_add_elem NUMERIC(5,1),' +
-              ' week_7_construct NUMERIC(5,1),' +
-              ' week_7_add_elem NUMERIC(5,1),' +
-              ' week_8_construct NUMERIC(5,1),' +
-              ' week_8_add_elem NUMERIC(5,1)',
+            ' max_construct NUMERIC(5,1),' +
+            ' max_add_elem NUMERIC(5,1),' +
+            ' default_construct NUMERIC(5,1),' +
+            ' default_add_elem NUMERIC(5,1),' +
+            ' week_1_construct NUMERIC(5,1),' +
+            ' week_1_add_elem NUMERIC(5,1),' +
+            ' week_2_construct NUMERIC(5,1),' +
+            ' week_2_add_elem NUMERIC(5,1),' +
+            ' week_3_construct NUMERIC(5,1),' +
+            ' week_3_add_elem NUMERIC(5,1),' +
+            ' week_4_construct NUMERIC(5,1),' +
+            ' week_4_add_elem NUMERIC(5,1),' +
+            ' week_5_construct NUMERIC(5,1),' +
+            ' week_5_add_elem NUMERIC(5,1),' +
+            ' week_6_construct NUMERIC(5,1),' +
+            ' week_6_add_elem NUMERIC(5,1),' +
+            ' week_7_construct NUMERIC(5,1),' +
+            ' week_7_add_elem NUMERIC(5,1),' +
+            ' week_8_construct NUMERIC(5,1),' +
+            ' week_8_add_elem NUMERIC(5,1)',
             'foreignKey': ''
           },
           'users_deliveries': {
             'tableName': 'users_deliveries',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'users_mountings': {
             'tableName': 'users_mountings',
             'prop': 'user_id INTEGER,' +
-              ' active INTEGER,' +
-              ' name VARCHAR,' +
-              ' type INTEGER,' +
-              ' price NUMERIC(6,1)',
+            ' active INTEGER,' +
+            ' name VARCHAR,' +
+            ' type INTEGER,' +
+            ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'lists': {
             'tableName': 'lists',
             'prop': 'name VARCHAR(255),' +
-              ' list_group_id INTEGER,' +
-              ' list_type_id INTEGER,' +
-              ' a NUMERIC(10, 2),' +
-              ' b NUMERIC(10, 2),' +
-              ' c NUMERIC(10, 2),' +
-              ' d NUMERIC(10, 2),' +
-              ' parent_element_id INTEGER,' +
-              ' position NUMERIC,' +
-              ' add_color_id INTEGER,' +
-              ' addition_folder_id INTEGER,' +
-              ' amendment_pruning NUMERIC(10, 2),' +
-              ' waste NUMERIC(10, 2),' +
-              ' cameras INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' list_group_id INTEGER,' +
+            ' list_type_id INTEGER,' +
+            ' a NUMERIC(10, 2),' +
+            ' b NUMERIC(10, 2),' +
+            ' c NUMERIC(10, 2),' +
+            ' d NUMERIC(10, 2),' +
+            ' parent_element_id INTEGER,' +
+            ' position NUMERIC,' +
+            ' add_color_id INTEGER,' +
+            ' addition_folder_id INTEGER,' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' waste NUMERIC(10, 2),' +
+            ' cameras INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR,' +
+            ' beed_lamination_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
             'tableName': 'list_contents',
             'prop': 'parent_list_id INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(255),' +
-              ' value NUMERIC(10, 3),' +
-              ' rules_type_id INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' lamination_type_id INTEGER',
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(255),' +
+            ' value NUMERIC(10, 7),' +
+            ' rules_type_id INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' lamination_type_id INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
@@ -9897,52 +13184,52 @@ function ErrorResult(code, message) {
           'window_hardware_folders': {
             'tableName': 'window_hardware_folders',
             'prop': 'name VARCHAR,' +
-              ' factory_id INTEGER,'+
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' factory_id INTEGER,'+
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
 
           'window_hardware_groups': {
             'tableName': 'window_hardware_groups',
             'prop': 'name VARCHAR(255),' +
-              ' short_name VARCHAR(100),' +
-              ' folder_id INTEGER,' +
-              ' is_editable INTEGER,' +
-              ' is_group INTEGER,' +
-              ' is_in_calculation INTEGER,' +
-              ' is_default INTEGER,' +
-              ' position INTEGER,' +
-              ' producer VARCHAR(255),' +
-              ' country VARCHAR(255),' +
-              ' noise_coeff INTEGER,' +
-              ' heat_coeff INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' link VARCHAR,' +
-              ' description VARCHAR,' +
-              ' img VARCHAR',
+            ' short_name VARCHAR(100),' +
+            ' folder_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_group INTEGER,' +
+            ' is_in_calculation INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' producer VARCHAR(255),' +
+            ' country VARCHAR(255),' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
             'foreignKey': ''
           },
           'window_hardwares': {
             'tableName': 'window_hardwares',
             'prop': 'window_hardware_type_id INTEGER,' +
-              ' min_width INTEGER,' +
-              ' max_width INTEGER,' +
-              ' min_height INTEGER,' +
-              ' max_height INTEGER,' +
-              ' direction_id INTEGER,' +
-              ' window_hardware_color_id INTEGER,' +
-              ' length INTEGER,' +
-              ' count INTEGER,' +
-              ' child_id INTEGER,' +
-              ' child_type VARCHAR(100),' +
-              ' position INTEGER,' +
-              ' factory_id INTEGER,' +
-              ' window_hardware_group_id INTEGER',
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' length INTEGER,' +
+            ' count INTEGER,' +
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(100),' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' window_hardware_group_id INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_colors': {
@@ -9965,128 +13252,141 @@ function ErrorResult(code, message) {
           'orders': {
             'tableName': 'orders',
             'prop':
-              'order_number VARCHAR,' +
-              ' order_hz VARCHAR,' +
-              ' order_date TIMESTAMP,' +
-              ' order_type INTEGER,' +
-              ' order_style VARCHAR,' +
-              ' user_id INTEGER,' +
-              ' created TIMESTAMP,' +
-              ' additional_payment VARCHAR,' +
-              ' sended TIMESTAMP,' +
-              ' state_to TIMESTAMP,' +
-              ' state_buch TIMESTAMP,' +
-              ' batch VARCHAR,' +
-              ' base_price NUMERIC(13, 2),' +
-              ' factory_margin NUMERIC(11, 2),'+
-              ' factory_id INTEGER,' +
-              ' purchase_price NUMERIC(10, 2),' +
-              ' sale_price NUMERIC(10, 2),' +
-              ' climatic_zone INTEGER,' +
-              ' heat_coef_min NUMERIC,' +
+            'order_number VARCHAR,' +
+            ' order_hz VARCHAR,' +
+            ' order_date TIMESTAMP,' +
+            ' order_type INTEGER,' +
+            ' order_style VARCHAR,' +
+            ' user_id INTEGER,' +
+            ' created TIMESTAMP,' +
+            ' additional_payment VARCHAR,' +
+            ' sended TIMESTAMP,' +
+            ' state_to TIMESTAMP,' +
+            ' state_buch TIMESTAMP,' +
+            ' batch VARCHAR,' +
+            ' base_price NUMERIC(13, 2),' +
+            ' factory_margin NUMERIC(11, 2),'+
+            ' factory_id INTEGER,' +
+            ' purchase_price NUMERIC(10, 2),' +
+            ' sale_price NUMERIC(10, 2),' +
+            ' climatic_zone INTEGER,' +
+            ' heat_coef_min NUMERIC,' +
 
-              ' products_qty INTEGER,' +
-              ' templates_price NUMERIC,' +
-              ' addelems_price NUMERIC,' +
-              ' products_price NUMERIC,'+
+            ' products_qty INTEGER,' +
+            ' templates_price NUMERIC,' +
+            ' addelems_price NUMERIC,' +
+            ' products_price NUMERIC,'+
 
-              ' delivery_date TIMESTAMP,' +
-              ' new_delivery_date TIMESTAMP,' +
-              ' delivery_price NUMERIC,'+
-              ' is_date_price_less INTEGER,' +
-              ' is_date_price_more INTEGER,' +
-              ' floor_id INTEGER,' +
-              ' floor_price NUMERIC,' +
-              ' mounting_id INTEGER,' +
-              ' mounting_price NUMERIC,'+
-              ' is_instalment INTEGER,' +
-              ' instalment_id INTEGER,' +
+            ' delivery_date TIMESTAMP,' +
+            ' new_delivery_date TIMESTAMP,' +
+            ' delivery_price NUMERIC,'+
+            ' is_date_price_less INTEGER,' +
+            ' is_date_price_more INTEGER,' +
+            ' floor_id INTEGER,' +
+            ' floor_price NUMERIC,' +
+            ' mounting_id INTEGER,' +
+            ' mounting_price NUMERIC,'+
+            ' is_instalment INTEGER,' +
+            ' instalment_id INTEGER,' +
 
-              ' is_old_price INTEGER,' +
-              ' payment_first NUMERIC,' +
-              ' payment_monthly NUMERIC,' +
-              ' payment_first_primary NUMERIC,' +
-              ' payment_monthly_primary NUMERIC,' +
-              ' order_price NUMERIC,' +
-              ' order_price_dis NUMERIC,' +
-              ' order_price_primary NUMERIC,' +
+            ' is_old_price INTEGER,' +
+            ' payment_first NUMERIC,' +
+            ' payment_monthly NUMERIC,' +
+            ' payment_first_primary NUMERIC,' +
+            ' payment_monthly_primary NUMERIC,' +
+            ' order_price NUMERIC,' +
+            ' order_price_dis NUMERIC,' +
+            ' order_price_primary NUMERIC,' +
 
-              ' discount_construct NUMERIC,' +
-              ' discount_addelem NUMERIC,' +
-              ' customer_name TEXT,' +
-              ' customer_email TEXT,' +
-              ' customer_phone VARCHAR(30),' +
-              ' customer_phone_city VARCHAR(20),' +
-              ' customer_city_id INTEGER,' +
-              ' customer_city VARCHAR,' +
-              ' customer_address TEXT,' +
-              ' customer_location VARCHAR,' +
-              ' customer_itn INTEGER,' +
-              ' customer_starttime VARCHAR,' +
-              ' customer_endtime VARCHAR,' +
-              ' customer_target VARCHAR,' +
-              ' customer_sex INTEGER,' +
-              ' customer_age INTEGER,' +
-              ' customer_education INTEGER,' +
-              ' customer_occupation INTEGER,' +
-              ' customer_infoSource INTEGER',
+            ' discount_construct NUMERIC,' +
+            ' discount_addelem NUMERIC,' +
+            ' discount_construct_max NUMERIC,' +
+            ' discount_addelem_max NUMERIC,' +
+            ' delivery_user_id NUMERIC,' +
+            ' mounting_user_id NUMERIC,' +
+            ' default_term_plant NUMERIC,' +
+            ' disc_term_plant NUMERIC,' +
+            ' margin_plant NUMERIC,' +
+
+            ' customer_name TEXT,' +
+            ' customer_email TEXT,' +
+            ' customer_phone VARCHAR(30),' +
+            ' customer_phone_city VARCHAR(20),' +
+            ' customer_city_id INTEGER,' +
+            ' customer_city VARCHAR,' +
+            ' customer_address TEXT,' +
+            ' customer_house TEXT,' +
+            ' customer_flat TEXT,' +
+            ' customer_floor TEXT,' +
+            ' customer_location VARCHAR,' +
+            ' customer_itn INTEGER,' +
+            ' customer_starttime VARCHAR,' +
+            ' customer_endtime VARCHAR,' +
+            ' customer_target VARCHAR,' +
+            ' customer_sex INTEGER,' +
+            ' customer_age INTEGER,' +
+            ' customer_education INTEGER,' +
+            ' customer_occupation INTEGER,' +
+            ' customer_infoSource INTEGER',
             'foreignKey': ''
           },
           'order_products': {
             'tableName': 'order_products',
             'prop':
-              'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' is_addelem_only INTEGER,' +
-              ' room_id INTEGER,' +
-              ' construction_type INTEGER,' +
-              ' template_id INTEGER,' +
-              ' template_source TEXT,' +
-              ' template_width NUMERIC,' +
-              ' template_height NUMERIC,' +
-              ' template_square NUMERIC,' +
-              ' profile_id INTEGER,' +
-              ' glass_id VARCHAR,' +
-              ' hardware_id INTEGER,' +
-              ' lamination_out_id INTEGER,' +
-              ' lamination_in_id INTEGER,' +
-              ' door_shape_id INTEGER,' +
-              ' door_sash_shape_id INTEGER,' +
-              ' door_handle_shape_id INTEGER,' +
-              ' door_lock_shape_id INTEGER,' +
-              ' heat_coef_total NUMERIC,' +
-              ' template_price NUMERIC,' +
-              ' addelem_price NUMERIC,' +
-              ' product_price NUMERIC,' +
-              ' comment TEXT,' +
-              ' product_qty INTEGER',
+            'order_id NUMERIC,' +
+            ' product_id INTEGER,' +
+            ' is_addelem_only INTEGER,' +
+            ' room_id INTEGER,' +
+            ' construction_type INTEGER,' +
+            ' template_id INTEGER,' +
+            ' template_source TEXT,' +
+            ' template_width NUMERIC,' +
+            ' template_height NUMERIC,' +
+            ' template_square NUMERIC,' +
+            ' profile_id INTEGER,' +
+            ' glass_id VARCHAR,' +
+            ' hardware_id INTEGER,' +
+            ' lamination_id INTEGER,' +
+            ' lamination_out_id INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' door_shape_id INTEGER,' +
+            ' door_sash_shape_id INTEGER,' +
+            ' door_handle_shape_id INTEGER,' +
+            ' door_lock_shape_id INTEGER,' +
+            ' heat_coef_total NUMERIC,' +
+            ' template_price NUMERIC,' +
+            ' addelem_price NUMERIC,' +
+            ' product_price NUMERIC,' +
+            ' comment TEXT,' +
+            ' product_qty INTEGER',
             'foreignKey': ''
           },
           'order_addelements': {
             'tableName': 'order_addelements',
             'prop': 'order_id NUMERIC,' +
-              ' product_id INTEGER,' +
-              ' element_type INTEGER,' +
-              ' element_id INTEGER,' +
-              ' name VARCHAR,' +
-              ' element_width NUMERIC,' +
-              ' element_height NUMERIC,' +
-              ' element_price NUMERIC,' +
-              ' element_qty INTEGER',
+            ' product_id INTEGER,' +
+            ' element_type INTEGER,' +
+            ' element_id INTEGER,' +
+            ' name VARCHAR,' +
+            ' element_width NUMERIC,' +
+            ' element_height NUMERIC,' +
+            ' element_price NUMERIC,' +
+            ' element_qty INTEGER,' +
+            ' block_id INTEGER',
             'foreignKey': ''
           },
-//          'order_elements': {
-//            'tableName': 'order_elements',
-//            'prop': 'order_id NUMERIC,' +
-//              ' element_id INTEGER,' +
-//              ' element_group_id INTEGER,' +
-//              ' name VARCHAR,' +
-//              ' sku VARCHAR,' +
-//              ' size NUMERIC,' +
-//              ' amount INTEGER,' +
-//              ' price NUMERIC',
-//            'foreignKey': ''
-//          },
+          //          'order_elements': {
+          //            'tableName': 'order_elements',
+          //            'prop': 'order_id NUMERIC,' +
+          //              ' element_id INTEGER,' +
+          //              ' element_group_id INTEGER,' +
+          //              ' name VARCHAR,' +
+          //              ' sku VARCHAR,' +
+          //              ' size NUMERIC,' +
+          //              ' amount INTEGER,' +
+          //              ' price NUMERIC',
+          //            'foreignKey': ''
+          //          },
           'template_groups':{
             'tableName': 'template_groups',
             'prop': 'name VARCHAR(255)',
@@ -10095,9 +13395,9 @@ function ErrorResult(code, message) {
           'templates':{
             'tableName': 'templates',
             'prop': 'group_id INTEGER,'+
-              'name VARCHAR(255),' +
-              'icon TEXT,' +
-              'template_object TEXT',
+            'name VARCHAR(255),' +
+            'icon TEXT,' +
+            'template_object TEXT',
             'foreignKey': ''
           },
           'background_templates':{
@@ -10112,7 +13412,48 @@ function ErrorResult(code, message) {
             'foreignKey': ''
           },
 
-          //-------- inner temables
+          'factories':{
+            'tableName': 'factories',
+            'prop': 'name VARCHAR,'+
+            'app_token VARCHAR,' +
+            'link VARCHAR,' +
+            'therm_coeff_id INTEGER,' +
+            'max_construct_square INTEGER,' +
+            'max_construct_size INTEGER',
+            'foreignKey': ''
+          },
+
+          'mosquitos':{
+            'tableName': 'mosquitos',
+            'prop': 'profile_id INTEGER,'+
+            'name VARCHAR,' +
+            'bottom_id INTEGER,' +
+            'bottom_waste INTEGER,' +
+            'left_id INTEGER,' +
+            'left_waste INTEGER,'+
+            'top_id INTEGER,'+
+            'top_waste INTEGER,'+
+            'right_id INTEGER,'+
+            'right_waste INTEGER,'+
+            'cloth_id INTEGER,'+
+            'cloth_waste INTEGER',
+            'foreignKey': ''
+          },
+
+          'window_hardware_type_ranges':{
+            'tableName': 'window_hardware_type_ranges',
+            'prop': 'factory_id INTEGER,'+
+            'type_id INTEGER,' +
+            'max_width INTEGER,' +
+            'min_width INTEGER,' +
+            'max_height INTEGER,' +
+            'min_height INTEGER',
+            'foreignKey': ''
+          },
+
+
+
+//-------- inner temables
 //          'analytics': {
 //            'tableName': 'analytics',
 //            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
@@ -10145,64 +13486,19 @@ function ErrorResult(code, message) {
             'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
-        },
-
-        addElementDBId = [
-          20, // 0 - grids
-          21, // 1 - visors
-          9, // 2 - spillways
-          19, // 3 - outSlope
-          26, // 4 - louvers
-          19, // 5 - inSlope
-          12, // 6 - connectors
-          27, // 7 - fans
-          8, // 8 - windowSill
-          24, // 9 - handles
-          18 // 10 - others
-        ];
+        };
 
 
 
 
 
-    thisFactory.publicObj = {
-      tablesLocalDB: tablesLocalDB,
-      tablesLocationLocalDB: tablesLocationLocalDB,
-      addElementDBId: addElementDBId,
-
-      cleanLocalDB: cleanLocalDB,
-      createTablesLocalDB: createTablesLocalDB,
-      insertRowLocalDB: insertRowLocalDB,
-      insertTablesLocalDB: insertTablesLocalDB,
-      selectLocalDB: selectLocalDB,
-      updateLocalDB: updateLocalDB,
-      deleteRowLocalDB: deleteRowLocalDB,
-
-      importUser: importUser,
-      importLocation: importLocation,
-      importFactories: importFactories,
-      importAllDB: importAllDB,
-      insertServer: insertServer,
-      updateServer: updateServer,
-      createUserServer: createUserServer,
-      exportUserEntrance: exportUserEntrance,
-      deleteOrderServer: deleteOrderServer,
-      updateLocalServerDBs: updateLocalServerDBs,
-      sendIMGServer: sendIMGServer,
-      md5: md5,
-
-      calculationPrice: calculationPrice,
-      getAdditionalPrice: getAdditionalPrice,
-      currencyExgange: currencyExgange
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
 
-    //============ methods ================//
+
+    /**============ methods ================*/
 
 
 
@@ -10244,10 +13540,27 @@ function ErrorResult(code, message) {
 
 
 
+    /**----- if string has single quote <'> it replaces to double quotes <''> -----*/
+
+    function checkStringToQuote(str) {
+      if(angular.isString(str)) {
+        if(str.indexOf("'")+1) {
+          //console.warn(str);
+          return str.replace(/'/g, "''");
+        } else {
+          return str;
+        }
+      } else {
+        return str;
+      }
+    }
+
+
     function insertRowLocalDB(row, tableName) {
       var keysArr = Object.keys(row),
           colums = keysArr.join(', '),
           values = keysArr.map(function (key) {
+            row[key] = checkStringToQuote(row[key]);
             return "'"+row[key]+"'";
           }).join(', ');
       db.transaction(function (trans) {
@@ -10263,23 +13576,26 @@ function ErrorResult(code, message) {
       var promises = [],
           tableKeys = Object.keys(result.tables),
           tableQty = tableKeys.length;
-//      console.log('tabless =', tableKeys);
+      //console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
-        for (var t = 0; t < tableQty; t++) {
+        var t;
+        for (t = 0; t < tableQty; t+=1) {
           var colums = result.tables[tableKeys[t]].fields.join(', '),
-              rowsQty = result.tables[tableKeys[t]].rows.length;
-//          console.log('insert ++++', tableKeys[t]);
+              rowsQty = result.tables[tableKeys[t]].rows.length,
+              r;
+          //console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
-            for (var r = 0; r < rowsQty; r++) {
+            for (r = 0; r < rowsQty; r+=1) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                    elem = checkStringToQuote(elem);
                     return "'" + elem + "'";
                   }).join(', ');
-//              console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ' + error);
+                console.log('Error!!! ', error, tableKeys[t], colums);
                 defer.resolve(0);
               });
 
@@ -10293,17 +13609,19 @@ function ErrorResult(code, message) {
 
 
 
+
+
     function selectLocalDB(tableName, options, columns) {
       var defer = $q.defer(),
-          properties = (columns) ? columns : '*',
+          properties = columns || '*',
           vhereOptions = "";
       if(options) {
         vhereOptions = " WHERE ";
         var optionKeys = Object.keys(options);
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-        var optionQty = optionKeys.length;
+        var optionQty = optionKeys.length, k;
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -10313,8 +13631,8 @@ function ErrorResult(code, message) {
           function (tx, result) {
             var resultQty = result.rows.length;
             if (resultQty) {
-              var resultARR = [];
-              for(var i = 0; i < resultQty; i++) {
+              var resultARR = [], i;
+              for(i = 0; i < resultQty; i+=1) {
                 resultARR.push(result.rows.item(i));
               }
               defer.resolve(resultARR);
@@ -10339,10 +13657,10 @@ function ErrorResult(code, message) {
           keysQty = keysArr.length,
           optionKeys = Object.keys(options),
           optionQty = optionKeys.length,
-          elements = "";
+          elements = "", k, op;
 
       if(keysQty) {
-        for(var k = 0; k < keysQty; k++) {
+        for(k = 0; k < keysQty; k+=1) {
           if(!k) {
             elements += keysArr[k] + " = '" + elem[keysArr[k]]+"'";
           } else {
@@ -10354,7 +13672,7 @@ function ErrorResult(code, message) {
         vhereOptions = " WHERE ";
         vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var op = 1; op < optionQty; op++) {
+          for(op = 1; op < optionQty; op+=1) {
             vhereOptions += " AND " + optionKeys[op] + " = '" + options[optionKeys[op]] + "'";
           }
         }
@@ -10373,10 +13691,10 @@ function ErrorResult(code, message) {
       var vhereOptions = "";
       if(options) {
         var optionKeys = Object.keys(options),
-            optionQty = optionKeys.length;
+            optionQty = optionKeys.length, k;
         vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
         if(optionQty > 1) {
-          for(var k = 1; k < optionQty; k++) {
+          for(k = 1; k < optionQty; k+=1) {
             vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
@@ -10399,7 +13717,7 @@ function ErrorResult(code, message) {
     /** get User from Server by login */
     function importUser(login, type) {
       var defer = $q.defer(),
-        query = (type) ? '/api/login?type=1' : '/api/login';
+          query = type ? '/api/login?type=1' : '/api/login';
       $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
@@ -10421,6 +13739,7 @@ function ErrorResult(code, message) {
         function (result) {
           if(result.data.status) {
             //-------- insert in LocalDB
+            //console.warn(result.data);
             insertTablesLocalDB(result.data).then(function() {
               defer.resolve(1);
             });
@@ -10555,7 +13874,7 @@ function ErrorResult(code, message) {
 
 
     function deleteOrderServer(login, access, orderNumber) {
-      var dataSend = {orderId: orderNumber*1};
+      var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
           console.log(result.data);
@@ -10875,120 +14194,31 @@ function ErrorResult(code, message) {
     /********* PRICE *********/
 
 
-    function parseMainKit(construction){
-      var deff = $q.defer(),
-          promisesKit = construction.sizes.map(function(item, index, arr) {
-            var deff1 = $q.defer();
-			      //----- chekh is sizes and id
-            if(item.length && construction.ids[index]) {
-              /** if hardware */
-              if(index === arr.length-1) {
-                parseHardwareKit(construction.ids[index], item, construction.laminationId).then(function(hardwares) {
-                  if(hardwares.length) {
-                    deff1.resolve(hardwares);
-                  } else {
-                    deff1.resolve(0);
-                  }
-                });
-              } else {
-                if(angular.isArray(construction.ids[index])) {
-                  var promisKits = construction.ids[index].map(function(item2) {
-                    var deff2 = $q.defer();
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
-                      if(result2.length) {
-                        deff2.resolve(result2);
-                      } else {
-                        deff2.resolve(0);
-                      }
-                    });
-                    return deff2.promise;
-                  });
-                  $q.all(promisKits).then(function(result3) {
-                    var data3 = angular.copy(result3),
-                        resQty = data3.length,
-                        collectArr = [];
-                    for(var i = 0; i < resQty; i++) {
-                      if(data3[i]) {
-                        if(data3[i][0].amendment_pruning) {
-                          data3[i][0].amendment_pruning /= 1000;
-                        }
-                        collectArr.push(data3[i][0]);
-                      }
-                    }
-					          if(collectArr.length > 1) {
-                      deff1.resolve(collectArr);
-                    } else if(collectArr.length === 1) {
-                      deff1.resolve(collectArr[0]);
-                    } else {
-                      deff1.resolve(0);
-                    }
-                  })
-                } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    var data = angular.copy(result);
-                    if(data && data.length) {
-                      if(data[0].amendment_pruning) {
-                        data[0].amendment_pruning /= 1000;
-                      }
-                      deff1.resolve(data[0]);
-                    } else {
-                      deff1.resolve(0);
-                    }
-                  });
-                }
-              }
-            } else {
-              deff1.resolve(0);
-            }
-            return deff1.promise;
-          });
-	    deff.resolve($q.all(promisesKit));
-      return deff.promise;
-    }
-
-
-
-    function getKitByID(kitID) {
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
-        if(result && result.length) {
-          if(result[0].amendment_pruning) {
-            result[0].amendment_pruning /= 1000;
-          }
-          deff.resolve(result[0]);
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
-
-
-
-	  function parseHardwareKit(whId, sashBlocks, color){
+    function parseHardwareKit(whId, sashBlocks, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
-        //        console.warn('*****hardware = ', result);
+        //console.warn('*****hardware = ', result);
         var resQty = result.length,
             hardwareKits = [],
-            sashBlocksQty = sashBlocks.length;
+            sashBlocksQty = sashBlocks.length,
+            hardware, hardware1, hardware2, openDirQty, s, dir;
         if(resQty) {
-		  //----- loop by sizes (sashesBlock)
-          for(var s = 0; s < sashBlocksQty; s++){
-		        var hardware = angular.copy(result),
-                hardware1 = [],
-                hardware2 = [],
-                openDirQty = sashBlocks[s].openDir.length;
+          //----- loop by sizes (sashesBlock)
+          for(s = 0; s < sashBlocksQty; s+=1){
+            hardware = angular.copy(result);
+            hardware1 = [];
+            hardware2 = [];
+            openDirQty = sashBlocks[s].openDir.length;
 
             /** change openDir for directions
              * direction_id == 1 - не учитывать
              * 2 - право
              * 3 - лево
              * */
-            for(var dir = 0; dir < openDirQty; dir++) {
+            for(dir = 0; dir < openDirQty; dir+=1) {
               if(sashBlocks[s].openDir[dir] === 4) {
                 sashBlocks[s].openDir[dir] = 2;
-              } else if(sashBlocks[s].openDir[dir] == 2) {
+              } else if(sashBlocks[s].openDir[dir] === 2) {
                 sashBlocks[s].openDir[dir] = 3;
               } else {
                 sashBlocks[s].openDir[dir] = 1;
@@ -11005,7 +14235,6 @@ function ErrorResult(code, message) {
                 }
               }
             });
-
             hardware2 = hardware1.filter(function(item) {
               if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
                 if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
@@ -11028,7 +14257,7 @@ function ErrorResult(code, message) {
             hardwareKits.push(hardware2);
           }
           if(hardwareKits.length) {
-		        deff.resolve(hardwareKits);
+            deff.resolve(hardwareKits);
           } else {
             deff.resolve(0);
           }
@@ -11038,6 +14267,157 @@ function ErrorResult(code, message) {
       });
       return deff.promise;
     }
+
+
+    function parseMainKit(construction){
+      var deff = $q.defer(),
+          promisesKit = construction.sizes.map(function(item, index, arr) {
+            var deff1 = $q.defer();
+            //----- chekh is sizes and id
+            if(item.length && construction.ids[index]) {
+              /** if hardware */
+              if(index === arr.length-1) {
+                parseHardwareKit(construction.ids[index], item, construction.laminationId).then(function(hardwares) {
+                  if(hardwares.length) {
+                    deff1.resolve(hardwares);
+                  } else {
+                    deff1.resolve(0);
+                  }
+                });
+              } else {
+                if(angular.isArray(construction.ids[index])) {
+                  var promisKits = construction.ids[index].map(function(item2) {
+                    var deff2 = $q.defer();
+                    selectLocalDB(
+                      tablesLocalDB.lists.tableName,
+                      {id: item2},
+                      'id, parent_element_id, name, waste, amendment_pruning'
+                    ).then(function(result2) {
+                      if(result2.length) {
+                        deff2.resolve(result2);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                    return deff2.promise;
+                  });
+                  $q.all(promisKits).then(function(result3) {
+                    var data3 = angular.copy(result3),
+                        resQty = data3.length,
+                        collectArr = [];
+                    for(var i = 0; i < resQty; i++) {
+                      if(data3[i]) {
+                        if(data3[i][0].amendment_pruning) {
+                          data3[i][0].amendment_pruning /= 1000;
+                        }
+                        collectArr.push(data3[i][0]);
+                      }
+                    }
+                    if(collectArr.length > 1) {
+                      deff1.resolve(collectArr);
+                    } else if(collectArr.length === 1) {
+                      deff1.resolve(collectArr[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
+                  })
+                } else {
+                  selectLocalDB(
+                    tablesLocalDB.lists.tableName,
+                    {id: construction.ids[index]},
+                    'id, parent_element_id, name, waste, amendment_pruning'
+                  ).then(function(result) {
+                    var data = angular.copy(result);
+                    if(data && data.length) {
+                      if(data[0].amendment_pruning) {
+                        data[0].amendment_pruning /= 1000;
+                      }
+                      deff1.resolve(data[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
+                  });
+                }
+              }
+            } else {
+              deff1.resolve(0);
+            }
+            return deff1.promise;
+          });
+      deff.resolve($q.all(promisesKit));
+      return deff.promise;
+    }
+
+
+
+    function getKitByID(kitID) {
+      var deff = $q.defer();
+      selectLocalDB(
+        tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning'
+      ).then(function(result) {
+        if(result && result.length) {
+          if(result[0].amendment_pruning) {
+            result[0].amendment_pruning /= 1000;
+          }
+          deff.resolve(result[0]);
+        } else {
+          deff.resolve(0);
+        }
+      });
+      return deff.promise;
+    }
+
+
+
+    function parseListContent(listId){
+      var defer = $q.defer(),
+          lists = [],
+          elemLists = [];
+      if(angular.isArray(listId)) {
+        lists = listId;
+      } else {
+        lists.push(listId);
+      }
+      (function nextRecord() {
+        if (lists.length) {
+          var firstKit = lists.shift(0),
+              firstKitId = 0;
+          if(typeof firstKit === 'object') {
+            firstKitId = firstKit.childId;
+          } else {
+            firstKitId = firstKit;
+          }
+          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: firstKitId}).then(function(result) {
+            var resQty = result.length, i;
+            if(resQty) {
+              for (i = 0; i < resQty; i+=1) {
+                if(typeof firstKit === 'object') {
+                  result[i].parentId = firstKit.parentId;
+                }
+                elemLists.push(result[i]);
+                if(result[i].child_type === 'list') {
+                  var nextKit = {
+                    childId: result[i].child_id,
+                    parentId: result[i].id
+                  };
+                  lists.push(nextKit);
+                }
+              }
+            }
+            nextRecord();
+          });
+        } else {
+          if(elemLists.length) {
+            defer.resolve(elemLists);
+          } else {
+            defer.resolve(0);
+          }
+        }
+      })();
+      return defer.promise;
+    }
+
+
 
 
 
@@ -11078,9 +14458,9 @@ function ErrorResult(code, message) {
                 });
                 $q.all(promisElem).then(function(result3) {
                   var resQty = result3.length,
-                      collectArr = [];
+                      collectArr = [], i;
                   if(resQty) {
-                    for(var i = 0; i < resQty; i++) {
+                    for(i = 0; i < resQty; i+=1) {
                       if(angular.isArray(result3[i])) {
                         collectArr.push(result3[i]);
                       } else {
@@ -11129,53 +14509,25 @@ function ErrorResult(code, message) {
 
 
 
-    function parseListContent(listId){
-      var defer = $q.defer(),
-          lists = [],
-          elemLists = [];
-      if(angular.isArray(listId)) {
-        lists = listId;
-      } else {
-        lists.push(listId);
-      }
-      (function nextRecord() {
-        if (lists.length) {
-          var firstKit = lists.shift(0),
-              firstKitId = 0;
-          if(typeof firstKit === 'object') {
-            firstKitId = firstKit.childId;
+    function getElementByListId(isArray, listID) {
+      var deff = $q.defer();
+      selectLocalDB(
+        tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id'
+      ).then(function(result) {
+        if(result.length) {
+          if(isArray) {
+            deff.resolve(result);
           } else {
-            firstKitId = firstKit;
+            deff.resolve(result[0]);
           }
-          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: firstKitId}).then(function(result) {
-            var resQty = result.length;
-            if(resQty) {
-              for (var i = 0; i < resQty; i++) {
-                if(typeof firstKit === 'object') {
-                  result[i].parentId = firstKit.parentId;
-                }
-                elemLists.push(result[i]);
-                if(result[i].child_type === 'list') {
-                  var nextKit = {
-                    childId: result[i].child_id,
-                    parentId: result[i].id
-                  };
-                  lists.push(nextKit);
-                }
-              }
-            }
-            nextRecord();
-          });
         } else {
-          if(elemLists.length) {
-            defer.resolve(elemLists);
-          } else {
-            defer.resolve(0);
-          }
+          deff.resolve(0);
         }
-      })();
-      return defer.promise;
+      });
+      return deff.promise;
     }
+
+
 
 
 
@@ -11213,18 +14565,18 @@ function ErrorResult(code, message) {
 
                 $q.all(promisElem).then(function(result2) {
                   var resQty = result2.length,
-                      collectArr = [];
+                      collectArr = [], i;
                   if(resQty) {
                     /** if glass or beads */
                     if(index === 5 || index === 6) {
                       collectArr = result2;
                     } else {
-                      for (var i = 0; i < resQty; i++) {
+                      for (i = 0; i < resQty; i+=1) {
                         if (result2[i]) {
                           if (angular.isArray(result2[i])) {
-                            var innerArr = [], innerQty = result2[i].length;
+                            var innerArr = [], innerQty = result2[i].length, j;
                             //                          console.info(result2[i]);
-                            for (var j = 0; j < innerQty; j++) {
+                            for (j = 0; j < innerQty; j+=1) {
                               if (result2[i][j]) {
                                 innerArr.push(result2[i][j][0]);
                               }
@@ -11270,25 +14622,8 @@ function ErrorResult(code, message) {
 
 
 
-	function getElementByListId(isArray, listID) {
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
-        if(result.length) {
-          if(isArray) {
-            deff.resolve(result);
-          } else {
-            deff.resolve(result[0]);
-          }
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
 
 
-
-	
     function parseConsistElem(consists) {
       var deff = $q.defer();
       if(consists.length) {
@@ -11367,40 +14702,26 @@ function ErrorResult(code, message) {
 
 
 
-
-    function culcKitPrice(priceObj, sizes) {
-      var kitElemQty = priceObj.kitsElem.length,
-          sizeQty = 0,
-          constrElements = [];
-      priceObj.priceTotal = 0;
-
-      for(var ke = 0; ke < kitElemQty; ke++) {
-        if(priceObj.kitsElem[ke]) {
-          sizeQty = sizes[ke].length;
-          if(angular.isArray(priceObj.kitsElem[ke])) {
-//            console.info('culcKitPrice ===== array');
-            var kitElemChildQty = priceObj.kitsElem[ke].length;
-            for(var child = 0; child < kitElemChildQty; child++) {
-              /** hardware */
-              if(angular.isArray(priceObj.kitsElem[ke][child])) {
-//                console.info('culcKitPrice ===== hardware');
-                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
-                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
-                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
-                }
-              } else {
-                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
-              }
-            }
-          } else {
-//            console.info('culcKitPrice ===== object');
-            culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
+    function currencyExgange(price, currencyElemId) {
+      var currencyQty = GlobalStor.global.currencies.length,
+          c, currIndex, elemIndex;
+      if(currencyQty) {
+        for (c = 0; c < currencyQty; c+=1) {
+          if(GlobalStor.global.currencies[c].id === UserStor.userInfo.currencyId) {
+            currIndex = c;
+          }
+          if(GlobalStor.global.currencies[c].id === currencyElemId){
+            elemIndex = c;
           }
         }
       }
-
-      return constrElements;
+//console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
+      if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
+        price *= GlobalStor.global.currencies[elemIndex].value;
+      }
+      return price;
     }
+
 
 
 
@@ -11408,15 +14729,17 @@ function ErrorResult(code, message) {
     function culcPriceAsSize(group, kits, kitsElem, sizes, sizeQty, priceObj, constrElements) {
       var priceTemp = 0,
           sizeTemp = 0,
+          sizeLabelTemp = 0,
           qtyTemp = 1,
           constrElem = {},
+          block,
           waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
 
-//      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+      //      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
 
       /** beads */
       if(group === 6) {
-        for (var block = 0; block < sizeQty; block++) {
+        for (block = 0; block < sizeQty; block+=1) {
           /** check beadId */
           if (sizes[block].elemId === kits.id) {
             var sizeBeadQty = sizes[block].sizes.length;
@@ -11430,10 +14753,10 @@ function ErrorResult(code, message) {
                 priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
               }
               constrElem.qty = angular.copy(qtyTemp);
-              constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
-              constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+              constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+              constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
               priceObj.priceTotal += priceTemp;
-//              console.warn('finish bead-________',constrElem);
+              //              console.warn('finish bead-________',constrElem);
               constrElements.push(constrElem);
             }
           }
@@ -11447,6 +14770,7 @@ function ErrorResult(code, message) {
             /** check size by id of glass */
             if (sizes[siz].elemId === kits.id) {
               sizeTemp = sizes[siz].square;
+              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
               isExist++;
             }
@@ -11465,8 +14789,9 @@ function ErrorResult(code, message) {
               priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
             }
             constrElem.qty = angular.copy(qtyTemp);
-            constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
-            constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+            constrElem.size = GeneralServ.roundingValue(sizeTemp, 3);
+            constrElem.sizeLabel = sizeLabelTemp;
+            constrElem.priceReal = GeneralServ.roundingValue(priceTemp, 3);
             priceObj.priceTotal += priceTemp;
             //          console.warn(constrElem);
             constrElements.push(constrElem);
@@ -11477,93 +14802,274 @@ function ErrorResult(code, message) {
 
 
 
+    function culcKitPrice(priceObj, sizes) {
+      var kitElemQty = priceObj.kitsElem.length,
+          sizeQty = 0,
+          constrElements = [];
+      priceObj.priceTotal = 0;
 
-
-    function currencyExgange(price, currencyElemId) {
-      var currencyQty = GlobalStor.global.currencies.length,
-          c = 0,
-          currIndex, elemIndex;
-      if(currencyQty) {
-        for (; c < currencyQty; c++) {
-          if(GlobalStor.global.currencies[c].id === UserStor.userInfo.currencyId) {
-            currIndex = c;
-          }
-          if(GlobalStor.global.currencies[c].id === currencyElemId){
-            elemIndex = c;
-          }
-        }
-      }
-//      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
-      if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
-        price *= GlobalStor.global.currencies[elemIndex].value;
-      }
-      return price;
-    }
-
-
-
-
-
-
-
-    function culcConsistPrice(priceObj, construction) {
-      var groupQty = priceObj.consist.length,
-          group = 0;
-
-      for(; group < groupQty; group++) {
-        if(priceObj.consist[group]) {
-          //console.log('         ');
-          //console.log('Group  ---------------------', group);
-          var sizeQty = construction.sizes[group].length,
-              consistQty = priceObj.consist[group].length;
-
-          if(consistQty) {
-
-            if(angular.isArray(priceObj.kits[group])) {
-//              console.info('culcConsistPrice ===== array');
-//                console.info('1-----', group);
-//                console.info('2-----', construction.sizes[group]);
-//                console.info('3-----', priceObj.kits[group]);
-//                console.info('4-----', priceObj.consist[group]);
-//                console.info('5-----', priceObj.consistElem[group]);
-
-              for(var elem = 0; elem < consistQty; elem++) {
-                /** if glass or beads */
-                if(group === 5 || group === 6) {
-                  var sizeObjQty = construction.sizes[group].length;
-                  for(var s = 0; s < sizeObjQty; s++) {
-                    if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
-                      if(priceObj.consistElem[group][elem]) {
-                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
-                      }
-                    }
-                  }
-                } else {
-                  if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
-                  }
+      for(var ke = 0; ke < kitElemQty; ke++) {
+        if(priceObj.kitsElem[ke]) {
+          sizeQty = sizes[ke].length;
+          if(angular.isArray(priceObj.kitsElem[ke])) {
+            //            console.info('culcKitPrice ===== array');
+            var kitElemChildQty = priceObj.kitsElem[ke].length;
+            for(var child = 0; child < kitElemChildQty; child++) {
+              /** hardware */
+              if(angular.isArray(priceObj.kitsElem[ke][child])) {
+                //                console.info('culcKitPrice ===== hardware');
+                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
+                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
+                  culcPriceAsSize(
+                    ke,
+                    priceObj.kits[ke][child][child2],
+                    priceObj.kitsElem[ke][child][child2],
+                    sizes[ke][child],
+                    1,
+                    priceObj,
+                    constrElements
+                  );
                 }
-
-              }
-
-            } else {
-//              console.info('culcConsistPrice ===== object');
-              for(var s = 0; s < sizeQty; s++) {
-                for (var elem = 0; elem < consistQty; elem++) {
-                  if(priceObj.consistElem[group][elem]) {
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
-                  }
-                }
+              } else {
+                culcPriceAsSize(
+                  ke,
+                  priceObj.kits[ke][child],
+                  priceObj.kitsElem[ke][child],
+                  sizes[ke],
+                  sizeQty,
+                  priceObj,
+                  constrElements
+                );
               }
             }
-
+          } else {
+            //            console.info('culcKitPrice ===== object');
+            culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
           }
-
         }
-        //console.log('Group - конец ---------------------');
       }
 
+      return constrElements;
     }
+
+
+
+
+
+
+
+    function checkDirectionConsistElem(currConsist, openDir, openDirQty) {
+      if(currConsist.direction_id == 1) {
+        return 1;
+      } else {
+        var isExist = 0,
+            d = 0;
+        for(; d < openDirQty; d++) {
+          if(openDir[d] === currConsist.direction_id) {
+            isExist++;
+          }
+        }
+        return isExist;
+      }
+    }
+
+
+
+    function getValueByRule(parentValue, childValue, rule){
+      //      console.info('rule++', parentValue, childValue, rule);
+      var value = 0;
+      switch (rule) {
+        case 1:
+        case 21: //---- less width of glass
+        case 22: //---- less height of glass
+          //------ меньше родителя на X (м)
+          value = GeneralServ.roundingValue((parentValue - childValue), 3);
+          break;
+        case 2: //------ X шт. на родителя
+        case 5: //----- X шт. на 1 м2 родителя
+          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+          value = parentValueTemp * childValue;
+          break;
+        case 3:
+        case 12:
+        case 14:
+          //------ X шт. на метр родителя
+          value = GeneralServ.roundingValue((Math.round(parentValue) * childValue), 3);
+          break;
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 13:
+        case 23: //------ кг на м
+          value = GeneralServ.roundingValue((parentValue * childValue), 3);
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      //      console.info('rule++value+++', value);
+      return value;
+    }
+
+
+
+    function culcPriceAsRule(
+      parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj, sizeLabel
+    ) {
+      if(currConsistElem) {
+        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
+
+        //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
+        //console.log('Название: ' + currConsistElem.name);
+        //console.log('Цена: ' + currConsistElem.price);
+        //console.log('% отхода : ' + wasteValue);
+        //console.log('Поправка на обрезку : ' + pruning);
+        //console.log('Размер: ' + currSize + ' m');
+        //console.log('parentValue: ' + parentValue);
+
+        /** if glass */
+        if (objTmp.element_group_id === 9) {
+          sizeReal = currSize;
+        }
+        switch (currConsist.rules_type_id) {
+          case 1:
+          case 21:
+          case 22:
+            sizeReal = GeneralServ.roundingValue((currSize + pruning - currConsist.value), 3);
+            //console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', (currSize + pruning - currConsist.value), sizeReal);
+            break;
+          case 3:
+            //qtyReal = Math.round(currSize + pruning) * currConsist.value;
+            qtyReal = (currSize + pruning) * currConsist.value;
+            //console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+            break;
+          case 5:
+            //var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
+            //qtyReal = sizeTemp * currConsist.value;
+            qtyReal = currConsist.value;
+            //console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
+            //console.log('Правило 5 : (', currConsist.value, ') = ', qtyReal, ' шт. на 1 метр2 родителя');
+            break;
+          case 6:
+          case 23:
+            //qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+            qtyReal = (currSize + pruning) * currConsist.value;
+            //console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', (currSize + pruning) * currConsist.value, qtyReal, ' kg. на метр родителя');
+            break;
+          case 2:
+          case 4:
+          case 15:
+            qtyReal = parentValue * currConsist.value;
+            //console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+            break;
+          default:
+            sizeReal = GeneralServ.roundingValue((currSize + pruning), 3);
+            //console.log('Правило else:', currSize, ' + ', pruning, ' = ', (currSize + pruning), sizeReal);
+            break;
+        }
+
+        if (sizeReal) {
+          priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
+        } else {
+          priceReal = qtyReal * currConsistElem.price * wasteValue;
+        }
+
+        /** currency conversion */
+        if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
+          priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
+        }
+        //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
+        //objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+        //objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+        objTmp.priceReal = priceReal;
+        objTmp.size = GeneralServ.roundingValue(sizeReal, 3);
+        objTmp.sizeLabel = sizeLabel;
+        objTmp.qty = qtyReal;
+        //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+        priceObj.constrElements.push(objTmp);
+        priceObj.priceTotal += objTmp.priceReal;
+      }
+    }
+
+
+
+
+    function prepareConsistElemPrice(
+      group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj
+    ) {
+      //console.info('1-----', group);
+      //console.info('2-----', currConsist, currConsistElem);
+      //console.info('3-----', currConstrSize, mainKit);
+      if (currConsist.parent_list_id === mainKit.id) {
+
+        var fullSize = 1,
+            currSize = 1,
+            sizeLabel = 0,
+            wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
+        /** if glasses */
+        if(group === 5) {
+          if(currConsist.rules_type_id === 5) {
+            fullSize = currConstrSize.square;
+            currSize = currConstrSize.square;
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
+          } else if(currConsist.rules_type_id === 21) {
+            fullSize = currConstrSize.sizes[0];
+            currSize = currConstrSize.sizes[0];
+          } else if(currConsist.rules_type_id === 22) {
+            fullSize = currConstrSize.sizes[1];
+            currSize = currConstrSize.sizes[1];
+          } else {
+            currSize = currConstrSize.square;
+          }
+        } else {
+          fullSize = GeneralServ.roundingValue((currConstrSize + mainKit.amendment_pruning), 3);
+          currSize = currConstrSize;
+        }
+        if(currConsist.child_type === "list") {
+          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
+        }
+        culcPriceAsRule(
+          1,
+          currSize,
+          currConsist,
+          currConsistElem,
+          mainKit.amendment_pruning,
+          wasteValue,
+          priceObj,
+          sizeLabel
+        );
+
+      } else {
+        var consistQty = consistArr.length;
+        for (var el = 0; el < consistQty; el++) {
+          if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
+            var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
+                newValue = 1;
+            if(currConsist.child_type === "list") {
+              currConsist.newValue = getValueByRule(
+                consistArr[el].newValue, currConsist.value, currConsist.rules_type_id
+              );
+            }
+            if(consistArr[el].rules_type_id === 2) {
+              if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
+                newValue = consistArr[el].newValue;
+              }
+            }
+            culcPriceAsRule(
+              newValue,
+              consistArr[el].newValue,
+              currConsist,
+              currConsistElem,
+              consistArr[el].amendment_pruning,
+              wasteValue,
+              priceObj
+            );
+          }
+        }
+      }
+    }
+
 
 
 
@@ -11586,27 +15092,33 @@ function ErrorResult(code, message) {
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
-//                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
-//                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+      //                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
 
                   var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
 
                   if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
-//                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
+                    //                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
                     wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
-                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                    objTmp.qty = getValueByRule(
+                      mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id
+                    );
                     if (currConsist[hwInd][hwInd2].child_type === "list") {
                       currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                     }
                   } else {
                     for (var el = 0; el < hwElemQty2; el++) {
                       if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
-//                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
+                        //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                         if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
                           continue hwElemLoop;
                         }
                         wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
-                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                        objTmp.qty = getValueByRule(
+                          currConsist[hwInd][el].newValue,
+                          currConsist[hwInd][hwInd2].value,
+                          currConsist[hwInd][hwInd2].rules_type_id
+                        );
                         if (currConsist[hwInd][hwInd2].child_type === "list") {
                           currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                         }
@@ -11621,10 +15133,10 @@ function ErrorResult(code, message) {
                     if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
                       priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
                     }
-                    objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+                    objTmp.priceReal = GeneralServ.roundingValue(priceReal, 3);
                     objTmp.size = 0;
-//                    console.info('finish -------priceObj------- ', priceObj);
-//                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+  //                    console.info('finish -------priceObj------- ', priceObj);
+  //                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
                     priceObj.constrElements.push(objTmp);
                     priceObj.priceTotal += objTmp.priceReal;
                   }
@@ -11637,7 +15149,7 @@ function ErrorResult(code, message) {
         }
 
       } else {
-//        console.log('nooo hardware');
+        //        console.log('nooo hardware');
         if(angular.isArray(currConsistElem)) {
           //console.log('array');
           //console.info('1-----', group);
@@ -11645,140 +15157,136 @@ function ErrorResult(code, message) {
           //console.info('3-----', mainKit);
           var elemQty = currConsistElem.length, elemInd = 0;
           for (; elemInd < elemQty; elemInd++) {
-//            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
+            //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
 
             /** if beads */
             if (group === 6) {
               var sizeQty = currConstrSize.sizes.length;
               while (--sizeQty > -1) {
-//                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
-                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+                //                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
+                prepareConsistElemPrice(
+                  group,
+                  currConstrSize.sizes[sizeQty],
+                  mainKit,
+                  currConsist[elemInd],
+                  currConsistElem[elemInd],
+                  currConsist,
+                  priceObj
+                );
               }
             } else {
-              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+              prepareConsistElemPrice(
+                group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj
+              );
             }
           }
         } else {
-//          console.log('object');
+          //          console.log('object');
           /** if beads */
           if(group === 6) {
             var sizeQty = currConstrSize.sizes.length;
             while(--sizeQty > -1) {
-              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+              prepareConsistElemPrice(
+                group,
+                currConstrSize.sizes[sizeQty],
+                mainKit,
+                currConsist,
+                currConsistElem,
+                priceObj.consist[group],
+                priceObj
+              );
             }
           } else {
-            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            prepareConsistElemPrice(
+              group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj
+            );
           }
         }
       }
     }
 
 
-    function checkDirectionConsistElem(currConsist, openDir, openDirQty) {
-      if(currConsist.direction_id == 1) {
-        return 1;
-      } else {
-        var isExist = 0,
-            d = 0;
-        for(; d < openDirQty; d++) {
-          if(openDir[d] === currConsist.direction_id) {
-            isExist++;
-          }
-        }
-        return isExist;
-      }
-    }
 
 
-    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
-//      console.info('1-----', group);
-//      console.info('2-----', currConsist, currConsistElem);
-//      console.info('3-----', currConstrSize, mainKit);
-      if (currConsist.parent_list_id === mainKit.id) {
 
-        var fullSize = 1,
-            currSize = 1,
-            wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
-        /** if glasses */
-        if(group === 5) {
-          if(currConsist.rules_type_id === 5) {
-            fullSize = currConstrSize.square;
-            currSize = currConstrSize.square;
-          } else if(currConsist.rules_type_id === 21) {
-            fullSize = currConstrSize.sizes[0];
-            currSize = currConstrSize.sizes[0];
-          } else if(currConsist.rules_type_id === 22) {
-            fullSize = currConstrSize.sizes[1];
-            currSize = currConstrSize.sizes[1];
-          } else {
-            currSize = currConstrSize.square;
-          }
-        } else {
-          fullSize = GeneralServ.roundingNumbers((currConstrSize + mainKit.amendment_pruning), 3);
-          currSize = currConstrSize;
-        }
-        if(currConsist.child_type === "list") {
-          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
-        }
-        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
+    function culcConsistPrice(priceObj, construction) {
+      var groupQty = priceObj.consist.length,
+          group = 0;
 
-      } else {
-        var consistQty = consistArr.length;
-        for (var el = 0; el < consistQty; el++) {
-          if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
-            var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
-                newValue = 1;
-            if(currConsist.child_type === "list") {
-              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
-            }
-            if(consistArr[el].rules_type_id === 2) {
-              if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
-                newValue = consistArr[el].newValue;
+      for(; group < groupQty; group++) {
+        if(priceObj.consist[group]) {
+          //console.log('         ');
+          //console.log('Group  ---------------------', group);
+          var sizeQty = construction.sizes[group].length,
+              consistQty = priceObj.consist[group].length;
+
+          if(consistQty) {
+
+            if(angular.isArray(priceObj.kits[group])) {
+              //              console.info('culcConsistPrice ===== array');
+              //                console.info('1-----', group);
+              //                console.info('2-----', construction.sizes[group]);
+              //                console.info('3-----', priceObj.kits[group]);
+              //                console.info('4-----', priceObj.consist[group]);
+              //                console.info('5-----', priceObj.consistElem[group]);
+
+              for(var elem = 0; elem < consistQty; elem++) {
+                /** if glass or beads */
+                if(group === 5 || group === 6) {
+                  var sizeObjQty = construction.sizes[group].length;
+                  for(var s = 0; s < sizeObjQty; s++) {
+                    if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
+                      if(priceObj.consistElem[group][elem]) {
+                        culcPriceConsistElem(
+                          group,
+                          priceObj.consist[group][elem],
+                          priceObj.consistElem[group][elem],
+                          construction.sizes[group][s],
+                          priceObj.kits[group][elem],
+                          priceObj
+                        );
+                      }
+                    }
+                  }
+                } else {
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][elem],
+                      priceObj.kits[group][elem],
+                      priceObj
+                    );
+                  }
+                }
+
+              }
+
+            } else {
+              //              console.info('culcConsistPrice ===== object');
+              for(var s = 0; s < sizeQty; s++) {
+                for (var elem = 0; elem < consistQty; elem++) {
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(
+                      group,
+                      priceObj.consist[group][elem],
+                      priceObj.consistElem[group][elem],
+                      construction.sizes[group][s],
+                      priceObj.kits[group],
+                      priceObj
+                    );
+                  }
+                }
               }
             }
-            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
+
           }
+
         }
+        //console.log('Group - конец ---------------------');
       }
-    }
 
-
-
-    function getValueByRule(parentValue, childValue, rule){
-//      console.info('rule++', parentValue, childValue, rule);
-      var value = 0;
-      switch (rule) {
-        case 1:
-        case 21: //---- less width of glass
-        case 22: //---- less height of glass
-          //------ меньше родителя на X (м)
-          value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
-          break;
-        case 2: //------ X шт. на родителя
-        case 5: //----- X шт. на 1 м2 родителя
-          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
-          value = parentValueTemp * childValue;
-          break;
-        case 3:
-        case 12:
-        case 14:
-          //------ X шт. на метр родителя
-          value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
-          break;
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 13:
-        case 23: //------ кг на м
-          value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
-          break;
-        default:
-          value = childValue;
-          break;
-      }
-//      console.info('rule++value+++', value);
-      return value;
     }
 
 
@@ -11786,76 +15294,11 @@ function ErrorResult(code, message) {
 
 
 
-    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
-      if(currConsistElem) {
-        var objTmp = angular.copy(currConsistElem), priceReal = 0, sizeReal = 0, qtyReal = 1;
 
-        //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
-        //console.log('Название: ' + currConsistElem.name);
-        //console.log('Цена: ' + currConsistElem.price);
-        //console.log('% отхода : ' + wasteValue);
-        //console.log('Поправка на обрезку : ' + pruning);
-        //console.log('Размер: ' + currSize + ' m');
-        //console.log('parentValue: ' + parentValue);
 
-        /** if glass */
-        if (objTmp.element_group_id === 9) {
-          sizeReal = currSize;
-        }
-        switch (currConsist.rules_type_id) {
-          case 1:
-          case 21:
-          case 22:
-            sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-            //          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
-            break;
-          case 3:
-            //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
-            qtyReal = (currSize + pruning) * currConsist.value;
-            //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
-            break;
-          case 5:
-            var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
-            qtyReal = sizeTemp * currConsist.value;
-            //          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
-            break;
-          case 6:
-          case 23:
-            qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
-            //          qtyReal = (currSize + pruning) * currConsist.value;
-            //          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
-            break;
-          case 2:
-          case 4:
-          case 15:
-            qtyReal = parentValue * currConsist.value;
-            //          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
-            break;
-          default:
-            sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
-            //          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
-            break;
-        }
 
-        if (sizeReal) {
-          priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
-        } else {
-          priceReal = qtyReal * currConsistElem.price * wasteValue;
-        }
 
-        /** currency conversion */
-        if (UserStor.userInfo.currencyId != currConsistElem.currency_id) {
-          priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
-        }
-        //console.info('@@@@@@@@@@@@', objTmp, objTmp.priceReal, priceReal);
-        objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-        objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
-        objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-        //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
-        priceObj.constrElements.push(objTmp);
-        priceObj.priceTotal += objTmp.priceReal;
-      }
-    }
+
 
 
 
@@ -11870,9 +15313,9 @@ function ErrorResult(code, message) {
           priceObj = {},
           finishPriceObj = {};
 
-      console.info('START+++', construction);
-	  
-	    parseMainKit(construction).then(function(kits) {
+      //console.info('START+++', construction);
+
+      parseMainKit(construction).then(function(kits) {
         //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
@@ -11890,8 +15333,8 @@ function ErrorResult(code, message) {
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
-              priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-                console.info('FINISH====:', priceObj);
+              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+              //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
@@ -11906,7 +15349,7 @@ function ErrorResult(code, message) {
 
 
 
-    /** ADDELEMENT PRICE */
+    /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
       var deffMain = $q.defer(),
@@ -11915,36 +15358,43 @@ function ErrorResult(code, message) {
             constrElements: [],
             priceTotal: 0
           };
-//      console.info('START+++', AddElement);
+      //console.info('START+++', AddElement);
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
-//        console.warn('consist!!!!!!+', result);
+        //console.warn('consist!!!!!!+', result);
         priceObj.consist = result;
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
             priceObj.kits = kits;
-//            console.warn('kits!!!!!!+', kits);
+            //console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
               priceObj.kitsElem = kitsElem;
-//              console.warn('kitsElem!!!!!!+', kitsElem);
+              //console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
-//                console.warn('consistElem!!!!!!+', consist[0]);
+                //console.warn('consistElem!!!!!!+', consist[0]);
                 priceObj.consistElem = consist[0];
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
 
-                  var priceTemp = 0,
-                      sizeTemp = 0,
-                      wasteValue = (priceObj.kits.waste) ? (1 + (priceObj.kits.waste / 100)) : 1,
-                      constrElem = angular.copy(priceObj.kitsElem);
+                  var sizeSource = 0,
+                      sizeTemp = 0;
+                  //------ if height is existed
+                  if(AddElement.elementHeight) {
+                    sizeSource = GeneralServ.roundingValue((AddElement.elementWidth * AddElement.elementHeight), 3);
+                    sizeTemp = GeneralServ.roundingValue(((AddElement.elementWidth + priceObj.kits.amendment_pruning)*(AddElement.elementHeight + priceObj.kits.amendment_pruning)), 3);
+                  } else {
+                    sizeSource = AddElement.elementWidth;
+                    sizeTemp = (AddElement.elementWidth + priceObj.kits.amendment_pruning);
+                  }
+                  var wasteValue = (priceObj.kits.waste) ? (1 + (priceObj.kits.waste / 100)) : 1,
+                      constrElem = angular.copy(priceObj.kitsElem),
+                      priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
 
-                  sizeTemp = (AddElement.elementWidth + priceObj.kits.amendment_pruning);
-                  priceTemp = (sizeTemp * constrElem.price) * wasteValue;
-
+                  //console.warn('!!!!!!+', sizeSource, sizeTemp);
                   /** currency conversion */
                   if (UserStor.userInfo.currencyId != constrElem.currency_id){
                     priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
@@ -11954,7 +15404,7 @@ function ErrorResult(code, message) {
                   constrElem.priceReal = priceTemp;
                   priceObj.priceTotal += priceTemp;
                   priceObj.constrElements.push(constrElem);
-//                    console.warn('constrElem!!!!!!+', constrElem);
+                  //console.warn('constrElem!!!!!!+', constrElem);
 
                   /** culc Consist Price */
 
@@ -11962,22 +15412,44 @@ function ErrorResult(code, message) {
                     var consistQty = priceObj.consist.length;
                     if(consistQty) {
                       for(var cons = 0; cons < consistQty; cons++) {
-//                          console.warn('child++++', priceObj.consist[cons]);
+                        //                          console.warn('child++++', priceObj.consist[cons]);
                         if(priceObj.consist[cons]) {
                           if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
                             if(priceObj.consist[cons].child_type === "list") {
-                              priceObj.consist[cons].newValue = getValueByRule(sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                              priceObj.consist[cons].newValue = getValueByRule(
+                                sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id
+                              );
                             }
-                            culcPriceAsRule(1, AddElement.elementWidth, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
+                            culcPriceAsRule(
+                              1,
+                              sizeSource,
+                              priceObj.consist[cons],
+                              priceObj.consistElem[cons],
+                              priceObj.kits.amendment_pruning,
+                              wasteValue,
+                              priceObj
+                            );
                           } else {
                             for (var el = 0; el < consistQty; el++) {
                               if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
-//                                  console.warn('parent++++', priceObj.consist[el]);
-                                var wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
+                                //                                  console.warn('parent++++', priceObj.consist[el]);
+                                wasteValue = (priceObj.consist[el].waste) ? (1+(priceObj.consist[el].waste / 100)) : 1;
                                 if(priceObj.consist[cons].child_type === "list") {
-                                  priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                                  priceObj.consist[cons].newValue = getValueByRule(
+                                    priceObj.consist[el].newValue,
+                                    priceObj.consist[cons].value,
+                                    priceObj.consist[cons].rules_type_id
+                                  );
                                 }
-                                culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.consist[el].amendment_pruning, wasteValue, priceObj);
+                                culcPriceAsRule(
+                                  priceObj.consist[cons].newValue,
+                                  priceObj.consist[el].newValue,
+                                  priceObj.consist[cons],
+                                  priceObj.consistElem[cons],
+                                  priceObj.consist[el].amendment_pruning,
+                                  wasteValue,
+                                  priceObj
+                                );
                               }
                             }
                           }
@@ -11986,8 +15458,8 @@ function ErrorResult(code, message) {
                     }
                   }
                 }
-                priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-//                console.info('FINISH ADD ====:', priceObj);
+                priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+                //console.info('FINISH ADD ====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);
@@ -12003,41 +15475,95 @@ function ErrorResult(code, message) {
       return deffMain.promise;
     }
 
-  }
-})();
 
+
+    /**========== FINISH ==========*/
+
+
+
+    thisFactory.publicObj = {
+      tablesLocalDB: tablesLocalDB,
+      tablesLocationLocalDB: tablesLocationLocalDB,
+
+      cleanLocalDB: cleanLocalDB,
+      createTablesLocalDB: createTablesLocalDB,
+      insertRowLocalDB: insertRowLocalDB,
+      insertTablesLocalDB: insertTablesLocalDB,
+      selectLocalDB: selectLocalDB,
+      updateLocalDB: updateLocalDB,
+      deleteRowLocalDB: deleteRowLocalDB,
+
+      importUser: importUser,
+      importLocation: importLocation,
+      importFactories: importFactories,
+      importAllDB: importAllDB,
+      insertServer: insertServer,
+      updateServer: updateServer,
+      createUserServer: createUserServer,
+      exportUserEntrance: exportUserEntrance,
+      deleteOrderServer: deleteOrderServer,
+      updateLocalServerDBs: updateLocalServerDBs,
+      sendIMGServer: sendIMGServer,
+      md5: md5,
+
+      calculationPrice: calculationPrice,
+      getAdditionalPrice: getAdditionalPrice,
+      currencyExgange: currencyExgange
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
+})();
 
 
 // services/login_serv.js
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+  /**@ngInject*/
   angular
     .module('LoginModule')
-    .factory('loginServ', startFactory);
+    .factory('loginServ',
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
-
+  function(
+    $q,
+    $cordovaGlobalization,
+    $cordovaFileTransfer,
+    $translate,
+    $location,
+    $filter,
+    localDB,
+    globalConstants,
+    GeneralServ,
+    optionsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getDeviceLanguage: getDeviceLanguage,
-      initExport: initExport,
-      isLocalDBExist: isLocalDBExist,
-      prepareLocationToUse: prepareLocationToUse,
-      collectCityIdsAsCountry: collectCityIdsAsCountry,
-      setUserLocation: setUserLocation,
-      setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+
+
+    /**============ METHODS ================*/
+
+
+    //------ compare device language with existing dictionary, if not exist set default language = English
+    function checkLangDictionary(lang) {
+      var langQty = globalConstants.languages.length;
+      while(--langQty > -1) {
+        if(globalConstants.languages[langQty].label.indexOf(lang)+1) {
+          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
+          UserStor.userInfo.langName = globalConstants.languages[langQty].name;
+          break;
+        }
+      }
+    }
 
 
     //------- defined system language
@@ -12052,39 +15578,21 @@ function ErrorResult(code, message) {
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
-            console.log('No language defined');
+            console.log('No language defined', error);
           });
 
       } else {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
-        console.info(window.navigator);
-//        console.info(window.navigator.language);
-//        console.info(window.navigator.userLanguage);
-//        console.info(window.navigator.browserLanguage);
-        console.info("The language is: " + browserLang);
+        //console.info(window.navigator);
+        //        console.info(window.navigator.language);
+        //        console.info(window.navigator.userLanguage);
+        //        console.info(window.navigator.browserLanguage);
+        //        console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
     }
-
-
-
-
-    //------ compare device language with existing dictionary, if not exist set default language = English
-    function checkLangDictionary(lang) {
-      var langQty = globalConstants.languages.length;
-      while(--langQty > -1) {
-        if(lang.indexOf(globalConstants.languages[langQty].label)+1) {
-          //console.log(lang);
-          //console.log(globalConstants.languages[langQty].label);
-          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
-          UserStor.userInfo.langName = globalConstants.languages[langQty].name;
-        }
-      }
-    }
-
-
 
 
     function initExport() {
@@ -12115,9 +15623,9 @@ function ErrorResult(code, message) {
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+      //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
       localDB.selectLocalDB('sqlite_sequence').then(function(data) {
-//        console.log('data ===', data);
+        //        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
         } else {
@@ -12129,131 +15637,108 @@ function ErrorResult(code, message) {
 
 
 
-    //------- collecting cities, regions and countries in one object for registration form
-    function prepareLocationToUse() {
-      var deferred = $q.defer(),
-          generalLocations = {
-            countries: [],
-            regions: [],
-            cities: [],
-            mergerLocation: []
-          },
+    function downloadAllCities(allCityParam) {
+      var deff = $q.defer(),
+          cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
           countryQty, regionQty, cityQty;
-      //---- get all counties
-      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName).then(function(data) {
-        countryQty = data.length;
-        if(countryQty) {
-          for (var stat = 0; stat < countryQty; stat++) {
-            var tempCountry = {
-              id: data[stat].id,
-              name: data[stat].name,
-              currency: data[stat].currency_id
-            };
-            generalLocations.countries.push(tempCountry);
-          }
-        } else {
-          console.log('Error!!!', data);
-        }
-      }).then(function(){
 
-        //--------- get all regions
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName).then(function(data) {
-          regionQty = data.length;
-          if(regionQty) {
-            for (var reg = 0; reg < regionQty; reg++) {
-              var tempRegion = {
-                id: data[reg].id,
-                countryId: data[reg].country_id,
-                name: data[reg].name,
-                climaticZone: data[reg].climatic_zone,
-                heatTransfer: data[reg].heat_transfer
-              };
-              generalLocations.regions.push(tempRegion);
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.cities.tableName,
+        cityOption,
+        'id as cityId, name as cityName, region_id as regionId'
+      ).then(function(data) {
+        //console.log('cities!!!', data);
+        cityQty = data.length;
+        if(cityQty) {
+          GlobalStor.global.locations.cities = angular.copy(data);
+          while(--cityQty > -1) {
+            regionQty = GlobalStor.global.locations.regions.length;
+            while(--regionQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
+                GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
+                countryQty = GlobalStor.global.locations.countries.length;
+                while(--countryQty > -1) {
+                  if(GlobalStor.global.locations.regions[regionQty].countryId === GlobalStor.global.locations.countries[countryQty].id) {
+                    GlobalStor.global.locations.cities[cityQty].countryId = GlobalStor.global.locations.countries[countryQty].id;
+                    GlobalStor.global.locations.cities[cityQty].currencyId = GlobalStor.global.locations.countries[countryQty].currency;
+
+                  }
+                }
+              }
             }
+          }
+          //console.info('generalLocations', GlobalStor.global.locations);
+          //console.info('finish time+++', new Date(), new Date().getMilliseconds());
+          deff.resolve(1);
+        } else {
+          deff.resolve(0);
+        }
+      });
+      return deff.promise;
+    }
+
+
+    //------- collecting cities, regions and countries in one object for registration form
+    function prepareLocationToUse(allCityParam) {
+      var deferred = $q.defer(),
+          countryQty, regionQty;
+      //if(!GlobalStor.global.locations.cities.length) {
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
+      //---- get all counties
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency')
+        .then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
           } else {
             console.log('Error!!!', data);
           }
+        }).then(function () {
 
-        }).then(function() {
-
-          //--------- get all cities
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(data) {
-            cityQty = data.length;
-            if(cityQty) {
-              for(var cit = 0; cit < cityQty; cit++) {
-                var tempCity = {
-                  id: data[cit].id,
-                  regionId: data[cit].region_id,
-                  name: data[cit].name
-                };
-                generalLocations.cities.push(tempCity);
-
-                var location = {
-                  cityId: data[cit].id,
-                  cityName: data[cit].name
-                };
-                for(var r = 0; r < regionQty; r++) {
-                  if(data[cit].region_id === generalLocations.regions[r].id) {
-                    location.regionName = generalLocations.regions[r].name;
-                    location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = GeneralServ.roundingNumbers(1/generalLocations.regions[r].heatTransfer);
-                    for(var s = 0; s < countryQty; s++) {
-                      if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
-                        location.countryId = generalLocations.countries[s].id;
-                        location.countryName = generalLocations.countries[s].name;
-                        location.currencyId = generalLocations.countries[s].currency;
-                        location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
-                        generalLocations.mergerLocation.push(location);
-                      }
-                    }
-                  }
-                }
-
+          //--------- get all regions
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.regions.tableName,
+            null,
+            'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer')
+            .then(function (data) {
+              //console.log('regions!!!', data);
+              regionQty = data.length;
+              if (regionQty) {
+                GlobalStor.global.locations.regions = angular.copy(data);
+              } else {
+                console.log('Error!!!', data);
               }
-              deferred.resolve(generalLocations);
-            } else {
-              deferred.reject(data);
-            }
-          });
 
+            }).then(function () {
+              //--------- get city
+              downloadAllCities(allCityParam).then(function () {
+                deferred.resolve(1);
+              });
+            });
         });
-      });
+      //} else {
+      //  deferred.resolve(1);
+      //}
       return deferred.promise;
     }
 
 
-    function collectCityIdsAsCountry(location) {
+    function collectCityIdsAsCountry() {
       var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      for(var i = 0; i < locationQty; i++) {
-        if(location[i].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[i].cityId);
-        }
-      }
-      defer.resolve(cityIds.join(','));
+          cityIds = GlobalStor.global.locations.cities.map(function(item) {
+            if(item.countryId === UserStor.userInfo.countryId) {
+              return item.cityId;
+            }
+          }).join(',');
+      defer.resolve(cityIds);
       return defer.promise;
     }
 
 
-    //--------- set user location
-    function setUserLocation(locations, cityId) {
-      var locationQty = locations.length;
-      for(var loc = 0; loc < locationQty; loc++) {
-        if(locations[loc].cityId === cityId) {
-          UserStor.userInfo.cityName = locations[loc].cityName;
-          UserStor.userInfo.climaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
-          UserStor.userInfo.countryName = locations[loc].countryName;
-          UserStor.userInfo.countryId = locations[loc].countryId;
-          UserStor.userInfo.fullLocation = locations[loc].fullLocation;
-          //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
-        }
-      }
-    }
-
-    //--------- set current user geolocation
+    /**--------- set current user geolocation ---------*/
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
       OrderStor.order.customer_city = cityName;
@@ -12263,132 +15748,99 @@ function ErrorResult(code, message) {
     }
 
 
-
-
-
-    /** =========== DOWNLOAD ALL DATA =========== */
-
-    function downloadAllData() {
-      console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
-      /** download All Currencies and set currency symbol */
-      setCurrency().then(function(data) {
-        if(data) {
-          /** download user discounts */
-          setUserDiscounts().then(function(data) {
-            if(data) {
-
-              /** download price Margins of Plant */
-              downloadPriceMargin().then(function(margins) {
-                if(margins && margins.length) {
-                  GlobalStor.global.margins = angular.copy(margins[0]);
-                  //              console.warn('Margins!!', margins);
-
-                  /** download delivery Coeff of Plant */
-                  downloadDeliveryCoeff().then(function(coeff){
-                    if(coeff && coeff.length) {
-                      //                  console.warn('delivery Coeff!!', coeff);
-                      GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
-
-                      /** download All Profiles */
-                      downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
-                        if(data) {
-//                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
-                          /** download All Glasses */
-                          downloadAllGlasses().then(function(data) {
-                            if(data) {
-                              /** sorting glasses as to Type */
-                              sortingGlasses();
-//                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
-                              /** download All Hardwares */
-                              downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
-                                if(data) {
-//                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-
-                                  /** download All Templates and Backgrounds */
-                                  downloadAllBackgrounds().then(function() {
-
-                                    /** download All AddElements */
-                                    downloadAllAddElements().then(function() {
-                                      /** download All Lamination */
-                                      downloadAllLamination().then(function(result) {
-                                        var lamins = angular.copy(result);
-  //                                      console.log('LAMINATION++++', lamins);
-                                        if(lamins) {
-                                          var laminQty = lamins.length;
-                                          if(laminQty) {
-                                            /** change Images Path and save in device */
-                                            while(--laminQty > -1) {
-                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
-                                            }
-                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
-                                          }
-                                        }
-
-                                        /** download Cart Menu Data */
-                                        downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
-                                        console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
-                                      });
-                                    });
-                                  });
-                                }
-                              });
-                            }
-                          });
-                        }
-                      });
-
-                    } else {
-                      console.error('not find options_discounts!');
-                    }
-                  });
-
-                } else {
-                  console.error('not find options_coefficients!');
-                }
-              });
-
+    /**-------- get values from Factory --------*/
+    function downloadFactoryData() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.factories.tableName,
+        null,
+        'therm_coeff_id, link, max_construct_size, max_construct_square'
+      ).then(function(result) {
+        var heatTransfer = UserStor.userInfo.heatTransfer,
+            resQty;
+        if(result) {
+          resQty = result.length;
+          if(resQty) {
+            //------- Heat Coeff
+            UserStor.userInfo.therm_coeff_id = angular.copy(result[0].therm_coeff_id);
+            if (UserStor.userInfo.therm_coeff_id) {
+              UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/heatTransfer );
             }
-          });
+            //-------- check factory Link
+            if(result[0].link.length && result[0].link !== 'null') {
+              UserStor.userInfo.factoryLink = angular.copy(result[0].link);
+            }
+            //-------- sizes limits
+            if(+result[0].max_construct_square > 0) {
+              GlobalStor.global.maxSquareLimit = angular.copy(+result[0].max_construct_square);
+            }
+            if(+result[0].max_construct_size > 0) {
+              GlobalStor.global.maxSizeLimit = angular.copy(+result[0].max_construct_size);
+            }
+          }
         }
+
+        /** set current GeoLocation */
+        setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
+        );
+
       });
     }
+
+
+    /**--------- set user location -------*/
+    function setUserLocation() {
+      var cityQty = GlobalStor.global.locations.cities.length;
+      while(--cityQty > -1) {
+        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+          UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+        }
+      }
+    }
+
+
 
 
 
     function setCurrency() {
       var defer = $q.defer();
       /** download All Currencies */
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
-        var currencQty = currencies.length;
-        if(currencies && currencQty) {
-          GlobalStor.global.currencies = currencies;
-          /** set current currency */
-          while(--currencQty > -1) {
-            if(currencies[currencQty].is_base === 1) {
-              UserStor.userInfo.currencyId = currencies[currencQty].id;
-              if( /uah/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20b4';//'₴';
-              } else if( /rub/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20BD';//'₽';
-              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '$';
-              } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€';
-              } else {
-                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
+        .then(function(currencies) {
+          var currencQty = currencies.length;
+          if(currencies && currencQty) {
+            GlobalStor.global.currencies = currencies;
+            /** set current currency */
+            while(--currencQty > -1) {
+              if(currencies[currencQty].is_base === 1) {
+                UserStor.userInfo.currencyId = currencies[currencQty].id;
+                if( /uah/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20b4';//'₴';
+                } else if( /rub/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
+                } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '$';
+                } else if( /eur/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20AC';//'€';
+                } else {
+                  UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+                }
               }
             }
+            defer.resolve(1);
+          } else {
+            console.error('not find currencies!');
+            defer.resolve(0);
           }
-          defer.resolve(1);
-        } else {
-          console.error('not find currencies!');
-          defer.resolve(0);
-        }
-      });
+        });
       return defer.promise;
     }
 
@@ -12399,22 +15851,22 @@ function ErrorResult(code, message) {
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-//        console.log('DISCTOUN=====', result);
+        //        console.log('DISCTOUN=====', result);
         var discounts = angular.copy(result[0]);
         if(discounts) {
-          UserStor.userInfo.discountConstr = discounts.default_construct*1;
-          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
-          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
+          UserStor.userInfo.discountConstr = +discounts.default_construct;
+          UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+          UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+          UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
 
           var disKeys = Object.keys(discounts),
-              disQty = disKeys.length;
-          for(var dis = 0; dis < disQty; dis++) {
+              disQty = disKeys.length, dis;
+          for(dis = 0; dis < disQty; dis+=1) {
             if(disKeys[dis].indexOf('week')+1) {
               if(disKeys[dis].indexOf('construct')+1) {
-                UserStor.userInfo.discConstrByWeek.push(discounts[disKeys[dis]]*1);
+                UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
               } else if(disKeys[dis].indexOf('add_elem')+1) {
-                UserStor.userInfo.discAddElemByWeek.push(discounts[disKeys[dis]]*1);
+                UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
               }
             }
           }
@@ -12431,9 +15883,10 @@ function ErrorResult(code, message) {
 
     /** price Margins of Plant */
     function downloadPriceMargin() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
-        return margins;
-      });
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff')
+        .then(function(margins) {
+          return margins;
+        });
     }
 
     /** delivery Coeff of Plant */
@@ -12441,80 +15894,6 @@ function ErrorResult(code, message) {
       return localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
         return coeff;
       });
-    }
-
-
-
-    //----------- get all elements as to groups
-
-    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-      var defer = $q.defer();
-      //------- get all Folders
-      localDB.selectLocalDB(tableGroup).then(function(result) {
-        /** sorting types by position */
-        var types = angular.copy(result).sort(function(a, b) {
-          return GeneralServ.sorting(a.position, b.position);
-        }),
-        typesQty = types.length;
-        if (typesQty) {
-          groups.length = 0;
-          angular.extend(groups, types);
-          var promises = types.map(function(type) {
-            var defer2 = $q.defer();
-
-            /** change Images Path and save in device */
-            type.img = downloadElemImg(type.img);
-
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
-              if (result2.length) {
-                var elem = angular.copy(result2).sort(function(a, b) {
-                  return GeneralServ.sorting(a.position, b.position);
-                });
-                defer2.resolve(elem);
-              } else {
-                defer2.resolve(0);
-              }
-            });
-            return defer2.promise;
-          });
-          $q.all(promises).then(function(result3){
-            var resQty = result3.length,
-                existType = [],
-                r = 0;
-            for(; r < resQty; r++) {
-              var elemsQty = result3[r].length;
-              if(result3[r] && elemsQty) {
-                /** change Images Path and save in device */
-                while(--elemsQty > -1) {
-                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
-                }
-                elements.push(result3[r]);
-                existType.push(result3[r][0].folder_id);
-              }
-            }
-            /** delete empty group */
-            var existTypeQty = existType.length,
-            groupQty = groups.length;
-            if(existTypeQty) {
-              while(--groupQty > -1) {
-                var isExist = 0, t = 0;
-                for(; t < existTypeQty; t++) {
-                  if(groups[groupQty].id === existType[t]) {
-                    isExist = 1;
-                  }
-                }
-                if(!isExist) {
-                  groups.splice(groupQty, 1);
-                }
-              }
-            }
-            defer.resolve(1);
-          });
-        } else {
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
     }
 
 
@@ -12538,9 +15917,10 @@ function ErrorResult(code, message) {
             }, function (err) {
               console.log('Error!', err);
             }, function (progress) {
-//            $timeout(function () {
-//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-//            })
+              console.log('progress!', progress);
+              //            $timeout(function () {
+              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+              //            })
             });
             return targetPath;
           } else {
@@ -12551,6 +15931,82 @@ function ErrorResult(code, message) {
         }
       }
     }
+
+
+    //----------- get all elements as to groups
+
+    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
+      var defer = $q.defer();
+      //------- get all Folders
+      localDB.selectLocalDB(tableGroup).then(function(result) {
+        /** sorting types by position */
+        var types = angular.copy(result).sort(function(a, b) {
+          return GeneralServ.sorting(a.position, b.position);
+        }),
+            typesQty = types.length;
+        if (typesQty) {
+          groups.length = 0;
+          angular.extend(groups, types);
+          var promises = types.map(function(type) {
+            var defer2 = $q.defer();
+
+            /** change Images Path and save in device */
+            type.img = downloadElemImg(type.img);
+
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
+              if (result2.length) {
+                var elem = angular.copy(result2).sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
+                defer2.resolve(elem);
+              } else {
+                defer2.resolve(0);
+              }
+            });
+            return defer2.promise;
+          });
+          $q.all(promises).then(function(result3){
+            var resQty = result3.length,
+                existType = [], r;
+            for(r = 0; r < resQty; r+=1) {
+              var elemsQty = result3[r].length;
+              if(result3[r] && elemsQty) {
+                /** change Images Path and save in device */
+                while(--elemsQty > -1) {
+                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
+                }
+                elements.push(result3[r]);
+                existType.push(result3[r][0].folder_id);
+              }
+            }
+            /** delete empty group */
+            var existTypeQty = existType.length,
+                groupQty = groups.length;
+            if(existTypeQty) {
+              while(--groupQty > -1) {
+                var isExist = 0, t;
+                for(t = 0; t < existTypeQty; t+=1) {
+                  if(groups[groupQty].id === existType[t]) {
+                    isExist = 1;
+                  }
+                }
+                if(!isExist) {
+                  groups.splice(groupQty, 1);
+                }
+              }
+            }
+            defer.resolve(1);
+          });
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+
+
 
 
 
@@ -12589,36 +16045,40 @@ function ErrorResult(code, message) {
           //-------- select all glass Ids as to profile Id
           var promises3 = GlobalStor.global.glassesAll.map(function(item) {
             var defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
-              var glassIdQty = glassId.length;
-              if(glassIdQty){
-                defer3.resolve(glassId);
-              } else {
-                defer3.resolve(0);
-              }
-            });
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'profile_system_id': item.profileId})
+              .then(function (glassId) {
+                var glassIdQty = glassId.length;
+                if(glassIdQty){
+                  defer3.resolve(glassId);
+                } else {
+                  defer3.resolve(0);
+                }
+              });
             return defer3.promise;
           });
 
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [];
-//                        console.log('glassIds!!!!', glassIds);
-            for(var i = 0; i < glassIdsQty; i++) {
+                promises4 = [], promises6 = [], i, j;
+            //                        console.log('glassIds!!!!', glassIds);
+            for(i = 0; i < glassIdsQty; i+=1) {
               var defer4 = $q.defer();
               if(glassIds[i]) {
                 var promises5 = glassIds[i].map(function (item) {
                   var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
-                    //                  console.log('glass!!!!', glass);
-                    var glass = angular.copy(result), glassQty = glass.length;
-                    if (glassQty) {
-                      defer5.resolve(glass[0]);
-                    } else {
-                      defer5.resolve(0);
-                    }
-                  });
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
+                    .then(function (result) {
+                      //                  console.log('glass!!!!', glass);
+                      var glass = angular.copy(result), glassQty = glass.length;
+                      if (glassQty) {
+                        defer5.resolve(glass[0]);
+                      } else {
+                        defer5.resolve(0);
+                      }
+                    });
                   return defer5.promise;
                 });
                 defer4.resolve($q.all(promises5));
@@ -12628,20 +16088,21 @@ function ErrorResult(code, message) {
               promises4.push(defer4.promise);
             }
 
-            for(var j = 0; j < glassIdsQty; j++) {
+            for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
-
+              console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
-                  var list = angular.copy(result2),
-                      listQty = list.length;
-                  if(listQty){
-                    defer7.resolve(list[0]);
-                  } else {
-                    defer7.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
+                  .then(function (result2) {
+                    var list = angular.copy(result2),
+                        listQty = list.length;
+                    if(listQty){
+                      defer7.resolve(list[0]);
+                    } else {
+                      defer7.resolve(0);
+                    }
+                  });
                 return defer7.promise;
               });
 
@@ -12653,7 +16114,7 @@ function ErrorResult(code, message) {
               //              console.log('glasses after 1111!!!!', glasses);
               var glassesQty = glasses.length;
               if(glassesQty) {
-                for(var i = 0; i < glassesQty; i++) {
+                for(i = 0; i < glassesQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
                 }
               }
@@ -12662,7 +16123,7 @@ function ErrorResult(code, message) {
               //              console.log('glasses after 2222!!!!', lists);
               var listsQty = lists.length;
               if(listsQty) {
-                for(var i = 0; i < listsQty; i++) {
+                for(i = 0; i < listsQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glassLists = lists[i];
                   defer.resolve(1);
                 }
@@ -12678,29 +16139,36 @@ function ErrorResult(code, message) {
 
 
     function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length, g = 0;
+      var glassAllQty = GlobalStor.global.glassesAll.length, g;
 
-      for(; g < glassAllQty; g++) {
+      for(g = 0; g < glassAllQty; g+=1) {
         //------- merge glassList to glasses
         var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
             glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
             newGlassesType = [],
-            newGlasses = [];
+            newGlasses = [],
+            l;
         /** merge glassList to glasses */
-        for(var l = 0; l < listQty; l++) {
-          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
-            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
-            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
-            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
-            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
-            /** change Images Path and save in device */
-            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+        for(l = 0; l < listQty; l+=1) {
+if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+  GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+  GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].cameras
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].position
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+  /** change Images Path and save in device */
+  GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
-            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
-            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
-          }
+  GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
+  GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
+}
         }
 
         /** sorting glassTypes by position */
@@ -12711,7 +16179,9 @@ function ErrorResult(code, message) {
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           /** change Images Path and save in device */
-          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+            GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+          );
 
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -12734,10 +16204,31 @@ function ErrorResult(code, message) {
 
     }
 
-    /** download all Templates */
-    function downloadAllTemplates() {
-//TODO
+
+
+
+    /**---------- download Hardware Limits --------*/
+
+    function downloadHardwareLimits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
+        null,
+        'type_id, min_width, max_width, min_height, max_height'
+      ).then(function(result) {
+        if(result && result.length) {
+          GlobalStor.global.hardwareLimits = angular.copy(result);
+        }
+      });
     }
+
+
+    //TODO
+    /** download all Templates */
+    //function downloadAllTemplates() {
+    //
+    //}
+
+
 
 
     /** download all Backgrounds */
@@ -12767,39 +16258,59 @@ function ErrorResult(code, message) {
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
-        return lamin;
-      });
+      return localDB.selectLocalDB(
+        localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
+        .then(function(lamin) {
+          return lamin;
+        });
     }
 
 
-
-
-    function downloadAllAddElements() {
-      var defer = $q.defer();
-      /** get All kits of addElements */
-      getAllAddKits().then(function() {
-        /** get All elements of addElements*/
-        getAllAddElems().then(function() {
-          sortingAllAddElem().then(function() {
-            defer.resolve(1);
-          });
-        })
+    /** download lamination couples */
+    function downloadLamCouples() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_laminations.tableName).then(function(lamins) {
+        if(lamins) {
+          GlobalStor.global.laminatCouples = angular.copy(lamins);
+          /** add lamination names */
+          var coupleQty = GlobalStor.global.laminatCouples.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
+          while(--coupleQty > -1) {
+            delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
+            delete GlobalStor.global.laminatCouples[coupleQty].modified;
+            for(lam = 0; lam < laminatQty; lam+=1) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
+                GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+              }
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id){
+                GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+                GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+              }
+            }
+          }
+          deff.resolve(1);
+        } else {
+          deff.resolve(1);
+        }
       });
-      return defer.promise;
+      return deff.promise;
     }
+
 
 
 
     function getAllAddKits() {
       var defer = $q.defer(),
-          promises = localDB.addElementDBId.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          promises = GeneralServ.addElementDATA.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
-            resultQty = addKits.length;
-        for(var i = 0; i < resultQty; i++) {
+            resultQty = addKits.length,
+            i;
+        for(i = 0; i < resultQty; i+=1) {
           var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
@@ -12820,14 +16331,15 @@ function ErrorResult(code, message) {
                 /** change Images Path and save in device */
                 item.img = downloadElemImg(item.img);
 
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
-                  if(result && result.length) {
-                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                    deff2.resolve(1);
-                  } else {
-                    deff2.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
+                  .then(function(result) {
+                    if(result && result.length) {
+                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                      deff2.resolve(1);
+                    } else {
+                      deff2.resolve(0);
+                    }
+                  });
                 return deff2.promise;
               });
               deff1.resolve($q.all(promElems));
@@ -12869,13 +16381,15 @@ function ErrorResult(code, message) {
                 typeDelete = [],
                 typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
                 elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                tempElemQty = GlobalStor.global.tempAddElements.length;
-            for(var t = 0; t < typeQty; t++) {
-              var elements = [];
-              for(var el = 0; el < elemQty; el++) {
+                tempElemQty = GlobalStor.global.tempAddElements.length,
+                t;
+            for(t = 0; t < typeQty; t+=1) {
+              var elements = [], el;
+              for(el = 0; el < elemQty; el+=1) {
                 if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
                   var widthTemp = 0,
-                      heightTemp = 0;
+                      heightTemp = 0,
+                      k;
                   switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
                     case 21: // 1 - visors
                     case 9: // 2 - spillways
@@ -12894,22 +16408,25 @@ function ErrorResult(code, message) {
                   GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
                   GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
                   /** get price of element */
-                  for(var k = 0; k < tempElemQty; k++) {
+                  for(k = 0; k < tempElemQty; k+=1) {
                     if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      /** add price margin */
-                      GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
+                      ///** add price margin */
+                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
                       /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
                     }
                   }
                   elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
                 }
               }
               if(elements.length) {
-                /** sorting elements by position */
-                elements = elements.sort(function(a, b) {
-                  return GeneralServ.sorting(a.position, b.position);
-                });
+                ///** sorting elements by position */
+                //elements = elements.sort(function(a, b) {
+                //  return GeneralServ.sorting(a.position, b.position);
+                //});
+                /** sorting by name */
+                elements = $filter('orderBy')(elements, 'name');
+
                 newElemList.push(elements);
               } else {
                 typeDelete.push(t);
@@ -12930,11 +16447,26 @@ function ErrorResult(code, message) {
               }
             }
           }
-//          console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
+          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
         }
         deff.resolve(1);
       });
       return deff.promise;
+    }
+
+
+    function downloadAllAddElements() {
+      var defer = $q.defer();
+      /** get All kits of addElements */
+      getAllAddKits().then(function() {
+        /** get All elements of addElements*/
+        getAllAddElems().then(function() {
+          sortingAllAddElem().then(function() {
+            defer.resolve(1);
+          });
+        })
+      });
+      return defer.promise;
     }
 
 
@@ -12945,14 +16477,14 @@ function ErrorResult(code, message) {
       localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
         if (supply.length) {
           GlobalStor.global.supplyData = angular.copy(supply);
-          //          console.warn('supplyData=', GlobalStor.global.supplyData);
+          //console.warn('supplyData=', GlobalStor.global.supplyData);
         }
       });
       /** download Mounting Data */
       localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function(mounting) {
         if (mounting.length) {
           GlobalStor.global.assemblingData = angular.copy(mounting);
-          //          console.warn('assemblingData=', GlobalStor.global.assemblingData);
+          //console.warn('assemblingData=', GlobalStor.global.assemblingData);
         }
       });
       /** download Instalment Data */
@@ -12969,72 +16501,226 @@ function ErrorResult(code, message) {
 
 
 
-  }
-})();
 
 
 
-// services/main_serv.js
+    /** =========== DOWNLOAD ALL DATA =========== */
 
-(function(){
-  'use strict';
-  /**
-   * @ngInject
-   */
-  angular
-    .module('MainModule')
-    .factory('MainServ', navFactory);
+    function downloadAllData() {
+      //console.time('start')
+      /** download All Currencies and set currency symbol */
+      setCurrency().then(function(data) {
+        if(data) {
+          /** download user discounts */
+          setUserDiscounts().then(function(data) {
+            if(data) {
+              /** download price Margins of Plant */
+              downloadPriceMargin().then(function(margins) {
+                if(margins && margins.length) {
+                  GlobalStor.global.margins = angular.copy(margins[0]);
+                  //console.warn('Margins!!', margins);
+                  /** download delivery Coeff of Plant */
+                  downloadDeliveryCoeff().then(function(coeff){
+                    if(coeff && coeff.length) {
+                      //console.warn('delivery Coeff!!', coeff);
+                      GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
+                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
+                        return +item;
+                      });
+                      /** download factory data */
+                      downloadFactoryData();
+                      /** download All Profiles */
+                      downloadAllElemAsGroup(
+                        localDB.tablesLocalDB.profile_system_folders.tableName,
+                        localDB.tablesLocalDB.profile_systems.tableName,
+                        GlobalStor.global.profilesType,
+                        GlobalStor.global.profiles
+                      ).then(function(data) {
+                        if(data) {
+                          /** download All Glasses */
+                          downloadAllGlasses().then(function(data) {
+                            if(data) {
+                              /** sorting glasses as to Type */
+                              sortingGlasses();
+                              //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              /** download All Hardwares */
+                              downloadAllElemAsGroup(
+                                localDB.tablesLocalDB.window_hardware_folders.tableName,
+                                localDB.tablesLocalDB.window_hardware_groups.tableName,
+                                GlobalStor.global.hardwareTypes,
+                                GlobalStor.global.hardwares
+                              ).then(function(data){
+                                if(data) {
+                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Hardware Limits */
+                                  downloadHardwareLimits();
+                                  /** download All Templates and Backgrounds */
+                                  downloadAllBackgrounds().then(function() {
+                                    /** download All AddElements */
+                                    downloadAllAddElements().then(function() {
+                                      /** download All Lamination */
+                                      downloadAllLamination().then(function(result) {
+                                        //console.log('LAMINATION++++', result);
+                                        if(result && result.length) {
+                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
+                                            item.isActive = 0;
+                                            return item;
+                                          });
+                                          /** add white color */
+                                          GlobalStor.global.laminats.push({
+                                            id: 1,
+                                            type_id: 1,
+                                            isActive: 0,
+                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                          });
+                                          /** download lamination couples */
+                                          downloadLamCouples().then(function() {
+                                            /** add white-white couple */
+                                    GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
+                                          });
+                                        }
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        //console.timeEnd('start');
+                                      });
+                                    });
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
 
-  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+                    } else {
+                      console.error('not find options_discounts!');
+                    }
+                  });
 
-    var thisFactory = this;
+                } else {
+                  console.error('not find options_coefficients!');
+                }
+              });
+
+            }
+          });
+        }
+      });
+    }
+
+
+
+
+
+
+
+    /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
-      saveUserEntry: saveUserEntry,
-      createOrderData: createOrderData,
-      createOrderID: createOrderID,
-      setCurrDiscounts: setCurrDiscounts,
-      setCurrTemplate: setCurrTemplate,
-      prepareTemplates: prepareTemplates,
-      downloadAllTemplates: downloadAllTemplates,
-
-      setCurrentProfile: setCurrentProfile,
-      setCurrentGlass: setCurrentGlass,
-      setGlassToTemplateBlocks: setGlassToTemplateBlocks,
-      setCurrentHardware: setCurrentHardware,
-      fineItemById: fineItemById,
-      parseTemplate: parseTemplate,
-      saveTemplateInProduct: saveTemplateInProduct,
-      checkSashInTemplate: checkSashInTemplate,
-      preparePrice: preparePrice,
-      setProductPriceTOTAL: setProductPriceTOTAL,
-      showInfoBox: showInfoBox,
-      closeRoomSelectorDialog: closeRoomSelectorDialog,
-
-      createNewProject: createNewProject,
-      createNewProduct: createNewProduct,
-      setDefaultDoorConfig: setDefaultDoorConfig,
-      prepareMainPage: prepareMainPage,
-      setDefaultAuxParam: setDefaultAuxParam,
-
-      inputProductInOrder: inputProductInOrder,
-      goToCart: goToCart,
-      saveOrderInDB: saveOrderInDB,
-      deleteOrderInDB: deleteOrderInDB
+      getDeviceLanguage: getDeviceLanguage,
+      initExport: initExport,
+      isLocalDBExist: isLocalDBExist,
+      prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
+      collectCityIdsAsCountry: collectCityIdsAsCountry,
+      setUserLocation: setUserLocation,
+      setUserGeoLocation: setUserGeoLocation,
+      downloadAllData: downloadAllData
     };
 
     return thisFactory.publicObj;
 
 
 
+  });
+})();
 
 
-    //============ methods ================//
+// services/main_serv.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .factory('MainServ',
+
+  function(
+    $location,
+    $q,
+    $filter,
+    $timeout,
+    localDB,
+    GeneralServ,
+    SVGServ,
+    loginServ,
+    optionsServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    AuxStor,
+    CartStor,
+    DesignStor
+  ) {
+    /*jshint validthis:true */
+    var thisFactory = this;
+
+
+
+
+
+    /**============ METHODS ================*/
+
+    /**---------- Close Room Selector Dialog ---------*/
+    function closeRoomSelectorDialog() {
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
+      //playSound('fly');
+    }
+
+    function setDefaultDoorConfig() {
+      ProductStor.product.door_shape_id = 1;
+      ProductStor.product.door_sash_shape_id = 1;
+      ProductStor.product.door_handle_shape_id = 1;
+      ProductStor.product.door_lock_shape_id = 1;
+    }
+
+
+
+    function setDefaultAuxParam() {
+      AuxStor.aux.isWindowSchemeDialog = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
+      AuxStor.aux.isGridSelectorDialog = 0;
+    }
+
+    function prepareMainPage() {
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.activePanel = 0;
+      setDefaultAuxParam();
+      if(GlobalStor.global.startProgramm) {
+        $timeout(function() {
+          GlobalStor.global.showRoomSelectorDialog = 1;
+        }, 2000);
+        $timeout(closeRoomSelectorDialog, 5000);
+      }
+    }
+
 
 
     function saveUserEntry() {
       localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
-      //TODO offline
+//TODO offline
 //      ++UserStor.userInfo.entries;
 //      var data = {entries: UserStor.userInfo.entries},
 //          dataToSend = [
@@ -13044,8 +16730,8 @@ function ErrorResult(code, message) {
 //              field: JSON.stringify(data)
 //            }
 //          ];
-//      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
-//      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+//       localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
+//       localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
 //        if(!data) {
 //          //----- if no connect with Server save in Export LocalDB
 //          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
@@ -13057,6 +16743,12 @@ function ErrorResult(code, message) {
 
 
     /**  Create Order Id and Date */
+
+    function createOrderID() {
+      var currTime = new Date().getTime();
+      return (UserStor.userInfo.id + '' + currTime)*1;
+    }
+
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
@@ -13068,10 +16760,6 @@ function ErrorResult(code, message) {
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
 
-    function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
-    }
 
 
     function setCurrDiscounts() {
@@ -13086,25 +16774,7 @@ function ErrorResult(code, message) {
     }
 
 
-    function prepareTemplates(type) {
-      var deferred = $q.defer();
-      downloadAllTemplates(type).then(function(data) {
-        if(data) {
-          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-          GlobalStor.global.templatesSource = angular.copy(data);
 
-          //--------- set current profile in ProductStor
-          setCurrentProfile(ProductStor.product).then(function(){
-            parseTemplate().then(function() {
-              deferred.resolve(1);
-            });
-          });
-        } else {
-          deferred.resolve(0);
-        }
-      });
-      return deferred.promise;
-    }
 
 
 
@@ -13158,39 +16828,10 @@ function ErrorResult(code, message) {
     }
 
 
-
-
-    //-------- set default profile
-    function setCurrentProfile(product, id) {
-      var deferred = $q.defer();
-      if(id) {
-        product.profile = fineItemById(id, GlobalStor.global.profiles);
-      } else {
-        product.profile = GlobalStor.global.profiles[0][0];
-      }
-      //------- set Depths
-      $q.all([
-        downloadProfileDepth(product.profile.rama_list_id),
-        downloadProfileDepth(product.profile.rama_still_list_id),
-        downloadProfileDepth(product.profile.stvorka_list_id),
-        downloadProfileDepth(product.profile.impost_list_id),
-        downloadProfileDepth(product.profile.shtulp_list_id)
-      ]).then(function (result) {
-        product.profileDepths.frameDepth = result[0];
-        product.profileDepths.frameStillDepth = result[1];
-        product.profileDepths.sashDepth = result[2];
-        product.profileDepths.impostDepth = result[3];
-        product.profileDepths.shtulpDepth = result[4];
-        deferred.resolve(1);
-      });
-      return deferred.promise;
-    }
-
-
     function fineItemById(id, list) {
-      var typeQty = list.length;
+      var typeQty = list.length, itemQty;
       while(--typeQty > -1) {
-        var itemQty = list[typeQty].length;
+        itemQty = list[typeQty].length;
         while(--itemQty > -1) {
           if(list[typeQty][itemQty].id === id) {
             return list[typeQty][itemQty];
@@ -13216,54 +16857,66 @@ function ErrorResult(code, message) {
     }
 
 
-
-
-    function parseTemplate() {
+    //-------- set default profile
+    function setCurrentProfile(product, id) {
       var deferred = $q.defer();
-      //------- set current template for product
-      saveTemplateInProduct(ProductStor.product.template_id).then(function() {
-        setCurrentHardware(ProductStor.product);
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds).then(function() {
-          deferred.resolve(1);
-        });
+      if(id) {
+        product.profile = angular.copy(fineItemById(id, GlobalStor.global.profiles));
+      } else {
+        product.profile = angular.copy(GlobalStor.global.profiles[0][0]);
+      }
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(product.profile.rama_list_id),
+        downloadProfileDepth(product.profile.rama_still_list_id),
+        downloadProfileDepth(product.profile.stvorka_list_id),
+        downloadProfileDepth(product.profile.impost_list_id),
+        downloadProfileDepth(product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
+        deferred.resolve(1);
       });
       return deferred.promise;
     }
 
 
 
-    function saveTemplateInProduct(templateIndex) {
-      var defer = $q.defer();
-      if(!GlobalStor.global.isChangedTemplate) {
-        ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+    function getGlassFromTemplateBlocks(template) {
+      var blocksQty = template.details.length,
+          glassIds = [];
+      while(--blocksQty > 0) {
+        if(!template.details[blocksQty].children.length) {
+          if(template.details[blocksQty].glassId) {
+            glassIds.push(angular.copy(template.details[blocksQty].glassId));
+          }
+        }
       }
-      setCurrentGlass(ProductStor.product);
-      //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-        ProductStor.product.template = angular.copy(result);
-        GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
-//        console.log('TEMPLATE +++', ProductStor.product.template);
-        //----- create template icon
-        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
-          ProductStor.product.templateIcon = angular.copy(result);
-          defer.resolve(1);
-        });
-      });
-      return defer.promise;
+      return glassIds;
     }
 
 
-
-    function checkSashInTemplate(product) {
-      var templQty = product.template_source.details.length,
-          counter = 0;
-      while(--templQty > 0) {
-        if(product.template_source.details[templQty].blockType === 'sash') {
-          ++counter;
+    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+      var blocksQty = template.details.length;
+      while(--blocksQty > 0) {
+        if(blockId) {
+          /** set glass to template block by its Id */
+          if(template.details[blocksQty].id === blockId) {
+            template.details[blocksQty].glassId = glassId;
+            template.details[blocksQty].glassTxt = glassName;
+            break;
+          }
+        } else {
+          /** set glass to all template blocks */
+          //if(!template.details[blocksQty].children.length) {
+          template.details[blocksQty].glassId = glassId;
+          template.details[blocksQty].glassTxt = glassName;
+          //}
         }
       }
-      return counter;
     }
 
 
@@ -13273,7 +16926,7 @@ function ErrorResult(code, message) {
       product.glass.length = 0;
       if(id) {
         //----- get Glass Ids from template and check dublicates
-        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks(ProductStor.product.template)),
             glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
@@ -13288,48 +16941,54 @@ function ErrorResult(code, message) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
           product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
-          GlobalStor.global.selectLastGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassId = product.glass[0].id;
+          GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
 
 
-    function getGlassFromTemplateBlocks() {
-      var blocksQty = ProductStor.product.template_source.details.length,
-          glassIds = [];
-      while(--blocksQty > 0) {
-        if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-          if(ProductStor.product.template_source.details[blocksQty].glassId) {
-            glassIds.push(angular.copy(ProductStor.product.template_source.details[blocksQty].glassId));
-          }
+
+
+    function checkSashInTemplate(template) {
+      var templQty = template.details.length,
+          counter = 0;
+      while(--templQty > 0) {
+        if(template.details[templQty].blockType === 'sash') {
+          counter+=1;
         }
       }
-      return glassIds;
+      return counter;
     }
 
 
 
-    function setGlassToTemplateBlocks(blockId, glassId, glassName) {
-      var blocksQty = ProductStor.product.template_source.details.length;
-      while(--blocksQty > 0) {
-        if(blockId) {
-          /** set glass to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
-            ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-            ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
-            break;
-          }
-        } else {
-          /** set glass to all template blocks */
-          if(!ProductStor.product.template_source.details[blocksQty].children.length) {
-            ProductStor.product.template_source.details[blocksQty].glassId = glassId;
-            ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
-          }
-        }
+    function saveTemplateInProduct(templateIndex) {
+      var defer = $q.defer();
+      if(!GlobalStor.global.isChangedTemplate) {
+        ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
       }
+      setCurrentGlass(ProductStor.product);
+      //----- create template
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
+          //        console.log('TEMPLATE +++', ProductStor.product.template);
+          //----- create template icon
+          SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+            .then(function(result) {
+              ProductStor.product.templateIcon = angular.copy(result);
+              defer.resolve(1);
+            });
+        });
+      return defer.promise;
     }
+
+
+
 
 
     function setCurrentHardware(product, id) {
@@ -13346,11 +17005,230 @@ function ErrorResult(code, message) {
     }
 
 
+
+
+    /** set Bead Id */
+    function setBeadId(profileId, laminatId) {
+      var deff = $q.defer(),
+          promisBeads = ProductStor.product.glass.map(function(item) {
+            var deff2 = $q.defer();
+            if(item.glass_width) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.beed_profile_systems.tableName,
+                {'profile_system_id': profileId, "glass_width": item.glass_width},
+                'list_id')
+                .then(function(beadIds) {
+                  var beadsQty = beadIds.length,
+                      beadObj = {
+                        glassId: item.id,
+                        beadId: 0
+                      };
+                  if(beadsQty) {
+                    //console.log('beads++++', beadIds);
+                    //----- if beads more one
+                    if(beadsQty > 1) {
+                      //----- go to kits and find bead width required laminat Id
+                      var pomisList = beadIds.map(function(item2) {
+                        var deff3 = $q.defer();
+                        localDB.selectLocalDB(
+                          localDB.tablesLocalDB.lists.tableName,
+                          {'id': item2.list_id},
+                          'beed_lamination_id as id')
+                          .then(function(lamId) {
+                            //console.log('lamId++++', lamId);
+                            if(lamId) {
+                              if(lamId[0].id === laminatId) {
+                                deff3.resolve(1);
+                              } else {
+                                deff3.resolve(0);
+                              }
+                            } else {
+                              deff3.resolve(0);
+                            }
+                          });
+                        return deff3.promise;
+                      });
+
+                      $q.all(pomisList).then(function(results) {
+                        //console.log('finish++++', results);
+                        var resultQty = results.length;
+                        while(--resultQty > -1) {
+                          if(results[resultQty]) {
+                            beadObj.beadId = beadIds[resultQty].list_id;
+                            deff2.resolve(beadObj);
+                          }
+                        }
+                        if(!beadObj.beadId) {
+                          console.log('Error in bead!!');
+                          deff2.resolve(0);
+                        }
+                      });
+
+                    } else {
+                      beadObj.beadId = beadIds[0].list_id;
+                      deff2.resolve(beadObj);
+                    }
+
+                  } else {
+                    console.log('Error in bead!!');
+                    deff2.resolve(0);
+                  }
+                });
+              return deff2.promise;
+            }
+          });
+
+      deff.resolve($q.all(promisBeads));
+      return deff.promise;
+    }
+
+
+
+    function setProductPriceTOTAL(Product) {
+      var deliveryCoeff = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time],
+          priceDis = GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct);
+      //playSound('price');
+      Product.product_price = GeneralServ.roundingValue( Product.template_price + Product.addelem_price );
+      Product.productPriceDis = (priceDis + Product.addelemPriceDis);
+      //------ add Discount of standart delivery day of Plant
+      if(deliveryCoeff) {
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, deliveryCoeff);
+      }
+      GlobalStor.global.isLoader = 0;
+    }
+
+
+
+
+
+    //---------- Price define
+    function calculationPrice(obj) {
+      var deferred = $q.defer();
+      localDB.calculationPrice(obj).then(function (result) {
+        if(result.priceTotal){
+          var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
+          ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+          setProductPriceTOTAL(ProductStor.product);
+          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+          deferred.resolve(result);
+        } else {
+          ProductStor.product.template_price = 0;
+          deferred.resolve(0);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+    function prepareReport(elementList) {
+      var report = [],
+          elementListQty = elementList.length,
+          ind, tempObj, reportQty, exist, priceMarg;
+      if(elementListQty) {
+        for (ind = 0; ind < elementListQty; ind+=1) {
+          tempObj = angular.copy(elementList[ind]);
+          tempObj.element_id = angular.copy(tempObj.id);
+          tempObj.amount = angular.copy(tempObj.qty);
+          delete tempObj.id;
+          delete tempObj.amendment_pruninng;
+          delete tempObj.currency_id;
+          delete tempObj.qty;
+          delete tempObj.waste;
+          if (ind) {
+            reportQty = report.length;
+            exist = 0;
+            if (reportQty) {
+              while (--reportQty > -1) {
+                if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
+                  exist++;
+                  report[reportQty].amount += tempObj.amount;
+                  report[reportQty].priceReal += tempObj.priceReal;
+                }
+              }
+              if (!exist) {
+                report.push(tempObj);
+              }
+            }
+          } else {
+            report.push(tempObj);
+          }
+        }
+        //------ add margins to price of every elements
+        reportQty = report.length;
+        while(--reportQty > -1) {
+          report[reportQty].amount = GeneralServ.roundingValue(report[reportQty].amount, 3);
+          priceMarg = GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff);
+          report[reportQty].priceReal = GeneralServ.roundingValue(priceMarg, 2);
+        }
+      }
+      return report;
+    }
+
+
+
+
+
+
+    //---------- Coeffs define
+    function calculateCoeffs(objXFormedPrice) {
+      var glassSqT = 0,
+          glassSizeQty = objXFormedPrice.sizes[5].length,
+          glassQty = ProductStor.product.glass.length,
+          glassHeatCT = 0,
+          profHeatCT = 0,
+          heatCoeffTotal = 0,
+          g;
+
+      /** working with glasses */
+      while(--glassSizeQty > -1) {
+        /** culculate glass Heat Coeff Total */
+        for(g = 0; g < glassQty; g+=1) {
+          if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
+            //$.isNumeric
+            if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
+              ProductStor.product.glass[g].transcalency = 1;
+            }
+            glassHeatCT += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
+          }
+        }
+        /** get total glasses square */
+        glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square;
+      }
+      glassHeatCT = GeneralServ.roundingValue(glassHeatCT);
+      glassSqT = GeneralServ.roundingValue(glassSqT, 3);
+
+      /** culculate profile Heat Coeff Total */
+      if(!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
+        ProductStor.product.profile.heat_coeff_value = 1;
+      }
+      profHeatCT = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSqT);
+
+      heatCoeffTotal = profHeatCT + glassHeatCT;
+      /** calculate Heat Coeff Total */
+      if(UserStor.userInfo.therm_coeff_id) {
+        /** R */
+        ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
+          heatCoeffTotal/ProductStor.product.template_square
+        );
+      } else {
+        /** U */
+        ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
+          ProductStor.product.template_square/heatCoeffTotal
+        );
+      }
+
+    }
+
+
+
+
+
     //--------- create object to send in server for price calculation
-    function preparePrice(template, profileId, glassIds, hardwareId) {
+    function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
-      setBeadId(profileId).then(function(beadResult) {
+      setBeadId(profileId, laminatId).then(function(beadResult) {
         var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
               var beadQty = template.priceElements.beadsSize.length;
               while(--beadQty > -1) {
@@ -13361,7 +17239,7 @@ function ErrorResult(code, message) {
               return item.beadId;
             })),
             objXFormedPrice = {
-              laminationId: ProductStor.product.lamination_in_id,
+              laminationId: laminatId,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,
@@ -13374,7 +17252,6 @@ function ErrorResult(code, message) {
               ],
               sizes: []
             };
-
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
@@ -13391,11 +17268,11 @@ function ErrorResult(code, message) {
           ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
         }
 
-//        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-//        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-//        console.log('objXFormedPrice+++++++', objXFormedPrice);
+        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
 
-        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function(result) {
@@ -13405,6 +17282,7 @@ function ErrorResult(code, message) {
             //---- only for this type of user
             if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
               ProductStor.product.report = prepareReport(result.constrElements);
+              //console.log('REPORT', ProductStor.product.report);
             }
           }
         });
@@ -13414,53 +17292,60 @@ function ErrorResult(code, message) {
 
         /** save analytics data first time */
         if(GlobalStor.global.startProgramm) {
-//          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+          // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
           /** send analytics data to Server*/
           //------ profile
-          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          AnalyticsServ.sendAnalyticsData(
+            UserStor.userInfo.id,
+            OrderStor.order.id,
+            ProductStor.product.template_id,
+            ProductStor.product.profile.id,
+            1
+          );
         }
       });
       return deferred.promise;
     }
 
 
-    /** set Bead Id */
-    function setBeadId(profileId) {
-      var defer = $q.defer(),
-          promises = ProductStor.product.glass.map(function(item) {
-            var defer2 = $q.defer();
-            if(item.glass_width) {
-              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function (result) {
-                if(result.length) {
-                  var beadObj = {
-                    glassId: item.id,
-                    beadId: result[0].list_id
-                  };
-                  defer2.resolve(beadObj);
-                } else {
-                  console.log('Error!!', result);
-                  defer2.resolve(0);
-                }
-              });
-              return defer2.promise;
-            }
-          });
-      defer.resolve($q.all(promises));
-      return defer.promise;
+
+
+    function parseTemplate() {
+      var deferred = $q.defer();
+      //------- set current template for product
+      saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+        setCurrentHardware(ProductStor.product);
+        var hardwareIds = ProductStor.product.hardware.id || 0;
+        preparePrice(
+          ProductStor.product.template,
+          ProductStor.product.profile.id,
+          ProductStor.product.glass,
+          hardwareIds,
+          ProductStor.product.lamination.lamination_in_id
+        ).then(function() {
+          deferred.resolve(1);
+        });
+      });
+      return deferred.promise;
     }
 
 
-    //---------- Price define
-    function calculationPrice(obj) {
+
+    function prepareTemplates(type) {
       var deferred = $q.defer();
-      localDB.calculationPrice(obj).then(function (result) {
-        if(result.priceTotal){
-          ProductStor.product.template_price = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          setProductPriceTOTAL(ProductStor.product);
-          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-          deferred.resolve(result);
+      downloadAllTemplates(type).then(function(data) {
+        if(data) {
+          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+          GlobalStor.global.templatesSource = angular.copy(data);
+
+          //--------- set current profile in ProductStor
+          setCurrentProfile(ProductStor.product).then(function(){
+            parseTemplate().then(function() {
+              deferred.resolve(1);
+            });
+          });
         } else {
-          ProductStor.product.template_price = 0;
           deferred.resolve(0);
         }
       });
@@ -13469,110 +17354,299 @@ function ErrorResult(code, message) {
 
 
 
-    function prepareReport(elementList) {
-      var report = [];
-//      console.log('report start', new Date(), new Date().getMilliseconds());
-      var elementListQty = elementList.length,
-          ind = 0;
-      if(elementListQty) {
-        for (; ind < elementListQty; ind++) {
-          var tempObj = angular.copy(elementList[ind]);
-          tempObj.element_id = angular.copy(tempObj.id);
-          tempObj.amount = angular.copy(tempObj.qty);
-          delete tempObj.id;
-          delete tempObj.amendment_pruninng;
-          delete tempObj.currency_id;
-          delete tempObj.qty;
-          delete tempObj.waste;
-          if (ind) {
-            var reportQty = report.length, exist = 0;
-            if (reportQty) {
-              while (--reportQty > -1) {
-                if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
-                  exist++;
-                  report[reportQty].amount += tempObj.amount;
-                  report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
-                  report[reportQty].priceReal += tempObj.priceReal;
-                  report[reportQty].priceReal = GeneralServ.roundingNumbers(GeneralServ.addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
+
+
+
+
+
+
+    /**-------- filtering Lamination Groupes -----------*/
+
+
+    function checkLamGroupExist(lamId) {
+      var lamQty = GlobalStor.global.lamGroupFiltered.length,
+          noExist = 1;
+      while(--lamQty > -1) {
+        if(GlobalStor.global.lamGroupFiltered[lamQty].id === lamId) {
+          noExist = 0;
+        }
+      }
+      return noExist;
+    }
+
+
+
+
+    function laminatFiltering() {
+      var laminatQty = GlobalStor.global.laminats.length,
+          /** sort by Profile */
+          lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
+            if(item.profile_id) {
+              return item.profile_id === ProductStor.product.profile.id;
+            } else {
+              return true;
+            }
+          }),
+          lamGroupsTempQty, isAnyActive = 0;
+
+      //console.info('filter _____ ', lamGroupsTemp);
+
+      GlobalStor.global.lamGroupFiltered.length = 0;
+
+      while(--laminatQty > -1) {
+        if(GlobalStor.global.laminats[laminatQty].isActive) {
+          isAnyActive = 1;
+          lamGroupsTempQty = lamGroupsTemp.length;
+          while(--lamGroupsTempQty > -1) {
+            if(lamGroupsTemp[lamGroupsTempQty].img_in_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            } else if(lamGroupsTemp[lamGroupsTempQty].img_out_id === GlobalStor.global.laminats[laminatQty].type_id) {
+              if(checkLamGroupExist(lamGroupsTemp[lamGroupsTempQty].id)) {
+                GlobalStor.global.lamGroupFiltered.push(lamGroupsTemp[lamGroupsTempQty]);
+              }
+            }
+          }
+        }
+      }
+      //console.info('lamGroupFiltered _____ ', GlobalStor.global.lamGroupFiltered);
+      if(!GlobalStor.global.lamGroupFiltered.length) {
+        if(!isAnyActive) {
+          GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+        }
+      }
+    }
+
+
+    /**-------- set Lamination in product -----------*/
+
+
+    function cleanLamFilter() {
+      var laminatQty = GlobalStor.global.laminats.length;
+      //---- deselect filter
+      while(--laminatQty > -1) {
+        GlobalStor.global.laminats[laminatQty].isActive = 0;
+      }
+    }
+
+
+
+    function setCurrLamination(newLamId) {
+      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      //---- clean filter
+      cleanLamFilter();
+      while(--laminatGroupQty > -1) {
+        if(newLamId) {
+          //------ set lamination Couple with color
+          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        } else {
+          //----- set white lamination Couple
+          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
+            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          }
+        }
+      }
+    }
+
+
+
+
+
+    function setProfileByLaminat(lamId) {
+      var deff = $q.defer();
+      if(lamId) {
+        //------ set profiles parameters
+        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+      } else {
+  ProductStor.product.profile = angular.copy(fineItemById(ProductStor.product.profile.id, GlobalStor.global.profiles));
+      }
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
+        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        ProductStor.product.profileDepths.frameDepth = result[0];
+        ProductStor.product.profileDepths.frameStillDepth = result[1];
+        ProductStor.product.profileDepths.sashDepth = result[2];
+        ProductStor.product.profileDepths.impostDepth = result[3];
+        ProductStor.product.profileDepths.shtulpDepth = result[4];
+
+        SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+          .then(function(result) {
+            ProductStor.product.template = angular.copy(result);
+            var hardwareIds = ProductStor.product.hardware.id || 0;
+            preparePrice(
+              ProductStor.product.template,
+              ProductStor.product.profile.id,
+              ProductStor.product.glass,
+              hardwareIds,
+              ProductStor.product.lamination.lamination_in_id
+            ).then(function() {
+              deff.resolve(1);
+            });
+            //----- create template icon
+            SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+              .then(function(result) {
+                ProductStor.product.templateIcon = angular.copy(result);
+              });
+          });
+
+      });
+      return deff.promise;
+    }
+
+
+
+
+    /**----------- Glass sizes checking -------------*/
+
+    function checkGlassSizes(template) {
+      var blocks = template.details,
+          blocksQty = blocks.length,
+          wranGlass, overallGlass,
+          currWidth, currHeight, currSquare,
+          isSizeError, b;
+
+      /** clean extra Glass */
+      DesignStor.design.extraGlass.length = 0;
+
+      /** glass loop */
+      ProductStor.product.glass.forEach(function(item) {
+        //item.max_sq = 0.2;
+        //item.max_width = 0.50;
+        //item.max_height = 0.50;
+        /** check available max_sq and max/min sizes */
+        if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
+          /** template loop */
+          for (b = 1; b < blocksQty; b += 1) {
+            isSizeError = 0;
+            if (blocks[b].glassId === item.id) {
+              if (blocks[b].glassPoints) {
+                if (blocks[b].glassPoints.length) {
+
+                  /** estimate current glass sizes */
+                  overallGlass = GeneralServ.getMaxMinCoord(blocks[b].glassPoints);
+                  currWidth = GeneralServ.roundingValue((overallGlass.maxX - overallGlass.minX)/1000, 3);
+                  currHeight = GeneralServ.roundingValue((overallGlass.maxY - overallGlass.minY)/1000, 3);
+                  currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
+
+                  if (currSquare > item.max_sq) {
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SQUARE') +
+                      ' ' + currSquare + ' ' +
+                      $filter('translate')('design.MAX_VALUE_HIGHER') +
+                      ' ' + item.max_sq + ' ' +
+                      $filter('translate')('common_words.LETTER_M') + '2.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  }
+
+                  if (currWidth > item.max_width || currWidth < item.min_width) {
+                    isSizeError = 1;
+                  }
+                  if(currHeight > item.max_height || currHeight < item.min_height) {
+                    isSizeError = 1;
+                  }
+                  if(isSizeError) {
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SIZE') +
+                      ' ' + currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
+                      ' ' + item.max_width + ' x ' + item.max_height + '.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  }
+
                 }
               }
-              if (!exist) {
-                report.push(tempObj);
+            }
+          }
+        }
+      });
+//console.info('glass result', DesignStor.design.extraGlass);
+    }
+
+
+
+    /**----------- Hardware sizes checking -------------*/
+
+    function checkHardwareSizes(template) {
+      var blocks = template.details,
+          blocksQty = blocks.length,
+          limits = GlobalStor.global.hardwareLimits,
+          limitsQty = GlobalStor.global.hardwareLimits.length,
+          currLimit = 0,
+          overallSize, currWidth, currHeight,
+          wranSash, isSizeError, b, lim;
+
+      /** clean extra Hardware */
+      DesignStor.design.extraHardware.length = 0;
+
+      /** template loop */
+      for (b = 1; b < blocksQty; b += 1) {
+        isSizeError = 0;
+        if (blocks[b].blockType === 'sash') {
+          /** finde limit for current sash */
+          for(lim = 0; lim < limitsQty; lim+=1) {
+            if(limits[lim].type_id === blocks[b].sashType) {
+              /** check available max/min sizes */
+              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                currLimit = limits[lim];
               }
+              break;
             }
-          } else {
-            report.push(tempObj);
+          }
+          if (currLimit) {
+            if (blocks[b].hardwarePoints.length) {
+              /** estimate current sash sizes */
+              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+              currWidth = Math.round(overallSize.maxX - overallSize.minX);
+              currHeight = Math.round(overallSize.maxY - overallSize.minY);
+              // currLimit.max_width = 50;
+              // currLimit.max_height = 50;
+              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                isSizeError = 1;
+              }
+              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                isSizeError = 1;
+              }
+
+              if(isSizeError) {
+                wranSash = currWidth + ' x ' + currHeight + ' ' +
+                  $filter('translate')('design.NO_MATCH_RANGE') +
+                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+
+                DesignStor.design.extraHardware.push(wranSash);
+              }
+
+            }
           }
         }
       }
-//      console.log('report finish', new Date(), new Date().getMilliseconds());
-      return report;
+
+      //console.info('glass result', DesignStor.design.extraHardware);
     }
 
 
 
+    /**-------------- show Info Box of element or group ------------*/
 
-
-
-    //---------- Coeffs define
-    function calculateCoeffs(objXFormedPrice) {
-      var glassSquareTotal = 0,
-          glassHeatCoeffTotal = 0,
-          glassSizeQty = objXFormedPrice.sizes[5].length,
-          glassQty = ProductStor.product.glass.length,
-          profileHeatCoeffTotal = 0;
-
-      /** working with glasses */
-      while(--glassSizeQty > -1) {
-        /** culculate glass Heat Coeff Total */
-        for(var g = 0; g < glassQty; g++) {
-          if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
-            if(!$.isNumeric(ProductStor.product.glass[g].transcalency)){
-              ProductStor.product.glass[g].transcalency = 1;
-            }
-            glassHeatCoeffTotal += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
-          }
-        }
-        /** get total glasses square */
-        glassSquareTotal += objXFormedPrice.sizes[5][glassSizeQty].square;
-      }
-      glassHeatCoeffTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(glassHeatCoeffTotal), 3);
-      glassSquareTotal = GeneralServ.roundingNumbers(glassSquareTotal, 3);
-
-      /** culculate profile Heat Coeff Total */
-      if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
-        ProductStor.product.profile.heat_coeff_value = 1;
-      }
-      profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
-
-      /** calculate Heat Coeff Total */
-      /** U */
-      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/(profileHeatCoeffTotal + glassHeatCoeffTotal) );
-      /** R */
-//      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( (profileHeatCoeffTotal + glassHeatCoeffTotal)/ProductStor.product.template_square );
-    }
-
-
-
-    function setProductPriceTOTAL(Product) {
-      //playSound('price');
-      Product.product_price = GeneralServ.roundingNumbers( Product.template_price + Product.addelem_price );
-      Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
-      //------ add Discount of standart delivery day of Plant
-      if(GlobalStor.global.deliveryCoeff.base_time) {
-        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
-      }
-      GlobalStor.global.isLoader = 0;
-    }
-
-
-
-
-
-    /** show Info Box of element or group */
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-//        console.info(id, itemArr);
+        //        console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};
         while(--itemArrQty > -1) {
@@ -13593,17 +17667,9 @@ function ErrorResult(code, message) {
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;
         }
-//        console.info(GlobalStor.global.infoTitle, GlobalStor.global.infoImg, GlobalStor.global.infoLink, GlobalStor.global.infoDescrip);
       }
     }
 
-
-    /**---------- Close Room Selector Dialog ---------*/
-    function closeRoomSelectorDialog() {
-      GlobalStor.global.showRoomSelectorDialog = 0;
-      GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
-      //playSound('fly');
-    }
 
 
 
@@ -13612,7 +17678,7 @@ function ErrorResult(code, message) {
     /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
-      console.log('new project!!!!!!!!!!!!!!');
+      console.log('new project!!!!!!!!!!!!!!', OrderStor.order);
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
@@ -13628,6 +17694,9 @@ function ErrorResult(code, message) {
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -13655,6 +17724,9 @@ function ErrorResult(code, message) {
       setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
+        /** start lamination filtering */
+        cleanLamFilter();
+        laminatFiltering();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
@@ -13666,75 +17738,64 @@ function ErrorResult(code, message) {
     }
 
 
-    function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 0;
-      ProductStor.product.door_sash_shape_id = 0;
-      ProductStor.product.door_handle_shape_id = 0;
-      ProductStor.product.door_lock_shape_id = 0;
-    }
-
-
-    function prepareMainPage() {
-      GlobalStor.global.isNavMenu = 0;
-      GlobalStor.global.isConfigMenu = 1;
-      GlobalStor.global.activePanel = 0;
-      setDefaultAuxParam();
-      if(GlobalStor.global.startProgramm) {
-        $timeout(function() {
-          GlobalStor.global.showRoomSelectorDialog = 1;
-        }, 2000);
-      }
-    }
-
-
-    function setDefaultAuxParam() {
-      AuxStor.aux.isWindowSchemeDialog = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
-      AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.searchingWord = '';
-    }
-
-
 
 
 
     /**========== SAVE PRODUCT ==========*/
 
+    function checkEmptyChoosenAddElems() {
+      var addElemQty = ProductStor.product.chosenAddElements.length,
+          isExist = 0;
+
+      while(--addElemQty > -1) {
+        if(ProductStor.product.chosenAddElements[addElemQty].length) {
+          isExist++;
+        }
+      }
+      return isExist;
+    }
+
+
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
-      var deferred = $q.defer();
-      GlobalStor.global.tempAddElements.length = 0;
-      GlobalStor.global.configMenuTips = 0;
-      GlobalStor.global.isShowCommentBlock = 0;
-      setDefaultAuxParam();
-
-      //============ if EDIT Product
-      if(GlobalStor.global.productEditNumber) {
-        var productsQty = OrderStor.order.products.length;
-        //-------- replace product in order
-        while(--productsQty > -1) {
-          if(OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
-            OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
-          }
-        }
-
-      //========== if New Product
-      } else {
-        ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-        delete ProductStor.product.template;
-        //-------- insert product in order
-        OrderStor.order.products.push(ProductStor.product);
+      var permission = 1;
+      //------- if AddElems only, check is there selected AddElems
+      if(ProductStor.product.is_addelem_only) {
+        permission = checkEmptyChoosenAddElems();
       }
-      deferred.resolve(1);
-      //----- finish working with product
-      GlobalStor.global.isCreatedNewProduct = 0;
-      GeneralServ.stopStartProg();
-      return deferred.promise;
+
+      if(permission) {
+        GlobalStor.global.tempAddElements.length = 0;
+        GlobalStor.global.configMenuTips = 0;
+        GlobalStor.global.isShowCommentBlock = 0;
+        setDefaultAuxParam();
+
+        /**============ EDIT Product =======*/
+        if (GlobalStor.global.productEditNumber) {
+          var productsQty = OrderStor.order.products.length;
+          //-------- replace product in order
+          while (--productsQty > -1) {
+            if (OrderStor.order.products[productsQty].product_id === GlobalStor.global.productEditNumber) {
+              OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
+            }
+          }
+
+          /**========== if New Product =========*/
+        } else {
+    ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
+    ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
+          delete ProductStor.product.template;
+          //-------- insert product in order
+          OrderStor.order.products.push(ProductStor.product);
+        }
+        //----- finish working with product
+        GlobalStor.global.isCreatedNewProduct = 0;
+        GeneralServ.stopStartProg();
+      }
+      return permission;
     }
+
+
 
 
     //--------- moving to Cart when click on Cart button
@@ -13752,6 +17813,14 @@ function ErrorResult(code, message) {
 
     /** ========== SAVE ORDER ==========*/
 
+    //-------- delete order from LocalDB
+    function deleteOrderInDB(orderNum) {
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
+    }
+
+
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
@@ -13759,15 +17828,19 @@ function ErrorResult(code, message) {
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
-        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, GlobalStor.global.orderEditNumber);
+        localDB.deleteOrderServer(
+          UserStor.userInfo.phone,
+          UserStor.userInfo.device_code,
+          GlobalStor.global.orderEditNumber
+        );
         GlobalStor.global.orderEditNumber = 0;
       }
       angular.extend(OrderStor.order, newOptions);
 
       /** ===== SAVE PRODUCTS =====*/
 
-      var prodQty = OrderStor.order.products.length;
-      for(var p = 0; p < prodQty; p++) {
+      var prodQty = OrderStor.order.products.length, p;
+      for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
         productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
@@ -13775,7 +17848,10 @@ function ErrorResult(code, message) {
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
+        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;
@@ -13784,8 +17860,7 @@ function ErrorResult(code, message) {
         delete productData.profile;
         delete productData.glass;
         delete productData.hardware;
-        delete productData.laminationOutName;
-        delete productData.laminationInName;
+        delete productData.lamination;
         delete productData.chosenAddElements;
         delete productData.profileDepths;
         delete productData.addelemPriceDis;
@@ -13800,7 +17875,12 @@ function ErrorResult(code, message) {
         localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
         //-------- send to Server
         if(orderType) {
-          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
+          localDB.insertServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.order_products.tableName,
+            productData
+          );
         }
 
 
@@ -13808,24 +17888,26 @@ function ErrorResult(code, message) {
 
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
-        console.log('productReportData', productReportData);
+        //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
           productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
           delete productReportData[reportQty].priceReal;
           //-------- insert product Report into local DB
-//          localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+          //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-//TODO          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+// TODO localDB.insertServer(
+// UserStor.userInfo.phone, UserStor.userInfo.device_code,
+// localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */
 
-        var addElemQty = OrderStor.order.products[p].chosenAddElements.length;
-        for(var add = 0; add < addElemQty; add++) {
-          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
+        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+        for(add = 0; add < addElemQty; add+=1) {
+          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
           if(elemQty > 0) {
-            for (var elem = 0; elem < elemQty; elem++) {
+            for (elem = 0; elem < elemQty; elem+=1) {
 
               var addElementsData = {
                 order_id: OrderStor.order.id,
@@ -13837,6 +17919,7 @@ function ErrorResult(code, message) {
                 element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
                 element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                 element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
                 modified: new Date()
               };
 
@@ -13844,7 +17927,12 @@ function ErrorResult(code, message) {
               console.log('SEND ADD',addElementsData);
               localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
               if(orderType) {
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
+                localDB.insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  localDB.tablesLocalDB.order_addelements.tableName,
+                  addElementsData
+                );
               }
             }
           }
@@ -13853,7 +17941,7 @@ function ErrorResult(code, message) {
 
       /** ============ SAVE ORDER =========== */
 
-//      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
+              //      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
@@ -13862,12 +17950,19 @@ function ErrorResult(code, message) {
       orderData.user_id = UserStor.userInfo.id;
       orderData.delivery_date = new Date(OrderStor.order.delivery_date);
       orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
-      orderData.customer_sex = (OrderStor.order.customer_sex) ? +OrderStor.order.customer_sex : 0;
+      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
       orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
       orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
-      orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
-      orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
-      orderData.products_qty = GeneralServ.roundingNumbers(OrderStor.order.products_qty);
+      orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
+      orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
+      orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+      //----- rates %
+      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+
       if(orderType) {
         orderData.additional_payment = '';
         orderData.created = new Date();
@@ -13896,7 +17991,12 @@ function ErrorResult(code, message) {
 
       console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
-        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData).then(function(respond) {
+        localDB.insertServer(
+          UserStor.userInfo.phone,
+          UserStor.userInfo.device_code,
+          localDB.tablesLocalDB.orders.tableName,
+          orderData
+        ).then(function(respond) {
           if(respond.status) {
             orderData.order_number = respond.order_number;
           }
@@ -13911,12 +18011,18 @@ function ErrorResult(code, message) {
 
       //TODO
       //------ send analytics data to Server
-//      AnalyticsServ.sendAnalyticsDB();
+      //      AnalyticsServ.sendAnalyticsDB();
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
       //------ set current GeoLocation
-      loginServ.setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.regionName, UserStor.userInfo.countryName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
+      loginServ.setUserGeoLocation(
+        UserStor.userInfo.city_id,
+        UserStor.userInfo.cityName,
+        UserStor.userInfo.climaticZone,
+        UserStor.userInfo.heatTransfer,
+        UserStor.userInfo.fullLocation
+      );
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
@@ -13924,16 +18030,58 @@ function ErrorResult(code, message) {
 
 
 
-    //-------- delete order from LocalDB
-    function deleteOrderInDB(orderNum) {
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-    }
 
 
 
-  }
+
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      saveUserEntry: saveUserEntry,
+      createOrderData: createOrderData,
+      createOrderID: createOrderID,
+      setCurrDiscounts: setCurrDiscounts,
+      setCurrTemplate: setCurrTemplate,
+      prepareTemplates: prepareTemplates,
+      downloadAllTemplates: downloadAllTemplates,
+
+      setCurrentProfile: setCurrentProfile,
+      setCurrentGlass: setCurrentGlass,
+      setGlassToTemplateBlocks: setGlassToTemplateBlocks,
+      setCurrentHardware: setCurrentHardware,
+      fineItemById: fineItemById,
+      parseTemplate: parseTemplate,
+      saveTemplateInProduct: saveTemplateInProduct,
+      checkSashInTemplate: checkSashInTemplate,
+      preparePrice: preparePrice,
+      setProductPriceTOTAL: setProductPriceTOTAL,
+      showInfoBox: showInfoBox,
+      closeRoomSelectorDialog: closeRoomSelectorDialog,
+      laminatFiltering: laminatFiltering,
+      setCurrLamination: setCurrLamination,
+      setProfileByLaminat: setProfileByLaminat,
+      checkGlassSizes: checkGlassSizes,
+      checkHardwareSizes: checkHardwareSizes,
+
+      createNewProject: createNewProject,
+      createNewProduct: createNewProduct,
+      setDefaultDoorConfig: setDefaultDoorConfig,
+      prepareMainPage: prepareMainPage,
+      setDefaultAuxParam: setDefaultAuxParam,
+
+      inputProductInOrder: inputProductInOrder,
+      goToCart: goToCart,
+      saveOrderInDB: saveOrderInDB,
+      deleteOrderInDB: deleteOrderInDB
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -13942,32 +18090,30 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('NavMenuServ', navFactory);
+    .factory('NavMenuServ',
 
-  function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor) {
-
+  function(
+    $location,
+    $http,
+    $filter,
+    $cordovaGeolocation,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getCurrentGeolocation: getCurrentGeolocation,
-      setLanguageVoiceHelper: setLanguageVoiceHelper,
-      switchVoiceHelper: switchVoiceHelper,
-      gotoHistoryPage: gotoHistoryPage,
-      createAddElementsProduct: createAddElementsProduct,
-      clickNewProject: clickNewProject
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     function getCurrentGeolocation() {
       //------ Data from GPS device
@@ -13975,43 +18121,42 @@ function ErrorResult(code, message) {
       $cordovaGeolocation.getCurrentPosition().then(successLocation, errorLocation);
 
         function successLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').
-                success(function(data, status, headers, config) {
-                    //----- save previous current location
-                    //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+          var latitude = position.coords.latitude,
+              longitude = position.coords.longitude;
 
-                    var deviceLocation = data.results[0].formatted_address.split(', ');
-                    //TODO set new currencyID!!!!
-                    //TODO before need to fine currencyId!!!!
-                    //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+          $http.get(
+            'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru'
+          ).then(
+              function (data) {
+                //----- save previous current location
+                //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
-                    OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-                    OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
-                    OrderStor.order.climatic_zone = 7; //TODO
-                    OrderStor.order.heat_coef_min = 0.99; //TODO
-                    OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+                var deviceLocation = data.results[0].formatted_address.split(', ');
+//TODO set new currencyID!!!!
+//TODO before need to fine currencyId!!!!
+//TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+//TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                OrderStor.order.customer_city_id = 156;
+                OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
+                OrderStor.order.climatic_zone = 7; //TODO
+                OrderStor.order.heat_coef_min = 0.99; //TODO
+                OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] +
+                  ', ' + deviceLocation[deviceLocation.length-2] +
+                  ', ' + deviceLocation[deviceLocation.length-1];
+              },
+              function (data, status) {
+                console.log('Something went wrong with User recive!', data, status);
+              }
+            );
 
-                }).
-                error(function(data, status, headers, config) {
-                    alert(status);
-                });
         }
+
         function errorLocation(error) {
-            alert(error.message);
+          console.log(error.message);
         }
     }
 
 
-    function switchVoiceHelper() {
-      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
-      if(GlobalStor.global.isVoiceHelper) {
-        //------- set Language for Voice Helper
-        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
-        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
-      }
-    }
 
 
     function setLanguageVoiceHelper() {
@@ -14031,6 +18176,16 @@ function ErrorResult(code, message) {
 //        break;
 //      }
       return langLabel;
+    }
+
+
+    function switchVoiceHelper() {
+      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
+      if(GlobalStor.global.isVoiceHelper) {
+        //------- set Language for Voice Helper
+        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
+        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
+      }
     }
 
 
@@ -14056,9 +18211,11 @@ function ErrorResult(code, message) {
       } else {
         //------- create new empty product
         ProductStor.product = ProductStor.setDefaultProduct();
-        ProductStor.product.is_addelem_only = true;
-        GlobalStor.global.isNavMenu = false;
-        GlobalStor.global.isConfigMenu = true;
+        MainServ.closeRoomSelectorDialog();
+        MainServ.setDefaultAuxParam();
+        ProductStor.product.is_addelem_only = 1;
+        GlobalStor.global.isNavMenu = 0;
+        GlobalStor.global.isConfigMenu = 1;
         //------ open AddElements Panel
         GlobalStor.global.activePanel = 6;
       }
@@ -14081,12 +18238,12 @@ function ErrorResult(code, message) {
         //------- Create New Project with Draft saving in Main Page
         if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
           //------ save product
-          MainServ.inputProductInOrder();
-          //------- define order Price
-          CartMenuServ.calculateOrderPrice();
-          //-------- save order as Draft
-          MainServ.saveOrderInDB({}, 0, '');
-
+          if(MainServ.inputProductInOrder()) {
+            //------- define order Price
+            CartMenuServ.calculateOrderPrice();
+            //-------- save order as Draft
+            MainServ.saveOrderInDB({}, 0, '');
+          }
           //------- Create New Project with Draft saving in Cart Page
         } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
           //-------- save order as Draft
@@ -14102,7 +18259,24 @@ function ErrorResult(code, message) {
     }
 
 
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      getCurrentGeolocation: getCurrentGeolocation,
+      setLanguageVoiceHelper: setLanguageVoiceHelper,
+      switchVoiceHelper: switchVoiceHelper,
+      gotoHistoryPage: gotoHistoryPage,
+      createAddElementsProduct: createAddElementsProduct,
+      clickNewProject: clickNewProject
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -14111,14 +18285,12 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('optionsServ', optionFactory);
+    .factory('optionsServ',
 
-  function optionFactory($filter) {
+  function($filter) {
 
     return {
 
@@ -14198,7 +18370,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -14206,6 +18378,7 @@ function ErrorResult(code, message) {
                   id:'block_1',
                   level: 1,
                   blockType:'frame',
+                  //blockType:'sash',
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
@@ -14217,7 +18390,9 @@ function ErrorResult(code, message) {
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: ''
+                  glassTxt: ''//,
+                  //sashType: 2,
+                  //openDir: [1]
                 }
               ]
             },
@@ -14231,7 +18406,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -14299,7 +18474,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -14404,7 +18579,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -14507,7 +18682,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -14610,7 +18785,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -14747,7 +18922,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -14816,7 +18991,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -14920,7 +19095,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -15060,7 +19235,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -15234,7 +19409,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -15450,7 +19625,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1', 'block_2'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -15488,9 +19663,9 @@ function ErrorResult(code, message) {
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  gridId: 0,
                   openDir: [1, 4],
-                  handlePos: 4
+                  handlePos: 4,
+                  sashType: 2
                 }
               ]
             }
@@ -15515,7 +19690,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
 //------- Level 1
                 {
@@ -15628,7 +19803,7 @@ function ErrorResult(code, message) {
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 5000
+                  maxSizeLimit: 2400
                 },
                 //------- Level 1
                 {
@@ -15648,7 +19823,6 @@ function ErrorResult(code, message) {
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4,
                   sashType: 2
@@ -15703,7 +19877,7 @@ function ErrorResult(code, message) {
     }
 
 
-  }
+  });
 })();
 
 
@@ -15712,34 +19886,25 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .factory('SettingServ', settingsFactory);
+    .factory('SettingServ',
 
-  function settingsFactory($rootScope, $q, $location, localDB, GlobalStor, UserStor) {
-
+  function(
+    $rootScope,
+    $location,
+    localDB,
+    GlobalStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      changeAvatar: changeAvatar,
-      downloadLocations: downloadLocations,
-      closeLocationPage: closeLocationPage,
-      gotoLocationPage: gotoLocationPage,
-      gotoPasswordPage: gotoPasswordPage,
-      gotoLanguagePage: gotoLanguagePage,
-      gotoSettingsPage: gotoSettingsPage,
-      closeSettingsPage: closeSettingsPage
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- change avatar
     function changeAvatar(newAvatar, form) {
@@ -15752,7 +19917,9 @@ function ErrorResult(code, message) {
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {
 //        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-//        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//        localDB.updateLocalServerDBs(
+      // localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar}
+      // );
 //        $rootScope.$apply();
 //      }, function( error ) {
 //        console.log( 'Error upload user avatar' + error );
@@ -15767,65 +19934,6 @@ function ErrorResult(code, message) {
 //      } );
     }
 
-
-
-    //------- collecting cities, regions and countries in one object for registration form
-    function downloadLocations() {
-      var deferred = $q.defer(),
-          regions = [],
-          mergerLocation = [],
-          regionQty, cityQty;
-
-        //--------- get all regions relative to current countryID
-        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
-          regionQty = result.length;
-          if(regionQty) {
-            for (var reg = 0; reg < regionQty; reg++) {
-              var tempRegion = {
-                id: result[reg].id,
-                countryId: result[reg].country_id,
-                name: result[reg].name,
-                climaticZone: result[reg].climatic_zone,
-                heatTransfer: result[reg].heat_transfer
-              };
-              regions.push(tempRegion);
-            }
-          } else {
-            console.log('Error!!!', result);
-          }
-
-        }).then(function() {
-
-          //--------- get all cities relative to current countryID
-          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(results) {
-            cityQty = results.length;
-            if(cityQty) {
-              for(var cit = 0; cit < cityQty; cit++) {
-                for(var r = 0; r < regionQty; r++) {
-                  if(results[cit].region_id === regions[r].id) {
-                    var location = {
-                      cityId: results[cit].id,
-                      cityName: results[cit].name,
-                      climaticZone: regions[r].climaticZone,
-                      heatTransfer: regions[r].heatTransfer,
-                      countryId: UserStor.userInfo.countryId,
-                      countryName: UserStor.userInfo.countryName,
-                      fullLocation: '' + results[cit].name + ', ' + regions[r].name + ', ' + UserStor.userInfo.countryName
-                    };
-                    mergerLocation.push(location);
-                  }
-                }
-
-              }
-              deferred.resolve(mergerLocation);
-            } else {
-              deferred.reject(results);
-            }
-          });
-
-        });
-      return deferred.promise;
-    }
 
 
     //-------- close Location Page
@@ -15856,7 +19964,25 @@ function ErrorResult(code, message) {
       $location.path(GlobalStor.global.prevOpenPage);
     }
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      changeAvatar: changeAvatar,
+      //downloadLocations: downloadLocations,
+      closeLocationPage: closeLocationPage,
+      gotoLocationPage: gotoLocationPage,
+      gotoPasswordPage: gotoPasswordPage,
+      gotoLanguagePage: gotoLanguagePage,
+      gotoSettingsPage: gotoSettingsPage,
+      closeSettingsPage: closeSettingsPage
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -15865,15 +19991,13 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('SoundPlayServ', soundPlayFactory);
+    .factory('SoundPlayServ',
 
-  function soundPlayFactory() {
-
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.soundsIntervals = {
@@ -15884,14 +20008,10 @@ function ErrorResult(code, message) {
       switching: {start: 1.81, end: 2.88}
     };
 
-    thisFactory.publicObj = {
-      playSound: playSound
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //----------- Play audio sounds
     function playSound() {
@@ -15920,7 +20040,16 @@ function ErrorResult(code, message) {
      }
      */
 
-  }
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      playSound: playSound
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -15929,253 +20058,293 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/ 
   angular
     .module('MainModule')
-    .factory('SVGServ', designFactory);
+    .factory('SVGServ',
 
-  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor) {
-
+  function(
+    $q,
+    globalConstants,
+    GeneralServ,
+    GlobalStor,
+    ProductStor,
+    DesignStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      createSVGTemplate: createSVGTemplate,
-      createSVGTemplateIcon: createSVGTemplateIcon,
-      collectAllPointsOut: collectAllPointsOut,
-      setTemplateScale: setTemplateScale,
-      setTemplatePosition: setTemplatePosition,
-
-      centerBlock: centerBlock,
-      sortingPoints: sortingPoints,
-      getAngelPoint: getAngelPoint,
-      setLines: setLines,
-      setLineCoef: setLineCoef,
-      getNewCoefC: getNewCoefC,
-      setPointLocationToLine: setPointLocationToLine,
-      intersectionQ: intersectionQ,
-      cteateLineByAngel: cteateLineByAngel,
-      getIntersectionInCurve: getIntersectionInCurve,
-      getCoordCrossPoint: getCoordCrossPoint,
-      checkLineOwnPoint: checkLineOwnPoint,
-      isInsidePointInLine: isInsidePointInLine,
-      getCoordSideQPCurve: getCoordSideQPCurve,
-      checkEqualPoints: checkEqualPoints,
-      setQPointCoord: setQPointCoord,
-      getCenterLine: getCenterLine,
-
-      checkInsidePointInLineEasy: checkInsidePointInLineEasy
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
-
-
-    function createSVGTemplate(sourceObj, depths) {
-//      console.log('------------------------------------------------------');
-//      console.log('svg start', new Date(), new Date().getMilliseconds());
-      var thisObj = {},
-          defer = $q.defer();
-      //  thisObj.name = sourceObj.name;
-      thisObj.details = angular.copy(sourceObj.details);
-      thisObj.priceElements = {
-        framesSize: [],
-        frameSillSize: [],
-        sashsSize: [],
-        impostsSize: [],
-        shtulpsSize: [],
-        glassSquares: [],
-        beadsSize: [],
-        sashesBlock: []
-      };
-
-      var blocksQty = thisObj.details.length;
+    /**============ METHODS ================*/
 
 
-      for(var i = 0; i < blocksQty; i++) {
 
-        //------ block 0
-        if(!thisObj.details[i].level) {
-
-          var childQty = thisObj.details[i].children.length,
-              b = 0;
-          if(childQty === 1) {
-            for(; b < blocksQty; b++) {
-              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'single';
-              }
-            }
-          } else if(childQty > 1) {
-            for(; b < blocksQty; b++) {
-              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'first';
-              } else if(thisObj.details[i].children[childQty-1] === thisObj.details[b].id) {
-                thisObj.details[b].position = 'last';
-              }
-            }
-          }
-
-          thisObj.details[i].overallDim = [];
-
-        } else {
-//          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
-//          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
-          //----- create point Q for arc or curve corner in block 1
-          if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
-            setQPInMainBlock(thisObj.details[i]);
-          }
-          thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
-          thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
-//          console.log('+++++++++ block ++++++++++pointsOut');
-          thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
-          if(thisObj.details[i].level === 1) {
-            thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
-          } else {
-            thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-//            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
-            thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
-//            console.log('+++++++++ block ++++++++++pointsIn');
-          }
-          thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
-
-          if(thisObj.details[i].level === 1) {
-            setCornerProp(thisObj.details);
-            //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
-          }
-
-
-          //-------- if block has children and type is sash
-          if(thisObj.details[i].children.length) {
-
-            if(thisObj.details[i].blockType === 'sash') {
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
-              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
-              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
-              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
-
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-
-              //----- set openPoints for sash
-              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
-            }
-
-          //------- if block is empty
-          } else {
-            //------ if block is frame
-            if(thisObj.details[i].blockType === 'frame') {
-//              console.log('+++++++++ block ++++++++++beads');
-              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
-              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
-              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
-              //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
-
-              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
-              /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
-
-            } else if(thisObj.details[i].blockType === 'sash') {
-              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
-              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
-              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
-              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
-              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
-
-              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
-              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
-              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
-              //------ for defined open directions of sash
-              thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
-
-              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
-              //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
-
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
-
-              //----- set openPoints for sash
-              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
-            }
-          }
-          setPointsXChildren(thisObj.details[i], thisObj.details, depths);
-          //----- create impost parts
-          if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
-          }
-
-
-        }
+    function getCoordCrossPoint(line1, line2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
+          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
+          crossPoint = {
+            x: GeneralServ.roundingValue( GeneralServ.roundingValue(baseX/base, 3) ),
+            y: GeneralServ.roundingValue( GeneralServ.roundingValue(baseY/base, 3) )
+          };
+      if(crossPoint.x === -0) {
+        crossPoint.x = 0;
+      } else if(crossPoint.y === -0) {
+        crossPoint.y = 0;
       }
+      return crossPoint;
+    }
 
-      thisObj.dimension = initDimensions(thisObj.details);
 
-//      console.log('TEMPLATE END++++', thisObj);
-//      console.log('svg finish', new Date(), new Date().getMilliseconds());
-//      console.log('------------------------------------------------------');
-      defer.resolve(thisObj);
-      return defer.promise;
+
+    function checkLineOwnPoint(point, lineTo, lineFrom) {
+      var check = {
+        x: GeneralServ.roundingValue( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
+        y: GeneralServ.roundingValue( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
+      };
+      if(check.x === -Infinity) {
+        check.x = Infinity;
+      } else if(check.y === -Infinity) {
+        check.y = Infinity;
+      }
+      if(check.x === -0) {
+        check.x = 0;
+      } else if(check.y === -0) {
+        check.y = 0;
+      }
+      return check;
+    }
+
+
+
+    function getCenterLine(pointStart, pointEnd) {
+      var center = {
+        x: (pointStart.x + pointEnd.x)/2,
+        y: (pointStart.y + pointEnd.y)/2
+      };
+      return center;
     }
 
 
 
 
-    //----------- ICON
 
-    function createSVGTemplateIcon(sourceObj, depths) {
-      var defer = $q.defer(),
-          newDepth = angular.copy(depths),
-          coeffScale = 2;
-      for(var p in newDepth) {
-        for(var el in newDepth[p]) {
-          newDepth[p][el] *= coeffScale;
+    function cleanDublicat(param, arr) {
+      var pQty = arr.length,
+          pQty2, exist, i;
+      while(--pQty > -1) {
+        pQty2 = arr.length;
+        exist = 0;
+        for(i = 0; i < pQty2; i+=1) {
+          switch(param) {
+            case 1:
+              if(arr[i].x === arr[pQty].x) {
+                exist+=1;
+              }
+              break;
+            case 2:
+              if(arr[i].y === arr[pQty].y) {
+                exist+=1;
+              }
+              break;
+            case 3:
+              if(arr[i].x === arr[pQty].x && arr[i].y === arr[pQty].y) {
+                exist+=1;
+              }
+              break;
+          }
+        }
+        if(exist > 1) {
+          arr.splice(pQty, 1);
         }
       }
-      createSVGTemplate(sourceObj, newDepth).then(function(result) {
-        defer.resolve(result);
+    }
+
+
+
+    function collectAllPointsOut(blocks) {
+      var points = [],
+          blocksQty = blocks.length,
+          pointsOutQty;
+
+      while(--blocksQty > 0) {
+        pointsOutQty = blocks[blocksQty].pointsOut.length;
+        if(pointsOutQty) {
+          while(--pointsOutQty > -1) {
+            points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
+          }
+        }
+      }
+      //------ delete dublicates
+      cleanDublicat(3, points);
+      return points;
+    }
+
+
+
+    function cleanDublicatNoFP(param, points) {
+      //      console.log('points******** ', points);
+      var pQty = points.length, pQty2;
+
+      while(--pQty > -1) {
+        pQty2 = points.length;
+
+        while(--pQty2 > -1) {
+          if(pQty !== pQty2) {
+            //            console.log('********', points[pQty], points[pQty2]);
+            if(points[pQty] && points[pQty2]) {
+              switch(param) {
+                case 1:
+                  if(points[pQty].x === points[pQty2].x) {
+                    //if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
+                    // points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+                    //delete points[pQty];
+                    //points.splice(pQty, 1);
+                    //} else
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                      delete points[pQty2];
+                      //points.splice(pQty2, 1);
+                    } else {
+                      delete points[pQty];
+                    }
+                    //console.log('***** delete');
+                  }
+                  break;
+                case 2:
+                  if(points[pQty].y === points[pQty2].y) {
+//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' ||
+                    // points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
+//                      delete points[pQty];
+//                    points.splice(pQty, 1);
+//                    } else
+                    if ((points[pQty2].type === 'impost' || points[pQty2].type === 'shtulp') && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
+                      //                    points.splice(pQty2, 1);
+                      delete points[pQty2];
+                    } else {
+                      delete points[pQty];
+                    }
+                    //                    console.log('***** delete');
+                  }
+                  break;
+              }
+            }
+          }
+
+        }
+      }
+      return points.filter(function(item) {
+        return item ? 1 : 0;
       });
-      return defer.promise;
     }
 
 
-    //----------- SCALE
+    function sortByX(a, b) {
+      return a.x - b.x;
+    }
 
-    function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = (dim.maxX - dim.minX),
-          templateH = (dim.maxY - dim.minY);
-      return (templateW > templateH) ? (windowW/templateW) * padding : (windowH/templateH) * padding;
+
+    function sortByY(a, b) {
+      return a.y - b.y;
+    }
+
+
+    function setPointLocationToLine(lineP1, lineP2, newP) {
+      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+    }
+
+
+    function checkEqualPoints(newPoint, pointsArr) {
+      var noExist = 1,
+          pointsQty = pointsArr.length;
+      if (pointsQty) {
+        while (--pointsQty > -1) {
+          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
+            noExist = 0;
+          }
+        }
+      }
+      return noExist;
+    }
+
+
+    function checkDoubleQPoints(newPointId, pointsIn) {
+      //      console.log('-----------', newPointId, pointsIn);
+      var isExist = 0,
+          pointsInQty = pointsIn.length;
+      if (pointsInQty) {
+        while (--pointsInQty > -1) {
+          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
+            //if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 ||
+            // pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
+            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
+              isExist = 1;
+            }
+          }
+        }
+      }
+      return isExist;
     }
 
 
 
-    //----------- TRANSLATE
 
-    function setTemplatePosition(dim, windowW, windowH, scale) {
-      var position = {
-        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+    function getCoordSideQPCurve(t, p0, p1) {
+      var qpi = {
+        x: GeneralServ.roundingValue( ((1-t)*p0.x + t*p1.x) ),
+        y: GeneralServ.roundingValue( ((1-t)*p0.y + t*p1.y) )
       };
-      return position;
+      return qpi;
+    }
+
+
+    function setQPointCoord(side, line, dist) {
+      var middle = getCenterLine(line.from, line.to),
+          coordQP = {};
+      //      console.log('setQPointCoord-----------', line, middle);
+      //------- line vert or hor
+      if(!line.coefA || !line.coefB) {
+        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
+        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
+        //        console.log('line vert or hor');
+      } else {
+        switch(side) {
+          case 1:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('1');
+            break;
+          case 2:
+            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('2');
+            break;
+          case 3:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
+            //            console.log('3');
+            break;
+          case 4:
+            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
+            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
+            //            console.log('4');
+
+            break;
+        }
+      }
+      coordQP.y = GeneralServ.roundingValue( coordQP.y, 1 );
+      coordQP.x = GeneralServ.roundingValue( coordQP.x, 1 );
+      //      console.log('ERROR coordQP!!!', coordQP);
+      return coordQP;
     }
 
 
 
-
-    /////////////////////////////////////////////////////////////////////////////////////
+    //---------- linear interpolation utility
+    function getCoordCurveByT(P0, P1, P2, t) {
+      return GeneralServ.roundingValue( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
+    }
 
 
 
@@ -16201,19 +20370,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function sortingPoints(points, center) {
-      var pointsQty = points.length;
-
-      for(var i = 0; i < pointsQty; i++) {
-        points[i].fi = getAngelPoint(center, points[i]);
-      }
-      points.sort(function(a, b){
-        return b.fi - a.fi;
-      });
-//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
-      return points;
-    }
-
 
     function getAngelPoint(center, point) {
       var fi;
@@ -16229,12 +20385,61 @@ function ErrorResult(code, message) {
     }
 
 
+    function sortingPoints(points, center) {
+      var pointsQty = points.length, i;
+
+      for(i = 0; i < pointsQty; i+=1) {
+        points[i].fi = getAngelPoint(center, points[i]);
+      }
+      points.sort(function(a, b){
+        return b.fi - a.fi;
+      });
+//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
+      return points;
+    }
+
+
+    function setLineCoef(line) {
+      line.coefA = (line.from.y - line.to.y);
+      line.coefB = (line.to.x - line.from.x);
+      line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
+    }
+
+
+    //    function setLineType(from, to) {
+    //      var type = '';
+    //      if(from === to) {
+    //        if(from === 'impost') {
+    //          type = 'impost';
+    //        } else {
+    //          type = 'frame';
+    //        }
+    //      } else {
+    //        type = 'frame';
+    //      }
+    //      return type;
+    //    }
+
+    function setLineType(from, to) {
+      var type = '';
+      if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
+        type = 'impost';
+        //} else if(from.indexOf('sht')+1 && to.indexOf('sht')+1) {
+      } else if(from.indexOf('sht')+1 && to.indexOf('sht')+1 && from === to) {
+        type = 'shtulp';
+      } else {
+        type = 'frame';
+      }
+      return type;
+    }
+
+
 
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length;
+          pointsQty = points.length, i;
 
-      for(var i = 0; i < pointsQty; i++) {
+      for(i = 0; i < pointsQty; i+=1) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
@@ -16265,7 +20470,7 @@ function ErrorResult(code, message) {
         if(line.dir === 'line') {
           line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
         }
-        line.size = GeneralServ.rounding100( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
+        line.size = GeneralServ.roundingValue( (Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y))) );
         setLineCoef(line);
         lines.push(line);
       }
@@ -16277,71 +20482,21 @@ function ErrorResult(code, message) {
     }
 
 
-    function setLineCoef(line) {
-      line.coefA = (line.from.y - line.to.y);
-      line.coefB = (line.to.x - line.from.x);
-      line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
-    }
 
 
-//    function setLineType(from, to) {
-//      var type = '';
-//      if(from === to) {
-//        if(from === 'impost') {
-//          type = 'impost';
-//        } else {
-//          type = 'frame';
-//        }
-//      } else {
-//        type = 'frame';
-//      }
-//      return type;
-//    }
-
-    function setLineType(from, to) {
-      var type = '';
-      if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
-        type = 'impost';
-      } else {
-        type = 'frame';
-      }
-      return type;
-    }
-
-
-
-    function setPointsIn(lines, depths, group) {
-      var pointsIn = [],
-          linesQty = lines.length;
-
-      for(var i = 0; i < linesQty; i++) {
-        var newLine1 = angular.copy(lines[i]),
-            newLine2 = {},
-            crossPoint = {},
-            index;
-        newLine1.coefC = getNewCoefC(depths, newLine1, group);
-        if(i === (linesQty - 1)) {
-          index = 0;
-        } else {
-          index = i+1;
-        }
-        newLine2 = angular.copy(lines[index]);
-        newLine2.coefC = getNewCoefC(depths, newLine2, group);
-        crossPoint = getCrossPoint2Lines(newLine1, newLine2);
-        pointsIn.push(crossPoint);
-      }
-      return pointsIn;
-    }
 
 
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
+      //console.info('depth++++', group, line.type);
       switch(group) {
         case 'frame':
           if(line.type === 'frame') {
             depth = depths.frameDepth.c;
           } else if(line.type === 'impost') {
             depth = depths.impostDepth.c/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.b/2;
           }
           break;
         case 'frame-bead':
@@ -16361,6 +20516,8 @@ function ErrorResult(code, message) {
             depth = depths.frameDepth.b - depths.frameDepth.c;
           } else if(line.type === 'impost') {
             depth = depths.impostDepth.d - depths.impostDepth.c/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.a/2 - depths.shtulpDepth.b/2;
           }
           break;
         case 'sash-in':
@@ -16373,13 +20530,40 @@ function ErrorResult(code, message) {
           depth = depths.sashDepth.d - depths.sashDepth.c;
           break;
 
-        case 'frame+sash':
-          depth = depths.frameDepth.b + depths.sashDepth.c;
-          break;
+        //case 'frame+sash':
+        //  depth = depths.frameDepth.b + depths.sashDepth.c;
+        //  break;
       }
       var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
       return newCoefC;
     }
+
+
+
+    function checkParallelCoef(line) {
+      var x1 = line.from.x,
+          y1 = line.from.y,
+          x2 = line.to.x,
+          y2 = line.to.y;
+      //      if(line.from.dir === 'curv') {
+      //        x1 = line.from.xQ;
+      //        y1 = line.from.yQ;
+      //      }
+      //      if(line.to.dir === 'curv') {
+      //        x2 = line.to.xQ;
+      //        y2 = line.to.yQ;
+      //      }
+      return Math.round( (y2 - y1) / (x2 - x1) );
+    }
+
+
+
+    function checkParallel(line1, line2) {
+      var k1 = checkParallelCoef(line1),
+          k2 = checkParallelCoef(line2);
+      return (k1 === k2) ? 1 : 0;
+    }
+
 
 
     function getCrossPoint2Lines(line1, line2) {
@@ -16416,7 +20600,15 @@ function ErrorResult(code, message) {
 //        console.log('coord = ', coord);
       crossPoint.x = coord.x;
       crossPoint.y = coord.y;
-      crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
+
+      //crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
+      if(line1.type === 'impost' || line2.type === 'impost') {
+        crossPoint.type = 'impost';
+      } else if(line1.type === 'shtulp' || line2.type === 'shtulp') {
+        crossPoint.type = 'shtulp';
+      } else {
+        crossPoint.type = 'frame';
+      }
       if(line1.to.dir === 'curv') {
         crossPoint.dir = 'curv';
         crossPoint.xQ = line1.to.xQ;
@@ -16430,37 +20622,58 @@ function ErrorResult(code, message) {
     }
 
 
-    function checkParallel(line1, line2) {
-      var k1 = checkParallelCoef(line1),
-          k2 = checkParallelCoef(line2);
-      return (k1 === k2) ? 1 : 0;
+
+
+
+    function setPointsIn(lines, depths, group) {
+      var pointsIn = [],
+          linesQty = lines.length, i;
+      //console.info('lines+++', lines);
+      for(i = 0; i < linesQty; i+=1) {
+        var newLine1 = angular.copy(lines[i]),
+            newLine2 = {},
+            crossPoint = {},
+            index;
+        newLine1.coefC = getNewCoefC(depths, newLine1, group);
+        if(i === (linesQty - 1)) {
+          index = 0;
+        } else {
+          index = i+1;
+        }
+        newLine2 = angular.copy(lines[index]);
+        newLine2.coefC = getNewCoefC(depths, newLine2, group);
+        crossPoint = getCrossPoint2Lines(newLine1, newLine2);
+        pointsIn.push(crossPoint);
+      }
+      return pointsIn;
     }
 
 
-    function checkParallelCoef(line) {
-      var x1 = line.from.x,
-          y1 = line.from.y,
-          x2 = line.to.x,
-          y2 = line.to.y;
-//      if(line.from.dir === 'curv') {
-//        x1 = line.from.xQ;
-//        y1 = line.from.yQ;
-//      }
-//      if(line.to.dir === 'curv') {
-//        x2 = line.to.xQ;
-//        y2 = line.to.yQ;
-//      }
-      return Math.round( (y2 - y1) / (x2 - x1) );
+
+    function culcRadiusCurve(lineLength, heightQ) {
+      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) );
     }
+
+
+    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
+      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
+      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
+      pointQ.lengthChord = GeneralServ.roundingValue( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
+      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
+      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
+      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);
+    }
+
+
 
 
 
     function setQPInMainBlock(currBlock) {
-      var qpQty = currBlock.pointsQ.length;
+      var qpQty = currBlock.pointsQ.length, q;
       if(qpQty) {
-        for (var q = 0; q < qpQty; q++) {
-          var pointsOutQty = currBlock.pointsOut.length, curvP0 = 0, curvP1 = 0;
-          for (var p = 0; p < pointsOutQty; p++) {
+        for (q = 0; q < qpQty; q+=1) {
+          var pointsOutQty = currBlock.pointsOut.length, curvP0 = 0, curvP1 = 0, p;
+          for (p = 0; p < pointsOutQty; p+=1) {
             if (currBlock.pointsQ[q].fromPId === currBlock.pointsOut[p].id) {
               curvP0 = currBlock.pointsOut[p];
             }
@@ -16512,175 +20725,8 @@ function ErrorResult(code, message) {
     }
 
 
-    function setPointsXChildren(currBlock, blocks, depths) {
-      if(currBlock.children.length) {
-        var blocksQty = blocks.length,
-            impPointsQty = currBlock.impost.impostAxis.length,
-            impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
-            impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
-            pointsOut = angular.copy(currBlock.pointsOut),
-            pointsIn, linesIn,
-            indexChildBlock1, indexChildBlock2;
-
-//console.log('-------------setPointsXChildren -----------');
-        if(currBlock.blockType === 'sash') {
-          pointsIn = angular.copy(currBlock.sashPointsIn);
-          linesIn = currBlock.sashLinesIn;
-        } else {
-          pointsIn = angular.copy(currBlock.pointsIn);
-          linesIn = currBlock.linesIn;
-        }
-        var linesInQty = linesIn.length;
-
-        //-------- get indexes of children blocks
-        for(var i = 1; i < blocksQty; i++) {
-          if(blocks[i].id === currBlock.children[0]) {
-            indexChildBlock1 = i;
-          } else if(blocks[i].id === currBlock.children[1]) {
-            indexChildBlock2 = i;
-          }
-        }
-
-        //------- create 2 impost vectors
-        var impVectorAx1 = {
-              type: 'impost',
-              from: impAx0,
-              to: impAx1
-            },
-            impVectorAx2 = {
-              type: 'impost',
-              from: impAx1,
-              to: impAx0
-            };
-        setLineCoef(impVectorAx1);
-        setLineCoef(impVectorAx2);
-
-        var impVector1 = angular.copy(impVectorAx1),
-            impVector2 = angular.copy(impVectorAx2);
-
-        impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
-        impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
-//        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
-//        console.log('IMP impVector1++++++++++', impVector1);
-//        console.log('IMP impVector2++++++++++', impVector2);
-//        console.log('IMP linesIn++++++++++', linesIn);
-        //-------- finde cross points each impost vectors with lineIn of block
-        for(var i = 0; i < linesInQty; i++) {
-//          console.log('!!!!! impVector1 -----');
-          getCPImpostInsideBlock(0, 0, i, linesInQty, linesIn, impVector1, impAx0, currBlock.impost.impostIn);
-//          console.log('!!!!! impVector2 -----');
-          getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
-//          console.log('!!!!! impVectorAx1 -----');
-          getCPImpostInsideBlock(0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn);
-        }
-
-        //------- if curve impost
-        if(impPointsQty === 3) {
-          //----- make order for impostOut
-          var impostOutQty = currBlock.impost.impostOut.length, impAxQ;
-          for(var i = 0; i < impostOutQty; i++) {
-            currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
-            currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
-          }
-          if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
-            currBlock.impost.impostOut.reverse();
-          }
-
-          impAxQ = getImpostQP(0, 1, currBlock.impost);
-          getImpostQP(0, 0, currBlock.impost);
-          getImpostQP(1, 0, currBlock.impost);
-
-          blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
-          blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
-
-          //------ for R dimension, get coordinates for Radius location
-          currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
-          currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
-          setRadiusCoordXCurve(currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]);
-        }
 
 
-        var impostAx = angular.copy(currBlock.impost.impostAxis);
-        //------- insert pointsOut of parent block in pointsOut of children blocks
-//        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
-//        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
-        collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
-        //------- insert impostOut of impost in pointsOut of children blocks
-//        for(var i = 0; i < 2; i++) {
-//          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
-//          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
-//        }
-//        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
-        //------- insert pointsIn of parent block in pointsIn of children blocks
-        collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
-        //------- insert impostIn of impost in pointsIn of children blocks
-        collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
-//        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
-//        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
-        //-------- set real impostAxis coord for dimensions
-        var linesOutQty = currBlock.linesOut.length,
-            impostQP;
-        if(currBlock.impost.impostAxis[2]) {
-          impostQP = angular.copy(currBlock.impost.impostAxis[2]);
-        }
-        currBlock.impost.impostAxis.length = 0;
-        for(var i = 0; i < linesOutQty; i++) {
-          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
-        }
-        if(impostQP) {
-          currBlock.impost.impostAxis.push(impostQP);
-        }
-        for(var i = 0; i < 2; i++) {
-          blocks[indexChildBlock1].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
-          blocks[indexChildBlock2].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
-        }
-      }
-    }
-
-
-
-
-
-    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
-      var impCP = getCoordCrossPoint(linesIn[i], impVector),
-          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
-          isCross = isInsidePointInLine(isInside);
-
-      if (isCross) {
-        var ip = angular.copy(impAx);
-        ip.group = group;
-        ip.x = impCP.x;
-        ip.y = impCP.y;
-
-        if (linesIn[i].dir === 'curv') {
-          var impCenterP = findImpostCenter(markAx, impVector);
-          var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-//          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
-//          console.log('intersect +++', intersect[0]);
-          if (intersect.length) {
-            ip.x = intersect[0].x;
-            ip.y = intersect[0].y;
-            ip.t = intersect[0].t;
-//            var noExist = checkEqualPoints(ip, impost);
-//            if(noExist) {
-//              if (markAx) {
-//                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
-//              }
-//              impost.push(angular.copy(ip));
-//            }
-          }
-        }
-        var noExist = checkEqualPoints(ip, impost);
-        if(noExist) {
-          if (linesIn[i].dir === 'curv' && markAx) {
-            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
-          }
-//            console.log('impCP++++++++', JSON.stringify(ip));
-          impost.push(angular.copy(ip));
-//            console.log('impost++++++++', JSON.stringify(impost));
-        }
-      }
-    }
 
 
     function isInsidePointInLine(checkCrossPoint) {
@@ -16693,9 +20739,8 @@ function ErrorResult(code, message) {
         isCross = 1;
       } else if(checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && isNaN(checkCrossPoint.y)) {
         isCross = 1;
-      } else if (checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && checkCrossPoint.y >= 0 && checkCrossPoint.y <= 1) {
+      } else if(checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1 && checkCrossPoint.y >= 0 && checkCrossPoint.y <= 1) {
         isCross = 1;
-        //            }
       } else if (checkCrossPoint.x >= 0 && checkCrossPoint.x <= 1  && $.isNumeric(checkCrossPoint.y)) {
         if(checkCrossPoint.y < -2 || checkCrossPoint.y > 2) {
           isCross = 1;
@@ -16850,13 +20895,13 @@ function ErrorResult(code, message) {
 
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
+      var pointsQty = points.length, i, exist, position;
+      for(i = 0; i < pointsQty; i+=1) {
         //------- check pointsIn of parent block as to impost
-        var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
+        position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
         //------ block right side
         if(position > 0) {
-          var exist = 0;
+          exist = 0;
           if(pointsBlock2.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock2);
           }
@@ -16865,7 +20910,7 @@ function ErrorResult(code, message) {
           }
         //------ block left side
         } else if(position < 0){
-          var exist = 0;
+          exist = 0;
           if(pointsBlock1.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock1);
           }
@@ -16878,8 +20923,8 @@ function ErrorResult(code, message) {
 
 
     function collectImpPointsXChildBlock(points, pointsBlock1, pointsBlock2) {
-      var pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
+      var pointsQty = points.length, i;
+      for(i = 0; i < pointsQty; i+=1) {
         //------ block right side
         if(points[i].group) {
           pointsBlock2.push(angular.copy(points[i]));
@@ -16891,90 +20936,176 @@ function ErrorResult(code, message) {
     }
 
 
-    function setPointLocationToLine(lineP1, lineP2, newP) {
-      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
-    }
 
+    function intersectionQ(p1, p2, p3, a1, a2) {
+      var intersections = [],
+          //------- inverse line normal
+          normal = {
+            x: a1.y-a2.y,//coefA
+            y: a2.x-a1.x//coefB
+          },
+          //------- Q-coefficients
+          c2 = {
+            x: p1.x - 2*p2.x + p3.x,
+            y: p1.y - 2*p2.y + p3.y
+          },
+          c1 = {
+            x: 2*(p2.x - p1.x),
+            y: 2*(p2.y - p1.y)
+          },
+          c0 = {
+            x: p1.x,
+            y: p1.y
+          },
+          //--------- Transform to line
+          coefficient = a1.x*a2.y - a2.x*a1.y,//coefC
+          roots = [],
+          a, b, c, d, i;
 
-    function checkEqualPoints(newPoint, pointsArr) {
-      var noExist = 1,
-          pointsQty = pointsArr.length;
-      if (pointsQty) {
-        while (--pointsQty > -1) {
-          if (pointsArr[pointsQty].x === newPoint.x && pointsArr[pointsQty].y === newPoint.y) {
-            noExist = 0;
-          }
-        }
-      }
-      return noExist;
-    }
-
-
-    function checkDoubleQPoints(newPointId, pointsIn) {
-      //      console.log('-----------', newPointId, pointsIn);
-      var isExist = 0,
-          pointsInQty = pointsIn.length;
-      if (pointsInQty) {
-        while (--pointsInQty > -1) {
-          if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-//            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 || pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
-            if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
-              isExist = 1;
-            }
-          }
-        }
-      }
-      return isExist;
-    }
-
-
-    function getCoordSideQPCurve(t, p0, p1) {
-      var qpi = {
-        x: GeneralServ.rounding100( ((1-t)*p0.x + t*p1.x) ),
-        y: GeneralServ.rounding100( ((1-t)*p0.y + t*p1.y) )
-      };
-      return qpi;
-    }
-
-
-    function setQPointCoord(side, line, dist) {
-      var middle = getCenterLine(line.from, line.to),
-          coordQP = {};
-//      console.log('setQPointCoord-----------', line, middle);
-      //------- line vert or hor
-      if(!line.coefA || !line.coefB) {
-        coordQP.x = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.x;
-        coordQP.y = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) ) + middle.y;
-//        console.log('line vert or hor');
+      if(Math.abs(normal.x) === Math.abs(normal.y)) {
+        a = Math.abs(normal.x*c2.x) + Math.abs(normal.y*c2.y);
+        //------ if line is vert or horisontal
+      } else if(!Math.abs(normal.x)) {
+        a = c2.x + normal.y*c2.y;
+      } else if(!Math.abs(normal.y)) {
+        a = normal.x*c2.x + c2.y;
       } else {
-        switch(side) {
-          case 1:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-//            console.log('1');
-            break;
-          case 2:
-            coordQP.y = middle.y - Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ));
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-//            console.log('2');
-            break;
-          case 3:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) ) + middle.x;
-//            console.log('3');
-            break;
-          case 4:
-            coordQP.y = Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )) + middle.y;
-            coordQP.x = middle.x - Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) );
-//            console.log('4');
+        a = normal.x*c2.x + normal.y*c2.y;
+      }
 
-            break;
+      b = (normal.x*c1.x + normal.y*c1.y)/a ;
+      c = (normal.x*c0.x + normal.y*c0.y + coefficient)/a;
+      d = (b*b - 4*c);
+
+      //        console.log('normal ++++',normal);
+      //        console.log('c1 ++++',c1);
+      //      console.log('c2 ++++',c2);
+      //      console.log('c0 ++++',c0);
+      //        console.log('a ++++',a);
+      //        console.log('b ++++',b);
+      //        console.log('c ++++',c);
+      //        console.log('d ++++',d);
+      // solve the roots
+      if(d > 0) {
+        var delta = Math.sqrt(d);
+        //        console.log('delta ++++', b, delta);
+        roots.push( GeneralServ.roundingValue( (-b + delta)/2 ), GeneralServ.roundingValue( (-b - delta)/2 ) );
+        //        roots.push( (-b + delta)/2 );
+        //        roots.push( (-b - delta)/2 );
+      } else if(d === 0) {
+        roots.push( GeneralServ.roundingValue( -b/2 ) );
+        //        roots.push( -b/2 );
+      }
+      //TODO проблема с точкой пересечения
+      //      console.log('t++++',roots);
+
+      //---------- calc the solution points
+      for(i=0; i<roots.length; i+=1) {
+        var t = roots[i];
+
+        //    if(t >= 0 && t <= 1) {
+        if(t > 0 && t < 1) {
+          // possible point -- pending bounds check
+          var point = {
+                t: t,
+                x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
+                y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
+              },
+              minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
+              minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
+              maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
+              maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
+          //---------- bounds checks
+          //          console.log('t++++',point);
+          if(a1.x === a2.x && point.y >= minY && point.y <= maxY){
+            //-------- vertical line
+            intersections.push(point);
+          } else if(a1.y === a2.y && point.x >= minX && point.x <= maxX){
+            //-------- horizontal line
+            intersections.push(point);
+          } else if(point.x >= minX && point.y >= minY && point.x <= maxX && point.y <= maxY){
+            //--------- line passed bounds check
+            intersections.push(point);
+          }
         }
       }
-      coordQP.y = GeneralServ.rounding10( coordQP.y );
-      coordQP.x = GeneralServ.rounding10( coordQP.x );
-//      console.log('ERROR coordQP!!!', coordQP);
-      return coordQP;
+      //      console.log('~~~~~~~intersections ===', intersections);
+      return intersections;
+    }
+
+
+
+
+    function getIntersectionInCurve(i, linesQty, lines, vector, coord) {
+      var p1, p2, p3, l1, l2, index;
+
+      if (lines[i].from.id.indexOf('q') + 1) {
+        index = i - 1;
+        if (!lines[index]) {
+          index = linesQty - 1;
+        }
+        p1 = lines[index].from;
+        p2 = lines[i].from;
+        p3 = lines[i].to;
+      } else if (lines[i].to.id.indexOf('q') + 1) {
+        index = i + 1;
+        if (!lines[index]) {
+          index = 0;
+        }
+        p1 = lines[i].from;
+        p2 = lines[i].to;
+        p3 = lines[index].to;
+      }
+
+      l1 = vector;
+      l2 = coord;
+      //--------- calc the intersections
+      return intersectionQ(p1, p2, p3, l1, l2);
+    }
+
+
+
+
+
+    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
+      var impCP = getCoordCrossPoint(linesIn[i], impVector),
+          isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
+          isCross = isInsidePointInLine(isInside);
+
+      if (isCross) {
+        var ip = angular.copy(impAx);
+        ip.group = group;
+        ip.x = impCP.x;
+        ip.y = impCP.y;
+
+        if (linesIn[i].dir === 'curv') {
+          var impCenterP = findImpostCenter(markAx, impVector);
+          var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
+          //          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
+          //          console.log('intersect +++', intersect[0]);
+          if (intersect.length) {
+            ip.x = intersect[0].x;
+            ip.y = intersect[0].y;
+            ip.t = intersect[0].t;
+            //            var noExist = checkEqualPoints(ip, impost);
+            //            if(noExist) {
+            //              if (markAx) {
+            //                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+            //              }
+            //              impost.push(angular.copy(ip));
+            //            }
+          }
+        }
+        var noExist = checkEqualPoints(ip, impost);
+        if(noExist) {
+          if (linesIn[i].dir === 'curv' && markAx) {
+            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
+          }
+          //            console.log('impCP++++++++', JSON.stringify(ip));
+          impost.push(angular.copy(ip));
+          //            console.log('impost++++++++', JSON.stringify(impost));
+        }
+      }
     }
 
 
@@ -16983,143 +21114,159 @@ function ErrorResult(code, message) {
 
 
 
-    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
-      var newPointsOut = pointsOut.filter(function (item) {
-        if(item.type === 'frame' && !item.view) {
-          return false;
+    function setPointsXChildren(currBlock, blocks, depths) {
+      if(currBlock.children.length) {
+        var blocksQty = blocks.length,
+            impPointsQty = currBlock.impost.impostAxis.length,
+            impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
+            impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
+            pointsOut = angular.copy(currBlock.pointsOut),
+            pointsIn, linesIn,
+            indexChildBlock1, indexChildBlock2,
+            i;
+
+        //console.log('-------------setPointsXChildren -----------');
+        if(currBlock.blockType === 'sash') {
+          pointsIn = angular.copy(currBlock.sashPointsIn);
+          linesIn = currBlock.sashLinesIn;
         } else {
-          return true;
+          pointsIn = angular.copy(currBlock.pointsIn);
+          linesIn = currBlock.linesIn;
         }
-      });
+        var linesInQty = linesIn.length;
 
-      var parts = [],
-          pointsQty = newPointsOut.length,
-          beadObj = {
-            glassId: currGlassId,
-            sizes: []
-          };
-
-      for(var index = 0; index < pointsQty; index++) {
-        //----- passing if first point is curv
-        if(index === 0 && newPointsOut[index].dir === 'curv') {
-          continue;
-        }
-        var part = {
-          type: newPointsOut[index].type,
-          dir: 'line',
-          points: []
-        };
-        //------ if last point
-        if(index === (pointsQty - 1)) {
-          //------- if one point is 'curv' from both
-          if(newPointsOut[index].dir === 'curv') {
-            break;
-          } else if(newPointsOut[0].dir === 'curv') {
-            part.type = 'arc';
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[0]);
-            part.points.push(newPointsOut[1]);
-            part.points.push(pointsIn[1]);
-            part.points.push(pointsIn[0]);
-            part.points.push(pointsIn[index]);
-            if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
-              part.type = 'arc-corner';
-            }
-            part.dir = 'curv';
-          } else {
-            //-------- if line
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[0]);
-            part.points.push(pointsIn[0]);
-            if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
-              part.type = 'corner';
-            }
-            part.points.push(pointsIn[index]);
-
-            //-------- set sill
-            if(newPointsOut[index].sill && newPointsOut[0].sill) {
-              part.sill = 1;
-            }
-          }
-        } else {
-
-          //------- if curv
-          if(newPointsOut[index].dir === 'curv' || newPointsOut[index+1].dir === 'curv') {
-            part.type = 'arc';
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[index+1]);
-            if(newPointsOut[index+2]) {
-              part.points.push(newPointsOut[index+2]);
-              part.points.push(pointsIn[index+2]);
-              if(newPointsOut[index].type === 'corner' || newPointsOut[index+2].type === 'corner') {
-                part.type = 'arc-corner';
-              }
-            } else {
-              part.points.push(newPointsOut[0]);
-              part.points.push(pointsIn[0]);
-              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
-                part.type = 'arc-corner';
-              }
-            }
-            part.points.push(pointsIn[index+1]);
-            part.points.push(pointsIn[index]);
-            part.dir = 'curv';
-            index++;
-          } else {
-            //TODO----- DOOR
-            if(ProductStor.product.construction_type === 4) {
-              console.info('doorShapeIndex+++++', DesignStor.design.doorConfig.doorShapeIndex);
-              console.info('newPointsOut+++++', newPointsOut[index]);
-              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
-                if (DesignStor.design.doorConfig.doorShapeIndex === 1) {
-                  continue;
-                }
-              }
-            }
-
-            //-------- if line
-            part.points.push(newPointsOut[index]);
-            part.points.push(newPointsOut[index+1]);
-            part.points.push(pointsIn[index+1]);
-            if(newPointsOut[index].type === 'corner' || newPointsOut[index+1].type === 'corner') {
-              part.type = 'corner';
-            }
-            part.points.push(pointsIn[index]);
-
-            //-------- set sill
-            if(newPointsOut[index].sill && newPointsOut[index+1].sill) {
-              part.sill = 1;
-            }
-          }
-
-        }
-        part.path = assamblingPath(part.points);
-        //------- culc length
-        part.size = culcLength(part.points);
-
-        //------- per Price
-        //----- converting size from mm to m
-        var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
-        if(newPointsOut[index].type === 'bead') {
-          part.type = 'bead';
-          beadObj.sizes.push(sizeValue);
-        } else if(newPointsOut[index].type === 'sash') {
-          part.type = 'sash';
-          priceElements.sashsSize.push(sizeValue);
-        } else if(part.type === 'frame') {
-          if(part.sill) {
-            priceElements.frameSillSize.push(sizeValue);
-          } else {
-            priceElements.framesSize.push(sizeValue);
+        //-------- get indexes of children blocks
+        for(i = 1; i < blocksQty; i+=1) {
+          if(blocks[i].id === currBlock.children[0]) {
+            indexChildBlock1 = i;
+          } else if(blocks[i].id === currBlock.children[1]) {
+            indexChildBlock2 = i;
           }
         }
-        //TODO----- if shtulpsSize: []
-        parts.push(part);
+
+        //------- create 2 impost vectors
+        var impVectorAx1 = {
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+              from: impAx0,
+              to: impAx1
+            },
+            impVectorAx2 = {
+              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+              from: impAx1,
+              to: impAx0
+            };
+        setLineCoef(impVectorAx1);
+        setLineCoef(impVectorAx2);
+
+        var impVector1 = angular.copy(impVectorAx1),
+            impVector2 = angular.copy(impVectorAx2);
+
+        impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
+        impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
+        //        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
+        //        console.log('IMP impVector1++++++++++', impVector1);
+        //        console.log('IMP impVector2++++++++++', impVector2);
+        //        console.log('IMP linesIn++++++++++', linesIn);
+        //-------- finde cross points each impost vectors with lineIn of block
+        for(i = 0; i < linesInQty; i+=1) {
+          //          console.log('!!!!! impVector1 -----');
+          getCPImpostInsideBlock(0, 0, i, linesInQty, linesIn, impVector1, impAx0, currBlock.impost.impostIn);
+          //          console.log('!!!!! impVector2 -----');
+          getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
+          //          console.log('!!!!! impVectorAx1 -----');
+          getCPImpostInsideBlock(
+            0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn
+          );
+        }
+
+        //------- if curve impost
+        if(impPointsQty === 3) {
+          //----- make order for impostOut
+          var impostOutQty = currBlock.impost.impostOut.length, impAxQ;
+          for(i = 0; i < impostOutQty; i+=1) {
+            currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
+            currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
+          }
+          if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
+            currBlock.impost.impostOut.reverse();
+          }
+
+          impAxQ = getImpostQP(0, 1, currBlock.impost);
+          getImpostQP(0, 0, currBlock.impost);
+          getImpostQP(1, 0, currBlock.impost);
+
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
+
+          //------ for R dimension, get coordinates for Radius location
+          currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
+          currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
+          setRadiusCoordXCurve(
+            currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]
+          );
+        }
+
+
+        var impostAx = angular.copy(currBlock.impost.impostAxis);
+        //------- insert pointsOut of parent block in pointsOut of children blocks
+        //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
+        //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
+        collectPointsXChildBlock(
+          impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut
+        );
+        //------- insert impostOut of impost in pointsOut of children blocks
+        //        for(var i = 0; i < 2; i++) {
+        //          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
+        //          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
+        //        }
+        //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
+        //------- insert pointsIn of parent block in pointsIn of children blocks
+        collectPointsXChildBlock(
+          impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
+        );
+        //------- insert impostIn of impost in pointsIn of children blocks
+        collectImpPointsXChildBlock(
+          currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
+        );
+        //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
+        //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
+        //-------- set real impostAxis coord for dimensions
+        var linesOutQty = currBlock.linesOut.length,
+            impostQP;
+        if(currBlock.impost.impostAxis[2]) {
+          impostQP = angular.copy(currBlock.impost.impostAxis[2]);
+        }
+        currBlock.impost.impostAxis.length = 0;
+        for(i = 0; i < linesOutQty; i+=1) {
+          getCPImpostInsideBlock(
+            0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis
+          );
+        }
+        if(impostQP) {
+          currBlock.impost.impostAxis.push(impostQP);
+        }
+        for(i = 0; i < 2; i+=1) {
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
+        }
       }
-      if(beadObj.sizes.length) {
-        priceElements.beadsSize.push(beadObj);
+    }
+
+
+
+
+
+
+
+    function collectPointsInParts(part, point1, point2, point3, point4) {
+      part.points.push(point1, point2, point3, point4);
+      if(point1.type === 'corner' || point2.type === 'corner') {
+        part.type = 'corner';
       }
-      return parts;
+      //-------- set sill
+      if(point1.sill && point2.sill) {
+        part.sill = 1;
+      }
     }
 
 
@@ -17130,7 +21277,7 @@ function ErrorResult(code, message) {
 
       //------- Line
       if(pointQty === 4) {
-        for(; p < pointQty; p++) {
+        for(; p < pointQty; p+=1) {
 
           path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
 
@@ -17141,12 +21288,12 @@ function ErrorResult(code, message) {
         }
         //--------- Curve
       } else if(pointQty === 6) {
-        for(; p < pointQty; p++) {
+        for(; p < pointQty; p+=1) {
           if(p === 3) {
             path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
           } else {
             path += ' Q '+ arrPoints[p].x +','+ arrPoints[p].y + ' ' + arrPoints[p+1].x +','+ arrPoints[p+1].y;
-            p++;
+            p+=1;
           }
 
           if(p === (pointQty - 1)) {
@@ -17166,7 +21313,9 @@ function ErrorResult(code, message) {
           size = 0;
       //------- Line
       if(pointQty === 2 || pointQty === 4) {
-        size = GeneralServ.rounding10( (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))) );
+        size = GeneralServ.roundingValue(
+          (Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y))), 1
+        );
 
         //--------- Curve
       } else if(pointQty === 3 || pointQty === 6) {
@@ -17183,73 +21332,208 @@ function ErrorResult(code, message) {
     }
 
 
-    function setGlass(glassPoints, priceElements, currGlassId) {
-      var part = {
-            type: 'glass',
-            points: glassPoints,
-            path: 'M ',
-            square: 0
-          },
-          glassObj = {
-            elemId: currGlassId
-          },
-          pointsQty = glassPoints.length,
-          i = 0;
 
-      for(; i < pointsQty; i++) {
-        //----- if first point
-        if(i === 0) {
-          //----- if first point is curve
-          if (glassPoints[i].dir === 'curv') {
-            part.path += glassPoints[pointsQty - 1].x + ',' + glassPoints[pointsQty - 1].y;
-
-            //-------- if line
-          } else {
-            part.path += glassPoints[i].x + ',' + glassPoints[i].y;
-          }
-        }
-        //------- if curve
-        if(glassPoints[i].dir === 'curv') {
-          part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
-          if(glassPoints[i+1]) {
-            part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
-          } else {
-            part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
-          }
-          i++;
-        //-------- if line
+    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      var newPointsOut = pointsOut.filter(function (item) {
+        if(item.type === 'frame' && !item.view) {
+          return false;
         } else {
-          part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
-          if(i === (pointsQty - 1)) {
-            part.path += ' Z';
+          return true;
+        }
+      });
+
+      var parts = [],
+          pointsQty = newPointsOut.length,
+          beadObj = {
+            glassId: currGlassId,
+            sizes: []
+          }, tempPoint, tempPoint2, index;
+
+      for(index = 0; index < pointsQty; index+=1) {
+        //----- passing if first point is curv
+        if(index === 0 && newPointsOut[index].dir === 'curv') {
+          continue;
+        }
+        var part = {
+          type: newPointsOut[index].type,
+          dir: 'line',
+          points: []
+        };
+        /**------ last point ------*/
+        if(index === (pointsQty - 1)) {
+          /** if curv */
+          //------- if one point is 'curv' from both
+          if(newPointsOut[index].dir === 'curv') {
+            break;
+          } else if(newPointsOut[0].dir === 'curv') {
+            part.type = 'arc';
+            part.points.push(
+              newPointsOut[index], newPointsOut[0], newPointsOut[1], pointsIn[1], pointsIn[0], pointsIn[index]
+            );
+            if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
+              part.type = 'arc-corner';
+            }
+            part.dir = 'curv';
+          } else {
+            /**----- DOOR -----*/
+            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+              //-------- change points fp2-fp3 frame
+              if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                tempPoint = angular.copy(pointsIn[0]);
+                tempPoint.y = newPointsOut[0].y * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], tempPoint, pointsIn[index]);
+              } else {
+                /** if line */
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+              }
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+              //-------- change points fp2-fp3 frame
+              if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
+                tempPoint = angular.copy(newPointsOut[0]);
+                tempPoint.y = pointsIn[0].y * 1;
+                collectPointsInParts(part, newPointsOut[index], tempPoint, pointsIn[0], pointsIn[index]);
+              } else {
+                /** if line */
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+              }
+            } else {
+              /** if line */
+              collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
+            }
+
+          }
+        } else {
+
+          /** if curv */
+          if(newPointsOut[index].dir === 'curv' || newPointsOut[index+1].dir === 'curv') {
+            part.type = 'arc';
+            part.points.push(newPointsOut[index], newPointsOut[index+1]);
+            if(newPointsOut[index+2]) {
+              part.points.push(newPointsOut[index+2], pointsIn[index+2]);
+              if(newPointsOut[index].type === 'corner' || newPointsOut[index+2].type === 'corner') {
+                part.type = 'arc-corner';
+              }
+            } else {
+              part.points.push(newPointsOut[0], pointsIn[0]);
+              if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
+                part.type = 'arc-corner';
+              }
+            }
+            part.points.push(pointsIn[index+1], pointsIn[index]);
+            part.dir = 'curv';
+            index+=1;
+          } else {
+            /**----- DOOR -----*/
+            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+              /** without doorstep */
+              //-------- delete fp3-fp4 frame
+              if(DesignStor.design.doorConfig.doorShapeIndex === 1) {
+                if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                  continue;
+                }
+              }
+              /** doorstep Al inner */
+              //-------- change fp3-fp4 frame to inner doorstep
+              if(DesignStor.design.doorConfig.doorShapeIndex === 2) {
+                if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                  tempPoint = angular.copy(newPointsOut[index]);
+                  tempPoint.x = pointsIn[index].x * 1;
+                  tempPoint2 = angular.copy(newPointsOut[index+1]);
+                  tempPoint2.x = pointsIn[index+1].x * 1;
+                  collectPointsInParts(part, tempPoint, tempPoint2, pointsIn[index+1], pointsIn[index]);
+                  part.doorstep = 1;
+                }
+              }
+
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                //-------- change points fp4-fp1 frame
+                tempPoint = angular.copy(pointsIn[index]);
+                tempPoint.y = newPointsOut[index].y * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], tempPoint);
+              } else {
+                if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                  /** if line */
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
+                }
+              }
+            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+              /** doorstep Al outer */
+              //-------- change fp3-fp4 frame to outer doorstep
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                tempPoint = angular.copy(pointsIn[index]);
+                tempPoint.x = newPointsOut[index].x * 1;
+                tempPoint2 = angular.copy(pointsIn[index+1]);
+                tempPoint2.x = newPointsOut[index+1].x * 1;
+                collectPointsInParts(part, newPointsOut[index], newPointsOut[index+1], tempPoint2, tempPoint);
+                part.doorstep = 1;
+              }
+
+              if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp4') {
+                //-------- change points fp4-fp1 frame
+                tempPoint = angular.copy(newPointsOut[index]);
+                tempPoint.y = pointsIn[index].y * 1;
+                collectPointsInParts(part, tempPoint, newPointsOut[index+1], pointsIn[index+1], pointsIn[index]);
+              } else {
+                if ((newPointsOut[index].type === 'frame' && newPointsOut[index].id !== 'fp3') || newPointsOut[index].type !== 'frame') {
+                  /** if line */
+                  collectPointsInParts(
+                    part, newPointsOut[index], newPointsOut[index + 1], pointsIn[index + 1], pointsIn[index]
+                  );
+                }
+              }
+            } else {
+              /** if line */
+              collectPointsInParts(
+                part, newPointsOut[index], newPointsOut[index+1], pointsIn[index+1], pointsIn[index]
+              );
+            }
+          }
+
+        }
+        //console.info(part.points);
+        part.path = assamblingPath(part.points);
+        //------- culc length
+        part.size = culcLength(part.points);
+
+        //------- per Price
+        //----- converting size from mm to m
+        var sizeValue = GeneralServ.roundingValue(angular.copy(part.size)/1000, 3);
+        if(newPointsOut[index].type === 'bead') {
+          part.type = 'bead';
+          beadObj.sizes.push(sizeValue);
+        } else if(newPointsOut[index].type === 'sash') {
+          part.type = 'sash';
+          priceElements.sashsSize.push(sizeValue);
+        } else if(part.type === 'frame') {
+          if(part.sill) {
+            priceElements.frameSillSize.push(sizeValue);
+          } else {
+            priceElements.framesSize.push(sizeValue);
           }
         }
-
+        parts.push(part);
       }
-      part.square = calcSquare(glassPoints);
-      part.sizes = culcLengthGlass(glassPoints);
-
-      //------- per Price
-      glassObj.square = angular.copy(part.square);
-      //----- converting size from mm to m
-      glassObj.sizes = angular.copy(part.sizes).map(function(item) {
-        return GeneralServ.roundingNumbers(item/1000, 3);
-      });
-      priceElements.glassSquares.push(glassObj);
-
-      return part;
+      if(beadObj.sizes.length) {
+        priceElements.beadsSize.push(beadObj);
+      }
+      return parts;
     }
+
+
+
 
 
     function calcSquare(arrPoints) {
       var square = 0,
-          pointQty = arrPoints.length;
+          pointQty = arrPoints.length, p;
 
-      for(var p = 0; p < pointQty; p++) {
+      for(p = 0; p < pointQty; p+=1) {
         if(arrPoints[p+1]) {
           square += arrPoints[p].x * arrPoints[p+1].y - arrPoints[p].y * arrPoints[p+1].x;
         } else {
-          square += arrPoints[p].x * arrPoints[0].y - arrPoints[p].y * arrPoints[0].x
+          square += arrPoints[p].x * arrPoints[0].y - arrPoints[p].y * arrPoints[0].x;
         }
       }
       square /= (2 * 1000000);
@@ -17261,9 +21545,9 @@ function ErrorResult(code, message) {
 
     function culcLengthGlass(points) {
       var pointQty = points.length,
-          sizes = [];
+          sizes = [], p;
 
-      for(var p = 0; p < pointQty; p++) {
+      for(p = 0; p < pointQty; p+=1) {
         var size = 0, indNext;
         if(p === 0 && points[p].dir === 'curve') {
           continue;
@@ -17287,10 +21571,12 @@ function ErrorResult(code, message) {
             size += Math.hypot(sizeX, sizeY) * step;
             t += step;
           }
-          ++p;
+          p+=1;
         } else {
           //------- Line
-          size = GeneralServ.rounding10( Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)) );
+          size = GeneralServ.roundingValue(
+            Math.hypot((points[indNext].x - points[p].x), (points[indNext].y - points[p].y)), 1
+          );
         }
 
         sizes.push(size);
@@ -17301,37 +21587,65 @@ function ErrorResult(code, message) {
 
 
 
+    function setGlass(glassPoints, priceElements, currGlassId) {
+      var part = {
+            type: 'glass',
+            points: glassPoints,
+            path: 'M ',
+            square: 0
+          },
+          glassObj = {
+            elemId: currGlassId
+          },
+          pointsQty = glassPoints.length,
+          i;
 
-    function setCornerProp(blocks) {
-      var blocksQty = blocks.length;
+      for(i = 0; i < pointsQty; i+=1) {
+        //----- if first point
+        if(i === 0) {
+          //----- if first point is curve
+          if (glassPoints[i].dir === 'curv') {
+            part.path += glassPoints[pointsQty - 1].x + ',' + glassPoints[pointsQty - 1].y;
 
-      for(var b = 1; b < blocksQty; b++) {
-        //------- if block 1
-        if(blocks[b].level === 1) {
-          var pointsQty = blocks[b].pointsOut.length,
-              i = 0;
-          if(blocks[b].position === 'single') {
-            for(; i < pointsQty; i++){
-              blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-            }
-          } else if(blocks[b].position === 'first') {
-            for(; i < pointsQty; i++){
-              if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
-                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-              }
-            }
-          } else if(blocks[b].position === 'last') {
-            for(; i < pointsQty; i++){
-              if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
-                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-              }
-            }
+            //-------- if line
+          } else {
+            part.path += glassPoints[i].x + ',' + glassPoints[i].y;
           }
-
         }
-      }
+        //------- if curve
+        if(glassPoints[i].dir === 'curv') {
+          part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
+          if(glassPoints[i+1]) {
+            part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
+          } else {
+            part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
+          }
+          i+=1;
+          //-------- if line
+        } else {
+          part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
+          if(i === (pointsQty - 1)) {
+            part.path += ' Z';
+          }
+        }
 
+      }
+      part.square = calcSquare(glassPoints);
+      part.sizes = culcLengthGlass(glassPoints);
+
+      //------- per Price
+      glassObj.square = angular.copy(part.square);
+      //----- converting size from mm to m
+      glassObj.sizes = angular.copy(part.sizes).map(function(item) {
+        return GeneralServ.roundingValue(item/1000, 3);
+      });
+      priceElements.glassSquares.push(glassObj);
+
+      return part;
     }
+
+
+
 
 
     function checkPointXCorner(points, last, curr) {
@@ -17358,6 +21672,37 @@ function ErrorResult(code, message) {
 
 
 
+    function setCornerProp(blocks) {
+      var blocksQty = blocks.length, b;
+
+      for(b = 1; b < blocksQty; b+=1) {
+        //------- if block 1
+        if(blocks[b].level === 1) {
+          var pointsQty = blocks[b].pointsOut.length,
+              i;
+          if(blocks[b].position === 'single') {
+            for(i = 0; i < pointsQty; i+=1){
+              blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+            }
+          } else if(blocks[b].position === 'first') {
+            for(i = 0; i < pointsQty; i+=1){
+              if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
+                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+              }
+            }
+          } else if(blocks[b].position === 'last') {
+            for(i = 0; i < pointsQty; i+=1){
+              if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
+                blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+
 
     function copyPointsOut(pointsArr, label) {
       var newPointsArr = angular.copy(pointsArr),
@@ -17371,63 +21716,13 @@ function ErrorResult(code, message) {
 
 
 
-    function setOpenDir(direction, beadLines) {
-      var parts = [],
-          newPoints = preparePointsXMaxMin(beadLines),
-          center = centerBlock(newPoints),
-//          dim = GeneralServ.getMaxMinCoord(newPoints),
-//          center = {
-//            x: (dim.minX + dim.maxX)/2,
-//            y: (dim.minY + dim.maxY)/2
-//          },
-          dirQty = direction.length;
-//      console.log('DIR line===', beadLines);
-//      console.log('DIR newPoints===', newPoints);
-//      console.log('DIR geomCenter===', geomCenter);
 
-      for(var index = 0; index < dirQty; index++) {
-        var part = {
-          type: 'sash-dir',
-          points: []
-        };
-
-        switch(direction[index]) {
-          //----- 'up'
-          case 1:
-            part.points.push(getCrossPointSashDir(1, center, 225, beadLines));
-            part.points.push(getCrossPointSashDir(3, center, 90, beadLines));
-            part.points.push(getCrossPointSashDir(1, center, 315, beadLines));
-            break;
-          //----- 'right'
-          case 2:
-            part.points.push(getCrossPointSashDir(2, center, 225, beadLines));
-            part.points.push(getCrossPointSashDir(4, center, 180, beadLines));
-            part.points.push(getCrossPointSashDir(2, center, 135, beadLines));
-            break;
-          //------ 'down'
-          case 3:
-            part.points.push(getCrossPointSashDir(3, center, 135, beadLines));
-            part.points.push(getCrossPointSashDir(1, center, 270, beadLines));
-            part.points.push(getCrossPointSashDir(3, center, 45, beadLines));
-            break;
-          //----- 'left'
-          case 4:
-            part.points.push(getCrossPointSashDir(4, center, 45, beadLines));
-            part.points.push(getCrossPointSashDir(2, center, 180, beadLines));
-            part.points.push(getCrossPointSashDir(4, center, 315, beadLines));
-            break;
-        }
-        parts.push(part);
-      }
-
-      return parts;
-    }
 
 
     function preparePointsXMaxMin(lines) {
       var points = [],
-          linesQty = lines.length;
-      for(var l = 0; l < linesQty; l++) {
+          linesQty = lines.length, l;
+      for(l = 0; l < linesQty; l+=1) {
         if(lines[l].dir === 'curv') {
           var t = 0.5,
               peak = {}, ind0, ind1 = l, ind2;
@@ -17452,12 +21747,6 @@ function ErrorResult(code, message) {
     }
 
 
-    function getCrossPointSashDir(position, centerGeom, angel, lines) {
-      var sashDirVector = cteateLineByAngel(centerGeom, angel);
-      var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
-//      console.log('DIR new coord----------', crossPoints);
-      return crossPoints;
-    }
 
 
     function cteateLineByAngel(center, angel) {
@@ -17473,10 +21762,20 @@ function ErrorResult(code, message) {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     function getCrossPointInBlock(position, vector, lines) {
-      var linesQty = lines.length;
+      var linesQty = lines.length, l;
 //      console.log('lines @@@@@@', lines);
-      for(var l = 0; l < linesQty; l++) {
+      for(l = 0; l < linesQty; l+=1) {
         var coord, isInside, isCross, intersect;
 //        console.log('DIR line ++++', lines[l]);
 
@@ -17529,137 +21828,77 @@ function ErrorResult(code, message) {
 
 
 
-
-    function getIntersectionInCurve(i, linesQty, lines, vector, coord) {
-      var p1, p2, p3, l1, l2, index;
-
-      if (lines[i].from.id.indexOf('q') + 1) {
-        index = i - 1;
-        if (!lines[index]) {
-          index = linesQty - 1;
-        }
-        p1 = lines[index].from;
-        p2 = lines[i].from;
-        p3 = lines[i].to;
-      } else if (lines[i].to.id.indexOf('q') + 1) {
-        index = i + 1;
-        if (!lines[index]) {
-          index = 0;
-        }
-        p1 = lines[i].from;
-        p2 = lines[i].to;
-        p3 = lines[index].to;
-      }
-
-      l1 = vector;
-      l2 = coord;
-      //--------- calc the intersections
-      return intersectionQ(p1, p2, p3, l1, l2);
+    function getCrossPointSashDir(position, centerGeom, angel, lines) {
+      var sashDirVector = cteateLineByAngel(centerGeom, angel);
+      var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
+      //      console.log('DIR new coord----------', crossPoints);
+      return crossPoints;
     }
 
 
-    function intersectionQ(p1, p2, p3, a1, a2) {
-      var intersections = [],
-          //------- inverse line normal
-          normal = {
-            x: a1.y-a2.y,//coefA
-            y: a2.x-a1.x//coefB
-          },
-          //------- Q-coefficients
-          c2 = {
-            x: p1.x - 2*p2.x + p3.x,
-            y: p1.y - 2*p2.y + p3.y
-          },
-          c1 = {
-            x: 2*(p2.x - p1.x),
-            y: 2*(p2.y - p1.y)
-          },
-          c0 = {
-            x: p1.x,
-            y: p1.y
-          },
-          //--------- Transform to line
-          coefficient = a1.x*a2.y - a2.x*a1.y,//coefC
-          roots = [],
-          a, b, c, d;
 
-      if(Math.abs(normal.x) === Math.abs(normal.y)) {
-        a = Math.abs(normal.x*c2.x) + Math.abs(normal.y*c2.y);
-        //------ if line is vert or horisontal
-      } else if(!Math.abs(normal.x)) {
-        a = c2.x + normal.y*c2.y;
-      } else if(!Math.abs(normal.y)) {
-        a = normal.x*c2.x + c2.y;
-      } else {
-        a = normal.x*c2.x + normal.y*c2.y;
-      }
+    function setOpenDir(direction, beadLines) {
+      var parts = [],
+          newPoints = preparePointsXMaxMin(beadLines),
+          center = centerBlock(newPoints),
+          //          dim = GeneralServ.getMaxMinCoord(newPoints),
+          //          center = {
+          //            x: (dim.minX + dim.maxX)/2,
+          //            y: (dim.minY + dim.maxY)/2
+          //          },
+          dirQty = direction.length, index;
+      //      console.log('DIR line===', beadLines);
+      //      console.log('DIR newPoints===', newPoints);
+      //      console.log('DIR geomCenter===', geomCenter);
 
-      b = (normal.x*c1.x + normal.y*c1.y)/a ;
-      c = (normal.x*c0.x + normal.y*c0.y + coefficient)/a;
-      d = (b*b - 4*c);
+      for(index = 0; index < dirQty; index+=1) {
+        var part = {
+          type: 'sash-dir',
+          points: []
+        };
 
-//        console.log('normal ++++',normal);
-//        console.log('c1 ++++',c1);
-//      console.log('c2 ++++',c2);
-//      console.log('c0 ++++',c0);
-//        console.log('a ++++',a);
-//        console.log('b ++++',b);
-//        console.log('c ++++',c);
-//        console.log('d ++++',d);
-      // solve the roots
-      if(d > 0) {
-        var delta = Math.sqrt(d);
-//        console.log('delta ++++', b, delta);
-        roots.push( GeneralServ.rounding100( (-b + delta)/2 ) );
-        roots.push( GeneralServ.rounding100( (-b - delta)/2 ) );
-//        roots.push( (-b + delta)/2 );
-//        roots.push( (-b - delta)/2 );
-      } else if(d === 0) {
-        roots.push( GeneralServ.rounding100( -b/2 ) );
-//        roots.push( -b/2 );
-      }
-//TODO проблема с точкой пересечения
-//      console.log('t++++',roots);
-
-      //---------- calc the solution points
-      for(var i=0; i<roots.length; i++) {
-        var t = roots[i];
-
-        //    if(t >= 0 && t <= 1) {
-        if(t > 0 && t < 1) {
-          // possible point -- pending bounds check
-          var point = {
-                t: t,
-                x: getCoordCurveByT(p1.x, p2.x, p3.x, t),
-                y: getCoordCurveByT(p1.y, p2.y, p3.y, t)
-              },
-              minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
-              minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
-              maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
-              maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
-          //---------- bounds checks
-//          console.log('t++++',point);
-          if(a1.x === a2.x && point.y >= minY && point.y <= maxY){
-            //-------- vertical line
-            intersections.push(point);
-          } else if(a1.y === a2.y && point.x >= minX && point.x <= maxX){
-            //-------- horizontal line
-            intersections.push(point);
-          } else if(point.x >= minX && point.y >= minY && point.x <= maxX && point.y <= maxY){
-            //--------- line passed bounds check
-            intersections.push(point);
-          }
+        switch(direction[index]) {
+          //----- 'up'
+          case 1:
+            part.points.push(
+              getCrossPointSashDir(1, center, 225, beadLines),
+              getCrossPointSashDir(3, center, 90, beadLines),
+              getCrossPointSashDir(1, center, 315, beadLines)
+            );
+            break;
+          //----- 'right'
+          case 2:
+            part.points.push(
+              getCrossPointSashDir(2, center, 225, beadLines),
+              getCrossPointSashDir(4, center, 180, beadLines),
+              getCrossPointSashDir(2, center, 135, beadLines)
+            );
+            break;
+          //------ 'down'
+          case 3:
+            part.points.push(
+              getCrossPointSashDir(3, center, 135, beadLines),
+              getCrossPointSashDir(1, center, 270, beadLines),
+              getCrossPointSashDir(3, center, 45, beadLines)
+            );
+            break;
+          //----- 'left'
+          case 4:
+            part.points.push(
+              getCrossPointSashDir(4, center, 45, beadLines),
+              getCrossPointSashDir(2, center, 180, beadLines),
+              getCrossPointSashDir(4, center, 315, beadLines)
+            );
+            break;
         }
+        parts.push(part);
       }
-//      console.log('~~~~~~~intersections ===', intersections);
-      return intersections;
+
+      return parts;
     }
 
 
-    //---------- linear interpolation utility
-    function getCoordCurveByT(P0, P1, P2, t) {
-      return GeneralServ.rounding100( (t*t*(P0 - 2*P1 + P2) - 2*t*(P0 - P1) + P0) );
-    }
+
 
 
 
@@ -17678,38 +21917,6 @@ function ErrorResult(code, message) {
 
 
 
-    //---------- for impost
-
-
-    function setImpostParts(points, priceElements) {
-      var pointsQty = points.length,
-          part = {
-            type: 'impost',
-            dir: 'line'
-          };
-      //------ if impost is line
-      if(pointsQty === 4) {
-        var center = centerBlock(points);
-        part.points = sortingPoints(points, center);
-      //------- if impost is curve
-      } else if(pointsQty === 6){
-        part.dir = 'curv';
-//        console.log('-----------IMPOST Q -----------', points);
-        part.points = sortingQImpostPoints(points);
-      }
-      part.path = assamblingPath(part.points);
-
-      //------- culc length
-      var sizePoints = sortingImpPXSizes(pointsQty, part.points);
-      part.size = culcLength(sizePoints);
-
-      //------- for Price
-      //----- converting size from mm to m
-      var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
-      priceElements.impostsSize.push(sizeValue);
-
-      return part;
-    }
 
 
 
@@ -17718,8 +21925,9 @@ function ErrorResult(code, message) {
           pointsLeft = [],
           pointsRight = [],
           impLineP1, impLineP2,
-          pointsQty = points.length;
-      for(var i = 0; i < pointsQty; i++) {
+          pointsQty = points.length,
+          i, l, r;
+      for(i = 0; i < pointsQty; i+=1) {
         if(points[i].id.indexOf('qi')+1) {
           if(points[i].group) {
             impLineP2 = points[i];
@@ -17728,7 +21936,7 @@ function ErrorResult(code, message) {
           }
         }
       }
-      for(var i = 0; i < pointsQty; i++) {
+      for(i = 0; i < pointsQty; i+=1) {
         if(points[i].id.indexOf('qi')+1) {
           continue;
         }
@@ -17739,7 +21947,7 @@ function ErrorResult(code, message) {
           pointsRight.push(points[i]);
         }
       }
-      for(var l = 0; l < pointsLeft.length; l++) {
+      for(l = 0; l < pointsLeft.length; l+=1) {
         if(pointsLeft[l].group) {
           newPoints.unshift(pointsLeft[l]);
         } else {
@@ -17748,7 +21956,7 @@ function ErrorResult(code, message) {
       }
       newPoints.unshift(impLineP2);
       newPoints.push(impLineP1);
-      for(var r = 0; r < pointsRight.length; r++) {
+      for(r = 0; r < pointsRight.length; r+=1) {
         if(pointsRight[r].group) {
           newPoints.unshift(pointsRight[r]);
         } else {
@@ -17761,7 +21969,7 @@ function ErrorResult(code, message) {
 
 
     function sortingImpPXSizes(pointsQty, impPoints) {
-      var newImpPoints = [];
+      var newImpPoints = [], i;
       if(pointsQty === 4) {
         while(--pointsQty > -1) {
           if(impPoints[pointsQty].group) {
@@ -17769,14 +21977,14 @@ function ErrorResult(code, message) {
           }
         }
       } else if(pointsQty === 6) {
-        for(var i = 0; i < pointsQty; i++) {
+        for(i = 0; i < pointsQty; i+=1) {
           if(impPoints[i].group) {
-            if(impPoints[i].id.indexOf('ip')+1) {
+            if(impPoints[i].id.indexOf('ip')+1 || impPoints[i].id.indexOf('sht')+1) {
               newImpPoints.push(impPoints[i]);
             }
           }
         }
-        for(var i = 0; i < pointsQty; i++) {
+        for(i = 0; i < pointsQty; i+=1) {
           if(impPoints[i].group) {
             if(impPoints[i].id.indexOf('qi')+1) {
               newImpPoints.splice(1, 0, impPoints[i]);
@@ -17788,363 +21996,53 @@ function ErrorResult(code, message) {
     }
 
 
+    //---------- for impost
 
 
-    function getCoordCrossPoint(line1, line2) {
-      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
-          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
-          crossPoint = {
-            x: GeneralServ.rounding100( (baseX/base) ),
-            y: GeneralServ.rounding100( (baseY/base) )
+    function setImpostParts(points, priceElements) {
+      var pointsType = points[0].type,
+          pointsQty = points.length,
+          part = {
+            type: pointsType,
+            dir: 'line'
           };
-      if(crossPoint.x === -0) {
-        crossPoint.x = 0;
-      } else if(crossPoint.y === -0) {
-        crossPoint.y = 0;
+      //------ if impost is line
+      if(pointsQty === 4) {
+        var center = centerBlock(points);
+        part.points = sortingPoints(points, center);
+        //------- if impost is curve
+      } else if(pointsQty === 6){
+        part.dir = 'curv';
+        //        console.log('-----------IMPOST Q -----------', points);
+        part.points = sortingQImpostPoints(points);
       }
-      return crossPoint;
-    }
-
-
-
-    function checkLineOwnPoint(point, lineTo, lineFrom) {
-      var check = {
-        x: GeneralServ.rounding100( ((point.x - lineTo.x)/(lineFrom.x - lineTo.x)) ),
-        y: GeneralServ.rounding100( ((point.y - lineTo.y)/(lineFrom.y - lineTo.y)) )
-      };
-      if(check.x === -Infinity) {
-        check.x = Infinity;
-      } else if(check.y === -Infinity) {
-        check.y = Infinity;
-      }
-      if(check.x === -0) {
-        check.x = 0;
-      } else if(check.y === -0) {
-        check.y = 0;
-      }
-      return check;
-    }
-
-
-
-    function getCenterLine(pointStart, pointEnd) {
-      var center = {
-        x: (pointStart.x + pointEnd.x)/2,
-        y: (pointStart.y + pointEnd.y)/2
-      };
-      return center;
-    }
-
-
-
-    function collectAllPointsOut(blocks) {
-      var points = [],
-          blocksQty = blocks.length;
-
-      while(--blocksQty > 0) {
-        var pointsOutQty = blocks[blocksQty].pointsOut.length;
-        if(pointsOutQty) {
-          while(--pointsOutQty > -1) {
-            points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
-          }
-        }
-      }
-      //------ delete dublicates
-      cleanDublicat(3, points);
-      return points;
-    }
-
-
-    function cleanDublicat(param, arr) {
-      var pQty = arr.length;
-      while(--pQty > -1) {
-        var pQty2 = arr.length,
-            exist = 0;
-        for(var i = 0; i < pQty2; i++) {
-          switch(param) {
-            case 1:
-              if(arr[i].x === arr[pQty].x) {
-                exist++;
-              }
-              break;
-            case 2:
-              if(arr[i].y === arr[pQty].y) {
-                exist++;
-              }
-              break;
-            case 3:
-              if(arr[i].x === arr[pQty].x && arr[i].y === arr[pQty].y) {
-                exist++;
-              }
-              break;
-          }
-        }
-        if(exist > 1) {
-          arr.splice(pQty, 1);
-        }
-      }
-    }
-
-
-    function cleanDublicatNoFP(param, points) {
-//      console.log('points******** ', points);
-      var pQty = points.length;
-
-      while(--pQty > -1) {
-        var pQty2 = points.length;
-
-        while(--pQty2 > -1) {
-          if(pQty !== pQty2) {
-//            console.log('********', points[pQty], points[pQty2]);
-            if(points[pQty] && points[pQty2]) {
-              switch(param) {
-                case 1:
-                  if(points[pQty].x === points[pQty2].x) {
-//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-//                      delete points[pQty];
-                      //                    points.splice(pQty, 1);
-//                    } else
-                    if (points[pQty2].type === 'impost' && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
-                      delete points[pQty2];
-                      //                    points.splice(pQty2, 1);
-                    } else {
-                      delete points[pQty];
-                    }
-//                    console.log('***** delete');
-                  }
-                  break;
-                case 2:
-                  if(points[pQty].y === points[pQty2].y) {
-//                    if(points[pQty].type === 'frame' && points[pQty2].type === 'frame' || points[pQty].type === 'impost' && points[pQty2].type === 'frame') {
-//                      delete points[pQty];
-                      //                    points.splice(pQty, 1);
-//                    } else
-                    if (points[pQty2].type === 'impost' && (points[pQty].type === 'frame' || points[pQty].type === 'corner')) {
-                      //                    points.splice(pQty2, 1);
-                      delete points[pQty2];
-                    } else {
-                      delete points[pQty];
-                    }
-//                    console.log('***** delete');
-                  }
-                  break;
-              }
-            }
-          }
-
-        }
-      }
-      return points.filter(function(item) {
-        return (item) ? 1 : 0;
-      })
-    }
-
-
-    function sortByX(a, b) {
-      return a.x - b.x;
-    }
-
-
-    function sortByY(a, b) {
-      return a.y - b.y;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function initDimensions(blocks) {
-      var dimension = {
-            dimX: [],
-            dimY: [],
-            dimQ: []
-          },
-          blocksQty = blocks.length,
-          maxSizeLimit = blocks[0].maxSizeLimit,
-          globalLimitsX, globalLimitsY, allPoints;
-
-//      console.log('----------------- START DIMENSION-----------------');
-      //=========== All points ==============//
-      allPoints = collectAllPointsOut(blocks);
-      //------ except Q points
-      allPoints = allPoints.filter(function (elem) {
-        return (elem.dir === 'curv' || elem.t) ? 0 : 1;
-      });
-
-      globalLimitsX = angular.copy(allPoints);
-      globalLimitsY = angular.copy(allPoints);
-      //------ delete dublicates
-      cleanDublicat(1, globalLimitsX);
-      cleanDublicat(2, globalLimitsY);
-      //---- sorting
-      globalLimitsX.sort(sortByX);
-      globalLimitsY.sort(sortByY);
-
-//      console.log('``````````allPoints``````', allPoints);
-//      console.log('``````````globalLimitsX``````', globalLimitsX);
-//      console.log('``````````globalLimitsY``````', globalLimitsY);
-
-      //========== on eah block ==========//
-
-      for (var b = 1; b < blocksQty; b++) {
-
-        var pointsOutQty = blocks[b].pointsOut.length;
-
-//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
-
-
-        //========== Global Dimension of Blocks level 1 ============//
-
-        if (blocks[b].level === 1) {
-          //          console.log('========= block 1===========');
-          var globalDimX = [],
-              globalDimY,
-              arcHeights = [],
-              overallDim = {w: 0, h: 0};
-
-          for (var i = 0; i < pointsOutQty; i++) {
-            if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
-              globalDimX.push(blocks[b].pointsOut[i]);
-            } else if(blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
-              arcHeights.push(blocks[b].pointsOut[i]);
-            }
-          }
-          globalDimY = angular.copy(globalDimX);
-          //------ delete dublicates
-          cleanDublicat(1, globalDimX);
-          cleanDublicat(2, globalDimY);
-          //---- sorting
-          globalDimX.sort(sortByX);
-          globalDimY.sort(sortByY);
-
-//          console.log('``````````globalDimX ``````', globalDimX);
-//          console.log('``````````globalDimY ``````', globalDimY);
-//          console.log('``````````heightArcX ``````', arcHeights);
-
-          //          console.log('``````````Create dim by X``````````');
-          collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
-          //          console.log('``````````Create dim by Y``````````');
-          collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
-
-          //------ collect dim for arc height
-          createArcDim(1, blocks[b].id, arcHeights, dimension, blocks, blocksQty);
-
-          //----------- collect Curver Radius
-          if (blocks[b].pointsQ) {
-            var curveQty = blocks[b].pointsQ.length;
-            if (curveQty) {
-              while (--curveQty > -1) {
-                dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
-              }
-            }
-          }
-
-          //--------- get Overall Dimension
-//          console.log('for overall------', dimension.dimX, dimension.dimY);
-          collectOverallDim(overallDim, dimension);
-//          console.log('for overall finish ------', overallDim);
-
-
-          overallDim.square = calcSquare(blocks[b].pointsOut);
-          //--------- push Overall Dimension
-          blocks[0].overallDim.push(overallDim);
-        }
-
-
-
-        //========= Dimension in Block without children ==========//
-
-        if (!blocks[b].children.length) {
-          var blockDimX = [],
-              blockDimY,
-              blockLimits = [];
-
-          cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
-//          console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
-
-          //-------- set block Limits
-          //------ go to parent and another children for Limits
-          for (var bp = 1; bp < blocksQty; bp++) {
-            if (blocks[bp].id === blocks[b].parent) {
-              var childQty = blocks[bp].children.length;
-              //------- add parent pointsOut
-              cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
-              //------- add impost
-              if(blocks[bp].impost) {
-//                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
-                if(!blocks[bp].impost.impostAxis[0].t) {
-                  blockLimits.push(blocks[bp].impost.impostAxis[0]);
-                }
-                if(!blocks[bp].impost.impostAxis[1].t) {
-                  blockLimits.push(blocks[bp].impost.impostAxis[1]);
-                }
-
-                //============ collect Curver Radius of impost
-                if (blocks[bp].impost.impostAxis[2]) {
-//                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
-                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
-                }
-              }
-              //------- add imposts of childern
-              while(--childQty > -1) {
-                if(blocks[bp].children[childQty] !== blocks[b].id) {
-                  getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
-                }
-              }
-            }
-          }
-
-          blockLimits = angular.copy(allPoints);
-
-//          console.log('`````````` blockLimits ``````````', blockLimits);
-          blockDimY = angular.copy(blockDimX);
-
-
-          //========== build Dimension
-
-          if (blockDimX.length > 1) {
-            //------ delete dublicates
-//            cleanDublicat(1, blockDimX);
-            blockDimX = cleanDublicatNoFP(1, blockDimX);
-            //---- sorting
-            blockDimX.sort(sortByX);
-//            console.log('`````````` new dim X ``````````', blockDimX);
-//            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].parent, maxSizeLimit);
-            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
-          }
-          if (blockDimY.length > 1) {
-            //------ delete dublicates
-//            cleanDublicat(2, blockDimY);
-            blockDimY = cleanDublicatNoFP(2, blockDimY);
-            //---- sorting
-            blockDimY.sort(sortByY);
-//            console.log('`````````` new dim Y ``````````', blockDimY);
-//            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].parent, maxSizeLimit);
-            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
-          }
-        }
-
+      part.path = assamblingPath(part.points);
+
+      //------- culc length
+      var sizePoints = sortingImpPXSizes(pointsQty, part.points);
+      part.size = culcLength(sizePoints);
+
+      //------- for Price
+      //----- converting size from mm to m
+      var sizeValue = GeneralServ.roundingValue(angular.copy(part.size)/1000, 3);
+
+      if(pointsType === 'impost') {
+        priceElements.impostsSize.push(sizeValue);
+      } else if(pointsType === 'shtulp') {
+        priceElements.shtulpsSize.push(sizeValue);
       }
 
-      dimension.dimX = angular.copy(deleteDublicatDim(dimension.dimX));
-      dimension.dimY = angular.copy(deleteDublicatDim(dimension.dimY));
-      return dimension;
+      return part;
     }
 
+
+
+
+
+
+
+
+    /**=============== DIMENSION ============*/
 
 
 
@@ -18157,14 +22055,15 @@ function ErrorResult(code, message) {
           level: level,
           dimId: arcDims[arcQty].id,
           minLimit: globalConstants.minRadiusHeight
-        };
+        },
+            b, q;
         //---------- find point Q in pointsQ
-        for(var b = 1; b < blocksQty; b++) {
+        for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].level === 1) {
             if(blocks[b].pointsQ) {
               var pointsQQty = blocks[b].pointsQ.length;
               if(pointsQQty) {
-                for(var q = 0; q < pointsQQty; q++) {
+                for(q = 0; q < pointsQQty; q+=1) {
                   if(blocks[b].pointsQ[q].id === dim.dimId) {
                     //                    console.log('DIM HEIGHT ARC pointsQ ------------', blocks[b].pointsQ[q]);
                     switch(blocks[b].pointsQ[q].positionQ) {
@@ -18189,7 +22088,7 @@ function ErrorResult(code, message) {
                         dim.to = angular.copy(blocks[b].pointsQ[q].midleX);
                         break;
                     }
-                    dim.text = GeneralServ.rounding10( angular.copy(blocks[b].pointsQ[q].heightQ) );
+                    dim.text = GeneralServ.roundingValue( angular.copy(blocks[b].pointsQ[q].heightQ), 1 );
                     dim.maxLimit = blocks[b].pointsQ[q].lengthChord/4;
                   }
                 }
@@ -18240,22 +22139,6 @@ function ErrorResult(code, message) {
 
 
 
-    function getAllImpostDim(blockLimits, childBlockId, blocksQty, blocks) {
-      for(var i = 1; i < blocksQty; i++) {
-        if(blocks[i].id === childBlockId) {
-          if(blocks[i].children.length) {
-            if(!blocks[i].impost.impostAxis[0].t) {
-              blockLimits.push(blocks[i].impost.impostAxis[0]);
-            }
-            if(!blocks[i].impost.impostAxis[1].t) {
-              blockLimits.push(blocks[i].impost.impostAxis[1]);
-            }
-            getAllImpostDim(blockLimits, blocks[i].children[0], blocksQty, blocks);
-            getAllImpostDim(blockLimits, blocks[i].children[1], blocksQty, blocks);
-          }
-        }
-      }
-    }
 
 
 
@@ -18266,10 +22149,10 @@ function ErrorResult(code, message) {
           }),
           dimXLevel1Qty = dimXLevel1.length,
           dimX = dimension.filter(function(item) {
-            var count = 0;
-            for(var d = 0; d < dimXLevel1Qty; d++) {
+            var count = 0, d;
+            for(d = 0; d < dimXLevel1Qty; d+=1) {
               if(!item.level && item.from === dimXLevel1[d].from && item.to === dimXLevel1[d].to) {
-                ++count;
+                count+=1;
               }
             }
             if(!count) {
@@ -18283,70 +22166,32 @@ function ErrorResult(code, message) {
 
 
 
-    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId, maxSizeLimit) {
-      var dimQty = pointsDim.length - 1;
-//      console.log('-------- points ---------', JSON.stringify(pointsDim));
-      for(var d = 0; d < dimQty; d++) {
-        //----- not create global dim in block level 0
-        if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
-          continue;
-        } else {
-//          console.log('````````````````````', pointsDim[d], pointsDim[d+1]);
-          dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
-        }
-      }
-    }
 
-
-
-    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit) {
-//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
-      var dim = {
-            blockId: currBlockId,
-            level: level,
-            axis: axis,
-            dimId: blockDim[indexNext].id,
-            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
-            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
-          },
-          currLimit;
-
-      dim.text = GeneralServ.rounding10( Math.abs(dim.to - dim.from) );
-
-//      console.log('FINISH limits---------', dim, limits);
-
-      //=========== set Limints
-      //-------- for global
-      if(level) {
-//                console.log('FINISH global---------');
-        currLimit = setLimitsGlobalDim(dim, limits, maxSizeLimit);
-      } else {
-        //-------- for block
-        //        console.log('FINISH block---------');
-        currLimit = setLimitsDim(axis, blockDim[indexNext], dim.from, limits, maxSizeLimit);
-      }
-      dim.minLimit = currLimit.minL;
-      dim.maxLimit = currLimit.maxL;
-
-//      console.log('---------------DIM FINISH ------------');
-      return dim;
-    }
 
 
 
     function setLimitsGlobalDim(dim, limits, maxSizeLimit) {
       var dimLimit = {},
-          limitsQty = limits.length;
-      for(var i = 0; i < limitsQty; i++) {
+          limitsQty = limits.length,
+          i;
+      for(i = 0; i < limitsQty; i+=1) {
         if(dim.axis === 'x') {
           if(limits[i].x === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.rounding10( (limits[i-1].x + globalConstants.minSizeLimit) ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.rounding10( (limits[i+1].x - dim.from - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].x + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].x - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(limits[i].y === dim.to) {
-            dimLimit.minL = (limits[i-1]) ? GeneralServ.rounding10( (limits[i-1].y + globalConstants.minSizeLimit) ) : globalConstants.minSizeLimit;
-            dimLimit.maxL = (limits[i+1]) ? GeneralServ.rounding10( (limits[i+1].y - dim.from - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.minL = (limits[i-1]) ? GeneralServ.roundingValue(
+              (limits[i-1].y + globalConstants.minSizeLimit), 1
+            ) : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? GeneralServ.roundingValue(
+              (limits[i+1].y - dim.from - globalConstants.minSizeLimit), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -18355,7 +22200,33 @@ function ErrorResult(code, message) {
 
 
 
-
+    function setNewLimitsInBlock(axis, pointDim, limits) {
+      var currLimits = [],
+          limitsQty = limits.length,
+          lim;
+      if(axis === 'x') {
+        for(lim = 0; lim < limitsQty; lim+=1) {
+          if(pointDim.y === limits[lim].y || limits[lim].id.indexOf('fp')+1) {
+            currLimits.push(limits[lim]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(1, currLimits);
+        //---- sorting
+        currLimits.sort(sortByX);
+      } else {
+        for(lim = 0; lim < limitsQty; lim+=1) {
+          if (pointDim.x === limits[lim].x || limits[lim].id.indexOf('fp')+1) {
+            currLimits.push(limits[lim]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(2, currLimits);
+        //---- sorting
+        currLimits.sort(sortByY);
+      }
+      return currLimits;
+    }
 
 
 
@@ -18365,17 +22236,13 @@ function ErrorResult(code, message) {
       var dimLimit = {},
           //------ set new Limints by X or Y
           currLimits = setNewLimitsInBlock(axis, pointDim, limits),
-//          currLimits = limits,
-          currLimitsQty = currLimits.length;
-
-//      console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
-
-      for(var i = 0; i < currLimitsQty; i++) {
-
+          currLimitsQty = currLimits.length,
+          i;
+      //console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
+      for(i = 0; i < currLimitsQty; i+=1) {
         //---- find left second imp point
-        var isSecondImpP = 0;
-
-        for(var s = 0; s < currLimitsQty; s++) {
+        var isSecondImpP = 0, s;
+        for(s = 0; s < currLimitsQty; s+=1) {
           if(currLimits[s].id === pointDim.id){
             var difX = pointDim.x - currLimits[s].x,
                 difY = pointDim.y - currLimits[s].y;
@@ -18386,52 +22253,48 @@ function ErrorResult(code, message) {
             }
           }
         }
-
-
-//        console.log('!!!!!!!!! DIM  isSecondImpP------------', isSecondImpP, pointDim);
+        //console.log('!!!!!!!!! DIM  isSecondImpP------------', isSecondImpP, pointDim);
         if(axis === 'x') {
           if(currLimits[i].x === pointDim.x) {
             if(currLimits[i-1]) {
-
               if(isSecondImpP) {
                 //----- second impP last
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.rounding10( (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit) );
+                  dimLimit.minL = GeneralServ.roundingValue(
+                    (pointDim.x - currLimits[i-1].x - globalConstants.minSizeLimit), 1
+                  );
                 }
               } else {
-//                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].x + globalConstants.minSizeLimit) );
                 dimLimit.minL = globalConstants.minSizeLimit;
               }
-
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-//            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (currLimits[i+1].x - startDim - globalConstants.minSizeLimit) ) : maxSizeLimit;
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
             if(currLimits[i-1]) {
-
               if(isSecondImpP) {
                 //----- second impP last
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.rounding10( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit) );
+                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit), 1 );
                 }
               } else {
-//                dimLimit.minL = GeneralServ.rounding10( (currLimits[i-1].y + globalConstants.minSizeLimit) );
                 dimLimit.minL = globalConstants.minSizeLimit;
               }
-
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-//            console.log(pointDim.y, startDim, currLimits[i+1].y, pointDim.y, globalConstants.minSizeLimit);
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.rounding10( (pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit) ) : maxSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
+              ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1
+            ) : maxSizeLimit;
           }
         }
       }
@@ -18442,45 +22305,51 @@ function ErrorResult(code, message) {
 
 
 
-
-    function setNewLimitsInBlock(axis, pointDim, limits) {
-      var currLimits = [],
-          limitsQty = limits.length,
-          lim = 0;
-
-      if(axis === 'x') {
-        for(; lim < limitsQty; lim++) {
-          if(pointDim.y === limits[lim].y || limits[lim].id.indexOf('fp')+1) {
-            currLimits.push(limits[lim]);
-          }
-        }
-        //------ delete dublicates
-        cleanDublicat(1, currLimits);
-        //---- sorting
-        currLimits.sort(sortByX);
-
+    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit) {
+      //      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+      var dim = {
+            blockId: currBlockId,
+            level: level,
+            axis: axis,
+            dimId: blockDim[indexNext].id,
+            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
+            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
+          },
+          currLimit;
+      dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
+      //      console.log('FINISH limits---------', dim, limits);
+      //=========== set Limints
+      //-------- for global
+      if(level) {
+        //                console.log('FINISH global---------');
+        currLimit = setLimitsGlobalDim(dim, limits, maxSizeLimit);
       } else {
-        for(; lim < limitsQty; lim++) {
-          if (pointDim.x === limits[lim].x || limits[lim].id.indexOf('fp')+1) {
-            currLimits.push(limits[lim]);
-          }
-        }
-        //------ delete dublicates
-        cleanDublicat(2, currLimits);
-        //---- sorting
-        currLimits.sort(sortByY);
+        //-------- for block
+        //        console.log('FINISH block---------');
+        currLimit = setLimitsDim(axis, blockDim[indexNext], dim.from, limits, maxSizeLimit);
       }
-
-      return currLimits;
+      dim.minLimit = currLimit.minL;
+      dim.maxLimit = currLimit.maxL;
+      //      console.log('---------------DIM FINISH ------------');
+      return dim;
     }
 
 
 
 
-
-
-
-
+    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId, maxSizeLimit) {
+      var dimQty = pointsDim.length - 1,
+          d;
+      //      console.log('-------- points ---------', JSON.stringify(pointsDim));
+      for(d = 0; d < dimQty; d+=1) {
+        //TODO----- not create global dim in block level 0
+        //if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
+        //  break;
+        //} else {
+        dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
+        //}
+      }
+    }
 
 
 
@@ -18505,25 +22374,606 @@ function ErrorResult(code, message) {
 
 
 
+    //function getAllImpostDim(blockLimits, childBlockId, blocksQty, blocks) {
+    //  var i;
+    //  for(i = 1; i < blocksQty; i+=1) {
+    //    if(blocks[i].id === childBlockId) {
+    //      if(blocks[i].children.length) {
+    //        if(!blocks[i].impost.impostAxis[0].t) {
+    //          blockLimits.push(blocks[i].impost.impostAxis[0]);
+    //        }
+    //        if(!blocks[i].impost.impostAxis[1].t) {
+    //          blockLimits.push(blocks[i].impost.impostAxis[1]);
+    //        }
+    //        getAllImpostDim(blockLimits, blocks[i].children[0], blocksQty, blocks);
+    //        getAllImpostDim(blockLimits, blocks[i].children[1], blocksQty, blocks);
+    //      }
+    //    }
+    //  }
+    //}
 
 
-    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
-      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
-      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
-      pointQ.lengthChord = GeneralServ.rounding100( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
-      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
-      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
-      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);
+
+
+
+    function initDimensions(blocks) {
+      var dimension = {
+            dimX: [],
+            dimY: [],
+            dimQ: []
+          },
+          blocksQty = blocks.length,
+          maxSizeLimit = GlobalStor.global.maxSizeLimit,
+          globalLimitsX, globalLimitsY, allPoints, b;
+      /**---------- All points ----------*/
+      allPoints = collectAllPointsOut(blocks);
+      //------ except Q points
+      allPoints = allPoints.filter(function (elem) {
+        return (elem.dir === 'curv' || elem.t) ? 0 : 1;
+      });
+      globalLimitsX = angular.copy(allPoints);
+      globalLimitsY = angular.copy(allPoints);
+      //------ delete dublicates
+      cleanDublicat(1, globalLimitsX);
+      cleanDublicat(2, globalLimitsY);
+      //---- sorting
+      globalLimitsX.sort(sortByX);
+      globalLimitsY.sort(sortByY);
+      //console.log('``````````allPoints``````', allPoints);
+      //console.log('``````````globalLimitsX``````', globalLimitsX);
+      //console.log('``````````globalLimitsY``````', globalLimitsY);
+
+      /**-------- on eah block --------*/
+      for (b = 1; b < blocksQty; b+=1) {
+        var pointsOutQty = blocks[b].pointsOut.length;
+        //console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+
+        /** Global Dimension of Blocks level 1 */
+        if (blocks[b].level === 1) {
+          //console.log('========= block 1===========');
+          var globalDimX = [],
+              globalDimY,
+              arcHeights = [],
+              overallDim = {w: 0, h: 0},
+              i;
+
+          for (i = 0; i < pointsOutQty; i+=1) {
+            if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
+              globalDimX.push(blocks[b].pointsOut[i]);
+            } else if(blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
+              arcHeights.push(blocks[b].pointsOut[i]);
+            }
+          }
+          globalDimY = angular.copy(globalDimX);
+          //------ delete dublicates
+          cleanDublicat(1, globalDimX);
+          cleanDublicat(2, globalDimY);
+          //---- sorting
+          globalDimX.sort(sortByX);
+          globalDimY.sort(sortByY);
+
+          //console.log('``````````globalDimX ``````', globalDimX);
+          //console.log('``````````globalDimY ``````', globalDimY);
+          //console.log('``````````heightArcX ``````', arcHeights);
+          collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
+          collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
+          //------ collect dim for arc height
+          createArcDim(1, blocks[b].id, arcHeights, dimension, blocks, blocksQty);
+
+          //----------- collect Curver Radius
+          if (blocks[b].pointsQ) {
+            var curveQty = blocks[b].pointsQ.length;
+            if (curveQty) {
+              while (--curveQty > -1) {
+                dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
+              }
+            }
+          }
+
+          //--------- get Overall Dimension
+          //          console.log('for overall------', dimension.dimX, dimension.dimY);
+          collectOverallDim(overallDim, dimension);
+          //          console.log('for overall finish ------', overallDim);
+
+          overallDim.square = calcSquare(blocks[b].pointsOut);
+          //--------- push Overall Dimension
+          blocks[0].overallDim.push(overallDim);
+        }
+
+
+
+        /**========= Dimension in Block without children ==========*/
+
+        if (!blocks[b].children.length) {
+          var blockDimX = [],
+              blockDimY,
+              blockLimits = [],
+              bp;
+
+          cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
+          //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
+
+          //------ go to parent and another children for Limits
+          for (bp = 1; bp < blocksQty; bp+=1) {
+            if (blocks[bp].id === blocks[b].parent) {
+              //------- add impost
+              if(blocks[bp].impost) {
+                //============ collect Curver Radius of impost
+                if (blocks[bp].impost.impostAxis[2]) {
+                  dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+                }
+              }
+            }
+          }
+/*
+ //-------- set block Limits
+ //------ go to parent and another children for Limits
+ for (var bp = 1; bp < blocksQty; bp++) {
+ if (blocks[bp].id === blocks[b].parent) {
+ var childQty = blocks[bp].children.length;
+ //------- add parent pointsOut
+ cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
+ //------- add impost
+ if(blocks[bp].impost) {
+ //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+ if(!blocks[bp].impost.impostAxis[0].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[0]);
+ }
+ if(!blocks[bp].impost.impostAxis[1].t) {
+ blockLimits.push(blocks[bp].impost.impostAxis[1]);
+ }
+
+ //============ collect Curver Radius of impost
+ if (blocks[bp].impost.impostAxis[2]) {
+ //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
+ dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
+ }
+ }
+ //------- add imposts of childern
+ while(--childQty > -1) {
+ if(blocks[bp].children[childQty] !== blocks[b].id) {
+ getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
+ }
+ }
+ }
+ }
+ */
+
+          blockLimits = angular.copy(allPoints);
+          //console.log('`````````` blockLimits ``````````', blockLimits);
+          blockDimY = angular.copy(blockDimX);
+
+          /**-------- build Dimension -----------*/
+          if (blockDimX.length > 1) {
+            /** X */
+              //------ delete dublicates
+            blockDimX = cleanDublicatNoFP(1, blockDimX);
+            //---- sorting
+            blockDimX.sort(sortByX);
+            //console.log('`````````` new dim X ``````````', blockDimX);
+            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
+
+            /** Y */
+              //------ delete dublicates
+            blockDimY = cleanDublicatNoFP(2, blockDimY);
+            //---- sorting
+            blockDimY.sort(sortByY);
+            //console.log('`````````` new dim Y ``````````', blockDimY);
+            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
+          }
+        }
+
+      }
+
+      dimension.dimX = angular.copy(deleteDublicatDim(dimension.dimX));
+      dimension.dimY = angular.copy(deleteDublicatDim(dimension.dimY));
+      return dimension;
     }
 
 
-    function culcRadiusCurve(lineLength, heightQ) {
-      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) );
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    function createSVGTemplate(sourceObj, depths) {
+      //console.log('------------------------------------------------------');
+      //      console.log('svg start', new Date(), new Date().getMilliseconds());
+      var thisObj = {},
+          defer = $q.defer(), i;
+
+      //  thisObj.name = sourceObj.name;
+      thisObj.details = angular.copy(sourceObj.details);
+      thisObj.priceElements = {
+        framesSize: [],
+        frameSillSize: [],
+        sashsSize: [],
+        impostsSize: [],
+        shtulpsSize: [],
+        glassSquares: [],
+        beadsSize: [],
+        sashesBlock: []
+      };
+
+      var blocksQty = thisObj.details.length;
+
+
+      for(i = 0; i < blocksQty; i+=1) {
+
+        //------ block 0
+        if(!thisObj.details[i].level) {
+
+          var childQty = thisObj.details[i].children.length,
+              b;
+          if(childQty === 1) {
+            for(b = 0; b < blocksQty; b+=1) {
+              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'single';
+              }
+            }
+          } else if(childQty > 1) {
+            for(b = 0; b < blocksQty; b+=1) {
+              if(thisObj.details[i].children[0] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'first';
+              } else if(thisObj.details[i].children[childQty-1] === thisObj.details[b].id) {
+                thisObj.details[b].position = 'last';
+              }
+            }
+          }
+
+          thisObj.details[i].overallDim = [];
+
+        } else {
+          //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
+          //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
+          //----- create point Q for arc or curve corner in block 1
+          if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
+            setQPInMainBlock(thisObj.details[i]);
+          }
+          thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
+          thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
+          //          console.log('+++++++++ block ++++++++++pointsOut');
+          thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
+          if(thisObj.details[i].level === 1) {
+            thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
+          } else {
+            thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
+            //console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
+            thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
+            //            console.log('+++++++++ block ++++++++++pointsIn');
+          }
+          thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
+
+          if(thisObj.details[i].level === 1) {
+            setCornerProp(thisObj.details);
+            //------- set points for each part of construction
+            $.merge(thisObj.details[i].parts, setParts(
+              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+            ));
+          }
+
+
+          //-------- if block has children and type is sash
+          if(thisObj.details[i].children.length) {
+
+            if(thisObj.details[i].blockType === 'sash') {
+              thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(
+                thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
+              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
+
+              //----- set openPoints for sash
+              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
+            }
+
+            //------- if block is empty
+          } else {
+            //------ if block is frame
+            if(thisObj.details[i].blockType === 'frame') {
+              //              console.log('+++++++++ block ++++++++++beads');
+              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
+              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
+              //          thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+
+              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
+              /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
+
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
+
+            } else if(thisObj.details[i].blockType === 'sash') {
+              //console.info('-------', i, thisObj.details[i]);
+              thisObj.details[i].sashPointsOut = copyPointsOut(
+                setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash'
+              );
+              thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
+              thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
+
+              thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
+              thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
+              thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-bead');
+              //------ for defined open directions of sash
+              thisObj.details[i].beadLinesIn = setLines(thisObj.details[i].beadPointsIn);
+
+              thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
+              //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
+
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
+              thisObj.details[i].parts.push(setGlass(
+                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+              ));
+              $.merge(thisObj.details[i].parts, setParts(
+                thisObj.details[i].beadPointsOut,
+                thisObj.details[i].beadPointsIn,
+                thisObj.priceElements,
+                thisObj.details[i].glassId
+              ));
+
+              //----- set openPoints for sash
+              thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
+              setSashePropertyXPrice(
+                thisObj.details[i].sashType,
+                thisObj.details[i].openDir,
+                thisObj.details[i].hardwareLines,
+                thisObj.priceElements
+              );
+            }
+          }
+          setPointsXChildren(thisObj.details[i], thisObj.details, depths);
+          //----- create impost parts
+          if(thisObj.details[i].children.length) {
+            thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
+          }
+
+
+        }
+      }
+
+      thisObj.dimension = initDimensions(thisObj.details);
+
+      //console.log('TEMPLATE END++++', thisObj);
+      //console.log('svg finish', new Date(), new Date().getMilliseconds());
+      //console.log('------------------------------------------------------');
+      defer.resolve(thisObj);
+      return defer.promise;
     }
 
 
+
+
+    //----------- ICON
+
+    function createSVGTemplateIcon(sourceObj, depths) {
+      var defer = $q.defer(),
+          newDepth = angular.copy(depths),
+          coeffScale = 2;
+      for(var p in newDepth) {
+        for(var el in newDepth[p]) {
+          newDepth[p][el] *= coeffScale;
+        }
+      }
+      createSVGTemplate(sourceObj, newDepth).then(function(result) {
+        defer.resolve(result);
+      });
+      return defer.promise;
+    }
+
+
+    //----------- SCALE
+
+    function setTemplateScale(dim, windowW, windowH, padding) {
+      var templateW = ((dim.maxX - dim.minX)+300),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/windowW);
+          //console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/templateW);
+          //console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('W======', scaleTmp);
+        }
+        //console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          //console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          //console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(1);
+          //console.info('H======', scaleTmp);
+        }
+        //console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
+    }
+
+      //----------- SCALE MAIN
+
+    function setTemplateScaleMAIN(dim, windowW, windowH, padding) {
+    if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    } if(ProductStor.product.construction_type == 2 || ProductStor.product.construction_type == 4 ) {
+      var templateW = (dim.maxX - dim.minX)+300,
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
+      //var windRatio = windowW/windowH;
+      //var tempRatio = templateW/templateH;
+      //var ratio = windRatio/tempRatio;
+      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
+ 
+            scaleTmp = d3scaling(0.38);
+            return scaleTmp;
+    
+    }
 
   }
+
+    //----------- TRANSLATE
+
+    function setTemplatePosition(dim, windowW, windowH, scale) {
+      var position = {
+        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+      };
+      return position;
+    }
+
+    function setTemplatePositionMAIN(dim, windowW, windowH, scale) {
+      if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3 ) {
+        if(ProductStor.product.template_height < 1648) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-310,
+          } 
+        } 
+        if( 1648 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-240,
+          } 
+        }
+        if( 1848 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-190,
+          } 
+        }
+        if( 2148 < ProductStor.product.template_height) {
+          var position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-130,
+          } 
+        }      
+      }
+
+
+      if(ProductStor.product.construction_type == 2) {
+        var position = {
+          x: 220,
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35,
+        } 
+      } 
+
+      if(ProductStor.product.construction_type == 4) {
+        var position = {
+          x: 276,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-110,
+        }
+      }
+          return position;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      createSVGTemplate: createSVGTemplate,
+      createSVGTemplateIcon: createSVGTemplateIcon,
+      collectAllPointsOut: collectAllPointsOut,
+      setTemplateScale: setTemplateScale,
+      setTemplateScaleMAIN: setTemplateScaleMAIN,
+      setTemplatePositionMAIN: setTemplatePositionMAIN,
+      setTemplatePosition: setTemplatePosition,
+
+      centerBlock: centerBlock,
+      sortingPoints: sortingPoints,
+      getAngelPoint: getAngelPoint,
+      setLines: setLines,
+      setLineCoef: setLineCoef,
+      getNewCoefC: getNewCoefC,
+      setPointLocationToLine: setPointLocationToLine,
+      intersectionQ: intersectionQ,
+      cteateLineByAngel: cteateLineByAngel,
+      getIntersectionInCurve: getIntersectionInCurve,
+      getCoordCrossPoint: getCoordCrossPoint,
+      checkLineOwnPoint: checkLineOwnPoint,
+      isInsidePointInLine: isInsidePointInLine,
+      getCoordSideQPCurve: getCoordSideQPCurve,
+      checkEqualPoints: checkEqualPoints,
+      setQPointCoord: setQPointCoord,
+      getCenterLine: getCenterLine,
+      calcSquare: calcSquare,
+
+      checkInsidePointInLineEasy: checkInsidePointInLineEasy,
+      sortByX: sortByX
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();
 
 
@@ -18532,59 +22982,63 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('TemplatesServ', templatesFactory);
+    .factory('TemplatesServ',
 
-  function templatesFactory($filter, GeneralServ, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $filter,
+    GeneralServ,
+    MainServ,
+    DesignServ,
+    AnalyticsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    DesignStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      selectNewTemplate: selectNewTemplate,
-      //backDefaultTemplate: backDefaultTemplate,
-      //newPriceForNewTemplate: newPriceForNewTemplate,
-      initNewTemplateType: initNewTemplateType
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
-
-
-    //---------- select new template and recalculate it price
-    function selectNewTemplate(templateIndex, roomInd) {
-      GlobalStor.global.isTemplateTypeMenu = 0;
-
-      function goToNewTemplate() {
-        //------ change last changed template to old one
-        backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-
-      if(GlobalStor.global.isChangedTemplate) {
-        //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate
-        );
-      } else {
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
-    }
+    /**============ METHODS ================*/
 
 
-    //------- return to the initial template
-    function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+    function culcPriceNewTemplate(templateIndex) {
+      ProductStor.product.template_id = templateIndex;
+      MainServ.saveTemplateInProduct(templateIndex).then(function() {
+
+        ProductStor.product.glass.length = 0;
+        MainServ.setCurrentGlass(ProductStor.product);
+        MainServ.setCurrentHardware(ProductStor.product);
+
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        } else {
+          var hardwareIds = ProductStor.product.hardware.id || 0;
+          //------ define product price
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            hardwareIds,
+            ProductStor.product.lamination.lamination_in_id
+          );
+          /** send analytics data to Server*/
+          AnalyticsServ.sendAnalyticsData(
+            UserStor.userInfo.id,
+            OrderStor.order.id,
+            ProductStor.product.template_id,
+            ProductStor.product.profile.id,
+            1
+          );
+        }
+      });
     }
 
 
@@ -18610,41 +23064,83 @@ function ErrorResult(code, message) {
         }
 
       } else {
-        if(ProductStor.product.template_id !== templateIndex) {
+        //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);
-        }
+        //}
       }
 
     }
 
 
-    function culcPriceNewTemplate(templateIndex) {
-      ProductStor.product.template_id = templateIndex;
-      MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        ProductStor.product.glass.length = 0;
-        MainServ.setCurrentGlass(ProductStor.product);
-        MainServ.setCurrentHardware(ProductStor.product);
-        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
-        //------ save analytics data
-        //          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-        /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-      });
+
+    //------- return to the initial template
+    function backDefaultTemplate() {
+      var templateTemp = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = templateTemp;
     }
+
+
+
+    //---------- select new template and recalculate it price
+    function selectNewTemplate(templateIndex, roomInd) {
+      GlobalStor.global.isTemplateTypeMenu = 0;
+
+      //-------- check changes in current template
+      if(GlobalStor.global.currOpenPage === 'design') {
+        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      }
+
+      function goToNewTemplate() {
+        //------ change last changed template to old one
+        backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        DesignStor.design.designSteps.length = 0;
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+
+      if(GlobalStor.global.isChangedTemplate) {
+        //----- если выбран новый шаблон после изменения предыдущего
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+      } else {
+        newPriceForNewTemplate(templateIndex, roomInd);
+      }
+    }
+
+
 
 
 
     function initNewTemplateType(marker) {
       ProductStor.product.construction_type = marker;
       ProductStor.product.template_id = 0;
-      MainServ.prepareTemplates(marker);
+      MainServ.prepareTemplates(marker).then(function() {
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        }
+      });
     }
 
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      selectNewTemplate: selectNewTemplate,
+      //backDefaultTemplate: backDefaultTemplate,
+      //newPriceForNewTemplate: newPriceForNewTemplate,
+      initNewTemplateType: initNewTemplateType
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();
 
 
@@ -18653,16 +23149,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('AuxStor', auxStorageFactory);
+    .factory('AuxStor',
 
-  function auxStorageFactory($filter) {
-
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultAuxiliary() {
+      return angular.copy(thisFactory.publicObj.auxiliarySource);
+    }
 
     thisFactory.publicObj = {
       auxiliarySource: {
@@ -18679,39 +23177,20 @@ function ErrorResult(code, message) {
         isTabFrame: 0,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
+        isGridSelectorDialog: 0,
+        selectedGrid: 0,
+        calculatorStyle: '',
 
         addElementGroups: [],
-        searchingWord: '',
-        groupNames: [
-          $filter('translate')('add_elements.GRIDS'),
-          $filter('translate')('add_elements.VISORS'),
-          $filter('translate')('add_elements.SPILLWAYS'),
-          $filter('translate')('add_elements.OUTSIDE'),
-          $filter('translate')('add_elements.INSIDE'),
-          $filter('translate')('add_elements.LOUVERS'),
-          $filter('translate')('add_elements.CONNECTORS'),
-          $filter('translate')('add_elements.FAN'),
-          $filter('translate')('add_elements.WINDOWSILLS'),
-          $filter('translate')('add_elements.HANDLELS'),
-          $filter('translate')('add_elements.OTHERS')
-        ]
+        searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };
 
     thisFactory.publicObj.aux = setDefaultAuxiliary();
-
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultAuxiliary() {
-      var publicObj = angular.copy(thisFactory.publicObj.auxiliarySource);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -18720,16 +23199,42 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartStor', cartStorageFactory);
+    .factory('CartStor',
 
-  function cartStorageFactory($filter, OrderStor) {
-
+  function($filter, OrderStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultCart() {
+      return angular.copy(thisFactory.publicObj.cartSource);
+    }
+
+    //------- filling order form
+    function fillOrderForm() {
+      thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
+      thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
+      thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
+      thisFactory.publicObj.cart.customer.customer_house = angular.copy(OrderStor.order.customer_house);
+      thisFactory.publicObj.cart.customer.customer_flat = angular.copy(OrderStor.order.customer_flat);
+      thisFactory.publicObj.cart.customer.customer_floor = angular.copy(OrderStor.order.customer_floor);
+      thisFactory.publicObj.cart.customer.customer_city = angular.copy(OrderStor.order.customer_city);
+      thisFactory.publicObj.cart.customer.customer_city_id = angular.copy(OrderStor.order.customer_city_id);
+      thisFactory.publicObj.cart.customer.customer_email = angular.copy(OrderStor.order.customer_email);
+      thisFactory.publicObj.cart.customer.customer_phone = angular.copy(OrderStor.order.customer_phone);
+      thisFactory.publicObj.cart.customer.customer_phone_city = angular.copy(OrderStor.order.customer_phone_city);
+      thisFactory.publicObj.cart.customer.customer_itn = angular.copy(OrderStor.order.customer_itn);
+      thisFactory.publicObj.cart.customer.customer_starttime = angular.copy(OrderStor.order.customer_starttime);
+      thisFactory.publicObj.cart.customer.customer_endtime = angular.copy(OrderStor.order.customer_endtime);
+      thisFactory.publicObj.cart.customer.customer_target = angular.copy(OrderStor.order.customer_target);
+      thisFactory.publicObj.cart.customer.customer_sex = angular.copy(OrderStor.order.customer_sex);
+      thisFactory.publicObj.cart.customer.customer_age = angular.copy(OrderStor.order.customer_age);
+      thisFactory.publicObj.cart.customer.customer_education = angular.copy(OrderStor.order.customer_education);
+      thisFactory.publicObj.cart.customer.customer_occupation = angular.copy(OrderStor.order.customer_occupation);
+      thisFactory.publicObj.cart.customer.customer_infoSource = angular.copy(OrderStor.order.customer_infoSource);
+    }
 
     thisFactory.publicObj = {
       cartSource: {
@@ -18795,41 +23300,10 @@ function ErrorResult(code, message) {
       fillOrderForm: fillOrderForm
     };
 
-
     thisFactory.publicObj.cart = setDefaultCart();
-
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultCart() {
-      var publicObj = angular.copy(thisFactory.publicObj.cartSource);
-      return publicObj;
-    }
-
-    //------- filling order form
-    function fillOrderForm() {
-      thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
-      thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
-      thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
-      thisFactory.publicObj.cart.customer.customer_city = angular.copy(OrderStor.order.customer_city);
-      thisFactory.publicObj.cart.customer.customer_city_id = angular.copy(OrderStor.order.customer_city_id);
-      thisFactory.publicObj.cart.customer.customer_email = angular.copy(OrderStor.order.customer_email);
-      thisFactory.publicObj.cart.customer.customer_phone = angular.copy(OrderStor.order.customer_phone);
-      thisFactory.publicObj.cart.customer.customer_phone_city = angular.copy(OrderStor.order.customer_phone_city);
-      thisFactory.publicObj.cart.customer.customer_itn = angular.copy(OrderStor.order.customer_itn);
-      thisFactory.publicObj.cart.customer.customer_starttime = angular.copy(OrderStor.order.customer_starttime);
-      thisFactory.publicObj.cart.customer.customer_endtime = angular.copy(OrderStor.order.customer_endtime);
-      thisFactory.publicObj.cart.customer.customer_target = angular.copy(OrderStor.order.customer_target);
-      thisFactory.publicObj.cart.customer.customer_sex = angular.copy(OrderStor.order.customer_sex);
-      thisFactory.publicObj.cart.customer.customer_age = angular.copy(OrderStor.order.customer_age);
-      thisFactory.publicObj.cart.customer.customer_education = angular.copy(OrderStor.order.customer_education);
-      thisFactory.publicObj.cart.customer.customer_occupation = angular.copy(OrderStor.order.customer_occupation);
-      thisFactory.publicObj.cart.customer.customer_infoSource = angular.copy(OrderStor.order.customer_infoSource);
-    }
-
-  }
+  });
 })();
 
 
@@ -18838,16 +23312,22 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('DesignModule')
-    .factory('DesignStor', designStorageFactory);
+    .factory('DesignStor',
 
-  function designStorageFactory($filter) {
-
+  function($filter) {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultDesign() {
+      return angular.copy(thisFactory.publicObj.designSource);
+    }
+
+    function setDefaultDoor() {
+      return angular.copy(thisFactory.publicObj.designSource.doorConfig);
+    }
 
     thisFactory.publicObj = {
       designSource: {
@@ -18856,6 +23336,7 @@ function ErrorResult(code, message) {
         designSteps: [],
         activeMenuItem: 0,
         activeSubMenuItem: 0,
+        isDropSubMenu: 0,
         isImpostDelete: 0,
         //----- Edit
         selectedGlass: [],
@@ -18871,12 +23352,23 @@ function ErrorResult(code, message) {
 
         isDimAnimate: 0,
         oldSize: 0,
+        prevSize: 0,
         tempSize: [],
 
         isMinSizeRestriction: 0,
         isMaxSizeRestriction: 0,
-        minSizeLimit: 200,
-        maxSizeLimit: 5000,
+        minSizeLimit: 0,
+        maxSizeLimit: 0,
+        isDimExtra: 0,
+        isSquareExtra: 0,
+
+        //------- extra glasses
+        extraGlass: [],
+        isGlassExtra: 0,
+
+        //------- extra hardware
+        extraHardware: [],
+        isHardwareExtra: 0,
 
         //----- Door
         doorShapeList: [
@@ -18963,21 +23455,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj.design = setDefaultDesign();
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-
-    function setDefaultDesign() {
-      var publicObj = angular.copy(thisFactory.publicObj.designSource);
-      return publicObj;
-    }
-
-    function setDefaultDoor() {
-      var publicObj = angular.copy(thisFactory.publicObj.designSource.doorConfig);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -18986,16 +23464,20 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GlobalStor', globalStorageFactory);
+    .factory('GlobalStor',
 
-  function globalStorageFactory() {
 
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+
+    function setDefaultGlobal() {
+      return angular.copy(thisFactory.publicObj.globalSource);
+    }
 
     thisFactory.publicObj = {
 
@@ -19008,6 +23490,8 @@ function ErrorResult(code, message) {
         isConfigMenu: 0,
         activePanel: 0,
         configMenuTips: 0,
+        isTemplateItemMenu: 0,
+        isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,
@@ -19043,15 +23527,21 @@ function ErrorResult(code, message) {
         glassesAll: [],
         glassTypes: [],
         glasses: [],
+        selectGlassId: 0,
         selectLastGlassId: 0,
+        selectGlassName: '',
+        prevGlassId: 0,
+        prevGlassName: '',
 
         //------ Hardwares
         hardwares: [],
         hardwareTypes: [],
+        hardwareLimits: [],
 
         //------ Lamination
-        laminationsIn: [],
-        laminationsOut: [],
+        laminats: [],
+        laminatCouples: [],
+        lamGroupFiltered: [],
 
         //------ Add Elements
         addElementsAll: [],
@@ -19073,6 +23563,11 @@ function ErrorResult(code, message) {
         isReport: 0,
 
         currencies: [],
+        locations: {
+          countries: [],
+          regions: [],
+          cities: []
+        },
         margins: {},
         deliveryCoeff: {},
 
@@ -19085,7 +23580,9 @@ function ErrorResult(code, message) {
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
-        isWidthCalculator: 0
+        isWidthCalculator: 0,
+        maxSizeLimit: 2450,
+        maxSquareLimit: 6
       },
 
       setDefaultGlobal: setDefaultGlobal
@@ -19095,16 +23592,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultGlobal() {
-      var publicObj = angular.copy(thisFactory.publicObj.globalSource);
-      return publicObj;
-    }
-
-
-  }
+  });
 })();
 
 
@@ -19113,16 +23601,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject */
   angular
     .module('HistoryModule')
-    .factory('HistoryStor', historyStorageFactory);
+    .factory('HistoryStor',
 
-  function historyStorageFactory() {
-
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultHistory() {
+      return angular.copy(thisFactory.publicObj.historySource);
+    }
 
     thisFactory.publicObj = {
       historySource: {
@@ -19170,15 +23660,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultHistory() {
-      var publicObj = angular.copy(thisFactory.publicObj.historySource);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -19187,16 +23669,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject */
   angular
     .module('BauVoiceApp')
-    .factory('OrderStor', orderStorageFactory);
+    .factory('OrderStor',
 
-  function orderStorageFactory() {
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
 
+    function setDefaultOrder() {
+      return angular.copy(thisFactory.publicObj.orderSource);
+    }
 
     thisFactory.publicObj = {
       orderSource: {
@@ -19212,6 +23696,13 @@ function ErrorResult(code, message) {
 
         discount_construct: 0,
         discount_addelem: 0,
+        discount_construct_max: 0,
+        discount_addelem_max: 0,
+        delivery_user_id: 0,
+        mounting_user_id: 0,
+        default_term_plant: 0,
+        disc_term_plant: 0,
+        margin_plant: 0,
 
         products_qty: 0,
         products: [],
@@ -19278,15 +23769,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultOrder() {
-      var publicObj = angular.copy(thisFactory.publicObj.orderSource);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -19295,15 +23778,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('ProductStor', productStorageFactory);
+    .factory('ProductStor',
 
-  function productStorageFactory($filter) {
+  function($filter) {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultProduct() {
+      return angular.copy(thisFactory.publicObj.productSource);
+    }
 
     thisFactory.publicObj = {
       productSource: {
@@ -19332,12 +23818,15 @@ function ErrorResult(code, message) {
           impostDepth: {},
           shtulpDepth: {}
         },
-
-        lamination_out_id: 1,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 1,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-
+        lamination: {
+          id: 0,
+          lamination_in_id: 1,
+          lamination_out_id: 1,
+          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          img_in_id: 1,
+          img_out_id: 1
+        },
         chosenAddElements: [
           [], // 0 - grids
           [], // 1 - visors
@@ -19376,15 +23865,7 @@ function ErrorResult(code, message) {
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultProduct() {
-      var publicObj = angular.copy(thisFactory.publicObj.productSource);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -19393,16 +23874,18 @@ function ErrorResult(code, message) {
 
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('UserStor', userStorageFactory);
+    .factory('UserStor',
 
-  function userStorageFactory() {
-
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+    function setDefaultUser() {
+      return angular.copy(thisFactory.publicObj.userInfoSource);
+    }
 
     thisFactory.publicObj = {
       userInfoSource: {
@@ -19421,24 +23904,16 @@ function ErrorResult(code, message) {
         discountConstrMax: 0,
         discountAddElemMax: 0,
         discConstrByWeek: [],
-        discAddElemByWeek: []
+        discAddElemByWeek: [],
+        factoryLink: ''
       },
       setDefaultUser: setDefaultUser
     };
 
     thisFactory.publicObj.userInfo = setDefaultUser();
-
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultUser() {
-      var publicObj = angular.copy(thisFactory.publicObj.userInfoSource);
-      return publicObj;
-    }
-
-  }
+  });
 })();
 
 
@@ -19480,7 +23955,8 @@ function ErrorResult(code, message) {
         SELECT: 'wählen',
         AND: 'und',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'Einloggen',
@@ -19532,7 +24008,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Bauglasplatte',
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
-        CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_LAMINATION_TYPE: 'in den Zimmer / Die Fassade',
         WHITE_LAMINATION: 'Weiß',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
@@ -19540,11 +24016,12 @@ function ErrorResult(code, message) {
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
         ROOM_SELECTION: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
-        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
-        SELECT_ALL: 'Take all'
+        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier'//,
+        //SELECT_ALL: 'Alle auswählen',
+        //SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',
@@ -19559,9 +24036,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'Isolierung',
         CORROSION_COEFF: 'Korrosionsschutz',
         BURGLAR_COEFF: 'Diebstahlschutz',
-        LAMINAT_INSIDE: 'Laminieren des Rahmens im Raum',
-        LAMINAT_OUTSIDE: 'Laminierung von Seiten der Straßenfront',
-        LAMINAT_WHITE: 'ohne Laminierung, eine radikale weiß',
+        LAMINAT_INSIDE: 'im Raum',
+        LAMINAT_OUTSIDE: 'Straßenfront',
         ONE_WINDOW_TYPE: 'Das Einaufklappbare',
         TWO_WINDOW_TYPE: 'Das Zweiaufklappbare',
         THREE_WINDOW_TYPE: 'Das Dreiaufklappbare',
@@ -19578,7 +24054,9 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
-        LOCK_TYPE2: 'Multipoint-Latch'
+        LOCK_TYPE2: 'Multipoint-Latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Wählen',
@@ -19623,7 +24101,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'Flügel',
         ANGEL_SHAPE: 'Winkel',
         IMPOST_SHAPE: 'Abgaben',
@@ -19646,7 +24124,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
         VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
-        NOT_AVAILABLE: 'nicht Verfügbar!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'nicht Verfügbar!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -19674,7 +24162,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
         WAIT_MASTER: 'erwartet Gager',
-        INCLUDED: 'inbegriffen'
+        INCLUDED: 'inbegriffen',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',
@@ -19702,6 +24191,9 @@ function ErrorResult(code, message) {
         CALL_MASTER_DESCRIP: 'Um Gager nennen wir brauchen etwas für Sie zu wissen. Beide Felder sind Pflichtfelder.',
         CLIENT_LOCATION: 'Lage',
         CLIENT_ADDRESS: 'Anschrift',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Bestellung zur Berechnung',
         CALL_ORDER_DESCRIP: 'Um den Auftrag zu erfüllen, müssen wir etwas über Sie wissen.',
         CALL_ORDER_CLIENT_INFO: 'Kundeninformation (muss ausgefüllt werden):',
@@ -19829,7 +24321,8 @@ function ErrorResult(code, message) {
         SELECT: 'Select',
         AND: 'and',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'To enter',
@@ -19881,7 +24374,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Glazing',
         CONFIGMENU_HARDWARE: 'accessories',
         CONFIGMENU_LAMINATION: 'Lamination',
-        CONFIGMENU_LAMINATION_TYPE: 'Facade / room',
+        CONFIGMENU_LAMINATION_TYPE: 'room / Facade',
         WHITE_LAMINATION: 'White',
         CONFIGMENU_ADDITIONAL: 'Additionally',
         CONFIGMENU_IN_CART: 'In a basket',
@@ -19889,11 +24382,12 @@ function ErrorResult(code, message) {
         COMMENT: 'Leave a note on the order here.',
         ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
         PROFILE_TIP: 'To select a profile, click here',
-        GLASS_TIP: 'To select a double-glazed window, click here',
-        SELECT_ALL: 'Take all'
+        GLASS_TIP: 'To select a double-glazed window, click here'//,
+        //SELECT_ALL: 'Take all',
+        //SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
@@ -19908,9 +24402,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'noise isolation',
         CORROSION_COEFF: 'Anticorrosion',
         BURGLAR_COEFF: 'Burglar',
-        LAMINAT_INSIDE: 'Lamination of a frame in the room',
-        LAMINAT_OUTSIDE: 'Lamination from a facade',
-        LAMINAT_WHITE: 'without lamination, radical white color',
+        LAMINAT_INSIDE: 'In room',
+        LAMINAT_OUTSIDE: 'Facade',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -19927,10 +24420,12 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch'
+        LOCK_TYPE2: 'multilocking with a latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
-        CHOOSE: 'select ',
+        CHOOSE: 'select',
         ADD: 'add',
         GRID: 'mosquito grid',
         VISOR: 'peak',
@@ -19972,7 +24467,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'Composite structure',
         TAB_EMPTY_EXPLAIN: 'Please select the first item to start up construction.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'shutters',
         ANGEL_SHAPE: 'corners',
         IMPOST_SHAPE: 'imposts',
@@ -19995,7 +24490,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'The smallest size',
         VOICE_BIGGEST_SIZE: "The biggest size",
         VOICE_SMALL_GLASS_BLOCK: "too small skylights",
-        NOT_AVAILABLE: 'Not Available!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'Not Available!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -20023,7 +24528,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'According to your request',
         NOT_FIND: 'nothing found',
         WAIT_MASTER: 'expects gager',
-        INCLUDED: 'included'
+        INCLUDED: 'included',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'All additional elements order',
@@ -20051,6 +24557,9 @@ function ErrorResult(code, message) {
         CALL_MASTER_DESCRIP: 'To call gager we need something for you to know. Both fields are required.',
         CLIENT_LOCATION: 'Location',
         CLIENT_ADDRESS: 'address',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Ordering for calculating',
         CALL_ORDER_DESCRIP: 'In order to fulfill the order, we need to something about you know.',
         CALL_ORDER_CLIENT_INFO: 'Customer Information (must be filled):',
@@ -20076,7 +24585,7 @@ function ErrorResult(code, message) {
         LINK_BETWEEN_ALL: 'between all',
 //        LINK_DELETE_ALL_GROUPE: 'delete all',
         CLIENT_SEX: 'Sex',
-        CLIENT_SEX_M: 'M',
+        CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
         CLIENT_AGE_OLDER: 'older',
@@ -20176,7 +24685,8 @@ function ErrorResult(code, message) {
         SELECT: ' Scegliere ',
         AND: ' e ',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'Entrare',
@@ -20228,7 +24738,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Parquet di vetro',
         CONFIGMENU_HARDWARE: 'Fornitura',
         CONFIGMENU_LAMINATION: 'Laminazione',
-        CONFIGMENU_LAMINATION_TYPE: 'facciata / in camera',
+        CONFIGMENU_LAMINATION_TYPE: 'in camera / facciata',
         WHITE_LAMINATION: 'La bianca',
         CONFIGMENU_ADDITIONAL: 'In aggiunta',
         CONFIGMENU_IN_CART: 'Nel cestino',
@@ -20236,11 +24746,12 @@ function ErrorResult(code, message) {
         COMMENT: "Lasci la nota sull'ordine qui.",
         ROOM_SELECTION: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
-        HEATCOEF_VAL: 'Wt/m',
+        HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
-        SELECT_ALL: 'Take all'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'//,
+        //SELECT_ALL: 'Selezionare tutto',
+        //SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',
@@ -20255,9 +24766,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'isolamento acustico',
         CORROSION_COEFF: 'anticorrosione',
         BURGLAR_COEFF: 'protezione contro rottura',
-        LAMINAT_INSIDE: 'Laminazione dell’infisso in camera',
-        LAMINAT_OUTSIDE: 'Laminazione dal lato della facciata',
-        LAMINAT_WHITE: 'senza laminazione',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'la facciata',
         ONE_WINDOW_TYPE: 'La porta sola',
         TWO_WINDOW_TYPE: "L'ala doppio",
         THREE_WINDOW_TYPE: 'Il da tre foglie',
@@ -20274,7 +24784,9 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
-        LOCK_TYPE2: 'la multichiusura con una serratura a scatto'
+        LOCK_TYPE2: 'la multichiusura con una serratura a scatto',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Scegliere',
@@ -20319,7 +24831,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'Schema complesso',
         TAB_EMPTY_EXPLAIN: 'Scegliete il primo elemento dalla lista.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'battenti',
         ANGEL_SHAPE: 'angoli',
         IMPOST_SHAPE: 'imposte',
@@ -20342,7 +24854,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'dimensioni troppo piccole',
         VOICE_BIGGEST_SIZE: "dimensioni troppo grandi",
         VOICE_SMALL_GLASS_BLOCK: "apertura leggera troppo piccola",
-        NOT_AVAILABLE: 'È inaccessibile!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'È inaccessibile!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -20370,7 +24892,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'Su vostra richiesta',
         NOT_FIND: 'Non è stato trovato niente',
         WAIT_MASTER: 'Aspetta il misuratore ',
-        INCLUDED: 'sono inclusi'
+        INCLUDED: 'sono inclusi',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Tutti gli elementi supplementari dell’oedine',
@@ -20398,6 +24921,9 @@ function ErrorResult(code, message) {
         CALL_MASTER_DESCRIP: 'Per la telefonata del measurer abbiamo bisogno di sapere qualcosa su Lei. Entrambi i campi sono obbligatori per riempitura.',
         CLIENT_LOCATION: 'Località',
         CLIENT_ADDRESS: 'Indirizzo',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Stesura dell’ordine per il conteggio',
         CALL_ORDER_DESCRIP: 'Per poter eseguire il vostro ordine dobbiamo sapere qualccosa di voi.',
         CALL_ORDER_CLIENT_INFO: 'Informazioni sul cliente (campo obbligatorio):',
@@ -20524,7 +25050,8 @@ function ErrorResult(code, message) {
         SELECT: 'Select',
         AND: 'și',
         OK: 'OK',
-        BACK: 'Back'
+        BACK: 'Back',
+        LETTER_M: 'm'
       },
       login: {
         ENTER: 'autentificare',
@@ -20576,7 +25103,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'geam termopan',
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
         WHITE_LAMINATION: 'alb',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
@@ -20584,11 +25111,12 @@ function ErrorResult(code, message) {
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
         ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
-        HEATCOEF_VAL: 'W/m',
+        HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Take all'
+        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici"//,
+        //SELECT_ALL: 'Selectați toate',
+        //SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
@@ -20603,9 +25131,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'izolare fonica',
         CORROSION_COEFF: 'anticoroziune',
         BURGLAR_COEFF: 'hoț',
-        LAMINAT_INSIDE: 'Laminarea a cadrului in camera',
-        LAMINAT_OUTSIDE: 'Laminare din față',
-        LAMINAT_WHITE: 'Fără laminare, de culoare albă radical',
+        LAMINAT_INSIDE: 'in camera',
+        LAMINAT_OUTSIDE: 'față',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -20622,7 +25149,9 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch'
+        LOCK_TYPE2: 'multilocking with a latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Alege',
@@ -20667,7 +25196,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'cercevea',
         ANGEL_SHAPE: 'unghiuri',
         IMPOST_SHAPE: 'impost',
@@ -20690,7 +25219,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
         VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
-        NOT_AVAILABLE: 'nu Este Disponibil!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'nu Este Disponibil!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -20718,7 +25257,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
         WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus'
+        INCLUDED: 'inclus',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
@@ -20746,6 +25286,9 @@ function ErrorResult(code, message) {
         CALL_MASTER_DESCRIP: 'Pentru a solicita inginerul, avem nevoie de ceva informatie despre dvs. Ambele campurile sunt obligatorii.',
         CLIENT_LOCATION: 'locație',
         CLIENT_ADDRESS: 'adresa',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Pentru a calcula',
         CALL_ORDER_DESCRIP: 'Pentru a îndeplini comanda,este necesar informatie despre dvs.',
         CALL_ORDER_CLIENT_INFO: 'Informații client (câmpuri obligatorii):',
@@ -20871,7 +25414,8 @@ function ErrorResult(code, message) {
         SELECT: 'Выбрать',
         AND: 'и',
         OK: 'OK',
-        BACK: 'Назад'
+        BACK: 'Назад',
+        LETTER_M: 'м'
       },
       login: {
         ENTER: 'Войти',
@@ -20923,7 +25467,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Стеклопакет',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',
         WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
@@ -20931,11 +25475,12 @@ function ErrorResult(code, message) {
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
         ROOM_SELECTION: 'Выбор шаблона',
         CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
-        HEATCOEF_VAL: 'Вт/м',
+        HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
         PROFILE_TIP: 'Для выбора профиля нажмите сюда',
-        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда',
-        SELECT_ALL: 'Выбрать все'
+        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда'//,
+        //SELECT_ALL: 'Выбрать все',
+        //SELECT_GLASS_WARN: 'Кликните на стеклопакет, который хотите изменить'
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',
@@ -20950,9 +25495,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоизоляция',
         CORROSION_COEFF: 'aнтикоррозийность',
         BURGLAR_COEFF: 'противовзломность',
-        LAMINAT_INSIDE: 'Ламинация рамы в комнате',
-        LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
-        LAMINAT_WHITE: 'без ламинации, радикальный белый цвет',
+        LAMINAT_INSIDE: 'в комнате',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -20969,7 +25513,9 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
-        LOCK_TYPE2: 'многозапорный с защелкой'
+        LOCK_TYPE2: 'многозапорный с защелкой',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Выбрать',
@@ -21014,7 +25560,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'Составная конструкция',
         TAB_EMPTY_EXPLAIN: 'Выберите из списка первый элемент, чтобы начать составлять конструкцию.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'створки',
         ANGEL_SHAPE: 'углы',
         IMPOST_SHAPE: 'импосты',
@@ -21037,7 +25583,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'слишком маленький размер',
         VOICE_BIGGEST_SIZE: "слишком большой размер",
         VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
-        NOT_AVAILABLE: 'Недоступно!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'Недоступно!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -21065,7 +25621,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'По вашему запросу',
         NOT_FIND: 'ничего не найдено',
         WAIT_MASTER: 'ожидает замерщика',
-        INCLUDED: 'включены'
+        INCLUDED: 'включены',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
@@ -21093,6 +25650,9 @@ function ErrorResult(code, message) {
         CALL_MASTER_DESCRIP: 'Для вызова замерщика нам нужно кое-что о вас знать. Оба поля являются обязательными для заполнения.',
         CLIENT_LOCATION: 'Местоположение',
         CLIENT_ADDRESS: 'Адрес',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Оформление заказа для рассчета',
         CALL_ORDER_DESCRIP: 'Для того, чтобы выполнить заказ, мы должны кое-что о вас знать.',
         CALL_ORDER_CLIENT_INFO: 'Информация о клиенте (заполняйте обязательно):',
@@ -21218,7 +25778,8 @@ function ErrorResult(code, message) {
         SELECT: 'Выбрать',
         AND: 'та',
         OK: 'OK',
-        BACK: 'Назад'
+        BACK: 'Назад',
+        LETTER_M: 'м'
       },
       login: {
         ENTER: 'Увійти',
@@ -21270,7 +25831,7 @@ function ErrorResult(code, message) {
         CONFIGMENU_GLASS: 'Склопакет',
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
-        CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
+        CONFIGMENU_LAMINATION_TYPE: 'в кімнаті / фасад',
         WHITE_LAMINATION: 'Біла',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',
@@ -21278,11 +25839,12 @@ function ErrorResult(code, message) {
         COMMENT: 'Залиште свою замітку про заказ тут.',
         ROOM_SELECTION: 'Вибір шаблону',
         CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
-        HEATCOEF_VAL: 'Вт/м',
+        HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
         PROFILE_TIP: 'Для вибору профілю натисніть сюди',
-        GLASS_TIP: 'Для вибору склопакета натисніть сюди',
-        SELECT_ALL: 'Вибрати все'
+        GLASS_TIP: 'Для вибору склопакета натисніть сюди'//,
+        //SELECT_ALL: 'Вибрати все',
+        //SELECT_GLASS_WARN: 'Натисніть на склопакет, який хочете змінити'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',
@@ -21297,9 +25859,8 @@ function ErrorResult(code, message) {
         NOICE_INSULATION: 'шумоізоляція',
         CORROSION_COEFF: 'aнтикорозійність',
         BURGLAR_COEFF: 'протизламність',
-        LAMINAT_INSIDE: 'Ламінація рами в кімнаті',
-        LAMINAT_OUTSIDE: 'Ламінація з боку фасаду',
-        LAMINAT_WHITE: 'без ламінації, радикальний білий колір',
+        LAMINAT_INSIDE: 'в кімнаті',
+        LAMINAT_OUTSIDE: 'фасад',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -21316,7 +25877,9 @@ function ErrorResult(code, message) {
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
-        LOCK_TYPE2: 'многозапорный с защелкой'
+        LOCK_TYPE2: 'многозапорный с защелкой',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Вибрати',
@@ -21361,7 +25924,7 @@ function ErrorResult(code, message) {
         TAB_NAME_HARD_FRAME: 'Складена конструкція',
         TAB_EMPTY_EXPLAIN: 'Виберіть зі списку перший елемент, щоб почати складати конструкцію.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'стулки',
         ANGEL_SHAPE: 'кути',
         IMPOST_SHAPE: 'імпости',
@@ -21384,7 +25947,17 @@ function ErrorResult(code, message) {
         VOICE_SMALLEST_SIZE: 'замалий розмір',
         VOICE_BIGGEST_SIZE: "завеликий розмір",
         VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
-        NOT_AVAILABLE: 'Недоступно!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'Недоступно!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
@@ -21412,7 +25985,8 @@ function ErrorResult(code, message) {
         BY_YOUR_REQUEST: 'По вашому запиту',
         NOT_FIND: 'нічого не знайдено',
         WAIT_MASTER: 'очікує замірювача',
-        INCLUDED: 'включені'
+        INCLUDED: 'включені',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Всі дод.елементи замовлення',
@@ -21439,7 +26013,10 @@ function ErrorResult(code, message) {
         CALL_MASTER: 'Виклик замірювача для розрахунку',
         CALL_MASTER_DESCRIP: 'Для виклику замірювача нам потрібно дещо про вас знати. Обидва поля є обов`язковими для заповнення.',
         CLIENT_LOCATION: 'Місце розташування',
-        CLIENT_ADDRESS: 'Адреса',
+        CLIENT_ADDRESS: "Адреса",
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Оформлення замовлення для розрахунку',
         CALL_ORDER_DESCRIP: 'Для того, щоб виконати замовлення, ми повинні дещо про вас знати.',
         CALL_ORDER_CLIENT_INFO: 'Інформація про клієнта (заповнюйте обов`язково):',

@@ -72,6 +72,7 @@
     thisCtrl.SQUARE_EXTRA = $filter('translate')('design.SQUARE_EXTRA');
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
+    thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
 
 
     //--------- set template from ProductStor

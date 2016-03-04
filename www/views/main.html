@@ -61,7 +61,7 @@
         <div class="coeff-container">
           <div class="coeff-block">
             <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
-            <div data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+            <div data-output="{{ ::roomInfo.CLIMATE_ZONE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
             <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
@@ -70,15 +70,15 @@
             <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
               <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
             </div>
-            <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+            <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
+            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
           </div>
           <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
         </div>
         <div class="product-comment">
-          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field noPreventDefault"></textarea>
+          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
@@ -277,9 +277,11 @@
       <div ng-controller="LaminationsCtrl as laminPanel" ng-class="{'active': laminPanel.G.global.activePanel == 5}" class="config-panel lamination-container">
         <div ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner">
           <div class="laminat-filter">
-            <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
-              <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
-              <div data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+            <div class="laminat-inner">
+              <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
+                <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
+                <div data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+              </div>
             </div>
           </div>
           <div class="laminat-groups">
@@ -367,7 +369,7 @@
           <div class="search-block">
             <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
             <button ng-click="searchBox.deleteSearchChart()" class="delete-search"></button>
-            <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+            <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
           </div>
         </form>
         <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
@@ -387,25 +389,25 @@
                   <td class="aux-tablecell-name">
                     <div class="aux-name">
                       <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title">)</div>
-                      <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                      <div data-output="{{ ::elementsListPanel.NAME_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-qty">
                     <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_qty }}</button>
-                      <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                      <div data-output="{{ ::elementsListPanel.QTY_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-width">
                     <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_width }}</button>
-                      <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                      <div data-output="{{ ::elementsListPanel.WIDTH_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-height">
                     <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
                       <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_height }}</button>
-                      <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                      <div data-output="{{ ::elementsListPanel.HEIGHT_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
                   <td class="aux-tablecell-price">
@@ -422,7 +424,7 @@
             <table class="aux-list-addellement">
               <tr class="aux-list-row">
                 <td class="aux-tablecell-total">
-                  <div data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
+                  <div data-output="{{ ::elementsListPanel.TOTAL_PRICE_TXT }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
                 </td>
                 <td class="aux-tablecell-price">
                   <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
@@ -434,7 +436,7 @@
             </table>
           </div>
         </div>
-        <button ng-click="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
+        <button ng-click="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ ::elementsListPanel.SCHEME_VIEW }}</button>
       </div>
       <div ng-if="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
     </section>
@@ -604,12 +606,12 @@
                 <div class="interval">
                   <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
                   <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
-                  <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
+                  <div class="calc-label-limit">{{ ::sizeCalc.MIN }}</div>
                 </div>
                 <div class="interval">
                   <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
                   <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
-                  <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
+                  <div class="calc-label-limit">{{ ::sizeCalc.MAX }}</div>
                 </div>
               </div>
             </td>
@@ -670,7 +672,7 @@
               <div class="calc-interval">
                 <div class="interval">
                   <div class="calc-qty-limit">1000</div>
-                  <div class="calc-label-limit">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                  <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
                 </div>
               </div>
             </td>
