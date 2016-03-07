@@ -1640,9 +1640,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1690,7 +1690,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
- //*/
+ */
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -8953,7 +8953,9 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
       serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -11958,9 +11960,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -12593,9 +12595,10 @@ function ErrorResult(code, message) {
 
 
     function orderPrint(orderId) {
-      var domainLink = globalConstants.serverIP.split('api.').join(''),
-          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      //var domainLink = globalConstants.serverIP.split('api.').join(''),
+      //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+      //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
       if(navigator.onLine) {
         GeneralServ.goToLink(printLink);
@@ -17536,9 +17539,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
                   /** estimate current glass sizes */
                   overallGlass = GeneralServ.getMaxMinCoord(blocks[b].glassPoints);
-                  currWidth = GeneralServ.roundingValue((overallGlass.maxX - overallGlass.minX)/1000, 3);
-                  currHeight = GeneralServ.roundingValue((overallGlass.maxY - overallGlass.minY)/1000, 3);
-                  currSquare = GeneralServ.roundingValue((currWidth * currHeight), 3);
+                  currWidth = Math.round(overallGlass.maxX - overallGlass.minX);
+                  currHeight = Math.round(overallGlass.maxY - overallGlass.minY);
+                  currSquare = GeneralServ.roundingValue((currWidth * currHeight/1000000), 3);
 
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('design.GLASS') +
@@ -17564,7 +17567,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
                       $filter('translate')('design.NO_MATCH_RANGE') +
-                      ' ' + item.max_width + ' x ' + item.max_height + '.';
+                      ' ' + item.max_width + ' - ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
                   }
@@ -17575,7 +17578,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
       });
-//console.info('glass result', DesignStor.design.extraGlass);
+      //console.info('glass result', DesignStor.design.extraGlass);
     }
 
 
@@ -17614,8 +17617,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
               currWidth = Math.round(overallSize.maxX - overallSize.minX);
               currHeight = Math.round(overallSize.maxY - overallSize.minY);
-              // currLimit.max_width = 50;
-              // currLimit.max_height = 50;
+              //currLimit.max_width = 50;
+              //currLimit.max_height = 50;
               if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
                 isSizeError = 1;
               }
@@ -17639,7 +17642,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
       //console.info('glass result', DesignStor.design.extraHardware);
     }
-
 
 
     /**-------------- show Info Box of element or group ------------*/
@@ -24019,9 +24021,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
-        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier'//,
-        //SELECT_ALL: 'Alle auswählen',
-        //SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
+        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
+        SELECT_ALL: 'Alle auswählen',
+        SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',
@@ -24385,9 +24387,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'To change the size, click here',
         PROFILE_TIP: 'To select a profile, click here',
-        GLASS_TIP: 'To select a double-glazed window, click here'//,
-        //SELECT_ALL: 'Take all',
-        //SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
+        GLASS_TIP: 'To select a double-glazed window, click here',
+        SELECT_ALL: 'Take all',
+        SELECT_GLASS_WARN: 'Click on the glazing, you want to change'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
@@ -24749,9 +24751,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'//,
-        //SELECT_ALL: 'Selezionare tutto',
-        //SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
+        SELECT_ALL: 'Selezionare tutto',
+        SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',
@@ -25114,9 +25116,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici"//,
-        //SELECT_ALL: 'Selectați toate',
-        //SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
+        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
+        SELECT_ALL: 'Selectați toate',
+        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
@@ -25478,9 +25480,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',
         PROFILE_TIP: 'Для выбора профиля нажмите сюда',
-        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда'//,
-        //SELECT_ALL: 'Выбрать все',
-        //SELECT_GLASS_WARN: 'Кликните на стеклопакет, который хотите изменить'
+        GLASS_TIP: 'Для выбора стеклопакета нажмите сюда',
+        SELECT_ALL: 'Выбрать все',
+        SELECT_GLASS_WARN: 'Кликните на стеклопакет, который хотите изменить'
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',
@@ -25842,9 +25844,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HEATCOEF_VAL: 'Вт',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
         PROFILE_TIP: 'Для вибору профілю натисніть сюди',
-        GLASS_TIP: 'Для вибору склопакета натисніть сюди'//,
-        //SELECT_ALL: 'Вибрати все',
-        //SELECT_GLASS_WARN: 'Натисніть на склопакет, який хочете змінити'
+        GLASS_TIP: 'Для вибору склопакета натисніть сюди',
+        SELECT_ALL: 'Вибрати все',
+        SELECT_GLASS_WARN: 'Натисніть на склопакет, який хочете змінити'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',

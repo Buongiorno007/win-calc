@@ -972,8 +972,8 @@
               overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
               currWidth = Math.round(overallSize.maxX - overallSize.minX);
               currHeight = Math.round(overallSize.maxY - overallSize.minY);
-              currLimit.max_width = 50;
-              currLimit.max_height = 50;
+              //currLimit.max_width = 50;
+              //currLimit.max_height = 50;
               if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
                 isSizeError = 1;
               }

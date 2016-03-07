@@ -97,9 +97,9 @@
         HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'//,
-        //SELECT_ALL: 'Selezionare tutto',
-        //SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
+        SELECT_ALL: 'Selezionare tutto',
+        SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',
