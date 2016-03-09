@@ -109,35 +109,5 @@
         content: $select-history-icon;
       }
     }
-    .set-glass-all-btn {
-      @extend .middle-button;
-      @extend .splash;
-      position: relative;
-      bottom: 0;
-      display: inline-block;
-      padding: 0.8125rem 1.625rem;
-      color: #fff;
-      background-color: $main_green;
-    }
-    .set-glass-warning {
-      @include display-flex();
-      @include flex-flow(row wrap);
-      @include justify-content(center);
-      @include align-items(center);
-      @include roboto-md(rem(24px));
-      color: $main_gray_txt;
-
-      span {
-        @include font-icon(4rem);
-        @extend .icon-setting;
-        @extend .splash;
-        padding-right: 1rem;
-        &:before {
-          color: $main_orange;
-          content: $warning;
-
-        }
-      }
-    }
   }
 }

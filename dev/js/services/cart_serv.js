@@ -1,37 +1,27 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .factory('CartServ', cartFactory);
+    .factory('CartServ',
 
-  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor, AuxStor) {
-
+  function(
+    $location,
+    $filter,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      increaseProductQty: increaseProductQty,
-      decreaseProductQty: decreaseProductQty,
-      addNewProductInOrder: addNewProductInOrder,
-      clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct,
 
-      showAllAddElements: showAllAddElements,
-      collectAllAddElems: collectAllAddElems,
-      getAddElemsPriceTotal: getAddElemsPriceTotal,
-      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
-      createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
-    };
-
-    return thisFactory.publicObj;
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //------- add new product in order
     function addNewProductInOrder() {
@@ -52,28 +42,9 @@
 
 
 
-    //----- Reduce Product Qty
-    function decreaseProductQty(productIndex) {
-      //----- if product 1 - delete product completely
-      if(OrderStor.order.products[productIndex].product_qty === 1) {
-        //------ ask client to delete
-        clickDeleteProduct(productIndex);
-      } else {
-        OrderStor.order.products[productIndex].product_qty -= 1;
-        CartMenuServ.calculateOrderPrice();
-      }
-      CartMenuServ.joinAllAddElements();
-    }
-
 
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
-        deleteProduct
-      );
 
       function deleteProduct() {
         //playSound('delete');
@@ -89,7 +60,28 @@
           //TODO create new project
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+        deleteProduct
+      );
     }
+
+
+    //----- Reduce Product Qty
+    function decreaseProductQty(productIndex) {
+      //----- if product 1 - delete product completely
+      if(OrderStor.order.products[productIndex].product_qty === 1) {
+        //------ ask client to delete
+        clickDeleteProduct(productIndex);
+      } else {
+        OrderStor.order.products[productIndex].product_qty -= 1;
+        CartMenuServ.calculateOrderPrice();
+      }
+      CartMenuServ.joinAllAddElements();
+    }
+
 
 
     //----- Edit Produtct in main page
@@ -116,14 +108,6 @@
 
     /**======== ALL ADD LEMENTS PANEL ========*/
 
-    /** show All Add Elements Panel */
-    function showAllAddElements() {
-      collectAllAddElems();
-      getAddElemsPriceTotal();
-      initSelectedProductsArr();
-      CartStor.cart.isAllAddElems = 1;
-      AuxStor.aux.isAddElementListView = 1;
-    }
 
 
     function collectAllAddElems() {
@@ -143,7 +127,7 @@
                   if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
                     if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
                       CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      --noExist;
+                      noExist -= 1;
                     }
                   }
                 }
@@ -181,6 +165,14 @@
     }
 
 
+    /** show All Add Elements Panel */
+    function showAllAddElements() {
+      collectAllAddElems();
+      getAddElemsPriceTotal();
+      initSelectedProductsArr();
+      CartStor.cart.isAllAddElems = 1;
+      AuxStor.aux.isAddElementListView = 1;
+    }
 
 
     function calculateAddElemsProductsPrice(reculc) {
@@ -199,8 +191,12 @@
               while (--addElemQty > -1) {
                 OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
               }
-              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(OrderStor.order.products[productsQty].addelem_price);
-              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingValue(
+                OrderStor.order.products[productsQty].addelem_price
+              );
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(
+                OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem
+              );
             }
           }
         }
@@ -211,6 +207,11 @@
     }
 
 
+    function addCloneProductInOrder(cloneProduct, lastProductId) {
+      lastProductId += 1;
+      cloneProduct.product_id = lastProductId;
+      OrderStor.order.products.push(cloneProduct);
+    }
 
 
 
@@ -225,12 +226,28 @@
     }
 
 
-    function addCloneProductInOrder(cloneProduct, lastProductId) {
-      ++lastProductId;
-      cloneProduct.product_id = lastProductId;
-      OrderStor.order.products.push(cloneProduct);
-    }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      increaseProductQty: increaseProductQty,
+      decreaseProductQty: decreaseProductQty,
+      addNewProductInOrder: addNewProductInOrder,
+      clickDeleteProduct: clickDeleteProduct,
+      editProduct: editProduct,
+
+      showAllAddElements: showAllAddElements,
+      collectAllAddElems: collectAllAddElems,
+      getAddElemsPriceTotal: getAddElemsPriceTotal,
+      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
+      createProductCopy: createProductCopy,
+      addCloneProductInOrder: addCloneProductInOrder
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();

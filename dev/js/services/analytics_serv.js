@@ -3,10 +3,10 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('AnalyticsServ', analyticsFactory);
+    .factory('AnalyticsServ',
 
-  function analyticsFactory(localDB, UserStor) {
-
+  function(localDB, UserStor) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
@@ -16,16 +16,9 @@
       element_type: 0
     };
 
-    thisFactory.publicObj = {
-      sendAnalyticsData: sendAnalyticsData//,
-//      saveAnalyticDB: insertAnalyticsDB,
-//      sendAnalyticsDB: sendAnalyticsDB
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 /*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
@@ -63,7 +56,9 @@
             delete analytics[analytQty].id;
             delete analytics[analytQty].modified;
             //----- send Analytics Data to Server
-            localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]);
+            localDB.insertServer(
+            UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analytics[analytQty]
+            );
           }
           //---- clear Analytics Table in localDB
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);
@@ -98,5 +93,18 @@
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
 
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      sendAnalyticsData: sendAnalyticsData//,
+      //      saveAnalyticDB: insertAnalyticsDB,
+      //      sendAnalyticsDB: sendAnalyticsDB
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();

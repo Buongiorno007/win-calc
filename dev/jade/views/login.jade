@@ -60,7 +60,6 @@ section.login-page
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }")
         select.user-select-field(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()", required)
-
           option(value='') {{ ::loginPage.SELECT_COUNTRY }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.country.$error.required") {{ ::loginPage.EMPTY_FIELD }}
 
@@ -73,7 +72,6 @@ section.login-page
         select.user-select-field(name="city", ng-model="loginPage.user.city", ng-options="city.cityName for city in loginPage.G.global.locations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'cityName'", ng-change="loginPage.selectLocation()", ng-disabled="!loginPage.user.region", required)
           option(value='') {{ ::loginPage.SELECT_CITY }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
         input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", ng-pattern="loginPage.regMail", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)

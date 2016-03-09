@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('optionsServ', optionFactory);
+    .factory('optionsServ',
 
-  function optionFactory($filter) {
+  function($filter) {
 
     return {
 
@@ -85,7 +85,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -93,6 +93,7 @@
                   id:'block_1',
                   level: 1,
                   blockType:'frame',
+                  //blockType:'sash',
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
@@ -104,7 +105,9 @@
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: ''
+                  glassTxt: ''//,
+                  //sashType: 2,
+                  //openDir: [1]
                 }
               ]
             },
@@ -118,7 +121,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -186,7 +189,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -291,7 +294,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -394,7 +397,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -497,7 +500,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit:2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -634,7 +637,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -703,7 +706,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -807,7 +810,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -947,7 +950,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit:2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1121,7 +1124,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2100
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1337,7 +1340,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1', 'block_2'],
-                  maxSizeLimit: 2300
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -1402,7 +1405,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2300
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1515,7 +1518,7 @@
                   level: 0,
                   blockType:'frame',
                   children:['block_1'],
-                  maxSizeLimit: 2300
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -1589,5 +1592,5 @@
     }
 
 
-  }
+  });
 })();

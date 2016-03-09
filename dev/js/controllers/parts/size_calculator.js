@@ -3,18 +3,24 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('sizeCalculatorCtrl', sizeCalcCtrl);
+    .controller('sizeCalculatorCtrl',
 
-  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
-
+  function(
+    GlobalStor,
+    DesignStor,
+    AddElementMenuServ,
+    DesignServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
     thisCtrl.D = DesignStor;
 
 
+
     //------ clicking
     //------ for Add Elements Panel
-    if(GlobalStor.global.activePanel == 6) {
+    if(GlobalStor.global.currOpenPage === 'main') {
       thisCtrl.isDesignPage = false;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
@@ -29,5 +35,5 @@
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
-  }
+  });
 })();

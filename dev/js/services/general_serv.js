@@ -1,11 +1,19 @@
+/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GeneralServ', generalFactory);
+    .factory('GeneralServ',
 
-  function generalFactory($filter, $window, $document, globalConstants, GlobalStor) {
+  function(
+    $filter,
+    $window,
+    $document,
+    globalConstants,
+    GlobalStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         addElementDATA = [
           /** GRID */
@@ -98,18 +106,6 @@
           }
         ];
 
-    thisFactory.publicObj = {
-      addElementDATA: addElementDATA,
-      stopStartProg: stopStartProg,
-      setPreviosPage: setPreviosPage,
-      roundingValue: roundingValue,
-      addMarginToPrice: addMarginToPrice,
-      setPriceDis: setPriceDis,
-      sorting: sorting,
-      removeDuplicates: removeDuplicates,
-      getMaxMinCoord: getMaxMinCoord,
-      confirmAlert: confirmAlert
-    };
 
     //TODO desktop
     //------- IMG rooms preload
@@ -131,10 +127,9 @@
       }
     });
 
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     function stopStartProg() {
       if(GlobalStor.global.startProgramm && GlobalStor.global.currOpenPage === 'main') {
@@ -147,21 +142,22 @@
     }
 
 
-    function roundingValue(nubmer, radix) {
-      var radix = (radix) ? radix : 2,
+    function roundingValue(nubmer, rad) {
+      var radix = rad || 2,
           numberType = typeof nubmer,
-          roundRadix = '1', i = 0;
+          roundRadix = '1', i, newValue;
 
-      for(; i < radix; i++) {
+      for(i = 0; i < radix; i+=1) {
         roundRadix += '0';
       }
       roundRadix *= 1;
 
       if(numberType === 'string') {
-        return parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
+        newValue = parseFloat( (Math.round(parseFloat(nubmer) * roundRadix) / roundRadix).toFixed(radix) );
       } else if(numberType === 'number') {
-        return parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
+        newValue = parseFloat( (Math.round(nubmer * roundRadix) / roundRadix).toFixed(radix) );
       }
+      return newValue;
     }
 
     /** price Margins of Plant */
@@ -179,7 +175,7 @@
 
     function removeDuplicates(arr) {
       return arr.filter(function(elem, index, self) {
-        return index == self.indexOf(elem);
+        return index === self.indexOf(elem);
       });
     }
 
@@ -202,5 +198,34 @@
       GlobalStor.global.confirmAction = callback;
     }
 
-  }
+
+    function goToLink(link) {
+      if(GlobalStor.global.isDevice) {
+        var ref = window.open(link);
+        ref.close();
+      } else {
+        $window.open(link);
+      }
+    }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      addElementDATA: addElementDATA,
+      stopStartProg: stopStartProg,
+      setPreviosPage: setPreviosPage,
+      roundingValue: roundingValue,
+      addMarginToPrice: addMarginToPrice,
+      setPriceDis: setPriceDis,
+      sorting: sorting,
+      removeDuplicates: removeDuplicates,
+      getMaxMinCoord: getMaxMinCoord,
+      confirmAlert: confirmAlert,
+      goToLink: goToLink
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();

@@ -3,11 +3,17 @@
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('GlobalStor', globalStorageFactory);
+    .factory('GlobalStor',
 
-  function globalStorageFactory() {
 
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
+
+
+    function setDefaultGlobal() {
+      return angular.copy(thisFactory.publicObj.globalSource);
+    }
 
     thisFactory.publicObj = {
 
@@ -22,6 +28,7 @@
         configMenuTips: 0,
         isTemplateItemMenu: 0,
         isTemplateItemDesign: 1,
+
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,
         productEditNumber: 0,
@@ -32,14 +39,14 @@
 
         isChangedTemplate: 0,
         isVoiceHelper: 0,
-        voiceHelperLanguage: '', 
+        voiceHelperLanguage: '',
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
-        
+
         //------ Rooms background
         showRoomSelectorDialog: 0,
-        
+        rooms: [],
 
         //------- Templates
         templateLabel: '',
@@ -56,18 +63,21 @@
         glassesAll: [],
         glassTypes: [],
         glasses: [],
+        selectGlassId: 0,
         selectLastGlassId: 0,
+        selectGlassName: '',
+        prevGlassId: 0,
+        prevGlassName: '',
 
         //------ Hardwares
         hardwares: [],
         hardwareTypes: [],
+        hardwareLimits: [],
 
         //------ Lamination
         laminats: [],
         laminatCouples: [],
-
         lamGroupFiltered: [],
-
 
         //------ Add Elements
         addElementsAll: [],
@@ -106,7 +116,9 @@
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
-        isWidthCalculator: 0
+        isWidthCalculator: 0,
+        maxSizeLimit: 3200,
+        maxSquareLimit: 6
       },
 
       setDefaultGlobal: setDefaultGlobal
@@ -116,14 +128,5 @@
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultGlobal() {
-      var publicObj = angular.copy(thisFactory.publicObj.globalSource);
-      return publicObj;
-    }
-
-
-  }
+  });
 })();

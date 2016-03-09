@@ -130,11 +130,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
-      .when('/designMain', {
-        templateUrl: 'views/design.html',
-        controller: 'DesignCtrl as designPageMain',
-        title: 'Design'
-      })
       .otherwise({
         redirectTo: '/'
       });

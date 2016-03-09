@@ -1,28 +1,236 @@
+/* globals d3 */
 (function(){
   'use strict';
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('svgTemplate', svgTemplateDir);
+    .directive('svgTemplate',
 
-  function svgTemplateDir(globalConstants, GeneralServ, ProductStor, SVGServ, DesignServ) {
+  function(
+    globalConstants,
+    GeneralServ,
+    ProductStor,
+    SVGServ,
+    DesignServ
+  ) {
 
     return {
       restrict: 'E',
       replace: true,
       transclude: true,
       scope: {
-        typeConstruction: '@',
+        typeConstruction: '=',
         template: '=',
         templateWidth: '=',
         templateHeight: '='
       },
-      link: function (scope, elem, attrs) {
+      link: function (scope, elem) {
 
-        scope.$watch('template', function () {
-          buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
-        });
+        /**============ METHODS ================*/
+ 
+        function zooming() {
+          d3.select('#main_group')
+            .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
 
+
+        function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
+          defs.append("marker")
+            .classed(classMarker, true)
+            .attr({
+              'id': id,
+              'viewBox': view,
+              'refX': refX,
+              'refY': refY,
+              'markerWidth': w,
+              'markerHeight': h,
+              'orient': angel
+            })
+            .append("path")
+            .attr("d", path);
+        }
+
+
+        function createDimension(dir, dim, dimGroup, lineCreator) {
+          if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
+          var dimLineHeight = -150,
+              dimEdger = 50,
+              dimMarginBottom = -20,
+              sizeBoxWidth = 160,
+              sizeBoxHeight = 70,
+              sizeBoxRadius = 20,
+              lineSideL = [],
+              lineSideR = [],
+              lineCenter = [],
+              dimBlock, sizeBox,
+              pointL1 = {
+                x: dir ? dimMarginBottom : dim.from,
+                y: dir ? dim.from : dimMarginBottom
+              },
+              pointL2 = {
+                x: dir ? dimLineHeight : dim.from,
+                y: dir ? dim.from : dimLineHeight
+              },
+              pointR1 = {
+                x: dir ? dimMarginBottom : dim.to,
+                y: dir ? dim.to : dimMarginBottom
+              },
+              pointR2 = {
+                x: dir ? dimLineHeight : dim.to,
+                y: dir ? dim.to : dimLineHeight
+              },
+              pointC1 = {
+                x: dir ? dimLineHeight + dimEdger : dim.from,
+                y: dir ? dim.from : dimLineHeight + dimEdger
+              },
+              pointC2 = {
+                x: dir ? dimLineHeight + dimEdger : dim.to,
+                y: dir ? dim.to : dimLineHeight + dimEdger
+              };
+          lineSideL.push(pointL1, pointL2);
+          lineSideR.push(pointR1, pointR2);
+          lineCenter.push(pointC1, pointC2);
+
+          dimBlock = dimGroup.append('g')
+            .attr({
+              'class': function() {
+                var className;
+                if(dir) {
+                  className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                } else {
+                  className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                }
+                return className;
+              },
+              'block_id': dim.blockId,
+              'axis': dim.axis
+            });
+
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr('d', lineCreator(lineSideR));
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr('d', lineCreator(lineSideL));
+
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr({
+              'd': lineCreator(lineCenter),
+              'marker-start': function() { return dir ? 'url(#dimVertR)' : 'url(#dimHorL)'; },
+              'marker-end': function() { return dir ? 'url(#dimVertL)' : 'url(#dimHorR)'; }
+            });
+
+          sizeBox = dimBlock.append('g')
+            .classed('size-box', true);
+
+          if(scope.typeConstruction === 'tamlateSVG') {
+            sizeBox.append('rect')
+              .classed('size-rect', true)
+              .attr({
+                'x': function() {
+                  return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+                },
+                'y': function() {
+                  return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+                },
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
+              });
+          }
+
+
+          sizeBox.append('text')
+            .text(dim.text)
+            .attr({
+              'class': function() {
+                return (scope.typeConstruction === globalConstants.SVG_ID_EDIT) ? 'size-txt-edit' : 'size-txt';
+              },
+              'x': function() {
+                return dir ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2;
+              },
+              'y': function() {
+                return dir ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8);
+              },
+              'dx': 80,
+              'dy': 40,
+              'type': 'line',
+              'block_id': dim.blockId,
+              'size_val': dim.text,
+              'min_val': dim.minLimit,
+              'max_val': dim.maxLimit,
+              'dim_id': dim.dimId,
+              'from_point': dim.from,
+              'to_point': dim.to,
+              'axis': dim.axis
+            });
+          }
+        }
+
+
+        function createRadiusDimension(dimQ, dimGroup, lineCreator) {
+
+          var radiusLine = [],
+              sizeBoxRadius = 20,
+              startPR = {
+                x: dimQ.startX,
+                y: dimQ.startY
+              },
+              endPR = {
+                x: dimQ.midleX,
+                y: dimQ.midleY
+              },
+              dimBlock, sizeBox;
+
+          radiusLine.push(endPR, startPR);
+
+          dimBlock = dimGroup.append('g')
+            .attr({
+              'class': 'dim_block_radius',
+              'block_id': dimQ.blockId
+            });
+
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr({
+              'd': lineCreator(radiusLine),
+              'style': 'stroke: #000;',
+              'marker-end': 'url(#dimArrow)'
+            });
+
+          sizeBox = dimBlock.append('g')
+            .classed('size-box', true);
+
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+            sizeBox.append('rect')
+              .classed('size-rect', true)
+              .attr({
+                'x': dimQ.midleX,
+                'y': dimQ.midleY,
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
+              });
+          }
+
+
+          sizeBox.append('text')
+            .text(dimQ.radius)
+            .attr({
+              'class': 'size-txt-edit',
+              'x': dimQ.midleX,
+              'y': dimQ.midleY,
+              'dx': 80,
+              'dy': 40,
+              'type': 'curve',
+              'block_id': dimQ.blockId,
+              'size_val': dimQ.radius,
+              'min_val': dimQ.radiusMax,
+              'max_val': dimQ.radiusMin,
+              'dim_id': dimQ.id,
+              'chord': dimQ.lengthChord
+            });
+
+        }
 
 
         function buildSVG(template, widthSVG, heightSVG) {
@@ -34,75 +242,73 @@
                   .interpolate("linear"),
                 padding = 0.7,
                 position = {x: 0, y: 0},
-                mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
+                mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty, i, corners;
 
-            if(scope.typeConstruction === 'icon'){
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
-            } else if(scope.typeConstruction === 'edit') {
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
-            } else if(scope.typeConstruction === 'MainEdit') {
-                padding = 0.6;
-              }
-            
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_MAIN){
+              padding = 0.6;
+            }
+
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
               'height': heightSVG
             });
 
-            if(scope.typeConstruction === 'icon') {
-              mainSVG.attr('class', 'tamlateIconSVG');
-            } else if(scope.typeConstruction === 'setGlass') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GLASS);
-            } else if(scope.typeConstruction === 'setGrid') {
-              mainSVG.attr('id', globalConstants.SVG_ID_GRID);
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+              mainSVG.attr('class', scope.typeConstruction);
             } else {
-              mainSVG.attr('id', globalConstants.SVG_ID_EDIT);
+              mainSVG.attr('id', scope.typeConstruction);
             }
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
 
-      
-            if(scope.typeConstruction === 'MainEdit') {
+
+
+            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
              scale = SVGServ.setTemplateScaleMAIN(dimMaxMin, widthSVG, heightSVG, padding);
-            } else {
+              } else {
              scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding); 
-            }
+               console.log('scalescalescale', scale)
+                }
 
+console.log('scope.typeConstruction'  , scope.typeConstruction )
 
-            if(scope.typeConstruction !== 'icon') {
-              if (scope.typeConstruction === 'MainEdit') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
+              if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               position = SVGServ.setTemplatePositionMAIN(dimMaxMin, widthSVG, heightSVG, scale);
-            } else {
+              } else {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+                }
+                console.log('positionfffffffffff', position)
             }
-            }
+
+
+
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
 
-
-        //===================zoom=====================//
-
-
-            if (scope.typeConstruction === 'edit' ) {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
                 .on("zoom", zooming));
-            } 
+            }
 
-        //===================zoom end=====================//
-
-           
             /** Defs */
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
-                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
-                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,"+
+                    "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+                    "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,"+
+                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
               /** dimension */
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -120,7 +326,7 @@
               setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
 
               /** lamination */
-      
+              if(ProductStor.product.lamination.img_in_id > 1) {
                 defs.append('pattern')
                   .attr('id', 'laminat')
                   .attr('patternUnits', 'userSpaceOnUse')
@@ -130,42 +336,144 @@
                   .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
                   .attr('width', 600)
                   .attr('height', 400);
+              }
+                            /** background */
 
-              /** background */
-              
-              if(scope.typeConstruction ==='MainEdit') {
-                if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
+              if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                if (ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
+                                  var kk = '';
+                    if (ProductStor.product.template_height <= 2049) {
+                      kk = 1.2;
+                    }
+                    if (2050 <= ProductStor.product.template_height) {
+                      kk = 1.26;
+                    }
+                    if ( 2101 <= ProductStor.product.template_height) {
+                      kk = 1.28;
+                    }
+                    if ( 2171 <= ProductStor.product.template_height) {
+                      kk = 1.32;
+                    }
+                    if ( 2191 <= ProductStor.product.template_height) {
+                      kk = 1.35;
+                    }
+                    if ( 2211 <= ProductStor.product.template_height) {
+                      kk = 1.38;
+                    }
+                    if ( 2231 <= ProductStor.product.template_height) {
+                      kk = 1.4;
+                    }
+                    if ( 2251 <= ProductStor.product.template_height) {
+                      kk = 1.42;
+                    }5
+                    if ( 2271 <= ProductStor.product.template_height) {
+                      kk = 1.44;
+                    }
+                    if ( 2291 <=ProductStor.product.template_height) {
+                      kk = 1.46;
+                    }
+                    if ( 2311 <=ProductStor.product.template_height) {
+                      kk = 1.48;
+                    }
+                    if ( 2331 <= ProductStor.product.template_height) {
+                      kk = 1.5;
+                    }
+                    if ( 2351 <= ProductStor.product.template_height) {
+                      kk = 1.52;
+                    }
+                    if ( 2371 <= ProductStor.product.template_height) {
+                      kk = 1.54;
+                    }
+                    if ( 2391 <= ProductStor.product.template_height) {
+                      kk = 1.56;
+                    }
                 defs.append('pattern')
                   .attr('id', 'background')
                   .attr('patternUnits', 'userSpaceOnUse')
-                  .attr('width', 2520*1.2)
-                  .attr('height', 1680*1.2)
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk)
                   .append("image")
                   .attr("xlink:href", "img/room/fon.gif")
-                  .attr('width', 2520*1.2)
-                  .attr('height', 1680*1.2);
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk);
                 }
               
                 if(ProductStor.product.construction_type == 4) {
+                   var kk = '';
+                    if (ProductStor.product.template_height > 100) {
+                      kk = 1.03;
+                    }
+                    if (1800 <= ProductStor.product.template_height) {
+                      kk = 1.05;
+                    }
+                    if (1850 <= ProductStor.product.template_height) {
+                      kk = 1.07;
+                    }
+                    if (1900 <= ProductStor.product.template_height) {
+                      kk = 1.11;
+                    }                    
+                    if (1950 <= ProductStor.product.template_height) {
+                      kk = 1.14;
+                    }                    
+                    if (2000 <= ProductStor.product.template_height) {
+                      kk = 1.17;
+                    }
+                    if (2050 <= ProductStor.product.template_height) {
+                      kk = 1.2;
+                    }
+                    if ( 2101 <= ProductStor.product.template_height) {
+                      kk = 1.23;
+                    }
+                    if ( 2171 <= ProductStor.product.template_height) {
+                      kk = 1.24;
+                    }
+                    if ( 2191 <= ProductStor.product.template_height) {
+                      kk = 1.25;
+                    }
+                    if ( 2211 <= ProductStor.product.template_height) {
+                      kk = 1.27;
+                    }
+                    if ( 2231 <= ProductStor.product.template_height) {
+                      kk = 1.29;
+                    }
+                    if ( 2251 <= ProductStor.product.template_height) {
+                      kk = 1.31;
+                    }
+                    if ( 2271 <= ProductStor.product.template_height) {
+                      kk = 1.33;
+                    }
+                    if ( 2291 <=ProductStor.product.template_height) {
+                      kk = 1.35;
+                    }
+                    if ( 2311 <=ProductStor.product.template_height) {
+                      kk = 1.37;
+                    }
+                    if ( 2331 <= ProductStor.product.template_height) {
+                      kk = 1.38;
+                    }
+                    if ( 2351 <= ProductStor.product.template_height) {
+                      kk = 1.40;
+                    }
+                    if ( 2371 <= ProductStor.product.template_height) {
+                      kk = 1.41;
+                    }
+                    if ( 2391 <= ProductStor.product.template_height) {
+                      kk = 1.43;
+                    }
                     defs.append('pattern')
                     .attr('id', 'background')
                     .attr('patternUnits', 'userSpaceOnUse')
-                    .attr('width', 2520*1.2)
-                    .attr('height', 1680*1.2)
+                    .attr('width', 2520*kk)
+                    .attr('height', 1680*kk)
                     .append("image")
                     .attr("xlink:href", "img/room/333.gif")
-                    .attr('width', 2520*1.2)
-                    .attr('height', 1680*1.2);
+                    .attr('width', 2520*kk)
+                    .attr('height', 1680*kk);
                 }
-              } else {
-                   defs.append('pattern')
-                  .attr('id', 'background')
-                  .attr('patternUnits', 'userSpaceOnUse')
-                  .attr('fill','#94DEEE');
-                }
+              } 
             }
 
-      //=============================Points==============================//
+  //=============================Points==============================//
 
                 var blockQty = template.details.length,
                     path = '', 
@@ -254,7 +562,7 @@
 
           //============================elements room==========================//
 
-                  if(scope.typeConstruction ==='MainEdit') {
+                  if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                     if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3) {
                       var lchHeight = (((0.18*heightWmd)-252)+520),
                           lchWidth = (((0.18*widthWmd)-234)+520),
@@ -284,7 +592,7 @@
                           block15Top = '' + 720;
                         }
                         if (2148 < ProductStor.product.template_height) {
-                          topWindowsill = '' + 646,
+                          topWindowsill = '' + 637,
                           block15Height = '' + 90,
                           windowsill2 = (-30),
                           block15Top =  '' + 720;
@@ -296,7 +604,7 @@
                               d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
                             }
                               d3.select('.coeff-room-block15').style({
-                                'width' : (90+(0.48*(widthWmd/2))) + 'px',
+                                'width' : ((0.48*(widthWmd/2))) + 'px',
                                 'height' : block15Height + 'px',
                                 'top' : block15Top + 'px',
                               }),                      
@@ -345,8 +653,8 @@
                               'left' : (60) + 'px',
                               'top' : (heightDisplay - lchHeight + 30) + 'px',
                           });   
-                            d3.select('.coeff-room-block11').style('left' , ((0.23*(widthWmd/2)*2)+278) + 'px'),
-                            d3.select('.coeff-room-block8').style('left' , ((0.23*(widthWmd/2)*2)+275) + 'px'),                      
+                            d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px'),
+                            d3.select('.coeff-room-block8').style('left' , (0.23*(widthWmd)+275) + 'px'),                      
                             d3.select('.coeff-room-block5').style('left' , 5000 + 'px'), 
                             d3.select('.coeff-room-block10').style('opacity' , 1),                   
                             d3.select('.coeff-room-block7').style('opacity' , 1),
@@ -357,13 +665,17 @@
 
           //============================soffits================================//
 
-                  if(scope.typeConstruction ==='MainEdit') {
+
+
+                  if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                     if(ProductStor.product.construction_type == 1 || ProductStor.product.construction_type == 3){
                       if(1 < ProductStor.product.template_height < 30000) {
                        var positionX1 = position.x-160,
                            positionY1 = 18,
                            positionX2 = position.x-340,
                            positionY2 = -100;
+
+
                       } 
 
                       mainGroup.append('g').append("polygon")
@@ -416,7 +728,7 @@
                         'id' : 'clipPolygonDoor4',
                         'fill' : '#FFFAFA',
                         'points' : noVvPath,
-                        'transform': 'translate(' + (position.x-333) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                        'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                       });
                     }
                     if(ProductStor.product.construction_type == 2) {  
@@ -469,7 +781,6 @@
                       });
                     }
                   }
-                  
 
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
@@ -479,7 +790,7 @@
             });
 
             blocksQty = template.details.length;
-            for (var i = 1; i < blocksQty; i++) {
+            for (i = 1; i < blocksQty; i+=1) {
               elementsGroup.selectAll('path.' + template.details[i].id)
                 .data(template.details[i].parts)
                 .enter().append('path')
@@ -488,16 +799,19 @@
                   'parent_id': template.details[i].parent,
                   //'class': function(d) { return d.type; },
                   'class': function (d) {
-                    if(scope.typeConstruction === 'icon') {
-                      return (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
+                    var className;
+                    if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
+                      className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
                     } else {
                       if(d.doorstep) {
-                        return 'doorstep';
+                        className = 'doorstep';
                       } else {
-                        return (d.type === 'glass') ? 'glass' : 'frame';
+                        className = (d.type === 'glass') ? 'glass' : 'frame';
                       }
                     }
+                    return className;
                   },
+
                   'item_type': function (d) {
                     return d.type;
                   },
@@ -511,20 +825,28 @@
                     return d.path;
                   },
                   'fill': function(d) {
-                    if(ProductStor.product.lamination.img_in_id > 1) {
-                      return (d.type !== 'glass') ? 'url(#laminat)' : '';
-                    } else {
-                      if (scope.typeConstruction ==='MainEdit') {
-                         return '#DCDCDC';
+                    var fillName;
+                    if (d.type === 'glass') {
+                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          fillName = 'url(#background)';
                       } else {
-                      return '#FFFFFF';
+                          fillName = 'rgba(155, 204, 255, 0.20)';
                         }
-                      }
+                      } else {
+                          if(ProductStor.product.lamination.img_in_id > 1) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                          } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                              fillName = '#DCDCDC';
+                            } else {
+                              fillName = '#f9f9f9';
+                              }
+                    }
+                    return fillName;
                   }
                 });
 
 
-              if(scope.typeConstruction !== 'icon') {
+              if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {
                   elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
@@ -537,25 +859,27 @@
                             return lineCreator(d.points);
                           },
                       'marker-mid': function(d) {
-                        var dirQty = template.details[i].sashOpenDir.length;
+                        var dirQty = template.details[i].sashOpenDir.length,
+                            handle;
                         if(template.details[i].handlePos) {
                           if (dirQty === 1) {
                             if (template.details[i].handlePos === 2) {
-                              return 'url(#handleR)';
+                              handle = 'url(#handleR)';
                             } else if (template.details[i].handlePos === 1) {
-                              return 'url(#handleU)';
+                              handle = 'url(#handleU)';
                             } else if (template.details[i].handlePos === 4) {
-                              return 'url(#handleL)';
+                              handle = 'url(#handleL)';
                             } else if (template.details[i].handlePos === 3) {
-                              return 'url(#handleD)';
+                              handle = 'url(#handleD)';
                             }
                           } else if (dirQty === 2) {
                             if (d.points[1].fi < 45 || d.points[1].fi > 315) {
-                              return 'url(#handleR)';
+                              handle = 'url(#handleR)';
                             } else if (d.points[1].fi > 135 && d.points[1].fi < 225) {
-                              return 'url(#handleL)';
+                              handle = 'url(#handleL)';
                             }
                           }
+                          return handle;
                         }
                       }
                     });
@@ -563,11 +887,10 @@
 
 
                 //---- corner markers
-                if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
+                if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
                   if (template.details[i].level === 1) {
-              
                     //----- create array of frame points with corner = true
-                    var corners = template.details[i].pointsOut.filter(function (item) {
+                    corners = template.details[i].pointsOut.filter(function (item) {
                       return item.corner > 0;
                     });
                     elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
@@ -592,11 +915,12 @@
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'setGlass') {
+                if (scope.typeConstruction === 'tamlateGlassSVG') {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
                       .attr({
+                        'block_id': template.details[i].id,
                         'class': 'glass-txt',
                         'x': template.details[i].center.x,
                         'y': template.details[i].center.y
@@ -605,7 +929,7 @@
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'setGrid') {
+                if (scope.typeConstruction === 'tamlateGridSVG') {
                   if(!template.details[i].children.length && template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
@@ -621,19 +945,19 @@
 
             }
 
-
-            if(scope.typeConstruction !== 'icon') {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON ) {
               //--------- dimension
               var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length;
-              for (var dx = 0; dx < dimXQty; dx++) {
+                  dimQQty = template.dimension.dimQ.length,
+                  dx, dy, dq;
+              for (dx = 0; dx < dimXQty; dx+=1) {
                 createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
               }
-              for (var dy = 0; dy < dimYQty; dy++) {
+              for (dy = 0; dy < dimYQty; dy+=1) {
                 createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
               }
-              for (var dq = 0; dq < dimQQty; dq++) {
+              for (dq = 0; dq < dimQQty; dq+=1) {
                 createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
               }
             }
@@ -642,9 +966,8 @@
 
             //======= set Events on elements
             DesignServ.removeAllEventsInSVG();
-            console.log('//---Events------ set clicking to all elements--------------//')
             //--------- set clicking to all elements
-            if (scope.typeConstruction === 'edit') {
+            if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -654,199 +977,13 @@
         }
 
 
-        function zooming() {
-          d3.select('#main_group').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-        }
 
-
-
-        function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
-          defs.append("marker")
-            .classed(classMarker, true)
-            .attr({
-              'id': id,
-              'viewBox': view,
-              'refX': refX,
-              'refY': refY,
-              'markerWidth': w,
-              'markerHeight': h,
-              'orient': angel
-            })
-            .append("path")
-            .attr("d", path);
-        }
-
-
-        function createDimension(dir, dim, dimGroup, lineCreator) {
-          if (scope.typeConstruction !== 'MainEdit') {
-              var dimLineHeight = -150,
-              dimEdger = 50,
-              dimMarginBottom = -20,
-              sizeBoxWidth = 160,
-              sizeBoxHeight = 70,
-              sizeBoxRadius = 20,
-              lineSideL = [],
-              lineSideR = [],
-              lineCenter = [],
-              dimBlock, sizeBox,
-              pointL1 = {
-                x: (dir) ? dimMarginBottom : dim.from,
-                y: (dir) ? dim.from : dimMarginBottom
-              },
-              pointL2 = {
-                x: (dir) ? dimLineHeight : dim.from,
-                y: (dir) ? dim.from : dimLineHeight
-              },
-              pointR1 = {
-                x: (dir) ? dimMarginBottom : dim.to,
-                y: (dir) ? dim.to : dimMarginBottom
-              },
-              pointR2 = {
-                x: (dir) ? dimLineHeight : dim.to,
-                y: (dir) ? dim.to : dimLineHeight
-              },
-              pointC1 = {
-                x: (dir) ? dimLineHeight + dimEdger : dim.from,
-                y: (dir) ? dim.from : dimLineHeight + dimEdger
-              },
-              pointC2 = {
-                x: (dir) ? dimLineHeight + dimEdger : dim.to,
-                y: (dir) ? dim.to : dimLineHeight + dimEdger
-              };
-          lineSideL.push(pointL1, pointL2);
-          lineSideR.push(pointR1, pointR2);
-          lineCenter.push(pointC1, pointC2);
-
-          dimBlock = dimGroup.append('g')
-           .attr({
-             'class': function() {
-               if(dir) {
-                 return (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
-               } else {
-                 return (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
-               }
-             },
-             'block_id': dim.blockId,
-             'axis': dim.axis
-           });
-
-          dimBlock.append('path')
-           .classed('size-line', true)
-           .attr('d', lineCreator(lineSideR));
-          dimBlock.append('path')
-           .classed('size-line', true)
-           .attr('d', lineCreator(lineSideL));
-
-          dimBlock.append('path')
-           .classed('size-line', true)
-           .attr({
-             'd': lineCreator(lineCenter),
-             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)'; },
-             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)'; }
-           });
-
-          sizeBox = dimBlock.append('g')
-           .classed('size-box', true);
-
-          if(scope.typeConstruction === 'edit') {
-            sizeBox.append('rect')
-             .classed('size-rect', true)
-             .attr({
-               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-               'rx': sizeBoxRadius,
-               'ry': sizeBoxRadius
-             });
-          }
-
-
-          sizeBox.append('text')
-           .text(dim.text)
-           .attr({
-             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
-             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
-             'dx': 80,
-             'dy': 40,
-             'type': 'line',
-             'block_id': dim.blockId,
-             'size_val': dim.text,
-             'min_val': dim.minLimit,
-             'max_val': dim.maxLimit,
-             'dim_id': dim.dimId,
-             'from_point': dim.from,
-             'to_point': dim.to,
-             'axis': dim.axis
-           });
-          }
-        }
-
-
-        function createRadiusDimension(dimQ, dimGroup, lineCreator) {
-
-          var radiusLine = [],
-              sizeBoxRadius = 20,
-              startPR = {
-                x: dimQ.startX,
-                y: dimQ.startY
-              },
-              endPR = {
-                x: dimQ.midleX,
-                y: dimQ.midleY
-              },
-              dimBlock, sizeBox;
-
-          radiusLine.push(endPR, startPR);
-
-          dimBlock = dimGroup.append('g')
-            .attr({
-              'class': 'dim_block_radius',
-              'block_id': dimQ.blockId
-            });
-
-          dimBlock.append('path')
-            .classed('size-line', true)
-            .attr({
-              'd': lineCreator(radiusLine),
-              'style': 'stroke: #000;',
-              'marker-end': 'url(#dimArrow)'
-            });
-
-          sizeBox = dimBlock.append('g')
-            .classed('size-box', true);
-
-          if(scope.typeConstruction === 'edit' || scope.typeConstruction === 'MainEdit') {
-            sizeBox.append('rect')
-              .classed('size-rect', true)
-              .attr({
-                'x': dimQ.midleX,
-                'y': dimQ.midleY,
-                'rx': sizeBoxRadius,
-                'ry': sizeBoxRadius
-              });
-          }
-
-          sizeBox.append('text')
-            .text(dimQ.radius)
-            .attr({
-              'class': 'size-txt-edit',
-              'x': dimQ.midleX,
-              'y': dimQ.midleY,
-              'dx': 80,
-              'dy': 40,
-              'type': 'curve',
-              'block_id': dimQ.blockId,
-              'size_val': dimQ.radius,
-              'min_val': dimQ.radiusMax,
-              'max_val': dimQ.radiusMin,
-              'dim_id': dimQ.id,
-              'chord': dimQ.lengthChord
-            });
-
-        }
+        scope.$watch('template', function () {
+          buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
+        });
 
       }
     };
 
-  }
+  });
 })();

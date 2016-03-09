@@ -3,27 +3,27 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .factory('NavMenuServ', navFactory);
+    .factory('NavMenuServ',
 
-  function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor) {
-
+  function(
+    $location,
+    $http,
+    $filter,
+    $cordovaGeolocation,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getCurrentGeolocation: getCurrentGeolocation,
-      setLanguageVoiceHelper: setLanguageVoiceHelper,
-      switchVoiceHelper: switchVoiceHelper,
-      gotoHistoryPage: gotoHistoryPage,
-      createAddElementsProduct: createAddElementsProduct,
-      clickNewProject: clickNewProject
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     function getCurrentGeolocation() {
       //------ Data from GPS device
@@ -31,43 +31,42 @@
       $cordovaGeolocation.getCurrentPosition().then(successLocation, errorLocation);
 
         function successLocation(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').
-                success(function(data, status, headers, config) {
-                    //----- save previous current location
-                    //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+          var latitude = position.coords.latitude,
+              longitude = position.coords.longitude;
 
-                    var deviceLocation = data.results[0].formatted_address.split(', ');
-                    //TODO set new currencyID!!!!
-                    //TODO before need to fine currencyId!!!!
-                    //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+          $http.get(
+            'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru'
+          ).then(
+              function (data) {
+                //----- save previous current location
+                //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
-                    OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-                    OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
-                    OrderStor.order.climatic_zone = 7; //TODO
-                    OrderStor.order.heat_coef_min = 0.99; //TODO
-                    OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+                var deviceLocation = data.results[0].formatted_address.split(', ');
+//TODO set new currencyID!!!!
+//TODO before need to fine currencyId!!!!
+//TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
+//TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                OrderStor.order.customer_city_id = 156;
+                OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
+                OrderStor.order.climatic_zone = 7; //TODO
+                OrderStor.order.heat_coef_min = 0.99; //TODO
+                OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] +
+                  ', ' + deviceLocation[deviceLocation.length-2] +
+                  ', ' + deviceLocation[deviceLocation.length-1];
+              },
+              function (data, status) {
+                console.log('Something went wrong with User recive!', data, status);
+              }
+            );
 
-                }).
-                error(function(data, status, headers, config) {
-                    alert(status);
-                });
         }
+
         function errorLocation(error) {
-            alert(error.message);
+          console.log(error.message);
         }
     }
 
 
-    function switchVoiceHelper() {
-      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
-      if(GlobalStor.global.isVoiceHelper) {
-        //------- set Language for Voice Helper
-        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
-        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
-      }
-    }
 
 
     function setLanguageVoiceHelper() {
@@ -87,6 +86,16 @@
 //        break;
 //      }
       return langLabel;
+    }
+
+
+    function switchVoiceHelper() {
+      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
+      if(GlobalStor.global.isVoiceHelper) {
+        //------- set Language for Voice Helper
+        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
+        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
+      }
     }
 
 
@@ -160,5 +169,22 @@
     }
 
 
-  }
+
+
+
+    /**========== FINISH ==========*/
+
+
+    thisFactory.publicObj = {
+      getCurrentGeolocation: getCurrentGeolocation,
+      setLanguageVoiceHelper: setLanguageVoiceHelper,
+      switchVoiceHelper: switchVoiceHelper,
+      gotoHistoryPage: gotoHistoryPage,
+      createAddElementsProduct: createAddElementsProduct,
+      clickNewProject: clickNewProject
+    };
+
+    return thisFactory.publicObj;
+
+  });
 })();

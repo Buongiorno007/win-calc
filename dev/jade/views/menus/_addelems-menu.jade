@@ -10,10 +10,10 @@
           .value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
       ul.items-list(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
-        .title {{ ::elementsMenu.A.aux.addElementsType[$index].name }}
+        .title {{ elementsMenu.A.aux.addElementsType[$index].name }}
 
         li.item(ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}")
-          .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ ::addElement.name }}
+          .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
           button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", ng-click="elementsMenu.showInfoBox(addElement.id, type)")
 
     footer.menu-footer
@@ -53,7 +53,7 @@
         .tab-empty {{ ::elementsMenu.TAB_EMPTY_EXPLAIN }}
       .tab-content(ng-if="addElemTab.length > 0")
         .tab-aux-row(ng-repeat="addElement in addElemTab track by $index")
-          .aux-title(data-output="{{ ::addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+          .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
             button.aux-params-but(ng-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)", ng-keyup="elementsMenu.pressCulculator($event)") {{ addElement.element_qty }}
             .aux-label {{ ::elementsMenu.QTY_LABEL }}

@@ -92,16 +92,14 @@
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION1: 'Fereastră',
-        ROOM_SELECTION2: 'Decorare',
-        ROOM_SELECTION3: 'Template selection',
+        ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Selectați toate',
-        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
+        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici"//,
+        //SELECT_ALL: 'Selectați toate',
+        //SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
@@ -134,7 +132,9 @@
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch'
+        LOCK_TYPE2: 'multilocking with a latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Alege',
@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'cercevea',
         ANGEL_SHAPE: 'unghiuri',
         IMPOST_SHAPE: 'impost',
@@ -202,7 +202,17 @@
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
         VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
-        NOT_AVAILABLE: 'nu Este Disponibil!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'nu Este Disponibil!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -230,7 +240,8 @@
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
         WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus'
+        INCLUDED: 'inclus',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
@@ -258,6 +269,9 @@
         CALL_MASTER_DESCRIP: 'Pentru a solicita inginerul, avem nevoie de ceva informatie despre dvs. Ambele campurile sunt obligatorii.',
         CLIENT_LOCATION: 'locație',
         CLIENT_ADDRESS: 'adresa',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Pentru a calcula',
         CALL_ORDER_DESCRIP: 'Pentru a îndeplini comanda,este necesar informatie despre dvs.',
         CALL_ORDER_CLIENT_INFO: 'Informații client (câmpuri obligatorii):',

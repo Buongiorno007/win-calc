@@ -92,16 +92,14 @@
         CONFIGMENU_IN_CART: 'Nel cestino',
         VOICE_SPEACH: 'Parlate...',
         COMMENT: "Lasci la nota sull'ordine qui.",
-        ROOM_SELECTION1: 'Finestra',
-        ROOM_SELECTION2: 'Decorazione',
-        ROOM_SELECTION3: 'Scelta template',
+        ROOM_SELECTION: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
         HEATCOEF_VAL: 'Wt',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
-        SELECT_ALL: 'Selezionare tutto',
-        SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'//,
+        //SELECT_ALL: 'Selezionare tutto',
+        //SELECT_GLASS_WARN: 'Clicca sul vetro, che si desidera modificare'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',
@@ -134,7 +132,9 @@
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
-        LOCK_TYPE2: 'la multichiusura con una serratura a scatto'
+        LOCK_TYPE2: 'la multichiusura con una serratura a scatto',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Scegliere',
@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'Schema complesso',
         TAB_EMPTY_EXPLAIN: 'Scegliete il primo elemento dalla lista.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'battenti',
         ANGEL_SHAPE: 'angoli',
         IMPOST_SHAPE: 'imposte',
@@ -202,7 +202,17 @@
         VOICE_SMALLEST_SIZE: 'dimensioni troppo piccole',
         VOICE_BIGGEST_SIZE: "dimensioni troppo grandi",
         VOICE_SMALL_GLASS_BLOCK: "apertura leggera troppo piccola",
-        NOT_AVAILABLE: 'È inaccessibile!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'È inaccessibile!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -230,7 +240,8 @@
         BY_YOUR_REQUEST: 'Su vostra richiesta',
         NOT_FIND: 'Non è stato trovato niente',
         WAIT_MASTER: 'Aspetta il misuratore ',
-        INCLUDED: 'sono inclusi'
+        INCLUDED: 'sono inclusi',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Tutti gli elementi supplementari dell’oedine',
@@ -258,6 +269,9 @@
         CALL_MASTER_DESCRIP: 'Per la telefonata del measurer abbiamo bisogno di sapere qualcosa su Lei. Entrambi i campi sono obbligatori per riempitura.',
         CLIENT_LOCATION: 'Località',
         CLIENT_ADDRESS: 'Indirizzo',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Stesura dell’ordine per il conteggio',
         CALL_ORDER_DESCRIP: 'Per poter eseguire il vostro ordine dobbiamo sapere qualccosa di voi.',
         CALL_ORDER_CLIENT_INFO: 'Informazioni sul cliente (campo obbligatorio):',

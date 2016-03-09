@@ -3,14 +3,19 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .directive('calendar', calendarDir);
+    .directive('calendar',
 
-  function calendarDir($filter, CartMenuServ, GlobalStor, OrderStor) {
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
 
     return {
       restrict: 'E',
       transclude: true,
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
         minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
@@ -44,5 +49,5 @@
       }
     };
 
-  }
+  });
 })();

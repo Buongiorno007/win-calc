@@ -3,37 +3,33 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('RoomInfoCtrl', roomInfoCtrl);
+    .controller('RoomInfoCtrl',
 
-  function roomInfoCtrl($filter, MainServ, GeneralServ, TemplatesServ, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    globalConstants,
+    TemplatesServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.O = OrderStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
 
-  
-      thisCtrl.config = {
+    thisCtrl.config = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
       DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
       typing: 'on'
     };
-  
-
-    //------ clicking
-
-    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
-    thisCtrl.switchComment = switchComment;
-    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
-    thisCtrl.toggleTemplateType = toggleTemplateType;
-    thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    
 
 
 
-    //========================= selection rooms ========================================//
+
+    /**============ METHODS ================*/
 
     //------ Show/Close Room Selector Dialog
     function showRoomSelectorDialog() {
@@ -50,10 +46,8 @@
       //playSound('swip');
       GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }
-  
 
-   //------ click on top button to change template type
-    
+
     function toggleTemplateType() {
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
@@ -84,6 +78,19 @@
       }
 
     }
-  }
 
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
+    thisCtrl.switchComment = switchComment;
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    thisCtrl.toggleTemplateType = toggleTemplateType;
+    thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    
+
+
+
+  });
 })();

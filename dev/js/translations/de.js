@@ -92,16 +92,14 @@
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
-        ROOM_SELECTION1: 'Fenster',
-        ROOM_SELECTION2: 'Dekoration',
-        ROOM_SELECTION3: 'Die Wahl Template',
+        ROOM_SELECTION: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
         HEATCOEF_VAL: 'W',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
-        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
-        SELECT_ALL: 'Alle auswählen',
-        SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
+        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier'//,
+        //SELECT_ALL: 'Alle auswählen',
+        //SELECT_GLASS_WARN: 'Klicken Sie auf die Verglasung zu ändern, Sie wollen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',
@@ -134,7 +132,9 @@
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
-        LOCK_TYPE2: 'Multipoint-Latch'
+        LOCK_TYPE2: 'Multipoint-Latch',
+        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
+        EXTRA_GLASS2: " для данной конфигурации конструкции"
       },
       add_elements: {
         CHOOSE: 'Wählen',
@@ -179,7 +179,7 @@
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'
       },
-      construction: {
+      design: {
         SASH_SHAPE: 'Flügel',
         ANGEL_SHAPE: 'Winkel',
         IMPOST_SHAPE: 'Abgaben',
@@ -202,7 +202,17 @@
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
         VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
-        NOT_AVAILABLE: 'nicht Verfügbar!'
+        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
+        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
+        NOT_AVAILABLE: 'nicht Verfügbar!',
+        TEST_STAGE: "Находится в стадии тестирования",
+        GLASS: "Стеклопакет",
+        GLASS_SIZE: "размером",
+        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        GLASS_SQUARE: "с площадью",
+        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
+        EXTRA_SASH: "Текущий размер створки по фальцу",
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -230,7 +240,8 @@
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
         WAIT_MASTER: 'erwartet Gager',
-        INCLUDED: 'inbegriffen'
+        INCLUDED: 'inbegriffen',
+        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',
@@ -258,6 +269,9 @@
         CALL_MASTER_DESCRIP: 'Um Gager nennen wir brauchen etwas für Sie zu wissen. Beide Felder sind Pflichtfelder.',
         CLIENT_LOCATION: 'Lage',
         CLIENT_ADDRESS: 'Anschrift',
+        CLIENT_HOUSE: "Буд",
+        CLIENT_FLAT: "Кв",
+        CLIENT_FLOOR: "Пов",
         CALL_ORDER: 'Bestellung zur Berechnung',
         CALL_ORDER_DESCRIP: 'Um den Auftrag zu erfüllen, müssen wir etwas über Sie wissen.',
         CALL_ORDER_CLIENT_INFO: 'Kundeninformation (muss ausgefüllt werden):',

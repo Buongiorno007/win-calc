@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('AddElemCartCtrl', addElementsCartCtrl);
+    .controller('AddElemCartCtrl',
 
-  function addElementsCartCtrl(globalConstants, GeneralServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
-
+  function(
+    globalConstants,
+    GeneralServ,
+    CartServ,
+    CartMenuServ,
+    OrderStor,
+    CartStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.config = {
@@ -20,25 +28,12 @@
       isSwipeProdSelector: 0
     };
 
-    //=========== clicking =============//
-    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
-    thisCtrl.deleteAllAddElems = deleteAllAddElems;
-    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
-
-    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
-    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
-    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
-    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
-    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
-
-    //------ adding elements to product
-    thisCtrl.swipeProductSelector = swipeProductSelector;
-    thisCtrl.selectProductToAddElem = selectProductToAddElem;
 
 
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
 
     function closeAllAddElemsPanel() {
@@ -51,6 +46,39 @@
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+    }
+
+
+
+
+    function deleteAddElemsInOrder(element) {
+      var products = OrderStor.order.products,
+          productsQty = products.length,
+          addElemProdQty, addElemQty, addElem;
+      while(--productsQty > -1) {
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = addElem[addElemProdQty].length;
+          if(addElemQty) {
+            //--------- delete one Add Element
+            if(element) {
+              while(--addElemQty > -1) {
+                if(addElem[addElemProdQty][addElemQty].id === element.id) {
+                  if(addElem[addElemProdQty][addElemQty].element_width === element.element_width) {
+                    if(addElem[addElemProdQty][addElemQty].element_height === element.element_height) {
+                      addElem[addElemProdQty].splice(addElemQty, 1);
+                    }
+                  }
+                }
+              }
+            } else {
+              //--------- delete All Add Element
+              addElem[addElemProdQty].length = 0;
+            }
+          }
+        }
+      }
     }
 
 
@@ -87,73 +115,33 @@
 
 
 
-    function deleteAddElemsInOrder(element) {
-      var productsQty = OrderStor.order.products.length,
-          addElemProdQty, addElemQty;
-      while(--productsQty > -1) {
-        addElemProdQty = OrderStor.order.products[productsQty].chosenAddElements.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length;
-          if(addElemQty) {
-            //--------- delete one Add Element
-            if(element) {
-              while(--addElemQty > -1) {
-                if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].id === element.id) {
-                  if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_width === element.element_width) {
-                    if(OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty][addElemQty].element_height === element.element_height) {
-                      OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                    }
-                  }
-                }
-              }
-            } else {
-              //--------- delete All Add Element
-              OrderStor.order.products[productsQty].chosenAddElements[addElemProdQty].length = 0;
-            }
-          }
-        }
-      }
-    }
-
-
-
-
-
-
-
-
-
-    function showAddElemUnitDetail(elemUnit) {
-      thisCtrl.config.selectedAddElemUnit = elemUnit;
-      collectAddElemUnitProducts();
-      thisCtrl.config.isAddElemUnitDetail = 1;
-    }
 
 
     function collectAddElemUnitProducts() {
       var allAddElemsQty = CartStor.cart.allAddElements.length,
-          addElemProdQty, addElemProd;
+          addElemProdQty, addElemProd, i, j, wagon, cloneQty, addElem;
 
       //------ clean addElemUnit array
       thisCtrl.config.addElemUnitProducts.length = 0;
-      console.log('      ', CartStor.cart.allAddElements);
-      for(var i = 0; i < allAddElemsQty; i++) {
-        addElemProdQty = CartStor.cart.allAddElements[i].length;
-        for(var j = 0; j < addElemProdQty; j++) {
-          if(CartStor.cart.allAddElements[i][j].id === thisCtrl.config.selectedAddElemUnit.id) {
-            if(CartStor.cart.allAddElements[i][j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-              if(CartStor.cart.allAddElements[i][j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
+      //console.log('      ', CartStor.cart.allAddElements);
+      for(i = 0; i < allAddElemsQty; i+=1) {
+        addElem = CartStor.cart.allAddElements[i];
+        addElemProdQty = addElem.length;
+        for(j = 0; j < addElemProdQty; j+=1) {
+          if(addElem[j].id === thisCtrl.config.selectedAddElemUnit.id) {
+            if(addElem[j].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
+              if(addElem[j].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
 
                 //-------- if product is addElems only
                 if(OrderStor.order.products[i].is_addelem_only) {
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    name: CartStor.cart.allAddElements[i][j].name,
-                    element_width: CartStor.cart.allAddElements[i][j].element_width,
-                    element_height: CartStor.cart.allAddElements[i][j].element_height,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
-                    elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
+                    name: addElem[j].name,
+                    element_width: addElem[j].element_width,
+                    element_height: addElem[j].element_height,
+                    element_qty: addElem[j].element_qty,
+                    elementPriceDis: addElem[j].elementPriceDis
                   };
                   thisCtrl.config.addElemUnitProducts.push(addElemProd);
 
@@ -162,15 +150,15 @@
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
+                    element_qty: addElem[j].element_qty / OrderStor.order.products[i].product_qty
                   };
 //                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
 //                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
 //                  console.info('addElemProd------', OrderStor.order.products[i]);
 //                  console.info('addElemProd------', addElemProd);
                   if(OrderStor.order.products[i].product_qty > 1) {
-                    var wagon = [],
-                        cloneQty = OrderStor.order.products[i].product_qty*1;
+                    wagon = [];
+                    cloneQty = +OrderStor.order.products[i].product_qty;
                     while(--cloneQty > -1) {
                       wagon.push(addElemProd);
                     }
@@ -186,7 +174,15 @@
           }
         }
       }
-      console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+      //console.warn('addElemUnitProducts++++',thisCtrl.config.addElemUnitProducts);
+    }
+
+
+
+    function showAddElemUnitDetail(elemUnit) {
+      thisCtrl.config.selectedAddElemUnit = elemUnit;
+      collectAddElemUnitProducts();
+      thisCtrl.config.isAddElemUnitDetail = 1;
     }
 
 
@@ -199,8 +195,50 @@
 
 
 
+    function delAddElemUnitInProduct(productIndex) {
+      var addElem = OrderStor.order.products[productIndex].chosenAddElements,
+          addElemProdQty = addElem.length,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemQty;
+
+      while(--addElemProdQty > -1) {
+        addElemQty = addElem[addElemProdQty].length;
+        if(addElemQty) {
+          while(--addElemQty > -1) {
+            if(addElem[addElemProdQty][addElemQty].id === addElemUnit.id) {
+              if(addElem[addElemProdQty][addElemQty].element_width === addElemUnit.element_width) {
+                if(addElem[addElemProdQty][addElemQty].element_height === addElemUnit.element_height) {
+                  addElem[addElemProdQty].splice(addElemQty, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function reviewAddElemUnit() {
+      var addElems = CartStor.cart.allAddElemsOrder,
+          addElemUnit = thisCtrl.config.selectedAddElemUnit,
+          addElemsQty = addElems.length,
+          noExist = 1;
+      while(--addElemsQty > -1) {
+        if(addElems[addElemsQty].id === addElemUnit.id) {
+          addElemUnit.element_qty = angular.copy(addElems[addElemsQty].element_qty);
+          noExist -= 1;
+        }
+      }
+      if(noExist) {
+        closeAddElemUnitDetail();
+      }
+    }
+
+
+
+
     function deleteAddElemUnit(addElemUnit, isWagon) {
-      console.info('delet----', thisCtrl.config.selectedAddElemUnit);
+      //console.info('delet----', thisCtrl.config.selectedAddElemUnit);
 
       if(isWagon) {
         //------- decrease Product quantity
@@ -231,46 +269,13 @@
 
 
 
-    function delAddElemUnitInProduct(productIndex) {
-      var addElemProdQty = OrderStor.order.products[productIndex].chosenAddElements.length,
-          addElemQty;
 
-      while(--addElemProdQty > -1) {
-        addElemQty = OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].length;
-        if(addElemQty) {
-          while(--addElemQty > -1) {
-            if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-              if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_width === thisCtrl.config.selectedAddElemUnit.element_width) {
-                if(OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty][addElemQty].element_height === thisCtrl.config.selectedAddElemUnit.element_height) {
-                  OrderStor.order.products[productIndex].chosenAddElements[addElemProdQty].splice(addElemQty, 1);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-
-    function reviewAddElemUnit() {
-      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
-        noExist = 1;
-      while(--addElemsQty > -1) {
-        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
-          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
-          --noExist;
-        }
-      }
-      if(noExist) {
-        closeAddElemUnitDetail();
-      }
-    }
 
 
     /**-------- Show/Hide Explode Link Menu ------*/
     function toggleExplodeLinkMenu(prodInd, event) {
-      console.log(prodInd);
-      console.log(event.center);
+      //console.log(prodInd);
+      //console.log(event.center);
       thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
       thisCtrl.config.explodeMenuTop = event.center.y - 50;
       thisCtrl.config.explodeMenuLeft = event.center.x - 30;
@@ -327,6 +332,17 @@
     }
 
 
+    function checkAllSelectedProducts() {
+      var isSelected = 0,
+          prodIndQty = CartStor.cart.selectedProducts.length;
+      while(--prodIndQty > -1) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+          isSelected+=1;
+        }
+      }
+      CartStor.cart.isSelectedProduct = isSelected ? 1 : 0;
+    }
+
 
     function selectProductToAddElem(prodInd) {
       var isSelected = CartStor.cart.selectedProducts[prodInd].length;
@@ -342,17 +358,27 @@
 
 
 
-    function checkAllSelectedProducts() {
-      var isSelected = 0,
-          prodIndQty = CartStor.cart.selectedProducts.length;
-      while(--prodIndQty > -1) {
-        if(CartStor.cart.selectedProducts[prodIndQty].length) {
-          isSelected++;
-        }
-      }
-      CartStor.cart.isSelectedProduct = (isSelected) ? 1 : 0;
-    }
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+      //=========== clicking =============//
+    thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
+    thisCtrl.deleteAllAddElems = deleteAllAddElems;
+    thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
+
+    thisCtrl.showAddElemUnitDetail = showAddElemUnitDetail;
+    thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
+    thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
+    thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
+    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
+
+    //------ adding elements to product
+    thisCtrl.swipeProductSelector = swipeProductSelector;
+    thisCtrl.selectProductToAddElem = selectProductToAddElem;
+
+
+  });
 })();

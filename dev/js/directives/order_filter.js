@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .filter('orderSorting', orderSortingFilter);
+    .filter('orderSorting',
 
-  function orderSortingFilter() {
+  function() {
 
     return function(items, sortType) {
       var filtered = [];
@@ -36,5 +36,5 @@
       return filtered;
     };
 
-  }
+  });
 })();

@@ -1,14 +1,22 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartCtrl', cartPageCtrl);
+    .controller('CartCtrl',
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    CartStor,
+    CartServ,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -31,6 +39,50 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
+
+
+    //------- translate
+    thisCtrl.ALL_ADD_ELEMENTS = $filter('translate')('cart.ALL_ADD_ELEMENTS');
+    thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');
+    thisCtrl.LETTER_M = $filter('translate')('common_words.LETTER_M');
+    thisCtrl.HEATCOEF_VAL = $filter('translate')('mainpage.HEATCOEF_VAL');
+    thisCtrl.MM = $filter('translate')('mainpage.MM');
+    thisCtrl.CONFIGMENU_SIZING = $filter('translate')('mainpage.CONFIGMENU_SIZING');
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION_TYPE = $filter('translate')('mainpage.CONFIGMENU_LAMINATION_TYPE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.CONFIGMENU_ADDITIONAL = $filter('translate')('mainpage.CONFIGMENU_ADDITIONAL');
+    thisCtrl.PRODUCT_QTY = $filter('translate')('cart.PRODUCT_QTY');
+    thisCtrl.ORDER_COMMENT = $filter('translate')('cart.ORDER_COMMENT');
+    thisCtrl.LIGHT_VIEW = $filter('translate')('cart.LIGHT_VIEW');
+    thisCtrl.DISCOUNT_SELECT = $filter('translate')('cart.DISCOUNT_SELECT');
+    thisCtrl.MAX = $filter('translate')('common_words.MAX');
+    thisCtrl.DISCOUNT_WINDOW = $filter('translate')('cart.DISCOUNT_WINDOW');
+    thisCtrl.DISCOUNT_ADDELEM = $filter('translate')('cart.DISCOUNT_ADDELEM');
+    thisCtrl.DISCOUNT = $filter('translate')('cart.DISCOUNT');
+    thisCtrl.DISCOUNT_WITHOUT = $filter('translate')('cart.DISCOUNT_WITHOUT');
+    thisCtrl.DISCOUNT_WITH = $filter('translate')('cart.DISCOUNT_WITH');
+    thisCtrl.FULL_VIEW = $filter('translate')('cart.FULL_VIEW');
+    thisCtrl.ADDELEMENTS_EDIT_LIST = $filter('translate')('cart.ADDELEMENTS_EDIT_LIST');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.ADDELEMENTS_PRODUCT_COST = $filter('translate')('cart.ADDELEMENTS_PRODUCT_COST');
+    thisCtrl.GRID = $filter('translate')('add_elements.GRID');
+    thisCtrl.VISOR = $filter('translate')('add_elements.VISOR');
+    thisCtrl.SPILLWAY = $filter('translate')('add_elements.SPILLWAY');
+    thisCtrl.OUTSIDE = $filter('translate')('add_elements.OUTSIDE');
+    thisCtrl.LOUVERS = $filter('translate')('add_elements.LOUVERS');
+    thisCtrl.INSIDE = $filter('translate')('add_elements.INSIDE');
+    thisCtrl.CONNECTORS = $filter('translate')('add_elements.CONNECTORS');
+    thisCtrl.FAN = $filter('translate')('add_elements.FAN');
+    thisCtrl.WINDOWSILL = $filter('translate')('add_elements.WINDOWSILL');
+    thisCtrl.HANDLEL = $filter('translate')('add_elements.HANDLEL');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -53,27 +105,9 @@
 
 
 
-    //------ clicking
-    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
-    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
-    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
-    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.editProduct = CartServ.editProduct;
-    thisCtrl.showAddElementDetail = showAddElementDetail;
-    thisCtrl.closeAddElementDetail = closeAddElementDetail;
-    thisCtrl.viewSwitching = viewSwitching;
-    thisCtrl.switchProductComment = switchProductComment;
-
-    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
-
-    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
-    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
-    thisCtrl.openDiscInput = openDiscInput;
-    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //============= AddElements detail block
@@ -118,5 +152,27 @@
     }
 
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+      //------ clicking
+    thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
+    thisCtrl.increaseProductQty = CartServ.increaseProductQty;
+    thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
+    thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+    thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.showAddElementDetail = showAddElementDetail;
+    thisCtrl.closeAddElementDetail = closeAddElementDetail;
+    thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.switchProductComment = switchProductComment;
+
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
+
+    thisCtrl.openDiscountBlock = CartMenuServ.openDiscountBlock;
+    thisCtrl.closeDiscountBlock = CartMenuServ.closeDiscountBlock;
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
+
+  });
 })();

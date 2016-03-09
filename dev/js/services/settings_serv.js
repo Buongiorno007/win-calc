@@ -3,29 +3,22 @@
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .factory('SettingServ', settingsFactory);
+    .factory('SettingServ',
 
-  function settingsFactory($rootScope, $location, localDB, GlobalStor, UserStor) {
-
+  function(
+    $rootScope,
+    $location,
+    localDB,
+    GlobalStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      changeAvatar: changeAvatar,
-      //downloadLocations: downloadLocations,
-      closeLocationPage: closeLocationPage,
-      gotoLocationPage: gotoLocationPage,
-      gotoPasswordPage: gotoPasswordPage,
-      gotoLanguagePage: gotoLanguagePage,
-      gotoSettingsPage: gotoSettingsPage,
-      closeSettingsPage: closeSettingsPage
-    };
-
-    return thisFactory.publicObj;
 
 
 
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- change avatar
     function changeAvatar(newAvatar, form) {
@@ -38,7 +31,9 @@
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {
 //        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-//        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//        localDB.updateLocalServerDBs(
+      // localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar}
+      // );
 //        $rootScope.$apply();
 //      }, function( error ) {
 //        console.log( 'Error upload user avatar' + error );
@@ -83,5 +78,23 @@
       $location.path(GlobalStor.global.prevOpenPage);
     }
 
-  }
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      changeAvatar: changeAvatar,
+      //downloadLocations: downloadLocations,
+      closeLocationPage: closeLocationPage,
+      gotoLocationPage: gotoLocationPage,
+      gotoPasswordPage: gotoPasswordPage,
+      gotoLanguagePage: gotoLanguagePage,
+      gotoSettingsPage: gotoSettingsPage,
+      closeSettingsPage: closeSettingsPage
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
 })();

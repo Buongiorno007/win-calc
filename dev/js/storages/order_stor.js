@@ -1,15 +1,17 @@
 (function(){
   'use strict';
-    /**
-     * @ngInject
-     */
+    /**@ngInject */
   angular
     .module('BauVoiceApp')
-    .factory('OrderStor', orderStorageFactory);
+    .factory('OrderStor',
 
-  function orderStorageFactory() {
+  function() {
+    /*jshint validthis:true */
     var thisFactory = this;
 
+    function setDefaultOrder() {
+      return angular.copy(thisFactory.publicObj.orderSource);
+    }
 
     thisFactory.publicObj = {
       orderSource: {
@@ -98,13 +100,5 @@
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultOrder() {
-      var publicObj = angular.copy(thisFactory.publicObj.orderSource);
-      return publicObj;
-    }
-
-  }
+  });
 })();

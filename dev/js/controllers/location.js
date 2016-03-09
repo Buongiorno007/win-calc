@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('LocationCtrl', locationCtrl);
+    .controller('LocationCtrl',
 
-  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
-
+  function(
+    localDB,
+    GeneralServ,
+    loginServ,
+    SettingServ,
+    GlobalStor,
+    OrderStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
 
     //----- current user location
@@ -21,16 +29,21 @@
       return item.countryId === UserStor.userInfo.countryId;
     });
 
-    //------ clicking
-    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
-    thisCtrl.selectCity = selectCity;
 
 
-    //============ methods ================//
+
+    /**============ METHODS ================*/
 
     //-------- Select City
     function selectCity(location) {
       thisCtrl.userNewLocation = location.fullLocation;
+
+      //----- change heatTransfer
+      if (UserStor.userInfo.therm_coeff_id) {
+        UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/location.heatTransfer );
+      } else {
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+      }
 
       //----- if user settings changing
       if(GlobalStor.global.currOpenPage === 'settings') {
@@ -40,20 +53,36 @@
         //UserStor.userInfo.countryName = location.countryName;
         UserStor.userInfo.fullLocation = location.fullLocation;
         UserStor.userInfo.climaticZone = location.climaticZone;
-        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //UserStor.userInfo.heatTransfer = location.heatTransfer;
         //----- save new City Id in LocalDB & Server
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId}
+        );
 
         //-------- if current geolocation changing
       } else if(GlobalStor.global.currOpenPage === 'main'){
         //----- build new currentGeoLocation
-        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
+        loginServ.setUserGeoLocation(
+          location.cityId,
+          location.cityName,
+          location.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          location.fullLocation
+        );
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+  });
 })();

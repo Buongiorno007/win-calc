@@ -3,59 +3,32 @@
   /**@ngInject*/
   angular
     .module('LoginModule')
-    .factory('loginServ', startFactory);
+    .factory('loginServ',
 
-  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
-
+  function(
+    $q,
+    $cordovaGlobalization,
+    $cordovaFileTransfer,
+    $translate,
+    $location,
+    $filter,
+    localDB,
+    globalConstants,
+    GeneralServ,
+    optionsServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = {
-      getDeviceLanguage: getDeviceLanguage,
-      initExport: initExport,
-      isLocalDBExist: isLocalDBExist,
-      prepareLocationToUse: prepareLocationToUse,
-      downloadAllCities: downloadAllCities,
-      collectCityIdsAsCountry: collectCityIdsAsCountry,
-      setUserLocation: setUserLocation,
-      setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
-    };
-
-    return thisFactory.publicObj;
 
 
-    //============ methods ================//
 
 
-    //------- defined system language
-    function getDeviceLanguage() {
-      GlobalStor.global.isDevice = isDevice;
-      if(GlobalStor.global.isDevice) {
-        /** if Ipad */
-        $cordovaGlobalization.getPreferredLanguage().then(
-          function(result) {
-            console.log('language++', result);
-            checkLangDictionary(result.value);
-            $translate.use(UserStor.userInfo.langLabel);
-          },
-          function(error) {
-            console.log('No language defined');
-          });
-
-      } else {
-        /** if browser */
-        var browserLang = navigator.language || navigator.userLanguage;
-        //console.info(window.navigator);
-//        console.info(window.navigator.language);
-//        console.info(window.navigator.userLanguage);
-//        console.info(window.navigator.browserLanguage);
-//        console.info("The language is: " + browserLang);
-        checkLangDictionary(browserLang);
-        $translate.use(UserStor.userInfo.langLabel);
-      }
-    }
-
-
+    /**============ METHODS ================*/
 
 
     //------ compare device language with existing dictionary, if not exist set default language = English
@@ -71,6 +44,33 @@
     }
 
 
+    //------- defined system language
+    function getDeviceLanguage() {
+      GlobalStor.global.isDevice = isDevice;
+      if(GlobalStor.global.isDevice) {
+        /** if Ipad */
+        $cordovaGlobalization.getPreferredLanguage().then(
+          function(result) {
+            console.log('language++', result);
+            checkLangDictionary(result.value);
+            $translate.use(UserStor.userInfo.langLabel);
+          },
+          function(error) {
+            console.log('No language defined', error);
+          });
+
+      } else {
+        /** if browser */
+        var browserLang = navigator.language || navigator.userLanguage;
+        //console.info(window.navigator);
+        //        console.info(window.navigator.language);
+        //        console.info(window.navigator.userLanguage);
+        //        console.info(window.navigator.browserLanguage);
+        //        console.info("The language is: " + browserLang);
+        checkLangDictionary(browserLang);
+        $translate.use(UserStor.userInfo.langLabel);
+      }
+    }
 
 
     function initExport() {
@@ -101,9 +101,9 @@
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+      //      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
       localDB.selectLocalDB('sqlite_sequence').then(function(data) {
-//        console.log('data ===', data);
+        //        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
         } else {
@@ -115,54 +115,16 @@
 
 
 
-    //------- collecting cities, regions and countries in one object for registration form
-    function prepareLocationToUse(allCityParam) {
-      var deferred = $q.defer(),
-          countryQty, regionQty;
-      //if(!GlobalStor.global.locations.cities.length) {
-        //console.info('start time+++', new Date(), new Date().getMilliseconds());
-        //---- get all counties
-        localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency').then(function (data) {
-          //console.log('country!!!', data);
-          countryQty = data.length;
-          if (countryQty) {
-            GlobalStor.global.locations.countries = angular.copy(data);
-          } else {
-            console.log('Error!!!', data);
-          }
-        }).then(function () {
-
-          //--------- get all regions
-          localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, null, 'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer').then(function (data) {
-            //console.log('regions!!!', data);
-            regionQty = data.length;
-            if (regionQty) {
-              GlobalStor.global.locations.regions = angular.copy(data);
-            } else {
-              console.log('Error!!!', data);
-            }
-
-          }).then(function () {
-            //--------- get city
-            downloadAllCities(allCityParam).then(function () {
-              deferred.resolve(1);
-            });
-          });
-        });
-      //} else {
-      //  deferred.resolve(1);
-      //}
-      return deferred.promise;
-    }
-
-
-
     function downloadAllCities(allCityParam) {
       var deff = $q.defer(),
-          cityOption = (allCityParam) ? null : {'id': UserStor.userInfo.city_id},
+          cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
           countryQty, regionQty, cityQty;
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName, cityOption, 'id as cityId, name as cityName, region_id as regionId').then(function(data) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.cities.tableName,
+        cityOption,
+        'id as cityId, name as cityName, region_id as regionId'
+      ).then(function(data) {
         //console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
@@ -185,9 +147,7 @@
               }
             }
           }
-
           //console.info('generalLocations', GlobalStor.global.locations);
-
           //console.info('finish time+++', new Date(), new Date().getMilliseconds());
           deff.resolve(1);
         } else {
@@ -197,6 +157,51 @@
       return deff.promise;
     }
 
+
+    //------- collecting cities, regions and countries in one object for registration form
+    function prepareLocationToUse(allCityParam) {
+      var deferred = $q.defer(),
+          countryQty, regionQty;
+      //if(!GlobalStor.global.locations.cities.length) {
+      //console.info('start time+++', new Date(), new Date().getMilliseconds());
+      //---- get all counties
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName, null, 'id, name, currency_id as currency')
+        .then(function (data) {
+          //console.log('country!!!', data);
+          countryQty = data.length;
+          if (countryQty) {
+            GlobalStor.global.locations.countries = angular.copy(data);
+          } else {
+            console.log('Error!!!', data);
+          }
+        }).then(function () {
+
+          //--------- get all regions
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.regions.tableName,
+            null,
+            'id, name, country_id as countryId, climatic_zone as climaticZone, heat_transfer as heatTransfer')
+            .then(function (data) {
+              //console.log('regions!!!', data);
+              regionQty = data.length;
+              if (regionQty) {
+                GlobalStor.global.locations.regions = angular.copy(data);
+              } else {
+                console.log('Error!!!', data);
+              }
+
+            }).then(function () {
+              //--------- get city
+              downloadAllCities(allCityParam).then(function () {
+                deferred.resolve(1);
+              });
+            });
+        });
+      //} else {
+      //  deferred.resolve(1);
+      //}
+      return deferred.promise;
+    }
 
 
     function collectCityIdsAsCountry() {
@@ -211,23 +216,7 @@
     }
 
 
-    //--------- set user location
-    function setUserLocation() {
-      var cityQty = GlobalStor.global.locations.cities.length;
-      while(--cityQty > -1) {
-        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
-          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
-          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
-          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-          UserStor.userInfo.heatTransfer = (UserStor.userInfo.therm_coeff_id) ? GeneralServ.roundingValue(1/GlobalStor.global.locations.cities[cityQty].heatTransfer) : GlobalStor.global.locations.cities[cityQty].heatTransfer;
-          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-          //------ set current GeoLocation
-          setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
-        }
-      }
-    }
-
-    //--------- set current user geolocation
+    /**--------- set current user geolocation ---------*/
     function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
       OrderStor.order.customer_city_id = cityId;
       OrderStor.order.customer_city = cityName;
@@ -237,150 +226,99 @@
     }
 
 
-
-
-
-    /** =========== DOWNLOAD ALL DATA =========== */
-
-    function downloadAllData() {
-      //console.log('START DOWNLOAD!!!!!!', new Date(), new Date().getMilliseconds());
-      /** download All Currencies and set currency symbol */
-      setCurrency().then(function(data) {
-        if(data) {
-          /** download user discounts */
-          //console.log('TIME Currencies!!!!!!', new Date(), new Date().getMilliseconds());
-          setUserDiscounts().then(function(data) {
-            if(data) {
-              //console.log('TIME user discounts!!!!!!', new Date(), new Date().getMilliseconds());
-              /** download price Margins of Plant */
-              downloadPriceMargin().then(function(margins) {
-                if(margins && margins.length) {
-                  GlobalStor.global.margins = angular.copy(margins[0]);
-                  //console.warn('Margins!!', margins);
-                  //console.log('TIME  Margins of Plant!!!!!!', new Date(), new Date().getMilliseconds());
-                  /** download delivery Coeff of Plant */
-                  downloadDeliveryCoeff().then(function(coeff){
-                    if(coeff && coeff.length) {
-                      //console.warn('delivery Coeff!!', coeff);
-                      GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
-                        return item * 1;
-                      });
-                      //console.log('TIME delivery Coeff of Plant!!!!!!', new Date(), new Date().getMilliseconds());
-                      /** download All Profiles */
-                      downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
-                        if(data) {
-                          //console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
-                          //console.log('TIME Profiles!!!!!!', new Date(), new Date().getMilliseconds());
-                          /** download All Glasses */
-                          downloadAllGlasses().then(function(data) {
-                            if(data) {
-                              /** sorting glasses as to Type */
-                              sortingGlasses();
-                              //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
-                              //console.log('TIME Glasses!!!!!!', new Date(), new Date().getMilliseconds());
-                              /** download All Hardwares */
-                              downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
-                                if(data) {
-                                  //console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-                                  //console.log('TIME Hardwares!!!!!!', new Date(), new Date().getMilliseconds());
-                                  /** download All Templates and Backgrounds */
-                                  downloadAllBackgrounds().then(function() {
-                                    //console.log('TIME Backgrounds!!!!!!', new Date(), new Date().getMilliseconds());
-                                    /** download All AddElements */
-                                    downloadAllAddElements().then(function() {
-                                      //console.log('TIME AddElements!!!!!!', new Date(), new Date().getMilliseconds());
-                                      /** download All Lamination */
-                                      downloadAllLamination().then(function(result) {
-                                        //console.log('LAMINATION++++', result);
-                                        if(result && result.length) {
-
-                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
-                                            item.isActive = 0;
-                                            return item;
-                                          });
-
-                                          /** add white color */
-                                          GlobalStor.global.laminats.push({
-                                            id: 1,
-                                            type_id: 1,
-
-                                            isActive: 0,
-
-                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
-                                          });
-                                          /** download lamination couples */
-                                          downloadLamCouples().then(function() {
-                                            /** add white-white couple */
-                                            GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
-
-                                            //console.log('TIME Lamination!!!!!!', new Date(), new Date().getMilliseconds());
-                                          });
-                                        }
-                                        /** download Cart Menu Data */
-                                        downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
-                                        //console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
-
-                                      });
-                                    });
-                                  });
-                                }
-                              });
-                            }
-                          });
-                        }
-                      });
-
-                    } else {
-                      console.error('not find options_discounts!');
-                    }
-                  });
-
-                } else {
-                  console.error('not find options_coefficients!');
-                }
-              });
-
+    /**-------- get values from Factory --------*/
+    function downloadFactoryData() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.factories.tableName,
+        null,
+        'therm_coeff_id, link, max_construct_size, max_construct_square'
+      ).then(function(result) {
+        var heatTransfer = UserStor.userInfo.heatTransfer,
+            resQty;
+        if(result) {
+          resQty = result.length;
+          if(resQty) {
+            //------- Heat Coeff
+            UserStor.userInfo.therm_coeff_id = angular.copy(result[0].therm_coeff_id);
+            if (UserStor.userInfo.therm_coeff_id) {
+              UserStor.userInfo.heatTransfer = GeneralServ.roundingValue( 1/heatTransfer );
             }
-          });
+            //-------- check factory Link
+            if(result[0].link.length && result[0].link !== 'null') {
+              UserStor.userInfo.factoryLink = angular.copy(result[0].link);
+            }
+            //-------- sizes limits
+            if(+result[0].max_construct_square > 0) {
+              GlobalStor.global.maxSquareLimit = angular.copy(+result[0].max_construct_square);
+            }
+            if(+result[0].max_construct_size > 0) {
+              GlobalStor.global.maxSizeLimit = angular.copy(+result[0].max_construct_size);
+            }
+          }
         }
+
+        /** set current GeoLocation */
+        setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
+        );
+
       });
     }
+
+
+    /**--------- set user location -------*/
+    function setUserLocation() {
+      var cityQty = GlobalStor.global.locations.cities.length;
+      while(--cityQty > -1) {
+        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+          UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
+          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+        }
+      }
+    }
+
+
 
 
 
     function setCurrency() {
       var defer = $q.defer();
       /** download All Currencies */
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
-        var currencQty = currencies.length;
-        if(currencies && currencQty) {
-          GlobalStor.global.currencies = currencies;
-          /** set current currency */
-          while(--currencQty > -1) {
-            if(currencies[currencQty].is_base === 1) {
-              UserStor.userInfo.currencyId = currencies[currencQty].id;
-              if( /uah/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20b4';//'₴';
-              } else if( /rub/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
-              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '$';
-              } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€';
-              } else {
-                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
+        .then(function(currencies) {
+          var currencQty = currencies.length;
+          if(currencies && currencQty) {
+            GlobalStor.global.currencies = currencies;
+            /** set current currency */
+            while(--currencQty > -1) {
+              if(currencies[currencQty].is_base === 1) {
+                UserStor.userInfo.currencyId = currencies[currencQty].id;
+                if( /uah/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20b4';//'₴';
+                } else if( /rub/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
+                } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '$';
+                } else if( /eur/i.test(currencies[currencQty].name) ) {
+                  UserStor.userInfo.currency = '\u20AC';//'€';
+                } else {
+                  UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+                }
               }
             }
+            defer.resolve(1);
+          } else {
+            console.error('not find currencies!');
+            defer.resolve(0);
           }
-          defer.resolve(1);
-        } else {
-          console.error('not find currencies!');
-          defer.resolve(0);
-        }
-      });
+        });
       return defer.promise;
     }
 
@@ -391,22 +329,22 @@
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-//        console.log('DISCTOUN=====', result);
+        //        console.log('DISCTOUN=====', result);
         var discounts = angular.copy(result[0]);
         if(discounts) {
-          UserStor.userInfo.discountConstr = discounts.default_construct*1;
-          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
-          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
+          UserStor.userInfo.discountConstr = +discounts.default_construct;
+          UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+          UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+          UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
 
           var disKeys = Object.keys(discounts),
-              disQty = disKeys.length;
-          for(var dis = 0; dis < disQty; dis++) {
+              disQty = disKeys.length, dis;
+          for(dis = 0; dis < disQty; dis+=1) {
             if(disKeys[dis].indexOf('week')+1) {
               if(disKeys[dis].indexOf('construct')+1) {
-                UserStor.userInfo.discConstrByWeek.push(discounts[disKeys[dis]]*1);
+                UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
               } else if(disKeys[dis].indexOf('add_elem')+1) {
-                UserStor.userInfo.discAddElemByWeek.push(discounts[disKeys[dis]]*1);
+                UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
               }
             }
           }
@@ -423,9 +361,10 @@
 
     /** price Margins of Plant */
     function downloadPriceMargin() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
-        return margins;
-      });
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff')
+        .then(function(margins) {
+          return margins;
+        });
     }
 
     /** delivery Coeff of Plant */
@@ -433,80 +372,6 @@
       return localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
         return coeff;
       });
-    }
-
-
-
-    //----------- get all elements as to groups
-
-    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
-      var defer = $q.defer();
-      //------- get all Folders
-      localDB.selectLocalDB(tableGroup).then(function(result) {
-        /** sorting types by position */
-        var types = angular.copy(result).sort(function(a, b) {
-          return GeneralServ.sorting(a.position, b.position);
-        }),
-        typesQty = types.length;
-        if (typesQty) {
-          groups.length = 0;
-          angular.extend(groups, types);
-          var promises = types.map(function(type) {
-            var defer2 = $q.defer();
-
-            /** change Images Path and save in device */
-            type.img = downloadElemImg(type.img);
-
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
-              if (result2.length) {
-                var elem = angular.copy(result2).sort(function(a, b) {
-                  return GeneralServ.sorting(a.position, b.position);
-                });
-                defer2.resolve(elem);
-              } else {
-                defer2.resolve(0);
-              }
-            });
-            return defer2.promise;
-          });
-          $q.all(promises).then(function(result3){
-            var resQty = result3.length,
-                existType = [],
-                r = 0;
-            for(; r < resQty; r++) {
-              var elemsQty = result3[r].length;
-              if(result3[r] && elemsQty) {
-                /** change Images Path and save in device */
-                while(--elemsQty > -1) {
-                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
-                }
-                elements.push(result3[r]);
-                existType.push(result3[r][0].folder_id);
-              }
-            }
-            /** delete empty group */
-            var existTypeQty = existType.length,
-            groupQty = groups.length;
-            if(existTypeQty) {
-              while(--groupQty > -1) {
-                var isExist = 0, t = 0;
-                for(; t < existTypeQty; t++) {
-                  if(groups[groupQty].id === existType[t]) {
-                    isExist = 1;
-                  }
-                }
-                if(!isExist) {
-                  groups.splice(groupQty, 1);
-                }
-              }
-            }
-            defer.resolve(1);
-          });
-        } else {
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
     }
 
 
@@ -530,9 +395,10 @@
             }, function (err) {
               console.log('Error!', err);
             }, function (progress) {
-//            $timeout(function () {
-//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-//            })
+              console.log('progress!', progress);
+              //            $timeout(function () {
+              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+              //            })
             });
             return targetPath;
           } else {
@@ -543,6 +409,82 @@
         }
       }
     }
+
+
+    //----------- get all elements as to groups
+
+    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
+      var defer = $q.defer();
+      //------- get all Folders
+      localDB.selectLocalDB(tableGroup).then(function(result) {
+        /** sorting types by position */
+        var types = angular.copy(result).sort(function(a, b) {
+          return GeneralServ.sorting(a.position, b.position);
+        }),
+            typesQty = types.length;
+        if (typesQty) {
+          groups.length = 0;
+          angular.extend(groups, types);
+          var promises = types.map(function(type) {
+            var defer2 = $q.defer();
+
+            /** change Images Path and save in device */
+            type.img = downloadElemImg(type.img);
+
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
+              if (result2.length) {
+                var elem = angular.copy(result2).sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
+                defer2.resolve(elem);
+              } else {
+                defer2.resolve(0);
+              }
+            });
+            return defer2.promise;
+          });
+          $q.all(promises).then(function(result3){
+            var resQty = result3.length,
+                existType = [], r;
+            for(r = 0; r < resQty; r+=1) {
+              var elemsQty = result3[r].length;
+              if(result3[r] && elemsQty) {
+                /** change Images Path and save in device */
+                while(--elemsQty > -1) {
+                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
+                }
+                elements.push(result3[r]);
+                existType.push(result3[r][0].folder_id);
+              }
+            }
+            /** delete empty group */
+            var existTypeQty = existType.length,
+                groupQty = groups.length;
+            if(existTypeQty) {
+              while(--groupQty > -1) {
+                var isExist = 0, t;
+                for(t = 0; t < existTypeQty; t+=1) {
+                  if(groups[groupQty].id === existType[t]) {
+                    isExist = 1;
+                  }
+                }
+                if(!isExist) {
+                  groups.splice(groupQty, 1);
+                }
+              }
+            }
+            defer.resolve(1);
+          });
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+
+
 
 
 
@@ -581,36 +523,40 @@
           //-------- select all glass Ids as to profile Id
           var promises3 = GlobalStor.global.glassesAll.map(function(item) {
             var defer3 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
-              var glassIdQty = glassId.length;
-              if(glassIdQty){
-                defer3.resolve(glassId);
-              } else {
-                defer3.resolve(0);
-              }
-            });
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'profile_system_id': item.profileId})
+              .then(function (glassId) {
+                var glassIdQty = glassId.length;
+                if(glassIdQty){
+                  defer3.resolve(glassId);
+                } else {
+                  defer3.resolve(0);
+                }
+              });
             return defer3.promise;
           });
 
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [];
-//                        console.log('glassIds!!!!', glassIds);
-            for(var i = 0; i < glassIdsQty; i++) {
+                promises4 = [], promises6 = [], i, j;
+            //                        console.log('glassIds!!!!', glassIds);
+            for(i = 0; i < glassIdsQty; i+=1) {
               var defer4 = $q.defer();
               if(glassIds[i]) {
                 var promises5 = glassIds[i].map(function (item) {
                   var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
-                    //                  console.log('glass!!!!', glass);
-                    var glass = angular.copy(result), glassQty = glass.length;
-                    if (glassQty) {
-                      defer5.resolve(glass[0]);
-                    } else {
-                      defer5.resolve(0);
-                    }
-                  });
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
+                    .then(function (result) {
+                      //                  console.log('glass!!!!', glass);
+                      var glass = angular.copy(result), glassQty = glass.length;
+                      if (glassQty) {
+                        defer5.resolve(glass[0]);
+                      } else {
+                        defer5.resolve(0);
+                      }
+                    });
                   return defer5.promise;
                 });
                 defer4.resolve($q.all(promises5));
@@ -620,20 +566,21 @@
               promises4.push(defer4.promise);
             }
 
-            for(var j = 0; j < glassIdsQty; j++) {
+            for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
-              console.warn(glassIds[j]); //TODO error
+              console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
-                  var list = angular.copy(result2),
-                      listQty = list.length;
-                  if(listQty){
-                    defer7.resolve(list[0]);
-                  } else {
-                    defer7.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
+                  .then(function (result2) {
+                    var list = angular.copy(result2),
+                        listQty = list.length;
+                    if(listQty){
+                      defer7.resolve(list[0]);
+                    } else {
+                      defer7.resolve(0);
+                    }
+                  });
                 return defer7.promise;
               });
 
@@ -645,7 +592,7 @@
               //              console.log('glasses after 1111!!!!', glasses);
               var glassesQty = glasses.length;
               if(glassesQty) {
-                for(var i = 0; i < glassesQty; i++) {
+                for(i = 0; i < glassesQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
                 }
               }
@@ -654,7 +601,7 @@
               //              console.log('glasses after 2222!!!!', lists);
               var listsQty = lists.length;
               if(listsQty) {
-                for(var i = 0; i < listsQty; i++) {
+                for(i = 0; i < listsQty; i+=1) {
                   GlobalStor.global.glassesAll[i].glassLists = lists[i];
                   defer.resolve(1);
                 }
@@ -670,29 +617,36 @@
 
 
     function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length, g = 0;
+      var glassAllQty = GlobalStor.global.glassesAll.length, g;
 
-      for(; g < glassAllQty; g++) {
+      for(g = 0; g < glassAllQty; g+=1) {
         //------- merge glassList to glasses
         var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
             glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
             newGlassesType = [],
-            newGlasses = [];
+            newGlasses = [],
+            l;
         /** merge glassList to glasses */
-        for(var l = 0; l < listQty; l++) {
-          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
-            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
-            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
-            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
-            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
-            /** change Images Path and save in device */
-            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+        for(l = 0; l < listQty; l+=1) {
+if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+  GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+  GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+  GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].cameras
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].position
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+  /** change Images Path and save in device */
+  GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
-            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
-            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
-          }
+  GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
+  GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
+}
         }
 
         /** sorting glassTypes by position */
@@ -703,7 +657,9 @@
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           /** change Images Path and save in device */
-          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+            GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+          );
 
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -726,10 +682,31 @@
 
     }
 
-    /** download all Templates */
-    function downloadAllTemplates() {
-//TODO
+
+
+
+    /**---------- download Hardware Limits --------*/
+
+    function downloadHardwareLimits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
+        null,
+        'type_id, min_width, max_width, min_height, max_height'
+      ).then(function(result) {
+        if(result && result.length) {
+          GlobalStor.global.hardwareLimits = angular.copy(result);
+        }
+      });
     }
+
+
+    //TODO
+    /** download all Templates */
+    //function downloadAllTemplates() {
+    //
+    //}
+
+
 
 
     /** download all Backgrounds */
@@ -759,9 +736,11 @@
 
     /** download all lamination */
     function downloadAllLamination() {
-      return localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id').then(function(lamin) {
-        return lamin;
-      });
+      return localDB.selectLocalDB(
+        localDB.tablesLocalDB.lamination_factory_colors.tableName, null, 'id, name, lamination_type_id as type_id')
+        .then(function(lamin) {
+          return lamin;
+        });
     }
 
 
@@ -778,12 +757,12 @@
           while(--coupleQty > -1) {
             delete GlobalStor.global.laminatCouples[coupleQty].code_sync;
             delete GlobalStor.global.laminatCouples[coupleQty].modified;
-            for(lam = 0; lam < laminatQty; lam++) {
+            for(lam = 0; lam < laminatQty; lam+=1) {
               if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_in_id) {
                 GlobalStor.global.laminatCouples[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
                 GlobalStor.global.laminatCouples[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
               }
-              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id) {
+              if(GlobalStor.global.laminats[lam].id === GlobalStor.global.laminatCouples[coupleQty].lamination_out_id){
                 GlobalStor.global.laminatCouples[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
                 GlobalStor.global.laminatCouples[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
               }
@@ -798,20 +777,6 @@
     }
 
 
-    function downloadAllAddElements() {
-      var defer = $q.defer();
-      /** get All kits of addElements */
-      getAllAddKits().then(function() {
-        /** get All elements of addElements*/
-        getAllAddElems().then(function() {
-          sortingAllAddElem().then(function() {
-            defer.resolve(1);
-          });
-        })
-      });
-      return defer.promise;
-    }
-
 
 
     function getAllAddKits() {
@@ -822,8 +787,8 @@
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
             resultQty = addKits.length,
-            i = 0;
-        for(; i < resultQty; i++) {
+            i;
+        for(i = 0; i < resultQty; i+=1) {
           var elemGroupObj = {elementType: [], elementsList: addKits[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
@@ -844,14 +809,15 @@
                 /** change Images Path and save in device */
                 item.img = downloadElemImg(item.img);
 
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
-                  if(result && result.length) {
-                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
-                    deff2.resolve(1);
-                  } else {
-                    deff2.resolve(0);
-                  }
-                });
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
+                  .then(function(result) {
+                    if(result && result.length) {
+                      GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                      deff2.resolve(1);
+                    } else {
+                      deff2.resolve(0);
+                    }
+                  });
                 return deff2.promise;
               });
               deff1.resolve($q.all(promElems));
@@ -893,13 +859,15 @@
                 typeDelete = [],
                 typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
                 elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                tempElemQty = GlobalStor.global.tempAddElements.length;
-            for(var t = 0; t < typeQty; t++) {
-              var elements = [];
-              for(var el = 0; el < elemQty; el++) {
+                tempElemQty = GlobalStor.global.tempAddElements.length,
+                t;
+            for(t = 0; t < typeQty; t+=1) {
+              var elements = [], el;
+              for(el = 0; el < elemQty; el+=1) {
                 if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
                   var widthTemp = 0,
-                      heightTemp = 0;
+                      heightTemp = 0,
+                      k;
                   switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
                     case 21: // 1 - visors
                     case 9: // 2 - spillways
@@ -918,12 +886,12 @@
                   GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
                   GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
                   /** get price of element */
-                  for(var k = 0; k < tempElemQty; k++) {
+                  for(k = 0; k < tempElemQty; k+=1) {
                     if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      /** add price margin */
-                      GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
+                      ///** add price margin */
+                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
                       /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
                     }
                   }
                   elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
@@ -965,6 +933,21 @@
     }
 
 
+    function downloadAllAddElements() {
+      var defer = $q.defer();
+      /** get All kits of addElements */
+      getAllAddKits().then(function() {
+        /** get All elements of addElements*/
+        getAllAddElems().then(function() {
+          sortingAllAddElem().then(function() {
+            defer.resolve(1);
+          });
+        })
+      });
+      return defer.promise;
+    }
+
+
 
 
     function downloadCartMenuData() {
@@ -996,5 +979,138 @@
 
 
 
-  }
+
+
+
+    /** =========== DOWNLOAD ALL DATA =========== */
+
+    function downloadAllData() {
+      //console.time('start')
+      /** download All Currencies and set currency symbol */
+      setCurrency().then(function(data) {
+        if(data) {
+          /** download user discounts */
+          setUserDiscounts().then(function(data) {
+            if(data) {
+              /** download price Margins of Plant */
+              downloadPriceMargin().then(function(margins) {
+                if(margins && margins.length) {
+                  GlobalStor.global.margins = angular.copy(margins[0]);
+                  //console.warn('Margins!!', margins);
+                  /** download delivery Coeff of Plant */
+                  downloadDeliveryCoeff().then(function(coeff){
+                    if(coeff && coeff.length) {
+                      //console.warn('delivery Coeff!!', coeff);
+                      GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
+                      GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',').map(function(item) {
+                        return +item;
+                      });
+                      /** download factory data */
+                      downloadFactoryData();
+                      /** download All Profiles */
+                      downloadAllElemAsGroup(
+                        localDB.tablesLocalDB.profile_system_folders.tableName,
+                        localDB.tablesLocalDB.profile_systems.tableName,
+                        GlobalStor.global.profilesType,
+                        GlobalStor.global.profiles
+                      ).then(function(data) {
+                        if(data) {
+                          /** download All Glasses */
+                          downloadAllGlasses().then(function(data) {
+                            if(data) {
+                              /** sorting glasses as to Type */
+                              sortingGlasses();
+                              //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+                              /** download All Hardwares */
+                              downloadAllElemAsGroup(
+                                localDB.tablesLocalDB.window_hardware_folders.tableName,
+                                localDB.tablesLocalDB.window_hardware_groups.tableName,
+                                GlobalStor.global.hardwareTypes,
+                                GlobalStor.global.hardwares
+                              ).then(function(data){
+                                if(data) {
+                                  //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Hardware Limits */
+                                  downloadHardwareLimits();
+                                  /** download All Templates and Backgrounds */
+                                  downloadAllBackgrounds().then(function() {
+                                    /** download All AddElements */
+                                    downloadAllAddElements().then(function() {
+                                      /** download All Lamination */
+                                      downloadAllLamination().then(function(result) {
+                                        //console.log('LAMINATION++++', result);
+                                        if(result && result.length) {
+                                          GlobalStor.global.laminats = angular.copy(result).map(function(item) {
+                                            item.isActive = 0;
+                                            return item;
+                                          });
+                                          /** add white color */
+                                          GlobalStor.global.laminats.push({
+                                            id: 1,
+                                            type_id: 1,
+                                            isActive: 0,
+                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                          });
+                                          /** download lamination couples */
+                                          downloadLamCouples().then(function() {
+                                            /** add white-white couple */
+                                    GlobalStor.global.laminatCouples.push(angular.copy(ProductStor.product.lamination));
+                                          });
+                                        }
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        //console.timeEnd('start');
+                                      });
+                                    });
+                                  });
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
+
+                    } else {
+                      console.error('not find options_discounts!');
+                    }
+                  });
+
+                } else {
+                  console.error('not find options_coefficients!');
+                }
+              });
+
+            }
+          });
+        }
+      });
+    }
+
+
+
+
+
+
+
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      getDeviceLanguage: getDeviceLanguage,
+      initExport: initExport,
+      isLocalDBExist: isLocalDBExist,
+      prepareLocationToUse: prepareLocationToUse,
+      downloadAllCities: downloadAllCities,
+      collectCityIdsAsCountry: collectCityIdsAsCountry,
+      setUserLocation: setUserLocation,
+      setUserGeoLocation: setUserGeoLocation,
+      downloadAllData: downloadAllData
+    };
+
+    return thisFactory.publicObj;
+
+
+
+  });
 })();

@@ -13,7 +13,7 @@
 .glass {
   @include transition(all 0.1s linear);
   cursor: pointer;
-  fill: url(#background); 
+
 }
 
 .glass-main {

@@ -1,14 +1,19 @@
- (function(){
+(function(){
   'use strict';
     /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .factory('ProductStor', productStorageFactory);
+    .factory('ProductStor',
 
-  function productStorageFactory($filter) {
+  function($filter) {
+    /*jshint validthis:true */
     var thisFactory = this;
 
-    thisFactory.publicObj = { 
+    function setDefaultProduct() {
+      return angular.copy(thisFactory.publicObj.productSource);
+    }
+
+    thisFactory.publicObj = {
       productSource: {
         product_id: 0,
         is_addelem_only: 0,
@@ -44,7 +49,6 @@
           img_in_id: 1,
           img_out_id: 1
         },
-
         chosenAddElements: [
           [], // 0 - grids
           [], // 1 - visors
@@ -83,13 +87,5 @@
 
     return thisFactory.publicObj;
 
-
-    //============ methods ================//
-
-    function setDefaultProduct() {
-      var publicObj = angular.copy(thisFactory.publicObj.productSource);
-      return publicObj;
-    }
-
-  }
+  });
 })();

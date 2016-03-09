@@ -162,16 +162,22 @@
 		}
 
 	.coeff-room-block15 {
-		transition-delay: 300;
-  		position: absolute;
-		z-index: -6;
-		top: 0px;
-		left: 60px;
-		opacity: 0.6;
-		img {
-			height: 80%;
-			width: 80%; }  
-		}
+	  background: #FFFFFF;
+	  -moz-transform: skewX(130deg);
+	  -ms-transform: skewX(130deg);
+	  -webkit-transform: skewX(130deg);
+	  transform: skewX(130deg);
+	  border-radius: 7px;
+	  -moz-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+	  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+	  box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+	  transition-delay: 300;
+	  position: absolute;
+	  z-index: -4;
+	  top: 0px;
+	  left: 70px;
+	  opacity: .3;
+	}
 
 	.coeff-room-block16 {
   		position: absolute;

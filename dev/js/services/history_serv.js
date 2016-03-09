@@ -3,36 +3,34 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .factory('HistoryServ', historyFactory);
+    .factory('HistoryServ',
 
-  function historyFactory($location, $filter, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
-
+  function(
+    $location,
+    $filter,
+    $q,
+    globalConstants,
+    localDB,
+    GeneralServ,
+    MainServ,
+    SVGServ,
+    GlobalStor,
+    OrderStor,
+    ProductStor,
+    UserStor,
+    HistoryStor,
+    CartStor
+  ) {
+    /*jshint validthis:true */
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
 
-    thisFactory.publicObj = {
-      toCurrentCalculation: toCurrentCalculation,
-      downloadOrders: downloadOrders,
-      sendOrderToFactory: sendOrderToFactory,
-      makeOrderCopy: makeOrderCopy,
-      clickDeleteOrder: clickDeleteOrder,
-      editOrder: editOrder,
-      viewSwitching: viewSwitching,
-
-      orderSearching: orderSearching,
-      orderDateSelecting: orderDateSelecting,
-      openCalendarScroll: openCalendarScroll,
-      orderSorting: orderSorting,
-      sortingInit: sortingInit
-    };
-
-    return thisFactory.publicObj;
 
 
 
 
-    //============ methods ================//
+    /**============ METHODS ================*/
 
 
     //------ go to current calculations
@@ -91,29 +89,29 @@
 
 
 
-    //========== Send Order to Factory ========//
+    /**========== Send Order to Factory ========*/
 
     function sendOrderToFactory(orderStyle, orderNum) {
-
+      function sendOrder() {
+        var ordersQty = HistoryStor.history.orders.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {
+          if(HistoryStor.history.orders[ord].id === orderNum) {
+            //-------- change style for order
+            HistoryStor.history.orders[ord].order_style = orderDoneStyle;
+            HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
+            //------ update in Local BD
+            localDB.updateLocalServerDBs(
+              localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()}
+            );
+          }
+        }
+      }
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.SEND_ORDER_TITLE'),
           $filter('translate')('common_words.SEND_ORDER_TXT'),
           sendOrder
         );
-      }
-
-      function sendOrder() {
-        var ordersQty = HistoryStor.history.orders.length;
-        for(var ord = 0; ord < ordersQty; ord++) {
-          if(HistoryStor.history.orders[ord].id === orderNum) {
-            //-------- change style for order
-            HistoryStor.history.orders[ord].order_style = orderDoneStyle;
-            HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
-            //------ update in Local BD
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle, sended: new Date()});
-          }
-        }
       }
 
     }
@@ -123,24 +121,46 @@
 
 
 
-    //========= make Order Copy =========//
+    /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
 
-      if(orderStyle !== orderMasterStyle) {
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
-          copyOrder
-        );
+      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
+        //------ Download elements of order from localDB
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
+          //          console.log('result+++++', result);
+          if(result.length) {
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
+                i;
+
+            if (allElemQty > 0) {
+              //-------- set new orderId in all elements of order
+              for (i = 0; i < allElemQty; i+=1) {
+                delete allElements[i].id;
+                allElements[i].modified = new Date();
+                allElements[i].order_id = newOrderNum;
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(
+                  UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]
+                );
+              }
+            }
+
+          } else {
+            console.log('Empty result = ', result);
+          }
+        });
       }
 
       function copyOrder() {
         //---- new order number
         var ordersQty = HistoryStor.history.orders.length,
-            newOrderCopy;
+            newOrderCopy, ord;
 
-        for(var ord = 0; ord < ordersQty; ord++) {
+        for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
@@ -151,7 +171,9 @@
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
 
-        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+        localDB.insertServer(
+          UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
+        ).then(function(respond) {
           if(respond.status) {
             newOrderCopy.order_number = respond.order_number;
           }
@@ -169,36 +191,12 @@
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
-
-
-      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
-//          console.log('result+++++', result);
-          if(result.length) {
-            var allElements = angular.copy(result),
-                allElemQty = allElements.length,
-                i = 0;
-
-            if (allElemQty > 0) {
-              //-------- set new orderId in all elements of order
-              for (; i < allElemQty; i++) {
-                delete allElements[i].id;
-                allElements[i].modified = new Date();
-                allElements[i].order_id = newOrderNum;
-
-                //-------- insert all elements in LocalDB
-                localDB.insertRowLocalDB(allElements[i], nameTableDB);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
-              }
-            }
-
-          } else {
-            console.log('Empty result = ', result);
-          }
-        });
-
-
+      if(orderStyle !== orderMasterStyle) {
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.COPY_ORDER_TITLE'),
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder
+        );
       }
 
     }
@@ -207,17 +205,11 @@
 
 
 
-    //========== Delete order ==========//
+    /**========== Delete order ==========*/
 
     function clickDeleteOrder(orderType, orderNum, event) {
       event.preventDefault();
       event.stopPropagation();
-
-      GeneralServ.confirmAlert(
-        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-        $filter('translate')('common_words.DELETE_ORDER_TXT'),
-        deleteOrder
-      );
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -250,6 +242,13 @@
           localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
         }
       }
+
+      GeneralServ.confirmAlert(
+        $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+        deleteOrder
+      );
+
     }
 
 
@@ -257,13 +256,172 @@
 
     /** =========== Edit Order & Draft =========== */
 
+    function setOrderOptions(param, id, data) {
+      if(id) {
+        var dataQty = data.length;
+        while(--dataQty > -1) {
+          if(data[dataQty].id === id) {
+            switch(param) {
+              case 1:
+                OrderStor.order.floorName = angular.copy(data[dataQty].name);
+                break;
+              case 2:
+                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
+                break;
+              case 3:
+                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
+                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
+                break;
+            }
+          }
+        }
+      }
+    }
+
+
+    function setGlassXOrder(product, id) {
+      //----- set default glass in ProductStor
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        return item.profileId === product.profile.id;
+      });
+      //      console.log('tempGlassArr = ', tempGlassArr);
+      if(tempGlassArr.length) {
+        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
+      }
+
+    }
+
+
+    //------ Download All Products Data for Order
+    function downloadProducts() {
+      var deferred = $q.defer();
+
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
+        var products = angular.copy(result);
+        if(products.length) {
+
+          //------------- parsing All Templates Source and Icons for Order
+          var productPromises = products.map(function(prod) {
+            var defer1 = $q.defer(),
+                tempProd = ProductStor.setDefaultProduct();
+            angular.extend(tempProd, prod);
+            delete tempProd.id;
+            delete tempProd.modified;
+            //----- checking product with design or only addElements
+            if(!tempProd.is_addelem_only) {
+              //----- parsing design from string to object
+              tempProd.template_source = JSON.parse(tempProd.template_source);
+
+              //----- find depths and build design icon
+              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+                if(tempProd.glass_id) {
+                  var glassIDs = tempProd.glass_id.split(', '),
+                      glassIDsQty = glassIDs.length;
+                  if(glassIDsQty) {
+                    while(--glassIDsQty > -1) {
+                      setGlassXOrder(tempProd, +glassIDs[glassIDsQty]);
+                    }
+                  }
+                }
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                MainServ.setCurrLamination(tempProd.lamination_id);
+                delete tempProd.lamination_id;
+                delete tempProd.lamination_in_id;
+                delete tempProd.lamination_out_id;
+                defer1.resolve(tempProd);
+              });
+
+            } else {
+              defer1.resolve(1);
+            }
+            return defer1.promise;
+          });
+
+          $q.all(productPromises).then(function(data) {
+
+            var iconPromise = data.map(function(item) {
+              var deferIcon = $q.defer();
+              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
+                item.templateIcon = data;
+                delete item.profile_id;
+                delete item.glass_id;
+                delete item.hardware_id;
+
+                //----- set price Discounts
+                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                item.productPriceDis = (GeneralServ.setPriceDis(
+                  item.template_price, OrderStor.order.discount_construct
+                ) + item.addelemPriceDis);
+
+                OrderStor.order.products.push(item);
+                deferIcon.resolve(1);
+              });
+              return deferIcon.promise;
+            });
+
+            deferred.resolve($q.all(iconPromise));
+          });
+
+        } else {
+          deferred.reject(products);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+
+
+    //------ Download All Add Elements from LocalDB
+    function downloadAddElements() {
+      var deferred = $q.defer();
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
+      ).then(function(result) {
+        var elementsAdd = angular.copy(result),
+            allAddElemQty = elementsAdd.length,
+            orderProductsQty = OrderStor.order.products.length,
+            prod;
+
+        if(allAddElemQty) {
+          while(--allAddElemQty > -1) {
+            for(prod = 0; prod < orderProductsQty; prod+=1) {
+              if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
+                delete elementsAdd[allAddElemQty].element_id;
+                delete elementsAdd[allAddElemQty].modified;
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
+                  elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
+                );
+                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
+                if(!allAddElemQty) {
+                  deferred.resolve(1);
+                }
+              }
+            }
+          }
+
+        } else {
+          deferred.resolve(1);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+
     function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+      var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
@@ -306,7 +464,7 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-//          console.warn('ORDER ====', OrderStor.order);
+          //          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
@@ -314,169 +472,7 @@
     }
 
 
-    function setOrderOptions(param, id, data) {
-      if(id) {
-        var dataQty = data.length;
-        while(--dataQty > -1) {
-          if(data[dataQty].id === id) {
-            switch(param) {
-              case 1:
-                OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break;
-              case 2:
-                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
-                break;
-              case 3:
-                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
-                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
-                break;
-            }
-          }
-        }
-      }
-    }
 
-
-    //------ Download All Products Data for Order
-    function downloadProducts() {
-      var deferred = $q.defer();
-
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var products = angular.copy(result);
-        if(products.length) {
-
-          //------------- parsing All Templates Source and Icons for Order
-          var productPromises = products.map(function(prod) {
-            var defer1 = $q.defer(),
-                tempProd = ProductStor.setDefaultProduct();
-            angular.extend(tempProd, prod);
-            delete tempProd.id;
-            delete tempProd.modified;
-            //----- checking product with design or only addElements
-            if(!tempProd.is_addelem_only) {
-              //----- parsing design from string to object
-              tempProd.template_source = JSON.parse(tempProd.template_source);
-
-              //----- find depths and build design icon
-              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
-                if(tempProd.glass_id) {
-                  var glassIDs = tempProd.glass_id.split(', '),
-                      glassIDsQty = glassIDs.length;
-                  if(glassIDsQty) {
-                    while(--glassIDsQty > -1) {
-                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
-                    }
-                  }
-                }
-                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
-                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
-                delete tempProd.lamination_id;
-                delete tempProd.lamination_in_id;
-                delete tempProd.lamination_out_id;
-                defer1.resolve(tempProd);
-              });
-
-            } else {
-              defer1.resolve(1);
-            }
-            return defer1.promise;
-          });
-
-          $q.all(productPromises).then(function(data) {
-
-            var iconPromise = data.map(function(item) {
-              var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
-                item.templateIcon = data;
-                delete item.profile_id;
-                delete item.glass_id;
-                delete item.hardware_id;
-
-                //----- set price Discounts
-                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
-
-                OrderStor.order.products.push(item);
-                deferIcon.resolve(1);
-              });
-              return deferIcon.promise;
-            });
-
-            deferred.resolve($q.all(iconPromise));
-          });
-
-        } else {
-          deferred.reject(products);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-
-    function setGlassXOrder(product, id) {
-      //----- set default glass in ProductStor
-      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        return item.profileId === product.profile.id;
-      });
-      //      console.log('tempGlassArr = ', tempGlassArr);
-      if(tempGlassArr.length) {
-        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
-      }
-
-    }
-
-
-    //------ Download All Add Elements from LocalDB
-    function downloadAddElements() {
-      var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var elementsAdd = angular.copy(result),
-            allAddElemQty = elementsAdd.length,
-            orderProductsQty = OrderStor.order.products.length;
-
-        if(allAddElemQty) {
-          while(--allAddElemQty > -1) {
-            for(var prod = 0; prod < orderProductsQty; prod++) {
-              if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
-                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
-                delete elementsAdd[allAddElemQty].element_id;
-                delete elementsAdd[allAddElemQty].modified;
-                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
-                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
-                if(!allAddElemQty) {
-                  deferred.resolve(1);
-                }
-              }
-            }
-          }
-
-        } else {
-          deferred.resolve(1);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-
-
-
-
-
-
-    //------- Orders/Drafts View switcher
-    function viewSwitching() {
-      HistoryStor.history.isOrderDate = 0;
-      HistoryStor.history.isOrderDateDraft = 0;
-      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
-
-      //------ Download Drafts from localDB in first open
-      if(!HistoryStor.history.drafts.length) {
-        downloadDrafts();
-      }
-    }
 
 
 
@@ -505,9 +501,34 @@
     }
 
 
+    //------- Orders/Drafts View switcher
+    function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
+      HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
+
+      //------ Download Drafts from localDB in first open
+      if(!HistoryStor.history.drafts.length) {
+        downloadDrafts();
+      }
+    }
 
 
-    //============= HISTORY TOOLS ============//
+    function orderPrint(orderId) {
+      var domainLink = globalConstants.serverIP.split('api.').join(''),
+          paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+          printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+      /** check internet */
+      if(navigator.onLine) {
+        GeneralServ.goToLink(printLink);
+      } else {
+        HistoryStor.history.isNoPrint = 1;
+      }
+    }
+
+
+
+    /**============= HISTORY TOOLS ============*/
 
     //=========== Searching
 
@@ -525,6 +546,29 @@
 
     //=========== Filtering by Date
 
+    //------- filtering orders by Dates
+    function filteringByDate(obj, start, end) {
+      var newObj, startDate, finishDate,
+          t, objDate;
+      if(start !== '' || end !== '') {
+        newObj = angular.copy(obj);
+        startDate = new Date(start).valueOf();
+        finishDate = new Date(end).valueOf();
+        if(start !== '' && end !== '' && startDate > finishDate) {
+          return false;
+        }
+        for(t = newObj.length-1;  t >= 0; t-=1) {
+          objDate = new Date(newObj[t].created).valueOf();
+          if(objDate < startDate || objDate > finishDate) {
+            newObj.splice(t, 1);
+          }
+        }
+        return newObj;
+      } else {
+        return false;
+      }
+    }
+
     //------- show Date filter tool dialog
     function orderDateSelecting() {
       var filterResult;
@@ -532,7 +576,9 @@
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(
+            HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft
+          );
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }
@@ -544,7 +590,9 @@
       } else {
         if(HistoryStor.history.isOrderDate) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate);
+          filterResult = filteringByDate(
+            HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate
+          );
           if(filterResult) {
             HistoryStor.history.orders = filterResult;
           }
@@ -555,27 +603,7 @@
       }
     }
 
-    //------- filtering orders by Dates
-    function filteringByDate(obj, start, end) {
-      if(start !== '' || end !== '') {
-        var newObj, startDate, finishDate;
-        newObj = angular.copy(obj);
-        startDate = new Date(start).valueOf();
-        finishDate = new Date(end).valueOf();
-        if(start !== '' && end !== '' && startDate > finishDate) {
-          return false;
-        }
-        for(var t = newObj.length-1;  t >= 0; t--) {
-          var objDate = new Date(newObj[t].created).valueOf();
-          if(objDate < startDate || objDate > finishDate) {
-            newObj.splice(t, 1);
-          }
-        }
-        return newObj;
-      } else {
-        return false;
-      }
-    }
+
 
 
     //------ Select calendar-scroll
@@ -683,5 +711,28 @@
 
 
 
-  }
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      toCurrentCalculation: toCurrentCalculation,
+      downloadOrders: downloadOrders,
+      sendOrderToFactory: sendOrderToFactory,
+      makeOrderCopy: makeOrderCopy,
+      clickDeleteOrder: clickDeleteOrder,
+      editOrder: editOrder,
+      orderPrint: orderPrint,
+      viewSwitching: viewSwitching,
+
+      orderSearching: orderSearching,
+      orderDateSelecting: orderDateSelecting,
+      openCalendarScroll: openCalendarScroll,
+      orderSorting: orderSorting,
+      sortingInit: sortingInit
+    };
+
+    return thisFactory.publicObj;
+
+
+
+  });
 })();

@@ -3,9 +3,9 @@
   /**@ngInject*/
   angular
     .module('BauVoiceApp')
-    .directive('priceFixed', priceFixedDir);
+    .directive('priceFixed',
 
-  function priceFixedDir() {
+  function() {
 
     return {
       restrict: 'A',
@@ -18,7 +18,7 @@
       link: function (scope, element, attrs) {
 
         function getNewPrice(priceAtr, qty, currency) {
-          var newPrice = parseFloat( ((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2) ) + ' ' + currency;
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
           element.text(newPrice);
         }
 
@@ -34,6 +34,5 @@
       }
     };
 
-
-  }
+  });
 })();

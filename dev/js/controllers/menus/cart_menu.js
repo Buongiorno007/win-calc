@@ -3,10 +3,18 @@
   /**@ngInject*/
   angular
     .module('CartModule')
-    .controller('CartMenuCtrl', cartMenuCtrl);
+    .controller('CartMenuCtrl',
 
-  function cartMenuCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
-
+  function(
+    $filter,
+    globalConstants,
+    GlobalStor,
+    OrderStor,
+    UserStor,
+    CartStor,
+    CartMenuServ
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
@@ -42,21 +50,8 @@
 
 
 
-    //------ clicking
-    thisCtrl.selectMenuItem = selectMenuItem;
-    thisCtrl.closeInstalment = closeInstalment;
-    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
-    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
-    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
-    thisCtrl.openMasterDialog = openMasterDialog;
-    thisCtrl.openOrderDialog = openOrderDialog;
-    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
-
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     //----- Select menu item
     function selectMenuItem(id) {
@@ -86,5 +81,18 @@
     }
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.closeInstalment = closeInstalment;
+    thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
+    thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
+    thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
+    thisCtrl.openMasterDialog = openMasterDialog;
+    thisCtrl.openOrderDialog = openOrderDialog;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
+
+  });
 })();

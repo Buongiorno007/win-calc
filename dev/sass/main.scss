@@ -18,6 +18,7 @@
 
 // PARTS
 @import 'parts/loader';
+@import 'parts/attantions';
 @import 'parts/svg';
 @import 'parts/user-info';
 @import 'parts/room-info';
@@ -33,7 +34,7 @@
 @import "parts/info-box";
 @import "parts/addelems-group-menu";
 @import "parts/report";
-@import "parts/new-room";
+@import "parts/room-elements";
 
 // PAGES
 @import 'pages/login';
@@ -44,6 +45,7 @@
 @import 'pages/history';
 @import 'pages/cart';
 @import 'pages/design';
+@import 'pages/main-svg';
 
 // MENUS
 @import 'menus/navigation-menu';

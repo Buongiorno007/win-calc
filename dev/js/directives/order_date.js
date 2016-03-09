@@ -3,10 +3,9 @@
   /**@ngInject*/
   angular
     .module('HistoryModule')
-    .directive('orderDate', orderDateDir);
+    .directive('orderDate',
 
-  function orderDateDir($filter) {
-
+  function($filter) {
 
     return {
       restrict: 'A',
@@ -35,7 +34,7 @@
             }
           } else {
             oldDateFormat = new Date();
-            newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+            newDateFormat = oldDateFormat.getDate()+' '+monthsArr[oldDateFormat.getMonth()]+', '+oldDateFormat.getFullYear();
           }
 
           if(!type && oldD === '') {
@@ -55,5 +54,5 @@
     };
 
 
-  }
+  });
 })();

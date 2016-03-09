@@ -1,14 +1,17 @@
 (function(){
   'use strict';
-  /**
-   * @ngInject
-   */
+  /**@ngInject*/
   angular
     .module('SettingsModule')
-    .controller('ChangePassCtrl', changePassCtrl);
+    .controller('ChangePassCtrl',
 
-  function changePassCtrl(globalConstants, SettingServ, UserStor, localDB) {
-
+  function(
+    globalConstants,
+    SettingServ,
+    UserStor,
+    localDB
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
@@ -22,30 +25,28 @@
       typing: 'on'
     };
 
-    //------ clicking
-    thisCtrl.saveNewPassword = saveNewPassword;
-    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
-    thisCtrl.checkError = checkError;
-    thisCtrl.checkErrorOld = checkErrorOld;
 
 
-    //============ methods ================//
 
-
+    /**============ METHODS ================*/
 
     function saveNewPassword() {
       if( thisCtrl.config.oldPassword && UserStor.userInfo.password == localDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
         thisCtrl.config.isErrorPassword = 0;
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
-        console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
+        //console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.users.tableName,
+          UserStor.userInfo.id,
+          {'password': UserStor.userInfo.password}
+        ).then(function() {
           //---- clean fields
           thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
           SettingServ.gotoSettingsPage();
         });
       } else {
-        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword))) {
           thisCtrl.config.isErrorOldPassword = 1;
         } else {
           thisCtrl.config.isErrorPassword = 1;
@@ -62,5 +63,14 @@
       thisCtrl.config.isErrorOldPassword = 0;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.saveNewPassword = saveNewPassword;
+    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
+    thisCtrl.checkError = checkError;
+    thisCtrl.checkErrorOld = checkErrorOld;
+
+  });
 })();

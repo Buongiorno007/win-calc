@@ -4,5 +4,5 @@
     .alert-title {{ alertBox.G.global.alertTitle }}
     .alert-descr {{ alertBox.G.global.alertDescr }}
     .alert-btns
-      button.alert-no(ng-click="alertBox.G.global.isAlert = 0") {{ 'common_words.BUTTON_N' | translate }}
-      button.alert-yes(ng-click="alertBox.clickYes()") {{ 'common_words.BUTTON_Y' | translate }}
+      button.alert-no(ng-click="alertBox.G.global.isAlert = 0") {{ ::alertBox.BUTTON_N }}
+      button.alert-yes(ng-click="alertBox.clickYes()") {{ ::alertBox.BUTTON_Y }}

@@ -4,19 +4,13 @@ $door-config-content: $ipad-height - $door-config-header;
 .construction-container {
   position: relative;
 }
-.construction-container-main {
-  position: relative;
-}
+
 
 // General Menu Properties
 
 .construction-menu {
   position: absolute;
   height: 100%;
-}
-
-.soffits {
-  fill: url(#clipPolygon)
 }
 
 .construction-label {
@@ -39,12 +33,6 @@ $door-config-content: $ipad-height - $door-config-header;
 .construction-left-menu {
   @extend .construction-menu;
   @include top_left_coord(0px, 0px);
-   left: -50rem;
-   transition: all 0.5s ease;
-      &.selected {
-      transition: all 0.5s ease;
-      left: 0rem;
-    }
 
   .figure-lists {
     width: rem(220px);
@@ -132,11 +120,14 @@ $door-config-content: $ipad-height - $door-config-header;
 
     display: inline-block;
     height: rem(72px);
+    margin-bottom: 1rem;
     padding: rem(13px) rem(26px);
+    line-height: 3.2rem;
     color: #fff;
     background-color: $main_green;
   }
 }
+
 
 
 // Construction Edit menu
@@ -390,32 +381,7 @@ $door-config-content: $ipad-height - $door-config-header;
   text-align: center;
   overflow: auto;
 }
-.design-attantion {
-  @extend .attantion;
-  top: 45%;
-  left: 35%;
-}
 
-
-// Construction SVG MAIN
-
-.construction-block-main {
-  text-align: center;
-  
-}
-.construction-scrollbox-main {
-  width: 100%;
-  height: 100%;
-  margin:  auto;
-  text-align: center;
-  overflow: hidden;
- 
-}
-.design-attantion-main {
-  @extend .attantion;
-  top: 45%;
-  left: 35%;
-}
 
 
 // Construction Right Menu
@@ -656,5 +622,3 @@ $door-config-content: $ipad-height - $door-config-header;
     width: rem(160px);
   }
 }
-
-

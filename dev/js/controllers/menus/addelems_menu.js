@@ -1,12 +1,11 @@
-/* globals d3 */
 (function(){
   'use strict';
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('addElementMenuCtrl', addElementMenuCtrl);
+    .controller('addElementMenuCtrl',
 
-  function addElementMenuCtrl(
+  function(
     $timeout,
     $filter,
     globalConstants,
@@ -47,32 +46,11 @@
     thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
 
 
-    /**============ clicking ============*/
-    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
-    thisCtrl.selectAddElement = selectAddElement;
-    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
-    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
-    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
-    thisCtrl.showFrameTabs = showFrameTabs;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.showInfoBox = MainServ.showInfoBox;
-    //------- culculator
-    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
-    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    //------- grid
-    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
-    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
-    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
 
 
 
 
-
-
-
-
-    /**============ methods ================*/
+    /**============ METHODS ================*/
 
     /**------- Show Tabs -------*/
 
@@ -81,6 +59,33 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
+
+    /**----------- Select Add Element when open List View ------------*/
+
+    function selectAddElementList(typeId, elementId, clickEvent) {
+      var coord;
+      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
+        AuxStor.aux.isAddElement = false;
+      } else if(AuxStor.aux.isAddElement === false) {
+        coord = $(clickEvent.target).offset();
+        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+        thisCtrl.coordinats = {'top': coord.top-17};
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
+        }, 500);
+      } else {
+        AuxStor.aux.isAddElement = false;
+        $timeout(function() {
+          coord = $(clickEvent.target).offset();
+          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+          thisCtrl.coordinats = {'top': coord.top-17};
+        }, 500);
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+        }, 1000);
+      }
+    }
 
 
     /**---------- common function to select addElem in 2 cases --------*/
@@ -112,33 +117,30 @@
     }
 
 
-    /**----------- Select Add Element when open List View ------------*/
-
-    function selectAddElementList(typeId, elementId, clickEvent) {
-      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
-        AuxStor.aux.isAddElement = false;
-      } else if(AuxStor.aux.isAddElement === false) {
-        var coord = $(clickEvent.target).offset();
-        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-        thisCtrl.coordinats = {'top': coord.top-17};
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
-        }, 500);
-      } else {
-        AuxStor.aux.isAddElement = false;
-        $timeout(function() {
-          var coord = $(clickEvent.target).offset();
-          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-          thisCtrl.coordinats = {'top': coord.top-17};
-        }, 500);
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-        }, 1000);
-      }
-    }
 
 
 
-  }
+
+    /**========== FINISH ==========*/
+
+      //------ clicking
+    thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
+    thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
+    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
+    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
+    thisCtrl.showFrameTabs = showFrameTabs;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
+    //------- culculator
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
+    thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    //------- grid
+    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
+    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
+    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
+
+
+  });
 })();

@@ -3,10 +3,19 @@
   /**@ngInject*/
   angular
     .module('MainModule')
-    .controller('AddElementsCtrl', addElementsCtrl);
+    .controller('AddElementsCtrl',
 
-  function addElementsCtrl(globalConstants, GeneralServ, AddElementsServ, AddElementMenuServ, GlobalStor, AuxStor, ProductStor) {
-
+  function(
+    $filter,
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
@@ -26,19 +35,17 @@
       typing: 'on'
     };
 
+    //------- translate
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
 
 
-    //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
-
-
-
-    //============ methods ================//
+    /**============ METHODS ================*/
 
     // Show Window Scheme Dialog
     function showWindowScheme() {
@@ -51,5 +58,16 @@
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-  }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
 })();

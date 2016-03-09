@@ -3,35 +3,35 @@
     form(name='callCreditForm', novalidate, ng-submit="orderForm.submitForm(callCreditForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(ng-click="orderForm.closeOrderDialog()", type="button")
-        .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }}
+        .cart-dialog-title {{ ::orderForm.CALL_CREDIT }}
       .cart-dialog-body
-        .cart-dialog-descrip {{ 'cart.CALL_CREDIT_DESCRIP' | translate }}
-        .cart-dialog-label {{ 'cart.CALL_CREDIT_CLIENT_INFO' | translate }}
+        .cart-dialog-descrip {{ ::orderForm.CALL_CREDIT_DESCRIP }}
+        .cart-dialog-label {{ ::orderForm.CALL_CREDIT_CLIENT_INFO }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.name.$error.required }")
-          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          input.user-field(type="text", name="name", ng-model="orderForm.C.cart.customer.customer_name", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_NAME }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.name.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.target.$error.required }")
-          input.user-field(type="text", name="target", ng-model="orderForm.C.cart.customer.customer_target", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CREDIT_TARGET' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.target.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          input.user-field(type="text", name="target", ng-model="orderForm.C.cart.customer.customer_target", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CREDIT_TARGET }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.target.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.itn.$error.required }")
-          input.user-field(type="number", name="itn", ng-model="orderForm.C.cart.customer.customer_itn", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_ITN' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.itn.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          input.user-field(type="number", name="itn", ng-model="orderForm.C.cart.customer.customer_itn", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ITN }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.itn.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.phone.$error.required }")
-          input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'login.MOBILE' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.phone.$error.pattern || callCreditForm.phone.$dirty && callCreditForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+          input.user-field(type="tel", name="phone", ng-model="orderForm.C.cart.customer.customer_phone", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.MOBILE }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.phone.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.phone.$error.pattern || callCreditForm.phone.$dirty && callCreditForm.phone.$error.pattern") {{ ::orderForm.WRONG_NUMBER }}
 
 
         .input-field
           .time-block
-            span.time-label {{ 'cart.CALL_START_TIME' | translate }}
+            span.time-label {{ ::orderForm.CALL_START_TIME }}
             input.time-field(type="nubmer", name="starttime", ng-model="orderForm.C.cart.customer.customer_starttime", placeholder="00:00")
           .time-block
-            span.time-label {{ 'cart.CALL_END_TIME' | translate }}
+            span.time-label {{ ::orderForm.CALL_END_TIME }}
             input.time-field(type="nubmer", name="endtime", ng-model="orderForm.C.cart.customer.customer_endtime", placeholder="00:00")
 
         .input-field
@@ -39,62 +39,67 @@
             ng-pluralize(count="orderForm.O.order.selectedInstalmentPeriod",
             when="{'1': '{{ orderForm.config.month }}', '2': '{{ orderForm.config.montha }}', '3': '{{ orderForm.config.montha }}', '4': '{{ orderForm.config.montha }}', 'other': '{{ orderForm.config.months }}'}") , {{orderForm.O.order.selectedInstalmentPercent}}%
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ orderForm.O.order.order_price_dis }}{{ orderForm.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ orderForm.O.order.payment_monthly }}{{ orderForm.U.userInfo.currency }}
+        .cart-dialog-label {{ ::orderForm.CALL_ORDER_TOTAL_PRICE }} {{ orderForm.O.order.order_price_dis }}{{ orderForm.U.userInfo.currency }} {{ ::orderForm.CALL_CREDIT_PARTIAL_PRICE }} {{ orderForm.O.order.payment_monthly }}{{ orderForm.U.userInfo.currency }}
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
+        .cart-dialog-label {{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.location.$error.required }")
-          input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", autocomplete="off", required)
-          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", autocomplete="off", required)
+          .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ ::orderForm.EMPTY_FIELD }}
           ul.location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
             li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", ng-click="orderForm.selectCity(location)") {{location.fullLocation}}
 
 
-
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.address.$error.required }")
-          input.user-field(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          input.user-field.street(type="text", name="address", ng-model="orderForm.C.cart.customer.customer_address", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_ADDRESS }}", required)
+          input.user-field.small(type="text", name="house", ng-model="orderForm.C.cart.customer.customer_house", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_HOUSE }}", required)
+          input.user-field.small(type="number", name="flat", ng-model="orderForm.C.cart.customer.customer_flat", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLAT }}", required)
+          input.user-field.small(type="number", name="floor", ng-model="orderForm.C.cart.customer.customer_floor", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_FLOOR }}", required)
+          .error-tooltip.street(ng-show="orderForm.C.cart.submitted && callCreditForm.address.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip.house(ng-show="orderForm.C.cart.submitted && callCreditForm.house.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip.flat(ng-show="orderForm.C.cart.submitted && callCreditForm.flat.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip.floor(ng-show="orderForm.C.cart.submitted && callCreditForm.floor.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
+        .cart-dialog-label {{ ::orderForm.CALL_ORDER_ADD_INFO }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.mail.$error.required }")
-          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL }}", required)
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}
 
         .input-field
-          input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ 'cart.ADD_PHONE' | translate }}")
+          input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.ADD_PHONE }}")
 
         .input-field
-          .subtitle-field {{ 'cart.CLIENT_SEX' | translate }}
-          label.label-field {{ 'cart.CLIENT_SEX_M' | translate }}
+          .subtitle-field {{ ::orderForm.CLIENT_SEX }}
+          label.label-field {{ ::orderForm.CLIENT_SEX_M }}
             input.radio-field(type="radio", name="sex", ng-model="orderForm.C.cart.customer.customer_sex", value="1")
-          label.label-field {{ 'cart.CLIENT_SEX_F' | translate }}
+          label.label-field {{ ::orderForm.CLIENT_SEX_F }}
             input.radio-field(type="radio", name="sex", ng-model="orderForm.C.cart.customer.customer_sex", value="2")
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.age.$error.required }")
-          .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
+          .subtitle-field {{ ::orderForm.CLIENT_AGE }}
           select.user-select-field(name="age", ng-model="orderForm.C.cart.customer.customer_age", ng-options="age.name for age in orderForm.C.optionAge", required)
-            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.age.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+            option(value='') {{ ::orderForm.SELECT_PLACEHOLD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.age.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.education.$error.required }")
-          .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
+          .subtitle-field {{ ::orderForm.CLIENT_EDUCATION }}
           select.user-select-field(name="education", ng-model="orderForm.C.cart.customer.customer_education", ng-options="educ.name for educ in orderForm.C.optionEductaion", required)
-            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.education.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+            option(value='') {{ ::orderForm.SELECT_PLACEHOLD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.education.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.occupation.$error.required }")
-          .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
+          .subtitle-field {{ ::orderForm.CLIENT_OCCUPATION }}
           select.user-select-field(name="occupation", ng-model="orderForm.C.cart.customer.customer_occupation", ng-options="occup.name for occup in orderForm.C.optionOccupation", required)
-            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.occupation.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+            option(value='') {{ ::orderForm.SELECT_PLACEHOLD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.occupation.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.infoSource.$error.required }")
-          .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
+          .subtitle-field {{ ::orderForm.CLIENT_INFO_SOURCE }}
           select.user-select-field(name="infoSource", ng-model="orderForm.C.cart.customer.customer_infoSource", ng-options="info.name for info in orderForm.C.optionInfo", required)
-            option(value='') {{ 'cart.SELECT_PLACEHOLD' | translate }}
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.infoSource.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+            option(value='') {{ ::orderForm.SELECT_PLACEHOLD }}
+          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.infoSource.$error.required") {{ ::orderForm.EMPTY_FIELD }}
 
-        button.save.save-order(type="submit") {{ 'cart.READY' | translate }}
+        button.save.save-order(type="submit") {{ ::orderForm.READY }}

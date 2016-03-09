@@ -1,36 +1,36 @@
 
 <section class="construction-page">
   <section class="construction-container">
-    <div ng-class="{'selected': designPage.G.global.isTemplateItemDesign}" class="construction-left-menu">
+    <div class="construction-left-menu">
       <ul class="figure-lists">
         <li ng-click="designPage.selectMenuItem(3)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 3}" class="figure-item-block">
             <div class="figure-icon impost-shape"></div>
-            <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+            <div data-output="{{ ::designPage.IMPOST_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
         </li>
         <li ng-click="designPage.selectMenuItem(1)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 1}" class="figure-item-block">
             <div class="figure-icon sash-shape"></div>
-            <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+            <div data-output="{{ ::designPage.SASH_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
         </li>
         <li ng-click="designPage.selectMenuItem(2)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2}" class="figure-item-block">
             <div class="figure-icon angel-shape"></div>
-            <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+            <div data-output="{{ ::designPage.ANGEL_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
         </li>
-        <li ng-click="designPage.selectMenuItem(0)" class="figure-item">
+        <li ng-click="designPage.selectMenuItem(4)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 4}" class="figure-item-block">
             <div class="figure-icon arch-shape"></div>
-            <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+            <div data-output="{{ ::designPage.ARCH_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
         </li>
         <li ng-click="designPage.selectMenuItem(5)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 5}" class="figure-item-block">
             <div class="figure-icon position-shape"></div>
-            <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+            <div data-output="{{ ::designPage.POSITION_SHAPE }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
         </li>
       </ul>
@@ -77,36 +77,37 @@
         <div ng-click="designPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
       </div>
       <div class="left-menu-footer">
-        <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
-        <div ng-click="designPage.setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>
+        <div data-output="{{ ::designPage.UNITS_DESCRIP }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
+        <div ng-click="designPage.setDefaultConstruction()" class="project-default">{{ ::designPage.PROJECT_DEFAULT }}</div>
+        <div ng-click="designPage.showTemplates()" class="project-default">{{ ::designPage.ROOM_SELECTION }}</div>
       </div>
     </div>
     <div class="construction-block">
       <div class="construction-scrollbox">
-        <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="edit"></svg-template>
+        <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="designPage.constants.SVG_ID_EDIT"></svg-template>
       </div>
     </div>
     <div class="right-menu-header">
-      <div ng-show="designPage.D.design.designSteps.length &gt; 0" class="nav-tool-box">
+      <div ng-if="designPage.D.design.designSteps.length &gt; 0" class="nav-tool-box">
         <button ng-click="designPage.stepBack()" class="construct-tools step-back"></button>
-        <div class="nav-tool-label">{{ 'common_words.BACK' | translate }}</div>
+        <div class="nav-tool-label">{{ ::designPage.BACK }}</div>
       </div>
       <div class="nav-tool-box">
         <button ng-click="designPage.G.global.activePanel = 0;designPage.designSaved()" class="construct-tools save-construction"></button>
-        <div class="nav-tool-label">{{ 'settings.SAVE' | translate }}</div>
+        <div class="nav-tool-label">{{ ::designPage.SAVE }}</div>
       </div>
       <div class="nav-tool-box">
         <button ng-click="designPage.designCancel()" class="construct-tools close-construction"></button>
-        <div class="nav-tool-label">{{ 'add_elements.CANCEL' | translate }}</div>
+        <div class="nav-tool-label">{{ ::designPage.CANCEL }}</div>
       </div>
     </div>
-    <div ng-show="designPage.P.product.construction_type === 4" class="door-config-menu">
+    <div ng-if="designPage.P.product.construction_type === 4" class="door-config-menu">
       <button ng-class="{'active': designPage.config.isDoorConfig}" ng-click="designPage.toggleDoorConfig()" class="door-config-btn"></button>
-      <div class="door-config-label">{{ 'construction.DOOR_CONFIG_LABEL' | translate }}</div>
-      <div class="door-config-description">{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};</div>
+      <div class="door-config-label">{{ ::designPage.DOOR_CONFIG_LABEL }}</div>
+      <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};</div>
+      <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};</div>
+      <div class="door-config-description">{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};</div>
+      <div class="door-config-description">{{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};</div>
     </div>
     <div class="right-menu-footer">
       <div ng-class="{'active': designPage.G.global.isSizeCalculator}" class="calculators-box size-calculator">
@@ -182,18 +183,48 @@
         <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}" class="voice-input">
       </div>
     </div>
+    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
+      <div class="template-inner">
+        <div ng-click="designPage.showTemplates()" class="close-dialog"></div>
+        <div class="template-header">
+          <button ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}" ng-click="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}</button>
+          <div class="tempate-type-box">
+            <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
+              <div ng-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_WINDOW }}</div>
+              <!--.template-type-btn(ng-click="templatesPanel.selectNewTemplateType(2)") {{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}-->
+              <!--.template-type-btn(ng-click="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}-->
+              <div ng-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_DOOR }}</div>
+            </div>
+          </div>
+          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
+        </div>
+        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" ng-click="designPage.showTemplates()" class="template-section unvisible">
+          <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="templatesPanel.constants.SVG_ID_ICON"></svg-template>
+        </div>
+        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
+          <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
+            <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")-->
+            <div ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index" ng-click="templatesPanel.selectNewTemplate($index)" class="other-template">
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
+              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <section ng-class="{'active': designPage.config.isDoorConfig}" class="door-configuration">
       <div class="door-config-column step1">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
-            <div class="door-title">1 {{ 'construction.STEP' | translate }}</div>
-            <div class="door-subtitle">{{ 'construction.LABEL_DOOR_TYPE' | translate }}</div>
+            <div class="door-title">1 {{ ::designPage.STEP }}</div>
+            <div class="door-subtitle">{{ ::designPage.LABEL_DOOR_TYPE }}</div>
           </div>
         </div>
         <div ng-class="{'scroll-box': !designPage.config.selectedStep2}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="door in designPage.D.design.doorShapeList" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index)" class="door-config-option">
+            <li ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-src="{{ door.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"><img ng-src="{{ door.shapeIconSelect }}" ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"></div>
                 <div class="door-option-label">{{ door.shapeLabel }}</div>
@@ -207,13 +238,13 @@
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
-            <div class="door-title">2 {{ 'construction.STEP' | translate }}</div>
-            <div class="door-subtitle">{{ 'construction.LABEL_SASH_TYPE' | translate }}</div>
+            <div class="door-title">2 {{ ::designPage.STEP }}</div>
+            <div class="door-subtitle">{{ ::designPage.LABEL_SASH_TYPE }}</div>
           </div>
         </div>
         <div ng-class="{'scroll-box': !designPage.config.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="sash in designPage.D.design.sashShapeList" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index)" class="door-config-option">
+            <li ng-repeat="sash in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-label">{{ sash.shapeLabel }}</div>
               </div>
@@ -226,13 +257,13 @@
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
-            <div class="door-title">3 {{ 'construction.STEP' | translate }}</div>
-            <div class="door-subtitle">{{ 'construction.LABEL_HANDLE_TYPE' | translate }}</div>
+            <div class="door-title">3 {{ ::designPage.STEP }}</div>
+            <div class="door-subtitle">{{ ::designPage.LABEL_HANDLE_TYPE }}</div>
           </div>
         </div>
         <div ng-class="{'scroll-box': !designPage.config.selectedStep4}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="handle in designPage.D.design.handleShapeList" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}" ng-click="designPage.selectHandle($index)" class="door-config-option">
+            <li ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}" ng-click="designPage.selectHandle($index)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-src="{{ handle.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"><img ng-src="{{ handle.shapeIconSelect }}" ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ handle.shapeLabel }}</div>
@@ -246,13 +277,13 @@
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
-            <div class="door-title">4 {{ 'construction.STEP' | translate }}</div>
-            <div class="door-subtitle">{{ 'construction.LABEL_LOCK_TYPE' | translate }}</div>
+            <div class="door-title">4 {{ ::designPage.STEP }}</div>
+            <div class="door-subtitle">{{ ::designPage.LABEL_LOCK_TYPE }}</div>
           </div>
         </div>
         <div ng-class="{'scroll-box': designPage.config.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="lock in designPage.D.design.lockShapeList" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index)" class="door-config-option">
+            <li ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-src="{{ lock.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-src="{{ lock.shapeIconSelect }}" ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ lock.shapeLabel }}</div>
@@ -267,6 +298,44 @@
         <button ng-show="designPage.config.selectedStep4" ng-click="designPage.saveDoorConfig()" class="door-config-finish-btn save-door-config"></button>
       </div>
     </section>
-    <div ng-show="designPage.config.isDesignError" class="design-attantion">{{ 'construction.NOT_AVAILABLE' | translate }}</div>
+    <div ng-if="designPage.config.isDesignError" class="design-attantion">{{ ::designPage.NOT_AVAILABLE }}</div>
+    <div ng-if="designPage.D.design.isDimExtra" class="design-attantion">{{ ::designPage.DIM_EXTRA }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
+    <div ng-if="designPage.D.design.isSquareExtra" class="design-attantion">{{ ::designPage.SQUARE_EXTRA }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
+    <div ng-if="designPage.config.isTest" class="design-attantion">{{ ::designPage.TEST_STAGE }}
+      <div ng-click="designPage.closeAttantion()" class="close-dialog"></div>
+    </div>
+    <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint" class="attantion-block">
+      <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        <div class="glass-list">
+          <div ng-repeat="glassExtra in attantBox.D.design.extraGlass track by $index" class="extra-glass">{{ glassExtra }}</div>
+        </div>
+      </div>
+      <div ng-show="attantBox.H.history.isNoPrint" class="design-attantion">{{ ::attantBox.NO_PRINT }}
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+      </div>
+      <div ng-show="attantBox.D.design.isHardwareExtra &amp;&amp; attantBox.D.design.extraHardware.length" class="glass-attantion">
+        <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
+        <div class="glass-list">{{ ::attantBox.EXTRA_SASH }}
+          <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
+          <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
+        </div>
+      </div>
+    </div>
   </section>
 </section>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button ng-click="alertBox.clickYes()" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
