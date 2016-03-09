@@ -19,7 +19,6 @@
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
         minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
-//        maxDeliveryDate = new Date().setDate( (orderDay + globalConstants.maxDeliveryDays)),
         deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
         oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
 
