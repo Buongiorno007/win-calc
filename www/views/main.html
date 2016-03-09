@@ -47,8 +47,30 @@
       </footer>
     </div>
   </section>
-  <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}" class="right-side">
+  <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" class="right-side">
+    <div class="coeff-RoomContainer">
+      <div class="coeff-room-block1"><img ng-src="img/room/1.png"></div>
+      <div class="coeff-room-block2"><img ng-src="img/room/2.png"></div>
+      <div class="coeff-room-block5"><img ng-src="img/room/4.png"></div>
+      <div class="coeff-room-block6"><img ng-src="img/room/5.png"></div>
+      <div class="coeff-room-block7"><img ng-src="img/room/6.png"></div>
+      <div class="coeff-room-block8"><img ng-src="img/room/7.png"></div>
+      <div class="coeff-room-block9"><img ng-src="img/room/8.png"></div>
+      <div class="coeff-room-block10"><img ng-src="img/room/9.png"></div>
+      <div class="coeff-room-block11"><img ng-src="img/room/10.png"></div>
+      <div class="coeff-room-block12"></div>
+      <div class="coeff-room-block15"></div>
+      <div class="coeff-room-block16"><img ng-src="img/room/26.png"></div>
+      <div class="coeff-room-block17"><img ng-src="img/room/11.png"></div>
+      <div class="coeff-room-block22"><img ng-src="img/room/12.png"></div>
+      <div class="coeff-room-block23"><img ng-src="img/room/41.png"></div>
+    </div>
     <section tabindex="0" class="main-content">
+      <div class="construction-block-main">
+        <div class="construction-scrollbox-main">
+          <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="mainPage.constants.SVG_ID_MAIN"></svg-template>
+        </div>
+      </div>
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
@@ -124,7 +146,6 @@
           <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
         </div>
       </div>
-      <!--include panels/_templates-->
       <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
         <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
           <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">

@@ -17,6 +17,7 @@
       //------------ SVG
       SVG_CLASS_ICON: 'tamlateIconSVG',
       SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_MAIN: 'tamlateMainSVG',
       SVG_ID_ICON: 'tamlateIconBigSVG',
       SVG_ID_GLASS: 'tamlateGlassSVG',
       SVG_ID_GRID: 'tamlateGridSVG',

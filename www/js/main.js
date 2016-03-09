@@ -1941,26 +1941,56 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('MainCtrl',
 
+    
   function(
+    $timeout,
+    DesignServ,
+    DesignStor,
     loginServ,
     MainServ,
     SVGServ,
     GlobalStor,
     ProductStor,
     UserStor,
-    AuxStor
+    AuxStor,
+    globalConstants
   ) {
     /*jshint validthis:true */
-    var thisCtrl = this;
+   var thisCtrl = this,
+    delaySubMenu1 = 300,
+    delaySubMenu2 = 600,
+    delaySubMenu3 = 900,
+    delaySubMenu4 = 1200;
+
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
     thisCtrl.U = UserStor;
     thisCtrl.A = AuxStor;
-
+    thisCtrl.constants = globalConstants;
+    thisCtrl.D = DesignStor;
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
     //------- close Report
     GlobalStor.global.isReport = 0;
+
+      thisCtrl.config = {
+      //---- design menu
+      isDesignError: 0,
+
+      //----- door
+      isDoorConfig: 0,
+      selectedStep1: 0,
+      selectedStep2: 0,
+      selectedStep3: 0,
+      selectedStep4: 0,
+
+      DELAY_SHOW_FIGURE_ITEM: 1000,
+      typing: 'on'
+    };
+
+
+
+
 
     /**=============== FIRST START =========*/
 
@@ -1988,10 +2018,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         if(GlobalStor.global.locations.cities.length === 1) {
           loginServ.downloadAllCities(1);
         }
+
+
+        //--------- set template from ProductStor
+        DesignServ.setDefaultTemplate();
+       
+
         //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
 
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
+    }
 
     /**================ EDIT PRODUCT =================*/
 
@@ -2005,7 +2046,474 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-  });
+//========= methods  ================//
+
+
+    //--------Select menu item
+    function selectMenuItem(id) {
+      if(DesignStor.design.tempSize.length) {
+        //----- finish size culculation
+        DesignServ.closeSizeCaclulator();
+      } else {
+        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
+        DesignStor.design.isDropSubMenu = 0;
+        DesignServ.hideCornerMarks();
+        DesignServ.deselectAllImpost();
+        if (id !== 4) {
+          DesignServ.deselectAllArc();
+        }
+        //----- hide culculator
+        DesignServ.hideSizeTools();
+        if (DesignStor.design.activeMenuItem) {
+          switch (DesignStor.design.activeMenuItem) {
+            case 1:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 2;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 6;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 2:
+              DesignServ.deselectAllGlass();
+              showAllAvailableCorner(id);
+              break;
+            case 3:
+              showAllAvailableGlass(id);
+              //------ drop submenu items
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 4;
+              }, delaySubMenu1);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 8;
+              }, delaySubMenu2);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 12;
+              }, delaySubMenu3);
+              $timeout(function(){
+                DesignStor.design.isDropSubMenu = 0;
+              }, delaySubMenu4);
+              break;
+            case 4:
+              DesignServ.deselectAllGlass();
+              showAllAvailableArc(id);
+              break;
+            case 5:
+              //DesignServ.deselectAllGlass();
+              DesignStor.design.activeSubMenuItem = id;
+              break;
+          }
+        } else {
+          //------ if we close menu
+          DesignStor.design.activeSubMenuItem = 0;
+          //-------- delete selected glasses
+          DesignServ.deselectAllGlass();
+          DesignServ.deselectAllArc();
+          $timeout(function () {
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      }
+    }
+
+
+    function deactivMenu() {
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      DesignStor.design.isDropSubMenu = 0;
+    }
+
+    function showDesignError() {
+      thisCtrl.config.isDesignError = 1;
+      DesignStor.design.activeMenuItem = 0;
+      DesignStor.design.activeSubMenuItem = 0;
+      $timeout(function(){
+        thisCtrl.config.isDesignError = 0;
+      }, 800);
+    }
+
+
+    //++++++++++ Edit Sash ++++++++++//
+
+    function showAllAvailableGlass(menuId) {
+      DesignStor.design.activeSubMenuItem = menuId;
+      if(!DesignStor.design.selectedGlass.length) {
+        //----- show all glasses
+        var glasses = d3.selectAll('#tamlateSVG .glass');
+        DesignStor.design.selectedGlass = glasses[0];
+        glasses.classed('glass-active', true);
+      }
+    }
+
+
+
+    function insertSash(sashType, event) {
+//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+      event.preventDefault();
+//      event.srcEvent.stopPropagation();
+
+      var isPermit = 1,
+          glassQty = DesignStor.design.selectedGlass.length,
+          i = 0;
+
+      if(sashType === 1) {
+        deactivMenu();
+        //----- delete sash
+        for(; i < glassQty; i++) {
+          DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
+        }
+      } else {
+        if(sashType === 2 || sashType === 6 || sashType === 8) {
+          if(DesignStor.design.isDropSubMenu === sashType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = sashType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          //----- insert sash
+          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
+          }
+        }
+      }
+    }
+
+
+
+    //++++++++++ Edit Corner ++++++++//
+
+    //-------- show all Corner Marks
+    function showAllAvailableCorner(menuId) {
+      var corners = d3.selectAll('#tamlateSVG .corner_mark');
+      if(corners[0].length) {
+        //---- show submenu
+        DesignStor.design.activeSubMenuItem = menuId;
+        corners.transition().duration(300).ease("linear").attr('r', 50);
+        DesignStor.design.selectedCorner = corners[0];
+//        corners.on('touchstart', function () {
+        corners.on('click', function () {
+          //----- hide all cornerMark
+          DesignServ.hideCornerMarks();
+
+          //----- show selected cornerMark
+          var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
+          DesignStor.design.selectedCorner.push(corner[0][0]);
+
+        });
+      } else {
+        showDesignError();
+      }
+    }
+
+    function insertCorner(conerType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      //------ hide menu
+      deactivMenu();
+      var cornerQty = DesignStor.design.selectedCorner.length,
+          i = 0;
+      switch(conerType) {
+        //----- delete
+        case 1:
+          for(; i < cornerQty; i++) {
+            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+        //----- line angel
+        case 2:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+        //----- curv angel
+        case 3:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
+          }
+          break;
+      }
+    }
+
+
+
+
+
+    //++++++++++ Edit Arc ++++++++//
+
+    function showAllAvailableArc(menuId) {
+      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
+        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+          return true;
+        }
+      });
+      //----- if not corners
+      if(arcs.length) {
+        DesignStor.design.activeSubMenuItem = menuId;
+//        console.log('Arcs++++++', DesignStor.design.selectedArc);
+        if(!DesignStor.design.selectedArc.length) {
+          //----- show all frames and arc
+          var arcsD3 = d3.selectAll(arcs);
+          DesignStor.design.selectedArc = arcsD3[0];
+          arcsD3.classed('active_svg', true);
+        }
+      } else {
+        showDesignError();
+      }
+    }
+
+
+
+    function insertArc(arcType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      deactivMenu();
+      //---- get quantity of arcs
+      var arcQty = DesignStor.design.selectedArc.length;
+
+      //======= delete arc
+      if(arcType === 1) {
+        //------ delete all arcs
+        if (arcQty > 1) {
+          DesignServ.workingWithAllArcs(0);
+        } else {
+          //------ delete one selected arc
+          DesignServ.deleteArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
+        }
+
+      //======= insert arc
+      } else {
+        //------ insert all arcs
+        if(arcQty > 1) {
+          DesignServ.workingWithAllArcs(1);
+        } else {
+          //------ insert one selected arc
+          DesignServ.createArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
+        }
+      }
+    }
+
+
+
+
+    //++++++++++ Edit Impost ++++++++//
+
+
+    function insertImpost(impostType, event) {
+      event.preventDefault();
+      //event.srcEvent.stopPropagation();
+      var isPermit = 1,
+          impostsQty = DesignStor.design.selectedImpost.length,
+          i = 0;
+
+      if(impostType === 1) {
+        deactivMenu();
+        //----- delete imposts
+        if (impostsQty) {
+          for (; i < impostsQty; i++) {
+            DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
+          }
+          $timeout(function(){
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
+        }
+      } else {
+        //----- show drop submenu
+        if(impostType === 4 || impostType === 8 || impostType === 12) {
+          if(DesignStor.design.isDropSubMenu === impostType) {
+            DesignStor.design.isDropSubMenu = 0;
+          } else {
+            DesignStor.design.isDropSubMenu = impostType;
+            isPermit = 0;
+          }
+        }
+
+        if(isPermit) {
+          deactivMenu();
+          if (!impostsQty) {
+            var glassQty = DesignStor.design.selectedGlass.length;
+            if (glassQty) {
+              //------- insert imposts
+              for (; i < glassQty; i++) {
+                DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
+              }
+            }
+          } else {
+            DesignServ.deselectAllImpost();
+          }
+        }
+      }
+    }
+
+
+    /**++++++++++ create Mirror ++++++++*/
+
+    function initMirror(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.initMirror();
+    }
+
+
+    /**++++++++++ position by Axises ++++++++*/
+
+    function positionAxis(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionAxises();
+    }
+
+
+    /**++++++++++ position by Glasses ++++++++*/
+
+    function positionGlass(event) {
+      event.preventDefault();
+      deactivMenu();
+      DesignServ.positionGlasses();
+    }
+
+
+
+
+
+
+    /**============= DOOR ===============*/
+
+    //---------- Show Door Configuration
+    function toggleDoorConfig() {
+      thisCtrl.config.isDoorConfig = 1;
+      DesignServ.closeSizeCaclulator();
+      //----- set emplty index values
+//      DesignStor.design.doorConfig.doorShapeIndex = '';
+//      DesignStor.design.doorConfig.sashShapeIndex = '';
+//      DesignStor.design.doorConfig.handleShapeIndex = '';
+//      DesignStor.design.doorConfig.lockShapeIndex = '';
+    }
+
+    //---------- Select door shape
+    function selectDoor(id) {
+      if(!thisCtrl.config.selectedStep2) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+          DesignStor.design.doorConfig.doorShapeIndex = '';
+          thisCtrl.config.selectedStep1 = 0;
+        } else {
+          DesignStor.design.doorConfig.doorShapeIndex = id;
+          thisCtrl.config.selectedStep1 = 1;
+        }
+      }
+    }
+    //---------- Select sash shape
+    function selectSash(id) {
+      if(!thisCtrl.config.selectedStep3) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+          DesignStor.design.doorConfig.sashShapeIndex = '';
+          thisCtrl.config.selectedStep2 = 0;
+        } else {
+          DesignStor.design.doorConfig.sashShapeIndex = id;
+          thisCtrl.config.selectedStep2 = 1;
+        }
+      }
+    }
+    //-------- Select handle shape
+    function selectHandle(id) {
+      if(!thisCtrl.config.selectedStep4) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+          DesignStor.design.doorConfig.handleShapeIndex = '';
+          thisCtrl.config.selectedStep3 = 0;
+        } else {
+          DesignStor.design.doorConfig.handleShapeIndex = id;
+          thisCtrl.config.selectedStep3 = 1;
+        }
+      }
+    }
+    //--------- Select lock shape
+    function selectLock(id) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        thisCtrl.config.selectedStep4 = 0;
+      } else {
+        DesignStor.design.doorConfig.lockShapeIndex = id;
+        thisCtrl.config.selectedStep4 = 1;
+      }
+    }
+
+    //--------- Close Door Configuration
+    function closeDoorConfig() {
+      if(thisCtrl.config.selectedStep3) {
+        thisCtrl.config.selectedStep3 = 0;
+        thisCtrl.config.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep2) {
+        thisCtrl.config.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+      } else if(thisCtrl.config.selectedStep1) {
+        thisCtrl.config.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+      } else {
+        //------ close door config
+        thisCtrl.config.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+      }
+    }
+
+    //--------- Save Door Configuration
+    function saveDoorConfig() {
+      DesignServ.rebuildSVGTemplate();
+      thisCtrl.config.isDoorConfig = 0;
+    }
+
+    //=============== End Door ==================//
+
+
+
+
+
+
+    //=========== clicking ============//
+
+    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designCancel = DesignServ.designCancel;
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
+
+    //----- door config
+    thisCtrl.toggleDoorConfig = toggleDoorConfig;
+    thisCtrl.selectDoor = selectDoor;
+    thisCtrl.selectSash = selectSash;
+    thisCtrl.selectHandle = selectHandle;
+    thisCtrl.selectLock = selectLock;
+    thisCtrl.closeDoorConfig = closeDoorConfig;
+    thisCtrl.saveDoorConfig = saveDoorConfig;
+
+    //------ edit design
+    thisCtrl.insertSash = insertSash;
+    thisCtrl.insertCorner = insertCorner;
+    thisCtrl.insertImpost = insertImpost;
+    thisCtrl.insertArc = insertArc;
+    thisCtrl.initMirror = initMirror;
+    thisCtrl.positionAxis = positionAxis;
+    thisCtrl.positionGlass = positionGlass;
+
+    thisCtrl.stepBack = DesignServ.stepBack;
+
+
+
+    });
 })();
 
 
@@ -4006,6 +4514,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   function(
     $filter,
     globalConstants,
+    TemplatesServ,
     GlobalStor,
     OrderStor,
     ProductStor,
@@ -4050,11 +4559,52 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    //TODO Alexandr
+
+    //function toggleTemplateType() {
+    //  GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
+    //}
+
+    //================== Select new Template Type ========================//
+  
+
+    //function selectNewTemplateType(marker) {
+    //  GlobalStor.global.isTemplateTypeMenu = 0;
+    //
+    //  function goToNewTemplateType() {
+    //    if (marker === 4) {
+    //      MainServ.setDefaultDoorConfig();
+    //    }
+    //    GlobalStor.global.isChangedTemplate = 0;
+    //    TemplatesServ.initNewTemplateType(marker);
+    //  }
+    //
+    //  if (GlobalStor.global.isChangedTemplate) {
+    //    //----- если выбран новый шаблон после изменения предыдущего
+    //    GeneralServ.confirmAlert(
+    //      $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+    //      $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+    //      goToNewTemplateType
+    //    );
+    //  } else {
+    //    TemplatesServ.initNewTemplateType(marker);
+    //  }
+    //
+    //}
+
+
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
     thisCtrl.switchComment = switchComment;
+    //TODO Alexandr
+    //thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
+    //thisCtrl.toggleTemplateType = toggleTemplateType;
+    //thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    
+
+
 
   });
 })();
@@ -5150,7 +5700,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       link: function (scope, elem) {
 
         /**============ METHODS ================*/
-
+ 
         function zooming() {
           d3.select('#main_group')
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -5175,6 +5725,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
+          if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -5286,7 +5837,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'to_point': dim.to,
               'axis': dim.axis
             });
-
+          }
         }
 
 
@@ -5364,11 +5915,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .interpolate("linear"),
                 padding = 0.7,
                 position = {x: 0, y: 0},
-                mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty, i, corners;
+                mainSVG, mainGroup, elementsGroup, dimGroup,
+                points, dimMaxMin, scale, blocksQty, i, corners;
 
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
+              padding = 0.6;
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_MAIN){
               padding = 0.6;
             }
 
@@ -5385,9 +5939,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = GeneralServ.getMaxMinCoord(points);
-            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
+
+            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              scale = SVGServ.setTemplateScaleMAIN(padding);
+            } else {
+              scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
+            }
+
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
-              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+              if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
+              } else {
+                position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
+              }
             }
 
             mainGroup = mainSVG.append("g").attr({
@@ -5438,6 +6002,426 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .attr('width', 600)
                   .attr('height', 400);
               }
+
+
+              /** background */
+
+              if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                var kk = '', imgLink = '';
+                if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                  imgLink = "fon.gif";
+                  if (ProductStor.product.template_height <= 2049) {
+                    kk = 1.2;
+                  }
+                  if (2050 <= ProductStor.product.template_height) {
+                    kk = 1.26;
+                  }
+                  if ( 2101 <= ProductStor.product.template_height) {
+                    kk = 1.28;
+                  }
+                  if ( 2171 <= ProductStor.product.template_height) {
+                    kk = 1.32;
+                  }
+                  if ( 2191 <= ProductStor.product.template_height) {
+                    kk = 1.35;
+                  }
+                  if ( 2211 <= ProductStor.product.template_height) {
+                    kk = 1.38;
+                  }
+                  if ( 2231 <= ProductStor.product.template_height) {
+                    kk = 1.4;
+                  }
+                  if ( 2251 <= ProductStor.product.template_height) {
+                    kk = 1.42;
+                  }
+                  if ( 2271 <= ProductStor.product.template_height) {
+                    kk = 1.44;
+                  }
+                  if ( 2291 <=ProductStor.product.template_height) {
+                    kk = 1.46;
+                  }
+                  if ( 2311 <=ProductStor.product.template_height) {
+                    kk = 1.48;
+                  }
+                  if ( 2331 <= ProductStor.product.template_height) {
+                    kk = 1.5;
+                  }
+                  if ( 2351 <= ProductStor.product.template_height) {
+                    kk = 1.52;
+                  }
+                  if ( 2371 <= ProductStor.product.template_height) {
+                    kk = 1.54;
+                  }
+                  if ( 2391 <= ProductStor.product.template_height) {
+                    kk = 1.56;
+                  }
+                }
+              
+                if(ProductStor.product.construction_type === 4) {
+                  imgLink = "333.gif";
+                  if (ProductStor.product.template_height > 100) {
+                    kk = 1.03;
+                  }
+                  if (1800 <= ProductStor.product.template_height) {
+                    kk = 1.05;
+                  }
+                  if (1850 <= ProductStor.product.template_height) {
+                    kk = 1.07;
+                  }
+                  if (1900 <= ProductStor.product.template_height) {
+                    kk = 1.11;
+                  }
+                  if (1950 <= ProductStor.product.template_height) {
+                    kk = 1.14;
+                  }
+                  if (2000 <= ProductStor.product.template_height) {
+                    kk = 1.17;
+                  }
+                  if (2050 <= ProductStor.product.template_height) {
+                    kk = 1.2;
+                  }
+                  if ( 2101 <= ProductStor.product.template_height) {
+                    kk = 1.23;
+                  }
+                  if ( 2171 <= ProductStor.product.template_height) {
+                    kk = 1.24;
+                  }
+                  if ( 2191 <= ProductStor.product.template_height) {
+                    kk = 1.25;
+                  }
+                  if ( 2211 <= ProductStor.product.template_height) {
+                    kk = 1.27;
+                  }
+                  if ( 2231 <= ProductStor.product.template_height) {
+                    kk = 1.29;
+                  }
+                  if ( 2251 <= ProductStor.product.template_height) {
+                    kk = 1.31;
+                  }
+                  if ( 2271 <= ProductStor.product.template_height) {
+                    kk = 1.33;
+                  }
+                  if ( 2291 <=ProductStor.product.template_height) {
+                    kk = 1.35;
+                  }
+                  if ( 2311 <=ProductStor.product.template_height) {
+                    kk = 1.37;
+                  }
+                  if ( 2331 <= ProductStor.product.template_height) {
+                    kk = 1.38;
+                  }
+                  if ( 2351 <= ProductStor.product.template_height) {
+                    kk = 1.40;
+                  }
+                  if ( 2371 <= ProductStor.product.template_height) {
+                    kk = 1.41;
+                  }
+                  if ( 2391 <= ProductStor.product.template_height) {
+                    kk = 1.43;
+                  }
+                }
+
+                defs.append('pattern')
+                  .attr('id', 'background')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk)
+                  .append("image")
+                  .attr("xlink:href", "img/room/"+imgLink)
+                  .attr('width', 2520*kk)
+                  .attr('height', 1680*kk);
+
+              } 
+            }
+
+  //=============================Points==============================//
+
+            var blockQty = template.details.length,
+                path = '',
+                noVvPath = '',    //без  Viev = 0
+                fpDgLR ='',             //диагональ с лево на право
+                fpDgRL ='',             //диагональ с право на лево
+                heightWmd = '',         //Высота окна
+                widthWmd = '';          //Ширина окна
+                // wind = '',              //Выход на болкон
+                // door = '';              //Выход на болкон
+
+            while(--blockQty > 0) {
+              if (template.details[blockQty].level === 1) {
+                var pointsOutQty =  template.details[blockQty].pointsOut.length;
+                while(--pointsOutQty > -1) {
+
+                  if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
+                    noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                    if(!pointsOutQty) {
+                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                    } else {
+                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                    }
+                  }
+
+                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
+                    fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                    if(!pointsOutQty) {
+                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                    } else {
+                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                    }
+                    //console.log('fpDgLR', fpDgLR)
+                  }
+
+                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+                    fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                    if(!pointsOutQty) {
+                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                    } else {
+                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                    }
+                  }
+
+
+                  if (template.details[blockQty].pointsOut[pointsOutQty]) {
+                    path += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                    if(!pointsOutQty) {
+                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+                    } else {
+                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+                    }
+                  }
+
+                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+                    if(!pointsOutQty) {
+                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+                    } else {
+                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+                    }
+                  }
+
+                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+                    widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+                  }
+                }
+              }
+            }
+
+               
+
+          //============================elements room==========================//
+
+            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                var lchHeight = (((0.18*heightWmd)-252)+520),
+                    lchWidth = (((0.18*widthWmd)-234)+520),
+                    heightDisplay = 768,
+                    topWindowsill = '',
+                    block15Height = '',
+                    windowsill2 = '',
+                    block15Top = '';
+
+
+                if (ProductStor.product.template_height < 1648) {
+                  topWindowsill = '' + 456;
+                  block15Height = '' + 90;
+                  windowsill2 = 100;
+                  block15Top = '' + 720;
+                }
+                if (1648 < ProductStor.product.template_height) {
+                  topWindowsill = '' + 526;
+                  block15Height = '' + 90;
+                  windowsill2 = 60;
+                  block15Top =  '' + 720;
+                }
+                if (1848 < ProductStor.product.template_height) {
+                  topWindowsill = '' + 576;
+                  block15Height = '' + 90;
+                  windowsill2 = 0;
+                  block15Top = '' + 720;
+                }
+                if (2148 < ProductStor.product.template_height) {
+                  topWindowsill = '' + 637;
+                  block15Height = '' + 90;
+                  windowsill2 = -30;
+                  block15Top =  '' + 720;
+                }
+
+                if (widthWmd > 900 && heightWmd < 1648) {
+                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                } else {
+                  d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                }
+                d3.select('.coeff-room-block15').style({
+                  'width' : ((0.48*(widthWmd/2))) + 'px',
+                  'height' : block15Height + 'px',
+                  'top' : block15Top + 'px'
+                });
+                d3.select('.coeff-room-block11').style('left' , (10000) + 'px');
+                d3.select('.coeff-room-block16').style('left' , 9 + 'px');
+                d3.select('.coeff-room-block8').style('left' , (10000) + 'px');
+                d3.select('.coeff-room-block7').style('opacity' , 0);
+                d3.select('.coeff-room-block9').style('opacity' , 1);
+                d3.select('.coeff-room-block23').style('left' , (10000) + 'px');
+                d3.select('.coeff-room-block10').style('opacity' , 0);
+                d3.select('.shadow-main').style();
+                d3.select('.coeff-room-block17').style({
+                  'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
+                  'height' : 41 + 'px',
+                  'left' : 215 + 'px',
+                  'top' : topWindowsill + 'px'
+                });
+                d3.select('.coeff-room-block22').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : (-80) + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+              }
+
+              if(ProductStor.product.construction_type === 4) {
+                var lchHeight = (((0.18*heightWmd)-252)+520),
+                    lchWidth = (((0.18*widthWmd)-234)+420),
+                    heightDisplay = 768;
+                d3.select('.coeff-room-block23').style({
+                  'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
+                  'top' : 665 + 'px',
+                  'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
+                });
+                d3.select('.coeff-room-block15').style({
+                  'top': (10000) + 'px'
+                });
+                d3.select('.coeff-room-block17').style({
+                  'width' : 0 + 'px',
+                  'height' : 0 + 'px',
+                  'left' : 0 + 'px'
+                });
+                d3.select('.coeff-room-block22').style({
+                  'width' : lchWidth + 'px',
+                  'height' : lchHeight + 'px',
+                  'left' : (60) + 'px',
+                  'top' : (heightDisplay - lchHeight + 30) + 'px'
+                });
+                d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
+                d3.select('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
+                d3.select('.coeff-room-block5').style('left' , 5000 + 'px');
+                d3.select('.coeff-room-block10').style('opacity' , 1);
+                d3.select('.coeff-room-block7').style('opacity' , 1);
+                d3.select('.coeff-room-block16').style('left' , 5000 + 'px');
+                d3.select('.coeff-room-block9').style('opacity' , 0);
+              }
+            }
+
+          //============================soffits================================//
+
+
+
+            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+                var positionX1 = position.x-160,
+                   positionY1 = 18,
+                   positionX2 = position.x-340,
+                   positionY2 = -100;
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow1',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + positionX1 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow2',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + positionX2 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow3',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + positionX1 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow4',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+              }
+
+
+              if(ProductStor.product.construction_type == 4) {
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonDoor3',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonDoor4',
+                  'fill' : '#FFFAFA',
+                  'points' : noVvPath,
+                  'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+              }
+              if(ProductStor.product.construction_type == 2) {
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow1',
+                  'fill' : '#FFFAFA',
+                  'points' : wind,
+                  'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow2',
+                  'fill' : '#FFFAFA',
+                  'points' : wind,
+                  'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow3',
+                  'fill' : '#FFFAFA',
+                  'points' : wind,
+                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygonWindow4',
+                  'fill' : '#FFFAFA',
+                  'points' : wind,
+                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygondoor3',
+                  'fill' : '#FFFAFA',
+                  'points' : door,
+                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+
+                mainGroup.append('g').append("polygon")
+                .attr({
+                  'id' : 'clipPolygondoor4',
+                  'fill' : '#FFFAFA',
+                  'points' : door,
+                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                });
+              }
             }
 
             elementsGroup = mainGroup.append("g").attr({
@@ -5469,6 +6453,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     }
                     return className;
                   },
+
                   'item_type': function (d) {
                     return d.type;
                   },
@@ -5483,10 +6468,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   },
                   'fill': function(d) {
                     var fillName;
-                    if(ProductStor.product.lamination.img_in_id > 1) {
-                      fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
-                    } else {
-                      fillName = '#f9f9f9';
+                    if (d.type === 'glass') {
+                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          fillName = 'url(#background)';
+                      } else {
+                          fillName = 'rgba(155, 204, 255, 0.20)';
+                        }
+                      } else {
+                        if(ProductStor.product.lamination.img_in_id > 1) {
+                          fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                        } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          fillName = '#DCDCDC';
+                        } else {
+                          fillName = '#f9f9f9';
+                        }
                     }
                     return fillName;
                   }
@@ -5592,7 +6587,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             }
 
-            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
+            if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON ) {
               //--------- dimension
               var dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
@@ -7990,6 +8985,7 @@ function ErrorResult(code, message) {
       //------------ SVG
       SVG_CLASS_ICON: 'tamlateIconSVG',
       SVG_ID_EDIT: 'tamlateSVG',
+      SVG_ID_MAIN: 'tamlateMainSVG',
       SVG_ID_ICON: 'tamlateIconBigSVG',
       SVG_ID_GLASS: 'tamlateGlassSVG',
       SVG_ID_GRID: 'tamlateGridSVG',
@@ -19085,7 +20081,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 (function(){
   'use strict';
-  /**@ngInject*/
+  /**@ngInject*/ 
   angular
     .module('MainModule')
     .factory('SVGServ',
@@ -21861,7 +22857,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return scaleTmp;
     }
 
+      //----------- SCALE MAIN
 
+    function setTemplateScaleMAIN(padding) {
+      var scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      scaleTmp = d3scaling(0.38);
+      return scaleTmp;
+    }
 
     //----------- TRANSLATE
 
@@ -21873,7 +22879,51 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return position;
     }
 
+    function setTemplatePositionMAIN(dim, windowH, scale) {
+      var position;
+      if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
+        if(ProductStor.product.template_height < 1648) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-310
+          };
+        } 
+        if( 1648 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-240
+          };
+        }
+        if( 1848 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-190
+          };
+        }
+        if( 2148 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-130
+          };
+        }      
+      }
 
+
+      if(ProductStor.product.construction_type === 2) {
+        position = {
+          x: 220,
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35
+        };
+      } 
+
+      if(ProductStor.product.construction_type === 4) {
+        position = {
+          x: 276,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-110
+        };
+      }
+      return position;
+    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -21888,6 +22938,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       createSVGTemplateIcon: createSVGTemplateIcon,
       collectAllPointsOut: collectAllPointsOut,
       setTemplateScale: setTemplateScale,
+      setTemplateScaleMAIN: setTemplateScaleMAIN,
+      setTemplatePositionMAIN: setTemplatePositionMAIN,
       setTemplatePosition: setTemplatePosition,
 
       centerBlock: centerBlock,
@@ -22433,6 +23485,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isConfigMenu: 0,
         activePanel: 0,
         configMenuTips: 0,
+        //isTemplateItemMenu: 0,
+        //isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,

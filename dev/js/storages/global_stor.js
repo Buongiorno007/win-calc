@@ -26,6 +26,8 @@
         isConfigMenu: 0,
         activePanel: 0,
         configMenuTips: 0,
+        //isTemplateItemMenu: 0,
+        //isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,

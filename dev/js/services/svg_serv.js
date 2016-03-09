@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  /**@ngInject*/
+  /**@ngInject*/ 
   angular
     .module('MainModule')
     .factory('SVGServ',
@@ -2776,7 +2776,17 @@
       return scaleTmp;
     }
 
+      //----------- SCALE MAIN
 
+    function setTemplateScaleMAIN(padding) {
+      var scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+
+      scaleTmp = d3scaling(0.38);
+      return scaleTmp;
+    }
 
     //----------- TRANSLATE
 
@@ -2788,7 +2798,51 @@
       return position;
     }
 
+    function setTemplatePositionMAIN(dim, windowH, scale) {
+      var position;
+      if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
+        if(ProductStor.product.template_height < 1648) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-310
+          };
+        } 
+        if( 1648 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-240
+          };
+        }
+        if( 1848 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-190
+          };
+        }
+        if( 2148 < ProductStor.product.template_height) {
+          position = {
+            x: 250,
+            y: (windowH - (dim.minY + dim.maxY)*scale)-130
+          };
+        }      
+      }
 
+
+      if(ProductStor.product.construction_type === 2) {
+        position = {
+          x: 220,
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35
+        };
+      } 
+
+      if(ProductStor.product.construction_type === 4) {
+        position = {
+          x: 276,
+          y: (windowH - (dim.minY + dim.maxY)*scale)-110
+        };
+      }
+      return position;
+    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -2803,6 +2857,8 @@
       createSVGTemplateIcon: createSVGTemplateIcon,
       collectAllPointsOut: collectAllPointsOut,
       setTemplateScale: setTemplateScale,
+      setTemplateScaleMAIN: setTemplateScaleMAIN,
+      setTemplatePositionMAIN: setTemplatePositionMAIN,
       setTemplatePosition: setTemplatePosition,
 
       centerBlock: centerBlock,

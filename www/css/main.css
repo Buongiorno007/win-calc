@@ -1805,7 +1805,7 @@ div.drum figure {
 }
 
 /* line 1, ../../dev/sass/parts/_attantions.scss */
-.attantion, .design-attantion, .glass-attantion {
+.attantion, .design-attantion, .glass-attantion, .design-attantion-main {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   top: 50%;
@@ -1851,76 +1851,86 @@ div.drum figure {
   overflow: auto;
 }
 
-/* line 3, ../../dev/sass/parts/svg.scss */
+/* line 1, ../../dev/sass/parts/svg.scss */
 .frame {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
   stroke: #363636;
-  stroke-width: 2;
+  opasity: 0.6;
+  stroke-width: 1;
   cursor: pointer;
 }
 
-/* line 9, ../../dev/sass/parts/svg.scss */
+/* line 8, ../../dev/sass/parts/svg.scss */
 .frame-icon {
   fill: #aaa;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 14, ../../dev/sass/parts/svg.scss */
+/* line 13, ../../dev/sass/parts/svg.scss */
 .glass {
   -moz-transition: all 0.1s linear;
   -o-transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
   transition: all 0.1s linear;
-  fill: rgba(155, 204, 255, 0.2);
   cursor: pointer;
 }
 
 /* line 19, ../../dev/sass/parts/svg.scss */
+.glass-main {
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  fill: url(#background);
+  cursor: pointer;
+}
+
+/* line 25, ../../dev/sass/parts/svg.scss */
 .glass-icon {
   fill: #94DEEE;
 }
 
-/* line 23, ../../dev/sass/parts/svg.scss */
+/* line 29, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #000;
   stroke: #000;
 }
 
-/* line 27, ../../dev/sass/parts/svg.scss */
+/* line 33, ../../dev/sass/parts/svg.scss */
 .active_svg, .frame-active, .glass-active, .corner_mark {
   fill: rgba(34, 34, 255, 0.5) !important;
 }
 
-/* line 33, ../../dev/sass/parts/svg.scss */
+/* line 39, ../../dev/sass/parts/svg.scss */
 .sash_mark {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 38, ../../dev/sass/parts/svg.scss */
+/* line 44, ../../dev/sass/parts/svg.scss */
 .corner_mark {
   stroke: none;
   cursor: pointer;
 }
 
-/* line 43, ../../dev/sass/parts/svg.scss */
+/* line 49, ../../dev/sass/parts/svg.scss */
 .handle-mark {
   fill: #f9f9f9;
   stroke: #817D7D;
   stroke-width: 1;
 }
 
-/* line 48, ../../dev/sass/parts/svg.scss */
+/* line 54, ../../dev/sass/parts/svg.scss */
 .error_glass {
   fill: #f74f2e;
 }
 
-/* line 52, ../../dev/sass/parts/svg.scss */
+/* line 58, ../../dev/sass/parts/svg.scss */
 .dim_blockX, .dim_blockY {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -1928,7 +1938,7 @@ div.drum figure {
   transition: all 0.5s linear;
 }
 
-/* line 55, ../../dev/sass/parts/svg.scss */
+/* line 61, ../../dev/sass/parts/svg.scss */
 .dim_shiftX {
   -moz-transform: translate(0, -150px);
   -ms-transform: translate(0, -150px);
@@ -1936,7 +1946,7 @@ div.drum figure {
   transform: translate(0, -150px);
 }
 
-/* line 58, ../../dev/sass/parts/svg.scss */
+/* line 64, ../../dev/sass/parts/svg.scss */
 .dim_shiftY {
   -moz-transform: translate(-200px, 0);
   -ms-transform: translate(-200px, 0);
@@ -1944,7 +1954,7 @@ div.drum figure {
   transform: translate(-200px, 0);
 }
 
-/* line 62, ../../dev/sass/parts/svg.scss */
+/* line 68, ../../dev/sass/parts/svg.scss */
 .dim_block {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -1954,20 +1964,20 @@ div.drum figure {
   visibility: visible;
 }
 
-/* line 67, ../../dev/sass/parts/svg.scss */
+/* line 73, ../../dev/sass/parts/svg.scss */
 .dim_hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-/* line 72, ../../dev/sass/parts/svg.scss */
+/* line 78, ../../dev/sass/parts/svg.scss */
 .size-line {
   fill: none;
   stroke: #000;
   stroke-width: 1;
 }
 
-/* line 78, ../../dev/sass/parts/svg.scss */
+/* line 84, ../../dev/sass/parts/svg.scss */
 .size-rect {
   width: 160px;
   height: 70px;
@@ -1976,13 +1986,13 @@ div.drum figure {
   fill-opacity: 0;
   cursor: pointer;
 }
-/* line 85, ../../dev/sass/parts/svg.scss */
+/* line 91, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 90, ../../dev/sass/parts/svg.scss */
+/* line 96, ../../dev/sass/parts/svg.scss */
 .size-txt, .size-txt-edit, .glass-txt {
   font-size: 5.625rem;
   stroke: #000;
@@ -1992,29 +2002,29 @@ div.drum figure {
   cursor: pointer;
 }
 
-/* line 98, ../../dev/sass/parts/svg.scss */
+/* line 104, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 103, ../../dev/sass/parts/svg.scss */
+/* line 109, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 109, ../../dev/sass/parts/svg.scss */
+/* line 115, ../../dev/sass/parts/svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 116, ../../dev/sass/parts/svg.scss */
+/* line 122, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 120, ../../dev/sass/parts/svg.scss */
+/* line 126, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -3948,6 +3958,318 @@ div.drum figure {
   top: 1rem;
   right: 1rem;
   background-color: #f98000;
+}
+
+/* line 1, ../../dev/sass/parts/_room-elements.scss */
+.coeff-RoomContainer {
+  position: absolute;
+  top: 0rem;
+  left: 37rem;
+  height: 83%;
+  width: 83%;
+}
+
+/* line 9, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block1 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 16, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block1 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 21, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block2 {
+  position: absolute;
+  z-index: -19;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 28, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block2 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 33, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block3 {
+  position: absolute;
+  z-index: -18;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 40, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block3 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 45, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block5 {
+  position: absolute;
+  z-index: -16;
+  top: 456px;
+  left: 0px;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 52, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block5 img {
+  height: 32%;
+  width: 32%;
+}
+
+/* line 57, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block6 {
+  position: absolute;
+  z-index: -15;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 64, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block6 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 69, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block7 {
+  position: absolute;
+  z-index: -14;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 76, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block7 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 81, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block8 {
+  position: absolute;
+  z-index: -13;
+  top: 653px;
+  left: 0px;
+  max-height: 90%;
+  min-width: 90%;
+}
+/* line 88, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block8 img {
+  height: 90%;
+  width: 90%;
+}
+
+/* line 93, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block9 {
+  position: absolute;
+  z-index: -12;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 100, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block9 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 105, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block10 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -11;
+  top: 582px;
+  left: 267px;
+  max-height: 11%;
+  min-width: 11%;
+}
+/* line 113, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block10 img {
+  height: 11%;
+  width: 11%;
+}
+
+/* line 118, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block11 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -10;
+  top: 572px;
+  max-height: 12%;
+  min-width: 12%;
+}
+/* line 125, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block11 img {
+  height: 11.5%;
+  width: 11.5%;
+}
+
+/* line 130, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block12 {
+  position: absolute;
+  z-index: -9;
+  top: 15rem;
+  left: 180px;
+}
+/* line 135, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block12 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 140, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block13 {
+  position: absolute;
+  z-index: -8;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 147, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block13 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 152, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block14 {
+  position: absolute;
+  z-index: -7;
+  top: -5.5rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 159, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block14 img {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 164, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block15 {
+  background: #FFFFFF;
+  -moz-transform: skewX(130deg);
+  -ms-transform: skewX(130deg);
+  -webkit-transform: skewX(130deg);
+  transform: skewX(130deg);
+  border-radius: 7px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+  box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
+  transition-delay: 300;
+  position: absolute;
+  z-index: -4;
+  top: 0px;
+  left: 70px;
+  opacity: .3;
+}
+
+/* line 182, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block16 {
+  position: absolute;
+  z-index: -5;
+  top: 337px;
+  left: 0px;
+  opacity: 0.7;
+  max-height: 45%;
+  min-width: 45%;
+}
+/* line 190, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block16 img {
+  height: 30%;
+  width: 30%;
+}
+
+/* line 195, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block17 {
+  position: absolute;
+  z-index: -4;
+  top: 0px;
+  height: 57%;
+  width: 57%;
+}
+/* line 201, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block17 img {
+  height: 57%;
+  width: 57%;
+}
+
+/* line 206, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block22 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -3;
+  top: 100px;
+  left: -320px;
+  opacity: 1;
+}
+/* line 213, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block22 img {
+  height: 130%;
+  width: 130%;
+}
+
+/* line 217, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block23 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: -7;
+  top: 0px;
+  left: 0px;
+  opacity: 0.5;
+}
+/* line 225, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block23 img {
+  height: 95%;
+  width: 95%;
+}
+
+/* line 3, ../../dev/sass/parts/main-svg.scss */
+.construction-container-main {
+  position: relative;
+}
+
+/* line 7, ../../dev/sass/parts/main-svg.scss */
+.construction-block-main {
+  text-align: center;
+}
+
+/* line 11, ../../dev/sass/parts/main-svg.scss */
+.soffits {
+  fill: url(#clipPolygon);
+}
+
+/* line 14, ../../dev/sass/parts/main-svg.scss */
+.construction-scrollbox-main {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* line 22, ../../dev/sass/parts/main-svg.scss */
+.design-attantion-main {
+  top: 45%;
+  left: 35%;
 }
 
 /* line 3, ../../dev/sass/pages/login.scss */
