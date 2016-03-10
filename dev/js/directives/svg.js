@@ -572,30 +572,30 @@
                 }
 
                 if (widthWmd > 900 && heightWmd < 1648) {
-                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
                 } else {
-                  d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                  $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
-                d3.select('.coeff-room-block15').style({
+                $('.coeff-room-block15').css({
                   'width' : ((0.48*(widthWmd/2))) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
-                d3.select('.coeff-room-block11').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block16').style('left' , 9 + 'px');
-                d3.select('.coeff-room-block8').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block7').style('opacity' , 0);
-                d3.select('.coeff-room-block9').style('opacity' , 1);
-                d3.select('.coeff-room-block23').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 0);
-                d3.select('.shadow-main').style();
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block11').css('left' , (10000) + 'px');
+                $('.coeff-room-block16').css('left' , 9 + 'px');
+                $('.coeff-room-block8').css('left' , (10000) + 'px');
+                $('.coeff-room-block7').css('opacity' , 0);
+                $('.coeff-room-block9').css('opacity' , 1);
+                $('.coeff-room-block23').css('left' , (10000) + 'px');
+                $('.coeff-room-block10').css('opacity' , 0);
+                //$('.shadow-main').css();
+                $('.coeff-room-block17').css({
                   'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
+                $('.coeff-room-block22').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : (-80) + 'px',

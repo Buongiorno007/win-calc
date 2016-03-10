@@ -1142,7 +1142,8 @@
         blocks[blockIndex].impost = {
           impostAxis: [],
           impostOut: [],
-          impostIn: []
+          impostIn: [],
+          impostLight: []
         };
       }
       blocks[blockIndex].impost.impostAxis.push(impPoint);
@@ -1159,6 +1160,7 @@
         children: [],
         pointsOut: [],
         pointsIn: [],
+        pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt

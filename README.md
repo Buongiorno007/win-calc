@@ -1,8 +1,6 @@
 BauVoice
 =====================
 
-3droom branch 
-
 ### gulp
 
 Шаблон для сайта с подключенными gulp, Jade, Compass, HTML5Boilerplate

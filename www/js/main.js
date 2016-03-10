@@ -6245,30 +6245,30 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 }
 
                 if (widthWmd > 900 && heightWmd < 1648) {
-                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
                 } else {
-                  d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                  $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
-                d3.select('.coeff-room-block15').style({
+                $('.coeff-room-block15').css({
                   'width' : ((0.48*(widthWmd/2))) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
-                d3.select('.coeff-room-block11').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block16').style('left' , 9 + 'px');
-                d3.select('.coeff-room-block8').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block7').style('opacity' , 0);
-                d3.select('.coeff-room-block9').style('opacity' , 1);
-                d3.select('.coeff-room-block23').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 0);
-                d3.select('.shadow-main').style();
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block11').css('left' , (10000) + 'px');
+                $('.coeff-room-block16').css('left' , 9 + 'px');
+                $('.coeff-room-block8').css('left' , (10000) + 'px');
+                $('.coeff-room-block7').css('opacity' , 0);
+                $('.coeff-room-block9').css('opacity' , 1);
+                $('.coeff-room-block23').css('left' , (10000) + 'px');
+                $('.coeff-room-block10').css('opacity' , 0);
+                //$('.shadow-main').css();
+                $('.coeff-room-block17').css({
                   'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
+                $('.coeff-room-block22').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : (-80) + 'px',
@@ -10167,7 +10167,8 @@ function ErrorResult(code, message) {
         blocks[blockIndex].impost = {
           impostAxis: [],
           impostOut: [],
-          impostIn: []
+          impostIn: [],
+          impostLight: []
         };
       }
       blocks[blockIndex].impost.impostAxis.push(impPoint);
@@ -10184,6 +10185,7 @@ function ErrorResult(code, message) {
         children: [],
         pointsOut: [],
         pointsIn: [],
+        pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt
@@ -18411,6 +18413,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''//,
@@ -18454,6 +18457,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18468,6 +18472,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18481,6 +18486,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18522,6 +18528,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18536,6 +18543,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18549,6 +18557,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -18571,6 +18580,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18584,6 +18594,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18627,6 +18638,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18649,6 +18661,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18662,6 +18675,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18676,6 +18690,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18689,6 +18704,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18730,6 +18746,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18744,6 +18761,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18757,6 +18775,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
@@ -18779,6 +18798,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18792,6 +18812,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18833,6 +18854,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18855,6 +18877,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18876,6 +18899,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18890,6 +18914,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18903,6 +18928,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18916,6 +18942,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18929,6 +18956,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18970,6 +18998,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18984,6 +19013,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18997,6 +19027,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19039,6 +19070,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19053,6 +19085,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19066,6 +19099,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
@@ -19088,6 +19122,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19101,6 +19136,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19143,6 +19179,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19157,6 +19194,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19170,6 +19208,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -19192,6 +19231,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19213,6 +19253,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19227,6 +19268,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19240,6 +19282,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19283,6 +19326,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19305,6 +19349,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19318,6 +19363,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -19340,6 +19386,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19353,6 +19400,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19366,6 +19414,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19387,6 +19436,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19401,6 +19451,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19414,6 +19465,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19457,6 +19509,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19479,6 +19532,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19492,6 +19546,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -19514,6 +19569,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19535,6 +19591,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19548,6 +19605,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19569,6 +19627,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19583,6 +19642,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19596,6 +19656,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19609,6 +19670,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19622,6 +19684,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19665,6 +19728,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19683,6 +19747,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
@@ -19738,6 +19803,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19752,6 +19818,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19765,6 +19832,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -19787,6 +19855,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19800,6 +19869,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19843,6 +19913,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
@@ -20293,14 +20364,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function checkDoubleQPoints(newPointId, pointsIn) {
-      //      console.log('-----------', newPointId, pointsIn);
       var isExist = 0,
           pointsInQty = pointsIn.length;
       if (pointsInQty) {
         while (--pointsInQty > -1) {
           if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-            //if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 ||
-            // pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
             if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
               isExist = 1;
             }
@@ -20417,7 +20485,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       points.sort(function(a, b){
         return b.fi - a.fi;
       });
-//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
       return points;
     }
 
@@ -20460,14 +20527,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length, i;
+          pointsQty = points.length,
+          line, index, i, last;
 
       for(i = 0; i < pointsQty; i+=1) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
         }
-        var line = {}, index;
+        line = {};
         //------- first
         line.from = angular.copy(points[i]);
         line.dir = points[i].dir;
@@ -20498,7 +20566,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lines.push(line);
       }
       //------ change place last element in array to first
-      var last = lines.pop();
+      last = lines.pop();
       lines.unshift(last);
 
       return lines;
@@ -20545,6 +20613,18 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           break;
         case 'sash-in':
           depth = depths.sashDepth.c;
+          break;
+        case 'light':
+          if(line.type === 'frame') {
+            depth = depths.frameDepth.a;
+          } else if(line.type === 'impost') {
+            depth = depths.impostDepth.a/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.b/2;
+          }
+          break;
+        case 'sash-light':
+          depth = depths.sashDepth.b + depths.sashDepth.a;
           break;
         case 'hardware':
           depth = depths.sashDepth.b;
@@ -20650,13 +20730,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
-          linesQty = lines.length, i;
-      //console.info('lines+++', lines);
+          linesQty = lines.length,
+          i, newLine1, newLine2, crossPoint, index;
       for(i = 0; i < linesQty; i+=1) {
-        var newLine1 = angular.copy(lines[i]),
-            newLine2 = {},
-            crossPoint = {},
-            index;
+        newLine1 = angular.copy(lines[i]);
+        newLine2 = {};
+        crossPoint = {};
         newLine1.coefC = getNewCoefC(depths, newLine1, group);
         if(i === (linesQty - 1)) {
           index = 0;
@@ -21104,8 +21183,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if (linesIn[i].dir === 'curv') {
           var impCenterP = findImpostCenter(markAx, impVector);
           var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-          //          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
-          //          console.log('intersect +++', intersect[0]);
           if (intersect.length) {
             ip.x = intersect[0].x;
             ip.y = intersect[0].y;
@@ -21124,9 +21201,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           if (linesIn[i].dir === 'curv' && markAx) {
             setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
           }
-          //            console.log('impCP++++++++', JSON.stringify(ip));
           impost.push(angular.copy(ip));
-          //            console.log('impost++++++++', JSON.stringify(impost));
         }
       }
     }
@@ -21144,19 +21219,28 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
             impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
             pointsOut = angular.copy(currBlock.pointsOut),
-            pointsIn, linesIn,
+            pointsIn, linesIn, pointsLight, linesLight,
             indexChildBlock1, indexChildBlock2,
-            i;
+            impVectorAx1, impVectorAx2,
+            impVector1, impVector2,
+            impVLight1, impVLight2,
+            i, linesInQty;
 
         //console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
           pointsIn = angular.copy(currBlock.sashPointsIn);
           linesIn = currBlock.sashLinesIn;
+          /** for Light */
+          pointsLight = angular.copy(currBlock.sashPointsLight);
+          linesLight = angular.copy(currBlock.sashLinesLight);
         } else {
           pointsIn = angular.copy(currBlock.pointsIn);
           linesIn = currBlock.linesIn;
+          /** for Light */
+          pointsLight = angular.copy(currBlock.pointsLight);
+          linesLight = angular.copy(currBlock.linesLight);
         }
-        var linesInQty = linesIn.length;
+        linesInQty = linesIn.length;
 
         //-------- get indexes of children blocks
         for(i = 1; i < blocksQty; i+=1) {
@@ -21168,24 +21252,30 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
 
         //------- create 2 impost vectors
-        var impVectorAx1 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx0,
-              to: impAx1
-            },
-            impVectorAx2 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx1,
-              to: impAx0
-            };
+        impVectorAx1 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx0,
+          to: impAx1
+        };
+        impVectorAx2 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx1,
+          to: impAx0
+        };
         setLineCoef(impVectorAx1);
         setLineCoef(impVectorAx2);
 
-        var impVector1 = angular.copy(impVectorAx1),
-            impVector2 = angular.copy(impVectorAx2);
-
+        impVector1 = angular.copy(impVectorAx1);
+        impVector2 = angular.copy(impVectorAx2);
         impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
         impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
+
+        /** for Light */
+        impVLight1 = angular.copy(impVectorAx1);
+        impVLight2 = angular.copy(impVectorAx2);
+        impVLight1.coefC = getNewCoefC(depths, impVLight1, 'light');
+        impVLight2.coefC = getNewCoefC(depths, impVLight2, 'light');
+
         //        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
         //        console.log('IMP impVector1++++++++++', impVector1);
         //        console.log('IMP impVector2++++++++++', impVector2);
@@ -21200,6 +21290,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           getCPImpostInsideBlock(
             0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn
           );
+
+          /** for Light */
+          getCPImpostInsideBlock(0, 0, i, linesInQty, linesLight, impVLight1, impAx0, currBlock.impost.impostLight);
+          getCPImpostInsideBlock(1, 0, i, linesInQty, linesLight, impVLight2, impAx1, currBlock.impost.impostLight);
         }
 
         //------- if curve impost
@@ -21232,17 +21326,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
-        //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
-        //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
         collectPointsXChildBlock(
           impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut
         );
-        //------- insert impostOut of impost in pointsOut of children blocks
-        //        for(var i = 0; i < 2; i++) {
-        //          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
-        //          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
-        //        }
-        //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
         //------- insert pointsIn of parent block in pointsIn of children blocks
         collectPointsXChildBlock(
           impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
@@ -21251,8 +21337,16 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         collectImpPointsXChildBlock(
           currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
         );
-        //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
-        //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
+        /** for Light */
+        //------- insert pointsLight of parent block in pointsLight of children blocks
+        collectPointsXChildBlock(
+          impostAx, pointsLight, blocks[indexChildBlock1].pointsLight, blocks[indexChildBlock2].pointsLight
+        );
+        //------- insert impostLight of impost in pointsLight of children blocks
+        collectImpPointsXChildBlock(
+          currBlock.impost.impostLight, blocks[indexChildBlock1].pointsLight, blocks[indexChildBlock2].pointsLight
+        );
+
         //-------- set real impostAxis coord for dimensions
         var linesOutQty = currBlock.linesOut.length,
             impostQP;
@@ -22602,10 +22696,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function createSVGTemplate(sourceObj, depths) {
-      //console.log('------------------------------------------------------');
-      //      console.log('svg start', new Date(), new Date().getMilliseconds());
       var thisObj = {},
-          defer = $q.defer(), i;
+          defer = $q.defer(), i, blocksQty;
 
       //  thisObj.name = sourceObj.name;
       thisObj.details = angular.copy(sourceObj.details);
@@ -22620,8 +22712,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         sashesBlock: []
       };
 
-      var blocksQty = thisObj.details.length;
-
+      blocksQty = thisObj.details.length;
 
       for(i = 0; i < blocksQty; i+=1) {
 
@@ -22649,25 +22740,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           thisObj.details[i].overallDim = [];
 
         } else {
-          //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
-          //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
           if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
             setQPInMainBlock(thisObj.details[i]);
           }
           thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
           thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
-          //          console.log('+++++++++ block ++++++++++pointsOut');
           thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
+
           if(thisObj.details[i].level === 1) {
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
+            //-------- points for Grid
+            thisObj.details[i].pointsLight = setPointsIn(thisObj.details[i].linesOut, depths, 'light');
           } else {
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-            //console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
-            //            console.log('+++++++++ block ++++++++++pointsIn');
+            //-------- points for Grid
+            thisObj.details[i].pointsLight = sortingPoints(thisObj.details[i].pointsLight, centerBlock(thisObj.details[i].pointsLight));
           }
           thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
+          thisObj.details[i].linesLight = setLines(thisObj.details[i].pointsLight);
 
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
@@ -22688,7 +22780,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
+              //-------- points for Grid
+              thisObj.details[i].sashPointsLight = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-light');
+              thisObj.details[i].sashLinesLight = setLines(thisObj.details[i].sashPointsLight);
+              //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
@@ -22737,7 +22832,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
+              //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
@@ -22785,9 +22880,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      //console.log('TEMPLATE END++++', thisObj);
-      //console.log('svg finish', new Date(), new Date().getMilliseconds());
-      //console.log('------------------------------------------------------');
+      console.log('TEMPLATE END++++', thisObj);
       defer.resolve(thisObj);
       return defer.promise;
     }
@@ -22822,12 +22915,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           d3scaling = d3.scale.linear()
             .domain([0, 1])
             .range([0, padding]);
-
-      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
-      //var windRatio = windowW/windowH;
-      //var tempRatio = templateW/templateH;
-      //var ratio = windRatio/tempRatio;
-      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
 
       if(templateW > templateH) {
         if(windowW > templateW) {
@@ -22878,6 +22965,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       };
       return position;
     }
+
+
+    //----------- TRANSLATE MAIN
 
     function setTemplatePositionMAIN(dim, windowH, scale) {
       var position;
