@@ -1234,7 +1234,7 @@ body {
 }
 /* line 207, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .active.grid-selector-dialog, .glass-container .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
-  left: 5rem;
+  left: 42rem;
 }
 
 /* line 213, ../../dev/sass/base/general.scss */
@@ -2111,8 +2111,8 @@ div.drum figure {
   transition: height 0.5s linear;
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 37.5rem;
+  width: 58%;
   height: 20.5rem;
   z-index: 11;
 }
@@ -2287,7 +2287,7 @@ div.drum figure {
   height: 64rem;
   top: 15.75rem;
   overflow: hidden;
-  z-index: 2;
+  z-index: 5;
 }
 /* line 8, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog:after {
@@ -2353,7 +2353,7 @@ div.drum figure {
   left: 0;
   width: 100%;
   height: 5rem;
-  z-index: 1;
+  z-index: 4;
 }
 /* line 60, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-title {
@@ -2363,7 +2363,7 @@ div.drum figure {
   width: 100%;
   padding: 0 2rem;
   color: #fff;
-  z-index: 2;
+  z-index: 5;
 }
 /* line 69, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-sizes {
@@ -4178,7 +4178,7 @@ div.drum figure {
   position: absolute;
   z-index: -4;
   top: 0px;
-  left: 70px;
+  left: 65px;
   opacity: .3;
 }
 
@@ -4201,7 +4201,7 @@ div.drum figure {
 /* line 195, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block17 {
   position: absolute;
-  z-index: -4;
+  z-index: 1;
   top: 0px;
   height: 57%;
   width: 57%;
@@ -4213,21 +4213,62 @@ div.drum figure {
 }
 
 /* line 206, ../../dev/sass/parts/_room-elements.scss */
-.coeff-room-block22 {
+.coeff-room-block18 {
   transition-delay: 300;
   position: absolute;
-  z-index: -3;
+  z-index: 4;
   top: 100px;
-  left: -320px;
   opacity: 1;
 }
-/* line 213, ../../dev/sass/parts/_room-elements.scss */
-.coeff-room-block22 img {
-  height: 130%;
-  width: 130%;
+/* line 212, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block18 img {
+  height: 122%;
+  width: 105%;
 }
 
 /* line 217, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block19 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: 2;
+  top: 100px;
+  opacity: 1;
+}
+/* line 223, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block19 img {
+  height: 122%;
+  width: 105%;
+}
+
+/* line 228, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block20 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: 3;
+  top: 100px;
+  opacity: 1;
+}
+/* line 234, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block20 img {
+  height: 122%;
+  width: 105%;
+}
+
+/* line 239, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block21 {
+  transition-delay: 300;
+  position: absolute;
+  z-index: 4;
+  top: 100px;
+  opacity: 1;
+}
+/* line 245, ../../dev/sass/parts/_room-elements.scss */
+.coeff-room-block21 img {
+  height: 122%;
+  width: 105%;
+}
+
+/* line 250, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block23 {
   transition-delay: 300;
   position: absolute;
@@ -4236,7 +4277,7 @@ div.drum figure {
   left: 0px;
   opacity: 0.5;
 }
-/* line 225, ../../dev/sass/parts/_room-elements.scss */
+/* line 258, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block23 img {
   height: 95%;
   width: 95%;

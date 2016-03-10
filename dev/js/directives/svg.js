@@ -531,21 +531,20 @@
               }
             }
 
-               
-
           //============================elements room==========================//
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-              if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+              if(ProductStor.product.construction_type === 1) {
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+520),
-                    heightDisplay = 768,
+                    heightDisplay = 755,
                     topWindowsill = '',
                     block15Height = '',
                     windowsill2 = '',
+                    randomOpasity = '',
                     block15Top = '';
 
-
+        
                 if (ProductStor.product.template_height < 1648) {
                   topWindowsill = '' + 456;
                   block15Height = '' + 90;
@@ -577,7 +576,7 @@
                   d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
                 }
                 d3.select('.coeff-room-block15').style({
-                  'width' : ((0.48*(widthWmd/2))) + 'px',
+                  'width' : ((0.48*(widthWmd/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
@@ -595,18 +594,36 @@
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
+                d3.select('.coeff-room-block18').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
-                    'left' : (-80) + 'px',
+                    'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-              }
+                d3.select('.coeff-room-block19').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+                d3.select('.coeff-room-block20').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+                d3.select('.coeff-room-block21').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+               }
 
               if(ProductStor.product.construction_type === 4) {
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+420),
-                    heightDisplay = 768;
+                    heightDisplay = 755;
                 d3.select('.coeff-room-block23').style({
                   'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
                   'top' : 665 + 'px',
@@ -620,11 +637,29 @@
                   'height' : 0 + 'px',
                   'left' : 0 + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
-                  'left' : (60) + 'px',
-                  'top' : (heightDisplay - lchHeight + 30) + 'px'
+                d3.select('.coeff-room-block18').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 5000 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                });
+                d3.select('.coeff-room-block19').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 5000 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px',
+                });
+                d3.select('.coeff-room-block20').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 5000 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px',
+                });
+                d3.select('.coeff-room-block21').style({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 130 + 'px',
+                    'top' : (heightDisplay - lchHeight + 50) + 'px',
                 });
                 d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
                 d3.select('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
@@ -680,10 +715,8 @@
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                 });
               }
-
-
               if(ProductStor.product.construction_type == 4) {
-
+              
                 mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonDoor3',
@@ -692,7 +725,7 @@
                   'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                 });
 
-                mainGroup.append('g').append("polygon")
+                mainGroup.append('g').append("polygon")            
                 .attr({
                   'id' : 'clipPolygonDoor4',
                   'fill' : '#FFFAFA',
@@ -909,9 +942,7 @@
                       });
                   }
                 }
-
               }
-
             }
 
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON ) {

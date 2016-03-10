@@ -62,7 +62,10 @@
       <div class="coeff-room-block15"></div>
       <div class="coeff-room-block16"><img ng-src="img/room/26.png"></div>
       <div class="coeff-room-block17"><img ng-src="img/room/11.png"></div>
-      <div class="coeff-room-block22"><img ng-src="img/room/12.png"></div>
+      <div class="coeff-room-block18"><img ng-src="img/room/121.png"></div>
+      <div class="coeff-room-block19"><img ng-src="img/room/122.png"></div>
+      <div class="coeff-room-block20"><img ng-src="img/room/123.png"></div>
+      <div class="coeff-room-block21"><img ng-src="img/room/12.png"></div>
       <div class="coeff-room-block23"><img ng-src="img/room/41.png"></div>
     </div>
     <section tabindex="0" class="main-content">
@@ -79,388 +82,389 @@
           <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
-      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
-        <div class="coeff-container">
-          <div class="coeff-block">
-            <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
-            <div data-output="{{ ::roomInfo.CLIMATE_ZONE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
-          </div>
-          <div class="coeff-block">
-            <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
-              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
-            </div>
-            <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
-              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
-            </div>
-            <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
-          </div>
-          <div class="coeff-block">
-            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
-          </div>
-          <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
-        </div>
-        <div class="product-comment">
-          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
-        </div>
-      </div>
-      <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
-        <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
-          <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
-            <div ng-class="{'selected': rooms.P.product.room_id === $index}" ng-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
-              <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
-                <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
-                <div class="room-title">
-                  <div ng-show="room.desc_1.length" class="room-sizes">{{room.desc_1}}</div>
-                  <div ng-show="room.desc_2.length" class="room-price">{{room.desc_2}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div ng-click="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
-      </div>
-      <div ng-controller="ReportCtrl as reportBox" ng-show="reportBox.G.global.isReport" class="report-container">
-        <div ng-click="reportBox.G.global.isReport = 0" class="close_report"></div>
-        <div class="report-menu">
-          <div ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index" ng-click="reportBox.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}" class="report-menu-item">{{ ::reportMenu.name }}</div>
-        </div>
-        <div class="report-box">
-          <table>
-            <tr class="report-item">
-              <th class="report-elem">{{ ::reportBox.NAME_LABEL }}</th>
-              <th class="report-elem">{{ ::reportBox.ARTICUL_LABEL }}</th>
-              <th class="report-elem">{{ ::reportBox.QTY_LABEL }}</th>
-              <th class="report-elem">{{ ::reportBox.SIZE_LABEL }} ({{ ::reportBox.LETTER_M }})</th>
-              <th class="report-elem">base</th>
-              <th class="report-elem">{{ ::reportBox.U.userInfo.currency }}</th>
-            </tr>
-            <tr ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name' track by $index" class="report-item">
-              <td class="report-elem">{{report.name}}</td>
-              <td class="report-elem">{{report.sku}}</td>
-              <td class="report-elem">{{report.amount}}</td>
-              <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
-              <td class="report-elem">{{report.price}}</td>
-              <td class="report-elem">{{report.priceReal}}</td>
-            </tr>
-          </table>
-          <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
-        </div>
-      </div>
-      <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
-        <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
-          <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
-            <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header">
-              <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
-              <div class="group-info">
-                <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
-              </div>
-            </div>
-            <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
-              <div ng-click="profilesPanel.selectProfile(profile.id)" class="box_inner">
-                <div class="profile-box-top">
-                  <div class="type">{{ profile.cameras }}
-                    <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
-                  </div>
-                  <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
-                  <div data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
-                  <div data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                </div>
-                <div class="profile-box-bottom">
-                  <div ng-class="{'coef-level-1': profile.heat_coeff == 1, 'coef-level-2': profile.heat_coeff == 2, 'coef-level-3': profile.heat_coeff == 3, 'coef-level-4': profile.heat_coeff == 4}" class="coef-level heat-insulation">
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                  </div>
-                  <div data-output="{{ ::profilesPanel.HEAT_INSULATION }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                  <div ng-class="{'coef-level-1': profile.noise_coeff == 1, 'coef-level-2': profile.noise_coeff == 2, 'coef-level-3': profile.noise_coeff == 3, 'coef-level-4': profile.noise_coeff == 4}" class="coef-level noise-insulation">
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                    <div class="coef-index"></div>
-                  </div>
-                  <div data-output="{{ ::profilesPanel.NOICE_INSULATION }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                </div>
-              </div>
-              <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
-        <div ng-if="glassPanel.G.global.activePanel == 3" class="panel-inner">
-          <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}" class="glass-block">
-            <div class="group-block-header">
-              <div data-output="{{ glassPanel.G.global.glassTypes[$index].name }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
-              <div class="group-info">
-                <div ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" ng-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info"></div>
-              </div>
-            </div>
-            <div class="glass-block-footer clearfix">
-              <div class="footer-inner">
-                <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div ng-click="glassPanel.selectGlass(glass.id, glass.sku)" class="box_inner">
-                    <div class="glass-box-view">
-                      <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
-                      <div class="label">{{ ::glass.cameras }}
-                        <ng-pluralize count="glass.cameras" when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}"></ng-pluralize><span ng-if="glass.glass_folder_id === 6">{{ ::glassPanel.ENERGY_SAVE }}</span>
-                      </div>
-                    </div>
-                    <div class="glass-box-data">
-                      <div data-output="{{ ::glass.sku }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
-                      <div ng-class="{'coef-level-1': glass.heat_coeff == 1, 'coef-level-2': glass.heat_coeff == 2, 'coef-level-3': glass.heat_coeff == 3, 'coef-level-4': glass.heat_coeff == 4}" class="coef-level heat-insulation">
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                      </div>
-                      <div data-output="{{ ::glassPanel.HEAT_INSULATION }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                      <div ng-class="{'coef-level-1': glass.noise_coeff == 1, 'coef-level-2': glass.noise_coeff == 2, 'coef-level-3': glass.noise_coeff == 3, 'coef-level-4': glass.noise_coeff == 4}" class="coef-level noise-insulation">
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                        <div class="coef-index"></div>
-                      </div>
-                      <div data-output="{{ ::glassPanel.NOICE_INSULATION }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                    </div>
-                  </div>
-                  <div ng-if="glass.img.length || glass.link.length || glass.description.length" ng-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
-          <div class="dialog-inner">
-            <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
-          </div>
-          <div ng-click="glassPanel.confirmGlass()" class="set-glass-btn"></div>
-          <!--.set-glass-all-btn(ng-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}-->
-          <!--.set-glass-warning <span></span> {{ ::glassPanel.SELECT_GLASS_WARN }}-->
-          <div ng-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
-        </div>
-      </div>
-      <div ng-controller="HardwaresCtrl as hardwarePanel" ng-class="{'active': hardwarePanel.G.global.activePanel == 4 &amp;&amp; hardwarePanel.G.global.isSashesInTemplate}" class="config-panel hardware-container">
-        <div ng-if="hardwarePanel.G.global.activePanel == 4" class="panel-inner">
-          <div ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index" ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}" class="hardware-block">
-            <div class="group-block-header">
-              <div data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
-              <div class="group-info">
-                <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length" ng-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
-              </div>
-            </div>
-            <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
-              <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" ng-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
-              <div ng-click="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
-                <div class="hardware-box-view">
-                  <div class="hardware-logo"><img ng-src="{{ hardware.img }}"></div>
-                </div>
-                <div class="hardware-box-data">
-                  <div class="hardware-data-txt">
-                    <div data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
-                    <div class="hardware-data">
-                      <div data-output="{{ ::hardware.producer }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-brand"></div>
-                      <div data-output="{{ ::hardwarePanel.BRAND }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
-                    </div>
-                    <div class="hardware-data">
-                      <div data-output="{{ ::hardware.country }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-brand"></div>
-                      <div data-output="{{ ::hardwarePanel.COUNTRY }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
-                    </div>
-                  </div>
-                  <div class="hardware-data-coeff">
-                    <div ng-class="{'coef-level-1': hardware.heat_coeff == 1, 'coef-level-2': hardware.heat_coeff == 2, 'coef-level-3': hardware.heat_coeff == 3, 'coef-level-4': hardware.heat_coeff == 4}" class="coef-level heat-insulation">
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                    </div>
-                    <div data-output="{{ ::hardwarePanel.CORROSION_COEFF }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
-                    <div ng-class="{'coef-level-1': hardware.noise_coeff == 1, 'coef-level-2': hardware.noise_coeff == 2, 'coef-level-3': hardware.noise_coeff == 3, 'coef-level-4': hardware.noise_coeff == 4}" class="coef-level noise-insulation">
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                    </div>
-                    <div data-output="{{ ::hardwarePanel.BURGLAR_COEFF }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div ng-controller="LaminationsCtrl as laminPanel" ng-class="{'active': laminPanel.G.global.activePanel == 5}" class="config-panel lamination-container">
-        <div ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner">
-          <div class="laminat-filter">
-            <div class="laminat-inner">
-              <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
-                <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
-                <div data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
-              </div>
-            </div>
-          </div>
-          <div class="laminat-groups">
-            <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" class="laminat-box">
-              <div class="laminat-row">
-                <div class="laminat-label">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
-                <div class="laminat-label">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
-              </div>
-              <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
-              <div class="laminat-row">
-                <div class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
-                <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name" class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
-        <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
-            <div class="aux-outside-img move-outside"></div>
-          </div>
-          <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
-            <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
-            <div ng-switch-when="1" class="aux-visor-img move-visor"></div>
-            <div ng-switch-when="2" class="aux-spillway-img move-spillway"></div>
-            <div ng-switch-when="4" class="aux-louver-img move-louvers">
-              <div class="aux-louver-top"></div>
-              <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
-              <div class="aux-louver-midle louver-midle-2 move-louver-midle-2"></div>
-              <div class="aux-louver-midle louver-midle-3 move-louver-midle-3"></div>
-              <div class="aux-louver-bottom move-louver-bottom"></div>
-            </div>
-            <div ng-switch-when="5" class="aux-inside-img">
-              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
-              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
-              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPELEFT }}" class="aux-inside-left move-inside-left unvisible"></div>
-            </div>
-            <div ng-switch-when="6" class="aux-connectors-img">
-              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
-              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
-            </div>
-            <div ng-switch-when="7" class="aux-fan-img move-fan"></div>
-            <div ng-switch-when="8" class="aux-windowsill-img move-windowsill"></div>
-            <div ng-switch-when="9" class="aux-handle-img move-handle"></div>
-            <div ng-switch-when="10" class="aux-txt-box aux-others-txt"></div>
-            <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
-              <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
-                <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
-                <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-              </div>
-              <div ng-show="addElemGroup.length" ng-class="($index==1)?'horisontal':'vertival'" class="selected-block">
-                <div class="aux-info-box">
-                  <div data-output="{{ addElemGroup[0].name }}" ng-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                  <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                </div>
-                <div class="aux-sizing-box">
-                  <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}" class="aux-params">
-                    <button ng-click="elementsPanel.initAddElementTools(($index+1), 1, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but">{{ addElemGroup[0].element_qty }}</button>
-                    <div data-output="{{ ::elementsPanel.QTY_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                  </div>
-                  <div ng-hide="$index==3 || $index==5 || $index==7 || $index==9 || $index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-2-0'}" class="aux-params">
-                    <button ng-click="elementsPanel.initAddElementTools(($index+1), 2, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but"> {{ addElemGroup[0].element_width }}</button>
-                    <div data-output="{{ ::elementsPanel.WIDTH_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                  </div>
-                  <div ng-show="!$index || $index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-3-0'}" class="aux-params">
-                    <button ng-click="elementsPanel.initAddElementTools(($index+1), 3, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but"> {{ addElemGroup[0].element_height }}</button>
-                    <div data-output="{{ ::elementsPanel.HEIGHT_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                  </div>
-                </div>
-                <div ng-show="addElemGroup.length&gt;1" class="aux-more">{{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}</div>
-              </div>
-            </div>
-          </div>
-          <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
-          <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
-            <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>
-            <div ng-click="elementsPanel.closeWindowScheme()" class="close-dialog"></div>
-          </div>
-          <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.openAddElementListView()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
-        </div>
-      </div>
-      <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'active': elementsListPanel.A.aux.isAddElementListView}" class="config-panel additional-list-container">
-        <form ng-controller="searchCtrl as searchBox" name="searchForm">
-          <div class="search-block">
-            <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
-            <button ng-click="searchBox.deleteSearchChart()" class="delete-search"></button>
-            <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
-          </div>
-        </form>
-        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
-          <ul class="aux-list-groups">
-            <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName' track by $index" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
-              <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
-              <div class="search-elements-block"></div>
-            </li>
-          </ul>
-        </div>
-        <div class="aux-list-content">
-          <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">
-            <div ng-if="elemType.length &gt; 0" ng-class="elementsListPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
-              <div class="aux-list-block-title">{{ elementsListPanel.config.addElementDATA[$index].name }}</div>
-              <table class="aux-list-addellement">
-                <tr ng-repeat="addElement in elemType track by $index" class="aux-list-row">
-                  <td class="aux-tablecell-name">
-                    <div class="aux-name">
-                      <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title">)</div>
-                      <div data-output="{{ ::elementsListPanel.NAME_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
-                    </div>
-                  </td>
-                  <td class="aux-tablecell-qty">
-                    <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                      <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_qty }}</button>
-                      <div data-output="{{ ::elementsListPanel.QTY_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
-                    </div>
-                  </td>
-                  <td class="aux-tablecell-width">
-                    <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                      <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_width }}</button>
-                      <div data-output="{{ ::elementsListPanel.WIDTH_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
-                    </div>
-                  </td>
-                  <td class="aux-tablecell-height">
-                    <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                      <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_height }}</button>
-                      <div data-output="{{ ::elementsListPanel.HEIGHT_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
-                    </div>
-                  </td>
-                  <td class="aux-tablecell-price">
-                    <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsListPanel.U.userInfo.currency}}" class="aux-price"></div>
-                  </td>
-                  <td class="aux-tablecell-delete">
-                    <div ng-click="elementsListPanel.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div ng-if="elementsListPanel.P.product.addelemPriceDis" class="aux-list-block">
-            <table class="aux-list-addellement">
-              <tr class="aux-list-row">
-                <td class="aux-tablecell-total">
-                  <div data-output="{{ ::elementsListPanel.TOTAL_PRICE_TXT }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
-                </td>
-                <td class="aux-tablecell-price">
-                  <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
-                </td>
-                <td class="aux-tablecell-delete">
-                  <div ng-click="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <button ng-click="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ ::elementsListPanel.SCHEME_VIEW }}</button>
-      </div>
-      <div ng-if="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
     </section>
+    <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
+      <div class="coeff-container">
+        <div class="coeff-block">
+          <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
+          <div data-output="{{ ::roomInfo.CLIMATE_ZONE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+        </div>
+        <div class="coeff-block">
+          <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+            <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+          </div>
+          <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+            <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+          </div>
+          <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+        </div>
+        <div class="coeff-block">
+          <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
+        </div>
+        <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
+      </div>
+      <div class="product-comment">
+        <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
+      </div>
+    </div>
+    <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
+      <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
+        <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
+          <div ng-class="{'selected': rooms.P.product.room_id === $index}" ng-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+            <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
+              <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
+              <div class="room-title">
+                <div ng-show="room.desc_1.length" class="room-sizes">{{room.desc_1}}</div>
+                <div ng-show="room.desc_2.length" class="room-price">{{room.desc_2}}
+                  <div ng-controller="ReportCtrl as reportBox" ng-show="reportBox.G.global.isReport" class="report-container">
+                    <div ng-click="reportBox.G.global.isReport = 0" class="close_report"></div>
+                    <div class="report-menu">
+                      <div ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index" ng-click="reportBox.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}" class="report-menu-item">{{ ::reportMenu.name }}</div>
+                    </div>
+                    <div class="report-box">
+                      <table>
+                        <tr class="report-item">
+                          <th class="report-elem">{{ ::reportBox.NAME_LABEL }}</th>
+                          <th class="report-elem">{{ ::reportBox.ARTICUL_LABEL }}</th>
+                          <th class="report-elem">{{ ::reportBox.QTY_LABEL }}</th>
+                          <th class="report-elem">{{ ::reportBox.SIZE_LABEL }} ({{ ::reportBox.LETTER_M }})</th>
+                          <th class="report-elem">base</th>
+                          <th class="report-elem">{{ ::reportBox.U.userInfo.currency }}</th>
+                        </tr>
+                        <tr ng-repeat="report in reportBox.P.product.report | filter: {element_group_id: reportBox.config.reportFilterId}:true | orderBy: 'name' track by $index" class="report-item">
+                          <td class="report-elem">{{report.name}}</td>
+                          <td class="report-elem">{{report.sku}}</td>
+                          <td class="report-elem">{{report.amount}}</td>
+                          <td class="report-elem">{{ (report.sizeLabel) ? report.sizeLabel : report.size }}</td>
+                          <td class="report-elem">{{report.price}}</td>
+                          <td class="report-elem">{{report.priceReal}}</td>
+                        </tr>
+                      </table>
+                      <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
+                    </div>
+                  </div>
+                  <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
+                    <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
+                      <div ng-repeat="producer in profilesPanel.G.global.profiles track by $index" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
+                        <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header">
+                          <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
+                          <div class="group-info">
+                            <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+                          </div>
+                        </div>
+                        <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
+                          <div ng-click="profilesPanel.selectProfile(profile.id)" class="box_inner">
+                            <div class="profile-box-top">
+                              <div class="type">{{ profile.cameras }}
+                                <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
+                              </div>
+                              <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                              <div data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
+                              <div data-output="{{ ::profilesPanel.COUNTRY }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                            </div>
+                            <div class="profile-box-bottom">
+                              <div ng-class="{'coef-level-1': profile.heat_coeff == 1, 'coef-level-2': profile.heat_coeff == 2, 'coef-level-3': profile.heat_coeff == 3, 'coef-level-4': profile.heat_coeff == 4}" class="coef-level heat-insulation">
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                              </div>
+                              <div data-output="{{ ::profilesPanel.HEAT_INSULATION }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                              <div ng-class="{'coef-level-1': profile.noise_coeff == 1, 'coef-level-2': profile.noise_coeff == 2, 'coef-level-3': profile.noise_coeff == 3, 'coef-level-4': profile.noise_coeff == 4}" class="coef-level noise-insulation">
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                                <div class="coef-index"></div>
+                              </div>
+                              <div data-output="{{ ::profilesPanel.NOICE_INSULATION }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                            </div>
+                          </div>
+                          <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-controller="GlassesCtrl as glassPanel" ng-class="{'active': glassPanel.G.global.activePanel == 3}" class="config-panel glass-container">
+                    <div ng-if="glassPanel.G.global.activePanel == 3" class="panel-inner">
+                      <div ng-repeat="typeGlass in glassPanel.G.global.glasses track by $index" ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}" class="glass-block">
+                        <div class="group-block-header">
+                          <div data-output="{{ glassPanel.G.global.glassTypes[$index].name }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
+                          <div class="group-info">
+                            <div ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" ng-click="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info"></div>
+                          </div>
+                        </div>
+                        <div class="glass-block-footer clearfix">
+                          <div class="footer-inner">
+                            <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
+                              <div ng-click="glassPanel.selectGlass(glass.id, glass.sku)" class="box_inner">
+                                <div class="glass-box-view">
+                                  <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
+                                  <div class="label">{{ ::glass.cameras }}
+                                    <ng-pluralize count="glass.cameras" when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}"></ng-pluralize><span ng-if="glass.glass_folder_id === 6">{{ ::glassPanel.ENERGY_SAVE }}</span>
+                                  </div>
+                                </div>
+                                <div class="glass-box-data">
+                                  <div data-output="{{ ::glass.sku }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
+                                  <div ng-class="{'coef-level-1': glass.heat_coeff == 1, 'coef-level-2': glass.heat_coeff == 2, 'coef-level-3': glass.heat_coeff == 3, 'coef-level-4': glass.heat_coeff == 4}" class="coef-level heat-insulation">
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                  </div>
+                                  <div data-output="{{ ::glassPanel.HEAT_INSULATION }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                                  <div ng-class="{'coef-level-1': glass.noise_coeff == 1, 'coef-level-2': glass.noise_coeff == 2, 'coef-level-3': glass.noise_coeff == 3, 'coef-level-4': glass.noise_coeff == 4}" class="coef-level noise-insulation">
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                    <div class="coef-index"></div>
+                                  </div>
+                                  <div data-output="{{ ::glassPanel.NOICE_INSULATION }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                                </div>
+                              </div>
+                              <div ng-if="glass.img.length || glass.link.length || glass.description.length" ng-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
+                      <div class="dialog-inner">
+                        <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="glassPanel.constants.SVG_ID_GLASS"></svg-template>
+                      </div>
+                      <div ng-click="glassPanel.confirmGlass()" class="set-glass-btn"></div>
+                      <!--.set-glass-all-btn(ng-click="glassPanel.setGlassToAll()") {{ ::glassPanel.SELECT_ALL }}-->
+                      <!--.set-glass-warning <span></span> {{ ::glassPanel.SELECT_GLASS_WARN }}-->
+                      <div ng-click="glassPanel.closeGlassSelectorDialog(1)" class="close-dialog"></div>
+                    </div>
+                  </div>
+                  <div ng-controller="HardwaresCtrl as hardwarePanel" ng-class="{'active': hardwarePanel.G.global.activePanel == 4 &amp;&amp; hardwarePanel.G.global.isSashesInTemplate}" class="config-panel hardware-container">
+                    <div ng-if="hardwarePanel.G.global.activePanel == 4" class="panel-inner">
+                      <div ng-repeat="producer in hardwarePanel.G.global.hardwares track by $index" ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}" class="hardware-block">
+                        <div class="group-block-header">
+                          <div data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
+                          <div class="group-info">
+                            <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length" ng-click="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
+                          </div>
+                        </div>
+                        <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
+                          <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" ng-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
+                          <div ng-click="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
+                            <div class="hardware-box-view">
+                              <div class="hardware-logo"><img ng-src="{{ hardware.img }}"></div>
+                            </div>
+                            <div class="hardware-box-data">
+                              <div class="hardware-data-txt">
+                                <div data-output="{{ ::hardware.name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-descr"></div>
+                                <div class="hardware-data">
+                                  <div data-output="{{ ::hardware.producer }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-brand"></div>
+                                  <div data-output="{{ ::hardwarePanel.BRAND }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                                </div>
+                                <div class="hardware-data">
+                                  <div data-output="{{ ::hardware.country }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-brand"></div>
+                                  <div data-output="{{ ::hardwarePanel.COUNTRY }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                                </div>
+                              </div>
+                              <div class="hardware-data-coeff">
+                                <div ng-class="{'coef-level-1': hardware.heat_coeff == 1, 'coef-level-2': hardware.heat_coeff == 2, 'coef-level-3': hardware.heat_coeff == 3, 'coef-level-4': hardware.heat_coeff == 4}" class="coef-level heat-insulation">
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                </div>
+                                <div data-output="{{ ::hardwarePanel.CORROSION_COEFF }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                                <div ng-class="{'coef-level-1': hardware.noise_coeff == 1, 'coef-level-2': hardware.noise_coeff == 2, 'coef-level-3': hardware.noise_coeff == 3, 'coef-level-4': hardware.noise_coeff == 4}" class="coef-level noise-insulation">
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                  <div class="coef-index"></div>
+                                </div>
+                                <div data-output="{{ ::hardwarePanel.BURGLAR_COEFF }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-controller="LaminationsCtrl as laminPanel" ng-class="{'active': laminPanel.G.global.activePanel == 5}" class="config-panel lamination-container">
+                    <div ng-if="laminPanel.G.global.activePanel == 5" class="panel-inner">
+                      <div class="laminat-filter">
+                        <div class="laminat-inner">
+                          <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
+                            <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
+                            <div data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="laminat-groups">
+                        <div ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index" class="laminat-box">
+                          <div class="laminat-row">
+                            <div class="laminat-label">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
+                            <div class="laminat-label">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
+                          </div>
+                          <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
+                          <div class="laminat-row">
+                            <div class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
+                            <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name" class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
+                    <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
+                      <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
+                        <div class="aux-outside-img move-outside"></div>
+                      </div>
+                      <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
+                        <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
+                        <div ng-switch-when="1" class="aux-visor-img move-visor"></div>
+                        <div ng-switch-when="2" class="aux-spillway-img move-spillway"></div>
+                        <div ng-switch-when="4" class="aux-louver-img move-louvers">
+                          <div class="aux-louver-top"></div>
+                          <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
+                          <div class="aux-louver-midle louver-midle-2 move-louver-midle-2"></div>
+                          <div class="aux-louver-midle louver-midle-3 move-louver-midle-3"></div>
+                          <div class="aux-louver-bottom move-louver-bottom"></div>
+                        </div>
+                        <div ng-switch-when="5" class="aux-inside-img">
+                          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
+                          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
+                          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPELEFT }}" class="aux-inside-left move-inside-left unvisible"></div>
+                        </div>
+                        <div ng-switch-when="6" class="aux-connectors-img">
+                          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
+                          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
+                        </div>
+                        <div ng-switch-when="7" class="aux-fan-img move-fan"></div>
+                        <div ng-switch-when="8" class="aux-windowsill-img move-windowsill"></div>
+                        <div ng-switch-when="9" class="aux-handle-img move-handle"></div>
+                        <div ng-switch-when="10" class="aux-txt-box aux-others-txt"></div>
+                        <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
+                          <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
+                            <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
+                            <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                          </div>
+                          <div ng-show="addElemGroup.length" ng-class="($index==1)?'horisontal':'vertival'" class="selected-block">
+                            <div class="aux-info-box">
+                              <div data-output="{{ addElemGroup[0].name }}" ng-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                              <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                            </div>
+                            <div class="aux-sizing-box">
+                              <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}" class="aux-params">
+                                <button ng-click="elementsPanel.initAddElementTools(($index+1), 1, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but">{{ addElemGroup[0].element_qty }}</button>
+                                <div data-output="{{ ::elementsPanel.QTY_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                              </div>
+                              <div ng-hide="$index==3 || $index==5 || $index==7 || $index==9 || $index==10" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-2-0'}" class="aux-params">
+                                <button ng-click="elementsPanel.initAddElementTools(($index+1), 2, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but"> {{ addElemGroup[0].element_width }}</button>
+                                <div data-output="{{ ::elementsPanel.WIDTH_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                              </div>
+                              <div ng-show="!$index || $index==4" ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-3-0'}" class="aux-params">
+                                <button ng-click="elementsPanel.initAddElementTools(($index+1), 3, 0)" ng-keyup="elementsPanel.pressCulculator($event)" class="aux-params-but"> {{ addElemGroup[0].element_height }}</button>
+                                <div data-output="{{ ::elementsPanel.HEIGHT_LABEL }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                              </div>
+                            </div>
+                            <div ng-show="addElemGroup.length&gt;1" class="aux-more">{{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
+                      <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
+                        <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>
+                        <div ng-click="elementsPanel.closeWindowScheme()" class="close-dialog"></div>
+                      </div>
+                      <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.openAddElementListView()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
+                    </div>
+                  </div>
+                  <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'active': elementsListPanel.A.aux.isAddElementListView}" class="config-panel additional-list-container">
+                    <form ng-controller="searchCtrl as searchBox" name="searchForm">
+                      <div class="search-block">
+                        <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
+                        <button ng-click="searchBox.deleteSearchChart()" class="delete-search"></button>
+                        <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
+                      </div>
+                    </form>
+                    <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
+                      <ul class="aux-list-groups">
+                        <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName' track by $index" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
+                          <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
+                          <div class="search-elements-block"></div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="aux-list-content">
+                      <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">
+                        <div ng-if="elemType.length &gt; 0" ng-class="elementsListPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
+                          <div class="aux-list-block-title">{{ elementsListPanel.config.addElementDATA[$index].name }}</div>
+                          <table class="aux-list-addellement">
+                            <tr ng-repeat="addElement in elemType track by $index" class="aux-list-row">
+                              <td class="aux-tablecell-name">
+                                <div class="aux-name">
+                                  <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title">)</div>
+                                  <div data-output="{{ ::elementsListPanel.NAME_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                                </div>
+                              </td>
+                              <td class="aux-tablecell-qty">
+                                <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                                  <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_qty }}</button>
+                                  <div data-output="{{ ::elementsListPanel.QTY_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                                </div>
+                              </td>
+                              <td class="aux-tablecell-width">
+                                <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                                  <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_width }}</button>
+                                  <div data-output="{{ ::elementsListPanel.WIDTH_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                                </div>
+                              </td>
+                              <td class="aux-tablecell-height">
+                                <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
+                                  <button ng-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)" ng-keyup="elementsListPanel.pressCulculator($event)" class="aux-params-but">{{ addElement.element_height }}</button>
+                                  <div data-output="{{ ::elementsListPanel.HEIGHT_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
+                                </div>
+                              </td>
+                              <td class="aux-tablecell-price">
+                                <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsListPanel.U.userInfo.currency}}" class="aux-price"></div>
+                              </td>
+                              <td class="aux-tablecell-delete">
+                                <div ng-click="elementsListPanel.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div ng-if="elementsListPanel.P.product.addelemPriceDis" class="aux-list-block">
+                        <table class="aux-list-addellement">
+                          <tr class="aux-list-row">
+                            <td class="aux-tablecell-total">
+                              <div data-output="{{ ::elementsListPanel.TOTAL_PRICE_TXT }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
+                            </td>
+                            <td class="aux-tablecell-price">
+                              <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                            </td>
+                            <td class="aux-tablecell-delete">
+                              <div ng-click="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <button ng-click="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ ::elementsListPanel.SCHEME_VIEW }}</button>
+                  </div>
+                  <div ng-if="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-click="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
+    </div>
     <section class="right-menu">
       <div ng-controller="ConfigMenuCtrl as configMenu" class="config-menu">
         <ul ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}" class="items-list unvisible">
