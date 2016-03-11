@@ -330,7 +330,17 @@
                   .attr('height', 400);
               }
 
-
+              if(ProductStor.product.lamination.img_in_id > 1) {
+                defs.append('pattern')
+                  .attr('id', 'laminat1')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 150)
+                  .attr('height', 100)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 150)
+                  .attr('height', 100);
+              }
               /** background */
 
               if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
@@ -640,19 +650,19 @@
                 d3.select('.coeff-room-block18').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
-                    'left' : 5000 + 'px',
+                    'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
                 d3.select('.coeff-room-block19').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
-                    'left' : 5000 + 'px',
+                    'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px',
                 });
                 d3.select('.coeff-room-block20').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
-                    'left' : 5000 + 'px',
+                    'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px',
                 });
                 d3.select('.coeff-room-block21').style({
@@ -836,7 +846,11 @@
                         }
                       } else {
                         if(ProductStor.product.lamination.img_in_id > 1) {
-                          fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                            if ((d.type === 'frame') || (d.type === 'impost')) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                            } else {
+                              fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                              }
                         } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                           fillName = '#DCDCDC';
                         } else {
@@ -847,7 +861,7 @@
                   }
                 });
 
-
+console.log('32323232', template);
               if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {

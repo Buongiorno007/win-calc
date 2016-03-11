@@ -3,12 +3,12 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
     include menus/_navigation-menu
   section.right-side(
     ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}")
-    include parts/_room-elements
-    section.main-content(tabindex="0")
-      include parts/_main-svg
-      include parts/_user-info
     include parts/_room-info
     include parts/_room-selector
+    section.main-content(tabindex="0")
+      include parts/_room-elements
+      include parts/_main-svg
+      include parts/_user-info
       include parts/_report
       include panels/_profiles
       include panels/_glasses
