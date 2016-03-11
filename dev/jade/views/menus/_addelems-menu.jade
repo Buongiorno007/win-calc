@@ -17,7 +17,7 @@
           button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", ng-click="elementsMenu.showInfoBox(addElement.id, type)")
 
     footer.menu-footer
-      .price-element(ng-show="elementsMenu.A.aux.isAddElement")
+      .price-element(ng-show="elementsMenu.A.aux.isAddElement && elementsMenu.A.aux.currAddElementPrice")
         .price-value + {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
 
 

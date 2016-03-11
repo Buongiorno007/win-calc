@@ -781,15 +781,29 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function getAllAddKits() {
       var defer = $q.defer(),
-          promises = GeneralServ.addElementDATA.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
+          promises = GeneralServ.addElementDATA.map(function(item, index) {
+            if(index) {
+              return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
+            } else {
+              //-------- Grids
+              return localDB.selectLocalDB(localDB.tablesLocalDB.mosquitos.tableName);
+            }
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
             resultQty = addKits.length,
-            i;
+            i, elemGroupObj;
         for(i = 0; i < resultQty; i+=1) {
-          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          if(!i && addKits[i].length) {
+            //------ for Grids
+            elemGroupObj = {
+              elementType: [{addition_type_id: 20, name: ""}], elementsList: [addKits[i]]
+            };
+          } else {
+            elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          }
+
+
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
         defer.resolve(1);
@@ -800,9 +814,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function getAllAddElems() {
       var deff = $q.defer(),
-          promGroup = GlobalStor.global.addElementsAll.map(function(group) {
+          promGroup = GlobalStor.global.addElementsAll.map(function(group, index) {
             var deff1 = $q.defer();
-            if(group.elementsList && group.elementsList.length) {
+            //------- without Grids
+            if(index && group.elementsList && group.elementsList.length) {
               var promElems = group.elementsList.map(function(item) {
                 var deff2 = $q.defer();
 
@@ -833,100 +848,124 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function sortingAllAddElem() {
       var deff = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groupsData) {
 
-        var elemAllQty = GlobalStor.global.addElementsAll.length,
+        var addElemAll = GlobalStor.global.addElementsAll,
+            elemAllQty = addElemAll.length,
             defaultGroup = {
               id: 0,
               name: $filter('translate')('add_elements.OTHERS')
-            };
+            },
+            groups,
+            newElemList, typeDelete, typeQty, elemQty,
+            tempElemQty, t,
+            elements, el,
+            widthTemp, heightTemp, k, delQty;
 
         /** sorting types by position */
-        if(groups && groups.length) {
-          groups = groups.sort(function (a, b) {
+        if(groupsData && groupsData.length) {
+          groups = groupsData.sort(function (a, b) {
             return GeneralServ.sorting(a.position, b.position);
           });
         }
         //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
         while(--elemAllQty > -1) {
-          if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
-            if(groups && groups.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
-            }
-            GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
-            //------- sorting
-            var newElemList = [],
-                typeDelete = [],
-                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
-                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                tempElemQty = GlobalStor.global.tempAddElements.length,
-                t;
-            for(t = 0; t < typeQty; t+=1) {
-              var elements = [], el;
-              for(el = 0; el < elemQty; el+=1) {
-                if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                  var widthTemp = 0,
-                      heightTemp = 0,
-                      k;
-                  switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
-                    case 21: // 1 - visors
-                    case 9: // 2 - spillways
-                    case 8: // 8 - windowSill
-                    case 19: // 3 - outSlope & inSlope
-                    case 12: // 6 - connectors
-                      widthTemp = 1000;
-                      break;
-                    case 20: // 0 - grids
-                    case 26: // 4 - louvers
-                      widthTemp = 1000;
-                      heightTemp = 1000;
-                      break;
-                  }
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
-                  /** get price of element */
-                  for(k = 0; k < tempElemQty; k+=1) {
-                    if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      ///** add price margin */
-                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
-                      /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
-                    }
-                  }
-                  elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
+          if(addElemAll[elemAllQty].elementsList) {
+            if(!elemAllQty) {
+              /** Grids */
+              elemQty = addElemAll[elemAllQty].elementsList[0].length;
+              if(elemQty) {
+                for(el = 0; el < elemQty; el+=1) {
+                  addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
+                  addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
+                  addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
                 }
               }
-              if(elements.length) {
-                ///** sorting elements by position */
-                //elements = elements.sort(function(a, b) {
-                //  return GeneralServ.sorting(a.position, b.position);
-                //});
-                /** sorting by name */
-                elements = $filter('orderBy')(elements, 'name');
 
-                newElemList.push(elements);
-              } else {
-                typeDelete.push(t);
-              }
-            }
-
-            if(newElemList.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
             } else {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
-            }
 
-            /** delete empty groups */
-            var delQty = typeDelete.length;
-            if(delQty) {
-              while(--delQty > -1) {
-                GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+              if (groups && groups.length) {
+                addElemAll[elemAllQty].elementType = angular.copy(groups);
+              }
+              addElemAll[elemAllQty].elementType.push(defaultGroup);
+              //------- sorting
+              newElemList = [];
+              typeDelete = [];
+              typeQty = addElemAll[elemAllQty].elementType.length;
+              elemQty = addElemAll[elemAllQty].elementsList.length;
+              tempElemQty = GlobalStor.global.tempAddElements.length;
+              for (t = 0; t < typeQty; t += 1) {
+                elements = [];
+                for (el = 0; el < elemQty; el += 1) {
+                  if (addElemAll[elemAllQty].elementType[t].id === addElemAll[elemAllQty].elementsList[el].addition_folder_id) {
+                    widthTemp = 0;
+                    heightTemp = 0;
+                    switch (addElemAll[elemAllQty].elementsList[el].list_group_id) {
+                      case 21: // 1 - visors
+                      case 9: // 2 - spillways
+                      case 8: // 8 - windowSill
+                      case 19: // 3 - outSlope & inSlope
+                      case 12: // 6 - connectors
+                        widthTemp = 1000;
+                        break;
+                      case 26: // 4 - louvers
+                        widthTemp = 1000;
+                        heightTemp = 1000;
+                        break;
+                    }
+                    addElemAll[elemAllQty].elementsList[el].element_width = widthTemp;
+                    addElemAll[elemAllQty].elementsList[el].element_height = heightTemp;
+                    addElemAll[elemAllQty].elementsList[el].element_qty = 1;
+                    /** get price of element */
+                    for (k = 0; k < tempElemQty; k += 1) {
+                      if (GlobalStor.global.tempAddElements[k].id === addElemAll[elemAllQty].elementsList[el].parent_element_id) {
+                        ///** add price margin */
+                        //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(
+                        // GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price),
+                        // GlobalStor.global.margins.margin), 2);
+                        /** currency conversion */
+                        addElemAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(
+                          localDB.currencyExgange(
+                            GlobalStor.global.tempAddElements[k].price,
+                            GlobalStor.global.tempAddElements[k].currency_id
+                          ), 2
+                        );
+                      }
+                    }
+                    elements.push(angular.copy(addElemAll[elemAllQty].elementsList[el]));
+                  }
+                }
+                if (elements.length) {
+                  ///** sorting elements by position */
+                  //elements = elements.sort(function(a, b) {
+                  //  return GeneralServ.sorting(a.position, b.position);
+                  //});
+                  /** sorting by name */
+                  elements = $filter('orderBy')(elements, 'name');
+
+                  newElemList.push(elements);
+                } else {
+                  typeDelete.push(t);
+                }
+              }
+
+              if (newElemList.length) {
+                addElemAll[elemAllQty].elementsList = angular.copy(newElemList);
+              } else {
+                addElemAll[elemAllQty].elementsList = 0;
+              }
+
+              /** delete empty groups */
+              delQty = typeDelete.length;
+              if (delQty) {
+                while (--delQty > -1) {
+                  addElemAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+                }
               }
             }
           }
-          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
         }
+        //console.log('addElementsAll________________', addElemAll);
         deff.resolve(1);
       });
       return deff.promise;

@@ -644,10 +644,10 @@
               if(blocks[blockQty].gridId) {
 
                 //------ defined inner block sizes
-                sizeGridX = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridX = blocks[blockQty].pointsLight.map(function(item) {
                   return item.x;
                 });
-                sizeGridY = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridY = blocks[blockQty].pointsLight.map(function(item) {
                   return item.y;
                 });
                 gridTemp = {};
@@ -679,20 +679,19 @@
             var deff2 = $q.defer(),
                 objXAddElementPrice = {
                   currencyId: UserStor.userInfo.currencyId,
-                  elementId: item.id,
-                  elementWidth: (item.element_width/1000),
-                  elementHeight: (item.element_height/1000)
+                  element: item
                 };
-            //console.log('objXAddElementPrice=====', objXAddElementPrice);
+            //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
             //-------- get current add element price
-            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+            localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
               if (results) {
-                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(
-                  results.priceTotal,
-                  OrderStor.order.discount_addelem
+                item.element_price = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
                 ));
-                //console.log('objXAddElementPrice====result +++', results, item);
+                item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+                ));
+                //console.log('GRID objXAddElementPrice====result +++', results);
                 deff2.resolve(item);
               } else {
                 deff2.reject(results);

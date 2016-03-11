@@ -325,12 +325,13 @@
 
 
     function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
-      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsLight.map(function(item) {
             return item.x;
           }),
-          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+          sizeGridY = ProductStor.product.template.details[blockIndex].pointsLight.map(function(item) {
             return item.y;
-          }), gridTemp;
+          }),
+          gridTemp;
       //------- insert grid in block
       ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
       ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
@@ -556,6 +557,7 @@
         /** calc Price previous parameter and close caclulators */
         finishCalculators();
       }
+      AuxStor.aux.currAddElementPrice = 0;
       if (typeIndex === undefined && elementIndex === undefined) {
         /**------- if all grids deleting --------*/
         if(AuxStor.aux.isFocusedAddElement === 1) {

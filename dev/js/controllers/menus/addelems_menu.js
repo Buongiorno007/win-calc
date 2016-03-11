@@ -111,6 +111,7 @@
             /** show Grid Selector Dialog */
             AuxStor.aux.selectedGrid = [typeId, elementId];
             AuxStor.aux.isGridSelectorDialog = 1;
+            AuxStor.aux.isAddElement = typeId+'-'+elementId;
             DesignServ.initAllGlassXGrid();
           }
         } else {
