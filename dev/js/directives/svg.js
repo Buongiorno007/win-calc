@@ -583,7 +583,7 @@
                 } else {
                   $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
-                d3.select('.coeff-room-block15').style({
+                $('.coeff-room-block15').css({
                   'width' : ((0.48*(widthWmd/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
@@ -602,25 +602,25 @@
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                $('.coeff-room-block18').style({
+                $('.coeff-room-block18').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                $('.coeff-room-block19').style({
+                $('.coeff-room-block19').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                $('.coeff-room-block20').style({
+                $('.coeff-room-block20').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                $('.coeff-room-block21').style({
+                $('.coeff-room-block21').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
@@ -632,50 +632,50 @@
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+420),
                     heightDisplay = 755;
-                $('.coeff-room-block23').style({
+                $('.coeff-room-block23').css({
                   'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
                   'top' : 665 + 'px',
                   'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
                 });
-                $('.coeff-room-block15').style({
+                $('.coeff-room-block15').css({
                   'top': (10000) + 'px'
                 });
-                $('.coeff-room-block17').style({
+                $('.coeff-room-block17').css({
                   'width' : 0 + 'px',
                   'height' : 0 + 'px',
                   'left' : 0 + 'px'
                 });
-                $('.coeff-room-block18').style({
+                $('.coeff-room-block18').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
-                $('.coeff-room-block19').style({
+                $('.coeff-room-block19').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 30) + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
-                $('.coeff-room-block20').style({
+                $('.coeff-room-block20').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 30) + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
-                $('.coeff-room-block21').style({
+                $('.coeff-room-block21').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 50) + 'px',
+                    'top' : (heightDisplay - lchHeight + 50) + 'px'
                 });
-                $('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
-                $('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
-                $('.coeff-room-block5').style('left' , 5000 + 'px');
-                $('.coeff-room-block10').style('opacity' , 1);
-                $('.coeff-room-block7').style('opacity' , 1);
-                $('.coeff-room-block16').style('left' , 5000 + 'px');
-                $('.coeff-room-block9').style('opacity' , 0);
+                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthWmd)+280) + 'px');
+                $('.coeff-room-block8').css('left' , (0.23*widthWmd+275) + 'px');
+                $('.coeff-room-block5').css('left' , 5000 + 'px');
+                $('.coeff-room-block10').css('opacity' , 1);
+                $('.coeff-room-block7').css('opacity' , 1);
+                $('.coeff-room-block16').css('left' , 5000 + 'px');
+                $('.coeff-room-block9').css('opacity' , 0);
               }
             }
 

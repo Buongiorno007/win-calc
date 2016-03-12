@@ -48,46 +48,6 @@
     </div>
   </section>
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" class="right-side">
-    <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
-      <div class="coeff-container">
-        <div class="coeff-block">
-          <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
-          <div data-output="{{ ::roomInfo.CLIMATE_ZONE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
-        </div>
-        <div class="coeff-block">
-          <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
-            <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
-          </div>
-          <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
-            <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
-          </div>
-          <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
-        </div>
-        <div class="coeff-block">
-          <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
-        </div>
-        <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
-      </div>
-      <div class="product-comment">
-        <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
-      </div>
-    </div>
-    <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
-      <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
-        <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
-          <div ng-class="{'selected': rooms.P.product.room_id === $index}" ng-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
-            <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
-              <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
-              <div class="room-title">
-                <div ng-show="room.desc_1.length" class="room-sizes">{{room.desc_1}}</div>
-                <div ng-show="room.desc_2.length" class="room-price">{{room.desc_2}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div ng-click="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
-    </div>
     <section tabindex="0" class="main-content">
       <div class="coeff-RoomContainer">
         <div class="coeff-room-block1"><img ng-src="img/room/1.png"></div>
@@ -149,6 +109,46 @@
           </table>
           <div class="report-price-total">{{ ::reportBox.CALL_ORDER_TOTAL_PRICE }} ({{reportBox.config.reportPriceBase}}) {{reportBox.config.reportPriceTotal}} {{ ::reportBox.U.userInfo.currency }}</div>
         </div>
+      </div>
+      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" ng-swipe-up="roomInfo.switchComment($event)" ng-swipe-down="roomInfo.switchComment($event)" class="room-info-container">
+        <div class="coeff-container">
+          <div class="coeff-block">
+            <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
+            <div data-output="{{ ::roomInfo.CLIMATE_ZONE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+          </div>
+          <div class="coeff-block">
+            <div ng-if="roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+            </div>
+            <div ng-if="!roomInfo.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &gt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
+            </div>
+            <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+          </div>
+          <div class="coeff-block">
+            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
+          </div>
+          <div ng-click="roomInfo.switchComment()" class="comment-btn"></div>
+        </div>
+        <div class="product-comment">
+          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
+        </div>
+      </div>
+      <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
+        <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
+          <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
+            <div ng-class="{'selected': rooms.P.product.room_id === $index}" ng-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+              <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
+                <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
+                <div class="room-title">
+                  <div ng-show="room.desc_1.length" class="room-sizes">{{room.desc_1}}</div>
+                  <div ng-show="room.desc_2.length" class="room-price">{{room.desc_2}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-click="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
       </div>
       <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
         <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">

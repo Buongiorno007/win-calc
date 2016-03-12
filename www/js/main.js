@@ -2168,25 +2168,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
       }
-      /** if ListView is opened */
-      if (AuxStor.aux.isAddElementListView) {
-        selectAddElementList(typeId, elementId, clickEvent);
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
       } else {
-        /** if grid,  show grid selector dialog */
-        if(AuxStor.aux.isFocusedAddElement === 1) {
-          if(ProductStor.product.is_addelem_only) {
-            /** without window */
-            AddElementMenuServ.chooseAddElement(typeId, elementId);
-          } else {
-            /** show Grid Selector Dialog */
-            AuxStor.aux.selectedGrid = [typeId, elementId];
-            AuxStor.aux.isGridSelectorDialog = 1;
-            DesignServ.initAllGlassXGrid();
-          }
+        /** if ListView is opened */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
         } else {
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
+
     }
 
 
@@ -4804,7 +4806,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
         minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
-//        maxDeliveryDate = new Date().setDate( (orderDay + globalConstants.maxDeliveryDays)),
         deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
         oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
 
@@ -5545,9 +5546,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
                   .attr('width', 600)
                   .attr('height', 400);
+
+                defs.append('pattern')
+                  .attr('id', 'laminat1')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 150)
+                  .attr('height', 100)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
+                  .attr('width', 150)
+                  .attr('height', 100);
               }
-
-
               /** background */
 
               if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
@@ -5748,18 +5757,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
             }
 
-               
-
           //============================elements room==========================//
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-              if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
+              if(ProductStor.product.construction_type === 1) {
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+520),
-                    heightDisplay = 768,
+                    heightDisplay = 755,
                     topWindowsill = '',
                     block15Height = '',
                     windowsill2 = '',
+                    randomOpasity = '',
                     block15Top = '';
 
 
@@ -5789,67 +5797,103 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 }
 
                 if (widthWmd > 900 && heightWmd < 1648) {
-                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
                 } else {
-                  d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                  $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
-                d3.select('.coeff-room-block15').style({
-                  'width' : ((0.48*(widthWmd/2))) + 'px',
+                $('.coeff-room-block15').css({
+                  'width' : ((0.48*(widthWmd/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
-                d3.select('.coeff-room-block11').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block16').style('left' , 9 + 'px');
-                d3.select('.coeff-room-block8').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block7').style('opacity' , 0);
-                d3.select('.coeff-room-block9').style('opacity' , 1);
-                d3.select('.coeff-room-block23').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 0);
-                d3.select('.shadow-main').style();
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block11').css('left' , (10000) + 'px');
+                $('.coeff-room-block16').css('left' , 9 + 'px');
+                $('.coeff-room-block8').css('left' , (10000) + 'px');
+                $('.coeff-room-block7').css('opacity' , 0);
+                $('.coeff-room-block9').css('opacity' , 1);
+                $('.coeff-room-block23').css('left' , (10000) + 'px');
+                $('.coeff-room-block10').css('opacity' , 0);
+                //$('.shadow-main').css();
+                $('.coeff-room-block17').css({
                   'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
+                $('.coeff-room-block18').css({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
-                    'left' : (-80) + 'px',
+                    'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-              }
+                $('.coeff-room-block19').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+                $('.coeff-room-block20').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+                $('.coeff-room-block21').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 3 + 'px',
+                    'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                });
+               }
 
               if(ProductStor.product.construction_type === 4) {
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+420),
-                    heightDisplay = 768;
-                d3.select('.coeff-room-block23').style({
+                    heightDisplay = 755;
+                $('.coeff-room-block23').css({
                   'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
                   'top' : 665 + 'px',
                   'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
                 });
-                d3.select('.coeff-room-block15').style({
+                $('.coeff-room-block15').css({
                   'top': (10000) + 'px'
                 });
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block17').css({
                   'width' : 0 + 'px',
                   'height' : 0 + 'px',
                   'left' : 0 + 'px'
                 });
-                d3.select('.coeff-room-block22').style({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
-                  'left' : (60) + 'px',
-                  'top' : (heightDisplay - lchHeight + 30) + 'px'
+                $('.coeff-room-block18').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 130 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
-                d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
-                d3.select('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
-                d3.select('.coeff-room-block5').style('left' , 5000 + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 1);
-                d3.select('.coeff-room-block7').style('opacity' , 1);
-                d3.select('.coeff-room-block16').style('left' , 5000 + 'px');
-                d3.select('.coeff-room-block9').style('opacity' , 0);
+                $('.coeff-room-block19').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 130 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                });
+                $('.coeff-room-block20').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 130 + 'px',
+                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                });
+                $('.coeff-room-block21').css({
+                    'width' : lchWidth + 'px',
+                    'height' : lchHeight + 'px',
+                    'left' : 130 + 'px',
+                    'top' : (heightDisplay - lchHeight + 50) + 'px'
+                });
+                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthWmd)+280) + 'px');
+                $('.coeff-room-block8').css('left' , (0.23*widthWmd+275) + 'px');
+                $('.coeff-room-block5').css('left' , 5000 + 'px');
+                $('.coeff-room-block10').css('opacity' , 1);
+                $('.coeff-room-block7').css('opacity' , 1);
+                $('.coeff-room-block16').css('left' , 5000 + 'px');
+                $('.coeff-room-block9').css('opacity' , 0);
               }
             }
 
@@ -5897,8 +5941,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                 });
               }
-
-
               if(ProductStor.product.construction_type == 4) {
 
                 mainGroup.append('g').append("polygon")
@@ -6020,7 +6062,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                         }
                       } else {
                         if(ProductStor.product.lamination.img_in_id > 1) {
-                          fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                            if ((d.type === 'frame') || (d.type === 'impost')) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                            } else {
+                              fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                              }
                         } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                           fillName = '#DCDCDC';
                         } else {
@@ -6126,9 +6172,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                       });
                   }
                 }
-
               }
-
             }
 
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON ) {
@@ -6562,6 +6606,7 @@ function ErrorResult(code, message) {
     UserStor,
     localDB,
     GeneralServ,
+    loginServ,
     MainServ,
     SVGServ,
     DesignServ,
@@ -6649,26 +6694,50 @@ function ErrorResult(code, message) {
 
 
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: addElementsList[typeIndex][elementIndex].id,
-        elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
-        elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
-      };
-      return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
-            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
-          );
-          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
-            GeneralServ.setPriceDis(
-              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
-            )
-          );
-          AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
-        }
-        return results;
-      });
+      var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
+      /** Grid */
+      if(AuxStor.aux.isFocusedAddElement === 1) {
+
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          element: item
+        };
+        //-------- get current add element price
+        return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            ));
+            item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+            ));
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+
+      } else {
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          elementId: item.id,
+          elementWidth: (item.element_width/1000),
+          elementHeight: (item.element_height/1000)
+        };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            );
+            item.elementPriceDis = GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(
+                item.element_price, OrderStor.order.discount_addelem
+              )
+            );
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+      }
     }
 
 
@@ -6870,19 +6939,20 @@ function ErrorResult(code, message) {
 
 
     function setCurrGridToBlock(blockId, blockIndex, gridIndex) {
-      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+      var sizeGridX = ProductStor.product.template.details[blockIndex].pointsLight.map(function(item) {
             return item.x;
           }),
-          sizeGridY = ProductStor.product.template.details[blockIndex].pointsIn.map(function(item) {
+          sizeGridY = ProductStor.product.template.details[blockIndex].pointsLight.map(function(item) {
             return item.y;
-          }), gridTemp;
+          }),
+          gridTemp;
       //------- insert grid in block
       ProductStor.product.template_source.details[blockIndex].gridId = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].id;
       ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
       //-------- add sizes in grid object
       gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
-      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+      gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
       gridTemp.block_id = blockId;
       return gridTemp;
     }
@@ -7001,7 +7071,7 @@ function ErrorResult(code, message) {
 
 
     function insertGrids(grids) {
-      DesignServ.getGridPrice(grids).then(function(data) {
+      loginServ.getGridPrice(grids).then(function(data) {
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
         if(dataQty) {
@@ -7077,17 +7147,9 @@ function ErrorResult(code, message) {
     function getAddElementPrice(typeIndex, elementIndex) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element is not grid and has price
-//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
-      //
-      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      //} else {
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       });
-      //}
       return deferred.promise;
     }
 
@@ -7101,6 +7163,7 @@ function ErrorResult(code, message) {
         /** calc Price previous parameter and close caclulators */
         finishCalculators();
       }
+      AuxStor.aux.currAddElementPrice = 0;
       if (typeIndex === undefined && elementIndex === undefined) {
         /**------- if all grids deleting --------*/
         if(AuxStor.aux.isFocusedAddElement === 1) {
@@ -7306,6 +7369,7 @@ function ErrorResult(code, message) {
       AuxStor.aux.isFocusedAddElement = id;
       //playSound('swip');
       AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      AuxStor.aux.currAddElementPrice = 0;
       downloadAddElementsData(id);
     }
 
@@ -8516,10 +8580,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -8584,6 +8648,7 @@ function ErrorResult(code, message) {
     globalConstants,
     GeneralServ,
     localDB,
+    loginServ,
     MainServ,
     AnalyticsServ,
     optionsServ,
@@ -9199,81 +9264,46 @@ function ErrorResult(code, message) {
     /**--------------- GRIDs --------------*/
 
     function updateGrids() {
-      var grids = ProductStor.product.chosenAddElements[0],
-          gridQty = grids.length,
+      var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          gridQty = gridsOld.length,
           blocks = ProductStor.product.template.details,
-          isChanged = 0, blockQty, sizeGridX, sizeGridY, gridTemp;
+          blockQty = blocks.length,
+          isChanged = 0, gridsNew = [],
+          sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
       if(gridQty) {
-        GridArr: while(--gridQty > -1) {
-          //----- find grid in template
-          blockQty = blocks.length;
-          while(--blockQty > 0) {
-            if(blocks[blockQty].id === grids[gridQty].block_id) {
-              //------- if grid there is in this block
-              if(blocks[blockQty].gridId) {
-
+        while(--blockQty > 0) {
+          //------- if grid there is in this block
+          if(blocks[blockQty].gridId) {
+            for (g = 0; g < gridQty; g += 1) {
+              if(blocks[blockQty].id === gridsOld[g].block_id) {
+                gridTemp = gridsOld[g];
+                sizeTemp = {};
                 //------ defined inner block sizes
-                sizeGridX = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridX = blocks[blockQty].pointsLight.map(function(item) {
                   return item.x;
                 });
-                sizeGridY = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridY = blocks[blockQty].pointsLight.map(function(item) {
                   return item.y;
                 });
-                gridTemp = {};
-                gridTemp.width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-                gridTemp.height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+                sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                sizeTemp.height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
                 //----- if width or height are defferented - reculculate grid price
-                if(grids[gridQty].element_width!==gridTemp.width || grids[gridQty].element_height!==gridTemp.height) {
-                  grids[gridQty].element_width = gridTemp.width;
-                  grids[gridQty].element_height = gridTemp.height;
+                if(gridTemp.element_width !== sizeTemp.width || gridTemp.element_height !== sizeTemp.height) {
+                  gridTemp.element_width = sizeTemp.width;
+                  gridTemp.element_height = sizeTemp.height;
                   isChanged = 1;
                 }
-
-              } else {
-                //----- delete grid in chosenAddElements
-                ProductStor.product.chosenAddElements[0].splice(gridQty, 1);
-                continue GridArr;
+                gridsNew.push(gridTemp);
               }
             }
           }
         }
+        //------- rewrite grids lists
+        ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
       }
       return isChanged;
     }
 
-
-    function getGridPrice(grids) {
-      var deff = $q.defer(),
-          proms = grids.map(function(item) {
-            var deff2 = $q.defer(),
-                objXAddElementPrice = {
-                  currencyId: UserStor.userInfo.currencyId,
-                  elementId: item.id,
-                  elementWidth: (item.element_width/1000),
-                  elementHeight: (item.element_height/1000)
-                };
-            //console.log('objXAddElementPrice=====', objXAddElementPrice);
-            //-------- get current add element price
-            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-              if (results) {
-                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(
-                  results.priceTotal,
-                  OrderStor.order.discount_addelem
-                ));
-                //console.log('objXAddElementPrice====result +++', results, item);
-                deff2.resolve(item);
-              } else {
-                deff2.reject(results);
-              }
-            });
-
-            return deff2.promise;
-          });
-
-      deff.resolve($q.all(proms));
-      return deff.promise;
-    }
 
 
 
@@ -9711,7 +9741,8 @@ function ErrorResult(code, message) {
         blocks[blockIndex].impost = {
           impostAxis: [],
           impostOut: [],
-          impostIn: []
+          impostIn: [],
+          impostLight: []
         };
       }
       blocks[blockIndex].impost.impostAxis.push(impPoint);
@@ -9728,6 +9759,7 @@ function ErrorResult(code, message) {
         children: [],
         pointsOut: [],
         pointsIn: [],
+        pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt
@@ -11303,7 +11335,7 @@ function ErrorResult(code, message) {
             var isChanged = updateGrids();
             if (isChanged) {
               //------ get new grids price
-              getGridPrice(ProductStor.product.chosenAddElements[0]);
+              loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
             }
 
             /** refresh price of new template */
@@ -11390,8 +11422,6 @@ function ErrorResult(code, message) {
       hideSizeTools: hideSizeTools,
 
       stepBack: stepBack,
-      getGridPrice: getGridPrice,
-
       //---- door
       //      downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig
@@ -12029,19 +12059,21 @@ function ErrorResult(code, message) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
-            prod;
+            prod, index;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
             for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                index = elementsAdd[allAddElemQty].element_type;
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
                 elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
                   elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
                 );
-                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
+                elementsAdd[allAddElemQty].list_group_id = GeneralServ.addElementDATA[index].id;
+                OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
                 }
@@ -14929,21 +14961,21 @@ function ErrorResult(code, message) {
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
-        priceObj.consist = result;
+        priceObj.consist = angular.copy(result);
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
-            priceObj.kits = kits;
+            priceObj.kits = angular.copy(kits);
             //console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
-              priceObj.kitsElem = kitsElem;
+              priceObj.kitsElem = angular.copy(kitsElem);
               //console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
                 //console.warn('consistElem!!!!!!+', consist[0]);
-                priceObj.consistElem = consist[0];
+                priceObj.consistElem = angular.copy(consist[0]);
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
 
@@ -15044,6 +15076,129 @@ function ErrorResult(code, message) {
 
 
 
+
+    /**========= GRID PRICE ==========*/
+
+    function calculationGridPrice(AddElement) {
+      var deffMain = $q.defer(),
+          grid = angular.copy(AddElement.element),
+          finishPriceObj = {},
+          priceObj = {
+            constrElements: [], priceTotal: 0
+          };
+      grid.element_width /= 1000;
+      grid.element_height /= 1000;
+      //console.info('START+++', AddElement, grid);
+
+      /** parse Kit */
+      getKitByID(grid.cloth_id).then(function(kits) {
+        //console.warn('kits!!!!!!+', kits);
+        priceObj.kits = angular.copy(kits);
+
+        /** parse Kit Element */
+        getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem) {
+          /** culc Kit Price */
+          var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
+              wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
+              constrElem = angular.copy(kitsElem),
+              priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
+
+          priceObj.kitsElem = angular.copy(kitsElem);
+
+          //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+          /** currency conversion */
+          if (UserStor.userInfo.currencyId != constrElem.currency_id){
+            priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+          }
+          constrElem.qty = 1;
+          constrElem.size = sizeTemp;
+          constrElem.priceReal = priceTemp;
+          priceObj.priceTotal += priceTemp;
+          priceObj.constrElements.push(constrElem);
+          //console.warn('constrElem!!!!!!+', constrElem);
+
+        });
+
+        /** collect Kit Children Elements*/
+        $q.all([
+          parseListContent(grid.top_id),
+          parseListContent(grid.right_id),
+          parseListContent(grid.bottom_id),
+          parseListContent(grid.left_id)
+        ]).then(function (result) {
+          priceObj.consist = angular.copy(result);
+          //console.warn('list-contents!!!!!!+', result);
+
+            parseConsistElem(priceObj.consist).then(function (consist) {
+              var wasteList = [
+                    grid.top_waste,
+                    grid.right_waste,
+                    grid.bottom_waste,
+                    grid.left_waste
+              ], consistQty, cons, el, wasteValue, sizeSource;
+              //console.warn('consistElem!!!!!!+', consist);
+              priceObj.consistElem = angular.copy(consist);
+
+              /** culc Consist Price */
+
+              if(priceObj.consistElem) {
+                consistQty = priceObj.consist.length;
+                if(consistQty) {
+                  for(cons = 0; cons < consistQty; cons+=1) {
+                    //console.log('----------------');
+                    //console.warn('parent++++', priceObj.consist[cons]);
+                    if(priceObj.consist[cons]) {
+                      wasteValue = (wasteList[cons]) ? (1+(wasteList[cons] / 100)) : 1;
+
+                      if(!cons || cons === 2) {
+                        //console.info('width!!!!', cons);
+                        sizeSource = grid.element_width;
+                      } else {
+                        //console.info('height!!!!', cons);
+                        sizeSource = grid.element_height;
+                      }
+
+                      for (el = 0; el < consistQty; el+=1) {
+
+                        priceObj.consist[cons][el].newValue = getValueByRule(
+                          sizeSource,
+                          priceObj.consist[cons][el].value,
+                          priceObj.consist[cons][el].rules_type_id
+                        );
+                        //console.warn('child+44+++', priceObj.consist[cons][el]);
+                        culcPriceAsRule(
+                          1,
+                          priceObj.consist[cons][el].newValue,
+                          priceObj.consist[cons][el],
+                          priceObj.consistElem[cons][el],
+                          0,//priceObj.consist[cons][el].amendment_pruning,
+                          wasteValue,
+                          priceObj
+                        );
+                      }
+
+                    }
+                  }
+                }
+              }
+              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+              //console.info('FINISH ADD ====:', priceObj);
+              finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+              finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+              deffMain.resolve(finishPriceObj);
+            });
+
+        });
+
+      });
+
+      return deffMain.promise;
+    }
+
+
+
+
+
     /**========== FINISH ==========*/
 
 
@@ -15075,6 +15230,7 @@ function ErrorResult(code, message) {
 
       calculationPrice: calculationPrice,
       getAdditionalPrice: getAdditionalPrice,
+      calculationGridPrice: calculationGridPrice,
       currencyExgange: currencyExgange
     };
 
@@ -15870,15 +16026,29 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function getAllAddKits() {
       var defer = $q.defer(),
-          promises = GeneralServ.addElementDATA.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
+          promises = GeneralServ.addElementDATA.map(function(item, index) {
+            if(index) {
+              return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item.id});
+            } else {
+              //-------- Grids
+              return localDB.selectLocalDB(localDB.tablesLocalDB.mosquitos.tableName);
+            }
           });
       $q.all(promises).then(function (result) {
         var addKits = angular.copy(result),
             resultQty = addKits.length,
-            i;
+            i, elemGroupObj;
         for(i = 0; i < resultQty; i+=1) {
-          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          if(!i && addKits[i].length) {
+            //------ for Grids
+            elemGroupObj = {
+              elementType: [{addition_type_id: 20, name: ""}], elementsList: [addKits[i]]
+            };
+          } else {
+            elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          }
+
+
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
         defer.resolve(1);
@@ -15889,9 +16059,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function getAllAddElems() {
       var deff = $q.defer(),
-          promGroup = GlobalStor.global.addElementsAll.map(function(group) {
+          promGroup = GlobalStor.global.addElementsAll.map(function(group, index) {
             var deff1 = $q.defer();
-            if(group.elementsList && group.elementsList.length) {
+            //------- without Grids
+            if(index && group.elementsList && group.elementsList.length) {
               var promElems = group.elementsList.map(function(item) {
                 var deff2 = $q.defer();
 
@@ -15920,102 +16091,162 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
+    function getGridPrice(grids) {
+      var deff = $q.defer(),
+          proms = grids.map(function(item) {
+            var deff2 = $q.defer(),
+                objXAddElementPrice = {
+                  currencyId: UserStor.userInfo.currencyId,
+                  element: item
+                };
+            //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
+            //-------- get current add element price
+            localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+              if (results) {
+                item.element_price = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+                ));
+                item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+                ));
+                //console.log('GRID objXAddElementPrice====result +++', results);
+                deff2.resolve(item);
+              } else {
+                deff2.reject(results);
+              }
+            });
+
+            return deff2.promise;
+          });
+
+      deff.resolve($q.all(proms));
+      return deff.promise;
+    }
+
+
+
     function sortingAllAddElem() {
       var deff = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groupsData) {
 
-        var elemAllQty = GlobalStor.global.addElementsAll.length,
+        var addElemAll = GlobalStor.global.addElementsAll,
+            elemAllQty = addElemAll.length,
             defaultGroup = {
               id: 0,
               name: $filter('translate')('add_elements.OTHERS')
-            };
+            },
+            groups,
+            newElemList, typeDelete, typeQty, elemQty,
+            tempElemQty, t,
+            elements, el,
+            widthTemp, heightTemp, k, delQty;
 
         /** sorting types by position */
-        if(groups && groups.length) {
-          groups = groups.sort(function (a, b) {
+        if(groupsData && groupsData.length) {
+          groups = groupsData.sort(function (a, b) {
             return GeneralServ.sorting(a.position, b.position);
           });
         }
         //console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
         while(--elemAllQty > -1) {
-          if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
-            if(groups && groups.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
-            }
-            GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
-            //------- sorting
-            var newElemList = [],
-                typeDelete = [],
-                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
-                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                tempElemQty = GlobalStor.global.tempAddElements.length,
-                t;
-            for(t = 0; t < typeQty; t+=1) {
-              var elements = [], el;
-              for(el = 0; el < elemQty; el+=1) {
-                if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                  var widthTemp = 0,
-                      heightTemp = 0,
-                      k;
-                  switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
-                    case 21: // 1 - visors
-                    case 9: // 2 - spillways
-                    case 8: // 8 - windowSill
-                    case 19: // 3 - outSlope & inSlope
-                    case 12: // 6 - connectors
-                      widthTemp = 1000;
-                      break;
-                    case 20: // 0 - grids
-                    case 26: // 4 - louvers
-                      widthTemp = 1000;
-                      heightTemp = 1000;
-                      break;
-                  }
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
-                  /** get price of element */
-                  for(k = 0; k < tempElemQty; k+=1) {
-                    if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                      ///** add price margin */
-                      //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin), 2);
-                      /** currency conversion */
-                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id), 2);
+          if(addElemAll[elemAllQty].elementsList) {
+            if(!elemAllQty) {
+              /** Grids */
+              elemQty = addElemAll[elemAllQty].elementsList[0].length;
+              if(elemQty) {
+                for(el = 0; el < elemQty; el+=1) {
+                  addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
+                  addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
+                  addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
+                  addElemAll[elemAllQty].elementsList[0][el].list_group_id = 20;
+                }
+                getGridPrice(addElemAll[elemAllQty].elementsList[0]);
+              }
+
+            } else {
+
+              if (groups && groups.length) {
+                addElemAll[elemAllQty].elementType = angular.copy(groups);
+              }
+              addElemAll[elemAllQty].elementType.push(defaultGroup);
+              //------- sorting
+              newElemList = [];
+              typeDelete = [];
+              typeQty = addElemAll[elemAllQty].elementType.length;
+              elemQty = addElemAll[elemAllQty].elementsList.length;
+              tempElemQty = GlobalStor.global.tempAddElements.length;
+              for (t = 0; t < typeQty; t += 1) {
+                elements = [];
+                for (el = 0; el < elemQty; el += 1) {
+                  if (addElemAll[elemAllQty].elementType[t].id === addElemAll[elemAllQty].elementsList[el].addition_folder_id) {
+                    widthTemp = 0;
+                    heightTemp = 0;
+                    switch (addElemAll[elemAllQty].elementsList[el].list_group_id) {
+                      case 21: // 1 - visors
+                      case 9: // 2 - spillways
+                      case 8: // 8 - windowSill
+                      case 19: // 3 - outSlope & inSlope
+                      case 12: // 6 - connectors
+                        widthTemp = 1000;
+                        break;
+                      case 26: // 4 - louvers
+                        widthTemp = 1000;
+                        heightTemp = 1000;
+                        break;
                     }
+                    addElemAll[elemAllQty].elementsList[el].element_width = widthTemp;
+                    addElemAll[elemAllQty].elementsList[el].element_height = heightTemp;
+                    addElemAll[elemAllQty].elementsList[el].element_qty = 1;
+                    /** get price of element */
+                    for (k = 0; k < tempElemQty; k += 1) {
+                      if (GlobalStor.global.tempAddElements[k].id === addElemAll[elemAllQty].elementsList[el].parent_element_id) {
+                        ///** add price margin */
+                        //GlobalStor.global.tempAddElements[k].price = GeneralServ.roundingValue(
+                        // GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price),
+                        // GlobalStor.global.margins.margin), 2);
+                        /** currency conversion */
+                        addElemAll[elemAllQty].elementsList[el].element_price = GeneralServ.roundingValue(
+                          localDB.currencyExgange(
+                            GlobalStor.global.tempAddElements[k].price,
+                            GlobalStor.global.tempAddElements[k].currency_id
+                          ), 2
+                        );
+                      }
+                    }
+                    elements.push(angular.copy(addElemAll[elemAllQty].elementsList[el]));
                   }
-                  elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
+                }
+                if (elements.length) {
+                  ///** sorting elements by position */
+                  //elements = elements.sort(function(a, b) {
+                  //  return GeneralServ.sorting(a.position, b.position);
+                  //});
+                  /** sorting by name */
+                  elements = $filter('orderBy')(elements, 'name');
+
+                  newElemList.push(elements);
+                } else {
+                  typeDelete.push(t);
                 }
               }
-              if(elements.length) {
-                ///** sorting elements by position */
-                //elements = elements.sort(function(a, b) {
-                //  return GeneralServ.sorting(a.position, b.position);
-                //});
-                /** sorting by name */
-                elements = $filter('orderBy')(elements, 'name');
 
-                newElemList.push(elements);
+              if (newElemList.length) {
+                addElemAll[elemAllQty].elementsList = angular.copy(newElemList);
               } else {
-                typeDelete.push(t);
+                addElemAll[elemAllQty].elementsList = 0;
               }
-            }
 
-            if(newElemList.length) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
-            } else {
-              GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
-            }
-
-            /** delete empty groups */
-            var delQty = typeDelete.length;
-            if(delQty) {
-              while(--delQty > -1) {
-                GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+              /** delete empty groups */
+              delQty = typeDelete.length;
+              if (delQty) {
+                while (--delQty > -1) {
+                  addElemAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+                }
               }
             }
           }
-          //console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
         }
+        //console.log('addElementsAll________________', addElemAll);
         deff.resolve(1);
       });
       return deff.promise;
@@ -16194,7 +16425,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
+      downloadAllData: downloadAllData,
+      getGridPrice: getGridPrice
     };
 
     return thisFactory.publicObj;
@@ -17391,7 +17623,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
-
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
@@ -17407,6 +17638,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       /** ===== SAVE PRODUCTS =====*/
 
       var prodQty = OrderStor.order.products.length, p;
+      OrderStor.order.products_qty = 0;
       for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
@@ -17508,7 +17740,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
       /** ============ SAVE ORDER =========== */
 
-              //      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
@@ -17955,6 +18186,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''//,
@@ -17998,6 +18230,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18012,6 +18245,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18025,6 +18259,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18066,6 +18301,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18080,6 +18316,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18093,6 +18330,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -18115,6 +18353,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18128,6 +18367,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18171,6 +18411,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18193,6 +18434,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18206,6 +18448,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18220,6 +18463,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18233,6 +18477,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18274,6 +18519,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18288,6 +18534,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18301,6 +18548,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
@@ -18323,6 +18571,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18336,6 +18585,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18377,6 +18627,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18399,6 +18650,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18420,6 +18672,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18434,6 +18687,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18447,6 +18701,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18460,6 +18715,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18473,6 +18729,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18514,6 +18771,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18528,6 +18786,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18541,6 +18800,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18583,6 +18843,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18597,6 +18858,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18610,6 +18872,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
@@ -18632,6 +18895,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18645,6 +18909,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18687,6 +18952,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18701,6 +18967,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18714,6 +18981,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -18736,6 +19004,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18757,6 +19026,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18771,6 +19041,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18784,6 +19055,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18827,6 +19099,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18849,6 +19122,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18862,6 +19136,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -18884,6 +19159,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18897,6 +19173,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18910,6 +19187,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18931,6 +19209,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18945,6 +19224,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -18958,6 +19238,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19001,6 +19282,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19023,6 +19305,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19036,6 +19319,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -19058,6 +19342,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19079,6 +19364,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19092,6 +19378,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19113,6 +19400,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19127,6 +19415,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19140,6 +19429,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19153,6 +19443,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19166,6 +19457,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19209,6 +19501,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19227,6 +19520,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
@@ -19282,6 +19576,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19296,6 +19591,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19309,6 +19605,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -19331,6 +19628,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19344,6 +19642,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -19387,6 +19686,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
@@ -19837,14 +20137,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function checkDoubleQPoints(newPointId, pointsIn) {
-      //      console.log('-----------', newPointId, pointsIn);
       var isExist = 0,
           pointsInQty = pointsIn.length;
       if (pointsInQty) {
         while (--pointsInQty > -1) {
           if (pointsIn[pointsInQty].id.slice(0, 3) === newPointId.slice(0, 3)) {
-            //if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('qa') + 1 ||
-            // pointsIn[pointsInQty].id.slice(0, 3).indexOf('qc') + 1) {
             if (pointsIn[pointsInQty].id.slice(0, 3).indexOf('q') + 1) {
               isExist = 1;
             }
@@ -19961,7 +20258,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       points.sort(function(a, b){
         return b.fi - a.fi;
       });
-//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
       return points;
     }
 
@@ -20004,14 +20300,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length, i;
+          pointsQty = points.length,
+          line, index, i, last;
 
       for(i = 0; i < pointsQty; i+=1) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
         }
-        var line = {}, index;
+        line = {};
         //------- first
         line.from = angular.copy(points[i]);
         line.dir = points[i].dir;
@@ -20042,7 +20339,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lines.push(line);
       }
       //------ change place last element in array to first
-      var last = lines.pop();
+      last = lines.pop();
       lines.unshift(last);
 
       return lines;
@@ -20089,6 +20386,18 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           break;
         case 'sash-in':
           depth = depths.sashDepth.c;
+          break;
+        case 'light':
+          if(line.type === 'frame') {
+            depth = depths.frameDepth.a;
+          } else if(line.type === 'impost') {
+            depth = depths.impostDepth.a/2;
+          } else if(line.type === 'shtulp') {
+            depth = depths.shtulpDepth.b/2;
+          }
+          break;
+        case 'sash-light':
+          depth = depths.sashDepth.b + depths.sashDepth.a;
           break;
         case 'hardware':
           depth = depths.sashDepth.b;
@@ -20194,13 +20503,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
-          linesQty = lines.length, i;
-      //console.info('lines+++', lines);
+          linesQty = lines.length,
+          i, newLine1, newLine2, crossPoint, index;
       for(i = 0; i < linesQty; i+=1) {
-        var newLine1 = angular.copy(lines[i]),
-            newLine2 = {},
-            crossPoint = {},
-            index;
+        newLine1 = angular.copy(lines[i]);
+        newLine2 = {};
+        crossPoint = {};
         newLine1.coefC = getNewCoefC(depths, newLine1, group);
         if(i === (linesQty - 1)) {
           index = 0;
@@ -20648,8 +20956,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if (linesIn[i].dir === 'curv') {
           var impCenterP = findImpostCenter(markAx, impVector);
           var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-          //          console.log('intersect +++impCenterP, impCP', impCenterP, impCP);
-          //          console.log('intersect +++', intersect[0]);
           if (intersect.length) {
             ip.x = intersect[0].x;
             ip.y = intersect[0].y;
@@ -20668,9 +20974,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           if (linesIn[i].dir === 'curv' && markAx) {
             setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
           }
-          //            console.log('impCP++++++++', JSON.stringify(ip));
           impost.push(angular.copy(ip));
-          //            console.log('impost++++++++', JSON.stringify(impost));
         }
       }
     }
@@ -20688,19 +20992,28 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
             impAx1 = angular.copy(currBlock.impost.impostAxis[1]),
             pointsOut = angular.copy(currBlock.pointsOut),
-            pointsIn, linesIn,
+            pointsIn, linesIn, pointsLight, linesLight,
             indexChildBlock1, indexChildBlock2,
-            i;
+            impVectorAx1, impVectorAx2,
+            impVector1, impVector2,
+            impVLight1, impVLight2,
+            i, linesInQty;
 
         //console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
           pointsIn = angular.copy(currBlock.sashPointsIn);
           linesIn = currBlock.sashLinesIn;
+          /** for Light */
+          pointsLight = angular.copy(currBlock.sashPointsLight);
+          linesLight = angular.copy(currBlock.sashLinesLight);
         } else {
           pointsIn = angular.copy(currBlock.pointsIn);
           linesIn = currBlock.linesIn;
+          /** for Light */
+          pointsLight = angular.copy(currBlock.pointsLight);
+          linesLight = angular.copy(currBlock.linesLight);
         }
-        var linesInQty = linesIn.length;
+        linesInQty = linesIn.length;
 
         //-------- get indexes of children blocks
         for(i = 1; i < blocksQty; i+=1) {
@@ -20712,24 +21025,30 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
 
         //------- create 2 impost vectors
-        var impVectorAx1 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx0,
-              to: impAx1
-            },
-            impVectorAx2 = {
-              type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
-              from: impAx1,
-              to: impAx0
-            };
+        impVectorAx1 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx0,
+          to: impAx1
+        };
+        impVectorAx2 = {
+          type: (impAx0.type === 'impost') ? 'impost' : 'shtulp',
+          from: impAx1,
+          to: impAx0
+        };
         setLineCoef(impVectorAx1);
         setLineCoef(impVectorAx2);
 
-        var impVector1 = angular.copy(impVectorAx1),
-            impVector2 = angular.copy(impVectorAx2);
-
+        impVector1 = angular.copy(impVectorAx1);
+        impVector2 = angular.copy(impVectorAx2);
         impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
         impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
+
+        /** for Light */
+        impVLight1 = angular.copy(impVectorAx1);
+        impVLight2 = angular.copy(impVectorAx2);
+        impVLight1.coefC = getNewCoefC(depths, impVLight1, 'light');
+        impVLight2.coefC = getNewCoefC(depths, impVLight2, 'light');
+
         //        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
         //        console.log('IMP impVector1++++++++++', impVector1);
         //        console.log('IMP impVector2++++++++++', impVector2);
@@ -20744,6 +21063,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           getCPImpostInsideBlock(
             0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn
           );
+
+          /** for Light */
+          getCPImpostInsideBlock(0, 0, i, linesInQty, linesLight, impVLight1, impAx0, currBlock.impost.impostLight);
+          getCPImpostInsideBlock(1, 0, i, linesInQty, linesLight, impVLight2, impAx1, currBlock.impost.impostLight);
         }
 
         //------- if curve impost
@@ -20776,17 +21099,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
-        //        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
-        //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
         collectPointsXChildBlock(
           impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut
         );
-        //------- insert impostOut of impost in pointsOut of children blocks
-        //        for(var i = 0; i < 2; i++) {
-        //          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
-        //          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
-        //        }
-        //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
         //------- insert pointsIn of parent block in pointsIn of children blocks
         collectPointsXChildBlock(
           impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
@@ -20795,8 +21110,16 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         collectImpPointsXChildBlock(
           currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn
         );
-        //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
-        //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
+        /** for Light */
+        //------- insert pointsLight of parent block in pointsLight of children blocks
+        collectPointsXChildBlock(
+          impostAx, pointsLight, blocks[indexChildBlock1].pointsLight, blocks[indexChildBlock2].pointsLight
+        );
+        //------- insert impostLight of impost in pointsLight of children blocks
+        collectImpPointsXChildBlock(
+          currBlock.impost.impostLight, blocks[indexChildBlock1].pointsLight, blocks[indexChildBlock2].pointsLight
+        );
+
         //-------- set real impostAxis coord for dimensions
         var linesOutQty = currBlock.linesOut.length,
             impostQP;
@@ -22146,10 +22469,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function createSVGTemplate(sourceObj, depths) {
-      //console.log('------------------------------------------------------');
-      //      console.log('svg start', new Date(), new Date().getMilliseconds());
       var thisObj = {},
-          defer = $q.defer(), i;
+          defer = $q.defer(), i, blocksQty;
 
       //  thisObj.name = sourceObj.name;
       thisObj.details = angular.copy(sourceObj.details);
@@ -22164,8 +22485,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         sashesBlock: []
       };
 
-      var blocksQty = thisObj.details.length;
-
+      blocksQty = thisObj.details.length;
 
       for(i = 0; i < blocksQty; i+=1) {
 
@@ -22193,25 +22513,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           thisObj.details[i].overallDim = [];
 
         } else {
-          //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
-          //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
           if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
             setQPInMainBlock(thisObj.details[i]);
           }
           thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
           thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
-          //          console.log('+++++++++ block ++++++++++pointsOut');
           thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
+
           if(thisObj.details[i].level === 1) {
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
+            //-------- points for Grid
+            thisObj.details[i].pointsLight = setPointsIn(thisObj.details[i].linesOut, depths, 'light');
           } else {
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
-            //console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
-            //            console.log('+++++++++ block ++++++++++pointsIn');
+            //-------- points for Grid
+            thisObj.details[i].pointsLight = sortingPoints(thisObj.details[i].pointsLight, centerBlock(thisObj.details[i].pointsLight));
           }
           thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
+          thisObj.details[i].linesLight = setLines(thisObj.details[i].pointsLight);
 
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
@@ -22232,7 +22553,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
+              //-------- points for Grid
+              thisObj.details[i].sashPointsLight = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-light');
+              thisObj.details[i].sashLinesLight = setLines(thisObj.details[i].sashPointsLight);
+              //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
@@ -22281,7 +22605,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
-
+              //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
@@ -22330,8 +22654,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       thisObj.dimension = initDimensions(thisObj.details);
 
       //console.log('TEMPLATE END++++', thisObj);
-      //console.log('svg finish', new Date(), new Date().getMilliseconds());
-      //console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
     }
@@ -22366,12 +22688,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           d3scaling = d3.scale.linear()
             .domain([0, 1])
             .range([0, padding]);
-
-      //console.info('scale----', templateW, templateH, windowW, windowH, padding);
-      //var windRatio = windowW/windowH;
-      //var tempRatio = templateW/templateH;
-      //var ratio = windRatio/tempRatio;
-      //console.info('scale--2--', windRatio, tempRatio, ratio, d3scaling(ratio));
 
       if(templateW > templateH) {
         if(windowW > templateW) {
@@ -22422,6 +22738,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       };
       return position;
     }
+
+
+    //----------- TRANSLATE MAIN
 
     function setTemplatePositionMAIN(dim, windowH, scale) {
       var position;

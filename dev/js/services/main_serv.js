@@ -1182,7 +1182,6 @@
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
-
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
@@ -1198,6 +1197,7 @@
       /** ===== SAVE PRODUCTS =====*/
 
       var prodQty = OrderStor.order.products.length, p;
+      OrderStor.order.products_qty = 0;
       for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
@@ -1299,7 +1299,6 @@
 
       /** ============ SAVE ORDER =========== */
 
-              //      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;

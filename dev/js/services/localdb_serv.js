@@ -2541,21 +2541,21 @@
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
-        priceObj.consist = result;
+        priceObj.consist = angular.copy(result);
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
-            priceObj.kits = kits;
+            priceObj.kits = angular.copy(kits);
             //console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
-              priceObj.kitsElem = kitsElem;
+              priceObj.kitsElem = angular.copy(kitsElem);
               //console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
                 //console.warn('consistElem!!!!!!+', consist[0]);
-                priceObj.consistElem = consist[0];
+                priceObj.consistElem = angular.copy(consist[0]);
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
 
@@ -2673,7 +2673,7 @@
       /** parse Kit */
       getKitByID(grid.cloth_id).then(function(kits) {
         //console.warn('kits!!!!!!+', kits);
-        priceObj.kits = kits;
+        priceObj.kits = angular.copy(kits);
 
         /** parse Kit Element */
         getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem) {
@@ -2684,7 +2684,6 @@
               priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
 
           priceObj.kitsElem = angular.copy(kitsElem);
-          //console.warn('kitsElem!!!!!!+', kitsElem);
 
           //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
           /** currency conversion */
@@ -2707,7 +2706,7 @@
           parseListContent(grid.bottom_id),
           parseListContent(grid.left_id)
         ]).then(function (result) {
-          priceObj.consist = result;
+          priceObj.consist = angular.copy(result);
           //console.warn('list-contents!!!!!!+', result);
 
             parseConsistElem(priceObj.consist).then(function (consist) {
@@ -2718,7 +2717,7 @@
                     grid.left_waste
               ], consistQty, cons, el, wasteValue, sizeSource;
               //console.warn('consistElem!!!!!!+', consist);
-              priceObj.consistElem = consist;
+              priceObj.consistElem = angular.copy(consist);
 
               /** culc Consist Price */
 
