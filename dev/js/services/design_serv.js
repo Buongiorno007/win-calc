@@ -15,6 +15,7 @@
     globalConstants,
     GeneralServ,
     localDB,
+    loginServ,
     MainServ,
     AnalyticsServ,
     optionsServ,
@@ -630,81 +631,46 @@
     /**--------------- GRIDs --------------*/
 
     function updateGrids() {
-      var grids = ProductStor.product.chosenAddElements[0],
-          gridQty = grids.length,
+      var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          gridQty = gridsOld.length,
           blocks = ProductStor.product.template.details,
-          isChanged = 0, blockQty, sizeGridX, sizeGridY, gridTemp;
+          blockQty = blocks.length,
+          isChanged = 0, gridsNew = [],
+          sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
       if(gridQty) {
-        GridArr: while(--gridQty > -1) {
-          //----- find grid in template
-          blockQty = blocks.length;
-          while(--blockQty > 0) {
-            if(blocks[blockQty].id === grids[gridQty].block_id) {
-              //------- if grid there is in this block
-              if(blocks[blockQty].gridId) {
-
+        while(--blockQty > 0) {
+          //------- if grid there is in this block
+          if(blocks[blockQty].gridId) {
+            for (g = 0; g < gridQty; g += 1) {
+              if(blocks[blockQty].id === gridsOld[g].block_id) {
+                gridTemp = gridsOld[g];
+                sizeTemp = {};
                 //------ defined inner block sizes
-                sizeGridX = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridX = blocks[blockQty].pointsLight.map(function(item) {
                   return item.x;
                 });
-                sizeGridY = blocks[blockQty].pointsIn.map(function(item) {
+                sizeGridY = blocks[blockQty].pointsLight.map(function(item) {
                   return item.y;
                 });
-                gridTemp = {};
-                gridTemp.width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-                gridTemp.height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+                sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                sizeTemp.height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
                 //----- if width or height are defferented - reculculate grid price
-                if(grids[gridQty].element_width!==gridTemp.width || grids[gridQty].element_height!==gridTemp.height) {
-                  grids[gridQty].element_width = gridTemp.width;
-                  grids[gridQty].element_height = gridTemp.height;
+                if(gridTemp.element_width !== sizeTemp.width || gridTemp.element_height !== sizeTemp.height) {
+                  gridTemp.element_width = sizeTemp.width;
+                  gridTemp.element_height = sizeTemp.height;
                   isChanged = 1;
                 }
-
-              } else {
-                //----- delete grid in chosenAddElements
-                ProductStor.product.chosenAddElements[0].splice(gridQty, 1);
-                continue GridArr;
+                gridsNew.push(gridTemp);
               }
             }
           }
         }
+        //------- rewrite grids lists
+        ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
       }
       return isChanged;
     }
 
-
-    function getGridPrice(grids) {
-      var deff = $q.defer(),
-          proms = grids.map(function(item) {
-            var deff2 = $q.defer(),
-                objXAddElementPrice = {
-                  currencyId: UserStor.userInfo.currencyId,
-                  elementId: item.id,
-                  elementWidth: (item.element_width/1000),
-                  elementHeight: (item.element_height/1000)
-                };
-            //console.log('objXAddElementPrice=====', objXAddElementPrice);
-            //-------- get current add element price
-            localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-              if (results) {
-                item.element_price = angular.copy(GeneralServ.roundingValue( results.priceTotal ));
-                item.elementPriceDis = angular.copy(GeneralServ.setPriceDis(
-                  results.priceTotal,
-                  OrderStor.order.discount_addelem
-                ));
-                //console.log('objXAddElementPrice====result +++', results, item);
-                deff2.resolve(item);
-              } else {
-                deff2.reject(results);
-              }
-            });
-
-            return deff2.promise;
-          });
-
-      deff.resolve($q.all(proms));
-      return deff.promise;
-    }
 
 
 
@@ -1142,7 +1108,8 @@
         blocks[blockIndex].impost = {
           impostAxis: [],
           impostOut: [],
-          impostIn: []
+          impostIn: [],
+          impostLight: []
         };
       }
       blocks[blockIndex].impost.impostAxis.push(impPoint);
@@ -1159,6 +1126,7 @@
         children: [],
         pointsOut: [],
         pointsIn: [],
+        pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt
@@ -2734,7 +2702,7 @@
             var isChanged = updateGrids();
             if (isChanged) {
               //------ get new grids price
-              getGridPrice(ProductStor.product.chosenAddElements[0]);
+              loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
             }
 
             /** refresh price of new template */
@@ -2821,8 +2789,6 @@
       hideSizeTools: hideSizeTools,
 
       stepBack: stepBack,
-      getGridPrice: getGridPrice,
-
       //---- door
       //      downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig

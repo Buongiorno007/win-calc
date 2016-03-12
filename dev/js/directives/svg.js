@@ -328,9 +328,7 @@
                   .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
                   .attr('width', 600)
                   .attr('height', 400);
-              }
 
-              if(ProductStor.product.lamination.img_in_id > 1) {
                 defs.append('pattern')
                   .attr('id', 'laminat1')
                   .attr('patternUnits', 'userSpaceOnUse')
@@ -554,7 +552,7 @@
                     randomOpasity = '',
                     block15Top = '';
 
-        
+
                 if (ProductStor.product.template_height < 1648) {
                   topWindowsill = '' + 456;
                   block15Height = '' + 90;
@@ -581,48 +579,48 @@
                 }
 
                 if (widthWmd > 900 && heightWmd < 1648) {
-                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
                 } else {
-                  d3.select('.coeff-room-block5').style('left' , 10000 + 'px');
+                  $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
                 d3.select('.coeff-room-block15').style({
                   'width' : ((0.48*(widthWmd/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
-                d3.select('.coeff-room-block11').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block16').style('left' , 9 + 'px');
-                d3.select('.coeff-room-block8').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block7').style('opacity' , 0);
-                d3.select('.coeff-room-block9').style('opacity' , 1);
-                d3.select('.coeff-room-block23').style('left' , (10000) + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 0);
-                d3.select('.shadow-main').style();
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block11').css('left' , (10000) + 'px');
+                $('.coeff-room-block16').css('left' , 9 + 'px');
+                $('.coeff-room-block8').css('left' , (10000) + 'px');
+                $('.coeff-room-block7').css('opacity' , 0);
+                $('.coeff-room-block9').css('opacity' , 1);
+                $('.coeff-room-block23').css('left' , (10000) + 'px');
+                $('.coeff-room-block10').css('opacity' , 0);
+                //$('.shadow-main').css();
+                $('.coeff-room-block17').css({
                   'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
                 });
-                d3.select('.coeff-room-block18').style({
+                $('.coeff-room-block18').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                d3.select('.coeff-room-block19').style({
+                $('.coeff-room-block19').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                d3.select('.coeff-room-block20').style({
+                $('.coeff-room-block20').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
                     'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
                 });
-                d3.select('.coeff-room-block21').style({
+                $('.coeff-room-block21').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 3 + 'px',
@@ -634,50 +632,50 @@
                 var lchHeight = (((0.18*heightWmd)-252)+520),
                     lchWidth = (((0.18*widthWmd)-234)+420),
                     heightDisplay = 755;
-                d3.select('.coeff-room-block23').style({
+                $('.coeff-room-block23').style({
                   'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
                   'top' : 665 + 'px',
                   'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
                 });
-                d3.select('.coeff-room-block15').style({
+                $('.coeff-room-block15').style({
                   'top': (10000) + 'px'
                 });
-                d3.select('.coeff-room-block17').style({
+                $('.coeff-room-block17').style({
                   'width' : 0 + 'px',
                   'height' : 0 + 'px',
                   'left' : 0 + 'px'
                 });
-                d3.select('.coeff-room-block18').style({
+                $('.coeff-room-block18').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px'
                 });
-                d3.select('.coeff-room-block19').style({
+                $('.coeff-room-block19').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px',
                 });
-                d3.select('.coeff-room-block20').style({
+                $('.coeff-room-block20').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 30) + 'px',
                 });
-                d3.select('.coeff-room-block21').style({
+                $('.coeff-room-block21').style({
                     'width' : lchWidth + 'px',
                     'height' : lchHeight + 'px',
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 50) + 'px',
                 });
-                d3.select('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
-                d3.select('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
-                d3.select('.coeff-room-block5').style('left' , 5000 + 'px');
-                d3.select('.coeff-room-block10').style('opacity' , 1);
-                d3.select('.coeff-room-block7').style('opacity' , 1);
-                d3.select('.coeff-room-block16').style('left' , 5000 + 'px');
-                d3.select('.coeff-room-block9').style('opacity' , 0);
+                $('.coeff-room-block11').style('left' , (0.23*(0.991*widthWmd)+280) + 'px');
+                $('.coeff-room-block8').style('left' , (0.23*widthWmd+275) + 'px');
+                $('.coeff-room-block5').style('left' , 5000 + 'px');
+                $('.coeff-room-block10').style('opacity' , 1);
+                $('.coeff-room-block7').style('opacity' , 1);
+                $('.coeff-room-block16').style('left' , 5000 + 'px');
+                $('.coeff-room-block9').style('opacity' , 0);
               }
             }
 
@@ -726,7 +724,7 @@
                 });
               }
               if(ProductStor.product.construction_type == 4) {
-              
+
                 mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonDoor3',
@@ -735,7 +733,7 @@
                   'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
                 });
 
-                mainGroup.append('g').append("polygon")            
+                mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonDoor4',
                   'fill' : '#FFFAFA',
@@ -861,7 +859,7 @@
                   }
                 });
 
-console.log('32323232', template);
+
               if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {

@@ -674,13 +674,13 @@
             </ul>
           </div>
           <footer class="menu-footer">
-            <div ng-show="elementsMenu.A.aux.isAddElement" class="price-element">
+            <div ng-show="elementsMenu.A.aux.isAddElement &amp;&amp; elementsMenu.A.aux.currAddElementPrice" class="price-element">
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
           </footer>
         </div>
         <!--========== one element pannel in List View-->
-        <div ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
+        <div ng-show="elementsMenu.A.aux.isAddElementListView &amp;&amp; ((elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement &gt; 1) || elementsMenu.G.global.currOpenPage === 'cart')" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
           <div ng-repeat="addElement in type track by $index" class="list-item">
             <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
               <div class="aux-list-row">
