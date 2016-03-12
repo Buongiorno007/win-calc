@@ -17,6 +17,7 @@
     UserStor,
     localDB,
     GeneralServ,
+    loginServ,
     MainServ,
     SVGServ,
     DesignServ,
@@ -104,26 +105,50 @@
 
 
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: addElementsList[typeIndex][elementIndex].id,
-        elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
-        elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
-      };
-      return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
-            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
-          );
-          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
-            GeneralServ.setPriceDis(
-              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
-            )
-          );
-          AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
-        }
-        return results;
-      });
+      var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
+      /** Grid */
+      if(AuxStor.aux.isFocusedAddElement === 1) {
+
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          element: item
+        };
+        //-------- get current add element price
+        return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            ));
+            item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+            ));
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+
+      } else {
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          elementId: item.id,
+          elementWidth: (item.element_width/1000),
+          elementHeight: (item.element_height/1000)
+        };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            );
+            item.elementPriceDis = GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(
+                item.element_price, OrderStor.order.discount_addelem
+              )
+            );
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+      }
     }
 
 
@@ -337,8 +362,8 @@
       ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
       //-------- add sizes in grid object
       gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
-      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+      gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
       gridTemp.block_id = blockId;
       return gridTemp;
     }
@@ -457,7 +482,7 @@
 
 
     function insertGrids(grids) {
-      DesignServ.getGridPrice(grids).then(function(data) {
+      loginServ.getGridPrice(grids).then(function(data) {
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
         if(dataQty) {
@@ -533,17 +558,9 @@
     function getAddElementPrice(typeIndex, elementIndex) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element is not grid and has price
-//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
-      //
-      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      //} else {
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       });
-      //}
       return deferred.promise;
     }
 

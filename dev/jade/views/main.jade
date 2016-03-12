@@ -6,6 +6,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
     include parts/_room-elements
     section.main-content(tabindex="0")
       include parts/_main-svg
+      .main-svg-click(ng-click="mainPage.goToEditTemplate()")
       include parts/_user-info
       include parts/_room-info
       include parts/_room-selector

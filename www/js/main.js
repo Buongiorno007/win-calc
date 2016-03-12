@@ -1943,6 +1943,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     
   function(
+    $location,
     $timeout,
     DesignServ,
     DesignStor,
@@ -1956,11 +1957,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants
   ) {
     /*jshint validthis:true */
-   var thisCtrl = this,
-    delaySubMenu1 = 300,
-    delaySubMenu2 = 600,
-    delaySubMenu3 = 900,
-    delaySubMenu4 = 1200;
+   var thisCtrl = this;
 
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -1977,17 +1974,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //---- design menu
       isDesignError: 0,
 
-      //----- door
-      isDoorConfig: 0,
-      selectedStep1: 0,
-      selectedStep2: 0,
-      selectedStep3: 0,
-      selectedStep4: 0,
-
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
 
+
+    /**============ METHODS ================*/
+
+    //TODO delete
+    function goToEditTemplate() {
+      GlobalStor.global.activePanel = 0;
+      DesignStor.design.isGlassExtra = 0;
+      $location.path('/design');
+    }
 
 
 
@@ -1996,7 +1995,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
-//      console.log('START main CTRL!!!!!!');
 //      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
@@ -2018,21 +2016,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         if(GlobalStor.global.locations.cities.length === 1) {
           loginServ.downloadAllCities(1);
         }
-
-
-        //--------- set template from ProductStor
+        /** for SVG_MAIN */
+        //--------- set templateTEMP from ProductStor
         DesignServ.setDefaultTemplate();
-       
 
         //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
 
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-//      DesignServ.downloadDoorConfig();
-      DesignServ.setIndexDoorConfig();
-    }
+
 
     /**================ EDIT PRODUCT =================*/
 
@@ -2046,343 +2038,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-//========= methods  ================//
 
-
-    //--------Select menu item
-    function selectMenuItem(id) {
-      if(DesignStor.design.tempSize.length) {
-        //----- finish size culculation
-        DesignServ.closeSizeCaclulator();
-      } else {
-        DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
-        DesignStor.design.isDropSubMenu = 0;
-        DesignServ.hideCornerMarks();
-        DesignServ.deselectAllImpost();
-        if (id !== 4) {
-          DesignServ.deselectAllArc();
-        }
-        //----- hide culculator
-        DesignServ.hideSizeTools();
-        if (DesignStor.design.activeMenuItem) {
-          switch (DesignStor.design.activeMenuItem) {
-            case 1:
-              showAllAvailableGlass(id);
-              //------ drop submenu items
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 2;
-              }, delaySubMenu1);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 6;
-              }, delaySubMenu2);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 8;
-              }, delaySubMenu3);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 0;
-              }, delaySubMenu4);
-              break;
-            case 2:
-              DesignServ.deselectAllGlass();
-              showAllAvailableCorner(id);
-              break;
-            case 3:
-              showAllAvailableGlass(id);
-              //------ drop submenu items
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 4;
-              }, delaySubMenu1);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 8;
-              }, delaySubMenu2);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 12;
-              }, delaySubMenu3);
-              $timeout(function(){
-                DesignStor.design.isDropSubMenu = 0;
-              }, delaySubMenu4);
-              break;
-            case 4:
-              DesignServ.deselectAllGlass();
-              showAllAvailableArc(id);
-              break;
-            case 5:
-              //DesignServ.deselectAllGlass();
-              DesignStor.design.activeSubMenuItem = id;
-              break;
-          }
-        } else {
-          //------ if we close menu
-          DesignStor.design.activeSubMenuItem = 0;
-          //-------- delete selected glasses
-          DesignServ.deselectAllGlass();
-          DesignServ.deselectAllArc();
-          $timeout(function () {
-            DesignStor.design.isImpostDelete = 0;
-          }, 300);
-        }
-      }
-    }
-
-
-    function deactivMenu() {
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      DesignStor.design.isDropSubMenu = 0;
-    }
-
-    function showDesignError() {
-      thisCtrl.config.isDesignError = 1;
-      DesignStor.design.activeMenuItem = 0;
-      DesignStor.design.activeSubMenuItem = 0;
-      $timeout(function(){
-        thisCtrl.config.isDesignError = 0;
-      }, 800);
-    }
-
-
-    //++++++++++ Edit Sash ++++++++++//
-
-    function showAllAvailableGlass(menuId) {
-      DesignStor.design.activeSubMenuItem = menuId;
-      if(!DesignStor.design.selectedGlass.length) {
-        //----- show all glasses
-        var glasses = d3.selectAll('#tamlateSVG .glass');
-        DesignStor.design.selectedGlass = glasses[0];
-        glasses.classed('glass-active', true);
-      }
-    }
-
-
-
-    function insertSash(sashType, event) {
-//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
-      event.preventDefault();
-//      event.srcEvent.stopPropagation();
-
-      var isPermit = 1,
-          glassQty = DesignStor.design.selectedGlass.length,
-          i = 0;
-
-      if(sashType === 1) {
-        deactivMenu();
-        //----- delete sash
-        for(; i < glassQty; i++) {
-          DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
-        }
-      } else {
-        if(sashType === 2 || sashType === 6 || sashType === 8) {
-          if(DesignStor.design.isDropSubMenu === sashType) {
-            DesignStor.design.isDropSubMenu = 0;
-          } else {
-            DesignStor.design.isDropSubMenu = sashType;
-            isPermit = 0;
-          }
-        }
-
-        if(isPermit) {
-          deactivMenu();
-          //----- insert sash
-          for (; i < glassQty; i++) { //TODO download hardare types and create submenu
-            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
-          }
-        }
-      }
-    }
-
-
-
-    //++++++++++ Edit Corner ++++++++//
-
-    //-------- show all Corner Marks
-    function showAllAvailableCorner(menuId) {
-      var corners = d3.selectAll('#tamlateSVG .corner_mark');
-      if(corners[0].length) {
-        //---- show submenu
-        DesignStor.design.activeSubMenuItem = menuId;
-        corners.transition().duration(300).ease("linear").attr('r', 50);
-        DesignStor.design.selectedCorner = corners[0];
-//        corners.on('touchstart', function () {
-        corners.on('click', function () {
-          //----- hide all cornerMark
-          DesignServ.hideCornerMarks();
-
-          //----- show selected cornerMark
-          var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
-          DesignStor.design.selectedCorner.push(corner[0][0]);
-
-        });
-      } else {
-        showDesignError();
-      }
-    }
-
-    function insertCorner(conerType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
-      //------ hide menu
-      deactivMenu();
-      var cornerQty = DesignStor.design.selectedCorner.length,
-          i = 0;
-      switch(conerType) {
-        //----- delete
-        case 1:
-          for(; i < cornerQty; i++) {
-            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
-          }
-          break;
-        //----- line angel
-        case 2:
-          for(; i < cornerQty; i++) {
-            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
-          }
-          break;
-        //----- curv angel
-        case 3:
-          for(; i < cornerQty; i++) {
-            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
-          }
-          break;
-      }
-    }
-
-
-
-
-
-    //++++++++++ Edit Arc ++++++++//
-
-    function showAllAvailableArc(menuId) {
-      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
-        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
-          return true;
-        }
-      });
-      //----- if not corners
-      if(arcs.length) {
-        DesignStor.design.activeSubMenuItem = menuId;
-//        console.log('Arcs++++++', DesignStor.design.selectedArc);
-        if(!DesignStor.design.selectedArc.length) {
-          //----- show all frames and arc
-          var arcsD3 = d3.selectAll(arcs);
-          DesignStor.design.selectedArc = arcsD3[0];
-          arcsD3.classed('active_svg', true);
-        }
-      } else {
-        showDesignError();
-      }
-    }
-
-
-
-    function insertArc(arcType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
-      deactivMenu();
-      //---- get quantity of arcs
-      var arcQty = DesignStor.design.selectedArc.length;
-
-      //======= delete arc
-      if(arcType === 1) {
-        //------ delete all arcs
-        if (arcQty > 1) {
-          DesignServ.workingWithAllArcs(0);
-        } else {
-          //------ delete one selected arc
-          DesignServ.deleteArc(DesignStor.design.selectedArc[0]);
-          DesignStor.design.selectedArc.length = 0;
-        }
-
-      //======= insert arc
-      } else {
-        //------ insert all arcs
-        if(arcQty > 1) {
-          DesignServ.workingWithAllArcs(1);
-        } else {
-          //------ insert one selected arc
-          DesignServ.createArc(DesignStor.design.selectedArc[0]);
-          DesignStor.design.selectedArc.length = 0;
-        }
-      }
-    }
-
-
-
-
-    //++++++++++ Edit Impost ++++++++//
-
-
-    function insertImpost(impostType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
-      var isPermit = 1,
-          impostsQty = DesignStor.design.selectedImpost.length,
-          i = 0;
-
-      if(impostType === 1) {
-        deactivMenu();
-        //----- delete imposts
-        if (impostsQty) {
-          for (; i < impostsQty; i++) {
-            DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
-          }
-          $timeout(function(){
-            DesignStor.design.isImpostDelete = 0;
-          }, 300);
-        }
-      } else {
-        //----- show drop submenu
-        if(impostType === 4 || impostType === 8 || impostType === 12) {
-          if(DesignStor.design.isDropSubMenu === impostType) {
-            DesignStor.design.isDropSubMenu = 0;
-          } else {
-            DesignStor.design.isDropSubMenu = impostType;
-            isPermit = 0;
-          }
-        }
-
-        if(isPermit) {
-          deactivMenu();
-          if (!impostsQty) {
-            var glassQty = DesignStor.design.selectedGlass.length;
-            if (glassQty) {
-              //------- insert imposts
-              for (; i < glassQty; i++) {
-                DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
-              }
-            }
-          } else {
-            DesignServ.deselectAllImpost();
-          }
-        }
-      }
-    }
-
-
-    /**++++++++++ create Mirror ++++++++*/
-
-    function initMirror(event) {
-      event.preventDefault();
-      deactivMenu();
-      DesignServ.initMirror();
-    }
-
-
-    /**++++++++++ position by Axises ++++++++*/
-
-    function positionAxis(event) {
-      event.preventDefault();
-      deactivMenu();
-      DesignServ.positionAxises();
-    }
-
-
-    /**++++++++++ position by Glasses ++++++++*/
-
-    function positionGlass(event) {
-      event.preventDefault();
-      deactivMenu();
-      DesignServ.positionGlasses();
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+      DesignServ.setIndexDoorConfig();
     }
 
 
@@ -2390,130 +2049,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-    /**============= DOOR ===============*/
 
-    //---------- Show Door Configuration
-    function toggleDoorConfig() {
-      thisCtrl.config.isDoorConfig = 1;
-      DesignServ.closeSizeCaclulator();
-      //----- set emplty index values
-//      DesignStor.design.doorConfig.doorShapeIndex = '';
-//      DesignStor.design.doorConfig.sashShapeIndex = '';
-//      DesignStor.design.doorConfig.handleShapeIndex = '';
-//      DesignStor.design.doorConfig.lockShapeIndex = '';
-    }
+    /**========== FINISH ==========*/
 
-    //---------- Select door shape
-    function selectDoor(id) {
-      if(!thisCtrl.config.selectedStep2) {
-        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
-          DesignStor.design.doorConfig.doorShapeIndex = '';
-          thisCtrl.config.selectedStep1 = 0;
-        } else {
-          DesignStor.design.doorConfig.doorShapeIndex = id;
-          thisCtrl.config.selectedStep1 = 1;
-        }
-      }
-    }
-    //---------- Select sash shape
-    function selectSash(id) {
-      if(!thisCtrl.config.selectedStep3) {
-        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
-          DesignStor.design.doorConfig.sashShapeIndex = '';
-          thisCtrl.config.selectedStep2 = 0;
-        } else {
-          DesignStor.design.doorConfig.sashShapeIndex = id;
-          thisCtrl.config.selectedStep2 = 1;
-        }
-      }
-    }
-    //-------- Select handle shape
-    function selectHandle(id) {
-      if(!thisCtrl.config.selectedStep4) {
-        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
-          DesignStor.design.doorConfig.handleShapeIndex = '';
-          thisCtrl.config.selectedStep3 = 0;
-        } else {
-          DesignStor.design.doorConfig.handleShapeIndex = id;
-          thisCtrl.config.selectedStep3 = 1;
-        }
-      }
-    }
-    //--------- Select lock shape
-    function selectLock(id) {
-      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
-        DesignStor.design.doorConfig.lockShapeIndex = '';
-        thisCtrl.config.selectedStep4 = 0;
-      } else {
-        DesignStor.design.doorConfig.lockShapeIndex = id;
-        thisCtrl.config.selectedStep4 = 1;
-      }
-    }
-
-    //--------- Close Door Configuration
-    function closeDoorConfig() {
-      if(thisCtrl.config.selectedStep3) {
-        thisCtrl.config.selectedStep3 = 0;
-        thisCtrl.config.selectedStep4 = 0;
-        DesignStor.design.doorConfig.lockShapeIndex = '';
-        DesignStor.design.doorConfig.handleShapeIndex = '';
-      } else if(thisCtrl.config.selectedStep2) {
-        thisCtrl.config.selectedStep2 = 0;
-        DesignStor.design.doorConfig.sashShapeIndex = '';
-      } else if(thisCtrl.config.selectedStep1) {
-        thisCtrl.config.selectedStep1 = 0;
-        DesignStor.design.doorConfig.doorShapeIndex = '';
-      } else {
-        //------ close door config
-        thisCtrl.config.isDoorConfig = 0;
-        //------ set Default indexes
-        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
-      }
-    }
-
-    //--------- Save Door Configuration
-    function saveDoorConfig() {
-      DesignServ.rebuildSVGTemplate();
-      thisCtrl.config.isDoorConfig = 0;
-    }
-
-    //=============== End Door ==================//
-
-
-
-
-
-
-    //=========== clicking ============//
-
-    thisCtrl.designSaved = DesignServ.designSaved;
-    thisCtrl.designCancel = DesignServ.designCancel;
-    thisCtrl.selectMenuItem = selectMenuItem;
+    //------ clicking
+    thisCtrl.goToEditTemplate = goToEditTemplate;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
-    //----- door config
-    thisCtrl.toggleDoorConfig = toggleDoorConfig;
-    thisCtrl.selectDoor = selectDoor;
-    thisCtrl.selectSash = selectSash;
-    thisCtrl.selectHandle = selectHandle;
-    thisCtrl.selectLock = selectLock;
-    thisCtrl.closeDoorConfig = closeDoorConfig;
-    thisCtrl.saveDoorConfig = saveDoorConfig;
 
-    //------ edit design
-    thisCtrl.insertSash = insertSash;
-    thisCtrl.insertCorner = insertCorner;
-    thisCtrl.insertImpost = insertImpost;
-    thisCtrl.insertArc = insertArc;
-    thisCtrl.initMirror = initMirror;
-    thisCtrl.positionAxis = positionAxis;
-    thisCtrl.positionGlass = positionGlass;
-
-    thisCtrl.stepBack = DesignServ.stepBack;
-
-
-
-    });
+  });
 })();
 
 
@@ -2624,26 +2168,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
       }
-      /** if ListView is opened */
-      if (AuxStor.aux.isAddElementListView) {
-        selectAddElementList(typeId, elementId, clickEvent);
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
       } else {
-        /** if grid,  show grid selector dialog */
-        if(AuxStor.aux.isFocusedAddElement === 1) {
-          if(ProductStor.product.is_addelem_only) {
-            /** without window */
-            AddElementMenuServ.chooseAddElement(typeId, elementId);
-          } else {
-            /** show Grid Selector Dialog */
-            AuxStor.aux.selectedGrid = [typeId, elementId];
-            AuxStor.aux.isGridSelectorDialog = 1;
-            AuxStor.aux.isAddElement = typeId+'-'+elementId;
-            DesignServ.initAllGlassXGrid();
-          }
+        /** if ListView is opened */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
         } else {
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
+
     }
 
 
@@ -7019,6 +6564,7 @@ function ErrorResult(code, message) {
     UserStor,
     localDB,
     GeneralServ,
+    loginServ,
     MainServ,
     SVGServ,
     DesignServ,
@@ -7106,26 +6652,50 @@ function ErrorResult(code, message) {
 
 
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
-      var objXAddElementPrice = {
-        currencyId: UserStor.userInfo.currencyId,
-        elementId: addElementsList[typeIndex][elementIndex].id,
-        elementWidth: (addElementsList[typeIndex][elementIndex].element_width/1000),
-        elementHeight: (addElementsList[typeIndex][elementIndex].element_height/1000)
-      };
-      return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-        if (results) {
-          addElementsList[typeIndex][elementIndex].element_price = GeneralServ.roundingValue(
-            GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin), 2
-          );
-          addElementsList[typeIndex][elementIndex].elementPriceDis = GeneralServ.roundingValue(
-            GeneralServ.setPriceDis(
-              addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem
-            )
-          );
-          AuxStor.aux.currAddElementPrice = angular.copy(addElementsList[typeIndex][elementIndex].elementPriceDis);
-        }
-        return results;
-      });
+      var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
+      /** Grid */
+      if(AuxStor.aux.isFocusedAddElement === 1) {
+
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          element: item
+        };
+        //-------- get current add element price
+        return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            ));
+            item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+            ));
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+
+      } else {
+        objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          elementId: item.id,
+          elementWidth: (item.element_width/1000),
+          elementHeight: (item.element_height/1000)
+        };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            );
+            item.elementPriceDis = GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(
+                item.element_price, OrderStor.order.discount_addelem
+              )
+            );
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+      }
     }
 
 
@@ -7339,8 +6909,8 @@ function ErrorResult(code, message) {
       ProductStor.product.template_source.details[blockIndex].gridTxt = AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]].name;
       //-------- add sizes in grid object
       gridTemp = angular.copy(AuxStor.aux.addElementsList[gridIndex[0]][gridIndex[1]]);
-      gridTemp.element_width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-      gridTemp.element_height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+      gridTemp.element_width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+      gridTemp.element_height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
       gridTemp.block_id = blockId;
       return gridTemp;
     }
@@ -7459,7 +7029,7 @@ function ErrorResult(code, message) {
 
 
     function insertGrids(grids) {
-      DesignServ.getGridPrice(grids).then(function(data) {
+      loginServ.getGridPrice(grids).then(function(data) {
         var dataQty = data.length;
         AuxStor.aux.currAddElementPrice = 0;
         if(dataQty) {
@@ -7535,17 +7105,9 @@ function ErrorResult(code, message) {
     function getAddElementPrice(typeIndex, elementIndex) {
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
-      //------- checking if add element is not grid and has price
-//if(AuxStor.aux.isFocusedAddElement > 1 && AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-//  AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
-//  AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis=angular.copy(AuxStor.aux.currAddElementPrice);
-      //
-      //  deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
-      //} else {
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       });
-      //}
       return deferred.promise;
     }
 
@@ -9044,6 +8606,7 @@ function ErrorResult(code, message) {
     globalConstants,
     GeneralServ,
     localDB,
+    loginServ,
     MainServ,
     AnalyticsServ,
     optionsServ,
@@ -9659,19 +9222,20 @@ function ErrorResult(code, message) {
     /**--------------- GRIDs --------------*/
 
     function updateGrids() {
-      var grids = ProductStor.product.chosenAddElements[0],
-          gridQty = grids.length,
+      var gridsOld = angular.copy(ProductStor.product.chosenAddElements[0]),
+          gridQty = gridsOld.length,
           blocks = ProductStor.product.template.details,
-          isChanged = 0, blockQty, sizeGridX, sizeGridY, gridTemp;
+          blockQty = blocks.length,
+          isChanged = 0, gridsNew = [],
+          sizeGridX, sizeGridY, sizeTemp, gridTemp, g;
       if(gridQty) {
-        GridArr: while(--gridQty > -1) {
-          //----- find grid in template
-          blockQty = blocks.length;
-          while(--blockQty > 0) {
-            if(blocks[blockQty].id === grids[gridQty].block_id) {
-              //------- if grid there is in this block
-              if(blocks[blockQty].gridId) {
-
+        while(--blockQty > 0) {
+          //------- if grid there is in this block
+          if(blocks[blockQty].gridId) {
+            for (g = 0; g < gridQty; g += 1) {
+              if(blocks[blockQty].id === gridsOld[g].block_id) {
+                gridTemp = gridsOld[g];
+                sizeTemp = {};
                 //------ defined inner block sizes
                 sizeGridX = blocks[blockQty].pointsLight.map(function(item) {
                   return item.x;
@@ -9679,60 +9243,25 @@ function ErrorResult(code, message) {
                 sizeGridY = blocks[blockQty].pointsLight.map(function(item) {
                   return item.y;
                 });
-                gridTemp = {};
-                gridTemp.width = (d3.max(sizeGridX) - d3.min(sizeGridX));
-                gridTemp.height = (d3.max(sizeGridY) - d3.min(sizeGridY));
+                sizeTemp.width = Math.round(d3.max(sizeGridX) - d3.min(sizeGridX));
+                sizeTemp.height = Math.round(d3.max(sizeGridY) - d3.min(sizeGridY));
                 //----- if width or height are defferented - reculculate grid price
-                if(grids[gridQty].element_width!==gridTemp.width || grids[gridQty].element_height!==gridTemp.height) {
-                  grids[gridQty].element_width = gridTemp.width;
-                  grids[gridQty].element_height = gridTemp.height;
+                if(gridTemp.element_width !== sizeTemp.width || gridTemp.element_height !== sizeTemp.height) {
+                  gridTemp.element_width = sizeTemp.width;
+                  gridTemp.element_height = sizeTemp.height;
                   isChanged = 1;
                 }
-
-              } else {
-                //----- delete grid in chosenAddElements
-                ProductStor.product.chosenAddElements[0].splice(gridQty, 1);
-                continue GridArr;
+                gridsNew.push(gridTemp);
               }
             }
           }
         }
+        //------- rewrite grids lists
+        ProductStor.product.chosenAddElements[0] = angular.copy(gridsNew);
       }
       return isChanged;
     }
 
-
-    function getGridPrice(grids) {
-      var deff = $q.defer(),
-          proms = grids.map(function(item) {
-            var deff2 = $q.defer(),
-                objXAddElementPrice = {
-                  currencyId: UserStor.userInfo.currencyId,
-                  element: item
-                };
-            //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
-            //-------- get current add element price
-            localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
-              if (results) {
-                item.element_price = angular.copy(GeneralServ.roundingValue(
-                  GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
-                ));
-                item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
-                  GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
-                ));
-                //console.log('GRID objXAddElementPrice====result +++', results);
-                deff2.resolve(item);
-              } else {
-                deff2.reject(results);
-              }
-            });
-
-            return deff2.promise;
-          });
-
-      deff.resolve($q.all(proms));
-      return deff.promise;
-    }
 
 
 
@@ -11764,7 +11293,7 @@ function ErrorResult(code, message) {
             var isChanged = updateGrids();
             if (isChanged) {
               //------ get new grids price
-              getGridPrice(ProductStor.product.chosenAddElements[0]);
+              loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
             }
 
             /** refresh price of new template */
@@ -11851,8 +11380,6 @@ function ErrorResult(code, message) {
       hideSizeTools: hideSizeTools,
 
       stepBack: stepBack,
-      getGridPrice: getGridPrice,
-
       //---- door
       //      downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig
@@ -12490,19 +12017,21 @@ function ErrorResult(code, message) {
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
-            prod;
+            prod, index;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
             for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                index = elementsAdd[allAddElemQty].element_type;
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
                 elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
                   elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
                 );
-                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
+                elementsAdd[allAddElemQty].list_group_id = GeneralServ.addElementDATA[index].id;
+                OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
                 }
@@ -16521,6 +16050,40 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
+    function getGridPrice(grids) {
+      var deff = $q.defer(),
+          proms = grids.map(function(item) {
+            var deff2 = $q.defer(),
+                objXAddElementPrice = {
+                  currencyId: UserStor.userInfo.currencyId,
+                  element: item
+                };
+            //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
+            //-------- get current add element price
+            localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+              if (results) {
+                item.element_price = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+                ));
+                item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+                ));
+                //console.log('GRID objXAddElementPrice====result +++', results);
+                deff2.resolve(item);
+              } else {
+                deff2.reject(results);
+              }
+            });
+
+            return deff2.promise;
+          });
+
+      deff.resolve($q.all(proms));
+      return deff.promise;
+    }
+
+
+
     function sortingAllAddElem() {
       var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groupsData) {
@@ -16554,7 +16117,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
                   addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
                   addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
+                  addElemAll[elemAllQty].elementsList[0][el].list_group_id = 20;
                 }
+                getGridPrice(addElemAll[elemAllQty].elementsList[0]);
               }
 
             } else {
@@ -16819,7 +16384,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
+      downloadAllData: downloadAllData,
+      getGridPrice: getGridPrice
     };
 
     return thisFactory.publicObj;
@@ -23047,7 +22613,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('TEMPLATE END++++', thisObj);
+      //console.log('TEMPLATE END++++', thisObj);
       defer.resolve(thisObj);
       return defer.promise;
     }

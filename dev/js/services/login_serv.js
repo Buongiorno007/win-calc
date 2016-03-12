@@ -846,6 +846,40 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
+    function getGridPrice(grids) {
+      var deff = $q.defer(),
+          proms = grids.map(function(item) {
+            var deff2 = $q.defer(),
+                objXAddElementPrice = {
+                  currencyId: UserStor.userInfo.currencyId,
+                  element: item
+                };
+            //console.log('GRID objXAddElementPrice=====', objXAddElementPrice);
+            //-------- get current add element price
+            localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+              if (results) {
+                item.element_price = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+                ));
+                item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+                  GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+                ));
+                //console.log('GRID objXAddElementPrice====result +++', results);
+                deff2.resolve(item);
+              } else {
+                deff2.reject(results);
+              }
+            });
+
+            return deff2.promise;
+          });
+
+      deff.resolve($q.all(proms));
+      return deff.promise;
+    }
+
+
+
     function sortingAllAddElem() {
       var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groupsData) {
@@ -879,7 +913,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   addElemAll[elemAllQty].elementsList[0][el].element_width = 1000;
                   addElemAll[elemAllQty].elementsList[0][el].element_height = 1000;
                   addElemAll[elemAllQty].elementsList[0][el].element_qty = 1;
+                  addElemAll[elemAllQty].elementsList[0][el].list_group_id = 20;
                 }
+                getGridPrice(addElemAll[elemAllQty].elementsList[0]);
               }
 
             } else {
@@ -1144,7 +1180,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
-      downloadAllData: downloadAllData
+      downloadAllData: downloadAllData,
+      getGridPrice: getGridPrice
     };
 
     return thisFactory.publicObj;

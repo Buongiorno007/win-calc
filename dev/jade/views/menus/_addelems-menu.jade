@@ -22,7 +22,7 @@
 
 
   //========== one element pannel in List View
-  .list-items(ng-show="elementsMenu.A.aux.isAddElementListView", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
+  .list-items(ng-show="elementsMenu.A.aux.isAddElementListView && ((elementsMenu.G.global.currOpenPage === 'main' && elementsMenu.A.aux.isFocusedAddElement > 1) || elementsMenu.G.global.currOpenPage === 'cart')", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
     .list-item(ng-repeat="addElement in type track by $index")
       .aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.coordinats")
         .aux-list-row

@@ -2728,7 +2728,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('TEMPLATE END++++', thisObj);
+      //console.log('TEMPLATE END++++', thisObj);
       defer.resolve(thisObj);
       return defer.promise;
     }

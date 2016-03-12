@@ -1431,6 +1431,16 @@ body {
   visibility: hidden;
 }
 
+/* line 399, ../../dev/sass/base/general.scss */
+.main-svg-click {
+  position: absolute;
+  top: 15%;
+  left: 26%;
+  width: 65%;
+  height: 70%;
+  z-index: 1;
+}
+
 /* line 17, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup {
   background: transparent;
