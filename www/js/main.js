@@ -1652,9 +1652,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          console.log('IMPORT');
-          checkingUser();
-/*
+          //console.log('IMPORT');
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1702,7 +1702,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-*/
+//*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -8631,10 +8631,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -11605,9 +11605,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -12026,7 +12026,6 @@ function ErrorResult(code, message) {
       ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
-
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
@@ -12060,7 +12059,7 @@ function ErrorResult(code, message) {
               });
 
             } else {
-              defer1.resolve(1);
+              defer1.resolve(tempProd);
             }
             return defer1.promise;
           });
@@ -12069,12 +12068,8 @@ function ErrorResult(code, message) {
 
             var iconPromise = data.map(function(item) {
               var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
-                item.templateIcon = data;
-                delete item.profile_id;
-                delete item.glass_id;
-                delete item.hardware_id;
-
+              //----- checking product with design or only addElements
+              if(item.is_addelem_only) {
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                 item.productPriceDis = (GeneralServ.setPriceDis(
@@ -12083,7 +12078,23 @@ function ErrorResult(code, message) {
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
-              });
+              } else {
+                SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function (data) {
+                  item.templateIcon = data;
+                  delete item.profile_id;
+                  delete item.glass_id;
+                  delete item.hardware_id;
+
+                  //----- set price Discounts
+                  item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                  item.productPriceDis = (GeneralServ.setPriceDis(
+                    item.template_price, OrderStor.order.discount_construct
+                  ) + item.addelemPriceDis);
+
+                  OrderStor.order.products.push(item);
+                  deferIcon.resolve(1);
+                });
+              }
               return deferIcon.promise;
             });
 
