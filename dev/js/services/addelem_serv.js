@@ -24,19 +24,32 @@
 
 
     function downloadAddElementsData(id) {
-      var index = (id - 1);
+      var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      /** if Grids */
+      if (AuxStor.aux.isFocusedAddElement === 1) {
+        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+          return item.profile_id === ProductStor.product.profile.id;
+        });
+        AuxStor.aux.addElementsList = [gridsSort];
+      } else {
+        AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      }
     }
 
 
     function showingAddElemMenu(id) {
       AuxStor.aux.isFocusedAddElement = id;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       AuxStor.aux.currAddElementPrice = 0;
+      //playSound('swip');
       downloadAddElementsData(id);
+      //------ if add elements list is not empty show menu
+      if(AuxStor.aux.addElementsList.length) {
+        if(AuxStor.aux.addElementsList[0].length) {
+          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+        }
+      }
     }
 
 

@@ -50,27 +50,29 @@
 
     //TODO delete
     function goToEditTemplate() {
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        AddElementMenuServ.finishCalculators();
+      if(!ProductStor.product.is_addelem_only) {
+        if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        //---- hide rooms if opened
+        GlobalStor.global.showRoomSelectorDialog = 0;
+        //---- hide tips
+        GlobalStor.global.configMenuTips = 0;
+        //---- hide comment if opened
+        GlobalStor.global.isShowCommentBlock = 0;
+        //---- hide template type menu if opened
+        GlobalStor.global.isTemplateTypeMenu = 0;
+        GeneralServ.stopStartProg();
+        MainServ.setDefaultAuxParam();
+        //------ close Glass Selector Dialogs
+        if (GlobalStor.global.showGlassSelectorDialog) {
+          DesignServ.closeGlassSelectorDialog(1);
+        }
+        GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
+        $location.path('/design');
       }
-      //---- hide rooms if opened
-      GlobalStor.global.showRoomSelectorDialog = 0;
-      //---- hide tips
-      GlobalStor.global.configMenuTips = 0;
-      //---- hide comment if opened
-      GlobalStor.global.isShowCommentBlock = 0;
-      //---- hide template type menu if opened
-      GlobalStor.global.isTemplateTypeMenu = 0;
-      GeneralServ.stopStartProg();
-      MainServ.setDefaultAuxParam();
-      //------ close Glass Selector Dialogs
-      if(GlobalStor.global.showGlassSelectorDialog) {
-        DesignServ.closeGlassSelectorDialog(1);
-      }
-      GlobalStor.global.activePanel = 0;
-      DesignStor.design.isGlassExtra = 0;
-      $location.path('/design');
     }
 
 

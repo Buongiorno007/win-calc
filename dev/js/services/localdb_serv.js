@@ -2681,22 +2681,25 @@
           var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
               wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
               constrElem = angular.copy(kitsElem),
-              priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
+              priceTemp;
 
-          priceObj.kitsElem = angular.copy(kitsElem);
+          if(constrElem) {
+            priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
 
-          //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
-          /** currency conversion */
-          if (UserStor.userInfo.currencyId != constrElem.currency_id){
-            priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+            priceObj.kitsElem = angular.copy(kitsElem);
+
+            //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+            /** currency conversion */
+            if (UserStor.userInfo.currencyId != constrElem.currency_id) {
+              priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+            }
+            constrElem.qty = 1;
+            constrElem.size = sizeTemp;
+            constrElem.priceReal = priceTemp;
+            priceObj.priceTotal += priceTemp;
+            priceObj.constrElements.push(constrElem);
+            //console.warn('constrElem!!!!!!+', constrElem);
           }
-          constrElem.qty = 1;
-          constrElem.size = sizeTemp;
-          constrElem.priceReal = priceTemp;
-          priceObj.priceTotal += priceTemp;
-          priceObj.constrElements.push(constrElem);
-          //console.warn('constrElem!!!!!!+', constrElem);
-
         });
 
         /** collect Kit Children Elements*/

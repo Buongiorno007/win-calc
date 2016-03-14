@@ -1123,6 +1123,7 @@
       }
 
       if(permission) {
+        //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
         GlobalStor.global.configMenuTips = 0;
         GlobalStor.global.isShowCommentBlock = 0;
@@ -1141,7 +1142,9 @@
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
+          if(!ProductStor.product.is_addelem_only) {
     ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
+          }
           delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);

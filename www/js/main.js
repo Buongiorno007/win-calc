@@ -1986,27 +1986,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //TODO delete
     function goToEditTemplate() {
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        AddElementMenuServ.finishCalculators();
+      if(!ProductStor.product.is_addelem_only) {
+        if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        //---- hide rooms if opened
+        GlobalStor.global.showRoomSelectorDialog = 0;
+        //---- hide tips
+        GlobalStor.global.configMenuTips = 0;
+        //---- hide comment if opened
+        GlobalStor.global.isShowCommentBlock = 0;
+        //---- hide template type menu if opened
+        GlobalStor.global.isTemplateTypeMenu = 0;
+        GeneralServ.stopStartProg();
+        MainServ.setDefaultAuxParam();
+        //------ close Glass Selector Dialogs
+        if (GlobalStor.global.showGlassSelectorDialog) {
+          DesignServ.closeGlassSelectorDialog(1);
+        }
+        GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
+        $location.path('/design');
       }
-      //---- hide rooms if opened
-      GlobalStor.global.showRoomSelectorDialog = 0;
-      //---- hide tips
-      GlobalStor.global.configMenuTips = 0;
-      //---- hide comment if opened
-      GlobalStor.global.isShowCommentBlock = 0;
-      //---- hide template type menu if opened
-      GlobalStor.global.isTemplateTypeMenu = 0;
-      GeneralServ.stopStartProg();
-      MainServ.setDefaultAuxParam();
-      //------ close Glass Selector Dialogs
-      if(GlobalStor.global.showGlassSelectorDialog) {
-        DesignServ.closeGlassSelectorDialog(1);
-      }
-      GlobalStor.global.activePanel = 0;
-      DesignStor.design.isGlassExtra = 0;
-      $location.path('/design');
     }
 
 
@@ -7394,19 +7396,32 @@ function ErrorResult(code, message) {
 
 
     function downloadAddElementsData(id) {
-      var index = (id - 1);
+      var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      /** if Grids */
+      if (AuxStor.aux.isFocusedAddElement === 1) {
+        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+          return item.profile_id === ProductStor.product.profile.id;
+        });
+        AuxStor.aux.addElementsList = [gridsSort];
+      } else {
+        AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      }
     }
 
 
     function showingAddElemMenu(id) {
       AuxStor.aux.isFocusedAddElement = id;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       AuxStor.aux.currAddElementPrice = 0;
+      //playSound('swip');
       downloadAddElementsData(id);
+      //------ if add elements list is not empty show menu
+      if(AuxStor.aux.addElementsList.length) {
+        if(AuxStor.aux.addElementsList[0].length) {
+          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+        }
+      }
     }
 
 
@@ -8616,10 +8631,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
@@ -15137,22 +15152,25 @@ function ErrorResult(code, message) {
           var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
               wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
               constrElem = angular.copy(kitsElem),
-              priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
+              priceTemp;
 
-          priceObj.kitsElem = angular.copy(kitsElem);
+          if(constrElem) {
+            priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
 
-          //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
-          /** currency conversion */
-          if (UserStor.userInfo.currencyId != constrElem.currency_id){
-            priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+            priceObj.kitsElem = angular.copy(kitsElem);
+
+            //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+            /** currency conversion */
+            if (UserStor.userInfo.currencyId != constrElem.currency_id) {
+              priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+            }
+            constrElem.qty = 1;
+            constrElem.size = sizeTemp;
+            constrElem.priceReal = priceTemp;
+            priceObj.priceTotal += priceTemp;
+            priceObj.constrElements.push(constrElem);
+            //console.warn('constrElem!!!!!!+', constrElem);
           }
-          constrElem.qty = 1;
-          constrElem.size = sizeTemp;
-          constrElem.priceReal = priceTemp;
-          priceObj.priceTotal += priceTemp;
-          priceObj.constrElements.push(constrElem);
-          //console.warn('constrElem!!!!!!+', constrElem);
-
         });
 
         /** collect Kit Children Elements*/
@@ -17600,6 +17618,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
 
       if(permission) {
+        //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
         GlobalStor.global.configMenuTips = 0;
         GlobalStor.global.isShowCommentBlock = 0;
@@ -17618,7 +17637,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
+          if(!ProductStor.product.is_addelem_only) {
     ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
+          }
           delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
