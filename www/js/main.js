@@ -1945,16 +1945,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   function(
     $location,
     $timeout,
-    DesignServ,
-    DesignStor,
+    globalConstants,
+    GeneralServ,
     loginServ,
     MainServ,
     SVGServ,
+    DesignServ,
+    AddElementMenuServ,
+
     GlobalStor,
     ProductStor,
+    DesignStor,
     UserStor,
-    AuxStor,
-    globalConstants
+    AuxStor
   ) {
     /*jshint validthis:true */
    var thisCtrl = this;
@@ -1983,6 +1986,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //TODO delete
     function goToEditTemplate() {
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      //---- hide rooms if opened
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      //---- hide tips
+      GlobalStor.global.configMenuTips = 0;
+      //---- hide comment if opened
+      GlobalStor.global.isShowCommentBlock = 0;
+      //---- hide template type menu if opened
+      GlobalStor.global.isTemplateTypeMenu = 0;
+      GeneralServ.stopStartProg();
+      MainServ.setDefaultAuxParam();
+      //------ close Glass Selector Dialogs
+      if(GlobalStor.global.showGlassSelectorDialog) {
+        DesignServ.closeGlassSelectorDialog(1);
+      }
       GlobalStor.global.activePanel = 0;
       DesignStor.design.isGlassExtra = 0;
       $location.path('/design');
@@ -2294,15 +2315,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ show Call Master Dialog
     function openMasterDialog() {
-      CartStor.cart.isMasterDialog = 1;
+      if(OrderStor.order.products.length) {
+        CartStor.cart.isMasterDialog = 1;
+      }
     }
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
-      if(OrderStor.order.is_instalment) {
-        CartStor.cart.isCreditDialog = 1;
-      } else {
-        CartStor.cart.isOrderDialog = 1;
+      if(OrderStor.order.products.length) {
+        if (OrderStor.order.is_instalment) {
+          CartStor.cart.isCreditDialog = 1;
+        } else {
+          CartStor.cart.isOrderDialog = 1;
+        }
       }
     }
 
@@ -6707,7 +6732,7 @@ function ErrorResult(code, message) {
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
       var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
       /** Grid */
-      if(AuxStor.aux.isFocusedAddElement === 1) {
+      if(item.list_group_id === 20) {
 
         objXAddElementPrice = {
           currencyId: UserStor.userInfo.currencyId,
@@ -18231,6 +18256,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18302,6 +18328,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18347,6 +18374,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18412,6 +18440,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18440,6 +18469,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18520,6 +18550,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18565,6 +18596,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18628,6 +18660,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18656,6 +18689,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18678,6 +18712,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18772,6 +18807,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1',  x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18844,6 +18880,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18889,6 +18926,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18953,6 +18991,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18998,6 +19037,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19032,6 +19072,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19100,6 +19141,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19128,6 +19170,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1050, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1050, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19153,6 +19196,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19215,6 +19259,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19283,6 +19328,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19311,6 +19357,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19336,6 +19383,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19370,6 +19418,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19406,6 +19455,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19577,6 +19627,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19622,6 +19673,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19752,7 +19804,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
 
 
-    }
+    };
 
 
   });
@@ -20957,7 +21009,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var impCP = getCoordCrossPoint(linesIn[i], impVector),
           isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
           isCross = isInsidePointInLine(isInside);
-
       if (isCross) {
         var ip = angular.copy(impAx);
         ip.group = group;

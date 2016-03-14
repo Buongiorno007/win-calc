@@ -137,6 +137,7 @@
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -208,6 +209,7 @@
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -253,6 +255,7 @@
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -318,6 +321,7 @@
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -346,6 +350,7 @@
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -426,6 +431,7 @@
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -471,6 +477,7 @@
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -534,6 +541,7 @@
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -562,6 +570,7 @@
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -584,6 +593,7 @@
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -678,6 +688,7 @@
                       {type:'impost', id:'ip1',  x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -750,6 +761,7 @@
                       {type:'impost', id:'ip1', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -795,6 +807,7 @@
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -859,6 +872,7 @@
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -904,6 +918,7 @@
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -938,6 +953,7 @@
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1006,6 +1022,7 @@
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1034,6 +1051,7 @@
                       {type:'impost', id:'ip3', x:1050, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1050, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1059,6 +1077,7 @@
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1121,6 +1140,7 @@
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1189,6 +1209,7 @@
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1217,6 +1238,7 @@
                       {type:'impost', id:'ip3', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1242,6 +1264,7 @@
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1276,6 +1299,7 @@
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1312,6 +1336,7 @@
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1483,6 +1508,7 @@
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1528,6 +1554,7 @@
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -1658,7 +1685,7 @@
       }
 
 
-    }
+    };
 
 
   });

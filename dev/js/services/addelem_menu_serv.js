@@ -107,7 +107,7 @@
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
       var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
       /** Grid */
-      if(AuxStor.aux.isFocusedAddElement === 1) {
+      if(item.list_group_id === 20) {
 
         objXAddElementPrice = {
           currencyId: UserStor.userInfo.currencyId,

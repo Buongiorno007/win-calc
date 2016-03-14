@@ -1021,7 +1021,6 @@
       var impCP = getCoordCrossPoint(linesIn[i], impVector),
           isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
           isCross = isInsidePointInLine(isInside);
-
       if (isCross) {
         var ip = angular.copy(impAx);
         ip.group = group;

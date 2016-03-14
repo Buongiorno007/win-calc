@@ -68,15 +68,19 @@
 
     //------ show Call Master Dialog
     function openMasterDialog() {
-      CartStor.cart.isMasterDialog = 1;
+      if(OrderStor.order.products.length) {
+        CartStor.cart.isMasterDialog = 1;
+      }
     }
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
-      if(OrderStor.order.is_instalment) {
-        CartStor.cart.isCreditDialog = 1;
-      } else {
-        CartStor.cart.isOrderDialog = 1;
+      if(OrderStor.order.products.length) {
+        if (OrderStor.order.is_instalment) {
+          CartStor.cart.isCreditDialog = 1;
+        } else {
+          CartStor.cart.isOrderDialog = 1;
+        }
       }
     }
 
