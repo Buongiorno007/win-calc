@@ -5560,116 +5560,118 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               /** background */
 
               if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                var kk = '', imgLink = '';
+                var kk = '', 
+                    imgLink = '',
+                    tH = ProductStor.product.template_height;
                 if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                   imgLink = "fon.gif";
-                  if (ProductStor.product.template_height <= 2049) {
+                  if (tH <= 2049) {
                     kk = 1.2;
                   }
-                  if (2050 <= ProductStor.product.template_height) {
+                  if (2050 <= tH) {
                     kk = 1.26;
                   }
-                  if ( 2101 <= ProductStor.product.template_height) {
+                  if ( 2101 <= tH) {
                     kk = 1.28;
                   }
-                  if ( 2171 <= ProductStor.product.template_height) {
+                  if ( 2171 <= tH) {
                     kk = 1.32;
                   }
-                  if ( 2191 <= ProductStor.product.template_height) {
+                  if ( 2191 <= tH) {
                     kk = 1.35;
                   }
-                  if ( 2211 <= ProductStor.product.template_height) {
+                  if ( 2211 <= tH) {
                     kk = 1.38;
                   }
-                  if ( 2231 <= ProductStor.product.template_height) {
+                  if ( 2231 <= tH) {
                     kk = 1.4;
                   }
-                  if ( 2251 <= ProductStor.product.template_height) {
+                  if ( 2251 <= tH) {
                     kk = 1.42;
                   }
-                  if ( 2271 <= ProductStor.product.template_height) {
+                  if ( 2271 <= tH) {
                     kk = 1.44;
                   }
-                  if ( 2291 <=ProductStor.product.template_height) {
+                  if ( 2291 <=tH) {
                     kk = 1.46;
                   }
-                  if ( 2311 <=ProductStor.product.template_height) {
+                  if ( 2311 <=tH) {
                     kk = 1.48;
                   }
-                  if ( 2331 <= ProductStor.product.template_height) {
+                  if ( 2331 <= tH) {
                     kk = 1.5;
                   }
-                  if ( 2351 <= ProductStor.product.template_height) {
+                  if ( 2351 <= tH) {
                     kk = 1.52;
                   }
-                  if ( 2371 <= ProductStor.product.template_height) {
+                  if ( 2371 <= tH) {
                     kk = 1.54;
                   }
-                  if ( 2391 <= ProductStor.product.template_height) {
+                  if ( 2391 <= tH) {
                     kk = 1.56;
                   }
                 }
               
                 if(ProductStor.product.construction_type === 4) {
                   imgLink = "333.gif";
-                  if (ProductStor.product.template_height > 100) {
+                  if (tH > 100) {
                     kk = 1.03;
                   }
-                  if (1800 <= ProductStor.product.template_height) {
+                  if (1800 <= tH) {
                     kk = 1.05;
                   }
-                  if (1850 <= ProductStor.product.template_height) {
+                  if (1850 <= tH) {
                     kk = 1.07;
                   }
-                  if (1900 <= ProductStor.product.template_height) {
+                  if (1900 <= tH) {
                     kk = 1.11;
                   }
-                  if (1950 <= ProductStor.product.template_height) {
+                  if (1950 <= tH) {
                     kk = 1.14;
                   }
-                  if (2000 <= ProductStor.product.template_height) {
+                  if (2000 <= tH) {
                     kk = 1.17;
                   }
-                  if (2050 <= ProductStor.product.template_height) {
+                  if (2050 <= tH) {
                     kk = 1.2;
                   }
-                  if ( 2101 <= ProductStor.product.template_height) {
+                  if ( 2101 <= tH) {
                     kk = 1.23;
                   }
-                  if ( 2171 <= ProductStor.product.template_height) {
+                  if ( 2171 <= tH) {
                     kk = 1.24;
                   }
-                  if ( 2191 <= ProductStor.product.template_height) {
+                  if ( 2191 <= tH) {
                     kk = 1.25;
                   }
-                  if ( 2211 <= ProductStor.product.template_height) {
+                  if ( 2211 <= tH) {
                     kk = 1.27;
                   }
-                  if ( 2231 <= ProductStor.product.template_height) {
+                  if ( 2231 <= tH) {
                     kk = 1.29;
                   }
-                  if ( 2251 <= ProductStor.product.template_height) {
+                  if ( 2251 <= tH) {
                     kk = 1.31;
                   }
-                  if ( 2271 <= ProductStor.product.template_height) {
+                  if ( 2271 <= tH) {
                     kk = 1.33;
                   }
-                  if ( 2291 <=ProductStor.product.template_height) {
+                  if ( 2291 <=tH) {
                     kk = 1.35;
                   }
-                  if ( 2311 <=ProductStor.product.template_height) {
+                  if ( 2311 <=tH) {
                     kk = 1.37;
                   }
-                  if ( 2331 <= ProductStor.product.template_height) {
+                  if ( 2331 <= tH) {
                     kk = 1.38;
                   }
-                  if ( 2351 <= ProductStor.product.template_height) {
+                  if ( 2351 <= tH) {
                     kk = 1.40;
                   }
-                  if ( 2371 <= ProductStor.product.template_height) {
+                  if ( 2371 <= tH) {
                     kk = 1.41;
                   }
-                  if ( 2391 <= ProductStor.product.template_height) {
+                  if ( 2391 <= tH) {
                     kk = 1.43;
                   }
                 }
@@ -5691,13 +5693,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
             var blockQty = template.details.length,
                 path = '',
-                noVvPath = '',    //без  Viev = 0
+                noVvPath = '',          //без  Viev = 0
                 fpDgLR ='',             //диагональ с лево на право
                 fpDgRL ='',             //диагональ с право на лево
                 heightWmd = '',         //Высота окна
                 widthWmd = '';          //Ширина окна
-                // wind = '',              //Выход на болкон
-                // door = '';              //Выход на болкон
 
             while(--blockQty > 0) {
               if (template.details[blockQty].level === 1) {
@@ -5757,19 +5757,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
             }
 
-          //============================elements room==========================//
+            var widthT = widthWmd,
+                heightT = heightWmd;
+              if (widthT < 1) {
+                widthT = ProductStor.product.template_width,
+                heightT = ProductStor.product.template_height;
+              } else {
+                  widthT = widthWmd,
+                  heightT = heightWmd;
+                }
 
+          //============================elements room==========================//
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               if(ProductStor.product.construction_type === 1) {
-                var lchHeight = (((0.18*heightWmd)-252)+520),
-                    lchWidth = (((0.18*widthWmd)-234)+520),
+                var lchHeight = (((0.18*heightT)-252)+520),
+                    lchWidth = (((0.18*widthT)-234)+520),
                     heightDisplay = 755,
                     topWindowsill = '',
                     block15Height = '',
                     windowsill2 = '',
                     randomOpasity = '',
                     block15Top = '';
-
 
                 if (ProductStor.product.template_height < 1648) {
                   topWindowsill = '' + 456;
@@ -5796,13 +5804,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   block15Top =  '' + 720;
                 }
 
-                if (widthWmd > 900 && heightWmd < 1648) {
-                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+
+                if (widthT > 900 && heightT < 1648) {
+                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthT/2)-700*0.32))/2) + 'px');
+
                 } else {
                   $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
                 $('.coeff-room-block15').css({
-                  'width' : ((0.48*(widthWmd/2))+30) + 'px',
+                  'width' : ((0.48*(widthT/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
@@ -5815,7 +5825,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 $('.coeff-room-block10').css('opacity' , 0);
                 //$('.shadow-main').css();
                 $('.coeff-room-block17').css({
-                  'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
+                  'width' : (0.4*((widthT/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
@@ -5847,13 +5857,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                }
 
               if(ProductStor.product.construction_type === 4) {
-                var lchHeight = (((0.18*heightWmd)-252)+520),
-                    lchWidth = (((0.18*widthWmd)-234)+420),
+                var lchHeight = (((0.18*heightT)-252)+520),
+                    lchWidth = (((0.18*widthT)-234)+420),
                     heightDisplay = 755;
                 $('.coeff-room-block23').css({
-                  'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
+                  'width' : (1000*0.5+(0.7*(widthT-700))) + 'px',
+
                   'top' : 665 + 'px',
-                  'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
+                  'left' : 100 -(2.5*(0.1*widthT-70)) + 'px'
                 });
                 $('.coeff-room-block15').css({
                   'top': (10000) + 'px'
@@ -5887,8 +5898,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 50) + 'px'
                 });
-                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthWmd)+280) + 'px');
-                $('.coeff-room-block8').css('left' , (0.23*widthWmd+275) + 'px');
+                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
+                $('.coeff-room-block8').css('left' , (0.23*widthT+275) + 'px');
                 $('.coeff-room-block5').css('left' , 5000 + 'px');
                 $('.coeff-room-block10').css('opacity' , 1);
                 $('.coeff-room-block7').css('opacity' , 1);
@@ -5902,18 +5913,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
-                   positionY1 = 18,
-                   positionX2 = position.x-340,
-                   positionY2 = -100;
-
+                    positionY1 = 18,
+                    positionX2 = position.x-340,
+                    positionY2 = -100;
                 mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonWindow1',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX1 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX1 + ', ' + positionY1 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
 
@@ -5922,7 +5933,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow2',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX2 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX2 + ', ' + positionY1 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5930,7 +5941,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow3',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX1 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX1 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5938,7 +5949,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow4',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
               if(ProductStor.product.construction_type == 4) {
@@ -5948,7 +5959,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonDoor3',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5956,7 +5967,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonDoor4',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
               if(ProductStor.product.construction_type == 2) {
@@ -5965,7 +5976,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow1',
                   'fill' : '#FFFAFA',
                   'points' : wind,
-                  'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5973,7 +5984,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow2',
                   'fill' : '#FFFAFA',
                   'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5981,7 +5992,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow3',
                   'fill' : '#FFFAFA',
                   'points' : wind,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5989,7 +6000,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow4',
                   'fill' : '#FFFAFA',
                   'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5997,7 +6008,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygondoor3',
                   'fill' : '#FFFAFA',
                   'points' : door,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -6005,7 +6016,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygondoor4',
                   'fill' : '#FFFAFA',
                   'points' : door,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
             }
