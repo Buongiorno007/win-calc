@@ -98,25 +98,27 @@
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
       }
-      /** if ListView is opened */
-      if (AuxStor.aux.isAddElementListView) {
-        selectAddElementList(typeId, elementId, clickEvent);
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
       } else {
-        /** if grid,  show grid selector dialog */
-        if(AuxStor.aux.isFocusedAddElement === 1) {
-          if(ProductStor.product.is_addelem_only) {
-            /** without window */
-            AddElementMenuServ.chooseAddElement(typeId, elementId);
-          } else {
-            /** show Grid Selector Dialog */
-            AuxStor.aux.selectedGrid = [typeId, elementId];
-            AuxStor.aux.isGridSelectorDialog = 1;
-            DesignServ.initAllGlassXGrid();
-          }
+        /** if ListView is opened */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
         } else {
           AddElementMenuServ.chooseAddElement(typeId, elementId);
         }
       }
+
     }
 
 

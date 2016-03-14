@@ -385,19 +385,21 @@
         var elementsAdd = angular.copy(result),
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
-            prod;
+            prod, index;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
             for(prod = 0; prod < orderProductsQty; prod+=1) {
               if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                index = elementsAdd[allAddElemQty].element_type;
                 elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
                 delete elementsAdd[allAddElemQty].element_id;
                 delete elementsAdd[allAddElemQty].modified;
                 elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(
                   elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem
                 );
-                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
+                elementsAdd[allAddElemQty].list_group_id = GeneralServ.addElementDATA[index].id;
+                OrderStor.order.products[prod].chosenAddElements[index].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
                 }

@@ -103,6 +103,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''//,
@@ -146,6 +147,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -160,6 +162,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -173,6 +176,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -214,6 +218,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -228,6 +233,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -241,6 +247,7 @@
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -263,6 +270,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -276,6 +284,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -319,6 +328,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -341,6 +351,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -354,6 +365,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -368,6 +380,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -381,6 +394,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -422,6 +436,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -436,6 +451,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -449,6 +465,7 @@
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
@@ -471,6 +488,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -484,6 +502,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -525,6 +544,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -547,6 +567,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -568,6 +589,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -582,6 +604,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -595,6 +618,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -608,6 +632,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -621,6 +646,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -662,6 +688,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -676,6 +703,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -689,6 +717,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -731,6 +760,7 @@
                     {type:'frame', id:'fp4', x:0, y:1320, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -745,6 +775,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -758,6 +789,7 @@
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
@@ -780,6 +812,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -793,6 +826,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -835,6 +869,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -849,6 +884,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -862,6 +898,7 @@
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -884,6 +921,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -905,6 +943,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -919,6 +958,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -932,6 +972,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -975,6 +1016,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -997,6 +1039,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1010,6 +1053,7 @@
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -1032,6 +1076,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1045,6 +1090,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1058,6 +1104,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1079,6 +1126,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1093,6 +1141,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1106,6 +1155,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1149,6 +1199,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1171,6 +1222,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1184,6 +1236,7 @@
                   children: ['block_6', 'block_7'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
@@ -1206,6 +1259,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1227,6 +1281,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1240,6 +1295,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1261,6 +1317,7 @@
                   },
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1275,6 +1332,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1288,6 +1346,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1301,6 +1360,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1314,6 +1374,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1357,6 +1418,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1375,6 +1437,7 @@
                     {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
@@ -1430,6 +1493,7 @@
                     {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1444,6 +1508,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1457,6 +1522,7 @@
                   children: ['block_4', 'block_5'],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -1479,6 +1545,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1492,6 +1559,7 @@
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
@@ -1535,6 +1603,7 @@
                     {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
+                  pointsLight: [],
                   parts: [],
                   glassId: 0,
                   glassTxt: '',

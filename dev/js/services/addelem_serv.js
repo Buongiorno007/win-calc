@@ -35,6 +35,7 @@
       AuxStor.aux.isFocusedAddElement = id;
       //playSound('swip');
       AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      AuxStor.aux.currAddElementPrice = 0;
       downloadAddElementsData(id);
     }
 

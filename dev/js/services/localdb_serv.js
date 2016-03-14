@@ -2541,21 +2541,21 @@
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
-        priceObj.consist = result;
+        priceObj.consist = angular.copy(result);
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
-            priceObj.kits = kits;
+            priceObj.kits = angular.copy(kits);
             //console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
-              priceObj.kitsElem = kitsElem;
+              priceObj.kitsElem = angular.copy(kitsElem);
               //console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
                 //console.warn('consistElem!!!!!!+', consist[0]);
-                priceObj.consistElem = consist[0];
+                priceObj.consistElem = angular.copy(consist[0]);
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
 
@@ -2656,6 +2656,129 @@
 
 
 
+
+    /**========= GRID PRICE ==========*/
+
+    function calculationGridPrice(AddElement) {
+      var deffMain = $q.defer(),
+          grid = angular.copy(AddElement.element),
+          finishPriceObj = {},
+          priceObj = {
+            constrElements: [], priceTotal: 0
+          };
+      grid.element_width /= 1000;
+      grid.element_height /= 1000;
+      //console.info('START+++', AddElement, grid);
+
+      /** parse Kit */
+      getKitByID(grid.cloth_id).then(function(kits) {
+        //console.warn('kits!!!!!!+', kits);
+        priceObj.kits = angular.copy(kits);
+
+        /** parse Kit Element */
+        getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem) {
+          /** culc Kit Price */
+          var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
+              wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
+              constrElem = angular.copy(kitsElem),
+              priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
+
+          priceObj.kitsElem = angular.copy(kitsElem);
+
+          //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+          /** currency conversion */
+          if (UserStor.userInfo.currencyId != constrElem.currency_id){
+            priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+          }
+          constrElem.qty = 1;
+          constrElem.size = sizeTemp;
+          constrElem.priceReal = priceTemp;
+          priceObj.priceTotal += priceTemp;
+          priceObj.constrElements.push(constrElem);
+          //console.warn('constrElem!!!!!!+', constrElem);
+
+        });
+
+        /** collect Kit Children Elements*/
+        $q.all([
+          parseListContent(grid.top_id),
+          parseListContent(grid.right_id),
+          parseListContent(grid.bottom_id),
+          parseListContent(grid.left_id)
+        ]).then(function (result) {
+          priceObj.consist = angular.copy(result);
+          //console.warn('list-contents!!!!!!+', result);
+
+            parseConsistElem(priceObj.consist).then(function (consist) {
+              var wasteList = [
+                    grid.top_waste,
+                    grid.right_waste,
+                    grid.bottom_waste,
+                    grid.left_waste
+              ], consistQty, cons, el, wasteValue, sizeSource;
+              //console.warn('consistElem!!!!!!+', consist);
+              priceObj.consistElem = angular.copy(consist);
+
+              /** culc Consist Price */
+
+              if(priceObj.consistElem) {
+                consistQty = priceObj.consist.length;
+                if(consistQty) {
+                  for(cons = 0; cons < consistQty; cons+=1) {
+                    //console.log('----------------');
+                    //console.warn('parent++++', priceObj.consist[cons]);
+                    if(priceObj.consist[cons]) {
+                      wasteValue = (wasteList[cons]) ? (1+(wasteList[cons] / 100)) : 1;
+
+                      if(!cons || cons === 2) {
+                        //console.info('width!!!!', cons);
+                        sizeSource = grid.element_width;
+                      } else {
+                        //console.info('height!!!!', cons);
+                        sizeSource = grid.element_height;
+                      }
+
+                      for (el = 0; el < consistQty; el+=1) {
+
+                        priceObj.consist[cons][el].newValue = getValueByRule(
+                          sizeSource,
+                          priceObj.consist[cons][el].value,
+                          priceObj.consist[cons][el].rules_type_id
+                        );
+                        //console.warn('child+44+++', priceObj.consist[cons][el]);
+                        culcPriceAsRule(
+                          1,
+                          priceObj.consist[cons][el].newValue,
+                          priceObj.consist[cons][el],
+                          priceObj.consistElem[cons][el],
+                          0,//priceObj.consist[cons][el].amendment_pruning,
+                          wasteValue,
+                          priceObj
+                        );
+                      }
+
+                    }
+                  }
+                }
+              }
+              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+              //console.info('FINISH ADD ====:', priceObj);
+              finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+              finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+              deffMain.resolve(finishPriceObj);
+            });
+
+        });
+
+      });
+
+      return deffMain.promise;
+    }
+
+
+
+
+
     /**========== FINISH ==========*/
 
 
@@ -2687,6 +2810,7 @@
 
       calculationPrice: calculationPrice,
       getAdditionalPrice: getAdditionalPrice,
+      calculationGridPrice: calculationGridPrice,
       currencyExgange: currencyExgange
     };
 
