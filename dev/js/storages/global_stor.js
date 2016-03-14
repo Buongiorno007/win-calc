@@ -47,6 +47,7 @@
         //------ Rooms background
         showRoomSelectorDialog: 0,
         rooms: [],
+        isRoomElements: 0,
 
         //------- Templates
         templateLabel: '',

@@ -542,12 +542,12 @@
             var widthT = widthWmd,
                 heightT = heightWmd;
               if (widthT < 1) {
-                widthT = ProductStor.product.template_width,
+                widthT = ProductStor.product.template_width;
                 heightT = ProductStor.product.template_height;
               } else {
-                  widthT = widthWmd,
-                  heightT = heightWmd;
-                }
+                widthT = widthWmd;
+                heightT = heightWmd;
+              }
 
           //============================elements room==========================//
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
