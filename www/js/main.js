@@ -5779,6 +5779,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     randomOpasity = '',
                     block15Top = '';
 
+
                 if (ProductStor.product.template_height < 1648) {
                   topWindowsill = '' + 456;
                   block15Height = '' + 90;
@@ -5804,9 +5805,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   block15Top =  '' + 720;
                 }
 
-
                 if (widthT > 900 && heightT < 1648) {
-                  d3.select('.coeff-room-block5').style('left' , (109+(0.48*((widthT/2)-700*0.32))/2) + 'px');
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthT/2)-700*0.32))/2) + 'px');
 
                 } else {
                   $('.coeff-room-block5').css('left' , 10000 + 'px');
@@ -5862,7 +5862,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     heightDisplay = 755;
                 $('.coeff-room-block23').css({
                   'width' : (1000*0.5+(0.7*(widthT-700))) + 'px',
-
                   'top' : 665 + 'px',
                   'left' : 100 -(2.5*(0.1*widthT-70)) + 'px'
                 });
@@ -5898,6 +5897,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 50) + 'px'
                 });
+
                 $('.coeff-room-block11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.coeff-room-block8').css('left' , (0.23*widthT+275) + 'px');
                 $('.coeff-room-block5').css('left' , 5000 + 'px');
