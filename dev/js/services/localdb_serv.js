@@ -1534,11 +1534,12 @@
       selectLocalDB(
         tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning'
       ).then(function(result) {
-        if(result && result.length) {
-          if(result[0].amendment_pruning) {
-            result[0].amendment_pruning /= 1000;
+        var data = angular.copy(result);
+        if(data && data.length) {
+          if(data[0].amendment_pruning) {
+            data[0].amendment_pruning /= 1000;
           }
-          deff.resolve(result[0]);
+          deff.resolve(data[0]);
         } else {
           deff.resolve(0);
         }
@@ -1984,10 +1985,10 @@
     function culcKitPrice(priceObj, sizes) {
       var kitElemQty = priceObj.kitsElem.length,
           sizeQty = 0,
-          constrElements = [];
+          constrElements = [], ke;
       priceObj.priceTotal = 0;
 
-      for(var ke = 0; ke < kitElemQty; ke++) {
+      for(ke = 0; ke < kitElemQty; ke+=1) {
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
           if(angular.isArray(priceObj.kitsElem[ke])) {
@@ -2671,34 +2672,69 @@
       //console.info('START+++', AddElement, grid);
 
       /** parse Kit */
-      getKitByID(grid.cloth_id).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+      $q.all([
+        getKitByID(grid.cloth_id),
+        getKitByID(grid.top_id)
+      ]).then(function (kits) {
+        var prof = angular.copy(kits[1]);
         priceObj.kits = angular.copy(kits);
+        //--- add other profiles
+        priceObj.kits.push(prof, prof, prof);
+        //console.warn('kits!!!!!!+', priceObj.kits);
 
-        /** parse Kit Element */
-        getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem) {
+        $q.all([
+          getElementByListId(0, kits[0].parent_element_id ),
+          getElementByListId(0, kits[1].parent_element_id )
+        ]).then(function (kitsElem) {
+          var wasteList = [
+                grid.cloth_waste,
+                grid.top_waste,
+                grid.right_waste,
+                grid.bottom_waste,
+                grid.left_waste
+              ],
+              kitsQty = wasteList.length, k,
+              tempW, tempH,
+              sizeTemp, wasteValue, priceTemp;
+
+          priceObj.kitsElem = angular.copy(kitsElem);
+          //--- add other profiles
+          priceObj.kitsElem.push(
+            angular.copy(kitsElem[1]), angular.copy(kitsElem[1]), angular.copy(kitsElem[1])
+          );
+          //console.warn('kitsElem!!!!!!+', priceObj.kitsElem);
+
           /** culc Kit Price */
-          var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
-              wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
-              constrElem = angular.copy(kitsElem),
-              priceTemp;
+          for(k = 0; k < kitsQty; k+=1) {
+            wasteValue = (priceObj.kits[k].waste) ? (1 + (priceObj.kits[k].waste / 100)) : 1;
+            if(priceObj.kitsElem[k]) {
+              tempW = (grid.element_width + priceObj.kits[k].amendment_pruning - (wasteList[k]/1000));
+              tempH = (grid.element_height + priceObj.kits[k].amendment_pruning - (wasteList[k]/1000));
+              if(k === 1 || k === 3) {
+                //----- profiles horizontal
+                sizeTemp = GeneralServ.roundingValue(tempW, 3);
+              } else if(k === 2 || k === 4) {
+                //----- profiles vertical
+                sizeTemp = GeneralServ.roundingValue(tempH, 3);
+              } else {
+                //----- grid
+                sizeTemp = GeneralServ.roundingValue((tempW * tempH), 3);
+              }
+              priceTemp = GeneralServ.roundingValue((sizeTemp * priceObj.kitsElem[k].price) * wasteValue);
 
-          if(constrElem) {
-            priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
-
-            priceObj.kitsElem = angular.copy(kitsElem);
-
-            //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
-            /** currency conversion */
-            if (UserStor.userInfo.currencyId != constrElem.currency_id) {
-              priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+              //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+              /** currency conversion */
+              if (UserStor.userInfo.currencyId != priceObj.kitsElem[k].currency_id) {
+                priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, priceObj.kitsElem[k].currency_id));
+              }
+              priceObj.kitsElem[k].qty = 1;
+              priceObj.kitsElem[k].size = sizeTemp;
+              priceObj.kitsElem[k].priceReal = priceTemp;
+              priceObj.priceTotal += priceTemp;
+              priceObj.constrElements.push(priceObj.kitsElem[k]);
+              //console.warn('constrElem!!!!!!+', priceObj.kitsElem[k]);
             }
-            constrElem.qty = 1;
-            constrElem.size = sizeTemp;
-            constrElem.priceReal = priceTemp;
-            priceObj.priceTotal += priceTemp;
-            priceObj.constrElements.push(constrElem);
-            //console.warn('constrElem!!!!!!+', constrElem);
+
           }
         });
 
@@ -2712,64 +2748,50 @@
           priceObj.consist = angular.copy(result);
           //console.warn('list-contents!!!!!!+', result);
 
-            parseConsistElem(priceObj.consist).then(function (consist) {
-              var wasteList = [
-                    grid.top_waste,
-                    grid.right_waste,
-                    grid.bottom_waste,
-                    grid.left_waste
-              ], consistQty, cons, el, wasteValue, sizeSource;
-              //console.warn('consistElem!!!!!!+', consist);
-              priceObj.consistElem = angular.copy(consist);
+          parseConsistElem(priceObj.consist).then(function (consist) {
+            var consistQty, elemQty, cons, el, wasteValue, sizeSource;
+            //console.warn('consistElem!!!!!!+', consist);
+            priceObj.consistElem = angular.copy(consist);
 
-              /** culc Consist Price */
+            /** culc Consist Price */
 
-              if(priceObj.consistElem) {
-                consistQty = priceObj.consist.length;
-                if(consistQty) {
-                  for(cons = 0; cons < consistQty; cons+=1) {
-                    //console.log('----------------');
-                    //console.warn('parent++++', priceObj.consist[cons]);
-                    if(priceObj.consist[cons]) {
-                      wasteValue = (wasteList[cons]) ? (1+(wasteList[cons] / 100)) : 1;
+            if(priceObj.consistElem) {
+              consistQty = priceObj.consist.length;
+              if(consistQty) {
+                for(cons = 0; cons < consistQty; cons+=1) {
+                  //console.warn('parent++++', priceObj.consist[cons]);
+                  elemQty = priceObj.consist[cons].length;
+                  if(elemQty) {
+                    wasteValue = 1;
+                    sizeSource = priceObj.kitsElem[cons+1].size;
 
-                      if(!cons || cons === 2) {
-                        //console.info('width!!!!', cons);
-                        sizeSource = grid.element_width;
-                      } else {
-                        //console.info('height!!!!', cons);
-                        sizeSource = grid.element_height;
-                      }
-
-                      for (el = 0; el < consistQty; el+=1) {
-
-                        priceObj.consist[cons][el].newValue = getValueByRule(
-                          sizeSource,
-                          priceObj.consist[cons][el].value,
-                          priceObj.consist[cons][el].rules_type_id
-                        );
-                        //console.warn('child+44+++', priceObj.consist[cons][el]);
-                        culcPriceAsRule(
-                          1,
-                          priceObj.consist[cons][el].newValue,
-                          priceObj.consist[cons][el],
-                          priceObj.consistElem[cons][el],
-                          0,//priceObj.consist[cons][el].amendment_pruning,
-                          wasteValue,
-                          priceObj
-                        );
-                      }
-
+                    for (el = 0; el < elemQty; el+=1) {
+                      priceObj.consist[cons][el].newValue = getValueByRule(
+                        sizeSource,
+                        priceObj.consist[cons][el].value,
+                        priceObj.consist[cons][el].rules_type_id
+                      );
+                      //console.warn('child+44+++', priceObj.consist[cons][el]);
+                      culcPriceAsRule(
+                        1,
+                        priceObj.consist[cons][el].newValue,
+                        priceObj.consist[cons][el],
+                        priceObj.consistElem[cons][el],
+                        0,//priceObj.consist[cons][el].amendment_pruning,
+                        wasteValue,
+                        priceObj
+                      );
                     }
                   }
                 }
               }
-              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-              //console.info('FINISH ADD ====:', priceObj);
-              finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
-              finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
-              deffMain.resolve(finishPriceObj);
-            });
+            }
+            priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+            //console.info('FINISH ADD ====:', priceObj);
+            finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+            finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+            deffMain.resolve(finishPriceObj);
+          });
 
         });
 
