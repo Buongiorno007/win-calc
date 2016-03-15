@@ -11,7 +11,8 @@
     GeneralServ,
     GlobalStor,
     ProductStor,
-    DesignStor
+    DesignStor,
+    PointsServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -2815,36 +2816,35 @@
 
 
     //----------- TRANSLATE MAIN
-
     function setTemplatePositionMAIN(dim, windowH, scale) {
-      var position;
+      var pnt = PointsServ.templatePoints(ProductStor.product.template),
+          position;
       if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
-        if(ProductStor.product.template_height < 1648) {
+        if(pnt.heightT < 1648) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-310
           };
         } 
-        if( 1648 < ProductStor.product.template_height) {
+        if( 1648 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-240
           };
         }
-        if( 1848 < ProductStor.product.template_height) {
+        if( 1848 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-190
           };
         }
-        if( 2148 < ProductStor.product.template_height) {
+        if( 2148 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-130
           };
         }      
       }
-
 
       if(ProductStor.product.construction_type === 2) {
         position = {
