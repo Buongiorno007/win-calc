@@ -32,6 +32,7 @@
         profile: {},
         glass: [],
         hardware: {},
+        beadsData: [],
 
         profileDepths: {
           frameDepth: {},

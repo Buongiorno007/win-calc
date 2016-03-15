@@ -18,6 +18,7 @@
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.consts = globalConstants;
 
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
@@ -35,9 +36,6 @@
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
-    thisCtrl.regPhone = globalConstants.REG_PHONE;
-    thisCtrl.regName = globalConstants.REG_NAME;
-    thisCtrl.regMail = globalConstants.REG_MAIL;
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -47,12 +45,10 @@
     thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
     thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
     thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
-    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
-    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
-    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
-    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
     thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
-    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
     thisCtrl.ENTER = $filter('translate')('login.ENTER');
     thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
     thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
@@ -585,7 +581,7 @@
                 name: thisCtrl.user.name,
                 phone: thisCtrl.user.phone,
                 email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.id,
+                cityId: thisCtrl.user.city.cityId,
                 password: localDB.md5(thisCtrl.user.phone)
               };
               console.log('CREATE USER!!!!!!!!!!!!', userData);

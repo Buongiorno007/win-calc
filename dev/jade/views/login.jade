@@ -11,15 +11,14 @@ section.login-page
     .logo
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
-        input.user-field(type="tel", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.regPhone", ng-minlength="6", placeholder="{{ ::loginPage.MOBILE }}", required)
+        input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.LOGIN }}", required)
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-        .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_NUMBER }}
-        .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.minlength || loginForm.phone.$dirty && loginForm.phone.$error.minlength") {{ ::loginPage.SHORT_PHONE }}
+        .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
-        input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-minlength="4", placeholder="{{ ::loginPage.PASSWORD }}", required)
+        input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
         .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
-        .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') {{ ::loginPage.SHORT_PASSWORD }}
+        .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       button.login-submit(type="submit") {{ ::loginPage.ENTER }}
     button.login-submit(ng-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
@@ -47,16 +46,15 @@ section.login-page
     form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.name.$error.required }")
-        input.user-field(type="text", name="name", ng-model="loginPage.user.name", ng-pattern="loginPage.regName", ng-minlength="3", placeholder="{{ ::loginPage.CLIENT_NAME }}", required)
+        input.user-field(type="text", name="name", ng-model="loginPage.user.name", ng-pattern="loginPage.consts.REG_NAME", ng-minlength="3", placeholder="{{ ::loginPage.CLIENT_NAME }}", required)
         .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.required") {{ ::loginPage.EMPTY_FIELD }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.pattern || registrForm.name.$dirty && registrForm.name.$error.pattern") {{ ::loginPage.WRONG_NAME }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.minlength || registrForm.name.$dirty && registrForm.name.$error.minlength") {{ ::loginPage.SHORT_NAME }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.phone.$error.required }")
-        input.user-field(type="tel", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.regPhone", ng-minlength="6", placeholder="{{ ::loginPage.MOBILE }}", required)
+        input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.LOGIN }}", required)
         .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
-        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.pattern || registrForm.phone.$dirty && registrForm.phone.$error.pattern") {{ ::loginPage.WRONG_NUMBER }}
-        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.minlength || registrForm.phone.$dirty && registrForm.phone.$error.minlength") {{ ::loginPage.SHORT_PHONE }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.pattern || registrForm.phone.$dirty && registrForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }")
         select.user-select-field(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()", required)
@@ -74,7 +72,7 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ ::loginPage.EMPTY_FIELD }}
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
-        input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", ng-pattern="loginPage.regMail", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)
+        input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", ng-pattern="loginPage.consts.REG_MAIL", placeholder="{{ ::loginPage.CLIENT_EMAIL }}", required)
         .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ ::loginPage.EMPTY_FIELD }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ ::loginPage.WRONG_EMAIL }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ ::loginPage.WRONG_EMAIL }}

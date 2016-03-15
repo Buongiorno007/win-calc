@@ -12,15 +12,14 @@
     <div class="logo"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
-        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.regPhone" ng-minlength="6" placeholder="{{ ::loginPage.MOBILE }}" required class="user-field">
+        <input type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.LOGIN }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
-        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_NUMBER }}</div>
-        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.minlength || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.minlength" class="error-tooltip">{{ ::loginPage.SHORT_PHONE }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
       </div>
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
-        <input type="password" name="password" ng-model="loginPage.user.password" ng-minlength="4" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
+        <input type="password" name="password" ng-model="loginPage.user.password" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.PASSWORD }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
-        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.minlength || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.minlength" class="error-tooltip">{{ ::loginPage.SHORT_PASSWORD }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.pattern || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
       </div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
@@ -49,16 +48,15 @@
     <div class="logo"></div>
     <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.name.$error.required }" class="input-field">
-        <input type="text" name="name" ng-model="loginPage.user.name" ng-pattern="loginPage.regName" ng-minlength="3" placeholder="{{ ::loginPage.CLIENT_NAME }}" required class="user-field">
+        <input type="text" name="name" ng-model="loginPage.user.name" ng-pattern="loginPage.consts.REG_NAME" ng-minlength="3" placeholder="{{ ::loginPage.CLIENT_NAME }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.pattern || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_NAME }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.minlength || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.minlength" class="error-tooltip">{{ ::loginPage.SHORT_NAME }}</div>
       </div>
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.phone.$error.required }" class="input-field">
-        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.regPhone" ng-minlength="6" placeholder="{{ ::loginPage.MOBILE }}" required class="user-field">
+        <input type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.LOGIN }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
-        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.pattern || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_NUMBER }}</div>
-        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.minlength || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.minlength" class="error-tooltip">{{ ::loginPage.SHORT_PHONE }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.pattern || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_LOGIN }}</div>
       </div>
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }" class="input-field">
         <select name="country" ng-model="loginPage.user.country" ng-options="country.name for country in loginPage.G.global.locations.countries | orderBy:'name'" ng-change="loginPage.selectLocation()" required class="user-select-field">
@@ -79,7 +77,7 @@
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.city.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
       </div>
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.mail.$error.required }" class="input-field">
-        <input type="email" name="mail" ng-model="loginPage.user.mail" ng-pattern="loginPage.regMail" placeholder="{{ ::loginPage.CLIENT_EMAIL }}" required class="user-field">
+        <input type="email" name="mail" ng-model="loginPage.user.mail" ng-pattern="loginPage.consts.REG_MAIL" placeholder="{{ ::loginPage.CLIENT_EMAIL }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.required" class="error-tooltip">{{ ::loginPage.EMPTY_FIELD }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.email" class="error-tooltip">{{ ::loginPage.WRONG_EMAIL }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.pattern || registrForm.mail.$dirty &amp;&amp; registrForm.mail.$error.pattern" class="error-tooltip">{{ ::loginPage.WRONG_EMAIL }}</div>

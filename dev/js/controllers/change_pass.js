@@ -6,6 +6,7 @@
     .controller('ChangePassCtrl',
 
   function(
+    $filter,
     globalConstants,
     SettingServ,
     UserStor,
@@ -14,6 +15,7 @@
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
+    thisCtrl.consts = globalConstants;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -25,7 +27,14 @@
       typing: 'on'
     };
 
-
+    //------- translate
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
+    thisCtrl.NO_CONFIRM_PASS = $filter('translate')('settings.NO_CONFIRM_PASS');
+    thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.CURRENT_PASSWORD = $filter('translate')('settings.CURRENT_PASSWORD');
+    thisCtrl.NEW_PASSWORD = $filter('translate')('settings.NEW_PASSWORD');
+    thisCtrl.CONFIRM_PASSWORD = $filter('translate')('settings.CONFIRM_PASSWORD');
 
 
     /**============ METHODS ================*/

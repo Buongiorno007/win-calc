@@ -416,6 +416,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('ChangePassCtrl',
 
   function(
+    $filter,
     globalConstants,
     SettingServ,
     UserStor,
@@ -424,6 +425,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
+    thisCtrl.consts = globalConstants;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -435,7 +437,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-
+    //------- translate
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
+    thisCtrl.NO_CONFIRM_PASS = $filter('translate')('settings.NO_CONFIRM_PASS');
+    thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.CURRENT_PASSWORD = $filter('translate')('settings.CURRENT_PASSWORD');
+    thisCtrl.NEW_PASSWORD = $filter('translate')('settings.NEW_PASSWORD');
+    thisCtrl.CONFIRM_PASSWORD = $filter('translate')('settings.CONFIRM_PASSWORD');
 
 
     /**============ METHODS ================*/
@@ -1300,6 +1309,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.consts = globalConstants;
 
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
@@ -1317,9 +1327,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
-    thisCtrl.regPhone = globalConstants.REG_PHONE;
-    thisCtrl.regName = globalConstants.REG_NAME;
-    thisCtrl.regMail = globalConstants.REG_MAIL;
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -1329,12 +1336,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
     thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
     thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
-    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
-    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
-    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
-    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
     thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
-    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
     thisCtrl.ENTER = $filter('translate')('login.ENTER');
     thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
     thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
@@ -1867,7 +1872,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 name: thisCtrl.user.name,
                 phone: thisCtrl.user.phone,
                 email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.id,
+                cityId: thisCtrl.user.city.cityId,
                 password: localDB.md5(thisCtrl.user.phone)
               };
               console.log('CREATE USER!!!!!!!!!!!!', userData);
@@ -8636,6 +8641,7 @@ function ErrorResult(code, message) {
       //serverIP: 'http://api.steko.com.ua',
       //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
+      REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
@@ -17118,6 +17124,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               ],
               sizes: []
             };
+        //-------- beads data for analysis
+        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
@@ -17650,9 +17658,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-          if(!ProductStor.product.is_addelem_only) {
-    ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
-          }
           delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
@@ -17712,7 +17717,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
-        productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
+        if(!productData.is_addelem_only) {
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
+        }
+        productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
@@ -17735,6 +17743,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.addelemPriceDis;
         delete productData.productPriceDis;
         delete productData.report;
+        delete productData.beadsData;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -23764,6 +23773,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         profile: {},
         glass: [],
         hardware: {},
+        beadsData: [],
 
         profileDepths: {
           frameDepth: {},
@@ -23917,13 +23927,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Teilen Sie diesen Kode dem Manager mit.',
         YOUR_CODE: 'Ihr Kode: ',
         EMPTY_FIELD: 'Füllen Sie dieses Feld aus.',
-        WRONG_NUMBER: 'Die falsche Nummer.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Die falsche Nummer.',
         SHORT_NAME: 'Eine zu kurze Namen',
-        SHORT_PASSWORD: 'Die viel zu kleine Parole',
-        SHORT_PHONE: 'Zu wenig Telefonnummer.',
+        //SHORT_PASSWORD: 'Die viel zu kleine Parole',
+        //SHORT_PHONE: 'Zu wenig Telefonnummer.',
         IMPORT_DB_START: 'Warten begann Laden der Datenbank',
         IMPORT_DB_FINISH: 'Vielen Dank für das Herunterladen abgeschlossen ist',
-        MOBILE: 'Handy',
+        LOGIN: 'Login',
         PASSWORD: 'Passwort',
         REGISTRATION: 'Anmeldung',
         SELECT_COUNTRY: 'Land wählen',
@@ -24283,13 +24294,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'You will reveal to this code the manager.',
         YOUR_CODE: 'Your code: ',
         EMPTY_FIELD: 'You should to fill this field.',
-        WRONG_NUMBER: 'Incorrect number.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Incorrect number.',
         SHORT_NAME: 'Too short name',
-        SHORT_PASSWORD: 'Too little password.',
-        SHORT_PHONE: 'Too little phone number.',
+        //SHORT_PASSWORD: 'Too little password.',
+        //SHORT_PHONE: 'Too little phone number.',
         IMPORT_DB_START: 'Wait, began loading the database',
         IMPORT_DB_FINISH: 'Thank you for the download is complete',
-        MOBILE: 'Mobile telephone',
+        LOGIN: 'Login',
         PASSWORD: 'Password',
         REGISTRATION: 'Registration',
         SELECT_COUNTRY: 'Select country',
@@ -24647,13 +24659,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Comunicate il codice al manager.',
         YOUR_CODE: 'Il vostro codice: ',
         EMPTY_FIELD: 'Riempite questo campo.',
-        WRONG_NUMBER: 'Numero errato, formato +XX(XXX)XXX-XXXX.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Numero errato, formato +XX(XXX)XXX-XXXX.',
         SHORT_NAME: 'Nome troppo piccolo.',
-        SHORT_PASSWORD: 'Password troppo breve.',
-        SHORT_PHONE: 'Numero del telefono troppo piccolo.',
+        //SHORT_PASSWORD: 'Password troppo breve.',
+        //SHORT_PHONE: 'Numero del telefono troppo piccolo.',
         IMPORT_DB_START: 'Aspetti, il carico di un database ha cominciato',
         IMPORT_DB_FINISH: ' Grazie, caricandolo sono complete',
-        MOBILE: 'Il cellulare',
+        LOGIN: 'Login',
         PASSWORD: 'Password',
         REGISTRATION: 'Registrazione',
         SELECT_COUNTRY: 'Il paese di Veberite',
@@ -25012,13 +25025,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Spune-i managerului acest cod.',
         YOUR_CODE: 'codul dvs: ',
         EMPTY_FIELD: 'Completați acest câmp.',
-        WRONG_NUMBER: 'numar incorrect.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'numar incorrect.',
         SHORT_NAME: 'Too short name',
-        SHORT_PASSWORD: 'parola e prea mica.',
-        SHORT_PHONE: 'Too little phone number.',
+        //SHORT_PASSWORD: 'parola e prea mica.',
+        //SHORT_PHONE: 'Too little phone number.',
         IMPORT_DB_START: 'Stai, a început încărcarea de date',
         IMPORT_DB_FINISH: 'Vă mulțumim pentru descărcarea este completă',
-        MOBILE: 'telefon mobil',
+        LOGIN: 'Login',
         PASSWORD: 'Parola',
         REGISTRATION: 'înregistrare',
         SELECT_COUNTRY: 'Select country',
@@ -25376,13 +25390,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Сообщите этот код менеджеру.',
         YOUR_CODE: 'Ваш код: ',
         EMPTY_FIELD: 'Заполните это поле.',
-        WRONG_NUMBER: 'Неверный номер.',
+        WRONG_LOGIN: 'Для логина (пароля) используйте только цифры, латинские буквы и символы "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Неверный номер.',
         SHORT_NAME: 'Слишком маленькое имя.',
-        SHORT_PASSWORD: 'Слишком маленький пароль.',
-        SHORT_PHONE: 'Слишком маленький номер телефона.',
+        //SHORT_PASSWORD: 'Слишком маленький пароль.',
+        //SHORT_PHONE: 'Слишком маленький номер телефона.',
         IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
-        MOBILE: 'Мобильный телефон',
+        LOGIN: 'Логин',
         PASSWORD: 'Пароль',
         REGISTRATION: 'Регистрация',
         SELECT_COUNTRY: 'Веберите страну',
@@ -25740,13 +25755,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Повідомте цей код менеджерові.',
         YOUR_CODE: 'Ваш код: ',
         EMPTY_FIELD: 'Заповніть це поле.',
-        WRONG_NUMBER: 'Невірний номер.',
+        WRONG_LOGIN: 'Для логина (пароля) используйте только цифры, латинские буквы и символы "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Невірний номер.',
         SHORT_NAME: 'Слишком маленькое имя.',
-        SHORT_PASSWORD: 'Занадто маленький пароль.',
-        SHORT_PHONE: 'Занадто маленький номер телефона.',
+        //SHORT_PASSWORD: 'Занадто маленький пароль.',
+        //SHORT_PHONE: 'Занадто маленький номер телефона.',
         IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
-        MOBILE: 'Мобільный телефон',
+        LOGIN: 'Логин',
         PASSWORD: 'Пароль',
         REGISTRATION: 'Регістрація',
         SELECT_COUNTRY: 'Веберите страну',

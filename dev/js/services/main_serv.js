@@ -612,6 +612,8 @@
               ],
               sizes: []
             };
+        //-------- beads data for analysis
+        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
@@ -1144,9 +1146,6 @@
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-          if(!ProductStor.product.is_addelem_only) {
-    ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
-          }
           delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
@@ -1206,7 +1205,10 @@
       for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
-        productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
+        if(!productData.is_addelem_only) {
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
+        }
+        productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
@@ -1229,6 +1231,7 @@
         delete productData.addelemPriceDis;
         delete productData.productPriceDis;
         delete productData.report;
+        delete productData.beadsData;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;

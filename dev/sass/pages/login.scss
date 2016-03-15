@@ -99,6 +99,7 @@ $img_logo: 'login/logo.png';
   color: #fff;
   border-radius: rem($radius_general-small_button);
   background: $error_color;
+  z-index: 1;
   &:before {
     @include transform(rotate(45deg));
 
