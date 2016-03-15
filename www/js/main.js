@@ -11908,7 +11908,6 @@ function ErrorResult(code, message) {
       ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
-
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
@@ -11942,7 +11941,7 @@ function ErrorResult(code, message) {
               });
 
             } else {
-              defer1.resolve(1);
+              defer1.resolve(tempProd);
             }
             return defer1.promise;
           });
@@ -11951,12 +11950,8 @@ function ErrorResult(code, message) {
 
             var iconPromise = data.map(function(item) {
               var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
-                item.templateIcon = data;
-                delete item.profile_id;
-                delete item.glass_id;
-                delete item.hardware_id;
-
+              //----- checking product with design or only addElements
+              if(item.is_addelem_only) {
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                 item.productPriceDis = (GeneralServ.setPriceDis(
@@ -11965,7 +11960,23 @@ function ErrorResult(code, message) {
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
-              });
+              } else {
+                SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function (data) {
+                  item.templateIcon = data;
+                  delete item.profile_id;
+                  delete item.glass_id;
+                  delete item.hardware_id;
+
+                  //----- set price Discounts
+                  item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                  item.productPriceDis = (GeneralServ.setPriceDis(
+                    item.template_price, OrderStor.order.discount_construct
+                  ) + item.addelemPriceDis);
+
+                  OrderStor.order.products.push(item);
+                  deferIcon.resolve(1);
+                });
+              }
               return deferIcon.promise;
             });
 
