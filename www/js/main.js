@@ -5261,7 +5261,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     GeneralServ,
     ProductStor,
     SVGServ,
-    DesignServ
+    DesignServ,
+    PointsServ
   ) {
 
     return {
@@ -5275,7 +5276,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         templateHeight: '='
       },
       link: function (scope, elem) {
-
         /**============ METHODS ================*/
  
         function zooming() {
@@ -5493,8 +5493,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 padding = 0.7,
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup,
-                points, dimMaxMin, scale, blocksQty, i, corners;
-
+                points, dimMaxMin, scale, blocksQty, i, corners,
+                pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
@@ -5543,6 +5543,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .scaleExtent([0, 8])
                 .on("zoom", zooming));
             }
+
+            /** Points */
+            var blockQty = template.details.length,
+                path = pnt.path,
+                noVvPath = pnt.noVvPath,   
+                fpDgLR =pnt.fpDgLR,    
+                fpDgRL =pnt.fpDgRL,         
+                heightWmd = pnt.heightWmd,        
+                widthWmd = pnt.widthWmd,          
+                widthT = pnt.widthT,
+                heightT = pnt.heightT;
 
             /** Defs */
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
@@ -5594,7 +5605,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 var kk = '', 
                     imgLink = '',
-                    tH = ProductStor.product.template_height;
+                    tH = heightT;
                 if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                   imgLink = "fon.gif";
                   if (tH <= 2049) {
@@ -5721,85 +5732,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               } 
             }
 
-  //=============================Points==============================//
+          /**Elements room*/
 
-            var blockQty = template.details.length,
-                path = '',
-                noVvPath = '',          //без  Viev = 0
-                fpDgLR ='',             //диагональ с лево на право
-                fpDgRL ='',             //диагональ с право на лево
-                heightWmd = '',         //Высота окна
-                widthWmd = '';          //Ширина окна
-
-            while(--blockQty > 0) {
-              if (template.details[blockQty].level === 1) {
-                var pointsOutQty =  template.details[blockQty].pointsOut.length;
-                while(--pointsOutQty > -1) {
-
-                  if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
-                    noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                    } else {
-                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                    }
-                  }
-
-                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
-                    fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                    //console.log('fpDgLR', fpDgLR)
-                  }
-
-                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
-                    fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                  }
-
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty]) {
-                    path += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                  }
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
-                    if(!pointsOutQty) {
-                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                    } else {
-                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                    }
-                  }
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
-                    widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                  }
-                }
-              }
-            }
-
-            var widthT = widthWmd,
-                heightT = heightWmd;
-              if (widthT < 1) {
-                widthT = ProductStor.product.template_width;
-                heightT = ProductStor.product.template_height;
-              } else {
-                widthT = widthWmd;
-                heightT = heightWmd;
-              }
-
-          //============================elements room==========================//
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               if(ProductStor.product.construction_type === 1) {
                 var lchHeight = (((0.18*heightT)-252)+520),
@@ -5811,26 +5745,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     randomOpasity = '',
                     block15Top = '';
 
-
-                if (ProductStor.product.template_height < 1648) {
+                if (heightT < 1648) {
                   topWindowsill = '' + 456;
                   block15Height = '' + 90;
                   windowsill2 = 100;
                   block15Top = '' + 720;
                 }
-                if (1648 < ProductStor.product.template_height) {
+                if (1648 < heightT) {
                   topWindowsill = '' + 526;
                   block15Height = '' + 90;
                   windowsill2 = 60;
                   block15Top =  '' + 720;
                 }
-                if (1848 < ProductStor.product.template_height) {
+                if (1848 < heightT) {
                   topWindowsill = '' + 576;
                   block15Height = '' + 90;
                   windowsill2 = 0;
                   block15Top = '' + 720;
                 }
-                if (2148 < ProductStor.product.template_height) {
+                if (2148 < heightT) {
                   topWindowsill = '' + 637;
                   block15Height = '' + 90;
                   windowsill2 = -30;
@@ -5940,9 +5873,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
             }
 
-          //============================soffits================================//
-
-
+          /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               var  scl = scale*4.4;
@@ -6000,55 +5931,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
                   'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-              }
-              if(ProductStor.product.construction_type == 2) {
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow1',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow2',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow3',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow4',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygondoor3',
-                  'fill' : '#FFFAFA',
-                  'points' : door,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygondoor4',
-                  'fill' : '#FFFAFA',
-                  'points' : door,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
             }
@@ -19877,6 +19759,117 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+// services/points_serv.js
+
+(function(){
+  'use strict';
+    /**@ngInject*/
+
+  angular
+    .module('BauVoiceApp')
+    .factory('PointsServ',
+
+  function (DesignStor, ProductStor) {
+	var thisFactory = this;
+
+	    function templatePoints(template) {
+			if(template && !$.isEmptyObject(template)) {
+			var blockQty = template.details.length,
+	            path = '',
+	            noVvPath = '',          //без  Viev = 0
+	            fpDgLR ='',             //диагональ с лево на право
+	            fpDgRL ='',             //диагональ с право на лево
+	            heightWmd = '',         //Высота окна
+	            widthWmd = '';          //Ширина окна
+
+	        while(--blockQty > 0) {
+	          if (template.details[blockQty].level === 1) {
+	            var pointsOutQty =  template.details[blockQty].pointsOut.length;
+	            while(--pointsOutQty > -1) {
+
+	              if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
+	                noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+	                } else {
+	                  noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+	                }
+	              }
+
+	              if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
+	                fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	                //console.log('fpDgLR', fpDgLR)
+	              }
+
+	              if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+	                fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	              }
+
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty]) {
+	                path += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	              }
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+	                if(!pointsOutQty) {
+	                  heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+	                } else {
+	                  heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+	                }
+	              }
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+	                widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	              }
+	            }
+	          }
+	        }
+
+	            var widthT = widthWmd,
+	                heightT = heightWmd;
+	              if (widthT < 1) {
+	                widthT = ProductStor.product.template_width;
+	                heightT = ProductStor.product.template_height;
+	              } else {
+	                widthT = widthWmd;
+	                heightT = heightWmd;
+	              }
+				}	
+				return {
+					path:path, 
+					noVvPath:noVvPath, 
+					fpDgLR:fpDgLR, 
+					fpDgRL:fpDgRL, 
+					heightWmd:heightWmd, 
+					widthWmd:widthWmd, 
+					widthT:widthT,
+					heightT:heightT
+				};	
+	        }
+
+		thisFactory.publicObj = {
+	      templatePoints:templatePoints
+	    };
+    	return thisFactory.publicObj;
+  });
+})();
+
+
 // services/settings_serv.js
 
 (function(){
@@ -20064,7 +20057,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     GeneralServ,
     GlobalStor,
     ProductStor,
-    DesignStor
+    DesignStor,
+    PointsServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -22868,36 +22862,35 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     //----------- TRANSLATE MAIN
-
     function setTemplatePositionMAIN(dim, windowH, scale) {
-      var position;
+      var pnt = PointsServ.templatePoints(ProductStor.product.template),
+          position;
       if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
-        if(ProductStor.product.template_height < 1648) {
+        if(pnt.heightT < 1648) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-310
           };
         } 
-        if( 1648 < ProductStor.product.template_height) {
+        if( 1648 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-240
           };
         }
-        if( 1848 < ProductStor.product.template_height) {
+        if( 1848 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-190
           };
         }
-        if( 2148 < ProductStor.product.template_height) {
+        if( 2148 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-130
           };
         }      
       }
-
 
       if(ProductStor.product.construction_type === 2) {
         position = {
