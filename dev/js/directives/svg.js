@@ -538,7 +538,6 @@
                 $('.coeff-room-block9').css('opacity' , 1);
                 $('.coeff-room-block23').css('left' , (10000) + 'px');
                 $('.coeff-room-block10').css('opacity' , 0);
-                //$('.shadow-main').css();
                 $('.coeff-room-block17').css({
                   'width' : (0.4*((widthT/2)*2+350)) + 'px',
                   'height' : 41 + 'px',

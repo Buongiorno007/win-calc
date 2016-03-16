@@ -317,29 +317,29 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1402706811') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1457541442') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1402706811') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1457541442') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1402706811') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1457541442') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1402706811') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1457541442') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1402706811') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1457541442') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1450864510') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1457541442') format('truetype');
 }
-/* line 113, ../../dev/sass/base/_animations.scss */
+/* line 124, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
   -moz-animation: splashing 0.5s ease 0s 1;
@@ -380,7 +380,7 @@ th {
     transform: scale(1);
   }
 }
-/* line 118, ../../dev/sass/base/_animations.scss */
+/* line 129, ../../dev/sass/base/_animations.scss */
 .flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
@@ -411,7 +411,7 @@ th {
     opacity: 0;
   }
 }
-/* line 123, ../../dev/sass/base/_animations.scss */
+/* line 134, ../../dev/sass/base/_animations.scss */
 .firstLight, .coeff-room-block18 {
   -moz-animation: firstLight 10s ease 0s infinite;
   -webkit-animation: firstLight 10s ease 0s infinite;
@@ -442,7 +442,7 @@ th {
     opacity: .5;
   }
 }
-/* line 128, ../../dev/sass/base/_animations.scss */
+/* line 139, ../../dev/sass/base/_animations.scss */
 .secondLight, .coeff-room-block19 {
   -moz-animation: secondLight 12s ease 0s infinite;
   -webkit-animation: secondLight 12s ease 0s infinite;
@@ -473,7 +473,7 @@ th {
     opacity: 1;
   }
 }
-/* line 133, ../../dev/sass/base/_animations.scss */
+/* line 144, ../../dev/sass/base/_animations.scss */
 .thirdLight, .coeff-room-block20 {
   -moz-animation: thirdLight 9s ease 0s infinite;
   -webkit-animation: thirdLight 9s ease 0s infinite;
@@ -504,7 +504,38 @@ th {
     opacity: .7;
   }
 }
-/* line 138, ../../dev/sass/base/_animations.scss */
+/* line 149, ../../dev/sass/base/_animations.scss */
+.elements {
+  -moz-animation: elements 3s ease 0s 1;
+  -webkit-animation: elements 3s ease 0s 1;
+  animation: elements 3s ease 0s 1;
+}
+
+@-moz-keyframes elements {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes elements {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes elements {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* line 154, ../../dev/sass/base/_animations.scss */
 .jumping, .config-menu .menu_tooltip {
   -moz-animation: jump-hor 2s ease-in 0s infinite;
   -webkit-animation: jump-hor 2s ease-in 0s infinite;
@@ -553,7 +584,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 148, ../../dev/sass/base/_animations.scss */
+/* line 164, ../../dev/sass/base/_animations.scss */
 .move-grid {
   -moz-animation: move-grid 1s ease 0s 1;
   -webkit-animation: move-grid 1s ease 0s 1;
@@ -584,7 +615,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 153, ../../dev/sass/base/_animations.scss */
+/* line 169, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s ease 0s 1;
   -webkit-animation: move-visor 1s ease 0s 1;
@@ -615,7 +646,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 158, ../../dev/sass/base/_animations.scss */
+/* line 174, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s ease 0s 1;
   -webkit-animation: move-spillway 1s ease 0s 1;
@@ -646,7 +677,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 163, ../../dev/sass/base/_animations.scss */
+/* line 179, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s ease 0s 1;
   -webkit-animation: move-outside 1s ease 0s 1;
@@ -677,7 +708,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 168, ../../dev/sass/base/_animations.scss */
+/* line 184, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s ease 0s 1;
   -webkit-animation: move-windowsill 2s ease 0s 1;
@@ -708,7 +739,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 174, ../../dev/sass/base/_animations.scss */
+/* line 190, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s ease 0s 1;
   -webkit-animation: move-louvers 2s ease 0s 1;
@@ -739,7 +770,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 179, ../../dev/sass/base/_animations.scss */
+/* line 195, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s ease 2s 1;
   -webkit-animation: move-louver-1 2s ease 2s 1;
@@ -779,7 +810,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 184, ../../dev/sass/base/_animations.scss */
+/* line 200, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s ease 2s 1;
   -webkit-animation: move-louver-2 2s ease 2s 1;
@@ -819,7 +850,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 189, ../../dev/sass/base/_animations.scss */
+/* line 205, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s ease 2s 1;
   -webkit-animation: move-louver-3 2s ease 2s 1;
@@ -859,7 +890,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 194, ../../dev/sass/base/_animations.scss */
+/* line 210, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s ease 2s 1;
   -webkit-animation: move-louver-bottom 2s ease 2s 1;
@@ -899,7 +930,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 200, ../../dev/sass/base/_animations.scss */
+/* line 216, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s ease 0s 1;
   -webkit-animation: move-slope-top 1s ease 0s 1;
@@ -930,7 +961,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 205, ../../dev/sass/base/_animations.scss */
+/* line 221, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s ease 0s 1;
   -webkit-animation: move-slope-right 1s ease 0s 1;
@@ -961,7 +992,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 210, ../../dev/sass/base/_animations.scss */
+/* line 226, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s ease 0s 1;
   -webkit-animation: move-slope-left 1s ease 0s 1;
@@ -992,7 +1023,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 216, ../../dev/sass/base/_animations.scss */
+/* line 232, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
@@ -1047,7 +1078,7 @@ th {
     transform: rotate(360deg);
   }
 }
-/* line 223, ../../dev/sass/base/_animations.scss */
+/* line 239, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s ease 0s 1;
   -webkit-animation: move-handle 1s ease 0s 1;
@@ -1078,7 +1109,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 229, ../../dev/sass/base/_animations.scss */
+/* line 245, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s ease 0s 1;
   -webkit-animation: move-tab 1s ease 0s 1;
@@ -1903,7 +1934,7 @@ div.drum figure {
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background: url('../img/spinner.gif?1447154489') no-repeat;
+  background: url('../img/spinner.gif?1457541443') no-repeat;
   background-size: cover;
 }
 
@@ -3813,19 +3844,19 @@ div.drum figure {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -4122,17 +4153,16 @@ div.drum figure {
   position: absolute;
   z-index: -16;
   top: 456px;
-  left: 0px;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 52, ../../dev/sass/parts/_room-elements.scss */
+/* line 51, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block5 img {
   height: 32%;
   width: 32%;
 }
 
-/* line 57, ../../dev/sass/parts/_room-elements.scss */
+/* line 56, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block6 {
   position: absolute;
   z-index: -15;
@@ -4141,13 +4171,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 64, ../../dev/sass/parts/_room-elements.scss */
+/* line 63, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block6 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 69, ../../dev/sass/parts/_room-elements.scss */
+/* line 68, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block7 {
   position: absolute;
   z-index: -14;
@@ -4156,28 +4186,27 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 76, ../../dev/sass/parts/_room-elements.scss */
+/* line 75, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block7 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 81, ../../dev/sass/parts/_room-elements.scss */
+/* line 80, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block8 {
   position: absolute;
   z-index: -13;
   top: 653px;
-  left: 0px;
   max-height: 90%;
   min-width: 90%;
 }
-/* line 88, ../../dev/sass/parts/_room-elements.scss */
+/* line 86, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block8 img {
   height: 90%;
   width: 90%;
 }
 
-/* line 93, ../../dev/sass/parts/_room-elements.scss */
+/* line 91, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block9 {
   position: absolute;
   z-index: -12;
@@ -4186,15 +4215,14 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 100, ../../dev/sass/parts/_room-elements.scss */
+/* line 98, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block9 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 105, ../../dev/sass/parts/_room-elements.scss */
+/* line 103, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block10 {
-  transition-delay: 300;
   position: absolute;
   z-index: -11;
   top: 582px;
@@ -4202,13 +4230,13 @@ div.drum figure {
   max-height: 11%;
   min-width: 11%;
 }
-/* line 113, ../../dev/sass/parts/_room-elements.scss */
+/* line 110, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block10 img {
   height: 11%;
   width: 11%;
 }
 
-/* line 118, ../../dev/sass/parts/_room-elements.scss */
+/* line 115, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block11 {
   transition-delay: 300;
   position: absolute;
@@ -4217,26 +4245,26 @@ div.drum figure {
   max-height: 12%;
   min-width: 12%;
 }
-/* line 125, ../../dev/sass/parts/_room-elements.scss */
+/* line 122, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block11 img {
   height: 11.5%;
   width: 11.5%;
 }
 
-/* line 130, ../../dev/sass/parts/_room-elements.scss */
+/* line 127, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block12 {
   position: absolute;
   z-index: -9;
   top: 15rem;
   left: 180px;
 }
-/* line 135, ../../dev/sass/parts/_room-elements.scss */
+/* line 132, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block12 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 140, ../../dev/sass/parts/_room-elements.scss */
+/* line 137, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block13 {
   position: absolute;
   z-index: -8;
@@ -4245,13 +4273,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 147, ../../dev/sass/parts/_room-elements.scss */
+/* line 144, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block13 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 152, ../../dev/sass/parts/_room-elements.scss */
+/* line 149, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block14 {
   position: absolute;
   z-index: -7;
@@ -4260,13 +4288,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 159, ../../dev/sass/parts/_room-elements.scss */
+/* line 156, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block14 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 164, ../../dev/sass/parts/_room-elements.scss */
+/* line 161, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block15 {
   background: #FFFFFF;
   -moz-transform: skewX(130deg);
@@ -4280,107 +4308,97 @@ div.drum figure {
   transition-delay: 300;
   position: absolute;
   z-index: -4;
-  top: 0px;
   left: 65px;
   opacity: .3;
 }
 
-/* line 182, ../../dev/sass/parts/_room-elements.scss */
+/* line 178, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block16 {
   position: absolute;
   z-index: -5;
   top: 337px;
-  left: 0px;
   opacity: 0.7;
   max-height: 45%;
   min-width: 45%;
 }
-/* line 190, ../../dev/sass/parts/_room-elements.scss */
+/* line 185, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block16 img {
   height: 30%;
   width: 30%;
 }
 
-/* line 195, ../../dev/sass/parts/_room-elements.scss */
+/* line 190, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block17 {
   position: absolute;
   z-index: 1;
-  top: 0px;
-  height: 57%;
-  width: 57%;
 }
-/* line 201, ../../dev/sass/parts/_room-elements.scss */
+/* line 193, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block17 img {
   height: 57%;
   width: 57%;
 }
 
-/* line 206, ../../dev/sass/parts/_room-elements.scss */
+/* line 198, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block18 {
   transition-delay: 300;
   position: absolute;
   z-index: 4;
-  top: 100px;
   opasity: 1;
 }
-/* line 213, ../../dev/sass/parts/_room-elements.scss */
+/* line 204, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block18 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 218, ../../dev/sass/parts/_room-elements.scss */
+/* line 209, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block19 {
   transition-delay: 300;
   position: absolute;
   z-index: 2;
-  top: 100px;
   opacity: 1;
 }
-/* line 225, ../../dev/sass/parts/_room-elements.scss */
+/* line 215, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block19 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 230, ../../dev/sass/parts/_room-elements.scss */
+/* line 220, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block20 {
   transition-delay: 300;
   position: absolute;
   z-index: 3;
-  top: 100px;
   opacity: 1;
 }
-/* line 237, ../../dev/sass/parts/_room-elements.scss */
+/* line 226, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block20 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 242, ../../dev/sass/parts/_room-elements.scss */
+/* line 231, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block21 {
   transition-delay: 300;
   position: absolute;
   z-index: 4;
-  top: 100px;
   opacity: 1;
 }
-/* line 248, ../../dev/sass/parts/_room-elements.scss */
+/* line 236, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block21 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 253, ../../dev/sass/parts/_room-elements.scss */
+/* line 241, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block23 {
   transition-delay: 300;
   position: absolute;
   z-index: -7;
   top: 0px;
-  left: 0px;
   opacity: 0.5;
 }
-/* line 261, ../../dev/sass/parts/_room-elements.scss */
+/* line 248, ../../dev/sass/parts/_room-elements.scss */
 .coeff-room-block23 img {
   height: 95%;
   width: 95%;
@@ -4421,7 +4439,7 @@ div.drum figure {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1456407345') no-repeat;
+  background: url('../img/login/login-bg.jpg?1457541444') no-repeat;
   background-size: cover;
 }
 
@@ -4478,7 +4496,7 @@ div.drum figure {
   width: 6.125rem;
   height: 6.125rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1456319652') no-repeat;
+  background: url('../img/login/logo.png?1457541444') no-repeat;
   background-size: cover;
 }
 
@@ -6760,7 +6778,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1447154474') no-repeat;
+  background: url('../img/door-arrow.png?1457541442') no-repeat;
   background-size: 100% 100%;
 }
 /* line 583, ../../dev/sass/pages/design.scss */
@@ -8454,85 +8472,85 @@ tr.factory_item {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1447154480');
+  background-image: url('../img/auxiliaries-focused/grid.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 17, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1447154481');
+  background-image: url('../img/auxiliaries-focused/visor.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 22, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1447154481');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 27, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1447154482');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1447154481');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 37, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1447154481');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1447154481');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 47, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1447154480');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 52, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1447154480');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 57, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1447154480');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 62, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1447154476');
+  background-image: url('../img/auxiliaries-focused/fan.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 67, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1447154477');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1447154475');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 77, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1447154480');
+  background-image: url('../img/auxiliaries-focused/handle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8542,85 +8560,85 @@ tr.factory_item {
 }
 /* line 90, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/grid.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 95, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/visor.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 100, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 105, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 110, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/fan.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1447154483');
+  background-image: url('../img/auxiliaries-selected/handle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8643,7 +8661,7 @@ tr.factory_item {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1447154483');
+  background-image: url('../img/auxiliaries/grid.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8660,7 +8678,7 @@ tr.factory_item {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1447154483');
+  background-image: url('../img/auxiliaries/visor.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8677,7 +8695,7 @@ tr.factory_item {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1447154483');
+  background-image: url('../img/auxiliaries/spillway.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8694,7 +8712,7 @@ tr.factory_item {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1447154483');
+  background-image: url('../img/auxiliaries/outside.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8711,7 +8729,7 @@ tr.factory_item {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1447154483');
+  background-image: url('../img/auxiliaries/windowsill.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8735,7 +8753,7 @@ tr.factory_item {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1447154483');
+  background-image: url('../img/auxiliaries/louvers-top.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8745,7 +8763,7 @@ tr.factory_item {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1447154483');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8772,7 +8790,7 @@ tr.factory_item {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1447154483');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8795,7 +8813,7 @@ tr.factory_item {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1447154483');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8806,7 +8824,7 @@ tr.factory_item {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1447154483');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8817,7 +8835,7 @@ tr.factory_item {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1447154483');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8834,7 +8852,7 @@ tr.factory_item {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1447154483');
+  background-image: url('../img/auxiliaries/fan.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8857,7 +8875,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1447154483');
+  background-image: url('../img/auxiliaries/force-connector.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8868,7 +8886,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1447154483');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8885,7 +8903,7 @@ tr.factory_item {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1447154483');
+  background-image: url('../img/auxiliaries/handle.png?1457541443');
   background-repeat: no-repeat;
   background-size: contain;
 }

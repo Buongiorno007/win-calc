@@ -2458,14 +2458,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-
     function saveProduct() {
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         MainServ.goToCart();
       }
     }
-
 
     function showNextTip() {
       var tipQty = thisCtrl.config.TOOLTIP.length;
@@ -5788,7 +5786,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 $('.coeff-room-block9').css('opacity' , 1);
                 $('.coeff-room-block23').css('left' , (10000) + 'px');
                 $('.coeff-room-block10').css('opacity' , 0);
-                //$('.shadow-main').css();
                 $('.coeff-room-block17').css({
                   'width' : (0.4*((widthT/2)*2+350)) + 'px',
                   'height' : 41 + 'px',

@@ -92,6 +92,17 @@
   }
 }
 
+@mixin behavior-elements($nameMove) {
+  @include keyframes($nameMove) {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
 @mixin behavior-jump($nameMove, $fromX, $fromY, $toX, $toY) {
   @include keyframes($nameMove) {
     from {
@@ -134,6 +145,11 @@
   @include animation(thirdLight 9s ease 0s infinite);
 }
 @include behavior-thirdLight(thirdLight);
+
+.elements {
+  @include animation(elements 3s ease 0s 1);
+}
+@include behavior-elements(elements);
 
 .jumping {
   @include animation(jump-hor 2s ease-in 0s infinite);

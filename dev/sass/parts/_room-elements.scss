@@ -3,7 +3,7 @@
 	top: 0rem;
 	left: -4px;
 	height: 83%;
-	width: 143%; 
+	width: 143%;  
 	}
 
   	.coeff-room-block1 {
@@ -46,7 +46,6 @@
   		position: absolute;
 		z-index: -16;
 		top: 456px;
-		left: 0px;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
@@ -82,7 +81,6 @@
   		position: absolute;
 		z-index: -13;
 		top: 653px;
-		left: 0px;
 		max-height: 90%;
 		min-width: 90%; 
 		img {
@@ -103,7 +101,6 @@
 		}
 
 	.coeff-room-block10 {
-		transition-delay: 300;
   		position: absolute;
 		z-index: -11;
 		top: 582px;
@@ -174,7 +171,6 @@
 	  transition-delay: 300;
 	  position: absolute;
 	  z-index: -4;
-	  top: 0px;
 	  left: 65px;
 	  opacity: .3;
 	}
@@ -183,7 +179,6 @@
   		position: absolute;
 		z-index: -5;
 		top: 337px;
-		left: 0px;
 		opacity: 0.7;
 		max-height: 45%;
 		min-width: 45%; 
@@ -195,9 +190,6 @@
 	.coeff-room-block17 {
   		position: absolute;
 		z-index: 1;
-		top: 0px;
-		height: 57%;
-		width: 57%; 
 		img {
 			height: 57%;
 			width: 57%; }  
@@ -207,7 +199,6 @@
 		transition-delay: 300;
   		position: absolute;
 		z-index: 4;
-		top: 100px;
 		opasity: 1;
 		@extend .firstLight;
 		img {
@@ -219,7 +210,6 @@
 		transition-delay: 300;
   		position: absolute;
 		z-index: 2;
-		top: 100px;
 		opacity: 1;
 		@extend .secondLight;
 		img {
@@ -231,7 +221,6 @@
 		transition-delay: 300;
   		position: absolute;
 		z-index: 3;
-		top: 100px;
 		opacity: 1;
 		@extend .thirdLight;
 		img {
@@ -243,7 +232,6 @@
 		transition-delay: 300;
   		position: absolute;
 		z-index: 4;
-		top: 100px;
 		opacity: 1;
 		img {
 			height: 122%;
@@ -255,7 +243,6 @@
   		position: absolute;
 		z-index: -7;
 		top: 0px;
-		left: 0px;
 		opacity: 0.5;
 
 		img {

@@ -98,14 +98,12 @@
       }
     }
 
-
     function saveProduct() {
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         MainServ.goToCart();
       }
     }
-
 
     function showNextTip() {
       var tipQty = thisCtrl.config.TOOLTIP.length;
