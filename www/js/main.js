@@ -14426,7 +14426,7 @@ function ErrorResult(code, message) {
 
 
     function getValueByRule(parentValue, childValue, rule){
-      //      console.info('rule++', parentValue, childValue, rule);
+      //console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -14458,10 +14458,35 @@ function ErrorResult(code, message) {
           value = childValue;
           break;
       }
-      //      console.info('rule++value+++', value);
+      //console.info('rule++value+++', value);
       return value;
     }
 
+
+    function getValueByRuleGrid(parentValue, childValue, rule){
+      //console.info('rule++', parentValue, childValue, rule);
+      var value = 0;
+      switch (rule) {
+        case 1:
+          //------ меньше родителя на X (м)
+          value = GeneralServ.roundingValue((parentValue - childValue), 3);
+          break;
+        case 2: //------ X шт. на родителя
+        case 5: //----- X шт. на 1 м2 родителя
+          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+          value = parentValueTemp * childValue;
+          break;
+        case 3:
+          //------ X шт. на метр родителя
+          value = parentValue;
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      //console.info('rule++value+++', value);
+      return value;
+    }
 
 
     function culcPriceAsRule(
@@ -14862,7 +14887,6 @@ function ErrorResult(code, message) {
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-
       //console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
@@ -15136,12 +15160,12 @@ function ErrorResult(code, message) {
                     sizeSource = priceObj.kitsElem[cons+1].size;
 
                     for (el = 0; el < elemQty; el+=1) {
-                      priceObj.consist[cons][el].newValue = getValueByRule(
+                      priceObj.consist[cons][el].newValue = getValueByRuleGrid(
                         sizeSource,
                         priceObj.consist[cons][el].value,
                         priceObj.consist[cons][el].rules_type_id
                       );
-                      //console.warn('child+44+++', priceObj.consist[cons][el]);
+                      //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
                       culcPriceAsRule(
                         1,
                         priceObj.consist[cons][el].newValue,
@@ -15946,6 +15970,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
+          console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);
@@ -16543,8 +16568,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setCurrTemplate() {
+      console.info('rooms----', GlobalStor.global.rooms);
+      console.info('rooms----', GlobalStor.global.rooms[0].group_id);
+
       ProductStor.product.construction_type = GlobalStor.global.rooms[0].group_id;
       ProductStor.product.template_id = (GlobalStor.global.rooms[0].template_id - 1);
+      console.info('rooms----', ProductStor.product.construction_type);
     }
 
 

@@ -127,8 +127,12 @@
 
 
     function setCurrTemplate() {
+      console.info('rooms----', GlobalStor.global.rooms);
+      console.info('rooms----', GlobalStor.global.rooms[0].group_id);
+
       ProductStor.product.construction_type = GlobalStor.global.rooms[0].group_id;
       ProductStor.product.template_id = (GlobalStor.global.rooms[0].template_id - 1);
+      console.info('rooms----', ProductStor.product.construction_type);
     }
 
 

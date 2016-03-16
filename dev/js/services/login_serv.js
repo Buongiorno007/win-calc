@@ -726,6 +726,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
+          console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);

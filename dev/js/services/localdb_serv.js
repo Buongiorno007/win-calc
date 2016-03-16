@@ -2056,7 +2056,7 @@
 
 
     function getValueByRule(parentValue, childValue, rule){
-      //      console.info('rule++', parentValue, childValue, rule);
+      //console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -2088,10 +2088,35 @@
           value = childValue;
           break;
       }
-      //      console.info('rule++value+++', value);
+      //console.info('rule++value+++', value);
       return value;
     }
 
+
+    function getValueByRuleGrid(parentValue, childValue, rule){
+      //console.info('rule++', parentValue, childValue, rule);
+      var value = 0;
+      switch (rule) {
+        case 1:
+          //------ меньше родителя на X (м)
+          value = GeneralServ.roundingValue((parentValue - childValue), 3);
+          break;
+        case 2: //------ X шт. на родителя
+        case 5: //----- X шт. на 1 м2 родителя
+          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+          value = parentValueTemp * childValue;
+          break;
+        case 3:
+          //------ X шт. на метр родителя
+          value = parentValue;
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      //console.info('rule++value+++', value);
+      return value;
+    }
 
 
     function culcPriceAsRule(
@@ -2492,7 +2517,6 @@
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-
       //console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
@@ -2766,12 +2790,12 @@
                     sizeSource = priceObj.kitsElem[cons+1].size;
 
                     for (el = 0; el < elemQty; el+=1) {
-                      priceObj.consist[cons][el].newValue = getValueByRule(
+                      priceObj.consist[cons][el].newValue = getValueByRuleGrid(
                         sizeSource,
                         priceObj.consist[cons][el].value,
                         priceObj.consist[cons][el].rules_type_id
                       );
-                      //console.warn('child+44+++', priceObj.consist[cons][el]);
+                      //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
                       culcPriceAsRule(
                         1,
                         priceObj.consist[cons][el].newValue,
