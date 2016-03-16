@@ -416,6 +416,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .controller('ChangePassCtrl',
 
   function(
+    $filter,
     globalConstants,
     SettingServ,
     UserStor,
@@ -424,6 +425,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.U = UserStor;
+    thisCtrl.consts = globalConstants;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -435,7 +437,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-
+    //------- translate
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
+    thisCtrl.NO_CONFIRM_PASS = $filter('translate')('settings.NO_CONFIRM_PASS');
+    thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
+    thisCtrl.SAVE = $filter('translate')('settings.SAVE');
+    thisCtrl.CURRENT_PASSWORD = $filter('translate')('settings.CURRENT_PASSWORD');
+    thisCtrl.NEW_PASSWORD = $filter('translate')('settings.NEW_PASSWORD');
+    thisCtrl.CONFIRM_PASSWORD = $filter('translate')('settings.CONFIRM_PASSWORD');
 
 
     /**============ METHODS ================*/
@@ -1300,6 +1309,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.consts = globalConstants;
 
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
@@ -1317,9 +1327,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
-    thisCtrl.regPhone = globalConstants.REG_PHONE;
-    thisCtrl.regName = globalConstants.REG_NAME;
-    thisCtrl.regMail = globalConstants.REG_MAIL;
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -1329,12 +1336,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
     thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
     thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
-    thisCtrl.MOBILE = $filter('translate')('login.MOBILE');
-    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
-    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
-    thisCtrl.SHORT_PHONE = $filter('translate')('login.SHORT_PHONE');
+    thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
     thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
-    thisCtrl.SHORT_PASSWORD = $filter('translate')('login.SHORT_PASSWORD');
+    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
     thisCtrl.ENTER = $filter('translate')('login.ENTER');
     thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
     thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
@@ -1652,9 +1657,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1702,7 +1707,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-//*/
+*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -1867,7 +1872,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 name: thisCtrl.user.name,
                 phone: thisCtrl.user.phone,
                 email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.id,
+                cityId: thisCtrl.user.city.cityId,
                 password: localDB.md5(thisCtrl.user.phone)
               };
               console.log('CREATE USER!!!!!!!!!!!!', userData);
@@ -1945,16 +1950,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   function(
     $location,
     $timeout,
-    DesignServ,
-    DesignStor,
+    globalConstants,
+    GeneralServ,
     loginServ,
     MainServ,
     SVGServ,
+    DesignServ,
+    AddElementMenuServ,
+
     GlobalStor,
     ProductStor,
+    DesignStor,
     UserStor,
-    AuxStor,
-    globalConstants
+    AuxStor
   ) {
     /*jshint validthis:true */
    var thisCtrl = this;
@@ -1983,9 +1991,29 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //TODO delete
     function goToEditTemplate() {
-      GlobalStor.global.activePanel = 0;
-      DesignStor.design.isGlassExtra = 0;
-      $location.path('/design');
+      if(!ProductStor.product.is_addelem_only) {
+        if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+          /** calc Price previous parameter and close caclulators */
+          AddElementMenuServ.finishCalculators();
+        }
+        //---- hide rooms if opened
+        GlobalStor.global.showRoomSelectorDialog = 0;
+        //---- hide tips
+        GlobalStor.global.configMenuTips = 0;
+        //---- hide comment if opened
+        GlobalStor.global.isShowCommentBlock = 0;
+        //---- hide template type menu if opened
+        GlobalStor.global.isTemplateTypeMenu = 0;
+        GeneralServ.stopStartProg();
+        MainServ.setDefaultAuxParam();
+        //------ close Glass Selector Dialogs
+        if (GlobalStor.global.showGlassSelectorDialog) {
+          DesignServ.closeGlassSelectorDialog(1);
+        }
+        GlobalStor.global.activePanel = 0;
+        DesignStor.design.isGlassExtra = 0;
+        $location.path('/design');
+      }
     }
 
 
@@ -2294,15 +2322,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ show Call Master Dialog
     function openMasterDialog() {
-      CartStor.cart.isMasterDialog = 1;
+      if(OrderStor.order.products.length) {
+        CartStor.cart.isMasterDialog = 1;
+      }
     }
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
-      if(OrderStor.order.is_instalment) {
-        CartStor.cart.isCreditDialog = 1;
-      } else {
-        CartStor.cart.isOrderDialog = 1;
+      if(OrderStor.order.products.length) {
+        if (OrderStor.order.is_instalment) {
+          CartStor.cart.isCreditDialog = 1;
+        } else {
+          CartStor.cart.isOrderDialog = 1;
+        }
       }
     }
 
@@ -2426,14 +2458,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-
     function saveProduct() {
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         MainServ.goToCart();
       }
     }
-
 
     function showNextTip() {
       var tipQty = thisCtrl.config.TOOLTIP.length;
@@ -5229,7 +5259,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     GeneralServ,
     ProductStor,
     SVGServ,
-    DesignServ
+    DesignServ,
+    PointsServ
   ) {
 
     return {
@@ -5243,7 +5274,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         templateHeight: '='
       },
       link: function (scope, elem) {
-
         /**============ METHODS ================*/
  
         function zooming() {
@@ -5461,8 +5491,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 padding = 0.7,
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup,
-                points, dimMaxMin, scale, blocksQty, i, corners;
-
+                points, dimMaxMin, scale, blocksQty, i, corners,
+                pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
@@ -5512,6 +5542,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .on("zoom", zooming));
             }
 
+            /** Points */
+            var blockQty = template.details.length,
+                path = pnt.path,
+                noVvPath = pnt.noVvPath,   
+                fpDgLR =pnt.fpDgLR,    
+                fpDgRL =pnt.fpDgRL,         
+                heightWmd = pnt.heightWmd,        
+                widthWmd = pnt.widthWmd,          
+                widthT = pnt.widthT,
+                heightT = pnt.heightT;
+
             /** Defs */
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               var defs = mainGroup.append("defs"),
@@ -5560,116 +5601,118 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               /** background */
 
               if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                var kk = '', imgLink = '';
+                var kk = '', 
+                    imgLink = '',
+                    tH = heightT;
                 if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                   imgLink = "fon.gif";
-                  if (ProductStor.product.template_height <= 2049) {
+                  if (tH <= 2049) {
                     kk = 1.2;
                   }
-                  if (2050 <= ProductStor.product.template_height) {
+                  if (2050 <= tH) {
                     kk = 1.26;
                   }
-                  if ( 2101 <= ProductStor.product.template_height) {
+                  if ( 2101 <= tH) {
                     kk = 1.28;
                   }
-                  if ( 2171 <= ProductStor.product.template_height) {
+                  if ( 2171 <= tH) {
                     kk = 1.32;
                   }
-                  if ( 2191 <= ProductStor.product.template_height) {
+                  if ( 2191 <= tH) {
                     kk = 1.35;
                   }
-                  if ( 2211 <= ProductStor.product.template_height) {
+                  if ( 2211 <= tH) {
                     kk = 1.38;
                   }
-                  if ( 2231 <= ProductStor.product.template_height) {
+                  if ( 2231 <= tH) {
                     kk = 1.4;
                   }
-                  if ( 2251 <= ProductStor.product.template_height) {
+                  if ( 2251 <= tH) {
                     kk = 1.42;
                   }
-                  if ( 2271 <= ProductStor.product.template_height) {
+                  if ( 2271 <= tH) {
                     kk = 1.44;
                   }
-                  if ( 2291 <=ProductStor.product.template_height) {
+                  if ( 2291 <=tH) {
                     kk = 1.46;
                   }
-                  if ( 2311 <=ProductStor.product.template_height) {
+                  if ( 2311 <=tH) {
                     kk = 1.48;
                   }
-                  if ( 2331 <= ProductStor.product.template_height) {
+                  if ( 2331 <= tH) {
                     kk = 1.5;
                   }
-                  if ( 2351 <= ProductStor.product.template_height) {
+                  if ( 2351 <= tH) {
                     kk = 1.52;
                   }
-                  if ( 2371 <= ProductStor.product.template_height) {
+                  if ( 2371 <= tH) {
                     kk = 1.54;
                   }
-                  if ( 2391 <= ProductStor.product.template_height) {
+                  if ( 2391 <= tH) {
                     kk = 1.56;
                   }
                 }
               
                 if(ProductStor.product.construction_type === 4) {
                   imgLink = "333.gif";
-                  if (ProductStor.product.template_height > 100) {
+                  if (tH > 100) {
                     kk = 1.03;
                   }
-                  if (1800 <= ProductStor.product.template_height) {
+                  if (1800 <= tH) {
                     kk = 1.05;
                   }
-                  if (1850 <= ProductStor.product.template_height) {
+                  if (1850 <= tH) {
                     kk = 1.07;
                   }
-                  if (1900 <= ProductStor.product.template_height) {
+                  if (1900 <= tH) {
                     kk = 1.11;
                   }
-                  if (1950 <= ProductStor.product.template_height) {
+                  if (1950 <= tH) {
                     kk = 1.14;
                   }
-                  if (2000 <= ProductStor.product.template_height) {
+                  if (2000 <= tH) {
                     kk = 1.17;
                   }
-                  if (2050 <= ProductStor.product.template_height) {
+                  if (2050 <= tH) {
                     kk = 1.2;
                   }
-                  if ( 2101 <= ProductStor.product.template_height) {
+                  if ( 2101 <= tH) {
                     kk = 1.23;
                   }
-                  if ( 2171 <= ProductStor.product.template_height) {
+                  if ( 2171 <= tH) {
                     kk = 1.24;
                   }
-                  if ( 2191 <= ProductStor.product.template_height) {
+                  if ( 2191 <= tH) {
                     kk = 1.25;
                   }
-                  if ( 2211 <= ProductStor.product.template_height) {
+                  if ( 2211 <= tH) {
                     kk = 1.27;
                   }
-                  if ( 2231 <= ProductStor.product.template_height) {
+                  if ( 2231 <= tH) {
                     kk = 1.29;
                   }
-                  if ( 2251 <= ProductStor.product.template_height) {
+                  if ( 2251 <= tH) {
                     kk = 1.31;
                   }
-                  if ( 2271 <= ProductStor.product.template_height) {
+                  if ( 2271 <= tH) {
                     kk = 1.33;
                   }
-                  if ( 2291 <=ProductStor.product.template_height) {
+                  if ( 2291 <=tH) {
                     kk = 1.35;
                   }
-                  if ( 2311 <=ProductStor.product.template_height) {
+                  if ( 2311 <=tH) {
                     kk = 1.37;
                   }
-                  if ( 2331 <= ProductStor.product.template_height) {
+                  if ( 2331 <= tH) {
                     kk = 1.38;
                   }
-                  if ( 2351 <= ProductStor.product.template_height) {
+                  if ( 2351 <= tH) {
                     kk = 1.40;
                   }
-                  if ( 2371 <= ProductStor.product.template_height) {
+                  if ( 2371 <= tH) {
                     kk = 1.41;
                   }
-                  if ( 2391 <= ProductStor.product.template_height) {
+                  if ( 2391 <= tH) {
                     kk = 1.43;
                   }
                 }
@@ -5687,82 +5730,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               } 
             }
 
-  //=============================Points==============================//
-
-            var blockQty = template.details.length,
-                path = '',
-                noVvPath = '',    //без  Viev = 0
-                fpDgLR ='',             //диагональ с лево на право
-                fpDgRL ='',             //диагональ с право на лево
-                heightWmd = '',         //Высота окна
-                widthWmd = '';          //Ширина окна
-                // wind = '',              //Выход на болкон
-                // door = '';              //Выход на болкон
-
-            while(--blockQty > 0) {
-              if (template.details[blockQty].level === 1) {
-                var pointsOutQty =  template.details[blockQty].pointsOut.length;
-                while(--pointsOutQty > -1) {
-
-                  if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
-                    noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                    } else {
-                      noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                    }
-                  }
-
-                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
-                    fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                    //console.log('fpDgLR', fpDgLR)
-                  }
-
-                  if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
-                    fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                  }
-
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty]) {
-                    path += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                    if(!pointsOutQty) {
-                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
-                    } else {
-                      path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
-                    }
-                  }
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
-                    if(!pointsOutQty) {
-                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
-                    } else {
-                      heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
-                    }
-                  }
-
-                  if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
-                    widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
-                  }
-                }
-              }
-            }
-
-          //============================elements room==========================//
+          /**Elements room*/
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               if(ProductStor.product.construction_type === 1) {
-                var lchHeight = (((0.18*heightWmd)-252)+520),
-                    lchWidth = (((0.18*widthWmd)-234)+520),
+                var lchHeight = (((0.18*heightT)-252)+520),
+                    lchWidth = (((0.18*widthT)-234)+520),
                     heightDisplay = 755,
                     topWindowsill = '',
                     block15Height = '',
@@ -5770,39 +5743,39 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     randomOpasity = '',
                     block15Top = '';
 
-
-                if (ProductStor.product.template_height < 1648) {
+                if (heightT < 1648) {
                   topWindowsill = '' + 456;
                   block15Height = '' + 90;
                   windowsill2 = 100;
                   block15Top = '' + 720;
                 }
-                if (1648 < ProductStor.product.template_height) {
+                if (1648 < heightT) {
                   topWindowsill = '' + 526;
                   block15Height = '' + 90;
                   windowsill2 = 60;
                   block15Top =  '' + 720;
                 }
-                if (1848 < ProductStor.product.template_height) {
+                if (1848 < heightT) {
                   topWindowsill = '' + 576;
                   block15Height = '' + 90;
                   windowsill2 = 0;
                   block15Top = '' + 720;
                 }
-                if (2148 < ProductStor.product.template_height) {
+                if (2148 < heightT) {
                   topWindowsill = '' + 637;
                   block15Height = '' + 90;
                   windowsill2 = -30;
                   block15Top =  '' + 720;
                 }
 
-                if (widthWmd > 900 && heightWmd < 1648) {
-                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthWmd/2)-700*0.32))/2) + 'px');
+                if (widthT > 900 && heightT < 1648) {
+                  $('.coeff-room-block5').css('left' , (109+(0.48*((widthT/2)-700*0.32))/2) + 'px');
+
                 } else {
                   $('.coeff-room-block5').css('left' , 10000 + 'px');
                 }
                 $('.coeff-room-block15').css({
-                  'width' : ((0.48*(widthWmd/2))+30) + 'px',
+                  'width' : ((0.48*(widthT/2))+30) + 'px',
                   'height' : block15Height + 'px',
                   'top' : block15Top + 'px'
                 });
@@ -5813,9 +5786,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 $('.coeff-room-block9').css('opacity' , 1);
                 $('.coeff-room-block23').css('left' , (10000) + 'px');
                 $('.coeff-room-block10').css('opacity' , 0);
-                //$('.shadow-main').css();
                 $('.coeff-room-block17').css({
-                  'width' : (0.4*((widthWmd/2)*2+350)) + 'px',
+                  'width' : (0.4*((widthT/2)*2+350)) + 'px',
                   'height' : 41 + 'px',
                   'left' : 215 + 'px',
                   'top' : topWindowsill + 'px'
@@ -5847,13 +5819,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                }
 
               if(ProductStor.product.construction_type === 4) {
-                var lchHeight = (((0.18*heightWmd)-252)+520),
-                    lchWidth = (((0.18*widthWmd)-234)+420),
+                var lchHeight = (((0.18*heightT)-252)+520),
+                    lchWidth = (((0.18*widthT)-234)+420),
                     heightDisplay = 755;
                 $('.coeff-room-block23').css({
-                  'width' : (1000*0.5+(0.7*(widthWmd-700))) + 'px',
+                  'width' : (1000*0.5+(0.7*(widthT-700))) + 'px',
                   'top' : 665 + 'px',
-                  'left' : 100 -(2.5*(0.1*widthWmd-70)) + 'px'
+                  'left' : 100 -(2.5*(0.1*widthT-70)) + 'px'
                 });
                 $('.coeff-room-block15').css({
                   'top': (10000) + 'px'
@@ -5887,8 +5859,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'left' : 130 + 'px',
                     'top' : (heightDisplay - lchHeight + 50) + 'px'
                 });
-                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthWmd)+280) + 'px');
-                $('.coeff-room-block8').css('left' , (0.23*widthWmd+275) + 'px');
+
+                $('.coeff-room-block11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
+                $('.coeff-room-block8').css('left' , (0.23*widthT+275) + 'px');
                 $('.coeff-room-block5').css('left' , 5000 + 'px');
                 $('.coeff-room-block10').css('opacity' , 1);
                 $('.coeff-room-block7').css('opacity' , 1);
@@ -5897,23 +5870,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
             }
 
-          //============================soffits================================//
-
-
+          /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
-                   positionY1 = 18,
-                   positionX2 = position.x-340,
-                   positionY2 = -100;
-
+                    positionY1 = 18,
+                    positionX2 = position.x-340,
+                    positionY2 = -100;
                 mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonWindow1',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX1 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX1 + ', ' + positionY1 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
 
@@ -5922,7 +5893,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow2',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX2 + ', ' + positionY1 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX2 + ', ' + positionY1 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5930,7 +5901,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow3',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX1 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX1 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5938,7 +5909,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonWindow4',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
               if(ProductStor.product.construction_type == 4) {
@@ -5948,7 +5919,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonDoor3',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-215) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
                 });
 
                 mainGroup.append('g').append("polygon")
@@ -5956,56 +5927,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'id' : 'clipPolygonDoor4',
                   'fill' : '#FFFAFA',
                   'points' : noVvPath,
-                  'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-              }
-              if(ProductStor.product.construction_type == 2) {
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow1',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-100) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow2',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (85) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow3',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygonWindow4',
-                  'fill' : '#FFFAFA',
-                  'points' : wind,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygondoor3',
-                  'fill' : '#FFFAFA',
-                  'points' : door,
-                  'transform': 'translate(' + (position.x-160) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
-                });
-
-                mainGroup.append('g').append("polygon")
-                .attr({
-                  'id' : 'clipPolygondoor4',
-                  'fill' : '#FFFAFA',
-                  'points' : door,
-                  'transform': 'translate(' + (position.x-300) + ', ' + (-100) + ') scale('+ (scale*4.4) +','+ (scale*4.4) +')'
+                  'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
             }
@@ -6696,7 +6618,7 @@ function ErrorResult(code, message) {
     function calcAddElemPrice(typeIndex, elementIndex, addElementsList) {
       var item = addElementsList[typeIndex][elementIndex], objXAddElementPrice;
       /** Grid */
-      if(AuxStor.aux.isFocusedAddElement === 1) {
+      if(item.list_group_id === 20) {
 
         objXAddElementPrice = {
           currencyId: UserStor.userInfo.currencyId,
@@ -7358,19 +7280,32 @@ function ErrorResult(code, message) {
 
 
     function downloadAddElementsData(id) {
-      var index = (id - 1);
+      var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
-      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      /** if Grids */
+      if (AuxStor.aux.isFocusedAddElement === 1) {
+        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+          return item.profile_id === ProductStor.product.profile.id;
+        });
+        AuxStor.aux.addElementsList = [gridsSort];
+      } else {
+        AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+      }
     }
 
 
     function showingAddElemMenu(id) {
       AuxStor.aux.isFocusedAddElement = id;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       AuxStor.aux.currAddElementPrice = 0;
+      //playSound('swip');
       downloadAddElementsData(id);
+      //------ if add elements list is not empty show menu
+      if(AuxStor.aux.addElementsList.length) {
+        if(AuxStor.aux.addElementsList[0].length) {
+          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+        }
+      }
     }
 
 
@@ -8585,6 +8520,7 @@ function ErrorResult(code, message) {
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
+      REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
@@ -11554,9 +11490,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -11975,7 +11911,6 @@ function ErrorResult(code, message) {
       ).then(function(result) {
         var products = angular.copy(result);
         if(products.length) {
-
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
@@ -12009,7 +11944,7 @@ function ErrorResult(code, message) {
               });
 
             } else {
-              defer1.resolve(1);
+              defer1.resolve(tempProd);
             }
             return defer1.promise;
           });
@@ -12018,12 +11953,8 @@ function ErrorResult(code, message) {
 
             var iconPromise = data.map(function(item) {
               var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
-                item.templateIcon = data;
-                delete item.profile_id;
-                delete item.glass_id;
-                delete item.hardware_id;
-
+              //----- checking product with design or only addElements
+              if(item.is_addelem_only) {
                 //----- set price Discounts
                 item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
                 item.productPriceDis = (GeneralServ.setPriceDis(
@@ -12032,7 +11963,23 @@ function ErrorResult(code, message) {
 
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
-              });
+              } else {
+                SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function (data) {
+                  item.templateIcon = data;
+                  delete item.profile_id;
+                  delete item.glass_id;
+                  delete item.hardware_id;
+
+                  //----- set price Discounts
+                  item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                  item.productPriceDis = (GeneralServ.setPriceDis(
+                    item.template_price, OrderStor.order.discount_construct
+                  ) + item.addelemPriceDis);
+
+                  OrderStor.order.products.push(item);
+                  deferIcon.resolve(1);
+                });
+              }
               return deferIcon.promise;
             });
 
@@ -13954,11 +13901,12 @@ function ErrorResult(code, message) {
       selectLocalDB(
         tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning'
       ).then(function(result) {
-        if(result && result.length) {
-          if(result[0].amendment_pruning) {
-            result[0].amendment_pruning /= 1000;
+        var data = angular.copy(result);
+        if(data && data.length) {
+          if(data[0].amendment_pruning) {
+            data[0].amendment_pruning /= 1000;
           }
-          deff.resolve(result[0]);
+          deff.resolve(data[0]);
         } else {
           deff.resolve(0);
         }
@@ -14404,10 +14352,10 @@ function ErrorResult(code, message) {
     function culcKitPrice(priceObj, sizes) {
       var kitElemQty = priceObj.kitsElem.length,
           sizeQty = 0,
-          constrElements = [];
+          constrElements = [], ke;
       priceObj.priceTotal = 0;
 
-      for(var ke = 0; ke < kitElemQty; ke++) {
+      for(ke = 0; ke < kitElemQty; ke+=1) {
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
           if(angular.isArray(priceObj.kitsElem[ke])) {
@@ -14475,7 +14423,7 @@ function ErrorResult(code, message) {
 
 
     function getValueByRule(parentValue, childValue, rule){
-      //      console.info('rule++', parentValue, childValue, rule);
+      //console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -14507,10 +14455,35 @@ function ErrorResult(code, message) {
           value = childValue;
           break;
       }
-      //      console.info('rule++value+++', value);
+      //console.info('rule++value+++', value);
       return value;
     }
 
+
+    function getValueByRuleGrid(parentValue, childValue, rule){
+      //console.info('rule++', parentValue, childValue, rule);
+      var value = 0;
+      switch (rule) {
+        case 1:
+          //------ меньше родителя на X (м)
+          value = GeneralServ.roundingValue((parentValue - childValue), 3);
+          break;
+        case 2: //------ X шт. на родителя
+        case 5: //----- X шт. на 1 м2 родителя
+          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+          value = parentValueTemp * childValue;
+          break;
+        case 3:
+          //------ X шт. на метр родителя
+          value = parentValue;
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      //console.info('rule++value+++', value);
+      return value;
+    }
 
 
     function culcPriceAsRule(
@@ -14911,7 +14884,6 @@ function ErrorResult(code, message) {
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-
       //console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
@@ -15091,32 +15063,70 @@ function ErrorResult(code, message) {
       //console.info('START+++', AddElement, grid);
 
       /** parse Kit */
-      getKitByID(grid.cloth_id).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+      $q.all([
+        getKitByID(grid.cloth_id),
+        getKitByID(grid.top_id)
+      ]).then(function (kits) {
+        var prof = angular.copy(kits[1]);
         priceObj.kits = angular.copy(kits);
+        //--- add other profiles
+        priceObj.kits.push(prof, prof, prof);
+        //console.warn('kits!!!!!!+', priceObj.kits);
 
-        /** parse Kit Element */
-        getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem) {
-          /** culc Kit Price */
-          var sizeTemp = GeneralServ.roundingValue(((grid.element_width + priceObj.kits.amendment_pruning)*(grid.element_height + priceObj.kits.amendment_pruning)), 3),
-              wasteValue = (grid.cloth_waste) ? (1 + (grid.cloth_waste / 100)) : 1,
-              constrElem = angular.copy(kitsElem),
-              priceTemp = GeneralServ.roundingValue((sizeTemp * constrElem.price) * wasteValue);
+        $q.all([
+          getElementByListId(0, kits[0].parent_element_id ),
+          getElementByListId(0, kits[1].parent_element_id )
+        ]).then(function (kitsElem) {
+          var wasteList = [
+                grid.cloth_waste,
+                grid.top_waste,
+                grid.right_waste,
+                grid.bottom_waste,
+                grid.left_waste
+              ],
+              kitsQty = wasteList.length, k,
+              tempW, tempH,
+              sizeTemp, wasteValue, priceTemp;
 
           priceObj.kitsElem = angular.copy(kitsElem);
+          //--- add other profiles
+          priceObj.kitsElem.push(
+            angular.copy(kitsElem[1]), angular.copy(kitsElem[1]), angular.copy(kitsElem[1])
+          );
+          //console.warn('kitsElem!!!!!!+', priceObj.kitsElem);
 
-          //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
-          /** currency conversion */
-          if (UserStor.userInfo.currencyId != constrElem.currency_id){
-            priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, constrElem.currency_id));
+          /** culc Kit Price */
+          for(k = 0; k < kitsQty; k+=1) {
+            wasteValue = (priceObj.kits[k].waste) ? (1 + (priceObj.kits[k].waste / 100)) : 1;
+            if(priceObj.kitsElem[k]) {
+              tempW = (grid.element_width + priceObj.kits[k].amendment_pruning - (wasteList[k]/1000));
+              tempH = (grid.element_height + priceObj.kits[k].amendment_pruning - (wasteList[k]/1000));
+              if(k === 1 || k === 3) {
+                //----- profiles horizontal
+                sizeTemp = GeneralServ.roundingValue(tempW, 3);
+              } else if(k === 2 || k === 4) {
+                //----- profiles vertical
+                sizeTemp = GeneralServ.roundingValue(tempH, 3);
+              } else {
+                //----- grid
+                sizeTemp = GeneralServ.roundingValue((tempW * tempH), 3);
+              }
+              priceTemp = GeneralServ.roundingValue((sizeTemp * priceObj.kitsElem[k].price) * wasteValue);
+
+              //console.warn('!!!!!!+', sizeTemp, constrElem.price, wasteValue);
+              /** currency conversion */
+              if (UserStor.userInfo.currencyId != priceObj.kitsElem[k].currency_id) {
+                priceTemp = GeneralServ.roundingValue(currencyExgange(priceTemp, priceObj.kitsElem[k].currency_id));
+              }
+              priceObj.kitsElem[k].qty = 1;
+              priceObj.kitsElem[k].size = sizeTemp;
+              priceObj.kitsElem[k].priceReal = priceTemp;
+              priceObj.priceTotal += priceTemp;
+              priceObj.constrElements.push(priceObj.kitsElem[k]);
+              //console.warn('constrElem!!!!!!+', priceObj.kitsElem[k]);
+            }
+
           }
-          constrElem.qty = 1;
-          constrElem.size = sizeTemp;
-          constrElem.priceReal = priceTemp;
-          priceObj.priceTotal += priceTemp;
-          priceObj.constrElements.push(constrElem);
-          //console.warn('constrElem!!!!!!+', constrElem);
-
         });
 
         /** collect Kit Children Elements*/
@@ -15129,64 +15139,50 @@ function ErrorResult(code, message) {
           priceObj.consist = angular.copy(result);
           //console.warn('list-contents!!!!!!+', result);
 
-            parseConsistElem(priceObj.consist).then(function (consist) {
-              var wasteList = [
-                    grid.top_waste,
-                    grid.right_waste,
-                    grid.bottom_waste,
-                    grid.left_waste
-              ], consistQty, cons, el, wasteValue, sizeSource;
-              //console.warn('consistElem!!!!!!+', consist);
-              priceObj.consistElem = angular.copy(consist);
+          parseConsistElem(priceObj.consist).then(function (consist) {
+            var consistQty, elemQty, cons, el, wasteValue, sizeSource;
+            //console.warn('consistElem!!!!!!+', consist);
+            priceObj.consistElem = angular.copy(consist);
 
-              /** culc Consist Price */
+            /** culc Consist Price */
 
-              if(priceObj.consistElem) {
-                consistQty = priceObj.consist.length;
-                if(consistQty) {
-                  for(cons = 0; cons < consistQty; cons+=1) {
-                    //console.log('----------------');
-                    //console.warn('parent++++', priceObj.consist[cons]);
-                    if(priceObj.consist[cons]) {
-                      wasteValue = (wasteList[cons]) ? (1+(wasteList[cons] / 100)) : 1;
+            if(priceObj.consistElem) {
+              consistQty = priceObj.consist.length;
+              if(consistQty) {
+                for(cons = 0; cons < consistQty; cons+=1) {
+                  //console.warn('parent++++', priceObj.consist[cons]);
+                  elemQty = priceObj.consist[cons].length;
+                  if(elemQty) {
+                    wasteValue = 1;
+                    sizeSource = priceObj.kitsElem[cons+1].size;
 
-                      if(!cons || cons === 2) {
-                        //console.info('width!!!!', cons);
-                        sizeSource = grid.element_width;
-                      } else {
-                        //console.info('height!!!!', cons);
-                        sizeSource = grid.element_height;
-                      }
-
-                      for (el = 0; el < consistQty; el+=1) {
-
-                        priceObj.consist[cons][el].newValue = getValueByRule(
-                          sizeSource,
-                          priceObj.consist[cons][el].value,
-                          priceObj.consist[cons][el].rules_type_id
-                        );
-                        //console.warn('child+44+++', priceObj.consist[cons][el]);
-                        culcPriceAsRule(
-                          1,
-                          priceObj.consist[cons][el].newValue,
-                          priceObj.consist[cons][el],
-                          priceObj.consistElem[cons][el],
-                          0,//priceObj.consist[cons][el].amendment_pruning,
-                          wasteValue,
-                          priceObj
-                        );
-                      }
-
+                    for (el = 0; el < elemQty; el+=1) {
+                      priceObj.consist[cons][el].newValue = getValueByRuleGrid(
+                        sizeSource,
+                        priceObj.consist[cons][el].value,
+                        priceObj.consist[cons][el].rules_type_id
+                      );
+                      //console.warn('child+44+++', priceObj.kitsElem[cons+1], priceObj.consist[cons][el]);
+                      culcPriceAsRule(
+                        1,
+                        priceObj.consist[cons][el].newValue,
+                        priceObj.consist[cons][el],
+                        priceObj.consistElem[cons][el],
+                        0,//priceObj.consist[cons][el].amendment_pruning,
+                        wasteValue,
+                        priceObj
+                      );
                     }
                   }
                 }
               }
-              priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-              //console.info('FINISH ADD ====:', priceObj);
-              finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
-              finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
-              deffMain.resolve(finishPriceObj);
-            });
+            }
+            priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
+            //console.info('FINISH ADD ====:', priceObj);
+            finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+            finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+            deffMain.resolve(finishPriceObj);
+          });
 
         });
 
@@ -15971,6 +15967,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
+          console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);
@@ -16568,8 +16565,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setCurrTemplate() {
+      console.info('rooms----', GlobalStor.global.rooms);
+      console.info('rooms----', GlobalStor.global.rooms[0].group_id);
+
       ProductStor.product.construction_type = GlobalStor.global.rooms[0].group_id;
       ProductStor.product.template_id = (GlobalStor.global.rooms[0].template_id - 1);
+      console.info('rooms----', ProductStor.product.construction_type);
     }
 
 
@@ -16775,6 +16776,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
+          //------ show elements of room
+          GlobalStor.global.isRoomElements = 1;
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -17051,6 +17054,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               ],
               sizes: []
             };
+        //-------- beads data for analysis
+        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
           objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
@@ -17564,6 +17569,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
 
       if(permission) {
+        //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
         GlobalStor.global.configMenuTips = 0;
         GlobalStor.global.isShowCommentBlock = 0;
@@ -17582,7 +17588,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-    ProductStor.product.template_source['beads'] = angular.copy(ProductStor.product.template.priceElements.beadsSize);
           delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
@@ -17642,7 +17647,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       for(p = 0; p < prodQty; p+=1) {
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
-        productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
+        if(!productData.is_addelem_only) {
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
+        }
+        productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
@@ -17665,6 +17673,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.addelemPriceDis;
         delete productData.productPriceDis;
         delete productData.report;
+        delete productData.beadsData;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -18220,6 +18229,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18291,6 +18301,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18336,6 +18347,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18401,6 +18413,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18429,6 +18442,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18509,6 +18523,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18554,6 +18569,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18617,6 +18633,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18645,6 +18662,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:0, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18667,6 +18685,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18761,6 +18780,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1',  x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18833,6 +18853,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:1060, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18878,6 +18899,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:530, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:530, y:1320, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18942,6 +18964,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -18987,6 +19010,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19021,6 +19045,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19089,6 +19114,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19117,6 +19143,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1050, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1050, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19142,6 +19169,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19204,6 +19232,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19272,6 +19301,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:2100, y:300, dir:'line'},
                       {type:'impost', id:'ip1', x:0, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19300,6 +19330,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19325,6 +19356,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:700, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19359,6 +19391,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19395,6 +19428,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:300, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19566,6 +19600,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip1', x:700, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:700, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19611,6 +19646,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       {type:'impost', id:'ip3', x:1400, y:0, dir:'line'},
                       {type:'impost', id:'ip3', x:1400, y:1400, dir:'line'}
                     ],
+                    impostLight: [],
                     impostOut: [],
                     impostIn : []
                   },
@@ -19741,12 +19777,123 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
 
 
-    }
+    };
 
 
   });
 })();
 
+
+
+// services/points_serv.js
+
+(function(){
+  'use strict';
+    /**@ngInject*/
+
+  angular
+    .module('BauVoiceApp')
+    .factory('PointsServ',
+
+  function (DesignStor, ProductStor) {
+	var thisFactory = this;
+
+	    function templatePoints(template) {
+			if(template && !$.isEmptyObject(template)) {
+			var blockQty = template.details.length,
+	            path = '',
+	            noVvPath = '',          //без  Viev = 0
+	            fpDgLR ='',             //диагональ с лево на право
+	            fpDgRL ='',             //диагональ с право на лево
+	            heightWmd = '',         //Высота окна
+	            widthWmd = '';          //Ширина окна
+
+	        while(--blockQty > 0) {
+	          if (template.details[blockQty].level === 1) {
+	            var pointsOutQty =  template.details[blockQty].pointsOut.length;
+	            while(--pointsOutQty > -1) {
+
+	              if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
+	                noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+	                } else {
+	                  noVvPath += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+	                }
+	              }
+
+	              if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp1') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3')) {
+	                fpDgLR += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  fpDgLR += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	                //console.log('fpDgLR', fpDgLR)
+	              }
+
+	              if ((template.details[blockQty].pointsOut[pointsOutQty].id ==='fp2') || (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp4')) {
+	                fpDgRL += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  fpDgRL += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	              }
+
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty]) {
+	                path += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	                if(!pointsOutQty) {
+	                  path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y));
+	                } else {
+	                  path += ' '+((template.details[blockQty].pointsOut[pointsOutQty].y)) +',';
+	                }
+	              }
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+	                if(!pointsOutQty) {
+	                  heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y);
+	                } else {
+	                  heightWmd += ' '+(template.details[blockQty].pointsOut[pointsOutQty].y) +',';
+	                }
+	              }
+
+	              if (template.details[blockQty].pointsOut[pointsOutQty].id ==='fp3') {
+	                widthWmd += (template.details[blockQty].pointsOut[pointsOutQty].x);
+	              }
+	            }
+	          }
+	        }
+
+	            var widthT = widthWmd,
+	                heightT = heightWmd;
+	              if (widthT < 1) {
+	                widthT = ProductStor.product.template_width;
+	                heightT = ProductStor.product.template_height;
+	              } else {
+	                widthT = widthWmd;
+	                heightT = heightWmd;
+	              }
+				}	
+				return {
+					path:path, 
+					noVvPath:noVvPath, 
+					fpDgLR:fpDgLR, 
+					fpDgRL:fpDgRL, 
+					heightWmd:heightWmd, 
+					widthWmd:widthWmd, 
+					widthT:widthT,
+					heightT:heightT
+				};	
+	        }
+
+		thisFactory.publicObj = {
+	      templatePoints:templatePoints
+	    };
+    	return thisFactory.publicObj;
+  });
+})();
 
 
 // services/settings_serv.js
@@ -19936,7 +20083,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     GeneralServ,
     GlobalStor,
     ProductStor,
-    DesignStor
+    DesignStor,
+    PointsServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -20946,7 +21094,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var impCP = getCoordCrossPoint(linesIn[i], impVector),
           isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
           isCross = isInsidePointInLine(isInside);
-
       if (isCross) {
         var ip = angular.copy(impAx);
         ip.group = group;
@@ -22741,36 +22888,35 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     //----------- TRANSLATE MAIN
-
     function setTemplatePositionMAIN(dim, windowH, scale) {
-      var position;
+      var pnt = PointsServ.templatePoints(ProductStor.product.template),
+          position;
       if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
-        if(ProductStor.product.template_height < 1648) {
+        if(pnt.heightT < 1648) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-310
           };
         } 
-        if( 1648 < ProductStor.product.template_height) {
+        if( 1648 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-240
           };
         }
-        if( 1848 < ProductStor.product.template_height) {
+        if( 1848 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-190
           };
         }
-        if( 2148 < ProductStor.product.template_height) {
+        if( 2148 < pnt.heightT) {
           position = {
             x: 250,
             y: (windowH - (dim.minY + dim.maxY)*scale)-130
           };
         }      
       }
-
 
       if(ProductStor.product.construction_type === 2) {
         position = {
@@ -23369,6 +23515,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //------ Rooms background
         showRoomSelectorDialog: 0,
         rooms: [],
+        isRoomElements: 0,
 
         //------- Templates
         templateLabel: '',
@@ -23667,6 +23814,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         profile: {},
         glass: [],
         hardware: {},
+        beadsData: [],
 
         profileDepths: {
           frameDepth: {},
@@ -23820,13 +23968,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Teilen Sie diesen Kode dem Manager mit.',
         YOUR_CODE: 'Ihr Kode: ',
         EMPTY_FIELD: 'Füllen Sie dieses Feld aus.',
-        WRONG_NUMBER: 'Die falsche Nummer.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Die falsche Nummer.',
         SHORT_NAME: 'Eine zu kurze Namen',
-        SHORT_PASSWORD: 'Die viel zu kleine Parole',
-        SHORT_PHONE: 'Zu wenig Telefonnummer.',
+        //SHORT_PASSWORD: 'Die viel zu kleine Parole',
+        //SHORT_PHONE: 'Zu wenig Telefonnummer.',
         IMPORT_DB_START: 'Warten begann Laden der Datenbank',
         IMPORT_DB_FINISH: 'Vielen Dank für das Herunterladen abgeschlossen ist',
-        MOBILE: 'Handy',
+        LOGIN: 'Login',
         PASSWORD: 'Passwort',
         REGISTRATION: 'Anmeldung',
         SELECT_COUNTRY: 'Land wählen',
@@ -24186,13 +24335,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'You will reveal to this code the manager.',
         YOUR_CODE: 'Your code: ',
         EMPTY_FIELD: 'You should to fill this field.',
-        WRONG_NUMBER: 'Incorrect number.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Incorrect number.',
         SHORT_NAME: 'Too short name',
-        SHORT_PASSWORD: 'Too little password.',
-        SHORT_PHONE: 'Too little phone number.',
+        //SHORT_PASSWORD: 'Too little password.',
+        //SHORT_PHONE: 'Too little phone number.',
         IMPORT_DB_START: 'Wait, began loading the database',
         IMPORT_DB_FINISH: 'Thank you for the download is complete',
-        MOBILE: 'Mobile telephone',
+        LOGIN: 'Login',
         PASSWORD: 'Password',
         REGISTRATION: 'Registration',
         SELECT_COUNTRY: 'Select country',
@@ -24550,13 +24700,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Comunicate il codice al manager.',
         YOUR_CODE: 'Il vostro codice: ',
         EMPTY_FIELD: 'Riempite questo campo.',
-        WRONG_NUMBER: 'Numero errato, formato +XX(XXX)XXX-XXXX.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'Numero errato, formato +XX(XXX)XXX-XXXX.',
         SHORT_NAME: 'Nome troppo piccolo.',
-        SHORT_PASSWORD: 'Password troppo breve.',
-        SHORT_PHONE: 'Numero del telefono troppo piccolo.',
+        //SHORT_PASSWORD: 'Password troppo breve.',
+        //SHORT_PHONE: 'Numero del telefono troppo piccolo.',
         IMPORT_DB_START: 'Aspetti, il carico di un database ha cominciato',
         IMPORT_DB_FINISH: ' Grazie, caricandolo sono complete',
-        MOBILE: 'Il cellulare',
+        LOGIN: 'Login',
         PASSWORD: 'Password',
         REGISTRATION: 'Registrazione',
         SELECT_COUNTRY: 'Il paese di Veberite',
@@ -24915,13 +25066,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Spune-i managerului acest cod.',
         YOUR_CODE: 'codul dvs: ',
         EMPTY_FIELD: 'Completați acest câmp.',
-        WRONG_NUMBER: 'numar incorrect.',
+        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
+        //WRONG_NUMBER: 'numar incorrect.',
         SHORT_NAME: 'Too short name',
-        SHORT_PASSWORD: 'parola e prea mica.',
-        SHORT_PHONE: 'Too little phone number.',
+        //SHORT_PASSWORD: 'parola e prea mica.',
+        //SHORT_PHONE: 'Too little phone number.',
         IMPORT_DB_START: 'Stai, a început încărcarea de date',
         IMPORT_DB_FINISH: 'Vă mulțumim pentru descărcarea este completă',
-        MOBILE: 'telefon mobil',
+        LOGIN: 'Login',
         PASSWORD: 'Parola',
         REGISTRATION: 'înregistrare',
         SELECT_COUNTRY: 'Select country',
@@ -25279,13 +25431,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Сообщите этот код менеджеру.',
         YOUR_CODE: 'Ваш код: ',
         EMPTY_FIELD: 'Заполните это поле.',
-        WRONG_NUMBER: 'Неверный номер.',
+        WRONG_LOGIN: 'Для логина (пароля) используйте только цифры, латинские буквы и символы "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Неверный номер.',
         SHORT_NAME: 'Слишком маленькое имя.',
-        SHORT_PASSWORD: 'Слишком маленький пароль.',
-        SHORT_PHONE: 'Слишком маленький номер телефона.',
+        //SHORT_PASSWORD: 'Слишком маленький пароль.',
+        //SHORT_PHONE: 'Слишком маленький номер телефона.',
         IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
-        MOBILE: 'Мобильный телефон',
+        LOGIN: 'Логин',
         PASSWORD: 'Пароль',
         REGISTRATION: 'Регистрация',
         SELECT_COUNTRY: 'Веберите страну',
@@ -25643,13 +25796,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         PASS_CODE: 'Повідомте цей код менеджерові.',
         YOUR_CODE: 'Ваш код: ',
         EMPTY_FIELD: 'Заповніть це поле.',
-        WRONG_NUMBER: 'Невірний номер.',
+        WRONG_LOGIN: 'Для логина (пароля) используйте только цифры, латинские буквы и символы "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Невірний номер.',
         SHORT_NAME: 'Слишком маленькое имя.',
-        SHORT_PASSWORD: 'Занадто маленький пароль.',
-        SHORT_PHONE: 'Занадто маленький номер телефона.',
+        //SHORT_PASSWORD: 'Занадто маленький пароль.',
+        //SHORT_PHONE: 'Занадто маленький номер телефона.',
         IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
-        MOBILE: 'Мобільный телефон',
+        LOGIN: 'Логин',
         PASSWORD: 'Пароль',
         REGISTRATION: 'Регістрація',
         SELECT_COUNTRY: 'Веберите страну',
