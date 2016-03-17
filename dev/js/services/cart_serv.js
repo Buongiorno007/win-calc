@@ -88,6 +88,7 @@
     function editProduct(productIndex, type) {
       ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
       GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+      CartStor.cart.isBox = 0;
       GlobalStor.global.isCreatedNewProduct = 1;
       GlobalStor.global.isChangedTemplate = 1;
       MainServ.prepareMainPage();
@@ -98,10 +99,14 @@
       //------- set previos Page
       GeneralServ.setPreviosPage();
       $location.path('/main');
+
     }
 
 
-
+    function openBox() {
+      CartStor.cart.isBox = !CartStor.cart.isBox;
+      console.log('CartStor.cart.isBox', CartStor.cart.isBox)
+    }
 
 
 
@@ -221,6 +226,7 @@
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
       addCloneProductInOrder(cloneProduct, lastProductId);
+      CartStor.cart.isBox = 0;
       CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
@@ -237,6 +243,7 @@
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
       editProduct: editProduct,
+      openBox: openBox,
 
       showAllAddElements: showAllAddElements,
       collectAllAddElems: collectAllAddElems,

@@ -264,7 +264,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
+ 
 
     /**============ METHODS ================*/
 
@@ -327,11 +327,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
     thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
+    thisCtrl.createProductCopy =CartServ.createProductCopy;
     thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
+    thisCtrl.openBox = CartServ.openBox;
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
+
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
@@ -8346,6 +8350,7 @@ function ErrorResult(code, message) {
     function editProduct(productIndex, type) {
       ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
       GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+      CartStor.cart.isBox = 0;
       GlobalStor.global.isCreatedNewProduct = 1;
       GlobalStor.global.isChangedTemplate = 1;
       MainServ.prepareMainPage();
@@ -8356,10 +8361,14 @@ function ErrorResult(code, message) {
       //------- set previos Page
       GeneralServ.setPreviosPage();
       $location.path('/main');
+
     }
 
 
-
+    function openBox() {
+      CartStor.cart.isBox = !CartStor.cart.isBox;
+      console.log('CartStor.cart.isBox', CartStor.cart.isBox)
+    }
 
 
 
@@ -8479,6 +8488,7 @@ function ErrorResult(code, message) {
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
       addCloneProductInOrder(cloneProduct, lastProductId);
+      CartStor.cart.isBox = 0;
       CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
@@ -8495,6 +8505,7 @@ function ErrorResult(code, message) {
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
       editProduct: editProduct,
+      openBox: openBox,
 
       showAllAddElements: showAllAddElements,
       collectAllAddElems: collectAllAddElems,
@@ -23258,6 +23269,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         squareTotal: 0,
         perimeterTotal: 0,
         qtyTotal: 0,
+        isBox: 0,
 
         isExistAddElems: 0,
         isAllAddElems: 0,

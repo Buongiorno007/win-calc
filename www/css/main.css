@@ -3514,6 +3514,37 @@ div.drum figure {
 }
 
 /* line 15, ../../dev/sass/parts/_cart-dialogs.scss */
+.box-menu {
+  background-color: #fff;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  width: 90px;
+  height: 90px;
+  z-index: 33;
+}
+
+/* line 25, ../../dev/sass/parts/_cart-dialogs.scss */
+.edit-template {
+  width: 45px;
+  position: absolute;
+  height: 90px;
+  left: 15px;
+  background-color: #2E8B57;
+  z-index: 34;
+}
+
+/* line 33, ../../dev/sass/parts/_cart-dialogs.scss */
+.copy-template {
+  position: absolute;
+  width: 45px;
+  height: 90px;
+  left: 0px;
+  background-color: #800000;
+  z-index: 35;
+}
+
+/* line 42, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container {
   -moz-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
   -webkit-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
@@ -3521,7 +3552,7 @@ div.drum figure {
   width: 62.5rem;
   margin-left: 42%;
 }
-/* line 21, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 48, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-header {
   position: relative;
   padding: 1.875rem;
@@ -3529,7 +3560,7 @@ div.drum figure {
   border-top-right-radius: 2rem;
   background-color: #fff;
 }
-/* line 28, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 55, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-tool {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
@@ -3542,27 +3573,27 @@ div.drum figure {
   background: transparent;
   outline: none;
 }
-/* line 42, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 69, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-tool:before {
   color: #f98000;
 }
-/* line 46, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 73, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .back {
   left: 3%;
 }
-/* line 48, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 75, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .back:before {
   content: "";
 }
-/* line 52, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 79, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print {
   left: 10%;
 }
-/* line 54, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 81, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print:before {
   content: "";
 }
-/* line 59, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 86, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-title {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
   width: 60%;
@@ -3570,7 +3601,7 @@ div.drum figure {
   text-align: center;
   color: #363636;
 }
-/* line 67, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 94, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .save {
   position: absolute;
   top: 25%;
@@ -3580,7 +3611,7 @@ div.drum figure {
   color: #fff;
   background-color: #f98000;
 }
-/* line 79, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 106, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .save-order {
   position: inherit;
   display: block;
@@ -3593,21 +3624,21 @@ div.drum figure {
   margin: 0 auto;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
 }
-/* line 91, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 118, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body {
   padding: 3.75rem;
   background-color: #f0f0f0;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 97, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 124, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-descrip {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
 }
-/* line 105, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 132, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-list-tooltip {
   top: 0rem;
   left: 37.5rem;
@@ -3621,26 +3652,26 @@ div.drum figure {
   outline: none;
   z-index: 5;
 }
-/* line 130, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 157, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif, icons;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
 }
-/* line 136, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 163, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:last-child {
   border-bottom: none;
 }
-/* line 139, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 166, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:first-letter {
   color: #f98000;
 }
-/* line 143, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 170, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city {
   position: relative;
 }
-/* line 146, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 173, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city:after {
   font: normal 1.875rem/1 icons, sans-serif;
   position: absolute;
@@ -3649,7 +3680,7 @@ div.drum figure {
   color: #f98000;
   content: "";
 }
-/* line 158, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 185, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 1.25rem;
@@ -3657,12 +3688,12 @@ div.drum figure {
   color: #363636;
 }
 
-/* line 168, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 195, ../../dev/sass/parts/_cart-dialogs.scss */
 .master-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
 
-/* line 173, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 200, ../../dev/sass/parts/_cart-dialogs.scss */
 .order-dialog .cart-dialogs-container {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -3696,23 +3727,23 @@ div.drum figure {
   }
 }
 */
-/* line 212, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 239, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block {
   display: inline-block;
 }
-/* line 214, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 241, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block:first-child {
   margin: 0 15% 0 3%;
 }
 
-/* line 218, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 245, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin-right: 0.625rem;
   color: #8c8c8c;
 }
 
-/* line 224, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 251, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: inline-block;
@@ -3725,55 +3756,55 @@ div.drum figure {
   outline: none;
 }
 
-/* line 237, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 264, ../../dev/sass/parts/_cart-dialogs.scss */
 .subtitle-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   text-align: left;
   color: #363636;
 }
 
-/* line 244, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 271, ../../dev/sass/parts/_cart-dialogs.scss */
 .label-field {
   margin: 10.25rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
 
-/* line 250, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 277, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-select-field {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 258, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 285, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-field.street, .street.user-select-field {
   display: inline-block;
   width: 60%;
 }
-/* line 262, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 289, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-field.small, .small.user-select-field {
   display: inline-block;
   width: 12.5%;
 }
 
-/* line 268, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 295, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip, .cart-dialogs .setting-container .set-email-error, .setting-container .cart-dialogs .set-email-error {
   top: 1rem;
 }
-/* line 270, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 297, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.street, .cart-dialogs .setting-container .street.set-email-error, .setting-container .cart-dialogs .street.set-email-error {
   left: 20rem;
 }
-/* line 273, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 300, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.house, .cart-dialogs .setting-container .house.set-email-error, .setting-container .cart-dialogs .house.set-email-error {
   left: 40rem;
 }
-/* line 276, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 303, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.flat, .cart-dialogs .setting-container .flat.set-email-error, .setting-container .cart-dialogs .flat.set-email-error {
   left: 48rem;
 }
-/* line 279, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 306, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.floor, .cart-dialogs .setting-container .floor.set-email-error, .setting-container .cart-dialogs .floor.set-email-error {
   left: 55rem;
 }

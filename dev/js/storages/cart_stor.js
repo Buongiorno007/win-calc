@@ -49,6 +49,7 @@
         squareTotal: 0,
         perimeterTotal: 0,
         qtyTotal: 0,
+        isBox: 0,
 
         isExistAddElems: 0,
         isAllAddElems: 0,
