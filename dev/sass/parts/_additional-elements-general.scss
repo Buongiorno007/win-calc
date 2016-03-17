@@ -126,6 +126,9 @@
       border-color: transparent $aux_big_color;
     }
   }
+  .search-elem {
+    background-color: $aux_big_color;
+  }
 }
 
 .aux-spillway-theme,
@@ -190,6 +193,9 @@
       border-color: transparent $aux_middle_color;
     }
   }
+  .search-elem {
+    background-color: $aux_middle_color;
+  }
 }
 
 .aux-grid-theme,
@@ -252,6 +258,9 @@
     &:before {
       border-color: transparent $aux_connect_color;
     }
+  }
+  .search-elem {
+    background-color: $aux_connect_color;
   }
 }
 
@@ -316,6 +325,9 @@
       border-color: transparent $main_green;
     }
   }
+  .search-elem {
+    background-color: $main_green;
+  }
 }
 
 
@@ -379,5 +391,8 @@
     &:before {
       border-color: transparent $aux_small_color;
     }
+  }
+  .search-elem {
+    background-color: $aux_small_color;
   }
 }

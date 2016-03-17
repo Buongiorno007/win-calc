@@ -395,13 +395,17 @@
             <button ng-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
           </div>
         </form>
-        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
-          <ul class="aux-list-groups">
-            <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName' track by $index" ng-click="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
-              <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
-              <div class="search-elements-block"></div>
-            </li>
-          </ul>
+        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}" class="aux-search-content">
+          <div class="aux-list-groups">
+            <div ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index" class="aux-list-type">
+              <div ng-click="addElemGroups.selectAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
+                <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}" class="group-indicator"></button>
+                <div class="search-elements-block">
+                  <div ng-repeat="elemFind in typeAddElement.elems track by $index" ng-class="typeAddElement.type.groupClass" ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="aux-list-content">
           <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">

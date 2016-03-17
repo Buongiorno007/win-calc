@@ -3688,13 +3688,52 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('AddElemGroupMenuCtrl',
 
-  function(AddElementsServ, AuxStor) {
+  function(
+    AddElementsServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    ProductStor,
+    AuxStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.A = AuxStor;
 
+
+    /**============ METHODS ================*/
+
+    function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
+      clickEvent.stopPropagation();
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && groupId === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElementList(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
+      } else {
+        AuxStor.aux.isFocusedAddElement = groupId;
+        AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
+        AddElementMenuServ.chooseAddElementList(typeId, elementId);
+      }
+
+    }
+
+
+    /**========== FINISH ==========*/
     //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.selectAddElemMenu = AddElementsServ.selectAddElement;
+    thisCtrl.takeAddElemFilt = takeAddElemFilt;
 
   });
 })();
@@ -4262,6 +4301,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**============ METHODS ================*/
 
+    /**--------- AddElements List View ----------*/
 
     //------- Delete searching word
     function cancelSearching() {
@@ -4274,10 +4314,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //----------- Searching Block in AddElements List View
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
-        if(thisCtrl.searchingWord.length === 1) {
+        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+        if(AuxStor.aux.searchingWord.length > 3) {
           AddElementsServ.createAddElementGroups();
         }
-        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       } else {
         cancelSearching();
       }
@@ -7411,16 +7451,41 @@ function ErrorResult(code, message) {
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          groupTempObj, g;
+          allElems = GlobalStor.global.addElementsAll,
+          groupObj, elemObj, g, elementsQty, elemQty, wordPart;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
-        if(GlobalStor.global.addElementsAll[g].elementsList) {
-          groupTempObj = {};
-          groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
-          AuxStor.aux.addElementGroups.push(groupTempObj);
-          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
+        if(allElems[g].elementsList) {
+          /** collect existed group */
+          groupObj = {type: {}, elems: []};
+          groupObj.type.groupId = (g+1);
+          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
+
+
+          /** search element */
+          console.info('+++++',allElems[g].elementsList, AuxStor.aux.searchingWord);
+          elementsQty = allElems[g].elementsList.length;
+          while(--elementsQty > -1) {
+            elemQty = allElems[g].elementsList[elementsQty].length;
+            while(--elemQty > -1) {
+              /** if grids, needs filter as to profile Id */
+
+              wordPart = allElems[g].elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
+              if(wordPart === AuxStor.aux.searchingWord) {
+                elemObj = {
+                  typeInd: elementsQty,
+                  index: elemQty,
+                  name: allElems[g].elementsList[elementsQty][elemQty].name
+                };
+                groupObj.elems.push(elemObj);
+              }
+            }
+          }
+
+          AuxStor.aux.addElementGroups.push(groupObj);
+          console.info('=======',AuxStor.aux.addElementGroups);
+
         }
       }
     }

@@ -150,16 +150,41 @@
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          groupTempObj, g;
+          allElems = GlobalStor.global.addElementsAll,
+          groupObj, elemObj, g, elementsQty, elemQty, wordPart;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
-        if(GlobalStor.global.addElementsAll[g].elementsList) {
-          groupTempObj = {};
-          groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
-          AuxStor.aux.addElementGroups.push(groupTempObj);
-          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
+        if(allElems[g].elementsList) {
+          /** collect existed group */
+          groupObj = {type: {}, elems: []};
+          groupObj.type.groupId = (g+1);
+          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
+
+
+          /** search element */
+          console.info('+++++',allElems[g].elementsList, AuxStor.aux.searchingWord);
+          elementsQty = allElems[g].elementsList.length;
+          while(--elementsQty > -1) {
+            elemQty = allElems[g].elementsList[elementsQty].length;
+            while(--elemQty > -1) {
+              /** if grids, needs filter as to profile Id */
+
+              wordPart = allElems[g].elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
+              if(wordPart === AuxStor.aux.searchingWord) {
+                elemObj = {
+                  typeInd: elementsQty,
+                  index: elemQty,
+                  name: allElems[g].elementsList[elementsQty][elemQty].name
+                };
+                groupObj.elems.push(elemObj);
+              }
+            }
+          }
+
+          AuxStor.aux.addElementGroups.push(groupObj);
+          console.info('=======',AuxStor.aux.addElementGroups);
+
         }
       }
     }
