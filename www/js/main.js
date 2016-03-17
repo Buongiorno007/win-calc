@@ -1355,7 +1355,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
-
+    /** reload room img */
+    $("<img />").attr("src", "img/room/1.png");
+    $("<img />").attr("src", "img/room/33.gif");
+    $("<img />").attr("src", "img/room/333.gif");
 
     /**============ METHODS ================*/
 
@@ -6160,24 +6163,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       link: function (scope, elem, attrs) {
 
         function typingTextWithDelay() {
-          setTimeout(function () {
-            var source = scope.output,
-                text = '',
-                NEXT_CHAR_DELAY = 15,
-                timerId,
-                hasChar;
-
-            timerId = setInterval(function () {
-              hasChar = text.length < source.length;
-
-              if (hasChar) {
-                text += source[text.length];
-              } else {
-                clearInterval(timerId);
-              }
-              elem.text(text);
-            }, NEXT_CHAR_DELAY);
-          }, +scope.typingDelay);
+          //setTimeout(function () {
+          //  var source = scope.output,
+          //      text = '',
+          //      NEXT_CHAR_DELAY = 15,
+          //      timerId,
+          //      hasChar;
+          //
+          //  timerId = setInterval(function () {
+          //    hasChar = text.length < source.length;
+          //
+          //    if (hasChar) {
+          //      text += source[text.length];
+          //    } else {
+          //      clearInterval(timerId);
+          //    }
+          //    elem.text(text);
+          //  }, NEXT_CHAR_DELAY);
+          //}, +scope.typingDelay);
+          //TODO test!!!!
+          elem.text(scope.output);
         }
 
         attrs.$observe('typing', function (mode) {
@@ -15179,6 +15184,7 @@ function ErrorResult(code, message) {
             }
             priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
             //console.info('FINISH ADD ====:', priceObj);
+            //console.info('FINISH ADD ====:', JSON.stringify(priceObj.constrElements));
             finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
             finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
             deffMain.resolve(finishPriceObj);
@@ -15629,14 +15635,14 @@ function ErrorResult(code, message) {
                 trustHosts = true,
                 options = {};
 
-            console.log('image name ====', imgName);
-            console.log('image path ====', targetPath);
+            //console.log('image name ====', imgName);
+            //console.log('image path ====', targetPath);
             $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-              console.log('Success!', result);
+              //console.log('Success!', result);
             }, function (err) {
-              console.log('Error!', err);
+              //console.log('Error!', err);
             }, function (progress) {
-              console.log('progress!', progress);
+              //console.log('progress!', progress);
               //            $timeout(function () {
               //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
               //            })

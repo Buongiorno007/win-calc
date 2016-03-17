@@ -2812,6 +2812,7 @@
             }
             priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
             //console.info('FINISH ADD ====:', priceObj);
+            //console.info('FINISH ADD ====:', JSON.stringify(priceObj.constrElements));
             finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
             finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
             deffMain.resolve(finishPriceObj);

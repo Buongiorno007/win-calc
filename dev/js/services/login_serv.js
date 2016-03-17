@@ -388,14 +388,14 @@
                 trustHosts = true,
                 options = {};
 
-            console.log('image name ====', imgName);
-            console.log('image path ====', targetPath);
+            //console.log('image name ====', imgName);
+            //console.log('image path ====', targetPath);
             $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-              console.log('Success!', result);
+              //console.log('Success!', result);
             }, function (err) {
-              console.log('Error!', err);
+              //console.log('Error!', err);
             }, function (progress) {
-              console.log('progress!', progress);
+              //console.log('progress!', progress);
               //            $timeout(function () {
               //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
               //            })

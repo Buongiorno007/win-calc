@@ -15,24 +15,26 @@
       link: function (scope, elem, attrs) {
 
         function typingTextWithDelay() {
-          setTimeout(function () {
-            var source = scope.output,
-                text = '',
-                NEXT_CHAR_DELAY = 15,
-                timerId,
-                hasChar;
-
-            timerId = setInterval(function () {
-              hasChar = text.length < source.length;
-
-              if (hasChar) {
-                text += source[text.length];
-              } else {
-                clearInterval(timerId);
-              }
-              elem.text(text);
-            }, NEXT_CHAR_DELAY);
-          }, +scope.typingDelay);
+          //setTimeout(function () {
+          //  var source = scope.output,
+          //      text = '',
+          //      NEXT_CHAR_DELAY = 15,
+          //      timerId,
+          //      hasChar;
+          //
+          //  timerId = setInterval(function () {
+          //    hasChar = text.length < source.length;
+          //
+          //    if (hasChar) {
+          //      text += source[text.length];
+          //    } else {
+          //      clearInterval(timerId);
+          //    }
+          //    elem.text(text);
+          //  }, NEXT_CHAR_DELAY);
+          //}, +scope.typingDelay);
+          //TODO test!!!!
+          elem.text(scope.output);
         }
 
         attrs.$observe('typing', function (mode) {

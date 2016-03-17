@@ -64,7 +64,10 @@
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
-
+    /** reload room img */
+    $("<img />").attr("src", "img/room/1.png");
+    $("<img />").attr("src", "img/room/33.gif");
+    $("<img />").attr("src", "img/room/333.gif");
 
     /**============ METHODS ================*/
 
