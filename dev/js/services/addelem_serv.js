@@ -29,10 +29,16 @@
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
-        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
-          return item.profile_id === ProductStor.product.profile.id;
-        });
-        AuxStor.aux.addElementsList = [gridsSort];
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          //TODO ?????
+          AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+        } else {
+          gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+            return item.profile_id === ProductStor.product.profile.id;
+          });
+          AuxStor.aux.addElementsList = [gridsSort];
+        }
       } else {
         AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
       }
@@ -150,16 +156,50 @@
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          groupTempObj, g;
+          allElems = GlobalStor.global.addElementsAll,
+          groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
-        if(GlobalStor.global.addElementsAll[g].elementsList) {
-          groupTempObj = {};
-          groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
-          AuxStor.aux.addElementGroups.push(groupTempObj);
-          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
+        if(allElems[g].elementsList) {
+          /** collect existed group */
+          groupObj = {type: {}, elems: []};
+          groupObj.type.groupId = (g+1);
+          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
+
+          /** search element */
+          /** if Grids */
+          if (!g) {
+            if(ProductStor.product.is_addelem_only) {
+              /** without window */
+              //TODO ????
+              elementsList = allElems[g].elementsList;
+            } else {
+              /** grid filtering as ot profile id */
+              elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
+                return item.profile_id === ProductStor.product.profile.id;
+              })];
+            }
+          } else {
+            elementsList = allElems[g].elementsList;
+          }
+          elementsQty = elementsList.length;
+          while(--elementsQty > -1) {
+            elemQty = elementsList[elementsQty].length;
+            while(--elemQty > -1) {
+              /** if grids, needs filter as to profile Id */
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
+              if(wordPart === AuxStor.aux.searchingWord) {
+                elemObj = {
+                  typeInd: elementsQty,
+                  index: elemQty,
+                  name: elementsList[elementsQty][elemQty].name
+                };
+                groupObj.elems.push(elemObj);
+              }
+            }
+          }
+          AuxStor.aux.addElementGroups.push(groupObj);
         }
       }
     }

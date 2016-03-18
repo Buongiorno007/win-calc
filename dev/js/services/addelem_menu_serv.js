@@ -656,6 +656,56 @@
 
 
 
+    /** --------- Select AddElement from Search Box --------------*/
+
+    function addingElemFilt(groupId, typeId, elementId) {
+      calcAddElemPrice(typeId, elementId, AuxStor.aux.addElementsList).then(function() {
+        var index = (groupId - 1),
+            currElement = angular.copy(AuxStor.aux.addElementsList[typeId][elementId]),
+            existedElement;
+
+        existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement);
+        if(!existedElement) {
+          var newElementSource = {
+                element_type: index,
+                element_width: 0,
+                element_height: 0,
+                block_id: 0
+              },
+              newElement = angular.extend(newElementSource, currElement);
+
+          ProductStor.product.chosenAddElements[index].push(newElement);
+        }
+        setAddElementsTotalPrice(ProductStor.product);
+      });
+    }
+
+
+    function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
+      clickEvent.stopPropagation();
+      closeAddElementsMenu();
+
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
+
+      /** if grid,  show grid selector dialog */
+      if(groupId === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          addingElemFilt(groupId, typeId, elementId);
+        } else {
+          AuxStor.aux.isFocusedAddElement = groupId;
+          //------- show Grid Selector Dialog
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          DesignServ.initAllGlassXGrid();
+        }
+      } else {
+        addingElemFilt(groupId, typeId, elementId);
+      }
+
+    }
+
+
 
 
     /**-------- Delete AddElement from global object ---------*/
@@ -718,12 +768,11 @@
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
       finishCalculators: finishCalculators,
-
+      takeAddElemFilt: takeAddElemFilt,
       //---- grid
       confirmGrid: confirmGrid,
       setGridToAll: setGridToAll,
       closeGridSelectorDialog: closeGridSelectorDialog,
-
       //---- calculators:
       pressCulculator: pressCulculator,
       setValueQty: setValueQty,

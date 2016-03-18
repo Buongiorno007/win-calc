@@ -14,7 +14,6 @@
   }
 
   .aux-list-groups {
-    list-style: none;
     padding-left: rem(70px);
   }
   .aux-list-group {
@@ -57,6 +56,14 @@
   .search-elements-block {
     @include display-flex();
     @include flex-flow(row wrap);
-    @include align-items(flex-start);
+    @include justify-content(space-around);
+    width: 95%;
+
+  }
+  .search-elem {
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    border-radius: 25%;
+    color: #fff;
   }
 }

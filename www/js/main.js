@@ -1307,7 +1307,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants,
     localDB,
     loginServ,
+    MainServ,
     GlobalStor,
+    ProductStor,
     UserStor
   ) {
     /*jshint validthis:true */
@@ -1367,6 +1369,32 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
 
+    function startProgramm() {
+      //console.time('prog');
+      /** save first User entrance */
+      MainServ.saveUserEntry();
+      /** create order date */
+      MainServ.createOrderData();
+      /** set Curr Discounts */
+      MainServ.setCurrDiscounts();
+
+      /** set first Template */
+      MainServ.setCurrTemplate();
+      /** set Templates */
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        MainServ.prepareMainPage();
+        /** start lamination filtering */
+        MainServ.laminatFiltering();
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+          GlobalStor.global.isLoader = 0;
+          //console.timeEnd('prog');
+          $location.path('/main');
+        }
+      });
+    }
+
 
     function importDBfromServer() {
       thisCtrl.isStartImport = 1;
@@ -1374,7 +1402,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
           /** download all data */
-          loginServ.downloadAllData();
+          loginServ.downloadAllData().then(function() {
+            startProgramm();
+          });
           thisCtrl.isStartImport = 0;
         } else {
           console.log('Error!');
@@ -1408,7 +1438,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             /** download all data */
-            loginServ.downloadAllData();
+            loginServ.downloadAllData().then(function() {
+              startProgramm();
+            });
             //});
           } else {
             //------ LocalDB is empty
@@ -1735,7 +1767,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                       loginServ.prepareLocationToUse().then(function() {
                         loginServ.setUserLocation();
                         /** download all data */
-                        loginServ.downloadAllData();
+                        loginServ.downloadAllData().then(function() {
+                          startProgramm();
+                        });
                       });
                     } else {
                       GlobalStor.global.isLoader = 0;
@@ -2029,34 +2063,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
-//      GlobalStor.global.isLoader = 1;
-//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
-
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        /** start lamination filtering */
-        MainServ.laminatFiltering();
-        /** download all cities */
-        if(GlobalStor.global.locations.cities.length === 1) {
-          loginServ.downloadAllCities(1);
-        }
-        /** for SVG_MAIN */
-        //--------- set templateTEMP from ProductStor
-        DesignServ.setDefaultTemplate();
-
-        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
-      });
+      /** for SVG_MAIN */
+      //--------- set templateTEMP from ProductStor
+      DesignServ.setDefaultTemplate();
     }
 
 
@@ -2078,9 +2088,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     if(ProductStor.product.construction_type === 4) {
       DesignServ.setIndexDoorConfig();
     }
-
-
-
 
 
 
@@ -2149,11 +2156,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.TAB_NAME_SIMPLE_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_SIMPLE_FRAME');
     thisCtrl.TAB_NAME_HARD_FRAME = $filter('translate')('add_elements_menu.TAB_NAME_HARD_FRAME');
     thisCtrl.TAB_EMPTY_EXPLAIN = $filter('translate')('add_elements_menu.TAB_EMPTY_EXPLAIN');
-    //------ grid selector
-    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
-    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
-
-
 
 
 
@@ -2246,10 +2248,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    //------- grid
-    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
-    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
-    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
 
 
   });
@@ -3692,13 +3690,31 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('AddElemGroupMenuCtrl',
 
-  function(AddElementsServ, AuxStor) {
+  function(
+    AddElementsServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    ProductStor,
+    AuxStor
+  ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.A = AuxStor;
 
+
+    /**============ METHODS ================*/
+
+    function takeAddElemMenu(groupId) {
+      AuxStor.aux.isAddElement = 0;
+      AddElementsServ.selectAddElement(groupId);
+    }
+
+
+    /**========== FINISH ==========*/
     //------ clicking
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.takeAddElemMenu = takeAddElemMenu;
+    thisCtrl.takeAddElemFilt = AddElementMenuServ.takeAddElemFilt;
 
   });
 })();
@@ -3769,6 +3785,46 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
       //------ clicking
     thisCtrl.closeAttantion = closeAttantion;
+
+  });
+})();
+
+
+// controllers/parts/grid_selector.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('GridSelectorCtrl',
+
+  function(
+    $filter,
+    AddElementMenuServ,
+    globalConstants,
+    ProductStor,
+    AuxStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.P = ProductStor;
+    thisCtrl.A = AuxStor;
+
+    //------ translate
+    thisCtrl.SELECT_ALL = $filter('translate')('mainpage.SELECT_ALL');
+    thisCtrl.SELECT_GLASS_WARN = $filter('translate')('mainpage.SELECT_GLASS_WARN');
+
+
+    /**============ METHODS ================*/
+
+
+    /**========== FINISH ==========*/
+
+    thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
+    thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
+    thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
 
   });
 })();
@@ -4266,6 +4322,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**============ METHODS ================*/
 
+    /**--------- AddElements List View ----------*/
 
     //------- Delete searching word
     function cancelSearching() {
@@ -4278,10 +4335,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //----------- Searching Block in AddElements List View
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
-        if(thisCtrl.searchingWord.length === 1) {
+        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+        if(AuxStor.aux.searchingWord.length > 3) {
           AddElementsServ.createAddElementGroups();
         }
-        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       } else {
         cancelSearching();
       }
@@ -7176,6 +7233,56 @@ function ErrorResult(code, message) {
 
 
 
+    /** --------- Select AddElement from Search Box --------------*/
+
+    function addingElemFilt(groupId, typeId, elementId) {
+      calcAddElemPrice(typeId, elementId, AuxStor.aux.addElementsList).then(function() {
+        var index = (groupId - 1),
+            currElement = angular.copy(AuxStor.aux.addElementsList[typeId][elementId]),
+            existedElement;
+
+        existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement);
+        if(!existedElement) {
+          var newElementSource = {
+                element_type: index,
+                element_width: 0,
+                element_height: 0,
+                block_id: 0
+              },
+              newElement = angular.extend(newElementSource, currElement);
+
+          ProductStor.product.chosenAddElements[index].push(newElement);
+        }
+        setAddElementsTotalPrice(ProductStor.product);
+      });
+    }
+
+
+    function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
+      clickEvent.stopPropagation();
+      closeAddElementsMenu();
+
+      AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
+
+      /** if grid,  show grid selector dialog */
+      if(groupId === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          addingElemFilt(groupId, typeId, elementId);
+        } else {
+          AuxStor.aux.isFocusedAddElement = groupId;
+          //------- show Grid Selector Dialog
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          DesignServ.initAllGlassXGrid();
+        }
+      } else {
+        addingElemFilt(groupId, typeId, elementId);
+      }
+
+    }
+
+
 
 
     /**-------- Delete AddElement from global object ---------*/
@@ -7238,12 +7345,11 @@ function ErrorResult(code, message) {
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
       finishCalculators: finishCalculators,
-
+      takeAddElemFilt: takeAddElemFilt,
       //---- grid
       confirmGrid: confirmGrid,
       setGridToAll: setGridToAll,
       closeGridSelectorDialog: closeGridSelectorDialog,
-
       //---- calculators:
       pressCulculator: pressCulculator,
       setValueQty: setValueQty,
@@ -7294,10 +7400,16 @@ function ErrorResult(code, message) {
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
-        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
-          return item.profile_id === ProductStor.product.profile.id;
-        });
-        AuxStor.aux.addElementsList = [gridsSort];
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          //TODO ?????
+          AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+        } else {
+          gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+            return item.profile_id === ProductStor.product.profile.id;
+          });
+          AuxStor.aux.addElementsList = [gridsSort];
+        }
       } else {
         AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
       }
@@ -7415,16 +7527,50 @@ function ErrorResult(code, message) {
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
-          groupTempObj, g;
+          allElems = GlobalStor.global.addElementsAll,
+          groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
-        if(GlobalStor.global.addElementsAll[g].elementsList) {
-          groupTempObj = {};
-          groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
-          groupTempObj.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
-          AuxStor.aux.addElementGroups.push(groupTempObj);
-          //AuxStor.aux.addElementGroups.push(angular.copy(GeneralServ.addElementDATA[g]));
+        if(allElems[g].elementsList) {
+          /** collect existed group */
+          groupObj = {type: {}, elems: []};
+          groupObj.type.groupId = (g+1);
+          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
+
+          /** search element */
+          /** if Grids */
+          if (!g) {
+            if(ProductStor.product.is_addelem_only) {
+              /** without window */
+              //TODO ????
+              elementsList = allElems[g].elementsList;
+            } else {
+              /** grid filtering as ot profile id */
+              elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
+                return item.profile_id === ProductStor.product.profile.id;
+              })];
+            }
+          } else {
+            elementsList = allElems[g].elementsList;
+          }
+          elementsQty = elementsList.length;
+          while(--elementsQty > -1) {
+            elemQty = elementsList[elementsQty].length;
+            while(--elemQty > -1) {
+              /** if grids, needs filter as to profile Id */
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
+              if(wordPart === AuxStor.aux.searchingWord) {
+                elemObj = {
+                  typeInd: elementsQty,
+                  index: elemQty,
+                  name: elementsList[elementsQty][elemQty].name
+                };
+                groupObj.elems.push(elemObj);
+              }
+            }
+          }
+          AuxStor.aux.addElementGroups.push(groupObj);
         }
       }
     }
@@ -15279,7 +15425,6 @@ function ErrorResult(code, message) {
     $cordovaGlobalization,
     $cordovaFileTransfer,
     $translate,
-    $location,
     $filter,
     localDB,
     globalConstants,
@@ -15995,7 +16140,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
-          console.info('login++++', rooms);
+          //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);
@@ -16330,6 +16475,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /** =========== DOWNLOAD ALL DATA =========== */
 
     function downloadAllData() {
+      var defer = $q.defer();
       //console.time('start')
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
@@ -16404,9 +16550,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                         }
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
                                         //console.timeEnd('start');
+                                        defer.resolve(1);
                                       });
                                     });
                                   });
@@ -16419,11 +16564,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
                     } else {
                       console.error('not find options_discounts!');
+                      defer.resolve(0);
                     }
                   });
 
                 } else {
                   console.error('not find options_coefficients!');
+                  defer.resolve(0);
                 }
               });
 
@@ -16431,6 +16578,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
         }
       });
+      return defer.promise;
     }
 
 
@@ -17347,7 +17495,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           blocksQty = blocks.length,
           wranGlass, overallGlass,
           currWidth, currHeight, currSquare,
-          isSizeError, b;
+          isWidthError, isHeightError, b;
 
       /** clean extra Glass */
       DesignStor.design.extraGlass.length = 0;
@@ -17361,7 +17509,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
           /** template loop */
           for (b = 1; b < blocksQty; b += 1) {
-            isSizeError = 0;
+            isWidthError = 0;
+            isHeightError = 0;
             if (blocks[b].glassId === item.id) {
               if (blocks[b].glassPoints) {
                 if (blocks[b].glassPoints.length) {
@@ -17371,7 +17520,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   currWidth = Math.round(overallGlass.maxX - overallGlass.minX);
                   currHeight = Math.round(overallGlass.maxY - overallGlass.minY);
                   currSquare = GeneralServ.roundingValue((currWidth * currHeight/1000000), 3);
-
+                  /** square incorrect */
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
@@ -17385,18 +17534,42 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   }
 
                   if (currWidth > item.max_width || currWidth < item.min_width) {
-                    isSizeError = 1;
+                    isWidthError = 1;
                   }
                   if(currHeight > item.max_height || currHeight < item.min_height) {
-                    isSizeError = 1;
+                    isHeightError = 1;
                   }
-                  if(isSizeError) {
+
+                  if(isWidthError && isHeightError) {
+                    /** width and height incorrect */
                     wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
                       $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
-                      $filter('translate')('design.NO_MATCH_RANGE') +
-                      ' ' + item.max_width + ' - ' + item.max_height + '.';
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_WIDTH') +
+                      ' ' + item.min_width + ' - ' + item.max_width + ', ' +
+                      $filter('translate')('design.BY_HEIGHT') +
+                      ' ' + item.min_height + ' - ' + item.max_height + '.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  } else if(isWidthError && !isHeightError) {
+                    /** width incorrect */
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SIZE') +
+                      ' ' + currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_WIDTH') +
+                      ' ' + item.min_width + ' - ' + item.max_width + '.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  } else if(!isWidthError && isHeightError) {
+                    /** height incorrect */
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SIZE') +
+                      ' ' + currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_HEIGHT') +
+                      ' ' + item.min_height + ' - ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
                   }
@@ -24006,6 +24179,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: 'Vielen Dank für das Herunterladen abgeschlossen ist',
         LOGIN: 'Login',
         PASSWORD: 'Passwort',
+        MOBILE: 'Handy',
         REGISTRATION: 'Anmeldung',
         SELECT_COUNTRY: 'Land wählen',
         SELECT_REGION: 'Region wählen',
@@ -24166,6 +24340,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "by width",
+        BY_HEIGHT: "by height",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
@@ -24373,6 +24549,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: 'Thank you for the download is complete',
         LOGIN: 'Login',
         PASSWORD: 'Password',
+        MOBILE: 'Mobile telephone',
         REGISTRATION: 'Registration',
         SELECT_COUNTRY: 'Select country',
         SELECT_REGION: 'Select region',
@@ -24533,6 +24710,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "by width",
+        BY_HEIGHT: "by height",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
@@ -24738,6 +24917,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: ' Grazie, caricandolo sono complete',
         LOGIN: 'Login',
         PASSWORD: 'Password',
+        MOBILE: 'Il cellulare',
         REGISTRATION: 'Registrazione',
         SELECT_COUNTRY: 'Il paese di Veberite',
         SELECT_REGION: 'Scelga la regione',
@@ -24898,6 +25078,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "by width",
+        BY_HEIGHT: "by height",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
@@ -25104,6 +25286,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: 'Vă mulțumim pentru descărcarea este completă',
         LOGIN: 'Login',
         PASSWORD: 'Parola',
+        MOBILE: 'telefon mobil',
         REGISTRATION: 'înregistrare',
         SELECT_COUNTRY: 'Select country',
         SELECT_REGION: 'Select region',
@@ -25264,6 +25447,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "by width",
+        BY_HEIGHT: "by height",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
@@ -25469,6 +25654,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         LOGIN: 'Логин',
         PASSWORD: 'Пароль',
+        MOBILE: 'Мобильный телефон',
         REGISTRATION: 'Регистрация',
         SELECT_COUNTRY: 'Веберите страну',
         SELECT_REGION: 'Выберите регион',
@@ -25629,6 +25815,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "по ширине",
+        BY_HEIGHT: "по высоте",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
@@ -25834,6 +26022,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         LOGIN: 'Логин',
         PASSWORD: 'Пароль',
+        MOBILE: 'Мобільный телефон',
         REGISTRATION: 'Регістрація',
         SELECT_COUNTRY: 'Веберите страну',
         SELECT_REGION: 'Выберите регион',
@@ -25994,6 +26183,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS: "Стеклопакет",
         GLASS_SIZE: "размером",
         NO_MATCH_RANGE: "не соответствует допустимому диапазону",
+        BY_WIDTH: "по ширине",
+        BY_HEIGHT: "по высоте",
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",

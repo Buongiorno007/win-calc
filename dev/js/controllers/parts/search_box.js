@@ -23,6 +23,7 @@
 
     /**============ METHODS ================*/
 
+    /**--------- AddElements List View ----------*/
 
     //------- Delete searching word
     function cancelSearching() {
@@ -35,10 +36,10 @@
     //----------- Searching Block in AddElements List View
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
-        if(thisCtrl.searchingWord.length === 1) {
+        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+        if(AuxStor.aux.searchingWord.length > 3) {
           AddElementsServ.createAddElementGroups();
         }
-        AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       } else {
         cancelSearching();
       }

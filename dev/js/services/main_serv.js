@@ -881,7 +881,7 @@
           blocksQty = blocks.length,
           wranGlass, overallGlass,
           currWidth, currHeight, currSquare,
-          isSizeError, b;
+          isWidthError, isHeightError, b;
 
       /** clean extra Glass */
       DesignStor.design.extraGlass.length = 0;
@@ -895,7 +895,8 @@
         if(item.max_sq || (item.max_width && item.max_height && item.min_width && item.min_height)) {
           /** template loop */
           for (b = 1; b < blocksQty; b += 1) {
-            isSizeError = 0;
+            isWidthError = 0;
+            isHeightError = 0;
             if (blocks[b].glassId === item.id) {
               if (blocks[b].glassPoints) {
                 if (blocks[b].glassPoints.length) {
@@ -905,7 +906,7 @@
                   currWidth = Math.round(overallGlass.maxX - overallGlass.minX);
                   currHeight = Math.round(overallGlass.maxY - overallGlass.minY);
                   currSquare = GeneralServ.roundingValue((currWidth * currHeight/1000000), 3);
-
+                  /** square incorrect */
                   if (currSquare > item.max_sq) {
                     wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
@@ -919,18 +920,42 @@
                   }
 
                   if (currWidth > item.max_width || currWidth < item.min_width) {
-                    isSizeError = 1;
+                    isWidthError = 1;
                   }
                   if(currHeight > item.max_height || currHeight < item.min_height) {
-                    isSizeError = 1;
+                    isHeightError = 1;
                   }
-                  if(isSizeError) {
+
+                  if(isWidthError && isHeightError) {
+                    /** width and height incorrect */
                     wranGlass = $filter('translate')('design.GLASS') +
                       ' ' + item.name + ' ' +
                       $filter('translate')('design.GLASS_SIZE') +
                       ' ' + currWidth + ' x ' + currHeight + ' ' +
-                      $filter('translate')('design.NO_MATCH_RANGE') +
-                      ' ' + item.max_width + ' - ' + item.max_height + '.';
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_WIDTH') +
+                      ' ' + item.min_width + ' - ' + item.max_width + ', ' +
+                      $filter('translate')('design.BY_HEIGHT') +
+                      ' ' + item.min_height + ' - ' + item.max_height + '.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  } else if(isWidthError && !isHeightError) {
+                    /** width incorrect */
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SIZE') +
+                      ' ' + currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_WIDTH') +
+                      ' ' + item.min_width + ' - ' + item.max_width + '.';
+
+                    DesignStor.design.extraGlass.push(wranGlass);
+                  } else if(!isWidthError && isHeightError) {
+                    /** height incorrect */
+                    wranGlass = $filter('translate')('design.GLASS') +
+                      ' ' + item.name + ' ' +
+                      $filter('translate')('design.GLASS_SIZE') +
+                      ' ' + currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') + ' ' + $filter('translate')('design.BY_HEIGHT') +
+                      ' ' + item.min_height + ' - ' + item.max_height + '.';
 
                     DesignStor.design.extraGlass.push(wranGlass);
                   }
