@@ -88,7 +88,7 @@
     function editProduct(productIndex, type) {
       ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
       GlobalStor.global.productEditNumber = ProductStor.product.product_id;
-      CartStor.cart.isBox = 0;
+      CartStor.cart.isBox = -1;
       GlobalStor.global.isCreatedNewProduct = 1;
       GlobalStor.global.isChangedTemplate = 1;
       MainServ.prepareMainPage();
@@ -103,8 +103,14 @@
     }
 
 
-    function openBox() {
-      CartStor.cart.isBox = !CartStor.cart.isBox;
+    function openBox(productIndex) { 
+      if ( CartStor.cart.isBox === productIndex) {
+        CartStor.cart.isBox = -1;
+      } else {
+        CartStor.cart.isBox = productIndex;
+      }
+
+       console.log('productIndex', productIndex)
       console.log('CartStor.cart.isBox', CartStor.cart.isBox)
     }
 
@@ -221,14 +227,17 @@
 
 
     function createProductCopy(currProdInd) {
+      console.log('CartStor.cart.isBox1', CartStor.cart.isBox)
       var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
             return item.product_id;
           })),
       cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
+      CartStor.cart.isBox = -1;  
       addCloneProductInOrder(cloneProduct, lastProductId);
-      CartStor.cart.isBox = 0;
       CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
+      console.log('CartStor.cart.isBox2', CartStor.cart.isBox)
+
     }
 
 

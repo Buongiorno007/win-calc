@@ -172,7 +172,7 @@
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
     thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.createProductCopy =CartServ.createProductCopy;
+    thisCtrl.createProductCopy = CartServ.createProductCopy;
     thisCtrl.editProduct = CartServ.editProduct;
     thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
     thisCtrl.openBox = CartServ.openBox;
