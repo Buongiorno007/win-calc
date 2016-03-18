@@ -109,6 +109,7 @@
       } else {
         CartStor.cart.isBox = productIndex;
       }
+      
 
        console.log('productIndex', productIndex)
       console.log('CartStor.cart.isBox', CartStor.cart.isBox)
@@ -226,7 +227,8 @@
 
 
 
-    function createProductCopy(currProdInd) {
+    function createProductCopy(currProdInd, event) {
+      event.stopPropagation();
       console.log('CartStor.cart.isBox1', CartStor.cart.isBox)
       var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
             return item.product_id;

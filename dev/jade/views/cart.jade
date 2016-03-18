@@ -19,7 +19,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}")
                   .box-menu(ng-show="cartPage.C.cart.isBox == $index")
                     .edit-template(ng-click="cartPage.editProduct($index, 'product')")
-                    .copy-template(ng-click="cartPage.createProductCopy($index, 'product')")                
+                    .copy-template(ng-click="cartPage.createProductCopy($index, $event)")                
                   .order-template
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
                   .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
