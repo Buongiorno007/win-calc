@@ -1303,7 +1303,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants,
     localDB,
     loginServ,
+    MainServ,
     GlobalStor,
+    ProductStor,
     UserStor
   ) {
     /*jshint validthis:true */
@@ -1363,6 +1365,32 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
 
+    function startProgramm() {
+      //console.time('prog');
+      /** save first User entrance */
+      MainServ.saveUserEntry();
+      /** create order date */
+      MainServ.createOrderData();
+      /** set Curr Discounts */
+      MainServ.setCurrDiscounts();
+
+      /** set first Template */
+      MainServ.setCurrTemplate();
+      /** set Templates */
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        MainServ.prepareMainPage();
+        /** start lamination filtering */
+        MainServ.laminatFiltering();
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+          GlobalStor.global.isLoader = 0;
+          //console.timeEnd('prog');
+          $location.path('/main');
+        }
+      });
+    }
+
 
     function importDBfromServer() {
       thisCtrl.isStartImport = 1;
@@ -1370,7 +1398,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
           /** download all data */
-          loginServ.downloadAllData();
+          loginServ.downloadAllData().then(function() {
+            startProgramm();
+          });
           thisCtrl.isStartImport = 0;
         } else {
           console.log('Error!');
@@ -1404,7 +1434,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             /** download all data */
-            loginServ.downloadAllData();
+            loginServ.downloadAllData().then(function() {
+              startProgramm();
+            });
             //});
           } else {
             //------ LocalDB is empty
@@ -1731,7 +1763,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                       loginServ.prepareLocationToUse().then(function() {
                         loginServ.setUserLocation();
                         /** download all data */
-                        loginServ.downloadAllData();
+                        loginServ.downloadAllData().then(function() {
+                          startProgramm();
+                        });
                       });
                     } else {
                       GlobalStor.global.isLoader = 0;
@@ -2025,34 +2059,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
-//      GlobalStor.global.isLoader = 1;
-//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
-
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        /** start lamination filtering */
-        MainServ.laminatFiltering();
-        /** download all cities */
-        if(GlobalStor.global.locations.cities.length === 1) {
-          loginServ.downloadAllCities(1);
-        }
-        /** for SVG_MAIN */
-        //--------- set templateTEMP from ProductStor
-        DesignServ.setDefaultTemplate();
-
-        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
-      });
+      /** for SVG_MAIN */
+      //--------- set templateTEMP from ProductStor
+      DesignServ.setDefaultTemplate();
     }
 
 
@@ -2074,9 +2084,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     if(ProductStor.product.construction_type === 4) {
       DesignServ.setIndexDoorConfig();
     }
-
-
-
 
 
 
@@ -15396,7 +15403,6 @@ function ErrorResult(code, message) {
     $cordovaGlobalization,
     $cordovaFileTransfer,
     $translate,
-    $location,
     $filter,
     localDB,
     globalConstants,
@@ -16112,7 +16118,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
-          console.info('login++++', rooms);
+          //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);
@@ -16447,6 +16453,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /** =========== DOWNLOAD ALL DATA =========== */
 
     function downloadAllData() {
+      var defer = $q.defer();
       //console.time('start')
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
@@ -16521,9 +16528,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                         }
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
                                         //console.timeEnd('start');
+                                        defer.resolve(1);
                                       });
                                     });
                                   });
@@ -16536,11 +16542,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
                     } else {
                       console.error('not find options_discounts!');
+                      defer.resolve(0);
                     }
                   });
 
                 } else {
                   console.error('not find options_coefficients!');
+                  defer.resolve(0);
                 }
               });
 
@@ -16548,6 +16556,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
         }
       });
+      return defer.promise;
     }
 
 

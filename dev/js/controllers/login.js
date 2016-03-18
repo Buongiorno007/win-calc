@@ -12,7 +12,9 @@
     globalConstants,
     localDB,
     loginServ,
+    MainServ,
     GlobalStor,
+    ProductStor,
     UserStor
   ) {
     /*jshint validthis:true */
@@ -72,6 +74,32 @@
     /**============ METHODS ================*/
 
 
+    function startProgramm() {
+      //console.time('prog');
+      /** save first User entrance */
+      MainServ.saveUserEntry();
+      /** create order date */
+      MainServ.createOrderData();
+      /** set Curr Discounts */
+      MainServ.setCurrDiscounts();
+
+      /** set first Template */
+      MainServ.setCurrTemplate();
+      /** set Templates */
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        MainServ.prepareMainPage();
+        /** start lamination filtering */
+        MainServ.laminatFiltering();
+        /** download all cities */
+        if(GlobalStor.global.locations.cities.length === 1) {
+          loginServ.downloadAllCities(1);
+          GlobalStor.global.isLoader = 0;
+          //console.timeEnd('prog');
+          $location.path('/main');
+        }
+      });
+    }
+
 
     function importDBfromServer() {
       thisCtrl.isStartImport = 1;
@@ -79,7 +107,9 @@
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
           /** download all data */
-          loginServ.downloadAllData();
+          loginServ.downloadAllData().then(function() {
+            startProgramm();
+          });
           thisCtrl.isStartImport = 0;
         } else {
           console.log('Error!');
@@ -113,7 +143,9 @@
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             /** download all data */
-            loginServ.downloadAllData();
+            loginServ.downloadAllData().then(function() {
+              startProgramm();
+            });
             //});
           } else {
             //------ LocalDB is empty
@@ -440,7 +472,9 @@
                       loginServ.prepareLocationToUse().then(function() {
                         loginServ.setUserLocation();
                         /** download all data */
-                        loginServ.downloadAllData();
+                        loginServ.downloadAllData().then(function() {
+                          startProgramm();
+                        });
                       });
                     } else {
                       GlobalStor.global.isLoader = 0;

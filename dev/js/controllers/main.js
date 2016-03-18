@@ -81,34 +81,10 @@
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
-//      GlobalStor.global.isLoader = 1;
-//      console.log('START!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
-
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        /** start lamination filtering */
-        MainServ.laminatFiltering();
-        /** download all cities */
-        if(GlobalStor.global.locations.cities.length === 1) {
-          loginServ.downloadAllCities(1);
-        }
-        /** for SVG_MAIN */
-        //--------- set templateTEMP from ProductStor
-        DesignServ.setDefaultTemplate();
-
-        //console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
-      });
+      /** for SVG_MAIN */
+      //--------- set templateTEMP from ProductStor
+      DesignServ.setDefaultTemplate();
     }
 
 
@@ -130,9 +106,6 @@
     if(ProductStor.product.construction_type === 4) {
       DesignServ.setIndexDoorConfig();
     }
-
-
-
 
 
 

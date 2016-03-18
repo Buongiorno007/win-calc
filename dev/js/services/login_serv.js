@@ -10,7 +10,6 @@
     $cordovaGlobalization,
     $cordovaFileTransfer,
     $translate,
-    $location,
     $filter,
     localDB,
     globalConstants,
@@ -726,7 +725,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
-          console.info('login++++', rooms);
+          //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
         deff.resolve(1);
@@ -1061,6 +1060,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /** =========== DOWNLOAD ALL DATA =========== */
 
     function downloadAllData() {
+      var defer = $q.defer();
       //console.time('start')
       /** download All Currencies and set currency symbol */
       setCurrency().then(function(data) {
@@ -1135,9 +1135,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                         }
                                         /** download Cart Menu Data */
                                         downloadCartMenuData();
-                                        GlobalStor.global.isLoader = 0;
-                                        $location.path('/main');
                                         //console.timeEnd('start');
+                                        defer.resolve(1);
                                       });
                                     });
                                   });
@@ -1150,11 +1149,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
                     } else {
                       console.error('not find options_discounts!');
+                      defer.resolve(0);
                     }
                   });
 
                 } else {
                   console.error('not find options_coefficients!');
+                  defer.resolve(0);
                 }
               });
 
@@ -1162,6 +1163,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
         }
       });
+      return defer.promise;
     }
 
 
