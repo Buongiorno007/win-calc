@@ -1,7 +1,7 @@
-.grid-selector-dialog(ng-if="!elementsMenu.P.product.is_addelem_only", ng-class="{'active': elementsMenu.A.aux.isGridSelectorDialog}")
+.grid-selector-dialog(ng-controller="GridSelectorCtrl as gridBox", ng-if="!gridBox.P.product.is_addelem_only", ng-class="{'active': gridBox.A.aux.isGridSelectorDialog}")
   .dialog-inner
-    svg-template(template="elementsMenu.P.product.template", template-width="elementsMenu.constants.svgTemplateIconBigWidth", template-height="elementsMenu.constants.svgTemplateIconBigHeight", type-construction="elementsMenu.constants.SVG_ID_GRID")
-  .set-grid-btn(ng-click="elementsMenu.confirmGrid()")
-  .set-grid-all-btn(ng-click="elementsMenu.setGridToAll()") {{ ::elementsMenu.SELECT_ALL }}
-  .set-grid-warning <span></span> {{ ::elementsMenu.SELECT_GLASS_WARN }}
-  .close-dialog(ng-click="elementsMenu.closeGridSelectorDialog()")
+    svg-template(template="gridBox.P.product.template", template-width="gridBox.constants.svgTemplateIconBigWidth", template-height="gridBox.constants.svgTemplateIconBigHeight", type-construction="gridBox.constants.SVG_ID_GRID")
+  .set-grid-btn(ng-click="gridBox.confirmGrid()")
+  .set-grid-all-btn(ng-click="gridBox.setGridToAll()") {{ ::gridBox.SELECT_ALL }}
+  .set-grid-warning <span></span> {{ ::gridBox.SELECT_GLASS_WARN }}
+  .close-dialog(ng-click="gridBox.closeGridSelectorDialog()")

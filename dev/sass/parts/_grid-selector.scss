@@ -1,17 +1,12 @@
-//======== Glasses dialog
-
 .grid-selector-dialog {
   @extend .modal-dialog;
   @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
   height: 70rem;
-  left: -258rem;
+  left: -90rem;
   background-color: #fff;
-  z-index: 12;
+  z-index: 31;
   text-align: center;
 
-  &.active {
-    left: -90rem;
-  }
   .dialog-inner {
     height: 90%;
     width: 100%;

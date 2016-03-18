@@ -3387,28 +3387,24 @@ div.drum figure {
   background-color: #34aadc;
 }
 
-/* line 3, ../../dev/sass/parts/_grid-selector.scss */
+/* line 1, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   height: 70rem;
-  left: -258rem;
+  left: -90rem;
   background-color: #fff;
-  z-index: 12;
+  z-index: 31;
   text-align: center;
 }
-/* line 12, ../../dev/sass/parts/_grid-selector.scss */
-.grid-selector-dialog.active {
-  left: -90rem;
-}
-/* line 15, ../../dev/sass/parts/_grid-selector.scss */
+/* line 10, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 20, ../../dev/sass/parts/_grid-selector.scss */
+/* line 15, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-btn {
   font: normal 1.5rem/2 icons, sans-serif;
   position: absolute;
@@ -3419,12 +3415,12 @@ div.drum figure {
   background-color: #6ed44a;
   text-align: center;
 }
-/* line 32, ../../dev/sass/parts/_grid-selector.scss */
+/* line 27, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-btn:after {
   color: #fff;
   content: "";
 }
-/* line 37, ../../dev/sass/parts/_grid-selector.scss */
+/* line 32, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-all-btn {
   position: relative;
   bottom: 0;
@@ -3433,7 +3429,7 @@ div.drum figure {
   color: #fff;
   background-color: #6ed44a;
 }
-/* line 47, ../../dev/sass/parts/_grid-selector.scss */
+/* line 42, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-warning {
   display: -webkit-flex;
   display: flex;
@@ -3446,12 +3442,12 @@ div.drum figure {
   font: normal 1.5rem/1.42857 roboto-medium, sans-serif, icons;
   color: #363636;
 }
-/* line 55, ../../dev/sass/parts/_grid-selector.scss */
+/* line 50, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-warning span {
   font: normal 4rem/1.42857 icons, sans-serif;
   padding-right: 1rem;
 }
-/* line 60, ../../dev/sass/parts/_grid-selector.scss */
+/* line 55, ../../dev/sass/parts/_grid-selector.scss */
 .grid-selector-dialog .set-grid-warning span:before {
   color: #f98000;
   content: "";

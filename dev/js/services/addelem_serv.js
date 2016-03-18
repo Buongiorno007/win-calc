@@ -29,10 +29,16 @@
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
-        gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
-          return item.profile_id === ProductStor.product.profile.id;
-        });
-        AuxStor.aux.addElementsList = [gridsSort];
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          //TODO ?????
+          AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+        } else {
+          gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+            return item.profile_id === ProductStor.product.profile.id;
+          });
+          AuxStor.aux.addElementsList = [gridsSort];
+        }
       } else {
         AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
       }
@@ -151,7 +157,7 @@
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
-          groupObj, elemObj, g, elementsQty, elemQty, wordPart;
+          groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
         if(allElems[g].elementsList) {
@@ -161,30 +167,39 @@
           groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
           groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
 
-
           /** search element */
-          console.info('+++++',allElems[g].elementsList, AuxStor.aux.searchingWord);
-          elementsQty = allElems[g].elementsList.length;
+          /** if Grids */
+          if (!g) {
+            if(ProductStor.product.is_addelem_only) {
+              /** without window */
+              //TODO ????
+              elementsList = allElems[g].elementsList;
+            } else {
+              /** grid filtering as ot profile id */
+              elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
+                return item.profile_id === ProductStor.product.profile.id;
+              })];
+            }
+          } else {
+            elementsList = allElems[g].elementsList;
+          }
+          elementsQty = elementsList.length;
           while(--elementsQty > -1) {
-            elemQty = allElems[g].elementsList[elementsQty].length;
+            elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-
-              wordPart = allElems[g].elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
               if(wordPart === AuxStor.aux.searchingWord) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
-                  name: allElems[g].elementsList[elementsQty][elemQty].name
+                  name: elementsList[elementsQty][elemQty].name
                 };
                 groupObj.elems.push(elemObj);
               }
             }
           }
-
           AuxStor.aux.addElementGroups.push(groupObj);
-          console.info('=======',AuxStor.aux.addElementGroups);
-
         }
       }
     }

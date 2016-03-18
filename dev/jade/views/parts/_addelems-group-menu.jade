@@ -1,7 +1,7 @@
 .aux-search-content(ng-controller="AddElemGroupMenuCtrl as addElemGroups", ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}")
   .aux-list-groups
     .aux-list-type(ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index")
-      .aux-list-group(ng-click="addElemGroups.selectAddElemMenu(typeAddElement.type.groupId)",
+      .aux-list-group(ng-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)",
       ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]") {{ typeAddElement.type.groupName }}
 
         button.group-indicator(ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}")
