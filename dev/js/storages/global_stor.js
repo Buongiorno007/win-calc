@@ -92,7 +92,7 @@
         isInfoBox: 0,
         infoTitle: '',
         infoImg: '',
-        infoLink: '',
+        infoLink: '', 
         infoDescrip: '',
 
         //---- report
@@ -111,7 +111,9 @@
         isAlert: 0,
         alertTitle: '',
         alertDescr: '',
+        isBox: 0,
         confirmAction: 0,
+        confirmInActivity: 0,
 
         //---- Calculators
         isQtyCalculator: 0,

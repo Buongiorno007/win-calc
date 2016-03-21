@@ -196,8 +196,8 @@
       GlobalStor.global.alertTitle = title || '';
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
+      GlobalStor.global.confirmInActivity = callback;
     }
-
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
@@ -222,7 +222,7 @@
       removeDuplicates: removeDuplicates,
       getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert,
-      goToLink: goToLink
+      goToLink: goToLink,
     };
 
     return thisFactory.publicObj;

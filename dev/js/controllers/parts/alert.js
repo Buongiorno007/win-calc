@@ -21,9 +21,13 @@
       GlobalStor.global.confirmAction();
     }
 
+    function clickCopy() {
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.confirmInActivity();
+    }
     /**========== FINISH ==========*/
 
     thisCtrl.clickYes = clickYes;
-
+    thisCtrl.clickCopy = clickCopy;
   });
 })();

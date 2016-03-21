@@ -124,7 +124,8 @@
     /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
-
+      GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -189,12 +190,14 @@
 
         //------ copy all AddElements of this order
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder,
           copyOrder
         );
       }
@@ -264,7 +267,7 @@
             switch(param) {
               case 1:
                 OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break;
+                break
               case 2:
                 OrderStor.order.mountingName = angular.copy(data[dataQty].name);
                 break;
@@ -277,7 +280,6 @@
         }
       }
     }
-
 
     function setGlassXOrder(product, id) {
       //----- set default glass in ProductStor

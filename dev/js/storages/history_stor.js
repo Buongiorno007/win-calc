@@ -29,6 +29,7 @@
         isStartDate: 0,
         isFinishDate: 0,
         isAllPeriod: 1,
+        isBox: 0,
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,

@@ -1187,14 +1187,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.editOrder = HistoryServ.editOrder;
     thisCtrl.orderPrint = HistoryServ.orderPrint;
     thisCtrl.viewSwitching = HistoryServ.viewSwitching;
-
     thisCtrl.orderSearching = HistoryServ.orderSearching;
     thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
-
-
   });
 })();
 
@@ -3745,10 +3742,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.confirmAction();
     }
 
+    function clickCopy() {
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.confirmInActivity();
+    }
     /**========== FINISH ==========*/
 
     thisCtrl.clickYes = clickYes;
-
+    thisCtrl.clickCopy = clickCopy;
   });
 })();
 
@@ -3827,6 +3828,33 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.confirmGrid = AddElementMenuServ.confirmGrid;
     thisCtrl.setGridToAll = AddElementMenuServ.setGridToAll;
     thisCtrl.closeGridSelectorDialog = AddElementMenuServ.closeGridSelectorDialog;
+
+  });
+})();
+
+
+// controllers/parts/history_box.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('historyBoxCtrl',
+
+  function(GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+
+
+    /**============ METHODS ================*/
+
+
+    /**========== FINISH ==========*/
+    //------ clicking
+    thisCtrl.openBox = openBox
+
 
   });
 })();
@@ -8518,6 +8546,7 @@ function ErrorResult(code, message) {
         CartStor.cart.isBox = -1;
       } else {
         CartStor.cart.isBox = productIndex;
+        console.log(CartStor.cart.isBox)
       }
       
 
@@ -11745,8 +11774,8 @@ function ErrorResult(code, message) {
       GlobalStor.global.alertTitle = title || '';
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
+      GlobalStor.global.confirmInActivity = callback;
     }
-
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
@@ -11771,7 +11800,7 @@ function ErrorResult(code, message) {
       removeDuplicates: removeDuplicates,
       getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert,
-      goToLink: goToLink
+      goToLink: goToLink,
     };
 
     return thisFactory.publicObj;
@@ -11909,7 +11938,8 @@ function ErrorResult(code, message) {
     /**========= make Order Copy =========*/
 
     function makeOrderCopy(orderStyle, orderNum) {
-
+      GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -11974,12 +12004,14 @@ function ErrorResult(code, message) {
 
         //------ copy all AddElements of this order
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder,
           copyOrder
         );
       }
@@ -12049,7 +12081,7 @@ function ErrorResult(code, message) {
             switch(param) {
               case 1:
                 OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break;
+                break
               case 2:
                 OrderStor.order.mountingName = angular.copy(data[dataQty].name);
                 break;
@@ -12062,7 +12094,6 @@ function ErrorResult(code, message) {
         }
       }
     }
-
 
     function setGlassXOrder(product, id) {
       //----- set default glass in ProductStor
@@ -23764,7 +23795,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isInfoBox: 0,
         infoTitle: '',
         infoImg: '',
-        infoLink: '',
+        infoLink: '', 
         infoDescrip: '',
 
         //---- report
@@ -23783,7 +23814,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isAlert: 0,
         alertTitle: '',
         alertDescr: '',
+        isBox: 0,
         confirmAction: 0,
+        confirmInActivity: 0,
 
         //---- Calculators
         isQtyCalculator: 0,
@@ -23838,6 +23871,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isStartDate: 0,
         isFinishDate: 0,
         isAllPeriod: 1,
+        isBox: 0,
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,

@@ -116,12 +116,6 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
           button.view-switch-tab(ng-click="historyPage.viewSwitching()") {{ ::historyPage.DRAFT_VIEW }}
 
 
-
-
-
-
-
-
         section.accounts-container.draft-view(ng-class="{'active': historyPage.H.history.isDraftView, 'dark-fon': historyPage.H.history.isOrderDateDraft || historyPage.H.history.isOrderSortDraft }")
           .history-header
             include parts/_user-info

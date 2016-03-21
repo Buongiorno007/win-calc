@@ -108,6 +108,7 @@
         CartStor.cart.isBox = -1;
       } else {
         CartStor.cart.isBox = productIndex;
+        console.log(CartStor.cart.isBox)
       }
       
 
