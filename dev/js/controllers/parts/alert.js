@@ -11,6 +11,8 @@
     thisCtrl.G = GlobalStor;
     thisCtrl.BUTTON_N = $filter('translate')('common_words.BUTTON_N');
     thisCtrl.BUTTON_Y = $filter('translate')('common_words.BUTTON_Y');
+    thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
+    thisCtrl.BUTTON_E = $filter('translate')('common_words.BUTTON_E');
 
     /**============ METHODS ================*/
 

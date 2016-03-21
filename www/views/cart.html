@@ -68,10 +68,6 @@
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
                 <button ng-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
                 <div ng-click="cartPage.openBox($index)" class="order-header"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" class="order-header-fon">
-                  <div ng-show="cartPage.C.cart.isBox == $index" class="box-menu">
-                    <div ng-click="cartPage.editProduct($index, 'product')" class="edit-template"></div>
-                    <div ng-click="cartPage.createProductCopy($index, $event)" class="copy-template">               </div>
-                  </div>
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                   </div>
@@ -999,6 +995,17 @@
     <div class="alert-btns">
       <button ng-click="alertBox.G.global.isAlert = 0" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
       <button ng-click="alertBox.clickYes()" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-repeat="product in cartPage.O.order.products track by $index" ng-show="cartPage.C.cart.isBox == $index" class="box-menu">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitleq }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescrq }}</div>
+    <div class="alert-btns">
+      <button ng-click="cartPage.editProduct($index, 'product')" class="alert-no">{{ ::alertBox.BUTTON_E }}</button>
+      <button ng-click="cartPage.createProductCopy($index, $event)" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
     </div>
   </div>
 </div>

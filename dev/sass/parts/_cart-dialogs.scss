@@ -13,13 +13,9 @@
 }
 
 .box-menu {
-   background-color: #fff;
-   position: absolute;
-   top: 60px;
-   left: 60px;
-   width: 90px;
-   height: 90px;
-   z-index: 33;
+  @extend .backDarkView;
+  opacity: 1.08;
+  z-index: 10000;
 }
 
 .edit-template {

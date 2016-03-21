@@ -3735,6 +3735,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.G = GlobalStor;
     thisCtrl.BUTTON_N = $filter('translate')('common_words.BUTTON_N');
     thisCtrl.BUTTON_Y = $filter('translate')('common_words.BUTTON_Y');
+    thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
+    thisCtrl.BUTTON_E = $filter('translate')('common_words.BUTTON_E');
 
     /**============ METHODS ================*/
 
@@ -25623,6 +25625,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'ДА',
         BUTTON_N: 'НЕТ',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Удаление!',
         DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
         DELETE_ORDER_TITLE: 'Удаление заказа!',
