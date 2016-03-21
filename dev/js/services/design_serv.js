@@ -159,7 +159,6 @@
 
 
     /**----------- Close Size Calculator -----------*/
-
     function cleanTempSize() {
       DesignStor.design.tempSize.length = 0;
       DesignStor.design.isMinSizeRestriction = 0;
@@ -169,37 +168,36 @@
     }
 
 
+
     function culcHeightQByRadiusCurve(lineLength, radius) {
       return GeneralServ.roundingValue( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)), 1);
     }
 
 
-    function addNewSizeInTemplate(newLength) {
 
-      //-------- change point coordinates in templateSource
+    /**-------- change point coordinates in templateSource --------*/
+    function addNewSizeInTemplate(newLength) {
       var blocks = DesignStor.design.templateSourceTEMP.details,
-          //blocksOLD = DesignStor.design.templateTEMP.details,
-          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
+          curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
           startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          blocksQty = blocks.length, newHeightQ, b, i, pointsQQty;
-
+          newCoord = startSize + newLength,
+          newCoordLast = finishSize - newLength,
+          blocksQty = blocks.length, isLastDim = 0,
+          overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
 
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      //          console.log('SIZE ````````curBlockId````````', curBlockId);
-      //          console.log('SIZE ````````curDimType````````', curDimType);
-      //          console.log('SIZE ````````dimId````````', dimId);
-
+      //console.log('SIZE ````````newLength````````', newLength);
+      //console.log('SIZE ````````oldSize````````', DesignStor.design.oldSize.attributes);
 
       if(curDimType === 'curve') {
-        //============ changing Radius
-
-        newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
+        /** changing Radius */
+        newHeightQ = culcHeightQByRadiusCurve(startSize, newLength);
 
         mainFor: for (b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === curBlockId) {
@@ -225,7 +223,7 @@
         }
 
       } else if(dimId.indexOf('qa')+1) {
-        //========== changing Arc Height
+        /** changing Arc Height */
 
         for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].level === 1) {
@@ -234,7 +232,7 @@
               while(--pointsQQty > -1) {
                 if(blocks[b].pointsQ[pointsQQty].id === dimId) {
                   blocks[b].pointsQ[pointsQQty].heightQ = newLength;
-                  //                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                  //console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
                 }
               }
             }
@@ -242,38 +240,70 @@
         }
 
       } else {
-        //            console.log('SIZE ````````newLength````````', newLength);
-        //            console.log('SIZE ````````startSize````````', startSize);
-        //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-        //            console.log('SIZE ````````axis````````', axis);
+        /** changing Line dimension */
 
-        //========== changing Line dimension
+        //------- collect overall dimensions
         for(b = 1; b < blocksQty; b+=1) {
-          var pointsOutQty = blocks[b].pointsOut.length;
+          if(blocks[b].level === 1) {
+            overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
+          }
+        }
+        //------- check current dimension with overall
+        overallQty = overall.length;
+        while(--overallQty > -1) {
+          if(axis === 'x') {
+            if(overall[overallQty].maxX === finishSize) {
+              isLastDim = 1;
+            }
+          } else if(axis === 'y') {
+            if(overall[overallQty].maxY === finishSize) {
+              isLastDim = 1;
+            }
+          }
+        }
+
+        for(b = 1; b < blocksQty; b+=1) {
+          pointsOutQty = blocks[b].pointsOut.length;
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
-              if(axis === 'x') {
-                if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
-                }
-              } else if(axis === 'y') {
-                if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                  blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+              //------ if not last dimension
+              if(!isLastDim) {
+                if (axis === 'x') {
+                  if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
+                    blocks[b].pointsOut[pointsOutQty].x = newCoord;
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].pointsOut[pointsOutQty].y === finishSize) {
+                    blocks[b].pointsOut[pointsOutQty].y = newCoord;
+                  }
                 }
               }
             }
           }
           if(blocks[b].impost) {
             for(i = 0; i < 2; i+=1) {
-              if(axis === 'x') {
-                if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                  //                      console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
+              //------ if last dimension
+              if(isLastDim) {
+                if (axis === 'x') {
+                  if (blocks[b].impost.impostAxis[i].x === startSize) {
+                    blocks[b].impost.impostAxis[i].x = newCoordLast;
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].impost.impostAxis[i].y === startSize) {
+                    blocks[b].impost.impostAxis[i].y = newCoordLast;
+                  }
                 }
-              } else if (axis === 'y') {
-                if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                  blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                  //                      console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+              } else {
+                if (axis === 'x') {
+                  if (blocks[b].impost.impostAxis[i].x === finishSize) {
+                    blocks[b].impost.impostAxis[i].x = newCoord;
+                    //console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].impost.impostAxis[i].y === finishSize) {
+                    blocks[b].impost.impostAxis[i].y = newCoord;
+                    //console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
+                  }
                 }
               }
             }
@@ -282,6 +312,8 @@
 
       }
     }
+
+
 
 
     /**---------- add new size in parent block in order to recalculate overall square -----------*/
@@ -325,6 +357,8 @@
       }
       return newPointsOut;
     }
+
+
 
 
     function closeSizeCaclulator(prom) {
@@ -835,32 +869,48 @@
 
 
 
-    function showCurrentDimLevel(currDimId) {
-      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']'),
-          dimQty = dim[0].length,
-          isXDim = 0, isYDim = 0;
+    function showBlockDimensions(dim, svgID) {
+      var dimQty = dim[0].length,
+          isXDim = 0,
+          isYDim = 0,
+          axis;
       //------- checking what kind of dimension X or Y direction
       if(dimQty) {
-        while(--dimQty > -1) {
-          if(dim[0][dimQty].attributes.axis) {
-            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
-              isXDim += 1;
-            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
-              isYDim += 1;
+        while (--dimQty > -1) {
+          axis = dim[0][dimQty].attributes.axis;
+          if (axis) {
+            if (axis.nodeValue === 'x') {
+              isXDim = 1;
+            } else if (axis.nodeValue === 'y') {
+              isYDim = 1;
             }
           }
         }
         //------- shifting overall dimensions is level0 is existed
         if(isXDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', 1);
+          d3.selectAll('#'+svgID+' .dim_blockX').classed('dim_shiftX', 1);
         }
         if(isYDim) {
-          d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', 1);
+          d3.selectAll('#'+svgID+' .dim_blockY').classed('dim_shiftY', 1);
         }
         dim.classed('dim_hidden', 0);
       }
     }
 
+
+
+    function showCurrentDimLevel(currDimId) {
+      var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']');
+      showBlockDimensions(dim, globalConstants.SVG_ID_EDIT);
+    }
+
+
+
+    /**------- show all dimensions for Glass and Grid Selectors -------*/
+    function showAllDimension(svgID) {
+      var dim = d3.selectAll('#'+svgID+' .dim_block');
+      showBlockDimensions(dim, svgID);
+    }
 
 
 
@@ -944,6 +994,8 @@
               }
           });
         });
+      /** show all dimensions */
+      showAllDimension(globalConstants.SVG_ID_GLASS);
     }
 
 
@@ -998,6 +1050,8 @@
 
           });
         });
+      /** show all dimensions */
+      showAllDimension(globalConstants.SVG_ID_GRID);
     }
 
 
@@ -2754,6 +2808,7 @@
       initAllGlassXGrid: initAllGlassXGrid,
       initAllArcs: initAllArcs,
       initAllDimension: initAllDimension,
+      showAllDimension: showAllDimension,
       hideCornerMarks: hideCornerMarks,
       deselectAllImpost: deselectAllImpost,
       deselectAllArc: deselectAllArc,

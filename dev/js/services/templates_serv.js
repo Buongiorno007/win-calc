@@ -29,7 +29,6 @@
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
-
         ProductStor.product.glass.length = 0;
         MainServ.setCurrentGlass(ProductStor.product);
         MainServ.setCurrentHardware(ProductStor.product);
