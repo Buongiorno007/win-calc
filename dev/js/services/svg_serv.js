@@ -2443,7 +2443,7 @@
           var blockDimX = [],
               blockDimY,
               blockLimits = [],
-              bp;
+              bp, isDim = 1;
 
           cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
           //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
@@ -2466,26 +2466,27 @@
           blockDimY = angular.copy(blockDimX);
           /**-------- build Dimension -----------*/
           if (blockDimX.length > 1) {
-            /** X */
             //------ delete dublicates
             blockDimX = cleanDublicatNoFP(1, blockDimX);
+            blockDimY = cleanDublicatNoFP(2, blockDimY);
+            //---- sorting
+            blockDimX.sort(sortByX);
+            blockDimY.sort(sortByY);
             //console.log('`````````` blockDimX ``````````', blockDimX);
-
+            //console.log('`````````` blockDimY ``````````', blockDimY);
+            /** X */
             if((blockDimX[0].id.indexOf('fp')+1) && (blockDimX[1].id.indexOf('fp')+1)) {
-              continue;
+              isDim = 0;
             } else {
               if (blockDimX.length) {
-                //---- sorting
-                blockDimX.sort(sortByX);
                 collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
               }
-              /** Y */
-                //------ delete dublicates
-              blockDimY = cleanDublicatNoFP(2, blockDimY);
-              //console.log('`````````` blockDimY ``````````', blockDimY);
+            }
+            /** Y */
+            if((blockDimY[0].id.indexOf('fp')+1) && (blockDimY[1].id.indexOf('fp')+1)) {
+              isDim = 0;
+            } else {
               if (blockDimY.length) {
-                //---- sorting
-                blockDimY.sort(sortByY);
                 collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
               }
             }

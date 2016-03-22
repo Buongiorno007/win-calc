@@ -184,6 +184,7 @@
           startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
           finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          level = +DesignStor.design.oldSize.attributes[14].nodeValue,
           newCoord = startSize + newLength,
           newCoordLast = finishSize - newLength,
           blocksQty = blocks.length, isLastDim = 0,
@@ -241,23 +242,25 @@
 
       } else {
         /** changing Line dimension */
-
-        //------- collect overall dimensions
-        for(b = 1; b < blocksQty; b+=1) {
-          if(blocks[b].level === 1) {
-            overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
-          }
-        }
-        //------- check current dimension with overall
-        overallQty = overall.length;
-        while(--overallQty > -1) {
-          if(axis === 'x') {
-            if(overall[overallQty].maxX === finishSize) {
-              isLastDim = 1;
+        //------- defined last dim for inside dimensions
+        if(!level) {
+          //------- collect overall dimensions
+          for (b = 1; b < blocksQty; b += 1) {
+            if (blocks[b].level === 1) {
+              overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
             }
-          } else if(axis === 'y') {
-            if(overall[overallQty].maxY === finishSize) {
-              isLastDim = 1;
+          }
+          //------- check current dimension with overall
+          overallQty = overall.length;
+          while (--overallQty > -1) {
+            if (axis === 'x') {
+              if (overall[overallQty].maxX === finishSize) {
+                isLastDim = 1;
+              }
+            } else if (axis === 'y') {
+              if (overall[overallQty].maxY === finishSize) {
+                isLastDim = 1;
+              }
             }
           }
         }
@@ -297,12 +300,10 @@
                 if (axis === 'x') {
                   if (blocks[b].impost.impostAxis[i].x === finishSize) {
                     blocks[b].impost.impostAxis[i].x = newCoord;
-                    //console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
                   }
                 } else if (axis === 'y') {
                   if (blocks[b].impost.impostAxis[i].y === finishSize) {
                     blocks[b].impost.impostAxis[i].y = newCoord;
-                    //console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
                   }
                 }
               }

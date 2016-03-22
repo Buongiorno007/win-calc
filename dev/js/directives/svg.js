@@ -95,10 +95,18 @@
             .attr({
               'class': function() {
                 var className;
-                if(dir) {
-                  className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                if(scope.typeConstruction === globalConstants.SVG_ID_ICON) {
+                  if(dir) {
+                    className = (dim.level) ? 'dim_blockY dim_shiftY' : 'dim_block';
+                  } else {
+                    className = (dim.level) ? 'dim_blockX dim_shiftX' : 'dim_block';
+                  }
                 } else {
-                  className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                  if(dir) {
+                    className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                  } else {
+                    className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                  }
                 }
                 return className;
               },
@@ -162,7 +170,8 @@
               'dim_id': dim.dimId,
               'from_point': dim.from,
               'to_point': dim.to,
-              'axis': dim.axis
+              'axis': dim.axis,
+              'level': dim.level
             });
           }
         }

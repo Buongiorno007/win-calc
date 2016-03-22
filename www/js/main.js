@@ -5405,10 +5405,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             .attr({
               'class': function() {
                 var className;
-                if(dir) {
-                  className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                if(scope.typeConstruction === globalConstants.SVG_ID_ICON) {
+                  if(dir) {
+                    className = (dim.level) ? 'dim_blockY dim_shiftY' : 'dim_block';
+                  } else {
+                    className = (dim.level) ? 'dim_blockX dim_shiftX' : 'dim_block';
+                  }
                 } else {
-                  className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                  if(dir) {
+                    className = (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+                  } else {
+                    className = (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+                  }
                 }
                 return className;
               },
@@ -5472,7 +5480,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'dim_id': dim.dimId,
               'from_point': dim.from,
               'to_point': dim.to,
-              'axis': dim.axis
+              'axis': dim.axis,
+              'level': dim.level
             });
           }
         }
@@ -8906,6 +8915,7 @@ function ErrorResult(code, message) {
           startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
           finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
+          level = +DesignStor.design.oldSize.attributes[14].nodeValue,
           newCoord = startSize + newLength,
           newCoordLast = finishSize - newLength,
           blocksQty = blocks.length, isLastDim = 0,
@@ -8963,23 +8973,25 @@ function ErrorResult(code, message) {
 
       } else {
         /** changing Line dimension */
-
-        //------- collect overall dimensions
-        for(b = 1; b < blocksQty; b+=1) {
-          if(blocks[b].level === 1) {
-            overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
-          }
-        }
-        //------- check current dimension with overall
-        overallQty = overall.length;
-        while(--overallQty > -1) {
-          if(axis === 'x') {
-            if(overall[overallQty].maxX === finishSize) {
-              isLastDim = 1;
+        //------- defined last dim for inside dimensions
+        if(!level) {
+          //------- collect overall dimensions
+          for (b = 1; b < blocksQty; b += 1) {
+            if (blocks[b].level === 1) {
+              overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
             }
-          } else if(axis === 'y') {
-            if(overall[overallQty].maxY === finishSize) {
-              isLastDim = 1;
+          }
+          //------- check current dimension with overall
+          overallQty = overall.length;
+          while (--overallQty > -1) {
+            if (axis === 'x') {
+              if (overall[overallQty].maxX === finishSize) {
+                isLastDim = 1;
+              }
+            } else if (axis === 'y') {
+              if (overall[overallQty].maxY === finishSize) {
+                isLastDim = 1;
+              }
             }
           }
         }
@@ -9019,12 +9031,10 @@ function ErrorResult(code, message) {
                 if (axis === 'x') {
                   if (blocks[b].impost.impostAxis[i].x === finishSize) {
                     blocks[b].impost.impostAxis[i].x = newCoord;
-                    //console.log('SIZE ````````x````````', blocks[b].impost.impostAxis[i]);
                   }
                 } else if (axis === 'y') {
                   if (blocks[b].impost.impostAxis[i].y === finishSize) {
                     blocks[b].impost.impostAxis[i].y = newCoord;
-                    //console.log('SIZE ````````y````````', blocks[b].impost.impostAxis[i]);
                   }
                 }
               }
@@ -22747,7 +22757,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           var blockDimX = [],
               blockDimY,
               blockLimits = [],
-              bp;
+              bp, isDim = 1;
 
           cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
           //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
@@ -22770,26 +22780,27 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           blockDimY = angular.copy(blockDimX);
           /**-------- build Dimension -----------*/
           if (blockDimX.length > 1) {
-            /** X */
             //------ delete dublicates
             blockDimX = cleanDublicatNoFP(1, blockDimX);
+            blockDimY = cleanDublicatNoFP(2, blockDimY);
+            //---- sorting
+            blockDimX.sort(sortByX);
+            blockDimY.sort(sortByY);
             //console.log('`````````` blockDimX ``````````', blockDimX);
-
+            //console.log('`````````` blockDimY ``````````', blockDimY);
+            /** X */
             if((blockDimX[0].id.indexOf('fp')+1) && (blockDimX[1].id.indexOf('fp')+1)) {
-              continue;
+              isDim = 0;
             } else {
               if (blockDimX.length) {
-                //---- sorting
-                blockDimX.sort(sortByX);
                 collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
               }
-              /** Y */
-                //------ delete dublicates
-              blockDimY = cleanDublicatNoFP(2, blockDimY);
-              //console.log('`````````` blockDimY ``````````', blockDimY);
+            }
+            /** Y */
+            if((blockDimY[0].id.indexOf('fp')+1) && (blockDimY[1].id.indexOf('fp')+1)) {
+              isDim = 0;
+            } else {
               if (blockDimY.length) {
-                //---- sorting
-                blockDimY.sort(sortByY);
                 collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
               }
             }
