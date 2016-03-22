@@ -50,6 +50,31 @@
             .attr("d", path);
         }
 
+        function setSashFittings(param, data, block) {
+          var dirQty = block.sashOpenDir.length,
+              handle;
+          if(block.handlePos) {
+            if (dirQty === 1) {
+              if (block.handlePos === 2) {
+                handle = param ? 'url(#handleR)' : 'url(#hingeL)';
+              } else if (block.handlePos === 1) {
+                handle = param ? 'url(#handleU)' : 'url(#hingeD)';
+              } else if (block.handlePos === 4) {
+                handle = param ? 'url(#handleL)' : 'url(#hingeR)';
+              } else if (block.handlePos === 3) {
+                handle = param ? 'url(#handleD)' : 'url(#hingeU)';
+              }
+            } else if (dirQty === 2) {
+              if (data.points[1].fi < 45 || data.points[1].fi > 315) {
+                handle = param ? 'url(#handleR)' : 'url(#hingeL)';
+              } else if (data.points[1].fi > 135 && data.points[1].fi < 225) {
+                handle = param ? 'url(#handleL)' : 'url(#hingeR)';
+              }
+            }
+            return handle;
+          }
+        }
+
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
           if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
@@ -304,13 +329,7 @@
             }
 
             /** Points */
-            var blockQty = template.details.length,
-                path = pnt.path,
-                noVvPath = pnt.noVvPath,   
-                fpDgLR =pnt.fpDgLR,    
-                fpDgRL =pnt.fpDgRL,         
-                heightWmd = pnt.heightWmd,        
-                widthWmd = pnt.widthWmd,          
+            var noVvPath = pnt.noVvPath,
                 widthT = pnt.widthT,
                 heightT = pnt.heightT;
 
@@ -320,7 +339,8 @@
                   pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,"+
                     "3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
                     "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,"+
-                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
+                    "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z",
+                pathHinge = "M0,0L5,0L5,15L0,15z";
               /** dimension */
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -336,6 +356,12 @@
               setMarker(defs, 'handleL', '0 -1 9 32', 14, 5, 0, 29, 80, pathHandle, 'handle-mark');
               setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
               setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
+
+              /** hinge */
+              setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeU', '-1 0 9 4', -28.5, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeD', '-1 0 9 4', 33.7, 5, 270, 20, 80, pathHinge, 'hinge-mark');
 
               /** lamination */
               if(ProductStor.product.lamination.img_in_id > 1) {
@@ -501,7 +527,6 @@
                     topWindowsill = '',
                     block15Height = '',
                     windowsill2 = '',
-                    randomOpasity = '',
                     block15Top = '';
 
                 if (heightT < 1648) {
@@ -762,7 +787,7 @@
 
 
               if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
-                //----- sash open direction
+                /** sash open direction */
                 if (template.details[i].sashOpenDir) {
                   elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
                     .data(template.details[i].sashOpenDir)
@@ -771,31 +796,18 @@
                     .classed('sash_mark', true)
                     .attr({
                       'd': function (d) {
-                            return lineCreator(d.points);
-                          },
+                        return lineCreator(d.points);
+                      },
+                      //------- handler
                       'marker-mid': function(d) {
-                        var dirQty = template.details[i].sashOpenDir.length,
-                            handle;
-                        if(template.details[i].handlePos) {
-                          if (dirQty === 1) {
-                            if (template.details[i].handlePos === 2) {
-                              handle = 'url(#handleR)';
-                            } else if (template.details[i].handlePos === 1) {
-                              handle = 'url(#handleU)';
-                            } else if (template.details[i].handlePos === 4) {
-                              handle = 'url(#handleL)';
-                            } else if (template.details[i].handlePos === 3) {
-                              handle = 'url(#handleD)';
-                            }
-                          } else if (dirQty === 2) {
-                            if (d.points[1].fi < 45 || d.points[1].fi > 315) {
-                              handle = 'url(#handleR)';
-                            } else if (d.points[1].fi > 135 && d.points[1].fi < 225) {
-                              handle = 'url(#handleL)';
-                            }
-                          }
-                          return handle;
-                        }
+                        return setSashFittings(1, d, template.details[i]);
+                      },
+                      //------- hinges
+                      'marker-start': function(d) {
+                        return setSashFittings(0, d, template.details[i]);
+                      },
+                      'marker-end': function(d) {
+                        return setSashFittings(0, d, template.details[i]);
                       }
                     });
                 }

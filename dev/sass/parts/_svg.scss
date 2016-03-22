@@ -51,6 +51,10 @@
   stroke: #817D7D;
   stroke-width: .7;
 }
+.hinge-mark {
+  @extend .handle-mark;
+  stroke-width: .3;
+}
 .error_glass {
   fill: $error_color;
 }
