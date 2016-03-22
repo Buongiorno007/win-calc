@@ -112,6 +112,7 @@
         alertTitle: '',
         alertDescr: '',
         isBox: 0,
+        isEditBox: 0,
         confirmAction: 0,
         confirmInActivity: 0,
 

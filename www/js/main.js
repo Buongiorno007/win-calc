@@ -133,6 +133,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
+      .when('/history-box', {
+        templateUrl: 'views/parts/history-box.html',
+        controller: 'historyBoxCtrl as historyBoxPage',
+        title: 'history Box'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -3853,7 +3858,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**========== FINISH ==========*/
     //------ clicking
-    thisCtrl.openBox = openBox
 
 
   });
@@ -11774,6 +11778,8 @@ function ErrorResult(code, message) {
       GlobalStor.global.alertTitle = title || '';
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
+    }
+    function confirmPath(callback) {
       GlobalStor.global.confirmInActivity = callback;
     }
 
@@ -11801,6 +11807,7 @@ function ErrorResult(code, message) {
       getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert,
       goToLink: goToLink,
+      confirmPath: confirmPath,
     };
 
     return thisFactory.publicObj;
@@ -11937,7 +11944,7 @@ function ErrorResult(code, message) {
 
     /**========= make Order Copy =========*/
 
-    function makeOrderCopy(orderStyle, orderNum) {
+    function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
@@ -12006,12 +12013,69 @@ function ErrorResult(code, message) {
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
+      function editOrderr() {
+        GlobalStor.global.isLoader = 1;
+        GlobalStor.global.orderEditNumber = orderNum;
+        //----- cleaning order
+        OrderStor.order = OrderStor.setDefaultOrder();
+
+        var ordersQty = typeOrder ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
+        while(--ordersQty > -1) {
+          if(typeOrder) {
+            if(HistoryStor.history.orders[ordersQty].id === orderNum) {
+              angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+              CartStor.fillOrderForm();
+            }
+          } else {
+            if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
+              angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
+              CartStor.fillOrderForm();
+            }
+          }
+
+        }
+        OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
+        OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
+        OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+        setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
+        setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
+        setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+
+        delete OrderStor.order.additional_payment;
+        delete OrderStor.order.created;
+        delete OrderStor.order.sended;
+        delete OrderStor.order.state_to;
+        delete OrderStor.order.state_buch;
+        delete OrderStor.order.batch;
+        delete OrderStor.order.base_price;
+        delete OrderStor.order.factory_margin;
+        delete OrderStor.order.purchase_price;
+        delete OrderStor.order.sale_price;
+        delete OrderStor.order.modified;
+
+        //------ Download All Products of edited Order
+        downloadProducts().then(function() {
+          //------ Download All Add Elements from LocalDB
+          downloadAddElements().then(function () {
+            GlobalStor.global.isConfigMenu = 1;
+            GlobalStor.global.isNavMenu = 0;
+            //------- set previos Page
+            GeneralServ.setPreviosPage();
+            GlobalStor.global.isLoader = 0;
+            //          console.warn('ORDER ====', OrderStor.order);
+            $location.path('/history-box');
+          });
+        });
+          console.log('2eds')
+      }
 
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
-          copyOrder,
+          editOrderr
+        ),
+        GeneralServ.confirmPath(
           copyOrder
         );
       }
@@ -23815,6 +23879,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         alertTitle: '',
         alertDescr: '',
         isBox: 0,
+        isEditBox: 0,
         confirmAction: 0,
         confirmInActivity: 0,
 
@@ -25665,13 +25730,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
         DELETE_ORDER_TITLE: 'Удаление заказа!',
         DELETE_ORDER_TXT: 'Хотите удалить заказ?',
-        COPY_ORDER_TITLE: 'Копирование!',
-        COPY_ORDER_TXT: 'Хотите сделать копию заказа?',
+        COPY_ORDER_TITLE: 'Выберите действие!',
+        COPY_ORDER_TXT: 'Хотите сделать копию или изменения в заказе?',
         SEND_ORDER_TITLE: 'В производство!',
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
         TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?',
-        PAGE_REFRESH: 'Перезагрузка страницы приведет к потерю данных!',
+        PAGE_REFRESH: 'Перезагрузка страницы приведет к потере данных!',
         SELECT: 'Выбрать',
         AND: 'и',
         OK: 'OK',

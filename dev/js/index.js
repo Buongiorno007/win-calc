@@ -130,6 +130,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         controller: 'DesignCtrl as designPage',
         title: 'Design'
       })
+      .when('/history-box', {
+        templateUrl: 'views/parts/history-box.html',
+        controller: 'historyBoxCtrl as historyBoxPage',
+        title: 'history Box'
+      })
       .otherwise({
         redirectTo: '/'
       });

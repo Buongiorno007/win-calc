@@ -196,6 +196,8 @@
       GlobalStor.global.alertTitle = title || '';
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
+    }
+    function confirmPath(callback) {
       GlobalStor.global.confirmInActivity = callback;
     }
 
@@ -223,6 +225,7 @@
       getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert,
       goToLink: goToLink,
+      confirmPath: confirmPath,
     };
 
     return thisFactory.publicObj;

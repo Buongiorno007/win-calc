@@ -16,7 +16,6 @@
 
     /**========== FINISH ==========*/
     //------ clicking
-    thisCtrl.openBox = openBox
 
 
   });
