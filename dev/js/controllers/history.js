@@ -10,7 +10,8 @@
     GlobalStor,
     UserStor,
     HistoryStor,
-    HistoryServ
+    HistoryServ,
+    CartServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
