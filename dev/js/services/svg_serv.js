@@ -61,6 +61,22 @@
     }
 
 
+    function checkInsidePointInLineEasy(isInside) {
+      var exist = 0;
+      if(isInside.x === Infinity || isInside.y === Infinity) {
+        exist = 0;
+      } else if(isInside.x >= 0 && isInside.x <= 1 && isInside.y >= 0 && isInside.y <= 1) {
+        exist = 1;
+      } else if(isNaN(isInside.x) && isInside.y >= 0 && isInside.y <= 1) {
+        exist = 1;
+      } else if(isInside.x >= 0 && isInside.x <= 1  && isNaN(isInside.y)) {
+        exist = 1;
+      }
+      return exist;
+    }
+
+
+
 
     function getCenterLine(pointStart, pointEnd) {
       var center = {
@@ -2093,15 +2109,12 @@
       var pQty = points.length;
       while(--pQty > -1) {
         if(points[pQty].t || points[pQty].dir === 'curv' || (points[pQty].id.indexOf('fp')+1 && !points[pQty].view)){
-//TODO        if(points[pQty].dir === 'curv' || (points[pQty].id.indexOf('fp')+1 && !points[pQty].view)){
           continue;
         } else {
           result.push(points[pQty]);
         }
       }
     }
-
-
 
 
 
@@ -2197,7 +2210,7 @@
 
 
     function setLimitsDim(axis, pointDim, startDim, limits, maxSizeLimit) {
-//      console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
+      //console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit);
       var dimLimit = {},
           //------ set new Limints by X or Y
           currLimits = setNewLimitsInBlock(axis, pointDim, limits),
@@ -2221,6 +2234,7 @@
         //console.log('!!!!!!!!! DIM  isSecondImpP------------', isSecondImpP, pointDim);
         if(axis === 'x') {
           if(currLimits[i].x === pointDim.x) {
+            /** min */
             if(currLimits[i-1]) {
               if(isSecondImpP) {
                 //----- second impP last
@@ -2237,19 +2251,31 @@
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
-              ((pointDim.x - startDim) + (currLimits[i+1].x - pointDim.x - globalConstants.minSizeLimit)), 1
-            ) : maxSizeLimit;
+            /** max */
+            if(currLimits[i+1]) {
+              dimLimit.maxL = GeneralServ.roundingValue(
+                (currLimits[i+1].x - startDim - globalConstants.minSizeLimit), 1
+              );
+            } else {
+              if(currLimits[i-2]) {
+                dimLimit.maxL = GeneralServ.roundingValue(
+                  (pointDim.x - currLimits[i-2].x - globalConstants.minSizeLimit), 1
+                );
+              }
+            }
           }
         } else {
           if(currLimits[i].y === pointDim.y) {
+            /** min */
             if(currLimits[i-1]) {
               if(isSecondImpP) {
                 //----- second impP last
                 if(pointDim.id === currLimits[i-1].id) {
                   dimLimit.minL = globalConstants.minSizeLimit;
                 } else {
-                  dimLimit.minL = GeneralServ.roundingValue( (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit), 1 );
+                  dimLimit.minL = GeneralServ.roundingValue(
+                    (pointDim.y - currLimits[i-1].y - globalConstants.minSizeLimit), 1
+                  );
                 }
               } else {
                 dimLimit.minL = globalConstants.minSizeLimit;
@@ -2257,9 +2283,18 @@
             } else {
               dimLimit.minL = globalConstants.minSizeLimit;
             }
-            dimLimit.maxL = (currLimits[i+1]) ? GeneralServ.roundingValue(
-              ((pointDim.y - startDim) + (currLimits[i+1].y - pointDim.y - globalConstants.minSizeLimit)), 1
-            ) : maxSizeLimit;
+            /** max */
+            if(currLimits[i+1]) {
+              dimLimit.maxL = GeneralServ.roundingValue(
+                (currLimits[i+1].y - startDim - globalConstants.minSizeLimit), 1
+              );
+            } else {
+              if(currLimits[i-2]) {
+                dimLimit.maxL = GeneralServ.roundingValue(
+                  (pointDim.y - currLimits[i-2].y - globalConstants.minSizeLimit), 1
+                );
+              }
+            }
           }
         }
       }
@@ -2271,7 +2306,8 @@
 
 
     function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit) {
-      //      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+  //console.log('createDimObj----1-----', level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit);
+  //console.log('createDimObj----2-----', blockDim[index], blockDim[indexNext]);
       var dim = {
             blockId: currBlockId,
             level: level,
@@ -2282,8 +2318,8 @@
           },
           currLimit;
       dim.text = GeneralServ.roundingValue( Math.abs(dim.to - dim.from), 1 );
-      //      console.log('FINISH limits---------', dim, limits);
-      //=========== set Limints
+
+      /** set Limints */
       //-------- for global
       if(level) {
         //                console.log('FINISH global---------');
@@ -2295,7 +2331,7 @@
       }
       dim.minLimit = currLimit.minL;
       dim.maxLimit = currLimit.maxL;
-      //      console.log('---------------DIM FINISH ------------');
+      //console.log('---------------DIM FINISH ------------', dim);
       return dim;
     }
 
@@ -2305,57 +2341,11 @@
     function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId, maxSizeLimit) {
       var dimQty = pointsDim.length - 1,
           d;
-      //      console.log('-------- points ---------', JSON.stringify(pointsDim));
       for(d = 0; d < dimQty; d+=1) {
-        //TODO----- not create global dim in block level 0
-        //if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
-        //  break;
-        //} else {
         dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
-        //}
       }
     }
 
-
-
-
-
-
-
-
-    function checkInsidePointInLineEasy(isInside) {
-      var exist = 0;
-      if(isInside.x === Infinity || isInside.y === Infinity) {
-        exist = 0;
-      } else if(isInside.x >= 0 && isInside.x <= 1 && isInside.y >= 0 && isInside.y <= 1) {
-        exist = 1;
-      } else if(isNaN(isInside.x) && isInside.y >= 0 && isInside.y <= 1) {
-        exist = 1;
-      } else if(isInside.x >= 0 && isInside.x <= 1  && isNaN(isInside.y)) {
-        exist = 1;
-      }
-      return exist;
-    }
-
-
-
-    //function getAllImpostDim(blockLimits, childBlockId, blocksQty, blocks) {
-    //  var i;
-    //  for(i = 1; i < blocksQty; i+=1) {
-    //    if(blocks[i].id === childBlockId) {
-    //      if(blocks[i].children.length) {
-    //        if(!blocks[i].impost.impostAxis[0].t) {
-    //          blockLimits.push(blocks[i].impost.impostAxis[0]);
-    //        }
-    //        if(!blocks[i].impost.impostAxis[1].t) {
-    //          blockLimits.push(blocks[i].impost.impostAxis[1]);
-    //        }
-    //        getAllImpostDim(blockLimits, blocks[i].children[0], blocksQty, blocks);
-    //        getAllImpostDim(blockLimits, blocks[i].children[1], blocksQty, blocks);
-    //      }
-    //    }
-    //  }
-    //}
 
 
 
@@ -2453,7 +2443,7 @@
           var blockDimX = [],
               blockDimY,
               blockLimits = [],
-              bp;
+              bp, isDim = 1;
 
           cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
           //console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
@@ -2470,61 +2460,36 @@
               }
             }
           }
-/*
- //-------- set block Limits
- //------ go to parent and another children for Limits
- for (var bp = 1; bp < blocksQty; bp++) {
- if (blocks[bp].id === blocks[b].parent) {
- var childQty = blocks[bp].children.length;
- //------- add parent pointsOut
- cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
- //------- add impost
- if(blocks[bp].impost) {
- //                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
- if(!blocks[bp].impost.impostAxis[0].t) {
- blockLimits.push(blocks[bp].impost.impostAxis[0]);
- }
- if(!blocks[bp].impost.impostAxis[1].t) {
- blockLimits.push(blocks[bp].impost.impostAxis[1]);
- }
-
- //============ collect Curver Radius of impost
- if (blocks[bp].impost.impostAxis[2]) {
- //                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
- dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
- }
- }
- //------- add imposts of childern
- while(--childQty > -1) {
- if(blocks[bp].children[childQty] !== blocks[b].id) {
- getAllImpostDim(blockLimits, blocks[bp].children[childQty], blocksQty, blocks);
- }
- }
- }
- }
- */
 
           blockLimits = angular.copy(allPoints);
           //console.log('`````````` blockLimits ``````````', blockLimits);
           blockDimY = angular.copy(blockDimX);
-
           /**-------- build Dimension -----------*/
           if (blockDimX.length > 1) {
-            /** X */
-              //------ delete dublicates
+            //------ delete dublicates
             blockDimX = cleanDublicatNoFP(1, blockDimX);
-            //---- sorting
-            blockDimX.sort(sortByX);
-            //console.log('`````````` new dim X ``````````', blockDimX);
-            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
-
-            /** Y */
-              //------ delete dublicates
             blockDimY = cleanDublicatNoFP(2, blockDimY);
             //---- sorting
+            blockDimX.sort(sortByX);
             blockDimY.sort(sortByY);
-            //console.log('`````````` new dim Y ``````````', blockDimY);
-            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
+            //console.log('`````````` blockDimX ``````````', blockDimX);
+            //console.log('`````````` blockDimY ``````````', blockDimY);
+            /** X */
+            if((blockDimX[0].id.indexOf('fp')+1) && (blockDimX[1].id.indexOf('fp')+1)) {
+              isDim = 0;
+            } else {
+              if (blockDimX.length) {
+                collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
+              }
+            }
+            /** Y */
+            if((blockDimY[0].id.indexOf('fp')+1) && (blockDimY[1].id.indexOf('fp')+1)) {
+              isDim = 0;
+            } else {
+              if (blockDimY.length) {
+                collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
+              }
+            }
           }
         }
 
@@ -2757,7 +2722,7 @@
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+300),
+      var templateW = ((dim.maxX - dim.minX)+600),
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()
@@ -2818,46 +2783,30 @@
     //----------- TRANSLATE MAIN
     function setTemplatePositionMAIN(dim, windowH, scale) {
       var pnt = PointsServ.templatePoints(ProductStor.product.template),
-          position;
+          valueY = (windowH - (dim.minY + dim.maxY)*scale),
+          position = {};
       if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3 ) {
+        position.x = 250;
         if(pnt.heightT < 1648) {
-          position = {
-            x: 250,
-            y: (windowH - (dim.minY + dim.maxY)*scale)-310
-          };
-        } 
+          position.y = valueY-310;
+        }
         if( 1648 < pnt.heightT) {
-          position = {
-            x: 250,
-            y: (windowH - (dim.minY + dim.maxY)*scale)-240
-          };
+          position.y = valueY-240;
         }
         if( 1848 < pnt.heightT) {
-          position = {
-            x: 250,
-            y: (windowH - (dim.minY + dim.maxY)*scale)-190
-          };
+          position.y = valueY-190;
         }
         if( 2148 < pnt.heightT) {
-          position = {
-            x: 250,
-            y: (windowH - (dim.minY + dim.maxY)*scale)-130
-          };
-        }      
+          position.y = valueY-130;
+        }
       }
-
       if(ProductStor.product.construction_type === 2) {
-        position = {
-          x: 220,
-          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)+35
-        };
-      } 
-
+        position.x = 220;
+        position.y = (valueY/2)+35;
+      }
       if(ProductStor.product.construction_type === 4) {
-        position = {
-          x: 276,
-          y: (windowH - (dim.minY + dim.maxY)*scale)-110
-        };
+        position.x = 276;
+        position.y = valueY-110;
       }
       return position;
     }

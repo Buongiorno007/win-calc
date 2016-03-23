@@ -11,6 +11,7 @@
     GeneralServ,
     AddElementsServ,
     AddElementMenuServ,
+    DesignServ,
     GlobalStor,
     AuxStor,
     ProductStor
@@ -51,6 +52,7 @@
     function showWindowScheme() {
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = true;
+      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
     }
 
     function closeWindowScheme() {

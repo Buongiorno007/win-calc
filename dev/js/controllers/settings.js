@@ -8,6 +8,7 @@
   function(
     $location,
     $timeout,
+    $filter,
     globalConstants,
     localDB,
     SettingServ,
@@ -33,6 +34,24 @@
       mailReg: globalConstants.REG_MAIL,
       typing: 'on'
     };
+
+    //------- translate
+    thisCtrl.NAVMENU_SETTINGS = $filter('translate')('mainpage.NAVMENU_SETTINGS');
+    thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.AUTHORIZATION = $filter('translate')('settings.AUTHORIZATION');
+    thisCtrl.CHANGE_PASSWORD = $filter('translate')('settings.CHANGE_PASSWORD');
+    thisCtrl.CHANGE_LANGUAGE = $filter('translate')('settings.CHANGE_LANGUAGE');
+    thisCtrl.PRIVATE_INFO = $filter('translate')('settings.PRIVATE_INFO');
+    thisCtrl.USER_NAME = $filter('translate')('settings.USER_NAME');
+    thisCtrl.CITY = $filter('translate')('settings.CITY');
+    thisCtrl.CLIENT_ADDRESS = $filter('translate')('cart.CLIENT_ADDRESS');
+    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+    thisCtrl.ADD_PHONES = $filter('translate')('settings.ADD_PHONES');
+    thisCtrl.INSERT_PHONE = $filter('translate')('settings.INSERT_PHONE');
+    thisCtrl.WRONG_NUMBER = $filter('translate')('login.WRONG_NUMBER');
+    thisCtrl.CLIENT_SUPPORT = $filter('translate')('settings.CLIENT_SUPPORT');
+    thisCtrl.LOGOUT = $filter('translate')('settings.LOGOUT');
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'settings';
