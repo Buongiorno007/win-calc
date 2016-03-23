@@ -381,7 +381,7 @@ th {
   }
 }
 /* line 129, ../../dev/sass/base/_animations.scss */
-.flashing, .coeff-low, .room-info-container .coeff.coeff-low, .full-view-hb .order-u-coeff-hb.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
+.flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
   animation: flashing 1.5s ease 0s 1;
@@ -1338,7 +1338,7 @@ body {
 }
 
 /* line 189, ../../dev/sass/base/general.scss */
-.coeff-low, .room-info-container .coeff.coeff-low, .full-view-hb .order-u-coeff-hb.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low {
+.coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low {
   color: #f74f2e;
 }
 
@@ -4459,7 +4459,7 @@ div.drum figure {
   width: 95%;
 }
 
-/* line 1, ../../dev/sass/parts/_history-box.scss */
+/* line 1, ../../dev/sass/parts/_edit-order-box.scss */
 .background {
   background: #FFFFFF;
   position: absolute;
@@ -4467,76 +4467,6 @@ div.drum figure {
   left: 0rem;
   height: 100%;
   width: 100%;
-}
-
-/* line 11, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-block-hb {
-  background: #000000;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  position: relative;
-  min-height: 45%;
-  z-index: 4;
-}
-/* line 20, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-hb {
-  width: 32rem;
-  float: left;
-  border-bottom-right-radius: 1.25rem;
-  border-bottom-left-radius: 1.25rem;
-}
-/* line 26, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-header-hb {
-  height: 20rem;
-}
-/* line 29, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-header-fon-hb {
-  width: 32rem;
-  height: 20rem;
-  cursor: pointer;
-}
-/* line 34, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-template-hb {
-  position: absolute;
-  bottom: -4.5625rem;
-  left: 0.625rem;
-  padding: 1.25rem;
-  background-color: #fff;
-  border-radius: 0.625rem;
-}
-/* line 42, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-u-coeff-hb {
-  font: normal 2.625rem/1.42857 roboto-light, sans-serif, icons;
-  bottom: -7.75rem;
-  right: 3.3rem;
-  position: absolute;
-  margin-left: 0.3125rem;
-  background-color: #fff;
-  color: #6ed44a;
-}
-/* line 55, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-content-hb {
-  padding: 4.375rem 2.5rem 0 3.125rem;
-  background-color: #fff;
-}
-/* line 59, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-list-hb {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-/* line 64, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .order-qty-hb {
-  -webkit-flex-flow: row nowrap;
-  flex-flow: row nowrap;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  height: 6.25rem;
-}
-/* line 69, ../../dev/sass/parts/_history-box.scss */
-.full-view-hb .qty-label-hb {
-  max-width: 10.625rem;
 }
 
 /* line 3, ../../dev/sass/parts/_main-svg.scss */

@@ -3834,32 +3834,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
-// controllers/parts/history_box.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('MainModule')
-    .controller('historyBoxCtrl',
-
-  function(GlobalStor) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-
-
-    /**============ METHODS ================*/
-
-
-    /**========== FINISH ==========*/
-    //------ clicking
-
-
-  });
-})();
-
-
 // controllers/parts/info_box.js
 
 (function(){
