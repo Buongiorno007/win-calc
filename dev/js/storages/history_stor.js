@@ -38,6 +38,7 @@
 
         //===== Draft
         isDraftView: 0,
+        orderEditNumber: 0,
         drafts: [],
         draftsSource: [],
         isEmptyResultDraft: 0,

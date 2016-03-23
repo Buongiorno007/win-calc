@@ -11984,9 +11984,9 @@ function ErrorResult(code, message) {
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
       function editOrderr() {
+        HistoryStor.history.orderEditNumber = orderNum;
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
- 
-          console.log('GlobalStor.global.isEditBox', GlobalStor.global.isEditBox)
+        downloadProducts1()
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -12184,7 +12184,20 @@ function ErrorResult(code, message) {
     }
 
 
+    function downloadProducts1() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {
+          'order_id': HistoryStor.history.orderEditNumber
+        },
+          'profile_id, glass_id, hardware_id, lamination_id'
+       ).then(function(result) {
+          console.log('result' , result)
+          deferred.resolve()
+        });
+      return deferred.promise;
 
+    }
 
 
     //------ Download All Add Elements from LocalDB
@@ -12536,6 +12549,7 @@ function ErrorResult(code, message) {
       editOrder: editOrder,
       orderPrint: orderPrint,
       viewSwitching: viewSwitching,
+      downloadProducts1:downloadProducts1,
 
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
@@ -13063,7 +13077,7 @@ function ErrorResult(code, message) {
             ' customer_age INTEGER,' +
             ' customer_education INTEGER,' +
             ' customer_occupation INTEGER,' +
-            ' customer_infoSource INTEGER',
+            ' customer_infoSource INTEGER', 
             'foreignKey': ''
           },
           'order_products': {
@@ -23865,6 +23879,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         //===== Draft
         isDraftView: 0,
+        orderEditNumber: 0,
         drafts: [],
         draftsSource: [],
         isEmptyResultDraft: 0,

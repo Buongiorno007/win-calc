@@ -193,9 +193,9 @@
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
       function editOrderr() {
+        HistoryStor.history.orderEditNumber = orderNum;
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
- 
-          console.log('GlobalStor.global.isEditBox', GlobalStor.global.isEditBox)
+        downloadProducts1()
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -393,7 +393,20 @@
     }
 
 
+    function downloadProducts1() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {
+          'order_id': HistoryStor.history.orderEditNumber
+        },
+          'profile_id, glass_id, hardware_id, lamination_id'
+       ).then(function(result) {
+          console.log('result' , result)
+          deferred.resolve()
+        });
+      return deferred.promise;
 
+    }
 
 
     //------ Download All Add Elements from LocalDB
@@ -745,6 +758,7 @@
       editOrder: editOrder,
       orderPrint: orderPrint,
       viewSwitching: viewSwitching,
+      downloadProducts1:downloadProducts1,
 
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
