@@ -230,7 +230,6 @@
 
     function createProductCopy(currProdInd, event) {
       event.stopPropagation();
-      console.log('CartStor.cart.isBox1', CartStor.cart.isBox)
       var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
             return item.product_id;
           })),
@@ -239,8 +238,6 @@
       addCloneProductInOrder(cloneProduct, lastProductId);
       CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
-      console.log('CartStor.cart.isBox2', CartStor.cart.isBox)
-
     }
 
 

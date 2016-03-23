@@ -3794,6 +3794,40 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// controllers/parts/edit_order.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('HistoryModule')
+    .controller('EditOrderCtrl',
+
+  function(
+    $filter,
+    OrderStor,
+    HistoryStor,
+    CartStor,
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
+    thisCtrl.U = UserStor;
+    thisCtrl.H = HistoryStor;
+
+
+    /**============ METHODS ================*/
+
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+
+  });
+})();
+
+
 // controllers/parts/grid_selector.js
 
 (function(){
@@ -8642,7 +8676,6 @@ function ErrorResult(code, message) {
 
     function createProductCopy(currProdInd, event) {
       event.stopPropagation();
-      console.log('CartStor.cart.isBox1', CartStor.cart.isBox)
       var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
             return item.product_id;
           })),
@@ -8651,8 +8684,6 @@ function ErrorResult(code, message) {
       addCloneProductInOrder(cloneProduct, lastProductId);
       CartMenuServ.joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
-      console.log('CartStor.cart.isBox2', CartStor.cart.isBox)
-
     }
 
 
