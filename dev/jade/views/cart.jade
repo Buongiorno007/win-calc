@@ -3,7 +3,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
     include menus/_navigation-menu
   section.right-side
     section.main-content
-
+ 
       section.cart-page
 
         section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}", ng-swipe-up="cartPage.openDiscountBlock()", ng-swipe-down="cartPage.closeDiscountBlock()")
@@ -11,12 +11,13 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             include parts/_user-info
             button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
             button.cart-tool.new-order(ng-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products track by $index")
                 button.order-delete(ng-click="cartPage.clickDeleteProduct($index)")
-                .order-header(ng-click="cartPage.openBox($index)")
-                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}")             
+                .order-header(ng-click="cartPage.box($index, 'product')")
+                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}")
                   .order-template
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
                   .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
@@ -68,23 +69,24 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .discount-container
             .discount-title {{ ::cartPage.DISCOUNT_SELECT }}
 
-            .discount-box.selected
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
               .discount-data(ng-click="cartPage.openDiscInput(0)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
                   .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
-                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc" ng-change="cartPage.approveNewDisc(0)", ng-keyup="cartPage.pressEnterInDisc($event)")
-              .discount-txt(ng-click="cartPage.closeDiscountBlock()")
+                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
+              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
-            .discount-box.selected
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
               .discount-data(ng-click="cartPage.openDiscInput(1)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                   .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
-                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc" ng-change="cartPage.approveNewDisc(1)", ng-keyup="cartPage.pressEnterInDisc($event)")
-              .discount-txt(ng-click="cartPage.closeDiscountBlock()")
+                  input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
+              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
+
 
           .discount-container
             .discount-title {{ ::cartPage.DISCOUNT }}
@@ -212,11 +214,3 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
 include parts/_loader
 include parts/_alert
-.box-menu(ng-repeat="product in cartPage.O.order.products track by $index", ng-show="cartPage.C.cart.isBox == $index")
-  .alert-block
-    .alert-sign
-    .alert-title {{ alertBox.G.global.alertTitleq }}
-    .alert-descr {{ alertBox.G.global.alertDescrq }}
-    .alert-btns
-      button.alert-no(ng-click="cartPage.editProduct($index, 'product')") {{ ::alertBox.BUTTON_E }}
-      button.alert-yes(ng-click="cartPage.createProductCopy($index, $event)") {{ ::alertBox.BUTTON_C }}

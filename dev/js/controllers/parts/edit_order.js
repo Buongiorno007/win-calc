@@ -9,7 +9,7 @@
     $filter,
     OrderStor,
     HistoryStor,
-    CartStor,
+    CartStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;

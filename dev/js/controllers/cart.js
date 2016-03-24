@@ -173,13 +173,13 @@
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
     thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
     thisCtrl.createProductCopy = CartServ.createProductCopy;
-    thisCtrl.editProduct = CartServ.editProduct;
     thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
     thisCtrl.openBox = CartServ.openBox;
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
+    thisCtrl.box = CartServ.box;
 
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
