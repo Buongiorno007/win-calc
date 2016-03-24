@@ -402,12 +402,10 @@
           'profile_id, glass_id, hardware_id, lamination_id'
        ).then(function(result) {
           console.log('result' , result)
-          deferred.resolve()
+          deferred.resolve(result);
         });
       return deferred.promise;
-
     }
-
 
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
