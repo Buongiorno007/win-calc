@@ -969,61 +969,64 @@
 
     /**----------- Hardware sizes checking -------------*/
 
-    function checkHardwareSizes(template) {
+    function checkHardwareSizes(template, harwareID) {
       var blocks = template.details,
           blocksQty = blocks.length,
-          limits = GlobalStor.global.hardwareLimits,
-          limitsQty = GlobalStor.global.hardwareLimits.length,
+          harwareId = harwareID || ProductStor.product.hardware.id,
+          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+            return  item.group_id === harwareId;
+          }),
+          limitsQty = limits.length,
           currLimit = 0,
           overallSize, currWidth, currHeight,
           wranSash, isSizeError, b, lim;
 
+      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
       /** clean extra Hardware */
       DesignStor.design.extraHardware.length = 0;
 
-      /** template loop */
-      for (b = 1; b < blocksQty; b += 1) {
-        isSizeError = 0;
-        if (blocks[b].blockType === 'sash') {
-          /** finde limit for current sash */
-          for(lim = 0; lim < limitsQty; lim+=1) {
-            if(limits[lim].type_id === blocks[b].sashType) {
-              /** check available max/min sizes */
-              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                currLimit = limits[lim];
+      if(limitsQty) {
+        /** template loop */
+        for (b = 1; b < blocksQty; b += 1) {
+          isSizeError = 0;
+          if (blocks[b].blockType === 'sash') {
+            /** finde limit for current sash */
+            for (lim = 0; lim < limitsQty; lim += 1) {
+              if (limits[lim].type_id === blocks[b].sashType) {
+                /** check available max/min sizes */
+                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                  currLimit = limits[lim];
+                }
+                break;
               }
-              break;
             }
-          }
-          if (currLimit) {
-            if (blocks[b].hardwarePoints.length) {
-              /** estimate current sash sizes */
-              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-              currWidth = Math.round(overallSize.maxX - overallSize.minX);
-              currHeight = Math.round(overallSize.maxY - overallSize.minY);
-              //currLimit.max_width = 50;
-              //currLimit.max_height = 50;
-              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                isSizeError = 1;
-              }
-              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                isSizeError = 1;
-              }
+            if (currLimit) {
+              if (blocks[b].hardwarePoints.length) {
+                /** estimate current sash sizes */
+                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                  isSizeError = 1;
+                }
+                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                  isSizeError = 1;
+                }
 
-              if(isSizeError) {
-                wranSash = currWidth + ' x ' + currHeight + ' ' +
-                  $filter('translate')('design.NO_MATCH_RANGE') +
-                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                if (isSizeError) {
+                  wranSash = currWidth + ' x ' + currHeight + ' ' +
+                    $filter('translate')('design.NO_MATCH_RANGE') +
+                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                DesignStor.design.extraHardware.push(wranSash);
+                  DesignStor.design.extraHardware.push(wranSash);
+                }
+
               }
-
             }
           }
         }
       }
-
       //console.info('glass result', DesignStor.design.extraHardware);
     }
 
