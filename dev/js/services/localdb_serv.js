@@ -626,7 +626,8 @@
             'max_width INTEGER,' +
             'min_width INTEGER,' +
             'max_height INTEGER,' +
-            'min_height INTEGER',
+            'min_height INTEGER,' +
+            'group_id INTEGER',
             'foreignKey': ''
           },
 

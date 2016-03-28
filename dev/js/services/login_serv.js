@@ -690,7 +690,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
         null,
-        'type_id, min_width, max_width, min_height, max_height'
+        'type_id, min_width, max_width, min_height, max_height, group_id'
       ).then(function(result) {
         if(result && result.length) {
           GlobalStor.global.hardwareLimits = angular.copy(result);

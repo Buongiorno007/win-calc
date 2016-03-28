@@ -2703,7 +2703,11 @@
           /** if sash was added/removed in template */
           isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
           if (isSashesInTemplate) {
-
+            /** set first hardware if sash were not existed before */
+            if (!GlobalStor.global.isSashesInTemplate) {
+              GlobalStor.global.isSashesInTemplate = 1;
+              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            }
             /** check sizes of all hardware in sashes */
             MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
 
@@ -2720,15 +2724,6 @@
             /** expose Alert */
             DesignStor.design.isHardwareExtra = 1;
           } else {
-
-            if (isSashesInTemplate) {
-              /** set first hardware if sash were not existed before */
-              if (!GlobalStor.global.isSashesInTemplate) {
-                GlobalStor.global.isSashesInTemplate = 1;
-                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-              }
-            }
-
             /** save new template in product */
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
