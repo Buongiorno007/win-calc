@@ -97,7 +97,7 @@
 					widthT:widthT,
 					heightT:heightT
 				};	
-	        }
+	    }
 
 		thisFactory.publicObj = {
 	      templatePoints:templatePoints
