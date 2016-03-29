@@ -794,7 +794,7 @@
 
 
 
-    function setCurrLamination(newLamId) {
+    function setCurrLamination(product, newLamId) {
       var laminatGroupQty = GlobalStor.global.laminatCouples.length;
       //---- clean filter
       cleanLamFilter();
@@ -802,12 +802,12 @@
         if(newLamId) {
           //------ set lamination Couple with color
           if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
           if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         }
       }

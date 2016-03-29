@@ -3447,7 +3447,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
-      MainServ.setCurrLamination(id);
+      MainServ.setCurrLamination(ProductStor.product, id);
 
       MainServ.setProfileByLaminat(id).then(function() {
         //------ save analytics data
@@ -3553,7 +3553,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 DesignStor.design.isHardwareExtra = 1;
               } else {
                 /** set default white lamination */
-                MainServ.setCurrLamination();
+                MainServ.setCurrLamination(ProductStor.product);
                 /** set new Profile */
                 MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                   MainServ.parseTemplate().then(function () {
@@ -12179,7 +12179,7 @@ function ErrorResult(code, message) {
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
+                MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
                 delete tempProd.lamination_out_id;
@@ -17479,7 +17479,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function setCurrLamination(newLamId) {
+    function setCurrLamination(product, newLamId) {
       var laminatGroupQty = GlobalStor.global.laminatCouples.length;
       //---- clean filter
       cleanLamFilter();
@@ -17487,12 +17487,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(newLamId) {
           //------ set lamination Couple with color
           if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
           if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         }
       }
