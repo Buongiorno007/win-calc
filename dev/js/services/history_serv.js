@@ -194,8 +194,9 @@
       }
       function editOrderr() {
         HistoryStor.history.orderEditNumber = orderNum;
+        downloadProducts1();
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
-        downloadProducts1()
+        console.log('isLaminat', GlobalStor.global.isEditBox)
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -405,6 +406,7 @@
           deferred.resolve(result);
         });
       return deferred.promise;
+
     }
 
     //------ Download All Add Elements from LocalDB

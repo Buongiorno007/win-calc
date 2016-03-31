@@ -1,2 +1,17 @@
-.background(ng-show ='historyPage.G.global.isEditBox')
- .unBackgroud(ng-controller="EditOrderCtrl as editOrder", ng-click="editOrder.box1()")  
+.background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
+ .boxText(ng-click="editOrder.box1()")
+ .order-content
+  .cart-menu
+   ul.items-list
+    .title {{::editOrder.CONFIGMENU_LAMINATION}}
+    .cart-item-data(ng-repeat="isLaminat in editOrder.H.history.isLaminat")
+     .value {{isLaminat.nameIn}}
+    .title {{::editOrder.CONFIGMENU_HARDWARE}}
+    .cart-item-data(ng-repeat="isHardware in editOrder.H.history.isHardware")
+     .value {{isHardware.name}}
+    .title {{::editOrder.CONFIGMENU_GLASS}}
+    .cart-item-data(ng-repeat="isGlass in editOrder.H.history.isGlass")
+     .value {{isGlass.name}}
+    .title {{::editOrder.CONFIGMENU_PROFILE}}
+    .cart-item-data(ng-repeat="isProfiles in editOrder.H.history.isProfiles")
+    .value {{isProfiles.name}}

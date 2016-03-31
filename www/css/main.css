@@ -4470,13 +4470,32 @@ div.drum figure {
 }
 
 /* line 9, ../../dev/sass/parts/_edit-order.scss */
-.unBackgroud {
-  background: #F22F2F;
+.boxTitle {
+  background: #FFFFFF;
   position: absolute;
-  top: 0rem;
+  top: 40rem;
   left: 0rem;
-  height: 50%;
+  height: 10%;
   width: 50%;
+}
+
+/* line 17, ../../dev/sass/parts/_edit-order.scss */
+.boxText {
+  background: #FFFFFF;
+  top: 40rem;
+  left: 0rem;
+  height: 4%;
+  width: 45%;
+}
+
+/* line 24, ../../dev/sass/parts/_edit-order.scss */
+.boxName {
+  background: #FFFFFF;
+  top: 40rem;
+  left: 5rem;
+  height: 90%;
+  width: 90%;
+  font-size: 12pt;
 }
 
 /* line 3, ../../dev/sass/parts/_main-svg.scss */

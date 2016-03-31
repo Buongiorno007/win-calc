@@ -292,6 +292,27 @@
     </div>
   </div>
 </div>
-<div ng-show="historyPage.G.global.isEditBox" class="background">
-  <div ng-controller="EditOrderCtrl as editOrder" ng-click="editOrder.box1()" class="unBackgroud"> </div>
+<div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
+  <div ng-click="editOrder.box1()" class="boxText"></div>
+  <div class="order-content">
+    <div class="cart-menu">
+      <ul class="items-list">
+        <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
+        <div ng-repeat="isLaminat in editOrder.H.history.isLaminat" class="cart-item-data">
+          <div class="value">{{isLaminat.nameIn}}</div>
+        </div>
+        <div class="title">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
+        <div ng-repeat="isHardware in editOrder.H.history.isHardware" class="cart-item-data">
+          <div class="value">{{isHardware.name}}</div>
+        </div>
+        <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
+        <div ng-repeat="isGlass in editOrder.H.history.isGlass" class="cart-item-data">
+          <div class="value">{{isGlass.name}}</div>
+        </div>
+        <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
+        <div ng-repeat="isProfiles in editOrder.H.history.isProfiles" class="cart-item-data"></div>
+        <div class="value">{{isProfiles.name}}</div>
+      </ul>
+    </div>
+  </div>
 </div>

@@ -3833,11 +3833,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.G = GlobalStor;
 
 
+    thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
+    thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
+    thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+
     /**============ METHODS ================*/
-    function box1() {
-var rerere = RecOrderServ.box()
-console.log('rerere', rerere)
+function box1() {
+  RecOrderServ.box();
+  console.log('box1 go')
 }
+
     /**========== FINISH ==========*/
 
     //------ clicking
@@ -8788,10 +8794,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12131,8 +12137,9 @@ function ErrorResult(code, message) {
       }
       function editOrderr() {
         HistoryStor.history.orderEditNumber = orderNum;
+        downloadProducts1();
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
-        downloadProducts1()
+        console.log('isLaminat', GlobalStor.global.isEditBox)
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -12342,6 +12349,7 @@ function ErrorResult(code, message) {
           deferred.resolve(result);
         });
       return deferred.promise;
+
     }
 
     //------ Download All Add Elements from LocalDB
@@ -20294,19 +20302,23 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             numHardware = [],
             numGlass = [],
             numProfile = [],
-            namLaminatIn = '',
-            namLaminatOut = '',
-            namProfile = '',
-            namGlass = '',
-            namHardware = '',
-            ordersQty = HistoryStor.history.isBoxArray.length, ord,
+            laminatObj = [],
+            hardwareObj = [],
+            glassObj = [],
+            profilesObj = [],
+
+            id,
+            name,
+			      nameIn,
+			      nameOut,
+
+            ordersQty = array.length, ord,
             laminatQty = GlobalStor.global.laminatCouples.length, glb,
             hardwaresQty = GlobalStor.global.hardwares.length, glbl,
             profilesQty = GlobalStor.global.profiles.length, glbp,
             glassesQty = GlobalStor.global.glasses.length, glbg;
             HistoryStor.history.isBoxArray = array;
            
-
         for(ord = 0; ord < ordersQty; ord+=1) {
           numLaminat.push(HistoryStor.history.isBoxArray[ord].lamination_id)
           numHardware.push(HistoryStor.history.isBoxArray[ord].hardware_id)
@@ -20321,59 +20333,89 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         for(glb = 0; glb < laminatQty; glb+=1) {
           for(nln = 0; nln < laminatnln; nln+=1) {
+          	var obj = {
+          		nameIn:'',
+          		nameOut:'',
+          		id: 0
+          		}
             if (GlobalStor.global.laminatCouples[glb].id === numLaminat[nln]) {
               if(!laminatQty) {
-                namLaminatIn += ' '+GlobalStor.global.laminatCouples[glb].laminat_in_name,
-                namLaminatOut += ' '+ GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+                obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+                obj.id = numLaminat[nln];
               } else {
-                namLaminatIn += ' '+GlobalStor.global.laminatCouples[glb].laminat_in_name+',',
-                namLaminatOut += ' '+ GlobalStor.global.laminatCouples[glb].laminat_out_name+',';
+                obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+                obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+                obj.id = numLaminat[nln];
               }
+              	laminatObj.push(obj)
             }
           }
         }
+        
         for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
           var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
           for(glbll = 0; glbll < globalQtyll; glbll+=1) {
             for(hln = 0; hln < hardwaresnln; hln+=1) {
+            	var obj = {
+	          		name:'',
+	          		id: 0
+          			}
               if(GlobalStor.global.hardwares[glbl][glbll].id === numHardware[hln]) {
-                namHardware += ' '+GlobalStor.global.hardwares[glbl][glbll].name
-              } 
+                obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
+                obj.id = numHardware[hln],
+                hardwareObj.push(obj)
+              }  
             }
           }
         }
+        
         for(glbp = 0; glbp < profilesQty; glbp+=1) {
           var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
           for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
             for(pln = 0; pln < profilesnln; pln+=1) {
+            	var obj = {
+	          		name:'',
+	          		id: 0
+          			}
               if(GlobalStor.global.profiles[glbp][glbpp].id === numProfile[pln]) {
-                namProfile = GlobalStor.global.profiles[glbp][glbpp].name
-              }
+                obj.name = GlobalStor.global.profiles[glbp][glbpp].name,
+                obj.id = numProfile[pln]
+                profilesObj.push(obj)
+              }             	
             }
           }
         }
+   
         for(glbg = 0; glbg < glassesQty; glbg+=1) {
           var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
           for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
             for(gln = 0; gln<glassesnln; gln+=1) {
+            	var obj = {
+	          		name:'',
+	          		id: 0
+          			}
               if(''+GlobalStor.global.glasses[glbg][glbgg].id === numGlass[gln]) {
-                namGlass = GlobalStor.global.glasses[glbg][glbgg].name
+                obj.name = GlobalStor.global.glasses[glbg][glbgg].name,
+                obj.id = numGlass[gln],
+                glassObj.push(obj)
               }
             } 
           }
         } 
+
+		HistoryStor.history.isLaminat = angular.copy(laminatObj);
+		HistoryStor.history.isHardware = angular.copy(hardwareObj);
+		HistoryStor.history.isGlass = angular.copy(glassObj);
+		HistoryStor.history.isProfiles = angular.copy(profilesObj);
+		console.log('isLaminat', HistoryStor.history.isLaminat)
         var result = {
-			numLaminat:numLaminat,
-			numHardware:numHardware,
-			numGlass: numGlass,
-			numProfile: numProfile,
-			namLaminatIn: namLaminatIn,
-			namLaminatOut: namLaminatOut,
-			namProfile: namProfile,
-			namGlass: namGlass,
-			namHardware: namHardware
+			laminatObj:laminatObj,
+			profilesObj:profilesObj,
+			glassObj:glassObj,
+			hardwareObj:hardwareObj
         	}
-        deferred.resolve(result);
+        deferred.resolve(1);
       })
       return deferred.promise;
     }
@@ -24082,6 +24124,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isAllPeriod: 1,
         isBox: 0,
         isBoxArray: [],
+        isArr: 0, 
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
@@ -24104,7 +24147,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         isOrderSortDraft: 0,
         isSortTypeDraft: 'last',
-        reverseDraft: 1
+        reverseDraft: 1,
+
+        //---order
+        isLaminat: [],
+        isHardware: [],
+        isGlass: [],
+        isProfiles: []
+
+
       },
       setDefaultHistory: setDefaultHistory
     };
