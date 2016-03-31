@@ -18,12 +18,14 @@
             numHardware = [],
             numGlass = [],
             numProfile = [],
+
             laminatObj = [],
             hardwareObj = [],
             glassObj = [],
             profilesObj = [],
 
             id,
+            prodID,
             name,
 			      nameIn,
 			      nameOut,
@@ -38,10 +40,11 @@
         for(ord = 0; ord < ordersQty; ord+=1) {
           numLaminat.push(HistoryStor.history.isBoxArray[ord].lamination_id)
           numHardware.push(HistoryStor.history.isBoxArray[ord].hardware_id)
-          numGlass.push(HistoryStor.history.isBoxArray[ord].glass_id)
+          numGlass.push(HistoryStor.history.isBoxArray[ord].glass_id*1)
           numProfile.push(HistoryStor.history.isBoxArray[ord].profile_id)
+
         }
-            
+
         var laminatnln = numLaminat.length, nln,
             hardwaresnln = numHardware.length, hln,
             profilesnln = numProfile.length, pln,
@@ -102,16 +105,17 @@
             }
           }
         }
-   
+ 
         for(glbg = 0; glbg < glassesQty; glbg+=1) {
           var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
           for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
             for(gln = 0; gln<glassesnln; gln+=1) {
+                console.log('numGlass[gln]', numGlass[gln] )
             	var obj = {
 	          		name:'',
 	          		id: 0
           			}
-              if(''+GlobalStor.global.glasses[glbg][glbgg].id === numGlass[gln]) {
+              if(GlobalStor.global.glasses[glbg][glbgg].id === numGlass[gln]) {
                 obj.name = GlobalStor.global.glasses[glbg][glbgg].name,
                 obj.id = numGlass[gln],
                 glassObj.push(obj)

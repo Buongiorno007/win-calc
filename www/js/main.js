@@ -3449,7 +3449,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
-      MainServ.setCurrLamination(id);
+      MainServ.setCurrLamination(ProductStor.product, id);
 
       MainServ.setProfileByLaminat(id).then(function() {
         //------ save analytics data
@@ -3555,7 +3555,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 DesignStor.design.isHardwareExtra = 1;
               } else {
                 /** set default white lamination */
-                MainServ.setCurrLamination();
+                MainServ.setCurrLamination(ProductStor.product);
                 /** set new Profile */
                 MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                   MainServ.parseTemplate().then(function () {
@@ -12279,7 +12279,7 @@ function ErrorResult(code, message) {
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
+                MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
                 delete tempProd.lamination_out_id;
@@ -17592,7 +17592,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function setCurrLamination(newLamId) {
+    function setCurrLamination(product, newLamId) {
       var laminatGroupQty = GlobalStor.global.laminatCouples.length;
       //---- clean filter
       cleanLamFilter();
@@ -17600,12 +17600,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(newLamId) {
           //------ set lamination Couple with color
           if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
           if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         }
       }
@@ -20302,12 +20302,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             numHardware = [],
             numGlass = [],
             numProfile = [],
+
             laminatObj = [],
             hardwareObj = [],
             glassObj = [],
             profilesObj = [],
 
             id,
+            prodID,
             name,
 			      nameIn,
 			      nameOut,
@@ -20322,10 +20324,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         for(ord = 0; ord < ordersQty; ord+=1) {
           numLaminat.push(HistoryStor.history.isBoxArray[ord].lamination_id)
           numHardware.push(HistoryStor.history.isBoxArray[ord].hardware_id)
-          numGlass.push(HistoryStor.history.isBoxArray[ord].glass_id)
+          numGlass.push(HistoryStor.history.isBoxArray[ord].glass_id*1)
           numProfile.push(HistoryStor.history.isBoxArray[ord].profile_id)
+
         }
-            
+
         var laminatnln = numLaminat.length, nln,
             hardwaresnln = numHardware.length, hln,
             profilesnln = numProfile.length, pln,
@@ -20386,16 +20389,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           }
         }
-   
+ 
         for(glbg = 0; glbg < glassesQty; glbg+=1) {
           var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
           for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
             for(gln = 0; gln<glassesnln; gln+=1) {
+                console.log('numGlass[gln]', numGlass[gln] )
             	var obj = {
 	          		name:'',
 	          		id: 0
           			}
-              if(''+GlobalStor.global.glasses[glbg][glbgg].id === numGlass[gln]) {
+              if(GlobalStor.global.glasses[glbg][glbgg].id === numGlass[gln]) {
                 obj.name = GlobalStor.global.glasses[glbg][glbgg].name,
                 obj.id = numGlass[gln],
                 glassObj.push(obj)

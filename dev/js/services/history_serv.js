@@ -336,7 +336,7 @@
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
+                MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
                 delete tempProd.lamination_out_id;
