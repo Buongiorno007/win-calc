@@ -14,3 +14,15 @@
 	height: 4%;
 	width: 45%; 
 }
+
+.user-select-field-m {
+  @extend .user-field;
+  @include appearance(none);
+  background-color: #fff;
+}
+
+  .cart-item-data-m {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include align-items(center);
+  }

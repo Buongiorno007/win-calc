@@ -12171,7 +12171,7 @@ function ErrorResult(code, message) {
         obj.id = GlobalStor.global.laminatCouples[lmt].id,
         obj.nameIn = GlobalStor.global.laminatCouples[lmt].laminat_in_name,
         obj.nameOut = GlobalStor.global.laminatCouples[lmt].laminat_out_name,
-        HistoryStor.history.listName.push(obj)
+        HistoryStor.history.listName.push(obj);
       }
     }
 
@@ -20315,6 +20315,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**============ METHODS ================*/
     function box() {
     	var  deferred = $q.defer();
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray )
       HistoryServ.downloadProducts1().then(function(data) {
         var array = angular.copy(data),
             numLaminat = [],
@@ -20389,7 +20390,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       })
     }
 
-    
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
@@ -24096,7 +24096,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isAllPeriod: 1,
         isBox: 0,
         isArr: 0,
-        listName: [], 
+    
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
@@ -24121,13 +24121,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isSortTypeDraft: 'last',
         reverseDraft: 1,
 
-        //---order
-        inLam: [],
-        isLaminat: [],
-        isHardware: [],
-        isGlass: [],
-        isProfiles: []
-
+        listName: []
 
       },
       setDefaultHistory: setDefaultHistory

@@ -31,7 +31,7 @@
         isAllPeriod: 1,
         isBox: 0,
         isArr: 0,
-        listName: [], 
+    
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
@@ -56,13 +56,7 @@
         isSortTypeDraft: 'last',
         reverseDraft: 1,
 
-        //---order
-        inLam: [],
-        isLaminat: [],
-        isHardware: [],
-        isGlass: [],
-        isProfiles: []
-
+        listName: []
 
       },
       setDefaultHistory: setDefaultHistory

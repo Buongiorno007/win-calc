@@ -228,7 +228,7 @@
         obj.id = GlobalStor.global.laminatCouples[lmt].id,
         obj.nameIn = GlobalStor.global.laminatCouples[lmt].laminat_in_name,
         obj.nameOut = GlobalStor.global.laminatCouples[lmt].laminat_out_name,
-        HistoryStor.history.listName.push(obj)
+        HistoryStor.history.listName.push(obj);
       }
     }
 

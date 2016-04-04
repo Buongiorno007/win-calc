@@ -12,6 +12,7 @@
     /**============ METHODS ================*/
     function box() {
     	var  deferred = $q.defer();
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray )
       HistoryServ.downloadProducts1().then(function(data) {
         var array = angular.copy(data),
             numLaminat = [],
@@ -86,7 +87,6 @@
       })
     }
 
-    
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {

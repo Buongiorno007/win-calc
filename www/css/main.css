@@ -3795,12 +3795,12 @@ div.drum figure {
 }
 
 /* line 281, ../../dev/sass/parts/_cart-dialogs.scss */
-.user-field.street, .street.user-select-field {
+.user-field.street, .street.user-select-field, .street.user-select-field-m {
   display: inline-block;
   width: 60%;
 }
 /* line 285, ../../dev/sass/parts/_cart-dialogs.scss */
-.user-field.small, .small.user-select-field {
+.user-field.small, .small.user-select-field, .small.user-select-field-m {
   display: inline-block;
   width: 12.5%;
 }
@@ -4478,6 +4478,23 @@ div.drum figure {
   width: 45%;
 }
 
+/* line 18, ../../dev/sass/parts/_edit-order.scss */
+.user-select-field-m {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+}
+
+/* line 24, ../../dev/sass/parts/_edit-order.scss */
+.cart-item-data-m {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
 /* line 3, ../../dev/sass/parts/_main-svg.scss */
 .construction-container-main {
   position: relative;
@@ -4541,7 +4558,7 @@ div.drum figure {
   color: red;
 }
 /* line 31, ../../dev/sass/pages/login.scss */
-.login-container .user-field, .login-container .user-select-field {
+.login-container .user-field, .login-container .user-select-field, .login-container .user-select-field-m {
   background-color: #FAF3C9;
 }
 
@@ -4580,12 +4597,12 @@ div.drum figure {
   margin-bottom: 2.75rem;
 }
 /* line 70, ../../dev/sass/pages/login.scss */
-.input-field.has-error > .user-field, .input-field.has-error > .user-select-field {
+.input-field.has-error > .user-field, .input-field.has-error > .user-select-field, .input-field.has-error > .user-select-field-m {
   border-color: #f74f2e;
 }
 
 /* line 75, ../../dev/sass/pages/login.scss */
-.user-field, .user-select-field {
+.user-field, .user-select-field, .user-select-field-m {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
   width: 100%;
@@ -4596,7 +4613,7 @@ div.drum figure {
   outline: none;
 }
 /* line 85, ../../dev/sass/pages/login.scss */
-.user-field.ng-invalid-minlength, .ng-invalid-minlength.user-select-field, .user-field.ng-invalid-pattern, .ng-invalid-pattern.user-select-field {
+.user-field.ng-invalid-minlength, .ng-invalid-minlength.user-select-field, .ng-invalid-minlength.user-select-field-m, .user-field.ng-invalid-pattern, .ng-invalid-pattern.user-select-field, .ng-invalid-pattern.user-select-field-m {
   border-color: #f74f2e;
 }
 
