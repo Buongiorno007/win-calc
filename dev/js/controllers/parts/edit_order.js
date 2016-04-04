@@ -28,16 +28,16 @@
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
 
     /**============ METHODS ================*/
-function box1() {
-  RecOrderServ.box();
+    
+    function box1() {
+      RecOrderServ.box();
   console.log('box1 go')
-}
+  }
 
     /**========== FINISH ==========*/
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
 thisCtrl.box1 = box1;
-
   });
 })();

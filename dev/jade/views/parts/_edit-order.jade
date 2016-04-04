@@ -3,15 +3,19 @@
  .order-content
   .cart-menu
    ul.items-list
+   .title {{'№'}}
+    .cart-item-data(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .value {{isBoxArray.product_id}}
     .title {{::editOrder.CONFIGMENU_LAMINATION}}
-    .cart-item-data(ng-repeat="isLaminat in editOrder.H.history.isLaminat")
-     .value {{isLaminat.nameIn}}
+    .cart-item-data(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
+     select.user-select-field(name="laminat", ng-model="editOrder.H.history.inLam", ng-options="listName.nameIn for listName in editOrder.H.history.listName", required)
     .title {{::editOrder.CONFIGMENU_HARDWARE}}
-    .cart-item-data(ng-repeat="isHardware in editOrder.H.history.isHardware")
-     .value {{isHardware.name}}
+    .cart-item-data(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .value {{isBoxArray.nameHardware}}
     .title {{::editOrder.CONFIGMENU_GLASS}}
-    .cart-item-data(ng-repeat="isGlass in editOrder.H.history.isGlass")
-     .value {{isGlass.name}}
+    .cart-item-data(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .value {{isBoxArray.nameGlass}}
     .title {{::editOrder.CONFIGMENU_PROFILE}}
-    .cart-item-data(ng-repeat="isProfiles in editOrder.H.history.isProfiles")
-    .value {{isProfiles.name}}
+    .cart-item-data(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .value {{isBoxArray.nameProfiles}}

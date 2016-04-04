@@ -30,8 +30,8 @@
         isFinishDate: 0,
         isAllPeriod: 1,
         isBox: 0,
-        isBoxArray: [],
-        isArr: 0, 
+        isArr: 0,
+        listName: [], 
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
@@ -57,6 +57,7 @@
         reverseDraft: 1,
 
         //---order
+        inLam: [],
         isLaminat: [],
         isHardware: [],
         isGlass: [],
