@@ -56,7 +56,10 @@
         isSortTypeDraft: 'last',
         reverseDraft: 1,
 
-        listName: []
+        listName: [],
+        listNameGlass: [],
+        listNameHardware: [],
+        listNameProfiles: []
 
       },
       setDefaultHistory: setDefaultHistory

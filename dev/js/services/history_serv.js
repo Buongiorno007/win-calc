@@ -195,7 +195,6 @@
       function editOrderr() {
         HistoryStor.history.orderEditNumber = orderNum;
         downloadProducts1();
-        listName();
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
         console.log('isLaminat', GlobalStor.global.isEditBox)
       }
@@ -213,24 +212,6 @@
 
     }
 
-    function listName() {
-      var laminatCouplesQty = GlobalStor.global.laminatCouples.length, lmt;
-      for(lmt = 0; lmt < laminatCouplesQty; lmt+=1) {
-        var nameIn,
-            nameOut,
-            id,
-            obj = {  
-                nameIn:'',
-                nameOut:'',
-                id: 0
-                };
-
-        obj.id = GlobalStor.global.laminatCouples[lmt].id,
-        obj.nameIn = GlobalStor.global.laminatCouples[lmt].laminat_in_name,
-        obj.nameOut = GlobalStor.global.laminatCouples[lmt].laminat_out_name,
-        HistoryStor.history.listName.push(obj);
-      }
-    }
 
 
 
@@ -777,7 +758,6 @@
       orderPrint: orderPrint,
       viewSwitching: viewSwitching,
       downloadProducts1:downloadProducts1,
-      listName:listName,
 
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,

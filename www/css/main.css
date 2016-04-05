@@ -4474,18 +4474,68 @@ div.drum figure {
   background: #FFFFFF;
   top: 40rem;
   left: 0rem;
-  height: 4%;
+  height: 5%;
   width: 45%;
 }
 
-/* line 18, ../../dev/sass/parts/_edit-order.scss */
+/* line 17, ../../dev/sass/parts/_edit-order.scss */
+.box {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 2%;
+  height: 100%;
+  width: 5%;
+}
+
+/* line 25, ../../dev/sass/parts/_edit-order.scss */
+.box1 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  left: 5%;
+  width: 15%;
+}
+
+/* line 33, ../../dev/sass/parts/_edit-order.scss */
+.box2 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 3;
+  left: 22%;
+  width: 18%;
+}
+
+/* line 41, ../../dev/sass/parts/_edit-order.scss */
+.box3 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 4;
+  left: 42%;
+  width: 15%;
+}
+
+/* line 49, ../../dev/sass/parts/_edit-order.scss */
+.box4 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 5;
+  left: 55%;
+  width: 28%;
+}
+
+/* line 57, ../../dev/sass/parts/_edit-order.scss */
 .user-select-field-m {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 24, ../../dev/sass/parts/_edit-order.scss */
+/* line 63, ../../dev/sass/parts/_edit-order.scss */
 .cart-item-data-m {
   display: -webkit-flex;
   display: flex;

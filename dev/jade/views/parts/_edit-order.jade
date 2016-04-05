@@ -3,19 +3,27 @@
  .order-content
   .cart-menu
    ul.items-list
-    .title {{'№'}}
+    .box
+     .title {{'№'}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
       .value {{isBoxArray.product_id}}
+    .box1   
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
       .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
       select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.nameIn for listName in editOrder.H.history.listName", required)
+    .box2      
      .title {{::editOrder.CONFIGMENU_HARDWARE}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
       .value {{isBoxArray.nameHardware}}
-     .title {{::editOrder.CONFIGMENU_GLASS}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
-      .value {{isBoxArray.nameGlass}}
+       select.user-select-field-m(name="Hardware", ng-model="isBoxArray.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
+    .box3
      .title {{::editOrder.CONFIGMENU_PROFILE}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
       .value {{isBoxArray.nameProfiles}}
+       select.user-select-field-m(name="Profiles", ng-model="isBoxArray.dataProfiles", ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles", required)       
+    .box4     
+     .title {{::editOrder.CONFIGMENU_GLASS}}
+     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+      .value {{isBoxArray.nameGlass}}
+      select.user-select-field-m(name="Glass", ng-model="isBoxArray.dataGlass", ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass", required)
