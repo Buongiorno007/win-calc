@@ -6,15 +6,12 @@
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function ($q, HistoryServ, GlobalStor, HistoryStor) {
+  function ($q, GlobalStor, HistoryStor) {
 	var thisFactory = this;
 
     /**============ METHODS ================*/
     function box() {
-    	var  deferred = $q.defer();
-      console.log(' HistoryStor.history.isBoxArray',  HistoryStor.history.isBoxArray)
-      HistoryServ.downloadProducts1().then(function(data) {
-        var array = angular.copy(data),
+        var array = HistoryStor.history.isBoxArray,
             numLaminat = [],
             numHardware = [],
             numGlass = [],
@@ -23,14 +20,13 @@
             laminatObj = [],
             hardwareObj = [],
             glassObj = [],
-            profilesObj = [],
-
-            ordersQty = array.length, ord,
+            profilesObj = [];
+console.log('array', array)
+        var ordersQty = array.length, ord,
             laminatQty = GlobalStor.global.laminatCouples.length, glb,
             hardwaresQty = GlobalStor.global.hardwares.length, glbl,
             profilesQty = GlobalStor.global.profiles.length, glbp,
             glassesQty = GlobalStor.global.glasses.length, glbg;
-            HistoryStor.history.isBoxArray = array;
 
         for(ord = 0; ord < ordersQty; ord+=1) {
           numLaminat.push(array[ord].lamination_id)
@@ -44,6 +40,14 @@
             profilesnln = numProfile.length, pln,
             glassesnln = numGlass.length, gln;
 
+
+
+        for(ord = 0; ord < ordersQty; ord+=1) {
+          if (array[ord].glass_id.length > 10) {
+            var re = /\s*,\s*/;
+            var arr = array[ord].glass_id.split(re);
+          }
+        }
       //================NameList for select==================//
         for(glb = 0; glb < laminatQty; glb+=1) {
           var nameIn,
@@ -128,9 +132,9 @@
           for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
             for(ord = 0; ord < ordersQty; ord+=1) {
               if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id) {
-                array[ord].nameGlass = GlobalStor.global.glasses[glbg][glbgg].name;
+                array[ord].nameGlass = GlobalStor.global.glasses[glbg][glbgg].name;       
               }
-            } 
+            }
           }
         } 
         for(glbp = 0; glbp < profilesQty; glbp+=1) {
@@ -145,19 +149,53 @@
         }
       //================add name in array==================//    
 
-      })
     }
 
-
+    function extend() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {   
+          if (HistoryStor.history.isBoxArray[ord].dataLamination !== undefined ) {
+            delete HistoryStor.history.isBoxArray[ord].lamination_id;
+            delete HistoryStor.history.isBoxArray[ord].nameIn;
+            delete HistoryStor.history.isBoxArray[ord].nameOut;
+            HistoryStor.history.isBoxArray[ord].lamination_id = HistoryStor.history.isBoxArray[ord].dataLamination.id;
+            HistoryStor.history.isBoxArray[ord].nameIn = HistoryStor.history.isBoxArray[ord].dataLamination.nameIn;
+            HistoryStor.history.isBoxArray[ord].nameOut = HistoryStor.history.isBoxArray[ord].dataLamination.nameOut;
+            delete HistoryStor.history.isBoxArray[ord].dataLamination;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].hardware_id;
+            delete HistoryStor.history.isBoxArray[ord].nameHardware;
+            HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
+            HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
+            delete HistoryStor.history.isBoxArray[ord].dataHardware;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].profile_id;
+            delete HistoryStor.history.isBoxArray[ord].nameProfiles;
+            HistoryStor.history.isBoxArray[ord].profile_id = HistoryStor.history.isBoxArray[ord].dataProfiles.id;
+            HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
+            delete HistoryStor.history.isBoxArray[ord].dataProfiles;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataGlass !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].glass_id;
+            delete HistoryStor.history.isBoxArray[ord].nameGlass;
+            HistoryStor.history.isBoxArray[ord].glass_id = HistoryStor.history.isBoxArray[ord].dataGlass.id;
+            HistoryStor.history.isBoxArray[ord].nameGlass = HistoryStor.history.isBoxArray[ord].dataGlass.name;
+            delete HistoryStor.history.isBoxArray[ord].dataGlass;
+          }
+        }      
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
-	      box:box
+	      box:box,
+        extend:extend
 	    };
     	return thisFactory.publicObj;
 
     //------ clicking
     	box:box;
-      listName:listName;
+      extend:extend;
   });
 })();

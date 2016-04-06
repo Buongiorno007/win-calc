@@ -313,8 +313,8 @@
         <div class="box2">     
           <div class="title">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
           <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
-            <div class="value">{{isBoxArray.nameHardware}}
-              <select name="Hardware" ng-model="isBoxArray.dataHardware" ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware" required class="user-select-field-m"></select>
+            <div class="value">{{isBoxArray.nameHardware }}
+              <select name="Hardware" ng-if="isBoxArray.nameHardware" ng-model="isBoxArray.dataHardware" ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware" required class="user-select-field-m"></select>
             </div>
           </div>
         </div>
@@ -322,7 +322,7 @@
           <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
           <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
             <div class="value">{{isBoxArray.nameProfiles}}
-              <select name="Profiles" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">      </select>
+              <select name="Profiles" ng-if="isBoxArray.nameProfiles" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">      </select>
             </div>
           </div>
         </div>
@@ -330,7 +330,7 @@
           <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
           <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
             <div class="value">{{isBoxArray.nameGlass}}</div>
-            <select name="Glass" ng-model="isBoxArray.dataGlass" ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass" required class="user-select-field-m"></select>
+            <select name="Glass" ng-if="isBoxArray.nameGlass" ng-model="isBoxArray.dataGlass" ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass" required class="user-select-field-m"></select>
           </div>
         </div>
       </ul>

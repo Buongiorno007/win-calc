@@ -4543,6 +4543,7 @@ div.drum figure {
   flex-flow: row wrap;
   -webkit-align-items: center;
   align-items: center;
+  height: 87px;
 }
 
 /* line 3, ../../dev/sass/parts/_main-svg.scss */

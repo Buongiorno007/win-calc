@@ -13,6 +13,7 @@
     localDB,
     GeneralServ,
     MainServ,
+    RecOrderServ,
     SVGServ,
     GlobalStor,
     OrderStor,
@@ -125,6 +126,9 @@
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        HistoryStor.history.orderEditNumber = orderNum;
+        downloadProducts1();
+        orderItem(); 
         console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -192,11 +196,10 @@
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
+
       function editOrderr() {
-        HistoryStor.history.orderEditNumber = orderNum;
-        downloadProducts1();
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
-        console.log('isLaminat', GlobalStor.global.isEditBox)
+        RecOrderServ.box();
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -212,7 +215,12 @@
 
     }
 
-
+      function orderItem() {
+        var  deferred = $q.defer();
+          downloadProducts1().then(function(data) {
+          HistoryStor.history.isBoxArray = angular.copy(data);
+        })
+      }
 
 
     /**========== Delete order ==========*/
@@ -756,6 +764,7 @@
       clickDeleteOrder: clickDeleteOrder,
       editOrder: editOrder,
       orderPrint: orderPrint,
+      orderItem: orderItem,
       viewSwitching: viewSwitching,
       downloadProducts1:downloadProducts1,
 

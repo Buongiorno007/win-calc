@@ -3822,7 +3822,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     HistoryStor,
     CartStor,
     GlobalStor,
-    HistoryServ,
     RecOrderServ
   ) {
     /*jshint validthis:true */
@@ -3841,7 +3840,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
     
     function box1() {
-      RecOrderServ.box();
+      RecOrderServ.extend();
   console.log('box1 go')
   }
 
@@ -3849,6 +3848,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
+thisCtrl.extend = RecOrderServ.extend;
 thisCtrl.box1 = box1;
   });
 })();
@@ -11956,6 +11956,7 @@ function ErrorResult(code, message) {
     localDB,
     GeneralServ,
     MainServ,
+    RecOrderServ,
     SVGServ,
     GlobalStor,
     OrderStor,
@@ -12068,6 +12069,9 @@ function ErrorResult(code, message) {
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        HistoryStor.history.orderEditNumber = orderNum;
+        downloadProducts1();
+        orderItem(); 
         console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -12135,11 +12139,10 @@ function ErrorResult(code, message) {
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
+
       function editOrderr() {
-        HistoryStor.history.orderEditNumber = orderNum;
-        downloadProducts1();
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
-        console.log('isLaminat', GlobalStor.global.isEditBox)
+        RecOrderServ.box();
       }
 
       if(orderStyle !== orderMasterStyle) {
@@ -12155,7 +12158,12 @@ function ErrorResult(code, message) {
 
     }
 
-
+      function orderItem() {
+        var  deferred = $q.defer();
+          downloadProducts1().then(function(data) {
+          HistoryStor.history.isBoxArray = angular.copy(data);
+        })
+      }
 
 
     /**========== Delete order ==========*/
@@ -12699,6 +12707,7 @@ function ErrorResult(code, message) {
       clickDeleteOrder: clickDeleteOrder,
       editOrder: editOrder,
       orderPrint: orderPrint,
+      orderItem: orderItem,
       viewSwitching: viewSwitching,
       downloadProducts1:downloadProducts1,
 
@@ -20289,15 +20298,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function ($q, HistoryServ, GlobalStor, HistoryStor) {
+  function ($q, GlobalStor, HistoryStor) {
 	var thisFactory = this;
 
     /**============ METHODS ================*/
     function box() {
-    	var  deferred = $q.defer();
-      console.log(' HistoryStor.history.isBoxArray',  HistoryStor.history.isBoxArray)
-      HistoryServ.downloadProducts1().then(function(data) {
-        var array = angular.copy(data),
+        var array = HistoryStor.history.isBoxArray,
             numLaminat = [],
             numHardware = [],
             numGlass = [],
@@ -20306,14 +20312,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             laminatObj = [],
             hardwareObj = [],
             glassObj = [],
-            profilesObj = [],
-
-            ordersQty = array.length, ord,
+            profilesObj = [];
+console.log('array', array)
+        var ordersQty = array.length, ord,
             laminatQty = GlobalStor.global.laminatCouples.length, glb,
             hardwaresQty = GlobalStor.global.hardwares.length, glbl,
             profilesQty = GlobalStor.global.profiles.length, glbp,
             glassesQty = GlobalStor.global.glasses.length, glbg;
-            HistoryStor.history.isBoxArray = array;
 
         for(ord = 0; ord < ordersQty; ord+=1) {
           numLaminat.push(array[ord].lamination_id)
@@ -20327,6 +20332,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             profilesnln = numProfile.length, pln,
             glassesnln = numGlass.length, gln;
 
+
+
+        for(ord = 0; ord < ordersQty; ord+=1) {
+          if (array[ord].glass_id.length > 10) {
+            var re = /\s*,\s*/;
+            var arr = array[ord].glass_id.split(re);
+          }
+        }
       //================NameList for select==================//
         for(glb = 0; glb < laminatQty; glb+=1) {
           var nameIn,
@@ -20411,9 +20424,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
             for(ord = 0; ord < ordersQty; ord+=1) {
               if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id) {
-                array[ord].nameGlass = GlobalStor.global.glasses[glbg][glbgg].name;
+                array[ord].nameGlass = GlobalStor.global.glasses[glbg][glbgg].name;       
               }
-            } 
+            }
           }
         } 
         for(glbp = 0; glbp < profilesQty; glbp+=1) {
@@ -20428,20 +20441,54 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
       //================add name in array==================//    
 
-      })
     }
 
-
+    function extend() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {   
+          if (HistoryStor.history.isBoxArray[ord].dataLamination !== undefined ) {
+            delete HistoryStor.history.isBoxArray[ord].lamination_id;
+            delete HistoryStor.history.isBoxArray[ord].nameIn;
+            delete HistoryStor.history.isBoxArray[ord].nameOut;
+            HistoryStor.history.isBoxArray[ord].lamination_id = HistoryStor.history.isBoxArray[ord].dataLamination.id;
+            HistoryStor.history.isBoxArray[ord].nameIn = HistoryStor.history.isBoxArray[ord].dataLamination.nameIn;
+            HistoryStor.history.isBoxArray[ord].nameOut = HistoryStor.history.isBoxArray[ord].dataLamination.nameOut;
+            delete HistoryStor.history.isBoxArray[ord].dataLamination;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].hardware_id;
+            delete HistoryStor.history.isBoxArray[ord].nameHardware;
+            HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
+            HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
+            delete HistoryStor.history.isBoxArray[ord].dataHardware;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].profile_id;
+            delete HistoryStor.history.isBoxArray[ord].nameProfiles;
+            HistoryStor.history.isBoxArray[ord].profile_id = HistoryStor.history.isBoxArray[ord].dataProfiles.id;
+            HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
+            delete HistoryStor.history.isBoxArray[ord].dataProfiles;
+          }
+          if (HistoryStor.history.isBoxArray[ord].dataGlass !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].glass_id;
+            delete HistoryStor.history.isBoxArray[ord].nameGlass;
+            HistoryStor.history.isBoxArray[ord].glass_id = HistoryStor.history.isBoxArray[ord].dataGlass.id;
+            HistoryStor.history.isBoxArray[ord].nameGlass = HistoryStor.history.isBoxArray[ord].dataGlass.name;
+            delete HistoryStor.history.isBoxArray[ord].dataGlass;
+          }
+        }      
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
-	      box:box
+	      box:box,
+        extend:extend
 	    };
     	return thisFactory.publicObj;
 
     //------ clicking
     	box:box;
-      listName:listName;
+      extend:extend;
   });
 })();
 

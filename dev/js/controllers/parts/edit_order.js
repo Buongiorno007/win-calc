@@ -11,7 +11,6 @@
     HistoryStor,
     CartStor,
     GlobalStor,
-    HistoryServ,
     RecOrderServ
   ) {
     /*jshint validthis:true */
@@ -30,7 +29,7 @@
     /**============ METHODS ================*/
     
     function box1() {
-      RecOrderServ.box();
+      RecOrderServ.extend();
   console.log('box1 go')
   }
 
@@ -38,6 +37,7 @@
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
+thisCtrl.extend = RecOrderServ.extend;
 thisCtrl.box1 = box1;
   });
 })();
