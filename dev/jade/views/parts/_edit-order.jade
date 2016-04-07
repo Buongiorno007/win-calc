@@ -2,7 +2,6 @@
  .boxText(ng-click="editOrder.box1()")
  .order-content
   .cart-menu
-   ul.items-list
     .box
      .title {{'№'}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
@@ -25,5 +24,7 @@
     .box4     
      .title {{::editOrder.CONFIGMENU_GLASS}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
-      .value {{isBoxArray.nameGlass}}
-      select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="isBoxArray.dataGlass", ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass", required)
+      .cart-item(ng-repeat="nameGlass in isBoxArray.nameGlass track by $index")
+       .value {{nameGlass.name}}
+        select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass", required)
+
