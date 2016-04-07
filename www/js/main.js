@@ -3840,6 +3840,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
     
     function box1() {
+      RecOrderServ.extend();
        console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
   console.log('box1 go')
   }
@@ -20448,30 +20449,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 name: ''
               }
               for(tst=0; tst<arrQty; tst+=1) {
-                if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {
-                    
-                    obj.name = GlobalStor.global.glasses[glbg][glbgg].name;  
-                 
-                  
+                if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {                 
+                  obj.name = GlobalStor.global.glasses[glbg][glbgg].name;  
                   array[ord].nameGlass.push(obj)
                 }
               }
             }
           }
         } 
-
-
-        // for(ord = 0; ord < ordersQty; ord+=1) {
-        //   if (array[ord].glass_id.length) {
-        //     var re = /\s*,\s*/;
-        //     var arr = array[ord].nameGlass.split(re);
-        //     delete array[ord].nameGlass;
-        //     array[ord].nameGlass = arr;
-        //   }
-        // }
-
-
-
 
         for(glbp = 0; glbp < profilesQty; glbp+=1) {
           var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
@@ -20530,15 +20515,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
             delete HistoryStor.history.isBoxArray[ord].dataProfiles;
           }
-          if (HistoryStor.history.isBoxArray[ord].dataGlass !== undefined) {
-            delete HistoryStor.history.isBoxArray[ord].glass_id;
-            delete HistoryStor.history.isBoxArray[ord].nameGlass;
-            HistoryStor.history.isBoxArray[ord].glass_id = HistoryStor.history.isBoxArray[ord].dataGlass.id;
-            HistoryStor.history.isBoxArray[ord].nameGlass = HistoryStor.history.isBoxArray[ord].dataGlass.name;
-            delete HistoryStor.history.isBoxArray[ord].dataGlass;
-          }
-        }      
+
+
+
+            var arrayBoxQty = HistoryStor.history.isBoxArray[ord].nameGlass.length, tst;
+            var glassId,
+                nameGlass;
+            for (tst = 0; tst<arrayBoxQty; tst+=1) {
+              if(tst === 0){
+                glassId = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
+                nameGlass = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
+              } else {
+                glassId += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
+                nameGlass += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
+              }
+            }
+              delete HistoryStor.history.isBoxArray[ord].nameGlass;
+              HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
+        }    
     }
+
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
