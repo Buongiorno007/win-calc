@@ -307,7 +307,7 @@
           <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
           <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
             <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}</div>
-            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.nameIn for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
+            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
           </div>
         </div>
         <div class="box2">     

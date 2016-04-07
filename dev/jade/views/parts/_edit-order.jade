@@ -11,7 +11,7 @@
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
       .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
-      select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.nameIn for listName in editOrder.H.history.listName", required)
+      select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.name for listName in editOrder.H.history.listName", required)
     .box2      
      .title {{::editOrder.CONFIGMENU_HARDWARE}}
      .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")

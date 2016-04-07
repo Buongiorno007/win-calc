@@ -51,18 +51,25 @@ console.log('array', array)
       //================NameList for select==================//
         for(glb = 0; glb < laminatQty; glb+=1) {
           var nameIn,
-              nameOut,
               id,
               obj = {  
                   nameIn:'',
                   nameOut:'',
-                  id: 0
+                  name: '',
+                  img_in_id:'',
+                  img_out_id:'',
+                  id: 0,
+                  profile_id: 0
                   };
-
+          obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
           obj.id = GlobalStor.global.laminatCouples[glb].id,
           obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
           obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+          obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
+          obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+          obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
           HistoryStor.history.listName.push(obj);
+          console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
         }
         for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
          var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
@@ -158,9 +165,13 @@ console.log('array', array)
             delete HistoryStor.history.isBoxArray[ord].lamination_id;
             delete HistoryStor.history.isBoxArray[ord].nameIn;
             delete HistoryStor.history.isBoxArray[ord].nameOut;
+            delete HistoryStor.history.isBoxArray[ord].lamination_in_id;
+            delete HistoryStor.history.isBoxArray[ord].lamination_out_id;
             HistoryStor.history.isBoxArray[ord].lamination_id = HistoryStor.history.isBoxArray[ord].dataLamination.id;
             HistoryStor.history.isBoxArray[ord].nameIn = HistoryStor.history.isBoxArray[ord].dataLamination.nameIn;
             HistoryStor.history.isBoxArray[ord].nameOut = HistoryStor.history.isBoxArray[ord].dataLamination.nameOut;
+            HistoryStor.history.isBoxArray[ord].lamination_in_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_in_id;
+            HistoryStor.history.isBoxArray[ord].lamination_out_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_out_id;
             delete HistoryStor.history.isBoxArray[ord].dataLamination;
           }
           if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {

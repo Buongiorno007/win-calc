@@ -407,7 +407,7 @@
         localDB.tablesLocalDB.order_products.tableName, {
           'order_id': HistoryStor.history.orderEditNumber
         },
-          'profile_id, glass_id, hardware_id, product_id, order_id, lamination_id'
+          'profile_id, glass_id, hardware_id, product_id, order_id, lamination_id, lamination_out_id, lamination_in_id'
        ).then(function(result) {
           console.log('result' , result)
           deferred.resolve(result);

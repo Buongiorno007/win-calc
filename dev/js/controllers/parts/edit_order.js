@@ -30,6 +30,7 @@
     
     function box1() {
       RecOrderServ.extend();
+        console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
   console.log('box1 go')
   }
 
