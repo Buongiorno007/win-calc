@@ -8,7 +8,7 @@
 
   function ($q, GlobalStor, HistoryStor) {
 	var thisFactory = this;
-
+  //редактироние source  и посмотри mainServ.
     /**============ METHODS ================*/
     function box() {
         var array = HistoryStor.history.isBoxArray,
@@ -61,122 +61,130 @@
           }
         }
 
-      //================NameList for select================//
-        for(glb = 0; glb < laminatQty; glb+=1) {
-          var nameIn,
-              id,
-              obj = {  
-                  name: '',
-                  nameIn:'',
-                  nameOut:'',
-                  id: 0,
-                  img_in_id: 0,
-                  img_out_id: 0,
-                  profile_id: 0
-                  };
-          obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
-          obj.id = GlobalStor.global.laminatCouples[glb].id,
-          obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
-          obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-          obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-          obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
-          obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
-          HistoryStor.history.listName.push(obj);
-        }
-        for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
-         var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
-          for(glbll = 0; glbll < globalQtyll; glbll+=1) {
-           var name,
-               id,
-               obj = {  
-                 name:'',
-                 id: 0
-               };
-          obj.id = GlobalStor.global.hardwares[glbl][glbll].id,
-          obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
-          HistoryStor.history.listNameHardware.push(obj);
+        //================NameList for select================//
+          for(glb = 0; glb < laminatQty; glb+=1) {
+            var nameIn,
+                id,
+                obj = {  
+                    name: '',
+                    nameIn:'',
+                    nameOut:'',
+                    id: 0,
+                    img_in_id: 0,
+                    img_out_id: 0,
+                    profile_id: 0
+                    };
+            obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
+            obj.id = GlobalStor.global.laminatCouples[glb].id,
+            obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+            obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+            obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
+            obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+            obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+            HistoryStor.history.listName.push(obj);
           }
-        }
-        for(glbg = 0; glbg < glassesQty; glbg+=1) {
-         var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;;
-          for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
-           var name,
-               id,
-               obj = {  
-                 name:'',
-                 id: 0
-               };
-          obj.id = GlobalStor.global.glasses[glbg][glbgg].id,
-          obj.name = GlobalStor.global.glasses[glbg][glbgg].name
-          HistoryStor.history.listNameGlass.push(obj);
-          }
-        }
-        for(glbp = 0; glbp < profilesQty; glbp+=1) {
-         var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
-          for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
-           var name,
-               id,
-               obj = {  
-                 name:'',
-                 id: 0
-               };
-          obj.id = GlobalStor.global.profiles[glbp][glbpp].id,
-          obj.name = GlobalStor.global.profiles[glbp][glbpp].name
-          HistoryStor.history.listNameProfiles.push(obj);
-          }
-        }
-      //================NameList for select================//
-
-      //================add name in array==================//  
-        for(glb = 0; glb < laminatQty; glb+=1) {
-          for(ord = 0; ord < ordersQty; ord+=1) {
-            if (GlobalStor.global.laminatCouples[glb].id === array[ord].lamination_id) {
-              array[ord].nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
-              array[ord].nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
+          for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
+           var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
+            for(glbll = 0; glbll < globalQtyll; glbll+=1) {
+             var name,
+                 id,
+                 obj = {  
+                   name:'',
+                   id: 0
+                 };
+            obj.id = GlobalStor.global.hardwares[glbl][glbll].id,
+            obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
+            HistoryStor.history.listNameHardware.push(obj);
             }
           }
-        }   
-        for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
-          var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
-          for(glbll = 0; glbll < globalQtyll; glbll+=1) {
-            for(ord = 0; ord < ordersQty; ord+=1) {
-              if(GlobalStor.global.hardwares[glbl][glbll].id === array[ord].hardware_id) {
-                 array[ord].nameHardware = GlobalStor.global.hardwares[glbl][glbll].name;
-              }  
+          for(glbg = 0; glbg < glassesQty; glbg+=1) {
+           var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;;
+            for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
+             var name,
+                 id,
+                 sku,
+                 obj = {  
+                   name:'',
+                   id: 0,
+                   sku: 0
+                 };
+            obj.id = GlobalStor.global.glasses[glbg][glbgg].id,
+            obj.name = GlobalStor.global.glasses[glbg][glbgg].name,
+            obj.sku = GlobalStor.global.glasses[glbg][glbgg].sku
+            HistoryStor.history.listNameGlass.push(obj);
             }
           }
-        }       
+          for(glbp = 0; glbp < profilesQty; glbp+=1) {
+           var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
+            for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
+             var name,
+                 id,
+                 obj = {  
+                   name:'',
+                   id: 0
+                 };
+            obj.id = GlobalStor.global.profiles[glbp][glbpp].id,
+            obj.name = GlobalStor.global.profiles[glbp][glbpp].name
+            HistoryStor.history.listNameProfiles.push(obj);
+            }
+          }
+        //================NameList for select================//
 
-        for(glbg = 0; glbg < glassesQty; glbg+=1) {
-          var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
-          for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
+        //================add name in array==================//  
+          for(glb = 0; glb < laminatQty; glb+=1) {
             for(ord = 0; ord < ordersQty; ord+=1) {
-              var arrQty = array[ord].glass_id.length, tst;
-              var obj = {
-                name: ''
+              if (GlobalStor.global.laminatCouples[glb].id === array[ord].lamination_id) {
+                array[ord].nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
+                array[ord].nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
               }
-              for(tst=0; tst<arrQty; tst+=1) {
-                if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {                 
-                  obj.name = GlobalStor.global.glasses[glbg][glbgg].name;  
-                  array[ord].nameGlass.push(obj)
+            }
+          }   
+          for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
+            var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
+            for(glbll = 0; glbll < globalQtyll; glbll+=1) {
+              for(ord = 0; ord < ordersQty; ord+=1) {
+                if(GlobalStor.global.hardwares[glbl][glbll].id === array[ord].hardware_id) {
+                   array[ord].nameHardware = GlobalStor.global.hardwares[glbl][glbll].name;
+                }  
+              }
+            }
+          }       
+
+          for(glbg = 0; glbg < glassesQty; glbg+=1) {
+            var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
+            for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
+              for(ord = 0; ord < ordersQty; ord+=1) {
+                var arrQty = array[ord].glass_id.length, tst;
+                var obj = {
+                  name: ''
+                }
+                for(tst=0; tst<arrQty; tst+=1) {
+                  if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {                 
+                    obj.name = GlobalStor.global.glasses[glbg][glbgg].name;  
+                    array[ord].nameGlass.push(obj)
+                  }
                 }
               }
             }
-          }
-        } 
+          } 
 
-        for(glbp = 0; glbp < profilesQty; glbp+=1) {
-          var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
-          for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
-            for(ord = 0; ord < ordersQty; ord+=1) {
-              if(GlobalStor.global.profiles[glbp][glbpp].id === array[ord].profile_id) {
-                array[ord].nameProfiles = GlobalStor.global.profiles[glbp][glbpp].name;
-              }             	
+          for(glbp = 0; glbp < profilesQty; glbp+=1) {
+            var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
+            for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
+              for(ord = 0; ord < ordersQty; ord+=1) {
+                if(GlobalStor.global.profiles[glbp][glbpp].id === array[ord].profile_id) {
+                  array[ord].nameProfiles = GlobalStor.global.profiles[glbp][glbpp].name;
+                }             	
+              }
             }
           }
+        //================add name in array==================//    
+        clear();
+        
+        for(ord = 0; ord < ordersQty; ord+=1) {  
+          HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source)
+        console.log( HistoryStor.history.isBoxArray[ord].template_source, '1111')
         }
-      //================add name in array==================//    
-      clear();
     }
 
     function clear() {
