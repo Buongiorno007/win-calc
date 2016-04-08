@@ -128,9 +128,9 @@
         DOOR_TYPE1: 'su perimetro',
         DOOR_TYPE2: 'senza soglia',
         DOOR_TYPE3: 'la soglia di alluminio, battere a macchina',
-        SASH_TYPE1: "l'intercamera",
-        SASH_TYPE2: 'la porta T-shaped',
-        SASH_TYPE3: 'la finestra',
+        //SASH_TYPE1: "l'intercamera",
+        //SASH_TYPE2: 'la porta T-shaped',
+        //SASH_TYPE3: 'la finestra',
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
@@ -216,7 +216,8 @@
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',

@@ -1052,6 +1052,159 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+    /**============ DOORs ===========*/
+
+
+    function sortingDoorKits(doorKits, doorKitsGlobal) {
+      var profsQty = GlobalStor.global.profiles.length,
+          profQty, tempKit,
+          frameDoor, sashDoor,
+          frameQty, sashQty, f, s,
+          currFrame, currSash;
+      if(doorKits.length) {
+        frameDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 2;
+        });
+        sashDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 3;
+        });
+        frameQty = frameDoor.length;
+        sashQty = sashDoor.length;
+
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            tempKit = {};
+            currFrame = 0;
+            currSash = 0;
+            for(f = 0; f < frameQty; f+=1) {
+              if(frameDoor[f].id === GlobalStor.global.profiles[profsQty][profQty].rama_list_id) {
+                currFrame = frameDoor[f];
+              }
+            }
+            for(s = 0; s < sashQty; s+=1) {
+              if(sashDoor[s].id === GlobalStor.global.profiles[profsQty][profQty].stvorka_list_id) {
+                currSash = sashDoor[s];
+              }
+            }
+            if(currFrame && currSash) {
+              tempKit.profileId = GlobalStor.global.profiles[profsQty][profQty].id;
+              tempKit.frame = currFrame;
+              tempKit.sash = currSash;
+              doorKitsGlobal.push(tempKit);
+            }
+          }
+        }
+      }
+    }
+
+
+    /**------ download Locks ------*/
+
+    function downloadLocks() {
+      var promises = GlobalStor.global.doorHandlers.map(function(item) {
+        var deff = $q.defer();
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lock_lists.tableName,
+          {'accessory_id': item.id},
+          'list_id'
+        ).then(function(lockIds) {
+          //console.info('--lockIds---', lockIds);
+          if(lockIds.length) {
+            var promises2 = lockIds.map(function(item2) {
+              var deff2 = $q.defer();
+              localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id})
+                .then(function(lockKid) {
+                  deff2.resolve(lockKid[0]);
+                });
+              return deff2.promise;
+            });
+            deff.resolve($q.all(promises2));
+          } else {
+            deff.resolve(0);
+          }
+        });
+        return deff.promise;
+      });
+
+      $q.all(promises).then(function(lockData) {
+        //console.info('--lockData---', lockData);
+        GlobalStor.global.doorLocks = angular.copy(lockData);
+      });
+    }
+
+
+
+    /**------ download Handles ------*/
+
+    function downloadDoorHandles() {
+      //36 офисная ручка , 35 нажимной гарнитур
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}).then(function(handlData) {
+        //console.warn('нажимной гарнитур', handlData);
+        GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+        localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}).then(function(handlData) {
+          //console.warn('офисная ручка', handlData);
+          GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+
+          /** download Locks */
+          downloadLocks();
+
+          //------- get link between handler and profile
+          var promises = GlobalStor.global.doorHandlers.map(function(item) {
+            var deff = $q.defer();
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'element_id': item.parent_element_id},
+              'profile_system_id'
+            ).then(function(profileIds) {
+              //console.info('--prof---', profileIds);
+              deff.resolve(profileIds);
+            });
+            return deff.promise;
+          });
+
+          $q.all(promises).then(function(profData) {
+            //console.info('--prof--222-', profData);
+            var handleQty = GlobalStor.global.doorHandlers.length, h;
+            for(h = 0; h < handleQty; h+=1) {
+              GlobalStor.global.doorHandlers[h].profIds = angular.copy(profData[h]);
+            }
+            //console.warn('ручкs', GlobalStor.global.doorHandlers);
+          });
+        });
+
+      });
+
+
+    }
+
+
+    /**------ download Doors ------*/
+
+    function downloadDoorKits() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'in_door': 1}).then(function(doorData) {
+        var door = angular.copy(doorData),
+            doorKitsT1, doorKitsT2,
+            doorQty = door.length;
+        if (doorQty) {
+          //----- sorting door elements as to doorstep_type
+          doorKitsT1 = door.filter(function(item) {
+            return item.doorstep_type === 1;
+          });
+          doorKitsT2 = door.filter(function(item) {
+            return item.doorstep_type === 2;
+          });
+          //-------- seperate by frame or sash
+          sortingDoorKits(doorKitsT1, GlobalStor.global.doorKitsT1);
+          sortingDoorKits(doorKitsT2, GlobalStor.global.doorKitsT2);
+
+          /** Handlers */
+          downloadDoorHandles();
+        } else {
+          GlobalStor.global.noDoorExist = 1;
+        }
+      });
+    }
 
 
 
@@ -1106,6 +1259,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Door Kits */
+                                  downloadDoorKits();
                                   /** download Hardware Limits */
                                   downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */

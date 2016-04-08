@@ -77,7 +77,10 @@
 
 
     function saveUserEntry() {
-      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      $timeout(function() {
+        localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      }, 5000);
+
 //TODO offline
 //      ++UserStor.userInfo.entries;
 //      var data = {entries: UserStor.userInfo.entries},
@@ -658,13 +661,15 @@
           // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
           /** send analytics data to Server*/
           //------ profile
-          AnalyticsServ.sendAnalyticsData(
-            UserStor.userInfo.id,
-            OrderStor.order.id,
-            ProductStor.product.template_id,
-            ProductStor.product.profile.id,
-            1
-          );
+          $timeout(function() {
+            AnalyticsServ.sendAnalyticsData(
+              UserStor.userInfo.id,
+              OrderStor.order.id,
+              ProductStor.product.template_id,
+              ProductStor.product.profile.id,
+              1
+            );
+          }, 5000);
         }
       });
       return deferred.promise;

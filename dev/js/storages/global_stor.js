@@ -83,6 +83,13 @@
         addElementsAll: [],
         tempAddElements: [],
 
+        //-------- Door
+        noDoorExist: 0,
+        doorKitsT1: [],
+        doorKitsT2: [],
+        doorHandlers: [],
+        doorLocks: [],
+
         //------ Cart
         supplyData: [],
         assemblingData: [],

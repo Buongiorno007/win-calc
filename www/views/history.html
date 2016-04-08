@@ -258,7 +258,7 @@
     </section>
   </section>
 </section>
-<div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint" class="attantion-block">
+<div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
   <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
     <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
     <div class="glass-list">
@@ -274,6 +274,9 @@
       <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
       <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
     </div>
+  </div>
+  <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
+    <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
   </div>
 </div>
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">

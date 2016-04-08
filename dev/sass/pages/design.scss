@@ -551,16 +551,15 @@ $door-config-content: $ipad-height - $door-config-header;
   .door-config-content {
     height: rem($door-config-content);
     overflow: hidden;
-    &.scroll-box {
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
   }
   ul.door-config-list {
-    width: rem(512px);
+    width: 34rem;
+    height: rem($door-config-content);
     list-style: none;
     margin: 0;
     padding: 0;
+    padding-right: 2rem;
+    overflow-y: auto;
   }
   li.door-config-option {
     width: rem(452px);
@@ -582,7 +581,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .door-option-label {
     @include roboto-lt(rem(36px));
-
+    word-wrap: break-word;
     color: $main_gray_txt;
   }
   .door-config-tools {

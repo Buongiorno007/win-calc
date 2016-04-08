@@ -128,9 +128,9 @@
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
         DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
-        SASH_TYPE1: 'Interzimmer',
-        SASH_TYPE2: 'Tür- t-bildlich',
-        SASH_TYPE3: 'Fenster',
+        //SASH_TYPE1: 'Interzimmer',
+        //SASH_TYPE2: 'Tür- t-bildlich',
+        //SASH_TYPE3: 'Fenster',
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
@@ -216,7 +216,8 @@
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

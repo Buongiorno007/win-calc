@@ -578,11 +578,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
 
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-//      DesignServ.downloadDoorConfig();
-      DesignServ.setIndexDoorConfig();
-    }
 
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -884,31 +879,75 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**+++++++++++++++ DOOR +++++++++++++++++++*/
 
-    //---------- Show Door Configuration
+    /**---------- Show Door Configuration --------*/
+
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
-      //----- set emplty index values
+      console.info('product++++',ProductStor.product);
+      //----- show current items
+      thisCtrl.config.selectedStep1 = 1;
+      thisCtrl.config.selectedStep2 = 1;
+      thisCtrl.config.selectedStep3 = 1;
+      thisCtrl.config.selectedStep4 = 1;
 //      DesignStor.design.doorConfig.doorShapeIndex = '';
 //      DesignStor.design.doorConfig.sashShapeIndex = '';
 //      DesignStor.design.doorConfig.handleShapeIndex = '';
 //      DesignStor.design.doorConfig.lockShapeIndex = '';
     }
 
-    //---------- Select door shape
+
+    /**---------- Select door shape --------*/
+
     function selectDoor(id) {
-      if(!thisCtrl.config.selectedStep2) {
-        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
-          DesignStor.design.doorConfig.doorShapeIndex = '';
-          thisCtrl.config.selectedStep1 = 0;
-        } else {
-          DesignStor.design.doorConfig.doorShapeIndex = id;
-          thisCtrl.config.selectedStep1 = 1;
+      console.info('door config++++',id);
+      GlobalStor.global.noDoorExist = 1;
+      //----- check doorKits
+      if(GlobalStor.global.noDoorExist) {
+        //-------- show alert
+        DesignStor.design.isNoDoors = 1;
+      } else {
+        if(!thisCtrl.config.selectedStep2) {
+          if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+            DesignStor.design.doorConfig.doorShapeIndex = '';
+            thisCtrl.config.selectedStep1 = 0;
+          } else {
+
+            DesignStor.design.sashShapeList = [];
+            switch (id) {
+              case 0:
+              case 1:
+                if (GlobalStor.global.doorKitsT1.length) {
+                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                } else if (GlobalStor.global.doorKitsT2.length) {
+                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                }
+                break;
+              case 2:
+                if (GlobalStor.global.doorKitsT1.length) {
+                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                }
+                break;
+              case 3:
+                if (GlobalStor.global.doorKitsT2.length) {
+                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                }
+                break;
+            }
+            DesignStor.design.doorConfig.doorShapeIndex = id;
+            thisCtrl.config.selectedStep1 = 1;
+            console.info('door config----', DesignStor.design.sashShapeList, DesignStor.design.doorConfig.doorShapeIndex);
+          }
         }
       }
     }
-    //---------- Select sash shape
+
+
+
+    /**---------- Select prifile/sash shape --------*/
+
     function selectSash(id) {
+      console.info('sash id++++',id);
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -918,9 +957,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           thisCtrl.config.selectedStep2 = 1;
         }
       }
+      DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
+      console.info('handes----', DesignStor.design.handleShapeList);
     }
-    //-------- Select handle shape
+
+
+
+    /**---------- Select handle shape --------*/
+
     function selectHandle(id) {
+      console.info('handle id++++',id);
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -930,9 +976,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           thisCtrl.config.selectedStep3 = 1;
         }
       }
+      DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
+      console.info('locks----', GlobalStor.global.doorLocks);
     }
-    //--------- Select lock shape
+
+
+
+    /**---------- Select lock shape --------*/
+
     function selectLock(id) {
+      console.info('lock id++++',id);
       if(DesignStor.design.doorConfig.lockShapeIndex === id) {
         DesignStor.design.doorConfig.lockShapeIndex = '';
         thisCtrl.config.selectedStep4 = 0;
@@ -942,7 +995,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    //--------- Close Door Configuration
+
+
+    /**---------- Close Door Configuration --------*/
+
     function closeDoorConfig() {
       if(thisCtrl.config.selectedStep3) {
         thisCtrl.config.selectedStep3 = 0;
@@ -963,11 +1019,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    //--------- Save Door Configuration
+
+
+    /**---------- Save Door Configuration --------*/
+
     function saveDoorConfig() {
       DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
+
+
+
+
 
 
 
@@ -1358,9 +1421,50 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     /** reload room img */
-    $("<img />").attr("src", "img/room/1.png");
-    $("<img />").attr("src", "img/room/33.gif");
-    $("<img />").attr("src", "img/room/333.gif");
+    //$("<img />").attr("src", "img/room/1.png");
+    //$("<img />").attr("src", "img/room/33.gif");
+    //$("<img />").attr("src", "img/room/333.gif");
+
+
+    function preloadImages(array) {
+      if (!preloadImages.list) {
+        preloadImages.list = [];
+      }
+      var list = preloadImages.list, i, img;
+      for (i = 0; i < array.length; i+=1) {
+        img = new Image();
+        img.onload = function() {
+          var index = list.indexOf(this);
+          if (index !== -1) {
+            // remove image from the array once it's loaded
+            // for memory consumption reasons
+            list.splice(index, 1);
+          }
+        };
+        list.push(img);
+        img.src = array[i];
+      }
+    }
+
+    preloadImages([
+      "img/room/1.png",
+      "img/room/4.png",
+      "img/room/6.png",
+      "img/room/7.png",
+      "img/room/8.png",
+      "img/room/9.png",
+      "img/room/10.png",
+      "img/room/11.png",
+      "img/room/12.png",
+      "img/room/26.png",
+      "img/room/121.png",
+      "img/room/122.png",
+      "img/room/123.png",
+      "img/room/fon.gif",
+      "img/room/33.gif",
+      "img/room/333.gif"
+    ]);
+
 
     /**============ METHODS ================*/
 
@@ -2063,6 +2167,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       /** for SVG_MAIN */
       //--------- set templateTEMP from ProductStor
       DesignServ.setDefaultTemplate();
+
+      //------ DOOR
+      DesignServ.prepareDoorConfig();
+      DesignServ.setDoorParams();
     }
 
 
@@ -2076,13 +2184,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         .then(function(data) {
           ProductStor.product.template = data;
         });
-    }
-
-
-
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-      DesignServ.setIndexDoorConfig();
     }
 
 
@@ -3779,7 +3880,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.NO_PRINT = $filter('translate')('history.NO_PRINT');
     thisCtrl.EXTRA_SASH = $filter('translate')('design.EXTRA_SASH');
     thisCtrl.CHANGE_SIZE = $filter('translate')('design.CHANGE_SIZE') ;
-
+    thisCtrl.DOOR_ERROR = $filter('translate')('design.DOOR_ERROR');
 
     /**============ METHODS ================*/
 
@@ -3787,6 +3888,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DesignStor.design.isGlassExtra = 0;
       DesignStor.design.isHardwareExtra = 0;
       HistoryStor.history.isNoPrint = 0;
+      DesignStor.design.isNoDoors = 0;
     }
 
 
@@ -8779,7 +8881,6 @@ function ErrorResult(code, message) {
     loginServ,
     MainServ,
     AnalyticsServ,
-    optionsServ,
     SVGServ,
     GlobalStor,
     DesignStor,
@@ -9503,46 +9604,62 @@ function ErrorResult(code, message) {
 
     /**---------------- DOORs--------------*/
 
-    //    function downloadDoorConfig() {
-    //      optionsServ.getDoorConfig(function (results) {
-    //        if (results.status) {
-    //          DesignStor.design.doorShapeList = results.data.doorType;
-    //          DesignStor.design.sashShapeList = results.data.sashType;
-    //          DesignStor.design.handleShapeList = results.data.handleType;
-    //          DesignStor.design.lockShapeList = results.data.lockType;
-    //---- set indexes
-    //          setIndexDoorConfig();
-    //        } else {
-    //          console.log(results);
-    //        }
-    //      });
-    //    }
 
-    function setDoorConfigIndex(list, configId) {
-      var listQty = list.length, i;
-      for(i = 0; i < listQty; i+=1) {
-        if(list[i].shapeId === configId) {
-          return i;
+    function prepareDoorConfig() {
+      var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      for(d = 0; d < doorTypeQty; d+=1) {
+        isExist = 0;
+        if(d === 2 && GlobalStor.global.doorKitsT1.length) {
+          isExist = 1;
+        } else if(d === 3 && GlobalStor.global.doorKitsT2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
+        }
+        if(isExist) {
+          DesignStor.designSource.doorShapeList.push(angular.copy(DesignStor.designSource.doorShapeData[d]));
         }
       }
     }
 
 
-    function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_shape_id
-      );
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id
-      );
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id
-      );
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id
-      );
+
+    function setDoorParams() {
+      DesignStor.designSource.doorConfig.doorShapeIndex = ProductStor.product.door_shape_id;
+      DesignStor.designSource.doorConfig.sashShapeIndex = ProductStor.product.door_sash_shape_id;
+      DesignStor.designSource.doorConfig.handleShapeIndex = ProductStor.product.door_handle_shape_id;
+      DesignStor.designSource.doorConfig.lockShapeIndex = ProductStor.product.door_lock_shape_id;
       //-------- set Default values in design
       DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+
+      if(GlobalStor.global.noDoorExist) {
+        //-------- show alert
+        DesignStor.design.isNoDoors = 1;
+      } else {
+        switch (ProductStor.product.door_shape_id) {
+          case 0:
+          case 1:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+            } else if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+          case 2:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+            }
+            break;
+          case 3:
+            if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+        }
+
+        DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
+        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+      }
     }
 
 
@@ -9556,7 +9673,7 @@ function ErrorResult(code, message) {
       //============ if Door Construction
       if(ProductStor.product.construction_type === 4) {
         //---- set indexes
-        setIndexDoorConfig();
+        setDoorParams();
       }
     }
 
@@ -11602,8 +11719,8 @@ function ErrorResult(code, message) {
 
       stepBack: stepBack,
       //---- door
-      //      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
+      prepareDoorConfig: prepareDoorConfig,
+      setDoorParams: setDoorParams
     };
 
     return thisFactory.publicObj;
@@ -12950,7 +13067,9 @@ function ErrorResult(code, message) {
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR,' +
-            ' beed_lamination_id INTEGER',
+            ' beed_lamination_id INTEGER,' +
+            ' in_door INTEGER,' +
+            ' doorstep_type INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -13241,7 +13360,12 @@ function ErrorResult(code, message) {
             'foreignKey': ''
           },
 
-
+          'lock_lists':{
+            'tableName': 'lock_lists',
+            'prop': 'list_id INTEGER,'+
+            'accessory_id INTEGER',
+            'foreignKey': ''
+          },
 
 //-------- inner temables
 //          'analytics': {
@@ -16538,6 +16662,159 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+    /**============ DOORs ===========*/
+
+
+    function sortingDoorKits(doorKits, doorKitsGlobal) {
+      var profsQty = GlobalStor.global.profiles.length,
+          profQty, tempKit,
+          frameDoor, sashDoor,
+          frameQty, sashQty, f, s,
+          currFrame, currSash;
+      if(doorKits.length) {
+        frameDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 2;
+        });
+        sashDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 3;
+        });
+        frameQty = frameDoor.length;
+        sashQty = sashDoor.length;
+
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            tempKit = {};
+            currFrame = 0;
+            currSash = 0;
+            for(f = 0; f < frameQty; f+=1) {
+              if(frameDoor[f].id === GlobalStor.global.profiles[profsQty][profQty].rama_list_id) {
+                currFrame = frameDoor[f];
+              }
+            }
+            for(s = 0; s < sashQty; s+=1) {
+              if(sashDoor[s].id === GlobalStor.global.profiles[profsQty][profQty].stvorka_list_id) {
+                currSash = sashDoor[s];
+              }
+            }
+            if(currFrame && currSash) {
+              tempKit.profileId = GlobalStor.global.profiles[profsQty][profQty].id;
+              tempKit.frame = currFrame;
+              tempKit.sash = currSash;
+              doorKitsGlobal.push(tempKit);
+            }
+          }
+        }
+      }
+    }
+
+
+    /**------ download Locks ------*/
+
+    function downloadLocks() {
+      var promises = GlobalStor.global.doorHandlers.map(function(item) {
+        var deff = $q.defer();
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lock_lists.tableName,
+          {'accessory_id': item.id},
+          'list_id'
+        ).then(function(lockIds) {
+          //console.info('--lockIds---', lockIds);
+          if(lockIds.length) {
+            var promises2 = lockIds.map(function(item2) {
+              var deff2 = $q.defer();
+              localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id})
+                .then(function(lockKid) {
+                  deff2.resolve(lockKid[0]);
+                });
+              return deff2.promise;
+            });
+            deff.resolve($q.all(promises2));
+          } else {
+            deff.resolve(0);
+          }
+        });
+        return deff.promise;
+      });
+
+      $q.all(promises).then(function(lockData) {
+        //console.info('--lockData---', lockData);
+        GlobalStor.global.doorLocks = angular.copy(lockData);
+      });
+    }
+
+
+
+    /**------ download Handles ------*/
+
+    function downloadDoorHandles() {
+      //36 офисная ручка , 35 нажимной гарнитур
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}).then(function(handlData) {
+        //console.warn('нажимной гарнитур', handlData);
+        GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+        localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}).then(function(handlData) {
+          //console.warn('офисная ручка', handlData);
+          GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+
+          /** download Locks */
+          downloadLocks();
+
+          //------- get link between handler and profile
+          var promises = GlobalStor.global.doorHandlers.map(function(item) {
+            var deff = $q.defer();
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'element_id': item.parent_element_id},
+              'profile_system_id'
+            ).then(function(profileIds) {
+              //console.info('--prof---', profileIds);
+              deff.resolve(profileIds);
+            });
+            return deff.promise;
+          });
+
+          $q.all(promises).then(function(profData) {
+            //console.info('--prof--222-', profData);
+            var handleQty = GlobalStor.global.doorHandlers.length, h;
+            for(h = 0; h < handleQty; h+=1) {
+              GlobalStor.global.doorHandlers[h].profIds = angular.copy(profData[h]);
+            }
+            //console.warn('ручкs', GlobalStor.global.doorHandlers);
+          });
+        });
+
+      });
+
+
+    }
+
+
+    /**------ download Doors ------*/
+
+    function downloadDoorKits() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'in_door': 1}).then(function(doorData) {
+        var door = angular.copy(doorData),
+            doorKitsT1, doorKitsT2,
+            doorQty = door.length;
+        if (doorQty) {
+          //----- sorting door elements as to doorstep_type
+          doorKitsT1 = door.filter(function(item) {
+            return item.doorstep_type === 1;
+          });
+          doorKitsT2 = door.filter(function(item) {
+            return item.doorstep_type === 2;
+          });
+          //-------- seperate by frame or sash
+          sortingDoorKits(doorKitsT1, GlobalStor.global.doorKitsT1);
+          sortingDoorKits(doorKitsT2, GlobalStor.global.doorKitsT2);
+
+          /** Handlers */
+          downloadDoorHandles();
+        } else {
+          GlobalStor.global.noDoorExist = 1;
+        }
+      });
+    }
 
 
 
@@ -16592,6 +16869,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Door Kits */
+                                  downloadDoorKits();
                                   /** download Hardware Limits */
                                   downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */
@@ -16762,7 +17041,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function saveUserEntry() {
-      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      $timeout(function() {
+        localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      }, 5000);
+
 //TODO offline
 //      ++UserStor.userInfo.entries;
 //      var data = {entries: UserStor.userInfo.entries},
@@ -17343,13 +17625,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
           /** send analytics data to Server*/
           //------ profile
-          AnalyticsServ.sendAnalyticsData(
-            UserStor.userInfo.id,
-            OrderStor.order.id,
-            ProductStor.product.template_id,
-            ProductStor.product.profile.id,
-            1
-          );
+          $timeout(function() {
+            AnalyticsServ.sendAnalyticsData(
+              UserStor.userInfo.id,
+              OrderStor.order.id,
+              ProductStor.product.template_id,
+              ProductStor.product.profile.id,
+              1
+            );
+          }, 5000);
         }
       });
       return deferred.promise;
@@ -23594,79 +23878,38 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isHardwareExtra: 0,
 
         //----- Door
-        doorShapeList: [
+        isNoDoors: 0,
+        doorShapeData: [
           {
-            shapeId: 1,
             shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
             shapeIcon: 'img/door-config/doorstep.png',
             shapeIconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            shapeId: 2,
             shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
             shapeIcon: 'img/door-config/no-doorstep.png',
             shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            shapeId: 3,
             shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
             shapeIcon: 'img/door-config/doorstep-al1.png',
             shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            shapeId: 4,
             shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
             shapeIcon: 'img/door-config/doorstep-al2.png',
             shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
-        sashShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 3,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
-          }
-        ],
-        handleShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
-            shapeIcon: 'img/door-config/lever-handle.png',
-            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
-            shapeIcon: 'img/door-config/standart-handle.png',
-            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
-          }
-        ],
-        lockShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
-            shapeIcon: 'img/door-config/onelock.png',
-            shapeIconSelect: 'img/door-config-selected/onelock.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
-            shapeIcon: 'img/door-config/multilock.png',
-            shapeIconSelect: 'img/door-config-selected/multilock.png'
-          }
-        ],
+        doorShapeList: [],
+        sashShapeList: [],
+        handleShapeList: [],
+        lockShapeList: [],
         doorConfig: {
-          doorShapeIndex: 0,
-          sashShapeIndex: 0,
-          handleShapeIndex: 0,
-          lockShapeIndex: 0
+          doorShapeIndex: '',
+          sashShapeIndex: '',
+          handleShapeIndex: '',
+          lockShapeIndex: ''
         }
 
       },
@@ -23769,6 +24012,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //------ Add Elements
         addElementsAll: [],
         tempAddElements: [],
+
+        //-------- Door
+        noDoorExist: 0,
+        doorKitsT1: [],
+        doorKitsT2: [],
+        doorHandlers: [],
+        doorLocks: [],
 
         //------ Cart
         supplyData: [],
@@ -24065,10 +24315,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           [] // 10 - others
         ],
 
-        door_shape_id: 1,
-        door_sash_shape_id: 1,
-        door_handle_shape_id: 1,
-        door_lock_shape_id: 1,
+        door_shape_id: 0,
+        door_sash_shape_id: 0,
+        door_handle_shape_id: 0,
+        door_lock_shape_id: 0,
 
         template_price: 0,
         addelem_price: 0,
@@ -24274,9 +24524,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
         DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
-        SASH_TYPE1: 'Interzimmer',
-        SASH_TYPE2: 'Tür- t-bildlich',
-        SASH_TYPE3: 'Fenster',
+        //SASH_TYPE1: 'Interzimmer',
+        //SASH_TYPE2: 'Tür- t-bildlich',
+        //SASH_TYPE3: 'Fenster',
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
@@ -24362,7 +24612,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -24644,9 +24895,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
         DOOR_TYPE3: 'aluminum threshold, type',
-        SASH_TYPE1: 'the interroom',
-        SASH_TYPE2: 'the door T-shaped',
-        SASH_TYPE3: 'the window',
+        //SASH_TYPE1: 'the interroom',
+        //SASH_TYPE2: 'the door T-shaped',
+        //SASH_TYPE3: 'the window',
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
@@ -24732,7 +24983,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -25012,9 +25264,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'su perimetro',
         DOOR_TYPE2: 'senza soglia',
         DOOR_TYPE3: 'la soglia di alluminio, battere a macchina',
-        SASH_TYPE1: "l'intercamera",
-        SASH_TYPE2: 'la porta T-shaped',
-        SASH_TYPE3: 'la finestra',
+        //SASH_TYPE1: "l'intercamera",
+        //SASH_TYPE2: 'la porta T-shaped',
+        //SASH_TYPE3: 'la finestra',
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
@@ -25100,7 +25352,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -25259,357 +25512,358 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .constant('romanianDictionary', {
 
       common_words: {
-        CHANGE: 'modifică',
-        MONTHS: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Novembie, Decembrie',
+        CHANGE: 'Modifică',
+        MONTHS: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie',
         MONTHS_SHOT: 'Ian, Feb, Mart, Apr, Mai, Iun, Iul, Aug, Sept, Oct, Nov, Dec',
-        MONTHA: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Novembie, Decembrie',
-        MONTH_LABEL: 'lună',
-        MONTHA_LABEL: 'lunii',
+        MONTHA: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie',
+        MONTH_LABEL: 'luna',
+        MONTHA_LABEL: 'luna',
         MONTHS_LABEL: 'luni',
-        ALL: 'toate',
-        MIN: 'minimum',
-        MAX: 'maximum',
+        ALL: 'Toate',
+        MIN: 'min.',
+        MAX: 'max.',
         //----- confirm dialogs
-        BUTTON_Y: 'Da',
-        BUTTON_N: 'Nu',
-        DELETE_PRODUCT_TITLE: 'STERGE!',
-        DELETE_PRODUCT_TXT: 'Doriți să eliminați produsul?',
-        DELETE_ORDER_TITLE: 'Sterge comanda!',
-        DELETE_ORDER_TXT: 'Doriți să anulați comanda?',
-        COPY_ORDER_TITLE: 'Copierea!',
-        COPY_ORDER_TXT: 'Doriți să facă o copie la comandă?',
-        SEND_ORDER_TITLE: 'în producție!',
-        SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
-        NEW_TEMPLATE_TITLE: 'Template changing',
-        TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderi de date!',
-        SELECT: 'Select',
+        BUTTON_Y: 'DA',
+        BUTTON_N: 'NU',
+        DELETE_PRODUCT_TITLE: 'Ștergere!',
+        DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
+        DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
+        DELETE_ORDER_TXT: 'Doriți să ștergeți comanda?',
+        COPY_ORDER_TITLE: 'Copiere!',
+        COPY_ORDER_TXT: 'Doriți să faceți o copie a comenzii?',
+        SEND_ORDER_TITLE: 'În producere!',
+        SEND_ORDER_TXT: 'Doriți să trimiteți comanda spre executare?',
+        NEW_TEMPLATE_TITLE: 'Modificarea șablonului',
+        TEMPLATE_CHANGES_LOST: 'Modificările în șablon nu vor fi salvate! Doriți să  continuați?',
+        PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderea datelor!',
+        SELECT: 'Alege',
         AND: 'și',
         OK: 'OK',
-        BACK: 'Back',
+        BACK: 'Înapoi',
         LETTER_M: 'm'
       },
       login: {
-        ENTER: 'autentificare',
-        PASS_CODE: 'Spune-i managerului acest cod.',
-        YOUR_CODE: 'codul dvs: ',
+        ENTER: 'Intră',
+        PASS_CODE: 'Comunicați acest cod managerului.',
+        YOUR_CODE: 'Codul Dvs.: ',
         EMPTY_FIELD: 'Completați acest câmp.',
-        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
-        //WRONG_NUMBER: 'numar incorrect.',
-        SHORT_NAME: 'Too short name',
-        //SHORT_PASSWORD: 'parola e prea mica.',
-        //SHORT_PHONE: 'Too little phone number.',
-        IMPORT_DB_START: 'Stai, a început încărcarea de date',
-        IMPORT_DB_FINISH: 'Vă mulțumim pentru descărcarea este completă',
-        LOGIN: 'Login',
-        PASSWORD: 'Parola',
-        MOBILE: 'telefon mobil',
-        REGISTRATION: 'înregistrare',
-        SELECT_COUNTRY: 'Select country',
-        SELECT_REGION: 'Select region',
-        SELECT_CITY: 'Select city',
-        USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
-        USER_NOT_EXIST: 'Sorry, but this user not exists! Registrate please.',
-        USER_NOT_ACTIVE: 'Sorry, but your profile is not active. Please check your email.',
-        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
-        SELECT_PRODUCER: 'Choose the producer',
-        SELECT_FACTORY: 'Please select the producer',
-        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
+        WRONG_LOGIN: 'Pentru numele de utilizator (parolă) folosiți doar cifre, litere latine și simbolurile  "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Număr incorect.',
+        SHORT_NAME: 'Nume prea scurt.',
+        //SHORT_PASSWORD: 'Parolă prea scurtă.',
+        //SHORT_PHONE: 'Număr de telefon prea scurt.',
+        IMPORT_DB_START: 'Așteptați, a început încărcarea bazei de date',
+        IMPORT_DB_FINISH: 'Vă mulțumim, încărcarea a luat sfârșit',
+        LOGIN: 'Nume de utilizator',
+        PASSWORD: 'Parolă',
+        MOBILE: 'Telefon mobil',
+        REGISTRATION: 'Înregistrare',
+        SELECT_COUNTRY: 'Selectați țara',
+        SELECT_REGION: 'Selectați regiunea',
+        SELECT_CITY: 'Selectați orașul',
+        USER_EXIST: 'Un astfel de utilizator există deja! Încercați încă o dată.',
+        USER_NOT_EXIST: 'Un astfel de utilizator nu există. Înregistrați-vă.',
+        USER_NOT_ACTIVE: 'Nu ați activat profilul Dvs. Verificați adresa de e-mail.',
+        USER_CHECK_EMAIL: 'Mesajul de confirmare a fost expediat pe adresa Dvs. de e-mail.',
+        SELECT_PRODUCER: 'Selectați producătorul',
+        SELECT_FACTORY: 'Nu ați selectat producătorul',
+        USER_PASSWORD_ERROR: 'Parolă incorectă!',
         OFFLINE: 'Nu există conexiune la Internet!',
-        IMPORT_DB: 'Baze de date începe descărcarea! Va rugam asteptati! '
+        IMPORT_DB: 'A început încărcarea Bazei de date! Vă rugăm să așteptați!'
       },
       mainpage: {
         MM: ' mm ',
-        CLIMATE_ZONE: 'zona climatica ',
+        CLIMATE_ZONE: 'zonă climatică',
         THERMAL_RESISTANCE: 'transfer de căldură',
-        AIR_CIRCULATION: 'coeficientul circulatiei aerului',
-        NAVMENU_GEOLOCATION: 'Selectați locația',
-        NAVMENU_CURRENT_GEOLOCATION: 'Locul de amplasare actual',
-        NAVMENU_CURRENT_CALCULATION: 'calcul actual',
-        NAVMENU_CART: 'cosul de cumparaturi',
-        NAVMENU_ADD_ELEMENTS: 'elemente suplimentare',
-        NAVMENU_ALL_CALCULATIONS: 'Istoric comenzi',
+        AIR_CIRCULATION: 'coeficientul schimbului de aer',
+        NAVMENU_GEOLOCATION: 'Alege amplasarea',
+        NAVMENU_CURRENT_GEOLOCATION: 'Amplasarea curentă',
+        NAVMENU_CURRENT_CALCULATION: 'Calcul curent',
+        NAVMENU_CART: 'Coșul de calcul',
+        NAVMENU_ADD_ELEMENTS: 'Elemente supl.',
+        NAVMENU_ALL_CALCULATIONS: 'Istoricul comenzilor',
         NAVMENU_SETTINGS: 'Setări',
         NAVMENU_MORE_INFO: 'Mai multe informații',
-        NAVMENU_VOICE_HELPER: 'Сontrolul voce-activat',
-        NAVMENU_CALCULATIONS: 'calcule',
-        NAVMENU_APPENDIX: 'Propunere',
-        NAVMENU_NEW_CALC: '+Calcul Nou',
-        CONFIGMENU_CONFIGURATION: 'Configurația și dimensiunile',
-        CONFIGMENU_SIZING: 'Lățime * Înălțime',
-        CONFIGMENU_PROFILE: 'profil',
-        CONFIGMENU_GLASS: 'geam termopan',
-        CONFIGMENU_HARDWARE: 'furnitura ',
-        CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
-        WHITE_LAMINATION: 'alb',
+        NAVMENU_VOICE_HELPER: 'Comenzi vocale',
+        NAVMENU_CALCULATIONS: 'Calcule',
+        NAVMENU_APPENDIX: 'Anexă',
+        NAVMENU_NEW_CALC: '+Calcul nou',
+        CONFIGMENU_CONFIGURATION: 'Configurație și dimensiuni',
+        CONFIGMENU_SIZING: 'lățime * înălțime',
+        CONFIGMENU_PROFILE: 'Profil',
+        CONFIGMENU_GLASS: 'Termopan',
+        CONFIGMENU_HARDWARE: 'Furnitură',
+        CONFIGMENU_LAMINATION: 'Laminare',
+        CONFIGMENU_LAMINATION_TYPE: 'fațadă  în cameră / fațadă',
+        WHITE_LAMINATION: 'Albă',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
-        CONFIGMENU_IN_CART: 'Adaugă in coș',
+        CONFIGMENU_IN_CART: 'În coș',
         VOICE_SPEACH: 'Vorbiți...',
-        COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION: 'Template selection',
-        CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
+        COMMENT: 'Lăsați mențiunile cu privire la comandă aici.',
+        ROOM_SELECTION: 'Selectare șablon',
+        CONFIGMENU_NO_ADDELEMENTS: 'Elemente supl. nu au fost alese',
         HEATCOEF_VAL: 'W',
-        TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
-        PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Selectați toate',
-        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
+        TEMPLATE_TIP: 'Pentru a modifica dimensiunile apăsați aici',
+        PROFILE_TIP: 'Pentru a selecta profilul apăsați aici',
+        GLASS_TIP: 'Pentru a selecta termopanul apăsați aici',
+        SELECT_ALL: 'Selectează totul',
+        SELECT_GLASS_WARN: 'Faceți un clic pe termopanul, pe care doriți să-l modificați.'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
         TEMPLATE_BALCONY: 'Balcon',
         TEMPLATE_DOOR: 'Ușă',
         TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
-        TEMPLATE_EDIT: 'Editare',
-        TEMPLATE_DEFAULT: 'Proiect Standard',
+        TEMPLATE_EDIT: 'Editează',
+        TEMPLATE_DEFAULT: 'Proiect implicit',
         COUNTRY: 'țara',
-        BRAND: 'marcă comercială',
-        HEAT_INSULATION: 'izolație termică',
-        NOICE_INSULATION: 'izolare fonica',
+        BRAND: 'marca comercială',
+        HEAT_INSULATION: 'izolare termică',
+        NOICE_INSULATION: 'izolare fonică',
         CORROSION_COEFF: 'anticoroziune',
-        BURGLAR_COEFF: 'hoț',
-        LAMINAT_INSIDE: 'in camera',
-        LAMINAT_OUTSIDE: 'față',
-        ONE_WINDOW_TYPE: 'One-casement',
-        TWO_WINDOW_TYPE: 'Two-casement',
-        THREE_WINDOW_TYPE: 'Three-leaf',
-        CAMERa: 'cameras',
-        CAMER: 'cameras',
-        CAMERs: 'cameras',
-        ENERGY_SAVE: '+energy saving',
-        DOOR_TYPE1: 'on perimeter',
-        DOOR_TYPE2: 'without threshold',
-        DOOR_TYPE3: 'aluminum threshold, type',
-        SASH_TYPE1: 'the interroom',
-        SASH_TYPE2: 'the door T-shaped',
-        SASH_TYPE3: 'the window',
-        HANDLE_TYPE1: 'press set',
-        HANDLE_TYPE2: 'standard office handle',
-        LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch',
-        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
-        EXTRA_GLASS2: " для данной конфигурации конструкции"
+        BURGLAR_COEFF: 'antiefracție',
+        LAMINAT_INSIDE: 'în cameră',
+        LAMINAT_OUTSIDE: 'fațadă',
+        ONE_WINDOW_TYPE: 'Cu un canat',
+        TWO_WINDOW_TYPE: 'Cu două canaturi',
+        THREE_WINDOW_TYPE: 'Cu trei canaturi',
+        CAMERa: 'cameră',
+        CAMER: 'camere',
+        CAMERs: 'camere',
+        ENERGY_SAVE: '+economisire de energie',
+        DOOR_TYPE1: 'pe perimetru',
+        DOOR_TYPE2: 'fără prag',
+        DOOR_TYPE3: 'prag din aluminiu, tip',
+        //SASH_TYPE1: 'de interior',
+        //SASH_TYPE2: 'pentru ușă, de tip T',
+        //SASH_TYPE3: 'pentru fereastră',
+        HANDLE_TYPE1: 'garnitură de mâner',
+        HANDLE_TYPE2: 'mâner standard de birou',
+        LOCK_TYPE1: 'unisafe cu dispozitiv de blocare',
+        LOCK_TYPE2: 'multisafe cu dispozitiv de blocare',
+        EXTRA_GLASS1: "Nu exisă posibilitate de montare a termopanului ",
+        EXTRA_GLASS2: "pentru o astfel de construcție"
       },
       add_elements: {
-        CHOOSE: 'Alege',
-        ADD: 'Adauga',
-        GRID: 'plasă contra țânțarilor',
-        VISOR: 'parasolară',
-        SPILLWAY: 'scurgere',
-        OUTSIDE: 'pante exterioare',
+        CHOOSE: 'Selectează',
+        ADD: 'Adaugă',
+        GRID: 'plasă de protecție împotriva țânțarilor',
+        VISOR: 'glafuri exterioare',
+        SPILLWAY: 'glafuri exterioare',
+        OUTSIDE: 'cadre exterioare',
         LOUVERS: 'jaluzele',
-        INSIDE: 'pante interne',
+        INSIDE: 'cadre interioare',
         CONNECTORS: 'conector',
-        FAN: 'micro ventilare',
+        FAN: 'micro-aerisire',
         WINDOWSILL: 'pervaz',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
-        GRIDS: 'plase de țânțari',
-        VISORS: 'viziere',
-        SPILLWAYS: 'scurgeri',
-        WINDOWSILLS: 'Pervaze',
-        HANDLELS: 'manere',
-        NAME_LABEL: 'nume',
-        ARTICUL_LABEL: 'referință',
-        QTY_LABEL: 'Bucăți',
-        SIZE_LABEL: 'dimensiune',
+        GRIDS: 'plase de protecție împotriva țânțarilor',
+        VISORS: 'apărători',
+        SPILLWAYS: 'glafuri pentru evacuarea apei',
+        WINDOWSILLS: 'pervazuri',
+        HANDLELS: 'mânere',
+        NAME_LABEL: 'denumire',
+        ARTICUL_LABEL: 'articol',
+        QTY_LABEL: 'buc.',
+        SIZE_LABEL: 'dimensiuni',
         WIDTH_LABEL: 'lățime',
         HEIGHT_LABEL: 'înălțime',
-        OTHER_ELEMENTS1: 'încă',
-        OTHER_ELEMENTS2: 'componenta...',
-        SCHEME_VIEW: 'schematic',
-        LIST_VIEW: 'Lista',
-        INPUT_ADD_ELEMENT: 'Adaugă Componenta',
-        CANCEL: 'anulare',
-        TOTAL_PRICE_TXT: 'Total componente suplimentare în valoare de',
+        OTHER_ELEMENTS1: 'Mai multe',
+        OTHER_ELEMENTS2: 'componentei...',
+        SCHEME_VIEW: 'Schematic',
+        LIST_VIEW: 'Listă',
+        INPUT_ADD_ELEMENT: 'Adaugă component',
+        CANCEL: 'Anulare',
+        TOTAL_PRICE_TXT: 'Total componenți suplimentari în sumă de:',
         ELEMENTS: 'componente',
-        ELEMENT: 'component',
-        ELEMENTA: 'componenta'
+        ELEMENT: 'componentă',
+        ELEMENTA: 'componentei'
       },
       add_elements_menu: {
-        TIP: 'Selectați un element din listă',
-        EMPTY_ELEMENT: 'fără elementul',
-        TAB_NAME_SIMPLE_FRAME: 'construcție simplă',
-        TAB_NAME_HARD_FRAME: 'construcție component',
-        TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
+        TIP: 'Selectați elementul din listă',
+        EMPTY_ELEMENT: 'Fără element',
+        TAB_NAME_SIMPLE_FRAME: 'Structură simplă',
+        TAB_NAME_HARD_FRAME: 'Structură din materiale compozite',
+        TAB_EMPTY_EXPLAIN: 'Selectați din listă primul element, pentru a începe crearea structurii.'
       },
       design: {
-        SASH_SHAPE: 'cercevea',
-        ANGEL_SHAPE: 'unghiuri',
-        IMPOST_SHAPE: 'impost',
-        ARCH_SHAPE: 'arcuri',
-        POSITION_SHAPE: 'poziția',
-        UNITS_DESCRIP: 'Unitățile de măsură sunt în mm',
-        PROJECT_DEFAULT: 'Proiect Standard',
-        DOOR_CONFIG_LABEL: 'configurația uși',
-        DOOR_CONFIG_DESCTIPT: 'cadru de ușă',
-        SASH_CONFIG_DESCTIPT: 'ori usi',
+        SASH_SHAPE: 'canaturi',
+        ANGEL_SHAPE: 'colțuri',
+        IMPOST_SHAPE: 'imposte',
+        ARCH_SHAPE: 'arce',
+        POSITION_SHAPE: 'poziție',
+        UNITS_DESCRIP: 'Ca unitate de măsură sunt folosiți milimetrii',
+        PROJECT_DEFAULT: 'Proiect implicit',
+        DOOR_CONFIG_LABEL: 'configurația ușii',
+        DOOR_CONFIG_DESCTIPT: 'cadrul ușii',
+        SASH_CONFIG_DESCTIPT: 'canatul ușii',
         HANDLE_CONFIG_DESCTIPT: 'mâner',
-        LOCK_CONFIG_DESCTIPT: 'blocare a ușii',
+        LOCK_CONFIG_DESCTIPT: 'lacăt',
         STEP: 'pas',
-        LABEL_DOOR_TYPE: 'Selectaţi un toc de proiectare a ușii',
-        LABEL_SASH_TYPE: 'Selectați tipul de cercevea la ușă',
-        LABEL_HANDLE_TYPE: 'Selectați tipul de mâner',
-        LABEL_LOCK_TYPE: 'Selectați tipul de blocare',
-        VOICE_SWITCH_ON: "Modul Voce este activat",
-        VOICE_NOT_UNDERSTAND: 'nu este clar',
-        VOICE_SMALLEST_SIZE: 'prea mic',
-        VOICE_BIGGEST_SIZE: "prea mare",
-        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
-        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
-        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'nu Este Disponibil!',
-        TEST_STAGE: "Находится в стадии тестирования",
-        GLASS: "Стеклопакет",
-        GLASS_SIZE: "размером",
-        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
-        BY_WIDTH: "by width",
-        BY_HEIGHT: "by height",
-        GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
-        EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        LABEL_DOOR_TYPE: 'Selectați structura cadrului ușii',
+        LABEL_SASH_TYPE: 'Selectați tipul canatului ușii',
+        LABEL_HANDLE_TYPE: 'Selectați tipul mânerului',
+        LABEL_LOCK_TYPE: 'Selectați tipul lacătului',
+        VOICE_SWITCH_ON: "regimul vocal este activ",
+        VOICE_NOT_UNDERSTAND: 'Nu este clar',
+        VOICE_SMALLEST_SIZE: 'dimensiuni prea mici',
+        VOICE_BIGGEST_SIZE: "dimensiuni prea mari",
+        VOICE_SMALL_GLASS_BLOCK: "golul pentru pătrunderea luminii prea mic",
+        SQUARE_EXTRA: "Suprafața construcției depășește valorile admisibile.",
+        DIM_EXTRA: "Dimensiunile construcției depășesc valorile admisibile. ",
+        NOT_AVAILABLE: 'Nu este disponibil!',
+        TEST_STAGE: "Se află la etapa de testare.",
+        GLASS: "Termopanul",
+        GLASS_SIZE: "cu dimensiunea de",
+        NO_MATCH_RANGE: "nu corespunde diapazonului permis",
+        BY_WIDTH: "după lățime",
+        BY_HEIGHT: "după înălțime",
+        GLASS_SQUARE: "cu suprafața de",
+        MAX_VALUE_HIGHER: "depășește valorile maxime admisibile",
+        EXTRA_SASH: "Dimensiunea curentă a canatului după falț ",
+        CHANGE_SIZE: "Pentru salvarea construcției modificați dimensiunile.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
-        SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
-        DRAFT_VIEW: 'calcule Ciorne',
-        HISTORY_VIEW: 'istoria calculelor',
+        SEARCH_PLACEHOLDER: 'Căutare după cuvinte-cheie',
+        DRAFT_VIEW: 'Ciorne cu calcule',
+        HISTORY_VIEW: 'Istoricul calculelor',
         PHONE: 'telefon',
         CLIENT: 'client',
-        ADDRESS: 'adresa',
-        FROM: 'de la ',
-        UNTIL: 'pînă la ',
-        PAYMENTS: 'achitare prin',
-        ALLPRODUCTS: 'Construcți',
-        ON: 'pe',
-        DRAFT: 'ciornă',
-        DATE_RANGE: 'intervalul de date',
-        ALL_TIME: 'Pentru tot timpul',
-        SORTING: 'Sortarea',
-        NEWEST_FIRST: 'după timp:cele noi primele',
-        NEWEST_LAST: 'după timp:cele noi la urmă',
-        SORT_BY_TYPE: 'După tipul',
-        SORT_SHOW: 'Arată',
-        SORT_SHOW_ACTIVE: 'Doar activi',
-        SORT_SHOW_WAIT: 'Numai în așteptarea',
-        SORT_SHOW_DONE: 'Numai finalizat',
-        BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
-        NOT_FIND: 'nimic nu a fost găsit',
-        WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus',
-        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
+        ADDRESS: 'adresă',
+        FROM: 'de la',
+        UNTIL: 'până la',
+        PAYMENTS: 'plăți pentru',
+        ALLPRODUCTS: 'articole',
+        ON: 'la',
+        DRAFT: 'Ciornă',
+        DATE_RANGE: 'Diapazon de zile',
+        ALL_TIME: 'Pentru toată perioada',
+        SORTING: 'Clasificare',
+        NEWEST_FIRST: 'După dată: cele mai recente la început',
+        NEWEST_LAST: 'După dată: cele mai recente la sfârșit',
+        SORT_BY_TYPE: 'După tip',
+        SORT_SHOW: 'Afișează',
+        SORT_SHOW_ACTIVE: 'Doar cele active',
+        SORT_SHOW_WAIT: 'Doar cele în așteptare',
+        SORT_SHOW_DONE: 'Doar cele finalizate',
+        BY_YOUR_REQUEST: 'Conform solicitării Dvs.',
+        NOT_FIND: 'nu au fost găsite rezultate',
+        WAIT_MASTER: 'se așteaptă specialistul în măsurări',
+        INCLUDED: 'incluse',
+        NO_PRINT: "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet."
       },
       cart: {
-        ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
-        ADD_ORDER: 'adaugă produsul',
-        PRODUCT_QTY: 'numărul de produse',
-        LIGHT_VIEW: 'Vizualizare scurtă',
-        FULL_VIEW: 'Vizualizare completă',
-        DELIVERY: 'livrare',
-        SELF_EXPORT: 'Fara livrare',
-        FLOOR: 'etajul',
-        ASSEMBLING: 'instalare',
+        ALL_ADD_ELEMENTS: 'Toate elementele supl. ale comenzii',
+        ADD_ORDER: 'Adaugă articol',
+        PRODUCT_QTY: 'numărul articolelor',
+        LIGHT_VIEW: 'Tip abreviat',
+        FULL_VIEW: 'Tip complet',
+        DELIVERY: 'Livrare',
+        SELF_EXPORT: 'transport cu mijloace proprii',
+        FLOOR: 'etaj',
+        ASSEMBLING: 'Montare',
         WITHOUT_ASSEMBLING: 'fără montare',
         FREE: 'gratuit',
-        PAYMENT_BY_INSTALMENTS: 'Plata în rate',
-        WITHOUT_INSTALMENTS: 'fără rate',
-        DELIVERY_DATE: 'data de livrare',
-        TOTAL_PRICE_LABEL: 'în total la livrare ',
-        MONTHLY_PAYMENT_LABEL: 'plata lunara cîte',
-        DATE_DELIVERY_LABEL: 'La livrare',
-        FIRST_PAYMENT_LABEL: 'prima achitare',
-        ORDER: 'a comanda',
-        MEASURE: 'Măsura',
-        READY: 'Gata',
-        CALL_MASTER: 'chemarea inginerului pentru calcul',
-        CALL_MASTER_DESCRIP: 'Pentru a solicita inginerul, avem nevoie de ceva informatie despre dvs. Ambele campurile sunt obligatorii.',
-        CLIENT_LOCATION: 'locație',
-        CLIENT_ADDRESS: 'adresa',
-        CLIENT_HOUSE: "Буд",
-        CLIENT_FLAT: "Кв",
-        CLIENT_FLOOR: "Пов",
-        CALL_ORDER: 'Pentru a calcula',
-        CALL_ORDER_DESCRIP: 'Pentru a îndeplini comanda,este necesar informatie despre dvs.',
-        CALL_ORDER_CLIENT_INFO: 'Informații client (câmpuri obligatorii):',
-        CLIENT_NAME: 'numele prenumele patronimicul',
-        CALL_ORDER_DELIVERY: 'livrarea comenzi pe',
+        PAYMENT_BY_INSTALMENTS: 'În rate',
+        WITHOUT_INSTALMENTS: 'fără achitare în rate',
+        DELIVERY_DATE: 'Data livrării',
+        TOTAL_PRICE_LABEL: 'Total livrare la',
+        MONTHLY_PAYMENT_LABEL: 'plăți lunare pentru',
+        DATE_DELIVERY_LABEL: 'în cazul livrării la',
+        FIRST_PAYMENT_LABEL: 'Prima plată',
+        ORDER: 'Comandă',
+        MEASURE: 'Măsoară',
+        READY: 'Finalizat',
+        CALL_MASTER: 'Chemarea specialistului în măsurări, pentru calcule',
+        CALL_MASTER_DESCRIP: 'Pentru chemarea specialistului în măsurări trebuie să cunoaștem unele detalii. Ambele câmpuri sunt ',
+        CLIENT_LOCATION: 'Amplasare',
+        CLIENT_ADDRESS: 'Adresa',
+        CLIENT_HOUSE: "Casă",
+        CLIENT_FLAT: "Ap.",
+        CLIENT_FLOOR: "Et.",
+        CALL_ORDER: 'Perfectarea comenzii pentru calculare',
+        CALL_ORDER_DESCRIP: 'Pentru a executa comanda, trebuie să cunoaștem informații despre Dvs.',
+        CALL_ORDER_CLIENT_INFO: 'Informații despre client (a se completa neapărat):',
+        CLIENT_NAME: 'Nume Prenume Patronimic',
+        CALL_ORDER_DELIVERY: 'Livrare comandă la',
         CALL_ORDER_TOTAL_PRICE: 'Total',
-        CALL_ORDER_ADD_INFO: 'suplimentar (completarea la dorinţă):',
-        CLIENT_EMAIL: 'poșta electronică',
-        ADD_PHONE: 'telefon suplimentar',
-        CALL_CREDIT: 'Efectuarea rate și calculul comenzi',
-        CALL_CREDIT_DESCRIP: 'Pentru a aranja rate și îndeplini comanda, avem ceva pentru tine să știu.',
-        CALL_CREDIT_CLIENT_INFO: 'Plata în rate:',
-        CREDIT_TARGET: 'Scopul clearance de rate',
-        CLIENT_ITN: 'Cod fiscal individual',
-        CALL_START_TIME: 'sunați de la:',
-        CALL_END_TIME: 'pînă la :',
-        CALL_CREDIT_PARTIAL_PRICE: 'pe ',
-        ADDELEMENTS_EDIT_LIST: 'redactarea listei ...',
-        ADDELEMENTS_PRODUCT_COST: 'într-o construcţie',
-        HEAT_TRANSFER: 'transferul de căldură',
-        WRONG_EMAIL: 'poșta electronica este incorectă',
-        LINK_BETWEEN_COUPLE: 'între o pereche de',
-        LINK_BETWEEN_ALL: 'printre toate',
-//        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
-        CLIENT_SEX: "Sex",
+        CALL_ORDER_ADD_INFO: 'Suplimentar (a se completa la dorință):',
+        CLIENT_EMAIL: 'E-mail',
+        ADD_PHONE: 'Număr de telefon suplimentar',
+        CALL_CREDIT: 'Achitare în rate și perfectarea comenzii pentru calculare',
+        CALL_CREDIT_DESCRIP: 'Pentru a beneficia de achitarea în rate, trebuie să cunoaștem informații despre Dvs.',
+        CALL_CREDIT_CLIENT_INFO: 'Achitare în rate:',
+        CREDIT_TARGET: 'Scopul achitării în rate',
+        CLIENT_ITN: 'Codul fiscal individual',
+        CALL_START_TIME: 'Disponibil pentru apeluri:',
+        CALL_END_TIME: 'de la:',
+        CALL_CREDIT_PARTIAL_PRICE: 'până la',
+        ADDELEMENTS_EDIT_LIST: 'Editează lista ...',
+        ADDELEMENTS_PRODUCT_COST: 'într-un articol',
+        HEAT_TRANSFER: 'transfer de căldură',
+        WRONG_EMAIL: 'Adresă de e-mail incorectă',
+        LINK_BETWEEN_COUPLE: 'între o pereche',
+        LINK_BETWEEN_ALL: 'între toți',
+//        LINK_DELETE_ALL_GROUPE: 'șterge totul',
+        CLIENT_SEX: 'Sex',
         CLIENT_SEX_M: 'M',
-        CLIENT_SEX_F: "F",
-        CLIENT_AGE: "Age",
-        CLIENT_AGE_OLDER: "mai vechi",
-        //CLIENT_EDUCATION: "Educație",
-        //CLIENT_EDUC_MIDLE: "Media",
-        //CLIENT_EDUC_SPEC: "profesional mediu.",
-        //CLIENT_EDUC_HIGH: "superior",
-        CLIENT_EDUCAȚIE: "Principalul criteriu de alegere",
-        CLIENT_EDUC_MIDLE: "preț bun",
-        CLIENT_EDUC_SPEC: "filtru de imagine",
-        CLIENT_EDUC_HIGH: "profilul de brand și hardware ",
-        CLIENT_EDUC_4:" vânzător Recomandări",
-        CLIENT_OCCUPATION: "Ocuparea forței de muncă",
-        CLIENT_OCCUP_WORKER: "angajat",
-        CLIENT_OCCUP_HOUSE: "Casnică",
-        CLIENT_OCCUP_BOSS: "Antreprenor",
-        CLIENT_OCCUP_STUD: "Student",
-        CLIENT_OCCUP_PENSION: "Pensionar",
-        CLIENT_INFO_SOURCE: "sursa",
-        CLIENT_INFO_PRESS: "Presă",
-        CLIENT_INFO_FRIEND: "De la prieteni",
-        CLIENT_INFO_ADV: "publicitate vizuala",
-        SELECT_PLACEHOLD: 'selectați opțiunea dumneavoastră',
-        //SELECT_AGE: "Alegeți vârsta",
-        //SELECT_ADUCATION: "Alegeți educatia ta",
-        //SELECT_OCCUPATION: "Alege muncă dumneavoastră",
-        //SELECT_INFO_SOURCE: "Selectați sursa ",
-        NO_DISASSEMBL: "fără demontare",
-        STANDART_ASSEMBL: "standard",
-        VIP_ASSEMBL: "montaj VIP",
-        DISCOUNT: 'Discount',
-        DISCOUNT_SELECT: 'Alegerea de reduceri',
-        DISCOUNT_WITH: 'Având în vedere reduceri',
-        DISCOUNT_WITHOUT: 'Discount Excluderea',
-        DISCOUNT_WINDOW: 'Discount pe un produs',
-        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare',
-        ORDER_COMMENT: 'Nota Ordine',
-        UNKNOWN: 'Necunoscut'
+        CLIENT_SEX_F: 'F',
+        CLIENT_AGE: 'Vârsta',
+        CLIENT_AGE_OLDER: 'mai mare',
+        //CLIENT_EDUCATION: 'Studii',
+        //CLIENT_EDUC_MIDLE: 'medii',
+        //CLIENT_EDUC_SPEC: 'medii spec.',
+        //CLIENT_EDUC_HIGH: 'superioare',
+        CLIENT_EDUCATION: 'Criteriul principal al alegerii Dvs.',
+        CLIENT_EDUC_MIDLE: 'Preț avantajos',
+        CLIENT_EDUC_SPEC: 'Imaginea producătorului ',
+        CLIENT_EDUC_HIGH: 'Marca profilului sau accesoriilor',
+        CLIENT_EDUC_4: 'Recomandările vânzătorului',
+        CLIENT_OCCUPATION: 'Ocuparea în câmpul muncii',
+        CLIENT_OCCUP_WORKER: 'Funcționar',
+        CLIENT_OCCUP_HOUSE: 'Casnică',
+        CLIENT_OCCUP_BOSS: 'Antreprenor',
+        CLIENT_OCCUP_STUD: 'Student',
+        CLIENT_OCCUP_PENSION: 'Pensionar',
+        CLIENT_INFO_SOURCE: 'Sursa de informații',
+        CLIENT_INFO_PRESS: 'Presă',
+        CLIENT_INFO_FRIEND: 'De la persoane cunoscute',
+        CLIENT_INFO_ADV: 'Publicitate vizuală',
+        SELECT_PLACEHOLD: 'selectați opțiunea Dvs.',
+        //SELECT_AGE: 'Selectați vârsta Dvs.',
+        //SELECT_ADUCATION: 'Selectați studiile Dvs.',
+        //SELECT_OCCUPATION: 'Selectați statutului Dvs. de angajat',
+        //SELECT_INFO_SOURCE: 'Selectați sursa de informații',
+        NO_DISASSEMBL: 'fără demontare',
+        STANDART_ASSEMBL: 'standard',
+        VIP_ASSEMBL: 'montare VIP',
+        DISCOUNT: 'Reducere',
+        DISCOUNT_SELECT: 'Selectarea reducerii',
+        DISCOUNT_WITH: 'Cu reducere',
+        DISCOUNT_WITHOUT: 'Fără reducere',
+        DISCOUNT_WINDOW: 'Reducere pentru articol',
+        DISCOUNT_ADDELEM: 'Reducere pentru elementele suplimentare',
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
-        AUTHORIZATION: 'Autentificare:',
-        CHANGE_PASSWORD: 'schimbați parola',
-        CHANGE_LANGUAGE: 'Change language',
-        PRIVATE_INFO: 'Informații personale:',
-        USER_NAME: 'persoana de contact',
-        CITY: 'oraș',
-        ADD_PHONES: 'telefon suplimentar:',
-        INSERT_PHONE: 'adaugați  nr de telefon',
-        CLIENT_SUPPORT: 'suport clienți',
-        LOGOUT: 'Ieșirea din aplicația',
-        SAVE: 'Salvați',
-        CURRENT_PASSWORD: 'Current',
-        NEW_PASSWORD: 'nou',
-        CONFIRM_PASSWORD: 'Confirmare',
-        NO_CONFIRM_PASS: 'parolă incorectă'
+        AUTHORIZATION: 'Logare:',
+        CHANGE_PASSWORD: 'Schimbă parola',
+        CHANGE_LANGUAGE: 'Schimbă limba',
+        PRIVATE_INFO: 'Date personale:',
+        USER_NAME: 'Persoana de contat',
+        CITY: 'Orașul',
+        ADD_PHONES: 'Numere de telefon suplimentare:',
+        INSERT_PHONE: 'Adaugă număr de telefon',
+        CLIENT_SUPPORT: 'Asistență utilizatori',
+        LOGOUT: 'Ieși din aplicație',
+        SAVE: 'Salvează',
+        CURRENT_PASSWORD: 'Curent',
+        NEW_PASSWORD: 'Nou',
+        CONFIRM_PASSWORD: 'Confirmă',
+        NO_CONFIRM_PASS: 'Parolă incorectă'
       }
 
     });
@@ -25749,9 +26003,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминиевый порог, тип',
-        SASH_TYPE1: 'межкомнатная',
-        SASH_TYPE2: 'дверная т-образная',
-        SASH_TYPE3: 'оконная',
+        //SASH_TYPE1: 'межкомнатная',
+        //SASH_TYPE2: 'дверная т-образная',
+        //SASH_TYPE3: 'оконная',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -25837,7 +26091,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Системы входных дверей не настроены"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -26117,9 +26372,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминевый порог, тип',
-        SASH_TYPE1: 'межкомнатная',
-        SASH_TYPE2: 'дверная т-образная',
-        SASH_TYPE3: 'оконная',
+        //SASH_TYPE1: 'межкомнатная',
+        //SASH_TYPE2: 'дверная т-образная',
+        //SASH_TYPE3: 'оконная',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -26205,7 +26460,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Системы входных дверей не настроены"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',

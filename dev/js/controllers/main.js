@@ -85,6 +85,10 @@
       /** for SVG_MAIN */
       //--------- set templateTEMP from ProductStor
       DesignServ.setDefaultTemplate();
+
+      //------ DOOR
+      DesignServ.prepareDoorConfig();
+      DesignServ.setDoorParams();
     }
 
 
@@ -98,13 +102,6 @@
         .then(function(data) {
           ProductStor.product.template = data;
         });
-    }
-
-
-
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-      DesignServ.setIndexDoorConfig();
     }
 
 

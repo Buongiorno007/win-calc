@@ -4463,7 +4463,7 @@ div.drum figure {
   left: 35%;
 }
 
-/* line 3, ../../dev/sass/pages/login.scss */
+/* line 4, ../../dev/sass/pages/login.scss */
 .login-page {
   display: -webkit-flex;
   display: flex;
@@ -4472,7 +4472,7 @@ div.drum figure {
   background-size: cover;
 }
 
-/* line 11, ../../dev/sass/pages/login.scss */
+/* line 12, ../../dev/sass/pages/login.scss */
 .login-container {
   -moz-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
   -webkit-box-shadow: rgba(98, 67, 48, 0.5) 0 0 0.9375rem 1px;
@@ -4484,23 +4484,23 @@ div.drum figure {
   border-radius: 2rem;
   background-color: rgba(255, 255, 255, 0.7);
 }
-/* line 20, ../../dev/sass/pages/login.scss */
+/* line 21, ../../dev/sass/pages/login.scss */
 .login-container .text-container {
   font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
   overflow: hidden;
   text-align: center;
   color: #000;
 }
-/* line 26, ../../dev/sass/pages/login.scss */
+/* line 27, ../../dev/sass/pages/login.scss */
 .login-container .text-container.error {
   color: red;
 }
-/* line 31, ../../dev/sass/pages/login.scss */
+/* line 32, ../../dev/sass/pages/login.scss */
 .login-container .user-field, .login-container .user-select-field {
   background-color: #FAF3C9;
 }
 
-/* line 36, ../../dev/sass/pages/login.scss */
+/* line 37, ../../dev/sass/pages/login.scss */
 .close_dialog {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
@@ -4514,13 +4514,13 @@ div.drum figure {
   background: transparent;
   outline: none;
 }
-/* line 51, ../../dev/sass/pages/login.scss */
+/* line 52, ../../dev/sass/pages/login.scss */
 .close_dialog:before {
   content: "";
   color: #f98000;
 }
 
-/* line 58, ../../dev/sass/pages/login.scss */
+/* line 59, ../../dev/sass/pages/login.scss */
 .logo {
   width: 6.125rem;
   height: 6.125rem;
@@ -4529,17 +4529,17 @@ div.drum figure {
   background-size: cover;
 }
 
-/* line 67, ../../dev/sass/pages/login.scss */
+/* line 68, ../../dev/sass/pages/login.scss */
 .input-field {
   position: relative;
   margin-bottom: 2.75rem;
 }
-/* line 70, ../../dev/sass/pages/login.scss */
+/* line 71, ../../dev/sass/pages/login.scss */
 .input-field.has-error > .user-field, .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 75, ../../dev/sass/pages/login.scss */
+/* line 76, ../../dev/sass/pages/login.scss */
 .user-field, .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -4550,12 +4550,12 @@ div.drum figure {
   border-radius: 2rem;
   outline: none;
 }
-/* line 85, ../../dev/sass/pages/login.scss */
+/* line 86, ../../dev/sass/pages/login.scss */
 .user-field.ng-invalid-minlength, .ng-invalid-minlength.user-select-field, .user-field.ng-invalid-pattern, .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 91, ../../dev/sass/pages/login.scss */
+/* line 92, ../../dev/sass/pages/login.scss */
 .error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
@@ -4569,7 +4569,7 @@ div.drum figure {
   background: #f74f2e;
   z-index: 1;
 }
-/* line 103, ../../dev/sass/pages/login.scss */
+/* line 104, ../../dev/sass/pages/login.scss */
 .error-tooltip:before, .setting-container .set-email-error:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -4586,26 +4586,26 @@ div.drum figure {
   content: '';
 }
 
-/* line 118, ../../dev/sass/pages/login.scss */
+/* line 119, ../../dev/sass/pages/login.scss */
 .login-submit {
   display: block;
   width: 23.875rem;
   margin: 3.875rem auto 0 auto;
 }
 
-/* line 126, ../../dev/sass/pages/login.scss */
+/* line 127, ../../dev/sass/pages/login.scss */
 .inet_ok {
   display: block;
   margin: auto auto;
   margin-top: 1rem;
 }
 
-/* line 132, ../../dev/sass/pages/login.scss */
+/* line 133, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
 }
 
-/* line 136, ../../dev/sass/pages/login.scss */
+/* line 137, ../../dev/sass/pages/login.scss */
 .factory_box {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4622,46 +4622,46 @@ div.drum figure {
   z-index: 10;
 }
 
-/* line 151, ../../dev/sass/pages/login.scss */
+/* line 152, ../../dev/sass/pages/login.scss */
 .factory_title {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.625rem;
   text-align: center;
 }
 
-/* line 156, ../../dev/sass/pages/login.scss */
+/* line 157, ../../dev/sass/pages/login.scss */
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
-/* line 161, ../../dev/sass/pages/login.scss */
+/* line 162, ../../dev/sass/pages/login.scss */
 table.factory_table {
   border: none;
 }
-/* line 163, ../../dev/sass/pages/login.scss */
+/* line 164, ../../dev/sass/pages/login.scss */
 table.factory_table td {
   padding: 1.5625rem 0;
 }
 
-/* line 167, ../../dev/sass/pages/login.scss */
+/* line 168, ../../dev/sass/pages/login.scss */
 tr.factory_item {
   vertical-align: top;
 }
 
-/* line 170, ../../dev/sass/pages/login.scss */
+/* line 171, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 174, ../../dev/sass/pages/login.scss */
+/* line 175, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 177, ../../dev/sass/pages/login.scss */
+/* line 178, ../../dev/sass/pages/login.scss */
 .factory_name, .factory_place {
   text-align: left;
 }
@@ -6777,30 +6777,28 @@ tr.factory_item {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 554, ../../dev/sass/pages/design.scss */
-.door-configuration .door-config-content.scroll-box {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-/* line 559, ../../dev/sass/pages/design.scss */
+/* line 555, ../../dev/sass/pages/design.scss */
 .door-configuration ul.door-config-list {
-  width: 32rem;
+  width: 34rem;
+  height: 73.8125rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-right: 2rem;
+  overflow-y: auto;
 }
-/* line 565, ../../dev/sass/pages/design.scss */
+/* line 564, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 570, ../../dev/sass/pages/design.scss */
+/* line 569, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 574, ../../dev/sass/pages/design.scss */
+/* line 573, ../../dev/sass/pages/design.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
@@ -6810,19 +6808,20 @@ tr.factory_item {
   background: url('../img/door-arrow.png?1447154474') no-repeat;
   background-size: 100% 100%;
 }
-/* line 583, ../../dev/sass/pages/design.scss */
+/* line 582, ../../dev/sass/pages/design.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
+  word-wrap: break-word;
   color: #363636;
 }
-/* line 588, ../../dev/sass/pages/design.scss */
+/* line 587, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 594, ../../dev/sass/pages/design.scss */
+/* line 593, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-finish-btn {
   font: normal 3.75rem/1 icons, sans-serif;
   width: 100%;
@@ -6830,29 +6829,29 @@ tr.factory_item {
   outline: none;
   border: none;
 }
-/* line 604, ../../dev/sass/pages/design.scss */
+/* line 603, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 607, ../../dev/sass/pages/design.scss */
+/* line 606, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
   content: "";
 }
-/* line 611, ../../dev/sass/pages/design.scss */
+/* line 610, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 614, ../../dev/sass/pages/design.scss */
+/* line 613, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
   content: "";
 }
-/* line 618, ../../dev/sass/pages/design.scss */
+/* line 617, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 621, ../../dev/sass/pages/design.scss */
+/* line 620, ../../dev/sass/pages/design.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }

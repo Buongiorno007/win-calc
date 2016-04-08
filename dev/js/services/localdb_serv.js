@@ -340,7 +340,9 @@
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR,' +
-            ' beed_lamination_id INTEGER',
+            ' beed_lamination_id INTEGER,' +
+            ' in_door INTEGER,' +
+            ' doorstep_type INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -631,7 +633,12 @@
             'foreignKey': ''
           },
 
-
+          'lock_lists':{
+            'tableName': 'lock_lists',
+            'prop': 'list_id INTEGER,'+
+            'accessory_id INTEGER',
+            'foreignKey': ''
+          },
 
 //-------- inner temables
 //          'analytics': {

@@ -18,7 +18,6 @@
     loginServ,
     MainServ,
     AnalyticsServ,
-    optionsServ,
     SVGServ,
     GlobalStor,
     DesignStor,
@@ -742,46 +741,62 @@
 
     /**---------------- DOORs--------------*/
 
-    //    function downloadDoorConfig() {
-    //      optionsServ.getDoorConfig(function (results) {
-    //        if (results.status) {
-    //          DesignStor.design.doorShapeList = results.data.doorType;
-    //          DesignStor.design.sashShapeList = results.data.sashType;
-    //          DesignStor.design.handleShapeList = results.data.handleType;
-    //          DesignStor.design.lockShapeList = results.data.lockType;
-    //---- set indexes
-    //          setIndexDoorConfig();
-    //        } else {
-    //          console.log(results);
-    //        }
-    //      });
-    //    }
 
-    function setDoorConfigIndex(list, configId) {
-      var listQty = list.length, i;
-      for(i = 0; i < listQty; i+=1) {
-        if(list[i].shapeId === configId) {
-          return i;
+    function prepareDoorConfig() {
+      var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      for(d = 0; d < doorTypeQty; d+=1) {
+        isExist = 0;
+        if(d === 2 && GlobalStor.global.doorKitsT1.length) {
+          isExist = 1;
+        } else if(d === 3 && GlobalStor.global.doorKitsT2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
+        }
+        if(isExist) {
+          DesignStor.designSource.doorShapeList.push(angular.copy(DesignStor.designSource.doorShapeData[d]));
         }
       }
     }
 
 
-    function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_shape_id
-      );
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id
-      );
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id
-      );
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id
-      );
+
+    function setDoorParams() {
+      DesignStor.designSource.doorConfig.doorShapeIndex = ProductStor.product.door_shape_id;
+      DesignStor.designSource.doorConfig.sashShapeIndex = ProductStor.product.door_sash_shape_id;
+      DesignStor.designSource.doorConfig.handleShapeIndex = ProductStor.product.door_handle_shape_id;
+      DesignStor.designSource.doorConfig.lockShapeIndex = ProductStor.product.door_lock_shape_id;
       //-------- set Default values in design
       DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+
+      if(GlobalStor.global.noDoorExist) {
+        //-------- show alert
+        DesignStor.design.isNoDoors = 1;
+      } else {
+        switch (ProductStor.product.door_shape_id) {
+          case 0:
+          case 1:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+            } else if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+          case 2:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+            }
+            break;
+          case 3:
+            if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+        }
+
+        DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
+        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+      }
     }
 
 
@@ -795,7 +810,7 @@
       //============ if Door Construction
       if(ProductStor.product.construction_type === 4) {
         //---- set indexes
-        setIndexDoorConfig();
+        setDoorParams();
       }
     }
 
@@ -2841,8 +2856,8 @@
 
       stepBack: stepBack,
       //---- door
-      //      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
+      prepareDoorConfig: prepareDoorConfig,
+      setDoorParams: setDoorParams
     };
 
     return thisFactory.publicObj;

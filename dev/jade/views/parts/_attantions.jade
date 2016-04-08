@@ -1,4 +1,4 @@
-.attantion-block(ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint")
+.attantion-block(ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors")
   .glass-attantion(ng-show="attantBox.D.design.isGlassExtra && attantBox.D.design.extraGlass.length")
     .close-dialog(ng-click="attantBox.closeAttantion()")
     .glass-list
@@ -14,3 +14,6 @@
         span(ng-if="!$last") {{ sashExtra }},
         span(ng-if="$last") {{ sashExtra }}.
       .extra-glass {{ ::attantBox.CHANGE_SIZE }}
+
+  .design-attantion(ng-show="attantBox.D.design.isNoDoors") {{ ::attantBox.DOOR_ERROR }}
+    .close-dialog(ng-click="attantBox.closeAttantion()")
