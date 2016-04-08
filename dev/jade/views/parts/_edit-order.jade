@@ -1,29 +1,29 @@
 .background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
  .boxText(ng-click="editOrder.box1()")
- .order-content
-  .cart-menu
+ .order-content1
+  .cart-menu(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
     .box
      .title {{'№'}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .cart-item-data-m
       .value {{isBoxArray.product_id}}
-    .box1   
+    .box1
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .cart-item-data-m
       .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
       select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.name for listName in editOrder.H.history.listName", required)
-    .box2      
+    .box2
      .title {{::editOrder.CONFIGMENU_HARDWARE}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .cart-item-data-m
       .value {{isBoxArray.nameHardware }}
        select.user-select-field-m(name="Hardware", ng-if='isBoxArray.nameHardware', ng-model="isBoxArray.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
     .box3
      .title {{::editOrder.CONFIGMENU_PROFILE}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .cart-item-data-m
       .value {{isBoxArray.nameProfiles}}
        select.user-select-field-m(name="Profiles", ng-if='isBoxArray.nameProfiles', ng-model="isBoxArray.dataProfiles", ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles", required)       
-    .box4     
+    .box4
      .title {{::editOrder.CONFIGMENU_GLASS}}
-     .cart-item-data-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+     .cart-item-data-m
       .cart-item(ng-repeat="nameGlass in isBoxArray.nameGlass track by $index")
        .value {{nameGlass.name}}
         select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass", required)

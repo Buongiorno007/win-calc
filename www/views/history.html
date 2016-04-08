@@ -294,24 +294,24 @@
 </div>
 <div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
   <div ng-click="editOrder.box1()" class="boxText"></div>
-  <div class="order-content">
-    <div class="cart-menu">
+  <div class="order-content1">
+    <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-menu">
       <div class="box">
         <div class="title">{{'№'}}</div>
-        <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
+        <div class="cart-item-data-m">
           <div class="value">{{isBoxArray.product_id}}</div>
         </div>
       </div>
-      <div class="box1">  
+      <div class="box1">
         <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
-        <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
+        <div class="cart-item-data-m">
           <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}</div>
           <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
         </div>
       </div>
-      <div class="box2">     
+      <div class="box2">
         <div class="title">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
-        <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
+        <div class="cart-item-data-m">
           <div class="value">{{isBoxArray.nameHardware }}
             <select name="Hardware" ng-if="isBoxArray.nameHardware" ng-model="isBoxArray.dataHardware" ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware" required class="user-select-field-m"></select>
           </div>
@@ -319,15 +319,15 @@
       </div>
       <div class="box3">
         <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
-        <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
+        <div class="cart-item-data-m">
           <div class="value">{{isBoxArray.nameProfiles}}
             <select name="Profiles" ng-if="isBoxArray.nameProfiles" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">      </select>
           </div>
         </div>
       </div>
-      <div class="box4">    
+      <div class="box4">
         <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
-        <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-item-data-m">
+        <div class="cart-item-data-m">
           <div ng-repeat="nameGlass in isBoxArray.nameGlass track by $index" class="cart-item">
             <div class="value">{{nameGlass.name}}
               <select name="Glass" ng-if="isBoxArray.nameGlass" ng-model="nameGlass.dataGlass" ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass" required class="user-select-field-m"></select>
