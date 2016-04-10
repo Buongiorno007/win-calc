@@ -29,7 +29,10 @@
     /**============ METHODS ================*/
     
     function box1() {
-      RecOrderServ.extend();
+      RecOrderServ.extendLaminat();
+      RecOrderServ.extendHardware();
+      RecOrderServ.extendProfile();
+      RecOrderServ.extendGlass();
        console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
   console.log('box1 go')
   }
@@ -38,7 +41,10 @@
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
-thisCtrl.extend = RecOrderServ.extend;
+thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
+thisCtrl.extendHardware = RecOrderServ.extendHardware;
+thisCtrl.extendProfile = RecOrderServ.extendProfile;
+thisCtrl.extendGlass = RecOrderServ.extendGlass;
 thisCtrl.box1 = box1;
   });
 })();

@@ -88,6 +88,22 @@ $img_logo: 'login/logo.png';
   }
 }
 
+.user-field-m {
+  @include roboto-lt(rem(36px));
+
+  display: block;
+  width: 100%;
+  height: rem(60px);
+  padding: rem(5px);
+  border: 1px solid #8c8c8c;
+  border-radius: rem($radius_general-big_button);
+  outline: none;
+  &.ng-invalid-minlength,
+  &.ng-invalid-pattern {
+    border-color: $error_color;
+  }
+}
+
 .error-tooltip {
   @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));

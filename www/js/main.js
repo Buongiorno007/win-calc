@@ -3840,7 +3840,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
     
     function box1() {
-      RecOrderServ.extend();
+      RecOrderServ.extendLaminat();
+      RecOrderServ.extendHardware();
+      RecOrderServ.extendProfile();
+      RecOrderServ.extendGlass();
        console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
   console.log('box1 go')
   }
@@ -3849,7 +3852,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
-thisCtrl.extend = RecOrderServ.extend;
+thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
+thisCtrl.extendHardware = RecOrderServ.extendHardware;
+thisCtrl.extendProfile = RecOrderServ.extendProfile;
+thisCtrl.extendGlass = RecOrderServ.extendGlass;
 thisCtrl.box1 = box1;
   });
 })();
@@ -20493,7 +20499,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           console.log(HistoryStor.history.isBoxArray)
        }
 
-    function extend() {
+    function extendLaminat() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
           if (HistoryStor.history.isBoxArray[ord].dataLamination !== undefined ) {
@@ -20542,19 +20548,68 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
         }    
     }
+    function extendHardware() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {   
+          if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].hardware_id;
+            delete HistoryStor.history.isBoxArray[ord].nameHardware;
+            HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
+            HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
+            delete HistoryStor.history.isBoxArray[ord].dataHardware;
+          }
+        }    
+    }
+    function extendProfile() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {   
+          if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
+            delete HistoryStor.history.isBoxArray[ord].profile_id;
+            delete HistoryStor.history.isBoxArray[ord].nameProfiles;
+            HistoryStor.history.isBoxArray[ord].profile_id = HistoryStor.history.isBoxArray[ord].dataProfiles.id;
+            HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
+            delete HistoryStor.history.isBoxArray[ord].dataProfiles;
+          }
+        }    
+    }
+    function extendGlass() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord = 0; ord < ordersQty; ord+=1) {   
 
+            var arrayBoxQty = HistoryStor.history.isBoxArray[ord].nameGlass.length, tst;
+            var glassId,
+                nameGlass;
+            for (tst = 0; tst<arrayBoxQty; tst+=1) {
+              if(tst === 0){
+                glassId = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
+                nameGlass = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
+              } else {
+                glassId += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
+                nameGlass += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
+              }
+            }
+              delete HistoryStor.history.isBoxArray[ord].nameGlass;
+              HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
+        }    
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
 	      box:box,
-        extend:extend,
+        extendLaminat:extendLaminat,
+        extendHardware:extendHardware,
+        extendProfile:extendProfile,
+        extendGlass:extendGlass,
         clear: clear
 	    };
     	return thisFactory.publicObj;
 
     //------ clicking
     	box:box;
-      extend:extend;
+      extendLaminat:extendLaminat;
+      extendHardware:extendHardware;
+      extendProfile:extendProfile;
+      extendGlass:extendGlass;
       clear: clear;
   });
 })();

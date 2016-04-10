@@ -295,7 +295,7 @@
 <div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
   <div ng-click="editOrder.box1()" class="boxText"></div>
   <div class="order-content1">
-    <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-menu">
+    <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-menu-m">
       <div class="box">
         <div class="title">{{'№'}}</div>
         <div class="cart-item-data-m">
@@ -305,8 +305,9 @@
       <div class="box1">
         <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
         <div class="cart-item-data-m">
-          <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}</div>
-          <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
+          <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
+            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
+          </div>
         </div>
       </div>
       <div class="box2">

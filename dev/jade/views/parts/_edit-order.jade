@@ -1,7 +1,7 @@
 .background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
  .boxText(ng-click="editOrder.box1()")
  .order-content1
-  .cart-menu(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+  .cart-menu-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
     .box
      .title {{'№'}}
      .cart-item-data-m
@@ -10,7 +10,7 @@
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
      .cart-item-data-m
       .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
-      select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.name for listName in editOrder.H.history.listName", required)
+       select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listName.name for listName in editOrder.H.history.listName", required)
     .box2
      .title {{::editOrder.CONFIGMENU_HARDWARE}}
      .cart-item-data-m
