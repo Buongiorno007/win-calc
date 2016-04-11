@@ -62,28 +62,6 @@
         }
 
         //================NameList for select================//
-          for(glb = 0; glb < laminatQty; glb+=1) {
-            var nameIn,
-                id,
-                obj = {  
-                    name: '',
-                    nameIn:'',
-                    nameOut:'',
-                    id: 0,
-                    img_in_id: 0,
-                    img_out_id: 0,
-                    profile_id: 0
-                    };
-            obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
-            obj.id = GlobalStor.global.laminatCouples[glb].id,
-            obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
-            obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-            obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-            obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
-            obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
-            HistoryStor.history.listName.push(obj);
-          }
-
           for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
            var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
             for(glbll = 0; glbll < globalQtyll; glbll+=1) {
@@ -116,6 +94,7 @@
         //================NameList for select================//
 
         //================add name in array==================//  
+         console.log('GlobalStor.global.laminatCouples', GlobalStor.global.laminatCouples)
           for(glb = 0; glb < laminatQty; glb+=1) {
             for(ord = 0; ord < ordersQty; ord+=1) {
               if (GlobalStor.global.laminatCouples[glb].id === array[ord].lamination_id) {
@@ -214,10 +193,47 @@
                 }
               }
             }
-          }
-          console.log(HistoryStor.history.isBoxArray)
+          }    
       }
-      console.log(HistoryStor.history.isBoxArray)
+
+
+      function nameListLaminat() {
+                console.log('tests', HistoryStor.history.isBoxArray)
+        var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        var listNameLaminat = [];
+        var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
+          for(ord=0; ord<ordersQty; ord+=1 ) {
+            for(glb=0; glb<laminatAllQty; glb+=1) {
+              if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
+                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
+                  console.log('4', listNameLaminat)
+                  var nameIn,
+                      id,
+                      obj = {  
+                          name: '',
+                          nameIn:'',
+                          nameOut:'',
+                          id: 0,
+                          img_in_id: 0,
+                          img_out_id: 0,
+                          profile_id: 0
+                          };
+                  obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
+                  obj.id = GlobalStor.global.laminatCouples[glb].id,
+                  obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+                  obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
+                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+                  obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                  listNameLaminat.push(obj);
+                  console.log('listNameLaminat', listNameLaminat)
+                  HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+                }
+              }
+            }
+          }    
+      }
+
     function extendLaminat() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
@@ -249,7 +265,6 @@
         }    
     }
     function extendProfile() {
-      nameListGlasses()
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
           if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
@@ -264,7 +279,6 @@
     function extendGlass() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
-
             var arrayBoxQty = HistoryStor.history.isBoxArray[ord].nameGlass.length, tst;
             var glassId,
                 nameGlass;
@@ -280,12 +294,12 @@
               delete HistoryStor.history.isBoxArray[ord].nameGlass;
               HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
         }    
-        console.log('tests', HistoryStor.history.isBoxArray)
     }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
 	      box:box,
+        nameListLaminat:nameListLaminat,
         extendLaminat:extendLaminat,
         extendHardware:extendHardware,
         extendProfile:extendProfile,
@@ -297,6 +311,7 @@
 
     //------ clicking
     	box:box;
+      nameListLaminat:nameListLaminat;
       nameListGlasses:nameListGlasses;
       extendLaminat:extendLaminat;
       extendHardware:extendHardware;

@@ -28,32 +28,38 @@
 
     /**============ METHODS ================*/
     
-    function profileOK() {
+    function okey() {
       RecOrderServ.extendProfile();
-  }
-    function glassOK() {
       RecOrderServ.extendGlass();
-  }
-    function hardwareOK() {
       RecOrderServ.extendHardware();
-
-  }
-    function laminationOK() {
       RecOrderServ.extendLaminat();
-  }
-
+    }
+    function close () {
+      GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isBox = 0;
+      HistoryStor.history.isBoxArray = [];
+      HistoryStor.history.listName = [];
+      HistoryStor.history.listNameHardware = [];
+      HistoryStor.history.listNameProfiles = [];
+    }
+    function listName () {
+      RecOrderServ.nameListLaminat();
+      RecOrderServ.nameListGlasses();
+    }
 
     /**========== FINISH ==========*/
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
+thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
+thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
 thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
 thisCtrl.extendHardware = RecOrderServ.extendHardware;
 thisCtrl.extendProfile = RecOrderServ.extendProfile;
 thisCtrl.extendGlass = RecOrderServ.extendGlass;
-thisCtrl.profileOK = profileOK;
-thisCtrl.glassOK = glassOK;
-thisCtrl.hardwareOK = hardwareOK;
-thisCtrl.laminationOK = laminationOK;
+thisCtrl.okey = okey;
+thisCtrl.close = close;
+thisCtrl.listName = listName;
+
   });
 })();

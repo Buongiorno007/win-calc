@@ -6,25 +6,19 @@
 	height: 100%;
 	width: 100%; 
 }
-.order-content1 {
+.order-cont {
 	padding: rem(70px) rem(40px) 0 rem(50px);
 	background-color: #fff;
 	height: 100%;
 	overflow: auto;
 }
 
-.okey {
-	text-align: center;
-    font-size: x-large;
-    float: left;
-    margin: 1rem;
-}
 .boxText{
 	position: relative;
 	top: 2rem;
 	left: 0rem;
 	height: 5%;
-	width: auto;
+	width: 100%;
     border-radius: 2rem;
     margin: 2rem;
 	float: left; 
@@ -78,6 +72,7 @@
   height: auto;
   overflow: auto;
   margin: 2rem;
+  top: -2rem;
 }
 .cart-item-data-m {
     @include display-flex();
@@ -95,6 +90,8 @@
   position: relative;
   width: rem(85px);
   height: rem(85px);
+  right: 2rem;
+  bottom: 4rem;
   &:after {
     top: 25%;
     left: 25%;
@@ -107,5 +104,20 @@
   float: right;
 }
 
-
+.close-m {
+  @extend .cross-btn;
+  @extend .splash;
+  position: relative;
+  width: 5.3125rem;
+  height: 5.3125rem;
+  right: 2rem;
+  top: -6rem;
+  float: right;
+  &:after {
+    top: 25%;
+    left: 25%;
+  }
+  font: normal 2.5rem/1 icons, sans-serif;
+  background-color: #bebebe;
+}
  
