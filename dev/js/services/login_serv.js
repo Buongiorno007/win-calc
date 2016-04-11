@@ -1182,7 +1182,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**------ download Doors ------*/
 
     function downloadDoorKits() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'in_door': 1}).then(function(doorData) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'in_door': 1}, 'id, name, list_group_id, doorstep_type'
+      ).then(function(doorData) {
         var door = angular.copy(doorData),
             doorKitsT1, doorKitsT2,
             doorQty = door.length;

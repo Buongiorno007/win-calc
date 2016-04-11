@@ -797,6 +797,9 @@
         DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
         DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
       }
+      console.log('sashShapeList',DesignStor.design.sashShapeList);
+      console.log('handleShapeList',DesignStor.design.handleShapeList);
+      console.log('lockShapeList',DesignStor.design.lockShapeList);
     }
 
 
