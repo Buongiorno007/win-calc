@@ -75,6 +75,8 @@
             obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
             HistoryStor.history.listNameHardware.push(obj);
             }
+            
+            console.log('tests', HistoryStor.history.listNameHardware)
           }
 
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
@@ -94,7 +96,6 @@
         //================NameList for select================//
 
         //================add name in array==================//  
-         console.log('GlobalStor.global.laminatCouples', GlobalStor.global.laminatCouples)
           for(glb = 0; glb < laminatQty; glb+=1) {
             for(ord = 0; ord < ordersQty; ord+=1) {
               if (GlobalStor.global.laminatCouples[glb].id === array[ord].lamination_id) {
@@ -146,7 +147,6 @@
         clear();
         for(ord = 0; ord < ordersQty; ord+=1) {  
           HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source)
-        console.log( HistoryStor.history.isBoxArray[ord].template_source, '1111')
         }
     }
 
@@ -196,9 +196,7 @@
           }    
       }
 
-
       function nameListLaminat() {
-                console.log('tests', HistoryStor.history.isBoxArray)
         var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         var listNameLaminat = [];
         var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
@@ -206,7 +204,6 @@
             for(glb=0; glb<laminatAllQty; glb+=1) {
               if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
                 if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
-                  console.log('4', listNameLaminat)
                   var nameIn,
                       id,
                       obj = {  
@@ -226,7 +223,6 @@
                   obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
                   obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
                   listNameLaminat.push(obj);
-                  console.log('listNameLaminat', listNameLaminat)
                   HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
                 }
               }

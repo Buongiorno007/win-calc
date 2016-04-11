@@ -326,7 +326,7 @@
         <div class="title">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
         <div class="cart-item-data-m">
           <div class="value">{{isBoxArray.nameHardware }}
-            <select name="Hardware" ng-if="isBoxArray.nameHardware" ng-model="isBoxArray.dataHardware" ng-options="isBoxArray.listNameHardware.name for listNameHardware in editOrder.H.history.isBoxArray.listNameHardware" required class="user-select-field-m"></select>
+            <select name="Hardware" ng-if="isBoxArray.nameHardware" ng-model="isBoxArray.dataHardware" ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware" required class="user-select-field-m"></select>
           </div>
         </div>
       </div>
