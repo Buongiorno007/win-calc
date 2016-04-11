@@ -3853,9 +3853,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
     }
-    function listName () {
-      RecOrderServ.nameListLaminat();
-      RecOrderServ.nameListGlasses();
+    function listName (product_id) {
+      RecOrderServ.nameListLaminat(product_id);
+      RecOrderServ.nameListGlasses(product_id);
     }
 
     /**========== FINISH ==========*/
@@ -20477,31 +20477,33 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           
        }
 
-      function nameListGlasses() {
+      function nameListGlasses(product_id) {
         var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-        var listNameGlass = [];
         var glassAllQty = GlobalStor.global.glassesAll.length, all;
           for(ord=0; ord<ordersQty; ord+=1 ) {
+            var listNameGlass = [];
             for(all=0; all<glassAllQty; all+=1) {
               if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
-                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.glassesAll[all].profileId) {
-                  var listGlass = GlobalStor.global.glassesAll[all].glasses.length, lst;
-                  for(lst = 0; lst < listGlass; lst+=1) {
-                    var subListQty = GlobalStor.global.glassesAll[all].glasses[lst].length, lstt,
-                    name,
-                    id,
-                    sku,
-                    obj = {  
-                      name:'',
-                      id: 0,
-                      sku: 0
-                    };
-                    for(lstt=0; lstt<subListQty; lstt+=1) {
-                      obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
-                      obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
-                      obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
-                      listNameGlass.push(obj);
-                      HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
+                if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
+                  if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.glassesAll[all].profileId) {
+                    var listGlass = GlobalStor.global.glassesAll[all].glasses.length, lst;
+                    for(lst = 0; lst < listGlass; lst+=1) {
+                      var subListQty = GlobalStor.global.glassesAll[all].glasses[lst].length, lstt;
+                      for(lstt=0; lstt<subListQty; lstt+=1) {
+                        var name,
+                            id,
+                            sku,
+                            obj = {  
+                              name:'',
+                              id: 0,
+                              sku: 0
+                            };
+                        obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
+                        obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
+                        obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
+                        listNameGlass.push(obj);
+                        HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
+                      }
                     }
                   }
                 }
@@ -20510,34 +20512,36 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }    
       }
 
-      function nameListLaminat() {
+      function nameListLaminat(product_id) {
         var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         var listNameLaminat = [];
         var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
           for(ord=0; ord<ordersQty; ord+=1 ) {
             for(glb=0; glb<laminatAllQty; glb+=1) {
               if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
-                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
-                  var nameIn,
-                      id,
-                      obj = {  
-                          name: '',
-                          nameIn:'',
-                          nameOut:'',
-                          id: 0,
-                          img_in_id: 0,
-                          img_out_id: 0,
-                          profile_id: 0
-                          };
-                  obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
-                  obj.id = GlobalStor.global.laminatCouples[glb].id,
-                  obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
-                  obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
-                  obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
-                  listNameLaminat.push(obj);
-                  HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+                if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
+                  if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
+                    var nameIn,
+                        id,
+                        obj = {  
+                            name: '',
+                            nameIn:'',
+                            nameOut:'',
+                            id: 0,
+                            img_in_id: 0,
+                            img_out_id: 0,
+                            profile_id: 0
+                            };
+                    obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
+                    obj.id = GlobalStor.global.laminatCouples[glb].id,
+                    obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+                    obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+                    obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
+                    obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+                    obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                    listNameLaminat.push(obj);
+                    HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+                  }
                 }
               }
             }

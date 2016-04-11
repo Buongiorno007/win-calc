@@ -42,9 +42,9 @@
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
     }
-    function listName () {
-      RecOrderServ.nameListLaminat();
-      RecOrderServ.nameListGlasses();
+    function listName (product_id) {
+      RecOrderServ.nameListLaminat(product_id);
+      RecOrderServ.nameListGlasses(product_id);
     }
 
     /**========== FINISH ==========*/
