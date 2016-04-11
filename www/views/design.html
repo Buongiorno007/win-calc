@@ -104,10 +104,10 @@
     <div ng-if="designPage.P.product.construction_type === 4" class="door-config-menu">
       <button ng-class="{'active': designPage.config.isDoorConfig}" ng-click="designPage.toggleDoorConfig()" class="door-config-btn"></button>
       <div class="door-config-label">{{ ::designPage.DOOR_CONFIG_LABEL }}</div>
-      <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};</div>
-      <div class="door-config-description">{{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};</div>
+      <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.doorShapeName }};</div>
+      <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.sashShapeName }};</div>
+      <div class="door-config-description">{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.handleShapeName }};</div>
+      <div class="door-config-description">{{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.lockShapeName }};</div>
     </div>
     <div class="right-menu-footer">
       <div ng-class="{'active': designPage.G.global.isSizeCalculator}" class="calculators-box size-calculator">
@@ -226,8 +226,8 @@
           <ul class="door-config-list">
             <li ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-icon"><img ng-src="{{ door.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"><img ng-src="{{ door.shapeIconSelect }}" ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"></div>
-                <div class="door-option-label">{{ ::door.shapeLabel }}</div>
+                <div class="door-option-icon"><img ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"><img ng-src="{{ door.iconSelect }}" ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"></div>
+                <div class="door-option-label">{{ ::door.name }}</div>
               </div>
               <div ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index" class="selected-item-arrow"></div>
             </li>

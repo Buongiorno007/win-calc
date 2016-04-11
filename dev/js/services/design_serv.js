@@ -757,6 +757,30 @@
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
+      DesignStor.design.doorShapeList = DesignStor.designSource.doorShapeList;
+      console.log('prepareDoorConfig', DesignStor.design.doorShapeList)
+    }
+
+
+
+    function setDoorParamInProduct() {
+      var doorConfig = DesignStor.design.doorConfig;
+      ProductStor.product.doorName = doorConfig.doorShapeName;
+      ProductStor.product.doorSashName = doorConfig.sashShapeName;
+      ProductStor.product.doorHandleName = doorConfig.handleShapeName;
+      ProductStor.product.doorLockName = doorConfig.lockShapeName;
+    }
+
+
+
+    function setDoorParamNames() {
+      var doorConfig = DesignStor.design.doorConfig;
+      doorConfig.doorShapeName = DesignStor.design.doorShapeList[doorConfig.doorShapeIndex].name;
+      doorConfig.sashShapeName = DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].frame.name +
+        '/'+ DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].sash.name;
+      doorConfig.handleShapeName = DesignStor.design.handleShapeList[doorConfig.handleShapeIndex].name;
+      doorConfig.lockShapeName = DesignStor.design.lockShapeList[doorConfig.lockShapeIndex].name;
+      setDoorParamInProduct();
     }
 
 
@@ -796,7 +820,13 @@
 
         DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
         DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+
+        setDoorParamNames();
       }
+      console.log('setDoorParams');
+      console.log('doorKitsT====',GlobalStor.global.doorKitsT1, GlobalStor.global.doorKitsT2);
+      console.log('doorLocks====',GlobalStor.global.doorLocks);
+
       console.log('sashShapeList',DesignStor.design.sashShapeList);
       console.log('handleShapeList',DesignStor.design.handleShapeList);
       console.log('lockShapeList',DesignStor.design.lockShapeList);
@@ -2707,8 +2737,7 @@
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
-      var doorShapeList = DesignStor.design.doorShapeList,
-          doorConfig = DesignStor.design.doorConfig,
+      var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
@@ -2755,10 +2784,13 @@
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //------- save new door config
-              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
-              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
-              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
-              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
+              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
+              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
+              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
+
+              setDoorParamInProduct();
+
             }
 
             /** save new template in templates Array */
@@ -2859,6 +2891,7 @@
 
       stepBack: stepBack,
       //---- door
+      setDoorParamNames: setDoorParamNames,
       prepareDoorConfig: prepareDoorConfig,
       setDoorParams: setDoorParams
     };

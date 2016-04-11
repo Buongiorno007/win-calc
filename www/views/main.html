@@ -490,7 +490,9 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 2}" ng-click="configMenu.selectConfigPanel(2)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-hide="configMenu.P.product.construction_type === 4" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-show="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName }}</div>
+            <div ng-show="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" ng-click="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_GLASS }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -500,7 +502,9 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 4}" ng-click="configMenu.selectConfigPanel(4)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.hardware.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-hide="configMenu.P.product.construction_type === 4" data-output="{{ configMenu.P.product.hardware.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-show="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorHandleName }}</div>
+            <div ng-show="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorLockName }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 5}" ng-click="configMenu.selectConfigPanel(5)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>

@@ -32,9 +32,9 @@
         selectedImpost: [],
         selectedArc: [],
         //----- Sizes
-        openVoiceHelper: false,
-        loudVoice: false,
-        quietVoice: false,
+        openVoiceHelper: 0,
+        loudVoice: 0,
+        quietVoice: 0,
         voiceTxt: '',
         selectedGlassId: 0,
 
@@ -62,24 +62,24 @@
         isNoDoors: 0,
         doorShapeData: [
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
-            shapeIcon: 'img/door-config/doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE1'),
+            icon: 'img/door-config/doorstep.png',
+            iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE2'),
+            icon: 'img/door-config/no-doorstep.png',
+            iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
-            shapeIcon: 'img/door-config/doorstep-al1.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            icon: 'img/door-config/doorstep-al1.png',
+            iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
-            shapeIcon: 'img/door-config/doorstep-al2.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            icon: 'img/door-config/doorstep-al2.png',
+            iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
         doorShapeList: [],
@@ -87,10 +87,14 @@
         handleShapeList: [],
         lockShapeList: [],
         doorConfig: {
-          doorShapeIndex: '',
-          sashShapeIndex: '',
-          handleShapeIndex: '',
-          lockShapeIndex: ''
+          doorShapeIndex: 0,
+          doorShapeName: '',
+          sashShapeIndex: 0,
+          sashShapeName: '',
+          handleShapeIndex: 0,
+          handleShapeName: '',
+          lockShapeIndex: 0,
+          lockShapeName: ''
         }
 
       },

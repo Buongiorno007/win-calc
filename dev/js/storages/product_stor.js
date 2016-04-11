@@ -68,6 +68,10 @@
         door_sash_shape_id: 0,
         door_handle_shape_id: 0,
         door_lock_shape_id: 0,
+        doorName: '',
+        doorSashName: '',
+        doorHandleName: '',
+        doorLockName: '',
 
         template_price: 0,
         addelem_price: 0,

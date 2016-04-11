@@ -94,7 +94,15 @@
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
       } else {
-        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        /** if Door */
+        if(ProductStor.product.construction_type === 4) {
+          //--------- show only Glasses and AddElements
+          if(id === 3 || id === 6) {
+            GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          }
+        } else {
+          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        }
       }
     }
 

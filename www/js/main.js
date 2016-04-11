@@ -579,6 +579,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     DesignServ.setDefaultTemplate();
 
 
+    //============ if Door Construction
+    if(ProductStor.product.construction_type === 4) {
+      //      DesignServ.downloadDoorConfig();
+      DesignServ.setDoorParams();
+    }
+
+
+
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
       DesignServ.initAllImposts();
@@ -884,24 +892,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
-      console.info('product++++',ProductStor.product);
       //----- show current items
       thisCtrl.config.selectedStep1 = 1;
       thisCtrl.config.selectedStep2 = 1;
       thisCtrl.config.selectedStep3 = 1;
       thisCtrl.config.selectedStep4 = 1;
-//      DesignStor.design.doorConfig.doorShapeIndex = '';
-//      DesignStor.design.doorConfig.sashShapeIndex = '';
-//      DesignStor.design.doorConfig.handleShapeIndex = '';
-//      DesignStor.design.doorConfig.lockShapeIndex = '';
     }
 
 
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
-      console.info('door config++++',id);
-      GlobalStor.global.noDoorExist = 1;
       //----- check doorKits
       if(GlobalStor.global.noDoorExist) {
         //-------- show alert
@@ -936,7 +937,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
             DesignStor.design.doorConfig.doorShapeIndex = id;
             thisCtrl.config.selectedStep1 = 1;
-            console.info('door config----', DesignStor.design.sashShapeList, DesignStor.design.doorConfig.doorShapeIndex);
           }
         }
       }
@@ -947,7 +947,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Select prifile/sash shape --------*/
 
     function selectSash(id) {
-      console.info('sash id++++',id);
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -956,9 +955,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           DesignStor.design.doorConfig.sashShapeIndex = id;
           thisCtrl.config.selectedStep2 = 1;
         }
+        DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
       }
-      DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
-      console.info('handes----', DesignStor.design.handleShapeList);
     }
 
 
@@ -966,7 +964,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Select handle shape --------*/
 
     function selectHandle(id) {
-      console.info('handle id++++',id);
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -975,9 +972,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
+        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
       }
-      DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
-      console.info('locks----', GlobalStor.global.doorLocks);
     }
 
 
@@ -985,7 +981,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {
-      console.info('lock id++++',id);
       if(DesignStor.design.doorConfig.lockShapeIndex === id) {
         DesignStor.design.doorConfig.lockShapeIndex = '';
         thisCtrl.config.selectedStep4 = 0;
@@ -1024,6 +1019,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Save Door Configuration --------*/
 
     function saveDoorConfig() {
+      DesignServ.setDoorParamNames();
       DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
@@ -2556,7 +2552,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
       } else {
-        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        /** if Door */
+        if(ProductStor.product.construction_type === 4) {
+          //--------- show only Glasses and AddElements
+          if(id === 3 || id === 6) {
+            GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          }
+        } else {
+          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        }
       }
     }
 
@@ -9620,6 +9624,30 @@ function ErrorResult(code, message) {
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
+      DesignStor.design.doorShapeList = DesignStor.designSource.doorShapeList;
+      console.log('prepareDoorConfig', DesignStor.design.doorShapeList)
+    }
+
+
+
+    function setDoorParamInProduct() {
+      var doorConfig = DesignStor.design.doorConfig;
+      ProductStor.product.doorName = doorConfig.doorShapeName;
+      ProductStor.product.doorSashName = doorConfig.sashShapeName;
+      ProductStor.product.doorHandleName = doorConfig.handleShapeName;
+      ProductStor.product.doorLockName = doorConfig.lockShapeName;
+    }
+
+
+
+    function setDoorParamNames() {
+      var doorConfig = DesignStor.design.doorConfig;
+      doorConfig.doorShapeName = DesignStor.design.doorShapeList[doorConfig.doorShapeIndex].name;
+      doorConfig.sashShapeName = DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].frame.name +
+        '/'+ DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].sash.name;
+      doorConfig.handleShapeName = DesignStor.design.handleShapeList[doorConfig.handleShapeIndex].name;
+      doorConfig.lockShapeName = DesignStor.design.lockShapeList[doorConfig.lockShapeIndex].name;
+      setDoorParamInProduct();
     }
 
 
@@ -9659,7 +9687,16 @@ function ErrorResult(code, message) {
 
         DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
         DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+
+        setDoorParamNames();
       }
+      console.log('setDoorParams');
+      console.log('doorKitsT====',GlobalStor.global.doorKitsT1, GlobalStor.global.doorKitsT2);
+      console.log('doorLocks====',GlobalStor.global.doorLocks);
+
+      console.log('sashShapeList',DesignStor.design.sashShapeList);
+      console.log('handleShapeList',DesignStor.design.handleShapeList);
+      console.log('lockShapeList',DesignStor.design.lockShapeList);
     }
 
 
@@ -11567,8 +11604,7 @@ function ErrorResult(code, message) {
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
-      var doorShapeList = DesignStor.design.doorShapeList,
-          doorConfig = DesignStor.design.doorConfig,
+      var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
@@ -11615,10 +11651,13 @@ function ErrorResult(code, message) {
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //------- save new door config
-              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
-              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
-              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
-              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
+              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
+              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
+              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
+
+              setDoorParamInProduct();
+
             }
 
             /** save new template in templates Array */
@@ -11719,6 +11758,7 @@ function ErrorResult(code, message) {
 
       stepBack: stepBack,
       //---- door
+      setDoorParamNames: setDoorParamNames,
       prepareDoorConfig: prepareDoorConfig,
       setDoorParams: setDoorParams
     };
@@ -16715,16 +16755,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var promises = GlobalStor.global.doorHandlers.map(function(item) {
         var deff = $q.defer();
         localDB.selectLocalDB(
-          localDB.tablesLocalDB.lock_lists.tableName,
-          {'accessory_id': item.id},
-          'list_id'
+          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
         ).then(function(lockIds) {
           //console.info('--lockIds---', lockIds);
           if(lockIds.length) {
             var promises2 = lockIds.map(function(item2) {
               var deff2 = $q.defer();
-              localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id})
-                .then(function(lockKid) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'id, name, list_type_id'
+              ).then(function(lockKid) {
                   deff2.resolve(lockKid[0]);
                 });
               return deff2.promise;
@@ -16744,15 +16783,42 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
+    function checkHandleWProfile(profArr) {
+      var profIds = [],
+          profArrQty = profArr.length,
+          profsQty, profQty, isExist, i;
+      for(i = 0; i < profArrQty; i+=1) {
+        profsQty = GlobalStor.global.profiles.length;
+        isExist = 0;
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
+              isExist = 1;
+            }
+          }
+        }
+        if(isExist) {
+          profIds.push(profArr[i].profile_system_id);
+        }
+      }
+      return profIds.join(', ');
+    }
+
 
     /**------ download Handles ------*/
 
     function downloadDoorHandles() {
       //36 офисная ручка , 35 нажимной гарнитур
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}).then(function(handlData) {
+      var options = 'id, name, list_type_id, parent_element_id';
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}, options
+      ).then(function(handlData) {
         //console.warn('нажимной гарнитур', handlData);
         GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
-        localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}).then(function(handlData) {
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}, options
+        ).then(function(handlData) {
           //console.warn('офисная ручка', handlData);
           GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
 
@@ -16774,12 +16840,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
 
           $q.all(promises).then(function(profData) {
-            //console.info('--prof--222-', profData);
             var handleQty = GlobalStor.global.doorHandlers.length, h;
             for(h = 0; h < handleQty; h+=1) {
-              GlobalStor.global.doorHandlers[h].profIds = angular.copy(profData[h]);
+              //--------- compare with profiles
+              GlobalStor.global.doorHandlers[h].profIds = checkHandleWProfile(profData[h]);
             }
-            //console.warn('ручкs', GlobalStor.global.doorHandlers);
           });
         });
 
@@ -16792,7 +16857,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**------ download Doors ------*/
 
     function downloadDoorKits() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'in_door': 1}).then(function(doorData) {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'in_door': 1}, 'id, name, list_group_id, doorstep_type'
+      ).then(function(doorData) {
         var door = angular.copy(doorData),
             doorKitsT1, doorKitsT2,
             doorQty = door.length;
@@ -17005,10 +17072,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
     }
 
 
@@ -17336,6 +17403,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
+      console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -17343,8 +17411,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               localDB.selectLocalDB(
                 localDB.tablesLocalDB.beed_profile_systems.tableName,
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
-                'list_id')
-                .then(function(beadIds) {
+                'list_id'
+              ).then(function(beadIds) {
+                  console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -17401,8 +17470,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     deff2.resolve(0);
                   }
                 });
-              return deff2.promise;
+            } else {
+              console.log('item.glass_width === 0');
+              deff2.resolve(0);
             }
+            return deff2.promise;
           });
 
       deff.resolve($q.all(promisBeads));
@@ -17556,84 +17628,89 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-              var beadQty = template.priceElements.beadsSize.length;
-              while(--beadQty > -1) {
-                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
+        console.warn('beadResult!!!!!',beadResult, beadResult.length);
+        if(beadResult.length && beadResult[0]) {
+          var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+            var beadQty = template.priceElements.beadsSize.length;
+            while (--beadQty > -1) {
+              if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                template.priceElements.beadsSize[beadQty].elemId = item.beadId;
               }
-              return item.beadId;
-            })),
-            objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                hardwareId
-              ],
-              sizes: []
-            };
-        //-------- beads data for analysis
-        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-        //------- fill objXFormedPrice for sizes
-        for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-        }
-
-        //------- set Overall Dimensions
-        ProductStor.product.template_width = 0;
-        ProductStor.product.template_height = 0;
-        ProductStor.product.template_square = 0;
-        var overallQty = ProductStor.product.template.details[0].overallDim.length;
-        while(--overallQty > -1) {
-          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-        }
-
-        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
-
-        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-        //--------- get product price
-        calculationPrice(objXFormedPrice).then(function(result) {
-          deferred.resolve(1);
-          /** set Report */
-          if(result) {
-            //---- only for this type of user
-            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-              ProductStor.product.report = prepareReport(result.constrElements);
-              //console.log('REPORT', ProductStor.product.report);
             }
+            return item.beadId;
+          })), objXFormedPrice = {
+            laminationId: laminatId,
+            ids: [
+              ProductStor.product.profile.rama_list_id,
+              ProductStor.product.profile.rama_still_list_id,
+              ProductStor.product.profile.stvorka_list_id,
+              ProductStor.product.profile.impost_list_id,
+              ProductStor.product.profile.shtulp_list_id,
+              (glassIds.length > 1) ? glassIds.map(function (item) {
+                return item.id;
+              }) : glassIds[0].id,
+              (beadIds.length > 1) ? beadIds : beadIds[0],
+              hardwareId
+            ],
+            sizes: []
+          };
+          //-------- beads data for analysis
+          ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+          //------- fill objXFormedPrice for sizes
+          for (var size in template.priceElements) {
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
-        });
 
-        /** calculate coeffs */
-        calculateCoeffs(objXFormedPrice);
+          //------- set Overall Dimensions
+          ProductStor.product.template_width = 0;
+          ProductStor.product.template_height = 0;
+          ProductStor.product.template_square = 0;
+          var overallQty = ProductStor.product.template.details[0].overallDim.length;
+          while (--overallQty > -1) {
+            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+            ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
+          }
 
-        /** save analytics data first time */
-        if(GlobalStor.global.startProgramm) {
-          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-          // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-          /** send analytics data to Server*/
-          //------ profile
-          $timeout(function() {
-            AnalyticsServ.sendAnalyticsData(
-              UserStor.userInfo.id,
-              OrderStor.order.id,
-              ProductStor.product.template_id,
-              ProductStor.product.profile.id,
-              1
-            );
-          }, 5000);
+          //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+          //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+
+          //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+          //--------- get product price
+          calculationPrice(objXFormedPrice).then(function (result) {
+            deferred.resolve(1);
+            /** set Report */
+            if (result) {
+              //---- only for this type of user
+              if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                ProductStor.product.report = prepareReport(result.constrElements);
+                //console.log('REPORT', ProductStor.product.report);
+              }
+            }
+          });
+
+          /** calculate coeffs */
+          calculateCoeffs(objXFormedPrice);
+
+          /** save analytics data first time */
+          if (GlobalStor.global.startProgramm) {
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+            /** send analytics data to Server*/
+              //------ profile
+            $timeout(function () {
+              AnalyticsServ.sendAnalyticsData(
+                UserStor.userInfo.id,
+                OrderStor.order.id,
+                ProductStor.product.template_id,
+                ProductStor.product.profile.id,
+                1);
+            }, 5000);
+          }
+        } else {
+          deferred.resolve(1);
         }
       });
       return deferred.promise;
@@ -18229,6 +18306,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandleName;
+        delete productData.doorLockName;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -23851,9 +23932,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         selectedImpost: [],
         selectedArc: [],
         //----- Sizes
-        openVoiceHelper: false,
-        loudVoice: false,
-        quietVoice: false,
+        openVoiceHelper: 0,
+        loudVoice: 0,
+        quietVoice: 0,
         voiceTxt: '',
         selectedGlassId: 0,
 
@@ -23881,24 +23962,24 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isNoDoors: 0,
         doorShapeData: [
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
-            shapeIcon: 'img/door-config/doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE1'),
+            icon: 'img/door-config/doorstep.png',
+            iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE2'),
+            icon: 'img/door-config/no-doorstep.png',
+            iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
-            shapeIcon: 'img/door-config/doorstep-al1.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            icon: 'img/door-config/doorstep-al1.png',
+            iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
-            shapeIcon: 'img/door-config/doorstep-al2.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            icon: 'img/door-config/doorstep-al2.png',
+            iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
         doorShapeList: [],
@@ -23906,10 +23987,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         handleShapeList: [],
         lockShapeList: [],
         doorConfig: {
-          doorShapeIndex: '',
-          sashShapeIndex: '',
-          handleShapeIndex: '',
-          lockShapeIndex: ''
+          doorShapeIndex: 0,
+          doorShapeName: '',
+          sashShapeIndex: 0,
+          sashShapeName: '',
+          handleShapeIndex: 0,
+          handleShapeName: '',
+          lockShapeIndex: 0,
+          lockShapeName: ''
         }
 
       },
@@ -24319,6 +24404,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         door_sash_shape_id: 0,
         door_handle_shape_id: 0,
         door_lock_shape_id: 0,
+        doorName: '',
+        doorSashName: '',
+        doorHandleName: '',
+        doorLockName: '',
 
         template_price: 0,
         addelem_price: 0,

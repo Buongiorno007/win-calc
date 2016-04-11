@@ -41,10 +41,10 @@
     }
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
     }
 
 
@@ -372,6 +372,7 @@
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
+      console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -379,8 +380,9 @@
               localDB.selectLocalDB(
                 localDB.tablesLocalDB.beed_profile_systems.tableName,
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
-                'list_id')
-                .then(function(beadIds) {
+                'list_id'
+              ).then(function(beadIds) {
+                  console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -437,8 +439,11 @@
                     deff2.resolve(0);
                   }
                 });
-              return deff2.promise;
+            } else {
+              console.log('item.glass_width === 0');
+              deff2.resolve(0);
             }
+            return deff2.promise;
           });
 
       deff.resolve($q.all(promisBeads));
@@ -592,84 +597,89 @@
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-              var beadQty = template.priceElements.beadsSize.length;
-              while(--beadQty > -1) {
-                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
+        console.warn('beadResult!!!!!',beadResult, beadResult.length);
+        if(beadResult.length && beadResult[0]) {
+          var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+            var beadQty = template.priceElements.beadsSize.length;
+            while (--beadQty > -1) {
+              if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                template.priceElements.beadsSize[beadQty].elemId = item.beadId;
               }
-              return item.beadId;
-            })),
-            objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                hardwareId
-              ],
-              sizes: []
-            };
-        //-------- beads data for analysis
-        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-        //------- fill objXFormedPrice for sizes
-        for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-        }
-
-        //------- set Overall Dimensions
-        ProductStor.product.template_width = 0;
-        ProductStor.product.template_height = 0;
-        ProductStor.product.template_square = 0;
-        var overallQty = ProductStor.product.template.details[0].overallDim.length;
-        while(--overallQty > -1) {
-          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-        }
-
-        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
-
-        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-        //--------- get product price
-        calculationPrice(objXFormedPrice).then(function(result) {
-          deferred.resolve(1);
-          /** set Report */
-          if(result) {
-            //---- only for this type of user
-            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-              ProductStor.product.report = prepareReport(result.constrElements);
-              //console.log('REPORT', ProductStor.product.report);
             }
+            return item.beadId;
+          })), objXFormedPrice = {
+            laminationId: laminatId,
+            ids: [
+              ProductStor.product.profile.rama_list_id,
+              ProductStor.product.profile.rama_still_list_id,
+              ProductStor.product.profile.stvorka_list_id,
+              ProductStor.product.profile.impost_list_id,
+              ProductStor.product.profile.shtulp_list_id,
+              (glassIds.length > 1) ? glassIds.map(function (item) {
+                return item.id;
+              }) : glassIds[0].id,
+              (beadIds.length > 1) ? beadIds : beadIds[0],
+              hardwareId
+            ],
+            sizes: []
+          };
+          //-------- beads data for analysis
+          ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+          //------- fill objXFormedPrice for sizes
+          for (var size in template.priceElements) {
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
-        });
 
-        /** calculate coeffs */
-        calculateCoeffs(objXFormedPrice);
+          //------- set Overall Dimensions
+          ProductStor.product.template_width = 0;
+          ProductStor.product.template_height = 0;
+          ProductStor.product.template_square = 0;
+          var overallQty = ProductStor.product.template.details[0].overallDim.length;
+          while (--overallQty > -1) {
+            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+            ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
+          }
 
-        /** save analytics data first time */
-        if(GlobalStor.global.startProgramm) {
-          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-          // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-          /** send analytics data to Server*/
-          //------ profile
-          $timeout(function() {
-            AnalyticsServ.sendAnalyticsData(
-              UserStor.userInfo.id,
-              OrderStor.order.id,
-              ProductStor.product.template_id,
-              ProductStor.product.profile.id,
-              1
-            );
-          }, 5000);
+          //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+          //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+
+          //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+          //--------- get product price
+          calculationPrice(objXFormedPrice).then(function (result) {
+            deferred.resolve(1);
+            /** set Report */
+            if (result) {
+              //---- only for this type of user
+              if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                ProductStor.product.report = prepareReport(result.constrElements);
+                //console.log('REPORT', ProductStor.product.report);
+              }
+            }
+          });
+
+          /** calculate coeffs */
+          calculateCoeffs(objXFormedPrice);
+
+          /** save analytics data first time */
+          if (GlobalStor.global.startProgramm) {
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+            /** send analytics data to Server*/
+              //------ profile
+            $timeout(function () {
+              AnalyticsServ.sendAnalyticsData(
+                UserStor.userInfo.id,
+                OrderStor.order.id,
+                ProductStor.product.template_id,
+                ProductStor.product.profile.id,
+                1);
+            }, 5000);
+          }
+        } else {
+          deferred.resolve(1);
         }
       });
       return deferred.promise;
@@ -1265,6 +1275,10 @@
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandleName;
+        delete productData.doorLockName;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;

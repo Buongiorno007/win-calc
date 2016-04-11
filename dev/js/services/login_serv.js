@@ -1105,16 +1105,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var promises = GlobalStor.global.doorHandlers.map(function(item) {
         var deff = $q.defer();
         localDB.selectLocalDB(
-          localDB.tablesLocalDB.lock_lists.tableName,
-          {'accessory_id': item.id},
-          'list_id'
+          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
         ).then(function(lockIds) {
           //console.info('--lockIds---', lockIds);
           if(lockIds.length) {
             var promises2 = lockIds.map(function(item2) {
               var deff2 = $q.defer();
-              localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id})
-                .then(function(lockKid) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'id, name, list_type_id'
+              ).then(function(lockKid) {
                   deff2.resolve(lockKid[0]);
                 });
               return deff2.promise;
@@ -1134,15 +1133,42 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
 
+    function checkHandleWProfile(profArr) {
+      var profIds = [],
+          profArrQty = profArr.length,
+          profsQty, profQty, isExist, i;
+      for(i = 0; i < profArrQty; i+=1) {
+        profsQty = GlobalStor.global.profiles.length;
+        isExist = 0;
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
+              isExist = 1;
+            }
+          }
+        }
+        if(isExist) {
+          profIds.push(profArr[i].profile_system_id);
+        }
+      }
+      return profIds.join(', ');
+    }
+
 
     /**------ download Handles ------*/
 
     function downloadDoorHandles() {
       //36 офисная ручка , 35 нажимной гарнитур
-      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}).then(function(handlData) {
+      var options = 'id, name, list_type_id, parent_element_id';
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}, options
+      ).then(function(handlData) {
         //console.warn('нажимной гарнитур', handlData);
         GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
-        localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}).then(function(handlData) {
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}, options
+        ).then(function(handlData) {
           //console.warn('офисная ручка', handlData);
           GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
 
@@ -1164,12 +1190,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
 
           $q.all(promises).then(function(profData) {
-            //console.info('--prof--222-', profData);
             var handleQty = GlobalStor.global.doorHandlers.length, h;
             for(h = 0; h < handleQty; h+=1) {
-              GlobalStor.global.doorHandlers[h].profIds = angular.copy(profData[h]);
+              //--------- compare with profiles
+              GlobalStor.global.doorHandlers[h].profIds = checkHandleWProfile(profData[h]);
             }
-            //console.warn('ручкs', GlobalStor.global.doorHandlers);
           });
         });
 
