@@ -754,7 +754,7 @@
           isExist = 1;
         }
         if(isExist) {
-          DesignStor.designSource.doorShapeList.push(angular.copy(DesignStor.designSource.doorShapeData[d]));
+          DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
     }
