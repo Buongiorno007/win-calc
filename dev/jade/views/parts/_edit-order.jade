@@ -15,12 +15,12 @@
      .cart-item-data-m
       .cart-item(ng-repeat="nameGlass in isBoxArray.nameGlass track by $index")
        .value {{nameGlass.name}}
-        select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass", required)       
+        select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in isBoxArray.listNameGlass", required)       
     .box2
      .title {{::editOrder.CONFIGMENU_HARDWARE}}
      .cart-item-data-m
       .value {{isBoxArray.nameHardware }}
-       select.user-select-field-m(name="Hardware", ng-if='isBoxArray.nameHardware', ng-model="isBoxArray.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
+       select.user-select-field-m(name="Hardware", ng-if='isBoxArray.nameHardware', ng-model="isBoxArray.dataHardware", ng-options="isBoxArray.listNameHardware.name for listNameHardware in editOrder.H.history.isBoxArray.listNameHardware", required)
     .box1
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
      .cart-item-data-m

@@ -6,9 +6,9 @@
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function ($q, GlobalStor, HistoryStor) {
+  function ($q, GlobalStor, HistoryStor, ProductStor) {
 	var thisFactory = this;
-  //редактироние source  и посмотри mainServ.
+
     /**============ METHODS ================*/
     function box() {
         var array = HistoryStor.history.isBoxArray,
@@ -83,6 +83,7 @@
             obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
             HistoryStor.history.listName.push(obj);
           }
+
           for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
            var globalQtyll = GlobalStor.global.hardwares[glbl].length, glbll;
             for(glbll = 0; glbll < globalQtyll; glbll+=1) {
@@ -97,23 +98,7 @@
             HistoryStor.history.listNameHardware.push(obj);
             }
           }
-          for(glbg = 0; glbg < glassesQty; glbg+=1) {
-           var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;;
-            for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
-             var name,
-                 id,
-                 sku,
-                 obj = {  
-                   name:'',
-                   id: 0,
-                   sku: 0
-                 };
-            obj.id = GlobalStor.global.glasses[glbg][glbgg].id,
-            obj.name = GlobalStor.global.glasses[glbg][glbgg].name,
-            obj.sku = GlobalStor.global.glasses[glbg][glbgg].sku
-            HistoryStor.history.listNameGlass.push(obj);
-            }
-          }
+
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
            var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
             for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
@@ -180,7 +165,6 @@
           }
         //================add name in array==================//    
         clear();
-        
         for(ord = 0; ord < ordersQty; ord+=1) {  
           HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source)
         console.log( HistoryStor.history.isBoxArray[ord].template_source, '1111')
@@ -197,9 +181,43 @@
               }
             }
           } 
-          console.log(HistoryStor.history.isBoxArray)
+          
        }
 
+      function nameListGlasses() {
+        var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        var listNameGlass = [];
+        var glassAllQty = GlobalStor.global.glassesAll.length, all;
+          for(ord=0; ord<ordersQty; ord+=1 ) {
+            for(all=0; all<glassAllQty; all+=1) {
+              if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
+                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.glassesAll[all].profileId) {
+                  var listGlass = GlobalStor.global.glassesAll[all].glasses.length, lst;
+                  for(lst = 0; lst < listGlass; lst+=1) {
+                    var subListQty = GlobalStor.global.glassesAll[all].glasses[lst].length, lstt,
+                    name,
+                    id,
+                    sku,
+                    obj = {  
+                      name:'',
+                      id: 0,
+                      sku: 0
+                    };
+                    for(lstt=0; lstt<subListQty; lstt+=1) {
+                      obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
+                      obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
+                      obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
+                      listNameGlass.push(obj);
+                      HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          console.log(HistoryStor.history.isBoxArray)
+      }
+      console.log(HistoryStor.history.isBoxArray)
     function extendLaminat() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
@@ -231,6 +249,7 @@
         }    
     }
     function extendProfile() {
+      nameListGlasses()
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
           if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
@@ -271,12 +290,14 @@
         extendHardware:extendHardware,
         extendProfile:extendProfile,
         extendGlass:extendGlass,
+        nameListGlasses:nameListGlasses,
         clear: clear
 	    };
     	return thisFactory.publicObj;
 
     //------ clicking
     	box:box;
+      nameListGlasses:nameListGlasses;
       extendLaminat:extendLaminat;
       extendHardware:extendHardware;
       extendProfile:extendProfile;
