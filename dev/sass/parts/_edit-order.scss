@@ -12,42 +12,56 @@
 	height: 100%;
 	overflow: auto;
 }
+
+.okey {
+	text-align: center;
+    font-size: x-large;
+    float: left;
+    margin: 1rem;
+}
 .boxText{
-	background: #FFFFFF;
-	top: 40rem;
+	position: relative;
+	top: 2rem;
 	left: 0rem;
 	height: 5%;
-	width: 45%; 
+	width: auto;
+    border-radius: 2rem;
+    margin: 2rem;
+	float: left; 
 }
 .box {
 	position: absolute;
-	left: 2%;
 	height: auto;
 	width: 5%; 
+	top: 0%;
 }
 .box1 {
 	position: absolute;
 	height: auto;
-	left: 6%;
-	width: 18%; 
+	width: 18%;
+	top: 0%; 
+	left: 75%;
+
 }
 .box2 {
 	position: absolute;
 	height: auto;
-	left: 25%;
+	top: 0%;
 	width: 20%; 
+	left: 50%;
 }
 .box3 {
 	position: absolute;
 	height: auto;
-	left: 47%;
-	width: 15%; 
+	width: 15%;
+	top: 0%; 
+	left: 7%;
 }
 .box4 {
-	position: absolute;
+	position: relative;
 	height: auto;
-	left: 60%;
-	width: 28%; 
+	width: 5%; 
+	left: 18%;
 }
 .user-select-field-m {
   @extend .user-field-m;
@@ -61,7 +75,9 @@
   @extend .menu-right-general;
   @include justify-content(space-between);
   position: relative;
-  height: 25%;
+  height: auto;
+  overflow: auto;
+  margin: 2rem;
 }
 .cart-item-data-m {
     @include display-flex();
@@ -73,7 +89,23 @@
     color: $main_orange;
 }
 
-
+.save-m {
+  @extend .cross-btn;
+  @extend .splash;
+  position: relative;
+  width: rem(85px);
+  height: rem(85px);
+  &:after {
+    top: 25%;
+    left: 25%;
+  }
+  @include font-icon(rem(28px), 1.5);
+  background-color: $main_green;
+  &:after{
+    content: $select-history-icon;
+  }
+  float: right;
+}
 
 
  

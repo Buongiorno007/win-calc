@@ -293,7 +293,6 @@
   </div>
 </div>
 <div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
-  <div ng-click="editOrder.box1()" class="boxText"></div>
   <div class="order-content1">
     <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cart-menu-m">
       <div class="box">
@@ -302,11 +301,21 @@
           <div class="value">{{isBoxArray.product_id}}</div>
         </div>
       </div>
-      <div class="box1">
-        <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
+      <div class="box3">
+        <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
         <div class="cart-item-data-m">
-          <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
-            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
+          <div class="value">{{isBoxArray.nameProfiles}}
+            <select name="Profiles" ng-if="isBoxArray.nameProfiles" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">     </select>
+          </div>
+        </div>
+      </div>
+      <div class="box4">
+        <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
+        <div class="cart-item-data-m">
+          <div ng-repeat="nameGlass in isBoxArray.nameGlass track by $index" class="cart-item">
+            <div class="value">{{nameGlass.name}}
+              <select name="Glass" ng-if="isBoxArray.nameGlass" ng-model="nameGlass.dataGlass" ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass" required class="user-select-field-m">      </select>
+            </div>
           </div>
         </div>
       </div>
@@ -318,24 +327,30 @@
           </div>
         </div>
       </div>
-      <div class="box3">
-        <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
+      <div class="box1">
+        <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
         <div class="cart-item-data-m">
-          <div class="value">{{isBoxArray.nameProfiles}}
-            <select name="Profiles" ng-if="isBoxArray.nameProfiles" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">      </select>
+          <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
+            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listName.name for listName in editOrder.H.history.listName" required class="user-select-field-m"></select>
           </div>
         </div>
       </div>
-      <div class="box4">
-        <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
-        <div class="cart-item-data-m">
-          <div ng-repeat="nameGlass in isBoxArray.nameGlass track by $index" class="cart-item">
-            <div class="value">{{nameGlass.name}}
-              <select name="Glass" ng-if="isBoxArray.nameGlass" ng-model="nameGlass.dataGlass" ng-options="listNameGlass.name for listNameGlass in editOrder.H.history.listNameGlass" required class="user-select-field-m"></select>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="boxText">
+      <div ng-click="editOrder.profileOK()" class="save-m"> </div>
+      <div class="okey">{{::editOrder.CONFIGMENU_PROFILE}}</div>
+    </div>
+    <div class="boxText">
+      <div ng-click="editOrder.glassOK()" class="save-m"> </div>
+      <div class="okey">{{::editOrder.CONFIGMENU_GLASS}}</div>
+    </div>
+    <div class="boxText"> 
+      <div ng-click="editOrder.hardwareOK()" class="save-m"></div>
+      <div class="okey">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
+    </div>
+    <div class="boxText">
+      <div ng-click="editOrder.laminationOK()" class="save-m"> </div>
+      <div class="okey">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
     </div>
   </div>
 </div>

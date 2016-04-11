@@ -3839,14 +3839,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**============ METHODS ================*/
     
-    function box1() {
-      RecOrderServ.extendLaminat();
-      RecOrderServ.extendHardware();
+    function profileOK() {
       RecOrderServ.extendProfile();
-      RecOrderServ.extendGlass();
-       console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-  console.log('box1 go')
   }
+    function glassOK() {
+      RecOrderServ.extendGlass();
+  }
+    function hardwareOK() {
+      RecOrderServ.extendHardware();
+
+  }
+    function laminationOK() {
+      RecOrderServ.extendLaminat();
+  }
+
 
     /**========== FINISH ==========*/
 
@@ -3856,7 +3862,10 @@ thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
 thisCtrl.extendHardware = RecOrderServ.extendHardware;
 thisCtrl.extendProfile = RecOrderServ.extendProfile;
 thisCtrl.extendGlass = RecOrderServ.extendGlass;
-thisCtrl.box1 = box1;
+thisCtrl.profileOK = profileOK;
+thisCtrl.glassOK = glassOK;
+thisCtrl.hardwareOK = hardwareOK;
+thisCtrl.laminationOK = laminationOK;
   });
 })();
 
@@ -20427,6 +20436,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             HistoryStor.history.listNameProfiles.push(obj);
             }
           }
+          console.log('GlobalStor.global.glasses', GlobalStor.global.glasses)
         //================NameList for select================//
 
         //================add name in array==================//  
@@ -20515,37 +20525,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             HistoryStor.history.isBoxArray[ord].lamination_out_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_out_id;
             delete HistoryStor.history.isBoxArray[ord].dataLamination;
           }
-          if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {
-            delete HistoryStor.history.isBoxArray[ord].hardware_id;
-            delete HistoryStor.history.isBoxArray[ord].nameHardware;
-            HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
-            HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
-            delete HistoryStor.history.isBoxArray[ord].dataHardware;
-          }
-          if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
-            delete HistoryStor.history.isBoxArray[ord].profile_id;
-            delete HistoryStor.history.isBoxArray[ord].nameProfiles;
-            HistoryStor.history.isBoxArray[ord].profile_id = HistoryStor.history.isBoxArray[ord].dataProfiles.id;
-            HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
-            delete HistoryStor.history.isBoxArray[ord].dataProfiles;
-          }
-
-
-
-            var arrayBoxQty = HistoryStor.history.isBoxArray[ord].nameGlass.length, tst;
-            var glassId,
-                nameGlass;
-            for (tst = 0; tst<arrayBoxQty; tst+=1) {
-              if(tst === 0){
-                glassId = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
-                nameGlass = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
-              } else {
-                glassId += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
-                nameGlass += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
-              }
-            }
-              delete HistoryStor.history.isBoxArray[ord].nameGlass;
-              HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
         }    
     }
     function extendHardware() {

@@ -28,14 +28,20 @@
 
     /**============ METHODS ================*/
     
-    function box1() {
-      RecOrderServ.extendLaminat();
-      RecOrderServ.extendHardware();
+    function profileOK() {
       RecOrderServ.extendProfile();
-      RecOrderServ.extendGlass();
-       console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-  console.log('box1 go')
   }
+    function glassOK() {
+      RecOrderServ.extendGlass();
+  }
+    function hardwareOK() {
+      RecOrderServ.extendHardware();
+
+  }
+    function laminationOK() {
+      RecOrderServ.extendLaminat();
+  }
+
 
     /**========== FINISH ==========*/
 
@@ -45,6 +51,9 @@ thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
 thisCtrl.extendHardware = RecOrderServ.extendHardware;
 thisCtrl.extendProfile = RecOrderServ.extendProfile;
 thisCtrl.extendGlass = RecOrderServ.extendGlass;
-thisCtrl.box1 = box1;
+thisCtrl.profileOK = profileOK;
+thisCtrl.glassOK = glassOK;
+thisCtrl.hardwareOK = hardwareOK;
+thisCtrl.laminationOK = laminationOK;
   });
 })();

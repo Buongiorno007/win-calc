@@ -128,6 +128,7 @@
             HistoryStor.history.listNameProfiles.push(obj);
             }
           }
+          console.log('GlobalStor.global.glasses', GlobalStor.global.glasses)
         //================NameList for select================//
 
         //================add name in array==================//  
@@ -216,37 +217,6 @@
             HistoryStor.history.isBoxArray[ord].lamination_out_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_out_id;
             delete HistoryStor.history.isBoxArray[ord].dataLamination;
           }
-          if (HistoryStor.history.isBoxArray[ord].dataHardware !== undefined) {
-            delete HistoryStor.history.isBoxArray[ord].hardware_id;
-            delete HistoryStor.history.isBoxArray[ord].nameHardware;
-            HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
-            HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
-            delete HistoryStor.history.isBoxArray[ord].dataHardware;
-          }
-          if (HistoryStor.history.isBoxArray[ord].dataProfiles !== undefined) {
-            delete HistoryStor.history.isBoxArray[ord].profile_id;
-            delete HistoryStor.history.isBoxArray[ord].nameProfiles;
-            HistoryStor.history.isBoxArray[ord].profile_id = HistoryStor.history.isBoxArray[ord].dataProfiles.id;
-            HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
-            delete HistoryStor.history.isBoxArray[ord].dataProfiles;
-          }
-
-
-
-            var arrayBoxQty = HistoryStor.history.isBoxArray[ord].nameGlass.length, tst;
-            var glassId,
-                nameGlass;
-            for (tst = 0; tst<arrayBoxQty; tst+=1) {
-              if(tst === 0){
-                glassId = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
-                nameGlass = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
-              } else {
-                glassId += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
-                nameGlass += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
-              }
-            }
-              delete HistoryStor.history.isBoxArray[ord].nameGlass;
-              HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
         }    
     }
     function extendHardware() {
