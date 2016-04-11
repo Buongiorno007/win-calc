@@ -128,7 +128,6 @@
             HistoryStor.history.listNameProfiles.push(obj);
             }
           }
-          console.log('GlobalStor.global.glasses', GlobalStor.global.glasses)
         //================NameList for select================//
 
         //================add name in array==================//  
@@ -262,6 +261,7 @@
               delete HistoryStor.history.isBoxArray[ord].nameGlass;
               HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
         }    
+        console.log('tests', HistoryStor.history.isBoxArray)
     }
     /**========== FINISH ==========*/
 

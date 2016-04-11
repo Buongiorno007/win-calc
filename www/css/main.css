@@ -4724,8 +4724,8 @@ div.drum figure {
   width: 100%;
   height: 3.75rem;
   padding: 0.3125rem;
-  border: 1px solid #8c8c8c;
-  border-radius: 2rem;
+  border: 1px solid rgba(140, 140, 140, 0.65);
+  border-radius: 1rem;
   outline: none;
 }
 /* line 101, ../../dev/sass/pages/login.scss */
@@ -5811,7 +5811,7 @@ tr.factory_item {
   position: absolute;
   top: -1.25rem;
   right: -1.25rem;
-  background-color: #6ed44a;
+  background-color: #F98000;
   z-index: 1;
 }
 /* line 108, ../../dev/sass/pages/cart.scss */
@@ -6301,6 +6301,15 @@ tr.factory_item {
 .cart-page .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
+}
+
+/* line 552, ../../dev/sass/pages/cart.scss */
+.imgg {
+  position: absolute;
+  height: 17%;
+  right: 3rem;
+  z-index: 1;
+  top: -1.25rem;
 }
 
 /* line 4, ../../dev/sass/pages/design.scss */
