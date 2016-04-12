@@ -607,6 +607,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DesignStor.design.isDropSubMenu = 0;
     }
 
+
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
       DesignStor.design.activeMenuItem = 0;
@@ -628,7 +629,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         glasses.classed('glass-active', true);
       }
     }
-
 
 
     function insertSash(sashType, event) {
@@ -693,6 +693,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+
     function insertCorner(conerType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -754,7 +755,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-
     function insertArc(arcType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -795,7 +795,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**++++++++++ Edit Impost ++++++++*/
-
 
     function insertImpost(impostType, event) {
       event.preventDefault();
@@ -947,6 +946,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Select prifile/sash shape --------*/
 
     function selectSash(id) {
+      var newHandleArr;
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -955,7 +955,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           DesignStor.design.doorConfig.sashShapeIndex = id;
           thisCtrl.config.selectedStep2 = 1;
         }
-        DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
+        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
+        });
+        DesignStor.design.handleShapeList = newHandleArr;
       }
     }
 
@@ -9625,7 +9628,7 @@ function ErrorResult(code, message) {
         }
       }
       DesignStor.design.doorShapeList = DesignStor.designSource.doorShapeList;
-      console.log('prepareDoorConfig', DesignStor.design.doorShapeList)
+      console.log('prepareDoorConfig', DesignStor.design.doorShapeList);
     }
 
 
@@ -11658,6 +11661,11 @@ function ErrorResult(code, message) {
 
               setDoorParamInProduct();
 
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
             }
 
             /** save new template in templates Array */
@@ -15292,28 +15300,28 @@ function ErrorResult(code, message) {
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-      //console.info('START+++', construction);
+      console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+        console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-          //console.warn('consist!!!!!!+', consist);
+          console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            //console.warn('kitsElem!!!!!!+', kitsElem);
+            console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-              //console.warn('consistElem!!!!!!+', consistElem);
+              console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-              //console.info('FINISH====:', priceObj);
+              console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
@@ -16174,8 +16182,9 @@ function ErrorResult(code, message) {
             var defer3 = $q.defer();
             localDB.selectLocalDB(
               localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'profile_system_id': item.profileId})
-              .then(function (glassId) {
+              {'profile_system_id': item.profileId}, 'element_id'
+            ).then(function (glassId) {
+                //console.warn('glass+++', glassId);
                 var glassIdQty = glassId.length;
                 if(glassIdQty){
                   defer3.resolve(glassId);
@@ -16189,39 +16198,21 @@ function ErrorResult(code, message) {
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [], i, j;
-            //                        console.log('glassIds!!!!', glassIds);
-            for(i = 0; i < glassIdsQty; i+=1) {
-              var defer4 = $q.defer();
-              if(glassIds[i]) {
-                var promises5 = glassIds[i].map(function (item) {
-                  var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      var glass = angular.copy(result), glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
-                  return defer5.promise;
-                });
-                defer4.resolve($q.all(promises5));
-              } else {
-                defer4.resolve(0);
-              }
-              promises4.push(defer4.promise);
-            }
+                promises6 = [], i, j;
+            //console.log('glassIds!!!!', glassIds);
 
+            /** find Glass Kits */
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
               //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
+                localDB.selectLocalDB(
+                  localDB.tablesLocalDB.lists.tableName,
+                  {'parent_element_id': item.element_id, 'list_group_id': 6},
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                ).then(function (result2) {
+                    //console.log('list +++++', result2);
                     var list = angular.copy(result2),
                         listQty = list.length;
                     if(listQty){
@@ -16237,23 +16228,53 @@ function ErrorResult(code, message) {
               promises6.push(defer6.promise);
             }
 
-            $q.all(promises4).then(function(glasses) {
-              //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length;
-              if(glassesQty) {
-                for(i = 0; i < glassesQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
-                }
-              }
-            });
             $q.all(promises6).then(function(lists) {
-              //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length;
+              //console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length, promises4 = [];
+
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
-                  defer.resolve(1);
+                  var defer4 = $q.defer();
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i].filter(function(item) {
+                    return item;
+                  });
+
+                  /** find Glass Elements */
+                  var promises5 = GlobalStor.global.glassesAll[i].glassLists.map(function (item) {
+                    var defer5 = $q.defer();
+                    localDB.selectLocalDB(
+                      localDB.tablesLocalDB.elements.tableName,
+                      {'id': item.parent_element_id},
+                      'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
+                      'max_width, min_width, max_height, min_height, max_sq'
+                    ).then(function (result) {
+                        //console.log('glass!!!!', result);
+                        var glass = angular.copy(result),
+                            glassQty = glass.length;
+                        if (glassQty) {
+                          defer5.resolve(glass[0]);
+                        } else {
+                          defer5.resolve(0);
+                        }
+                      });
+                    return defer5.promise;
+                  });
+                  defer4.resolve($q.all(promises5));
+                  promises4.push(defer4.promise);
                 }
+
+                $q.all(promises4).then(function(glasses) {
+                  //console.log('glasses after 1111!!!!', glasses);
+                  var glassesQty = glasses.length;
+                  if(glassesQty) {
+                    for(i = 0; i < glassesQty; i+=1) {
+                      GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                    }
+                  }
+                  //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                  defer.resolve(1);
+                });
+
               }
             });
 
@@ -17403,7 +17424,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
-      console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
+      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -17413,7 +17434,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
                 'list_id'
               ).then(function(beadIds) {
-                  console.log('beadIds', beadIds);
+                  //console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -17508,7 +17529,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
           ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
           setProductPriceTOTAL(ProductStor.product);
-          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
         } else {
           ProductStor.product.template_price = 0;
@@ -17566,9 +17586,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-
-
-
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
       var glassSqT = 0,
@@ -17623,12 +17640,20 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    //--------- create object to send in server for price calculation
+    /**--------- create object for price calculation ----------*/
+
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      var deferred = $q.defer();
+      var deferred = $q.defer(),
+          doorHandleId = 0,
+          doorLockId = 0;
+      /** DOOR add handle and lock Ids */
+      if(ProductStor.product.construction_type === 4) {
+        doorHandleId = DesignStor.design.handleShapeList[ProductStor.product.door_handle_shape_id].id;
+        doorLockId = DesignStor.design.lockShapeList[ProductStor.product.door_lock_shape_id].id;
+      }
+
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        console.warn('beadResult!!!!!',beadResult, beadResult.length);
         if(beadResult.length && beadResult[0]) {
           var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
             var beadQty = template.priceElements.beadsSize.length;
@@ -17650,15 +17675,27 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 return item.id;
               }) : glassIds[0].id,
               (beadIds.length > 1) ? beadIds : beadIds[0],
-              hardwareId
+              (ProductStor.product.construction_type === 4) ? doorHandleId : hardwareId
             ],
             sizes: []
           };
+
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
-            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+            /** for door elements */
+            if(ProductStor.product.construction_type === 4) {
+              if(size === 'sashesBlock') {
+                objXFormedPrice.sizes.push([0], [0]);
+                //------- if Door add lock
+                objXFormedPrice.ids.push(doorLockId);
+              } else {
+                objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+              }
+            } else {
+              objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+            }
           }
 
           //------- set Overall Dimensions

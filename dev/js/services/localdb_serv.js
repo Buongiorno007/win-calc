@@ -2525,28 +2525,28 @@
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-      //console.info('START+++', construction);
+      console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
-        //console.warn('kits!!!!!!+', kits);
+        console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-          //console.warn('consist!!!!!!+', consist);
+          console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            //console.warn('kitsElem!!!!!!+', kitsElem);
+            console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-              //console.warn('consistElem!!!!!!+', consistElem);
+              console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-              //console.info('FINISH====:', priceObj);
+              console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);

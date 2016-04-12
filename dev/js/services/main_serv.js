@@ -372,7 +372,7 @@
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
-      console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
+      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -382,7 +382,7 @@
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
                 'list_id'
               ).then(function(beadIds) {
-                  console.log('beadIds', beadIds);
+                  //console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -477,7 +477,6 @@
           var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
           ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
           setProductPriceTOTAL(ProductStor.product);
-          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
         } else {
           ProductStor.product.template_price = 0;
@@ -535,9 +534,6 @@
 
 
 
-
-
-
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
       var glassSqT = 0,
@@ -592,12 +588,20 @@
 
 
 
-    //--------- create object to send in server for price calculation
+    /**--------- create object for price calculation ----------*/
+
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      var deferred = $q.defer();
+      var deferred = $q.defer(),
+          doorHandleId = 0,
+          doorLockId = 0;
+      /** DOOR add handle and lock Ids */
+      if(ProductStor.product.construction_type === 4) {
+        doorHandleId = DesignStor.design.handleShapeList[ProductStor.product.door_handle_shape_id].id;
+        doorLockId = DesignStor.design.lockShapeList[ProductStor.product.door_lock_shape_id].id;
+      }
+
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        console.warn('beadResult!!!!!',beadResult, beadResult.length);
         if(beadResult.length && beadResult[0]) {
           var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
             var beadQty = template.priceElements.beadsSize.length;
@@ -619,15 +623,27 @@
                 return item.id;
               }) : glassIds[0].id,
               (beadIds.length > 1) ? beadIds : beadIds[0],
-              hardwareId
+              (ProductStor.product.construction_type === 4) ? doorHandleId : hardwareId
             ],
             sizes: []
           };
+
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
-            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+            /** for door elements */
+            if(ProductStor.product.construction_type === 4) {
+              if(size === 'sashesBlock') {
+                objXFormedPrice.sizes.push([0], [0]);
+                //------- if Door add lock
+                objXFormedPrice.ids.push(doorLockId);
+              } else {
+                objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+              }
+            } else {
+              objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+            }
           }
 
           //------- set Overall Dimensions

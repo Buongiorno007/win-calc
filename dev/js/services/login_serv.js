@@ -524,8 +524,9 @@
             var defer3 = $q.defer();
             localDB.selectLocalDB(
               localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'profile_system_id': item.profileId})
-              .then(function (glassId) {
+              {'profile_system_id': item.profileId}, 'element_id'
+            ).then(function (glassId) {
+                //console.warn('glass+++', glassId);
                 var glassIdQty = glassId.length;
                 if(glassIdQty){
                   defer3.resolve(glassId);
@@ -539,39 +540,21 @@
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [], i, j;
-            //                        console.log('glassIds!!!!', glassIds);
-            for(i = 0; i < glassIdsQty; i+=1) {
-              var defer4 = $q.defer();
-              if(glassIds[i]) {
-                var promises5 = glassIds[i].map(function (item) {
-                  var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      var glass = angular.copy(result), glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
-                  return defer5.promise;
-                });
-                defer4.resolve($q.all(promises5));
-              } else {
-                defer4.resolve(0);
-              }
-              promises4.push(defer4.promise);
-            }
+                promises6 = [], i, j;
+            //console.log('glassIds!!!!', glassIds);
 
+            /** find Glass Kits */
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
               //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
+                localDB.selectLocalDB(
+                  localDB.tablesLocalDB.lists.tableName,
+                  {'parent_element_id': item.element_id, 'list_group_id': 6},
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                ).then(function (result2) {
+                    //console.log('list +++++', result2);
                     var list = angular.copy(result2),
                         listQty = list.length;
                     if(listQty){
@@ -587,23 +570,53 @@
               promises6.push(defer6.promise);
             }
 
-            $q.all(promises4).then(function(glasses) {
-              //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length;
-              if(glassesQty) {
-                for(i = 0; i < glassesQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
-                }
-              }
-            });
             $q.all(promises6).then(function(lists) {
-              //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length;
+              //console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length, promises4 = [];
+
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
-                  defer.resolve(1);
+                  var defer4 = $q.defer();
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i].filter(function(item) {
+                    return item;
+                  });
+
+                  /** find Glass Elements */
+                  var promises5 = GlobalStor.global.glassesAll[i].glassLists.map(function (item) {
+                    var defer5 = $q.defer();
+                    localDB.selectLocalDB(
+                      localDB.tablesLocalDB.elements.tableName,
+                      {'id': item.parent_element_id},
+                      'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
+                      'max_width, min_width, max_height, min_height, max_sq'
+                    ).then(function (result) {
+                        //console.log('glass!!!!', result);
+                        var glass = angular.copy(result),
+                            glassQty = glass.length;
+                        if (glassQty) {
+                          defer5.resolve(glass[0]);
+                        } else {
+                          defer5.resolve(0);
+                        }
+                      });
+                    return defer5.promise;
+                  });
+                  defer4.resolve($q.all(promises5));
+                  promises4.push(defer4.promise);
                 }
+
+                $q.all(promises4).then(function(glasses) {
+                  //console.log('glasses after 1111!!!!', glasses);
+                  var glassesQty = glasses.length;
+                  if(glassesQty) {
+                    for(i = 0; i < glassesQty; i+=1) {
+                      GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                    }
+                  }
+                  //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                  defer.resolve(1);
+                });
+
               }
             });
 

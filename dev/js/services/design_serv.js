@@ -758,7 +758,7 @@
         }
       }
       DesignStor.design.doorShapeList = DesignStor.designSource.doorShapeList;
-      console.log('prepareDoorConfig', DesignStor.design.doorShapeList)
+      console.log('prepareDoorConfig', DesignStor.design.doorShapeList);
     }
 
 
@@ -2791,6 +2791,11 @@
 
               setDoorParamInProduct();
 
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
             }
 
             /** save new template in templates Array */

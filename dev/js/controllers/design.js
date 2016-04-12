@@ -107,6 +107,7 @@
       DesignStor.design.isDropSubMenu = 0;
     }
 
+
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
       DesignStor.design.activeMenuItem = 0;
@@ -128,7 +129,6 @@
         glasses.classed('glass-active', true);
       }
     }
-
 
 
     function insertSash(sashType, event) {
@@ -193,6 +193,7 @@
       }
     }
 
+
     function insertCorner(conerType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -254,7 +255,6 @@
     }
 
 
-
     function insertArc(arcType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -295,7 +295,6 @@
 
 
     /**++++++++++ Edit Impost ++++++++*/
-
 
     function insertImpost(impostType, event) {
       event.preventDefault();
@@ -447,6 +446,7 @@
     /**---------- Select prifile/sash shape --------*/
 
     function selectSash(id) {
+      var newHandleArr;
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -455,7 +455,10 @@
           DesignStor.design.doorConfig.sashShapeIndex = id;
           thisCtrl.config.selectedStep2 = 1;
         }
-        DesignStor.design.handleShapeList = GlobalStor.global.doorHandlers;
+        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
+        });
+        DesignStor.design.handleShapeList = newHandleArr;
       }
     }
 
