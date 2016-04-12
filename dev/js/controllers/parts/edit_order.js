@@ -33,7 +33,19 @@
       RecOrderServ.extendGlass();
       RecOrderServ.extendHardware();
       RecOrderServ.extendLaminat();
-    }
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord=0; ord<ordersQty; ord+=1 ) {
+          delete HistoryStor.history.isBoxArray[ord].nameHardware
+          delete HistoryStor.history.isBoxArray[ord].nameIn
+          delete HistoryStor.history.isBoxArray[ord].nameOut
+          delete HistoryStor.history.isBoxArray[ord].nameProfiles
+          delete HistoryStor.history.isBoxArray[ord].listNameGlass;
+          delete HistoryStor.history.isBoxArray[ord].listNameLaminat;
+        }
+      RecOrderServ.templateSource();
+      GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isBox = 0;
+      }
     function close () {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
@@ -51,6 +63,7 @@
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
+thisCtrl.templateSource = RecOrderServ.templateSource;
 thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
 thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
 thisCtrl.extendLaminat = RecOrderServ.extendLaminat;

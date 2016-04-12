@@ -3844,7 +3844,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       RecOrderServ.extendGlass();
       RecOrderServ.extendHardware();
       RecOrderServ.extendLaminat();
-    }
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for(ord=0; ord<ordersQty; ord+=1 ) {
+          delete HistoryStor.history.isBoxArray[ord].nameHardware
+          delete HistoryStor.history.isBoxArray[ord].nameIn
+          delete HistoryStor.history.isBoxArray[ord].nameOut
+          delete HistoryStor.history.isBoxArray[ord].nameProfiles
+          delete HistoryStor.history.isBoxArray[ord].listNameGlass;
+          delete HistoryStor.history.isBoxArray[ord].listNameLaminat;
+        }
+      RecOrderServ.templateSource();
+      GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isBox = 0;
+      }
     function close () {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
@@ -3862,6 +3874,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
 thisCtrl.box = RecOrderServ.box;
+thisCtrl.templateSource = RecOrderServ.templateSource;
 thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
 thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
 thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
@@ -12094,7 +12107,6 @@ function ErrorResult(code, message) {
         HistoryStor.history.orderEditNumber = orderNum;
         downloadProducts1();
         orderItem(); 
-        console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -12184,6 +12196,7 @@ function ErrorResult(code, message) {
         var  deferred = $q.defer();
           downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
+          HistoryStor.history.isBoxArrayCopy = angular.copy(data);
         })
       }
 
@@ -20362,7 +20375,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             var re = /\s*,\s*/,
                 arr = array[ord].glass_id.split(re);
                 delete array[ord].glass_id;
-                array[ord].glass_id = arr;      
+                array[ord].glass_id = arr;     
             var arrLength = arr.length, tst;
             
             for(tst=0; tst<arrLength; tst+=1) {
@@ -20389,8 +20402,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
             HistoryStor.history.listNameHardware.push(obj);
             }
-            
-            console.log('tests', HistoryStor.history.listNameHardware)
           }
 
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
@@ -20435,18 +20446,19 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               for(ord = 0; ord < ordersQty; ord+=1) {
                 var arrQty = array[ord].glass_id.length, tst;
                 var obj = {
-                  name: ''
+                  name: '',
+                  id: 0
                 }
                 for(tst=0; tst<arrQty; tst+=1) {
                   if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {                 
-                    obj.name = GlobalStor.global.glasses[glbg][glbgg].name;  
+                    obj.name = GlobalStor.global.glasses[glbg][glbgg].name;
+                    obj.id = GlobalStor.global.glasses[glbg][glbgg].id;
                     array[ord].nameGlass.push(obj)
                   }
                 }
               }
             }
           } 
-
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
             var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
             for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
@@ -20462,8 +20474,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         for(ord = 0; ord < ordersQty; ord+=1) {  
           HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source)
         }
+        console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
     }
-
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord = 0; ord < ordersQty; ord+=1) {
@@ -20471,83 +20483,133 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           for (tts=0; tts<tests; tts+=1) {
             if(typeof HistoryStor.history.isBoxArray[ord].glass_id[tts] === 'string') {
               delete HistoryStor.history.isBoxArray[ord].glass_id[tts];
-              }
             }
-          } 
-          
-       }
-
-      function nameListGlasses(product_id) {
-        var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-        var glassAllQty = GlobalStor.global.glassesAll.length, all;
-          for(ord=0; ord<ordersQty; ord+=1 ) {
-            var listNameGlass = [];
-            for(all=0; all<glassAllQty; all+=1) {
-              if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
-                if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
-                  if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.glassesAll[all].profileId) {
-                    var listGlass = GlobalStor.global.glassesAll[all].glasses.length, lst;
-                    for(lst = 0; lst < listGlass; lst+=1) {
-                      var subListQty = GlobalStor.global.glassesAll[all].glasses[lst].length, lstt;
-                      for(lstt=0; lstt<subListQty; lstt+=1) {
-                        var name,
-                            id,
-                            sku,
-                            obj = {  
-                              name:'',
-                              id: 0,
-                              sku: 0
-                            };
-                        obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
-                        obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
-                        obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
-                        listNameGlass.push(obj);
-                        HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
-                      }
+          }
+      } 
+    }
+    function nameListGlasses(product_id) {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var glassAllQty = GlobalStor.global.glassesAll.length, all;
+        for(ord=0; ord<ordersQty; ord+=1 ) {
+          var listNameGlass = [];
+          for(all=0; all<glassAllQty; all+=1) {
+            if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
+              if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
+                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.glassesAll[all].profileId) {
+                  var listGlass = GlobalStor.global.glassesAll[all].glasses.length, lst;
+                  for(lst = 0; lst < listGlass; lst+=1) {
+                    var subListQty = GlobalStor.global.glassesAll[all].glasses[lst].length, lstt;
+                    for(lstt=0; lstt<subListQty; lstt+=1) {
+                      var name,
+                          id,
+                          sku,
+                          obj = {  
+                            name:'',
+                            id: 0,
+                            sku: 0
+                          };
+                      obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
+                      obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
+                      obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
+                      listNameGlass.push(obj);
+                      HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
                     }
                   }
                 }
               }
             }
-          }    
-      }
-
-      function nameListLaminat(product_id) {
-        var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-        var listNameLaminat = [];
-        var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
-          for(ord=0; ord<ordersQty; ord+=1 ) {
-            for(glb=0; glb<laminatAllQty; glb+=1) {
-              if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
-                if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
-                  if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
-                    var nameIn,
-                        id,
-                        obj = {  
-                            name: '',
-                            nameIn:'',
-                            nameOut:'',
-                            id: 0,
-                            img_in_id: 0,
-                            img_out_id: 0,
-                            profile_id: 0
-                            };
-                    obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
-                    obj.id = GlobalStor.global.laminatCouples[glb].id,
-                    obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
-                    obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-                    obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-                    obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
-                    obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
-                    listNameLaminat.push(obj);
-                    HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
-                  }
+          }
+        }    
+    }
+    function nameListLaminat(product_id) {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var listNameLaminat = [];
+      var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
+        for(ord=0; ord<ordersQty; ord+=1 ) {
+          for(glb=0; glb<laminatAllQty; glb+=1) {
+            if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
+              if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
+                if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
+                  var nameIn,
+                      id,
+                      obj = {  
+                          name: '',
+                          nameIn:'',
+                          nameOut:'',
+                          id: 0,
+                          img_in_id: 0,
+                          img_out_id: 0,
+                          profile_id: 0
+                          };
+                  obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
+                  obj.id = GlobalStor.global.laminatCouples[glb].id,
+                  obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
+                  obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
+                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
+                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+                  obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                  listNameLaminat.push(obj);
+                  HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
                 }
               }
             }
-          }    
-      }
+          }
+        }    
+    }
+    function templateSource() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+        for (ord = 0; ord<ordersQty; ord+=1) {
 
+          delete HistoryStor.history.isBoxArrayCopy[ord].hardware_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].lamination_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].lamination_in_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].lamination_out_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].order_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].product_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].profile_id;
+          delete HistoryStor.history.isBoxArrayCopy[ord].template_source;
+
+          var re = /\s*,\s*/,
+              arrayOld = HistoryStor.history.isBoxArrayCopy[ord].glass_id.split(re),
+              arrayNew = HistoryStor.history.isBoxArray[ord].glass_id.split(re);
+              HistoryStor.history.isBoxArrayCopy[ord].glass_id = arrayOld;
+              HistoryStor.history.isBoxArrayCopy[ord].n_glass_id = arrayNew;
+          var subOrdersQty = HistoryStor.history.isBoxArrayCopy[ord].glass_id.length, srd;
+          for (srd=0; srd<subOrdersQty; srd+=1) {
+            var obj = {
+                  old: 0
+                },
+                objn = {
+                  newId: 0
+                };
+            objn.newId = HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[srd];
+            obj.old = HistoryStor.history.isBoxArrayCopy[ord].glass_id[srd];
+            HistoryStor.history.isBoxArrayCopy[ord].glass_id.push(obj)
+            HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.push(objn)
+
+            if (typeof HistoryStor.history.isBoxArrayCopy[ord].glass_id[srd] === 'string') {
+              delete HistoryStor.history.isBoxArrayCopy[ord].glass_id[srd];
+            }
+            if (typeof  HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[srd] === 'string') {
+              delete  HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[srd];
+            }
+          }
+        }
+
+      for(ord=0;ord<ordersQty; ord+=1){
+        var tempSourQty = HistoryStor.history.isBoxArray[ord].template_source.details.length, tsq;
+        var oldGlassQty = HistoryStor.history.isBoxArrayCopy[ord].glass_id.length, ogt;
+          for(ogt=oldGlassQty/2; ogt<oldGlassQty; ogt+=1) {
+            for(tsq=tempSourQty/2; tsq<tempSourQty; tsq+=1) {
+              if( HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId === 1*HistoryStor.history.isBoxArrayCopy[ord].glass_id[ogt].old) {
+                console.log(HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId === 1*HistoryStor.history.isBoxArrayCopy[ord].glass_id[ogt].old)
+                HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = 1*HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[ogt].newId;
+              }
+            }
+          }
+      }
+      console.log('late', HistoryStor.history.isBoxArray)
+    }
     function extendLaminat() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {   
@@ -20600,7 +20662,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               if(tst === 0){
                 glassId = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
                 nameGlass = HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
-              } else {
+              } 
+              else {
                 glassId += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.id;
                 nameGlass += ', '+HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass.name;
               }
@@ -20614,6 +20677,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 		thisFactory.publicObj = {
 	      box:box,
         nameListLaminat:nameListLaminat,
+        templateSource: templateSource,
         extendLaminat:extendLaminat,
         extendHardware:extendHardware,
         extendProfile:extendProfile,
@@ -20625,6 +20689,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
+      templateSource:templateSource;
       nameListLaminat:nameListLaminat;
       nameListGlasses:nameListGlasses;
       extendLaminat:extendLaminat;

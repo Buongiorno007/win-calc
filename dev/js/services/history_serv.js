@@ -129,7 +129,6 @@
         HistoryStor.history.orderEditNumber = orderNum;
         downloadProducts1();
         orderItem(); 
-        console.log(GlobalStor.global.isBox)
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -219,6 +218,7 @@
         var  deferred = $q.defer();
           downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
+          HistoryStor.history.isBoxArrayCopy = angular.copy(data);
         })
       }
 
