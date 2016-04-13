@@ -100,8 +100,8 @@ section.construction-page
       .door-config-label {{ ::designPage.DOOR_CONFIG_LABEL }}
       .door-config-description {{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.doorShapeName }};
       .door-config-description {{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.sashShapeName }};
-      .door-config-description {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.handleShapeName }};
-      .door-config-description {{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.lockShapeName }};
+      .door-config-description {{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.handleShape.name }};
+      .door-config-description {{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.lockShape.name }};
 
     .right-menu-footer
       .calculators-box.size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")

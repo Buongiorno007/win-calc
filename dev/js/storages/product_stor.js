@@ -70,8 +70,8 @@
         door_lock_shape_id: 0,
         doorName: '',
         doorSashName: '',
-        doorHandleName: '',
-        doorLockName: '',
+        doorHandle: {},
+        doorLock: {},
 
         template_price: 0,
         addelem_price: 0,

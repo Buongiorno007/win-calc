@@ -1125,7 +1125,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             var promises2 = lockIds.map(function(item2) {
               var deff2 = $q.defer();
               localDB.selectLocalDB(
-                localDB.tablesLocalDB.lists.tableName, {'id': item2.list_id}, 'id, name, list_type_id'
+                localDB.tablesLocalDB.lists.tableName,{'id': item2.list_id}, 'id, name, list_type_id, parent_element_id'
               ).then(function(lockKid) {
                   deff2.resolve(lockKid[0]);
                 });

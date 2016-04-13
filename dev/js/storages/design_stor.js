@@ -92,9 +92,9 @@
           sashShapeIndex: 0,
           sashShapeName: '',
           handleShapeIndex: 0,
-          handleShapeName: '',
+          handleShape: {},
           lockShapeIndex: 0,
-          lockShapeName: ''
+          lockShape: {}
         }
 
       },

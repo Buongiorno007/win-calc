@@ -1184,7 +1184,7 @@
           lWordCount = (lByteCount - (lByteCount % 4)) / 4;
           lBytePosition = (lByteCount % 4) * 8;
           lWordArray[lWordCount] = (lWordArray[lWordCount] | (string.charCodeAt(lByteCount) << lBytePosition));
-          lByteCount++;
+          lByteCount+=1;
         }
         lWordCount = (lByteCount - (lByteCount % 4)) / 4;
         lBytePosition = (lByteCount % 4) * 8;
@@ -1195,7 +1195,7 @@
       }
       function WordToHex(lValue) {
         var WordToHexValue = "", WordToHexValue_temp = "", lByte, lCount;
-        for (lCount = 0; lCount <= 3; lCount++) {
+        for (lCount = 0; lCount <= 3; lCount+=1) {
           lByte = (lValue >>> (lCount * 8)) & 255;
           WordToHexValue_temp = "0" + lByte.toString(16);
           WordToHexValue = WordToHexValue + WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
@@ -1205,7 +1205,7 @@
       function Utf8Encode(string) {
         string = string.replace(/\r\n/g, "\n");
         var utftext = "";
-        for (var n = 0; n < string.length; n++) {
+        for (var n = 0; n < string.length; n+=1) {
           var c = string.charCodeAt(n);
           if (c < 128) {
             utftext += String.fromCharCode(c);
@@ -1339,9 +1339,9 @@
           db.transaction(function (transaction) {
             if(result.tables.length) {
               for (table in result.tables) {
-                for (i = 0; i < result.tables[table].rows.length; i++) {
+                for (i = 0; i < result.tables[table].rows.length; i+=1) {
                   updateSql = '';
-                  for(k = 0; k < result.tables[table].fields.length; k++){
+                  for(k = 0; k < result.tables[table].fields.length; k+=1){
                     if(!k) {
                       updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
                     } else {
@@ -1491,8 +1491,8 @@
                   $q.all(promisKits).then(function(result3) {
                     var data3 = angular.copy(result3),
                         resQty = data3.length,
-                        collectArr = [];
-                    for(var i = 0; i < resQty; i++) {
+                        collectArr = [], i;
+                    for(i = 0; i < resQty; i+=1) {
                       if(data3[i]) {
                         if(data3[i][0].amendment_pruning) {
                           data3[i][0].amendment_pruning /= 1000;
@@ -1950,7 +1950,7 @@
           }
         }
       } else {
-        for (var siz = 0; siz < sizeQty; siz++) {
+        for (var siz = 0; siz < sizeQty; siz+=1) {
           constrElem = angular.copy(kitsElem);
           /** glasses */
           if (group === 5) {
@@ -1960,7 +1960,7 @@
               sizeTemp = sizes[siz].square;
               sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
-              isExist++;
+              isExist+=1;
             }
             /** hardware */
           } else if (group === 7) {
@@ -2001,13 +2001,13 @@
           sizeQty = sizes[ke].length;
           if(angular.isArray(priceObj.kitsElem[ke])) {
             //            console.info('culcKitPrice ===== array');
-            var kitElemChildQty = priceObj.kitsElem[ke].length;
-            for(var child = 0; child < kitElemChildQty; child++) {
+            var kitElemChildQty = priceObj.kitsElem[ke].length, child;
+            for(child = 0; child < kitElemChildQty; child+=1) {
               /** hardware */
               if(angular.isArray(priceObj.kitsElem[ke][child])) {
                 //                console.info('culcKitPrice ===== hardware');
-                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
-                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
+                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length, child2;
+                for(child2 = 0; child2 < kitElemChildQty2; child2+=1) {
                   culcPriceAsSize(
                     ke,
                     priceObj.kits[ke][child][child2],
@@ -2051,10 +2051,10 @@
         return 1;
       } else {
         var isExist = 0,
-            d = 0;
-        for(; d < openDirQty; d++) {
+            d;
+        for(d = 0; d < openDirQty; d+=1) {
           if(openDir[d] === currConsist.direction_id) {
-            isExist++;
+            isExist+=1;
           }
         }
         return isExist;
@@ -2254,8 +2254,8 @@
         );
 
       } else {
-        var consistQty = consistArr.length;
-        for (var el = 0; el < consistQty; el++) {
+        var consistQty = consistArr.length, el;
+        for (el = 0; el < consistQty; el+=1) {
           if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
@@ -2297,12 +2297,12 @@
         if(angular.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               openDirQty = currConstrSize.openDir.length,
-              hwInd = 0;
-          for(; hwInd < hwElemQty; hwInd++) {
+              hwInd;
+          for(hwInd = 0; hwInd < hwElemQty; hwInd+=1) {
             if(angular.isArray(currConsistElem[hwInd])) {
               var hwElemQty2 = currConsistElem[hwInd].length,
-                  hwInd2 = 0;
-              hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
+                  hwInd2;
+              hwElemLoop: for(hwInd2 = 0; hwInd2 < hwElemQty2; hwInd2+=1) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
       //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
@@ -2320,7 +2320,7 @@
                       currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                     }
                   } else {
-                    for (var el = 0; el < hwElemQty2; el++) {
+                    for (var el = 0; el < hwElemQty2; el+=1) {
                       if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
                         //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                         if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
@@ -2368,8 +2368,8 @@
           //console.info('1-----', group);
           //console.info('2-----', currConstrSize);
           //console.info('3-----', mainKit);
-          var elemQty = currConsistElem.length, elemInd = 0;
-          for (; elemInd < elemQty; elemInd++) {
+          var elemQty = currConsistElem.length, elemInd;
+          for (elemInd = 0; elemInd < elemQty; elemInd+=1) {
             //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
 
             /** if beads */
@@ -2424,9 +2424,9 @@
 
     function culcConsistPrice(priceObj, construction) {
       var groupQty = priceObj.consist.length,
-          group = 0;
+          group;
 
-      for(; group < groupQty; group++) {
+      for(group = 0; group < groupQty; group+=1) {
         if(priceObj.consist[group]) {
           //console.log('         ');
           //console.log('Group  ---------------------', group);
@@ -2443,11 +2443,11 @@
               //                console.info('4-----', priceObj.consist[group]);
               //                console.info('5-----', priceObj.consistElem[group]);
 
-              for(var elem = 0; elem < consistQty; elem++) {
+              for(var elem = 0; elem < consistQty; elem+=1) {
                 /** if glass or beads */
                 if(group === 5 || group === 6) {
                   var sizeObjQty = construction.sizes[group].length;
-                  for(var s = 0; s < sizeObjQty; s++) {
+                  for(var s = 0; s < sizeObjQty; s+=1) {
                     if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
                       if(priceObj.consistElem[group][elem]) {
                         culcPriceConsistElem(
@@ -2478,8 +2478,8 @@
 
             } else {
               //              console.info('culcConsistPrice ===== object');
-              for(var s = 0; s < sizeQty; s++) {
-                for (var elem = 0; elem < consistQty; elem++) {
+              for(var s = 0; s < sizeQty; s+=1) {
+                for (var elem = 0; elem < consistQty; elem+=1) {
                   if(priceObj.consistElem[group][elem]) {
                     culcPriceConsistElem(
                       group,
@@ -2525,28 +2525,28 @@
       var deffMain = $q.defer(),
           priceObj = {},
           finishPriceObj = {};
-      console.info('START+++', construction);
+      //console.info('START+++', construction);
 
       parseMainKit(construction).then(function(kits) {
-        console.warn('kits!!!!!!+', kits);
+        //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-          console.warn('consist!!!!!!+', consist);
+          //console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            console.warn('kitsElem!!!!!!+', kitsElem);
+            //console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-              console.warn('consistElem!!!!!!+', consistElem);
+              //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingValue(priceObj.priceTotal);
-              console.info('FINISH====:', priceObj);
+              //console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);
@@ -2558,6 +2558,38 @@
       return deffMain.promise;
     }
 
+
+    /**========= DOOR PRICE ==========*/
+
+    function getDoorElem(elem, container) {
+      var elemObj = angular.copy(elem);
+      /** currency conversion */
+      if (UserStor.userInfo.currencyId != elemObj.currency_id) {
+        elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
+      }
+      elemObj.qty = 1;
+      elemObj.size = 0;
+      elemObj.priceReal = GeneralServ.roundingValue(elemObj.price, 3);
+      container.push(elemObj);
+    }
+
+
+
+    function calcDoorElemPrice(handleId, lockId) {
+      var deffMain = $q.defer(),
+          priceObj = [];
+      getElementByListId(0, handleId).then(function(handleData) {
+        //console.info('price handle kit', handleData);
+        getDoorElem(handleData, priceObj);
+
+        getElementByListId(0, lockId).then(function(lockData) {
+          //console.info('price lock kit', lockData);
+          getDoorElem(lockData, priceObj);
+          deffMain.resolve(priceObj);
+        });
+      });
+      return deffMain.promise;
+    }
 
 
 
@@ -2686,8 +2718,6 @@
       });
       return deffMain.promise;
     }
-
-
 
 
     /**========= GRID PRICE ==========*/
@@ -2869,6 +2899,7 @@
       calculationPrice: calculationPrice,
       getAdditionalPrice: getAdditionalPrice,
       calculationGridPrice: calculationGridPrice,
+      calcDoorElemPrice: calcDoorElemPrice,
       currencyExgange: currencyExgange
     };
 

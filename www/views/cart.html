@@ -96,7 +96,8 @@
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.hardware.name }}</div>
+                      <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
+                      <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
                     </li>
                     <li class="order-item">

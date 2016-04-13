@@ -85,10 +85,6 @@
       /** for SVG_MAIN */
       //--------- set templateTEMP from ProductStor
       DesignServ.setDefaultTemplate();
-
-      //------ DOOR
-      DesignServ.prepareDoorConfig();
-      DesignServ.setDoorParams();
     }
 
 

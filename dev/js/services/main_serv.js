@@ -473,11 +473,31 @@
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-        if(result.priceTotal){
-          var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
-          setProductPriceTOTAL(ProductStor.product);
-          deferred.resolve(result);
+        var priceObj = angular.copy(result),
+            doorHandleId = 0,
+            doorLockId = 0, priceMargin;
+        if(priceObj.priceTotal) {
+
+          /** DOOR add handle and lock Ids */
+          if(ProductStor.product.construction_type === 4) {
+            doorHandleId = ProductStor.product.doorHandle.parent_element_id;
+            doorLockId = ProductStor.product.doorLock.parent_element_id;
+
+            localDB.calcDoorElemPrice(doorHandleId, doorLockId).then(function(doorData) {
+              priceObj.priceTotal += doorData[0].priceReal + doorData[1].priceReal;
+              priceObj.constrElements.push(doorData[0], doorData[1]);
+              priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+              ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+              setProductPriceTOTAL(ProductStor.product);
+              deferred.resolve(priceObj);
+            });
+          } else {
+            priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+            ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+            setProductPriceTOTAL(ProductStor.product);
+            deferred.resolve(priceObj);
+          }
+
         } else {
           ProductStor.product.template_price = 0;
           deferred.resolve(0);
@@ -591,14 +611,7 @@
     /**--------- create object for price calculation ----------*/
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      var deferred = $q.defer(),
-          doorHandleId = 0,
-          doorLockId = 0;
-      /** DOOR add handle and lock Ids */
-      if(ProductStor.product.construction_type === 4) {
-        doorHandleId = DesignStor.design.handleShapeList[ProductStor.product.door_handle_shape_id].id;
-        doorLockId = DesignStor.design.lockShapeList[ProductStor.product.door_lock_shape_id].id;
-      }
+      var deferred = $q.defer();
 
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
@@ -623,7 +636,7 @@
                 return item.id;
               }) : glassIds[0].id,
               (beadIds.length > 1) ? beadIds : beadIds[0],
-              (ProductStor.product.construction_type === 4) ? doorHandleId : hardwareId
+              (ProductStor.product.construction_type === 4) ? 0 : hardwareId
             ],
             sizes: []
           };
@@ -633,17 +646,7 @@
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
             /** for door elements */
-            if(ProductStor.product.construction_type === 4) {
-              if(size === 'sashesBlock') {
-                objXFormedPrice.sizes.push([0], [0]);
-                //------- if Door add lock
-                objXFormedPrice.ids.push(doorLockId);
-              } else {
-                objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-              }
-            } else {
-              objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-            }
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
 
           //------- set Overall Dimensions
@@ -1293,8 +1296,8 @@
         delete productData.beadsData;
         delete productData.doorName;
         delete productData.doorSashName;
-        delete productData.doorHandleName;
-        delete productData.doorLockName;
+        delete productData.doorHandle;
+        delete productData.doorLock;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;

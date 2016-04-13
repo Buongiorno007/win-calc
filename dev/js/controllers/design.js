@@ -75,15 +75,14 @@
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
 
 
+
+    //------ DOOR
+    DesignServ.setDoorConfigDefault();
+    //------ cleaning DesignStor
+    DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
 
-
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-      //      DesignServ.downloadDoorConfig();
-      DesignServ.setDoorParams();
-    }
 
 
 
@@ -402,41 +401,35 @@
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
-      //----- check doorKits
-      if(GlobalStor.global.noDoorExist) {
-        //-------- show alert
-        DesignStor.design.isNoDoors = 1;
-      } else {
-        if(!thisCtrl.config.selectedStep2) {
-          if(DesignStor.design.doorConfig.doorShapeIndex === id) {
-            DesignStor.design.doorConfig.doorShapeIndex = '';
-            thisCtrl.config.selectedStep1 = 0;
-          } else {
+      if(!thisCtrl.config.selectedStep2) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+          DesignStor.design.doorConfig.doorShapeIndex = '';
+          thisCtrl.config.selectedStep1 = 0;
+        } else {
 
-            DesignStor.design.sashShapeList = [];
-            switch (id) {
-              case 0:
-              case 1:
-                if (GlobalStor.global.doorKitsT1.length) {
-                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
-                } else if (GlobalStor.global.doorKitsT2.length) {
-                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
-                }
-                break;
-              case 2:
-                if (GlobalStor.global.doorKitsT1.length) {
-                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
-                }
-                break;
-              case 3:
-                if (GlobalStor.global.doorKitsT2.length) {
-                  DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
-                }
-                break;
-            }
-            DesignStor.design.doorConfig.doorShapeIndex = id;
-            thisCtrl.config.selectedStep1 = 1;
+          DesignStor.design.sashShapeList = [];
+          switch (id) {
+            case 0:
+            case 1:
+              if (GlobalStor.global.doorKitsT1.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+              } else if (GlobalStor.global.doorKitsT2.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+              }
+              break;
+            case 2:
+              if (GlobalStor.global.doorKitsT1.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+              }
+              break;
+            case 3:
+              if (GlobalStor.global.doorKitsT2.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+              }
+              break;
           }
+          DesignStor.design.doorConfig.doorShapeIndex = id;
+          thisCtrl.config.selectedStep1 = 1;
         }
       }
     }
@@ -522,7 +515,7 @@
     /**---------- Save Door Configuration --------*/
 
     function saveDoorConfig() {
-      DesignServ.setDoorParamNames();
+      DesignServ.setNewDoorParamValue(DesignStor.design);
       DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
