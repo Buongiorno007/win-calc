@@ -324,6 +324,7 @@
 
 
     function saveTemplateInProduct(templateIndex) {
+      console.log(ProductStor.product.template, 'template')
       var defer = $q.defer();
       if(!GlobalStor.global.isChangedTemplate) {
         ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
@@ -343,11 +344,28 @@
               ProductStor.product.templateIcon = angular.copy(result);
               defer.resolve(1);
             });
-        });
+        });     
       return defer.promise;
     }
 
 
+    function saveTemplateInProductForOrder(templateIndex) {
+      //-----копия функции создания template для подсчета цены.
+      var defer = $q.defer();
+        ProductStor.product.template_source;
+      //----- create template
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
+          //------ show elements of room
+          GlobalStor.global.isRoomElements = 1;
+          //----- console.log('TEMPLATE +++', ProductStor.product.template);
+          //----- create template icon
+        defer.resolve(1);
+        });    
+      return defer.promise;
+    }
 
 
 
@@ -586,6 +604,11 @@
 
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
+      console.log('template', template)
+         console.log('profileId', profileId)
+            console.log('glassIds', glassIds)
+               console.log('hardwareId', hardwareId)
+                  console.log('laminatId', laminatId)
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
@@ -667,7 +690,9 @@
           );
         }
       });
+console.log('ProductStor.product', ProductStor.product)
       return deferred.promise;
+
     }
 
 
@@ -1449,6 +1474,7 @@
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
