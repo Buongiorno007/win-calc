@@ -244,6 +244,7 @@
               arrayNew = HistoryStor.history.isBoxArray[ord].glass_id.split(re);
               HistoryStor.history.isBoxArrayCopy[ord].glass_id = arrayOld;
               HistoryStor.history.isBoxArrayCopy[ord].n_glass_id = arrayNew;
+              
           var subOrdersQty = HistoryStor.history.isBoxArrayCopy[ord].glass_id.length, srd;
           for (srd=0; srd<subOrdersQty; srd+=1) {
             var obj = {
@@ -256,12 +257,9 @@
             obj.old = HistoryStor.history.isBoxArrayCopy[ord].glass_id[srd];
             HistoryStor.history.isBoxArrayCopy[ord].glass_id.push(obj)
             HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.push(objn)
-
-               HistoryStor.history.isBoxArrayCopy[ord].glass_id.splice(0, [subOrdersQty]/2);
-               HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.splice(0, [subOrdersQty]/2);
-               console.log(subOrdersQty,'subOrdersQty')
-            ///////newId newId newId newId newId
           }
+              HistoryStor.history.isBoxArrayCopy[ord].glass_id.splice(0, ([subOrdersQty]/2)+1);
+              HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.splice(0, ([subOrdersQty]/2)+1);
         }
       for(ord=0;ord<ordersQty; ord+=1){
         var tempSourQty = HistoryStor.history.isBoxArray[ord].template_source.details.length, tsq;
@@ -274,6 +272,7 @@
             }
           }
       }
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
     }
     function extendHardware() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;

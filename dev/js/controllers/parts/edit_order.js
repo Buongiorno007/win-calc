@@ -47,7 +47,8 @@
           delete HistoryStor.history.isBoxArray[ord].listNameGlass;
           delete HistoryStor.history.isBoxArray[ord].listNameLaminat;
         }
-    //  RecOrderServ.templateSource();
+      RecOrderServ.templateSource();
+
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
