@@ -3851,31 +3851,31 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       RecOrderServ.extendLaminat();
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
         for(ord=0; ord<ordersQty; ord+=1 ) {
-          delete HistoryStor.history.isBoxArray[ord].nameHardware
-          delete HistoryStor.history.isBoxArray[ord].nameIn
-          delete HistoryStor.history.isBoxArray[ord].nameOut
-          delete HistoryStor.history.isBoxArray[ord].nameProfiles
+          delete HistoryStor.history.isBoxArray[ord].nameHardware;
+          delete HistoryStor.history.isBoxArray[ord].nameIn;
+          delete HistoryStor.history.isBoxArray[ord].nameOut;
+          delete HistoryStor.history.isBoxArray[ord].nameProfiles;
           delete HistoryStor.history.isBoxArray[ord].listNameGlass;
           delete HistoryStor.history.isBoxArray[ord].listNameLaminat;
         }
-      RecOrderServ.templateSource();
+          RecOrderServ.templateSource();
+          GlobalStor.global.isEditBox = 0;
+          GlobalStor.global.isBox = 0;
 
-      GlobalStor.global.isEditBox = 0;
-      GlobalStor.global.isBox = 0;
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-      for(ord=0; ord<ordersQty; ord+=1 ) {
-        ProductStor.product.template_source = angular.copy(HistoryStor.history.isBoxArray[ord].template_source);
-        ProductStor.product.hardware_id = angular.copy(HistoryStor.history.isBoxArray[ord].hardware_id);
-        ProductStor.product.lamination_id = angular.copy(HistoryStor.history.isBoxArray[ord].lamination_id);
-        ProductStor.product.lamination_in_id = angular.copy(HistoryStor.history.isBoxArray[ord].lamination_in_id);
-        ProductStor.product.lamination_out_id = angular.copy(HistoryStor.history.isBoxArray[ord].lamination_out_id);
-        ProductStor.product.product_id = angular.copy(HistoryStor.history.isBoxArray[ord].product_id);
-        ProductStor.product.profile_id = angular.copy(HistoryStor.history.isBoxArray[ord].profile_id);
-        ProductStor.product.glass = angular.copy(HistoryStor.history.isBoxArray[ord].glasses);
-        var re = /\s*,\s*/;
-        ProductStor.product.glass_id = angular.copy(HistoryStor.history.isBoxArray[ord].glass_id.split(re));
+        for(ord=0; ord<ordersQty; ord+=1 ) {
+          ProductStor.product.template_source = angular.copy(HistoryStor.history.isBoxArray[ord].template_source);
+          ProductStor.product.hardware_id = angular.copy(HistoryStor.history.isBoxArray[ord].hardware_id);
+          ProductStor.product.hardware = angular.copy(HistoryStor.history.isBoxArray[ord].hardware);
+          ProductStor.product.lamination = angular.copy(HistoryStor.history.isBoxArray[ord].lamination);
+          ProductStor.product.product_id = angular.copy(HistoryStor.history.isBoxArray[ord].product_id);
+          ProductStor.product.profile_id = angular.copy(HistoryStor.history.isBoxArray[ord].profile_id);
+          ProductStor.product.glass = angular.copy(HistoryStor.history.isBoxArray[ord].glasses);
+      }
 
+          pricesThrough()
           function pricesThrough() {
+            console.log(' ProductStor.product ProductStor.product',  ProductStor.product)
             var defer = $q.defer();
               MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
@@ -3884,14 +3884,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                       laminatId = ProductStor.product.lamination_id,
                       glassIds =  ProductStor.product.glass;      
                   MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
-                    defer.resolve();
+                    ProductStor.product = ProductStor.setDefaultProduct();
+                    defer.resolve();         
                   });
                 });
               });  
-            ProductStor.setDefaultProduct();
             return defer.promise;
           }
-          pricesThrough();
       }
     }
     function close () {
@@ -3911,7 +3910,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
       thisCtrl.box = RecOrderServ.box;
-     // thisCtrl.templateSource = RecOrderServ.templateSource;
+      thisCtrl.templateSource = RecOrderServ.templateSource;
       thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
       thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
       thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
@@ -17202,7 +17201,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function saveTemplateInProduct(templateIndex) {
-      console.log(ProductStor.product.template, 'template')
       var defer = $q.defer();
       if(!GlobalStor.global.isChangedTemplate) {
         ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
@@ -17482,11 +17480,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      console.log('template', template)
-         console.log('profileId', profileId)
-            console.log('glassIds', glassIds)
-               console.log('hardwareId', hardwareId)
-                  console.log('laminatId', laminatId)
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
@@ -20396,7 +20389,7 @@ console.log('ProductStor.product', ProductStor.product)
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function ($q, GlobalStor, HistoryStor, ProductStor) {
+  function ($q, GlobalStor, HistoryStor, ProductStor, localDB) {
 	var thisFactory = this;
 
     /**============ METHODS ================*/
@@ -20459,14 +20452,16 @@ console.log('ProductStor.product', ProductStor.product)
                  id,
                  obj = {  
                    name:'',
-                   id: 0
+                   id: 0,
+                   hardware:''
                  };
+
             obj.id = GlobalStor.global.hardwares[glbl][glbll].id,
             obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
+            obj.hardware = GlobalStor.global.hardwares[glbl][glbll],
             HistoryStor.history.listNameHardware.push(obj);
             }
           }
-
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
            var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
             for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
@@ -20599,14 +20594,16 @@ console.log('ProductStor.product', ProductStor.product)
                           id: 0,
                           img_in_id: 0,
                           img_out_id: 0,
-                          profile_id: 0
+                          profile_id: 0,
+                          lamination: ''
                           };
                   obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
                   obj.id = GlobalStor.global.laminatCouples[glb].id,
                   obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
                   obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id,
+                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id,
+                  obj.lamination = GlobalStor.global.laminatCouples[glb],
                   obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
                   listNameLaminat.push(obj);
                   HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
@@ -20662,7 +20659,6 @@ console.log('ProductStor.product', ProductStor.product)
             }
           }
       }
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
     }
     function extendHardware() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -20672,6 +20668,7 @@ console.log('ProductStor.product', ProductStor.product)
             delete HistoryStor.history.isBoxArray[ord].nameHardware;
             HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
             HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
+            HistoryStor.history.isBoxArray[ord].hardware = HistoryStor.history.isBoxArray[ord].dataHardware.hardware;
             delete HistoryStor.history.isBoxArray[ord].dataHardware;
           }
         }    
@@ -20723,6 +20720,7 @@ console.log('ProductStor.product', ProductStor.product)
             HistoryStor.history.isBoxArray[ord].nameOut = HistoryStor.history.isBoxArray[ord].dataLamination.nameOut;
             HistoryStor.history.isBoxArray[ord].lamination_in_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_in_id;
             HistoryStor.history.isBoxArray[ord].lamination_out_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_out_id;
+            HistoryStor.history.isBoxArray[ord].lamination = HistoryStor.history.isBoxArray[ord].dataLamination.lamination;
             var GlassQty = HistoryStor.history.isBoxArray[ord].glasses.length, gls;
               for(gls=0; gls < GlassQty; gls+=1) {
                  HistoryStor.history.isBoxArray[ord].glasses[gls].lamination_in_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_in_id;
@@ -20760,6 +20758,8 @@ console.log('ProductStor.product', ProductStor.product)
           }
         }
     }
+
+
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {

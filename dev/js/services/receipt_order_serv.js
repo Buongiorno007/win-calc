@@ -6,7 +6,7 @@
     .module('BauVoiceApp')
     .factory('RecOrderServ',
 
-  function ($q, GlobalStor, HistoryStor, ProductStor) {
+  function ($q, GlobalStor, HistoryStor, ProductStor, localDB) {
 	var thisFactory = this;
 
     /**============ METHODS ================*/
@@ -69,14 +69,16 @@
                  id,
                  obj = {  
                    name:'',
-                   id: 0
+                   id: 0,
+                   hardware:''
                  };
+
             obj.id = GlobalStor.global.hardwares[glbl][glbll].id,
             obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
+            obj.hardware = GlobalStor.global.hardwares[glbl][glbll],
             HistoryStor.history.listNameHardware.push(obj);
             }
           }
-
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
            var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
             for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
@@ -209,14 +211,16 @@
                           id: 0,
                           img_in_id: 0,
                           img_out_id: 0,
-                          profile_id: 0
+                          profile_id: 0,
+                          lamination: ''
                           };
                   obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
                   obj.id = GlobalStor.global.laminatCouples[glb].id,
                   obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
                   obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id
-                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id
+                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id,
+                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id,
+                  obj.lamination = GlobalStor.global.laminatCouples[glb],
                   obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
                   listNameLaminat.push(obj);
                   HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
@@ -272,7 +276,6 @@
             }
           }
       }
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
     }
     function extendHardware() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -282,6 +285,7 @@
             delete HistoryStor.history.isBoxArray[ord].nameHardware;
             HistoryStor.history.isBoxArray[ord].hardware_id = HistoryStor.history.isBoxArray[ord].dataHardware.id;
             HistoryStor.history.isBoxArray[ord].nameHardware = HistoryStor.history.isBoxArray[ord].dataHardware.name;
+            HistoryStor.history.isBoxArray[ord].hardware = HistoryStor.history.isBoxArray[ord].dataHardware.hardware;
             delete HistoryStor.history.isBoxArray[ord].dataHardware;
           }
         }    
@@ -333,6 +337,7 @@
             HistoryStor.history.isBoxArray[ord].nameOut = HistoryStor.history.isBoxArray[ord].dataLamination.nameOut;
             HistoryStor.history.isBoxArray[ord].lamination_in_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_in_id;
             HistoryStor.history.isBoxArray[ord].lamination_out_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_out_id;
+            HistoryStor.history.isBoxArray[ord].lamination = HistoryStor.history.isBoxArray[ord].dataLamination.lamination;
             var GlassQty = HistoryStor.history.isBoxArray[ord].glasses.length, gls;
               for(gls=0; gls < GlassQty; gls+=1) {
                  HistoryStor.history.isBoxArray[ord].glasses[gls].lamination_in_id = HistoryStor.history.isBoxArray[ord].dataLamination.img_in_id;
@@ -370,6 +375,8 @@
           }
         }
     }
+
+
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {

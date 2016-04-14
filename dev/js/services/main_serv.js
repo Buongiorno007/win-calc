@@ -324,7 +324,6 @@
 
 
     function saveTemplateInProduct(templateIndex) {
-      console.log(ProductStor.product.template, 'template')
       var defer = $q.defer();
       if(!GlobalStor.global.isChangedTemplate) {
         ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
@@ -604,11 +603,6 @@
 
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
-      console.log('template', template)
-         console.log('profileId', profileId)
-            console.log('glassIds', glassIds)
-               console.log('hardwareId', hardwareId)
-                  console.log('laminatId', laminatId)
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
