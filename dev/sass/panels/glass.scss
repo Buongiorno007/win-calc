@@ -76,6 +76,17 @@
     color: #8c8c8c;
   }
 
+  .full-name {
+    @extend .truncated;
+    @include roboto-lt(rem(20px));
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $main_orange;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    text-align: center;
+  }
 
   //======== Glasses dialog
 

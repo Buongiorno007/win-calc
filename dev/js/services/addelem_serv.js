@@ -6,6 +6,7 @@
     .factory('AddElementsServ',
 
   function(
+    $filter,
     $timeout,
     globalConstants,
     GeneralServ,
@@ -157,6 +158,7 @@
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
@@ -164,7 +166,7 @@
           /** collect existed group */
           groupObj = {type: {}, elems: []};
           groupObj.type.groupId = (g+1);
-          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupName = $filter('translate')(GeneralServ.addElementDATA[g].name);
           groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
 
           /** search element */
@@ -199,9 +201,14 @@
               }
             }
           }
-          AuxStor.aux.addElementGroups.push(groupObj);
+          groupsArr.push(groupObj);
         }
       }
+      //-------- delete empty group
+      AuxStor.aux.addElementGroups = groupsArr.filter(function(item) {
+        return item.elems.length > 0;
+      });
+      //console.info(AuxStor.aux.addElementGroups);
     }
 
 

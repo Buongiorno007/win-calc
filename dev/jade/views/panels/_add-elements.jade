@@ -35,12 +35,12 @@
       .aux-txt-box(ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'")
         .choose-block.unvisible(ng-hide="addElemGroup.length", show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           button.aux-choose-but(ng-click="elementsPanel.selectAddElement($index+1)") {{ ::elementsPanel.CHOOSE }}
-          .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
+          .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
 
         .selected-block(ng-show="addElemGroup.length", ng-class="($index==1)?'horisontal':'vertival'")
           .aux-info-box
             .aux-title(data-output="{{ addElemGroup[0].name }}", ng-click="elementsPanel.selectAddElement($index+1)", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_START }}")
-            .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
+            .aux-label(data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
 
           .aux-sizing-box
             .aux-params(ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}")

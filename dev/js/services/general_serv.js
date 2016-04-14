@@ -19,7 +19,7 @@
           /** GRID */
           {
             id: 20,
-            name: $filter('translate')('add_elements.GRIDS'),
+            name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
@@ -27,7 +27,7 @@
           /** VISOR */
           {
             id: 21,
-            name: $filter('translate')('add_elements.VISORS'),
+            name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
@@ -35,7 +35,7 @@
           /**SPILLWAY*/
           {
             id: 9,
-            name: $filter('translate')('add_elements.SPILLWAYS'),
+            name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
@@ -43,7 +43,7 @@
           /**OUTSIDE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.OUTSIDE'),
+            name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
@@ -51,7 +51,7 @@
           /**LOUVER*/
           {
             id: 26,
-            name: $filter('translate')('add_elements.LOUVERS'),
+            name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
@@ -59,7 +59,7 @@
           /**INSIDESLOPE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.INSIDE'),
+            name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
@@ -67,7 +67,7 @@
           /**CONNECTORS*/
           {
             id: 12,
-            name: $filter('translate')('add_elements.CONNECTORS'),
+            name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
@@ -75,7 +75,7 @@
           /**FAN*/
           {
             id: 27,
-            name: $filter('translate')('add_elements.FAN'),
+            name: 'add_elements.FAN',
             typeClass: 'aux-fan',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
@@ -83,7 +83,7 @@
           /**WINDOWSILL*/
           {
             id: 8,
-            name: $filter('translate')('add_elements.WINDOWSILLS'),
+            name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
@@ -91,7 +91,7 @@
           /**HANDLE*/
           {
             id: 24,
-            name: $filter('translate')('add_elements.HANDLELS'),
+            name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
@@ -99,7 +99,7 @@
           /**OTHERS*/
           {
             id: 18,
-            name: $filter('translate')('add_elements.OTHERS'),
+            name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31

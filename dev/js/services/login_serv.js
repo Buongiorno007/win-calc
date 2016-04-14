@@ -62,10 +62,10 @@
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-        //        console.info(window.navigator.language);
-        //        console.info(window.navigator.userLanguage);
-        //        console.info(window.navigator.browserLanguage);
-        //        console.info("The language is: " + browserLang);
+        //console.info(window.navigator.language);
+        //console.info(window.navigator.userLanguage);
+        //console.info(window.navigator.browserLanguage);
+        //console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }

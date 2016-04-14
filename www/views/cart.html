@@ -327,7 +327,7 @@
           <div class="alladdelements-block">
             <div ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index" ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
               <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length" class="aux-block-inner">
-                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name }}</div>
+                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name | translate }}</div>
                 <table class="aux-list-addellement">
                   <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">

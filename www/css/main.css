@@ -1310,7 +1310,7 @@ body {
 }
 
 /* line 159, ../../dev/sass/base/general.scss */
-.truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .info_container .info_title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr, .cart-page .addelementunique-header .aux-title {
+.truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .info_container .info_title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr, .glass-container .full-name, .cart-page .addelementunique-header .aux-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -8196,7 +8196,18 @@ tr.factory_item {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 82, ../../dev/sass/panels/glass.scss */
+/* line 79, ../../dev/sass/panels/glass.scss */
+.glass-container .full-name {
+  font: normal 1.25rem/1.42857 roboto-light, sans-serif, icons;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f98000;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  text-align: center;
+}
+/* line 93, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-selector-dialog {
   -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
   -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
@@ -8206,13 +8217,13 @@ tr.factory_item {
   z-index: 12;
   text-align: center;
 }
-/* line 90, ../../dev/sass/panels/glass.scss */
+/* line 101, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-selector-dialog .dialog-inner {
   height: 90%;
   width: 100%;
   text-align: center;
 }
-/* line 95, ../../dev/sass/panels/glass.scss */
+/* line 106, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-selector-dialog .set-glass-btn {
   font: normal 1.5rem/2 icons, sans-serif;
   position: absolute;
@@ -8223,7 +8234,7 @@ tr.factory_item {
   background-color: #6ed44a;
   text-align: center;
 }
-/* line 107, ../../dev/sass/panels/glass.scss */
+/* line 118, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-selector-dialog .set-glass-btn:after {
   color: #fff;
   content: "";

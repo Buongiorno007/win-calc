@@ -16,7 +16,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-  console.log('isDevice===', isDevice);
+  //console.log('isDevice===', isDevice);
 
 
   if(isDevice) {
@@ -7517,6 +7517,7 @@ function ErrorResult(code, message) {
     .factory('AddElementsServ',
 
   function(
+    $filter,
     $timeout,
     globalConstants,
     GeneralServ,
@@ -7668,6 +7669,7 @@ function ErrorResult(code, message) {
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
@@ -7675,7 +7677,7 @@ function ErrorResult(code, message) {
           /** collect existed group */
           groupObj = {type: {}, elems: []};
           groupObj.type.groupId = (g+1);
-          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupName = $filter('translate')(GeneralServ.addElementDATA[g].name);
           groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
 
           /** search element */
@@ -7710,9 +7712,14 @@ function ErrorResult(code, message) {
               }
             }
           }
-          AuxStor.aux.addElementGroups.push(groupObj);
+          groupsArr.push(groupObj);
         }
       }
+      //-------- delete empty group
+      AuxStor.aux.addElementGroups = groupsArr.filter(function(item) {
+        return item.elems.length > 0;
+      });
+      //console.info(AuxStor.aux.addElementGroups);
     }
 
 
@@ -11775,7 +11782,7 @@ function ErrorResult(code, message) {
           /** GRID */
           {
             id: 20,
-            name: $filter('translate')('add_elements.GRIDS'),
+            name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
@@ -11783,7 +11790,7 @@ function ErrorResult(code, message) {
           /** VISOR */
           {
             id: 21,
-            name: $filter('translate')('add_elements.VISORS'),
+            name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
@@ -11791,7 +11798,7 @@ function ErrorResult(code, message) {
           /**SPILLWAY*/
           {
             id: 9,
-            name: $filter('translate')('add_elements.SPILLWAYS'),
+            name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
@@ -11799,7 +11806,7 @@ function ErrorResult(code, message) {
           /**OUTSIDE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.OUTSIDE'),
+            name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
@@ -11807,7 +11814,7 @@ function ErrorResult(code, message) {
           /**LOUVER*/
           {
             id: 26,
-            name: $filter('translate')('add_elements.LOUVERS'),
+            name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
@@ -11815,7 +11822,7 @@ function ErrorResult(code, message) {
           /**INSIDESLOPE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.INSIDE'),
+            name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
@@ -11823,7 +11830,7 @@ function ErrorResult(code, message) {
           /**CONNECTORS*/
           {
             id: 12,
-            name: $filter('translate')('add_elements.CONNECTORS'),
+            name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
@@ -11831,7 +11838,7 @@ function ErrorResult(code, message) {
           /**FAN*/
           {
             id: 27,
-            name: $filter('translate')('add_elements.FAN'),
+            name: 'add_elements.FAN',
             typeClass: 'aux-fan',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
@@ -11839,7 +11846,7 @@ function ErrorResult(code, message) {
           /**WINDOWSILL*/
           {
             id: 8,
-            name: $filter('translate')('add_elements.WINDOWSILLS'),
+            name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
@@ -11847,7 +11854,7 @@ function ErrorResult(code, message) {
           /**HANDLE*/
           {
             id: 24,
-            name: $filter('translate')('add_elements.HANDLELS'),
+            name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
@@ -11855,7 +11862,7 @@ function ErrorResult(code, message) {
           /**OTHERS*/
           {
             id: 18,
-            name: $filter('translate')('add_elements.OTHERS'),
+            name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
@@ -15744,10 +15751,10 @@ function ErrorResult(code, message) {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-        //        console.info(window.navigator.language);
-        //        console.info(window.navigator.userLanguage);
-        //        console.info(window.navigator.browserLanguage);
-        //        console.info("The language is: " + browserLang);
+        //console.info(window.navigator.language);
+        //console.info(window.navigator.userLanguage);
+        //console.info(window.navigator.browserLanguage);
+        //console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }

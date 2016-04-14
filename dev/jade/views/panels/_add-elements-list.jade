@@ -9,7 +9,7 @@
 
     .aux-list-box(ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index")
       .aux-list-block(ng-if="elemType.length > 0", ng-class="elementsListPanel.config.addElementDATA[$index].typeClass + '-theme'")
-        .aux-list-block-title {{ elementsListPanel.config.addElementDATA[$index].name }}
+        .aux-list-block-title {{ elementsListPanel.config.addElementDATA[$index].name | translate }}
         table.aux-list-addellement
           tr.aux-list-row(ng-repeat="addElement in elemType track by $index")
             td.aux-tablecell-name
