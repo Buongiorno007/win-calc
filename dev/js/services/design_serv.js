@@ -750,26 +750,26 @@
     }
 
 
-    function setDoorParamInSource(source) {
-      source.doorConfig.doorShapeIndex = ProductStor.product.door_shape_id;
-      source.doorConfig.sashShapeIndex = ProductStor.product.door_sash_shape_id;
-      source.doorConfig.handleShapeIndex = ProductStor.product.door_handle_shape_id;
-      source.doorConfig.lockShapeIndex = ProductStor.product.door_lock_shape_id;
+    function setDoorParamInSource(product, source) {
+      source.doorConfig.doorShapeIndex = product.door_shape_id;
+      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
+      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
+      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
 
       setNewDoorParamValue(source);
     }
 
 
-    function setDoorParamInProduct(doorConfig) {
-      ProductStor.product.doorName = doorConfig.doorShapeName;
-      ProductStor.product.doorSashName = doorConfig.sashShapeName;
-      ProductStor.product.doorHandle = doorConfig.handleShape;
-      ProductStor.product.doorLock = doorConfig.lockShape;
+    function setDoorParamInProduct(product, doorConfig) {
+      product.doorName = doorConfig.doorShapeName;
+      product.doorSashName = doorConfig.sashShapeName;
+      product.doorHandle = doorConfig.handleShape;
+      product.doorLock = doorConfig.lockShape;
     }
 
 
     /** for start */
-    function setDoorConfigDefault() {
+    function setDoorConfigDefault(product) {
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       for(d = 0; d < doorTypeQty; d+=1) {
         isExist = 0;
@@ -786,7 +786,7 @@
       }
 
       if(!GlobalStor.global.noDoorExist) {
-        switch (ProductStor.product.door_shape_id) {
+        switch (product.door_shape_id) {
           case 0:
           case 1:
             if (GlobalStor.global.doorKitsT1.length) {
@@ -808,10 +808,10 @@
         }
 
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
-        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
 
-        setDoorParamInSource(DesignStor.designSource);
-        setDoorParamInProduct(DesignStor.designSource.doorConfig);
+        setDoorParamInSource(product, DesignStor.designSource);
+        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
       }
     }
 
@@ -2768,7 +2768,7 @@
               ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
               ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
 
-              setDoorParamInProduct(doorConfig);
+              setDoorParamInProduct(ProductStor.product, doorConfig);
 
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(

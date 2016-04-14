@@ -577,7 +577,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     //------ DOOR
-    DesignServ.setDoorConfigDefault();
+    DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
     DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
@@ -9614,26 +9614,26 @@ function ErrorResult(code, message) {
     }
 
 
-    function setDoorParamInSource(source) {
-      source.doorConfig.doorShapeIndex = ProductStor.product.door_shape_id;
-      source.doorConfig.sashShapeIndex = ProductStor.product.door_sash_shape_id;
-      source.doorConfig.handleShapeIndex = ProductStor.product.door_handle_shape_id;
-      source.doorConfig.lockShapeIndex = ProductStor.product.door_lock_shape_id;
+    function setDoorParamInSource(product, source) {
+      source.doorConfig.doorShapeIndex = product.door_shape_id;
+      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
+      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
+      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
 
       setNewDoorParamValue(source);
     }
 
 
-    function setDoorParamInProduct(doorConfig) {
-      ProductStor.product.doorName = doorConfig.doorShapeName;
-      ProductStor.product.doorSashName = doorConfig.sashShapeName;
-      ProductStor.product.doorHandle = doorConfig.handleShape;
-      ProductStor.product.doorLock = doorConfig.lockShape;
+    function setDoorParamInProduct(product, doorConfig) {
+      product.doorName = doorConfig.doorShapeName;
+      product.doorSashName = doorConfig.sashShapeName;
+      product.doorHandle = doorConfig.handleShape;
+      product.doorLock = doorConfig.lockShape;
     }
 
 
     /** for start */
-    function setDoorConfigDefault() {
+    function setDoorConfigDefault(product) {
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       for(d = 0; d < doorTypeQty; d+=1) {
         isExist = 0;
@@ -9650,7 +9650,7 @@ function ErrorResult(code, message) {
       }
 
       if(!GlobalStor.global.noDoorExist) {
-        switch (ProductStor.product.door_shape_id) {
+        switch (product.door_shape_id) {
           case 0:
           case 1:
             if (GlobalStor.global.doorKitsT1.length) {
@@ -9672,10 +9672,10 @@ function ErrorResult(code, message) {
         }
 
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
-        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[ProductStor.product.door_handle_shape_id];
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
 
-        setDoorParamInSource(DesignStor.designSource);
-        setDoorParamInProduct(DesignStor.designSource.doorConfig);
+        setDoorParamInSource(product, DesignStor.designSource);
+        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
       }
     }
 
@@ -11632,7 +11632,7 @@ function ErrorResult(code, message) {
               ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
               ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
 
-              setDoorParamInProduct(doorConfig);
+              setDoorParamInProduct(ProductStor.product, doorConfig);
 
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(
@@ -12006,12 +12006,14 @@ function ErrorResult(code, message) {
     GeneralServ,
     MainServ,
     SVGServ,
+    DesignServ,
     GlobalStor,
     OrderStor,
     ProductStor,
     UserStor,
     HistoryStor,
-    CartStor
+    CartStor,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -12296,7 +12298,8 @@ function ErrorResult(code, message) {
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
-                tempProd = ProductStor.setDefaultProduct();
+                tempProd = ProductStor.setDefaultProduct(),
+                tempProfileId;
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
@@ -12305,8 +12308,24 @@ function ErrorResult(code, message) {
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
+              /** if Door */
+              if(tempProd.construction_type === 4) {
+                if(GlobalStor.global.noDoorExist) {
+                  //-------- show alert than door not existed
+                  DesignStor.design.isNoDoors = 1;
+                  defer1.reject(1);
+                } else {
+                  DesignServ.setDoorConfigDefault(tempProd);
+                  //------ cleaning DesignStor
+                  DesignStor.design = DesignStor.setDefaultDesign();
+                  tempProfileId = DesignStor.design.sashShapeList[tempProd.door_sash_shape_id].profileId;
+                }
+              } else {
+                tempProfileId = tempProd.profile_id;
+              }
+
               //----- find depths and build design icon
-              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+              MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
                 if(tempProd.glass_id) {
                   var glassIDs = tempProd.glass_id.split(', '),
                       glassIDsQty = glassIDs.length;
@@ -23691,7 +23710,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
             /** DOOR */
             if(ProductStor.product.construction_type === 4) {
-              DesignServ.setDoorConfigDefault();
+              DesignServ.setDoorConfigDefault(ProductStor.product);
               //------ cleaning DesignStor
               DesignStor.design = DesignStor.setDefaultDesign();
 

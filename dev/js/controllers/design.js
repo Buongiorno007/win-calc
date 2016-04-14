@@ -77,7 +77,7 @@
 
 
     //------ DOOR
-    DesignServ.setDoorConfigDefault();
+    DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
     DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor

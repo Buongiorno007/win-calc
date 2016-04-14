@@ -75,7 +75,7 @@
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
             /** DOOR */
             if(ProductStor.product.construction_type === 4) {
-              DesignServ.setDoorConfigDefault();
+              DesignServ.setDoorConfigDefault(ProductStor.product);
               //------ cleaning DesignStor
               DesignStor.design = DesignStor.setDefaultDesign();
 
