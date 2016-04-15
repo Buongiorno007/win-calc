@@ -22,7 +22,8 @@
     UserStor,
     AuxStor,
     CartStor,
-    DesignStor
+    DesignStor,
+    HistoryStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this;

@@ -127,6 +127,7 @@
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
+        console.log(OrderStor.order , 'OrderStor')
         downloadProducts1();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {

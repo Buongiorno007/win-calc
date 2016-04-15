@@ -51,21 +51,25 @@
           GlobalStor.global.isEditBox = 0;
           GlobalStor.global.isBox = 0;
 
-      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-        for(ord=0; ord<ordersQty; ord+=1 ) {
-          ProductStor.product.template_source = angular.copy(HistoryStor.history.isBoxArray[ord].template_source);
-          ProductStor.product.hardware_id = angular.copy(HistoryStor.history.isBoxArray[ord].hardware_id);
-          ProductStor.product.hardware = angular.copy(HistoryStor.history.isBoxArray[ord].hardware);
-          ProductStor.product.lamination = angular.copy(HistoryStor.history.isBoxArray[ord].lamination);
-          ProductStor.product.product_id = angular.copy(HistoryStor.history.isBoxArray[ord].product_id);
-          ProductStor.product.profile_id = angular.copy(HistoryStor.history.isBoxArray[ord].profile_id);
-          ProductStor.product.glass = angular.copy(HistoryStor.history.isBoxArray[ord].glasses);
-      }
+      var productArray = HistoryStor.history.isBoxArray;
+      async.eachSeries(productArray, calculate, function (err, result) {
+      });
 
-          pricesThrough()
-          function pricesThrough() {
-            console.log(' ProductStor.product ProductStor.product',  ProductStor.product)
-            var defer = $q.defer();
+      function calculate (product, _cb) {
+        ProductStor.product = ProductStor.setDefaultProduct();
+          async.waterfall([
+          function (_callback) {
+            ProductStor.product.template_source = angular.copy(product.template_source);
+            ProductStor.product.hardware_id = angular.copy(product.hardware_id);
+            ProductStor.product.hardware = angular.copy(product.hardware);
+            ProductStor.product.lamination = angular.copy(product.lamination);
+            ProductStor.product.product_id = angular.copy(product.product_id);
+            ProductStor.product.profile_id = angular.copy(product.profile_id);
+            ProductStor.product.glass = angular.copy(product.glasses);
+
+            _callback(null);
+          },
+          function (_callback) {
               MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
                   var profileId = ProductStor.product.profile_id,
@@ -73,13 +77,17 @@
                       laminatId = ProductStor.product.lamination_id,
                       glassIds =  ProductStor.product.glass;      
                   MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
-                    ProductStor.product = ProductStor.setDefaultProduct();
-                    defer.resolve();         
+                    _callback();               
                   });
                 });
               });  
-            return defer.promise;
+          } 
+        ], function (err, result) {
+          if (err) {
+            return _cb(err);
           }
+          _cb(null);
+        });
       }
     }
     function close () {
