@@ -158,6 +158,7 @@
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          searchWord = AuxStor.aux.searchingWord.toLowerCase(),
           groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
@@ -190,8 +191,8 @@
             elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
-              if(wordPart === AuxStor.aux.searchingWord) {
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
+              if(wordPart === searchWord) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
