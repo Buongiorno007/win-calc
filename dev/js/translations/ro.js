@@ -305,7 +305,7 @@
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Vârsta',
-        CLIENT_AGE_OLDER: 'mai mare',
+        CLIENT_AGE_OLDER: 'mai mare 61',
         //CLIENT_EDUCATION: 'Studii',
         //CLIENT_EDUC_MIDLE: 'medii',
         //CLIENT_EDUC_SPEC: 'medii spec.',

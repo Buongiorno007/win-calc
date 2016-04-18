@@ -305,7 +305,7 @@
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Возраст',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Образование',
         //CLIENT_EDUC_MIDLE: 'среднее',
         //CLIENT_EDUC_SPEC: 'среднее спец.',

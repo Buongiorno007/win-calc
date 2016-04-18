@@ -5,7 +5,7 @@
     .module('CartModule')
     .factory('CartStor',
 
-  function($filter, OrderStor) {
+  function(OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -73,28 +73,28 @@
         {id: 2, name: '31-40'},
         {id: 3, name: '41-50'},
         {id: 4, name: '51-60'},
-        {id: 5, name: $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'}
+        {id: 5, name: 'cart.CLIENT_AGE_OLDER'}
       ],
       optionEductaion: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_EDUC_4')}
+        {id: 1, name: 'cart.CLIENT_EDUC_MIDLE'},
+        {id: 2, name: 'cart.CLIENT_EDUC_SPEC'},
+        {id: 3, name: 'cart.CLIENT_EDUC_HIGH'},
+        {id: 4, name: 'cart.CLIENT_EDUC_4'}
       ],
       optionOccupation: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')},
-        {id: 6, name: $filter('translate')('cart.UNKNOWN')}
+        {id: 1, name: 'cart.CLIENT_OCCUP_WORKER'},
+        {id: 2, name: 'cart.CLIENT_OCCUP_HOUSE'},
+        {id: 3, name: 'cart.CLIENT_OCCUP_BOSS'},
+        {id: 4, name: 'cart.CLIENT_OCCUP_STUD'},
+        {id: 5, name: 'cart.CLIENT_OCCUP_PENSION'},
+        {id: 6, name: 'cart.UNKNOWN'}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},
         {id: 2, name: 'InterNET'},
-        {id: 3, name: $filter('translate')('cart.CLIENT_INFO_PRESS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_INFO_FRIEND')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_INFO_ADV')}
+        {id: 3, name: 'cart.CLIENT_INFO_PRESS'},
+        {id: 4, name: 'cart.CLIENT_INFO_FRIEND'},
+        {id: 5, name: 'cart.CLIENT_INFO_ADV'}
       ],
 
       setDefaultCart: setDefaultCart,

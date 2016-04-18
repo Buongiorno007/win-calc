@@ -305,7 +305,7 @@
         CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
-        CLIENT_AGE_OLDER: 'older',
+        CLIENT_AGE_OLDER: 'older than 61',
         //CLIENT_EDUCATION: 'Education',
         //CLIENT_EDUC_MIDLE: 'middle',
         //CLIENT_EDUC_SPEC: 'specific middle',

@@ -1788,9 +1788,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1838,7 +1838,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-//*/
+*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -8817,10 +8817,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -11879,9 +11879,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -23881,7 +23881,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .module('CartModule')
     .factory('CartStor',
 
-  function($filter, OrderStor) {
+  function(OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -23949,28 +23949,28 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         {id: 2, name: '31-40'},
         {id: 3, name: '41-50'},
         {id: 4, name: '51-60'},
-        {id: 5, name: $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'}
+        {id: 5, name: 'cart.CLIENT_AGE_OLDER'}
       ],
       optionEductaion: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_EDUC_4')}
+        {id: 1, name: 'cart.CLIENT_EDUC_MIDLE'},
+        {id: 2, name: 'cart.CLIENT_EDUC_SPEC'},
+        {id: 3, name: 'cart.CLIENT_EDUC_HIGH'},
+        {id: 4, name: 'cart.CLIENT_EDUC_4'}
       ],
       optionOccupation: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')},
-        {id: 6, name: $filter('translate')('cart.UNKNOWN')}
+        {id: 1, name: 'cart.CLIENT_OCCUP_WORKER'},
+        {id: 2, name: 'cart.CLIENT_OCCUP_HOUSE'},
+        {id: 3, name: 'cart.CLIENT_OCCUP_BOSS'},
+        {id: 4, name: 'cart.CLIENT_OCCUP_STUD'},
+        {id: 5, name: 'cart.CLIENT_OCCUP_PENSION'},
+        {id: 6, name: 'cart.UNKNOWN'}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},
         {id: 2, name: 'InterNET'},
-        {id: 3, name: $filter('translate')('cart.CLIENT_INFO_PRESS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_INFO_FRIEND')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_INFO_ADV')}
+        {id: 3, name: 'cart.CLIENT_INFO_PRESS'},
+        {id: 4, name: 'cart.CLIENT_INFO_FRIEND'},
+        {id: 5, name: 'cart.CLIENT_INFO_ADV'}
       ],
 
       setDefaultCart: setDefaultCart,
@@ -24879,7 +24879,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Alter',
-        CLIENT_AGE_OLDER: "älteren",
+        CLIENT_AGE_OLDER: "älteren 61",
         //CLIENT_EDUCATION: 'Bildung',
         //CLIENT_EDUC_MIDLE: "Durchschnitt",
         //CLIENT_EDUC_SPEC: "die durchschnittliche professionell.",
@@ -25250,7 +25250,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
-        CLIENT_AGE_OLDER: 'older',
+        CLIENT_AGE_OLDER: 'older than 61',
         //CLIENT_EDUCATION: 'Education',
         //CLIENT_EDUC_MIDLE: 'middle',
         //CLIENT_EDUC_SPEC: 'specific middle',
@@ -25619,7 +25619,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'U',
         CLIENT_SEX_F: 'D',
         CLIENT_AGE: 'Età',
-        CLIENT_AGE_OLDER: 'è più più anziano',
+        CLIENT_AGE_OLDER: 'è più anziano di 61',
         //CLIENT_EDUCATION: 'Istruzione',
         //CLIENT_EDUC_MIDLE: 'media',
         //CLIENT_EDUC_SPEC: 'specializzato secondario',
@@ -25989,7 +25989,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Vârsta',
-        CLIENT_AGE_OLDER: 'mai mare',
+        CLIENT_AGE_OLDER: 'mai mare 61',
         //CLIENT_EDUCATION: 'Studii',
         //CLIENT_EDUC_MIDLE: 'medii',
         //CLIENT_EDUC_SPEC: 'medii spec.',
@@ -26358,7 +26358,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Возраст',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Образование',
         //CLIENT_EDUC_MIDLE: 'среднее',
         //CLIENT_EDUC_SPEC: 'среднее спец.',
@@ -26727,7 +26727,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'Ч',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Вік',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Освіта',
         //CLIENT_EDUC_MIDLE: 'середнэ',
         //CLIENT_EDUC_SPEC: 'середнэ спец.',

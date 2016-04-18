@@ -305,7 +305,7 @@
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Alter',
-        CLIENT_AGE_OLDER: "älteren",
+        CLIENT_AGE_OLDER: "älteren 61",
         //CLIENT_EDUCATION: 'Bildung',
         //CLIENT_EDUC_MIDLE: "Durchschnitt",
         //CLIENT_EDUC_SPEC: "die durchschnittliche professionell.",
