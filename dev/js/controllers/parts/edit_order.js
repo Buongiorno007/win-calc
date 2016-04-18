@@ -14,7 +14,9 @@
     GlobalStor,
     ProductStor,
     RecOrderServ,
-    MainServ
+    MainServ,
+    localDB,
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -46,22 +48,32 @@
           delete HistoryStor.history.isBoxArray[ord].nameProfiles;
           delete HistoryStor.history.isBoxArray[ord].listNameGlass;
           delete HistoryStor.history.isBoxArray[ord].listNameLaminat;
+          var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
+
+              localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+              localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum) 
+            
         }
           RecOrderServ.templateSource();
           GlobalStor.global.isEditBox = 0;
           GlobalStor.global.isBox = 0;
 
       var productArray = HistoryStor.history.isBoxArray;
+      //console.log('LENGTH', productArray.length)
+
       async.eachSeries(productArray, calculate, function (err, result) {
+        console.log('end')
       });
 
       function calculate (product, _cb) {
         ProductStor.product = ProductStor.setDefaultProduct();
+        OrderStor.order = OrderStor.setDefaultOrder();
           async.waterfall([
           function (_callback) {
+            ProductStor.product.order_id = angular.copy(product.order_id);
             ProductStor.product.template_source = angular.copy(product.template_source);
             ProductStor.product.hardware_id = angular.copy(product.hardware_id);
-            ProductStor.product.hardware = angular.copy(product.hardware);
+            ProductStor.product.hardware.id = angular.copy(product.hardware);
             ProductStor.product.lamination = angular.copy(product.lamination);
             ProductStor.product.product_id = angular.copy(product.product_id);
             ProductStor.product.profile_id = angular.copy(product.profile_id);
@@ -81,14 +93,30 @@
                   });
                 });
               });  
-          } 
+          },
+          function (_callback) {
+            // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
+            // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
+            OrderStor.order.products.push(ProductStor.product)
+            _callback();  
+          },
+          function (_callback) {
+            MainServ.saveOrderInDBnew();
+            _callback();  
+          }
         ], function (err, result) {
           if (err) {
+            //console.log('err', err)
             return _cb(err);
           }
+          //console.log('herereer')
           _cb(null);
         });
       }
+      HistoryStor.history.isBoxArray = [];
+      HistoryStor.history.listName = [];
+      HistoryStor.history.listNameHardware = [];
+      HistoryStor.history.listNameProfiles = [];
     }
     function close () {
       GlobalStor.global.isEditBox = 0;

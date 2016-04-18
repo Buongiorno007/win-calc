@@ -1310,9 +1310,9 @@ console.log('ProductStor.product', ProductStor.product)
           //-------- insert product Report into local DB
           //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-// TODO localDB.insertServer(
-// UserStor.userInfo.phone, UserStor.userInfo.device_code,
-// localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          // TODO localDB.insertServer(
+          // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+          // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */
@@ -1441,7 +1441,58 @@ console.log('ProductStor.product', ProductStor.product)
       return deferred.promise;
     }
 
+    function saveOrderInDBnew() {
+      var deferred = $q.defer();
 
+      /** ===== SAVE PRODUCTS =====*/
+
+      var prodQty = OrderStor.order.products.length, p;
+      OrderStor.order.products_qty = 0;
+      for(p = 0; p < prodQty; p+=1) {
+        var productData = angular.copy(OrderStor.order.products[p]);
+        productData.order_id = ProductStor.product.order_id;
+        if(!productData.is_addelem_only) {
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
+        }
+        productData.template_source = JSON.stringify(productData.template_source);
+        productData.profile_id = OrderStor.order.products[p].profile.id;
+        productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+          return item.id;
+        }).join(', ');
+        console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
+        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
+        productData.modified = new Date();
+        if(productData.template) {
+          delete productData.template;
+        }
+        delete productData.templateIcon;
+        delete productData.profile;
+        delete productData.glass;
+        delete productData.hardware;
+        delete productData.lamination;
+        delete productData.chosenAddElements;
+        delete productData.profileDepths;
+        delete productData.addelemPriceDis;
+        delete productData.productPriceDis;
+        delete productData.report;
+        delete productData.beadsData;
+
+        /** culculate products quantity for order */
+        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
+        console.log('SEND PRODUCT------', productData);
+        //-------- insert product into local DB
+        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+        //-------- send to Server
+        var productReportData = angular.copy(OrderStor.order.products[p].report),
+            reportQty = productReportData.length;
+      }
+      //----- finish working with order
+      GlobalStor.global.isCreatedNewProject = 0;
+      return deferred.promise;
+    }
 
 
 
@@ -1455,6 +1506,7 @@ console.log('ProductStor.product', ProductStor.product)
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
+      saveOrderInDBnew, saveOrderInDBnew,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,

@@ -11,6 +11,7 @@
 
     /**============ METHODS ================*/
     function box() {
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
         var array = HistoryStor.history.isBoxArray,
             numLaminat = [],
             numHardware = [],
@@ -26,7 +27,7 @@
             laminatQty = GlobalStor.global.laminatCouples.length, glb,
             hardwaresQty = GlobalStor.global.hardwares.length, glbl,
             profilesQty = GlobalStor.global.profiles.length, glbp,
-            glassesQty = GlobalStor.global.glasses.length, glbg;
+            glassesQty = GlobalStor.global.glassesAll.length, glbg;
 
         for(ord = 0; ord < ordersQty; ord+=1) {
           array[ord].nameGlass = [];
@@ -78,7 +79,6 @@
             obj.hardware = GlobalStor.global.hardwares[glbl][glbll],
             HistoryStor.history.listNameHardware.push(obj);
             }
-          }
           for(glbp = 0; glbp < profilesQty; glbp+=1) {
            var globalQtypp = GlobalStor.global.profiles[glbp].length, glbpp;
             for(glbpp = 0; glbpp < globalQtypp; glbpp+=1) {
@@ -93,6 +93,7 @@
             HistoryStor.history.listNameProfiles.push(obj);
             }
           }
+        } 
         //================NameList for select================//
 
         //================add name in array==================//  
@@ -114,22 +115,27 @@
               }
             }
           }       
-
-          for(glbg = 0; glbg < glassesQty; glbg+=1) {
-            var globalQtygg = GlobalStor.global.glasses[glbg].length, glbgg;
-            for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
-              for(ord = 0; ord < ordersQty; ord+=1) {
-                var arrQty = array[ord].glass_id.length, tst;
-                var obj = {
-                  name: '',
-                  id: 0
-                }
-                for(tst=0; tst<arrQty; tst+=1) {
-                  if(''+GlobalStor.global.glasses[glbg][glbgg].id === array[ord].glass_id[tst]) {                 
-                    obj.name = GlobalStor.global.glasses[glbg][glbgg].name;
-                    obj.id = GlobalStor.global.glasses[glbg][glbgg].id;
-                    array[ord].nameGlass.push(obj)
-                  }
+               
+          for(ord = 0; ord < ordersQty; ord+=1) {
+            for(glbg = 0; glbg < glassesQty; glbg+=1) {
+            var globalQtygg = GlobalStor.global.glassesAll[glbg].glasses.length, glbgg;
+              for(glbgg = 0; glbgg < globalQtygg; glbgg+=1) {
+              var subListQty = GlobalStor.global.glassesAll[glbg].glasses[glbgg].length, lstt;
+                for(lstt=0; lstt<subListQty; lstt+=1) {
+                  var arrQty = array[ord].glass_id.length, tst;
+                  var obj = {
+                     name: '',
+                     id: 0
+                     }
+                  if(HistoryStor.history.isBoxArray[ord].profile_id === GlobalStor.global.glassesAll[glbg].profileId) {
+                    for(tst=0; tst<arrQty; tst+=1) {
+                      if(''+GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].id === array[ord].glass_id[tst]) {    
+                        obj.id = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].id,
+                        obj.name = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].name,
+                        array[ord].nameGlass.push(obj)
+                      }
+                    }
+                  }              
                 }
               }
             }
@@ -280,8 +286,8 @@
           for(ogt=0; ogt<oldGlassQty; ogt+=1) {
             for(tsq=0; tsq<tempSourQty; tsq+=1) {
               if(HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId === 1*HistoryStor.history.isBoxArrayCopy[ord].glass_id[ogt].old) {
-                HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[ogt].newId
-                HistoryStor.history.isBoxArray[ord].template_source.details[tsq].sku = HistoryStor.history.isBoxArrayCopy[ord].sku[ogt].sku  
+                HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = 1*HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[ogt].newId
+               //HistoryStor.history.isBoxArray[ord].template_source.details[tsq].sku = HistoryStor.history.isBoxArrayCopy[ord].sku[ogt].sku  
               }
             }
           }
