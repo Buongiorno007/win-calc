@@ -891,40 +891,40 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      thisCtrl.config.selectedStep1 = 1;
-      thisCtrl.config.selectedStep2 = 1;
-      thisCtrl.config.selectedStep3 = 1;
-      thisCtrl.config.selectedStep4 = 1;
+      //thisCtrl.config.selectedStep1 = 1;
+      //thisCtrl.config.selectedStep2 = 1;
+      //thisCtrl.config.selectedStep3 = 1;
+      //thisCtrl.config.selectedStep4 = 1;
     }
 
 
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
+
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
           thisCtrl.config.selectedStep1 = 0;
         } else {
-
           DesignStor.design.sashShapeList.length = 0;
           switch (id) {
             case 0:
             case 1:
               if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
               } else if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
               }
               break;
             case 2:
               if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
               }
               break;
             case 3:
               if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
               }
               break;
           }
@@ -22672,13 +22672,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           } else if(crossPoints[crossPQty].id === 'tail') {
             tempPointArr = angular.copy(newPoints);
             tempPointArr.push(crossPoints[crossPQty]);
-
             tempPointArr = sortingPoints(tempPointArr, center);
-            console.warn('tempPointArr+++', tempPointArr)
             tempPQty = tempPointArr.length;
             for(p = 0; p < tempPQty; p+=1) {
               if(tempPointArr[p].id === 'tail') {
-                console.log('p----',p)
                 prevInd = p-1;
                 nextInd = p+1;
                 if(prevInd < 0) {

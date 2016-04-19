@@ -391,40 +391,40 @@
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      thisCtrl.config.selectedStep1 = 1;
-      thisCtrl.config.selectedStep2 = 1;
-      thisCtrl.config.selectedStep3 = 1;
-      thisCtrl.config.selectedStep4 = 1;
+      //thisCtrl.config.selectedStep1 = 1;
+      //thisCtrl.config.selectedStep2 = 1;
+      //thisCtrl.config.selectedStep3 = 1;
+      //thisCtrl.config.selectedStep4 = 1;
     }
 
 
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
+
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
           thisCtrl.config.selectedStep1 = 0;
         } else {
-
           DesignStor.design.sashShapeList.length = 0;
           switch (id) {
             case 0:
             case 1:
               if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
               } else if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
               }
               break;
             case 2:
               if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
               }
               break;
             case 3:
               if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
               }
               break;
           }

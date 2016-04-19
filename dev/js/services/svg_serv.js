@@ -1853,13 +1853,10 @@
           } else if(crossPoints[crossPQty].id === 'tail') {
             tempPointArr = angular.copy(newPoints);
             tempPointArr.push(crossPoints[crossPQty]);
-
             tempPointArr = sortingPoints(tempPointArr, center);
-            console.warn('tempPointArr+++', tempPointArr)
             tempPQty = tempPointArr.length;
             for(p = 0; p < tempPQty; p+=1) {
               if(tempPointArr[p].id === 'tail') {
-                console.log('p----',p)
                 prevInd = p-1;
                 nextInd = p+1;
                 if(prevInd < 0) {
