@@ -6,6 +6,7 @@
     .factory('AddElementsServ',
 
   function(
+    $filter,
     $timeout,
     globalConstants,
     GeneralServ,
@@ -157,6 +158,8 @@
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          searchWord = AuxStor.aux.searchingWord.toLowerCase(),
+          groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
@@ -164,7 +167,7 @@
           /** collect existed group */
           groupObj = {type: {}, elems: []};
           groupObj.type.groupId = (g+1);
-          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupName = $filter('translate')(GeneralServ.addElementDATA[g].name);
           groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
 
           /** search element */
@@ -188,8 +191,8 @@
             elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
-              if(wordPart === AuxStor.aux.searchingWord) {
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
+              if(wordPart === searchWord) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
@@ -199,9 +202,14 @@
               }
             }
           }
-          AuxStor.aux.addElementGroups.push(groupObj);
+          groupsArr.push(groupObj);
         }
       }
+      //-------- delete empty group
+      AuxStor.aux.addElementGroups = groupsArr.filter(function(item) {
+        return item.elems.length > 0;
+      });
+      //console.info(AuxStor.aux.addElementGroups);
     }
 
 

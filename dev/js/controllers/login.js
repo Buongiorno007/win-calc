@@ -67,9 +67,50 @@
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     /** reload room img */
-    $("<img />").attr("src", "img/room/1.png");
-    $("<img />").attr("src", "img/room/33.gif");
-    $("<img />").attr("src", "img/room/333.gif");
+    //$("<img />").attr("src", "img/room/1.png");
+    //$("<img />").attr("src", "img/room/33.gif");
+    //$("<img />").attr("src", "img/room/333.gif");
+
+
+    function preloadImages(array) {
+      if (!preloadImages.list) {
+        preloadImages.list = [];
+      }
+      var list = preloadImages.list, i, img;
+      for (i = 0; i < array.length; i+=1) {
+        img = new Image();
+        img.onload = function() {
+          var index = list.indexOf(this);
+          if (index !== -1) {
+            // remove image from the array once it's loaded
+            // for memory consumption reasons
+            list.splice(index, 1);
+          }
+        };
+        list.push(img);
+        img.src = array[i];
+      }
+    }
+
+    preloadImages([
+      "img/room/1.png",
+      "img/room/4.png",
+      "img/room/6.png",
+      "img/room/7.png",
+      "img/room/8.png",
+      "img/room/9.png",
+      "img/room/10.png",
+      "img/room/11.png",
+      "img/room/12.png",
+      "img/room/26.png",
+      "img/room/121.png",
+      "img/room/122.png",
+      "img/room/123.png",
+      "img/room/fon.gif",
+      "img/room/33.gif",
+      "img/room/333.gif"
+    ]);
+
 
     /**============ METHODS ================*/
 
@@ -401,9 +442,9 @@
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -451,7 +492,7 @@
               checkingUser();
             }
           });
-//*/
+*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');

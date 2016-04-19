@@ -231,6 +231,7 @@
                     </div>
                   </div>
                   <div ng-if="glass.img.length || glass.link.length || glass.description.length" ng-click="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
+                  <div ng-if="glass.sku.length &gt; 12" class="full-name">{{ glass.sku }}</div>
                 </div>
               </div>
             </div>
@@ -354,12 +355,12 @@
             <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
               <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
                 <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
-                <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
               <div ng-show="addElemGroup.length" ng-class="($index==1)?'horisontal':'vertival'" class="selected-block">
                 <div class="aux-info-box">
                   <div data-output="{{ addElemGroup[0].name }}" ng-click="elementsPanel.selectAddElement($index+1)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
-                  <div data-output="{{ elementsPanel.config.addElementDATA[$index].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === ($index+1)+'-1-0'}" class="aux-params">
@@ -410,7 +411,7 @@
         <div class="aux-list-content">
           <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">
             <div ng-if="elemType.length &gt; 0" ng-class="elementsListPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
-              <div class="aux-list-block-title">{{ elementsListPanel.config.addElementDATA[$index].name }}</div>
+              <div class="aux-list-block-title">{{ elementsListPanel.config.addElementDATA[$index].name | translate }}</div>
               <table class="aux-list-addellement">
                 <tr ng-repeat="addElement in elemType track by $index" class="aux-list-row">
                   <td class="aux-tablecell-name">
@@ -490,7 +491,9 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 2}" ng-click="configMenu.selectConfigPanel(2)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.construction_type !== 4" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName }}</div>
+            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" ng-click="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_GLASS }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -500,7 +503,9 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 4}" ng-click="configMenu.selectConfigPanel(4)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.hardware.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.construction_type !== 4" data-output="{{ configMenu.P.product.hardware.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorHandle.name }}</div>
+            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorLock.name }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 5}" ng-click="configMenu.selectConfigPanel(5)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -731,7 +736,7 @@
       <div ng-click="infoBox.closeInfoBox()" class="close-dialog"></div>
     </div>
   </div>
-  <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint" class="attantion-block">
+  <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
     <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
       <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
       <div class="glass-list">
@@ -747,6 +752,9 @@
         <div ng-repeat="sashExtra in attantBox.D.design.extraHardware track by $index" class="extra-glass"><span ng-if="!$last">{{ sashExtra }},</span><span ng-if="$last">{{ sashExtra }}.</span></div>
         <div class="extra-glass">{{ ::attantBox.CHANGE_SIZE }}</div>
       </div>
+    </div>
+    <div ng-show="attantBox.D.design.isNoDoors" class="design-attantion">{{ ::attantBox.DOOR_ERROR }}
+      <div ng-click="attantBox.closeAttantion()" class="close-dialog"></div>
     </div>
   </div>
 </section>

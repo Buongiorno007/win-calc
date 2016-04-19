@@ -65,21 +65,39 @@
       if(roomInd) {
         MainServ.closeRoomSelectorDialog();
         ProductStor.product.room_id = roomInd-1;
-        /** set new Template Group */
-        if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
-          ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
-          MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
-            if (data) {
-              GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-              GlobalStor.global.templatesSource = angular.copy(data);
-
-              culcPriceNewTemplate(templateIndex);
-            }
-          });
+        // if Door
+        if(GlobalStor.global.rooms[roomInd-1].group_id === 4 && GlobalStor.global.noDoorExist) {
+          //-------- show alert than door not existed
+          DesignStor.design.isNoDoors = 1;
         } else {
-          culcPriceNewTemplate(templateIndex);
-        }
+          /** set new Template Group */
+          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
+            ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+            /** DOOR */
+            if(ProductStor.product.construction_type === 4) {
+              DesignServ.setDoorConfigDefault(ProductStor.product);
+              //------ cleaning DesignStor
+              DesignStor.design = DesignStor.setDefaultDesign();
 
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[DesignStor.design.doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
+            }
+
+            MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
+              if (data) {
+                GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+                GlobalStor.global.templatesSource = angular.copy(data);
+
+                culcPriceNewTemplate(templateIndex);
+              }
+            });
+          } else {
+            culcPriceNewTemplate(templateIndex);
+          }
+        }
       } else {
         //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);

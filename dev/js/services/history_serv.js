@@ -14,12 +14,14 @@
     GeneralServ,
     MainServ,
     SVGServ,
+    DesignServ,
     GlobalStor,
     OrderStor,
     ProductStor,
     UserStor,
     HistoryStor,
-    CartStor
+    CartStor,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -304,7 +306,8 @@
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
-                tempProd = ProductStor.setDefaultProduct();
+                tempProd = ProductStor.setDefaultProduct(),
+                tempProfileId;
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
@@ -313,8 +316,24 @@
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
+              /** if Door */
+              if(tempProd.construction_type === 4) {
+                if(GlobalStor.global.noDoorExist) {
+                  //-------- show alert than door not existed
+                  DesignStor.design.isNoDoors = 1;
+                  defer1.reject(1);
+                } else {
+                  DesignServ.setDoorConfigDefault(tempProd);
+                  //------ cleaning DesignStor
+                  DesignStor.design = DesignStor.setDefaultDesign();
+                  tempProfileId = DesignStor.design.sashShapeList[tempProd.door_sash_shape_id].profileId;
+                }
+              } else {
+                tempProfileId = tempProd.profile_id;
+              }
+
               //----- find depths and build design icon
-              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+              MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
                 if(tempProd.glass_id) {
                   var glassIDs = tempProd.glass_id.split(', '),
                       glassIDsQty = glassIDs.length;
@@ -326,7 +345,7 @@
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
+                MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
                 delete tempProd.lamination_out_id;

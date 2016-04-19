@@ -128,9 +128,9 @@
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминиевый порог, тип',
-        SASH_TYPE1: 'межкомнатная',
-        SASH_TYPE2: 'дверная т-образная',
-        SASH_TYPE3: 'оконная',
+        //SASH_TYPE1: 'межкомнатная',
+        //SASH_TYPE2: 'дверная т-образная',
+        //SASH_TYPE3: 'оконная',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -216,7 +216,8 @@
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Системы входных дверей не настроены"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -304,7 +305,7 @@
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Возраст',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Образование',
         //CLIENT_EDUC_MIDLE: 'среднее',
         //CLIENT_EDUC_SPEC: 'среднее спец.',

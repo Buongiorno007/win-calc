@@ -41,10 +41,10 @@
     }
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
     }
 
 
@@ -77,7 +77,10 @@
 
 
     function saveUserEntry() {
-      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      $timeout(function() {
+        localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      }, 5000);
+
 //TODO offline
 //      ++UserStor.userInfo.entries;
 //      var data = {entries: UserStor.userInfo.entries},
@@ -103,8 +106,8 @@
     /**  Create Order Id and Date */
 
     function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
+      var currTime = new Date().getTime().toString();
+      return (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length))*1;
     }
 
     function createOrderData() {
@@ -369,6 +372,7 @@
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
+      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -376,8 +380,9 @@
               localDB.selectLocalDB(
                 localDB.tablesLocalDB.beed_profile_systems.tableName,
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
-                'list_id')
-                .then(function(beadIds) {
+                'list_id'
+              ).then(function(beadIds) {
+                  //console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -434,8 +439,11 @@
                     deff2.resolve(0);
                   }
                 });
-              return deff2.promise;
+            } else {
+              console.log('item.glass_width === 0');
+              deff2.resolve(0);
             }
+            return deff2.promise;
           });
 
       deff.resolve($q.all(promisBeads));
@@ -465,12 +473,28 @@
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-        if(result.priceTotal){
-          var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
-          setProductPriceTOTAL(ProductStor.product);
-          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-          deferred.resolve(result);
+        var priceObj = angular.copy(result),
+            priceMargin;
+        if(priceObj.priceTotal) {
+
+          /** DOOR add handle and lock Ids */
+          if(ProductStor.product.construction_type === 4) {
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+              .then(function(doorData) {
+                priceObj.priceTotal += doorData.priceTot;
+                angular.extend(priceObj.constrElements, doorData.elements);
+                priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+                ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+                setProductPriceTOTAL(ProductStor.product);
+                deferred.resolve(priceObj);
+              });
+          } else {
+            priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+            ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+            setProductPriceTOTAL(ProductStor.product);
+            deferred.resolve(priceObj);
+          }
+
         } else {
           ProductStor.product.template_price = 0;
           deferred.resolve(0);
@@ -524,9 +548,6 @@
       }
       return report;
     }
-
-
-
 
 
 
@@ -584,87 +605,97 @@
 
 
 
-    //--------- create object to send in server for price calculation
+    /**--------- create object for price calculation ----------*/
+
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
+
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-              var beadQty = template.priceElements.beadsSize.length;
-              while(--beadQty > -1) {
-                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
+        if(beadResult.length && beadResult[0]) {
+          var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+            var beadQty = template.priceElements.beadsSize.length;
+            while (--beadQty > -1) {
+              if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                template.priceElements.beadsSize[beadQty].elemId = item.beadId;
               }
-              return item.beadId;
-            })),
-            objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                hardwareId
-              ],
-              sizes: []
-            };
-        //-------- beads data for analysis
-        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-        //------- fill objXFormedPrice for sizes
-        for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-        }
-
-        //------- set Overall Dimensions
-        ProductStor.product.template_width = 0;
-        ProductStor.product.template_height = 0;
-        ProductStor.product.template_square = 0;
-        var overallQty = ProductStor.product.template.details[0].overallDim.length;
-        while(--overallQty > -1) {
-          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-        }
-
-        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
-
-        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-        //--------- get product price
-        calculationPrice(objXFormedPrice).then(function(result) {
-          deferred.resolve(1);
-          /** set Report */
-          if(result) {
-            //---- only for this type of user
-            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-              ProductStor.product.report = prepareReport(result.constrElements);
-              //console.log('REPORT', ProductStor.product.report);
             }
+            return item.beadId;
+          })), objXFormedPrice = {
+            laminationId: laminatId,
+            ids: [
+              ProductStor.product.profile.rama_list_id,
+              ProductStor.product.profile.rama_still_list_id,
+              ProductStor.product.profile.stvorka_list_id,
+              ProductStor.product.profile.impost_list_id,
+              ProductStor.product.profile.shtulp_list_id,
+              (glassIds.length > 1) ? glassIds.map(function (item) {
+                return item.id;
+              }) : glassIds[0].id,
+              (beadIds.length > 1) ? beadIds : beadIds[0],
+              (ProductStor.product.construction_type === 4) ? 0 : hardwareId
+            ],
+            sizes: []
+          };
+
+          //-------- beads data for analysis
+          ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+          //------- fill objXFormedPrice for sizes
+          for (var size in template.priceElements) {
+            /** for door elements */
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
-        });
 
-        /** calculate coeffs */
-        calculateCoeffs(objXFormedPrice);
+          //------- set Overall Dimensions
+          ProductStor.product.template_width = 0;
+          ProductStor.product.template_height = 0;
+          ProductStor.product.template_square = 0;
+          var overallQty = ProductStor.product.template.details[0].overallDim.length;
+          while (--overallQty > -1) {
+            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+            ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
+          }
 
-        /** save analytics data first time */
-        if(GlobalStor.global.startProgramm) {
-          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-          // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-          /** send analytics data to Server*/
-          //------ profile
-          AnalyticsServ.sendAnalyticsData(
-            UserStor.userInfo.id,
-            OrderStor.order.id,
-            ProductStor.product.template_id,
-            ProductStor.product.profile.id,
-            1
-          );
+          //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+          //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+
+          //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+          //--------- get product price
+          calculationPrice(objXFormedPrice).then(function (result) {
+            deferred.resolve(1);
+            /** set Report */
+            if (result) {
+              //---- only for this type of user
+              if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                ProductStor.product.report = prepareReport(result.constrElements);
+                //console.log('REPORT', ProductStor.product.report);
+              }
+            }
+          });
+
+          /** calculate coeffs */
+          calculateCoeffs(objXFormedPrice);
+
+          /** save analytics data first time */
+          if (GlobalStor.global.startProgramm) {
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+            /** send analytics data to Server*/
+              //------ profile
+            $timeout(function () {
+              AnalyticsServ.sendAnalyticsData(
+                UserStor.userInfo.id,
+                OrderStor.order.id,
+                ProductStor.product.template_id,
+                ProductStor.product.profile.id,
+                1);
+            }, 5000);
+          }
+        } else {
+          deferred.resolve(1);
         }
       });
       return deferred.promise;
@@ -794,7 +825,7 @@
 
 
 
-    function setCurrLamination(newLamId) {
+    function setCurrLamination(product, newLamId) {
       var laminatGroupQty = GlobalStor.global.laminatCouples.length;
       //---- clean filter
       cleanLamFilter();
@@ -802,12 +833,12 @@
         if(newLamId) {
           //------ set lamination Couple with color
           if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
           if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         }
       }
@@ -969,61 +1000,64 @@
 
     /**----------- Hardware sizes checking -------------*/
 
-    function checkHardwareSizes(template) {
+    function checkHardwareSizes(template, harwareID) {
       var blocks = template.details,
           blocksQty = blocks.length,
-          limits = GlobalStor.global.hardwareLimits,
-          limitsQty = GlobalStor.global.hardwareLimits.length,
+          harwareId = harwareID || ProductStor.product.hardware.id,
+          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+            return  item.group_id === harwareId;
+          }),
+          limitsQty = limits.length,
           currLimit = 0,
           overallSize, currWidth, currHeight,
           wranSash, isSizeError, b, lim;
 
+      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
       /** clean extra Hardware */
       DesignStor.design.extraHardware.length = 0;
 
-      /** template loop */
-      for (b = 1; b < blocksQty; b += 1) {
-        isSizeError = 0;
-        if (blocks[b].blockType === 'sash') {
-          /** finde limit for current sash */
-          for(lim = 0; lim < limitsQty; lim+=1) {
-            if(limits[lim].type_id === blocks[b].sashType) {
-              /** check available max/min sizes */
-              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                currLimit = limits[lim];
+      if(limitsQty) {
+        /** template loop */
+        for (b = 1; b < blocksQty; b += 1) {
+          isSizeError = 0;
+          if (blocks[b].blockType === 'sash') {
+            /** finde limit for current sash */
+            for (lim = 0; lim < limitsQty; lim += 1) {
+              if (limits[lim].type_id === blocks[b].sashType) {
+                /** check available max/min sizes */
+                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                  currLimit = limits[lim];
+                }
+                break;
               }
-              break;
             }
-          }
-          if (currLimit) {
-            if (blocks[b].hardwarePoints.length) {
-              /** estimate current sash sizes */
-              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-              currWidth = Math.round(overallSize.maxX - overallSize.minX);
-              currHeight = Math.round(overallSize.maxY - overallSize.minY);
-              //currLimit.max_width = 50;
-              //currLimit.max_height = 50;
-              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                isSizeError = 1;
-              }
-              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                isSizeError = 1;
-              }
+            if (currLimit) {
+              if (blocks[b].hardwarePoints.length) {
+                /** estimate current sash sizes */
+                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                  isSizeError = 1;
+                }
+                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                  isSizeError = 1;
+                }
 
-              if(isSizeError) {
-                wranSash = currWidth + ' x ' + currHeight + ' ' +
-                  $filter('translate')('design.NO_MATCH_RANGE') +
-                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                if (isSizeError) {
+                  wranSash = currWidth + ' x ' + currHeight + ' ' +
+                    $filter('translate')('design.NO_MATCH_RANGE') +
+                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                DesignStor.design.extraHardware.push(wranSash);
+                  DesignStor.design.extraHardware.push(wranSash);
+                }
+
               }
-
             }
           }
         }
       }
-
       //console.info('glass result', DesignStor.design.extraHardware);
     }
 
@@ -1257,6 +1291,10 @@
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandle;
+        delete productData.doorLock;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;

@@ -79,7 +79,7 @@
                 DesignStor.design.isHardwareExtra = 1;
               } else {
                 /** set default white lamination */
-                MainServ.setCurrLamination();
+                MainServ.setCurrLamination(ProductStor.product);
                 /** set new Profile */
                 MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                   MainServ.parseTemplate().then(function () {

@@ -102,13 +102,6 @@
 
 
 
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-      DesignServ.setIndexDoorConfig();
-    }
-
-
-
 
     /**========== FINISH ==========*/
 

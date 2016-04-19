@@ -96,7 +96,8 @@
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.hardware.name }}</div>
+                      <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
+                      <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
                     </li>
                     <li class="order-item">
@@ -326,7 +327,7 @@
           <div class="alladdelements-block">
             <div ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index" ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
               <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length" class="aux-block-inner">
-                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name }}</div>
+                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name | translate }}</div>
                 <table class="aux-list-addellement">
                   <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">
@@ -836,7 +837,7 @@
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
-                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name for age in orderForm.C.optionAge" required class="user-select-field">
+                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
                   <!--option(value='') {{ ::orderForm.SELECT_AGE }}-->
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
@@ -844,7 +845,7 @@
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
-                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name for educ in orderForm.C.optionEductaion" required class="user-select-field">
+                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
                   <!--option(value='') {{ ::orderForm.SELECT_ADUCATION }}-->
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
@@ -852,7 +853,7 @@
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
-                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name for occup in orderForm.C.optionOccupation" required class="user-select-field">
+                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
                   <!--option(value='') {{ ::orderForm.SELECT_OCCUPATION }}-->
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
@@ -860,7 +861,7 @@
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
-                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name for info in orderForm.C.optionInfo" required class="user-select-field">
+                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
                   <!--option(value='') {{ ::orderForm.SELECT_INFO_SOURCE }}-->
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
@@ -950,28 +951,28 @@
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.age.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
-                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name for age in orderForm.C.optionAge" required class="user-select-field">
+                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.age.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.education.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
-                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name for educ in orderForm.C.optionEductaion" required class="user-select-field">
+                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.education.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.occupation.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
-                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name for occup in orderForm.C.optionOccupation" required class="user-select-field">
+                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.occupation.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.infoSource.$error.required }" class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
-                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name for info in orderForm.C.optionInfo" required class="user-select-field">
+                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
                   <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
                 </select>
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.infoSource.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>

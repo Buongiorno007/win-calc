@@ -1634,7 +1634,7 @@
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  openDir: [1, 4],
+                  openDir: [4],
                   handlePos: 4,
                   sashType: 2
                 }

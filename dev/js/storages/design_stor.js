@@ -32,9 +32,9 @@
         selectedImpost: [],
         selectedArc: [],
         //----- Sizes
-        openVoiceHelper: false,
-        loudVoice: false,
-        quietVoice: false,
+        openVoiceHelper: 0,
+        loudVoice: 0,
+        quietVoice: 0,
         voiceTxt: '',
         selectedGlassId: 0,
 
@@ -59,79 +59,42 @@
         isHardwareExtra: 0,
 
         //----- Door
-        doorShapeList: [
+        isNoDoors: 0,
+        doorShapeData: [
           {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
-            shapeIcon: 'img/door-config/doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE1'),
+            icon: 'img/door-config/doorstep.png',
+            iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE2'),
+            icon: 'img/door-config/no-doorstep.png',
+            iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            shapeId: 3,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
-            shapeIcon: 'img/door-config/doorstep-al1.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            icon: 'img/door-config/doorstep-al1.png',
+            iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            shapeId: 4,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
-            shapeIcon: 'img/door-config/doorstep-al2.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            icon: 'img/door-config/doorstep-al2.png',
+            iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
-        sashShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 3,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
-          }
-        ],
-        handleShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
-            shapeIcon: 'img/door-config/lever-handle.png',
-            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
-            shapeIcon: 'img/door-config/standart-handle.png',
-            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
-          }
-        ],
-        lockShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
-            shapeIcon: 'img/door-config/onelock.png',
-            shapeIconSelect: 'img/door-config-selected/onelock.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
-            shapeIcon: 'img/door-config/multilock.png',
-            shapeIconSelect: 'img/door-config-selected/multilock.png'
-          }
-        ],
+        doorShapeList: [],
+        sashShapeList: [],
+        handleShapeList: [],
+        lockShapeList: [],
         doorConfig: {
           doorShapeIndex: 0,
+          doorShapeName: '',
           sashShapeIndex: 0,
+          sashShapeName: '',
           handleShapeIndex: 0,
-          lockShapeIndex: 0
+          handleShape: {},
+          lockShapeIndex: 0,
+          lockShape: {}
         }
 
       },

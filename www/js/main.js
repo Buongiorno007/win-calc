@@ -16,7 +16,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-  console.log('isDevice===', isDevice);
+  //console.log('isDevice===', isDevice);
 
 
   if(isDevice) {
@@ -575,14 +575,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
 
 
+
+    //------ DOOR
+    DesignServ.setDoorConfigDefault(ProductStor.product);
+    //------ cleaning DesignStor
+    DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
 
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-//      DesignServ.downloadDoorConfig();
-      DesignServ.setIndexDoorConfig();
-    }
+
+
 
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -603,6 +605,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DesignStor.design.activeSubMenuItem = 0;
       DesignStor.design.isDropSubMenu = 0;
     }
+
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
@@ -625,7 +628,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         glasses.classed('glass-active', true);
       }
     }
-
 
 
     function insertSash(sashType, event) {
@@ -690,6 +692,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+
     function insertCorner(conerType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -751,7 +754,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-
     function insertArc(arcType, event) {
       event.preventDefault();
       //event.srcEvent.stopPropagation();
@@ -792,7 +794,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**++++++++++ Edit Impost ++++++++*/
-
 
     function insertImpost(impostType, event) {
       event.preventDefault();
@@ -884,31 +885,61 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**+++++++++++++++ DOOR +++++++++++++++++++*/
 
-    //---------- Show Door Configuration
+    /**---------- Show Door Configuration --------*/
+
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
-      //----- set emplty index values
-//      DesignStor.design.doorConfig.doorShapeIndex = '';
-//      DesignStor.design.doorConfig.sashShapeIndex = '';
-//      DesignStor.design.doorConfig.handleShapeIndex = '';
-//      DesignStor.design.doorConfig.lockShapeIndex = '';
+      //----- show current items
+      thisCtrl.config.selectedStep1 = 1;
+      thisCtrl.config.selectedStep2 = 1;
+      thisCtrl.config.selectedStep3 = 1;
+      thisCtrl.config.selectedStep4 = 1;
     }
 
-    //---------- Select door shape
+
+    /**---------- Select door shape --------*/
+
     function selectDoor(id) {
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
           thisCtrl.config.selectedStep1 = 0;
         } else {
+
+          DesignStor.design.sashShapeList.length = 0;
+          switch (id) {
+            case 0:
+            case 1:
+              if (GlobalStor.global.doorKitsT1.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+              } else if (GlobalStor.global.doorKitsT2.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+              }
+              break;
+            case 2:
+              if (GlobalStor.global.doorKitsT1.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT1;
+              }
+              break;
+            case 3:
+              if (GlobalStor.global.doorKitsT2.length) {
+                DesignStor.design.sashShapeList = GlobalStor.global.doorKitsT2;
+              }
+              break;
+          }
           DesignStor.design.doorConfig.doorShapeIndex = id;
           thisCtrl.config.selectedStep1 = 1;
         }
       }
     }
-    //---------- Select sash shape
+
+
+
+    /**---------- Select prifile/sash shape --------*/
+
     function selectSash(id) {
+      var newHandleArr;
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -917,9 +948,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           DesignStor.design.doorConfig.sashShapeIndex = id;
           thisCtrl.config.selectedStep2 = 1;
         }
+        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
+        });
+        DesignStor.design.handleShapeList = newHandleArr;
       }
     }
-    //-------- Select handle shape
+
+
+
+    /**---------- Select handle shape --------*/
+
     function selectHandle(id) {
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
@@ -929,9 +968,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
+        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
       }
     }
-    //--------- Select lock shape
+
+
+
+    /**---------- Select lock shape --------*/
+
     function selectLock(id) {
       if(DesignStor.design.doorConfig.lockShapeIndex === id) {
         DesignStor.design.doorConfig.lockShapeIndex = '';
@@ -942,7 +986,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    //--------- Close Door Configuration
+
+
+    /**---------- Close Door Configuration --------*/
+
     function closeDoorConfig() {
       if(thisCtrl.config.selectedStep3) {
         thisCtrl.config.selectedStep3 = 0;
@@ -963,11 +1010,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    //--------- Save Door Configuration
+
+
+    /**---------- Save Door Configuration --------*/
+
     function saveDoorConfig() {
+      DesignServ.setNewDoorParamValue(DesignStor.design);
       DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
+
+
+
+
 
 
 
@@ -1358,9 +1413,50 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
 
     /** reload room img */
-    $("<img />").attr("src", "img/room/1.png");
-    $("<img />").attr("src", "img/room/33.gif");
-    $("<img />").attr("src", "img/room/333.gif");
+    //$("<img />").attr("src", "img/room/1.png");
+    //$("<img />").attr("src", "img/room/33.gif");
+    //$("<img />").attr("src", "img/room/333.gif");
+
+
+    function preloadImages(array) {
+      if (!preloadImages.list) {
+        preloadImages.list = [];
+      }
+      var list = preloadImages.list, i, img;
+      for (i = 0; i < array.length; i+=1) {
+        img = new Image();
+        img.onload = function() {
+          var index = list.indexOf(this);
+          if (index !== -1) {
+            // remove image from the array once it's loaded
+            // for memory consumption reasons
+            list.splice(index, 1);
+          }
+        };
+        list.push(img);
+        img.src = array[i];
+      }
+    }
+
+    preloadImages([
+      "img/room/1.png",
+      "img/room/4.png",
+      "img/room/6.png",
+      "img/room/7.png",
+      "img/room/8.png",
+      "img/room/9.png",
+      "img/room/10.png",
+      "img/room/11.png",
+      "img/room/12.png",
+      "img/room/26.png",
+      "img/room/121.png",
+      "img/room/122.png",
+      "img/room/123.png",
+      "img/room/fon.gif",
+      "img/room/33.gif",
+      "img/room/333.gif"
+    ]);
+
 
     /**============ METHODS ================*/
 
@@ -1692,9 +1788,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1742,7 +1838,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-//*/
+*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -2076,13 +2172,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         .then(function(data) {
           ProductStor.product.template = data;
         });
-    }
-
-
-
-    //============ if Door Construction
-    if(ProductStor.product.construction_type === 4) {
-      DesignServ.setIndexDoorConfig();
     }
 
 
@@ -2455,7 +2544,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
       } else {
-        GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        /** if Door */
+        if(ProductStor.product.construction_type === 4) {
+          //--------- show only Glasses and AddElements
+          if(id === 3 || id === 6) {
+            GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          }
+        } else {
+          GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+        }
       }
     }
 
@@ -3316,6 +3413,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     GlobalStor,
     OrderStor,
     ProductStor,
+    DesignStor,
     UserStor,
     MainServ,
     AnalyticsServ
@@ -3346,26 +3444,36 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**----------- Select hardware -------- */
     function selectHardware(newId) {
       if(ProductStor.product.hardware.id !== newId) {
-        //-------- set current Hardware
-        MainServ.setCurrentHardware(ProductStor.product, newId);
-        //------ calculate price
-        MainServ.preparePrice(
-          ProductStor.product.template,
-          ProductStor.product.profile.id,
-          ProductStor.product.glass,
-          ProductStor.product.hardware.id,
-          ProductStor.product.lamination.lamination_in_id
-        );
-        //------ save analytics data
+
+        /** check sizes of all hardware in sashes */
+        MainServ.checkHardwareSizes(ProductStor.product.template, newId);
+
+        if(DesignStor.design.extraHardware.length){
+          /** there are incorrect sashes
+           * expose Alert */
+          DesignStor.design.isHardwareExtra = 1;
+        } else {
+          //-------- set current Hardware
+          MainServ.setCurrentHardware(ProductStor.product, newId);
+          //------ calculate price
+          MainServ.preparePrice(
+            ProductStor.product.template,
+            ProductStor.product.profile.id,
+            ProductStor.product.glass,
+            ProductStor.product.hardware.id,
+            ProductStor.product.lamination.lamination_in_id
+          );
+          //------ save analytics data
 //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
-        /** send analytics data to Server*/
-        AnalyticsServ.sendAnalyticsData(
-          UserStor.userInfo.id,
-          OrderStor.order.id,
-          ProductStor.product.template_id,
-          newId,
-          3
-        );
+          /** send analytics data to Server*/
+          AnalyticsServ.sendAnalyticsData(
+            UserStor.userInfo.id,
+            OrderStor.order.id,
+            ProductStor.product.template_id,
+            newId,
+            3
+          );
+        }
       }
     }
 
@@ -3436,7 +3544,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------------ Select lamination
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
-      MainServ.setCurrLamination(id);
+      MainServ.setCurrLamination(ProductStor.product, id);
 
       MainServ.setProfileByLaminat(id).then(function() {
         //------ save analytics data
@@ -3542,7 +3650,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 DesignStor.design.isHardwareExtra = 1;
               } else {
                 /** set default white lamination */
-                MainServ.setCurrLamination();
+                MainServ.setCurrLamination(ProductStor.product);
                 /** set new Profile */
                 MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
                   MainServ.parseTemplate().then(function () {
@@ -3640,11 +3748,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function selectNewTemplateType(marker) {
       GlobalStor.global.isTemplateTypeMenu = 0;
 
-      //-------- check changes in current template
-      if(GlobalStor.global.currOpenPage === 'design') {
-        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-      }
-
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
@@ -3653,17 +3756,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         TemplatesServ.initNewTemplateType(marker);
       }
 
-      if (GlobalStor.global.isChangedTemplate) {
-        //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplateType
-        );
+      //----- if Door
+      if(marker === 4 && GlobalStor.global.noDoorExist) {
+        //-------- show alert than door not existed
+        DesignStor.design.isNoDoors = 1;
       } else {
-        TemplatesServ.initNewTemplateType(marker);
-      }
+        //-------- check changes in current template
+        if (GlobalStor.global.currOpenPage === 'design') {
+          GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+        }
 
+        if (GlobalStor.global.isChangedTemplate) {
+          //----- если выбран новый шаблон после изменения предыдущего
+          GeneralServ.confirmAlert(
+            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+            goToNewTemplateType
+          );
+        } else {
+          TemplatesServ.initNewTemplateType(marker);
+        }
+      }
     }
 
 
@@ -3768,7 +3881,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.NO_PRINT = $filter('translate')('history.NO_PRINT');
     thisCtrl.EXTRA_SASH = $filter('translate')('design.EXTRA_SASH');
     thisCtrl.CHANGE_SIZE = $filter('translate')('design.CHANGE_SIZE') ;
-
+    thisCtrl.DOOR_ERROR = $filter('translate')('design.DOOR_ERROR');
 
     /**============ METHODS ================*/
 
@@ -3776,6 +3889,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DesignStor.design.isGlassExtra = 0;
       DesignStor.design.isHardwareExtra = 0;
       HistoryStor.history.isNoPrint = 0;
+      DesignStor.design.isNoDoors = 0;
     }
 
 
@@ -7415,6 +7529,7 @@ function ErrorResult(code, message) {
     .factory('AddElementsServ',
 
   function(
+    $filter,
     $timeout,
     globalConstants,
     GeneralServ,
@@ -7566,6 +7681,8 @@ function ErrorResult(code, message) {
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          searchWord = AuxStor.aux.searchingWord.toLowerCase(),
+          groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
       for(g = 0; g < groupNamesQty; g+=1){
@@ -7573,7 +7690,7 @@ function ErrorResult(code, message) {
           /** collect existed group */
           groupObj = {type: {}, elems: []};
           groupObj.type.groupId = (g+1);
-          groupObj.type.groupName = angular.copy(GeneralServ.addElementDATA[g].name);
+          groupObj.type.groupName = $filter('translate')(GeneralServ.addElementDATA[g].name);
           groupObj.type.groupClass = GeneralServ.addElementDATA[g].typeClass + '-theme';
 
           /** search element */
@@ -7597,8 +7714,8 @@ function ErrorResult(code, message) {
             elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
-              if(wordPart === AuxStor.aux.searchingWord) {
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
+              if(wordPart === searchWord) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
@@ -7608,9 +7725,14 @@ function ErrorResult(code, message) {
               }
             }
           }
-          AuxStor.aux.addElementGroups.push(groupObj);
+          groupsArr.push(groupObj);
         }
       }
+      //-------- delete empty group
+      AuxStor.aux.addElementGroups = groupsArr.filter(function(item) {
+        return item.elems.length > 0;
+      });
+      //console.info(AuxStor.aux.addElementGroups);
     }
 
 
@@ -8708,10 +8830,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -8780,7 +8902,6 @@ function ErrorResult(code, message) {
     loginServ,
     MainServ,
     AnalyticsServ,
-    optionsServ,
     SVGServ,
     GlobalStor,
     DesignStor,
@@ -9504,47 +9625,81 @@ function ErrorResult(code, message) {
 
     /**---------------- DOORs--------------*/
 
-    //    function downloadDoorConfig() {
-    //      optionsServ.getDoorConfig(function (results) {
-    //        if (results.status) {
-    //          DesignStor.design.doorShapeList = results.data.doorType;
-    //          DesignStor.design.sashShapeList = results.data.sashType;
-    //          DesignStor.design.handleShapeList = results.data.handleType;
-    //          DesignStor.design.lockShapeList = results.data.lockType;
-    //---- set indexes
-    //          setIndexDoorConfig();
-    //        } else {
-    //          console.log(results);
-    //        }
-    //      });
-    //    }
+    function setNewDoorParamValue(source) {
+      source.doorConfig.doorShapeName = source.doorShapeList[source.doorConfig.doorShapeIndex].name;
+      source.doorConfig.sashShapeName = source.sashShapeList[source.doorConfig.sashShapeIndex].frame.name +
+        '/'+ source.sashShapeList[source.doorConfig.sashShapeIndex].sash.name;
+      source.doorConfig.handleShape = source.handleShapeList[source.doorConfig.handleShapeIndex];
+      source.doorConfig.lockShape = source.lockShapeList[source.doorConfig.lockShapeIndex];
+    }
 
-    function setDoorConfigIndex(list, configId) {
-      var listQty = list.length, i;
-      for(i = 0; i < listQty; i+=1) {
-        if(list[i].shapeId === configId) {
-          return i;
+
+    function setDoorParamInSource(product, source) {
+      source.doorConfig.doorShapeIndex = product.door_shape_id;
+      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
+      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
+      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
+
+      setNewDoorParamValue(source);
+    }
+
+
+    function setDoorParamInProduct(product, doorConfig) {
+      product.doorName = doorConfig.doorShapeName;
+      product.doorSashName = doorConfig.sashShapeName;
+      product.doorHandle = doorConfig.handleShape;
+      product.doorLock = doorConfig.lockShape;
+    }
+
+
+    /** for start */
+    function setDoorConfigDefault(product) {
+      var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      DesignStor.designSource.doorShapeList.length = 0;
+      for(d = 0; d < doorTypeQty; d+=1) {
+        isExist = 0;
+        if(d === 2 && GlobalStor.global.doorKitsT1.length) {
+          isExist = 1;
+        } else if(d === 3 && GlobalStor.global.doorKitsT2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
         }
+        if(isExist) {
+          DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
+        }
+      }
+
+      if(!GlobalStor.global.noDoorExist) {
+        switch (product.door_shape_id) {
+          case 0:
+          case 1:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
+            } else if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+          case 2:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
+            }
+            break;
+          case 3:
+            if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+        }
+
+        DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
+
+        setDoorParamInSource(product, DesignStor.designSource);
+        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
       }
     }
 
-
-    function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_shape_id
-      );
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id
-      );
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id
-      );
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id
-      );
-      //-------- set Default values in design
-      DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
-    }
 
 
 
@@ -9554,11 +9709,6 @@ function ErrorResult(code, message) {
       hideSizeTools();
       DesignStor.design = DesignStor.setDefaultDesign();
       setDefaultTemplate();
-      //============ if Door Construction
-      if(ProductStor.product.construction_type === 4) {
-        //---- set indexes
-        setIndexDoorConfig();
-      }
     }
 
 
@@ -11451,8 +11601,7 @@ function ErrorResult(code, message) {
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
-      var doorShapeList = DesignStor.design.doorShapeList,
-          doorConfig = DesignStor.design.doorConfig,
+      var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
@@ -11465,7 +11614,11 @@ function ErrorResult(code, message) {
           /** if sash was added/removed in template */
           isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
           if (isSashesInTemplate) {
-
+            /** set first hardware if sash were not existed before */
+            if (!GlobalStor.global.isSashesInTemplate) {
+              GlobalStor.global.isSashesInTemplate = 1;
+              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            }
             /** check sizes of all hardware in sashes */
             MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
 
@@ -11482,18 +11635,12 @@ function ErrorResult(code, message) {
             /** expose Alert */
             DesignStor.design.isHardwareExtra = 1;
           } else {
-
-            if (isSashesInTemplate) {
-              /** set first hardware if sash were not existed before */
-              if (!GlobalStor.global.isSashesInTemplate) {
-                GlobalStor.global.isSashesInTemplate = 1;
-                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-              }
-            }
-
             /** save new template in product */
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** rebuild glasses */
+            MainServ.setCurrentGlass(ProductStor.product, 1);
 
             /** create template icon */
             SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
@@ -11504,10 +11651,18 @@ function ErrorResult(code, message) {
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //------- save new door config
-              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
-              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
-              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
-              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
+              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
+              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
+              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
+
+              setDoorParamInProduct(ProductStor.product, doorConfig);
+
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
             }
 
             /** save new template in templates Array */
@@ -11608,8 +11763,10 @@ function ErrorResult(code, message) {
 
       stepBack: stepBack,
       //---- door
-      //      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
+      setNewDoorParamValue: setNewDoorParamValue,
+      //setDoorParams: setDoorParams
+      setDoorConfigDefault: setDoorConfigDefault
+
     };
 
     return thisFactory.publicObj;
@@ -11642,7 +11799,7 @@ function ErrorResult(code, message) {
           /** GRID */
           {
             id: 20,
-            name: $filter('translate')('add_elements.GRIDS'),
+            name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
@@ -11650,7 +11807,7 @@ function ErrorResult(code, message) {
           /** VISOR */
           {
             id: 21,
-            name: $filter('translate')('add_elements.VISORS'),
+            name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
@@ -11658,7 +11815,7 @@ function ErrorResult(code, message) {
           /**SPILLWAY*/
           {
             id: 9,
-            name: $filter('translate')('add_elements.SPILLWAYS'),
+            name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
@@ -11666,7 +11823,7 @@ function ErrorResult(code, message) {
           /**OUTSIDE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.OUTSIDE'),
+            name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
@@ -11674,7 +11831,7 @@ function ErrorResult(code, message) {
           /**LOUVER*/
           {
             id: 26,
-            name: $filter('translate')('add_elements.LOUVERS'),
+            name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
@@ -11682,7 +11839,7 @@ function ErrorResult(code, message) {
           /**INSIDESLOPE*/
           {
             id: 19,
-            name: $filter('translate')('add_elements.INSIDE'),
+            name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
@@ -11690,7 +11847,7 @@ function ErrorResult(code, message) {
           /**CONNECTORS*/
           {
             id: 12,
-            name: $filter('translate')('add_elements.CONNECTORS'),
+            name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
@@ -11698,7 +11855,7 @@ function ErrorResult(code, message) {
           /**FAN*/
           {
             id: 27,
-            name: $filter('translate')('add_elements.FAN'),
+            name: 'add_elements.FAN',
             typeClass: 'aux-fan',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
@@ -11706,7 +11863,7 @@ function ErrorResult(code, message) {
           /**WINDOWSILL*/
           {
             id: 8,
-            name: $filter('translate')('add_elements.WINDOWSILLS'),
+            name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
@@ -11714,7 +11871,7 @@ function ErrorResult(code, message) {
           /**HANDLE*/
           {
             id: 24,
-            name: $filter('translate')('add_elements.HANDLELS'),
+            name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
@@ -11722,7 +11879,7 @@ function ErrorResult(code, message) {
           /**OTHERS*/
           {
             id: 18,
-            name: $filter('translate')('add_elements.OTHERS'),
+            name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
@@ -11739,9 +11896,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -11873,12 +12030,14 @@ function ErrorResult(code, message) {
     GeneralServ,
     MainServ,
     SVGServ,
+    DesignServ,
     GlobalStor,
     OrderStor,
     ProductStor,
     UserStor,
     HistoryStor,
-    CartStor
+    CartStor,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -12163,7 +12322,8 @@ function ErrorResult(code, message) {
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
             var defer1 = $q.defer(),
-                tempProd = ProductStor.setDefaultProduct();
+                tempProd = ProductStor.setDefaultProduct(),
+                tempProfileId;
             angular.extend(tempProd, prod);
             delete tempProd.id;
             delete tempProd.modified;
@@ -12172,8 +12332,24 @@ function ErrorResult(code, message) {
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
+              /** if Door */
+              if(tempProd.construction_type === 4) {
+                if(GlobalStor.global.noDoorExist) {
+                  //-------- show alert than door not existed
+                  DesignStor.design.isNoDoors = 1;
+                  defer1.reject(1);
+                } else {
+                  DesignServ.setDoorConfigDefault(tempProd);
+                  //------ cleaning DesignStor
+                  DesignStor.design = DesignStor.setDefaultDesign();
+                  tempProfileId = DesignStor.design.sashShapeList[tempProd.door_sash_shape_id].profileId;
+                }
+              } else {
+                tempProfileId = tempProd.profile_id;
+              }
+
               //----- find depths and build design icon
-              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+              MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
                 if(tempProd.glass_id) {
                   var glassIDs = tempProd.glass_id.split(', '),
                       glassIDsQty = glassIDs.length;
@@ -12185,7 +12361,7 @@ function ErrorResult(code, message) {
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
                 MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
-                MainServ.setCurrLamination(tempProd.lamination_id);
+                MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
                 delete tempProd.lamination_out_id;
@@ -12956,7 +13132,9 @@ function ErrorResult(code, message) {
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR,' +
-            ' beed_lamination_id INTEGER',
+            ' beed_lamination_id INTEGER,' +
+            ' in_door INTEGER,' +
+            ' doorstep_type INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -13242,11 +13420,17 @@ function ErrorResult(code, message) {
             'max_width INTEGER,' +
             'min_width INTEGER,' +
             'max_height INTEGER,' +
-            'min_height INTEGER',
+            'min_height INTEGER,' +
+            'group_id INTEGER',
             'foreignKey': ''
           },
 
-
+          'lock_lists':{
+            'tableName': 'lock_lists',
+            'prop': 'list_id INTEGER,'+
+            'accessory_id INTEGER',
+            'foreignKey': ''
+          },
 
 //-------- inner temables
 //          'analytics': {
@@ -13792,7 +13976,7 @@ function ErrorResult(code, message) {
           lWordCount = (lByteCount - (lByteCount % 4)) / 4;
           lBytePosition = (lByteCount % 4) * 8;
           lWordArray[lWordCount] = (lWordArray[lWordCount] | (string.charCodeAt(lByteCount) << lBytePosition));
-          lByteCount++;
+          lByteCount+=1;
         }
         lWordCount = (lByteCount - (lByteCount % 4)) / 4;
         lBytePosition = (lByteCount % 4) * 8;
@@ -13803,7 +13987,7 @@ function ErrorResult(code, message) {
       }
       function WordToHex(lValue) {
         var WordToHexValue = "", WordToHexValue_temp = "", lByte, lCount;
-        for (lCount = 0; lCount <= 3; lCount++) {
+        for (lCount = 0; lCount <= 3; lCount+=1) {
           lByte = (lValue >>> (lCount * 8)) & 255;
           WordToHexValue_temp = "0" + lByte.toString(16);
           WordToHexValue = WordToHexValue + WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
@@ -13813,7 +13997,7 @@ function ErrorResult(code, message) {
       function Utf8Encode(string) {
         string = string.replace(/\r\n/g, "\n");
         var utftext = "";
-        for (var n = 0; n < string.length; n++) {
+        for (var n = 0; n < string.length; n+=1) {
           var c = string.charCodeAt(n);
           if (c < 128) {
             utftext += String.fromCharCode(c);
@@ -13947,9 +14131,9 @@ function ErrorResult(code, message) {
           db.transaction(function (transaction) {
             if(result.tables.length) {
               for (table in result.tables) {
-                for (i = 0; i < result.tables[table].rows.length; i++) {
+                for (i = 0; i < result.tables[table].rows.length; i+=1) {
                   updateSql = '';
-                  for(k = 0; k < result.tables[table].fields.length; k++){
+                  for(k = 0; k < result.tables[table].fields.length; k+=1){
                     if(!k) {
                       updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
                     } else {
@@ -14099,8 +14283,8 @@ function ErrorResult(code, message) {
                   $q.all(promisKits).then(function(result3) {
                     var data3 = angular.copy(result3),
                         resQty = data3.length,
-                        collectArr = [];
-                    for(var i = 0; i < resQty; i++) {
+                        collectArr = [], i;
+                    for(i = 0; i < resQty; i+=1) {
                       if(data3[i]) {
                         if(data3[i][0].amendment_pruning) {
                           data3[i][0].amendment_pruning /= 1000;
@@ -14558,7 +14742,7 @@ function ErrorResult(code, message) {
           }
         }
       } else {
-        for (var siz = 0; siz < sizeQty; siz++) {
+        for (var siz = 0; siz < sizeQty; siz+=1) {
           constrElem = angular.copy(kitsElem);
           /** glasses */
           if (group === 5) {
@@ -14566,9 +14750,11 @@ function ErrorResult(code, message) {
             /** check size by id of glass */
             if (sizes[siz].elemId === kits.id) {
               sizeTemp = sizes[siz].square;
-              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
+              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+
+                $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] +
+                ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
-              isExist++;
+              isExist+=1;
             }
             /** hardware */
           } else if (group === 7) {
@@ -14609,13 +14795,13 @@ function ErrorResult(code, message) {
           sizeQty = sizes[ke].length;
           if(angular.isArray(priceObj.kitsElem[ke])) {
             //            console.info('culcKitPrice ===== array');
-            var kitElemChildQty = priceObj.kitsElem[ke].length;
-            for(var child = 0; child < kitElemChildQty; child++) {
+            var kitElemChildQty = priceObj.kitsElem[ke].length, child;
+            for(child = 0; child < kitElemChildQty; child+=1) {
               /** hardware */
               if(angular.isArray(priceObj.kitsElem[ke][child])) {
                 //                console.info('culcKitPrice ===== hardware');
-                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
-                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
+                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length, child2;
+                for(child2 = 0; child2 < kitElemChildQty2; child2+=1) {
                   culcPriceAsSize(
                     ke,
                     priceObj.kits[ke][child][child2],
@@ -14659,10 +14845,10 @@ function ErrorResult(code, message) {
         return 1;
       } else {
         var isExist = 0,
-            d = 0;
-        for(; d < openDirQty; d++) {
+            d;
+        for(d = 0; d < openDirQty; d+=1) {
           if(openDir[d] === currConsist.direction_id) {
-            isExist++;
+            isExist+=1;
           }
         }
         return isExist;
@@ -14833,7 +15019,9 @@ function ErrorResult(code, message) {
           if(currConsist.rules_type_id === 5) {
             fullSize = currConstrSize.square;
             currSize = currConstrSize.square;
-            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+
+              $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] +
+              ' x ' + currConstrSize.sizes[1] + ')';
           } else if(currConsist.rules_type_id === 21) {
             fullSize = currConstrSize.sizes[0];
             currSize = currConstrSize.sizes[0];
@@ -14862,8 +15050,8 @@ function ErrorResult(code, message) {
         );
 
       } else {
-        var consistQty = consistArr.length;
-        for (var el = 0; el < consistQty; el++) {
+        var consistQty = consistArr.length, el;
+        for (el = 0; el < consistQty; el+=1) {
           if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
@@ -14905,12 +15093,12 @@ function ErrorResult(code, message) {
         if(angular.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               openDirQty = currConstrSize.openDir.length,
-              hwInd = 0;
-          for(; hwInd < hwElemQty; hwInd++) {
+              hwInd;
+          for(hwInd = 0; hwInd < hwElemQty; hwInd+=1) {
             if(angular.isArray(currConsistElem[hwInd])) {
               var hwElemQty2 = currConsistElem[hwInd].length,
-                  hwInd2 = 0;
-              hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
+                  hwInd2;
+              hwElemLoop: for(hwInd2 = 0; hwInd2 < hwElemQty2; hwInd2+=1) {
                 //------ check direction
                 if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
       //                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
@@ -14928,7 +15116,7 @@ function ErrorResult(code, message) {
                       currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
                     }
                   } else {
-                    for (var el = 0; el < hwElemQty2; el++) {
+                    for (var el = 0; el < hwElemQty2; el+=1) {
                       if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
                         //                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
                         if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
@@ -14976,8 +15164,8 @@ function ErrorResult(code, message) {
           //console.info('1-----', group);
           //console.info('2-----', currConstrSize);
           //console.info('3-----', mainKit);
-          var elemQty = currConsistElem.length, elemInd = 0;
-          for (; elemInd < elemQty; elemInd++) {
+          var elemQty = currConsistElem.length, elemInd;
+          for (elemInd = 0; elemInd < elemQty; elemInd+=1) {
             //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
 
             /** if beads */
@@ -15032,9 +15220,9 @@ function ErrorResult(code, message) {
 
     function culcConsistPrice(priceObj, construction) {
       var groupQty = priceObj.consist.length,
-          group = 0;
+          group;
 
-      for(; group < groupQty; group++) {
+      for(group = 0; group < groupQty; group+=1) {
         if(priceObj.consist[group]) {
           //console.log('         ');
           //console.log('Group  ---------------------', group);
@@ -15051,11 +15239,11 @@ function ErrorResult(code, message) {
               //                console.info('4-----', priceObj.consist[group]);
               //                console.info('5-----', priceObj.consistElem[group]);
 
-              for(var elem = 0; elem < consistQty; elem++) {
+              for(var elem = 0; elem < consistQty; elem+=1) {
                 /** if glass or beads */
                 if(group === 5 || group === 6) {
                   var sizeObjQty = construction.sizes[group].length;
-                  for(var s = 0; s < sizeObjQty; s++) {
+                  for(var s = 0; s < sizeObjQty; s+=1) {
                     if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
                       if(priceObj.consistElem[group][elem]) {
                         culcPriceConsistElem(
@@ -15086,8 +15274,8 @@ function ErrorResult(code, message) {
 
             } else {
               //              console.info('culcConsistPrice ===== object');
-              for(var s = 0; s < sizeQty; s++) {
-                for (var elem = 0; elem < consistQty; elem++) {
+              for(var s = 0; s < sizeQty; s+=1) {
+                for (var elem = 0; elem < consistQty; elem+=1) {
                   if(priceObj.consistElem[group][elem]) {
                     culcPriceConsistElem(
                       group,
@@ -15166,6 +15354,60 @@ function ErrorResult(code, message) {
       return deffMain.promise;
     }
 
+
+    /**========= DOOR PRICE ==========*/
+
+    function getDoorElem(container, elem, kit) {
+      var elemObj = angular.copy(elem);
+      /** currency conversion */
+      if (UserStor.userInfo.currencyId != elemObj.currency_id) {
+        elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
+      }
+      elemObj.qty = (kit) ? kit.value : 1;
+      elemObj.size = 0;
+      elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
+      container.priceTot += elemObj.priceReal;
+      container.elements.push(elemObj);
+    }
+
+
+
+    function calcDoorElemPrice(handleSource, lockSource) {
+      var deffMain = $q.defer(),
+          priceObj = {
+            priceTot: 0,
+            elements: []
+          };
+      //console.log(handleSource, lockSource);
+      getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
+        //console.info('price handle kit', handleData);
+        getDoorElem(priceObj, handleData);
+
+        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
+          //console.info('price lock kit', lockData);
+          getDoorElem(priceObj, lockData);
+
+          parseListContent(lockSource.id).then(function (consist) {
+            //console.warn('consist!!!!!!+', consist);
+            priceObj.consist = consist;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
+            });
+          });
+
+
+        });
+      });
+      return deffMain.promise;
+    }
 
 
 
@@ -15294,8 +15536,6 @@ function ErrorResult(code, message) {
       });
       return deffMain.promise;
     }
-
-
 
 
     /**========= GRID PRICE ==========*/
@@ -15477,6 +15717,7 @@ function ErrorResult(code, message) {
       calculationPrice: calculationPrice,
       getAdditionalPrice: getAdditionalPrice,
       calculationGridPrice: calculationGridPrice,
+      calcDoorElemPrice: calcDoorElemPrice,
       currencyExgange: currencyExgange
     };
 
@@ -15553,10 +15794,10 @@ function ErrorResult(code, message) {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-        //        console.info(window.navigator.language);
-        //        console.info(window.navigator.userLanguage);
-        //        console.info(window.navigator.browserLanguage);
-        //        console.info("The language is: " + browserLang);
+        //console.info(window.navigator.language);
+        //console.info(window.navigator.userLanguage);
+        //console.info(window.navigator.browserLanguage);
+        //console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
@@ -16015,8 +16256,9 @@ function ErrorResult(code, message) {
             var defer3 = $q.defer();
             localDB.selectLocalDB(
               localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'profile_system_id': item.profileId})
-              .then(function (glassId) {
+              {'profile_system_id': item.profileId}, 'element_id'
+            ).then(function (glassId) {
+                //console.warn('glass+++', glassId);
                 var glassIdQty = glassId.length;
                 if(glassIdQty){
                   defer3.resolve(glassId);
@@ -16030,39 +16272,21 @@ function ErrorResult(code, message) {
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [], i, j;
-            //                        console.log('glassIds!!!!', glassIds);
-            for(i = 0; i < glassIdsQty; i+=1) {
-              var defer4 = $q.defer();
-              if(glassIds[i]) {
-                var promises5 = glassIds[i].map(function (item) {
-                  var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      var glass = angular.copy(result), glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
-                  return defer5.promise;
-                });
-                defer4.resolve($q.all(promises5));
-              } else {
-                defer4.resolve(0);
-              }
-              promises4.push(defer4.promise);
-            }
+                promises6 = [], i, j;
+            //console.log('glassIds!!!!', glassIds);
 
+            /** find Glass Kits */
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
               //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
+                localDB.selectLocalDB(
+                  localDB.tablesLocalDB.lists.tableName,
+                  {'parent_element_id': item.element_id, 'list_group_id': 6},
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                ).then(function (result2) {
+                    //console.log('list +++++', result2);
                     var list = angular.copy(result2),
                         listQty = list.length;
                     if(listQty){
@@ -16078,23 +16302,53 @@ function ErrorResult(code, message) {
               promises6.push(defer6.promise);
             }
 
-            $q.all(promises4).then(function(glasses) {
-              //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length;
-              if(glassesQty) {
-                for(i = 0; i < glassesQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
-                }
-              }
-            });
             $q.all(promises6).then(function(lists) {
-              //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length;
+              //console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length, promises4 = [];
+
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
-                  defer.resolve(1);
+                  var defer4 = $q.defer();
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i].filter(function(item) {
+                    return item;
+                  });
+
+                  /** find Glass Elements */
+                  var promises5 = GlobalStor.global.glassesAll[i].glassLists.map(function (item) {
+                    var defer5 = $q.defer();
+                    localDB.selectLocalDB(
+                      localDB.tablesLocalDB.elements.tableName,
+                      {'id': item.parent_element_id},
+                      'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
+                      'max_width, min_width, max_height, min_height, max_sq'
+                    ).then(function (result) {
+                        //console.log('glass!!!!', result);
+                        var glass = angular.copy(result),
+                            glassQty = glass.length;
+                        if (glassQty) {
+                          defer5.resolve(glass[0]);
+                        } else {
+                          defer5.resolve(0);
+                        }
+                      });
+                    return defer5.promise;
+                  });
+                  defer4.resolve($q.all(promises5));
+                  promises4.push(defer4.promise);
                 }
+
+                $q.all(promises4).then(function(glasses) {
+                  //console.log('glasses after 1111!!!!', glasses);
+                  var glassesQty = glasses.length;
+                  if(glassesQty) {
+                    for(i = 0; i < glassesQty; i+=1) {
+                      GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                    }
+                  }
+                  //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                  defer.resolve(1);
+                });
+
               }
             });
 
@@ -16181,7 +16435,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
         null,
-        'type_id, min_width, max_width, min_height, max_height'
+        'type_id, min_width, max_width, min_height, max_height, group_id'
       ).then(function(result) {
         if(result && result.length) {
           GlobalStor.global.hardwareLimits = angular.copy(result);
@@ -16543,6 +16797,186 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+    /**============ DOORs ===========*/
+
+
+    function sortingDoorKits(doorKits, doorKitsGlobal) {
+      var profsQty = GlobalStor.global.profiles.length,
+          profQty, tempKit,
+          frameDoor, sashDoor,
+          frameQty, sashQty, f, s,
+          currFrame, currSash;
+      if(doorKits.length) {
+        frameDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 2;
+        });
+        sashDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 3;
+        });
+        frameQty = frameDoor.length;
+        sashQty = sashDoor.length;
+
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            tempKit = {};
+            currFrame = 0;
+            currSash = 0;
+            for(f = 0; f < frameQty; f+=1) {
+              if(frameDoor[f].id === GlobalStor.global.profiles[profsQty][profQty].rama_list_id) {
+                currFrame = frameDoor[f];
+              }
+            }
+            for(s = 0; s < sashQty; s+=1) {
+              if(sashDoor[s].id === GlobalStor.global.profiles[profsQty][profQty].stvorka_list_id) {
+                currSash = sashDoor[s];
+              }
+            }
+            if(currFrame && currSash) {
+              tempKit.profileId = GlobalStor.global.profiles[profsQty][profQty].id;
+              tempKit.frame = currFrame;
+              tempKit.sash = currSash;
+              doorKitsGlobal.push(tempKit);
+            }
+          }
+        }
+      }
+    }
+
+
+    /**------ download Locks ------*/
+
+    function downloadLocks() {
+      var promises = GlobalStor.global.doorHandlers.map(function(item) {
+        var deff = $q.defer();
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
+        ).then(function(lockIds) {
+          //console.info('--lockIds---', lockIds);
+          if(lockIds.length) {
+            var promises2 = lockIds.map(function(item2) {
+              var deff2 = $q.defer();
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName,{'id': item2.list_id}, 'id, name, list_type_id, parent_element_id'
+              ).then(function(lockKid) {
+                  deff2.resolve(lockKid[0]);
+                });
+              return deff2.promise;
+            });
+            deff.resolve($q.all(promises2));
+          } else {
+            deff.resolve(0);
+          }
+        });
+        return deff.promise;
+      });
+
+      $q.all(promises).then(function(lockData) {
+        //console.info('--lockData---', lockData);
+        GlobalStor.global.doorLocks = angular.copy(lockData);
+      });
+    }
+
+
+    function checkHandleWProfile(profArr) {
+      var profIds = [],
+          profArrQty = profArr.length,
+          profsQty, profQty, isExist, i;
+      for(i = 0; i < profArrQty; i+=1) {
+        profsQty = GlobalStor.global.profiles.length;
+        isExist = 0;
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
+              isExist = 1;
+            }
+          }
+        }
+        if(isExist) {
+          profIds.push(profArr[i].profile_system_id);
+        }
+      }
+      return profIds.join(', ');
+    }
+
+
+    /**------ download Handles ------*/
+
+    function downloadDoorHandles() {
+      //36 офисная ручка , 35 нажимной гарнитур
+      var options = 'id, name, list_type_id, parent_element_id';
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}, options
+      ).then(function(handlData) {
+        //console.warn('нажимной гарнитур', handlData);
+        GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}, options
+        ).then(function(handlData) {
+          //console.warn('офисная ручка', handlData);
+          GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+
+          /** download Locks */
+          downloadLocks();
+
+          //------- get link between handler and profile
+          var promises = GlobalStor.global.doorHandlers.map(function(item) {
+            var deff = $q.defer();
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'element_id': item.parent_element_id},
+              'profile_system_id'
+            ).then(function(profileIds) {
+              //console.info('--prof---', profileIds);
+              deff.resolve(profileIds);
+            });
+            return deff.promise;
+          });
+
+          $q.all(promises).then(function(profData) {
+            var handleQty = GlobalStor.global.doorHandlers.length, h;
+            for(h = 0; h < handleQty; h+=1) {
+              //--------- compare with profiles
+              GlobalStor.global.doorHandlers[h].profIds = checkHandleWProfile(profData[h]);
+            }
+          });
+        });
+
+      });
+
+
+    }
+
+
+    /**------ download Doors ------*/
+
+    function downloadDoorKits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'in_door': 1}, 'id, name, list_group_id, doorstep_type'
+      ).then(function(doorData) {
+        var door = angular.copy(doorData),
+            doorKitsT1, doorKitsT2,
+            doorQty = door.length;
+        if (doorQty) {
+          //----- sorting door elements as to doorstep_type
+          doorKitsT1 = door.filter(function(item) {
+            return item.doorstep_type === 1;
+          });
+          doorKitsT2 = door.filter(function(item) {
+            return item.doorstep_type === 2;
+          });
+          //-------- seperate by frame or sash
+          sortingDoorKits(doorKitsT1, GlobalStor.global.doorKitsT1);
+          sortingDoorKits(doorKitsT2, GlobalStor.global.doorKitsT2);
+
+          /** Handlers */
+          downloadDoorHandles();
+        } else {
+          GlobalStor.global.noDoorExist = 1;
+        }
+      });
+    }
 
 
 
@@ -16597,6 +17031,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Door Kits */
+                                  downloadDoorKits();
                                   /** download Hardware Limits */
                                   downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */
@@ -16731,10 +17167,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
     function setDefaultDoorConfig() {
-      ProductStor.product.door_shape_id = 1;
-      ProductStor.product.door_sash_shape_id = 1;
-      ProductStor.product.door_handle_shape_id = 1;
-      ProductStor.product.door_lock_shape_id = 1;
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
     }
 
 
@@ -16767,7 +17203,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function saveUserEntry() {
-      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      $timeout(function() {
+        localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      }, 5000);
+
 //TODO offline
 //      ++UserStor.userInfo.entries;
 //      var data = {entries: UserStor.userInfo.entries},
@@ -16793,8 +17232,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**  Create Order Id and Date */
 
     function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
+      var currTime = new Date().getTime().toString();
+      return (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length))*1;
     }
 
     function createOrderData() {
@@ -17059,6 +17498,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
+      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -17066,8 +17506,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               localDB.selectLocalDB(
                 localDB.tablesLocalDB.beed_profile_systems.tableName,
                 {'profile_system_id': profileId, "glass_width": item.glass_width},
-                'list_id')
-                .then(function(beadIds) {
+                'list_id'
+              ).then(function(beadIds) {
+                  //console.log('beadIds', beadIds);
                   var beadsQty = beadIds.length,
                       beadObj = {
                         glassId: item.id,
@@ -17124,8 +17565,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     deff2.resolve(0);
                   }
                 });
-              return deff2.promise;
+            } else {
+              console.log('item.glass_width === 0');
+              deff2.resolve(0);
             }
+            return deff2.promise;
           });
 
       deff.resolve($q.all(promisBeads));
@@ -17155,12 +17599,28 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-        if(result.priceTotal){
-          var priceMargin = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
-          setProductPriceTOTAL(ProductStor.product);
-          //console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-          deferred.resolve(result);
+        var priceObj = angular.copy(result),
+            priceMargin;
+        if(priceObj.priceTotal) {
+
+          /** DOOR add handle and lock Ids */
+          if(ProductStor.product.construction_type === 4) {
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+              .then(function(doorData) {
+                priceObj.priceTotal += doorData.priceTot;
+                angular.extend(priceObj.constrElements, doorData.elements);
+                priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+                ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+                setProductPriceTOTAL(ProductStor.product);
+                deferred.resolve(priceObj);
+              });
+          } else {
+            priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+            ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+            setProductPriceTOTAL(ProductStor.product);
+            deferred.resolve(priceObj);
+          }
+
         } else {
           ProductStor.product.template_price = 0;
           deferred.resolve(0);
@@ -17214,9 +17674,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
       return report;
     }
-
-
-
 
 
 
@@ -17274,87 +17731,97 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    //--------- create object to send in server for price calculation
+    /**--------- create object for price calculation ----------*/
+
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
+
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
-              var beadQty = template.priceElements.beadsSize.length;
-              while(--beadQty > -1) {
-                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
+        if(beadResult.length && beadResult[0]) {
+          var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+            var beadQty = template.priceElements.beadsSize.length;
+            while (--beadQty > -1) {
+              if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                template.priceElements.beadsSize[beadQty].elemId = item.beadId;
               }
-              return item.beadId;
-            })),
-            objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                hardwareId
-              ],
-              sizes: []
-            };
-        //-------- beads data for analysis
-        ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-        //------- fill objXFormedPrice for sizes
-        for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
-        }
-
-        //------- set Overall Dimensions
-        ProductStor.product.template_width = 0;
-        ProductStor.product.template_height = 0;
-        ProductStor.product.template_square = 0;
-        var overallQty = ProductStor.product.template.details[0].overallDim.length;
-        while(--overallQty > -1) {
-          ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-          ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-          ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
-        }
-
-        //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-        //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-        //        console.log('objXFormedPrice+++++++', objXFormedPrice);
-
-        //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-        //--------- get product price
-        calculationPrice(objXFormedPrice).then(function(result) {
-          deferred.resolve(1);
-          /** set Report */
-          if(result) {
-            //---- only for this type of user
-            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-              ProductStor.product.report = prepareReport(result.constrElements);
-              //console.log('REPORT', ProductStor.product.report);
             }
+            return item.beadId;
+          })), objXFormedPrice = {
+            laminationId: laminatId,
+            ids: [
+              ProductStor.product.profile.rama_list_id,
+              ProductStor.product.profile.rama_still_list_id,
+              ProductStor.product.profile.stvorka_list_id,
+              ProductStor.product.profile.impost_list_id,
+              ProductStor.product.profile.shtulp_list_id,
+              (glassIds.length > 1) ? glassIds.map(function (item) {
+                return item.id;
+              }) : glassIds[0].id,
+              (beadIds.length > 1) ? beadIds : beadIds[0],
+              (ProductStor.product.construction_type === 4) ? 0 : hardwareId
+            ],
+            sizes: []
+          };
+
+          //-------- beads data for analysis
+          ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+          //------- fill objXFormedPrice for sizes
+          for (var size in template.priceElements) {
+            /** for door elements */
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
-        });
 
-        /** calculate coeffs */
-        calculateCoeffs(objXFormedPrice);
+          //------- set Overall Dimensions
+          ProductStor.product.template_width = 0;
+          ProductStor.product.template_height = 0;
+          ProductStor.product.template_square = 0;
+          var overallQty = ProductStor.product.template.details[0].overallDim.length;
+          while (--overallQty > -1) {
+            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+            ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
+          }
 
-        /** save analytics data first time */
-        if(GlobalStor.global.startProgramm) {
-          //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-          // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-          /** send analytics data to Server*/
-          //------ profile
-          AnalyticsServ.sendAnalyticsData(
-            UserStor.userInfo.id,
-            OrderStor.order.id,
-            ProductStor.product.template_id,
-            ProductStor.product.profile.id,
-            1
-          );
+          //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+          //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+
+          //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+          //--------- get product price
+          calculationPrice(objXFormedPrice).then(function (result) {
+            deferred.resolve(1);
+            /** set Report */
+            if (result) {
+              //---- only for this type of user
+              if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                ProductStor.product.report = prepareReport(result.constrElements);
+                //console.log('REPORT', ProductStor.product.report);
+              }
+            }
+          });
+
+          /** calculate coeffs */
+          calculateCoeffs(objXFormedPrice);
+
+          /** save analytics data first time */
+          if (GlobalStor.global.startProgramm) {
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+            /** send analytics data to Server*/
+              //------ profile
+            $timeout(function () {
+              AnalyticsServ.sendAnalyticsData(
+                UserStor.userInfo.id,
+                OrderStor.order.id,
+                ProductStor.product.template_id,
+                ProductStor.product.profile.id,
+                1);
+            }, 5000);
+          }
+        } else {
+          deferred.resolve(1);
         }
       });
       return deferred.promise;
@@ -17484,7 +17951,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function setCurrLamination(newLamId) {
+    function setCurrLamination(product, newLamId) {
       var laminatGroupQty = GlobalStor.global.laminatCouples.length;
       //---- clean filter
       cleanLamFilter();
@@ -17492,12 +17959,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(newLamId) {
           //------ set lamination Couple with color
           if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
           if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            ProductStor.product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
           }
         }
       }
@@ -17659,61 +18126,64 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**----------- Hardware sizes checking -------------*/
 
-    function checkHardwareSizes(template) {
+    function checkHardwareSizes(template, harwareID) {
       var blocks = template.details,
           blocksQty = blocks.length,
-          limits = GlobalStor.global.hardwareLimits,
-          limitsQty = GlobalStor.global.hardwareLimits.length,
+          harwareId = harwareID || ProductStor.product.hardware.id,
+          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+            return  item.group_id === harwareId;
+          }),
+          limitsQty = limits.length,
           currLimit = 0,
           overallSize, currWidth, currHeight,
           wranSash, isSizeError, b, lim;
 
+      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
       /** clean extra Hardware */
       DesignStor.design.extraHardware.length = 0;
 
-      /** template loop */
-      for (b = 1; b < blocksQty; b += 1) {
-        isSizeError = 0;
-        if (blocks[b].blockType === 'sash') {
-          /** finde limit for current sash */
-          for(lim = 0; lim < limitsQty; lim+=1) {
-            if(limits[lim].type_id === blocks[b].sashType) {
-              /** check available max/min sizes */
-              if(limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                currLimit = limits[lim];
+      if(limitsQty) {
+        /** template loop */
+        for (b = 1; b < blocksQty; b += 1) {
+          isSizeError = 0;
+          if (blocks[b].blockType === 'sash') {
+            /** finde limit for current sash */
+            for (lim = 0; lim < limitsQty; lim += 1) {
+              if (limits[lim].type_id === blocks[b].sashType) {
+                /** check available max/min sizes */
+                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                  currLimit = limits[lim];
+                }
+                break;
               }
-              break;
             }
-          }
-          if (currLimit) {
-            if (blocks[b].hardwarePoints.length) {
-              /** estimate current sash sizes */
-              overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-              currWidth = Math.round(overallSize.maxX - overallSize.minX);
-              currHeight = Math.round(overallSize.maxY - overallSize.minY);
-              //currLimit.max_width = 50;
-              //currLimit.max_height = 50;
-              if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                isSizeError = 1;
-              }
-              if(currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                isSizeError = 1;
-              }
+            if (currLimit) {
+              if (blocks[b].hardwarePoints.length) {
+                /** estimate current sash sizes */
+                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                  isSizeError = 1;
+                }
+                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                  isSizeError = 1;
+                }
 
-              if(isSizeError) {
-                wranSash = currWidth + ' x ' + currHeight + ' ' +
-                  $filter('translate')('design.NO_MATCH_RANGE') +
-                  ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                  'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                if (isSizeError) {
+                  wranSash = currWidth + ' x ' + currHeight + ' ' +
+                    $filter('translate')('design.NO_MATCH_RANGE') +
+                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                DesignStor.design.extraHardware.push(wranSash);
+                  DesignStor.design.extraHardware.push(wranSash);
+                }
+
               }
-
             }
           }
         }
       }
-
       //console.info('glass result', DesignStor.design.extraHardware);
     }
 
@@ -17947,6 +18417,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandle;
+        delete productData.doorLock;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -19999,7 +20473,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  openDir: [1, 4],
+                  openDir: [4],
                   handlePos: 4,
                   sashType: 2
                 }
@@ -23273,21 +23747,39 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       if(roomInd) {
         MainServ.closeRoomSelectorDialog();
         ProductStor.product.room_id = roomInd-1;
-        /** set new Template Group */
-        if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
-          ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
-          MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
-            if (data) {
-              GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-              GlobalStor.global.templatesSource = angular.copy(data);
-
-              culcPriceNewTemplate(templateIndex);
-            }
-          });
+        // if Door
+        if(GlobalStor.global.rooms[roomInd-1].group_id === 4 && GlobalStor.global.noDoorExist) {
+          //-------- show alert than door not existed
+          DesignStor.design.isNoDoors = 1;
         } else {
-          culcPriceNewTemplate(templateIndex);
-        }
+          /** set new Template Group */
+          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
+            ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+            /** DOOR */
+            if(ProductStor.product.construction_type === 4) {
+              DesignServ.setDoorConfigDefault(ProductStor.product);
+              //------ cleaning DesignStor
+              DesignStor.design = DesignStor.setDefaultDesign();
 
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[DesignStor.design.doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
+            }
+
+            MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
+              if (data) {
+                GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+                GlobalStor.global.templatesSource = angular.copy(data);
+
+                culcPriceNewTemplate(templateIndex);
+              }
+            });
+          } else {
+            culcPriceNewTemplate(templateIndex);
+          }
+        }
       } else {
         //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);
@@ -23429,7 +23921,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .module('CartModule')
     .factory('CartStor',
 
-  function($filter, OrderStor) {
+  function(OrderStor) {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -23497,28 +23989,28 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         {id: 2, name: '31-40'},
         {id: 3, name: '41-50'},
         {id: 4, name: '51-60'},
-        {id: 5, name: $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'}
+        {id: 5, name: 'cart.CLIENT_AGE_OLDER'}
       ],
       optionEductaion: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_EDUC_4')}
+        {id: 1, name: 'cart.CLIENT_EDUC_MIDLE'},
+        {id: 2, name: 'cart.CLIENT_EDUC_SPEC'},
+        {id: 3, name: 'cart.CLIENT_EDUC_HIGH'},
+        {id: 4, name: 'cart.CLIENT_EDUC_4'}
       ],
       optionOccupation: [
-        {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
-        {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')},
-        {id: 6, name: $filter('translate')('cart.UNKNOWN')}
+        {id: 1, name: 'cart.CLIENT_OCCUP_WORKER'},
+        {id: 2, name: 'cart.CLIENT_OCCUP_HOUSE'},
+        {id: 3, name: 'cart.CLIENT_OCCUP_BOSS'},
+        {id: 4, name: 'cart.CLIENT_OCCUP_STUD'},
+        {id: 5, name: 'cart.CLIENT_OCCUP_PENSION'},
+        {id: 6, name: 'cart.UNKNOWN'}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},
         {id: 2, name: 'InterNET'},
-        {id: 3, name: $filter('translate')('cart.CLIENT_INFO_PRESS')},
-        {id: 4, name: $filter('translate')('cart.CLIENT_INFO_FRIEND')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_INFO_ADV')}
+        {id: 3, name: 'cart.CLIENT_INFO_PRESS'},
+        {id: 4, name: 'cart.CLIENT_INFO_FRIEND'},
+        {id: 5, name: 'cart.CLIENT_INFO_ADV'}
       ],
 
       setDefaultCart: setDefaultCart,
@@ -23569,9 +24061,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         selectedImpost: [],
         selectedArc: [],
         //----- Sizes
-        openVoiceHelper: false,
-        loudVoice: false,
-        quietVoice: false,
+        openVoiceHelper: 0,
+        loudVoice: 0,
+        quietVoice: 0,
         voiceTxt: '',
         selectedGlassId: 0,
 
@@ -23596,79 +24088,42 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isHardwareExtra: 0,
 
         //----- Door
-        doorShapeList: [
+        isNoDoors: 0,
+        doorShapeData: [
           {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
-            shapeIcon: 'img/door-config/doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE1'),
+            icon: 'img/door-config/doorstep.png',
+            iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+            name: $filter('translate')('panels.DOOR_TYPE2'),
+            icon: 'img/door-config/no-doorstep.png',
+            iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            shapeId: 3,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
-            shapeIcon: 'img/door-config/doorstep-al1.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            icon: 'img/door-config/doorstep-al1.png',
+            iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            shapeId: 4,
-            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
-            shapeIcon: 'img/door-config/doorstep-al2.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            icon: 'img/door-config/doorstep-al2.png',
+            iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
-        sashShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
-          },
-          {
-            shapeId: 3,
-            shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
-          }
-        ],
-        handleShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
-            shapeIcon: 'img/door-config/lever-handle.png',
-            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
-            shapeIcon: 'img/door-config/standart-handle.png',
-            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
-          }
-        ],
-        lockShapeList: [
-          {
-            shapeId: 1,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
-            shapeIcon: 'img/door-config/onelock.png',
-            shapeIconSelect: 'img/door-config-selected/onelock.png'
-          },
-          {
-            shapeId: 2,
-            shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
-            shapeIcon: 'img/door-config/multilock.png',
-            shapeIconSelect: 'img/door-config-selected/multilock.png'
-          }
-        ],
+        doorShapeList: [],
+        sashShapeList: [],
+        handleShapeList: [],
+        lockShapeList: [],
         doorConfig: {
           doorShapeIndex: 0,
+          doorShapeName: '',
           sashShapeIndex: 0,
+          sashShapeName: '',
           handleShapeIndex: 0,
-          lockShapeIndex: 0
+          handleShape: {},
+          lockShapeIndex: 0,
+          lockShape: {}
         }
 
       },
@@ -23771,6 +24226,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //------ Add Elements
         addElementsAll: [],
         tempAddElements: [],
+
+        //-------- Door
+        noDoorExist: 0,
+        doorKitsT1: [],
+        doorKitsT2: [],
+        doorHandlers: [],
+        doorLocks: [],
 
         //------ Cart
         supplyData: [],
@@ -24067,10 +24529,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           [] // 10 - others
         ],
 
-        door_shape_id: 1,
-        door_sash_shape_id: 1,
-        door_handle_shape_id: 1,
-        door_lock_shape_id: 1,
+        door_shape_id: 0,
+        door_sash_shape_id: 0,
+        door_handle_shape_id: 0,
+        door_lock_shape_id: 0,
+        doorName: '',
+        doorSashName: '',
+        doorHandle: {},
+        doorLock: {},
 
         template_price: 0,
         addelem_price: 0,
@@ -24276,9 +24742,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
         DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
-        SASH_TYPE1: 'Interzimmer',
-        SASH_TYPE2: 'Tür- t-bildlich',
-        SASH_TYPE3: 'Fenster',
+        //SASH_TYPE1: 'Interzimmer',
+        //SASH_TYPE2: 'Tür- t-bildlich',
+        //SASH_TYPE3: 'Fenster',
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
@@ -24364,7 +24830,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -24452,7 +24919,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Alter',
-        CLIENT_AGE_OLDER: "älteren",
+        CLIENT_AGE_OLDER: "älteren 61",
         //CLIENT_EDUCATION: 'Bildung',
         //CLIENT_EDUC_MIDLE: "Durchschnitt",
         //CLIENT_EDUC_SPEC: "die durchschnittliche professionell.",
@@ -24646,9 +25113,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
         DOOR_TYPE3: 'aluminum threshold, type',
-        SASH_TYPE1: 'the interroom',
-        SASH_TYPE2: 'the door T-shaped',
-        SASH_TYPE3: 'the window',
+        //SASH_TYPE1: 'the interroom',
+        //SASH_TYPE2: 'the door T-shaped',
+        //SASH_TYPE3: 'the window',
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
@@ -24734,7 +25201,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -24822,7 +25290,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
-        CLIENT_AGE_OLDER: 'older',
+        CLIENT_AGE_OLDER: 'older than 61',
         //CLIENT_EDUCATION: 'Education',
         //CLIENT_EDUC_MIDLE: 'middle',
         //CLIENT_EDUC_SPEC: 'specific middle',
@@ -25014,9 +25482,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'su perimetro',
         DOOR_TYPE2: 'senza soglia',
         DOOR_TYPE3: 'la soglia di alluminio, battere a macchina',
-        SASH_TYPE1: "l'intercamera",
-        SASH_TYPE2: 'la porta T-shaped',
-        SASH_TYPE3: 'la finestra',
+        //SASH_TYPE1: "l'intercamera",
+        //SASH_TYPE2: 'la porta T-shaped',
+        //SASH_TYPE3: 'la finestra',
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
@@ -25102,7 +25570,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Ricerca per parole chiave',
@@ -25190,7 +25659,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'U',
         CLIENT_SEX_F: 'D',
         CLIENT_AGE: 'Età',
-        CLIENT_AGE_OLDER: 'è più più anziano',
+        CLIENT_AGE_OLDER: 'è più anziano di 61',
         //CLIENT_EDUCATION: 'Istruzione',
         //CLIENT_EDUC_MIDLE: 'media',
         //CLIENT_EDUC_SPEC: 'specializzato secondario',
@@ -25261,357 +25730,358 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .constant('romanianDictionary', {
 
       common_words: {
-        CHANGE: 'modifică',
-        MONTHS: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Novembie, Decembrie',
+        CHANGE: 'Modifică',
+        MONTHS: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie',
         MONTHS_SHOT: 'Ian, Feb, Mart, Apr, Mai, Iun, Iul, Aug, Sept, Oct, Nov, Dec',
-        MONTHA: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Novembie, Decembrie',
-        MONTH_LABEL: 'lună',
-        MONTHA_LABEL: 'lunii',
+        MONTHA: 'Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie',
+        MONTH_LABEL: 'luna',
+        MONTHA_LABEL: 'luna',
         MONTHS_LABEL: 'luni',
-        ALL: 'toate',
-        MIN: 'minimum',
-        MAX: 'maximum',
+        ALL: 'Toate',
+        MIN: 'min.',
+        MAX: 'max.',
         //----- confirm dialogs
-        BUTTON_Y: 'Da',
-        BUTTON_N: 'Nu',
-        DELETE_PRODUCT_TITLE: 'STERGE!',
-        DELETE_PRODUCT_TXT: 'Doriți să eliminați produsul?',
-        DELETE_ORDER_TITLE: 'Sterge comanda!',
-        DELETE_ORDER_TXT: 'Doriți să anulați comanda?',
-        COPY_ORDER_TITLE: 'Copierea!',
-        COPY_ORDER_TXT: 'Doriți să facă o copie la comandă?',
-        SEND_ORDER_TITLE: 'în producție!',
-        SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
-        NEW_TEMPLATE_TITLE: 'Template changing',
-        TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderi de date!',
-        SELECT: 'Select',
+        BUTTON_Y: 'DA',
+        BUTTON_N: 'NU',
+        DELETE_PRODUCT_TITLE: 'Ștergere!',
+        DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
+        DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
+        DELETE_ORDER_TXT: 'Doriți să ștergeți comanda?',
+        COPY_ORDER_TITLE: 'Copiere!',
+        COPY_ORDER_TXT: 'Doriți să faceți o copie a comenzii?',
+        SEND_ORDER_TITLE: 'În producere!',
+        SEND_ORDER_TXT: 'Doriți să trimiteți comanda spre executare?',
+        NEW_TEMPLATE_TITLE: 'Modificarea șablonului',
+        TEMPLATE_CHANGES_LOST: 'Modificările în șablon nu vor fi salvate! Doriți să  continuați?',
+        PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderea datelor!',
+        SELECT: 'Alege',
         AND: 'și',
         OK: 'OK',
-        BACK: 'Back',
+        BACK: 'Înapoi',
         LETTER_M: 'm'
       },
       login: {
-        ENTER: 'autentificare',
-        PASS_CODE: 'Spune-i managerului acest cod.',
-        YOUR_CODE: 'codul dvs: ',
+        ENTER: 'Intră',
+        PASS_CODE: 'Comunicați acest cod managerului.',
+        YOUR_CODE: 'Codul Dvs.: ',
         EMPTY_FIELD: 'Completați acest câmp.',
-        WRONG_LOGIN: 'For login (password) use only numbers, letters and symbols "@", ".", "-", "_".',
-        //WRONG_NUMBER: 'numar incorrect.',
-        SHORT_NAME: 'Too short name',
-        //SHORT_PASSWORD: 'parola e prea mica.',
-        //SHORT_PHONE: 'Too little phone number.',
-        IMPORT_DB_START: 'Stai, a început încărcarea de date',
-        IMPORT_DB_FINISH: 'Vă mulțumim pentru descărcarea este completă',
-        LOGIN: 'Login',
-        PASSWORD: 'Parola',
-        MOBILE: 'telefon mobil',
-        REGISTRATION: 'înregistrare',
-        SELECT_COUNTRY: 'Select country',
-        SELECT_REGION: 'Select region',
-        SELECT_CITY: 'Select city',
-        USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
-        USER_NOT_EXIST: 'Sorry, but this user not exists! Registrate please.',
-        USER_NOT_ACTIVE: 'Sorry, but your profile is not active. Please check your email.',
-        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
-        SELECT_PRODUCER: 'Choose the producer',
-        SELECT_FACTORY: 'Please select the producer',
-        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
+        WRONG_LOGIN: 'Pentru numele de utilizator (parolă) folosiți doar cifre, litere latine și simbolurile  "@" , "." , "-" , "_" .',
+        //WRONG_NUMBER: 'Număr incorect.',
+        SHORT_NAME: 'Nume prea scurt.',
+        //SHORT_PASSWORD: 'Parolă prea scurtă.',
+        //SHORT_PHONE: 'Număr de telefon prea scurt.',
+        IMPORT_DB_START: 'Așteptați, a început încărcarea bazei de date',
+        IMPORT_DB_FINISH: 'Vă mulțumim, încărcarea a luat sfârșit',
+        LOGIN: 'Nume de utilizator',
+        PASSWORD: 'Parolă',
+        MOBILE: 'Telefon mobil',
+        REGISTRATION: 'Înregistrare',
+        SELECT_COUNTRY: 'Selectați țara',
+        SELECT_REGION: 'Selectați regiunea',
+        SELECT_CITY: 'Selectați orașul',
+        USER_EXIST: 'Un astfel de utilizator există deja! Încercați încă o dată.',
+        USER_NOT_EXIST: 'Un astfel de utilizator nu există. Înregistrați-vă.',
+        USER_NOT_ACTIVE: 'Nu ați activat profilul Dvs. Verificați adresa de e-mail.',
+        USER_CHECK_EMAIL: 'Mesajul de confirmare a fost expediat pe adresa Dvs. de e-mail.',
+        SELECT_PRODUCER: 'Selectați producătorul',
+        SELECT_FACTORY: 'Nu ați selectat producătorul',
+        USER_PASSWORD_ERROR: 'Parolă incorectă!',
         OFFLINE: 'Nu există conexiune la Internet!',
-        IMPORT_DB: 'Baze de date începe descărcarea! Va rugam asteptati! '
+        IMPORT_DB: 'A început încărcarea Bazei de date! Vă rugăm să așteptați!'
       },
       mainpage: {
         MM: ' mm ',
-        CLIMATE_ZONE: 'zona climatica ',
+        CLIMATE_ZONE: 'zonă climatică',
         THERMAL_RESISTANCE: 'transfer de căldură',
-        AIR_CIRCULATION: 'coeficientul circulatiei aerului',
-        NAVMENU_GEOLOCATION: 'Selectați locația',
-        NAVMENU_CURRENT_GEOLOCATION: 'Locul de amplasare actual',
-        NAVMENU_CURRENT_CALCULATION: 'calcul actual',
-        NAVMENU_CART: 'cosul de cumparaturi',
-        NAVMENU_ADD_ELEMENTS: 'elemente suplimentare',
-        NAVMENU_ALL_CALCULATIONS: 'Istoric comenzi',
+        AIR_CIRCULATION: 'coeficientul schimbului de aer',
+        NAVMENU_GEOLOCATION: 'Alege amplasarea',
+        NAVMENU_CURRENT_GEOLOCATION: 'Amplasarea curentă',
+        NAVMENU_CURRENT_CALCULATION: 'Calcul curent',
+        NAVMENU_CART: 'Coșul de calcul',
+        NAVMENU_ADD_ELEMENTS: 'Elemente supl.',
+        NAVMENU_ALL_CALCULATIONS: 'Istoricul comenzilor',
         NAVMENU_SETTINGS: 'Setări',
         NAVMENU_MORE_INFO: 'Mai multe informații',
-        NAVMENU_VOICE_HELPER: 'Сontrolul voce-activat',
-        NAVMENU_CALCULATIONS: 'calcule',
-        NAVMENU_APPENDIX: 'Propunere',
-        NAVMENU_NEW_CALC: '+Calcul Nou',
-        CONFIGMENU_CONFIGURATION: 'Configurația și dimensiunile',
-        CONFIGMENU_SIZING: 'Lățime * Înălțime',
-        CONFIGMENU_PROFILE: 'profil',
-        CONFIGMENU_GLASS: 'geam termopan',
-        CONFIGMENU_HARDWARE: 'furnitura ',
-        CONFIGMENU_LAMINATION: 'laminare',
-        CONFIGMENU_LAMINATION_TYPE: 'camera / fațadă',
-        WHITE_LAMINATION: 'alb',
+        NAVMENU_VOICE_HELPER: 'Comenzi vocale',
+        NAVMENU_CALCULATIONS: 'Calcule',
+        NAVMENU_APPENDIX: 'Anexă',
+        NAVMENU_NEW_CALC: '+Calcul nou',
+        CONFIGMENU_CONFIGURATION: 'Configurație și dimensiuni',
+        CONFIGMENU_SIZING: 'lățime * înălțime',
+        CONFIGMENU_PROFILE: 'Profil',
+        CONFIGMENU_GLASS: 'Termopan',
+        CONFIGMENU_HARDWARE: 'Furnitură',
+        CONFIGMENU_LAMINATION: 'Laminare',
+        CONFIGMENU_LAMINATION_TYPE: 'fațadă  în cameră / fațadă',
+        WHITE_LAMINATION: 'Albă',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
-        CONFIGMENU_IN_CART: 'Adaugă in coș',
+        CONFIGMENU_IN_CART: 'În coș',
         VOICE_SPEACH: 'Vorbiți...',
-        COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION: 'Template selection',
-        CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
+        COMMENT: 'Lăsați mențiunile cu privire la comandă aici.',
+        ROOM_SELECTION: 'Selectare șablon',
+        CONFIGMENU_NO_ADDELEMENTS: 'Elemente supl. nu au fost alese',
         HEATCOEF_VAL: 'W',
-        TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
-        PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
-        SELECT_ALL: 'Selectați toate',
-        SELECT_GLASS_WARN: 'Faceți clic pe geam, doriți să modificați'
+        TEMPLATE_TIP: 'Pentru a modifica dimensiunile apăsați aici',
+        PROFILE_TIP: 'Pentru a selecta profilul apăsați aici',
+        GLASS_TIP: 'Pentru a selecta termopanul apăsați aici',
+        SELECT_ALL: 'Selectează totul',
+        SELECT_GLASS_WARN: 'Faceți un clic pe termopanul, pe care doriți să-l modificați.'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
         TEMPLATE_BALCONY: 'Balcon',
         TEMPLATE_DOOR: 'Ușă',
         TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
-        TEMPLATE_EDIT: 'Editare',
-        TEMPLATE_DEFAULT: 'Proiect Standard',
+        TEMPLATE_EDIT: 'Editează',
+        TEMPLATE_DEFAULT: 'Proiect implicit',
         COUNTRY: 'țara',
-        BRAND: 'marcă comercială',
-        HEAT_INSULATION: 'izolație termică',
-        NOICE_INSULATION: 'izolare fonica',
+        BRAND: 'marca comercială',
+        HEAT_INSULATION: 'izolare termică',
+        NOICE_INSULATION: 'izolare fonică',
         CORROSION_COEFF: 'anticoroziune',
-        BURGLAR_COEFF: 'hoț',
-        LAMINAT_INSIDE: 'in camera',
-        LAMINAT_OUTSIDE: 'față',
-        ONE_WINDOW_TYPE: 'One-casement',
-        TWO_WINDOW_TYPE: 'Two-casement',
-        THREE_WINDOW_TYPE: 'Three-leaf',
-        CAMERa: 'cameras',
-        CAMER: 'cameras',
-        CAMERs: 'cameras',
-        ENERGY_SAVE: '+energy saving',
-        DOOR_TYPE1: 'on perimeter',
-        DOOR_TYPE2: 'without threshold',
-        DOOR_TYPE3: 'aluminum threshold, type',
-        SASH_TYPE1: 'the interroom',
-        SASH_TYPE2: 'the door T-shaped',
-        SASH_TYPE3: 'the window',
-        HANDLE_TYPE1: 'press set',
-        HANDLE_TYPE2: 'standard office handle',
-        LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch',
-        EXTRA_GLASS1: "Нет возможности установки стеклопакета ",
-        EXTRA_GLASS2: " для данной конфигурации конструкции"
+        BURGLAR_COEFF: 'antiefracție',
+        LAMINAT_INSIDE: 'în cameră',
+        LAMINAT_OUTSIDE: 'fațadă',
+        ONE_WINDOW_TYPE: 'Cu un canat',
+        TWO_WINDOW_TYPE: 'Cu două canaturi',
+        THREE_WINDOW_TYPE: 'Cu trei canaturi',
+        CAMERa: 'cameră',
+        CAMER: 'camere',
+        CAMERs: 'camere',
+        ENERGY_SAVE: '+economisire de energie',
+        DOOR_TYPE1: 'pe perimetru',
+        DOOR_TYPE2: 'fără prag',
+        DOOR_TYPE3: 'prag din aluminiu, tip',
+        //SASH_TYPE1: 'de interior',
+        //SASH_TYPE2: 'pentru ușă, de tip T',
+        //SASH_TYPE3: 'pentru fereastră',
+        HANDLE_TYPE1: 'garnitură de mâner',
+        HANDLE_TYPE2: 'mâner standard de birou',
+        LOCK_TYPE1: 'unisafe cu dispozitiv de blocare',
+        LOCK_TYPE2: 'multisafe cu dispozitiv de blocare',
+        EXTRA_GLASS1: "Nu exisă posibilitate de montare a termopanului ",
+        EXTRA_GLASS2: "pentru o astfel de construcție"
       },
       add_elements: {
-        CHOOSE: 'Alege',
-        ADD: 'Adauga',
-        GRID: 'plasă contra țânțarilor',
-        VISOR: 'parasolară',
-        SPILLWAY: 'scurgere',
-        OUTSIDE: 'pante exterioare',
+        CHOOSE: 'Selectează',
+        ADD: 'Adaugă',
+        GRID: 'plasă de protecție împotriva țânțarilor',
+        VISOR: 'glafuri exterioare',
+        SPILLWAY: 'glafuri exterioare',
+        OUTSIDE: 'cadre exterioare',
         LOUVERS: 'jaluzele',
-        INSIDE: 'pante interne',
+        INSIDE: 'cadre interioare',
         CONNECTORS: 'conector',
-        FAN: 'micro ventilare',
+        FAN: 'micro-aerisire',
         WINDOWSILL: 'pervaz',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
-        GRIDS: 'plase de țânțari',
-        VISORS: 'viziere',
-        SPILLWAYS: 'scurgeri',
-        WINDOWSILLS: 'Pervaze',
-        HANDLELS: 'manere',
-        NAME_LABEL: 'nume',
-        ARTICUL_LABEL: 'referință',
-        QTY_LABEL: 'Bucăți',
-        SIZE_LABEL: 'dimensiune',
+        GRIDS: 'plase de protecție împotriva țânțarilor',
+        VISORS: 'apărători',
+        SPILLWAYS: 'glafuri pentru evacuarea apei',
+        WINDOWSILLS: 'pervazuri',
+        HANDLELS: 'mânere',
+        NAME_LABEL: 'denumire',
+        ARTICUL_LABEL: 'articol',
+        QTY_LABEL: 'buc.',
+        SIZE_LABEL: 'dimensiuni',
         WIDTH_LABEL: 'lățime',
         HEIGHT_LABEL: 'înălțime',
-        OTHER_ELEMENTS1: 'încă',
-        OTHER_ELEMENTS2: 'componenta...',
-        SCHEME_VIEW: 'schematic',
-        LIST_VIEW: 'Lista',
-        INPUT_ADD_ELEMENT: 'Adaugă Componenta',
-        CANCEL: 'anulare',
-        TOTAL_PRICE_TXT: 'Total componente suplimentare în valoare de',
+        OTHER_ELEMENTS1: 'Mai multe',
+        OTHER_ELEMENTS2: 'componentei...',
+        SCHEME_VIEW: 'Schematic',
+        LIST_VIEW: 'Listă',
+        INPUT_ADD_ELEMENT: 'Adaugă component',
+        CANCEL: 'Anulare',
+        TOTAL_PRICE_TXT: 'Total componenți suplimentari în sumă de:',
         ELEMENTS: 'componente',
-        ELEMENT: 'component',
-        ELEMENTA: 'componenta'
+        ELEMENT: 'componentă',
+        ELEMENTA: 'componentei'
       },
       add_elements_menu: {
-        TIP: 'Selectați un element din listă',
-        EMPTY_ELEMENT: 'fără elementul',
-        TAB_NAME_SIMPLE_FRAME: 'construcție simplă',
-        TAB_NAME_HARD_FRAME: 'construcție component',
-        TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'
+        TIP: 'Selectați elementul din listă',
+        EMPTY_ELEMENT: 'Fără element',
+        TAB_NAME_SIMPLE_FRAME: 'Structură simplă',
+        TAB_NAME_HARD_FRAME: 'Structură din materiale compozite',
+        TAB_EMPTY_EXPLAIN: 'Selectați din listă primul element, pentru a începe crearea structurii.'
       },
       design: {
-        SASH_SHAPE: 'cercevea',
-        ANGEL_SHAPE: 'unghiuri',
-        IMPOST_SHAPE: 'impost',
-        ARCH_SHAPE: 'arcuri',
-        POSITION_SHAPE: 'poziția',
-        UNITS_DESCRIP: 'Unitățile de măsură sunt în mm',
-        PROJECT_DEFAULT: 'Proiect Standard',
-        DOOR_CONFIG_LABEL: 'configurația uși',
-        DOOR_CONFIG_DESCTIPT: 'cadru de ușă',
-        SASH_CONFIG_DESCTIPT: 'ori usi',
+        SASH_SHAPE: 'canaturi',
+        ANGEL_SHAPE: 'colțuri',
+        IMPOST_SHAPE: 'imposte',
+        ARCH_SHAPE: 'arce',
+        POSITION_SHAPE: 'poziție',
+        UNITS_DESCRIP: 'Ca unitate de măsură sunt folosiți milimetrii',
+        PROJECT_DEFAULT: 'Proiect implicit',
+        DOOR_CONFIG_LABEL: 'configurația ușii',
+        DOOR_CONFIG_DESCTIPT: 'cadrul ușii',
+        SASH_CONFIG_DESCTIPT: 'canatul ușii',
         HANDLE_CONFIG_DESCTIPT: 'mâner',
-        LOCK_CONFIG_DESCTIPT: 'blocare a ușii',
+        LOCK_CONFIG_DESCTIPT: 'lacăt',
         STEP: 'pas',
-        LABEL_DOOR_TYPE: 'Selectaţi un toc de proiectare a ușii',
-        LABEL_SASH_TYPE: 'Selectați tipul de cercevea la ușă',
-        LABEL_HANDLE_TYPE: 'Selectați tipul de mâner',
-        LABEL_LOCK_TYPE: 'Selectați tipul de blocare',
-        VOICE_SWITCH_ON: "Modul Voce este activat",
-        VOICE_NOT_UNDERSTAND: 'nu este clar',
-        VOICE_SMALLEST_SIZE: 'prea mic',
-        VOICE_BIGGEST_SIZE: "prea mare",
-        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
-        SQUARE_EXTRA: "Площадь конструкции превышает допустимую",
-        DIM_EXTRA: "Габаритный размер конструкции превышает допустимый",
-        NOT_AVAILABLE: 'nu Este Disponibil!',
-        TEST_STAGE: "Находится в стадии тестирования",
-        GLASS: "Стеклопакет",
-        GLASS_SIZE: "размером",
-        NO_MATCH_RANGE: "не соответствует допустимому диапазону",
-        BY_WIDTH: "by width",
-        BY_HEIGHT: "by height",
-        GLASS_SQUARE: "с площадью",
-        MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
-        EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        LABEL_DOOR_TYPE: 'Selectați structura cadrului ușii',
+        LABEL_SASH_TYPE: 'Selectați tipul canatului ușii',
+        LABEL_HANDLE_TYPE: 'Selectați tipul mânerului',
+        LABEL_LOCK_TYPE: 'Selectați tipul lacătului',
+        VOICE_SWITCH_ON: "regimul vocal este activ",
+        VOICE_NOT_UNDERSTAND: 'Nu este clar',
+        VOICE_SMALLEST_SIZE: 'dimensiuni prea mici',
+        VOICE_BIGGEST_SIZE: "dimensiuni prea mari",
+        VOICE_SMALL_GLASS_BLOCK: "golul pentru pătrunderea luminii prea mic",
+        SQUARE_EXTRA: "Suprafața construcției depășește valorile admisibile.",
+        DIM_EXTRA: "Dimensiunile construcției depășesc valorile admisibile. ",
+        NOT_AVAILABLE: 'Nu este disponibil!',
+        TEST_STAGE: "Se află la etapa de testare.",
+        GLASS: "Termopanul",
+        GLASS_SIZE: "cu dimensiunea de",
+        NO_MATCH_RANGE: "nu corespunde diapazonului permis",
+        BY_WIDTH: "după lățime",
+        BY_HEIGHT: "după înălțime",
+        GLASS_SQUARE: "cu suprafața de",
+        MAX_VALUE_HIGHER: "depășește valorile maxime admisibile",
+        EXTRA_SASH: "Dimensiunea curentă a canatului după falț ",
+        CHANGE_SIZE: "Pentru salvarea construcției modificați dimensiunile.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
-        SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
-        DRAFT_VIEW: 'calcule Ciorne',
-        HISTORY_VIEW: 'istoria calculelor',
+        SEARCH_PLACEHOLDER: 'Căutare după cuvinte-cheie',
+        DRAFT_VIEW: 'Ciorne cu calcule',
+        HISTORY_VIEW: 'Istoricul calculelor',
         PHONE: 'telefon',
         CLIENT: 'client',
-        ADDRESS: 'adresa',
-        FROM: 'de la ',
-        UNTIL: 'pînă la ',
-        PAYMENTS: 'achitare prin',
-        ALLPRODUCTS: 'Construcți',
-        ON: 'pe',
-        DRAFT: 'ciornă',
-        DATE_RANGE: 'intervalul de date',
-        ALL_TIME: 'Pentru tot timpul',
-        SORTING: 'Sortarea',
-        NEWEST_FIRST: 'după timp:cele noi primele',
-        NEWEST_LAST: 'după timp:cele noi la urmă',
-        SORT_BY_TYPE: 'După tipul',
-        SORT_SHOW: 'Arată',
-        SORT_SHOW_ACTIVE: 'Doar activi',
-        SORT_SHOW_WAIT: 'Numai în așteptarea',
-        SORT_SHOW_DONE: 'Numai finalizat',
-        BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
-        NOT_FIND: 'nimic nu a fost găsit',
-        WAIT_MASTER: 'aşteaptă inginerul',
-        INCLUDED: 'inclus',
-        NO_PRINT: "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
+        ADDRESS: 'adresă',
+        FROM: 'de la',
+        UNTIL: 'până la',
+        PAYMENTS: 'plăți pentru',
+        ALLPRODUCTS: 'articole',
+        ON: 'la',
+        DRAFT: 'Ciornă',
+        DATE_RANGE: 'Diapazon de zile',
+        ALL_TIME: 'Pentru toată perioada',
+        SORTING: 'Clasificare',
+        NEWEST_FIRST: 'După dată: cele mai recente la început',
+        NEWEST_LAST: 'După dată: cele mai recente la sfârșit',
+        SORT_BY_TYPE: 'După tip',
+        SORT_SHOW: 'Afișează',
+        SORT_SHOW_ACTIVE: 'Doar cele active',
+        SORT_SHOW_WAIT: 'Doar cele în așteptare',
+        SORT_SHOW_DONE: 'Doar cele finalizate',
+        BY_YOUR_REQUEST: 'Conform solicitării Dvs.',
+        NOT_FIND: 'nu au fost găsite rezultate',
+        WAIT_MASTER: 'se așteaptă specialistul în măsurări',
+        INCLUDED: 'incluse',
+        NO_PRINT: "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet."
       },
       cart: {
-        ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
-        ADD_ORDER: 'adaugă produsul',
-        PRODUCT_QTY: 'numărul de produse',
-        LIGHT_VIEW: 'Vizualizare scurtă',
-        FULL_VIEW: 'Vizualizare completă',
-        DELIVERY: 'livrare',
-        SELF_EXPORT: 'Fara livrare',
-        FLOOR: 'etajul',
-        ASSEMBLING: 'instalare',
+        ALL_ADD_ELEMENTS: 'Toate elementele supl. ale comenzii',
+        ADD_ORDER: 'Adaugă articol',
+        PRODUCT_QTY: 'numărul articolelor',
+        LIGHT_VIEW: 'Tip abreviat',
+        FULL_VIEW: 'Tip complet',
+        DELIVERY: 'Livrare',
+        SELF_EXPORT: 'transport cu mijloace proprii',
+        FLOOR: 'etaj',
+        ASSEMBLING: 'Montare',
         WITHOUT_ASSEMBLING: 'fără montare',
         FREE: 'gratuit',
-        PAYMENT_BY_INSTALMENTS: 'Plata în rate',
-        WITHOUT_INSTALMENTS: 'fără rate',
-        DELIVERY_DATE: 'data de livrare',
-        TOTAL_PRICE_LABEL: 'în total la livrare ',
-        MONTHLY_PAYMENT_LABEL: 'plata lunara cîte',
-        DATE_DELIVERY_LABEL: 'La livrare',
-        FIRST_PAYMENT_LABEL: 'prima achitare',
-        ORDER: 'a comanda',
-        MEASURE: 'Măsura',
-        READY: 'Gata',
-        CALL_MASTER: 'chemarea inginerului pentru calcul',
-        CALL_MASTER_DESCRIP: 'Pentru a solicita inginerul, avem nevoie de ceva informatie despre dvs. Ambele campurile sunt obligatorii.',
-        CLIENT_LOCATION: 'locație',
-        CLIENT_ADDRESS: 'adresa',
-        CLIENT_HOUSE: "Буд",
-        CLIENT_FLAT: "Кв",
-        CLIENT_FLOOR: "Пов",
-        CALL_ORDER: 'Pentru a calcula',
-        CALL_ORDER_DESCRIP: 'Pentru a îndeplini comanda,este necesar informatie despre dvs.',
-        CALL_ORDER_CLIENT_INFO: 'Informații client (câmpuri obligatorii):',
-        CLIENT_NAME: 'numele prenumele patronimicul',
-        CALL_ORDER_DELIVERY: 'livrarea comenzi pe',
+        PAYMENT_BY_INSTALMENTS: 'În rate',
+        WITHOUT_INSTALMENTS: 'fără achitare în rate',
+        DELIVERY_DATE: 'Data livrării',
+        TOTAL_PRICE_LABEL: 'Total livrare la',
+        MONTHLY_PAYMENT_LABEL: 'plăți lunare pentru',
+        DATE_DELIVERY_LABEL: 'în cazul livrării la',
+        FIRST_PAYMENT_LABEL: 'Prima plată',
+        ORDER: 'Comandă',
+        MEASURE: 'Măsoară',
+        READY: 'Finalizat',
+        CALL_MASTER: 'Chemarea specialistului în măsurări, pentru calcule',
+        CALL_MASTER_DESCRIP: 'Pentru chemarea specialistului în măsurări trebuie să cunoaștem unele detalii. Ambele câmpuri sunt ',
+        CLIENT_LOCATION: 'Amplasare',
+        CLIENT_ADDRESS: 'Adresa',
+        CLIENT_HOUSE: "Casă",
+        CLIENT_FLAT: "Ap.",
+        CLIENT_FLOOR: "Et.",
+        CALL_ORDER: 'Perfectarea comenzii pentru calculare',
+        CALL_ORDER_DESCRIP: 'Pentru a executa comanda, trebuie să cunoaștem informații despre Dvs.',
+        CALL_ORDER_CLIENT_INFO: 'Informații despre client (a se completa neapărat):',
+        CLIENT_NAME: 'Nume Prenume Patronimic',
+        CALL_ORDER_DELIVERY: 'Livrare comandă la',
         CALL_ORDER_TOTAL_PRICE: 'Total',
-        CALL_ORDER_ADD_INFO: 'suplimentar (completarea la dorinţă):',
-        CLIENT_EMAIL: 'poșta electronică',
-        ADD_PHONE: 'telefon suplimentar',
-        CALL_CREDIT: 'Efectuarea rate și calculul comenzi',
-        CALL_CREDIT_DESCRIP: 'Pentru a aranja rate și îndeplini comanda, avem ceva pentru tine să știu.',
-        CALL_CREDIT_CLIENT_INFO: 'Plata în rate:',
-        CREDIT_TARGET: 'Scopul clearance de rate',
-        CLIENT_ITN: 'Cod fiscal individual',
-        CALL_START_TIME: 'sunați de la:',
-        CALL_END_TIME: 'pînă la :',
-        CALL_CREDIT_PARTIAL_PRICE: 'pe ',
-        ADDELEMENTS_EDIT_LIST: 'redactarea listei ...',
-        ADDELEMENTS_PRODUCT_COST: 'într-o construcţie',
-        HEAT_TRANSFER: 'transferul de căldură',
-        WRONG_EMAIL: 'poșta electronica este incorectă',
-        LINK_BETWEEN_COUPLE: 'între o pereche de',
-        LINK_BETWEEN_ALL: 'printre toate',
-//        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
-        CLIENT_SEX: "Sex",
+        CALL_ORDER_ADD_INFO: 'Suplimentar (a se completa la dorință):',
+        CLIENT_EMAIL: 'E-mail',
+        ADD_PHONE: 'Număr de telefon suplimentar',
+        CALL_CREDIT: 'Achitare în rate și perfectarea comenzii pentru calculare',
+        CALL_CREDIT_DESCRIP: 'Pentru a beneficia de achitarea în rate, trebuie să cunoaștem informații despre Dvs.',
+        CALL_CREDIT_CLIENT_INFO: 'Achitare în rate:',
+        CREDIT_TARGET: 'Scopul achitării în rate',
+        CLIENT_ITN: 'Codul fiscal individual',
+        CALL_START_TIME: 'Disponibil pentru apeluri:',
+        CALL_END_TIME: 'de la:',
+        CALL_CREDIT_PARTIAL_PRICE: 'până la',
+        ADDELEMENTS_EDIT_LIST: 'Editează lista ...',
+        ADDELEMENTS_PRODUCT_COST: 'într-un articol',
+        HEAT_TRANSFER: 'transfer de căldură',
+        WRONG_EMAIL: 'Adresă de e-mail incorectă',
+        LINK_BETWEEN_COUPLE: 'între o pereche',
+        LINK_BETWEEN_ALL: 'între toți',
+//        LINK_DELETE_ALL_GROUPE: 'șterge totul',
+        CLIENT_SEX: 'Sex',
         CLIENT_SEX_M: 'M',
-        CLIENT_SEX_F: "F",
-        CLIENT_AGE: "Age",
-        CLIENT_AGE_OLDER: "mai vechi",
-        //CLIENT_EDUCATION: "Educație",
-        //CLIENT_EDUC_MIDLE: "Media",
-        //CLIENT_EDUC_SPEC: "profesional mediu.",
-        //CLIENT_EDUC_HIGH: "superior",
-        CLIENT_EDUCAȚIE: "Principalul criteriu de alegere",
-        CLIENT_EDUC_MIDLE: "preț bun",
-        CLIENT_EDUC_SPEC: "filtru de imagine",
-        CLIENT_EDUC_HIGH: "profilul de brand și hardware ",
-        CLIENT_EDUC_4:" vânzător Recomandări",
-        CLIENT_OCCUPATION: "Ocuparea forței de muncă",
-        CLIENT_OCCUP_WORKER: "angajat",
-        CLIENT_OCCUP_HOUSE: "Casnică",
-        CLIENT_OCCUP_BOSS: "Antreprenor",
-        CLIENT_OCCUP_STUD: "Student",
-        CLIENT_OCCUP_PENSION: "Pensionar",
-        CLIENT_INFO_SOURCE: "sursa",
-        CLIENT_INFO_PRESS: "Presă",
-        CLIENT_INFO_FRIEND: "De la prieteni",
-        CLIENT_INFO_ADV: "publicitate vizuala",
-        SELECT_PLACEHOLD: 'selectați opțiunea dumneavoastră',
-        //SELECT_AGE: "Alegeți vârsta",
-        //SELECT_ADUCATION: "Alegeți educatia ta",
-        //SELECT_OCCUPATION: "Alege muncă dumneavoastră",
-        //SELECT_INFO_SOURCE: "Selectați sursa ",
-        NO_DISASSEMBL: "fără demontare",
-        STANDART_ASSEMBL: "standard",
-        VIP_ASSEMBL: "montaj VIP",
-        DISCOUNT: 'Discount',
-        DISCOUNT_SELECT: 'Alegerea de reduceri',
-        DISCOUNT_WITH: 'Având în vedere reduceri',
-        DISCOUNT_WITHOUT: 'Discount Excluderea',
-        DISCOUNT_WINDOW: 'Discount pe un produs',
-        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare',
-        ORDER_COMMENT: 'Nota Ordine',
-        UNKNOWN: 'Necunoscut'
+        CLIENT_SEX_F: 'F',
+        CLIENT_AGE: 'Vârsta',
+        CLIENT_AGE_OLDER: 'mai mare 61',
+        //CLIENT_EDUCATION: 'Studii',
+        //CLIENT_EDUC_MIDLE: 'medii',
+        //CLIENT_EDUC_SPEC: 'medii spec.',
+        //CLIENT_EDUC_HIGH: 'superioare',
+        CLIENT_EDUCATION: 'Criteriul principal al alegerii Dvs.',
+        CLIENT_EDUC_MIDLE: 'Preț avantajos',
+        CLIENT_EDUC_SPEC: 'Imaginea producătorului ',
+        CLIENT_EDUC_HIGH: 'Marca profilului sau accesoriilor',
+        CLIENT_EDUC_4: 'Recomandările vânzătorului',
+        CLIENT_OCCUPATION: 'Ocuparea în câmpul muncii',
+        CLIENT_OCCUP_WORKER: 'Funcționar',
+        CLIENT_OCCUP_HOUSE: 'Casnică',
+        CLIENT_OCCUP_BOSS: 'Antreprenor',
+        CLIENT_OCCUP_STUD: 'Student',
+        CLIENT_OCCUP_PENSION: 'Pensionar',
+        CLIENT_INFO_SOURCE: 'Sursa de informații',
+        CLIENT_INFO_PRESS: 'Presă',
+        CLIENT_INFO_FRIEND: 'De la persoane cunoscute',
+        CLIENT_INFO_ADV: 'Publicitate vizuală',
+        SELECT_PLACEHOLD: 'selectați opțiunea Dvs.',
+        //SELECT_AGE: 'Selectați vârsta Dvs.',
+        //SELECT_ADUCATION: 'Selectați studiile Dvs.',
+        //SELECT_OCCUPATION: 'Selectați statutului Dvs. de angajat',
+        //SELECT_INFO_SOURCE: 'Selectați sursa de informații',
+        NO_DISASSEMBL: 'fără demontare',
+        STANDART_ASSEMBL: 'standard',
+        VIP_ASSEMBL: 'montare VIP',
+        DISCOUNT: 'Reducere',
+        DISCOUNT_SELECT: 'Selectarea reducerii',
+        DISCOUNT_WITH: 'Cu reducere',
+        DISCOUNT_WITHOUT: 'Fără reducere',
+        DISCOUNT_WINDOW: 'Reducere pentru articol',
+        DISCOUNT_ADDELEM: 'Reducere pentru elementele suplimentare',
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
-        AUTHORIZATION: 'Autentificare:',
-        CHANGE_PASSWORD: 'schimbați parola',
-        CHANGE_LANGUAGE: 'Change language',
-        PRIVATE_INFO: 'Informații personale:',
-        USER_NAME: 'persoana de contact',
-        CITY: 'oraș',
-        ADD_PHONES: 'telefon suplimentar:',
-        INSERT_PHONE: 'adaugați  nr de telefon',
-        CLIENT_SUPPORT: 'suport clienți',
-        LOGOUT: 'Ieșirea din aplicația',
-        SAVE: 'Salvați',
-        CURRENT_PASSWORD: 'Current',
-        NEW_PASSWORD: 'nou',
-        CONFIRM_PASSWORD: 'Confirmare',
-        NO_CONFIRM_PASS: 'parolă incorectă'
+        AUTHORIZATION: 'Logare:',
+        CHANGE_PASSWORD: 'Schimbă parola',
+        CHANGE_LANGUAGE: 'Schimbă limba',
+        PRIVATE_INFO: 'Date personale:',
+        USER_NAME: 'Persoana de contat',
+        CITY: 'Orașul',
+        ADD_PHONES: 'Numere de telefon suplimentare:',
+        INSERT_PHONE: 'Adaugă număr de telefon',
+        CLIENT_SUPPORT: 'Asistență utilizatori',
+        LOGOUT: 'Ieși din aplicație',
+        SAVE: 'Salvează',
+        CURRENT_PASSWORD: 'Curent',
+        NEW_PASSWORD: 'Nou',
+        CONFIRM_PASSWORD: 'Confirmă',
+        NO_CONFIRM_PASS: 'Parolă incorectă'
       }
 
     });
@@ -25751,9 +26221,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминиевый порог, тип',
-        SASH_TYPE1: 'межкомнатная',
-        SASH_TYPE2: 'дверная т-образная',
-        SASH_TYPE3: 'оконная',
+        //SASH_TYPE1: 'межкомнатная',
+        //SASH_TYPE2: 'дверная т-образная',
+        //SASH_TYPE3: 'оконная',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -25839,7 +26309,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Системы входных дверей не настроены"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -25927,7 +26398,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Возраст',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Образование',
         //CLIENT_EDUC_MIDLE: 'среднее',
         //CLIENT_EDUC_SPEC: 'среднее спец.',
@@ -26119,9 +26590,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминевый порог, тип',
-        SASH_TYPE1: 'межкомнатная',
-        SASH_TYPE2: 'дверная т-образная',
-        SASH_TYPE3: 'оконная',
+        //SASH_TYPE1: 'межкомнатная',
+        //SASH_TYPE2: 'дверная т-образная',
+        //SASH_TYPE3: 'оконная',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -26207,7 +26678,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Системы входных дверей не настроены"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
@@ -26295,7 +26767,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_SEX_M: 'Ч',
         CLIENT_SEX_F: 'Ж',
         CLIENT_AGE: 'Вік',
-        CLIENT_AGE_OLDER: 'старше',
+        CLIENT_AGE_OLDER: 'старше 61',
         //CLIENT_EDUCATION: 'Освіта',
         //CLIENT_EDUC_MIDLE: 'середнэ',
         //CLIENT_EDUC_SPEC: 'середнэ спец.',

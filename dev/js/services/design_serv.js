@@ -18,7 +18,6 @@
     loginServ,
     MainServ,
     AnalyticsServ,
-    optionsServ,
     SVGServ,
     GlobalStor,
     DesignStor,
@@ -742,47 +741,81 @@
 
     /**---------------- DOORs--------------*/
 
-    //    function downloadDoorConfig() {
-    //      optionsServ.getDoorConfig(function (results) {
-    //        if (results.status) {
-    //          DesignStor.design.doorShapeList = results.data.doorType;
-    //          DesignStor.design.sashShapeList = results.data.sashType;
-    //          DesignStor.design.handleShapeList = results.data.handleType;
-    //          DesignStor.design.lockShapeList = results.data.lockType;
-    //---- set indexes
-    //          setIndexDoorConfig();
-    //        } else {
-    //          console.log(results);
-    //        }
-    //      });
-    //    }
+    function setNewDoorParamValue(source) {
+      source.doorConfig.doorShapeName = source.doorShapeList[source.doorConfig.doorShapeIndex].name;
+      source.doorConfig.sashShapeName = source.sashShapeList[source.doorConfig.sashShapeIndex].frame.name +
+        '/'+ source.sashShapeList[source.doorConfig.sashShapeIndex].sash.name;
+      source.doorConfig.handleShape = source.handleShapeList[source.doorConfig.handleShapeIndex];
+      source.doorConfig.lockShape = source.lockShapeList[source.doorConfig.lockShapeIndex];
+    }
 
-    function setDoorConfigIndex(list, configId) {
-      var listQty = list.length, i;
-      for(i = 0; i < listQty; i+=1) {
-        if(list[i].shapeId === configId) {
-          return i;
+
+    function setDoorParamInSource(product, source) {
+      source.doorConfig.doorShapeIndex = product.door_shape_id;
+      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
+      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
+      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
+
+      setNewDoorParamValue(source);
+    }
+
+
+    function setDoorParamInProduct(product, doorConfig) {
+      product.doorName = doorConfig.doorShapeName;
+      product.doorSashName = doorConfig.sashShapeName;
+      product.doorHandle = doorConfig.handleShape;
+      product.doorLock = doorConfig.lockShape;
+    }
+
+
+    /** for start */
+    function setDoorConfigDefault(product) {
+      var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      DesignStor.designSource.doorShapeList.length = 0;
+      for(d = 0; d < doorTypeQty; d+=1) {
+        isExist = 0;
+        if(d === 2 && GlobalStor.global.doorKitsT1.length) {
+          isExist = 1;
+        } else if(d === 3 && GlobalStor.global.doorKitsT2.length) {
+          isExist = 1;
+        } else if(!d || d === 1){
+          isExist = 1;
         }
+        if(isExist) {
+          DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
+        }
+      }
+
+      if(!GlobalStor.global.noDoorExist) {
+        switch (product.door_shape_id) {
+          case 0:
+          case 1:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
+            } else if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+          case 2:
+            if (GlobalStor.global.doorKitsT1.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
+            }
+            break;
+          case 3:
+            if (GlobalStor.global.doorKitsT2.length) {
+              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            }
+            break;
+        }
+
+        DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
+
+        setDoorParamInSource(product, DesignStor.designSource);
+        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
       }
     }
 
-
-    function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_shape_id
-      );
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id
-      );
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id
-      );
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(
-        DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id
-      );
-      //-------- set Default values in design
-      DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
-    }
 
 
 
@@ -792,11 +825,6 @@
       hideSizeTools();
       DesignStor.design = DesignStor.setDefaultDesign();
       setDefaultTemplate();
-      //============ if Door Construction
-      if(ProductStor.product.construction_type === 4) {
-        //---- set indexes
-        setIndexDoorConfig();
-      }
     }
 
 
@@ -2689,8 +2717,7 @@
     /**------- Save and Close Construction Page ----------*/
 
     function designSaved() {
-      var doorShapeList = DesignStor.design.doorShapeList,
-          doorConfig = DesignStor.design.doorConfig,
+      var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
       closeSizeCaclulator(1).then(function() {
 
@@ -2703,7 +2730,11 @@
           /** if sash was added/removed in template */
           isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
           if (isSashesInTemplate) {
-
+            /** set first hardware if sash were not existed before */
+            if (!GlobalStor.global.isSashesInTemplate) {
+              GlobalStor.global.isSashesInTemplate = 1;
+              ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            }
             /** check sizes of all hardware in sashes */
             MainServ.checkHardwareSizes(DesignStor.design.templateTEMP);
 
@@ -2720,18 +2751,12 @@
             /** expose Alert */
             DesignStor.design.isHardwareExtra = 1;
           } else {
-
-            if (isSashesInTemplate) {
-              /** set first hardware if sash were not existed before */
-              if (!GlobalStor.global.isSashesInTemplate) {
-                GlobalStor.global.isSashesInTemplate = 1;
-                ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
-              }
-            }
-
             /** save new template in product */
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** rebuild glasses */
+            MainServ.setCurrentGlass(ProductStor.product, 1);
 
             /** create template icon */
             SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
@@ -2742,10 +2767,18 @@
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //------- save new door config
-              ProductStor.product.door_shape_id = doorShapeList[doorConfig.doorShapeIndex].shapeId;
-              ProductStor.product.door_sash_shape_id = doorShapeList[doorConfig.sashShapeIndex].shapeId;
-              ProductStor.product.door_handle_shape_id = doorShapeList[doorConfig.handleShapeIndex].shapeId;
-              ProductStor.product.door_lock_shape_id = doorShapeList[doorConfig.lockShapeIndex].shapeId;
+              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
+              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
+              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
+              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
+
+              setDoorParamInProduct(ProductStor.product, doorConfig);
+
+              //---- set door profile
+              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                GlobalStor.global.profiles
+              ));
             }
 
             /** save new template in templates Array */
@@ -2846,8 +2879,10 @@
 
       stepBack: stepBack,
       //---- door
-      //      downloadDoorConfig: downloadDoorConfig,
-      setIndexDoorConfig: setIndexDoorConfig
+      setNewDoorParamValue: setNewDoorParamValue,
+      //setDoorParams: setDoorParams
+      setDoorConfigDefault: setDoorConfigDefault
+
     };
 
     return thisFactory.publicObj;

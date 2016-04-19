@@ -39,7 +39,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-value {{ product.glass[0].sku }}
                       .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
                     li.order-item
-                      .order-value {{ product.hardware.name }}
+                      .order-value(ng-if="product.construction_type === 4") {{ product.doorHandle.name }} / {{ product.doorLock.name }}
+                      .order-value(ng-if="product.construction_type !== 4") {{ product.hardware.name }}
                       .order-label {{ ::cartPage.CONFIGMENU_HARDWARE }}
                     li.order-item
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}

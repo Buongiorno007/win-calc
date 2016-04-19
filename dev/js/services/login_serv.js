@@ -62,10 +62,10 @@
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
         //console.info(window.navigator);
-        //        console.info(window.navigator.language);
-        //        console.info(window.navigator.userLanguage);
-        //        console.info(window.navigator.browserLanguage);
-        //        console.info("The language is: " + browserLang);
+        //console.info(window.navigator.language);
+        //console.info(window.navigator.userLanguage);
+        //console.info(window.navigator.browserLanguage);
+        //console.info("The language is: " + browserLang);
         checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
@@ -524,8 +524,9 @@
             var defer3 = $q.defer();
             localDB.selectLocalDB(
               localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'profile_system_id': item.profileId})
-              .then(function (glassId) {
+              {'profile_system_id': item.profileId}, 'element_id'
+            ).then(function (glassId) {
+                //console.warn('glass+++', glassId);
                 var glassIdQty = glassId.length;
                 if(glassIdQty){
                   defer3.resolve(glassId);
@@ -539,39 +540,21 @@
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [], promises6 = [], i, j;
-            //                        console.log('glassIds!!!!', glassIds);
-            for(i = 0; i < glassIdsQty; i+=1) {
-              var defer4 = $q.defer();
-              if(glassIds[i]) {
-                var promises5 = glassIds[i].map(function (item) {
-                  var defer5 = $q.defer();
-                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id})
-                    .then(function (result) {
-                      //                  console.log('glass!!!!', glass);
-                      var glass = angular.copy(result), glassQty = glass.length;
-                      if (glassQty) {
-                        defer5.resolve(glass[0]);
-                      } else {
-                        defer5.resolve(0);
-                      }
-                    });
-                  return defer5.promise;
-                });
-                defer4.resolve($q.all(promises5));
-              } else {
-                defer4.resolve(0);
-              }
-              promises4.push(defer4.promise);
-            }
+                promises6 = [], i, j;
+            //console.log('glassIds!!!!', glassIds);
 
+            /** find Glass Kits */
             for(j = 0; j < glassIdsQty; j+=1) {
               var defer6 = $q.defer();
               //console.warn(glassIds[j]);//TODO error
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id})
-                  .then(function (result2) {
+                localDB.selectLocalDB(
+                  localDB.tablesLocalDB.lists.tableName,
+                  {'parent_element_id': item.element_id, 'list_group_id': 6},
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                ).then(function (result2) {
+                    //console.log('list +++++', result2);
                     var list = angular.copy(result2),
                         listQty = list.length;
                     if(listQty){
@@ -587,23 +570,53 @@
               promises6.push(defer6.promise);
             }
 
-            $q.all(promises4).then(function(glasses) {
-              //              console.log('glasses after 1111!!!!', glasses);
-              var glassesQty = glasses.length;
-              if(glassesQty) {
-                for(i = 0; i < glassesQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
-                }
-              }
-            });
             $q.all(promises6).then(function(lists) {
-              //              console.log('glasses after 2222!!!!', lists);
-              var listsQty = lists.length;
+              //console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length, promises4 = [];
+
               if(listsQty) {
                 for(i = 0; i < listsQty; i+=1) {
-                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
-                  defer.resolve(1);
+                  var defer4 = $q.defer();
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i].filter(function(item) {
+                    return item;
+                  });
+
+                  /** find Glass Elements */
+                  var promises5 = GlobalStor.global.glassesAll[i].glassLists.map(function (item) {
+                    var defer5 = $q.defer();
+                    localDB.selectLocalDB(
+                      localDB.tablesLocalDB.elements.tableName,
+                      {'id': item.parent_element_id},
+                      'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
+                      'max_width, min_width, max_height, min_height, max_sq'
+                    ).then(function (result) {
+                        //console.log('glass!!!!', result);
+                        var glass = angular.copy(result),
+                            glassQty = glass.length;
+                        if (glassQty) {
+                          defer5.resolve(glass[0]);
+                        } else {
+                          defer5.resolve(0);
+                        }
+                      });
+                    return defer5.promise;
+                  });
+                  defer4.resolve($q.all(promises5));
+                  promises4.push(defer4.promise);
                 }
+
+                $q.all(promises4).then(function(glasses) {
+                  //console.log('glasses after 1111!!!!', glasses);
+                  var glassesQty = glasses.length;
+                  if(glassesQty) {
+                    for(i = 0; i < glassesQty; i+=1) {
+                      GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                    }
+                  }
+                  //console.log('FINISH!!!!', GlobalStor.global.glassesAll);
+                  defer.resolve(1);
+                });
+
               }
             });
 
@@ -690,7 +703,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.window_hardware_type_ranges.tableName,
         null,
-        'type_id, min_width, max_width, min_height, max_height'
+        'type_id, min_width, max_width, min_height, max_height, group_id'
       ).then(function(result) {
         if(result && result.length) {
           GlobalStor.global.hardwareLimits = angular.copy(result);
@@ -1052,6 +1065,186 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
+    /**============ DOORs ===========*/
+
+
+    function sortingDoorKits(doorKits, doorKitsGlobal) {
+      var profsQty = GlobalStor.global.profiles.length,
+          profQty, tempKit,
+          frameDoor, sashDoor,
+          frameQty, sashQty, f, s,
+          currFrame, currSash;
+      if(doorKits.length) {
+        frameDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 2;
+        });
+        sashDoor = doorKits.filter(function(item) {
+          return item.list_group_id === 3;
+        });
+        frameQty = frameDoor.length;
+        sashQty = sashDoor.length;
+
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            tempKit = {};
+            currFrame = 0;
+            currSash = 0;
+            for(f = 0; f < frameQty; f+=1) {
+              if(frameDoor[f].id === GlobalStor.global.profiles[profsQty][profQty].rama_list_id) {
+                currFrame = frameDoor[f];
+              }
+            }
+            for(s = 0; s < sashQty; s+=1) {
+              if(sashDoor[s].id === GlobalStor.global.profiles[profsQty][profQty].stvorka_list_id) {
+                currSash = sashDoor[s];
+              }
+            }
+            if(currFrame && currSash) {
+              tempKit.profileId = GlobalStor.global.profiles[profsQty][profQty].id;
+              tempKit.frame = currFrame;
+              tempKit.sash = currSash;
+              doorKitsGlobal.push(tempKit);
+            }
+          }
+        }
+      }
+    }
+
+
+    /**------ download Locks ------*/
+
+    function downloadLocks() {
+      var promises = GlobalStor.global.doorHandlers.map(function(item) {
+        var deff = $q.defer();
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
+        ).then(function(lockIds) {
+          //console.info('--lockIds---', lockIds);
+          if(lockIds.length) {
+            var promises2 = lockIds.map(function(item2) {
+              var deff2 = $q.defer();
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName,{'id': item2.list_id}, 'id, name, list_type_id, parent_element_id'
+              ).then(function(lockKid) {
+                  deff2.resolve(lockKid[0]);
+                });
+              return deff2.promise;
+            });
+            deff.resolve($q.all(promises2));
+          } else {
+            deff.resolve(0);
+          }
+        });
+        return deff.promise;
+      });
+
+      $q.all(promises).then(function(lockData) {
+        //console.info('--lockData---', lockData);
+        GlobalStor.global.doorLocks = angular.copy(lockData);
+      });
+    }
+
+
+    function checkHandleWProfile(profArr) {
+      var profIds = [],
+          profArrQty = profArr.length,
+          profsQty, profQty, isExist, i;
+      for(i = 0; i < profArrQty; i+=1) {
+        profsQty = GlobalStor.global.profiles.length;
+        isExist = 0;
+        while(--profsQty > -1) {
+          profQty = GlobalStor.global.profiles[profsQty].length;
+          while(--profQty > -1) {
+            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
+              isExist = 1;
+            }
+          }
+        }
+        if(isExist) {
+          profIds.push(profArr[i].profile_system_id);
+        }
+      }
+      return profIds.join(', ');
+    }
+
+
+    /**------ download Handles ------*/
+
+    function downloadDoorHandles() {
+      //36 офисная ручка , 35 нажимной гарнитур
+      var options = 'id, name, list_type_id, parent_element_id';
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'list_type_id': 35}, options
+      ).then(function(handlData) {
+        //console.warn('нажимной гарнитур', handlData);
+        GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName, {'list_type_id': 36}, options
+        ).then(function(handlData) {
+          //console.warn('офисная ручка', handlData);
+          GlobalStor.global.doorHandlers = GlobalStor.global.doorHandlers.concat(handlData);
+
+          /** download Locks */
+          downloadLocks();
+
+          //------- get link between handler and profile
+          var promises = GlobalStor.global.doorHandlers.map(function(item) {
+            var deff = $q.defer();
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.elements_profile_systems.tableName,
+              {'element_id': item.parent_element_id},
+              'profile_system_id'
+            ).then(function(profileIds) {
+              //console.info('--prof---', profileIds);
+              deff.resolve(profileIds);
+            });
+            return deff.promise;
+          });
+
+          $q.all(promises).then(function(profData) {
+            var handleQty = GlobalStor.global.doorHandlers.length, h;
+            for(h = 0; h < handleQty; h+=1) {
+              //--------- compare with profiles
+              GlobalStor.global.doorHandlers[h].profIds = checkHandleWProfile(profData[h]);
+            }
+          });
+        });
+
+      });
+
+
+    }
+
+
+    /**------ download Doors ------*/
+
+    function downloadDoorKits() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lists.tableName, {'in_door': 1}, 'id, name, list_group_id, doorstep_type'
+      ).then(function(doorData) {
+        var door = angular.copy(doorData),
+            doorKitsT1, doorKitsT2,
+            doorQty = door.length;
+        if (doorQty) {
+          //----- sorting door elements as to doorstep_type
+          doorKitsT1 = door.filter(function(item) {
+            return item.doorstep_type === 1;
+          });
+          doorKitsT2 = door.filter(function(item) {
+            return item.doorstep_type === 2;
+          });
+          //-------- seperate by frame or sash
+          sortingDoorKits(doorKitsT1, GlobalStor.global.doorKitsT1);
+          sortingDoorKits(doorKitsT2, GlobalStor.global.doorKitsT2);
+
+          /** Handlers */
+          downloadDoorHandles();
+        } else {
+          GlobalStor.global.noDoorExist = 1;
+        }
+      });
+    }
 
 
 
@@ -1106,6 +1299,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               ).then(function(data){
                                 if(data) {
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
+                                  /** download Door Kits */
+                                  downloadDoorKits();
                                   /** download Hardware Limits */
                                   downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */

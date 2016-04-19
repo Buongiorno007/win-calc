@@ -128,9 +128,9 @@
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
         DOOR_TYPE3: 'aluminum threshold, type',
-        SASH_TYPE1: 'the interroom',
-        SASH_TYPE2: 'the door T-shaped',
-        SASH_TYPE3: 'the window',
+        //SASH_TYPE1: 'the interroom',
+        //SASH_TYPE2: 'the door T-shaped',
+        //SASH_TYPE3: 'the window',
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
@@ -216,7 +216,8 @@
         GLASS_SQUARE: "с площадью",
         MAX_VALUE_HIGHER: "перевышает допустимое максимальное значение",
         EXTRA_SASH: "Текущий размер створки по фальцу",
-        CHANGE_SIZE: "Для сохранения конструкции измените размеры."
+        CHANGE_SIZE: "Для сохранения конструкции измените размеры.",
+        DOOR_ERROR: "Systems of entrance doors are not configured"
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -304,7 +305,7 @@
         CLIENT_SEX_M: 'm',
         CLIENT_SEX_F: 'F',
         CLIENT_AGE: 'Age',
-        CLIENT_AGE_OLDER: 'older',
+        CLIENT_AGE_OLDER: 'older than 61',
         //CLIENT_EDUCATION: 'Education',
         //CLIENT_EDUC_MIDLE: 'middle',
         //CLIENT_EDUC_SPEC: 'specific middle',
