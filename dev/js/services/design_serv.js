@@ -771,6 +771,7 @@
     /** for start */
     function setDoorConfigDefault(product) {
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {
         isExist = 0;
         if(d === 2 && GlobalStor.global.doorKitsT1.length) {
@@ -2753,6 +2754,9 @@
             /** save new template in product */
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** rebuild glasses */
+            MainServ.setCurrentGlass(ProductStor.product, 1);
 
             /** create template icon */
             SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)

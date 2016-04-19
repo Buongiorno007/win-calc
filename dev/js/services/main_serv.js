@@ -106,8 +106,8 @@
     /**  Create Order Id and Date */
 
     function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
+      var currTime = new Date().getTime().toString();
+      return (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length))*1;
     }
 
     function createOrderData() {
@@ -474,23 +474,20 @@
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
-            doorHandleId = 0,
-            doorLockId = 0, priceMargin;
+            priceMargin;
         if(priceObj.priceTotal) {
 
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
-            doorHandleId = ProductStor.product.doorHandle.parent_element_id;
-            doorLockId = ProductStor.product.doorLock.parent_element_id;
-
-            localDB.calcDoorElemPrice(doorHandleId, doorLockId).then(function(doorData) {
-              priceObj.priceTotal += doorData[0].priceReal + doorData[1].priceReal;
-              priceObj.constrElements.push(doorData[0], doorData[1]);
-              priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
-              ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
-              setProductPriceTOTAL(ProductStor.product);
-              deferred.resolve(priceObj);
-            });
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+              .then(function(doorData) {
+                priceObj.priceTotal += doorData.priceTot;
+                angular.extend(priceObj.constrElements, doorData.elements);
+                priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+                ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+                setProductPriceTOTAL(ProductStor.product);
+                deferred.resolve(priceObj);
+              });
           } else {
             priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
             ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);

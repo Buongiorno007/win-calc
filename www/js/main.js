@@ -907,7 +907,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           thisCtrl.config.selectedStep1 = 0;
         } else {
 
-          DesignStor.design.sashShapeList = [];
+          DesignStor.design.sashShapeList.length = 0;
           switch (id) {
             case 0:
             case 1:
@@ -7669,6 +7669,7 @@ function ErrorResult(code, message) {
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
           allElems = GlobalStor.global.addElementsAll,
+          searchWord = AuxStor.aux.searchingWord.toLowerCase(),
           groupsArr = [],
           groupObj, elemObj, g, elementsQty, elemQty, wordPart, elementsList;
       AuxStor.aux.addElementGroups.length = 0;
@@ -7701,8 +7702,8 @@ function ErrorResult(code, message) {
             elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-              wordPart = elementsList[elementsQty][elemQty].name.substr(0,AuxStor.aux.searchingWord.length);
-              if(wordPart === AuxStor.aux.searchingWord) {
+              wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
+              if(wordPart === searchWord) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
@@ -9642,6 +9643,7 @@ function ErrorResult(code, message) {
     /** for start */
     function setDoorConfigDefault(product) {
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {
         isExist = 0;
         if(d === 2 && GlobalStor.global.doorKitsT1.length) {
@@ -11624,6 +11626,9 @@ function ErrorResult(code, message) {
             /** save new template in product */
             ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
             ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
+            /** rebuild glasses */
+            MainServ.setCurrentGlass(ProductStor.product, 1);
 
             /** create template icon */
             SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
@@ -14733,7 +14738,9 @@ function ErrorResult(code, message) {
             /** check size by id of glass */
             if (sizes[siz].elemId === kits.id) {
               sizeTemp = sizes[siz].square;
-              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
+              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+
+                $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] +
+                ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
               isExist+=1;
             }
@@ -15000,7 +15007,9 @@ function ErrorResult(code, message) {
           if(currConsist.rules_type_id === 5) {
             fullSize = currConstrSize.square;
             currSize = currConstrSize.square;
-            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+
+              $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] +
+              ' x ' + currConstrSize.sizes[1] + ')';
           } else if(currConsist.rules_type_id === 21) {
             fullSize = currConstrSize.sizes[0];
             currSize = currConstrSize.sizes[0];
@@ -15336,31 +15345,53 @@ function ErrorResult(code, message) {
 
     /**========= DOOR PRICE ==========*/
 
-    function getDoorElem(elem, container) {
+    function getDoorElem(container, elem, kit) {
       var elemObj = angular.copy(elem);
       /** currency conversion */
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
         elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
       }
-      elemObj.qty = 1;
+      elemObj.qty = (kit) ? kit.value : 1;
       elemObj.size = 0;
-      elemObj.priceReal = GeneralServ.roundingValue(elemObj.price, 3);
-      container.push(elemObj);
+      elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
+      container.priceTot += elemObj.priceReal;
+      container.elements.push(elemObj);
     }
 
 
 
-    function calcDoorElemPrice(handleId, lockId) {
+    function calcDoorElemPrice(handleSource, lockSource) {
       var deffMain = $q.defer(),
-          priceObj = [];
-      getElementByListId(0, handleId).then(function(handleData) {
+          priceObj = {
+            priceTot: 0,
+            elements: []
+          };
+      //console.log(handleSource, lockSource);
+      getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
-        getDoorElem(handleData, priceObj);
+        getDoorElem(priceObj, handleData);
 
-        getElementByListId(0, lockId).then(function(lockData) {
+        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
           //console.info('price lock kit', lockData);
-          getDoorElem(lockData, priceObj);
-          deffMain.resolve(priceObj);
+          getDoorElem(priceObj, lockData);
+
+          parseListContent(lockSource.id).then(function (consist) {
+            //console.warn('consist!!!!!!+', consist);
+            priceObj.consist = consist;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
+            });
+          });
+
+
         });
       });
       return deffMain.promise;
@@ -17189,8 +17220,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**  Create Order Id and Date */
 
     function createOrderID() {
-      var currTime = new Date().getTime();
-      return (UserStor.userInfo.id + '' + currTime)*1;
+      var currTime = new Date().getTime().toString();
+      return (UserStor.userInfo.id + '' + currTime.slice(4, currTime.length))*1;
     }
 
     function createOrderData() {
@@ -17557,23 +17588,20 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
-            doorHandleId = 0,
-            doorLockId = 0, priceMargin;
+            priceMargin;
         if(priceObj.priceTotal) {
 
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
-            doorHandleId = ProductStor.product.doorHandle.parent_element_id;
-            doorLockId = ProductStor.product.doorLock.parent_element_id;
-
-            localDB.calcDoorElemPrice(doorHandleId, doorLockId).then(function(doorData) {
-              priceObj.priceTotal += doorData[0].priceReal + doorData[1].priceReal;
-              priceObj.constrElements.push(doorData[0], doorData[1]);
-              priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
-              ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
-              setProductPriceTOTAL(ProductStor.product);
-              deferred.resolve(priceObj);
-            });
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+              .then(function(doorData) {
+                priceObj.priceTotal += doorData.priceTot;
+                angular.extend(priceObj.constrElements, doorData.elements);
+                priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
+                ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
+                setProductPriceTOTAL(ProductStor.product);
+                deferred.resolve(priceObj);
+              });
           } else {
             priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
             ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
@@ -20433,7 +20461,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parts: [],
                   glassId: 0,
                   glassTxt: '',
-                  openDir: [1, 4],
+                  openDir: [4],
                   handlePos: 4,
                   sashType: 2
                 }

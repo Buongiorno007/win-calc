@@ -407,7 +407,7 @@
           thisCtrl.config.selectedStep1 = 0;
         } else {
 
-          DesignStor.design.sashShapeList = [];
+          DesignStor.design.sashShapeList.length = 0;
           switch (id) {
             case 0:
             case 1:

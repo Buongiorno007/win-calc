@@ -1958,7 +1958,9 @@
             /** check size by id of glass */
             if (sizes[siz].elemId === kits.id) {
               sizeTemp = sizes[siz].square;
-              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] + ' x ' + sizes[siz].sizes[1] + ')';
+              sizeLabelTemp = GeneralServ.roundingValue(sizes[siz].square, 3) + ' '+
+                $filter('translate')('common_words.LETTER_M') +'2 (' + sizes[siz].sizes[0] +
+                ' x ' + sizes[siz].sizes[1] + ')';
               priceTemp = sizeTemp * constrElem.price * waste;
               isExist+=1;
             }
@@ -2225,7 +2227,9 @@
           if(currConsist.rules_type_id === 5) {
             fullSize = currConstrSize.square;
             currSize = currConstrSize.square;
-            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+ $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] + ' x ' + currConstrSize.sizes[1] + ')';
+            sizeLabel = GeneralServ.roundingValue(currConstrSize.square, 3) + ' '+
+              $filter('translate')('common_words.LETTER_M') +'2 (' + currConstrSize.sizes[0] +
+              ' x ' + currConstrSize.sizes[1] + ')';
           } else if(currConsist.rules_type_id === 21) {
             fullSize = currConstrSize.sizes[0];
             currSize = currConstrSize.sizes[0];
@@ -2561,31 +2565,53 @@
 
     /**========= DOOR PRICE ==========*/
 
-    function getDoorElem(elem, container) {
+    function getDoorElem(container, elem, kit) {
       var elemObj = angular.copy(elem);
       /** currency conversion */
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
         elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
       }
-      elemObj.qty = 1;
+      elemObj.qty = (kit) ? kit.value : 1;
       elemObj.size = 0;
-      elemObj.priceReal = GeneralServ.roundingValue(elemObj.price, 3);
-      container.push(elemObj);
+      elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
+      container.priceTot += elemObj.priceReal;
+      container.elements.push(elemObj);
     }
 
 
 
-    function calcDoorElemPrice(handleId, lockId) {
+    function calcDoorElemPrice(handleSource, lockSource) {
       var deffMain = $q.defer(),
-          priceObj = [];
-      getElementByListId(0, handleId).then(function(handleData) {
+          priceObj = {
+            priceTot: 0,
+            elements: []
+          };
+      //console.log(handleSource, lockSource);
+      getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
-        getDoorElem(handleData, priceObj);
+        getDoorElem(priceObj, handleData);
 
-        getElementByListId(0, lockId).then(function(lockData) {
+        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
           //console.info('price lock kit', lockData);
-          getDoorElem(lockData, priceObj);
-          deffMain.resolve(priceObj);
+          getDoorElem(priceObj, lockData);
+
+          parseListContent(lockSource.id).then(function (consist) {
+            //console.warn('consist!!!!!!+', consist);
+            priceObj.consist = consist;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
+            });
+          });
+
+
         });
       });
       return deffMain.promise;
