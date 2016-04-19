@@ -1788,9 +1788,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          console.log('IMPORT');
-          checkingUser();
-/*
+          //console.log('IMPORT');
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -1838,7 +1838,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-*/
+//*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -5803,8 +5803,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               /** hinge */
               setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
               setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeU', '-1 0 9 4', -28.5, 5, 270, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeD', '-1 0 9 4', 33.7, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
 
               /** lamination */
               if(ProductStor.product.lamination.img_in_id > 1) {
@@ -8830,10 +8830,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -11896,9 +11896,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -22573,12 +22573,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function getCrossPointInBlock(position, vector, lines) {
-      var linesQty = lines.length, l;
-//      console.log('lines @@@@@@', lines);
+      var linesQty = lines.length, coords = [], l,
+          coord, isInside, isCross, intersect;
       for(l = 0; l < linesQty; l+=1) {
-        var coord, isInside, isCross, intersect;
-//        console.log('DIR line ++++', lines[l]);
-
         coord = getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
 
@@ -22598,32 +22595,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             if(position) {
               switch(position) {
                 case 1:
-                  if(coord.fi > 180) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 180) ? 'head' : 'tail';
                   break;
                 case 2:
-                  if(coord.fi > 90 && coord.fi < 270) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 90 && coord.fi < 270) ? 'head' : 'tail';
                   break;
                 case 3:
-                  if(coord.fi < 180) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi < 180) ? 'head' : 'tail';
                   break;
                 case 4:
-                  if(coord.fi > 270 || coord.fi < 90) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 270 || coord.fi < 90) ? 'head' : 'tail';
                   break;
               }
-            } else {
-              return coord;
             }
+            //console.log('DIR coord ++++', coord);
+            coords.push(coord);
           }
         }
       }
+      return coords;
     }
 
 
@@ -22631,7 +22621,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
       var sashDirVector = cteateLineByAngel(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
-      //      console.log('DIR new coord----------', crossPoints);
+      //console.log('DIR new coord----------', crossPoints);
       return crossPoints;
     }
 
@@ -22641,56 +22631,69 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var parts = [],
           newPoints = preparePointsXMaxMin(beadLines),
           center = centerBlock(newPoints),
-          //          dim = GeneralServ.getMaxMinCoord(newPoints),
-          //          center = {
-          //            x: (dim.minX + dim.maxX)/2,
-          //            y: (dim.minY + dim.maxY)/2
-          //          },
-          dirQty = direction.length, index;
-      //      console.log('DIR line===', beadLines);
-      //      console.log('DIR newPoints===', newPoints);
-      //      console.log('DIR geomCenter===', geomCenter);
+          dirQty = direction.length, index,
+          part, tempPointArr, tempPQty, p,
+          crossPoints, crossPQty, prevInd, nextInd,
+          centerPoint, startPoint, endPoint;
+          //console.log('DIR line===', beadLines);
+          //console.log('DIR newPoints===', newPoints);
+          //console.log('DIR center===', center);
 
       for(index = 0; index < dirQty; index+=1) {
-        var part = {
+        part = {
           type: 'sash-dir',
           points: []
         };
 
+
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(
-              getCrossPointSashDir(1, center, 225, beadLines),
-              getCrossPointSashDir(3, center, 90, beadLines),
-              getCrossPointSashDir(1, center, 315, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(3, center, 90, beadLines);
             break;
           //----- 'right'
           case 2:
-            part.points.push(
-              getCrossPointSashDir(2, center, 225, beadLines),
-              getCrossPointSashDir(4, center, 180, beadLines),
-              getCrossPointSashDir(2, center, 135, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(4, center, 180, beadLines);
             break;
           //------ 'down'
           case 3:
-            part.points.push(
-              getCrossPointSashDir(3, center, 135, beadLines),
-              getCrossPointSashDir(1, center, 270, beadLines),
-              getCrossPointSashDir(3, center, 45, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(1, center, 270, beadLines);
             break;
           //----- 'left'
           case 4:
-            part.points.push(
-              getCrossPointSashDir(4, center, 45, beadLines),
-              getCrossPointSashDir(2, center, 180, beadLines),
-              getCrossPointSashDir(4, center, 315, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(2, center, 180, beadLines);
             break;
         }
+
+        crossPQty = crossPoints.length;
+        while(--crossPQty > -1) {
+          if(crossPoints[crossPQty].id === 'head') {
+            centerPoint = crossPoints[crossPQty];
+          } else if(crossPoints[crossPQty].id === 'tail') {
+            tempPointArr = angular.copy(newPoints);
+            tempPointArr.push(crossPoints[crossPQty]);
+
+            tempPointArr = sortingPoints(tempPointArr, center);
+            console.warn('tempPointArr+++', tempPointArr)
+            tempPQty = tempPointArr.length;
+            for(p = 0; p < tempPQty; p+=1) {
+              if(tempPointArr[p].id === 'tail') {
+                console.log('p----',p)
+                prevInd = p-1;
+                nextInd = p+1;
+                if(prevInd < 0) {
+                  prevInd = tempPQty -1;
+                }
+                if(nextInd >= tempPQty) {
+                  nextInd = 0;
+                }
+                startPoint = tempPointArr[nextInd];
+                endPoint = tempPointArr[prevInd];
+              }
+            }
+          }
+        }
+        part.points.push(startPoint, centerPoint, endPoint);
         parts.push(part);
       }
 

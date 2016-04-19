@@ -1754,12 +1754,9 @@
 
 
     function getCrossPointInBlock(position, vector, lines) {
-      var linesQty = lines.length, l;
-//      console.log('lines @@@@@@', lines);
+      var linesQty = lines.length, coords = [], l,
+          coord, isInside, isCross, intersect;
       for(l = 0; l < linesQty; l+=1) {
-        var coord, isInside, isCross, intersect;
-//        console.log('DIR line ++++', lines[l]);
-
         coord = getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
 
@@ -1779,32 +1776,25 @@
             if(position) {
               switch(position) {
                 case 1:
-                  if(coord.fi > 180) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 180) ? 'head' : 'tail';
                   break;
                 case 2:
-                  if(coord.fi > 90 && coord.fi < 270) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 90 && coord.fi < 270) ? 'head' : 'tail';
                   break;
                 case 3:
-                  if(coord.fi < 180) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi < 180) ? 'head' : 'tail';
                   break;
                 case 4:
-                  if(coord.fi > 270 || coord.fi < 90) {
-                    return coord;
-                  }
+                  coord.id = (coord.fi > 270 || coord.fi < 90) ? 'head' : 'tail';
                   break;
               }
-            } else {
-              return coord;
             }
+            //console.log('DIR coord ++++', coord);
+            coords.push(coord);
           }
         }
       }
+      return coords;
     }
 
 
@@ -1812,7 +1802,7 @@
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
       var sashDirVector = cteateLineByAngel(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
-      //      console.log('DIR new coord----------', crossPoints);
+      //console.log('DIR new coord----------', crossPoints);
       return crossPoints;
     }
 
@@ -1822,56 +1812,69 @@
       var parts = [],
           newPoints = preparePointsXMaxMin(beadLines),
           center = centerBlock(newPoints),
-          //          dim = GeneralServ.getMaxMinCoord(newPoints),
-          //          center = {
-          //            x: (dim.minX + dim.maxX)/2,
-          //            y: (dim.minY + dim.maxY)/2
-          //          },
-          dirQty = direction.length, index;
-      //      console.log('DIR line===', beadLines);
-      //      console.log('DIR newPoints===', newPoints);
-      //      console.log('DIR geomCenter===', geomCenter);
+          dirQty = direction.length, index,
+          part, tempPointArr, tempPQty, p,
+          crossPoints, crossPQty, prevInd, nextInd,
+          centerPoint, startPoint, endPoint;
+          //console.log('DIR line===', beadLines);
+          //console.log('DIR newPoints===', newPoints);
+          //console.log('DIR center===', center);
 
       for(index = 0; index < dirQty; index+=1) {
-        var part = {
+        part = {
           type: 'sash-dir',
           points: []
         };
 
+
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(
-              getCrossPointSashDir(1, center, 225, beadLines),
-              getCrossPointSashDir(3, center, 90, beadLines),
-              getCrossPointSashDir(1, center, 315, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(3, center, 90, beadLines);
             break;
           //----- 'right'
           case 2:
-            part.points.push(
-              getCrossPointSashDir(2, center, 225, beadLines),
-              getCrossPointSashDir(4, center, 180, beadLines),
-              getCrossPointSashDir(2, center, 135, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(4, center, 180, beadLines);
             break;
           //------ 'down'
           case 3:
-            part.points.push(
-              getCrossPointSashDir(3, center, 135, beadLines),
-              getCrossPointSashDir(1, center, 270, beadLines),
-              getCrossPointSashDir(3, center, 45, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(1, center, 270, beadLines);
             break;
           //----- 'left'
           case 4:
-            part.points.push(
-              getCrossPointSashDir(4, center, 45, beadLines),
-              getCrossPointSashDir(2, center, 180, beadLines),
-              getCrossPointSashDir(4, center, 315, beadLines)
-            );
+            crossPoints = getCrossPointSashDir(2, center, 180, beadLines);
             break;
         }
+
+        crossPQty = crossPoints.length;
+        while(--crossPQty > -1) {
+          if(crossPoints[crossPQty].id === 'head') {
+            centerPoint = crossPoints[crossPQty];
+          } else if(crossPoints[crossPQty].id === 'tail') {
+            tempPointArr = angular.copy(newPoints);
+            tempPointArr.push(crossPoints[crossPQty]);
+
+            tempPointArr = sortingPoints(tempPointArr, center);
+            console.warn('tempPointArr+++', tempPointArr)
+            tempPQty = tempPointArr.length;
+            for(p = 0; p < tempPQty; p+=1) {
+              if(tempPointArr[p].id === 'tail') {
+                console.log('p----',p)
+                prevInd = p-1;
+                nextInd = p+1;
+                if(prevInd < 0) {
+                  prevInd = tempPQty -1;
+                }
+                if(nextInd >= tempPQty) {
+                  nextInd = 0;
+                }
+                startPoint = tempPointArr[nextInd];
+                endPoint = tempPointArr[prevInd];
+              }
+            }
+          }
+        }
+        part.points.push(startPoint, centerPoint, endPoint);
         parts.push(part);
       }
 

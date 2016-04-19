@@ -360,8 +360,8 @@
               /** hinge */
               setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
               setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeU', '-1 0 9 4', -28.5, 5, 270, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeD', '-1 0 9 4', 33.7, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+              setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
 
               /** lamination */
               if(ProductStor.product.lamination.img_in_id > 1) {
