@@ -30,6 +30,8 @@
         //isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
+        copyGlabalStorGlassesAll: [],
+        
         isCreatedNewProduct: 1,
         productEditNumber: 0,
         orderEditNumber: 0,
