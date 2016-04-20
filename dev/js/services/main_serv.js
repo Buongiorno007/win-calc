@@ -1460,7 +1460,11 @@ console.log('ProductStor.product', ProductStor.product)
           return item.id;
         }).join(', ');
         console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
-        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        if (OrderStor.order.products[p].hardware === undefined) {
+          productData.hardware_id = 0;
+        } else {
+          productData.hardware_id = OrderStor.order.products[p].hardware.id;
+        }
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;

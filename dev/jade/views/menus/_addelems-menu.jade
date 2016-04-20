@@ -12,7 +12,7 @@
       ul.items-list(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
         .title {{ elementsMenu.A.aux.addElementsType[$index].name }}
 
-        li.item(ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}")
+        li.item(ng-repeat="addElement in type track by $index")
           .value(ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
           button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", ng-click="elementsMenu.showInfoBox(addElement.id, type)")
 

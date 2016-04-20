@@ -165,6 +165,11 @@
   @include animation(move-grid 1s ease 0s 1);
 }
 @include behavior-move(move-grid, rem(1000px), rem(-2000px), 0, 0);
+//------test
+.move-test {
+  @include animation(move-test 1s ease 0s 1);
+}
+@include behavior-move(move-test, rem(1000px), rem(-2000px), 0, 0);
 //------Visor
 .move-visor {
   @include animation(move-visor 1s ease 0s 1);

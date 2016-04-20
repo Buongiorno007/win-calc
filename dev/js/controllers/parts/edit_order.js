@@ -63,7 +63,7 @@
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
-              ProductStor.product.hardware.id = angular.copy(product.hardware);
+              ProductStor.product.hardware = angular.copy(product.hardware);
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);
               ProductStor.product.profile_id = angular.copy(product.profile_id);
@@ -87,6 +87,7 @@
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
               OrderStor.order.products.push(ProductStor.product)
+              console.log('OrderStor.order', OrderStor.order)
               _callback();  
             },
             function (_callback) {

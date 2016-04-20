@@ -79,6 +79,11 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-test-img {
+        background-image: image-url($aux-img-focus-path+'/test.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
 
       //Buttons Colors
       .aux-choose-but {
@@ -154,6 +159,11 @@ $aux-img-select-path: 'auxiliaries-selected';
       }
       .aux-handle-img {
         background-image: image-url($aux-img-select-path+'/handle.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-test-img {
+        background-image: image-url($aux-img-focus-path+'/test.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -243,6 +253,21 @@ $aux-img-select-path: 'auxiliaries-selected';
     width: rem(720px);
     height: rem(236px);
     background-image: image-url($aux-img-path+'/windowsill.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  //-----test
+  .aux-test {
+    @include top_left_coord(1160px, 100px);
+    z-index: 7;
+  }
+  .aux-test-img {
+    @include top_left_coord(-900px, 800px);
+    position: absolute;
+    width: rem(565px);
+    height: rem(965px);
+    background-image: image-url($aux-img-path+'/test.png');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -429,6 +454,10 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-visor-txt {
+    @include top_left_coord(-50px, 480px);
+  }
+
+  .aux-test-txt {
     @include top_left_coord(-50px, 480px);
   }
 

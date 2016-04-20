@@ -17,7 +17,7 @@
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -262,9 +262,9 @@
             }
           }
         }
-        // for(tsq=1; tsq<tempSourQty; tsq+=1) {
-        //   HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1
-        // }
+        for(tsq=1; tsq<tempSourQty; tsq+=1) {
+          HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1
+        }
       }
       dopTemplateSource()
     }
@@ -279,7 +279,7 @@
             for(ord = 0; ord < ordersQty; ord+=1) {    
               var templateSourceQty = HistoryStor.history.isBoxArray[ord].template_source.details.length;
               for (var b=0; b<templateSourceQty; b+=1) {
-                if ( GlobalStor.global.glassesAll[g].glasses[i][it].id === HistoryStor.history.isBoxArray[ord].template_source.details[b].glassId*1) {
+                if ( GlobalStor.global.glassesAll[g].glasses[i][it].id === HistoryStor.history.isBoxArray[ord].template_source.details[b].glassId) {
                    HistoryStor.history.isBoxArray[ord].template_source.details[b].glassTxt = GlobalStor.global.glassesAll[g].glasses[i][it].sku;
                 }
               }

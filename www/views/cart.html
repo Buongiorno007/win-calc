@@ -671,7 +671,7 @@
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
               <div class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
-              <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
+              <li ng-repeat="addElement in type track by $index" class="item">
                 <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" ng-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>

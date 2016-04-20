@@ -57,6 +57,15 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
+    function testing(elementId, typeId) {
+      if (AuxStor.aux.truefalse === 0) {
+        $("#listok").slideDown();
+        AuxStor.aux.truefalse = 1;
+      } else {
+        $("#listok").slideUp()
+        AuxStor.aux.truefalse = 0;
+      }
+    }
 
     /**----------- Select Add Element when open List View ------------*/
 
@@ -126,6 +135,7 @@
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.testing = testing;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;

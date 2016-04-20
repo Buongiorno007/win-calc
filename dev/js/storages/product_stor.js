@@ -61,7 +61,8 @@
           [], // 7 - fans
           [], // 8 - windowSill
           [], // 9 - handles
-          [] // 10 - others
+          [], // 10 - others
+          []  // 11 - test 
         ],
 
         door_shape_id: 1,

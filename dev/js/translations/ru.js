@@ -154,6 +154,7 @@
         WINDOWSILL: 'подоконник',
         HANDLEL: 'ручка',
         OTHERS: 'прочее',
+        TEST: 'тестим',
         GRIDS: 'москитные сетки',
         VISORS: 'козырьки',
         SPILLWAYS: 'водоотливы',

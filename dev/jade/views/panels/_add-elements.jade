@@ -2,11 +2,11 @@
   .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
 
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
-      .aux-outside-img.move-outside
+      .aux-outside-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 2")
 
     .auxiliary-item.unvisible(
       ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index",
-      ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList",
+      ng-if="elementsPanel.config.addElementDATA[$index].typeMenu === 2",
       ng-switch="$index",
       show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}",
       ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) && !addElemGroup.length, 'selected': addElemGroup.length}]")
@@ -31,6 +31,7 @@
       .aux-windowsill-img.move-windowsill(ng-switch-when="8")
       .aux-handle-img.move-handle(ng-switch-when="9")
       .aux-txt-box.aux-others-txt(ng-switch-when="10")
+      .aux-test-img.move-test(ng-switch-when="11")
 
       .aux-txt-box(ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'")
         .choose-block.unvisible(ng-hide="addElemGroup.length", show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")

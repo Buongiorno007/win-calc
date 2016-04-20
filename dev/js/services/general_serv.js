@@ -14,13 +14,15 @@
     GlobalStor
   ) {
     /*jshint validthis:true */
-    var thisFactory = this,
-        addElementDATA = [
+    var thisFactory = this;
+      var addElementDATA = [
+
           /** GRID */
           {
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
+            typeMenu: 1,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -29,6 +31,7 @@
             id: 21,
             name: $filter('translate')('add_elements.VISORS'),
             typeClass: 'aux-visor',
+            typeMenu: 2,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -37,6 +40,7 @@
             id: 9,
             name: $filter('translate')('add_elements.SPILLWAYS'),
             typeClass: 'aux-spillway',
+            typeMenu: 2,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -45,6 +49,7 @@
             id: 19,
             name: $filter('translate')('add_elements.OUTSIDE'),
             typeClass: 'aux-outside',
+            typeMenu: 2,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -53,6 +58,7 @@
             id: 26,
             name: $filter('translate')('add_elements.LOUVERS'),
             typeClass: 'aux-louver',
+            typeMenu: 1,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -61,6 +67,7 @@
             id: 19,
             name: $filter('translate')('add_elements.INSIDE'),
             typeClass: 'aux-inside',
+            typeMenu: 1,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -69,6 +76,7 @@
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
+            typeMenu: 4,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -77,6 +85,7 @@
             id: 27,
             name: $filter('translate')('add_elements.FAN'),
             typeClass: 'aux-fan',
+            typeMenu: 3,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -85,6 +94,7 @@
             id: 8,
             name: $filter('translate')('add_elements.WINDOWSILLS'),
             typeClass: 'aux-windowsill',
+            typeMenu: 1,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -93,6 +103,7 @@
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
+            typeMenu: 1,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -101,11 +112,22 @@
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
+            typeMenu: 4,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**second button*/
+          {
+            id: 44,
+            name: $filter('translate')('add_elements.TEST'),
+            typeClass: 'aux-test',
+            typeMenu: 6,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
         ];
-
+      
 
     //TODO desktop
     //------- IMG rooms preload

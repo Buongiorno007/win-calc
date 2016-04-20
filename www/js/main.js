@@ -2167,6 +2167,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
+    function testing(elementId, typeId) {
+      if (AuxStor.aux.truefalse === 0) {
+        $("#listok").slideDown();
+        AuxStor.aux.truefalse = 1;
+      } else {
+        $("#listok").slideUp()
+        AuxStor.aux.truefalse = 0;
+      }
+    }
 
     /**----------- Select Add Element when open List View ------------*/
 
@@ -2236,6 +2245,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.testing = testing;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
@@ -3874,7 +3884,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
-              ProductStor.product.hardware.id = angular.copy(product.hardware);
+              ProductStor.product.hardware = angular.copy(product.hardware);
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);
               ProductStor.product.profile_id = angular.copy(product.profile_id);
@@ -3898,6 +3908,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
               OrderStor.order.products.push(ProductStor.product)
+              console.log('OrderStor.order', OrderStor.order)
               _callback();  
             },
             function (_callback) {
@@ -11816,13 +11827,15 @@ function ErrorResult(code, message) {
     GlobalStor
   ) {
     /*jshint validthis:true */
-    var thisFactory = this,
-        addElementDATA = [
+    var thisFactory = this;
+      var addElementDATA = [
+
           /** GRID */
           {
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
+            typeMenu: 1,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -11831,6 +11844,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: $filter('translate')('add_elements.VISORS'),
             typeClass: 'aux-visor',
+            typeMenu: 2,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -11839,6 +11853,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: $filter('translate')('add_elements.SPILLWAYS'),
             typeClass: 'aux-spillway',
+            typeMenu: 2,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -11847,6 +11862,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: $filter('translate')('add_elements.OUTSIDE'),
             typeClass: 'aux-outside',
+            typeMenu: 2,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -11855,6 +11871,7 @@ function ErrorResult(code, message) {
             id: 26,
             name: $filter('translate')('add_elements.LOUVERS'),
             typeClass: 'aux-louver',
+            typeMenu: 1,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -11863,6 +11880,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: $filter('translate')('add_elements.INSIDE'),
             typeClass: 'aux-inside',
+            typeMenu: 1,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -11871,6 +11889,7 @@ function ErrorResult(code, message) {
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
+            typeMenu: 4,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -11879,6 +11898,7 @@ function ErrorResult(code, message) {
             id: 27,
             name: $filter('translate')('add_elements.FAN'),
             typeClass: 'aux-fan',
+            typeMenu: 3,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -11887,6 +11907,7 @@ function ErrorResult(code, message) {
             id: 8,
             name: $filter('translate')('add_elements.WINDOWSILLS'),
             typeClass: 'aux-windowsill',
+            typeMenu: 1,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -11895,6 +11916,7 @@ function ErrorResult(code, message) {
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
+            typeMenu: 1,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -11903,11 +11925,22 @@ function ErrorResult(code, message) {
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
+            typeMenu: 4,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**second button*/
+          {
+            id: 44,
+            name: $filter('translate')('add_elements.TEST'),
+            typeClass: 'aux-test',
+            typeMenu: 6,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
         ];
-
+      
 
     //TODO desktop
     //------- IMG rooms preload
@@ -18365,7 +18398,11 @@ console.log('ProductStor.product', ProductStor.product)
           return item.id;
         }).join(', ');
         console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
-        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        if (OrderStor.order.products[p].hardware === undefined) {
+          productData.hardware_id = 0;
+        } else {
+          productData.hardware_id = OrderStor.order.products[p].hardware.id;
+        }
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
@@ -20481,7 +20518,7 @@ console.log('ProductStor.product', ProductStor.product)
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -20726,9 +20763,9 @@ console.log('ProductStor.product', ProductStor.product)
             }
           }
         }
-        // for(tsq=1; tsq<tempSourQty; tsq+=1) {
-        //   HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1
-        // }
+        for(tsq=1; tsq<tempSourQty; tsq+=1) {
+          HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1
+        }
       }
       dopTemplateSource()
     }
@@ -20743,7 +20780,7 @@ console.log('ProductStor.product', ProductStor.product)
             for(ord = 0; ord < ordersQty; ord+=1) {    
               var templateSourceQty = HistoryStor.history.isBoxArray[ord].template_source.details.length;
               for (var b=0; b<templateSourceQty; b+=1) {
-                if ( GlobalStor.global.glassesAll[g].glasses[i][it].id === HistoryStor.history.isBoxArray[ord].template_source.details[b].glassId*1) {
+                if ( GlobalStor.global.glassesAll[g].glasses[i][it].id === HistoryStor.history.isBoxArray[ord].template_source.details[b].glassId) {
                    HistoryStor.history.isBoxArray[ord].template_source.details[b].glassTxt = GlobalStor.global.glassesAll[g].glasses[i][it].sku;
                 }
               }
@@ -24117,6 +24154,7 @@ console.log('ProductStor.product', ProductStor.product)
         tempSize: [],
         currAddElementPrice: 0,
         isTabFrame: 0,
+        truefalse: 0,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,
@@ -24489,6 +24527,7 @@ console.log('ProductStor.product', ProductStor.product)
         lamGroupFiltered: [],
 
         //------ Add Elements
+        addElemNumb: 1,
         addElementsAll: [],
         tempAddElements: [],
 
@@ -24797,7 +24836,8 @@ console.log('ProductStor.product', ProductStor.product)
           [], // 7 - fans
           [], // 8 - windowSill
           [], // 9 - handles
-          [] // 10 - others
+          [], // 10 - others
+          []  // 11 - test 
         ],
 
         door_shape_id: 1,
@@ -26510,6 +26550,7 @@ console.log('ProductStor.product', ProductStor.product)
         WINDOWSILL: 'подоконник',
         HANDLEL: 'ручка',
         OTHERS: 'прочее',
+        TEST: 'тестим',
         GRIDS: 'москитные сетки',
         VISORS: 'козырьки',
         SPILLWAYS: 'водоотливы',

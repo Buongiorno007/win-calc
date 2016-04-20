@@ -82,6 +82,7 @@
         lamGroupFiltered: [],
 
         //------ Add Elements
+        addElemNumb: 1,
         addElementsAll: [],
         tempAddElements: [],
 

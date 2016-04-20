@@ -616,6 +616,37 @@ th {
   }
 }
 /* line 169, ../../dev/sass/base/_animations.scss */
+.move-test {
+  -moz-animation: move-test 1s ease 0s 1;
+  -webkit-animation: move-test 1s ease 0s 1;
+  animation: move-test 1s ease 0s 1;
+}
+
+@-moz-keyframes move-test {
+  from {
+    transform: translate(62.5rem, -125rem);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@-webkit-keyframes move-test {
+  from {
+    transform: translate(62.5rem, -125rem);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes move-test {
+  from {
+    transform: translate(62.5rem, -125rem);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+/* line 174, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s ease 0s 1;
   -webkit-animation: move-visor 1s ease 0s 1;
@@ -646,7 +677,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 174, ../../dev/sass/base/_animations.scss */
+/* line 179, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s ease 0s 1;
   -webkit-animation: move-spillway 1s ease 0s 1;
@@ -677,7 +708,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 179, ../../dev/sass/base/_animations.scss */
+/* line 184, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s ease 0s 1;
   -webkit-animation: move-outside 1s ease 0s 1;
@@ -708,7 +739,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 184, ../../dev/sass/base/_animations.scss */
+/* line 189, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s ease 0s 1;
   -webkit-animation: move-windowsill 2s ease 0s 1;
@@ -739,7 +770,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 190, ../../dev/sass/base/_animations.scss */
+/* line 195, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s ease 0s 1;
   -webkit-animation: move-louvers 2s ease 0s 1;
@@ -770,7 +801,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 195, ../../dev/sass/base/_animations.scss */
+/* line 200, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s ease 2s 1;
   -webkit-animation: move-louver-1 2s ease 2s 1;
@@ -810,7 +841,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 200, ../../dev/sass/base/_animations.scss */
+/* line 205, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s ease 2s 1;
   -webkit-animation: move-louver-2 2s ease 2s 1;
@@ -850,7 +881,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 205, ../../dev/sass/base/_animations.scss */
+/* line 210, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s ease 2s 1;
   -webkit-animation: move-louver-3 2s ease 2s 1;
@@ -890,7 +921,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 210, ../../dev/sass/base/_animations.scss */
+/* line 215, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s ease 2s 1;
   -webkit-animation: move-louver-bottom 2s ease 2s 1;
@@ -930,7 +961,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 216, ../../dev/sass/base/_animations.scss */
+/* line 221, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s ease 0s 1;
   -webkit-animation: move-slope-top 1s ease 0s 1;
@@ -961,7 +992,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 221, ../../dev/sass/base/_animations.scss */
+/* line 226, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s ease 0s 1;
   -webkit-animation: move-slope-right 1s ease 0s 1;
@@ -992,7 +1023,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 226, ../../dev/sass/base/_animations.scss */
+/* line 231, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s ease 0s 1;
   -webkit-animation: move-slope-left 1s ease 0s 1;
@@ -1023,7 +1054,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 232, ../../dev/sass/base/_animations.scss */
+/* line 237, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
@@ -1078,7 +1109,7 @@ th {
     transform: rotate(360deg);
   }
 }
-/* line 239, ../../dev/sass/base/_animations.scss */
+/* line 244, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s ease 0s 1;
   -webkit-animation: move-handle 1s ease 0s 1;
@@ -1109,7 +1140,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 245, ../../dev/sass/base/_animations.scss */
+/* line 250, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s ease 0s 1;
   -webkit-animation: move-tab 1s ease 0s 1;
@@ -8788,107 +8819,119 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 84, ../../dev/sass/panels/add-elements.scss */
+/* line 82, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliary-item.focused .aux-test-img {
+  background-image: url('../img/auxiliaries-focused/test.png?1461151644');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+/* line 89, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-choose-but {
   color: #fff;
 }
-/* line 90, ../../dev/sass/panels/add-elements.scss */
+/* line 95, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
   background-image: url('../img/auxiliaries-selected/grid.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 95, ../../dev/sass/panels/add-elements.scss */
+/* line 100, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
   background-image: url('../img/auxiliaries-selected/visor.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 100, ../../dev/sass/panels/add-elements.scss */
+/* line 105, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
   background-image: url('../img/auxiliaries-selected/spillway.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 105, ../../dev/sass/panels/add-elements.scss */
+/* line 110, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
   background-image: url('../img/auxiliaries-selected/windowsill.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 110, ../../dev/sass/panels/add-elements.scss */
+/* line 115, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
   background-image: url('../img/auxiliaries-selected/louvers-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 115, ../../dev/sass/panels/add-elements.scss */
+/* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
   background-image: url('../img/auxiliaries-selected/louvers-middle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 120, ../../dev/sass/panels/add-elements.scss */
+/* line 125, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
   background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 125, ../../dev/sass/panels/add-elements.scss */
+/* line 130, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
   background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 130, ../../dev/sass/panels/add-elements.scss */
+/* line 135, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
   background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 135, ../../dev/sass/panels/add-elements.scss */
+/* line 140, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
   background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 140, ../../dev/sass/panels/add-elements.scss */
+/* line 145, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
   background-image: url('../img/auxiliaries-selected/fan.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 145, ../../dev/sass/panels/add-elements.scss */
+/* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
   background-image: url('../img/auxiliaries-selected/force-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 150, ../../dev/sass/panels/add-elements.scss */
+/* line 155, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
   background-image: url('../img/auxiliaries-selected/balcon-connector.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 155, ../../dev/sass/panels/add-elements.scss */
+/* line 160, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
   background-image: url('../img/auxiliaries-selected/handle.png?1457541444');
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 163, ../../dev/sass/panels/add-elements.scss */
+/* line 165, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .auxiliary-item.selected .aux-test-img {
+  background-image: url('../img/auxiliaries-focused/test.png?1461151644');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+/* line 173, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-grid.focused,
 .auxiliaries-container .aux-spillway.focused,
 .auxiliaries-container .aux-outside.focused {
   z-index: 20;
 }
-/* line 170, ../../dev/sass/panels/add-elements.scss */
+/* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-grid {
   top: 22.5rem;
   left: 55.625rem;
   z-index: 3;
 }
-/* line 175, ../../dev/sass/panels/add-elements.scss */
+/* line 185, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-grid-img {
   top: 0rem;
   left: 0rem;
@@ -8899,13 +8942,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 187, ../../dev/sass/panels/add-elements.scss */
+/* line 197, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-visor {
   top: 8.75rem;
   left: 33.75rem;
   z-index: 4;
 }
-/* line 192, ../../dev/sass/panels/add-elements.scss */
+/* line 202, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-visor-img {
   top: 0rem;
   left: 0rem;
@@ -8916,13 +8959,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 203, ../../dev/sass/panels/add-elements.scss */
+/* line 213, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-spillway {
   top: 43.125rem;
   left: 33.75rem;
   z-index: 5;
 }
-/* line 208, ../../dev/sass/panels/add-elements.scss */
+/* line 218, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-spillway-img {
   top: 0rem;
   left: 0rem;
@@ -8933,13 +8976,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 219, ../../dev/sass/panels/add-elements.scss */
+/* line 229, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-outside {
   top: 23.75rem;
   left: 27.5rem;
   z-index: 6;
 }
-/* line 224, ../../dev/sass/panels/add-elements.scss */
+/* line 234, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-outside-img {
   top: 0rem;
   left: 0rem;
@@ -8950,13 +8993,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 235, ../../dev/sass/panels/add-elements.scss */
+/* line 245, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-windowsill {
   top: 72.5rem;
   left: 6.25rem;
   z-index: 7;
 }
-/* line 240, ../../dev/sass/panels/add-elements.scss */
+/* line 250, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-windowsill-img {
   top: 0rem;
   left: 0rem;
@@ -8967,19 +9010,36 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 252, ../../dev/sass/panels/add-elements.scss */
+/* line 261, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .aux-test {
+  top: 72.5rem;
+  left: 6.25rem;
+  z-index: 7;
+}
+/* line 265, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .aux-test-img {
+  top: -56.25rem;
+  left: 50rem;
+  position: absolute;
+  width: 35.3125rem;
+  height: 60.3125rem;
+  background-image: url('../img/auxiliaries/test.png?1461151644');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+/* line 277, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver {
   top: 46.875rem;
   left: 33.125rem;
   z-index: 8;
 }
-/* line 257, ../../dev/sass/panels/add-elements.scss */
+/* line 282, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-img {
   top: 0rem;
   left: 0rem;
   position: relative;
 }
-/* line 262, ../../dev/sass/panels/add-elements.scss */
+/* line 287, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-top {
   top: 0rem;
   left: 3.125rem;
@@ -8991,7 +9051,7 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 273, ../../dev/sass/panels/add-elements.scss */
+/* line 298, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-midle {
   position: absolute;
   left: 3.125rem;
@@ -9001,22 +9061,22 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 283, ../../dev/sass/panels/add-elements.scss */
+/* line 308, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .louver-midle-1 {
   z-index: 9;
   top: 1.6875rem;
 }
-/* line 288, ../../dev/sass/panels/add-elements.scss */
+/* line 313, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .louver-midle-2 {
   z-index: 8;
   top: 4.0625rem;
 }
-/* line 293, ../../dev/sass/panels/add-elements.scss */
+/* line 318, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .louver-midle-3 {
   z-index: 7;
   top: 6.4375rem;
 }
-/* line 298, ../../dev/sass/panels/add-elements.scss */
+/* line 323, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-bottom {
   top: 8.9375rem;
   left: 3.125rem;
@@ -9028,19 +9088,19 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 310, ../../dev/sass/panels/add-elements.scss */
+/* line 335, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside {
   top: 31.875rem;
   left: 13.125rem;
   z-index: 9;
 }
-/* line 315, ../../dev/sass/panels/add-elements.scss */
+/* line 340, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-img {
   top: 0rem;
   left: 0rem;
   position: relative;
 }
-/* line 320, ../../dev/sass/panels/add-elements.scss */
+/* line 345, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-top {
   top: 0rem;
   left: 3.125rem;
@@ -9051,7 +9111,7 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 330, ../../dev/sass/panels/add-elements.scss */
+/* line 355, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-right {
   top: 11.25rem;
   left: 42.5rem;
@@ -9062,7 +9122,7 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 340, ../../dev/sass/panels/add-elements.scss */
+/* line 365, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-left {
   top: 3.75rem;
   left: 0rem;
@@ -9073,13 +9133,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 351, ../../dev/sass/panels/add-elements.scss */
+/* line 376, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-fan {
   top: 61.875rem;
   left: 22.375rem;
   z-index: 10;
 }
-/* line 356, ../../dev/sass/panels/add-elements.scss */
+/* line 381, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-fan-img {
   top: 0rem;
   left: 0rem;
@@ -9090,19 +9150,19 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 367, ../../dev/sass/panels/add-elements.scss */
+/* line 392, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-connectors {
   top: 61.875rem;
   left: 63.125rem;
   z-index: 11;
 }
-/* line 372, ../../dev/sass/panels/add-elements.scss */
+/* line 397, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-connectors-img {
   top: 0rem;
   left: 0rem;
   position: relative;
 }
-/* line 377, ../../dev/sass/panels/add-elements.scss */
+/* line 402, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-force-connect {
   top: 0rem;
   left: 0rem;
@@ -9113,7 +9173,7 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 388, ../../dev/sass/panels/add-elements.scss */
+/* line 413, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-balcon-connect {
   top: 1.875rem;
   left: 5.625rem;
@@ -9124,13 +9184,13 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 400, ../../dev/sass/panels/add-elements.scss */
+/* line 425, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-handle {
   top: 80.625rem;
   left: 3.125rem;
   z-index: 12;
 }
-/* line 405, ../../dev/sass/panels/add-elements.scss */
+/* line 430, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-handle-img {
   top: 0rem;
   left: 0rem;
@@ -9141,75 +9201,80 @@ tr.factory_item {
   background-repeat: no-repeat;
   background-size: contain;
 }
-/* line 417, ../../dev/sass/panels/add-elements.scss */
+/* line 442, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-others {
   top: 84.375rem;
   left: 78.75rem;
   z-index: 13;
 }
-/* line 423, ../../dev/sass/panels/add-elements.scss */
+/* line 448, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-txt-box {
   position: absolute;
 }
-/* line 427, ../../dev/sass/panels/add-elements.scss */
+/* line 452, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-grid-txt {
   top: 6.25rem;
   left: 15.625rem;
 }
-/* line 431, ../../dev/sass/panels/add-elements.scss */
+/* line 456, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-visor-txt {
   top: -3.125rem;
   left: 30rem;
 }
-/* line 435, ../../dev/sass/panels/add-elements.scss */
+/* line 460, ../../dev/sass/panels/add-elements.scss */
+.auxiliaries-container .aux-test-txt {
+  top: -3.125rem;
+  left: 30rem;
+}
+/* line 464, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-spillway-txt {
   top: 6.875rem;
   left: 46.0625rem;
 }
-/* line 439, ../../dev/sass/panels/add-elements.scss */
+/* line 468, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-outside-txt {
   top: -9.375rem;
   left: -21.875rem;
 }
-/* line 443, ../../dev/sass/panels/add-elements.scss */
+/* line 472, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-txt {
   top: 17.5rem;
   left: 3.125rem;
 }
-/* line 447, ../../dev/sass/panels/add-elements.scss */
+/* line 476, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-txt {
   top: -7.1875rem;
   left: -7.5rem;
 }
-/* line 451, ../../dev/sass/panels/add-elements.scss */
+/* line 480, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-connectors-txt {
   top: 4.375rem;
   left: 15.625rem;
 }
-/* line 455, ../../dev/sass/panels/add-elements.scss */
+/* line 484, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-fan-txt {
   top: 1.25rem;
   left: -20.3125rem;
 }
-/* line 459, ../../dev/sass/panels/add-elements.scss */
+/* line 488, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-windowsill-txt {
   top: 6.25rem;
   left: 46.875rem;
   width: 18.75rem;
 }
-/* line 464, ../../dev/sass/panels/add-elements.scss */
+/* line 493, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-handle-txt {
   top: 2.1875rem;
   left: 9.375rem;
 }
-/* line 468, ../../dev/sass/panels/add-elements.scss */
+/* line 497, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 472, ../../dev/sass/panels/add-elements.scss */
+/* line 501, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block.horisontal {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -9217,22 +9282,22 @@ tr.factory_item {
   align-items: center;
   min-width: 32.5rem;
 }
-/* line 477, ../../dev/sass/panels/add-elements.scss */
+/* line 506, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block.vertival {
   -webkit-flex-flow: column wrap;
   flex-flow: column wrap;
   width: 25rem;
 }
-/* line 483, ../../dev/sass/panels/add-elements.scss */
+/* line 512, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-info-box {
   width: 15.625rem;
 }
-/* line 487, ../../dev/sass/panels/add-elements.scss */
+/* line 516, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-title {
   color: #363636;
   cursor: pointer;
 }
-/* line 491, ../../dev/sass/panels/add-elements.scss */
+/* line 520, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-info {
   top: 26.25rem;
   left: 32.5rem;
@@ -9244,12 +9309,12 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 21;
 }
-/* line 503, ../../dev/sass/panels/add-elements.scss */
+/* line 532, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-info:after {
   color: #fff;
   content: "";
 }
-/* line 508, ../../dev/sass/panels/add-elements.scss */
+/* line 537, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-view-dialog {
   height: 60rem;
   padding-top: 2rem;
