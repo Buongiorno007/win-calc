@@ -4530,7 +4530,7 @@ div.drum figure {
   width: 6.25rem;
   height: 6.25rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo-steko.png?1460981143') no-repeat;
+  background: url('../img/login/logo-steko.png?1461063936') no-repeat;
   background-size: cover;
 }
 
@@ -6784,7 +6784,7 @@ tr.factory_item {
 }
 /* line 555, ../../dev/sass/pages/design.scss */
 .door-configuration ul.door-config-list {
-  width: 34rem;
+  width: 36rem;
   height: 73.8125rem;
   list-style: none;
   margin: 0;

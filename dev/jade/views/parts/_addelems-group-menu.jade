@@ -6,5 +6,5 @@
 
         button.group-indicator(ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}")
         .search-elements-block
-          .search-elem(ng-repeat="elemFind in typeAddElement.elems track by $index",
+          .search-elem(ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index",
           ng-class="typeAddElement.type.groupClass", ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)") {{ elemFind.name }}

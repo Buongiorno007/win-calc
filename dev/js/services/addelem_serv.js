@@ -191,8 +191,9 @@
             elemQty = elementsList[elementsQty].length;
             while(--elemQty > -1) {
               /** if grids, needs filter as to profile Id */
-              wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
-              if(wordPart === searchWord) {
+              //wordPart = elementsList[elementsQty][elemQty].name.substr(0, searchWord.length).toLowerCase();
+              wordPart = elementsList[elementsQty][elemQty].name.toLowerCase();
+              if(wordPart.indexOf(searchWord)+1) {
                 elemObj = {
                   typeInd: elementsQty,
                   index: elemQty,
