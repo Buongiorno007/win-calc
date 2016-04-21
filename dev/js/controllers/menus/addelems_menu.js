@@ -57,13 +57,20 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    function testing(elementId, typeId) {
-      if (AuxStor.aux.truefalse === 0) {
-        $("#listok").slideDown();
-        AuxStor.aux.truefalse = 1;
-      } else {
-        $("#listok").slideUp()
+    function hideMenu(elementId) {
+      console.log(elementId)
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
         AuxStor.aux.truefalse = 0;
+      } else {
+        $('#'+elementId).css({
+                    'width' : 100+'%',
+                    'height' : 'auto'
+                  })
+        AuxStor.aux.truefalse = 1;
       }
     }
 
@@ -135,7 +142,7 @@
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = selectAddElement;
-    thisCtrl.testing = testing;
+    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;

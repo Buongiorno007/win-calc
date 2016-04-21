@@ -37,6 +37,10 @@
     };
 
     //------- translate
+    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
+    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
+    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
     thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
@@ -59,11 +63,25 @@
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = false;
     }
-
-
+    function firstB() {
+      GlobalStor.global.addElemNumb = 1
+    }
+    function secondB() {
+      GlobalStor.global.addElemNumb = 2
+    }
+    function thirdB() {
+      GlobalStor.global.addElemNumb = 3
+    }
+    function fourthB(){
+      GlobalStor.global.addElemNumb = 4
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.firstB = firstB;
+    thisCtrl.secondB = secondB;
+    thisCtrl.thirdB = thirdB;
+    thisCtrl.fourthB = fourthB;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;

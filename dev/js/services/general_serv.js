@@ -22,7 +22,7 @@
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
-            typeMenu: 1,
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -76,7 +76,7 @@
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
-            typeMenu: 4,
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -103,7 +103,7 @@
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
-            typeMenu: 1,
+            typeMenu: 3,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -112,17 +112,36 @@
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
-            typeMenu: 4,
+            typeMenu: 2,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
 
-          /**second button*/
+          /**BLIND*/
           {
-            id: 44,
-            name: $filter('translate')('add_elements.TEST'),
-            typeClass: 'aux-test',
-            typeMenu: 6,
+            id: 99,
+            name: $filter('translate')('add_elements.BLIND'),
+            typeClass: 'aux-blind',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**GRATING*/
+          {
+            id: 9999,
+            name: $filter('translate')('add_elements.GRATING'),
+            typeClass: 'aux-grating',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+          /**SHUTTERS*/
+          {
+            id: 999,
+            name: $filter('translate')('add_elements.SHUTTERS'),
+            typeClass: 'aux-shutters',
+            typeMenu: 2,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }

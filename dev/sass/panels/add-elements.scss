@@ -14,6 +14,16 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-grating-img {
+        background-image: image-url($aux-img-focus-path+'/grating.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-shutters-img {
+        background-image: image-url($aux-img-focus-path+'/shutters.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-visor-img {
         background-image: image-url($aux-img-focus-path+'/visor.png');
         background-repeat: no-repeat;
@@ -79,8 +89,8 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
-      .aux-test-img {
-        background-image: image-url($aux-img-focus-path+'/test.png');
+      .aux-blind-img {
+        background-image: image-url($aux-img-focus-path+'/blind.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -99,6 +109,16 @@ $aux-img-select-path: 'auxiliaries-selected';
       }
       .aux-visor-img {
         background-image: image-url($aux-img-select-path+'/visor.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-grating-img {
+        background-image: image-url($aux-img-select-path+'/grating.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-shutters-img {
+        background-image: image-url($aux-img-select-path+'/shutters.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -162,8 +182,8 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
-      .aux-test-img {
-        background-image: image-url($aux-img-focus-path+'/test.png');
+      .aux-blind-img {
+        background-image: image-url($aux-img-focus-path+'/blind.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -178,7 +198,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Grid
   .aux-grid {
-    @include top_left_coord(360px, 890px);
+    @include top_left_coord(380px, 880px);
     z-index: 3;
   }
 
@@ -200,11 +220,43 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-visor-img {
-    @include top_left_coord(0px, 0px);
+    @include top_left_coord(10px, -250px);
     position: absolute;
-    width: rem(893px);
-    height: rem(261px);
+    width: rem(454px);
+    height: rem(772px);
     background-image: image-url($aux-img-path+'/visor.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+ 
+  //------Grating
+  .aux-grating {
+    @include top_left_coord(140px, 540px);
+    z-index: 4;
+  }
+
+  .aux-grating-img {
+    @include top_left_coord(520px, -340px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/grating.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  //------Shutters
+  .aux-shutters {
+    @include top_left_coord(140px, 540px);
+    z-index: 4;
+  }
+
+  .aux-shutters-img {
+    @include top_left_coord(-830px, 480px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/shutters.png');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -216,10 +268,10 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-spillway-img {
-    @include top_left_coord(0px, 0px);
+    @include top_left_coord(160px, 70px);
     position: absolute;
-    width: rem(719px);
-    height: rem(206px);
+    width: rem(454px);
+    height: rem(772px);
     background-image: image-url($aux-img-path+'/spillway.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -232,10 +284,10 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-outside-img {
-    @include top_left_coord(0px, 0px);
+    @include top_left_coord(70px, 310px);
     position: absolute;
-    width: rem(650px);
-    height: rem(610px);
+    width: rem(454px);
+    height: rem(772px);
     background-image: image-url($aux-img-path+'/outside.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -243,7 +295,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Windowsill
   .aux-windowsill {
-    @include top_left_coord(1160px, 100px);
+    @include top_left_coord(1100px, 120px);
     z-index: 7;
   }
 
@@ -257,17 +309,48 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-size: contain;
   }
   
-  //-----test
-  .aux-test {
+  //-----blind
+  .aux-blind {
     @include top_left_coord(1160px, 100px);
     z-index: 7;
   }
-  .aux-test-img {
-    @include top_left_coord(-900px, 800px);
+  .aux-blind-img {
+    @include top_left_coord(370px, -46px);
     position: absolute;
-    width: rem(565px);
-    height: rem(965px);
-    background-image: image-url($aux-img-path+'/test.png');
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/blind.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  //-----Template
+  .aux-template1 {
+    @include top_left_coord(1160px, 100px);
+    z-index: 7;
+  }
+  .aux-template1-img {
+    @include top_left_coord(0px, 0px);
+    position: absolute;
+    top: 10rem;
+    left: 6rem;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/template1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .aux-template2 {
+    @include top_left_coord(1160px, 100px);
+    z-index: 7;
+  }
+  .aux-template2-img {
+    @include top_left_coord(140px, 40px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/template2.png');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -333,7 +416,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Inside-slope
   .aux-inside {
-    @include top_left_coord(510px, 210px);
+    @include top_left_coord(410px, 350px);
     z-index: 9;
   }
 
@@ -374,7 +457,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Fun
   .aux-fan {
-    @include top_left_coord(990px, 358px);
+    @include top_left_coord(900px, 370px);
     z-index: 10;
   }
 
@@ -423,7 +506,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Handle
   .aux-handle {
-    @include top_left_coord(1290px, 50px);
+    @include top_left_coord(1050px, 550px);
     z-index: 12;
   }
 
@@ -440,7 +523,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Others
   .aux-others {
-    @include top_left_coord(1350px, 1260px);
+    @include top_left_coord(1150px, 1260px);
     z-index: 13;
   }
 
@@ -454,19 +537,27 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-visor-txt {
-    @include top_left_coord(-50px, 480px);
+    @include top_left_coord(210px, -280px);
   }
 
-  .aux-test-txt {
-    @include top_left_coord(-50px, 480px);
+  .aux-grating-txt {
+    @include top_left_coord(920px, -480px);
+  }
+
+  .aux-blind-txt {
+    @include top_left_coord(-500px, 150px);
+  }
+  
+  .aux-shutters-txt {
+    @include top_left_coord(140px, 530px);
   }
 
   .aux-spillway-txt {
-    @include top_left_coord(110px, 737px);
+    @include top_left_coord(630px, 400px);
   }
 
   .aux-outside-txt {
-    @include top_left_coord(-150px, -350px);
+    @include top_left_coord(350px, 620px);
   }
 
   .aux-louver-txt {
@@ -524,6 +615,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include font-icon(rem(30px), 1);
 
     position: absolute;
+    display: none;
     width: rem(50px);
     height: rem(50px);
     border-radius: 50%;
@@ -544,3 +636,19 @@ $aux-img-select-path: 'auxiliaries-selected';
     text-align: center;
   }
 }
+
+  .numberMenu {
+    position: relative;
+    width: 23%;
+    left: 4%;
+    top: 1rem;
+    text-align: center;
+    color: white;
+    float: left;
+    height: 5rem;
+    line-height: 5rem;
+    font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
+    margin: 1.25rem 0.25rem;
+    border-radius: 1rem;
+    background-color: orange;
+  }

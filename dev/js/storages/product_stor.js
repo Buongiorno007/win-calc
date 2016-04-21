@@ -62,7 +62,9 @@
           [], // 8 - windowSill
           [], // 9 - handles
           [], // 10 - others
-          []  // 11 - test 
+          [], // 11 - shutters 
+          [], // 12 - grating 
+          []  // 13 - blind 
         ],
 
         door_shape_id: 1,

@@ -2167,13 +2167,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    function testing(elementId, typeId) {
-      if (AuxStor.aux.truefalse === 0) {
-        $("#listok").slideDown();
-        AuxStor.aux.truefalse = 1;
-      } else {
-        $("#listok").slideUp()
+    function hideMenu(elementId) {
+      console.log(elementId)
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
         AuxStor.aux.truefalse = 0;
+      } else {
+        $('#'+elementId).css({
+                    'width' : 100+'%',
+                    'height' : 'auto'
+                  })
+        AuxStor.aux.truefalse = 1;
       }
     }
 
@@ -2245,7 +2252,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = selectAddElement;
-    thisCtrl.testing = testing;
+    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
@@ -3105,6 +3112,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     };
 
     //------- translate
+    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
+    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
+    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
     thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
@@ -3127,11 +3138,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = false;
     }
-
-
+    function firstB() {
+      GlobalStor.global.addElemNumb = 1
+    }
+    function secondB() {
+      GlobalStor.global.addElemNumb = 2
+    }
+    function thirdB() {
+      GlobalStor.global.addElemNumb = 3
+    }
+    function fourthB(){
+      GlobalStor.global.addElemNumb = 4
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.firstB = firstB;
+    thisCtrl.secondB = secondB;
+    thisCtrl.thirdB = thirdB;
+    thisCtrl.fourthB = fourthB;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -11835,7 +11860,7 @@ function ErrorResult(code, message) {
             id: 20,
             name: $filter('translate')('add_elements.GRIDS'),
             typeClass: 'aux-grid',
-            typeMenu: 1,
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -11889,7 +11914,7 @@ function ErrorResult(code, message) {
             id: 12,
             name: $filter('translate')('add_elements.CONNECTORS'),
             typeClass: 'aux-connectors',
-            typeMenu: 4,
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -11916,7 +11941,7 @@ function ErrorResult(code, message) {
             id: 24,
             name: $filter('translate')('add_elements.HANDLELS'),
             typeClass: 'aux-handle',
-            typeMenu: 1,
+            typeMenu: 3,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -11925,17 +11950,36 @@ function ErrorResult(code, message) {
             id: 18,
             name: $filter('translate')('add_elements.OTHERS'),
             typeClass: 'aux-others',
-            typeMenu: 4,
+            typeMenu: 2,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
 
-          /**second button*/
+          /**BLIND*/
           {
-            id: 44,
-            name: $filter('translate')('add_elements.TEST'),
-            typeClass: 'aux-test',
-            typeMenu: 6,
+            id: 99,
+            name: $filter('translate')('add_elements.BLIND'),
+            typeClass: 'aux-blind',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**GRATING*/
+          {
+            id: 9999,
+            name: $filter('translate')('add_elements.GRATING'),
+            typeClass: 'aux-grating',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+          /**SHUTTERS*/
+          {
+            id: 999,
+            name: $filter('translate')('add_elements.SHUTTERS'),
+            typeClass: 'aux-shutters',
+            typeMenu: 2,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
@@ -24837,7 +24881,9 @@ console.log('ProductStor.product', ProductStor.product)
           [], // 8 - windowSill
           [], // 9 - handles
           [], // 10 - others
-          []  // 11 - test 
+          [], // 11 - shutters 
+          [], // 12 - grating 
+          []  // 13 - blind 
         ],
 
         door_shape_id: 1,
@@ -25442,6 +25488,9 @@ console.log('ProductStor.product', ProductStor.product)
         FAN: 'microairing',
         WINDOWSILL: 'windowsill',
         HANDLEL: 'handle',
+        INSIDES: 'inside',
+        OUTSIDES: 'outside',
+        COMPONENTS: 'components',
         OTHERS: 'other',
         GRIDS: 'mosquito grids',
         VISORS: 'peaks',
@@ -26550,7 +26599,12 @@ console.log('ProductStor.product', ProductStor.product)
         WINDOWSILL: 'подоконник',
         HANDLEL: 'ручка',
         OTHERS: 'прочее',
-        TEST: 'тестим',
+        INSIDES: 'Внутренние',
+        OUTSIDES: 'Наружные',
+        COMPONENTS: 'Компоненты',
+        BLIND: 'ставни',
+        GRATING: 'наружный переплёт',
+        SHUTTERS: 'роллеты',
         GRIDS: 'москитные сетки',
         VISORS: 'козырьки',
         SPILLWAYS: 'водоотливы',

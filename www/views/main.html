@@ -325,12 +325,14 @@
       <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
         <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
           <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
-            <div ng-show="elementsPanel.G.global.addElemNumb === 2" class="aux-outside-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.addElemNumb === 2" class="aux-template2-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.addElemNumb === 1 || elementsPanel.G.global.addElemNumb === 3" class="aux-template1-img move-outside"></div>
           </div>
-          <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.config.addElementDATA[$index].typeMenu === 2" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
+          <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.addElemNumb" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
             <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
             <div ng-switch-when="1" class="aux-visor-img move-visor"></div>
             <div ng-switch-when="2" class="aux-spillway-img move-spillway"></div>
+            <div ng-switch-when="3" class="aux-outside-img move-outside"></div>
             <div ng-switch-when="4" class="aux-louver-img move-louvers">
               <div class="aux-louver-top"></div>
               <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
@@ -351,7 +353,9 @@
             <div ng-switch-when="8" class="aux-windowsill-img move-windowsill"></div>
             <div ng-switch-when="9" class="aux-handle-img move-handle"></div>
             <div ng-switch-when="10" class="aux-txt-box aux-others-txt"></div>
-            <div ng-switch-when="11" class="aux-test-img move-test"></div>
+            <div ng-switch-when="11" class="aux-shutters-img move-shutters"></div>
+            <div ng-switch-when="12" class="aux-grating-img move-grating"></div>
+            <div ng-switch-when="13" class="aux-blind-img move-blind"></div>
             <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
               <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
                 <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
@@ -380,6 +384,10 @@
               </div>
             </div>
           </div>
+          <div ng-click="elementsPanel.firstB()" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
+          <div ng-click="elementsPanel.secondB()" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
+          <div ng-click="elementsPanel.thirdB()" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
+          <div ng-click="elementsPanel.fourthB" class="numberMenu">{{::elementsPanel.OTHERS}}</div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
             <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>
@@ -550,8 +558,8 @@
                 <div class="value">{{ ::elementsMenu.EMPTY_ELEMENT }}</div>
               </li>
             </ul>
-            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
-              <div class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
+            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" class="items-list">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
               <li ng-repeat="addElement in type track by $index" class="item">
                 <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" ng-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
