@@ -1636,6 +1636,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             'a2da6d85764368b24392740020efbc92',
             'ceb60bfed037baaa484bd7b88d274c98',
             '632b3213660804acb71fe045c6e321ed',
+            'd11758b674ac02f0fcf128dcc906dbef',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1671,6 +1672,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '9201922876',
             '903528981',
             '9301600441',
+            '89324310961',
 
             '000001',
             '000002',
@@ -1706,6 +1708,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '9201922876',
             '903528981',
             '9301600441',
+            '89324310961',
 
             '000001',
             '000002',
@@ -1838,7 +1841,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               checkingUser();
             }
           });
-*/
+//*/
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -8831,10 +8834,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -24898,7 +24901,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Vollständiger Name',
         CALL_ORDER_DELIVERY: 'Liefern Sie eine Bestellung für',
         CALL_ORDER_TOTAL_PRICE: 'insgesamt',
-        CALL_ORDER_ADD_INFO: 'Extras (optional):',
+        CALL_ORDER_ADD_INFO: 'Extras:',
+        CLIENT_EMAIL_ORDER: 'Электронная почта для получения спецификации',
         CLIENT_EMAIL: 'E-Mail',
         ADD_PHONE: 'Zusätzliche Telefon',
         CALL_CREDIT: 'Machen Tranche und um zu berechnen',
@@ -25269,7 +25273,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Full Name',
         CALL_ORDER_DELIVERY: 'Deliver an order for',
         CALL_ORDER_TOTAL_PRICE: 'in all',
-        CALL_ORDER_ADD_INFO: 'Extras (Optional):',
+        CALL_ORDER_ADD_INFO: 'Extras:',
+        CLIENT_EMAIL_ORDER: 'Электронная почта для получения спецификации',
         CLIENT_EMAIL: 'Email',
         ADD_PHONE: 'Additional phone',
         CALL_CREDIT: 'Making installment and order to calculate',
@@ -25638,7 +25643,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Cognome Nome Patronimico',
         CALL_ORDER_DELIVERY: 'Consegnare l’ordine per',
         CALL_ORDER_TOTAL_PRICE: 'In totale',
-        CALL_ORDER_ADD_INFO: 'In aggiunta (campo facoltativo):',
+        CALL_ORDER_ADD_INFO: 'In aggiunta:',
+        CLIENT_EMAIL_ORDER: 'Электронная почта для получения спецификации',
         CLIENT_EMAIL: 'posta elettronica',
         ADD_PHONE: 'Telefono supplementare',
         CALL_CREDIT: 'Concessione rateazione e Accettazione dell’ordine per il conteggio',
@@ -26008,7 +26014,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Nume Prenume Patronimic',
         CALL_ORDER_DELIVERY: 'Livrare comandă la',
         CALL_ORDER_TOTAL_PRICE: 'Total',
-        CALL_ORDER_ADD_INFO: 'Suplimentar (a se completa la dorință):',
+        CALL_ORDER_ADD_INFO: 'Suplimentar:',
+        CLIENT_EMAIL_ORDER: 'Электронная почта для получения спецификации',
         CLIENT_EMAIL: 'E-mail',
         ADD_PHONE: 'Număr de telefon suplimentar',
         CALL_CREDIT: 'Achitare în rate și perfectarea comenzii pentru calculare',
@@ -26377,7 +26384,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Фамилия Имя Отчество',
         CALL_ORDER_DELIVERY: 'Доставить заказ на',
         CALL_ORDER_TOTAL_PRICE: 'Всего',
-        CALL_ORDER_ADD_INFO: 'Дополнительно (заполняйте по желанию):',
+        CALL_ORDER_ADD_INFO: 'Дополнительно:',
+        CLIENT_EMAIL_ORDER: 'Электронная почта для получения спецификации',
         CLIENT_EMAIL: 'Электронная почта',
         ADD_PHONE: 'Дополнительный телефон',
         CALL_CREDIT: 'Оформление рассрочки и заказа для рассчета',
@@ -26746,7 +26754,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CLIENT_NAME: 'Прізвище Ім`я По батькові',
         CALL_ORDER_DELIVERY: 'Доставити замовлення на',
         CALL_ORDER_TOTAL_PRICE: 'Загалом',
-        CALL_ORDER_ADD_INFO: 'Додатково (заповнюйте за бажанням):',
+        CALL_ORDER_ADD_INFO: 'Додатково:',
+        CLIENT_EMAIL_ORDER: 'Електронна пошта для отримання специфiкацii',
         CLIENT_EMAIL: 'Електронна пошта',
         ADD_PHONE: 'Додатковий телефон',
         CALL_CREDIT: 'Оформлення розстрочки і замовлення для розрахунку',

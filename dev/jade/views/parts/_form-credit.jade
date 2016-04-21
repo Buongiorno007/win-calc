@@ -63,13 +63,12 @@
 
         .cart-dialog-label {{ ::orderForm.CALL_ORDER_ADD_INFO }}
 
-        .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.mail.$error.required }")
-          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL }}", required)
-          .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.required") {{ ::orderForm.EMPTY_FIELD }}
+        .input-field
+          input.user-field(type="email", name="mail", ng-model="orderForm.C.cart.customer.customer_email", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}")
           .error-tooltip(ng-show="orderForm.C.cart.submitted && callCreditForm.mail.$error.email") {{ ::orderForm.WRONG_EMAIL }}
 
         .input-field
-          input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-pattern="", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.ADD_PHONE }}")
+          input.user-field(type="tel", name="phone2", ng-model="orderForm.C.cart.customer.customer_phone_city", ng-focus="orderForm.C.cart.isCityBox = 0", placeholder="{{ ::orderForm.ADD_PHONE }}")
 
         .input-field
           .subtitle-field {{ ::orderForm.CLIENT_SEX }}

@@ -818,13 +818,12 @@
               </div>
               <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currency }}</div>
               <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required }" class="input-field">
-                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL }}" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              <div class="input-field">
+                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
               </div>
               <div class="input-field">
-                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
               </div>
               <div class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
@@ -932,13 +931,12 @@
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
               </div>
               <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required }" class="input-field">
-                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL }}" required class="user-field">
-                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              <div class="input-field">
+                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
               </div>
               <div class="input-field">
-                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
               </div>
               <div class="input-field">
                 <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
