@@ -501,7 +501,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 2}" ng-click="configMenu.selectConfigPanel(2)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div ng-if="configMenu.P.product.construction_type !== 4" data-output="{{ configMenu.P.product.profile.name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName }}</div>
+            <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorName | translate }}</div>
             <div ng-if="configMenu.P.product.construction_type === 4" class="value">{{ configMenu.P.product.doorSashName }}</div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" ng-click="configMenu.selectConfigPanel(3)" class="item">

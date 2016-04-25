@@ -895,10 +895,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      thisCtrl.config.selectedStep1 = 1;
-      thisCtrl.config.selectedStep2 = 1;
-      thisCtrl.config.selectedStep3 = 1;
-      thisCtrl.config.selectedStep4 = 1;
+      //thisCtrl.config.selectedStep1 = 1;
+      //thisCtrl.config.selectedStep2 = 1;
+      //thisCtrl.config.selectedStep3 = 1;
+      //thisCtrl.config.selectedStep4 = 1;
     }
 
 
@@ -1019,7 +1019,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- Save Door Configuration --------*/
 
     function saveDoorConfig() {
-      DesignServ.setNewDoorParamValue(DesignStor.design);
+      DesignServ.setNewDoorParamValue(ProductStor.product, DesignStor.design);
       DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
@@ -1793,9 +1793,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          console.log('IMPORT');
-          checkingUser();
-/*
+          //console.log('IMPORT');
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -9053,10 +9053,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-       //serverIP: 'http://api.windowscalculator.net',
-       //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -9848,30 +9848,24 @@ function ErrorResult(code, message) {
 
     /**---------------- DOORs--------------*/
 
-    function setNewDoorParamValue(source) {
-      source.doorConfig.doorShapeName = source.doorShapeList[source.doorConfig.doorShapeIndex].name;
-      source.doorConfig.sashShapeName = source.sashShapeList[source.doorConfig.sashShapeIndex].frame.name +
-        '/'+ source.sashShapeList[source.doorConfig.sashShapeIndex].sash.name;
-      source.doorConfig.handleShape = source.handleShapeList[source.doorConfig.handleShapeIndex];
-      source.doorConfig.lockShape = source.lockShapeList[source.doorConfig.lockShapeIndex];
+
+    function setDoorParamValue(product, source) {
+      product.doorName = source.doorShapeList[product.door_shape_id].name;
+      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].frame.name +
+        '/'+ source.sashShapeList[product.door_sash_shape_id].sash.name;
+      product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
+      product.doorLock = source.lockShapeList[product.door_lock_shape_id];
     }
 
 
-    function setDoorParamInSource(product, source) {
-      source.doorConfig.doorShapeIndex = product.door_shape_id;
-      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
-      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
-      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
+    function setNewDoorParamValue(product, source) {
+      //------- save new door config
+      product.door_shape_id = source.doorConfig.doorShapeIndex;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
 
-      setNewDoorParamValue(source);
-    }
-
-
-    function setDoorParamInProduct(product, doorConfig) {
-      product.doorName = doorConfig.doorShapeName;
-      product.doorSashName = doorConfig.sashShapeName;
-      product.doorHandle = doorConfig.handleShape;
-      product.doorLock = doorConfig.lockShape;
+      setDoorParamValue(product, source);
     }
 
 
@@ -9918,8 +9912,7 @@ function ErrorResult(code, message) {
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
         DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
 
-        setDoorParamInSource(product, DesignStor.designSource);
-        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
+        setDoorParamValue(product, DesignStor.designSource);
       }
     }
 
@@ -11873,17 +11866,9 @@ function ErrorResult(code, message) {
 
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
-              //------- save new door config
-              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
-              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
-              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
-              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
-
-              setDoorParamInProduct(ProductStor.product, doorConfig);
-
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
               ));
             }
@@ -11987,7 +11972,6 @@ function ErrorResult(code, message) {
       stepBack: stepBack,
       //---- door
       setNewDoorParamValue: setNewDoorParamValue,
-      //setDoorParams: setDoorParams
       setDoorConfigDefault: setDoorConfigDefault
 
     };
@@ -12160,9 +12144,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -18141,9 +18125,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           deferred.resolve(1);
         }
       });
-console.log('ProductStor.product', ProductStor.product)
       return deferred.promise;
-
     }
 
 
@@ -24558,6 +24540,10 @@ console.log('ProductStor.product', ProductStor.product)
           /** set new Template Group */
           if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+
+            /** rebuild profile */
+            MainServ.setCurrentProfile(ProductStor.product, 0);
+
             /** DOOR */
             if(ProductStor.product.construction_type === 4) {
               DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -24566,7 +24552,7 @@ console.log('ProductStor.product', ProductStor.product)
 
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[DesignStor.design.doorConfig.sashShapeIndex].profileId,
+                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
               ));
             }
@@ -24921,13 +24907,13 @@ console.log('ProductStor.product', ProductStor.product)
         handleShapeList: [],
         lockShapeList: [],
         doorConfig: {
-          doorShapeIndex: 0,
+          doorShapeIndex: '',
           doorShapeName: '',
-          sashShapeIndex: 0,
+          sashShapeIndex: '',
           sashShapeName: '',
-          handleShapeIndex: 0,
+          handleShapeIndex: '',
           handleShape: {},
-          lockShapeIndex: 0,
+          lockShapeIndex: '',
           lockShape: {}
         }
 

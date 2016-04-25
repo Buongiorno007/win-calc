@@ -741,30 +741,24 @@
 
     /**---------------- DOORs--------------*/
 
-    function setNewDoorParamValue(source) {
-      source.doorConfig.doorShapeName = source.doorShapeList[source.doorConfig.doorShapeIndex].name;
-      source.doorConfig.sashShapeName = source.sashShapeList[source.doorConfig.sashShapeIndex].frame.name +
-        '/'+ source.sashShapeList[source.doorConfig.sashShapeIndex].sash.name;
-      source.doorConfig.handleShape = source.handleShapeList[source.doorConfig.handleShapeIndex];
-      source.doorConfig.lockShape = source.lockShapeList[source.doorConfig.lockShapeIndex];
+
+    function setDoorParamValue(product, source) {
+      product.doorName = source.doorShapeList[product.door_shape_id].name;
+      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].frame.name +
+        '/'+ source.sashShapeList[product.door_sash_shape_id].sash.name;
+      product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
+      product.doorLock = source.lockShapeList[product.door_lock_shape_id];
     }
 
 
-    function setDoorParamInSource(product, source) {
-      source.doorConfig.doorShapeIndex = product.door_shape_id;
-      source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
-      source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
-      source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
+    function setNewDoorParamValue(product, source) {
+      //------- save new door config
+      product.door_shape_id = source.doorConfig.doorShapeIndex;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
 
-      setNewDoorParamValue(source);
-    }
-
-
-    function setDoorParamInProduct(product, doorConfig) {
-      product.doorName = doorConfig.doorShapeName;
-      product.doorSashName = doorConfig.sashShapeName;
-      product.doorHandle = doorConfig.handleShape;
-      product.doorLock = doorConfig.lockShape;
+      setDoorParamValue(product, source);
     }
 
 
@@ -811,8 +805,7 @@
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
         DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
 
-        setDoorParamInSource(product, DesignStor.designSource);
-        setDoorParamInProduct(product, DesignStor.designSource.doorConfig);
+        setDoorParamValue(product, DesignStor.designSource);
       }
     }
 
@@ -2766,17 +2759,9 @@
 
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
-              //------- save new door config
-              ProductStor.product.door_shape_id = doorConfig.doorShapeIndex;
-              ProductStor.product.door_sash_shape_id = doorConfig.sashShapeIndex;
-              ProductStor.product.door_handle_shape_id = doorConfig.handleShapeIndex;
-              ProductStor.product.door_lock_shape_id = doorConfig.lockShapeIndex;
-
-              setDoorParamInProduct(ProductStor.product, doorConfig);
-
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[doorConfig.sashShapeIndex].profileId,
+                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
               ));
             }
@@ -2880,7 +2865,6 @@
       stepBack: stepBack,
       //---- door
       setNewDoorParamValue: setNewDoorParamValue,
-      //setDoorParams: setDoorParams
       setDoorConfigDefault: setDoorConfigDefault
 
     };
