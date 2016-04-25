@@ -26,6 +26,7 @@
         tempSize: [],
         currAddElementPrice: 0,
         isTabFrame: 0,
+        truefalse: 0,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,

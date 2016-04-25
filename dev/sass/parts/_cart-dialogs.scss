@@ -12,6 +12,29 @@
   z-index: 3;
 }
 
+.box-menu {
+  @extend .backDarkView;
+  opacity: 1.08;
+  z-index: 10000;
+}
+
+.edit-template {
+  width: 45px;
+  position: absolute;
+  height: 90px;
+  left: 15px;
+  background-color:  #2E8B57;
+  z-index: 34;
+}
+.copy-template {
+position: absolute;
+  width: 45px;
+  height: 90px;
+  left:0px;
+  background-color: #800000;
+  z-index: 35;
+}
+
 .cart-dialogs-container {
   @include box-shadow(rgba(98, 67, 48, .5) 0 0 rem(15px) 1px);
 

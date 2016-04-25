@@ -1,0 +1,123 @@
+.background {
+	background: #FFFFFF;
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	height: 100%;
+	width: 100%; 
+}
+.order-cont {
+	padding: rem(70px) rem(40px) 0 rem(50px);
+	background-color: #fff;
+	height: 100%;
+	overflow: auto;
+}
+
+.boxText{
+	position: relative;
+	top: 2rem;
+	left: 0rem;
+	height: 5%;
+	width: 100%;
+    border-radius: 2rem;
+    margin: 2rem;
+	float: left; 
+}
+.box {
+	position: absolute;
+	height: auto;
+	width: 5%; 
+	top: 0%;
+}
+.box1 {
+	position: absolute;
+	height: auto;
+	width: 18%;
+	top: 0%; 
+	left: 75%;
+
+}
+.box2 {
+	position: absolute;
+	height: auto;
+	top: 0%;
+	width: 20%; 
+	left: 50%;
+}
+.box3 {
+	position: absolute;
+	height: auto;
+	width: 15%;
+	top: 0%; 
+	left: 7%;
+}
+.box4 {
+	position: relative;
+	height: auto;
+	width: 5%; 
+	left: 18%;
+}
+.user-select-field-m {
+  @extend .user-field-m;
+  @include appearance(none);
+  background-color: #fff;
+}
+.cart-menu-m {
+  border-radius: 2rem;
+  background: rgba(#f8f8f8, .95);
+  box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
+  @extend .menu-right-general;
+  @include justify-content(space-between);
+  position: relative;
+  height: auto;
+  overflow: auto;
+  margin: 2rem;
+  top: -2rem;
+}
+.cart-item-data-m {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include align-items(center);
+}
+.title {
+    margin: rem(10px) 0;
+    color: $main_orange;
+}
+
+.save-m {
+  @extend .cross-btn;
+  @extend .splash;
+  position: relative;
+  width: rem(85px);
+  height: rem(85px);
+  right: 2rem;
+  bottom: 4rem;
+  &:after {
+    top: 25%;
+    left: 25%;
+  }
+  @include font-icon(rem(28px), 1.5);
+  background-color: $main_green;
+  &:after{
+    content: $select-history-icon;
+  }
+  float: right;
+}
+
+.close-m {
+  @extend .cross-btn;
+  @extend .splash;
+  position: relative;
+  width: 5.3125rem;
+  height: 5.3125rem;
+  right: 2rem;
+  top: -6rem;
+  float: right;
+  &:after {
+    top: 25%;
+    left: 25%;
+  }
+  font: normal 2.5rem/1 icons, sans-serif;
+  background-color: #bebebe;
+}
+ 

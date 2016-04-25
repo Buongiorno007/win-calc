@@ -22,7 +22,8 @@
     UserStor,
     AuxStor,
     CartStor,
-    DesignStor
+    DesignStor,
+    HistoryStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -346,11 +347,28 @@
               ProductStor.product.templateIcon = angular.copy(result);
               defer.resolve(1);
             });
-        });
+        });     
       return defer.promise;
     }
 
 
+    function saveTemplateInProductForOrder(templateIndex) {
+      //-----копия функции создания template для подсчета цены.
+      var defer = $q.defer();
+        ProductStor.product.template_source;
+      //----- create template
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.template = angular.copy(result);
+          GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
+          //------ show elements of room
+          GlobalStor.global.isRoomElements = 1;
+          //----- console.log('TEMPLATE +++', ProductStor.product.template);
+          //----- create template icon
+        defer.resolve(1);
+        });    
+      return defer.promise;
+    }
 
 
 
@@ -698,7 +716,9 @@
           deferred.resolve(1);
         }
       });
+console.log('ProductStor.product', ProductStor.product)
       return deferred.promise;
+
     }
 
 
@@ -1325,9 +1345,9 @@
           //-------- insert product Report into local DB
           //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
           //-------- send Report to Server
-// TODO localDB.insertServer(
-// UserStor.userInfo.phone, UserStor.userInfo.device_code,
-// localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          // TODO localDB.insertServer(
+          // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+          // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
         }
 
         /**============= SAVE ADDELEMENTS ============ */
@@ -1456,7 +1476,62 @@
       return deferred.promise;
     }
 
+    function saveOrderInDBnew() {
+      var deferred = $q.defer();
 
+      /** ===== SAVE PRODUCTS =====*/
+
+      var prodQty = OrderStor.order.products.length, p;
+      OrderStor.order.products_qty = 0;
+      for(p = 0; p < prodQty; p+=1) {
+        var productData = angular.copy(OrderStor.order.products[p]);
+        productData.order_id = ProductStor.product.order_id;
+        if(!productData.is_addelem_only) {
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
+        }
+        productData.template_source = JSON.stringify(productData.template_source);
+        productData.profile_id = OrderStor.order.products[p].profile.id;
+        productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+          return item.id;
+        }).join(', ');
+        console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
+        if (OrderStor.order.products[p].hardware === undefined) {
+          productData.hardware_id = 0;
+        } else {
+          productData.hardware_id = OrderStor.order.products[p].hardware.id;
+        }
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
+        productData.modified = new Date();
+        if(productData.template) {
+          delete productData.template;
+        }
+        delete productData.templateIcon;
+        delete productData.profile;
+        delete productData.glass;
+        delete productData.hardware;
+        delete productData.lamination;
+        delete productData.chosenAddElements;
+        delete productData.profileDepths;
+        delete productData.addelemPriceDis;
+        delete productData.productPriceDis;
+        delete productData.report;
+        delete productData.beadsData;
+
+        /** culculate products quantity for order */
+        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
+        console.log('SEND PRODUCT------', productData);
+        //-------- insert product into local DB
+        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+        //-------- send to Server
+        var productReportData = angular.copy(OrderStor.order.products[p].report),
+            reportQty = productReportData.length;
+      }
+      //----- finish working with order
+      GlobalStor.global.isCreatedNewProject = 0;
+      return deferred.promise;
+    }
 
 
 
@@ -1470,6 +1545,7 @@
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
+      saveOrderInDBnew, saveOrderInDBnew,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
@@ -1484,6 +1560,7 @@
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,

@@ -4,7 +4,7 @@
   angular
     .module('CartModule')
     .factory('CartServ',
-
+ 
   function(
     $location,
     $filter,
@@ -85,24 +85,56 @@
 
 
     //----- Edit Produtct in main page
-    function editProduct(productIndex, type) {
-      ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
-      GlobalStor.global.productEditNumber = ProductStor.product.product_id;
-      GlobalStor.global.isCreatedNewProduct = 1;
-      GlobalStor.global.isChangedTemplate = 1;
-      MainServ.prepareMainPage();
-      if(type === 'auxiliary') {
-        //------ open AddElements Panel
-        GlobalStor.global.activePanel = 6;
+    function box(productIndex, type) {
+      GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      function editProduct() {
+        ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
+        GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+        GlobalStor.global.isCreatedNewProduct = 1;
+        GlobalStor.global.isChangedTemplate = 1;
+        MainServ.prepareMainPage();
+        if(type === 'auxiliary') {
+          //------ open AddElements Panel
+          GlobalStor.global.activePanel = 6;
+        }
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        $location.path('/main');
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
-      //------- set previos Page
-      GeneralServ.setPreviosPage();
-      $location.path('/main');
-    }
+
+      function addCloneProductInOrder(cloneProduct, lastProductId) {
+        console.log(cloneProduct)
+        lastProductId += 1;
+        cloneProduct.product_id = lastProductId;
+        OrderStor.order.products.push(cloneProduct);
+      }
 
 
 
+      function createProductCopy() {
+        var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
+              return item.product_id;
+            })),
 
+        cloneProduct = angular.copy(OrderStor.order.products[productIndex]);
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        addCloneProductInOrder(cloneProduct, lastProductId);
+        CartMenuServ.joinAllAddElements();
+        CartMenuServ.calculateOrderPrice();
+      }
+        GeneralServ.confirmAlert(
+          $filter('translate')('common_words.COPY_ORDER_TITLE'),
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          editProduct
+        ),
+        GeneralServ.confirmPath(
+          createProductCopy
+
+        );
+
+
+}
 
 
 
@@ -236,7 +268,7 @@
       decreaseProductQty: decreaseProductQty,
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct,
+      box:box,
 
       showAllAddElements: showAllAddElements,
       collectAllAddElems: collectAllAddElems,

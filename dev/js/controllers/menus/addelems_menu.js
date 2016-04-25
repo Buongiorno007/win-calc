@@ -57,6 +57,22 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
+    function hideMenu(elementId) {
+      console.log(elementId)
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
+        AuxStor.aux.truefalse = 0;
+      } else {
+        $('#'+elementId).css({
+                    'width' : 100+'%',
+                    'height' : 'auto'
+                  })
+        AuxStor.aux.truefalse = 1;
+      }
+    }
 
     /**----------- Select Add Element when open List View ------------*/
 
@@ -126,6 +142,7 @@
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;

@@ -10,7 +10,8 @@
     GlobalStor,
     UserStor,
     HistoryStor,
-    HistoryServ
+    HistoryServ,
+    CartServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -67,13 +68,10 @@
     thisCtrl.editOrder = HistoryServ.editOrder;
     thisCtrl.orderPrint = HistoryServ.orderPrint;
     thisCtrl.viewSwitching = HistoryServ.viewSwitching;
-
     thisCtrl.orderSearching = HistoryServ.orderSearching;
     thisCtrl.orderDateSelecting = HistoryServ.orderDateSelecting;
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
-
-
   });
 })();

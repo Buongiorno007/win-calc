@@ -508,7 +508,7 @@
             ' customer_age INTEGER,' +
             ' customer_education INTEGER,' +
             ' customer_occupation INTEGER,' +
-            ' customer_infoSource INTEGER',
+            ' customer_infoSource INTEGER', 
             'foreignKey': ''
           },
           'order_products': {

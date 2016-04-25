@@ -109,7 +109,7 @@
 
 
 
-
+ 
 
     /**============ METHODS ================*/
 
@@ -172,11 +172,15 @@
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
     thisCtrl.clickDeleteProduct = CartServ.clickDeleteProduct;
-    thisCtrl.editProduct = CartServ.editProduct;
+    thisCtrl.createProductCopy = CartServ.createProductCopy;
+    thisCtrl.addCloneProductInOrder = CartServ.addCloneProductInOrder;
+    thisCtrl.openBox = CartServ.openBox;
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
+    thisCtrl.box = CartServ.box;
+
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 

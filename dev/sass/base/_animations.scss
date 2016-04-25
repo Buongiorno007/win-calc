@@ -165,6 +165,21 @@
   @include animation(move-grid 1s ease 0s 1);
 }
 @include behavior-move(move-grid, rem(1000px), rem(-2000px), 0, 0);
+//------Grating
+.move-grating {
+  @include animation(move-grating 1s ease 0s 1);
+}
+@include behavior-move(move-grating, rem(-1000px), rem(2000px), 0, 0);
+//------Shutters
+.move-shutters {
+  @include animation(move-shutters 1s ease 0s 1);
+}
+@include behavior-move(move-shutters, rem(1000px), rem(-2000px), 0, 0);
+//------Blind
+.move-blind {
+  @include animation(move-blind 1s ease 0s 1);
+}
+@include behavior-move(move-blind, rem(-1000px), rem(-2000px), 0, 0);
 //------Visor
 .move-visor {
   @include animation(move-visor 1s ease 0s 1);

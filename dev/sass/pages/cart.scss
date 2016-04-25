@@ -101,7 +101,7 @@
     position: absolute;
     top: rem(-20px);
     right: rem(-20px);
-    background-color: $main_green;
+    background-color: #F98000;
     z-index: 1;
   }
 
@@ -549,4 +549,11 @@
 
 }
 
+  .imgg {
+    position: absolute;
+    height: 17%;
+    right: 3rem;
+    z-index: 1;
+    top: -1.25rem;
+  }
 

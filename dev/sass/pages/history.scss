@@ -2,6 +2,12 @@
   @extend .main-content;
   width: rem($ipad-width);
 }
+ .box-menu11 {
+  @extend .backDarkView;
+  opacity: 1.08;
+  z-index: 10000;
+}
+
 .history-page {
   position: relative;
   width: 100%;
@@ -55,6 +61,7 @@
   .user-info-container {
     top: 0;
   }
+  
   .history-tools-panel {
     @include display-flex();
 

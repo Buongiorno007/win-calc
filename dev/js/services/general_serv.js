@@ -14,13 +14,15 @@
     GlobalStor
   ) {
     /*jshint validthis:true */
-    var thisFactory = this,
-        addElementDATA = [
+    var thisFactory = this;
+      var addElementDATA = [
+
           /** GRID */
           {
             id: 20,
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -29,6 +31,7 @@
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
+            typeMenu: 2,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -37,6 +40,7 @@
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
+            typeMenu: 2,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -45,6 +49,7 @@
             id: 19,
             name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
+            typeMenu: 2,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -53,6 +58,7 @@
             id: 26,
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
+            typeMenu: 1,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -61,6 +67,7 @@
             id: 19,
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
+            typeMenu: 1,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -69,6 +76,7 @@
             id: 12,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
+            typeMenu: 3,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -77,6 +85,7 @@
             id: 27,
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
+            typeMenu: 3,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -85,6 +94,7 @@
             id: 8,
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
+            typeMenu: 1,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -93,6 +103,7 @@
             id: 24,
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
+            typeMenu: 3,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -101,11 +112,41 @@
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**BLIND*/
+          {
+            id: 99,
+            name: $filter('translate')('add_elements.BLIND'),
+            typeClass: 'aux-blind',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
+          /**GRATING*/
+          {
+            id: 9999,
+            name: $filter('translate')('add_elements.GRATING'),
+            typeClass: 'aux-grating',
+            typeMenu: 2,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+          /**SHUTTERS*/
+          {
+            id: 999,
+            name: $filter('translate')('add_elements.SHUTTERS'),
+            typeClass: 'aux-shutters',
+            typeMenu: 2,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
         ];
-
+      
 
     //TODO desktop
     //------- IMG rooms preload
@@ -197,7 +238,9 @@
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
-
+    function confirmPath(callback) {
+      GlobalStor.global.confirmInActivity = callback;
+    }
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
@@ -222,7 +265,8 @@
       removeDuplicates: removeDuplicates,
       getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert,
-      goToLink: goToLink
+      goToLink: goToLink,
+      confirmPath: confirmPath,
     };
 
     return thisFactory.publicObj;

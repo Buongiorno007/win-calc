@@ -30,6 +30,8 @@
         //isTemplateItemDesign: 1,
 
         isCreatedNewProject: 1,
+        copyGlabalStorGlassesAll: [],
+        
         isCreatedNewProduct: 1,
         productEditNumber: 0,
         orderEditNumber: 0,
@@ -80,6 +82,7 @@
         lamGroupFiltered: [],
 
         //------ Add Elements
+        addElemNumb: 1,
         addElementsAll: [],
         tempAddElements: [],
 
@@ -99,7 +102,7 @@
         isInfoBox: 0,
         infoTitle: '',
         infoImg: '',
-        infoLink: '',
+        infoLink: '', 
         infoDescrip: '',
 
         //---- report
@@ -118,7 +121,10 @@
         isAlert: 0,
         alertTitle: '',
         alertDescr: '',
+        isBox: 0,
+        isEditBox: 0,
         confirmAction: 0,
+        confirmInActivity: 0,
 
         //---- Calculators
         isQtyCalculator: 0,

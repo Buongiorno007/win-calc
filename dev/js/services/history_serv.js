@@ -13,6 +13,7 @@
     localDB,
     GeneralServ,
     MainServ,
+    RecOrderServ,
     SVGServ,
     DesignServ,
     GlobalStor,
@@ -125,8 +126,12 @@
 
     /**========= make Order Copy =========*/
 
-    function makeOrderCopy(orderStyle, orderNum) {
-
+    function makeOrderCopy(orderStyle, orderNum, typeOrder) {
+      GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        HistoryStor.history.orderEditNumber = orderNum;
+        console.log(OrderStor.order , 'OrderStor')
+        downloadProducts1();
+        orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -191,20 +196,34 @@
 
         //------ copy all AddElements of this order
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      }
+
+      function editOrderr() {
+        GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
+        RecOrderServ.box();
       }
 
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
+          editOrderr
+        ),
+        GeneralServ.confirmPath(
           copyOrder
         );
       }
 
     }
 
-
-
+      function orderItem() {
+        var  deferred = $q.defer();
+          downloadProducts1().then(function(data) {
+          HistoryStor.history.isBoxArray = angular.copy(data);
+          HistoryStor.history.isBoxArrayCopy = angular.copy(data);
+        })
+      }
 
 
     /**========== Delete order ==========*/
@@ -266,7 +285,7 @@
             switch(param) {
               case 1:
                 OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break;
+                break
               case 2:
                 OrderStor.order.mountingName = angular.copy(data[dataQty].name);
                 break;
@@ -279,7 +298,6 @@
         }
       }
     }
-
 
     function setGlassXOrder(product, id) {
       //----- set default glass in ProductStor
@@ -403,8 +421,20 @@
     }
 
 
+    function downloadProducts1() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_products.tableName, {
+          'order_id': HistoryStor.history.orderEditNumber
+        },
+          'profile_id, glass_id, hardware_id, product_id, order_id, template_source, lamination_id, lamination_out_id, lamination_in_id'
+       ).then(function(result) {
+          console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
 
-
+    }
 
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
@@ -754,7 +784,9 @@
       clickDeleteOrder: clickDeleteOrder,
       editOrder: editOrder,
       orderPrint: orderPrint,
+      orderItem: orderItem,
       viewSwitching: viewSwitching,
+      downloadProducts1:downloadProducts1,
 
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,

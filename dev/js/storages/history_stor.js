@@ -29,6 +29,9 @@
         isStartDate: 0,
         isFinishDate: 0,
         isAllPeriod: 1,
+        isBox: 0,
+        isArr: 0,
+    
 //        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
@@ -37,6 +40,7 @@
 
         //===== Draft
         isDraftView: 0,
+        orderEditNumber: 0,
         drafts: [],
         draftsSource: [],
         isEmptyResultDraft: 0,
@@ -50,7 +54,13 @@
 
         isOrderSortDraft: 0,
         isSortTypeDraft: 'last',
-        reverseDraft: 1
+        reverseDraft: 1,
+
+        listName: [],
+        listNameGlass: [],
+        listNameHardware: [],
+        listNameProfiles: []
+
       },
       setDefaultHistory: setDefaultHistory
     };
