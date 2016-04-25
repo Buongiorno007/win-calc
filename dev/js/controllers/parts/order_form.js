@@ -42,7 +42,7 @@
     thisCtrl.CLIENT_FLOOR = $filter('translate')('cart.CLIENT_FLOOR');
     thisCtrl.CALL_ORDER_TOTAL_PRICE = $filter('translate')('cart.CALL_ORDER_TOTAL_PRICE');
     thisCtrl.CALL_ORDER_ADD_INFO = $filter('translate')('cart.CALL_ORDER_ADD_INFO');
-    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+    thisCtrl.CLIENT_EMAIL_ORDER = $filter('translate')('cart.CLIENT_EMAIL_ORDER');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
     thisCtrl.ADD_PHONE = $filter('translate')('cart.ADD_PHONE');
     thisCtrl.CLIENT_SEX = $filter('translate')('cart.CLIENT_SEX');
