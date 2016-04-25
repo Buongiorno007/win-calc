@@ -1494,7 +1494,7 @@ console.log('ProductStor.product', ProductStor.product)
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
+        //console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
         if (OrderStor.order.products[p].hardware === undefined) {
           productData.hardware_id = 0;
         } else {
@@ -1545,7 +1545,7 @@ console.log('ProductStor.product', ProductStor.product)
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
-      saveOrderInDBnew, saveOrderInDBnew,
+      saveOrderInDBnew: saveOrderInDBnew,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,

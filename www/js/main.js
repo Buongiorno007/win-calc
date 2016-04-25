@@ -9053,10 +9053,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-       serverIP: 'http://api.windowscalculator.net',
-       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+       //serverIP: 'http://api.windowscalculator.net',
+       //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -18919,7 +18919,7 @@ console.log('ProductStor.product', ProductStor.product)
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
+        //console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
         if (OrderStor.order.products[p].hardware === undefined) {
           productData.hardware_id = 0;
         } else {
@@ -18970,7 +18970,7 @@ console.log('ProductStor.product', ProductStor.product)
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
-      saveOrderInDBnew, saveOrderInDBnew,
+      saveOrderInDBnew: saveOrderInDBnew,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,

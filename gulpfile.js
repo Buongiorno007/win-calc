@@ -19,7 +19,8 @@ var gulp        = require('gulp'),       // Собственно Gulp JS
     plumber     = require('gulp-plumber'),    // Перехватчик ошибок
     notify      = require("gulp-notify"),     // Нотификатор
     ngAnnotate  = require('gulp-ng-annotate'),
-    htmlmin = require('gulp-htmlmin');
+    htmlmin = require('gulp-htmlmin'),
+    gutil = require('gulp-util');
 
 
 // Очистка результирующей папки
@@ -252,7 +253,7 @@ gulp.task('prod', function() {
     .pipe(order(config.build.src.js_order))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
-    .pipe(uglify({mangle: true}))
+    .pipe(uglify({mangle: true}).on('error', gutil.log))
     .pipe(gulp.dest(config.build.dest.product));
 
   // html
