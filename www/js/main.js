@@ -1793,9 +1793,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
           ////TODO for Steko
           //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
-///*
+          console.log('IMPORT');
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -3999,13 +3999,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
-            localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-            localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum) 
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
       var productArray = HistoryStor.history.isBoxArray;
       async.eachSeries(productArray, calculate, function (err, result) {
-        console.log('end')
+        console.log('end');
       });
 
       function calculate (product, _cb) {
@@ -4038,9 +4038,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             function (_callback) {
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
-              console.log('ProductStor.product', ProductStor.product)
-              OrderStor.order.products.push(ProductStor.product)
-              console.log('OrderStor.order', OrderStor.order)
+              //console.log('ProductStor.product', ProductStor.product)
+              OrderStor.order.products.push(ProductStor.product);
+              //console.log('OrderStor.order', OrderStor.order)
               _callback();  
             },
             function (_callback) {
@@ -8866,7 +8866,7 @@ function ErrorResult(code, message) {
       }
 
       function addCloneProductInOrder(cloneProduct, lastProductId) {
-        console.log(cloneProduct)
+        //console.log(cloneProduct)
         lastProductId += 1;
         cloneProduct.product_id = lastProductId;
         OrderStor.order.products.push(cloneProduct);
@@ -8889,13 +8889,10 @@ function ErrorResult(code, message) {
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
           editProduct
-        ),
+        );
         GeneralServ.confirmPath(
           createProductCopy
-
         );
-
-
 }
 
 
@@ -9056,10 +9053,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+       serverIP: 'http://api.windowscalculator.net',
+       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12163,9 +12160,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -12415,7 +12412,7 @@ function ErrorResult(code, message) {
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
-        console.log(OrderStor.order , 'OrderStor')
+        //console.log(OrderStor.order , 'OrderStor')
         downloadProducts1();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
@@ -12495,7 +12492,7 @@ function ErrorResult(code, message) {
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
           editOrderr
-        ),
+        );
         GeneralServ.confirmPath(
           copyOrder
         );
@@ -12505,10 +12502,10 @@ function ErrorResult(code, message) {
 
       function orderItem() {
         var  deferred = $q.defer();
-          downloadProducts1().then(function(data) {
+        downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
-        })
+        });
       }
 
 
@@ -12571,7 +12568,7 @@ function ErrorResult(code, message) {
             switch(param) {
               case 1:
                 OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break
+                break;
               case 2:
                 OrderStor.order.mountingName = angular.copy(data[dataQty].name);
                 break;
@@ -12715,7 +12712,7 @@ function ErrorResult(code, message) {
         },
           'profile_id, glass_id, hardware_id, product_id, order_id, template_source, lamination_id, lamination_out_id, lamination_in_id'
        ).then(function(result) {
-          console.log('result' , result)
+          //console.log('result' , result)
           deferred.resolve(result);
         });
       return deferred.promise;
@@ -21043,8 +21040,8 @@ console.log('ProductStor.product', ProductStor.product)
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-            console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -21064,7 +21061,7 @@ console.log('ProductStor.product', ProductStor.product)
                   id: 0
                 };
             obj.id = arr[tst];
-            HistoryStor.history.isBoxArray[ord].glass_id.push(obj)
+            HistoryStor.history.isBoxArray[ord].glass_id.push(obj);
           }
         }
       }
@@ -21080,9 +21077,9 @@ console.log('ProductStor.product', ProductStor.product)
                   id: 0,
                   hardware:''
                 };
-            obj.id = GlobalStor.global.hardwares[glbl][glbll].id,
-            obj.name = GlobalStor.global.hardwares[glbl][glbll].name,
-            obj.hardware = GlobalStor.global.hardwares[glbl][glbll],
+            obj.id = GlobalStor.global.hardwares[glbl][glbll].id;
+            obj.name = GlobalStor.global.hardwares[glbl][glbll].name;
+            obj.hardware = GlobalStor.global.hardwares[glbl][glbll];
             HistoryStor.history.listNameHardware.push(obj);
           }
         }
@@ -21095,8 +21092,8 @@ console.log('ProductStor.product', ProductStor.product)
                   name:'',
                   id: 0
                 };
-          obj.id = GlobalStor.global.profiles[glbp][glbpp].id,
-          obj.name = GlobalStor.global.profiles[glbp][glbpp].name
+          obj.id = GlobalStor.global.profiles[glbp][glbpp].id;
+          obj.name = GlobalStor.global.profiles[glbp][glbpp].name;
           HistoryStor.history.listNameProfiles.push(obj);
           }
         }
@@ -21137,9 +21134,9 @@ console.log('ProductStor.product', ProductStor.product)
                       if (HistoryStor.history.isBoxArray[ord].glass_id[tst]) {
                         var number = HistoryStor.history.isBoxArray[ord].glass_id[tst];
                         if(number === ''+GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].id) {    
-                          obj.id = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].id,
-                          obj.name = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].name,
-                          HistoryStor.history.isBoxArray[ord].nameGlass.push(obj)
+                          obj.id = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].id;
+                          obj.name = GlobalStor.global.glassesAll[glbg].glasses[glbgg][lstt].name;
+                          HistoryStor.history.isBoxArray[ord].nameGlass.push(obj);
                         }
                       }
                     }
@@ -21161,7 +21158,7 @@ console.log('ProductStor.product', ProductStor.product)
       //================add name in array==================//   
 
       for(ord = 0; ord < ordersQty; ord+=1) {  
-        HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source)
+        HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source);
       }
       clear();
     }
@@ -21193,9 +21190,9 @@ console.log('ProductStor.product', ProductStor.product)
                           id: 0,
                           sku: 0
                         };
-                    obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id,
-                    obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name,
-                    obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku
+                    obj.id = GlobalStor.global.glassesAll[all].glasses[lst][lstt].id;
+                    obj.name = GlobalStor.global.glassesAll[all].glasses[lst][lstt].name;
+                    obj.sku = GlobalStor.global.glassesAll[all].glasses[lst][lstt].sku;
                     listNameGlass.push(obj);
                     HistoryStor.history.isBoxArray[ord].listNameGlass = listNameGlass;
                   }
@@ -21227,13 +21224,13 @@ console.log('ProductStor.product', ProductStor.product)
                         profile_id: 0,
                         lamination: ''
                         };
-                obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id,
-                obj.id = GlobalStor.global.laminatCouples[glb].id,
-                obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name,
-                obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name,
-                obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id,
-                obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id,
-                obj.lamination = GlobalStor.global.laminatCouples[glb],
+                obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
+                obj.id = GlobalStor.global.laminatCouples[glb].id;
+                obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
+                obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id;
+                obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id;
+                obj.lamination = GlobalStor.global.laminatCouples[glb];
                 obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
                 listNameLaminat.push(obj);
                 HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
@@ -21270,8 +21267,8 @@ console.log('ProductStor.product', ProductStor.product)
               };
           objn.newId = HistoryStor.history.isBoxArrayCopy[ord].n_glass_id[srd];
           obj.old = HistoryStor.history.isBoxArrayCopy[ord].glass_id[srd];
-          HistoryStor.history.isBoxArrayCopy[ord].glass_id.push(obj)
-          HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.push(objn)
+          HistoryStor.history.isBoxArrayCopy[ord].glass_id.push(obj);
+          HistoryStor.history.isBoxArrayCopy[ord].n_glass_id.push(objn);
 
         }
           HistoryStor.history.isBoxArrayCopy[ord].glass_id.splice(0, ([subOrdersQty]/2)+1);
@@ -21290,10 +21287,10 @@ console.log('ProductStor.product', ProductStor.product)
           }
         }
         for(tsq=1; tsq<tempSourQty; tsq+=1) {
-          HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1
+          HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId = HistoryStor.history.isBoxArray[ord].template_source.details[tsq].glassId*1;
         }
       }
-      dopTemplateSource()
+      dopTemplateSource();
     }
     function dopTemplateSource() {
       var globalQty = GlobalStor.global.glassesAll.length, g;
@@ -21408,7 +21405,7 @@ console.log('ProductStor.product', ProductStor.product)
                 if(1*array[arr] === GlobalStor.global.glassesAll[gqt].glasses[gst][sss].id) {
                   if (GlobalStor.global.glassesAll[gqt].profileId === HistoryStor.history.isBoxArray[ord].profile_id) {
                     glasses = GlobalStor.global.glassesAll[gqt].glasses[gst][sss];
-                    HistoryStor.history.isBoxArray[ord].glasses.push(glasses)
+                    HistoryStor.history.isBoxArray[ord].glasses.push(glasses);
                   }
                 }
               }
@@ -24842,7 +24839,7 @@ console.log('ProductStor.product', ProductStor.product)
     .module('DesignModule')
     .factory('DesignStor',
 
-  function($filter) {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -24899,22 +24896,22 @@ console.log('ProductStor.product', ProductStor.product)
         isNoDoors: 0,
         doorShapeData: [
           {
-            name: $filter('translate')('panels.DOOR_TYPE1'),
+            name: 'panels.DOOR_TYPE1',
             icon: 'img/door-config/doorstep.png',
             iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE2'),
+            name: 'panels.DOOR_TYPE2',
             icon: 'img/door-config/no-doorstep.png',
             iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            name: 'panels.DOOR_TYPE3',
             icon: 'img/door-config/doorstep-al1.png',
             iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            name: 'panels.DOOR_TYPE4',
             icon: 'img/door-config/doorstep-al2.png',
             iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
@@ -25568,10 +25565,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+Energiesparen',
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
-        DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
-        //SASH_TYPE1: 'Interzimmer',
-        //SASH_TYPE2: 'Tür- t-bildlich',
-        //SASH_TYPE3: 'Fenster',
+        DOOR_TYPE3: 'Die Aluminiumschwelle, Typ1',
+        DOOR_TYPE4: 'Die Aluminiumschwelle, Typ2',
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
@@ -25940,10 +25935,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+energy saving',
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
-        DOOR_TYPE3: 'aluminum threshold, type',
-        //SASH_TYPE1: 'the interroom',
-        //SASH_TYPE2: 'the door T-shaped',
-        //SASH_TYPE3: 'the window',
+        DOOR_TYPE3: 'aluminum threshold, type1',
+        DOOR_TYPE4: 'aluminum threshold, type2',
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
@@ -26313,10 +26306,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+risparmio di energia',
         DOOR_TYPE1: 'su perimetro',
         DOOR_TYPE2: 'senza soglia',
-        DOOR_TYPE3: 'la soglia di alluminio, battere a macchina',
-        //SASH_TYPE1: "l'intercamera",
-        //SASH_TYPE2: 'la porta T-shaped',
-        //SASH_TYPE3: 'la finestra',
+        DOOR_TYPE3: 'la soglia di alluminio, battere a macchina 1',
+        DOOR_TYPE4: 'la soglia di alluminio, battere a macchina 2',
         HANDLE_TYPE1: 'prema la serie',
         HANDLE_TYPE2: 'maniglia di ufficio standard',
         LOCK_TYPE1: 'una chiusura con una serratura a scatto',
@@ -26684,10 +26675,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+economisire de energie',
         DOOR_TYPE1: 'pe perimetru',
         DOOR_TYPE2: 'fără prag',
-        DOOR_TYPE3: 'prag din aluminiu, tip',
-        //SASH_TYPE1: 'de interior',
-        //SASH_TYPE2: 'pentru ușă, de tip T',
-        //SASH_TYPE3: 'pentru fereastră',
+        DOOR_TYPE3: 'prag din aluminiu, tip1',
+        DOOR_TYPE4: 'prag din aluminiu, tip2',
         HANDLE_TYPE1: 'garnitură de mâner',
         HANDLE_TYPE2: 'mâner standard de birou',
         LOCK_TYPE1: 'unisafe cu dispozitiv de blocare',
@@ -27056,10 +27045,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+энергосбережение',
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
-        DOOR_TYPE3: 'алюминиевый порог, тип',
-        //SASH_TYPE1: 'межкомнатная',
-        //SASH_TYPE2: 'дверная т-образная',
-        //SASH_TYPE3: 'оконная',
+        DOOR_TYPE3: 'алюминиевый порог, тип1',
+        DOOR_TYPE4: 'алюминиевый порог, тип2',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',
@@ -27432,10 +27419,8 @@ console.log('ProductStor.product', ProductStor.product)
         ENERGY_SAVE: '+энергосбережение',
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
-        DOOR_TYPE3: 'алюминевый порог, тип',
-        //SASH_TYPE1: 'межкомнатная',
-        //SASH_TYPE2: 'дверная т-образная',
-        //SASH_TYPE3: 'оконная',
+        DOOR_TYPE3: 'алюминевый порог, тип1',
+        DOOR_TYPE4: 'алюминевый порог, тип2',
         HANDLE_TYPE1: 'нажимной гарнитур',
         HANDLE_TYPE2: 'стандартная офисная ручка',
         LOCK_TYPE1: 'однозапорный с защелкой',

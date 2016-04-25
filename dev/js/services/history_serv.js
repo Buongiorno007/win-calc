@@ -129,7 +129,7 @@
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
-        console.log(OrderStor.order , 'OrderStor')
+        //console.log(OrderStor.order , 'OrderStor')
         downloadProducts1();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
@@ -209,7 +209,7 @@
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
           editOrderr
-        ),
+        );
         GeneralServ.confirmPath(
           copyOrder
         );
@@ -219,10 +219,10 @@
 
       function orderItem() {
         var  deferred = $q.defer();
-          downloadProducts1().then(function(data) {
+        downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
-        })
+        });
       }
 
 
@@ -285,7 +285,7 @@
             switch(param) {
               case 1:
                 OrderStor.order.floorName = angular.copy(data[dataQty].name);
-                break
+                break;
               case 2:
                 OrderStor.order.mountingName = angular.copy(data[dataQty].name);
                 break;
@@ -429,7 +429,7 @@
         },
           'profile_id, glass_id, hardware_id, product_id, order_id, template_source, lamination_id, lamination_out_id, lamination_in_id'
        ).then(function(result) {
-          console.log('result' , result)
+          //console.log('result' , result)
           deferred.resolve(result);
         });
       return deferred.promise;

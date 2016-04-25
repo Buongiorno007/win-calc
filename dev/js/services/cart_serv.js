@@ -104,7 +104,7 @@
       }
 
       function addCloneProductInOrder(cloneProduct, lastProductId) {
-        console.log(cloneProduct)
+        //console.log(cloneProduct)
         lastProductId += 1;
         cloneProduct.product_id = lastProductId;
         OrderStor.order.products.push(cloneProduct);
@@ -127,13 +127,10 @@
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
           $filter('translate')('common_words.COPY_ORDER_TXT'),
           editProduct
-        ),
+        );
         GeneralServ.confirmPath(
           createProductCopy
-
         );
-
-
 }
 
 

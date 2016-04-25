@@ -126,7 +126,7 @@ section.construction-page
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
                   img.door-shape(ng-src="{{ door.iconSelect }}", ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index")
-                .door-option-label {{ ::door.name }}
+                .door-option-label {{ ::door.name | translate }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index")
 
       .door-config-column.step2(ng-class="{'active': designPage.config.selectedStep1}")

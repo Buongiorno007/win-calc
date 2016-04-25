@@ -47,13 +47,13 @@
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
-            localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-            localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum) 
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
       var productArray = HistoryStor.history.isBoxArray;
       async.eachSeries(productArray, calculate, function (err, result) {
-        console.log('end')
+        console.log('end');
       });
 
       function calculate (product, _cb) {
@@ -86,9 +86,9 @@
             function (_callback) {
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
-              console.log('ProductStor.product', ProductStor.product)
-              OrderStor.order.products.push(ProductStor.product)
-              console.log('OrderStor.order', OrderStor.order)
+              //console.log('ProductStor.product', ProductStor.product)
+              OrderStor.order.products.push(ProductStor.product);
+              //console.log('OrderStor.order', OrderStor.order)
               _callback();  
             },
             function (_callback) {

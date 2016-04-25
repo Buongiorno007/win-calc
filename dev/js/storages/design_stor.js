@@ -5,7 +5,7 @@
     .module('DesignModule')
     .factory('DesignStor',
 
-  function($filter) {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -62,22 +62,22 @@
         isNoDoors: 0,
         doorShapeData: [
           {
-            name: $filter('translate')('panels.DOOR_TYPE1'),
+            name: 'panels.DOOR_TYPE1',
             icon: 'img/door-config/doorstep.png',
             iconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE2'),
+            name: 'panels.DOOR_TYPE2',
             icon: 'img/door-config/no-doorstep.png',
             iconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            name: 'panels.DOOR_TYPE3',
             icon: 'img/door-config/doorstep-al1.png',
             iconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
-            name: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            name: 'panels.DOOR_TYPE4',
             icon: 'img/door-config/doorstep-al2.png',
             iconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
