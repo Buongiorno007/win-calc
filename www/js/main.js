@@ -3932,6 +3932,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             function (_callback) {
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
+              console.log('ProductStor.product', ProductStor.product)
               OrderStor.order.products.push(ProductStor.product)
               console.log('OrderStor.order', OrderStor.order)
               _callback();  
@@ -20562,7 +20563,8 @@ console.log('ProductStor.product', ProductStor.product)
 
     /**============ METHODS ================*/
     function box() {
-      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+            console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,

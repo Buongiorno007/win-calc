@@ -17,7 +17,8 @@
 
     /**============ METHODS ================*/
     function box() {
-      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+            console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,

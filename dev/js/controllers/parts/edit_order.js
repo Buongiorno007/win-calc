@@ -86,6 +86,7 @@
             function (_callback) {
               // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
               // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
+              console.log('ProductStor.product', ProductStor.product)
               OrderStor.order.products.push(ProductStor.product)
               console.log('OrderStor.order', OrderStor.order)
               _callback();  
