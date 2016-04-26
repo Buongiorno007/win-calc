@@ -244,7 +244,7 @@ gulp.task('prod', function() {
     .pipe(csso())
     .pipe(gulp.dest(config.build.dest.product));
 
-  // js
+  // main.js
   gulp.src(config.build.src.js)
     .pipe(wrapper({
       header: '\n// ${filename}\n\n',
@@ -254,6 +254,12 @@ gulp.task('prod', function() {
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
     .pipe(uglify({mangle: true}).on('error', gutil.log))
+    .pipe(gulp.dest(config.build.dest.product));
+
+  // plugins.js
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
     .pipe(gulp.dest(config.build.dest.product));
 
   // html
