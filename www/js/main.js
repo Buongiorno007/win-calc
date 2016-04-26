@@ -25508,6 +25508,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',
@@ -25878,6 +25880,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'YES',
         BUTTON_N: 'NO',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',
@@ -26249,6 +26253,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',
@@ -26618,6 +26624,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
@@ -27362,6 +27370,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'ТАК',
         BUTTON_N: 'НІ',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Видалення!',
         DELETE_PRODUCT_TXT: 'Хочете видалити продукт?',
         DELETE_ORDER_TITLE: 'Видалення замовлення!',

@@ -19,6 +19,8 @@
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',

@@ -19,6 +19,8 @@
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
