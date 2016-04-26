@@ -552,7 +552,8 @@
                 localDB.selectLocalDB(
                   localDB.tablesLocalDB.lists.tableName,
                   {'parent_element_id': item.element_id, 'list_group_id': 6},
-                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, '+
+                  'img, link, glass_image'
                 ).then(function (result2) {
                     //console.log('list +++++', result2);
                     var list = angular.copy(result2),
@@ -657,6 +658,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
   GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].glass_image = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].glass_image
   );
 }
         }

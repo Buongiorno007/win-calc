@@ -205,7 +205,7 @@
                 <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
                   <div ng-click="glassPanel.selectGlass(glass.id, glass.sku)" class="box_inner">
                     <div class="glass-box-view">
-                      <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
+                      <div class="glass-img"><img ng-src="img/glasses/glass{{ glass.glass_image }}.png"></div>
                       <div class="label">{{ ::glass.cameras }}
                         <ng-pluralize count="glass.cameras" when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}"></ng-pluralize><span ng-if="glass.glass_folder_id === 6">{{ ::glassPanel.ENERGY_SAVE }}</span>
                       </div>

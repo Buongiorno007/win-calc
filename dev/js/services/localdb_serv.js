@@ -342,7 +342,9 @@
             ' img VARCHAR,' +
             ' beed_lamination_id INTEGER,' +
             ' in_door INTEGER,' +
-            ' doorstep_type INTEGER',
+            ' doorstep_type INTEGER,' +
+            ' glass_type INTEGER,' +
+            ' glass_image INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
