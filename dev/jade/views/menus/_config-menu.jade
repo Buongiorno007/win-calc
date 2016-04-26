@@ -12,7 +12,7 @@
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 2}", ng-click="configMenu.selectConfigPanel(2)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName }}
+      .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 3}", ng-click="configMenu.selectConfigPanel(3)")
