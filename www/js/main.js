@@ -1623,8 +1623,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
-
     /**============== ENTRY BY LINK ===============*/
 
 
@@ -1639,6 +1637,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             'ceb60bfed037baaa484bd7b88d274c98',
             '632b3213660804acb71fe045c6e321ed',
             'd11758b674ac02f0fcf128dcc906dbef',
+            '8155bc545f84d9652f1012ef2bdfb6eb',
+            '59e711d152de7bec7304a8c2ecaf9f0f',
+            '877466ffd21fe26dd1b3366330b7b560',
+            'f31c147335274c56d801f833d3c26a70',
+            'f68ec4f0c6df90137749af75a929a3eb',
+            '0f190e6e164eafe66f011073b4486975',
+            'a9588aa82388c0579d8f74b4d02b895f',
+            '66a516f865fca1c921dba625ede4a693',
+            '7cebd0178b69b2e88774529e1e59a7b0',
+            'ad1df793247a0e650d0d7166341b8d97',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1675,6 +1683,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '903528981',
             '9301600441',
             '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
 
             '000001',
             '000002',
@@ -1711,6 +1729,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '903528981',
             '9301600441',
             '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
 
             '000001',
             '000002',
@@ -1794,8 +1822,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -3312,7 +3340,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
     thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
     thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-
 
 
     /**============ METHODS ================*/
@@ -12163,9 +12190,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -16588,7 +16615,8 @@ function ErrorResult(code, message) {
                 localDB.selectLocalDB(
                   localDB.tablesLocalDB.lists.tableName,
                   {'parent_element_id': item.element_id, 'list_group_id': 6},
-                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, '+
+                  'img, link, glass_image'
                 ).then(function (result2) {
                     //console.log('list +++++', result2);
                     var list = angular.copy(result2),
@@ -16693,6 +16721,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
   GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].glass_image = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].glass_image
   );
 }
         }
@@ -26245,6 +26276,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BUTTON_E: 'Inserire',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',

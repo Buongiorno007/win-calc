@@ -23,6 +23,8 @@
         BUTTON_E: 'Inserire',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
+        BUTTON_C: 'Копировать',
+        BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',

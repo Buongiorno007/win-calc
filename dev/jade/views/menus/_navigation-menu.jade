@@ -1,12 +1,12 @@
 .nav-menu(ng-controller="NavMenuCtrl as navMenu")
   header.nav-menu-header
     ul.items-list
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 1}", ng-click="navMenu.selectMenuItem(1)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 1}", ng-mousedown="navMenu.selectMenuItem(1)")
         .item-content
           span.nav-icon-addLocation
           span.title {{ ::navMenu.NAVMENU_GEOLOCATION }}
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 2}", ng-click="navMenu.selectMenuItem(2)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 2}", ng-mousedown="navMenu.selectMenuItem(2)")
         .item-content
           span.nav-icon-geoLocation
           span.title {{ ::navMenu.NAVMENU_CURRENT_GEOLOCATION }}
@@ -19,23 +19,23 @@
     .divider {{ ::navMenu.NAVMENU_CALCULATIONS }}
 
     ul.items-list
-      li.item(ng-if="(navMenu.G.global.currOpenPage === 'history' && navMenu.G.global.isCreatedNewProject && navMenu.G.global.isCreatedNewProduct)", ng-class="{'selected': navMenu.activeMenuItem == 3}", ng-click="navMenu.selectMenuItem(3)")
+      li.item(ng-if="(navMenu.G.global.currOpenPage === 'history' && navMenu.G.global.isCreatedNewProject && navMenu.G.global.isCreatedNewProduct)", ng-class="{'selected': navMenu.activeMenuItem == 3}", ng-mousedown="navMenu.selectMenuItem(3)")
         .item-content
           span.nav-icon-calculation
           span.title {{ ::navMenu.NAVMENU_CURRENT_CALCULATION }}
 
-      li.item(ng-show="navMenu.O.order.products.length && navMenu.G.global.currOpenPage === 'main'", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", ng-click="navMenu.selectMenuItem(4)")
+      li.item(ng-show="navMenu.O.order.products.length && navMenu.G.global.currOpenPage === 'main'", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", ng-mousedown="navMenu.selectMenuItem(4)")
         .item-content
           span.nav-icon-basketOfCalculation
           span.title {{ ::navMenu.NAVMENU_CART }}
           span.badge {{ navMenu.O.order.products.length }}
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 5}", ng-click="navMenu.selectMenuItem(5)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 5}", ng-mousedown="navMenu.selectMenuItem(5)")
         .item-content
           span.nav-icon-additionalComponents
           span.title {{ ::navMenu.NAVMENU_ADD_ELEMENTS }}
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}", ng-click="navMenu.selectMenuItem(6)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}", ng-mousedown="navMenu.selectMenuItem(6)")
         .item-content
           span.nav-icon-calculationsHistory
           span.title {{ ::navMenu.NAVMENU_ALL_CALCULATIONS }}
@@ -43,20 +43,20 @@
     .divider {{ ::navMenu.NAVMENU_APPENDIX }}
 
     ul.items-list
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 7}", ng-click="navMenu.selectMenuItem(7)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 7}", ng-mousedown="navMenu.selectMenuItem(7)")
         .item-content
           span.nav-icon-settings
           span.title {{ ::navMenu.NAVMENU_SETTINGS }}
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 8}", ng-click="navMenu.selectMenuItem(8)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 8}", ng-mousedown="navMenu.selectMenuItem(8)")
         .item-content
           span.nav-icon-information
           span.title {{ ::navMenu.NAVMENU_MORE_INFO }}
 
-      li.item(ng-if="navMenu.G.global.isDevice", ng-class="{'selected': navMenu.activeMenuItem == 9}", ng-click="navMenu.selectMenuItem(9)")
+      li.item(ng-if="navMenu.G.global.isDevice", ng-class="{'selected': navMenu.activeMenuItem == 9}", ng-mousedown="navMenu.selectMenuItem(9)")
         .item-content
           span.nav-icon-voicehelp
           span.title {{ ::navMenu.NAVMENU_VOICE_HELPER }}
 
   footer.nav-menu-footer
-    button.new-calc(ng-if="!navMenu.G.global.orderEditNumber", ng-click="navMenu.clickNewProject()") {{ ::navMenu.NAVMENU_NEW_CALC }}
+    button.new-calc(ng-if="!navMenu.G.global.orderEditNumber", ng-mousedown="navMenu.clickNewProject()") {{ ::navMenu.NAVMENU_NEW_CALC }}

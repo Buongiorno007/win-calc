@@ -1,7 +1,7 @@
 .report-container(ng-controller="ReportCtrl as reportBox", ng-show="reportBox.G.global.isReport")
-  .close_report(ng-click="reportBox.G.global.isReport = 0")
+  .close_report(ng-mousedown="reportBox.G.global.isReport = 0")
   .report-menu
-    .report-menu-item(ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index", ng-click="reportBox.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}") {{ ::reportMenu.name }}
+    .report-menu-item(ng-repeat="reportMenu in reportBox.config.reportMenu | orderBy: reportMenu.position track by $index", ng-mousedown="reportBox.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === reportBox.config.reportFilterId}") {{ ::reportMenu.name }}
   .report-box
     table
       tr.report-item
