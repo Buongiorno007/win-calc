@@ -3995,7 +3995,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     RecOrderServ,
     MainServ,
     localDB,
-    UserStor
+    UserStor,
+    HistoryServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -4016,6 +4017,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function okey() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
+      var price = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
       RecOrderServ.extendProfile();
@@ -4036,9 +4038,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       });
 
       function calculate (product, _cb) {
+        OrderStor.order = OrderStor.setDefaultOrder();
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
+              ProductStor.product.addelem_price = angular.copy(product.addelem_price);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
@@ -4054,8 +4058,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
                   var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
-                      laminatId = ProductStor.product.lamination_id,
-                      glassIds =  ProductStor.product.glass;      
+                      laminatId = ProductStor.product.lamination.lamination_in_id,
+                      glassIds =  ProductStor.product.glass;     
                   MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
                     _callback();               
                   });
@@ -4063,15 +4067,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               });  
             },
             function (_callback) {
-              // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
-              // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
-              //console.log('ProductStor.product', ProductStor.product)
-              OrderStor.order.products.push(ProductStor.product);
-              //console.log('OrderStor.order', OrderStor.order)
+              MainServ.setProductPriceTOTAL(ProductStor.product);
               _callback();  
             },
             function (_callback) {
-              MainServ.saveOrderInDBnew();
+              OrderStor.order.products.push(ProductStor.product);
+              _callback();  
+            },
+            function (_callback) {
+                var orderProdQty = OrderStor.order.products.length;
+                for (var n=0; n<orderProdQty; n+=1) {
+                  price += OrderStor.order.products[n].productPriceDis;
+                }
+                MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
+              _callback();  
+            },
+            function (_callback) {
+              OrderStor.order = OrderStor.setDefaultOrder();
+              HistoryServ.downloadOrders();
               _callback();  
             }
           ], function (err, result) {
@@ -4083,11 +4096,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           _cb(null);
         });
       }
+
       HistoryStor.history.listName = [];
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
+
     }
     function close () {
       GlobalStor.global.isEditBox = 0;
@@ -4107,6 +4122,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------ clicking
       thisCtrl.box = RecOrderServ.box;
+      thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
       thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
       thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
@@ -12721,7 +12737,7 @@ function ErrorResult(code, message) {
         localDB.tablesLocalDB.order_products.tableName, {
           'order_id': HistoryStor.history.orderEditNumber
         },
-          'profile_id, glass_id, hardware_id, product_id, order_id, template_source, lamination_id, lamination_out_id, lamination_in_id'
+          'profile_id, glass_id, addelem_price, hardware_id, product_id, order_id, template_source, lamination_id, lamination_out_id, lamination_in_id'
        ).then(function(result) {
           //console.log('result' , result)
           deferred.resolve(result);
@@ -18877,6 +18893,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       delete orderData.paymentFirstPrimaryDis;
       delete orderData.paymentMonthlyPrimaryDis;
 
+
       console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
@@ -18916,8 +18933,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
-    function saveOrderInDBnew() {
+    function saveOrderInDBnew(orderNumber, price) {
+      console.log('OrderStor.order', OrderStor.order)
       var deferred = $q.defer();
+
 
       /** ===== SAVE PRODUCTS =====*/
 
@@ -18944,6 +18963,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
+
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.orders.tableName,  orderNumber, {order_price_dis: price}
+            );
         if(productData.template) {
           delete productData.template;
         }
@@ -18958,6 +18981,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandle;
+        delete productData.doorLock;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -18965,6 +18992,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //-------- insert product into local DB
         localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
         //-------- send to Server
+        localDB.insertServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.order_products.tableName,
+            productData);
+
+
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
       }
@@ -18972,8 +19006,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
-
-
 
 
 

@@ -16,7 +16,8 @@
     RecOrderServ,
     MainServ,
     localDB,
-    UserStor
+    UserStor,
+    HistoryServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -37,6 +38,7 @@
     function okey() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
+      var price = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
       RecOrderServ.extendProfile();
@@ -57,9 +59,11 @@
       });
 
       function calculate (product, _cb) {
+        OrderStor.order = OrderStor.setDefaultOrder();
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
+              ProductStor.product.addelem_price = angular.copy(product.addelem_price);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
@@ -75,8 +79,8 @@
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
                   var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
-                      laminatId = ProductStor.product.lamination_id,
-                      glassIds =  ProductStor.product.glass;      
+                      laminatId = ProductStor.product.lamination.lamination_in_id,
+                      glassIds =  ProductStor.product.glass;     
                   MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
                     _callback();               
                   });
@@ -84,15 +88,24 @@
               });  
             },
             function (_callback) {
-              // localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, ProductStor.product);
-              // localDB.insertRowLocalDB(ProductStor.product, localDB.tablesLocalDB.order_products.tableName);
-              //console.log('ProductStor.product', ProductStor.product)
-              OrderStor.order.products.push(ProductStor.product);
-              //console.log('OrderStor.order', OrderStor.order)
+              MainServ.setProductPriceTOTAL(ProductStor.product);
               _callback();  
             },
             function (_callback) {
-              MainServ.saveOrderInDBnew();
+              OrderStor.order.products.push(ProductStor.product);
+              _callback();  
+            },
+            function (_callback) {
+                var orderProdQty = OrderStor.order.products.length;
+                for (var n=0; n<orderProdQty; n+=1) {
+                  price += OrderStor.order.products[n].productPriceDis;
+                }
+                MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
+              _callback();  
+            },
+            function (_callback) {
+              OrderStor.order = OrderStor.setDefaultOrder();
+              HistoryServ.downloadOrders();
               _callback();  
             }
           ], function (err, result) {
@@ -104,11 +117,13 @@
           _cb(null);
         });
       }
+
       HistoryStor.history.listName = [];
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
+
     }
     function close () {
       GlobalStor.global.isEditBox = 0;
@@ -128,6 +143,7 @@
 
     //------ clicking
       thisCtrl.box = RecOrderServ.box;
+      thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
       thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
       thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;

@@ -1435,6 +1435,7 @@
       delete orderData.paymentFirstPrimaryDis;
       delete orderData.paymentMonthlyPrimaryDis;
 
+
       console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
@@ -1474,8 +1475,10 @@
       return deferred.promise;
     }
 
-    function saveOrderInDBnew() {
+    function saveOrderInDBnew(orderNumber, price) {
+      console.log('OrderStor.order', OrderStor.order)
       var deferred = $q.defer();
+
 
       /** ===== SAVE PRODUCTS =====*/
 
@@ -1502,6 +1505,10 @@
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
         productData.modified = new Date();
+
+        localDB.updateLocalServerDBs(
+          localDB.tablesLocalDB.orders.tableName,  orderNumber, {order_price_dis: price}
+            );
         if(productData.template) {
           delete productData.template;
         }
@@ -1516,6 +1523,10 @@
         delete productData.productPriceDis;
         delete productData.report;
         delete productData.beadsData;
+        delete productData.doorName;
+        delete productData.doorSashName;
+        delete productData.doorHandle;
+        delete productData.doorLock;
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
@@ -1523,6 +1534,13 @@
         //-------- insert product into local DB
         localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
         //-------- send to Server
+        localDB.insertServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.order_products.tableName,
+            productData);
+
+
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
       }
@@ -1530,8 +1548,6 @@
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
-
-
 
 
 
