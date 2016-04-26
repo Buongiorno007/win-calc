@@ -1822,8 +1822,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -12150,7 +12150,7 @@ function ErrorResult(code, message) {
           /**BLIND*/
           {
             id: 99,
-            name: $filter('translate')('add_elements.BLIND'),
+            name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12160,7 +12160,7 @@ function ErrorResult(code, message) {
           /**GRATING*/
           {
             id: 9999,
-            name: $filter('translate')('add_elements.GRATING'),
+            name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12169,7 +12169,7 @@ function ErrorResult(code, message) {
           /**SHUTTERS*/
           {
             id: 999,
-            name: $filter('translate')('add_elements.SHUTTERS'),
+            name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12187,9 +12187,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){

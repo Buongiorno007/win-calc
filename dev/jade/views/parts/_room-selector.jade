@@ -1,10 +1,10 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.G.global.showRoomSelectorDialog}")
   .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
     .room-block(ng-repeat="room in rooms.G.global.rooms")
-      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === $index}", ng-click="rooms.selectRoom($index)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
+      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === $index}", ng-mousedown="rooms.selectRoom($index)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
         .room-img(ng-style="{'background-image':'url('+room.img+')'}")
           .room-shadow(ng-show="room.desc_1.length || room.desc_2.length")
           .room-title
             .room-sizes(ng-show="room.desc_1.length") {{room.desc_1}}
             .room-price(ng-show="room.desc_2.length") {{room.desc_2}}
-  .close-dialog(ng-click="rooms.closeRoomSelectorDialog()")
+  .close-dialog(ng-mousedown="rooms.closeRoomSelectorDialog()")

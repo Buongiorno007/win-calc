@@ -1,9 +1,9 @@
 
 <section class="settings password-page">
   <div class="header">
-    <button ng-click="passwordPage.gotoSettingsPage()" class="back"></button>
+    <button ng-mousedown="passwordPage.gotoSettingsPage()" class="back"></button>
     <div data-output="{{ ::passwordPage.CHANGE_PASSWORD }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="title"></div>
-    <button ng-click="passwordPage.saveNewPassword()" class="save">{{ ::passwordPage.SAVE }}</button>
+    <button ng-mousedown="passwordPage.saveNewPassword()" class="save">{{ ::passwordPage.SAVE }}</button>
   </div>
   <div class="psw-container">
     <div class="lists">
