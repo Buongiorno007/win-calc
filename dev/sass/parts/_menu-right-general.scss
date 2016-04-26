@@ -18,7 +18,18 @@
     @include flex-flow(column wrap);
 
     width: 100%;
+
+    margin: 0;
+    padding: 0 0 rem(20px) 0;
+    list-style: none;
+  }
+
+  .items-lister {
+    @include display-flex();
+    @include flex-grow(1);
+    @include flex-flow(column wrap);
     height: 7.5rem;
+    width: 100%;
     margin: 0;
     padding: 0 0 rem(20px) 0;
     list-style: none;

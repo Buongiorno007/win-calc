@@ -355,7 +355,13 @@ body {
 .alert-yes {
   background-color: $main_orange;
 }
-
+.thisAlert {
+  left: 86%;
+  top: 5%;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+}
 
 
 //=========== Scrolling

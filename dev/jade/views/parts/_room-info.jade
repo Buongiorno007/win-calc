@@ -10,7 +10,7 @@
         .coeff-max {{ roomInfo.O.order.heat_coef_min }}
       .coeff-title(data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
-      button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="roomInfo.showRoomSelectorDialog()") {{ ::roomInfo.ROOM_SELECTION }}
-    .comment-btn(ng-click="roomInfo.switchComment()")
+      button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", ng-mousedown="roomInfo.showRoomSelectorDialog()") {{ ::roomInfo.ROOM_SELECTION }}
+    .comment-btn(ng-mousedown="roomInfo.switchComment()")
   .product-comment
     textarea.comment-field.noPreventDefault(ng-model="roomInfo.P.product.comment", placeholder="{{ ::roomInfo.COMMENT }}")

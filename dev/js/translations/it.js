@@ -6,6 +6,7 @@
     .constant('italianDictionary', {
 
       common_words: {
+
         CHANGE: 'Cambiare',
         MONTHS: 'Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre',
         MONTHS_SHOT: 'Gen., Febb., Marzo, Apr., Mag., Giu., Luglio, Ago., Sett., Ott., Nov., Dic.',
@@ -17,8 +18,12 @@
         MIN: 'Min',
         MAX: 'Max',
         //----- confirm dialogs
+        EDIT_COPY_TXT: 'Cosa dovrei fare?',
+        BUTTON_C: 'Copia',
+        BUTTON_E: 'Modifica',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
+        SPACE: '           ',
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',
@@ -148,6 +153,12 @@
         CONNECTORS: 'connettore',
         FAN: 'microventilazione',
         WINDOWSILL: 'davanzale',
+        INSIDES:'Interno',
+        OUTSIDES:'Esterno',
+        COMPONENTS:'Componenti',
+        SHUTTERS:'Tapparelle avvolgibili',
+        BLIND: 'persiane',
+        GRATING: 'copertura esterna',
         HANDLEL: 'maniglia',
         OTHERS: 'altro',
         GRIDS: 'le zanzariere',

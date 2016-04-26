@@ -1,7 +1,7 @@
 //------- All AddElements Panel
 section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': cartPage.C.cart.isAllAddElems}")
   .alladdelements-header
-    button.close-alladdelements(ng-click="elemCartPanel.closeAllAddElemsPanel()")
+    button.close-alladdelements(ng-mousedown="elemCartPanel.closeAllAddElemsPanel()")
     div(ng-if="cartPage.C.cart.isSelectedProduct")
       include ../parts/_search-block
 
@@ -17,7 +17,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index")
             td.aux-tablecell-name
               .aux-name
-                button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", ng-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
+                button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", ng-mousedown="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
                 .aux-label {{ ::cartPage.NAME_LABEL }}
             td.aux-tablecell-qty
               .aux-params(ng-show="addElem.element_qty")
@@ -34,7 +34,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
             td.aux-tablecell-price
               .aux-price + {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
             td.aux-tablecell-delete
-              .aux-delete(ng-click="elemCartPanel.deleteAddElemsItem(addElem)")
+              .aux-delete(ng-mousedown="elemCartPanel.deleteAddElemsItem(addElem)")
 
 
     //----- TOTAL
@@ -46,14 +46,14 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           td.aux-tablecell-price
             .aux-total-price {{ cartPage.C.cart.addElemsOrderPriceTOTAL }} {{ cartPage.U.userInfo.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="elemCartPanel.deleteAllAddElems()")
+            .aux-delete(ng-mousedown="elemCartPanel.deleteAllAddElems()")
 
 
   .products-selector
     .products-selector-block(ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}", ng-swipe-up="elemCartPanel.swipeProductSelector()", ng-swipe-down="elemCartPanel.swipeProductSelector()")
 
       .products-block
-        .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", ng-click="elemCartPanel.selectProductToAddElem($index)")
+        .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", ng-mousedown="elemCartPanel.selectProductToAddElem($index)")
           .select-mark
           .product-header
             svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
@@ -90,7 +90,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
   //------- Selected AddElement Unit Panel
   section.cart-container.addelement-view(ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}")
     .addelementunique-header
-      button.close-alladdelements(ng-click="elemCartPanel.closeAddElemUnitDetail()")
+      button.close-alladdelements(ng-mousedown="elemCartPanel.closeAddElemUnitDetail()")
       .addelementunit-header-fon
 
       table.aux-list-addellement
@@ -114,13 +114,13 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           td.aux-tablecell-price
             .aux-price + {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)")
+            .aux-delete(ng-mousedown="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)")
 
     .addelementunits-container
 
       .addelementunit-block
         .addelementunit(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="!addElemUnit.is_addelem_only && !addElemUnit.length")
-          button.addelementunit-delete(ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")
+          button.addelementunit-delete(ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")
           .addelementunit-header
             .addelementunit-template
               svg-template(template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
@@ -132,8 +132,8 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
       .addelementunit-train(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.length > 0")
         .addelementunit-train-inner
           .addelementunit(ng-repeat="addElemWagon in addElemUnit track by $index", ng-class="{'unit-last': $last}")
-            .addelementunit-link.link-right(ng-click="elemCartPanel.toggleExplodeLinkMenu($index, $event)")
-            button.addelementunit-delete(ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)")
+            .addelementunit-link.link-right(ng-mousedown="elemCartPanel.toggleExplodeLinkMenu($index, $event)")
+            button.addelementunit-delete(ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)")
             .addelementunit-header
               .addelementunit-template
                 svg-template(template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
@@ -143,8 +143,8 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
 
         .link-explode-menu(ng-show="elemCartPanel.config.isLinkExplodeMenu", ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}")
           ul.link-explode-list
-            li.link-explode-item(ng-click="elemCartPanel.explodeUnitToProduct(addElemUnit)") {{ ::cartPage.LINK_BETWEEN_COUPLE }}
-            li.link-explode-item(ng-click="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)") {{ ::cartPage.LINK_BETWEEN_ALL }}
+            li.link-explode-item(ng-mousedown="elemCartPanel.explodeUnitToProduct(addElemUnit)") {{ ::cartPage.LINK_BETWEEN_COUPLE }}
+            li.link-explode-item(ng-mousedown="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)") {{ ::cartPage.LINK_BETWEEN_ALL }}
 
 
       .addelementunit-only(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.is_addelem_only")
@@ -169,4 +169,4 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
             td.aux-tablecell-price
               .aux-price + {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
             td.aux-tablecell-delete
-              .aux-delete(ng-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")
+              .aux-delete(ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")

@@ -1623,8 +1623,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
-
     /**============== ENTRY BY LINK ===============*/
 
 
@@ -1639,6 +1637,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             'ceb60bfed037baaa484bd7b88d274c98',
             '632b3213660804acb71fe045c6e321ed',
             'd11758b674ac02f0fcf128dcc906dbef',
+            '8155bc545f84d9652f1012ef2bdfb6eb',
+            '59e711d152de7bec7304a8c2ecaf9f0f',
+            '877466ffd21fe26dd1b3366330b7b560',
+            'f31c147335274c56d801f833d3c26a70',
+            'f68ec4f0c6df90137749af75a929a3eb',
+            '0f190e6e164eafe66f011073b4486975',
+            'a9588aa82388c0579d8f74b4d02b895f',
+            '66a516f865fca1c921dba625ede4a693',
+            '7cebd0178b69b2e88774529e1e59a7b0',
+            'ad1df793247a0e650d0d7166341b8d97',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1675,6 +1683,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '903528981',
             '9301600441',
             '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
 
             '000001',
             '000002',
@@ -1711,6 +1729,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '903528981',
             '9301600441',
             '89324310961',
+            '1000000',
+            '1000001',
+            '1000002',
+            '1000003',
+            '1000004',
+            '1000005',
+            '1000006',
+            '1000007',
+            '1000008',
+            '1000009',
 
             '000001',
             '000002',
@@ -1794,8 +1822,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -2260,7 +2288,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function hideMenu(elementId) {
-      console.log(elementId)
       if (AuxStor.aux.truefalse === 1) {
         $('#'+elementId).css({
                     'width' : 100 + '%',
@@ -3208,6 +3235,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 1,
       typing: 'on'
     };
 
@@ -3238,25 +3266,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = false;
     }
-    function firstB() {
-      GlobalStor.global.addElemNumb = 1
+
+    function firstB(id){
+      GlobalStor.global.addElemNumb = id
+      thisCtrl.config.colorFilter = id;
     }
-    function secondB() {
-      GlobalStor.global.addElemNumb = 2
-    }
-    function thirdB() {
-      GlobalStor.global.addElemNumb = 3
-    }
-    function fourthB(){
-      GlobalStor.global.addElemNumb = 4
-    }
+  
+
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.firstB = firstB;
-    thisCtrl.secondB = secondB;
-    thisCtrl.thirdB = thirdB;
-    thisCtrl.fourthB = fourthB;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -3267,6 +3287,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   });
 })();
 
+    function hideMenu(elementId) {
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
+        AuxStor.aux.truefalse = 0;
+      } 
+    }
 
 
 // controllers/panels/glasses.js
@@ -3313,7 +3342,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.ENERGY_SAVE = $filter('translate')('panels.ENERGY_SAVE');
     thisCtrl.HEAT_INSULATION = $filter('translate')('panels.HEAT_INSULATION');
     thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
-
 
 
     /**============ METHODS ================*/
@@ -3900,8 +3928,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.confirmInActivity();
     }
-    /**========== FINISH ==========*/
+    function isAlert() {
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isBox = 0;
 
+
+    }
+    /**========== FINISH ==========*/
+    thisCtrl.isAlert = isAlert;
     thisCtrl.clickYes = clickYes;
     thisCtrl.clickCopy = clickCopy;
   });
@@ -8865,6 +8899,7 @@ function ErrorResult(code, message) {
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
         GlobalStor.global.productEditNumber = ProductStor.product.product_id;
@@ -8880,16 +8915,12 @@ function ErrorResult(code, message) {
         $location.path('/main');
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
-
       function addCloneProductInOrder(cloneProduct, lastProductId) {
         //console.log(cloneProduct)
         lastProductId += 1;
         cloneProduct.product_id = lastProductId;
         OrderStor.order.products.push(cloneProduct);
       }
-
-
-
       function createProductCopy() {
         var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
               return item.product_id;
@@ -8902,13 +8933,14 @@ function ErrorResult(code, message) {
         CartMenuServ.calculateOrderPrice();
       }
         GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('common_words.SPACE'),
           editProduct
         );
         GeneralServ.confirmPath(
           createProductCopy
         );
+
 }
 
 
@@ -12123,7 +12155,7 @@ function ErrorResult(code, message) {
           /**BLIND*/
           {
             id: 99,
-            name: $filter('translate')('add_elements.BLIND'),
+            name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12133,7 +12165,7 @@ function ErrorResult(code, message) {
           /**GRATING*/
           {
             id: 9999,
-            name: $filter('translate')('add_elements.GRATING'),
+            name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12142,7 +12174,7 @@ function ErrorResult(code, message) {
           /**SHUTTERS*/
           {
             id: 999,
-            name: $filter('translate')('add_elements.SHUTTERS'),
+            name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12160,9 +12192,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -16585,7 +16617,8 @@ function ErrorResult(code, message) {
                 localDB.selectLocalDB(
                   localDB.tablesLocalDB.lists.tableName,
                   {'parent_element_id': item.element_id, 'list_group_id': 6},
-                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, img, link'
+                  'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, '+
+                  'img, link, glass_image'
                 ).then(function (result2) {
                     //console.log('list +++++', result2);
                     var list = angular.copy(result2),
@@ -16690,6 +16723,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
   GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].description
+  );
+  GlobalStor.global.glassesAll[g].glasses[l].glass_image = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].glass_image
   );
 }
         }
@@ -25477,6 +25513,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
+        SPACE: '           ',
+        ﻿EDIT_COPY_TXT: 'Was man machen muss?',
+        BUTTON_C: 'Zu kopieren',
+        BUTTON_E: 'Bearbeiten',
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',
@@ -25610,6 +25650,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         OTHERS: 'Übrige',
         GRIDS: 'Moskitonetze',
         VISORS: 'Visiere',
+
+        INSIDES: 'Die Inneren',
+        OUTSIDES: 'Die Äusserlichen',
+        COMPONENTS: 'Die Komponenten',
+        SHUTTERS: 'Rolladen',
+        BLIND: 'Fensterläden',
+        GRATING: 'Lufi-Deckel',
         SPILLWAYS: 'Entwässerungsanlagen',
         WINDOWSILLS: 'Fensterbänke',
         HANDLELS: 'Griff',
@@ -25847,6 +25894,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'YES',
         BUTTON_N: 'NO',
+        ﻿EDIT_COPY_TXT: 'What to do?',
+        BUTTON_C: 'Copy',
+        BUTTON_E: 'Edit',
+        SPACE: '           ',
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',
@@ -25975,7 +26026,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDE: 'internal slopes',
         CONNECTORS: 'connector',
         FAN: 'microairing',
-        WINDOWSILL: 'windowsill',
+        INSIDES: 'Internal',
+        OUTSIDES: 'External',
+        SHUTTERS: 'Blinds',
+        BLIND: 'Shutters',
+        GRATING: "Outer binding",
+        SPILLWAYS: 'Drains',
+        COMPONENTS: 'Components',
+        WINDOWSILL: 'sills',
         HANDLEL: 'handle',
         INSIDES: 'inside',
         OUTSIDES: 'outside',
@@ -26205,6 +26263,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .constant('italianDictionary', {
 
       common_words: {
+
         CHANGE: 'Cambiare',
         MONTHS: 'Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre',
         MONTHS_SHOT: 'Gen., Febb., Marzo, Apr., Mag., Giu., Luglio, Ago., Sett., Ott., Nov., Dic.',
@@ -26216,8 +26275,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         MIN: 'Min',
         MAX: 'Max',
         //----- confirm dialogs
+        EDIT_COPY_TXT: 'Cosa dovrei fare?',
+        BUTTON_C: 'Copia',
+        BUTTON_E: 'Modifica',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
+        SPACE: '           ',
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',
@@ -26347,6 +26410,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CONNECTORS: 'connettore',
         FAN: 'microventilazione',
         WINDOWSILL: 'davanzale',
+        INSIDES:'Interno',
+        OUTSIDES:'Esterno',
+        COMPONENTS:'Componenti',
+        SHUTTERS:'Tapparelle avvolgibili',
+        BLIND: 'persiane',
+        GRATING: 'copertura esterna',
         HANDLEL: 'maniglia',
         OTHERS: 'altro',
         GRIDS: 'le zanzariere',
@@ -26587,6 +26656,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
+        ﻿EDIT_COPY_TXT: 'Ce trebuie sa fac?',
+        BUTTON_C: 'Copie',
+        BUTTON_E: 'Edita',
+        SPACE: '           ',
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
@@ -26716,6 +26789,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CONNECTORS: 'conector',
         FAN: 'micro-aerisire',
         WINDOWSILL: 'pervaz',
+        INSIDES:'Interne',
+        OUTSIDES:'Exterior',
+        COMPONENTS:'Componente',
+        SHUTTERS:'Rulouri exterioare',
+        BLIND: 'obloane',
+        GRATING: 'capacul exterior',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
         GRIDS: 'plase de protecție împotriva țânțarilor',
@@ -26958,11 +27037,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BUTTON_C: 'Копировать',
         BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Удаление!',
+        SPACE: '           ',
         DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
         DELETE_ORDER_TITLE: 'Удаление заказа!',
         DELETE_ORDER_TXT: 'Хотите удалить заказ?',
         COPY_ORDER_TITLE: 'Выберите действие!',
-        COPY_ORDER_TXT: 'Хотите сделать копию или изменения в заказе?',
+        EDIT_COPY_TXT: 'Что необходимо сделать?',
         SEND_ORDER_TITLE: 'В производство!',
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
@@ -27331,7 +27411,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'ТАК',
         BUTTON_N: 'НІ',
+        BUTTON_C: 'Копіювати',
+        BUTTON_E: 'Редагувати',
         DELETE_PRODUCT_TITLE: 'Видалення!',
+        EDIT_COPY_TXT: 'Що необхідно зробити?',
+        SPACE: '           ',
         DELETE_PRODUCT_TXT: 'Хочете видалити продукт?',
         DELETE_ORDER_TITLE: 'Видалення замовлення!',
         DELETE_ORDER_TXT: 'Хочете видалити замовлення?',
@@ -27463,6 +27547,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HANDLEL: 'ручка',
         OTHERS: 'інше',
         GRIDS: 'москітні сітки',
+        INSIDES: 'Внутрішні',
+        OUTSIDES: 'Зовнішні',
+        SHUTTERS: 'Роллети',
+        BLIND: 'Віконниці',
+        GRATING: "Зовнішня палітурка",
+        SPILLWAYS: 'Водовідливи',
+        COMPONENTS: 'Компоненти',
+        WINDOWSILL: 'windowsill',
         VISORS: 'козирки',
         SPILLWAYS: 'водовідливи',
         WINDOWSILLS: 'підвіконня',

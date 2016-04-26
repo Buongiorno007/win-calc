@@ -2,7 +2,7 @@
   .cart-dialogs-container
     form(name='callCreditForm', novalidate, ng-submit="orderForm.submitForm(callCreditForm)")
       .cart-dialog-header
-        button.cart-dialog-tool.back(ng-click="orderForm.closeOrderDialog()", type="button")
+        button.cart-dialog-tool.back(ng-mousedown="orderForm.closeOrderDialog()", type="button")
         .cart-dialog-title {{ ::orderForm.CALL_CREDIT }}
       .cart-dialog-body
         .cart-dialog-descrip {{ ::orderForm.CALL_CREDIT_DESCRIP }}
@@ -47,7 +47,7 @@
           input.user-field(type="text", name="location", ng-model="orderForm.C.cart.customer.customer_location", ng-change="orderForm.changeLocation()", placeholder="{{ ::orderForm.CLIENT_LOCATION }}", autocomplete="off", required)
           .error-tooltip(ng-show='orderForm.C.cart.submitted && callCreditForm.location.$error.required') {{ ::orderForm.EMPTY_FIELD }}
           ul.location-list-tooltip(ng-show="orderForm.C.cart.isCityBox")
-            li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", ng-click="orderForm.selectCity(location)") {{location.fullLocation}}
+            li.location-option(ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index", ng-mousedown="orderForm.selectCity(location)") {{location.fullLocation}}
 
 
         .input-field(ng-class="{ 'has-error' : orderForm.C.cart.submitted && callCreditForm.address.$error.required }")

@@ -1,18 +1,18 @@
 table.qty-calc-container(ng-controller="qtyCalculatorCtrl as qtyCalc", ng-keyup="qtyCalc.pressCulculator($event)")
   tr
     td
-      button.cell.calc-digit(ng-click="qtyCalc.setValueQty(-1)") -1
+      button.cell.calc-digit(ng-mousedown="qtyCalc.setValueQty(-1)") -1
     td
       .calc-interval
         .interval
           .calc-qty-limit 1000
           .calc-label-limit {{ ::qtyCalc.QTY_LABEL }}
     td
-      button.cell.calc-digit(ng-click="qtyCalc.setValueQty(+1)") +1
+      button.cell.calc-digit(ng-mousedown="qtyCalc.setValueQty(+1)") +1
   tr
     td
-      button.cell.calc-digit(ng-click="qtyCalc.setValueQty(-5)") -5
+      button.cell.calc-digit(ng-mousedown="qtyCalc.setValueQty(-5)") -5
     td
-      button.cell.calc-equal(ng-click="qtyCalc.closeQtyCaclulator()") =
+      button.cell.calc-equal(ng-mousedown="qtyCalc.closeQtyCaclulator()") =
     td
-      button.cell.calc-digit(ng-click="qtyCalc.setValueQty(+5)") +5
+      button.cell.calc-digit(ng-mousedown="qtyCalc.setValueQty(+5)") +5

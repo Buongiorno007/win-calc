@@ -9,16 +9,16 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
         section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}", ng-swipe-up="cartPage.openDiscountBlock()", ng-swipe-down="cartPage.closeDiscountBlock()")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(ng-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", ng-mousedown="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
+            button.cart-tool.new-order(ng-mousedown="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products track by $index")
-                button.order-delete(ng-click="cartPage.clickDeleteProduct($index)")
+                button.order-delete(ng-mousedown="cartPage.clickDeleteProduct($index)")
                 .order-header
-                  img.imgg(ng-src='img/copy_edit.png', ng-click="cartPage.box($index, 'product')")
-                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}")
+                  img.imgg(ng-src='img/copy_edit.png', ng-mousedown="cartPage.box($index, 'product')")
+                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}", ng-mousedown="cartPage.box($index, 'product')")
                   .order-template
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
                   .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
@@ -47,46 +47,46 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}
                       .order-value {{ product.lamination.laminat_out_name }} / {{ product.lamination.laminat_in_name }}
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
-                    li.order-item.addelements-btn(ng-click="cartPage.showAddElementDetail($index)")
+                    li.order-item.addelements-btn(ng-mousedown="cartPage.showAddElementDetail($index)")
                       .order-value {{cartPage.C.cart.allAddElements[$index].length}}
                         ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                         when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                       .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
                   .order-qty
-                    button.order-tool(ng-click="cartPage.decreaseProductQty($index)") -
+                    button.order-tool(ng-mousedown="cartPage.decreaseProductQty($index)") -
                     .order-value {{ product.product_qty }}
-                    button.order-tool(ng-click="cartPage.increaseProductQty($index)") +
+                    button.order-tool(ng-mousedown="cartPage.increaseProductQty($index)") +
                     .order-label.qty-label {{ ::cartPage.PRODUCT_QTY }}
                 .order-footer
                   .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
-                  .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", ng-click="cartPage.switchProductComment($index)")
+                  .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", ng-mousedown="cartPage.switchProductComment($index)")
                 .order-comment(ng-class="{'active': cartPage.config.isProductComment === $index+1}")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ product.comment }}
 
-            button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
+            button.view-switch-tab(ng-mousedown="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
 
 
           .discount-container
             .discount-title {{ ::cartPage.DISCOUNT_SELECT }}
 
             .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
-              .discount-data(ng-click="cartPage.openDiscInput(0)")
+              .discount-data(ng-mousedown="cartPage.openDiscInput(0)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.C.cart.tempConstructDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
                   .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
-              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
+              .discount-txt(ng-mousedown="cartPage.approveNewDisc(0)")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
             .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
-              .discount-data(ng-click="cartPage.openDiscInput(1)")
+              .discount-data(ng-mousedown="cartPage.openDiscInput(1)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.C.cart.tempAddelemDisc}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                   .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
-              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
+              .discount-txt(ng-mousedown="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
 
 
@@ -110,46 +110,46 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
         section.cart-container.light-view(ng-class="{'active': cartPage.config.isCartLightView}")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(ng-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(ng-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            button.cart-tool.additional-elements(ng-mousedown="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
+            button.cart-tool.new-order(ng-mousedown="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .order-block.scroll-vert-container
             .order(ng-repeat="product in cartPage.O.order.products track by $index")
-              button.order-delete(ng-click="cartPage.clickDeleteProduct($index)")
+              button.order-delete(ng-mousedown="cartPage.clickDeleteProduct($index)")
               .order-header
-                .order-template(ng-click="cartPage.editProduct($index, 'product')")
+                .order-template(ng-mousedown="cartPage.editProduct($index, 'product')")
                   svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
               .order-content
                 .order-value {{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}
 
-                .order-item.addelements-btn(ng-click="cartPage.showAddElementDetail($index)")
+                .order-item.addelements-btn(ng-mousedown="cartPage.showAddElementDetail($index)")
                   .order-value {{cartPage.C.cart.allAddElements[$index].length}}
                     ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
                     when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
                   .order-label {{ ::cartPage.CONFIGMENU_ADDITIONAL }}
 
                 .order-qty
-                  button.order-tool(ng-click="cartPage.decreaseProductQty($index)") -
+                  button.order-tool(ng-mousedown="cartPage.decreaseProductQty($index)") -
                   .order-value {{ product.product_qty }}
-                  button.order-tool(ng-click="cartPage.increaseProductQty($index)") +
+                  button.order-tool(ng-mousedown="cartPage.increaseProductQty($index)") +
                 .order-label {{ ::cartPage.PRODUCT_QTY }}
               .order-footer
                 .order-price(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
-                .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", ng-click="cartPage.switchProductComment($index)")
+                .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", ng-mousedown="cartPage.switchProductComment($index)")
               .order-comment(ng-class="{'active': cartPage.config.isProductComment === $index+1}")
                 .order-comment-box
                   .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                   .order-comment-content {{ product.comment }}
 
 
-          button.view-switch-tab(ng-click="cartPage.viewSwitching()") {{ ::cartPage.FULL_VIEW }}
+          button.view-switch-tab(ng-mousedown="cartPage.viewSwitching()") {{ ::cartPage.FULL_VIEW }}
 
 
         .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
           .addelements-detail-header
             .addelements-detail-tools
-              button.addelements-detail-edit(ng-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
-              button.addelements-detail-close(ng-click="cartPage.closeAddElementDetail()")
+              button.addelements-detail-edit(ng-mousedown="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')") {{ ::cartPage.ADDELEMENTS_EDIT_LIST }}
+              button.addelements-detail-close(ng-mousedown="cartPage.closeAddElementDetail()")
             .product-template(ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only")
               .addelements-detail-row
                 .product-value
@@ -198,7 +198,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             div(price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}", qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
             div &#8721;
 
-        .backDarkView(ng-if="cartPage.config.isAddElementDetail", ng-click="cartPage.closeAddElementDetail()")
+        .backDarkView(ng-if="cartPage.config.isAddElementDetail", ng-mousedown="cartPage.closeAddElementDetail()")
 
 
 

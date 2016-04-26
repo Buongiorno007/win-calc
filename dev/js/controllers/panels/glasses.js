@@ -42,7 +42,6 @@
     thisCtrl.NOICE_INSULATION = $filter('translate')('panels.NOICE_INSULATION');
 
 
-
     /**============ METHODS ================*/
 
     /**-------- Select glass --------*/

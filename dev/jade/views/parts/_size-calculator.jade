@@ -1,7 +1,7 @@
 table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-keyup="sizeCalc.pressCulculator($event)")
   thead
     td
-      button.cell.calc-delete(ng-click="sizeCalc.deleteLastNumber()")
+      button.cell.calc-delete(ng-mousedown="sizeCalc.deleteLastNumber()")
     td(colspan= "2")
       .calc-interval
         .interval
@@ -15,25 +15,25 @@ table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc", ng-key
   tr
     - for (var cell = 1; cell < 4; ++cell) {
       td
-        button.cell.calc-digit(ng-click="sizeCalc.setValueSize("+cell+")")= cell
+        button.cell.calc-digit(ng-mousedown="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 4; cell < 7; ++cell) {
       td
-        button.cell.calc-digit(ng-click="sizeCalc.setValueSize("+cell+")")= cell
+        button.cell.calc-digit(ng-mousedown="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 7; cell < 10; ++cell) {
       td
-        button.cell.calc-digit(ng-click="sizeCalc.setValueSize("+cell+")")= cell
+        button.cell.calc-digit(ng-mousedown="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     td
-      button.cell.calc-digit(ng-click="sizeCalc.setValueSize(0)") 0
+      button.cell.calc-digit(ng-mousedown="sizeCalc.setValueSize(0)") 0
     td
-      button.cell.calc-digit(ng-click="sizeCalc.setValueSize('00')") 00
+      button.cell.calc-digit(ng-mousedown="sizeCalc.setValueSize('00')") 00
     td
-      button.cell.calc-equal(ng-click="sizeCalc.closeSizeCaclulator()") =
+      button.cell.calc-equal(ng-mousedown="sizeCalc.closeSizeCaclulator()") =
 
 
 

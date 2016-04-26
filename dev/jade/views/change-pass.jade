@@ -1,8 +1,8 @@
 section.settings.password-page
   .header
-    button.back(ng-click="passwordPage.gotoSettingsPage()")
+    button.back(ng-mousedown="passwordPage.gotoSettingsPage()")
     .title(data-output="{{ ::passwordPage.CHANGE_PASSWORD }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
-    button.save(ng-click="passwordPage.saveNewPassword()") {{ ::passwordPage.SAVE }}
+    button.save(ng-mousedown="passwordPage.saveNewPassword()") {{ ::passwordPage.SAVE }}
 
   .psw-container
     .lists
