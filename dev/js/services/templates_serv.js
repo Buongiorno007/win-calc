@@ -73,6 +73,10 @@
           /** set new Template Group */
           if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+
+            /** rebuild profile */
+            MainServ.setCurrentProfile(ProductStor.product, 0);
+
             /** DOOR */
             if(ProductStor.product.construction_type === 4) {
               DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -81,7 +85,7 @@
 
               //---- set door profile
               ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[DesignStor.design.doorConfig.sashShapeIndex].profileId,
+                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
               ));
             }

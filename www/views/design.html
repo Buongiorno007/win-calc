@@ -104,10 +104,10 @@
     <div ng-if="designPage.P.product.construction_type === 4" class="door-config-menu">
       <button ng-class="{'active': designPage.config.isDoorConfig}" ng-click="designPage.toggleDoorConfig()" class="door-config-btn"></button>
       <div class="door-config-label">{{ ::designPage.DOOR_CONFIG_LABEL }}</div>
-      <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.doorShapeName }};</div>
-      <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.sashShapeName }};</div>
-      <div class="door-config-description">{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.handleShape.name }};</div>
-      <div class="door-config-description">{{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.D.design.doorConfig.lockShape.name }};</div>
+      <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorName | translate }};</div>
+      <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorSashName }};</div>
+      <div class="door-config-description">{{ ::designPage.HANDLE_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorHandle.name }};</div>
+      <div class="door-config-description">{{ ::designPage.LOCK_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorLock.name }};</div>
     </div>
     <div class="right-menu-footer">
       <div ng-class="{'active': designPage.G.global.isSizeCalculator}" class="calculators-box size-calculator">

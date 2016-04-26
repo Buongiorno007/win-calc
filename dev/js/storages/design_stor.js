@@ -87,13 +87,13 @@
         handleShapeList: [],
         lockShapeList: [],
         doorConfig: {
-          doorShapeIndex: 0,
+          doorShapeIndex: '',
           doorShapeName: '',
-          sashShapeIndex: 0,
+          sashShapeIndex: '',
           sashShapeName: '',
-          handleShapeIndex: 0,
+          handleShapeIndex: '',
           handleShape: {},
-          lockShapeIndex: 0,
+          lockShapeIndex: '',
           lockShape: {}
         }
 

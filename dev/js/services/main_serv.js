@@ -716,9 +716,7 @@
           deferred.resolve(1);
         }
       });
-console.log('ProductStor.productPrice', ProductStor.product)
       return deferred.promise;
-
     }
 
 
