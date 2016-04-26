@@ -120,7 +120,7 @@
           /**BLIND*/
           {
             id: 99,
-            name: $filter('translate')('add_elements.BLIND'),
+            name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -130,7 +130,7 @@
           /**GRATING*/
           {
             id: 9999,
-            name: $filter('translate')('add_elements.GRATING'),
+            name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -139,7 +139,7 @@
           /**SHUTTERS*/
           {
             id: 999,
-            name: $filter('translate')('add_elements.SHUTTERS'),
+            name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
             typeMenu: 2,
             //colorClass: 'aux_color_small',

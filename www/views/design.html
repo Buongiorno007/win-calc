@@ -337,6 +337,11 @@
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div ng-click="alertBox.isAlert()" ng-show="alertBox.G.global.isBox" class="order-delete"></div>
+        </section>
+      </div>
       <button ng-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
       <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
       <button ng-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>

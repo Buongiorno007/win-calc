@@ -1608,7 +1608,16 @@ body {
   background-color: #f98000;
 }
 
-/* line 363, ../../dev/sass/base/general.scss */
+/* line 358, ../../dev/sass/base/general.scss */
+.thisAlert {
+  left: 86%;
+  top: 5%;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+}
+
+/* line 369, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .cart-page .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content, .cart-page .products-selector .products-selector-block .products-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1617,38 +1626,38 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 366, ../../dev/sass/base/general.scss */
+/* line 372, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container, .cart-page .addelementunits-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 370, ../../dev/sass/base/general.scss */
+/* line 376, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container, .cart-page .products-selector .products-selector-block .products-block {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 374, ../../dev/sass/base/general.scss */
+/* line 380, ../../dev/sass/base/general.scss */
 .scroll-vert-container, .cart-page .addelementunits-container {
   width: 102%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 381, ../../dev/sass/base/general.scss */
+/* line 387, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 393, ../../dev/sass/base/general.scss */
+/* line 399, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
 
-/* line 399, ../../dev/sass/base/general.scss */
+/* line 405, ../../dev/sass/base/general.scss */
 .main-svg-click {
   position: absolute;
   top: 15%;
@@ -2730,12 +2739,25 @@ div.drum figure {
   -webkit-flex-flow: column wrap;
   flex-flow: column wrap;
   width: 100%;
-  height: 7.5rem;
   margin: 0;
   padding: 0 0 1.25rem 0;
   list-style: none;
 }
-/* line 27, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 26, ../../dev/sass/parts/_menu-right-general.scss */
+.menu-right-general .items-lister, .cart-menu-m .items-lister, .config-menu .items-lister, .elements-menu .items-lister, .cart-menu .items-lister, .old-price-tab .items-lister, .old-price-inst-tab .items-lister {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-flex-flow: column wrap;
+  flex-flow: column wrap;
+  height: 7.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 1.25rem 0;
+  list-style: none;
+}
+/* line 37, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .item, .cart-menu-m .item, .config-menu .item, .elements-menu .item, .cart-menu .item, .old-price-tab .item, .old-price-inst-tab .item {
   max-width: 100%;
   min-height: 7.5rem;
@@ -2743,46 +2765,46 @@ div.drum figure {
   border-bottom: 1px solid #bebebe;
   cursor: pointer;
 }
-/* line 33, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 43, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .item.active, .cart-menu-m .item.active, .config-menu .item.active, .elements-menu .item.active, .cart-menu .item.active, .old-price-tab .item.active, .old-price-inst-tab .item.active {
   position: relative;
   margin-left: -2.75rem;
   padding-left: 2.75rem;
 }
-/* line 38, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 48, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .item:last-child, .cart-menu-m .item:last-child, .config-menu .item:last-child, .elements-menu .item:last-child, .cart-menu .item:last-child, .old-price-tab .item:last-child, .old-price-inst-tab .item:last-child {
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 43, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 53, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .title, .cart-menu-m .title, .config-menu .title, .elements-menu .title, .cart-menu .title, .old-price-tab .title, .old-price-inst-tab .title {
   font: normal 1.5rem/1.42857 roboto-bold, sans-serif, icons;
   width: 29rem;
   text-transform: uppercase;
 }
-/* line 50, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 60, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .value, .cart-menu-m .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 58, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 68, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .name, .cart-menu-m .name, .config-menu .name, .elements-menu .name, .cart-menu .name, .old-price-tab .name, .old-price-inst-tab .name, .menu-right-general .name.aside, .cart-menu-m .name.aside, .config-menu .name.aside, .elements-menu .name.aside, .cart-menu .name.aside, .old-price-tab .name.aside, .old-price-inst-tab .name.aside {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 62, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 72, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .aside.name, .cart-menu-m .aside.name, .config-menu .aside.name, .elements-menu .aside.name, .cart-menu .aside.name, .old-price-tab .aside.name, .old-price-inst-tab .aside.name {
   margin-left: 0.625rem;
   word-wrap: break-word;
 }
-/* line 70, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 80, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .menu-footer, .cart-menu-m .menu-footer, .config-menu .menu-footer, .elements-menu .menu-footer, .cart-menu .menu-footer, .old-price-tab .menu-footer, .old-price-inst-tab .menu-footer {
   width: 100%;
   padding-right: 2.75rem;
   text-align: center;
 }
-/* line 75, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 85, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price, .cart-menu-m .price, .config-menu .price, .elements-menu .price, .cart-menu .price, .old-price-tab .price, .old-price-inst-tab .price {
   display: -webkit-flex;
   display: flex;
@@ -2790,7 +2812,7 @@ div.drum figure {
   justify-content: center;
   margin-left: -5rem;
 }
-/* line 80, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 90, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .cart-menu-m .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
   font: normal 4rem/1 roboto-medium, sans-serif, icons;
   display: inline-flex;
@@ -2799,20 +2821,20 @@ div.drum figure {
   text-align: center;
   color: #363636;
 }
-/* line 89, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 99, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell, .cart-menu-m .digit-cell, .config-menu .digit-cell, .elements-menu .digit-cell, .cart-menu .digit-cell, .old-price-tab .digit-cell, .old-price-inst-tab .digit-cell {
   position: relative;
   float: left;
 }
-/* line 92, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 102, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3n+3), .cart-menu-m .digit-cell:nth-last-child(3n+3), .config-menu .digit-cell:nth-last-child(3n+3), .elements-menu .digit-cell:nth-last-child(3n+3), .cart-menu .digit-cell:nth-last-child(3n+3), .old-price-tab .digit-cell:nth-last-child(3n+3), .old-price-inst-tab .digit-cell:nth-last-child(3n+3) {
   margin-left: 0.25rem;
 }
-/* line 95, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 105, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3), .cart-menu-m .digit-cell:nth-last-child(3), .config-menu .digit-cell:nth-last-child(3), .elements-menu .digit-cell:nth-last-child(3), .cart-menu .digit-cell:nth-last-child(3), .old-price-tab .digit-cell:nth-last-child(3), .old-price-inst-tab .digit-cell:nth-last-child(3) {
   margin-left: 0;
 }
-/* line 99, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 109, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-currency, .cart-menu-m .price-currency, .config-menu .price-currency, .elements-menu .price-currency, .cart-menu .price-currency, .old-price-tab .price-currency, .old-price-inst-tab .price-currency {
   font: normal 3.125rem/3.5rem roboto-light, sans-serif, icons;
   margin-left: 0.625rem;
@@ -2820,7 +2842,7 @@ div.drum figure {
   padding-top: 0.5rem;
   color: #363636;
 }
-/* line 107, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 117, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .cart-btn, .cart-menu-m .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn {
   position: relative;
   width: 100%;
@@ -8864,25 +8886,25 @@ tr.factory_item {
 }
 /* line 17, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1461577940');
+  background-image: url('../img/auxiliaries-focused/grating.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 22, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1461577940');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 27, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1461577835');
+  background-image: url('../img/auxiliaries-focused/visor.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1461577835');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8954,7 +8976,7 @@ tr.factory_item {
 }
 /* line 92, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1461577940');
+  background-image: url('../img/auxiliaries-focused/blind.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8970,25 +8992,25 @@ tr.factory_item {
 }
 /* line 110, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1461577835');
+  background-image: url('../img/auxiliaries-selected/visor.png?1461167947');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1461577940');
+  background-image: url('../img/auxiliaries-selected/grating.png?1461167947');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1461577940');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1461167947');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1461577835');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1461167947');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9060,7 +9082,7 @@ tr.factory_item {
 }
 /* line 185, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1461577940');
+  background-image: url('../img/auxiliaries-focused/blind.png?1461159856');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9100,7 +9122,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1461577835');
+  background-image: url('../img/auxiliaries/visor.png?1461167947');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9117,7 +9139,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1461577940');
+  background-image: url('../img/auxiliaries/grating.png?1461167945');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9134,7 +9156,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1461577940');
+  background-image: url('../img/auxiliaries/shutters.png?1461167946');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9151,7 +9173,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1461577835');
+  background-image: url('../img/auxiliaries/spillway.png?1461167946');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9168,7 +9190,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1461577835');
+  background-image: url('../img/auxiliaries/outside.png?1461167946');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9202,7 +9224,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1461577939');
+  background-image: url('../img/auxiliaries/blind.png?1461167945');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9221,7 +9243,7 @@ tr.factory_item {
   left: 6rem;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1461577940');
+  background-image: url('../img/auxiliaries/template1.png?1461162320');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9238,7 +9260,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1461577940');
+  background-image: url('../img/auxiliaries/template2.png?1461162320');
   background-repeat: no-repeat;
   background-size: contain;
 }

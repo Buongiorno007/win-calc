@@ -2260,7 +2260,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function hideMenu(elementId) {
-      console.log(elementId)
       if (AuxStor.aux.truefalse === 1) {
         $('#'+elementId).css({
                     'width' : 100 + '%',
@@ -3900,8 +3899,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.confirmInActivity();
     }
-    /**========== FINISH ==========*/
+    function isAlert() {
+      GlobalStor.global.isAlert = 0;
+      GlobalStor.global.isBox = 0;
 
+
+    }
+    /**========== FINISH ==========*/
+    thisCtrl.isAlert = isAlert;
     thisCtrl.clickYes = clickYes;
     thisCtrl.clickCopy = clickCopy;
   });
@@ -8865,6 +8870,7 @@ function ErrorResult(code, message) {
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
         GlobalStor.global.productEditNumber = ProductStor.product.product_id;
@@ -8880,16 +8886,12 @@ function ErrorResult(code, message) {
         $location.path('/main');
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
-
       function addCloneProductInOrder(cloneProduct, lastProductId) {
         //console.log(cloneProduct)
         lastProductId += 1;
         cloneProduct.product_id = lastProductId;
         OrderStor.order.products.push(cloneProduct);
       }
-
-
-
       function createProductCopy() {
         var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
               return item.product_id;
@@ -8909,6 +8911,7 @@ function ErrorResult(code, message) {
         GeneralServ.confirmPath(
           createProductCopy
         );
+
 }
 
 
@@ -12123,7 +12126,7 @@ function ErrorResult(code, message) {
           /**BLIND*/
           {
             id: 99,
-            name: $filter('translate')('add_elements.BLIND'),
+            name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12133,7 +12136,7 @@ function ErrorResult(code, message) {
           /**GRATING*/
           {
             id: 9999,
-            name: $filter('translate')('add_elements.GRATING'),
+            name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -12142,7 +12145,7 @@ function ErrorResult(code, message) {
           /**SHUTTERS*/
           {
             id: 999,
-            name: $filter('translate')('add_elements.SHUTTERS'),
+            name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
             typeMenu: 2,
             //colorClass: 'aux_color_small',
@@ -25477,6 +25480,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
+        ﻿COPY_ORDER_TXT: 'Was man machen muss?',
+        BUTTON_C: 'Zu kopieren',
+        BUTTON_E: 'Einzustellen',
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',
@@ -25610,6 +25616,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         OTHERS: 'Übrige',
         GRIDS: 'Moskitonetze',
         VISORS: 'Visiere',
+
+        INSIDES: 'Die Inneren',
+        OUTSIDES: 'Die Äusserlichen',
+        COMPONENTS: 'Die Komponenten',
+        SHUTTERS: 'Rolladen',
+        BLIND: 'Fensterläden',
+        GRATING: 'Lufi-Deckel',
         SPILLWAYS: 'Entwässerungsanlagen',
         WINDOWSILLS: 'Fensterbänke',
         HANDLELS: 'Griff',
@@ -25847,6 +25860,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'YES',
         BUTTON_N: 'NO',
+        ﻿COPY_ORDER_TXT: 'What to do?',
+        BUTTON_C: 'Copy',
+        BUTTON_E: 'Paste',
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',
@@ -25975,7 +25991,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDE: 'internal slopes',
         CONNECTORS: 'connector',
         FAN: 'microairing',
-        WINDOWSILL: 'windowsill',
+        INSIDES: 'Internal',
+        OUTSIDES: 'External',
+        SHUTTERS: 'Blinds',
+        BLIND: 'Shutters',
+        GRATING: "Outer binding",
+        SPILLWAYS: 'Drains',
+        COMPONENTS: 'Components',
+        WINDOWSILL: 'sills',
         HANDLEL: 'handle',
         INSIDES: 'inside',
         OUTSIDES: 'outside',
@@ -26205,6 +26228,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .constant('italianDictionary', {
 
       common_words: {
+
         CHANGE: 'Cambiare',
         MONTHS: 'Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre',
         MONTHS_SHOT: 'Gen., Febb., Marzo, Apr., Mag., Giu., Luglio, Ago., Sett., Ott., Nov., Dic.',
@@ -26216,6 +26240,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         MIN: 'Min',
         MAX: 'Max',
         //----- confirm dialogs
+        ﻿COPY_ORDER_TXT: 'Cosa dovrei fare?',
+        BUTTON_C: 'Copia',
+        BUTTON_E: 'Inserire',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
         DELETE_PRODUCT_TITLE: 'Cancella!',
@@ -26347,6 +26374,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CONNECTORS: 'connettore',
         FAN: 'microventilazione',
         WINDOWSILL: 'davanzale',
+        INSIDES:'Interno',
+        OUTSIDES:'Esterno',
+        COMPONENTS:'Componenti',
+        SHUTTERS:'Tapparelle avvolgibili',
+        BLIND: 'persiane',
+        GRATING: 'copertura esterna',
         HANDLEL: 'maniglia',
         OTHERS: 'altro',
         GRIDS: 'le zanzariere',
@@ -26587,6 +26620,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
+        ﻿COPY_ORDER_TXT: 'Ce trebuie sa fac?',
+        BUTTON_C: 'Copie',
+        BUTTON_E: 'Inserare',
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
@@ -26716,6 +26752,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CONNECTORS: 'conector',
         FAN: 'micro-aerisire',
         WINDOWSILL: 'pervaz',
+        INSIDES:'Interne',
+        OUTSIDES:'Exterior',
+        COMPONENTS:'Componente',
+        SHUTTERS:'Rulouri exterioare',
+        BLIND: 'obloane',
+        GRATING: 'capacul exterior',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
         GRIDS: 'plase de protecție împotriva țânțarilor',
@@ -26962,7 +27004,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         DELETE_ORDER_TITLE: 'Удаление заказа!',
         DELETE_ORDER_TXT: 'Хотите удалить заказ?',
         COPY_ORDER_TITLE: 'Выберите действие!',
-        COPY_ORDER_TXT: 'Хотите сделать копию или изменения в заказе?',
+        COPY_ORDER_TXT: 'Что необходимо сделать?',
         SEND_ORDER_TITLE: 'В производство!',
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
@@ -27331,7 +27373,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'ТАК',
         BUTTON_N: 'НІ',
+        BUTTON_C: 'Копіювати',
+        BUTTON_E: 'Вставити',
         DELETE_PRODUCT_TITLE: 'Видалення!',
+        ﻿COPY_ORDER_TXT: 'Що необхідно зробити?',
         DELETE_PRODUCT_TXT: 'Хочете видалити продукт?',
         DELETE_ORDER_TITLE: 'Видалення замовлення!',
         DELETE_ORDER_TXT: 'Хочете видалити замовлення?',
@@ -27463,6 +27508,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HANDLEL: 'ручка',
         OTHERS: 'інше',
         GRIDS: 'москітні сітки',
+        INSIDES: 'Внутрішні',
+        OUTSIDES: 'Зовнішні',
+        SHUTTERS: 'Роллети',
+        BLIND: 'Віконниці',
+        GRATING: "Зовнішня палітурка",
+        SPILLWAYS: 'Водовідливи',
+        COMPONENTS: 'Компоненти',
+        WINDOWSILL: 'windowsill',
         VISORS: 'козирки',
         SPILLWAYS: 'водовідливи',
         WINDOWSILLS: 'підвіконня',

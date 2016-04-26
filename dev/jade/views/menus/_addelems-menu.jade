@@ -5,11 +5,11 @@
 			button.close-elements-menu(ng-click="elementsMenu.closeAddElementsMenu()")
 
 		.menu-lists
-			ul.items-list(ng-if="elementsMenu.G.global.currOpenPage === 'main'")
+			ul.items-lister(ng-if="elementsMenu.G.global.currOpenPage === 'main'")
 				li.item.empty-element(ng-class="{'active': elementsMenu.A.aux.isAddElement == false}", ng-click="elementsMenu.chooseAddElement()")
 					.value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
-			ul.items-list(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}")
+			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}")
 				.title(ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
 
 				li.item(ng-repeat="addElement in type track by $index")

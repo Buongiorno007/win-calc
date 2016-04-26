@@ -19,6 +19,9 @@
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
+        ﻿COPY_ORDER_TXT: 'Was man machen muss?',
+        BUTTON_C: 'Zu kopieren',
+        BUTTON_E: 'Einzustellen',
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',
@@ -152,6 +155,13 @@
         OTHERS: 'Übrige',
         GRIDS: 'Moskitonetze',
         VISORS: 'Visiere',
+
+        INSIDES: 'Die Inneren',
+        OUTSIDES: 'Die Äusserlichen',
+        COMPONENTS: 'Die Komponenten',
+        SHUTTERS: 'Rolladen',
+        BLIND: 'Fensterläden',
+        GRATING: 'Lufi-Deckel',
         SPILLWAYS: 'Entwässerungsanlagen',
         WINDOWSILLS: 'Fensterbänke',
         HANDLELS: 'Griff',

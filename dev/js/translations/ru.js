@@ -26,7 +26,7 @@
         DELETE_ORDER_TITLE: 'Удаление заказа!',
         DELETE_ORDER_TXT: 'Хотите удалить заказ?',
         COPY_ORDER_TITLE: 'Выберите действие!',
-        COPY_ORDER_TXT: 'Хотите сделать копию или изменения в заказе?',
+        COPY_ORDER_TXT: 'Что необходимо сделать?',
         SEND_ORDER_TITLE: 'В производство!',
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',

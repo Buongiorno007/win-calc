@@ -58,7 +58,6 @@
     }
 
     function hideMenu(elementId) {
-      console.log(elementId)
       if (AuxStor.aux.truefalse === 1) {
         $('#'+elementId).css({
                     'width' : 100 + '%',

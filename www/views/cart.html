@@ -665,12 +665,12 @@
             <button ng-click="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
           </header>
           <div class="menu-lists">
-            <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-list">
+            <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-lister">
               <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" ng-click="elementsMenu.chooseAddElement()" class="item empty-element">
                 <div class="value">{{ ::elementsMenu.EMPTY_ELEMENT }}</div>
               </li>
             </ul>
-            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" class="items-list">
+            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
               <li ng-repeat="addElement in type track by $index" class="item">
                 <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
@@ -992,6 +992,11 @@
     <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
     <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
     <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div ng-click="alertBox.isAlert()" ng-show="alertBox.G.global.isBox" class="order-delete"></div>
+        </section>
+      </div>
       <button ng-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
       <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
       <button ng-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
