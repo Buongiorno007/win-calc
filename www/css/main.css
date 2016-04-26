@@ -9574,7 +9574,7 @@ tr.factory_item {
 /* line 640, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
-  width: 23%;
+  width: 22%;
   left: 4%;
   top: 1rem;
   text-align: center;
@@ -9583,9 +9583,13 @@ tr.factory_item {
   height: 5rem;
   line-height: 5rem;
   font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
-  margin: 1.25rem 0.25rem;
+  margin: 1.25rem 0.5rem;
   border-radius: 1rem;
   background-color: orange;
+}
+/* line 654, ../../dev/sass/panels/add-elements.scss */
+.numberMenu.green {
+  background-color: green;
 }
 
 /* line 1, ../../dev/sass/panels/add-elements-list.scss */

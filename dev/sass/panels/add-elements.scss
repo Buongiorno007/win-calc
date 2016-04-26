@@ -639,7 +639,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .numberMenu {
     position: relative;
-    width: 23%;
+    width: 22%;
     left: 4%;
     top: 1rem;
     text-align: center;
@@ -648,7 +648,10 @@ $aux-img-select-path: 'auxiliaries-selected';
     height: 5rem;
     line-height: 5rem;
     font: normal 3rem/1.42857 roboto-light, sans-serif, icons;
-    margin: 1.25rem 0.25rem;
+    margin: 1.25rem 0.5rem;
     border-radius: 1rem;
     background-color: orange;
+    &.green {
+    background-color: #4BD963;
+    }
   }

@@ -121,8 +121,8 @@
         CartMenuServ.calculateOrderPrice();
       }
         GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('common_words.SPACE'),
           editProduct
         );
         GeneralServ.confirmPath(

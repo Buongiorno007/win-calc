@@ -33,6 +33,7 @@
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 1,
       typing: 'on'
     };
 
@@ -63,25 +64,17 @@
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = false;
     }
-    function firstB() {
-      GlobalStor.global.addElemNumb = 1
+
+    function firstB(id){
+      GlobalStor.global.addElemNumb = id
+      thisCtrl.config.colorFilter = id;
     }
-    function secondB() {
-      GlobalStor.global.addElemNumb = 2
-    }
-    function thirdB() {
-      GlobalStor.global.addElemNumb = 3
-    }
-    function fourthB(){
-      GlobalStor.global.addElemNumb = 4
-    }
+  
+
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.firstB = firstB;
-    thisCtrl.secondB = secondB;
-    thisCtrl.thirdB = thirdB;
-    thisCtrl.fourthB = fourthB;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -91,3 +84,13 @@
 
   });
 })();
+
+    function hideMenu(elementId) {
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
+        AuxStor.aux.truefalse = 0;
+      } 
+    }
