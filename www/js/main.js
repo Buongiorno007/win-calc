@@ -3235,6 +3235,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 1,
       typing: 'on'
     };
 
@@ -3265,25 +3266,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = false;
     }
-    function firstB() {
-      GlobalStor.global.addElemNumb = 1
+
+    function firstB(id){
+      GlobalStor.global.addElemNumb = id
+      thisCtrl.config.colorFilter = id;
     }
-    function secondB() {
-      GlobalStor.global.addElemNumb = 2
-    }
-    function thirdB() {
-      GlobalStor.global.addElemNumb = 3
-    }
-    function fourthB(){
-      GlobalStor.global.addElemNumb = 4
-    }
+  
+
     /**========== FINISH ==========*/
 
     //------ clicking
     thisCtrl.firstB = firstB;
-    thisCtrl.secondB = secondB;
-    thisCtrl.thirdB = thirdB;
-    thisCtrl.fourthB = fourthB;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -3294,6 +3287,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   });
 })();
 
+    function hideMenu(elementId) {
+      if (AuxStor.aux.truefalse === 1) {
+        $('#'+elementId).css({
+                    'width' : 100 + '%',
+                    'height' : 7 + '%'
+                     })
+        AuxStor.aux.truefalse = 0;
+      } 
+    }
 
 
 // controllers/panels/glasses.js
@@ -8931,8 +8933,8 @@ function ErrorResult(code, message) {
         CartMenuServ.calculateOrderPrice();
       }
         GeneralServ.confirmAlert(
-          $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('common_words.SPACE'),
           editProduct
         );
         GeneralServ.confirmPath(
@@ -25511,9 +25513,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'JA',
         BUTTON_N: 'NEIN',
-        ﻿COPY_ORDER_TXT: 'Was man machen muss?',
+
+        SPACE: '           ',
+        ﻿EDIT_COPY_TXT: 'Was man machen muss?',
         BUTTON_C: 'Zu kopieren',
-        BUTTON_E: 'Einzustellen',
+        BUTTON_E: 'Bearbeiten',
+
         DELETE_PRODUCT_TITLE: 'Die Entfernung!',
         DELETE_PRODUCT_TXT: 'Sie wollen das Produkt entfernen?',
         DELETE_ORDER_TITLE: 'Die Entfernung der Bestellung!',
@@ -25891,9 +25896,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'YES',
         BUTTON_N: 'NO',
-        ﻿COPY_ORDER_TXT: 'What to do?',
+
+        ﻿EDIT_COPY_TXT: 'What to do?',
         BUTTON_C: 'Copy',
-        BUTTON_E: 'Paste',
+        BUTTON_E: 'Edit',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',
@@ -26271,13 +26279,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         MIN: 'Min',
         MAX: 'Max',
         //----- confirm dialogs
-        ﻿COPY_ORDER_TXT: 'Cosa dovrei fare?',
+
+        EDIT_COPY_TXT: 'Cosa dovrei fare?',
         BUTTON_C: 'Copia',
-        BUTTON_E: 'Inserire',
+        BUTTON_E: 'Modifica',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
-        BUTTON_C: 'Копировать',
-        BUTTON_E: 'Редактировать',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',
@@ -26653,9 +26662,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
-        ﻿COPY_ORDER_TXT: 'Ce trebuie sa fac?',
+
+        ﻿EDIT_COPY_TXT: 'Ce trebuie sa fac?',
         BUTTON_C: 'Copie',
-        BUTTON_E: 'Inserare',
+        BUTTON_E: 'Edita',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
@@ -27033,11 +27045,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BUTTON_C: 'Копировать',
         BUTTON_E: 'Редактировать',
         DELETE_PRODUCT_TITLE: 'Удаление!',
+        SPACE: '           ',
         DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
         DELETE_ORDER_TITLE: 'Удаление заказа!',
         DELETE_ORDER_TXT: 'Хотите удалить заказ?',
         COPY_ORDER_TITLE: 'Выберите действие!',
-        COPY_ORDER_TXT: 'Что необходимо сделать?',
+
+        EDIT_COPY_TXT: 'Что необходимо сделать?',
+
         SEND_ORDER_TITLE: 'В производство!',
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
@@ -27407,9 +27422,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         BUTTON_Y: 'ТАК',
         BUTTON_N: 'НІ',
         BUTTON_C: 'Копіювати',
-        BUTTON_E: 'Вставити',
+
+        BUTTON_E: 'Редагувати',
         DELETE_PRODUCT_TITLE: 'Видалення!',
-        ﻿COPY_ORDER_TXT: 'Що необхідно зробити?',
+        EDIT_COPY_TXT: 'Що необхідно зробити?',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TXT: 'Хочете видалити продукт?',
         DELETE_ORDER_TITLE: 'Видалення замовлення!',
         DELETE_ORDER_TXT: 'Хочете видалити замовлення?',

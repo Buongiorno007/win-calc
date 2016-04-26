@@ -19,9 +19,12 @@
         //----- confirm dialogs
         BUTTON_Y: 'YES',
         BUTTON_N: 'NO',
-        ﻿COPY_ORDER_TXT: 'What to do?',
+
+        ﻿EDIT_COPY_TXT: 'What to do?',
         BUTTON_C: 'Copy',
-        BUTTON_E: 'Paste',
+        BUTTON_E: 'Edit',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',

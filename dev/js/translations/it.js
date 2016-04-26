@@ -18,13 +18,14 @@
         MIN: 'Min',
         MAX: 'Max',
         //----- confirm dialogs
-        ﻿COPY_ORDER_TXT: 'Cosa dovrei fare?',
+
+        EDIT_COPY_TXT: 'Cosa dovrei fare?',
         BUTTON_C: 'Copia',
-        BUTTON_E: 'Inserire',
+        BUTTON_E: 'Modifica',
         BUTTON_Y: 'Sì',
         BUTTON_N: 'No',
-        BUTTON_C: 'Копировать',
-        BUTTON_E: 'Редактировать',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Cancella!',
         DELETE_PRODUCT_TXT: 'Volete cancellare il prodotto?',
         DELETE_ORDER_TITLE: 'Cancellazione dell’ordine!',

@@ -20,9 +20,12 @@
         BUTTON_Y: 'ТАК',
         BUTTON_N: 'НІ',
         BUTTON_C: 'Копіювати',
-        BUTTON_E: 'Вставити',
+
+        BUTTON_E: 'Редагувати',
         DELETE_PRODUCT_TITLE: 'Видалення!',
-        ﻿COPY_ORDER_TXT: 'Що необхідно зробити?',
+        EDIT_COPY_TXT: 'Що необхідно зробити?',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TXT: 'Хочете видалити продукт?',
         DELETE_ORDER_TITLE: 'Видалення замовлення!',
         DELETE_ORDER_TXT: 'Хочете видалити замовлення?',

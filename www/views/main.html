@@ -385,10 +385,10 @@
               </div>
             </div>
           </div>
-          <div ng-mousedown="elementsPanel.firstB()" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
-          <div ng-mousedown="elementsPanel.secondB()" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
-          <div ng-mousedown="elementsPanel.thirdB()" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
-          <div ng-mousedown="elementsPanel.fourthB" class="numberMenu">{{::elementsPanel.OTHERS}}</div>
+          <div ng-mousedown="elementsPanel.firstB(1)" ng-class="{'green': elementsPanel.config.colorFilter===1}" id="1" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
+          <div ng-mousedown="elementsPanel.firstB(2)" ng-class="{'green': elementsPanel.config.colorFilter===2}" id="2" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
+          <div ng-mousedown="elementsPanel.firstB(3)" ng-class="{'green': elementsPanel.config.colorFilter===3}" id="3" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
+          <div ng-mousedown="elementsPanel.firstB(4)" ng-class="{'green': elementsPanel.config.colorFilter===4}" id="4" class="numberMenu">{{::elementsPanel.OTHERS}}</div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-mousedown="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
             <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>

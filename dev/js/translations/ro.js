@@ -19,9 +19,12 @@
         //----- confirm dialogs
         BUTTON_Y: 'DA',
         BUTTON_N: 'NU',
-        ﻿COPY_ORDER_TXT: 'Ce trebuie sa fac?',
+
+        ﻿EDIT_COPY_TXT: 'Ce trebuie sa fac?',
         BUTTON_C: 'Copie',
-        BUTTON_E: 'Inserare',
+        BUTTON_E: 'Edita',
+        SPACE: '           ',
+
         DELETE_PRODUCT_TITLE: 'Ștergere!',
         DELETE_PRODUCT_TXT: 'Doriți să ștergeți produsul?',
         DELETE_ORDER_TITLE: 'Ștergerea comenzii!',
