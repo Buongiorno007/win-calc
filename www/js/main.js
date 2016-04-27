@@ -25087,7 +25087,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lamGroupFiltered: [],
 
         //------ Add Elements
-        addElemNumb: 1,
+        addElemNumb: 11,
         addElementsAll: [],
         tempAddElements: [],
 
