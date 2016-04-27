@@ -12,6 +12,7 @@
   z-index: 12;
   &.active {
     @include top_left_coord(0px, 0px);
+    overflow: hidden;
   }
   .info {
     position: absolute;
