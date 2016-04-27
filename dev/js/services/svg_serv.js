@@ -2800,11 +2800,7 @@
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 2) {
-        position.x = 220;
-        position.y = (valueY/2)+35;
-      }
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
         position.x = 276;
         position.y = valueY-110;
       }

@@ -6129,7 +6129,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   }
                 }
               
-                if(ProductStor.product.construction_type === 4) {
+                if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                   imgLink = "333.gif";
                   if (tH > 100) {
                     kk = 1.03;
@@ -6293,7 +6293,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 });
                }
 
-              if(ProductStor.product.construction_type === 4) {
+              if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                 var lchHeight = (((0.18*heightT)-252)+520),
                     lchWidth = (((0.18*widthT)-234)+420),
                     heightDisplay = 755;
@@ -6387,7 +6387,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
-              if(ProductStor.product.construction_type == 4) {
+              if(ProductStor.product.construction_type == 4 || ProductStor.product.construction_type === 2) {
 
                 mainGroup.append('g').append("polygon")
                 .attr({
@@ -20699,7 +20699,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   maxSizeLimit: 5000
                 },
                 //------- Level 1
-                {
+/*                {
                   type:'skylight',
                   id:'block_1',
                   level: 1,
@@ -20717,7 +20717,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
-                },
+                },*/
                 {
                   type:'skylight',
                   id:'block_2',
@@ -20726,10 +20726,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
-                    {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
+/*                  {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
+                    {type:'frame', id:'fp5', x:0, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp6', x:700, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp7', x:700, y:2100, dir:'line', view:1},
+                    {type:'frame', id:'fp8', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
@@ -24477,11 +24481,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 2) {
-        position.x = 220;
-        position.y = (valueY/2)+35;
-      }
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
         position.x = 276;
         position.y = valueY-110;
       }

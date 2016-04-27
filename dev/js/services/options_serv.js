@@ -1429,7 +1429,7 @@
                   maxSizeLimit: 5000
                 },
                 //------- Level 1
-                {
+/*                {
                   type:'skylight',
                   id:'block_1',
                   level: 1,
@@ -1447,7 +1447,7 @@
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
-                },
+                },*/
                 {
                   type:'skylight',
                   id:'block_2',
@@ -1456,10 +1456,15 @@
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
+/*          Старые точки двери. Выод на болкон + окно(точки окна выше):       
                     {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
+                    {type:'frame', id:'fp5', x:0, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp6', x:700, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp7', x:700, y:2100, dir:'line', view:1},
+                    {type:'frame', id:'fp8', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
