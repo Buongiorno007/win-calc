@@ -326,8 +326,8 @@
       <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
         <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
           <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
-            <div ng-show="elementsPanel.G.global.addElemNumb === 2" class="aux-template2-img move-outside"></div>
-            <div ng-show="elementsPanel.G.global.addElemNumb === 1 || elementsPanel.G.global.addElemNumb === 3" class="aux-template1-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.addElemNumb === 22" class="aux-template2-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.addElemNumb === 11 || elementsPanel.G.global.addElemNumb === 33" class="aux-template1-img move-outside"></div>
           </div>
           <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.addElemNumb" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
             <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
@@ -385,10 +385,10 @@
               </div>
             </div>
           </div>
-          <div ng-mousedown="elementsPanel.firstB(1)" ng-class="{'green': elementsPanel.config.colorFilter===1}" id="1" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
-          <div ng-mousedown="elementsPanel.firstB(2)" ng-class="{'green': elementsPanel.config.colorFilter===2}" id="2" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
-          <div ng-mousedown="elementsPanel.firstB(3)" ng-class="{'green': elementsPanel.config.colorFilter===3}" id="3" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
-          <div ng-mousedown="elementsPanel.firstB(4)" ng-class="{'green': elementsPanel.config.colorFilter===4}" id="4" class="numberMenu">{{::elementsPanel.OTHERS}}</div>
+          <div ng-mousedown="elementsPanel.firstB(11)" ng-class="{'green': elementsPanel.config.colorFilter===11}" id="11" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
+          <div ng-mousedown="elementsPanel.firstB(22)" ng-class="{'green': elementsPanel.config.colorFilter===22}" id="22" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
+          <div ng-mousedown="elementsPanel.firstB(33)" ng-class="{'green': elementsPanel.config.colorFilter===33}" id="33" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
+          <div ng-mousedown="elementsPanel.firstB(44)" ng-class="{'green': elementsPanel.config.colorFilter===44}" id="44" class="numberMenu">{{::elementsPanel.OTHERS}}</div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-mousedown="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
             <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>

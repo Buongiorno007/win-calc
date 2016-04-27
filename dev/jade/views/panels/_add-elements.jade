@@ -2,8 +2,8 @@
   .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
    
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
-      .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 2")
-      .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 1 || elementsPanel.G.global.addElemNumb === 3")
+      .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 22")
+      .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 11 || elementsPanel.G.global.addElemNumb === 33")
 
     .auxiliary-item.unvisible(
       ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index",
@@ -59,10 +59,10 @@
               .aux-label(data-output="{{ ::elementsPanel.HEIGHT_LABEL }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="addElemGroup.length>1") {{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}
 
-    .numberMenu(ng-mousedown="elementsPanel.firstB(1)", ng-class="{'green': elementsPanel.config.colorFilter===1}", id="1") {{::elementsPanel.INSIDES}}
-    .numberMenu(ng-mousedown="elementsPanel.firstB(2)", ng-class="{'green': elementsPanel.config.colorFilter===2}", id="2") {{::elementsPanel.OUTSIDES}}
-    .numberMenu(ng-mousedown="elementsPanel.firstB(3)", ng-class="{'green': elementsPanel.config.colorFilter===3}", id="3") {{::elementsPanel.COMPONENTS}}
-    .numberMenu(ng-mousedown="elementsPanel.firstB(4)", ng-class="{'green': elementsPanel.config.colorFilter===4}", id="4") {{::elementsPanel.OTHERS}}
+    .numberMenu(ng-mousedown="elementsPanel.firstB(11)", ng-class="{'green': elementsPanel.config.colorFilter===11}", id="11") {{::elementsPanel.INSIDES}}
+    .numberMenu(ng-mousedown="elementsPanel.firstB(22)", ng-class="{'green': elementsPanel.config.colorFilter===22}", id="22") {{::elementsPanel.OUTSIDES}}
+    .numberMenu(ng-mousedown="elementsPanel.firstB(33)", ng-class="{'green': elementsPanel.config.colorFilter===33}", id="33") {{::elementsPanel.COMPONENTS}}
+    .numberMenu(ng-mousedown="elementsPanel.firstB(44)", ng-class="{'green': elementsPanel.config.colorFilter===44}", id="44") {{::elementsPanel.OTHERS}}
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", ng-mousedown="elementsPanel.showWindowScheme()")
 

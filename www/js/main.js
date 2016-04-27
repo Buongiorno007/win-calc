@@ -3235,7 +3235,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 1,
+      colorFilter: 11,
       typing: 'on'
     };
 
@@ -12057,7 +12057,7 @@ function ErrorResult(code, message) {
             id: 20,
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -12066,7 +12066,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -12075,7 +12075,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -12084,7 +12084,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -12093,7 +12093,7 @@ function ErrorResult(code, message) {
             id: 26,
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -12102,7 +12102,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -12111,7 +12111,7 @@ function ErrorResult(code, message) {
             id: 12,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -12120,7 +12120,7 @@ function ErrorResult(code, message) {
             id: 27,
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12129,7 +12129,7 @@ function ErrorResult(code, message) {
             id: 8,
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -12138,7 +12138,7 @@ function ErrorResult(code, message) {
             id: 24,
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -12147,7 +12147,7 @@ function ErrorResult(code, message) {
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12157,7 +12157,7 @@ function ErrorResult(code, message) {
             id: 99,
             name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12167,7 +12167,7 @@ function ErrorResult(code, message) {
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12176,7 +12176,7 @@ function ErrorResult(code, message) {
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
