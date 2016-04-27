@@ -113,7 +113,7 @@
         TEMPLATE_WINDOW: 'Вікно',
         TEMPLATE_BALCONY: 'Балкон',
         TEMPLATE_DOOR: 'Двері',
-        TEMPLATE_BALCONY_ENTER: 'Вихід на балкон',
+        TEMPLATE_BALCONY_ENTER: 'Балконні двері',
         TEMPLATE_EDIT: 'Редагувати',
         TEMPLATE_DEFAULT: 'Проект за умовчанням',
         COUNTRY: 'країна',

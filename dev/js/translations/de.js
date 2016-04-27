@@ -113,7 +113,7 @@
         TEMPLATE_WINDOW: 'Fenster',
         TEMPLATE_BALCONY: 'Altan',
         TEMPLATE_DOOR: 'Tür',
-        TEMPLATE_BALCONY_ENTER: 'Der Ausgang auf den Balkon',
+        TEMPLATE_BALCONY_ENTER: 'Balkontür',
         TEMPLATE_EDIT: 'Editieren',
         TEMPLATE_DEFAULT: 'Das Projekt als Voreinstellung',
         COUNTRY: 'Land',

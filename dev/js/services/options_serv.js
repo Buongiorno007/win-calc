@@ -1418,7 +1418,7 @@
 
           windowDoor: [
             {
-              name: 'Выход на балкон',
+              name: 'Балконная дверь',
               details: [
                 {
                   type:'skylight',
@@ -1456,7 +1456,7 @@
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
-/*          Старые точки двери. Выод на болкон + окно(точки окна выше):       
+/*          Старые точки двери. Выход на балкон + окно(точки окна выше):       
                     {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},

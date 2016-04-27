@@ -20688,7 +20688,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           windowDoor: [
             {
-              name: 'Выход на балкон',
+              name: 'Балконная дверь',
               details: [
                 {
                   type:'skylight',
@@ -20726,7 +20726,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
-/*                  {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
+/*          Старые точки двери. Выход на балкон + окно(точки окна выше):       
+                    {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
                     {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
@@ -25610,7 +25611,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Fenster',
         TEMPLATE_BALCONY: 'Altan',
         TEMPLATE_DOOR: 'Tür',
-        TEMPLATE_BALCONY_ENTER: 'Der Ausgang auf den Balkon',
+        TEMPLATE_BALCONY_ENTER: 'Balkontür',
         TEMPLATE_EDIT: 'Editieren',
         TEMPLATE_DEFAULT: 'Das Projekt als Voreinstellung',
         COUNTRY: 'Land',
@@ -25993,7 +25994,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Window',
         TEMPLATE_BALCONY: 'Balcony',
         TEMPLATE_DOOR: 'Door',
-        TEMPLATE_BALCONY_ENTER: 'Exit to a balcony',
+        TEMPLATE_BALCONY_ENTER: 'Balcony door',
         TEMPLATE_EDIT: 'edit',
         TEMPLATE_DEFAULT: 'Project by default',
         COUNTRY: 'country',
@@ -26378,7 +26379,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Finestra',
         TEMPLATE_BALCONY: 'Balcone',
         TEMPLATE_DOOR: 'Porta',
-        TEMPLATE_BALCONY_ENTER: 'Uscita sul balcone',
+        TEMPLATE_BALCONY_ENTER: 'Porta del balcone',
         TEMPLATE_EDIT: 'Redigere',
         TEMPLATE_DEFAULT: 'Progetto per difetto',
         COUNTRY: 'paese',
@@ -26759,7 +26760,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Fereastră',
         TEMPLATE_BALCONY: 'Balcon',
         TEMPLATE_DOOR: 'Ușă',
-        TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
+        TEMPLATE_BALCONY_ENTER: 'Usa de la balcon',
         TEMPLATE_EDIT: 'Editează',
         TEMPLATE_DEFAULT: 'Proiect implicit',
         COUNTRY: 'țara',
@@ -27138,7 +27139,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Oкно',
         TEMPLATE_BALCONY: 'Балкон',
         TEMPLATE_DOOR: 'Дверь',
-        TEMPLATE_BALCONY_ENTER: 'Выход на балкон',
+        TEMPLATE_BALCONY_ENTER: 'Балконная дверь',
         TEMPLATE_EDIT: 'Редактировать',
         TEMPLATE_DEFAULT: 'Проект по умолчанию',
         COUNTRY: 'страна',
@@ -27518,7 +27519,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Вікно',
         TEMPLATE_BALCONY: 'Балкон',
         TEMPLATE_DOOR: 'Двері',
-        TEMPLATE_BALCONY_ENTER: 'Вихід на балкон',
+        TEMPLATE_BALCONY_ENTER: 'Балконні двері',
         TEMPLATE_EDIT: 'Редагувати',
         TEMPLATE_DEFAULT: 'Проект за умовчанням',
         COUNTRY: 'країна',

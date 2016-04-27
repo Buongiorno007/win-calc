@@ -114,7 +114,7 @@
         TEMPLATE_WINDOW: 'Finestra',
         TEMPLATE_BALCONY: 'Balcone',
         TEMPLATE_DOOR: 'Porta',
-        TEMPLATE_BALCONY_ENTER: 'Uscita sul balcone',
+        TEMPLATE_BALCONY_ENTER: 'Porta del balcone',
         TEMPLATE_EDIT: 'Redigere',
         TEMPLATE_DEFAULT: 'Progetto per difetto',
         COUNTRY: 'paese',

@@ -113,7 +113,7 @@
         TEMPLATE_WINDOW: 'Fereastră',
         TEMPLATE_BALCONY: 'Balcon',
         TEMPLATE_DOOR: 'Ușă',
-        TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
+        TEMPLATE_BALCONY_ENTER: 'Usa de la balcon',
         TEMPLATE_EDIT: 'Editează',
         TEMPLATE_DEFAULT: 'Proiect implicit',
         COUNTRY: 'țara',
