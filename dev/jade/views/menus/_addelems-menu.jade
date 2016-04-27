@@ -11,7 +11,10 @@
 
 			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}")
 				.title(ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
-
+					.open-list(id="{{$index + 'open'}}")
+						img(ng-src='img/plus.png')
+					.open-list2(id="{{$index + 'close'}}")
+						img(ng-src='img/minus.png')
 				li.item(ng-repeat="addElement in type track by $index")
 					.value(ng-mousedown="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
 					button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", ng-mousedown="elementsMenu.showInfoBox(addElement.id, type)")

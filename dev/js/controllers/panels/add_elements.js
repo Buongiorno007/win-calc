@@ -84,13 +84,3 @@
 
   });
 })();
-
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } 
-    }

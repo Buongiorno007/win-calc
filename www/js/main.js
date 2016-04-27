@@ -2293,12 +2293,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'width' : 100 + '%',
                     'height' : 7 + '%'
                      })
+      $('#'+elementId + 'open').css({
+                    'visibility' : 'visible'
+                     })
+      $('#'+elementId + 'close').css({
+                    'visibility' : 'hidden'
+                     })
         AuxStor.aux.truefalse = 0;
       } else {
         $('#'+elementId).css({
                     'width' : 100+'%',
                     'height' : 'auto'
                   })
+      $('#'+elementId + 'open').css({
+                    'visibility' : 'hidden'
+                     })
+      $('#'+elementId + 'close').css({
+                    'visibility' : 'visible'
+                     })
         AuxStor.aux.truefalse = 1;
       }
     }
@@ -3287,15 +3299,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   });
 })();
 
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } 
-    }
 
 
 // controllers/panels/glasses.js

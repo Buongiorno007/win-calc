@@ -38,6 +38,28 @@
     background-color: #f8f8f8;
   }
 
+  .open-list {
+    height: 8px;
+    position: relative;
+    left: -16px;
+    top: -17px;
+    width: 8px;
+    img {
+      height: 100%;
+      width: 100%; 
+    } 
+  }
+  .open-list2 {
+    height: 8px;
+    position: relative;
+    left: -16px;
+    top: -25px;
+    width: 8px;
+    img {
+      height: 100%;
+      width: 100%; 
+    } 
+  }
   .tip {
     @include roboto-lt(rem(22px));
     max-width: 70%;
