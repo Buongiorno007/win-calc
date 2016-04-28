@@ -296,7 +296,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isProductComment = (thisCtrl.config.isProductComment === commId) ? 0 : commId;
     }
 
+    function enterKeyPrice(e) {
+      e = e || window.event;
+      if (e.keyCode === 13) {
+        CartMenuServ.approveNewDisc(0)
+      }
+    }
 
+    function enterKeyDop(e) {
+      e = e || window.event;
+      if (e.keyCode === 13) {
+        CartMenuServ.approveNewDisc(1)
+      }
+    }
 
     function openDiscInput(type) {
       //------- discount x add element
@@ -335,7 +347,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
     thisCtrl.box = CartServ.box;
-
+    thisCtrl.enterKeyPrice = enterKeyPrice;
+    thisCtrl.enterKeyDop = enterKeyDop;
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
