@@ -113,7 +113,7 @@
         TEMPLATE_WINDOW: 'Window',
         TEMPLATE_BALCONY: 'Balcony',
         TEMPLATE_DOOR: 'Door',
-        TEMPLATE_BALCONY_ENTER: 'Exit to a balcony',
+        TEMPLATE_BALCONY_ENTER: 'Balcony door',
         TEMPLATE_EDIT: 'edit',
         TEMPLATE_DEFAULT: 'Project by default',
         COUNTRY: 'country',

@@ -19,6 +19,10 @@
 
     padding: 0 rem(20px);
     background-color: transparent;
+    &.color-selected {
+      border-color: #8C8C8C;
+      color: #8C8C8C;
+    }
   }
   .aux-label {
     @include roboto-lt(rem(22px));

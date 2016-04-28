@@ -296,7 +296,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isProductComment = (thisCtrl.config.isProductComment === commId) ? 0 : commId;
     }
 
+    function enterKeyPrice(e) {
+      e = e || window.event;
+      if (e.keyCode === 13) {
+        CartMenuServ.approveNewDisc(0)
+      }
+    }
 
+    function enterKeyDop(e) {
+      e = e || window.event;
+      if (e.keyCode === 13) {
+        CartMenuServ.approveNewDisc(1)
+      }
+    }
 
     function openDiscInput(type) {
       //------- discount x add element
@@ -335,7 +347,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
     thisCtrl.box = CartServ.box;
-
+    thisCtrl.enterKeyPrice = enterKeyPrice;
+    thisCtrl.enterKeyDop = enterKeyDop;
 
     thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
@@ -2293,12 +2306,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'width' : 100 + '%',
                     'height' : 7 + '%'
                      })
+      $('#'+elementId + 'open').css({
+                    'visibility' : 'visible'
+                     })
+      $('#'+elementId + 'close').css({
+                    'visibility' : 'hidden'
+                     })
         AuxStor.aux.truefalse = 0;
       } else {
         $('#'+elementId).css({
                     'width' : 100+'%',
                     'height' : 'auto'
                   })
+      $('#'+elementId + 'open').css({
+                    'visibility' : 'hidden'
+                     })
+      $('#'+elementId + 'close').css({
+                    'visibility' : 'visible'
+                     })
         AuxStor.aux.truefalse = 1;
       }
     }
@@ -3235,7 +3260,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 1,
+      colorFilter: 11,
       typing: 'on'
     };
 
@@ -3287,15 +3312,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   });
 })();
 
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } 
-    }
 
 
 // controllers/panels/glasses.js
@@ -6148,7 +6164,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   }
                 }
               
-                if(ProductStor.product.construction_type === 4) {
+                if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                   imgLink = "333.gif";
                   if (tH > 100) {
                     kk = 1.03;
@@ -6312,7 +6328,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 });
                }
 
-              if(ProductStor.product.construction_type === 4) {
+              if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                 var lchHeight = (((0.18*heightT)-252)+520),
                     lchWidth = (((0.18*widthT)-234)+420),
                     heightDisplay = 755;
@@ -6406,7 +6422,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
-              if(ProductStor.product.construction_type == 4) {
+              if(ProductStor.product.construction_type == 4 || ProductStor.product.construction_type === 2) {
 
                 mainGroup.append('g').append("polygon")
                 .attr({
@@ -9123,10 +9139,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12079,7 +12095,7 @@ function ErrorResult(code, message) {
             id: 20,
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -12088,7 +12104,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -12097,7 +12113,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -12106,7 +12122,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -12115,7 +12131,7 @@ function ErrorResult(code, message) {
             id: 26,
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -12124,7 +12140,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -12133,7 +12149,7 @@ function ErrorResult(code, message) {
             id: 12,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -12142,7 +12158,7 @@ function ErrorResult(code, message) {
             id: 27,
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12151,7 +12167,7 @@ function ErrorResult(code, message) {
             id: 8,
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
-            typeMenu: 1,
+            typeMenu: 11,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -12160,7 +12176,7 @@ function ErrorResult(code, message) {
             id: 24,
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
-            typeMenu: 3,
+            typeMenu: 33,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -12169,7 +12185,7 @@ function ErrorResult(code, message) {
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12179,7 +12195,7 @@ function ErrorResult(code, message) {
             id: 99,
             name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12189,7 +12205,7 @@ function ErrorResult(code, message) {
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12198,7 +12214,7 @@ function ErrorResult(code, message) {
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
-            typeMenu: 2,
+            typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           }
@@ -20709,7 +20725,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           windowDoor: [
             {
-              name: 'Выход на балкон',
+              name: 'Балконная дверь',
               details: [
                 {
                   type:'skylight',
@@ -20720,7 +20736,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   maxSizeLimit: 5000
                 },
                 //------- Level 1
-                {
+/*                {
                   type:'skylight',
                   id:'block_1',
                   level: 1,
@@ -20738,7 +20754,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parts: [],
                   glassId: 0,
                   glassTxt: ''
-                },
+                },*/
                 {
                   type:'skylight',
                   id:'block_2',
@@ -20747,10 +20763,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   parent: 'block_0',
                   children: [],
                   pointsOut: [
+/*          Старые точки двери. Выход на балкон + окно(точки окна выше):       
                     {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
+                    {type:'frame', id:'fp5', x:0, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp6', x:700, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp7', x:700, y:2100, dir:'line', view:1},
+                    {type:'frame', id:'fp8', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
@@ -24498,11 +24519,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 2) {
-        position.x = 220;
-        position.y = (valueY/2)+35;
-      }
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
         position.x = 276;
         position.y = valueY-110;
       }
@@ -25111,7 +25128,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lamGroupFiltered: [],
 
         //------ Add Elements
-        addElemNumb: 1,
+        addElemNumb: 11,
         addElementsAll: [],
         tempAddElements: [],
 
@@ -25631,7 +25648,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Fenster',
         TEMPLATE_BALCONY: 'Altan',
         TEMPLATE_DOOR: 'Tür',
-        TEMPLATE_BALCONY_ENTER: 'Der Ausgang auf den Balkon',
+        TEMPLATE_BALCONY_ENTER: 'Balkontür',
         TEMPLATE_EDIT: 'Editieren',
         TEMPLATE_DEFAULT: 'Das Projekt als Voreinstellung',
         COUNTRY: 'Land',
@@ -26014,7 +26031,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Window',
         TEMPLATE_BALCONY: 'Balcony',
         TEMPLATE_DOOR: 'Door',
-        TEMPLATE_BALCONY_ENTER: 'Exit to a balcony',
+        TEMPLATE_BALCONY_ENTER: 'Balcony door',
         TEMPLATE_EDIT: 'edit',
         TEMPLATE_DEFAULT: 'Project by default',
         COUNTRY: 'country',
@@ -26399,7 +26416,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Finestra',
         TEMPLATE_BALCONY: 'Balcone',
         TEMPLATE_DOOR: 'Porta',
-        TEMPLATE_BALCONY_ENTER: 'Uscita sul balcone',
+        TEMPLATE_BALCONY_ENTER: 'Porta del balcone',
         TEMPLATE_EDIT: 'Redigere',
         TEMPLATE_DEFAULT: 'Progetto per difetto',
         COUNTRY: 'paese',
@@ -26780,7 +26797,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Fereastră',
         TEMPLATE_BALCONY: 'Balcon',
         TEMPLATE_DOOR: 'Ușă',
-        TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
+        TEMPLATE_BALCONY_ENTER: 'Usa de la balcon',
         TEMPLATE_EDIT: 'Editează',
         TEMPLATE_DEFAULT: 'Proiect implicit',
         COUNTRY: 'țara',
@@ -27159,7 +27176,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Oкно',
         TEMPLATE_BALCONY: 'Балкон',
         TEMPLATE_DOOR: 'Дверь',
-        TEMPLATE_BALCONY_ENTER: 'Выход на балкон',
+        TEMPLATE_BALCONY_ENTER: 'Балконная дверь',
         TEMPLATE_EDIT: 'Редактировать',
         TEMPLATE_DEFAULT: 'Проект по умолчанию',
         COUNTRY: 'страна',
@@ -27539,7 +27556,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         TEMPLATE_WINDOW: 'Вікно',
         TEMPLATE_BALCONY: 'Балкон',
         TEMPLATE_DOOR: 'Двері',
-        TEMPLATE_BALCONY_ENTER: 'Вихід на балкон',
+        TEMPLATE_BALCONY_ENTER: 'Балконні двері',
         TEMPLATE_EDIT: 'Редагувати',
         TEMPLATE_DEFAULT: 'Проект за умовчанням',
         COUNTRY: 'країна',

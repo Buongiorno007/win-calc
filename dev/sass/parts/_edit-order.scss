@@ -23,39 +23,38 @@
     margin: 2rem;
 	float: left; 
 }
-.box {
-	position: absolute;
-	height: auto;
-	width: 5%; 
-	top: 0%;
+.box6 {
+  position: absolute;
+  height: auto;
+  width: 3%;
+  top: 0%;
 }
 .box1 {
-	position: absolute;
-	height: auto;
-	width: 18%;
-	top: 0%; 
-	left: 75%;
-
+  position: absolute;
+  height: auto;
+  width: 23%;
+  top: 0%;
+  left: 74%;
 }
 .box2 {
-	position: absolute;
-	height: auto;
-	top: 0%;
-	width: 20%; 
-	left: 50%;
+  position: absolute;
+  height: auto;
+  top: 0%;
+  width: 24%;
+  left: 47%;
 }
 .box3 {
-	position: absolute;
-	height: auto;
-	width: 15%;
-	top: 0%; 
-	left: 7%;
+  position: absolute;
+  height: auto;
+  width: 13%;
+  top: 0%;
+  left: 7%;
 }
 .box4 {
-	position: relative;
-	height: auto;
-	width: 5%; 
-	left: 18%;
+  position: relative;
+  height: auto;
+  width: 22%;
+  left: 21%;
 }
 .user-select-field-m {
   @extend .user-field-m;
@@ -82,6 +81,7 @@
 .title {
     margin: rem(10px) 0;
     color: $main_orange;
+    max-width: 100%;
 }
 
 .save-m {

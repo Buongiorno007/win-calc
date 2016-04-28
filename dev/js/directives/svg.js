@@ -440,7 +440,7 @@
                   }
                 }
               
-                if(ProductStor.product.construction_type === 4) {
+                if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                   imgLink = "333.gif";
                   if (tH > 100) {
                     kk = 1.03;
@@ -604,7 +604,7 @@
                 });
                }
 
-              if(ProductStor.product.construction_type === 4) {
+              if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
                 var lchHeight = (((0.18*heightT)-252)+520),
                     lchWidth = (((0.18*widthT)-234)+420),
                     heightDisplay = 755;
@@ -698,7 +698,7 @@
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
-              if(ProductStor.product.construction_type == 4) {
+              if(ProductStor.product.construction_type == 4 || ProductStor.product.construction_type === 2) {
 
                 mainGroup.append('g').append("polygon")
                 .attr({
