@@ -1,7 +1,7 @@
 .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
   ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
 
-    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1}", ng-mousedown="configMenu.selectConfigPanel(1)")
+    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1}", fs-click="configMenu.selectConfigPanel(1)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
         svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="configMenu.constants.SVG_CLASS_ICON")
@@ -9,30 +9,30 @@
       .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} *", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 2}", ng-mousedown="configMenu.selectConfigPanel(2)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 2}", fs-click="configMenu.selectConfigPanel(2)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 3}", ng-mousedown="configMenu.selectConfigPanel(3)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 3}", fs-click="configMenu.selectConfigPanel(3)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 4}", ng-mousedown="configMenu.selectConfigPanel(4)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 4}", fs-click="configMenu.selectConfigPanel(4)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 5}", ng-mousedown="configMenu.selectConfigPanel(5)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 5}", fs-click="configMenu.selectConfigPanel(5)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name }} / {{ configMenu.P.product.lamination.laminat_out_name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 6}", ng-mousedown="configMenu.selectConfigPanel(6)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 6}", fs-click="configMenu.selectConfigPanel(6)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .additional-items-list
@@ -42,9 +42,9 @@
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
-    button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", ng-mousedown="configMenu.inputProductInOrder()") {{ ::configMenu.CONFIGMENU_IN_CART }}
+    button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", fs-click="configMenu.inputProductInOrder()") {{ ::configMenu.CONFIGMENU_IN_CART }}
       .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
-    button.cart-btn(ng-if="configMenu.G.global.productEditNumber", ng-mousedown="configMenu.inputProductInOrder()") {{ ::configMenu.SAVE }}
+    button.cart-btn(ng-if="configMenu.G.global.productEditNumber", fs-click="configMenu.inputProductInOrder()") {{ ::configMenu.SAVE }}
 
   .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu && configMenu.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.heat_coef_min}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
     div R = {{ configMenu.P.product.heat_coef_total }}
@@ -57,5 +57,5 @@
 
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
 
-  .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", ng-mousedown="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+  .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", fs-click="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
     .close_menu_tooltip

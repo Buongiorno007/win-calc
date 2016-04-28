@@ -275,7 +275,8 @@
             ' last_sync TIMESTAMP,' +
             ' address VARCHAR,' +
             ' therm_coeff_id INTEGER,' +
-            ' factoryLink VARCHAR',
+            ' factoryLink VARCHAR,' +
+            ' code_sync VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {

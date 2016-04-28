@@ -5324,6 +5324,28 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
+// directives/fast_click.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .directive('fsClick',
+
+  function(GlobalStor) {
+
+    return function(scope, elem, attrs) {
+      var clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
+      elem.on(clickEvent, function () {
+        scope.$apply(attrs["fsClick"]);
+      });
+    };
+
+  });
+})();
+
+
 // directives/file_loader.js
 
 (function(){
@@ -8915,7 +8937,7 @@ function ErrorResult(code, message) {
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
-      console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
+      //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
         GlobalStor.global.productEditNumber = ProductStor.product.product_id;
@@ -9198,7 +9220,7 @@ function ErrorResult(code, message) {
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
-        clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
+        clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
 
 
 
@@ -12440,7 +12462,8 @@ function ErrorResult(code, message) {
           }
         }
       }
-      if(orderStyle !== orderMasterStyle) {
+      /** check user */
+      if(orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.SEND_ORDER_TITLE'),
           $filter('translate')('common_words.SEND_ORDER_TXT'),
@@ -13414,7 +13437,8 @@ function ErrorResult(code, message) {
             ' last_sync TIMESTAMP,' +
             ' address VARCHAR,' +
             ' therm_coeff_id INTEGER,' +
-            ' factoryLink VARCHAR',
+            ' factoryLink VARCHAR,' +
+            ' code_sync VARCHAR',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {

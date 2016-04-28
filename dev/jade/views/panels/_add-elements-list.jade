@@ -14,24 +14,24 @@
           tr.aux-list-row(ng-repeat="addElement in elemType track by $index")
             td.aux-tablecell-name
               .aux-name
-                .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", ng-mousedown="elementsListPanel.selectAddElement($parent.$index + 1)") )
+                .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", fs-click="elementsListPanel.selectAddElement($parent.$index + 1)") )
                 .aux-label(data-output="{{ ::elementsListPanel.NAME_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-qty
               .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-                button.aux-params-but(ng-mousedown="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_qty }}
+                button.aux-params-but(fs-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 1, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_qty }}
                 .aux-label(data-output="{{ ::elementsListPanel.QTY_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-width
               .aux-params(ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-                button.aux-params-but(ng-mousedown="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_width }}
+                button.aux-params-but(fs-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 2, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_width }}
                 .aux-label(data-output="{{ ::elementsListPanel.WIDTH_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-height
               .aux-params(ng-show="!$parent.$index || $parent.$index==4", ng-class="{'selected': elementsListPanel.A.aux.auxParameter === ($parent.$index + 1)+'-3-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-                button.aux-params-but(ng-mousedown="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_height }}
+                button.aux-params-but(fs-click="elementsListPanel.initAddElementTools(($parent.$index + 1), 3, $index)", ng-keyup="elementsListPanel.pressCulculator($event)", ng-disabled="!elementsListPanel.P.product.is_addelem_only && $parent.$index === 0") {{ addElement.element_height }}
                 .aux-label(data-output="{{ ::elementsListPanel.HEIGHT_LABEL }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
             td.aux-tablecell-price
               .aux-price(price-fixed="{{addElement.elementPriceDis}}", qty-element="{{addElement.element_qty}}", currency-element="{{elementsListPanel.U.userInfo.currency}}")
             td.aux-tablecell-delete
-              .aux-delete(ng-mousedown="elementsListPanel.deleteAddElement($parent.$index, $index)")
+              .aux-delete(fs-click="elementsListPanel.deleteAddElement($parent.$index, $index)")
 
 
     .aux-list-block(ng-if="elementsListPanel.P.product.addelemPriceDis")
@@ -42,6 +42,6 @@
           td.aux-tablecell-price
             .aux-total-price {{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-mousedown="elementsListPanel.deleteAllAddElements()")
+            .aux-delete(fs-click="elementsListPanel.deleteAllAddElements()")
 
-  button.view-switch-tab(ng-mousedown="elementsListPanel.closeAddElementListView()") {{ ::elementsListPanel.SCHEME_VIEW }}
+  button.view-switch-tab(fs-click="elementsListPanel.closeAddElementListView()") {{ ::elementsListPanel.SCHEME_VIEW }}

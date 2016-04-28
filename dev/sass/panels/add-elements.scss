@@ -662,7 +662,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     border-radius: 1rem;
     background-color: orange;
     &.green {
-      @include transition(background-color .5s linear);
-      background-color: #4BD963;
+    background-color: #4dd996;
     }
   }

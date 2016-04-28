@@ -1,8 +1,8 @@
 
 <section class="login-page">
-  <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousedown="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;" class="login-container">
+  <div id="login-container" ng-hide="loginPage.isRegistration" fs-click="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;" class="login-container">
     <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ ::loginPage.OFFLINE }}
-      <button ng-mousedown="loginPage.closeOfflineAlert()" class="inet_ok">{{ ::loginPage.OK }}</button>
+      <button fs-click="loginPage.closeOfflineAlert()" class="inet_ok">{{ ::loginPage.OK }}</button>
     </div>
     <div ng-if="loginPage.isSendEmail" class="attantion">{{ ::loginPage.USER_CHECK_EMAIL }}</div>
     <div ng-if="loginPage.isUserNotExist" class="attantion">{{ ::loginPage.USER_NOT_EXIST }}</div>
@@ -23,10 +23,10 @@
       </div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
-    <button ng-mousedown="loginPage.switchRegistration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
-    <div ng-show="loginPage.isFactoryId" ng-mousedown="loginPage.isFactoryNotSelect = 0;" class="factory_box">
+    <button fs-click="loginPage.switchRegistration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
       <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>
-      <button type="button" ng-mousedown="loginPage.closeFactoryDialog()" class="close_dialog"></button>
+      <button type="button" fs-click="loginPage.closeFactoryDialog()" class="close_dialog"></button>
       <div class="factory_title">{{ ::loginPage.SELECT_PRODUCER }}</div>
       <div class="factory_list">
         <table class="factory_table">
@@ -39,11 +39,11 @@
           </tr>
         </table>
       </div>
-      <button ng-mousedown="loginPage.selectFactory()" class="login-submit">{{ ::loginPage.SELECT }}</button>
+      <button fs-click="loginPage.selectFactory()" class="login-submit">{{ ::loginPage.SELECT }}</button>
     </div>
   </div>
-  <div ng-show="loginPage.isRegistration" ng-mousedown="loginPage.isUserExist = 0;" class="login-container">
-    <button type="button" ng-mousedown="loginPage.closeRegistration()" class="close_dialog"></button>
+  <div ng-show="loginPage.isRegistration" fs-click="loginPage.isUserExist = 0;" class="login-container">
+    <button type="button" fs-click="loginPage.closeRegistration()" class="close_dialog"></button>
     <div ng-show="loginPage.isUserExist" class="attantion">{{ ::loginPage.USER_EXIST }}</div>
     <div class="logo"></div>
     <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">

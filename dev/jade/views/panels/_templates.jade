@@ -1,24 +1,24 @@
 .config-panel.template-container(ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.G.global.activePanel == 1}")
   .template-inner
-    .close-dialog(ng-mousedown="designPage.showTemplates()")
+    .close-dialog(fs-click="designPage.showTemplates()")
     .template-header
-      button.template-title.unvisible(ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}", ng-mousedown="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
+      button.template-title.unvisible(ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}", fs-click="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
       .tempate-type-box
         .template-type(ng-show="templatesPanel.G.global.isTemplateTypeMenu")
-          .template-type-btn(ng-mousedown="templatesPanel.selectNewTemplateType(1)") {{ ::templatesPanel.TEMPLATE_WINDOW }}
-          .template-type-btn(ng-mousedown="templatesPanel.selectNewTemplateType(2)") {{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}
-          //.template-type-btn(ng-mousedown="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}
-          .template-type-btn(ng-mousedown="templatesPanel.selectNewTemplateType(4)") {{ ::templatesPanel.TEMPLATE_DOOR }}
+          .template-type-btn(fs-click="templatesPanel.selectNewTemplateType(1)") {{ ::templatesPanel.TEMPLATE_WINDOW }}
+          .template-type-btn(fs-click="templatesPanel.selectNewTemplateType(2)") {{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}
+          //.template-type-btn(fs-click="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}
+          .template-type-btn(fs-click="templatesPanel.selectNewTemplateType(4)") {{ ::templatesPanel.TEMPLATE_DOOR }}
 
       .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}
 
-    .template-section.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}", ng-mousedown="designPage.showTemplates()")
+    .template-section.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}", fs-click="designPage.showTemplates()")
       svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="templatesPanel.constants.SVG_ID_ICON")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
       .other-templates(ng-show="templatesPanel.P.product.construction_type === 1")
-        //.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-mousedown="selectNewTemplate($index)")
-        .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index", ng-mousedown="templatesPanel.selectNewTemplate($index)")
+        //.other-template(ng-repeat="templateIcon in global.templatesIcons", fs-click="selectNewTemplate($index)")
+        .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index", fs-click="templatesPanel.selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-label.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}

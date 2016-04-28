@@ -9639,11 +9639,7 @@ tr.factory_item {
 }
 /* line 664, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
-  -moz-transition: background-color 0.5s linear;
-  -o-transition: background-color 0.5s linear;
-  -webkit-transition: background-color 0.5s linear;
-  transition: background-color 0.5s linear;
-  background-color: #4BD963;
+  background-color: #4dd996;
 }
 
 /* line 1, ../../dev/sass/panels/add-elements-list.scss */

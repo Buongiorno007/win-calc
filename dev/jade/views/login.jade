@@ -1,8 +1,8 @@
 section.login-page
   //---------------- LogIn Form
-  #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousedown="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;")
+  #login-container.login-container(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;")
     .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
-      button.inet_ok(ng-mousedown="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
+      button.inet_ok(fs-click="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
     .attantion(ng-if="loginPage.isSendEmail") {{ ::loginPage.USER_CHECK_EMAIL }}
     .attantion(ng-if="loginPage.isUserNotExist") {{ ::loginPage.USER_NOT_EXIST }}
     .attantion(ng-if="loginPage.isUserNotActive") {{ ::loginPage.USER_NOT_ACTIVE }}
@@ -21,12 +21,12 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-    button.login-submit(ng-mousedown="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
+    button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
 
     //-------------- Factory List
-    .factory_box(ng-show="loginPage.isFactoryId", ng-mousedown="loginPage.isFactoryNotSelect = 0;")
+    .factory_box(ng-show="loginPage.isFactoryId", fs-click="loginPage.isFactoryNotSelect = 0;")
       .attantion(ng-show="loginPage.isFactoryNotSelect") {{ ::loginPage.SELECT_FACTORY }}
-      button.close_dialog(type="button", ng-mousedown="loginPage.closeFactoryDialog()")
+      button.close_dialog(type="button", fs-click="loginPage.closeFactoryDialog()")
       .factory_title {{ ::loginPage.SELECT_PRODUCER }}
       .factory_list
         table.factory_table
@@ -35,12 +35,12 @@ section.login-page
               input.radio-field(type="radio", name="factory", ng-model="loginPage.user.factoryId", ng-value="factory.id")
             td.factory_name {{ factory.name }}
             td.factory_place {{ factory.location }}
-      button.login-submit(ng-mousedown="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
+      button.login-submit(fs-click="loginPage.selectFactory()") {{ ::loginPage.SELECT }}
 
 
   //------------- Registration Form
-  .login-container(ng-show="loginPage.isRegistration", ng-mousedown="loginPage.isUserExist = 0;")
-    button.close_dialog(type="button", ng-mousedown="loginPage.closeRegistration()")
+  .login-container(ng-show="loginPage.isRegistration", fs-click="loginPage.isUserExist = 0;")
+    button.close_dialog(type="button", fs-click="loginPage.closeRegistration()")
     .attantion(ng-show="loginPage.isUserExist") {{ ::loginPage.USER_EXIST }}
     .logo
     form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")

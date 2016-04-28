@@ -109,7 +109,8 @@
           }
         }
       }
-      if(orderStyle !== orderMasterStyle) {
+      /** check user */
+      if(orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.SEND_ORDER_TITLE'),
           $filter('translate')('common_words.SEND_ORDER_TXT'),

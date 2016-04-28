@@ -3,49 +3,50 @@ section.construction-page
 
     .construction-left-menu
       ul.figure-lists
-        li.figure-item(ng-mousedown="designPage.selectMenuItem(3)")
+        li.figure-item(fs-click="designPage.selectMenuItem(3)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
             .figure-icon.impost-shape
             .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-        li.figure-item(ng-mousedown="designPage.selectMenuItem(1)")
+        li.figure-item(fs-click="designPage.selectMenuItem(1)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
             .figure-icon.sash-shape
             .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-        li.figure-item(ng-mousedown="designPage.selectMenuItem(2)")
+        li.figure-item(fs-click="designPage.selectMenuItem(2)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
             .figure-icon.angel-shape
             .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-        li.figure-item(ng-mousedown="designPage.selectMenuItem(4)")
+        li.figure-item(fs-click="designPage.selectMenuItem(4)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
             .figure-icon.arch-shape
             .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-        li.figure-item(ng-mousedown="designPage.selectMenuItem(5)")
+        li.figure-item(fs-click="designPage.selectMenuItem(5)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
             .figure-icon.position-shape
             .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
       #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
-        .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(2, $event)")
-        .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(3, $event)")
-        .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(4, $event)")
-        .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(5, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-        .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(6, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-        .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(7, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
-        .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(8, $event)")
-        .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-        .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(10, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-        .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(11, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
-        .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(12, $event)")
-        .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(13, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
-        //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(14, $event)")
-        //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(15, $event)")
-        .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", ng-mousedown="designPage.insertImpost(1, $event)")
+        .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(2, $event)")
+        .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(3, $event)")
+        .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(4, $event)")
+        .drop-shape-icon.impost-inc-hor2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(5, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .drop-shape-icon.impost-inc-vert(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(6, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .drop-shape-icon.impost-inc-vert2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(7, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 4}")
+        .constr-shape-icon.impost-curv-right(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(8, $event)")
+        .drop-shape-icon.impost-curv-left(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .drop-shape-icon.impost-curv-up(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(10, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .drop-shape-icon.impost-curv-down(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(11, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .constr-shape-icon.impost-curv1(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(12, $event)")
+        .drop-shape-icon.impost-curv3(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(13, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 12}")
+        //.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(14, $event)")
+        //.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(15, $event)")
+        .constr-shape-icon.clean(ng-show="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(1, $event)")
 
       #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 1, 'door-sash': designPage.P.product.construction_type === 4}")
+
         .constr-shape-icon.clean(ng-hide="designPage.P.product.construction_type === 4", ng-mousedown="designPage.insertSash(1, $event)")
         .constr-shape-icon.sash-left(ng-mousedown="designPage.insertSash(2, $event)")
         .drop-shape-icon.sash-right(ng-mousedown="designPage.insertSash(3, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
@@ -56,24 +57,25 @@ section.construction-page
         .constr-shape-icon.sash-shtulp-left(ng-mousedown="designPage.insertSash(8, $event)")
         .drop-shape-icon.sash-shtulp-right(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 2}")
 
+
       #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
-        .constr-shape-icon.clean(ng-mousedown="designPage.insertCorner(1, $event)")
-        .constr-shape-icon.corner(ng-mousedown="designPage.insertCorner(2, $event)")
-        .constr-shape-icon.corner-curv(ng-mousedown="designPage.insertCorner(3, $event)")
+        .constr-shape-icon.clean(fs-click="designPage.insertCorner(1, $event)")
+        .constr-shape-icon.corner(fs-click="designPage.insertCorner(2, $event)")
+        .constr-shape-icon.corner-curv(fs-click="designPage.insertCorner(3, $event)")
 
       #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
-        .constr-shape-icon.clean(ng-mousedown="designPage.insertArc(1, $event)")
-        .constr-shape-icon.arc(ng-mousedown="designPage.insertArc(2, $event)")
+        .constr-shape-icon.clean(fs-click="designPage.insertArc(1, $event)")
+        .constr-shape-icon.arc(fs-click="designPage.insertArc(2, $event)")
 
       #position-menu.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
-        .constr-shape-icon.mirror(ng-mousedown="designPage.initMirror($event)")
-        .constr-shape-icon.position-axis(ng-mousedown="designPage.positionAxis($event)")
-        .constr-shape-icon.position-glass(ng-mousedown="designPage.positionGlass($event)")
+        .constr-shape-icon.mirror(fs-click="designPage.initMirror($event)")
+        .constr-shape-icon.position-axis(fs-click="designPage.positionAxis($event)")
+        .constr-shape-icon.position-glass(fs-click="designPage.positionGlass($event)")
 
       .left-menu-footer
         .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
-        .project-default(ng-mousedown="designPage.setDefaultConstruction()") {{ ::designPage.PROJECT_DEFAULT }}
-        .project-default(ng-mousedown="designPage.showTemplates()") {{ ::designPage.ROOM_SELECTION }}
+        .project-default(fs-click="designPage.setDefaultConstruction()") {{ ::designPage.PROJECT_DEFAULT }}
+        .project-default(fs-click="designPage.showTemplates()") {{ ::designPage.ROOM_SELECTION }}
 
 
 
@@ -86,17 +88,17 @@ section.construction-page
 
     .right-menu-header
       .nav-tool-box(ng-if="designPage.D.design.designSteps.length > 0")
-        button.construct-tools.step-back(ng-mousedown="designPage.stepBack()")
+        button.construct-tools.step-back(fs-click="designPage.stepBack()")
         .nav-tool-label {{ ::designPage.BACK }}
       .nav-tool-box
-        button.construct-tools.save-construction(ng-mousedown="designPage.G.global.activePanel = 0;designPage.designSaved()")
+        button.construct-tools.save-construction(fs-click="designPage.G.global.activePanel = 0;designPage.designSaved()")
         .nav-tool-label {{ ::designPage.SAVE }}
       .nav-tool-box
-        button.construct-tools.close-construction(ng-mousedown="designPage.designCancel()")
+        button.construct-tools.close-construction(fs-click="designPage.designCancel()")
         .nav-tool-label {{ ::designPage.CANCEL }}
 
     .door-config-menu(ng-if="designPage.P.product.construction_type === 4")
-      button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", ng-mousedown="designPage.toggleDoorConfig()")
+      button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", fs-click="designPage.toggleDoorConfig()")
       .door-config-label {{ ::designPage.DOOR_CONFIG_LABEL }}
       .door-config-description {{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorName | translate }};
       .door-config-description {{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorSashName }};
@@ -121,7 +123,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_DOOR_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-mousedown="designPage.selectDoor($index)")
+            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", fs-click="designPage.selectDoor($index)")
               .door-inner
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
@@ -137,7 +139,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_SASH_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-mousedown="designPage.selectSash($index)")
+            li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", fs-click="designPage.selectSash($index)")
               .door-inner
                 .door-option-label {{ sashShape.frame.name }} / {{ sashShape.sash.name }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
@@ -150,7 +152,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_HANDLE_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-mousedown="designPage.selectHandle($index)")
+            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", fs-click="designPage.selectHandle($index)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config/lever-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
@@ -168,7 +170,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_LOCK_TYPE }}
         .door-config-content(ng-class="{'scroll-box': designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-mousedown="designPage.selectLock($index)")
+            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", fs-click="designPage.selectLock($index)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-if="lock.list_type_id === 38", ng-src="img/door-config/onelock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")
@@ -179,16 +181,16 @@ section.construction-page
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
 
       .door-config-tools
-        button.door-config-finish-btn.close-door-config(ng-mousedown="designPage.closeDoorConfig()")
-        button.door-config-finish-btn.save-door-config(ng-show="designPage.config.selectedStep4", ng-mousedown="designPage.saveDoorConfig()")
+        button.door-config-finish-btn.close-door-config(fs-click="designPage.closeDoorConfig()")
+        button.door-config-finish-btn.save-door-config(ng-show="designPage.config.selectedStep4", fs-click="designPage.saveDoorConfig()")
 
     .design-attantion(ng-if="designPage.config.isDesignError") {{ ::designPage.NOT_AVAILABLE }}
     .design-attantion(ng-if="designPage.D.design.isDimExtra") {{ ::designPage.DIM_EXTRA }}
-      .close-dialog(ng-mousedown="designPage.closeAttantion()")
+      .close-dialog(fs-click="designPage.closeAttantion()")
     .design-attantion(ng-if="designPage.D.design.isSquareExtra") {{ ::designPage.SQUARE_EXTRA }}
-      .close-dialog(ng-mousedown="designPage.closeAttantion()")
+      .close-dialog(fs-click="designPage.closeAttantion()")
     .design-attantion(ng-if="designPage.config.isTest") {{ ::designPage.TEST_STAGE }}
-      .close-dialog(ng-mousedown="designPage.closeAttantion()")
+      .close-dialog(fs-click="designPage.closeAttantion()")
 
     include parts/_attantions
 
