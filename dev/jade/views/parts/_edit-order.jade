@@ -1,7 +1,7 @@
 .background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
  .order-cont
   .boxText
-   .close-m(ng-mousedown="editOrder.close()")
+   .close-m(fs-click="editOrder.close()")
   .cart-menu-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
     .box
      .title {{'№'}}
@@ -29,5 +29,5 @@
       .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
        select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
   .boxText
-   .save-m(ng-mousedown="editOrder.okey()")
+   .save-m(fs-click="editOrder.okey()")
   

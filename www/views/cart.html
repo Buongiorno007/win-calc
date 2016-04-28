@@ -4,10 +4,10 @@
     <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
       <header class="nav-menu-header">
         <ul class="items-list">
-          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" ng-mousedown="navMenu.selectMenuItem(1)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" fs-click="navMenu.selectMenuItem(1)" class="item">
             <div class="item-content"><span class="nav-icon-addLocation"></span><span class="title">{{ ::navMenu.NAVMENU_GEOLOCATION }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" ng-mousedown="navMenu.selectMenuItem(2)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" fs-click="navMenu.selectMenuItem(2)" class="item">
             <div class="item-content"><span class="nav-icon-geoLocation"></span><span class="title">{{ ::navMenu.NAVMENU_CURRENT_GEOLOCATION }}</span></div>
           </li>
           <li class="item">
@@ -16,34 +16,34 @@
         </ul>
         <div class="divider">{{ ::navMenu.NAVMENU_CALCULATIONS }}</div>
         <ul class="items-list">
-          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" ng-mousedown="navMenu.selectMenuItem(3)" class="item">
+          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" fs-click="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span class="nav-icon-calculation"></span><span class="title">{{ ::navMenu.NAVMENU_CURRENT_CALCULATION }}</span></div>
           </li>
-          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" ng-mousedown="navMenu.selectMenuItem(4)" class="item">
+          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" fs-click="navMenu.selectMenuItem(4)" class="item">
             <div class="item-content"><span class="nav-icon-basketOfCalculation"></span><span class="title">{{ ::navMenu.NAVMENU_CART }}</span><span class="badge">{{ navMenu.O.order.products.length }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" ng-mousedown="navMenu.selectMenuItem(5)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" fs-click="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span class="nav-icon-additionalComponents"></span><span class="title">{{ ::navMenu.NAVMENU_ADD_ELEMENTS }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" ng-mousedown="navMenu.selectMenuItem(6)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" fs-click="navMenu.selectMenuItem(6)" class="item">
             <div class="item-content"><span class="nav-icon-calculationsHistory"></span><span class="title">{{ ::navMenu.NAVMENU_ALL_CALCULATIONS }}</span></div>
           </li>
         </ul>
         <div class="divider">{{ ::navMenu.NAVMENU_APPENDIX }}</div>
         <ul class="items-list">
-          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" ng-mousedown="navMenu.selectMenuItem(7)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" fs-click="navMenu.selectMenuItem(7)" class="item">
             <div class="item-content"><span class="nav-icon-settings"></span><span class="title">{{ ::navMenu.NAVMENU_SETTINGS }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" ng-mousedown="navMenu.selectMenuItem(8)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" fs-click="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span class="nav-icon-information"></span><span class="title">{{ ::navMenu.NAVMENU_MORE_INFO }}</span></div>
           </li>
-          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" ng-mousedown="navMenu.selectMenuItem(9)" class="item">
+          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" fs-click="navMenu.selectMenuItem(9)" class="item">
             <div class="item-content"><span class="nav-icon-voicehelp"></span><span class="title">{{ ::navMenu.NAVMENU_VOICE_HELPER }}</span></div>
           </li>
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-if="!navMenu.G.global.orderEditNumber" ng-mousedown="navMenu.clickNewProject()" class="new-calc">{{ ::navMenu.NAVMENU_NEW_CALC }}</button>
+        <button ng-if="!navMenu.G.global.orderEditNumber" fs-click="navMenu.clickNewProject()" class="new-calc">{{ ::navMenu.NAVMENU_NEW_CALC }}</button>
       </footer>
     </div>
   </section>
@@ -53,21 +53,21 @@
         <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" ng-swipe-up="cartPage.openDiscountBlock()" ng-swipe-down="cartPage.closeDiscountBlock()" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-mousedown="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button ng-show="cartPage.C.cart.isExistAddElems" ng-mousedown="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
-            <button ng-mousedown="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
+            <button ng-show="cartPage.C.cart.isExistAddElems" fs-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button fs-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
           </div>
           <div class="scroll-hor-container">
             <div class="order-block">
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
-                <button ng-mousedown="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div class="order-header"><img ng-src="img/copy_edit.png" ng-mousedown="cartPage.box($index, 'product')" class="imgg"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" ng-mousedown="cartPage.box($index, 'product')" class="order-header-fon">
+                <button fs-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+                <div class="order-header"><img ng-src="img/copy_edit.png" fs-click="cartPage.box($index, 'product')" class="imgg"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" fs-click="cartPage.box($index, 'product')" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                   </div>
@@ -105,7 +105,7 @@
                       <div class="order-value">{{ product.lamination.laminat_out_name }} / {{ product.lamination.laminat_in_name }}</div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION }}</div>
                     </li>
-                    <li ng-mousedown="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                    <li fs-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                       <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                         <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                       </div>
@@ -113,15 +113,15 @@
                     </li>
                   </ul>
                   <div class="order-qty">
-                    <button ng-mousedown="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                    <button fs-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                     <div class="order-value">{{ product.product_qty }}</div>
-                    <button ng-mousedown="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                    <button fs-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
                     <div class="order-label qty-label">{{ ::cartPage.PRODUCT_QTY }}</div>
                   </div>
                 </div>
                 <div class="order-footer">
                   <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
-                  <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" ng-mousedown="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                  <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" fs-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
                 </div>
                 <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                   <div class="order-comment-box">
@@ -131,31 +131,31 @@
                 </div>
               </div>
             </div>
-            <button ng-mousedown="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.LIGHT_VIEW }}</button>
+            <button fs-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.LIGHT_VIEW }}</button>
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ ::cartPage.DISCOUNT_SELECT }}</div>
             <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
-              <div ng-mousedown="cartPage.openDiscInput(0)" class="discount-data">
+              <div fs-click="cartPage.openDiscInput(0)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
-              <div ng-mousedown="cartPage.approveNewDisc(0)" class="discount-txt">
+              <div fs-click="cartPage.approveNewDisc(0)" class="discount-txt">
                 <div class="discounts-label">{{ ::cartPage.DISCOUNT_WINDOW }}</div>
               </div>
             </div>
             <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
-              <div ng-mousedown="cartPage.openDiscInput(1)" class="discount-data">
+              <div fs-click="cartPage.openDiscInput(1)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
                   <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
                   <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
-              <div ng-mousedown="cartPage.approveNewDisc(1)" class="discount-txt">
+              <div fs-click="cartPage.approveNewDisc(1)" class="discount-txt">
                 <div class="discounts-label">{{ ::cartPage.DISCOUNT_ADDELEM }}</div>
               </div>
             </div>
@@ -181,42 +181,42 @@
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" ng-mousedown="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
                 <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button ng-mousedown="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
-            <button ng-mousedown="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
+            <button fs-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button fs-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
           </div>
           <div class="order-block scroll-vert-container">
             <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
-              <button ng-mousedown="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+              <button fs-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
-                <div ng-mousedown="cartPage.editProduct($index, 'product')" class="order-template">
+                <div fs-click="cartPage.editProduct($index, 'product')" class="order-template">
                   <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
                 </div>
               </div>
               <div class="order-content">
                 <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}</div>
-                <div ng-mousedown="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                <div fs-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                   <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                     <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
                   </div>
                   <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
                 </div>
                 <div class="order-qty">
-                  <button ng-mousedown="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                  <button fs-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
                   <div class="order-value">{{ product.product_qty }}</div>
-                  <button ng-mousedown="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                  <button fs-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
                 </div>
                 <div class="order-label">{{ ::cartPage.PRODUCT_QTY }}</div>
               </div>
               <div class="order-footer">
                 <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
-                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" ng-mousedown="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" fs-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
               </div>
               <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                 <div class="order-comment-box">
@@ -226,13 +226,13 @@
               </div>
             </div>
           </div>
-          <button ng-mousedown="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.FULL_VIEW }}</button>
+          <button fs-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.FULL_VIEW }}</button>
         </section>
         <div ng-if="cartPage.config.isAddElementDetail" class="addelements-detail">
           <div class="addelements-detail-header">
             <div class="addelements-detail-tools">
-              <button ng-mousedown="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ ::cartPage.ADDELEMENTS_EDIT_LIST }}</button>
-              <button ng-mousedown="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
+              <button fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ ::cartPage.ADDELEMENTS_EDIT_LIST }}</button>
+              <button fs-click="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
             </div>
             <div ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only" class="product-template">
               <div class="addelements-detail-row">
@@ -298,26 +298,26 @@
             <div>&#8721;</div>
           </div>
         </div>
-        <div ng-if="cartPage.config.isAddElementDetail" ng-mousedown="cartPage.closeAddElementDetail()" class="backDarkView"></div>
+        <div ng-if="cartPage.config.isAddElementDetail" fs-click="cartPage.closeAddElementDetail()" class="backDarkView"></div>
         <section ng-controller="AddElemCartCtrl as elemCartPanel" ng-class="{'active': cartPage.C.cart.isAllAddElems}" class="cart-container alladdelements-view">
           <div class="alladdelements-header">
-            <button ng-mousedown="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
+            <button fs-click="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
             <div ng-if="cartPage.C.cart.isSelectedProduct">
               <form ng-controller="searchCtrl as searchBox" name="searchForm">
                 <div class="search-block">
                   <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
-                  <button ng-mousedown="searchBox.deleteSearchChart()" class="delete-search"></button>
-                  <button ng-mousedown="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
+                  <button fs-click="searchBox.deleteSearchChart()" class="delete-search"></button>
+                  <button fs-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
                 </div>
               </form>
             </div>
             <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}" class="aux-search-content">
               <div class="aux-list-groups">
                 <div ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index" class="aux-list-type">
-                  <div ng-mousedown="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
+                  <div fs-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
                     <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}" class="group-indicator"></button>
                     <div class="search-elements-block">
-                      <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" ng-mousedown="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
+                      <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" fs-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
                     </div>
                   </div>
                 </div>
@@ -332,7 +332,7 @@
                   <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">
                       <div class="aux-name">
-                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" ng-mousedown="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
+                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" fs-click="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
                         <div class="aux-label">{{ ::cartPage.NAME_LABEL }}</div>
                       </div>
                     </td>
@@ -358,7 +358,7 @@
                       <div class="aux-price">+ {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                     </td>
                     <td class="aux-tablecell-delete">
-                      <div ng-mousedown="elemCartPanel.deleteAddElemsItem(addElem)" class="aux-delete"></div>
+                      <div fs-click="elemCartPanel.deleteAddElemsItem(addElem)" class="aux-delete"></div>
                     </td>
                   </tr>
                 </table>
@@ -374,7 +374,7 @@
                     <div class="aux-total-price">{{ cartPage.C.cart.addElemsOrderPriceTOTAL }} {{ cartPage.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div ng-mousedown="elemCartPanel.deleteAllAddElems()" class="aux-delete"></div>
+                    <div fs-click="elemCartPanel.deleteAllAddElems()" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
@@ -383,7 +383,7 @@
           <div class="products-selector">
             <div ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}" ng-swipe-up="elemCartPanel.swipeProductSelector()" ng-swipe-down="elemCartPanel.swipeProductSelector()" class="products-selector-block">
               <div class="products-block">
-                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" ng-mousedown="elemCartPanel.selectProductToAddElem($index)" class="product">
+                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" fs-click="elemCartPanel.selectProductToAddElem($index)" class="product">
                   <div class="select-mark"></div>
                   <div class="product-header">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
@@ -426,7 +426,7 @@
           </div>
           <section ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}" class="cart-container addelement-view">
             <div class="addelementunique-header">
-              <button ng-mousedown="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
+              <button fs-click="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
               <div class="addelementunit-header-fon"></div>
               <table class="aux-list-addellement">
                 <tr class="aux-list-row">
@@ -458,7 +458,7 @@
                     <div class="aux-price">+ {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div ng-mousedown="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
+                    <div fs-click="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
@@ -466,7 +466,7 @@
             <div class="addelementunits-container">
               <div class="addelementunit-block">
                 <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="!addElemUnit.is_addelem_only &amp;&amp; !addElemUnit.length" class="addelementunit">
-                  <button ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
+                  <button fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
                   <div class="addelementunit-header">
                     <div class="addelementunit-template">
                       <svg-template template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
@@ -481,8 +481,8 @@
               <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.length &gt; 0" class="addelementunit-train">
                 <div class="addelementunit-train-inner">
                   <div ng-repeat="addElemWagon in addElemUnit track by $index" ng-class="{'unit-last': $last}" class="addelementunit">
-                    <div ng-mousedown="elemCartPanel.toggleExplodeLinkMenu($index, $event)" class="addelementunit-link link-right"></div>
-                    <button ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
+                    <div fs-click="elemCartPanel.toggleExplodeLinkMenu($index, $event)" class="addelementunit-link link-right"></div>
+                    <button fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
                     <div class="addelementunit-header">
                       <div class="addelementunit-template">
                         <svg-template template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
@@ -496,8 +496,8 @@
                 </div>
                 <div ng-show="elemCartPanel.config.isLinkExplodeMenu" ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}" class="link-explode-menu">
                   <ul class="link-explode-list">
-                    <li ng-mousedown="elemCartPanel.explodeUnitToProduct(addElemUnit)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_COUPLE }}</li>
-                    <li ng-mousedown="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_ALL }}</li>
+                    <li fs-click="elemCartPanel.explodeUnitToProduct(addElemUnit)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_COUPLE }}</li>
+                    <li fs-click="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_ALL }}</li>
                   </ul>
                 </div>
               </div>
@@ -532,7 +532,7 @@
                       <div class="aux-price">+ {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
                     </td>
                     <td class="aux-tablecell-delete">
-                      <div ng-mousedown="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
+                      <div fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
                     </td>
                   </tr>
                 </table>
@@ -546,7 +546,7 @@
       <div ng-controller="CartMenuCtrl as cartMenu" class="right-menu-controller">
         <div class="cart-menu">
           <ul class="items-list">
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" ng-mousedown="cartMenu.selectMenuItem(1)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" fs-click="cartMenu.selectMenuItem(1)" class="item">
               <div data-output="{{ ::cartMenu.DELIVERY }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.floor_id" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -555,13 +555,13 @@
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" ng-mousedown="cartMenu.selectFloorPrice(0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ ::cartMenu.SELF_EXPORT }}</div>
                     <div class="name drop-txt"></div>
                   </div>
                 </li>
-                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" ng-mousedown="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{supplyList.name}} {{ ::cartMenu.FLOOR }}</div>
                     <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
@@ -569,7 +569,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" ng-mousedown="cartMenu.selectMenuItem(2)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" fs-click="cartMenu.selectMenuItem(2)" class="item">
               <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -578,13 +578,13 @@
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" ng-mousedown="cartMenu.selectAssembling(0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ ::cartMenu.WITHOUT_ASSEMBLING }}</div>
                     <div class="name drop-txt">{{ ::cartMenu.FREE }}</div>
                   </div>
                 </li>
-                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" ng-mousedown="cartMenu.selectAssembling(assemb)" class="dropdown-item">
+                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(assemb)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
                     <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
@@ -592,7 +592,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3}" ng-mousedown="cartMenu.selectMenuItem(3)" class="item switcher">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3}" fs-click="cartMenu.selectMenuItem(3)" class="item switcher">
               <div data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-if="!cartMenu.O.order.is_instalment" data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
@@ -600,15 +600,15 @@
                   <ng-pluralize count="cartMenu.O.order.selectedInstalmentPeriod" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
                 </div><span ng-if="cartMenu.O.order.is_instalment" data-output="{{ cartMenu.O.order.selectedInstalmentPercent }} %" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
-              <div ng-class="{'active': cartMenu.O.order.is_instalment }" ng-mousedown="cartMenu.closeInstalment()" class="check-switcher">
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" fs-click="cartMenu.closeInstalment()" class="check-switcher">
                 <div class="check-bg-active"></div>
                 <div class="check-bg-passive"></div>
               </div>
-              <div ng-class="{'active': cartMenu.O.order.is_instalment }" ng-mousedown="cartMenu.closeInstalment()" class="check-handle"></div>
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" fs-click="cartMenu.closeInstalment()" class="check-handle"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 3}" class="dropdown-cart-menu drop-instalment">
               <ul class="dropdown-items-list">
-                <li ng-repeat="payment in cartMenu.G.global.instalmentsData" ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}" ng-mousedown="cartMenu.selectInstalment(payment.id, payment.name, payment.value)" class="dropdown-item">
+                <li ng-repeat="payment in cartMenu.G.global.instalmentsData" ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}" fs-click="cartMenu.selectInstalment(payment.id, payment.name, payment.value)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value">{{ payment.name }}
                       <ng-pluralize count="payment.name" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
@@ -618,7 +618,7 @@
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" ng-mousedown="cartMenu.selectMenuItem(4)" class="item">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" fs-click="cartMenu.selectMenuItem(4)" class="item">
               <div data-output="{{ ::cartMenu.DELIVERY_DATE }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
             </li>
@@ -631,19 +631,19 @@
             </div>
           </ul>
           <footer class="menu-footer">
-            <div ng-class="{'active': cartMenu.O.order.is_instalment}" ng-mousedown="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
+            <div ng-class="{'active': cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
               <div class="name">{{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %</div>
               <div class="name">{{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
               <div class="name">{{ cartMenu.O.order.selectedInstalmentPeriod }} {{ ::cartMenu.MONTHLY_PAYMENT_LABEL }}</div>
               <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" ng-mousedown="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
               <div class="name">{{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <button ng-mousedown="cartMenu.openOrderDialog()" class="order-btn">{{ ::cartMenu.ORDER }}</button>
-            <button ng-mousedown="cartMenu.openMasterDialog()" class="measure-btn">{{ ::cartMenu.MEASURE }}</button>
+            <button fs-click="cartMenu.openOrderDialog()" class="order-btn">{{ ::cartMenu.ORDER }}</button>
+            <button fs-click="cartMenu.openMasterDialog()" class="measure-btn">{{ ::cartMenu.MEASURE }}</button>
           </footer>
         </div>
         <div ng-class="{'active': cartMenu.O.order.is_old_price &amp;&amp; cartMenu.O.order.is_instalment}" class="old-price-inst-tab">
@@ -662,7 +662,7 @@
         <div class="elements-menu">
           <header class="menu-header">
             <div class="tip">{{ ::elementsMenu.TIP }}</div>
-            <button ng-mousedown="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
+            <button fs-click="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
           </header>
           <div class="menu-lists">
             <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-lister">
@@ -673,8 +673,8 @@
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}</div>
               <li ng-repeat="addElement in type track by $index" class="item">
-                <div ng-mousedown="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
-                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" ng-mousedown="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+                <div fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
           </div>
@@ -706,7 +706,7 @@
                   <div class="aux-label">{{ ::elementsMenu.HEIGHT_LABEL }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
-                <button ng-mousedown="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ ::elementsMenu.ADD }}</button>
+                <button fs-click="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ ::elementsMenu.ADD }}</button>
               </div>
             </div>
           </div>
@@ -717,7 +717,7 @@
             <button ng-class="{'active': addElemTab.length == 1}" class="frame-tab">{{ ::elementsMenu.TAB_NAME_SIMPLE_FRAME }}</button>
           </div>
           <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.A.aux.showAddElementsMenu &amp;&amp; addElemTab.length &gt; 1}" ng-mousedown="elementsMenu.showFrameTabs()" class="frame-tab">{{ ::elementsMenu.TAB_NAME_HARD_FRAME }}</button>
+            <button ng-class="{'active': elementsMenu.A.aux.showAddElementsMenu &amp;&amp; addElemTab.length &gt; 1}" fs-click="elementsMenu.showFrameTabs()" class="frame-tab">{{ ::elementsMenu.TAB_NAME_HARD_FRAME }}</button>
             <div ng-if="addElemTab.length === 0" class="tab-content-empty">
               <div class="tab-empty">{{ ::elementsMenu.TAB_EMPTY_EXPLAIN }}</div>
             </div>
@@ -725,19 +725,19 @@
               <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
                 <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-mousedown="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_qty }}</button>
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ ::elementsMenu.QTY_LABEL }}</div>
                 </div>
                 <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-mousedown="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_width }}</button>
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ ::elementsMenu.WIDTH_LABEL }}</div>
                 </div>
                 <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button ng-mousedown="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_height }}</button>
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ ::elementsMenu.HEIGHT_LABEL }}</div>
                 </div>
                 <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currency}}" class="tab-aux-price"></div>
-                <div ng-mousedown="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
+                <div fs-click="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
               </div>
             </div>
           </div>
@@ -749,7 +749,7 @@
         <div class="cart-dialogs-container">
           <form name="callMasterForm" novalidate ng-submit="orderForm.submitForm(callMasterForm)">
             <div class="cart-dialog-header">
-              <button ng-mousedown="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
               <div class="cart-dialog-title">{{ ::orderForm.CALL_MASTER }}</div>
               <button type="submit" class="save">{{ ::orderForm.READY }}</button>
             </div>
@@ -763,7 +763,7 @@
                 <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
-                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" ng-mousedown="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
                 </ul>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field">
@@ -783,7 +783,7 @@
         <div class="cart-dialogs-container">
           <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
             <div class="cart-dialog-header">
-              <button ng-mousedown="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
               <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER }}</div>
             </div>
             <div class="cart-dialog-body">
@@ -803,7 +803,7 @@
                 <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
-                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" ng-mousedown="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
                 </ul>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
@@ -875,7 +875,7 @@
         <div class="cart-dialogs-container">
           <form name="callCreditForm" novalidate ng-submit="orderForm.submitForm(callCreditForm)">
             <div class="cart-dialog-header">
-              <button ng-mousedown="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
               <div class="cart-dialog-title">{{ ::orderForm.CALL_CREDIT }}</div>
             </div>
             <div class="cart-dialog-body">
@@ -917,7 +917,7 @@
                 <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
-                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" ng-mousedown="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
                 </ul>
               </div>
               <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required }" class="input-field">
@@ -994,13 +994,13 @@
     <div class="alert-btns">
       <div class="thisAlert">
         <section class="cart-page">
-          <div ng-click="alertBox.isAlert()" ng-show="alertBox.G.global.isBox" class="order-delete"></div>
+          <div fs-click="alertBox.isAlert()" ng-show="alertBox.G.global.isBox" class="order-delete"></div>
         </section>
       </div>
-      <button ng-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
-      <button ng-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
-      <button ng-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
+      <button fs-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
     </div>
   </div>
 </div>

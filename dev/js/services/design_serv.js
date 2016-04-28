@@ -27,7 +27,7 @@
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
-        clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'click';
+        clickEvent = (GlobalStor.global.isDevice) ? 'touchstart' : 'mousedown';
 
 
 

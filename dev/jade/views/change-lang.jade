@@ -1,10 +1,10 @@
 section.settings.language-page
   .header
-    button.back(ng-mousedown="languagePage.gotoSettingsPage()")
+    button.back(fs-click="languagePage.gotoSettingsPage()")
     .title(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ languagePage.config.typing }}", typing-delay="{{ languagePage.config.DELAY_START }}")
 
   .lang-container
     .lists
       ul.list
-        li.item.click(ng-repeat="lang in languagePage.constants.languages", ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}", ng-mousedown="languagePage.switchLang($index)")
+        li.item.click(ng-repeat="lang in languagePage.constants.languages", ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}", fs-click="languagePage.switchLang($index)")
           .lang-label {{ lang.name }}
