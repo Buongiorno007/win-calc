@@ -246,6 +246,9 @@ $door-config-content: $ipad-height - $door-config-header;
   &.active {
     top: $submenu_top1;
   }
+  &.left {
+  left: 10.6rem;
+  }
 }
 //----- in Door case
 .door-sash {
