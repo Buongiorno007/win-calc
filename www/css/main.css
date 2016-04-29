@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1457541442') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1461915662') format('truetype');
 }
 /* line 124, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .cart-menu-m .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -2788,23 +2788,23 @@ div.drum figure {
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 69, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 68, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .name, .cart-menu-m .name, .config-menu .name, .elements-menu .name, .cart-menu .name, .old-price-tab .name, .old-price-inst-tab .name, .menu-right-general .name.aside, .cart-menu-m .name.aside, .config-menu .name.aside, .elements-menu .name.aside, .cart-menu .name.aside, .old-price-tab .name.aside, .old-price-inst-tab .name.aside {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif, icons;
   color: #8c8c8c;
 }
-/* line 73, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 72, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .aside.name, .cart-menu-m .aside.name, .config-menu .aside.name, .elements-menu .aside.name, .cart-menu .aside.name, .old-price-tab .aside.name, .old-price-inst-tab .aside.name {
   margin-left: 0.625rem;
   word-wrap: break-word;
 }
-/* line 81, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 80, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .menu-footer, .cart-menu-m .menu-footer, .config-menu .menu-footer, .elements-menu .menu-footer, .cart-menu .menu-footer, .old-price-tab .menu-footer, .old-price-inst-tab .menu-footer {
   width: 100%;
   padding-right: 2.75rem;
   text-align: center;
 }
-/* line 86, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 85, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price, .cart-menu-m .price, .config-menu .price, .elements-menu .price, .cart-menu .price, .old-price-tab .price, .old-price-inst-tab .price {
   display: -webkit-flex;
   display: flex;
@@ -2812,7 +2812,7 @@ div.drum figure {
   justify-content: center;
   margin-left: -5rem;
 }
-/* line 91, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 90, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .cart-menu-m .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
   font: normal 4rem/1 roboto-medium, sans-serif, icons;
   display: inline-flex;
@@ -2821,20 +2821,20 @@ div.drum figure {
   text-align: center;
   color: #363636;
 }
-/* line 100, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 99, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell, .cart-menu-m .digit-cell, .config-menu .digit-cell, .elements-menu .digit-cell, .cart-menu .digit-cell, .old-price-tab .digit-cell, .old-price-inst-tab .digit-cell {
   position: relative;
   float: left;
 }
-/* line 103, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 102, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3n+3), .cart-menu-m .digit-cell:nth-last-child(3n+3), .config-menu .digit-cell:nth-last-child(3n+3), .elements-menu .digit-cell:nth-last-child(3n+3), .cart-menu .digit-cell:nth-last-child(3n+3), .old-price-tab .digit-cell:nth-last-child(3n+3), .old-price-inst-tab .digit-cell:nth-last-child(3n+3) {
   margin-left: 0.25rem;
 }
-/* line 106, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 105, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3), .cart-menu-m .digit-cell:nth-last-child(3), .config-menu .digit-cell:nth-last-child(3), .elements-menu .digit-cell:nth-last-child(3), .cart-menu .digit-cell:nth-last-child(3), .old-price-tab .digit-cell:nth-last-child(3), .old-price-inst-tab .digit-cell:nth-last-child(3) {
   margin-left: 0;
 }
-/* line 110, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 109, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-currency, .cart-menu-m .price-currency, .config-menu .price-currency, .elements-menu .price-currency, .cart-menu .price-currency, .old-price-tab .price-currency, .old-price-inst-tab .price-currency {
   font: normal 3.125rem/3.5rem roboto-light, sans-serif, icons;
   margin-left: 0.625rem;
@@ -2842,7 +2842,7 @@ div.drum figure {
   padding-top: 0.5rem;
   color: #363636;
 }
-/* line 118, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 117, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .cart-btn, .cart-menu-m .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn {
   position: relative;
   width: 100%;
@@ -4722,8 +4722,15 @@ div.drum figure {
   margin: 2rem;
   top: -2rem;
 }
-
 /* line 76, ../../dev/sass/parts/_edit-order.scss */
+.cart-menu-m .value {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
+  max-width: 215px;
+  margin: 0.3125rem 0;
+  color: #363636;
+}
+
+/* line 84, ../../dev/sass/parts/_edit-order.scss */
 .cart-item-data-m {
   display: -webkit-flex;
   display: flex;
@@ -4733,14 +4740,14 @@ div.drum figure {
   align-items: center;
 }
 
-/* line 81, ../../dev/sass/parts/_edit-order.scss */
+/* line 89, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 87, ../../dev/sass/parts/_edit-order.scss */
+/* line 95, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   width: 5.3125rem;
@@ -4751,17 +4758,17 @@ div.drum figure {
   background-color: #6ed44a;
   float: right;
 }
-/* line 95, ../../dev/sass/parts/_edit-order.scss */
+/* line 103, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
 }
-/* line 101, ../../dev/sass/parts/_edit-order.scss */
+/* line 109, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   content: "";
 }
 
-/* line 107, ../../dev/sass/parts/_edit-order.scss */
+/* line 115, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -4772,7 +4779,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 116, ../../dev/sass/parts/_edit-order.scss */
+/* line 124, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;
@@ -4904,7 +4911,7 @@ div.drum figure {
 .user-field-m, .user-select-field-m {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
-  width: 100%;
+  width: 215px;
   max-width: 100%;
   height: 3.75rem;
   padding: 0.3125rem;
@@ -8936,13 +8943,13 @@ tr.factory_item {
 }
 /* line 27, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1461852046');
+  background-image: url('../img/auxiliaries-focused/visor.png?1461859565');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1461852046');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1461859565');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -8990,7 +8997,7 @@ tr.factory_item {
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1461852046');
+  background-image: url('../img/auxiliaries-focused/outside.png?1461914375');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9036,7 +9043,7 @@ tr.factory_item {
 }
 /* line 115, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1461852046');
+  background-image: url('../img/auxiliaries-selected/visor.png?1461859565');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9054,7 +9061,7 @@ tr.factory_item {
 }
 /* line 130, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1461852046');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1461859565');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9102,7 +9109,7 @@ tr.factory_item {
 }
 /* line 170, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1461852046');
+  background-image: url('../img/auxiliaries-selected/outside.png?1461914375');
   background-repeat: no-repeat;
   background-size: contain;
 }

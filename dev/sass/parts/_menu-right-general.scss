@@ -61,7 +61,6 @@
   .value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
-
     margin: rem(5px) 0;
     color: $main_gray_txt;
   }
