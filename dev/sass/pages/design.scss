@@ -178,6 +178,7 @@ $door-config-content: $ipad-height - $door-config-header;
   &:last-child {
     border-right: none;
   }
+
 }
 
 
@@ -235,9 +236,13 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
+.sash-shtulp-left-door:after {
+  content: $sash-shtulp-left-icon-door;
+}
 .sash-shtulp-left:after {
   content: $sash-shtulp-left-icon;
 }
+
 .sash-shtulp-right {
   left: $submenu_left3;
   &:after {
@@ -250,6 +255,39 @@ $door-config-content: $ipad-height - $door-config-header;
   left: 10.6rem;
   }
 }
+
+.sash-shtulp-right-door {
+  left: $submenu_left3;
+  &:after {
+    content: $sash-shtulp-right-icon-door;
+  }
+  &.active {
+    top: $submenu_top1;
+  }
+  &.left {
+  left: 10.6rem;
+  }
+}
+//----- in Door case
+.door-sash {
+  .sash-right {
+    left: $submenu_left0;
+  }
+  .sash-up {
+    left: $submenu_left0;
+  }
+  .sash-down {
+    left: $submenu_left0;
+  }
+  .sash-left-up {
+    left: $submenu_left1;
+  }
+  .sash-shtulp-right {
+    left: $submenu_left2;
+  }
+}
+
+
 
 .impost-vert:after {
   content: $impost-vert-icon;
