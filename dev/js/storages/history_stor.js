@@ -19,6 +19,7 @@
         orders: [],
         ordersSource: [],
         isEmptyResult: 0,
+        errorСhecking: 0,
         //--- Tools
         isOrderSearch: 0,
         searchingWord: '',
