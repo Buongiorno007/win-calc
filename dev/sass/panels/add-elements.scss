@@ -69,6 +69,11 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-outside-img {
+        background-image: image-url($aux-img-focus-path+'/outside.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-fan-img {
         background-image: image-url($aux-img-focus-path+'/fan.png');
         background-repeat: no-repeat;
@@ -159,6 +164,11 @@ $aux-img-select-path: 'auxiliaries-selected';
       }
       .aux-inside-left {
         background-image: image-url($aux-img-select-path+'/inside-slope-left.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-outside-left {
+        background-image: image-url($aux-img-select-path+'/outside.png');
         background-repeat: no-repeat;
         background-size: contain;
       }

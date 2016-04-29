@@ -1630,9 +1630,9 @@
                   children: [],
                   pointsOut: [
                     {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp2', x:700, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp3', x:700, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp2', x:900, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp3', x:900, y:2200, dir:'line', view:1},
+                    {type:'frame', id:'fp4', x:0, y:2200, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],

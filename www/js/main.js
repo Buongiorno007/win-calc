@@ -10602,7 +10602,7 @@ function ErrorResult(code, message) {
                 sashType: 4
               },
               {
-                openDir: [1, 2],
+                openDir: [2],
                 handlePos: 2,
                 sashType: 17
               }
@@ -10610,7 +10610,7 @@ function ErrorResult(code, message) {
           } else if(type === 9) {
             sashesParams = [
               {
-                openDir: [1, 4],
+                openDir: [4],
                 handlePos: 4,
                 sashType: 17
               },
@@ -20921,9 +20921,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   children: [],
                   pointsOut: [
                     {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp2', x:700, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp3', x:700, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp2', x:900, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp3', x:900, y:2200, dir:'line', view:1},
+                    {type:'frame', id:'fp4', x:0, y:2200, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
@@ -25681,8 +25681,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDES: 'Die Inneren',
         OUTSIDES: 'Die Äusserlichen',
         COMPONENTS: 'Die Komponenten',
-        SHUTTERS: 'Rolladen',
-        BLIND: 'Fensterläden',
+        SHUTTERS: 'Fensterläden',
+        BLIND: 'Rolladen',
         GRATING: 'Lufi-Deckel',
         SPILLWAYS: 'Entwässerungsanlagen',
         WINDOWSILLS: 'Fensterbänke',
@@ -26057,8 +26057,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         FAN: 'microairing',
         INSIDES: 'Internal',
         OUTSIDES: 'External',
-        SHUTTERS: 'Blinds',
-        BLIND: 'Shutters',
+        SHUTTERS: 'Shutters',
+        BLIND: 'Blinds',
         GRATING: "Outer binding",
         SPILLWAYS: 'Drains',
         COMPONENTS: 'Components',
@@ -26444,8 +26444,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDES:'Interno',
         OUTSIDES:'Esterno',
         COMPONENTS:'Componenti',
-        SHUTTERS:'Tapparelle avvolgibili',
-        BLIND: 'persiane',
+        SHUTTERS:'persiane',
+        BLIND: 'Tapparelle avvolgibili',
         GRATING: 'copertura esterna',
         HANDLEL: 'maniglia',
         OTHERS: 'altro',
@@ -26825,8 +26825,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDES:'Interne',
         OUTSIDES:'Exterior',
         COMPONENTS:'Componente',
-        SHUTTERS:'Rulouri exterioare',
-        BLIND: 'obloane',
+        SHUTTERS:'obloane',
+        BLIND: 'Rulouri exterioare',
         GRATING: 'capacul exterior',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
@@ -27206,9 +27206,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDES: 'Внутренние',
         OUTSIDES: 'Наружные',
         COMPONENTS: 'Компоненты',
-        BLIND: 'ставни',
+        BLIND: 'роллеты',
         GRATING: 'наружный переплёт',
-        SHUTTERS: 'роллеты',
+        SHUTTERS: 'ставни',
         GRIDS: 'москитные сетки',
         VISORS: 'козырьки',
         SPILLWAYS: 'водоотливы',
@@ -27586,8 +27586,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         GRIDS: 'москітні сітки',
         INSIDES: 'Внутрішні',
         OUTSIDES: 'Зовнішні',
-        SHUTTERS: 'Роллети',
-        BLIND: 'Віконниці',
+        SHUTTERS: 'Віконниці',
+        BLIND: 'Роллети',
         GRATING: "Зовнішня палітурка",
         SPILLWAYS: 'Водовідливи',
         COMPONENTS: 'Компоненти',
