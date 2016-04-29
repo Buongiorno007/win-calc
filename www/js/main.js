@@ -10601,39 +10601,7 @@ function ErrorResult(code, message) {
 
       /**---- shtulps ---*/
       if(type === 8 || type === 9) {
-        if(minGlassSize >= globalConstants.minSizeLimitStulp && ProductStor.product.construction_type === 4) {
-
-          if(type === 9) {
-            sashesParams = [
-              {
-                openDir: [4],
-                handlePos: 0,
-                sashType: 4
-              },
-              {
-                openDir: [2],
-                handlePos: 2,
-                sashType: 17
-              }
-            ];
-          } else if(type === 8) {
-            sashesParams = [
-              {
-                openDir: [4],
-                handlePos: 4,
-                sashType: 17
-              },
-              {
-                openDir: [2],
-                handlePos: 0,
-                sashType: 4
-              }
-            ];
-          }
-
-          createShtulp(blockID, sashesParams);
-
-        } else if (minGlassSize >= globalConstants.minSizeLimitStulp && ProductStor.product.construction_type !== 4) {
+        if(minGlassSize >= globalConstants.minSizeLimitStulp) {
 
           if(type === 8) {
             sashesParams = [
@@ -10643,17 +10611,17 @@ function ErrorResult(code, message) {
                 sashType: 4
               },
               {
-                openDir: [1, 2],
+                openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
                 handlePos: 2,
-                sashType: 17
+                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
               }
             ];
           } else if(type === 9) {
             sashesParams = [
               {
-                openDir: [1, 4],
+                openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
                 handlePos: 4,
-                sashType: 17
+                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
               },
               {
                 openDir: [2],
@@ -10664,7 +10632,7 @@ function ErrorResult(code, message) {
           }
 
           createShtulp(blockID, sashesParams);
-        
+
         } else {
           //------ show error
           showErrorInBlock(blockID);
