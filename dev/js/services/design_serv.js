@@ -1422,7 +1422,7 @@
                 sashType: 4
               },
               {
-                openDir: [1, 2],
+                openDir: [2],
                 handlePos: 2,
                 sashType: 17
               }
@@ -1430,7 +1430,7 @@
           } else if(type === 9) {
             sashesParams = [
               {
-                openDir: [1, 4],
+                openDir: [4],
                 handlePos: 4,
                 sashType: 17
               },
