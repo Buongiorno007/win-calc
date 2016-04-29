@@ -23,7 +23,6 @@
 	          if (template.details[blockQty].level === 1) {
 	            var pointsOutQty =  template.details[blockQty].pointsOut.length;
 	            while(--pointsOutQty > -1) {
-
 	              if(template.details[blockQty].pointsOut[pointsOutQty].view !== 0) {
 	                noVvPath += (template.details[blockQty].pointsOut[pointsOutQty].x);
 	                if(!pointsOutQty) {
@@ -79,6 +78,7 @@
 
 	            var widthT = widthWmd,
 	                heightT = heightWmd;
+	       
 	              if (widthT < 1) {
 	                widthT = ProductStor.product.template_width;
 	                heightT = ProductStor.product.template_height;

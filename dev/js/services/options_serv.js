@@ -1461,10 +1461,10 @@
                     {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
                     {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
-                    {type:'frame', id:'fp5', x:0, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp6', x:700, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp7', x:700, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp8', x:0, y:2100, dir:'line', view:1}
+                    {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp2', x:700, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp3', x:700, y:2100, dir:'line', view:1},
+                    {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
