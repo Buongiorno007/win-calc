@@ -9646,6 +9646,7 @@ tr.factory_item {
 }
 /* line 664, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
+  transition: 0.5s;
   background-color: #4dd996;
 }
 
