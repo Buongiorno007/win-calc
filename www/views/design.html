@@ -35,46 +35,46 @@
         </li>
       </ul>
       <div id="impost-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(4, $event)" class="constr-shape-icon impost-inc-hor"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(5, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(6, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(7, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(8, $event)" class="constr-shape-icon impost-curv-right"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(9, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(10, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(11, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(12, $event)" class="constr-shape-icon impost-curv1"></div>
-        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(13, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
-        <!--.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(14, $event)")-->
-        <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(15, $event)")-->
-        <div ng-show="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(1, $event)" class="constr-shape-icon clean"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(2)" class="constr-shape-icon impost-vert"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(3)" class="constr-shape-icon impost-hor"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(4)" class="constr-shape-icon impost-inc-hor"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(5)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-hor2"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(6)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 4}" class="drop-shape-icon impost-inc-vert2"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(8)" class="constr-shape-icon impost-curv-right"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(9)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-left"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(10)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-up"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(11)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon impost-curv-down"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(12)" class="constr-shape-icon impost-curv1"></div>
+        <div ng-hide="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(13)" ng-class="{'active': designPage.D.design.isDropSubMenu == 12}" class="drop-shape-icon impost-curv3"></div>
+        <!--.constr-shape-icon.impost-curv4(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(14)")-->
+        <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(15)")-->
+        <div ng-show="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(1)" class="constr-shape-icon clean"></div>
       </div>
-      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1, 'door-sash': designPage.P.product.construction_type === 4}" class="edit_submenu">
-        <div ng-hide="designPage.P.product.construction_type === 4" fs-click="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
-        <div fs-click="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></div>
-        <div fs-click="designPage.insertSash(3, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
-        <div fs-click="designPage.insertSash(4, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
-        <div fs-click="designPage.insertSash(5, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
-        <div fs-click="designPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></div>
-        <div fs-click="designPage.insertSash(7, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" class="drop-shape-icon sash-left-up"></div>
-        <div fs-click="designPage.insertSash(8, $event)" class="constr-shape-icon sash-shtulp-left"></div>
-        <div fs-click="designPage.insertSash(9, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon sash-shtulp-right"></div>
+      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
+        <div fs-click="designPage.insertSash(1)" class="constr-shape-icon clean"></div>
+        <div fs-click="designPage.insertSash(2)" class="constr-shape-icon sash-left"></div>
+        <div fs-click="designPage.insertSash(3)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
+        <div fs-click="designPage.insertSash(4)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
+        <div fs-click="designPage.insertSash(5)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
+        <div fs-click="designPage.insertSash(6)" class="constr-shape-icon sash-right-up"></div>
+        <div fs-click="designPage.insertSash(7)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" class="drop-shape-icon sash-left-up"></div>
+        <div fs-click="designPage.insertSash(8)" class="constr-shape-icon sash-shtulp-left"></div>
+        <div fs-click="designPage.insertSash(9)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8}" class="drop-shape-icon sash-shtulp-right"></div>
       </div>
       <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
-        <div fs-click="designPage.insertCorner(1, $event)" class="constr-shape-icon clean"></div>
-        <div fs-click="designPage.insertCorner(2, $event)" class="constr-shape-icon corner"></div>
-        <div fs-click="designPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></div>
+        <div fs-click="designPage.insertCorner(1)" class="constr-shape-icon clean"></div>
+        <div fs-click="designPage.insertCorner(2)" class="constr-shape-icon corner"></div>
+        <div fs-click="designPage.insertCorner(3)" class="constr-shape-icon corner-curv"></div>
       </div>
       <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
-        <div fs-click="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
-        <div fs-click="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
+        <div fs-click="designPage.insertArc(1)" class="constr-shape-icon clean"></div>
+        <div fs-click="designPage.insertArc(2)" class="constr-shape-icon arc"></div>
       </div>
       <div id="position-menu" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
-        <div fs-click="designPage.initMirror($event)" class="constr-shape-icon mirror"></div>
-        <div fs-click="designPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
-        <div fs-click="designPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
+        <div fs-click="designPage.initMirror()" class="constr-shape-icon mirror"></div>
+        <div fs-click="designPage.positionAxis()" class="constr-shape-icon position-axis"></div>
+        <div fs-click="designPage.positionGlass()" class="constr-shape-icon position-glass"></div>
       </div>
       <div class="left-menu-footer">
         <div data-output="{{ ::designPage.UNITS_DESCRIP }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
@@ -191,7 +191,7 @@
           <div class="tempate-type-box">
             <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
               <div fs-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_WINDOW }}</div>
-              <!--.template-type-btn(fs-click="templatesPanel.selectNewTemplateType(2)") {{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}-->
+              <div fs-click="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}</div>
               <!--.template-type-btn(fs-click="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}-->
               <div fs-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_DOOR }}</div>
             </div>

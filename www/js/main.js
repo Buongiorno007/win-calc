@@ -647,11 +647,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertSash(sashType, event) {
-//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
-      event.preventDefault();
-//      event.srcEvent.stopPropagation();
-
+    function insertSash(sashType) {
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
           i;
@@ -710,9 +706,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertCorner(conerType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertCorner(conerType) {
       //------ hide menu
       deactivMenu();
       //TODO testing stage
@@ -771,9 +765,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertArc(arcType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertArc(arcType) {
       deactivMenu();
       //TODO testing stage
       thisCtrl.config.isTest = 1;
@@ -812,9 +804,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ Edit Impost ++++++++*/
 
-    function insertImpost(impostType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertImpost(impostType) {
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i;
@@ -871,8 +861,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ create Mirror ++++++++*/
 
-    function initMirror(event) {
-      event.preventDefault();
+    function initMirror() {
       deactivMenu();
       DesignServ.initMirror();
     }
@@ -880,8 +869,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ position by Axises ++++++++*/
 
-    function positionAxis(event) {
-      event.preventDefault();
+    function positionAxis() {
       deactivMenu();
       DesignServ.positionAxises();
     }
@@ -889,8 +877,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ position by Glasses ++++++++*/
 
-    function positionGlass(event) {
-      event.preventDefault();
+    function positionGlass() {
       deactivMenu();
       DesignServ.positionGlasses();
     }
@@ -9139,10 +9126,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -13839,9 +13826,6 @@ function ErrorResult(code, message) {
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
         };
-
-
-
 
 
 
