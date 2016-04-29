@@ -72,6 +72,14 @@
   overflow: auto;
   margin: 2rem;
   top: -2rem;
+
+  .value {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    max-width: 215px;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+  }
 }
 .cart-item-data-m {
     @include display-flex();
