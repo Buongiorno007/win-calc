@@ -397,10 +397,37 @@
         }
       }
     }
+
+    function errorChecking () {
+      HistoryStor.history.errorСhecking = 0;
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      for(ord=0; ord<ordersQty; ord+=1 ) {
+        if (HistoryStor.history.isBoxArray[ord].dataProfiles === undefined) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        if (HistoryStor.history.isBoxArray[ord].dataHardware === undefined && HistoryStor.history.isBoxArray[ord].hardware_id !==0) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        if (HistoryStor.history.isBoxArray[ord].dataLamination === undefined) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        var nameGlassQty = HistoryStor.history.isBoxArray[ord].nameGlass.length;
+        for (var i=0; i<nameGlassQty; i+=1) {
+          if (HistoryStor.history.isBoxArray[ord].nameGlass[i].dataGlass === undefined) {
+            HistoryStor.history.errorСhecking +=1;
+            break
+          }
+        }
+      }
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
       box:box,
+      errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
       nameListLaminat:nameListLaminat,

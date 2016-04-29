@@ -4127,10 +4127,19 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
-
+    function check() {
+      RecOrderServ.errorChecking()
+      if (HistoryStor.history.errorСhecking < 1) {
+        okey()
+      } else {
+        console.log('errrrrrrror', HistoryStor.history.errorСhecking)
+        }
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.errorChecking = RecOrderServ.errorChecking;
+      thisCtrl.check = check;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
@@ -21533,10 +21542,37 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
       }
     }
+
+    function errorChecking () {
+      HistoryStor.history.errorСhecking = 0;
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      for(ord=0; ord<ordersQty; ord+=1 ) {
+        if (HistoryStor.history.isBoxArray[ord].dataProfiles === undefined) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        if (HistoryStor.history.isBoxArray[ord].dataHardware === undefined && HistoryStor.history.isBoxArray[ord].hardware_id !==0) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        if (HistoryStor.history.isBoxArray[ord].dataLamination === undefined) {
+          HistoryStor.history.errorСhecking +=1;
+          break
+        }
+        var nameGlassQty = HistoryStor.history.isBoxArray[ord].nameGlass.length;
+        for (var i=0; i<nameGlassQty; i+=1) {
+          if (HistoryStor.history.isBoxArray[ord].nameGlass[i].dataGlass === undefined) {
+            HistoryStor.history.errorСhecking +=1;
+            break
+          }
+        }
+      }
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
       box:box,
+      errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
       nameListLaminat:nameListLaminat,

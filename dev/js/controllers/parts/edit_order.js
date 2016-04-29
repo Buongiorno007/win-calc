@@ -138,10 +138,19 @@
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
-
+    function check() {
+      RecOrderServ.errorChecking()
+      if (HistoryStor.history.errorСhecking < 1) {
+        okey()
+      } else {
+        console.log('errrrrrrror', HistoryStor.history.errorСhecking)
+        }
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.errorChecking = RecOrderServ.errorChecking;
+      thisCtrl.check = check;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
