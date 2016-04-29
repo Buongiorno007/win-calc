@@ -51,16 +51,16 @@
         <!--.constr-shape-icon.impost-curv2(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(15, $event)")-->
         <div ng-show="designPage.D.design.isImpostDelete" fs-click="designPage.insertImpost(1, $event)" class="constr-shape-icon clean"></div>
       </div>
-      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1, 'door-sash': designPage.P.product.construction_type === 4}" class="edit_submenu">
-        <div ng-hide="designPage.P.product.construction_type === 4" ng-mousedown="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
+      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
+        <div ng-mousedown="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></div>
         <div ng-mousedown="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></div>
         <div ng-mousedown="designPage.insertSash(3, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-right"></div>
-        <div ng-mousedown="designPage.insertSash(4, $event)" ng-hide="designPage.P.product.construction_type === 2" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
-        <div ng-mousedown="designPage.insertSash(5, $event)" ng-hide="designPage.P.product.construction_type === 2" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
-        <div ng-mousedown="designPage.insertSash(6, $event)" ng-hide="designPage.P.product.construction_type === 2" class="constr-shape-icon sash-right-up"></div>
-        <div ng-mousedown="designPage.insertSash(7, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" ng-hide="designPage.P.product.construction_type === 2" class="drop-shape-icon sash-left-up"></div>
+        <div ng-mousedown="designPage.insertSash(4, $event)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-up"></div>
+        <div ng-mousedown="designPage.insertSash(5, $event)" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.isDropSubMenu == 2}" class="drop-shape-icon sash-down"></div>
+        <div ng-mousedown="designPage.insertSash(6, $event)" ng-hide="designPage.P.product.construction_type === 4" class="constr-shape-icon sash-right-up"></div>
+        <div ng-mousedown="designPage.insertSash(7, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 6}" ng-hide="designPage.P.product.construction_type === 4" class="drop-shape-icon sash-left-up"></div>
         <div ng-mousedown="designPage.insertSash(8, $event)" class="constr-shape-icon sash-shtulp-left"></div>
-        <div ng-mousedown="designPage.insertSash(9, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 2}" class="drop-shape-icon sash-shtulp-right"></div>
+        <div ng-mousedown="designPage.insertSash(9, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}" class="drop-shape-icon sash-shtulp-right"></div>
       </div>
       <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
         <div fs-click="designPage.insertCorner(1, $event)" class="constr-shape-icon clean"></div>
