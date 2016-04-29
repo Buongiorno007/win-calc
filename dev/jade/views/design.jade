@@ -54,10 +54,10 @@ section.construction-page
         .drop-shape-icon.sash-down(ng-mousedown="designPage.insertSash(5, $event)", ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.isDropSubMenu == 2}")
         .constr-shape-icon.sash-right-up(ng-mousedown="designPage.insertSash(6, $event)", ng-hide="designPage.P.product.construction_type === 4")
         .drop-shape-icon.sash-left-up(ng-mousedown="designPage.insertSash(7, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}", ng-hide="designPage.P.product.construction_type === 4")
-        .constr-shape-icon.sash-shtulp-left(ng-mousedown="designPage.insertSash(8, $event)")
-        .drop-shape-icon.sash-shtulp-right(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}")
-
-
+        .constr-shape-icon.sash-shtulp-left(ng-mousedown="designPage.insertSash(8, $event)", ng-hide="designPage.P.product.construction_type === 4")
+        .constr-shape-icon.sash-shtulp-left-door(ng-mousedown="designPage.insertSash(8, $event)", ng-hide="designPage.P.product.construction_type !== 4")
+        .drop-shape-icon.sash-shtulp-right(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}", ng-hide="designPage.P.product.construction_type === 4")
+        .drop-shape-icon.sash-shtulp-right-door(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}", ng-hide="designPage.P.product.construction_type !== 4")
       #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
         .constr-shape-icon.clean(fs-click="designPage.insertCorner(1, $event)")
         .constr-shape-icon.corner(fs-click="designPage.insertCorner(2, $event)")
