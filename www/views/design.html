@@ -65,18 +65,18 @@
         <div ng-mousedown="designPage.insertSash(9, $event)" ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}" ng-hide="designPage.P.product.construction_type !== 4" class="drop-shape-icon sash-shtulp-right-door"></div>
       </div>
       <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
-        <div fs-click="designPage.insertCorner(1, $event)" class="constr-shape-icon clean"></div>
-        <div fs-click="designPage.insertCorner(2, $event)" class="constr-shape-icon corner"></div>
-        <div fs-click="designPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></div>
+        <div fs-click="designPage.insertCorner(1)" class="constr-shape-icon clean"></div>
+        <div fs-click="designPage.insertCorner(2)" class="constr-shape-icon corner"></div>
+        <div fs-click="designPage.insertCorner(3)" class="constr-shape-icon corner-curv"></div>
       </div>
       <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
-        <div fs-click="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></div>
-        <div fs-click="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></div>
+        <div fs-click="designPage.insertArc(1)" class="constr-shape-icon clean"></div>
+        <div fs-click="designPage.insertArc(2)" class="constr-shape-icon arc"></div>
       </div>
       <div id="position-menu" ng-hide="designPage.P.product.construction_type === 4" ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}" class="edit_submenu">
-        <div fs-click="designPage.initMirror($event)" class="constr-shape-icon mirror"></div>
-        <div fs-click="designPage.positionAxis($event)" class="constr-shape-icon position-axis"></div>
-        <div fs-click="designPage.positionGlass($event)" class="constr-shape-icon position-glass"></div>
+        <div fs-click="designPage.initMirror()" class="constr-shape-icon mirror"></div>
+        <div fs-click="designPage.positionAxis()" class="constr-shape-icon position-axis"></div>
+        <div fs-click="designPage.positionGlass()" class="constr-shape-icon position-glass"></div>
       </div>
       <div class="left-menu-footer">
         <div data-output="{{ ::designPage.UNITS_DESCRIP }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>

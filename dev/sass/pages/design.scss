@@ -255,6 +255,7 @@ $door-config-content: $ipad-height - $door-config-header;
   left: 10.6rem;
   }
 }
+
 .sash-shtulp-right-door {
   left: $submenu_left3;
   &:after {
@@ -285,6 +286,8 @@ $door-config-content: $ipad-height - $door-config-header;
     left: $submenu_left2;
   }
 }
+
+
 
 .impost-vert:after {
   content: $impost-vert-icon;

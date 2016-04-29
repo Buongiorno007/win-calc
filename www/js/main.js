@@ -647,11 +647,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertSash(sashType, event) {
-//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
-      event.preventDefault();
-//      event.srcEvent.stopPropagation();
-
+    function insertSash(sashType) {
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
           i;
@@ -710,9 +706,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertCorner(conerType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertCorner(conerType) {
       //------ hide menu
       deactivMenu();
       //TODO testing stage
@@ -771,9 +765,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-    function insertArc(arcType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertArc(arcType) {
       deactivMenu();
       //TODO testing stage
       thisCtrl.config.isTest = 1;
@@ -812,9 +804,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ Edit Impost ++++++++*/
 
-    function insertImpost(impostType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertImpost(impostType) {
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i;
@@ -871,8 +861,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ create Mirror ++++++++*/
 
-    function initMirror(event) {
-      event.preventDefault();
+    function initMirror() {
       deactivMenu();
       DesignServ.initMirror();
     }
@@ -880,8 +869,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ position by Axises ++++++++*/
 
-    function positionAxis(event) {
-      event.preventDefault();
+    function positionAxis() {
       deactivMenu();
       DesignServ.positionAxises();
     }
@@ -889,8 +877,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**++++++++++ position by Glasses ++++++++*/
 
-    function positionGlass(event) {
-      event.preventDefault();
+    function positionGlass() {
       deactivMenu();
       DesignServ.positionGlasses();
     }
@@ -1835,8 +1822,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
-/*
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -9139,8 +9126,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
@@ -10607,7 +10594,7 @@ function ErrorResult(code, message) {
       if(type === 8 || type === 9) {
         if(minGlassSize >= globalConstants.minSizeLimitStulp && ProductStor.product.construction_type === 4) {
 
-          if(type === 8) {
+          if(type === 9) {
             sashesParams = [
               {
                 openDir: [4],
@@ -10620,7 +10607,7 @@ function ErrorResult(code, message) {
                 sashType: 17
               }
             ];
-          } else if(type === 9) {
+          } else if(type === 8) {
             sashesParams = [
               {
                 openDir: [4],
@@ -12262,9 +12249,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -13871,9 +13858,6 @@ function ErrorResult(code, message) {
             'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
         };
-
-
-
 
 
 

@@ -1414,7 +1414,7 @@
       if(type === 8 || type === 9) {
         if(minGlassSize >= globalConstants.minSizeLimitStulp && ProductStor.product.construction_type === 4) {
 
-          if(type === 8) {
+          if(type === 9) {
             sashesParams = [
               {
                 openDir: [4],
@@ -1427,7 +1427,7 @@
                 sashType: 17
               }
             ];
-          } else if(type === 9) {
+          } else if(type === 8) {
             sashesParams = [
               {
                 openDir: [4],

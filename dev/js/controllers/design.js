@@ -130,11 +130,7 @@
     }
 
 
-    function insertSash(sashType, event) {
-//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
-      event.preventDefault();
-//      event.srcEvent.stopPropagation();
-
+    function insertSash(sashType) {
       var isPermit = 1,
           glassQty = DesignStor.design.selectedGlass.length,
           i;
@@ -193,9 +189,7 @@
     }
 
 
-    function insertCorner(conerType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertCorner(conerType) {
       //------ hide menu
       deactivMenu();
       //TODO testing stage
@@ -254,9 +248,7 @@
     }
 
 
-    function insertArc(arcType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertArc(arcType) {
       deactivMenu();
       //TODO testing stage
       thisCtrl.config.isTest = 1;
@@ -295,9 +287,7 @@
 
     /**++++++++++ Edit Impost ++++++++*/
 
-    function insertImpost(impostType, event) {
-      event.preventDefault();
-      //event.srcEvent.stopPropagation();
+    function insertImpost(impostType) {
       var isPermit = 1,
           impostsQty = DesignStor.design.selectedImpost.length,
           i;
@@ -354,8 +344,7 @@
 
     /**++++++++++ create Mirror ++++++++*/
 
-    function initMirror(event) {
-      event.preventDefault();
+    function initMirror() {
       deactivMenu();
       DesignServ.initMirror();
     }
@@ -363,8 +352,7 @@
 
     /**++++++++++ position by Axises ++++++++*/
 
-    function positionAxis(event) {
-      event.preventDefault();
+    function positionAxis() {
       deactivMenu();
       DesignServ.positionAxises();
     }
@@ -372,8 +360,7 @@
 
     /**++++++++++ position by Glasses ++++++++*/
 
-    function positionGlass(event) {
-      event.preventDefault();
+    function positionGlass() {
       deactivMenu();
       DesignServ.positionGlasses();
     }

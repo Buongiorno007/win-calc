@@ -29,6 +29,7 @@ section.construction-page
             .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
       #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}")
+
         .constr-shape-icon.impost-vert(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(2, $event)")
         .constr-shape-icon.impost-hor(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(3, $event)")
         .constr-shape-icon.impost-inc-hor(ng-hide="designPage.D.design.isImpostDelete", fs-click="designPage.insertImpost(4, $event)")
@@ -58,19 +59,20 @@ section.construction-page
         .constr-shape-icon.sash-shtulp-left-door(ng-mousedown="designPage.insertSash(8, $event)", ng-hide="designPage.P.product.construction_type !== 4")
         .drop-shape-icon.sash-shtulp-right(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}", ng-hide="designPage.P.product.construction_type === 4")
         .drop-shape-icon.sash-shtulp-right-door(ng-mousedown="designPage.insertSash(9, $event)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8, 'left': designPage.P.product.construction_type === 4}", ng-hide="designPage.P.product.construction_type !== 4")
+
       #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
-        .constr-shape-icon.clean(fs-click="designPage.insertCorner(1, $event)")
-        .constr-shape-icon.corner(fs-click="designPage.insertCorner(2, $event)")
-        .constr-shape-icon.corner-curv(fs-click="designPage.insertCorner(3, $event)")
+        .constr-shape-icon.clean(fs-click="designPage.insertCorner(1)")
+        .constr-shape-icon.corner(fs-click="designPage.insertCorner(2)")
+        .constr-shape-icon.corner-curv(fs-click="designPage.insertCorner(3)")
 
       #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}")
-        .constr-shape-icon.clean(fs-click="designPage.insertArc(1, $event)")
-        .constr-shape-icon.arc(fs-click="designPage.insertArc(2, $event)")
+        .constr-shape-icon.clean(fs-click="designPage.insertArc(1)")
+        .constr-shape-icon.arc(fs-click="designPage.insertArc(2)")
 
       #position-menu.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
-        .constr-shape-icon.mirror(fs-click="designPage.initMirror($event)")
-        .constr-shape-icon.position-axis(fs-click="designPage.positionAxis($event)")
-        .constr-shape-icon.position-glass(fs-click="designPage.positionGlass($event)")
+        .constr-shape-icon.mirror(fs-click="designPage.initMirror()")
+        .constr-shape-icon.position-axis(fs-click="designPage.positionAxis()")
+        .constr-shape-icon.position-glass(fs-click="designPage.positionGlass()")
 
       .left-menu-footer
         .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
