@@ -54,7 +54,7 @@ section.construction-page
         .constr-shape-icon.sash-right-up(ng-hide="designPage.P.product.construction_type === 2", fs-click="designPage.insertSash(6)")
         .drop-shape-icon.sash-left-up(ng-hide="designPage.P.product.construction_type === 2", fs-click="designPage.insertSash(7)", ng-class="{'active': designPage.D.design.isDropSubMenu == 6}")
         .constr-shape-icon.sash-shtulp-left(fs-click="designPage.insertSash(8)")
-        .drop-shape-icon.sash-shtulp-right(fs-click="designPage.insertSash(9)", ng-class="{'active': designPage.D.design.isDropSubMenu == 8}")
+        .drop-shape-icon.sash-shtulp-right(fs-click="designPage.insertSash(9)", ng-class="[{'active': designPage.D.design.isDropSubMenu == 8}, {'left': designPage.P.product.construction_type === 2}]")
 
       #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}")
         .constr-shape-icon.clean(fs-click="designPage.insertCorner(1)")
