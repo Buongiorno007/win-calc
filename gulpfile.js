@@ -277,8 +277,8 @@ gulp.task('prod', function() {
 
 /**========= Загрузка на удаленный сервер =========*/
 
-var server = config.server;
-//var server = config.serverSteko;
+//var server = config.server;
+var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {
@@ -309,7 +309,15 @@ gulp.task('upload-css', function () {
     .pipe(ftp(settings));
 });
 
-gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css']);
+/** upload fonts */
+gulp.task('upload-fonts', function () {
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/fonts/icons';
+  gulp.src(config.build.dest.fonts + '/icons/*.ttf')
+    .pipe(ftp(settings));
+});
+
+gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', 'upload-fonts']);
 
 
 

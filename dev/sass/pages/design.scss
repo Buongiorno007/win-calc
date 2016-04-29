@@ -236,11 +236,12 @@ $door-config-content: $ipad-height - $door-config-header;
     top: $submenu_top1;
   }
 }
-.sash-shtulp-left-door:after {
-  content: $sash-shtulp-left-icon-door;
-}
+
 .sash-shtulp-left:after {
   content: $sash-shtulp-left-icon;
+}
+.sash-shtulp-left-door:after {
+  content: $sash-shtulp-left-icon-door;
 }
 
 .sash-shtulp-right {
