@@ -91,6 +91,7 @@
         CONFIGMENU_SIZING: 'ширина * высота',
         CONFIGMENU_PROFILE: 'Профиль',
         CONFIGMENU_GLASS: 'Стеклопакет',
+        CONFIGMENU_ALERT: 'Чтобы завершить операцию успешно необходимо заполнить все поля',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',

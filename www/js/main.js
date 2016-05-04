@@ -4018,6 +4018,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_ALERT = $filter('translate')('mainpage.CONFIGMENU_ALERT');
     thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
@@ -4116,6 +4117,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
     function close () {
       GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
@@ -4131,8 +4133,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       RecOrderServ.errorChecking()
       if (HistoryStor.history.errorСhecking < 1) {
         okey()
+        GlobalStor.global.isAlertHistory = 0;
       } else {
-        console.log('errrrrrrror', HistoryStor.history.errorСhecking)
+          GlobalStor.global.isAlertHistory = 1;
+          console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }
     }
     /**========== FINISH ==========*/
@@ -25206,6 +25210,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         alertTitle: '',
         alertDescr: '',
         isBox: 0,
+        isAlertHistory: 0,
         isEditBox: 0,
         confirmAction: 0,
         confirmInActivity: 0,
@@ -27194,6 +27199,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         CONFIGMENU_SIZING: 'ширина * высота',
         CONFIGMENU_PROFILE: 'Профиль',
         CONFIGMENU_GLASS: 'Стеклопакет',
+        CONFIGMENU_ALERT: 'Чтобы завершить операцию успешно необходимо заполнить все поля',
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'в комнате / фасад',

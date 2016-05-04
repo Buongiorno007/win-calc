@@ -23,6 +23,24 @@
     margin: 2rem;
 	float: left; 
 }
+.txt {
+  top: -8.625rem;
+  left: 16.5rem;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
+  position: absolute;
+  display: table;
+  max-width: 86.5rem;
+  padding: 1.25rem 2.5rem;
+  color: #fff;
+  border-radius: 1.25rem;
+  background: #6ED44A;
+  z-index: 1;
+  &.alert {
+    transform: 0.5s;
+    background: #f74f2e;
+    color: #fff;
+  }
+}
 .box6 {
   position: absolute;
   height: auto;

@@ -2,6 +2,8 @@
  .order-cont
   .boxText
    .close-m(fs-click="editOrder.close()")
+  .boxText
+   .txt(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
   .cart-menu-m(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
     .box6
      .title {{'№'}}

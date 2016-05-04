@@ -29,6 +29,7 @@
 
 
     thisCtrl.CONFIGMENU_PROFILE = $filter('translate')('mainpage.CONFIGMENU_PROFILE');
+    thisCtrl.CONFIGMENU_ALERT = $filter('translate')('mainpage.CONFIGMENU_ALERT');
     thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
@@ -127,6 +128,7 @@
     }
     function close () {
       GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
@@ -142,8 +144,10 @@
       RecOrderServ.errorChecking()
       if (HistoryStor.history.errorСhecking < 1) {
         okey()
+        GlobalStor.global.isAlertHistory = 0;
       } else {
-        console.log('errrrrrrror', HistoryStor.history.errorСhecking)
+          GlobalStor.global.isAlertHistory = 1;
+          console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }
     }
     /**========== FINISH ==========*/
