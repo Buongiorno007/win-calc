@@ -21299,10 +21299,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         for(glb=0; glb<laminatAllQty; glb+=1) {
+          console.log('GlobalStor.global.laminatCouples[glb].profile_id', GlobalStor.global.laminatCouples)
           if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
-            if (HistoryStor.history.isBoxArray[ord].product_id === product_id) {
-              if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
-                var nameIn,
+            if(HistoryStor.history.isBoxArray[ord].product_id === product_id) {
+              var nameIn,
                     id,
                     obj = {  
                         name: '',
@@ -21314,6 +21314,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         profile_id: 0,
                         lamination: ''
                         };
+              if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;
                 obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
@@ -21324,6 +21325,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
                 listNameLaminat.push(obj);
                 HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+              } else if (GlobalStor.global.laminatCouples[glb].id === 0) {
+                  obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
+                  obj.id = GlobalStor.global.laminatCouples[glb].id;
+                  obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
+                  obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id;
+                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id;
+                  obj.lamination = GlobalStor.global.laminatCouples[glb];
+                  obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                  listNameLaminat.push(obj);
+                  HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
               }
             }
           }
