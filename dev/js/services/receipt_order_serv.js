@@ -186,7 +186,6 @@
       var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         for(glb=0; glb<laminatAllQty; glb+=1) {
-          console.log('GlobalStor.global.laminatCouples[glb].profile_id', GlobalStor.global.laminatCouples)
           if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
             if(HistoryStor.history.isBoxArray[ord].product_id === product_id) {
               var nameIn,
