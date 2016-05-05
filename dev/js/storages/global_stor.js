@@ -84,6 +84,7 @@
 
         //------ Add Elements
         typeMenu: 55,
+        typeMenuID: 55,
         addElementsAll: [],
         tempAddElements: [],
 

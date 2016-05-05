@@ -19,8 +19,18 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-grat-img {
+        background-image: image-url($aux-img-focus-path+'/grating2.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-shutters-img {
         background-image: image-url($aux-img-focus-path+'/shutters.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-shut-img {
+        background-image: image-url($aux-img-focus-path+'/shutters2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -122,8 +132,18 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-grat-img {
+        background-image: image-url($aux-img-select-path+'/grating2.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-shutters-img {
         background-image: image-url($aux-img-select-path+'/shutters.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-shut-img {
+        background-image: image-url($aux-img-select-path+'/shutters2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -246,7 +266,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-grating-img {
-    @include top_left_coord(520px, -340px);
+    @include top_left_coord(520px, -440px);
     position: absolute;
     width: rem(454px);
     height: rem(772px);
@@ -255,6 +275,21 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-size: contain;
   }
 
+  //------Grat
+  .aux-grat {
+    @include top_left_coord(-250px, 330px);
+    z-index: 4;
+  }
+
+  .aux-grat-img {
+    @include top_left_coord(520px, -340px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/grating2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
   //------Shutters
   .aux-shutters {
     @include top_left_coord(140px, 540px);
@@ -267,6 +302,22 @@ $aux-img-select-path: 'auxiliaries-selected';
     width: rem(454px);
     height: rem(772px);
     background-image: image-url($aux-img-path+'/shutters.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  //------Shutters main
+  .aux-shut {
+    @include top_left_coord(140px, 540px);
+    z-index: 4;
+  }
+
+  .aux-shut-img {
+    @include top_left_coord(-40px, -140px);
+    position: absolute;
+    width: 28.75rem;
+    height: 38.625rem;
+    background-image: image-url($aux-img-path+'/shutters2.png');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -516,7 +567,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Handle
   .aux-handle {
-    @include top_left_coord(1050px, 550px);
+    @include top_left_coord(1325px, 230px);
     z-index: 12;
   }
 
@@ -553,6 +604,9 @@ $aux-img-select-path: 'auxiliaries-selected';
   .aux-grating-txt {
     @include top_left_coord(920px, -480px);
   }
+    .aux-grat-txt {
+    @include top_left_coord(600px, -280px);
+  }
 
   .aux-blind-txt {
     @include top_left_coord(-500px, 150px);
@@ -560,6 +614,10 @@ $aux-img-select-path: 'auxiliaries-selected';
   
   .aux-shutters-txt {
     @include top_left_coord(140px, 530px);
+  }
+ 
+  .aux-shut-txt {
+    @include top_left_coord(121.5px, 234px);
   }
 
   .aux-spillway-txt {
@@ -575,7 +633,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-inside-txt {
-    @include top_left_coord(-115px, -120px);
+    @include top_left_coord(370px, 850px);
   }
 
   .aux-connectors-txt {
@@ -583,7 +641,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-fan-txt {
-    @include top_left_coord(20px, -325px);
+    @include top_left_coord(20px, -260px);
   }
 
   .aux-windowsill-txt {

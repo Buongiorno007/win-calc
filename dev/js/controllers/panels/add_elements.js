@@ -7,6 +7,7 @@
 
   function(
     $filter,
+    $timeout,
     globalConstants,
     GeneralServ,
     AddElementsServ,
@@ -68,10 +69,25 @@
     }
 
     function click(id){
-      GlobalStor.global.typeMenu = id;
-      thisCtrl.config.colorFilter = id;
+      GlobalStor.global.typeMenu = 0;
+      GlobalStor.global.typeMenuID = id;
+      $timeout(function(id){
+        console.log('id', GlobalStor.global.typeMenuID)
+        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
+        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
+        if (GlobalStor.global.typeMenu === 55) {
+          $('.aux-handle').css({
+          'left': 14.375 +'rem',
+           'top': 82.625 +'rem'
+          });
+        } else {
+          $('.aux-handle').css({
+           'left': 34.375 +'rem',
+           'top': 65.625 +'rem'
+          });
+        }
+      },500);
     }
-  
 
     /**========== FINISH ==========*/
 

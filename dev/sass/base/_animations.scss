@@ -175,6 +175,11 @@
   @include animation(move-shutters 1s ease 0s 1);
 }
 @include behavior-move(move-shutters, rem(1000px), rem(-2000px), 0, 0);
+//------Shut
+.move-shut {
+  @include animation(move-shut 1s ease 0s 1);
+}
+@include behavior-move(move-shut, rem(1000px), rem(-2000px), 0, 0);
 //------Blind
 .move-blind {
   @include animation(move-blind 1s ease 0s 1);

@@ -64,7 +64,9 @@
           [], // 10 - others
           [], // 11 - shutters 
           [], // 12 - grating 
-          []  // 13 - blind 
+          [], // 13 - blind 
+          [], // 14 - shut 
+          []  // 15 - grat 
         ],
 
         door_shape_id: 0,

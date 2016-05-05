@@ -151,7 +151,26 @@
             typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          }
+          },          
+          /**SHUTTERS main*/
+          {
+            id: 999,
+            name: 'add_elements.SHUTTERS',
+            typeClass: 'aux-shut',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },          
+          /**GRATING main*/
+          {
+            id: 9999,
+            name: 'add_elements.GRATING',
+            typeClass: 'aux-grat',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
         ];
       
 

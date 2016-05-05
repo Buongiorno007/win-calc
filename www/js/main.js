@@ -3244,6 +3244,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function(
     $filter,
+    $timeout,
     globalConstants,
     GeneralServ,
     AddElementsServ,
@@ -3305,10 +3306,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function click(id){
-      GlobalStor.global.typeMenu = id;
-      thisCtrl.config.colorFilter = id;
+      GlobalStor.global.typeMenu = 0;
+      GlobalStor.global.typeMenuID = id;
+      $timeout(function(id){
+        console.log('id', GlobalStor.global.typeMenuID)
+        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
+        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
+        if (GlobalStor.global.typeMenu === 55) {
+          $('.aux-handle').css({
+          'left': 14.375 +'rem',
+           'top': 82.625 +'rem'
+          });
+        } else {
+          $('.aux-handle').css({
+           'left': 34.375 +'rem',
+           'top': 65.625 +'rem'
+          });
+        }
+      },500);
     }
-  
 
     /**========== FINISH ==========*/
 
@@ -12247,7 +12263,26 @@ function ErrorResult(code, message) {
             typeMenu: 22,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          }
+          },          
+          /**SHUTTERS main*/
+          {
+            id: 999,
+            name: 'add_elements.SHUTTERS',
+            typeClass: 'aux-shut',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },          
+          /**GRATING main*/
+          {
+            id: 9999,
+            name: 'add_elements.GRATING',
+            typeClass: 'aux-grat',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+
         ];
       
 
@@ -25202,6 +25237,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         //------ Add Elements
         typeMenu: 55,
+        typeMenuID: 55,
         addElementsAll: [],
         tempAddElements: [],
 
@@ -25522,7 +25558,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           [], // 10 - others
           [], // 11 - shutters 
           [], // 12 - grating 
-          []  // 13 - blind 
+          [], // 13 - blind 
+          [], // 14 - shut 
+          []  // 15 - grat 
         ],
 
         door_shape_id: 0,
