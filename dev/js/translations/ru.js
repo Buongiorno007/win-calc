@@ -159,6 +159,8 @@
         INSIDES: 'Внутренние',
         OUTSIDES: 'Наружные',
         COMPONENTS: 'Компоненты',
+        OTHER: 'Прочее',
+        ALL: 'Все',
         BLIND: 'роллеты',
         GRATING: 'наружный переплёт',
         SHUTTERS: 'ставни',

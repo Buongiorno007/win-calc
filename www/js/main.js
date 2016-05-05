@@ -3270,7 +3270,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 11,
+      colorFilter: 55,
       typing: 'on'
     };
 
@@ -3279,6 +3279,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
     thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
     thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
+    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
     thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
@@ -3302,8 +3304,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-    function firstB(id){
-      GlobalStor.global.addElemNumb = id
+    function click(id){
+      GlobalStor.global.typeMenu = id;
       thisCtrl.config.colorFilter = id;
     }
   
@@ -3311,7 +3313,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
 
     //------ clicking
-    thisCtrl.firstB = firstB;
+    thisCtrl.click = click;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -12117,6 +12119,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -12153,6 +12156,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -12162,6 +12166,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -12171,6 +12176,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -12180,6 +12186,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12189,6 +12196,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -12198,6 +12206,7 @@ function ErrorResult(code, message) {
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -25192,7 +25201,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lamGroupFiltered: [],
 
         //------ Add Elements
-        addElemNumb: 11,
+        typeMenu: 55,
         addElementsAll: [],
         tempAddElements: [],
 
@@ -27289,6 +27298,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         INSIDES: 'Внутренние',
         OUTSIDES: 'Наружные',
         COMPONENTS: 'Компоненты',
+        OTHER: 'Прочее',
+        ALL: 'Все',
         BLIND: 'роллеты',
         GRATING: 'наружный переплёт',
         SHUTTERS: 'ставни',

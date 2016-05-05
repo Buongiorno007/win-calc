@@ -33,7 +33,7 @@
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 11,
+      colorFilter: 55,
       typing: 'on'
     };
 
@@ -42,6 +42,8 @@
     thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
     thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
     thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
+    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
     thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
@@ -65,8 +67,8 @@
       AuxStor.aux.isWindowSchemeDialog = false;
     }
 
-    function firstB(id){
-      GlobalStor.global.addElemNumb = id
+    function click(id){
+      GlobalStor.global.typeMenu = id;
       thisCtrl.config.colorFilter = id;
     }
   
@@ -74,7 +76,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
-    thisCtrl.firstB = firstB;
+    thisCtrl.click = click;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;

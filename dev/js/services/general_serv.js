@@ -23,6 +23,7 @@
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -59,6 +60,7 @@
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -68,6 +70,7 @@
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -77,6 +80,7 @@
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -86,6 +90,7 @@
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -95,6 +100,7 @@
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
             typeMenu: 11,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -104,6 +110,7 @@
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
             typeMenu: 33,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },

@@ -83,7 +83,7 @@
         lamGroupFiltered: [],
 
         //------ Add Elements
-        addElemNumb: 11,
+        typeMenu: 55,
         addElementsAll: [],
         tempAddElements: [],
 

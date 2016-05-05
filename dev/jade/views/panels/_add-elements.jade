@@ -2,12 +2,12 @@
   .auxiliaries-inner(ng-if="elementsPanel.G.global.activePanel == 6")
    
     .auxiliary-item.aux-outside.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}")
-      .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 22")
-      .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.addElemNumb === 11 || elementsPanel.G.global.addElemNumb === 33")
+      .aux-template2-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 22")
+      .aux-template1-img.move-outside(ng-show="elementsPanel.G.global.typeMenu === 11 || elementsPanel.G.global.typeMenu === 33 || elementsPanel.G.global.typeMenu === 55")
 
     .auxiliary-item.unvisible(
       ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index",
-      ng-if="elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.addElemNumb",
+      ng-if="elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu",
       ng-switch="$index",
       show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}",
       ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) && !addElemGroup.length, 'selected': addElemGroup.length}]")
@@ -59,10 +59,11 @@
               .aux-label(data-output="{{ ::elementsPanel.HEIGHT_LABEL }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="addElemGroup.length>1") {{ ::elementsPanel.OTHER_ELEMENTS1 }} {{ addElemGroup.length - 1 }} {{ ::elementsPanel.OTHER_ELEMENTS2 }}
 
-    .numberMenu(fs-click="elementsPanel.firstB(11)", ng-class="{'green': elementsPanel.config.colorFilter===11}", id="11") {{::elementsPanel.INSIDES}}
-    .numberMenu(fs-click="elementsPanel.firstB(22)", ng-class="{'green': elementsPanel.config.colorFilter===22}", id="22") {{::elementsPanel.OUTSIDES}}
-    .numberMenu(fs-click="elementsPanel.firstB(33)", ng-class="{'green': elementsPanel.config.colorFilter===33}", id="33") {{::elementsPanel.COMPONENTS}}
-    .numberMenu(fs-click="elementsPanel.firstB(44)", ng-class="{'green': elementsPanel.config.colorFilter===44}", id="44") {{::elementsPanel.OTHERS}}
+    .numberMenu(fs-click="elementsPanel.click(55)", ng-class="{'green': elementsPanel.config.colorFilter===55}", id="55") {{::elementsPanel.ALL}}
+    .numberMenu(fs-click="elementsPanel.click(11)", ng-class="{'green': elementsPanel.config.colorFilter===11}", id="11") {{::elementsPanel.INSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(22)", ng-class="{'green': elementsPanel.config.colorFilter===22}", id="22") {{::elementsPanel.OUTSIDES}}
+    .numberMenu(fs-click="elementsPanel.click(33)", ng-class="{'green': elementsPanel.config.colorFilter===33}", id="33") {{::elementsPanel.COMPONENTS}}
+    .numberMenu(fs-click="elementsPanel.click(44)", ng-class="{'green': elementsPanel.config.colorFilter===44}", id="44") {{::elementsPanel.OTHER}}
 
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", fs-click="elementsPanel.showWindowScheme()")
 

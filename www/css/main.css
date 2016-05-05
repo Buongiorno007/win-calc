@@ -9688,7 +9688,7 @@ tr.factory_item {
 /* line 650, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
-  width: 22%;
+  width: 17.7%;
   left: 4%;
   top: 1rem;
   text-align: center;
@@ -9704,7 +9704,7 @@ tr.factory_item {
 /* line 664, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
   transition: 0.5s;
-  background-color: #4dd996;
+  background-color: #6ED44A;
 }
 
 /* line 1, ../../dev/sass/panels/add-elements-list.scss */
