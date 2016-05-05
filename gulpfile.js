@@ -277,7 +277,7 @@ gulp.task('prod', function() {
 
 /**========= Загрузка на удаленный сервер =========*/
 
-//var server = config.server;
+// var server = config.server;
 var server = config.serverSteko;
 
 /** upload index */

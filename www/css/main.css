@@ -4629,6 +4629,20 @@ div.drum figure {
   width: 95%;
 }
 
+/* line 253, ../../dev/sass/parts/_room-elements.scss */
+.blockCheck {
+  height: 6%;
+  left: 19rem;
+  top: 9rem;
+  color: #0f0f0f;
+  text-align: center;
+  border: black;
+  border-radius: 1rem;
+  position: absolute;
+  width: 10%;
+  font-size: medium;
+}
+
 /* line 1, ../../dev/sass/parts/_edit-order.scss */
 .background {
   background: #FFFFFF;

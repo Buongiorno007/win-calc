@@ -2208,11 +2208,34 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
+    console.log(getPCPower());
+
+    function getPCPower() {
+      var iterations = 1000000;
+      var s = 0;
+      var diffs = 0;
+      for (var j = 0; j < 10; j++) {
+        var start = +new Date();
+        for(var i = 0; i < iterations; i++ ){
+            var t = Math.sqrt(i) * Math.sin(i) * Math.cos(i / 2) / 2;
+            s += t;
+        };
+        var end =  +new Date();
+
+        var diff = end - start;
+        diffs += diff;
+      }
+      GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
+      return Math.round(1000000 / diffs);
+    }
+    
+
 
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.getPCPower = getPCPower;
     thisCtrl.goToEditTemplate = goToEditTemplate;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
@@ -3934,8 +3957,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function isAlert() {
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isBox = 0;
-
-
     }
     /**========== FINISH ==========*/
     thisCtrl.isAlert = isAlert;
@@ -9139,8 +9160,8 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
@@ -21303,7 +21324,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var laminatAllQty = GlobalStor.global.laminatCouples.length, glb;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         for(glb=0; glb<laminatAllQty; glb+=1) {
-          console.log('GlobalStor.global.laminatCouples[glb].profile_id', GlobalStor.global.laminatCouples)
           if(HistoryStor.history.isBoxArray[ord].dataProfiles) {
             if(HistoryStor.history.isBoxArray[ord].product_id === product_id) {
               var nameIn,
@@ -21318,6 +21338,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         profile_id: 0,
                         lamination: ''
                         };
+                        console.log( 'GlobalStor.global.laminatCouples',  GlobalStor.global.laminatCouples)
               if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;
@@ -25106,6 +25127,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     thisFactory.publicObj = {
 
       globalSource: {
+        getPCPower: 0,
         isDevice: 0,
         isLoader: 0,
         startProgramm: 1, // for START

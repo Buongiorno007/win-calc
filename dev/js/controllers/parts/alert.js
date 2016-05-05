@@ -28,8 +28,6 @@
     function isAlert() {
       GlobalStor.global.isAlert = 0;
       GlobalStor.global.isBox = 0;
-
-
     }
     /**========== FINISH ==========*/
     thisCtrl.isAlert = isAlert;

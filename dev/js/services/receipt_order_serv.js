@@ -200,6 +200,7 @@
                         profile_id: 0,
                         lamination: ''
                         };
+                        console.log( 'GlobalStor.global.laminatCouples',  GlobalStor.global.laminatCouples)
               if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;

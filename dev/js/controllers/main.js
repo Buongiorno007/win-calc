@@ -101,11 +101,34 @@
     }
 
 
+    console.log(getPCPower());
+
+    function getPCPower() {
+      var iterations = 1000000;
+      var s = 0;
+      var diffs = 0;
+      for (var j = 0; j < 10; j++) {
+        var start = +new Date();
+        for(var i = 0; i < iterations; i++ ){
+            var t = Math.sqrt(i) * Math.sin(i) * Math.cos(i / 2) / 2;
+            s += t;
+        };
+        var end =  +new Date();
+
+        var diff = end - start;
+        diffs += diff;
+      }
+      GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
+      return Math.round(1000000 / diffs);
+    }
+    
+
 
 
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.getPCPower = getPCPower;
     thisCtrl.goToEditTemplate = goToEditTemplate;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
