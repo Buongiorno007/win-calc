@@ -7,7 +7,7 @@
 
     .auxiliary-item.unvisible(
       ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index",
-      ng-if="elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu",
+      ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.G.global.addElementsAll[$index].elementsList && elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu",
       ng-switch="$index",
       show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}",
       ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) && !addElemGroup.length, 'selected': addElemGroup.length}]")
