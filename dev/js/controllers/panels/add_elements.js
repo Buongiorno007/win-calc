@@ -72,7 +72,6 @@
       GlobalStor.global.typeMenu = 0;
       GlobalStor.global.typeMenuID = id;
       $timeout(function(id){
-        console.log('id', GlobalStor.global.typeMenuID)
         GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
         thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
         if (GlobalStor.global.typeMenu === 55) {

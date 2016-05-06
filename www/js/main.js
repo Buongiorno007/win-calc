@@ -3309,7 +3309,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.typeMenu = 0;
       GlobalStor.global.typeMenuID = id;
       $timeout(function(id){
-        console.log('id', GlobalStor.global.typeMenuID)
         GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
         thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
         if (GlobalStor.global.typeMenu === 55) {
@@ -9178,10 +9177,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -21199,7 +21198,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
@@ -21382,7 +21381,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         profile_id: 0,
                         lamination: ''
                         };
-                        console.log( 'GlobalStor.global.laminatCouples',  GlobalStor.global.laminatCouples)
               if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;
@@ -21494,7 +21492,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           HistoryStor.history.isBoxArray[ord].hardware = HistoryStor.history.isBoxArray[ord].dataHardware.hardware;
         } else if ( HistoryStor.history.isBoxArray[ord].hardware_id !== 0 && HistoryStor.history.isBoxArray[ord].dataHardware === undefined) {
           HistoryStor.history.errorСhecking +=1;
-          console.log('errorСhecking in hardware')
         }
       }    
     }
@@ -21508,7 +21505,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
         } else if (HistoryStor.history.isBoxArray[ord].profile_id !== 0 && HistoryStor.history.isBoxArray[ord].dataProfiles === undefined) {
           HistoryStor.history.errorСhecking +=1;
-          console.log('errorСhecking in profiles')
         }
       }    
     }
@@ -21533,7 +21529,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               }
             } else if (HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass === undefined) {
               HistoryStor.history.errorСhecking +=1;
-              console.log('errorСhecking in profiles')
+
             }
           } 
             HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';
@@ -25805,9 +25801,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         WINDOWSILL: 'Fensterbank',
         HANDLEL: 'Griff',
         OTHERS: 'Übrige',
+        OTHER: 'Übrige',
         GRIDS: 'Moskitonetze',
         VISORS: 'Visiere',
-
+        ALL: 'Andere',
         INSIDES: 'Die Inneren',
         OUTSIDES: 'Die Äusserlichen',
         COMPONENTS: 'Die Komponenten',
@@ -26190,6 +26187,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         OUTSIDES: 'External',
         SHUTTERS: 'Shutters',
         BLIND: 'Blinds',
+        ALL: 'All',
         GRATING: "Outer binding",
         SPILLWAYS: 'Drains',
         COMPONENTS: 'Components',
@@ -26199,6 +26197,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         OUTSIDES: 'outside',
         COMPONENTS: 'components',
         OTHERS: 'other',
+        OTHER: 'Other',
         GRIDS: 'mosquito grids',
         VISORS: 'peaks',
         SPILLWAYS: 'Drainages',
@@ -26575,12 +26574,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         WINDOWSILL: 'davanzale',
         INSIDES:'Interno',
         OUTSIDES:'Esterno',
+        ALL: 'Tutto',
         COMPONENTS:'Componenti',
         SHUTTERS:'persiane',
         BLIND: 'Tapparelle avvolgibili',
         GRATING: 'copertura esterna',
         HANDLEL: 'maniglia',
         OTHERS: 'altro',
+        OTHER: 'Аltro',
         GRIDS: 'le zanzariere',
         VISORS: 'le tettoie',
         SPILLWAYS: 'gli scoli d’acqua',
@@ -26960,9 +26961,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         COMPONENTS:'Componente',
         SHUTTERS:'obloane',
         BLIND: 'Rulouri exterioare',
+        ALL: 'Toate',
         GRATING: 'capacul exterior',
         HANDLEL: 'mâner',
         OTHERS: 'altele',
+        OTHER: 'Аltele',
         GRIDS: 'plase de protecție împotriva țânțarilor',
         VISORS: 'apărători',
         SPILLWAYS: 'glafuri pentru evacuarea apei',
@@ -27714,12 +27717,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         SPILLWAY: 'водовідлив',
         OUTSIDE: 'зовнішні укоси',
         LOUVERS: 'жалюзі',
+        ALL: 'Всi',
         INSIDE: 'внутрішні укоси',
         CONNECTORS: 'з`єднувач',
         FAN: 'мікропровітрювання',
         WINDOWSILL: 'підвіконня',
         HANDLEL: 'ручка',
         OTHERS: 'інше',
+        OTHER: 'Iнше',
         GRIDS: 'москітні сітки',
         INSIDES: 'Внутрішні',
         OUTSIDES: 'Зовнішні',

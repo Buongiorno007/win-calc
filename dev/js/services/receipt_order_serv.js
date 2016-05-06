@@ -17,7 +17,7 @@
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
@@ -200,7 +200,6 @@
                         profile_id: 0,
                         lamination: ''
                         };
-                        console.log( 'GlobalStor.global.laminatCouples',  GlobalStor.global.laminatCouples)
               if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;
@@ -312,7 +311,6 @@
           HistoryStor.history.isBoxArray[ord].hardware = HistoryStor.history.isBoxArray[ord].dataHardware.hardware;
         } else if ( HistoryStor.history.isBoxArray[ord].hardware_id !== 0 && HistoryStor.history.isBoxArray[ord].dataHardware === undefined) {
           HistoryStor.history.errorСhecking +=1;
-          console.log('errorСhecking in hardware')
         }
       }    
     }
@@ -326,7 +324,6 @@
           HistoryStor.history.isBoxArray[ord].nameProfiles = HistoryStor.history.isBoxArray[ord].dataProfiles.name;
         } else if (HistoryStor.history.isBoxArray[ord].profile_id !== 0 && HistoryStor.history.isBoxArray[ord].dataProfiles === undefined) {
           HistoryStor.history.errorСhecking +=1;
-          console.log('errorСhecking in profiles')
         }
       }    
     }
@@ -351,7 +348,7 @@
               }
             } else if (HistoryStor.history.isBoxArray[ord].nameGlass[tst].dataGlass === undefined) {
               HistoryStor.history.errorСhecking +=1;
-              console.log('errorСhecking in profiles')
+
             }
           } 
             HistoryStor.history.isBoxArray[ord].glass_id = glassId+'';

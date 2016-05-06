@@ -157,9 +157,10 @@
         WINDOWSILL: 'Fensterbank',
         HANDLEL: 'Griff',
         OTHERS: 'Übrige',
+        OTHER: 'Übrige',
         GRIDS: 'Moskitonetze',
         VISORS: 'Visiere',
-
+        ALL: 'Andere',
         INSIDES: 'Die Inneren',
         OUTSIDES: 'Die Äusserlichen',
         COMPONENTS: 'Die Komponenten',
