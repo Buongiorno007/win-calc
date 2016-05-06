@@ -676,7 +676,7 @@
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
-                <div fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" class="value">{{ addElement.name }}</div>
+                <div fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$index + 'prod'}}" class="value">{{ addElement.name }}</div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>

@@ -170,9 +170,28 @@
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
+           /**GRATING main*/
+          {
+            id: 21,
+            name: 'add_elements.VISORS',
+            typeClass: 'aux-vis',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+           /**GRATING main*/
+          {
+            id: 9,
+            name: 'add_elements.SPILLWAYS',
+            typeClass: 'aux-spil',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
 
         ];
       
+
 
     //TODO desktop
     //------- IMG rooms preload

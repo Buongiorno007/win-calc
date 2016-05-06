@@ -66,7 +66,9 @@
           [], // 12 - grating 
           [], // 13 - blind 
           [], // 14 - shut 
-          []  // 15 - grat 
+          [], // 15 - grat 
+          [], // 16 - vis 
+          []  // 17 - spil 
         ],
 
         door_shape_id: 0,
