@@ -77,7 +77,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  function configurationApp($routeProvider, $locationProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
+  function configurationApp($routeProvider, $locationProvider, $translateProvider) {
 
     //-------- delete # !!!
     //$locationProvider.html5Mode({
@@ -134,15 +134,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         redirectTo: '/'
       });
 
-    $translateProvider.translations('ru', russianDictionary);
-    $translateProvider.translations('uk', ukrainianDictionary);
-    $translateProvider.translations('en', englishDictionary);
-    $translateProvider.translations('de', germanDictionary);
-    $translateProvider.translations('ro', romanianDictionary);
-    $translateProvider.translations('it', italianDictionary);
 
-    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
-
+    $translateProvider.preferredLanguage('en');
+    $translateProvider.useLoader('AsyncLoader');
   }
 
 })();
