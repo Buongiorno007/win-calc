@@ -88,6 +88,7 @@
         NAVMENU_CALCULATIONS: 'Calcule',
         NAVMENU_APPENDIX: 'Anexă',
         NAVMENU_NEW_CALC: '+Calcul nou',
+        CONFIGMENU_ALERT: 'Pentru a finaliza operaţia, trebuie să completaţi toate câmpurile',
         CONFIGMENU_CONFIGURATION: 'Configurație și dimensiuni',
         CONFIGMENU_SIZING: 'lățime * înălțime',
         CONFIGMENU_PROFILE: 'Profil',

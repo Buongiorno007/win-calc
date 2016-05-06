@@ -87,6 +87,7 @@
         NAVMENU_MORE_INFO: 'Maggiore informazione',
         NAVMENU_VOICE_HELPER: 'Assistenza a voce',
         NAVMENU_CALCULATIONS: 'Pagamenti',
+        CONFIGMENU_ALERT: 'Per completare l`operazione, è necessario compilare tutti i campi',
         NAVMENU_APPENDIX: 'Allegato',
         NAVMENU_NEW_CALC: 'Il nuovo pagamento',
         CONFIGMENU_CONFIGURATION: 'Configurazioni e dimensioni',

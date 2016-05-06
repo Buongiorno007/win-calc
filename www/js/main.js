@@ -3323,7 +3323,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
            'top': 65.625 +'rem'
           });
         }
-      },500);
+      },100);
     }
 
     /**========== FINISH ==========*/
@@ -9178,10 +9178,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -25731,6 +25731,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         NAVMENU_ADD_ELEMENTS: 'Die zusätzlichen Elemente',
         NAVMENU_ALL_CALCULATIONS: 'Bestellverlauf',
         NAVMENU_SETTINGS: 'Einstellungen',
+        CONFIGMENU_ALERT: 'Um den Vorgang abzuschließen, müssen Sie alle Felder ausfüllen',
         NAVMENU_MORE_INFO: 'Es gibt als mehrere Informationen',
         NAVMENU_VOICE_HELPER: 'Der Stimmverwaltung',
         NAVMENU_CALCULATIONS: 'Die Berechnungen',
@@ -26115,6 +26116,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         NAVMENU_ALL_CALCULATIONS: 'Order history',
         NAVMENU_SETTINGS: 'Settings',
         NAVMENU_MORE_INFO: 'More information',
+        CONFIGMENU_ALERT: ' To complete the operation, you must fill all fields',
         NAVMENU_VOICE_HELPER: 'Voice control',
         NAVMENU_CALCULATIONS: 'Calculations',
         NAVMENU_APPENDIX: 'Appendix',
@@ -26502,6 +26504,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         NAVMENU_MORE_INFO: 'Maggiore informazione',
         NAVMENU_VOICE_HELPER: 'Assistenza a voce',
         NAVMENU_CALCULATIONS: 'Pagamenti',
+        CONFIGMENU_ALERT: 'Per completare l`operazione, è necessario compilare tutti i campi',
         NAVMENU_APPENDIX: 'Allegato',
         NAVMENU_NEW_CALC: 'Il nuovo pagamento',
         CONFIGMENU_CONFIGURATION: 'Configurazioni e dimensioni',
@@ -26885,6 +26888,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         NAVMENU_CALCULATIONS: 'Calcule',
         NAVMENU_APPENDIX: 'Anexă',
         NAVMENU_NEW_CALC: '+Calcul nou',
+        CONFIGMENU_ALERT: 'Pentru a finaliza operaţia, trebuie să completaţi toate câmpurile',
         CONFIGMENU_CONFIGURATION: 'Configurație și dimensiuni',
         CONFIGMENU_SIZING: 'lățime * înălțime',
         CONFIGMENU_PROFILE: 'Profil',
@@ -27644,6 +27648,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         NAVMENU_SETTINGS: 'Налаштування',
         NAVMENU_MORE_INFO: 'Більше інформації',
         NAVMENU_VOICE_HELPER: 'Голосове управління',
+        CONFIGMENU_ALERT: 'Для завершення операції потрібно заповнити всі поля',
         NAVMENU_CALCULATIONS: 'Розрахунки',
         NAVMENU_APPENDIX: 'Додаток',
         NAVMENU_NEW_CALC: '+Новий розрахунок',

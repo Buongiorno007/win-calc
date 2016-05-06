@@ -83,6 +83,7 @@
         NAVMENU_ADD_ELEMENTS: 'Die zusätzlichen Elemente',
         NAVMENU_ALL_CALCULATIONS: 'Bestellverlauf',
         NAVMENU_SETTINGS: 'Einstellungen',
+        CONFIGMENU_ALERT: 'Um den Vorgang abzuschließen, müssen Sie alle Felder ausfüllen',
         NAVMENU_MORE_INFO: 'Es gibt als mehrere Informationen',
         NAVMENU_VOICE_HELPER: 'Der Stimmverwaltung',
         NAVMENU_CALCULATIONS: 'Die Berechnungen',

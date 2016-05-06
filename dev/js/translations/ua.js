@@ -85,6 +85,7 @@
         NAVMENU_SETTINGS: 'Налаштування',
         NAVMENU_MORE_INFO: 'Більше інформації',
         NAVMENU_VOICE_HELPER: 'Голосове управління',
+        CONFIGMENU_ALERT: 'Для завершення операції потрібно заповнити всі поля',
         NAVMENU_CALCULATIONS: 'Розрахунки',
         NAVMENU_APPENDIX: 'Додаток',
         NAVMENU_NEW_CALC: '+Новий розрахунок',

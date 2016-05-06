@@ -84,6 +84,7 @@
         NAVMENU_ALL_CALCULATIONS: 'Order history',
         NAVMENU_SETTINGS: 'Settings',
         NAVMENU_MORE_INFO: 'More information',
+        CONFIGMENU_ALERT: ' To complete the operation, you must fill all fields',
         NAVMENU_VOICE_HELPER: 'Voice control',
         NAVMENU_CALCULATIONS: 'Calculations',
         NAVMENU_APPENDIX: 'Appendix',
