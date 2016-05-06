@@ -9177,10 +9177,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12281,9 +12281,28 @@ function ErrorResult(code, message) {
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
+           /**GRATING main*/
+          {
+            id: 21,
+            name: 'add_elements.VISORS',
+            typeClass: 'aux-vis',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
+           /**GRATING main*/
+          {
+            id: 9,
+            name: 'add_elements.SPILLWAYS',
+            typeClass: 'aux-spil',
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_small',
+            delay: globalConstants.STEP * 31
+          },
 
         ];
       
+
 
     //TODO desktop
     //------- IMG rooms preload
@@ -25556,7 +25575,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           [], // 12 - grating 
           [], // 13 - blind 
           [], // 14 - shut 
-          []  // 15 - grat 
+          [], // 15 - grat 
+          [], // 16 - vis 
+          []  // 17 - spil 
         ],
 
         door_shape_id: 0,

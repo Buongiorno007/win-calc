@@ -39,8 +39,18 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-vis-img {
+        background-image: image-url($aux-img-focus-path+'/visor2.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-spillway-img {
         background-image: image-url($aux-img-focus-path+'/spillway.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-spil-img {
+        background-image: image-url($aux-img-focus-path+'/spillway2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -127,6 +137,11 @@ $aux-img-select-path: 'auxiliaries-selected';
         background-repeat: no-repeat;
         background-size: contain;
       }
+      .aux-vis-img {
+        background-image: image-url($aux-img-select-path+'/visor2.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
       .aux-grating-img {
         background-image: image-url($aux-img-select-path+'/grating.png');
         background-repeat: no-repeat;
@@ -149,6 +164,11 @@ $aux-img-select-path: 'auxiliaries-selected';
       }
       .aux-spillway-img {
         background-image: image-url($aux-img-select-path+'/spillway.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .aux-spil-img {
+        background-image: image-url($aux-img-select-path+'/spillway2.png');
         background-repeat: no-repeat;
         background-size: contain;
       }
@@ -222,6 +242,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .aux-grid.focused,
   .aux-spillway.focused,
+  .aux-spil.focused,
   .aux-outside.focused {
     z-index: 20;
   }
@@ -255,6 +276,21 @@ $aux-img-select-path: 'auxiliaries-selected';
     width: rem(454px);
     height: rem(772px);
     background-image: image-url($aux-img-path+'/visor.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  //------Vis
+  .aux-vis {
+    @include top_left_coord(476px, 860px);
+    z-index: 4;
+  }
+
+  .aux-vis-img {
+    @include top_left_coord(10px, -250px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/visor2.png');
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -338,6 +374,22 @@ $aux-img-select-path: 'auxiliaries-selected';
     background-size: contain;
   }
 
+  //------Spil
+  .aux-spil {
+    @include top_left_coord(786px, 396px);
+    z-index: 5;
+  }
+
+  .aux-spil-img {
+    @include top_left_coord(160px, 70px);
+    position: absolute;
+    width: rem(454px);
+    height: rem(772px);
+    background-image: image-url($aux-img-path+'/spillway2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
   //-------Outside
   .aux-outside {
     @include top_left_coord(380px, 440px);
@@ -391,12 +443,10 @@ $aux-img-select-path: 'auxiliaries-selected';
     z-index: 7;
   }
   .aux-template1-img {
-    @include top_left_coord(0px, 0px);
+    @include top_left_coord(160px, 96px);
     position: absolute;
-    top: 10rem;
-    left: 6rem;
     width: rem(454px);
-    height: rem(772px);
+    height: rem(484px);
     background-image: image-url($aux-img-path+'/template1.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -601,9 +651,14 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(210px, -280px);
   }
 
+  .aux-vis-txt {
+    @include top_left_coord(162px, 248px);
+  }
+
   .aux-grating-txt {
     @include top_left_coord(920px, -480px);
   }
+
     .aux-grat-txt {
     @include top_left_coord(600px, -280px);
   }
@@ -624,12 +679,16 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(630px, 400px);
   }
 
+  .aux-spil-txt {
+    @include top_left_coord(310px,384px);
+  }
+
   .aux-outside-txt {
     @include top_left_coord(350px, 620px);
   }
 
   .aux-louver-txt {
-    @include top_left_coord(280px, 50px);
+    @include top_left_coord(280px, -94px);
   }
 
   .aux-inside-txt {
@@ -645,7 +704,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-windowsill-txt {
-    @include top_left_coord(100px, 750px);
+    @include top_left_coord(196px, 750px);
     width: rem(300px);
   }
 

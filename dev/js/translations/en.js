@@ -154,8 +154,6 @@
         INSIDE: 'internal slopes',
         CONNECTORS: 'connector',
         FAN: 'microairing',
-        INSIDES: 'Internal',
-        OUTSIDES: 'External',
         SHUTTERS: 'Shutters',
         BLIND: 'Blinds',
         ALL: 'All',

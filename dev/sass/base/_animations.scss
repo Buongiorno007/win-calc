@@ -195,6 +195,16 @@
   @include animation(move-spillway 1s ease 0s 1);
 }
 @include behavior-move(move-spillway, rem(2000px), rem(-2000px), 0, 0);
+//------Vis
+.move-vis {
+  @include animation(move-vis 1s ease 0s 1);
+}
+@include behavior-move(move-vis, rem(1000px), rem(-2000px), 0, 0);
+//------Spil
+.move-spil {
+  @include animation(move-spil 1s ease 0s 1);
+}
+@include behavior-move(move-spil, rem(2000px), rem(-2000px), 0, 0);
 //-------Outside
 .move-outside {
   @include animation(move-outside 1s ease 0s 1);

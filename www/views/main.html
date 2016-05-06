@@ -359,7 +359,9 @@
             <div ng-switch-when="12" class="aux-grating-img move-grating"></div>
             <div ng-switch-when="13" class="aux-blind-img move-blind"></div>
             <div ng-switch-when="14" class="aux-shut-img move-shut"></div>
-            <div ng-switch-when="15" class="aux-grat-img move-shut"></div>
+            <div ng-switch-when="15" class="aux-grat-img move-grat"></div>
+            <div ng-switch-when="16" class="aux-vis-img move-vis"></div>
+            <div ng-switch-when="17" class="aux-spil-img move-spil"></div>
             <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
               <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
                 <button fs-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
