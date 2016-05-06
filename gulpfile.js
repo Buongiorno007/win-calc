@@ -137,6 +137,14 @@ gulp.task('audio', function() {
     .pipe(reload({ stream: true }));
 });
 
+// copy translate jsons
+gulp.task('json', function() {
+  return gulp.src(config.build.src.local)
+    .pipe(newer(config.build.dest.local))
+    .pipe(gulp.dest(config.build.dest.local))
+    .pipe(reload({ stream: true }));
+});
+
 
 ///** copy files from different folders */
 //
@@ -182,19 +190,20 @@ gulp.task('server', function () {
 
 
 // Запуск сервера разработки
-gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-vendor', 'audio', 'server'], function() {
+gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-vendor', 'audio', 'json', 'server'], function() {
   gulp.watch(config.watch.jade, ['jade']);
   gulp.watch(config.watch.img, ['images']);
   gulp.watch(config.watch.fonts, ['fonts']);
   gulp.watch(config.watch.scss, ['compass']);
   gulp.watch(config.watch.js, ['js', 'js-other']);
   gulp.watch(config.watch.js_vendor, ['js-vendor']);
+  gulp.watch(config.watch.local, ['json']);
 });
 
 
 // Сборка неминимизированного проекта
 gulp.task('build', ['clean'], function () {
-  gulp.start(['jade', 'images', 'fonts', 'compass', 'js', 'js-vendor', 'js-other', 'audio']);
+  gulp.start(['jade', 'images', 'fonts', 'compass', 'js', 'js-vendor', 'js-other', 'audio', 'json']);
 });
 
 
@@ -277,8 +286,9 @@ gulp.task('prod', function() {
 
 /**========= Загрузка на удаленный сервер =========*/
 
-var server = config.server;
-// var server = config.serverSteko;
+ var server = config.server;
+//var server = config.serverSteko;
+
 
 /** upload index */
 gulp.task('upload-index', function () {
@@ -317,7 +327,15 @@ gulp.task('upload-fonts', function () {
     .pipe(ftp(settings));
 });
 
-gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', 'upload-fonts']);
+/** upload translate */
+gulp.task('upload-json', function () {
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/local';
+  gulp.src(config.build.dest.local + '/*.json')
+    .pipe(ftp(settings));
+});
+
+gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', 'upload-fonts', 'upload-json']);
 
 
 

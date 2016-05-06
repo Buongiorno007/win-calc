@@ -28,7 +28,8 @@
       "js_other": "./dev/js/**/_*.js",
       "img": "dev/img/**/*",
       "fonts": "dev/fonts/**/*",
-      "audio": "dev/audio/*"
+      "audio": "dev/audio/*",
+      "local": "dev/local/*.json"
     },
 
     "dest": {
@@ -38,6 +39,7 @@
       "img": "www/img",
       "fonts": "www/fonts",
       "audio": "www/audio",
+      "local": "www/local",
       "product": "www/product"
     }
   },
@@ -65,7 +67,8 @@
       "dev/fonts/**/*.svg",
       "dev/fonts/**/*.otf",
       "dev/fonts/**/*.woff"
-    ]
+    ],
+    "local": "dev/local/*.json"
   },
 
   "server": {
