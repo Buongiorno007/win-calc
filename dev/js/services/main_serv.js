@@ -338,12 +338,13 @@
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
-          //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+
             .then(function(result) {
+              //------ show elements of room
+              GlobalStor.global.isRoomElements = 1;
               ProductStor.product.templateIcon = angular.copy(result);
               defer.resolve(1);
             });
@@ -362,9 +363,10 @@
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
           //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
+         
           //----- console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
+        GlobalStor.global.isRoomElements = 1;
         defer.resolve(1);
         });    
       return defer.promise;

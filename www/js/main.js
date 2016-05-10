@@ -1349,6 +1349,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function(
     $location,
+    $timeout,
     $cordovaNetwork,
     $filter,
     globalConstants,
@@ -1801,8 +1802,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /** =========== SIGN IN ======== */
+    function loader() {
+      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+    }
 
     function enterForm(form) {
+      loader()
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -2072,6 +2086,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
     thisCtrl.enterForm = enterForm;
+    thisCtrl.loader = loader;
     thisCtrl.registrForm = registrForm;
     thisCtrl.selectLocation = selectLocation;
     thisCtrl.selectFactory = selectFactory;
@@ -2220,7 +2235,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         diffs += diff;
       }
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
+      GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
+
     }
     
 
@@ -17969,12 +17986,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
-          //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+
             .then(function(result) {
+              //------ show elements of room
+              GlobalStor.global.isRoomElements = 1;
               ProductStor.product.templateIcon = angular.copy(result);
               defer.resolve(1);
             });
@@ -17993,9 +18011,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
           //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
+         
           //----- console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
+        GlobalStor.global.isRoomElements = 1;
         defer.resolve(1);
         });    
       return defer.promise;
@@ -25237,7 +25256,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       globalSource: {
         getPCPower: 0,
         isDevice: 0,
+        loader: 0,
         isLoader: 0,
+        isLoader2: 0,
         startProgramm: 1, // for START
         //------ navigation
         isNavMenu: 1,

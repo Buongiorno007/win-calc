@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1462540215') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1462540213') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1462540214') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1462540214') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1462540215') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1462540213') format('truetype');
 }
 /* line 124, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .cart-menu-m .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -2124,13 +2124,34 @@ div.drum figure {
 /* line 4, ../../dev/sass/parts/_loader.scss */
 .loader-container .loader {
   position: absolute;
+  top: 45%;
+  left: 48.5%;
+  width: 11rem;
+  height: 11rem;
+  margin: -3rem 0 0 -3rem;
+  background: url("../img/spinner.gif?1462540215") no-repeat;
+  background-size: cover;
+}
+/* line 13, ../../dev/sass/parts/_loader.scss */
+.loader-container .loader.active {
+  position: absolute;
   top: 50%;
   left: 50%;
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background: url('../img/spinner.gif') no-repeat;
+  background: url('../img/spinner.gif?1462540215') no-repeat;
   background-size: cover;
+}
+/* line 25, ../../dev/sass/parts/_loader.scss */
+.loader-container .number {
+  position: absolute;
+  top: 45.8%;
+  font-size: 17px;
+  left: 49%;
+  width: 3.9rem;
+  height: 3.9rem;
+  color: #8c8c8c;
 }
 
 /* line 1, ../../dev/sass/parts/_attantions.scss */
@@ -9143,7 +9164,7 @@ tr.factory_item {
 }
 /* line 22, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1462540215');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9155,7 +9176,7 @@ tr.factory_item {
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1462540215');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9291,7 +9312,7 @@ tr.factory_item {
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1462540215');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9303,7 +9324,7 @@ tr.factory_item {
 }
 /* line 160, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1462540216');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9485,7 +9506,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1462540215');
+  background-image: url('../img/auxiliaries/grating2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9519,7 +9540,7 @@ tr.factory_item {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1462540215');
+  background-image: url('../img/auxiliaries/shutters2.png?1462540510');
   background-repeat: no-repeat;
   background-size: contain;
 }

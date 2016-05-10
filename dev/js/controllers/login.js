@@ -7,6 +7,7 @@
 
   function(
     $location,
+    $timeout,
     $cordovaNetwork,
     $filter,
     globalConstants,
@@ -459,8 +460,21 @@
 
 
     /** =========== SIGN IN ======== */
+    function loader() {
+      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+    }
 
     function enterForm(form) {
+      loader()
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -730,6 +744,7 @@
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
     thisCtrl.enterForm = enterForm;
+    thisCtrl.loader = loader;
     thisCtrl.registrForm = registrForm;
     thisCtrl.selectLocation = selectLocation;
     thisCtrl.selectFactory = selectFactory;
