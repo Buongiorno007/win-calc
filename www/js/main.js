@@ -371,7 +371,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants,
     GlobalStor,
     UserStor,
-    NavMenuServ
+    NavMenuServ,
+    loginServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -396,10 +397,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       if(GlobalStor.global.isVoiceHelper) {
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
-      $timeout(function() {
-        $location.path('/main');
-      }, 200);
-    }
+        if ( GlobalStor.global.isRoomElements === 1) {
+          $timeout(function() {
+            $location.path('/main');
+          }, 200);
+        } else {
+          $timeout(function() {
+            $location.path('/');
+          }, 200);
+        }
+      }
 
     function gotoSettingsPage() {
       $location.path('/settings');
@@ -410,6 +417,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.getDeviceLanguage = loginServ.getDeviceLanguage;
     thisCtrl.switchLang = switchLang;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
@@ -1349,6 +1357,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function(
     $location,
+    $timeout,
     $cordovaNetwork,
     $filter,
     globalConstants,
@@ -1801,8 +1810,21 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /** =========== SIGN IN ======== */
+    function loader() {
+      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+    }
 
     function enterForm(form) {
+      loader()
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -2060,7 +2082,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-
+  function gotoSettingsPage() {
+    $timeout(function() {
+      $location.path('/change-lang');
+    }, 2);
+    $timeout(function() {
+      $location.path('/');
+    }, 4);
+    }
 
 
 
@@ -2069,9 +2098,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     //------ clicking
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
     thisCtrl.enterForm = enterForm;
+    thisCtrl.loader = loader;
     thisCtrl.registrForm = registrForm;
     thisCtrl.selectLocation = selectLocation;
     thisCtrl.selectFactory = selectFactory;
@@ -2087,7 +2118,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------- export data
     if(thisCtrl.isOnline) {
       loginServ.initExport();
-
       entriyWithoutLogin();
     }
 
@@ -2220,7 +2250,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         diffs += diff;
       }
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
+      GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
+
     }
     
 
@@ -2306,6 +2338,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function hideMenu(elementId) {
       if (AuxStor.aux.truefalse === 1) {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+            'color' : '#363636'
+             }),
         $('#'+elementId).css({
                     'width' : 100 + '%',
                     'height' : 7 + '%'
@@ -2318,6 +2353,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                      })
         AuxStor.aux.truefalse = 0;
       } else {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+            'color' : '#363636'
+             }),
         $('#'+elementId).css({
                     'width' : 100+'%',
                     'height' : 'auto'
@@ -2363,6 +2401,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**---------- common function to select addElem in 2 cases --------*/
 
     function selectAddElement(typeId, elementId, clickEvent) {
+      if (elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
+        $('#'+elementId+'prod').css({
+                    'color' : '#0079ff'
+                     })
+      } else if (elementId !== AuxStor.aux.trfal) {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+                    'color' : '#363636'
+                     }),
+        $('#'+elementId+'prod').css({
+              'color' : '#0079ff'
+                     })
+      }
+          AuxStor.aux.trfal = elementId
+
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
@@ -9176,6 +9228,7 @@ function ErrorResult(code, message) {
 
       //serverIP: 'http://api.steko.com.ua',
       //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -17949,12 +18002,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         .then(function(result) {
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
-          //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+
             .then(function(result) {
+              //------ show elements of room
+              GlobalStor.global.isRoomElements = 1;
               ProductStor.product.templateIcon = angular.copy(result);
               defer.resolve(1);
             });
@@ -17973,9 +18027,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           ProductStor.product.template = angular.copy(result);
           GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product.template_source);
           //------ show elements of room
-          GlobalStor.global.isRoomElements = 1;
+         
           //----- console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
+        GlobalStor.global.isRoomElements = 1;
         defer.resolve(1);
         });    
       return defer.promise;
@@ -24943,6 +24998,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         currAddElementPrice: 0,
         isTabFrame: 0,
         truefalse: 0,
+        trfal: -1,
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
         isGridSelectorDialog: 0,
@@ -25216,7 +25272,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       globalSource: {
         getPCPower: 0,
         isDevice: 0,
+        loader: 0,
         isLoader: 0,
+        isLoader2: 0,
         startProgramm: 1, // for START
         //------ navigation
         isNavMenu: 1,

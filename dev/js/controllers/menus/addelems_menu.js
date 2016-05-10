@@ -59,6 +59,9 @@
 
     function hideMenu(elementId) {
       if (AuxStor.aux.truefalse === 1) {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+            'color' : '#363636'
+             }),
         $('#'+elementId).css({
                     'width' : 100 + '%',
                     'height' : 7 + '%'
@@ -71,6 +74,9 @@
                      })
         AuxStor.aux.truefalse = 0;
       } else {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+            'color' : '#363636'
+             }),
         $('#'+elementId).css({
                     'width' : 100+'%',
                     'height' : 'auto'
@@ -116,6 +122,20 @@
     /**---------- common function to select addElem in 2 cases --------*/
 
     function selectAddElement(typeId, elementId, clickEvent) {
+      if (elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
+        $('#'+elementId+'prod').css({
+                    'color' : '#0079ff'
+                     })
+      } else if (elementId !== AuxStor.aux.trfal) {
+        $('#'+AuxStor.aux.trfal+'prod').css({
+                    'color' : '#363636'
+                     }),
+        $('#'+elementId+'prod').css({
+              'color' : '#0079ff'
+                     })
+      }
+          AuxStor.aux.trfal = elementId
+
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();

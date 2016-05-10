@@ -10,6 +10,7 @@
     <div ng-if="loginPage.isUserPasswordError" class="attantion">{{ ::loginPage.USER_PASSWORD_ERROR }}</div>
     <div ng-if="loginPage.isStartImport" class="attantion">{{ ::loginPage.IMPORT_DB }}</div>
     <div class="logo"></div>
+    <div ng-click="loginPage.gotoSettingsPage()" class="lang"><img ng-src="img/A.png"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
         <input type="text" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.consts.REG_LOGIN" placeholder="{{ ::loginPage.LOGIN }}" required class="user-field">
@@ -89,5 +90,6 @@
   <div ng-if="loginPage.isOffline" class="backDarkView"></div>
 </section>
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
-  <div class="loader"></div>
+  <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  <div ng-show="loadBox.G.global.loader !== 2" class="number">{{loadBox.G.global.isLoader2 + '%'}}</div>
 </div>
