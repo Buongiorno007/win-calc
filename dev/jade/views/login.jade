@@ -9,8 +9,8 @@ section.login-page
     .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
     .attantion(ng-if="loginPage.isStartImport") {{ ::loginPage.IMPORT_DB }}
     .logo
-    .lang(ng-click="loginPage.gotoSettingsPage()")
-      img(ng-src='img/A.png')
+    .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
+
 
 
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")

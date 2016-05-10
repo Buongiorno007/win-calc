@@ -2083,16 +2083,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
   function gotoSettingsPage() {
-    $timeout(function() {
-      $location.path('/change-lang');
-    }, 2);
-    $timeout(function() {
-      $location.path('/');
-    }, 4);
+    if(GlobalStor.global.gotoSettingsPage === 0) {
+      $timeout(function() {
+        $location.path('/change-lang');
+      }, 1);
+      $timeout(function() {
+        $location.path('/');
+      }, 1);
+      GlobalStor.global.gotoSettingsPage = 1;
     }
+  }
 
-
-
+  setTimeout(function(){
+    $('#jssj').trigger('click');
+  },  1000);
 
     /**========== FINISH ==========*/
 
@@ -25274,6 +25278,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
+        gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation
         isNavMenu: 1,
