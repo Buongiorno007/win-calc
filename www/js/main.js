@@ -371,7 +371,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants,
     GlobalStor,
     UserStor,
-    NavMenuServ
+    NavMenuServ,
+    loginServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -396,10 +397,16 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       if(GlobalStor.global.isVoiceHelper) {
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
-      $timeout(function() {
-        $location.path('/main');
-      }, 200);
-    }
+        if ( GlobalStor.global.isRoomElements === 1) {
+          $timeout(function() {
+            $location.path('/main');
+          }, 200);
+        } else {
+          $timeout(function() {
+            $location.path('/');
+          }, 200);
+        }
+      }
 
     function gotoSettingsPage() {
       $location.path('/settings');
@@ -410,6 +417,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.getDeviceLanguage = loginServ.getDeviceLanguage;
     thisCtrl.switchLang = switchLang;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
@@ -2074,7 +2082,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-
+  function gotoSettingsPage() {
+    $timeout(function() {
+      $location.path('/change-lang');
+    }, 2);
+    $timeout(function() {
+      $location.path('/');
+    }, 4);
+    }
 
 
 
@@ -2083,6 +2098,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     //------ clicking
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
     thisCtrl.enterForm = enterForm;
@@ -2102,7 +2118,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------- export data
     if(thisCtrl.isOnline) {
       loginServ.initExport();
-
       entriyWithoutLogin();
     }
 

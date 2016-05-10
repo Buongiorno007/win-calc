@@ -732,7 +732,14 @@
       }
     }
 
-
+  function gotoSettingsPage() {
+    $timeout(function() {
+      $location.path('/change-lang');
+    }, 2);
+    $timeout(function() {
+      $location.path('/');
+    }, 4);
+    }
 
 
 
@@ -741,6 +748,7 @@
 
 
     //------ clicking
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.closeRegistration = closeRegistration;
     thisCtrl.enterForm = enterForm;
@@ -760,7 +768,6 @@
     //------- export data
     if(thisCtrl.isOnline) {
       loginServ.initExport();
-
       entriyWithoutLogin();
     }
 

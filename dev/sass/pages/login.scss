@@ -65,6 +65,18 @@ $img_logo: 'login/logo.png';
   background-size: cover;
 }
 
+.lang {
+  position: absolute;
+  top: 3%;
+  left: 4%;
+  width: 4.75rem;
+  height: 4.75rem;
+  img {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+}
+
 .input-field {
   position: relative;
   margin-bottom: rem(44px);

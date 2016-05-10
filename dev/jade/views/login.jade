@@ -9,6 +9,10 @@ section.login-page
     .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
     .attantion(ng-if="loginPage.isStartImport") {{ ::loginPage.IMPORT_DB }}
     .logo
+    .lang(ng-click="loginPage.gotoSettingsPage()")
+      img(ng-src='img/A.png')
+
+
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
         input.user-field(type="text", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.LOGIN }}", required)
