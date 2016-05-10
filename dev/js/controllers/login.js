@@ -733,16 +733,20 @@
     }
 
   function gotoSettingsPage() {
-    $timeout(function() {
-      $location.path('/change-lang');
-    }, 2);
-    $timeout(function() {
-      $location.path('/');
-    }, 4);
+    if(GlobalStor.global.gotoSettingsPage === 0) {
+      $timeout(function() {
+        $location.path('/change-lang');
+      }, 1);
+      $timeout(function() {
+        $location.path('/');
+      }, 1);
+      GlobalStor.global.gotoSettingsPage = 1;
     }
+  }
 
-
-
+  setTimeout(function(){
+    $('#jssj').trigger('click');
+  },  1000);
 
     /**========== FINISH ==========*/
 
