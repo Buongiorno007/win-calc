@@ -474,7 +474,7 @@
     }
 
     function enterForm(form) {
-      loader()
+      loader();
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -488,8 +488,8 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;

@@ -1824,7 +1824,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function enterForm(form) {
-      loader()
+      loader();
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -1838,8 +1838,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -9227,12 +9227,12 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      localPath: '/calculator/local/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12365,9 +12365,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -12717,9 +12717,9 @@ function ErrorResult(code, message) {
 
     /**========== Delete order ==========*/
 
-    function clickDeleteOrder(orderType, orderNum, event) {
-      event.preventDefault();
-      event.stopPropagation();
+    function clickDeleteOrder(orderType, orderNum) {
+      //event.preventDefault();
+      //event.stopPropagation();
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -13302,21 +13302,31 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('AsyncLoader',
 
-  function($http, $q) {
+  function($http, $q, globalConstants) {
 
     return function (options) {
       var def = $q.defer(),
-          query = '/local/'+options.key+'.json';
+          query = globalConstants.localPath+options.key+'.json',
+          path;
       //console.info('language', query);
-      $http.get(query).then(
-        function(result) {
-          def.resolve(result.data);
-        },
-        function () {
-          console.log('Something went wrong with language json');
-          def.reject(options.key);
-        }
-      );
+      if(isDevice) {
+        //console.log('query', query);
+        path = window.location.href.replace('index.html', '');
+        $.getJSON(path + query, function(data){
+          //console.log('data', data);
+          def.resolve(data);
+        });
+      } else {
+        $http.get(query).then(
+          function(result) {
+            def.resolve(result.data);
+          },
+          function () {
+            console.log('Something went wrong with language json');
+            def.reject(options.key);
+          }
+        );
+      }
       return def.promise;
     };
 
@@ -16319,7 +16329,7 @@ function ErrorResult(code, message) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result);
+            console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
