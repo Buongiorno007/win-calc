@@ -208,6 +208,7 @@
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('  '),
           editOrderr
         );
         GeneralServ.confirmPath(

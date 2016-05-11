@@ -104,7 +104,6 @@
     console.log(getPCPower());
 
     function getPCPower() {
-      console.time('function#2')
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -122,7 +121,7 @@
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
       GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
-    console.timeEnd('function#2')
+
     }
     
 

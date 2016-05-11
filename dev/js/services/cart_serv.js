@@ -122,6 +122,7 @@
       }
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('  '),
           editProduct
         );
         GeneralServ.confirmPath(

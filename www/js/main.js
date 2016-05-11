@@ -1294,7 +1294,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //-------- Select City
     function selectCity(location) {
+      console.time('function#2')
       thisCtrl.userNewLocation = location.fullLocation;
+      
 
       //----- change heatTransfer
       if (UserStor.userInfo.therm_coeff_id) {
@@ -1331,6 +1333,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
+      console.timeEnd('function#2')
     }
 
 
@@ -2257,7 +2260,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     console.log(getPCPower());
 
     function getPCPower() {
-      console.time('function#2')
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -2275,7 +2277,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
       GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
-    console.timeEnd('function#2')
+
     }
     
 
@@ -9080,6 +9082,7 @@ function ErrorResult(code, message) {
       }
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('  '),
           editProduct
         );
         GeneralServ.confirmPath(
@@ -12718,6 +12721,7 @@ function ErrorResult(code, message) {
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
+          $filter('translate')('  '),
           editOrderr
         );
         GeneralServ.confirmPath(
