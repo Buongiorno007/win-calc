@@ -50,7 +50,7 @@
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result);
+            console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },

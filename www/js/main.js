@@ -9171,12 +9171,10 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12661,9 +12659,9 @@ function ErrorResult(code, message) {
 
     /**========== Delete order ==========*/
 
-    function clickDeleteOrder(orderType, orderNum, event) {
-      event.preventDefault();
-      event.stopPropagation();
+    function clickDeleteOrder(orderType, orderNum) {
+      //event.preventDefault();
+      //event.stopPropagation();
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -13252,15 +13250,24 @@ function ErrorResult(code, message) {
       var def = $q.defer(),
           query = '/local/'+options.key+'.json';
       //console.info('language', query);
-      $http.get(query).then(
-        function(result) {
-          def.resolve(result.data);
-        },
-        function () {
-          console.log('Something went wrong with language json');
-          def.reject(options.key);
-        }
-      );
+      if(isDevice) {
+        //console.log('query', query);
+        var path = window.location.href.replace('index.html', '');
+        $.getJSON(path + query, function(data){
+          //console.log('data', data);
+          def.resolve(data);
+        });
+      } else {
+        $http.get(query).then(
+          function(result) {
+            def.resolve(result.data);
+          },
+          function () {
+            console.log('Something went wrong with language json');
+            def.reject(options.key);
+          }
+        );
+      }
       return def.promise;
     };
 
@@ -16263,7 +16270,7 @@ function ErrorResult(code, message) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result);
+            console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
