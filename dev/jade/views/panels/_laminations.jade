@@ -6,7 +6,8 @@
         .laminat-box(ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index")
           .laminat-img(ng-class="{'selected': lamin.isActive}", fs-click="laminPanel.initLaminatFilter(lamin.type_id)")
             img(ng-src="img/lamination/{{ lamin.type_id }}.jpg")
-          .laminat-label(data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id > 1", data-output="{{ ::lamin.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
+          .laminat-label(ng-if="lamin.id === 1", data-output="{{ ::lamin.name | translate}}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
     .laminat-groups
       .laminat-box(ng-repeat="lamCouple in laminPanel.G.global.lamGroupFiltered track by $index")
@@ -17,5 +18,7 @@
             img(ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg")
             img(ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg")
         .laminat-row
-          .laminat-label {{ ::lamCouple.laminat_in_name }}
-          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name") {{ ::lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.img_in_id > 1") {{ ::lamCouple.laminat_in_name }}
+          .laminat-label(ng-if="lamCouple.img_in_id === 1") {{ ::lamCouple.laminat_in_name | translate }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id > 1") {{ ::lamCouple.laminat_out_name }}
+          .laminat-label(ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name && lamCouple.img_out_id === 1") {{ ::lamCouple.laminat_out_name | translate }}

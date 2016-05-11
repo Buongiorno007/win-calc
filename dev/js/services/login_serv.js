@@ -383,7 +383,8 @@
           var url = globalConstants.serverIP + '' + urlSource;
           if (GlobalStor.global.isDevice) {
             var imgName = urlSource.split('/').pop(),
-                targetPath = cordova.file.documentsDirectory + '' + imgName,
+                //targetPath = cordova.file.documentsDirectory + '' + imgName,
+                targetPath = cordova.file.dataDirectory + '' + imgName,
                 trustHosts = true,
                 options = {};
 
@@ -1324,7 +1325,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                             id: 1,
                                             type_id: 1,
                                             isActive: 0,
-                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                            name: 'mainpage.WHITE_LAMINATION'
                                           });
                                           /** download lamination couples */
                                           downloadLamCouples().then(function() {

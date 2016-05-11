@@ -345,9 +345,8 @@
       <div class="box1">
         <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
         <div class="cart-item-data-m">
-          <div class="value">{{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
-            <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat" required class="user-select-field-m"></select>
-          </div>
+          <div class="value"><span ng-if="isBoxArray.img_in_id &gt; 1">{{ isBoxArray.nameIn }}</span><span ng-if="isBoxArray.img_in_id === 1">{{ isBoxArray.nameIn |translate }}</span><span>/</span><span ng-if="isBoxArray.img_out_id &gt; 1">{{ isBoxArray.nameOut }}</span><span ng-if="isBoxArray.img_out_id === 1">{{ isBoxArray.nameOut |translate }}</span></div>
+          <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat" required class="user-select-field-m"></select>
         </div>
       </div>
     </div>

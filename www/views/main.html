@@ -305,7 +305,8 @@
             <div class="laminat-inner">
               <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
                 <div ng-class="{'selected': lamin.isActive}" fs-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
-                <div data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                <div ng-if="lamin.id &gt; 1" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
+                <div ng-if="lamin.id === 1" data-output="{{ ::lamin.name | translate}}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
               </div>
             </div>
           </div>
@@ -317,8 +318,10 @@
               </div>
               <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" fs-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
               <div class="laminat-row">
-                <div class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
-                <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name" class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
+                <div ng-if="lamCouple.img_in_id &gt; 1" class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
+                <div ng-if="lamCouple.img_in_id === 1" class="laminat-label">{{ ::lamCouple.laminat_in_name | translate }}</div>
+                <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id &gt; 1" class="laminat-label">{{ ::lamCouple.laminat_out_name }}</div>
+                <div ng-if="lamCouple.laminat_in_name !== lamCouple.laminat_out_name &amp;&amp; lamCouple.img_out_id === 1" class="laminat-label">{{ ::lamCouple.laminat_out_name | translate }}</div>
               </div>
             </div>
           </div>
@@ -525,7 +528,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 5}" fs-click="configMenu.selectConfigPanel(5)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
-            <div data-output="{{ configMenu.P.product.lamination.laminat_in_name }} / {{ configMenu.P.product.lamination.laminat_out_name }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 6}" fs-click="configMenu.selectConfigPanel(6)" class="item">
             <div data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>

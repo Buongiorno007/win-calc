@@ -28,8 +28,13 @@
     .box1
      .title {{::editOrder.CONFIGMENU_LAMINATION}}
      .cart-item-data-m
-      .value {{isBoxArray.nameIn +'/'+ isBoxArray.nameOut}}
-       select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
+      .value
+        span(ng-if="isBoxArray.img_in_id > 1") {{ isBoxArray.nameIn }}
+        span(ng-if="isBoxArray.img_in_id === 1") {{ isBoxArray.nameIn |translate }}
+        span /
+        span(ng-if="isBoxArray.img_out_id > 1") {{ isBoxArray.nameOut }}
+        span(ng-if="isBoxArray.img_out_id === 1") {{ isBoxArray.nameOut |translate }}
+      select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
   .boxText
    .save-m(fs-click="editOrder.check()")
   

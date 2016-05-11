@@ -1838,8 +1838,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
-/*
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -9227,12 +9227,12 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      localPath: '/calculator/local/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      //localPath: '/local/', //TODO ipad
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //localPath: '/calculator/local/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12365,9 +12365,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+    //$window.onbeforeunload = function (){
+    //  return $filter('translate')('common_words.PAGE_REFRESH');
+    //};
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -13310,12 +13310,17 @@ function ErrorResult(code, message) {
           path;
       //console.info('language', query);
       if(isDevice) {
-        //console.log('query', query);
-        path = window.location.href.replace('index.html', '');
+        path = window.location.href.replace('/index.html', '');
+        if(path.indexOf('#/change-lang')+1) {
+          path = path.replace('#/change-lang', '');
+        }
+        //console.log('query', path, query);
+        //alert(path + query);
         $.getJSON(path + query, function(data){
           //console.log('data', data);
           def.resolve(data);
         });
+
       } else {
         $http.get(query).then(
           function(result) {
@@ -16662,7 +16667,8 @@ function ErrorResult(code, message) {
           var url = globalConstants.serverIP + '' + urlSource;
           if (GlobalStor.global.isDevice) {
             var imgName = urlSource.split('/').pop(),
-                targetPath = cordova.file.documentsDirectory + '' + imgName,
+                //targetPath = cordova.file.documentsDirectory + '' + imgName,
+                targetPath = cordova.file.dataDirectory + '' + imgName,
                 trustHosts = true,
                 options = {};
 
@@ -17603,7 +17609,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                             id: 1,
                                             type_id: 1,
                                             isActive: 0,
-                                            name: $filter('translate')('mainpage.WHITE_LAMINATION')
+                                            name: 'mainpage.WHITE_LAMINATION'
                                           });
                                           /** download lamination couples */
                                           downloadLamCouples().then(function() {
@@ -21304,6 +21310,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
   function (
     $q,
+    $filter,
     GlobalStor, 
     HistoryStor, 
     ProductStor,
@@ -21378,6 +21385,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             if (GlobalStor.global.laminatCouples[glb].id === HistoryStor.history.isBoxArray[ord].lamination_id) {
               HistoryStor.history.isBoxArray[ord].nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
               HistoryStor.history.isBoxArray[ord].nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
+              HistoryStor.history.isBoxArray[ord].img_in_id = GlobalStor.global.laminatCouples[glb].lamination_in_id;
+              HistoryStor.history.isBoxArray[ord].img_out_id = GlobalStor.global.laminatCouples[glb].lamination_out_id;
             }
           }
         }   
@@ -21499,25 +21508,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               if(HistoryStor.history.isBoxArray[ord].dataProfiles.id === GlobalStor.global.laminatCouples[glb].profile_id) {
                 obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
                 obj.id = GlobalStor.global.laminatCouples[glb].id;
-                obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
-                obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                obj.nameIn = (GlobalStor.global.laminatCouples[glb].lamination_in_id > 1) ? GlobalStor.global.laminatCouples[glb].laminat_in_name : $filter('translate')(GlobalStor.global.laminatCouples[glb].laminat_in_name);
+                obj.nameOut = (GlobalStor.global.laminatCouples[glb].lamination_out_id > 1) ? GlobalStor.global.laminatCouples[glb].laminat_out_name : $filter('translate')(GlobalStor.global.laminatCouples[glb].laminat_out_name);
                 obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id;
                 obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id;
                 obj.lamination = GlobalStor.global.laminatCouples[glb];
-                obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
+                obj.name = obj.nameIn + '/'+obj.nameOut;
                 listNameLaminat.push(obj);
-                HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+                HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;
               } else if (GlobalStor.global.laminatCouples[glb].id === 0) {
-                  obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
-                  obj.id = GlobalStor.global.laminatCouples[glb].id;
-                  obj.nameIn = GlobalStor.global.laminatCouples[glb].laminat_in_name;
-                  obj.nameOut = GlobalStor.global.laminatCouples[glb].laminat_out_name;
-                  obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id;
-                  obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id;
-                  obj.lamination = GlobalStor.global.laminatCouples[glb];
-                  obj.name = GlobalStor.global.laminatCouples[glb].laminat_in_name + '/'+GlobalStor.global.laminatCouples[glb].laminat_out_name;
-                  listNameLaminat.push(obj);
-                  HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;  
+                obj.profile_id = GlobalStor.global.laminatCouples[glb].profile_id;
+                obj.id = GlobalStor.global.laminatCouples[glb].id;
+                obj.nameIn = (GlobalStor.global.laminatCouples[glb].lamination_in_id > 1) ? GlobalStor.global.laminatCouples[glb].laminat_in_name : $filter('translate')(GlobalStor.global.laminatCouples[glb].laminat_in_name);
+                obj.nameOut = (GlobalStor.global.laminatCouples[glb].lamination_out_id > 1) ? GlobalStor.global.laminatCouples[glb].laminat_out_name : $filter('translate')(GlobalStor.global.laminatCouples[glb].laminat_out_name);
+                obj.img_in_id = GlobalStor.global.laminatCouples[glb].img_in_id;
+                obj.img_out_id = GlobalStor.global.laminatCouples[glb].img_out_id;
+                obj.lamination = GlobalStor.global.laminatCouples[glb];
+                obj.name = obj.nameIn + '/'+obj.nameOut;
+                listNameLaminat.push(obj);
+                HistoryStor.history.isBoxArray[ord].listNameLaminat = listNameLaminat;
               }
             }
           }
@@ -25614,7 +25623,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     .module('BauVoiceApp')
     .factory('ProductStor',
 
-  function($filter) {
+  function() {
     /*jshint validthis:true */
     var thisFactory = this;
 
@@ -25654,8 +25663,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           id: 0,
           lamination_in_id: 1,
           lamination_out_id: 1,
-          laminat_in_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
-          laminat_out_name: $filter('translate')('mainpage.WHITE_LAMINATION'),
+          laminat_in_name: 'mainpage.WHITE_LAMINATION',
+          laminat_out_name: 'mainpage.WHITE_LAMINATION',
           img_in_id: 1,
           img_out_id: 1
         },

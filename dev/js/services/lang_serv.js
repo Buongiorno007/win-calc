@@ -13,12 +13,17 @@
           path;
       //console.info('language', query);
       if(isDevice) {
-        //console.log('query', query);
-        path = window.location.href.replace('index.html', '');
+        path = window.location.href.replace('/index.html', '');
+        if(path.indexOf('#/change-lang')+1) {
+          path = path.replace('#/change-lang', '');
+        }
+        //console.log('query', path, query);
+        //alert(path + query);
         $.getJSON(path + query, function(data){
           //console.log('data', data);
           def.resolve(data);
         });
+
       } else {
         $http.get(query).then(
           function(result) {
