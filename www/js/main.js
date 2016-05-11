@@ -2257,6 +2257,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     console.log(getPCPower());
 
     function getPCPower() {
+      console.time('function#2')
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -2274,7 +2275,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
       GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
-
+    console.timeEnd('function#2')
     }
     
 
@@ -5694,6 +5695,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function changePrice(price, elem) {
+      console.time('Function #1');
       var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
           DIGIT_CELL_HEIGHT = 64,
           priceByDigit,
@@ -5749,6 +5751,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
         n+=1;
       }
+      console.timeEnd('Function #1')
     }
 
 
@@ -5783,7 +5786,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         });
       }
     };
-
 
 // event.srcEvent.stopPropagation();
   });
@@ -9078,7 +9080,6 @@ function ErrorResult(code, message) {
       }
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
-          $filter('translate')('common_words.SPACE'),
           editProduct
         );
         GeneralServ.confirmPath(
@@ -9246,13 +9247,13 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
 
-      localPath: '/calculator/local/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      //localPath: '/local/', //TODO ipad
+      // localPath: '/calculator/local/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      localPath: '/local/', //TODO ipad
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -12717,7 +12718,6 @@ function ErrorResult(code, message) {
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
-          $filter('translate')('common_words.SPACE'),
           editOrderr
         );
         GeneralServ.confirmPath(
