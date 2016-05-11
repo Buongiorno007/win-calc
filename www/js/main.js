@@ -1837,8 +1837,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     if (window.location.hash.length > 10) {
       loader()
     }
-
-
     function enterForm(form) {
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
@@ -9250,10 +9248,11 @@ function ErrorResult(code, message) {
 
       serverIP: 'http://api.windowscalculator.net',
       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      // localPath: '/calculator/local/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      localPath: '/local/', //TODO ipad
+
+      localPath: '/calculator/local/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //localPath: '/local/', //TODO ipad
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,

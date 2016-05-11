@@ -487,8 +487,6 @@
     if (window.location.hash.length > 10) {
       loader()
     }
-
-
     function enterForm(form) {
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
