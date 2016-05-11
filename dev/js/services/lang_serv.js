@@ -5,15 +5,16 @@
     .module('BauVoiceApp')
     .factory('AsyncLoader',
 
-  function($http, $q) {
+  function($http, $q, globalConstants) {
 
     return function (options) {
       var def = $q.defer(),
-          query = '/local/'+options.key+'.json';
+          query = globalConstants.localPath+options.key+'.json',
+          path;
       //console.info('language', query);
       if(isDevice) {
         //console.log('query', query);
-        var path = window.location.href.replace('index.html', '');
+        path = window.location.href.replace('index.html', '');
         $.getJSON(path + query, function(data){
           //console.log('data', data);
           def.resolve(data);

@@ -8,7 +8,8 @@
     width: 11rem;
     height: 11rem;
     margin: -3rem 0 0 -3rem;
-    background: url('../img/spinner.gif?1462540215') no-repeat; 
+    background-image: url('../img/spinner.gif');
+    background-repeat: no-repeat;
     background-size: cover;
     &.active {
       position: absolute;
@@ -17,7 +18,8 @@
       width: 6rem;
       height: 6rem;
       margin: -3rem 0 0 -3rem;
-      background: image-url('spinner.gif') no-repeat;
+      background-image: image-url('spinner.gif');
+      background-repeat: no-repeat;
       background-size: cover;
     }
   }

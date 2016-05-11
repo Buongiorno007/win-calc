@@ -2124,13 +2124,36 @@ div.drum figure {
 /* line 4, ../../dev/sass/parts/_loader.scss */
 .loader-container .loader {
   position: absolute;
+  top: 45%;
+  left: 48.5%;
+  width: 11rem;
+  height: 11rem;
+  margin: -3rem 0 0 -3rem;
+  background-image: url("../img/spinner.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* line 14, ../../dev/sass/parts/_loader.scss */
+.loader-container .loader.active {
+  position: absolute;
   top: 50%;
   left: 50%;
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background: url('../img/spinner.gif?1447154489') no-repeat;
+  background-image: url('../img/spinner.gif?1447154489');
+  background-repeat: no-repeat;
   background-size: cover;
+}
+/* line 27, ../../dev/sass/parts/_loader.scss */
+.loader-container .number {
+  position: absolute;
+  top: 45.8%;
+  font-size: 17px;
+  left: 49%;
+  width: 3.9rem;
+  height: 3.9rem;
+  color: #8c8c8c;
 }
 
 /* line 1, ../../dev/sass/parts/_attantions.scss */
@@ -5058,24 +5081,33 @@ div.drum figure {
 
 /* line 59, ../../dev/sass/pages/login.scss */
 .logo {
-  width: 6.25rem;
-  height: 6.25rem;
+  width: 6.125rem;
+  height: 6.125rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo-steko.png?1461063936') no-repeat;
+  background: url('../img/login/logo.png?1456319652') no-repeat;
   background-size: cover;
 }
 
 /* line 68, ../../dev/sass/pages/login.scss */
+.lang {
+  position: absolute;
+  top: 3%;
+  left: 4%;
+  width: 4.75rem;
+  height: 4.75rem;
+}
+
+/* line 76, ../../dev/sass/pages/login.scss */
 .input-field {
   position: relative;
   margin-bottom: 2.75rem;
 }
-/* line 71, ../../dev/sass/pages/login.scss */
+/* line 79, ../../dev/sass/pages/login.scss */
 .input-field.has-error > .user-field, .input-field.has-error > .user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 76, ../../dev/sass/pages/login.scss */
+/* line 84, ../../dev/sass/pages/login.scss */
 .user-field, .user-select-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -5086,12 +5118,12 @@ div.drum figure {
   border-radius: 2rem;
   outline: none;
 }
-/* line 86, ../../dev/sass/pages/login.scss */
+/* line 94, ../../dev/sass/pages/login.scss */
 .user-field.ng-invalid-minlength, .ng-invalid-minlength.user-select-field, .user-field.ng-invalid-pattern, .ng-invalid-pattern.user-select-field {
   border-color: #f74f2e;
 }
 
-/* line 92, ../../dev/sass/pages/login.scss */
+/* line 100, ../../dev/sass/pages/login.scss */
 .user-field-m, .user-select-field-m {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
@@ -5103,12 +5135,12 @@ div.drum figure {
   border-radius: 1rem;
   outline: none;
 }
-/* line 103, ../../dev/sass/pages/login.scss */
+/* line 111, ../../dev/sass/pages/login.scss */
 .user-field-m.ng-invalid-minlength, .ng-invalid-minlength.user-select-field-m, .user-field-m.ng-invalid-pattern, .ng-invalid-pattern.user-select-field-m {
   border-color: #f74f2e;
 }
 
-/* line 109, ../../dev/sass/pages/login.scss */
+/* line 117, ../../dev/sass/pages/login.scss */
 .error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
@@ -5122,7 +5154,7 @@ div.drum figure {
   background: #f74f2e;
   z-index: 1;
 }
-/* line 121, ../../dev/sass/pages/login.scss */
+/* line 129, ../../dev/sass/pages/login.scss */
 .error-tooltip:before, .setting-container .set-email-error:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -5139,26 +5171,26 @@ div.drum figure {
   content: '';
 }
 
-/* line 136, ../../dev/sass/pages/login.scss */
+/* line 144, ../../dev/sass/pages/login.scss */
 .login-submit {
   display: block;
   width: 23.875rem;
   margin: 3.875rem auto 0 auto;
 }
 
-/* line 144, ../../dev/sass/pages/login.scss */
+/* line 152, ../../dev/sass/pages/login.scss */
 .inet_ok {
   display: block;
   margin: auto auto;
   margin-top: 1rem;
 }
 
-/* line 150, ../../dev/sass/pages/login.scss */
+/* line 158, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
 }
 
-/* line 154, ../../dev/sass/pages/login.scss */
+/* line 162, ../../dev/sass/pages/login.scss */
 .factory_box {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -5175,46 +5207,46 @@ div.drum figure {
   z-index: 10;
 }
 
-/* line 169, ../../dev/sass/pages/login.scss */
+/* line 177, ../../dev/sass/pages/login.scss */
 .factory_title {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif, icons;
   margin-bottom: 0.625rem;
   text-align: center;
 }
 
-/* line 174, ../../dev/sass/pages/login.scss */
+/* line 182, ../../dev/sass/pages/login.scss */
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
-/* line 179, ../../dev/sass/pages/login.scss */
+/* line 187, ../../dev/sass/pages/login.scss */
 table.factory_table {
   border: none;
 }
-/* line 181, ../../dev/sass/pages/login.scss */
+/* line 189, ../../dev/sass/pages/login.scss */
 table.factory_table td {
   padding: 1.5625rem 0;
 }
 
-/* line 185, ../../dev/sass/pages/login.scss */
+/* line 193, ../../dev/sass/pages/login.scss */
 tr.factory_item {
   vertical-align: top;
 }
 
-/* line 188, ../../dev/sass/pages/login.scss */
+/* line 196, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 192, ../../dev/sass/pages/login.scss */
+/* line 200, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 195, ../../dev/sass/pages/login.scss */
+/* line 203, ../../dev/sass/pages/login.scss */
 .factory_name, .factory_place {
   text-align: left;
 }
