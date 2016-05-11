@@ -229,9 +229,9 @@
 
     /**========== Delete order ==========*/
 
-    function clickDeleteOrder(orderType, orderNum, event) {
-      event.preventDefault();
-      event.stopPropagation();
+    function clickDeleteOrder(orderType, orderNum) {
+      //event.preventDefault();
+      //event.stopPropagation();
 
       function deleteOrder() {
         var orderList, orderListSource;

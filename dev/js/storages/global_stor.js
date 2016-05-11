@@ -23,6 +23,11 @@
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
+        isLoader3: 0,
+        gotoSettingsPage: 0,
+        startProgramm: 1, // for START
+        //------ navig
+
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation

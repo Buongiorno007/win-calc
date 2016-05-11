@@ -1389,6 +1389,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
+    GlobalStor.global.loader = 0; 
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -1811,26 +1812,41 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /** =========== SIGN IN ======== */
     function loader() {
-      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
-      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
-      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+      if (GlobalStor.global.isLoader3 === 1) {
+        if (GlobalStor.global.isLoader === 1) {
+          GlobalStor.global.isLoader3 = 0
+        }
+      }
+      if (GlobalStor.global.isLoader3 === 0) {
+        $timeout(function() { GlobalStor.global.isLoader3 = 1 }, 1) 
+        $timeout(function() { GlobalStor.global.isLoader2 = 0 }, 1)  
+        $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+        $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+        $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+        $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
+      }
     }
 
-    function enterForm(form) {
+    if (window.location.hash.length > 10) {
       loader()
+    }
+
+
+    function enterForm(form) {
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
       if (form.$valid) {
         GlobalStor.global.isLoader = 1;
+        loader();
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -1838,8 +1854,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -2083,13 +2099,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
   function gotoSettingsPage() {
-    if(GlobalStor.global.gotoSettingsPage === 0) {
-      $timeout(function() {
-        $location.path('/change-lang');
-      }, 1);
-      $timeout(function() {
-        $location.path('/');
-      }, 1);
+    if (window.location.hash.length < 10) {
+      if(GlobalStor.global.gotoSettingsPage === 0) {
+        $timeout(function() {
+          $location.path('/change-lang');
+        }, 1);
+        $timeout(function() {
+          $location.path('/');
+        }, 1);
+        GlobalStor.global.gotoSettingsPage = 1;
+      }
+    } else {
       GlobalStor.global.gotoSettingsPage = 1;
     }
   }
@@ -9227,12 +9247,13 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
+
       serverIP: 'http://api.windowscalculator.net',
       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-
+      // localPath: '/calculator/local/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      localPath: '/local/', //TODO ipad
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -12366,9 +12387,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -12718,9 +12739,9 @@ function ErrorResult(code, message) {
 
     /**========== Delete order ==========*/
 
-    function clickDeleteOrder(orderType, orderNum, event) {
-      event.preventDefault();
-      event.stopPropagation();
+    function clickDeleteOrder(orderType, orderNum) {
+      //event.preventDefault();
+      //event.stopPropagation();
 
       function deleteOrder() {
         var orderList, orderListSource;
@@ -13303,21 +13324,31 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .factory('AsyncLoader',
 
-  function($http, $q) {
+  function($http, $q, globalConstants) {
 
     return function (options) {
       var def = $q.defer(),
-          query = '/local/'+options.key+'.json';
+          query = globalConstants.localPath+options.key+'.json',
+          path;
       //console.info('language', query);
-      $http.get(query).then(
-        function(result) {
-          def.resolve(result.data);
-        },
-        function () {
-          console.log('Something went wrong with language json');
-          def.reject(options.key);
-        }
-      );
+      if(isDevice) {
+        //console.log('query', query);
+        path = window.location.href.replace('index.html', '');
+        $.getJSON(path + query, function(data){
+          //console.log('data', data);
+          def.resolve(data);
+        });
+      } else {
+        $http.get(query).then(
+          function(result) {
+            def.resolve(result.data);
+          },
+          function () {
+            console.log('Something went wrong with language json');
+            def.reject(options.key);
+          }
+        );
+      }
       return def.promise;
     };
 
@@ -16320,7 +16351,7 @@ function ErrorResult(code, message) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result);
+            console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
@@ -25279,6 +25310,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
+        isLoader3: 0,
+        gotoSettingsPage: 0,
+        startProgramm: 1, // for START
+        //------ navig
+
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation
