@@ -20,7 +20,10 @@
       globalSource: {
         getPCPower: 0,
         isDevice: 0,
+        loader: 0,
         isLoader: 0,
+        isLoader2: 0,
+        gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation
         isNavMenu: 1,

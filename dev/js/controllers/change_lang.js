@@ -12,7 +12,8 @@
     globalConstants,
     GlobalStor,
     UserStor,
-    NavMenuServ
+    NavMenuServ,
+    loginServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -37,10 +38,16 @@
       if(GlobalStor.global.isVoiceHelper) {
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
-      $timeout(function() {
-        $location.path('/main');
-      }, 200);
-    }
+        if ( GlobalStor.global.isRoomElements === 1) {
+          $timeout(function() {
+            $location.path('/main');
+          }, 200);
+        } else {
+          $timeout(function() {
+            $location.path('/');
+          }, 200);
+        }
+      }
 
     function gotoSettingsPage() {
       $location.path('/settings');
@@ -51,6 +58,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.getDeviceLanguage = loginServ.getDeviceLanguage;
     thisCtrl.switchLang = switchLang;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
 

@@ -16,7 +16,7 @@
 					.open-list2(id="{{$index + 'close'}}")
 						img(ng-src='img/minus.png')
 				li.item(ng-repeat="addElement in type track by $index")
-					.value(fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)") {{ addElement.name }}
+					.value(fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)", id="{{$index + 'prod'}}") {{ addElement.name }}
 					button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", fs-click="elementsMenu.showInfoBox(addElement.id, type)")
 
 		footer.menu-footer

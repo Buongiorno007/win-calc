@@ -3,12 +3,32 @@
 
   .loader {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 6rem;
-    height: 6rem;
+    top: 45%;
+    left: 48.5%;
+    width: 11rem;
+    height: 11rem;
     margin: -3rem 0 0 -3rem;
-    background: image-url('spinner.gif') no-repeat;
+    background: url('../img/spinner.gif?1462540215') no-repeat; 
     background-size: cover;
+    &.active {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6rem;
+      height: 6rem;
+      margin: -3rem 0 0 -3rem;
+      background: image-url('spinner.gif') no-repeat;
+      background-size: cover;
+    }
+  }
+  
+  .number {
+    position: absolute;
+    top: 45.8%;
+    font-size: 17px;
+    left: 49%;
+    width: 3.9rem;
+    height: 3.9rem;
+    color: #8c8c8c;
   }
 }

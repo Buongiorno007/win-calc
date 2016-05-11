@@ -280,7 +280,8 @@
   </div>
 </div>
 <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
-  <div class="loader"></div>
+  <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  <div ng-show="loadBox.G.global.loader !== 2" class="number">{{loadBox.G.global.isLoader2 + '%'}}</div>
 </div>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
   <div class="alert-block">
