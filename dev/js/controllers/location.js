@@ -36,7 +36,9 @@
 
     //-------- Select City
     function selectCity(location) {
+      console.time('function#2')
       thisCtrl.userNewLocation = location.fullLocation;
+      
 
       //----- change heatTransfer
       if (UserStor.userInfo.therm_coeff_id) {
@@ -73,6 +75,7 @@
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
+      console.timeEnd('function#2')
     }
 
 

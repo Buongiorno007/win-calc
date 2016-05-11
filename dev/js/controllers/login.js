@@ -39,6 +39,7 @@
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
+    GlobalStor.global.loader = 0; 
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -461,26 +462,39 @@
 
     /** =========== SIGN IN ======== */
     function loader() {
-      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
-      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
-      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+      if (GlobalStor.global.isLoader3 === 1) {
+        if (GlobalStor.global.isLoader === 1) {
+          GlobalStor.global.isLoader3 = 0
+        }
+      }
+      if (GlobalStor.global.isLoader3 === 0) {
+        $timeout(function() { GlobalStor.global.isLoader3 = 1 }, 1) 
+        $timeout(function() { GlobalStor.global.isLoader2 = 0 }, 1)  
+        $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+        $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+        $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+        $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
+      }
     }
 
+    if (window.location.hash.length > 10) {
+      loader()
+    }
     function enterForm(form) {
-      loader();
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
       if (form.$valid) {
         GlobalStor.global.isLoader = 1;
+        loader();
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -733,13 +747,17 @@
     }
 
   function gotoSettingsPage() {
-    if(GlobalStor.global.gotoSettingsPage === 0) {
-      $timeout(function() {
-        $location.path('/change-lang');
-      }, 1);
-      $timeout(function() {
-        $location.path('/');
-      }, 1);
+    if (window.location.hash.length < 10) {
+      if(GlobalStor.global.gotoSettingsPage === 0) {
+        $timeout(function() {
+          $location.path('/change-lang');
+        }, 1);
+        $timeout(function() {
+          $location.path('/');
+        }, 1);
+        GlobalStor.global.gotoSettingsPage = 1;
+      }
+    } else {
       GlobalStor.global.gotoSettingsPage = 1;
     }
   }
