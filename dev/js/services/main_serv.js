@@ -629,7 +629,7 @@
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
-
+//console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
         if(beadResult.length && beadResult[0]) {
@@ -692,6 +692,7 @@
               if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
                 ProductStor.product.report = prepareReport(result.constrElements);
                 //console.log('REPORT', ProductStor.product.report);
+                //console.timeEnd('price');
               }
             }
           });

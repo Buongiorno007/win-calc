@@ -11,7 +11,6 @@
     /**============ METHODS ================*/
 
     function changePrice(price, elem) {
-      console.time('Function #1');
       var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
           DIGIT_CELL_HEIGHT = 64,
           priceByDigit,
@@ -67,7 +66,6 @@
 
         n+=1;
       }
-      console.timeEnd('Function #1')
     }
 
 
