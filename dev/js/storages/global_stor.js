@@ -61,6 +61,10 @@
         isRoomElements: 0,
 
         //------- Templates
+        imgLink: '',
+        background: 0,
+        heightCheck: 0,
+        widthCheck: 0,
         templateLabel: '',
         templatesSource: [],
         templatesSourceSTORE: [],

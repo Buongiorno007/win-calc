@@ -5,8 +5,7 @@
 	height: 83%;
 	width: 143%;  
 	}
-
-  	.coeff-room-block1 {
+  	.elem1 {
   		position: absolute;
   		z-index: -20;
 		top: 0rem;
@@ -17,8 +16,7 @@
 			height: 100%;
 			width: 100%; } 
 		}
-
-	.coeff-room-block2 {
+	.elem2 {
   		position: absolute;
   		z-index: -19;
 		top: 0rem;
@@ -29,8 +27,7 @@
 			height: 100%;
 			width: 100%; } 
 		}
-		
-	.coeff-room-block3 {
+	.elem3 {
   		position: absolute;
 		z-index: -18;
 		top: 0rem;
@@ -41,8 +38,7 @@
 			height: 100%;
 			width: 100%; }
 		}
-
-	.coeff-room-block5 {
+	.elem5 {
   		position: absolute;
 		z-index: -16;
 		top: 456px;
@@ -52,8 +48,7 @@
 			height: 32%;
 			width: 32%; }  
 		}
-
-	.coeff-room-block6 {
+	.elem6 {
   		position: absolute;
 		z-index: -15;
 		top: 0rem;
@@ -64,8 +59,7 @@
 			height: 100%;
 			width: 100%; }  
 		}
-
-	.coeff-room-block7 {
+	.elem7 {
   		position: absolute;
 		z-index: -14;
 		top: 0rem;
@@ -76,8 +70,7 @@
 			height: 100%;
 			width: 100%; }  
 		}
-
-	.coeff-room-block8 {
+	.elem8 {
   		position: absolute;
 		z-index: -13;
 		top: 653px;
@@ -87,8 +80,7 @@
 			height: 90%;
 			width: 90%; }  
 		}
-
-	.coeff-room-block9 {
+	.elem9 {
   		position: absolute;
 		z-index: -12;
 		top: 0rem;
@@ -99,8 +91,7 @@
 			height: 100%;
 			width: 100%; }  
 		}
-
-	.coeff-room-block10 {
+	.elem10 {
   		position: absolute;
 		z-index: -11;
 		top: 582px;
@@ -112,8 +103,7 @@
 			width: 11%; }  
 		}
 
-	.coeff-room-block11 {
-		transition-delay: 300;
+	.elem11 {
   		position: absolute;
 		z-index: -10;
 		top: 572px;
@@ -123,8 +113,7 @@
 			height: 11.5%;
 			width: 11.5%; }  
 		}
-
-	.coeff-room-block12 {
+	.elem12 {
   		position: absolute;
 		z-index: -9;
 		top: 15rem;
@@ -133,8 +122,7 @@
 			height: 100%;
 			width: 100%; }   
 		}
-
-	.coeff-room-block13 {
+	.elem13 {
   		position: absolute;
 		z-index: -8;
 		top: -5.5rem;
@@ -145,8 +133,7 @@
 			height: 100%;
 			width: 100%; }  
 		}
-
-	.coeff-room-block14 {
+	.elem14 {
   		position: absolute;
 		z-index: -7;
 		top: -5.5rem;
@@ -158,24 +145,20 @@
 			width: 100%; }  
 		}
 
-	.coeff-room-block15 {
+	.elem15 {
 	  background: #FFFFFF;
-	  -moz-transform: skewX(130deg);
-	  -ms-transform: skewX(130deg);
 	  -webkit-transform: skewX(130deg);
 	  transform: skewX(130deg);
 	  border-radius: 7px;
-	  -moz-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
 	  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
 	  box-shadow: rgba(255, 255, 255, 0.4) 1.125rem 0.8125rem 1.875rem 2;
-	  transition-delay: 300;
 	  position: absolute;
 	  z-index: -4;
 	  left: 65px;
 	  opacity: .3;
 	}
 
-	.coeff-room-block16 {
+	.elem16 {
   		position: absolute;
 		z-index: -5;
 		top: 337px;
@@ -187,7 +170,7 @@
 			width: 30%; }  
 		}
 
-	.coeff-room-block17 {
+	.elem17 {
   		position: absolute;
 		z-index: 1;
 		img {
@@ -195,8 +178,7 @@
 			width: 57%; }  
 		}
 	
-	.coeff-room-block18 {
-		transition-delay: 300;
+	.elem18 {
   		position: absolute;
 		z-index: 4;
 		opasity: 1;
@@ -206,8 +188,7 @@
 			width: 105%; }  
 		}
 
-	.coeff-room-block19 {
-		transition-delay: 300;
+	.elem19 {
   		position: absolute;
 		z-index: 2;
 		opacity: 1;
@@ -217,8 +198,7 @@
 			width: 105%; }  
 		}
 
-	.coeff-room-block20 {
-		transition-delay: 300;
+	.elem20 {
   		position: absolute;
 		z-index: 3;
 		opacity: 1;
@@ -228,8 +208,7 @@
 			width: 105%; }  
 		}
 
-	.coeff-room-block21 {
-		transition-delay: 300;
+	.elem21 {
   		position: absolute;
 		z-index: 4;
 		opacity: 1;
@@ -238,13 +217,11 @@
 			width: 105%; }  
 		}	
 
-  	.coeff-room-block23 {
-  	 	transition-delay: 300;
+  	.elem23 {
   		position: absolute;
 		z-index: -7;
 		top: 0px;
 		opacity: 0.5;
-
 		img {
 			height: 95%;
 			width: 95%; }  
