@@ -1294,7 +1294,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //-------- Select City
     function selectCity(location) {
+      console.time('function#2')
       thisCtrl.userNewLocation = location.fullLocation;
+      
 
       //----- change heatTransfer
       if (UserStor.userInfo.therm_coeff_id) {
@@ -1331,6 +1333,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
+      console.timeEnd('function#2')
     }
 
 
@@ -1389,6 +1392,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
     thisCtrl.factories = 0;
+    GlobalStor.global.loader = 0; 
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -1811,26 +1815,39 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /** =========== SIGN IN ======== */
     function loader() {
-      $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
-      $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
-      $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
-      $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+      if (GlobalStor.global.isLoader3 === 1) {
+        if (GlobalStor.global.isLoader === 1) {
+          GlobalStor.global.isLoader3 = 0
+        }
+      }
+      if (GlobalStor.global.isLoader3 === 0) {
+        $timeout(function() { GlobalStor.global.isLoader3 = 1 }, 1) 
+        $timeout(function() { GlobalStor.global.isLoader2 = 0 }, 1)  
+        $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+        $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
+        $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+        $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+        $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
+      }
     }
 
+    if (window.location.hash.length > 10) {
+      loader()
+    }
     function enterForm(form) {
-      loader();
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
       if (form.$valid) {
         GlobalStor.global.isLoader = 1;
+        loader();
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -2083,13 +2100,17 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
   function gotoSettingsPage() {
-    if(GlobalStor.global.gotoSettingsPage === 0) {
-      $timeout(function() {
-        $location.path('/change-lang');
-      }, 1);
-      $timeout(function() {
-        $location.path('/');
-      }, 1);
+    if (window.location.hash.length < 10) {
+      if(GlobalStor.global.gotoSettingsPage === 0) {
+        $timeout(function() {
+          $location.path('/change-lang');
+        }, 1);
+        $timeout(function() {
+          $location.path('/');
+        }, 1);
+        GlobalStor.global.gotoSettingsPage = 1;
+      }
+    } else {
       GlobalStor.global.gotoSettingsPage = 1;
     }
   }
@@ -5676,6 +5697,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function changePrice(price, elem) {
+      console.time('Function #1');
       var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
           DIGIT_CELL_HEIGHT = 64,
           priceByDigit,
@@ -5731,6 +5753,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
         n+=1;
       }
+      console.timeEnd('Function #1')
     }
 
 
@@ -5765,7 +5788,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         });
       }
     };
-
 
 // event.srcEvent.stopPropagation();
   });
@@ -9060,7 +9082,7 @@ function ErrorResult(code, message) {
       }
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
-          $filter('translate')('common_words.SPACE'),
+          $filter('translate')('  '),
           editProduct
         );
         GeneralServ.confirmPath(
@@ -10009,6 +10031,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.activePanel = 0;
       GlobalStor.global.isNavMenu = 0;
       GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.isLoader = 0;
       $location.path('/main');
     }
 
@@ -11995,12 +12018,14 @@ function ErrorResult(code, message) {
     function designSaved() {
       var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
+      GlobalStor.global.isLoader = 1;
       closeSizeCaclulator(1).then(function() {
 
         /** check sizes of all glass */
         MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
         if(DesignStor.design.extraGlass.length){
           /** expose Alert */
+          GlobalStor.global.isLoader = 0;
           DesignStor.design.isGlassExtra = 1;
         } else {
           /** if sash was added/removed in template */
@@ -12025,6 +12050,7 @@ function ErrorResult(code, message) {
 
           if(DesignStor.design.extraHardware.length){
             /** expose Alert */
+            GlobalStor.global.isLoader = 0;
             DesignStor.design.isHardwareExtra = 1;
           } else {
             /** save new template in product */
@@ -12696,7 +12722,7 @@ function ErrorResult(code, message) {
       if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
-          $filter('translate')('common_words.SPACE'),
+          $filter('translate')('  '),
           editOrderr
         );
         GeneralServ.confirmPath(
@@ -16675,14 +16701,11 @@ function ErrorResult(code, message) {
             //console.log('image name ====', imgName);
             //console.log('image path ====', targetPath);
             $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-              //console.log('Success!', result);
+              console.log('Success!', result);
             }, function (err) {
-              //console.log('Error!', err);
+              console.log('Error!', err);
             }, function (progress) {
               //console.log('progress!', progress);
-              //            $timeout(function () {
-              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-              //            })
             });
             return targetPath;
           } else {
@@ -16938,7 +16961,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   );
   GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
   /** change Images Path and save in device */
-  GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+  //GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
   GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
@@ -16958,9 +16981,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           /** change Images Path and save in device */
-          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
-            GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
-          );
+          //GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+          //  GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+          //);
 
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -17023,7 +17046,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
 
           while(--roomQty > -1) {
-            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            //rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
@@ -17124,7 +17147,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 var deff2 = $q.defer();
 
                 /** change Images Path and save in device */
-                item.img = downloadElemImg(item.img);
+                //item.img = downloadElemImg(item.img);
 
                 localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
                   .then(function(result) {
@@ -17566,6 +17589,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       /** download factory data */
                       downloadFactoryData();
                       /** download All Profiles */
+                      //console.log('download All Profiles');
                       downloadAllElemAsGroup(
                         localDB.tablesLocalDB.profile_system_folders.tableName,
                         localDB.tablesLocalDB.profile_systems.tableName,
@@ -17580,6 +17604,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               sortingGlasses();
                               //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
                               /** download All Hardwares */
+                              //console.log('download All Hardwares');
                               downloadAllElemAsGroup(
                                 localDB.tablesLocalDB.window_hardware_folders.tableName,
                                 localDB.tablesLocalDB.window_hardware_groups.tableName,
@@ -25297,6 +25322,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
+        isLoader3: 0,
+        gotoSettingsPage: 0,
+        startProgramm: 1, // for START
+        //------ navig
+
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation

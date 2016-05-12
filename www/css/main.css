@@ -2146,7 +2146,7 @@ div.drum figure {
   background-size: cover;
 }
 /* line 27, ../../dev/sass/parts/_loader.scss */
-.loader-container .number {
+.loader-container .loader-counter {
   position: absolute;
   top: 45.8%;
   font-size: 17px;

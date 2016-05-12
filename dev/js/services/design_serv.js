@@ -726,6 +726,7 @@
       GlobalStor.global.activePanel = 0;
       GlobalStor.global.isNavMenu = 0;
       GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.isLoader = 0;
       $location.path('/main');
     }
 
@@ -2712,12 +2713,14 @@
     function designSaved() {
       var doorConfig = DesignStor.design.doorConfig,
           isSashesInTemplate;
+      GlobalStor.global.isLoader = 1;
       closeSizeCaclulator(1).then(function() {
 
         /** check sizes of all glass */
         MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
         if(DesignStor.design.extraGlass.length){
           /** expose Alert */
+          GlobalStor.global.isLoader = 0;
           DesignStor.design.isGlassExtra = 1;
         } else {
           /** if sash was added/removed in template */
@@ -2742,6 +2745,7 @@
 
           if(DesignStor.design.extraHardware.length){
             /** expose Alert */
+            GlobalStor.global.isLoader = 0;
             DesignStor.design.isHardwareExtra = 1;
           } else {
             /** save new template in product */
