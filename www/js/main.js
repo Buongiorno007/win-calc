@@ -6221,7 +6221,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
               /** background */
 
-              if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+/*              if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 var kk = '', 
                     imgLink = '',
                     tH = heightT;
@@ -6348,12 +6348,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .attr('width', 2520*kk)
                   .attr('height', 1680*kk);
 
-              } 
+              } */
             }
 
           /**Elements room*/
 
-            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+/*            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               if(ProductStor.product.construction_type === 1) {
                 var lchHeight = (((0.18*heightT)-252)+520),
                     lchWidth = (((0.18*widthT)-234)+520),
@@ -6488,11 +6488,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 $('.coeff-room-block16').css('left' , 5000 + 'px');
                 $('.coeff-room-block9').css('opacity' , 0);
               }
-            }
+            }*/
 
           /** soffits */
 
-            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+/*            if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
@@ -6550,7 +6550,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'transform': 'translate(' + (position.x-336) + ', ' + (-80) + ') scale('+ (scl) +','+ (scl) +')'
                 });
               }
-            }
+            }*/
 
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
