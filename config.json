@@ -88,18 +88,20 @@
 
   "buildApp": {
     "src": {
-      "css": "www/css",
-      "html": "www/views",
-      "js": "www/js",
-      "img": "www/img",
-      "fonts": "www/fonts"
+      "html": "www/product/views/*.html",
+      "css": "www/product/*.css",
+      "js": "www/product/*.js",
+      "img": "www/img/**/*",
+      "fonts": "www/fonts/**/*",
+      "local": "www/local/*.json"
     },
     "dest": {
-      "css": "app/www/css",
-      "html": "app/www/views",
-      "js": "app/www/js",
-      "img": "app/www/img",
-      "fonts": "app/www/fonts"
+      "html": "www/views",
+      "css": "www/css",
+      "js": "www/js",
+      "img": "www/img",
+      "fonts": "www/fonts",
+      "local": "www/local"
     }
   }
 }

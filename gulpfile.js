@@ -207,6 +207,8 @@ gulp.task('build', ['clean'], function () {
 });
 
 
+gulp.task('default', ['watch']);
+
 // Сборка минимизированного проекта
 //gulp.task('production', ['clean'], function() {
 //  // css
@@ -339,48 +341,59 @@ gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', '
 
 
 
-gulp.task('default', ['watch']);
+
 
 
 // PhoneGap build
 // Копируем in app/www
+var appPath = 'app/platforms/ios/';
+//var appPath = 'app2/platforms/ios/';
+
+gulp.task('htmlApp', function() {
+  return gulp.src(config.buildApp.src.html)
+    .pipe(newer(appPath + config.buildApp.dest.html))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.html))
+    .pipe(reload({ stream: true }));
+});
+
 gulp.task('cssApp', function() {
   return gulp.src(config.buildApp.src.css)
-    .pipe(newer(config.buildApp.dest.css))
-    .pipe(gulp.dest(config.buildApp.dest.css))
+    .pipe(newer(appPath + config.buildApp.dest.css))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.css))
     .pipe(reload({ stream: true }));
 });
 
 gulp.task('jsApp', function() {
   return gulp.src(config.buildApp.src.js)
-    .pipe(newer(config.buildApp.dest.js))
-    .pipe(gulp.dest(config.buildApp.dest.js))
+    .pipe(newer(appPath + config.buildApp.dest.js))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.js))
     .pipe(reload({ stream: true }));
 });
 
 gulp.task('imagesApp', function() {
   return gulp.src(config.buildApp.src.img)
-    .pipe(newer(config.buildApp.dest.img))
-    .pipe(gulp.dest(config.buildApp.dest.img))
+    .pipe(newer(appPath + config.buildApp.dest.img))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.img))
     .pipe(reload({ stream: true }));
 });
 
-// Копируем шрифты
 gulp.task('fontsApp', function() {
   return gulp.src(config.buildApp.src.fonts)
-    .pipe(newer(config.buildApp.dest.fonts))
-    .pipe(gulp.dest(config.buildApp.dest.fonts))
+    .pipe(newer(appPath + config.buildApp.dest.fonts))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.fonts))
     .pipe(reload({ stream: true }));
 });
 
-gulp.task('htmlApp', function() {
-  return gulp.src(config.buildApp.src.fonts)
-    .pipe(newer(config.buildApp.dest.fonts))
-    .pipe(gulp.dest(config.buildApp.dest.fonts))
+gulp.task('localApp', function() {
+  return gulp.src(config.buildApp.src.local)
+    .pipe(newer(appPath + config.buildApp.dest.local))
+    .pipe(gulp.dest(appPath + config.buildApp.dest.local))
     .pipe(reload({ stream: true }));
 });
+
+
 
 // Запуск buildApp
-gulp.task('buildApp', ['clean'], function () {
-  gulp.start(['cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'htmlApp']);
+gulp.task('buildapp', function () {
+  gulp.start(['htmlApp', 'cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'localApp']);
 });

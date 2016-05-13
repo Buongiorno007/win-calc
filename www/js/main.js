@@ -9125,11 +9125,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -14853,6 +14853,22 @@ function ErrorResult(code, message) {
 
 
 
+    function checkHardwareType(hardvares) {
+      var newHardArr = [],
+          types = [0, 1, 3, 4, 5, 8],
+          typesQty = types.length, j,
+          hardwareQty = hardvares.length, i;
+      for(i = 0; i < hardwareQty; i+=1) {
+        typeLoop: for(j = 0; j < typesQty; j+=1) {
+          if(hardvares[i].lamination_type_id === types[j]) {
+            newHardArr.push(hardvares[i]);
+            break typeLoop;
+          }
+        }
+      }
+      return newHardArr;
+    }
+
 
 
     function parseKitConsist(kits) {
@@ -14870,7 +14886,7 @@ function ErrorResult(code, message) {
                         var deff3 = $q.defer();
                         parseListContent(item3.child_id).then(function (result4) {
                           if(result4.length) {
-                            deff3.resolve(result4);
+                            deff3.resolve(checkHardwareType(result4));
                           } else {
                             deff3.resolve(0);
                           }
@@ -18213,7 +18229,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
-
+//console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
         if(beadResult.length && beadResult[0]) {
@@ -18276,6 +18292,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
                 ProductStor.product.report = prepareReport(result.constrElements);
                 //console.log('REPORT', ProductStor.product.report);
+                //console.timeEnd('price');
               }
             }
           });

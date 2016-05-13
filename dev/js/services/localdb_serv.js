@@ -1607,6 +1607,22 @@
 
 
 
+    function checkHardwareType(hardvares) {
+      var newHardArr = [],
+          types = [0, 1, 3, 4, 5, 8],
+          typesQty = types.length, j,
+          hardwareQty = hardvares.length, i;
+      for(i = 0; i < hardwareQty; i+=1) {
+        typeLoop: for(j = 0; j < typesQty; j+=1) {
+          if(hardvares[i].lamination_type_id === types[j]) {
+            newHardArr.push(hardvares[i]);
+            break typeLoop;
+          }
+        }
+      }
+      return newHardArr;
+    }
+
 
 
     function parseKitConsist(kits) {
@@ -1624,7 +1640,7 @@
                         var deff3 = $q.defer();
                         parseListContent(item3.child_id).then(function (result4) {
                           if(result4.length) {
-                            deff3.resolve(result4);
+                            deff3.resolve(checkHardwareType(result4));
                           } else {
                             deff3.resolve(0);
                           }
