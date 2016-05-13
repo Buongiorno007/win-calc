@@ -5697,7 +5697,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function changePrice(price, elem) {
-      console.time('Function #1');
       var DELAY_PRICE_DIGIT = globalConstants.STEP * 2,
           DIGIT_CELL_HEIGHT = 64,
           priceByDigit,
@@ -5753,7 +5752,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
         n+=1;
       }
-      console.timeEnd('Function #1')
     }
 
 
@@ -5868,8 +5866,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           d3.select('#main_group')
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
-
-
         function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
           defs.append("marker")
             .classed(classMarker, true)
@@ -5885,7 +5881,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             .append("path")
             .attr("d", path);
         }
-
         function setSashFittings(param, data, block) {
           var dirQty = block.sashOpenDir.length,
               handle;
@@ -5910,8 +5905,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             return handle;
           }
         }
-
-
         function createDimension(dir, dim, dimGroup, lineCreator) {
           if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
           var dimLineHeight = -150,
@@ -6036,8 +6029,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             });
           }
         }
-
-
         function createRadiusDimension(dimQ, dimGroup, lineCreator) {
 
           var radiusLine = [],
@@ -6099,227 +6090,104 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               'dim_id': dimQ.id,
               'chord': dimQ.lengthChord
             });
-
         }
-        function backgroundSVG(heightT, widthT ,defs) {
+        function backgroundSVG(heightT, widthT) {
           if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
             GlobalStor.global.heightCheck = heightT;
             GlobalStor.global.widthCheck = widthT;
-            var tH = heightT;
+            GlobalStor.global.background = heightT/1680;
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
-               GlobalStor.global.imgLink = "fon.gif";
-              if (tH <= 2049) {
-                GlobalStor.global.background = 1.2;
-              }
-              if (2050 <= tH) {
-                GlobalStor.global.background = 1.26;
-              }
-              if ( 2101 <= tH) {
-                GlobalStor.global.background = 1.28;
-              }
-              if ( 2171 <= tH) {
-                GlobalStor.global.background = 1.32;
-              }
-              if ( 2191 <= tH) {
-                GlobalStor.global.background = 1.35;
-              }
-              if ( 2211 <= tH) {
-                GlobalStor.global.background = 1.38;
-              }
-              if ( 2231 <= tH) {
-                GlobalStor.global.background = 1.4;
-              }
-              if ( 2251 <= tH) {
-                GlobalStor.global.background = 1.42;
-              }
-              if ( 2271 <= tH) {
-                GlobalStor.global.background = 1.44;
-              }
-              if ( 2291 <=tH) {
-                GlobalStor.global.background = 1.46;
-              }
-              if ( 2311 <=tH) {
-                GlobalStor.global.background = 1.48;
-              }
-              if ( 2331 <= tH) {
-                GlobalStor.global.background = 1.5;
-              }
-              if ( 2351 <= tH) {
-                GlobalStor.global.background = 1.52;
-              }
-              if ( 2371 <= tH) {
-                GlobalStor.global.background = 1.54;
-              }
-              if ( 2391 <= tH) {
-                GlobalStor.global.background = 1.56;
-              }
-            }
-          
-            if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
+               GlobalStor.global.imgLink = "fon.gif";              
+            } else {
                GlobalStor.global.imgLink = "333.gif";
-              if (tH > 100) {
-                GlobalStor.global.background = 1.03;
-              }
-              if (1800 <= tH) {
-                GlobalStor.global.background = 1.05;
-              }
-              if (1850 <= tH) {
-                GlobalStor.global.background = 1.07;
-              }
-              if (1900 <= tH) {
-                GlobalStor.global.background = 1.11;
-              }
-              if (1950 <= tH) {
-                GlobalStor.global.background = 1.14;
-              }
-              if (2000 <= tH) {
-                GlobalStor.global.background = 1.17;
-              }
-              if (2050 <= tH) {
-                GlobalStor.global.background = 1.2;
-              }
-              if ( 2101 <= tH) {
-                GlobalStor.global.background = 1.23;
-              }
-              if ( 2171 <= tH) {
-                GlobalStor.global.background = 1.24;
-              }
-              if ( 2191 <= tH) {
-                GlobalStor.global.background = 1.25;
-              }
-              if ( 2211 <= tH) {
-                GlobalStor.global.background = 1.27;
-              }
-              if ( 2231 <= tH) {
-                GlobalStor.global.background = 1.29;
-              }
-              if ( 2251 <= tH) {
-                GlobalStor.global.background = 1.31;
-              }
-              if ( 2271 <= tH) {
-                GlobalStor.global.background = 1.33;
-              }
-              if ( 2291 <=tH) {
-                GlobalStor.global.background = 1.35;
-              }
-              if ( 2311 <=tH) {
-                GlobalStor.global.background = 1.37;
-              }
-              if ( 2331 <= tH) {
-                GlobalStor.global.background = 1.38;
-              }
-              if ( 2351 <= tH) {
-                GlobalStor.global.background = 1.40;
-              }
-              if ( 2371 <= tH) {
-                GlobalStor.global.background = 1.41;
-              }
-              if ( 2391 <= tH) {
-                GlobalStor.global.background = 1.43;
-              }
             }
-
-
-
           }
         }
         function elementsRoom(heightT, widthT) {
           if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+            var sunH = (((0.18*heightT)-252)+520),  /*height sun rays*/
+                hD = 755;                           /*height display*/
             if(ProductStor.product.construction_type === 1) {
-              var lchHeight = (((0.18*heightT)-252)+520),
-                  lchWidth = (((0.18*widthT)-234)+520),
-                  heightDisplay = 755,
-                  topWindowsill = '',
-                  block15Height = '',
-                  windowsill2 = '',
-                  block15Top = '';
-
+              var sunW = (((0.18*widthT)-234)+520), /*width sun rays*/
+                  hsrof = 90,                       /*the height of the sun's rays on the floor*/
+                  upLim = 720;                      /*upper limit 15 block*/
+                  
               if (heightT < 1648) {
-                topWindowsill = '' + 456;
-                block15Height = '' + 90;
-                windowsill2 = 100;
-                block15Top = '' + 720;
+                var upl = 456,                      /*upper limit for window sill */
+                    dnl = 100;                      /*upper limit for window sill */
               }
-              if (1648 < heightT) {
-                topWindowsill = '' + 526;
-                block15Height = '' + 90;
-                windowsill2 = 60;
-                block15Top =  '' + 720;
+              if (1648 < heightT && heightT < 1848) {
+                var upl = 526,
+                    dnl = 60;
               }
-              if (1848 < heightT) {
-                topWindowsill = '' + 576;
-                block15Height = '' + 90;
-                windowsill2 = 0;
-                block15Top = '' + 720;
+              if (1848 <= heightT && heightT < 2148) {
+                var upl = 576,
+                    dnl = 0;
               }
-              if (2148 < heightT) {
-                topWindowsill = '' + 637;
-                block15Height = '' + 90;
-                windowsill2 = -30;
-                block15Top =  '' + 720;
+              if (2148 <= heightT) {
+                var upl = 637,
+                    dnl = -30;
               }
 
               if (widthT > 900 && heightT < 1648) {
                 $('.elem5').css('left' , (109+(0.48*((widthT/2)-700*0.32))/2) + 'px');
-
               } else {
-                $('.elem5').css('left' , 10000 + 'px');
+                $('.elem5').css('left' , 5000 + 'px');
               }
+
               $('.elem15').css({
                 'width' : ((0.48*(widthT/2))+30) + 'px',
-                'height' : block15Height + 'px',
-                'top' : block15Top + 'px'
+                'height' : hsrof + 'px',
+                'top' : upLim + 'px'
               });
-              $('.elem11').css('left' , (10000) + 'px');
+              $('.elem11').css('left' , 5000 + 'px');
               $('.elem16').css('left' , 9 + 'px');
-              $('.elem8').css('left' , (10000) + 'px');
+              $('.elem8').css('left' , 5000 + 'px');
               $('.elem7').css('opacity' , 0);
               $('.elem9').css('opacity' , 1);
-              $('.elem23').css('left' , (10000) + 'px');
+              $('.elem23').css('left' , 5000 + 'px');
               $('.elem10').css('opacity' , 0);
               $('.elem17').css({
                 'width' : (0.4*((widthT/2)*2+350)) + 'px',
                 'height' : 41 + 'px',
                 'left' : 215 + 'px',
-                'top' : topWindowsill + 'px'
+                'top' : upl + 'px'
               });
               $('.elem18').css({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
+                  'width' : sunW + 'px',
+                  'height' : sunH + 'px',
                   'left' : 3 + 'px',
-                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                  'top' : (hD - sunH-dnl) + 'px'
               });
               $('.elem19').css({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
+                  'width' : sunW + 'px',
+                  'height' : sunH + 'px',
                   'left' : 3 + 'px',
-                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                  'top' : (hD - sunH-dnl) + 'px'
               });
               $('.elem20').css({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
+                  'width' : sunW + 'px',
+                  'height' : sunH + 'px',
                   'left' : 3 + 'px',
-                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                  'top' : (hD - sunH-dnl) + 'px'
               });
               $('.elem21').css({
-                  'width' : lchWidth + 'px',
-                  'height' : lchHeight + 'px',
+                  'width' : sunW + 'px',
+                  'height' : sunH + 'px',
                   'left' : 3 + 'px',
-                  'top' : (heightDisplay - lchHeight-windowsill2) + 'px'
+                  'top' : (hD - sunH-dnl) + 'px'
               });
             }
 
               if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
-                var lchHeight = (((0.18*heightT)-252)+520),
-                    lchWidth = (((0.18*widthT)-234)+420),
-                    heightDisplay = 755;
+                var sunW = (((0.18*widthT)-234)+420);
                 $('.elem23').css({
                   'width' : (1000*0.5+(0.7*(widthT-700))) + 'px',
                   'top' : 665 + 'px',
                   'left' : 100 -(2.5*(0.1*widthT-70)) + 'px'
                 });
                 $('.elem15').css({
-                  'top': (10000) + 'px'
+                  'top': 5000 + 'px'
                 });
                 $('.elem17').css({
                   'width' : 0 + 'px',
@@ -6327,28 +6195,28 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'left' : 0 + 'px'
                 });
                 $('.elem18').css({
-                    'width' : lchWidth + 'px',
-                    'height' : lchHeight + 'px',
+                    'width' : sunW + 'px',
+                    'height' : sunH + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                    'top' : (hD - sunH + 30) + 'px'
                 });
                 $('.elem19').css({
-                    'width' : lchWidth + 'px',
-                    'height' : lchHeight + 'px',
+                    'width' : sunW + 'px',
+                    'height' : sunH + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                    'top' : (hD - sunH + 30) + 'px'
                 });
                 $('.elem20').css({
-                    'width' : lchWidth + 'px',
-                    'height' : lchHeight + 'px',
+                    'width' : sunW + 'px',
+                    'height' : sunH + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 30) + 'px'
+                    'top' : (hD - sunH + 30) + 'px'
                 });
                 $('.elem21').css({
-                    'width' : lchWidth + 'px',
-                    'height' : lchHeight + 'px',
+                    'width' : sunW + 'px',
+                    'height' : sunH + 'px',
                     'left' : 130 + 'px',
-                    'top' : (heightDisplay - lchHeight + 50) + 'px'
+                    'top' : (hD - sunH + 50) + 'px'
                 });
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
@@ -6461,7 +6329,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               if (window.location.hash === '#/main' && GlobalStor.global.activePanel === 0) {
                 console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
-                backgroundSVG(heightT, widthT, defs);
+                backgroundSVG(heightT, widthT);
               } else if (heightT !== GlobalStor.global.heightCheck || widthT !== GlobalStor.global.widthCheck) {
                   backgroundSVG(heightT, widthT, defs);
                   elementsRoom(heightT, widthT);
@@ -6504,6 +6372,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+              console.log('откосы')
               var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
@@ -6542,9 +6411,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'points' : noVvPath,
                   'transform': 'translate(' + positionX2 + ', ' + positionY2 + ') scale('+ (scl) +','+ (scl) +')'
                 });
-              }
-              if(ProductStor.product.construction_type == 4 || ProductStor.product.construction_type === 2) {
-
+              } else {
                 mainGroup.append('g').append("polygon")
                 .attr({
                   'id' : 'clipPolygonDoor3',
@@ -6745,8 +6612,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             }
           }
         }
-
-
 
         scope.$watch('template', function () {
           buildSVG(scope.template, scope.templateWidth, scope.templateHeight);

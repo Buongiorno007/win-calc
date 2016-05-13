@@ -2141,7 +2141,7 @@ div.drum figure {
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background-image: url('../img/spinner.gif?1462970870');
+  background-image: url('../img/spinner.gif?1463065736');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -4647,20 +4647,7 @@ div.drum figure {
   width: 11.5%;
 }
 
-/* line 116, ../../dev/sass/parts/_room-elements.scss */
-.elem12 {
-  position: absolute;
-  z-index: -9;
-  top: 15rem;
-  left: 180px;
-}
-/* line 121, ../../dev/sass/parts/_room-elements.scss */
-.elem12 img {
-  height: 100%;
-  width: 100%;
-}
-
-/* line 125, ../../dev/sass/parts/_room-elements.scss */
+/* line 117, ../../dev/sass/parts/_room-elements.scss */
 .elem13 {
   position: absolute;
   z-index: -8;
@@ -4669,13 +4656,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 132, ../../dev/sass/parts/_room-elements.scss */
+/* line 124, ../../dev/sass/parts/_room-elements.scss */
 .elem13 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 136, ../../dev/sass/parts/_room-elements.scss */
+/* line 128, ../../dev/sass/parts/_room-elements.scss */
 .elem14 {
   position: absolute;
   z-index: -7;
@@ -4684,13 +4671,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 143, ../../dev/sass/parts/_room-elements.scss */
+/* line 135, ../../dev/sass/parts/_room-elements.scss */
 .elem14 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 148, ../../dev/sass/parts/_room-elements.scss */
+/* line 140, ../../dev/sass/parts/_room-elements.scss */
 .elem15 {
   background: #FFFFFF;
   -webkit-transform: skewX(130deg);
@@ -4704,7 +4691,7 @@ div.drum figure {
   opacity: .3;
 }
 
-/* line 161, ../../dev/sass/parts/_room-elements.scss */
+/* line 153, ../../dev/sass/parts/_room-elements.scss */
 .elem16 {
   position: absolute;
   z-index: -5;
@@ -4713,85 +4700,85 @@ div.drum figure {
   max-height: 45%;
   min-width: 45%;
 }
-/* line 168, ../../dev/sass/parts/_room-elements.scss */
+/* line 160, ../../dev/sass/parts/_room-elements.scss */
 .elem16 img {
   height: 30%;
   width: 30%;
 }
 
-/* line 173, ../../dev/sass/parts/_room-elements.scss */
+/* line 165, ../../dev/sass/parts/_room-elements.scss */
 .elem17 {
   position: absolute;
   z-index: 1;
 }
-/* line 176, ../../dev/sass/parts/_room-elements.scss */
+/* line 168, ../../dev/sass/parts/_room-elements.scss */
 .elem17 img {
   height: 57%;
   width: 57%;
 }
 
-/* line 181, ../../dev/sass/parts/_room-elements.scss */
+/* line 173, ../../dev/sass/parts/_room-elements.scss */
 .elem18 {
   position: absolute;
   z-index: 4;
   opasity: 1;
 }
-/* line 186, ../../dev/sass/parts/_room-elements.scss */
+/* line 178, ../../dev/sass/parts/_room-elements.scss */
 .elem18 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 191, ../../dev/sass/parts/_room-elements.scss */
+/* line 183, ../../dev/sass/parts/_room-elements.scss */
 .elem19 {
   position: absolute;
   z-index: 2;
   opacity: 1;
 }
-/* line 196, ../../dev/sass/parts/_room-elements.scss */
+/* line 188, ../../dev/sass/parts/_room-elements.scss */
 .elem19 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 201, ../../dev/sass/parts/_room-elements.scss */
+/* line 193, ../../dev/sass/parts/_room-elements.scss */
 .elem20 {
   position: absolute;
   z-index: 3;
   opacity: 1;
 }
-/* line 206, ../../dev/sass/parts/_room-elements.scss */
+/* line 198, ../../dev/sass/parts/_room-elements.scss */
 .elem20 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 211, ../../dev/sass/parts/_room-elements.scss */
+/* line 203, ../../dev/sass/parts/_room-elements.scss */
 .elem21 {
   position: absolute;
   z-index: 4;
   opacity: 1;
 }
-/* line 215, ../../dev/sass/parts/_room-elements.scss */
+/* line 207, ../../dev/sass/parts/_room-elements.scss */
 .elem21 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 220, ../../dev/sass/parts/_room-elements.scss */
+/* line 212, ../../dev/sass/parts/_room-elements.scss */
 .elem23 {
   position: absolute;
   z-index: -7;
   top: 0px;
   opacity: 0.5;
 }
-/* line 225, ../../dev/sass/parts/_room-elements.scss */
+/* line 217, ../../dev/sass/parts/_room-elements.scss */
 .elem23 img {
   height: 95%;
   width: 95%;
 }
 
-/* line 230, ../../dev/sass/parts/_room-elements.scss */
+/* line 222, ../../dev/sass/parts/_room-elements.scss */
 .blockCheck {
   height: 6%;
   left: 19rem;
@@ -5017,7 +5004,7 @@ div.drum figure {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1462971174') no-repeat;
+  background: url('../img/login/login-bg.jpg?1463065738') no-repeat;
   background-size: cover;
 }
 
@@ -5074,7 +5061,7 @@ div.drum figure {
   width: 6.25rem;
   height: 6.25rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo-steko.png?1462972183') no-repeat;
+  background: url('../img/login/logo-steko.png?1463065738') no-repeat;
   background-size: cover;
 }
 
@@ -7421,7 +7408,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1462970870') no-repeat;
+  background: url('../img/door-arrow.png?1463065735') no-repeat;
   background-size: 100% 100%;
 }
 /* line 606, ../../dev/sass/pages/design.scss */
@@ -9153,133 +9140,133 @@ tr.factory_item {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/grid.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 17, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/grating.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 22, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 27, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 37, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1462972152');
+  background-image: url('../img/auxiliaries-focused/visor.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 47, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1462972152');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 52, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 57, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 62, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 67, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 77, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 82, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 87, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 92, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/outside.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 97, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/fan.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 107, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 112, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1462970870');
+  background-image: url('../img/auxiliaries-focused/handle.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 117, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/blind.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9289,133 +9276,133 @@ tr.factory_item {
 }
 /* line 130, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/grid.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1462972152');
+  background-image: url('../img/auxiliaries-selected/visor.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/grating.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1462972152');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 185, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 190, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 195, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 200, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 205, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1462972183');
+  background-image: url('../img/auxiliaries-selected/outside.png?1463065738');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 215, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/fan.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 220, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 225, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 230, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1462970870');
+  background-image: url('../img/auxiliaries-selected/handle.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 235, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1462972183');
+  background-image: url('../img/auxiliaries-focused/blind.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9439,7 +9426,7 @@ tr.factory_item {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1462970870');
+  background-image: url('../img/auxiliaries/grid.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9456,7 +9443,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1462972152');
+  background-image: url('../img/auxiliaries/visor.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9473,7 +9460,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1462972183');
+  background-image: url('../img/auxiliaries/visor2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9490,7 +9477,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1462972183');
+  background-image: url('../img/auxiliaries/grating.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9507,7 +9494,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1462972183');
+  background-image: url('../img/auxiliaries/grating2.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9524,7 +9511,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1462972183');
+  background-image: url('../img/auxiliaries/shutters.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9541,7 +9528,7 @@ tr.factory_item {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1462972183');
+  background-image: url('../img/auxiliaries/shutters2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9558,7 +9545,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1462972152');
+  background-image: url('../img/auxiliaries/spillway.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9575,7 +9562,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1462972183');
+  background-image: url('../img/auxiliaries/spillway2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9592,7 +9579,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1462972152');
+  background-image: url('../img/auxiliaries/outside.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9609,7 +9596,7 @@ tr.factory_item {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1462970870');
+  background-image: url('../img/auxiliaries/windowsill.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9626,7 +9613,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1462972183');
+  background-image: url('../img/auxiliaries/blind.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9643,7 +9630,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1462972183');
+  background-image: url('../img/auxiliaries/template1.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9660,7 +9647,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1462972183');
+  background-image: url('../img/auxiliaries/template2.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9684,7 +9671,7 @@ tr.factory_item {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1462970870');
+  background-image: url('../img/auxiliaries/louvers-top.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9694,7 +9681,7 @@ tr.factory_item {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1462970870');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1463065737');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9721,7 +9708,7 @@ tr.factory_item {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1462970870');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9744,7 +9731,7 @@ tr.factory_item {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1462970870');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9755,7 +9742,7 @@ tr.factory_item {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1462970870');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9766,7 +9753,7 @@ tr.factory_item {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1462970870');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9783,7 +9770,7 @@ tr.factory_item {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1462970870');
+  background-image: url('../img/auxiliaries/fan.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9806,7 +9793,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1462970870');
+  background-image: url('../img/auxiliaries/force-connector.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9817,7 +9804,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1462970870');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -9834,7 +9821,7 @@ tr.factory_item {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1462970870');
+  background-image: url('../img/auxiliaries/handle.png?1463065736');
   background-repeat: no-repeat;
   background-size: contain;
 }
