@@ -6362,10 +6362,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .attr('patternUnits', 'userSpaceOnUse')
                 .attr('width', 2520*GlobalStor.global.background)
                 .attr('height', 1680*GlobalStor.global.background)
-                .append("image")
+/*                .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);
+                .attr('height', 1680*GlobalStor.global.background);*/
  
             }
 
