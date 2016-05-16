@@ -14,10 +14,9 @@
               .glass-box-view
                 .glass-img
                   img(ng-src="img/glasses/glass{{ glass.glass_image }}.png")
-                .label {{ ::glass.cameras }}
-                  ng-pluralize(count="glass.cameras",
-                  when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}")
-                  span(ng-if="glass.glass_folder_id === 6") {{ ::glassPanel.ENERGY_SAVE }}
+                .label
+                  span {{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}
+                  span(ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7") {{ ::glassPanel.ENERGY_SAVE }}
               .glass-box-data
                 .glass-descr(data-output="{{ ::glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
                 .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heat_coeff == 1, 'coef-level-2': glass.heat_coeff == 2, 'coef-level-3': glass.heat_coeff == 3, 'coef-level-4': glass.heat_coeff == 4}")

@@ -1855,8 +1855,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
-///*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -3443,9 +3443,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.config = {
       prevGlassId: 0,
       prevGlassName: '',
-      camera: $filter('translate')('panels.CAMERa'),
-      camer: $filter('translate')('panels.CAMER'),
-      camers: $filter('translate')('panels.CAMERs'),
+      glassLabels: [
+        'panels.CAMER_GLASS',
+        'panels.CAMER_1',
+        'panels.CAMER_1',
+        'panels.CAMER_2',
+        'panels.CAMER_2',
+        'panels.CAMER_2',
+        'panels.CAMER_2'
+      ],
       DELAY_START: 5 * globalConstants.STEP,
       DELAY_BLOCK: 2 * globalConstants.STEP,
       DELAY_TYPING: 2.5 * globalConstants.STEP,
@@ -6362,10 +6368,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .attr('patternUnits', 'userSpaceOnUse')
                 .attr('width', 2520*GlobalStor.global.background)
                 .attr('height', 1680*GlobalStor.global.background)
-/*                .append("image")
+                .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);*/
+                .attr('height', 1680*GlobalStor.global.background);
  
             }
 
@@ -9125,9 +9131,9 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //localPath: '/calculator/local/',
+       serverIP: 'http://api.windowscalculator.net',
+       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+       //localPath: '/calculator/local/',
       //serverIP: 'http://api.steko.com.ua',
       //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
@@ -12522,6 +12528,7 @@ function ErrorResult(code, message) {
         HistoryStor.history.orderEditNumber = orderNum;
         //console.log(OrderStor.order , 'OrderStor')
         downloadProducts1();
+        downloadAddElements1();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -12590,7 +12597,7 @@ function ErrorResult(code, message) {
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
-      function editOrderr() {
+      function editOrder() {
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
         RecOrderServ.box();
       }
@@ -12599,7 +12606,7 @@ function ErrorResult(code, message) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
           $filter('translate')('  '),
-          editOrderr
+          editOrder
         );
         GeneralServ.confirmPath(
           copyOrder
@@ -12613,6 +12620,9 @@ function ErrorResult(code, message) {
         downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
+          downloadAddElements1().then(function(data) {
+          HistoryStor.history.isBoxDopElem = angular.copy(data);
+          });
         });
       }
 
@@ -12824,9 +12834,18 @@ function ErrorResult(code, message) {
           deferred.resolve(result);
         });
       return deferred.promise;
-
     }
 
+    function downloadAddElements1() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
+      ).then(function(result) {
+          //console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
@@ -13178,7 +13197,7 @@ function ErrorResult(code, message) {
       orderItem: orderItem,
       viewSwitching: viewSwitching,
       downloadProducts1:downloadProducts1,
-
+      downloadAddElements1: downloadAddElements1,
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
       openCalendarScroll: openCalendarScroll,
@@ -21238,8 +21257,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**============ METHODS ================*/
     function box() {
-      //      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      //      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+/*      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      console.log('HistoryStor.history.orders', HistoryStor.history.orders)*/
+       console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -21361,7 +21381,62 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source);
       }
       clear();
+      divideAddElem();
     }
+
+    function divideAddElem() {
+    /*divide into groups of additional elements*/
+      var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999],
+          name = [
+            'add_elements.GRIDS',
+            'add_elements.VISORS',
+            'add_elements.SPILLWAYS',
+            'add_elements.OUTSIDE',
+            'add_elements.LOUVERS',
+            'add_elements.INSIDE',
+            'add_elements.CONNECTORS',
+            'add_elements.FAN',
+            'add_elements.WINDOWSILLS',
+            'add_elements.HANDLELS',
+            'add_elements.OTHERS',
+            'add_elements.BLIND',
+            'add_elements.GRATING',
+            'add_elements.SHUTTERS',
+            'add_elements.SHUTTERS',
+            'add_elements.GRATING'
+          ];
+      for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+        for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
+          for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
+            for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
+              if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
+                HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
+                  break
+              }
+            }
+          }
+        }  
+        for (var n=0; n<id.length; n+=1) {
+          if (HistoryStor.history.isBoxDopElem[q].list_group_id === id[n]) {
+            HistoryStor.history.isBoxDopElem[q].list_group_name = name[n]
+          }
+        }
+      }
+      /*group addElem for product_id*/
+      for(var r = 1; r<HistoryStor.history.isBoxArray.length + 1; r+=1) {
+        HistoryStor.history.addElem[r-1] = [];
+        for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+          if(HistoryStor.history.isBoxDopElem[q].product_id === r) {
+            var obj  = {
+                    }
+            obj = (HistoryStor.history.isBoxDopElem[q])
+            HistoryStor.history.addElem[r-1].push(obj)
+          }
+        } 
+      }
+    }
+    
+
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord = 0; ord < ordersQty; ord+=1) {
@@ -21659,6 +21734,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 		thisFactory.publicObj = {
       box:box,
+      divideAddElem: divideAddElem,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
@@ -21675,6 +21751,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
+      divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;
       nameListLaminat:nameListLaminat;
@@ -25389,6 +25466,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isAllPeriod: 1,
         isBox: 0,
         isArr: 0,
+        addElem: [],
     
 //        maxDeliveryDateOrder: 0,
 

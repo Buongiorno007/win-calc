@@ -27,9 +27,15 @@
     thisCtrl.config = {
       prevGlassId: 0,
       prevGlassName: '',
-      camera: $filter('translate')('panels.CAMERa'),
-      camer: $filter('translate')('panels.CAMER'),
-      camers: $filter('translate')('panels.CAMERs'),
+      glassLabels: [
+        'panels.CAMER_GLASS',
+        'panels.CAMER_1',
+        'panels.CAMER_1',
+        'panels.CAMER_2',
+        'panels.CAMER_2',
+        'panels.CAMER_2',
+        'panels.CAMER_2'
+      ],
       DELAY_START: 5 * globalConstants.STEP,
       DELAY_BLOCK: 2 * globalConstants.STEP,
       DELAY_TYPING: 2.5 * globalConstants.STEP,
