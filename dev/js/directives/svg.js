@@ -265,9 +265,9 @@
             GlobalStor.global.widthCheck = widthT;
             GlobalStor.global.background = heightT/1680;
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
-               GlobalStor.global.imgLink = "fon.gif";              
+               GlobalStor.global.imgLink = "fon.png";              
             } else {
-               GlobalStor.global.imgLink = "333.gif";
+               GlobalStor.global.imgLink = "333.png";
             }
           }
         }
