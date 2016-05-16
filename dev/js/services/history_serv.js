@@ -132,6 +132,7 @@
         HistoryStor.history.orderEditNumber = orderNum;
         //console.log(OrderStor.order , 'OrderStor')
         downloadProducts1();
+        downloadAddElements1();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -200,7 +201,7 @@
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
-      function editOrderr() {
+      function editOrder() {
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
         RecOrderServ.box();
       }
@@ -209,7 +210,7 @@
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
           $filter('translate')('  '),
-          editOrderr
+          editOrder
         );
         GeneralServ.confirmPath(
           copyOrder
@@ -223,6 +224,9 @@
         downloadProducts1().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
+          downloadAddElements1().then(function(data) {
+          HistoryStor.history.isBoxDopElem = angular.copy(data);
+          });
         });
       }
 
@@ -434,9 +438,18 @@
           deferred.resolve(result);
         });
       return deferred.promise;
-
     }
 
+    function downloadAddElements1() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
+      ).then(function(result) {
+          //console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
@@ -788,7 +801,7 @@
       orderItem: orderItem,
       viewSwitching: viewSwitching,
       downloadProducts1:downloadProducts1,
-
+      downloadAddElements1: downloadAddElements1,
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
       openCalendarScroll: openCalendarScroll,
