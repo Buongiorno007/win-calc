@@ -4941,22 +4941,26 @@ div.drum figure {
 }
 /* line 121, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .width {
-  float: right;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  max-width: 10%;
+  position: absolute;
+  width: 15%;
   margin: 0.3125rem 0;
   color: #363636;
+  top: 58%;
+  left: 46%;
 }
-/* line 129, ../../dev/sass/parts/_edit-order.scss */
+/* line 131, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .quantity {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  float: right;
-  max-width: 10%;
+  position: absolute;
+  width: 15%;
   margin: 0.3125rem 0;
   color: #363636;
+  top: 58%;
+  left: 58%;
 }
 
-/* line 138, ../../dev/sass/parts/_edit-order.scss */
+/* line 142, ../../dev/sass/parts/_edit-order.scss */
 .cart-item-data-m {
   display: -webkit-flex;
   display: flex;
@@ -4966,14 +4970,14 @@ div.drum figure {
   align-items: center;
 }
 
-/* line 143, ../../dev/sass/parts/_edit-order.scss */
+/* line 147, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 149, ../../dev/sass/parts/_edit-order.scss */
+/* line 153, ../../dev/sass/parts/_edit-order.scss */
 .addElemBox {
   position: relative;
   float: right;
@@ -4981,7 +4985,7 @@ div.drum figure {
   max-width: 100%;
 }
 
-/* line 156, ../../dev/sass/parts/_edit-order.scss */
+/* line 160, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   width: 5.3125rem;
@@ -4992,17 +4996,17 @@ div.drum figure {
   background-color: #6ed44a;
   float: right;
 }
-/* line 164, ../../dev/sass/parts/_edit-order.scss */
+/* line 168, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
 }
-/* line 170, ../../dev/sass/parts/_edit-order.scss */
+/* line 174, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   content: "";
 }
 
-/* line 176, ../../dev/sass/parts/_edit-order.scss */
+/* line 180, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -5013,7 +5017,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 185, ../../dev/sass/parts/_edit-order.scss */
+/* line 189, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;
@@ -5154,7 +5158,7 @@ div.drum figure {
 .user-field-add, .user-select-field-add {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   display: block;
-  max-width: 30%;
+  max-width: 55%;
   height: 3.75rem;
   padding: 0.3125rem;
   border: 1px solid rgba(140, 140, 140, 0.65);

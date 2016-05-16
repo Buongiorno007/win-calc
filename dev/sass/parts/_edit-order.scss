@@ -120,19 +120,23 @@
   }
   .width {
     @extend .truncated;
-    float: right;
     @include roboto-lt(rem(36px));
-    max-width: 10%;
+    position: absolute;
+    width: 15%;
     margin: rem(5px) 0;
-    color: $main_gray_txt;  
+    color: $main_gray_txt;
+    top: 58%;
+    left: 46%;  
   }
   .quantity {
     @extend .truncated;
     @include roboto-lt(rem(36px));
-    float: right;
-    max-width: 10%;
+    position: absolute;
+    width: 15%;
     margin: rem(5px) 0;
     color: $main_gray_txt;
+    top: 58%;
+    left: 58%;
   }
 }
 .cart-item-data-m {
