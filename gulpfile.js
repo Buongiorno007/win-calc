@@ -346,8 +346,8 @@ gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', '
 
 // PhoneGap build
 // Копируем in app/www
-var appPath = 'app/platforms/ios/';
-//var appPath = 'app2/platforms/ios/';
+//var appPath = 'app/platforms/ios/';
+var appPath = 'app2/platforms/ios/';
 
 gulp.task('htmlApp', function() {
   return gulp.src(config.buildApp.src.html)

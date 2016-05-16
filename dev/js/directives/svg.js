@@ -529,11 +529,13 @@
                 .attr('id', 'background')
                 .attr('patternUnits', 'userSpaceOnUse')
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background)
-/*                .append("image")
+                .attr('height', 1680*GlobalStor.global.background);
+/*
+                .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);*/
+                .attr('height', 1680*GlobalStor.global.background);
+*/
  
             }
 
