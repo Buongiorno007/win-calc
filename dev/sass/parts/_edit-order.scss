@@ -79,6 +79,11 @@
   @include appearance(none);
   background-color: #fff;
 }
+.user-select-field-add {
+  @extend .user-field-add;
+  @include appearance(none);
+  background-color: #fff;
+}
 .boxOrder {
   position: relative;
   border-radius: 2rem;
@@ -87,7 +92,6 @@
   height: auto;
   max-width: 100%;
   top: -2rem;
-  @extend .menu-right-general;
   @include justify-content(space-between);
 }
 .cart-menu-m {
@@ -107,16 +111,46 @@
     margin: rem(5px) 0;
     color: $main_gray_txt;
   }
+  .valueAddElem {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    max-width: 100%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+  }
+  .width {
+    @extend .truncated;
+    float: right;
+    @include roboto-lt(rem(36px));
+    max-width: 10%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;  
+  }
+  .quantity {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    float: right;
+    max-width: 10%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+  }
 }
 .cart-item-data-m {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include align-items(center);
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include align-items(center);
 }
 .title {
-    margin: rem(10px) 0;
-    color: $main_orange;
-    max-width: 100%;
+  margin: rem(10px) 0;
+  color: $main_orange;
+  max-width: 100%;
+}
+
+.addElemBox {
+  position: relative;
+  float: right;
+  height: 100%;
+  max-width: 100%;
 }
 
 .save-m {

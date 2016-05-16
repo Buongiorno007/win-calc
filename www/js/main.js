@@ -4235,6 +4235,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       HistoryStor.history.listNameProfiles = [];
     }
     function listName (product_id) {
+      console.log('>>>>>>>>>>>>', HistoryStor.history.isBoxDopElem)
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
@@ -6326,7 +6327,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   heightT = pnt.heightT;
 
               /** background */
-              if (window.location.hash === '#/main' && GlobalStor.global.activePanel === 0) {
+              if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
                 console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
                 backgroundSVG(heightT, widthT);
@@ -9125,11 +9126,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //localPath: '/calculator/local/',
-      //serverIP: 'http://api.steko.com.ua',
-      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // localPath: '/calculator/local/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -21405,6 +21406,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
               if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
+                HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                   break
               }
             }
@@ -21416,20 +21418,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
       }
-      /*group addElem for product_id*/
-      for(var r = 1; r<HistoryStor.history.isBoxArray.length + 1; r+=1) {
-        HistoryStor.history.addElem[r-1] = [];
-        for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
-          if(HistoryStor.history.isBoxDopElem[q].product_id === r) {
-            var obj  = {
-                    }
-            obj = (HistoryStor.history.isBoxDopElem[q])
-            HistoryStor.history.addElem[r-1].push(obj)
-          }
-        } 
-      }
+      addlist()
     }
     
+    function  addlist() {
+     console.log('GlobalStor.global.addElementsAll', GlobalStor.global.addElementsAll)
+    }
 
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -21728,6 +21722,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 		thisFactory.publicObj = {
       box:box,
+      addlist:addlist,
       divideAddElem: divideAddElem,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
@@ -21745,6 +21740,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
+      addlist:addlist;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;

@@ -137,6 +137,7 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function listName (product_id) {
+      console.log('>>>>>>>>>>>>', HistoryStor.history.isBoxDopElem)
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }

@@ -494,7 +494,7 @@
                   heightT = pnt.heightT;
 
               /** background */
-              if (window.location.hash === '#/main' && GlobalStor.global.activePanel === 0) {
+              if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
                 console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
                 backgroundSVG(heightT, widthT);

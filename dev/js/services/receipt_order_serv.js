@@ -172,6 +172,7 @@
             for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
               if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
+                HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                   break
               }
             }
@@ -183,20 +184,12 @@
           }
         }
       }
-      /*group addElem for product_id*/
-      for(var r = 1; r<HistoryStor.history.isBoxArray.length + 1; r+=1) {
-        HistoryStor.history.addElem[r-1] = [];
-        for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
-          if(HistoryStor.history.isBoxDopElem[q].product_id === r) {
-            var obj  = {
-                    }
-            obj = (HistoryStor.history.isBoxDopElem[q])
-            HistoryStor.history.addElem[r-1].push(obj)
-          }
-        } 
-      }
+      addlist()
     }
     
+    function  addlist() {
+     console.log('GlobalStor.global.addElementsAll', GlobalStor.global.addElementsAll)
+    }
 
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -495,6 +488,7 @@
 
 		thisFactory.publicObj = {
       box:box,
+      addlist:addlist,
       divideAddElem: divideAddElem,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
@@ -512,6 +506,7 @@
 
     //------ clicking
     	box:box;
+      addlist:addlist;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;
