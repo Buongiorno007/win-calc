@@ -79,18 +79,27 @@
   @include appearance(none);
   background-color: #fff;
 }
-.cart-menu-m {
+.boxOrder {
+  position: relative;
   border-radius: 2rem;
   background: rgba(#f8f8f8, .95);
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
+  height: auto;
+  max-width: 100%;
+  top: -2rem;
+  @extend .menu-right-general;
+  @include justify-content(space-between);
+}
+.cart-menu-m {
+  border-radius: 2rem;
+  background: rgba(#f8f8f8, .95);
+  box-shadow: -0.1875rem 0 0.9375rem -0.3125rem #242424;
   @extend .menu-right-general;
   @include justify-content(space-between);
   position: relative;
   height: auto;
   overflow: auto;
   margin: 2rem;
-  top: -2rem;
-
   .value {
     @extend .truncated;
     @include roboto-lt(rem(36px));

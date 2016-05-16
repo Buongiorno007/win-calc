@@ -32,6 +32,7 @@
         isAllPeriod: 1,
         isBox: 0,
         isArr: 0,
+        addElem: [],
     
 //        maxDeliveryDateOrder: 0,
 

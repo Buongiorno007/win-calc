@@ -6326,7 +6326,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   heightT = pnt.heightT;
 
               /** background */
-              if (window.location.hash === '#/main' && GlobalStor.global.activePanel === 0) {
+              if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
                 console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
                 backgroundSVG(heightT, widthT);
@@ -6361,13 +6361,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .attr('id', 'background')
                 .attr('patternUnits', 'userSpaceOnUse')
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);
-/*
-                .append("image")
+                .attr('height', 1680*GlobalStor.global.background)
+/*                .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);
-*/
+                .attr('height', 1680*GlobalStor.global.background);*/
  
             }
 
@@ -9127,11 +9125,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,

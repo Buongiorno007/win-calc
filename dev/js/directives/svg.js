@@ -494,7 +494,7 @@
                   heightT = pnt.heightT;
 
               /** background */
-              if (window.location.hash === '#/main' && GlobalStor.global.activePanel === 0) {
+              if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
                 console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
                 backgroundSVG(heightT, widthT);
@@ -529,13 +529,11 @@
                 .attr('id', 'background')
                 .attr('patternUnits', 'userSpaceOnUse')
                 .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);
-/*
+                .attr('height', 1680*GlobalStor.global.background)
                 .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2520*GlobalStor.global.background)
                 .attr('height', 1680*GlobalStor.global.background);
-*/
  
             }
 
