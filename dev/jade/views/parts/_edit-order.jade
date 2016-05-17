@@ -1,34 +1,32 @@
 .background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
- .order-cont
-  .boxText
-     .close-m(fs-click="editOrder.close()")
-  .boxText
-     .txt(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
-  .boxOrder(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
-   .cart-menu-m
-     .box6
+ .page-form
+  .close-m(fs-click="editOrder.close()")
+  .warning(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
+  .cont-order(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
+   .order-path
+     .num-box
       .title {{'№'}}
-      .cart-item-data-m
+      .element-one
        .value {{isBoxArray.product_id}}
-     .box3
+     .prof-box
       .title {{::editOrder.CONFIGMENU_PROFILE}}
-      .cart-item-data-m
+      .element-one
        .value {{isBoxArray.nameProfiles}}
          select.user-select-field-m(name="Profiles", ng-if='isBoxArray.nameProfiles', ng-change ="editOrder.listName(isBoxArray.product_id)", ng-model="isBoxArray.dataProfiles", ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles", required)      
-     .box4
+     .glass-box
       .title {{::editOrder.CONFIGMENU_GLASS}}
-      .cart-item-data-m
+      .element-one
        .cart-item(ng-repeat="nameGlass in isBoxArray.nameGlass track by $index")
         .value {{nameGlass.name}}
           select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in isBoxArray.listNameGlass", required)       
-     .box2
+     .hardware-box
       .title {{::editOrder.CONFIGMENU_HARDWARE}}
-      .cart-item-data-m
+      .element-one
        .value {{isBoxArray.nameHardware }}
          select.user-select-field-m(name="Hardware", ng-if='isBoxArray.nameHardware', ng-model="isBoxArray.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
-     .box1
+     .lamination-box
       .title {{::editOrder.CONFIGMENU_LAMINATION}}
-      .cart-item-data-m
+      .element-one
        .value
          span(ng-if="isBoxArray.img_in_id > 1") {{ isBoxArray.nameIn }}
          span(ng-if="isBoxArray.img_in_id === 1") {{ isBoxArray.nameIn |translate }}
@@ -36,10 +34,10 @@
          span(ng-if="isBoxArray.img_out_id > 1") {{ isBoxArray.nameOut }}
          span(ng-if="isBoxArray.img_out_id === 1") {{ isBoxArray.nameOut |translate }}
        select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
-   .cart-menu-m
-     .addElemBox(ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index", ng-if="isBoxDopElem.product_id === isBoxArray.product_id")
+   .order-path
+     .one-element(ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index", ng-if="isBoxDopElem.product_id === isBoxArray.product_id")
       .title {{::isBoxDopElem.list_group_name|translate}}
-      .valueAddElem {{isBoxDopElem.name}}
+      .add-elem {{isBoxDopElem.name}}
          select.user-select-field-add(name="list_group_name", ng-if='isBoxDopElem.listAddElem', ng-model="isBoxDopElem.selectedAddElem", ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem", required)
       .width
          {{::editOrder.WIDTH_LABEL}}
@@ -48,6 +46,5 @@
          {{::editOrder.QTY_LABEL}}
          input.user-select-field-add(type="text", name="quantity", ng-model="isBoxDopElem.selectedQuantity", placeholder ="{{isBoxDopElem.element_qty}}")
 
-  .boxText
-   .save-m(fs-click="editOrder.check()")
+  .save-m(fs-click="editOrder.check()")
   

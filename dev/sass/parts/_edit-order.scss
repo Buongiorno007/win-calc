@@ -6,9 +6,8 @@
 	height: 100%;
 	width: 100%; 
 }
-.order-cont {
+.page-form {
 	padding: rem(70px) rem(40px) 0 rem(50px);
-	background-color: #fff;
 	height: 100%;
 	overflow: auto;
 }
@@ -19,51 +18,51 @@
   width: 97%;
   margin: 0rem 0rem 5rem;
 }
-.txt {
-  left: 16.5rem;
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  position: relative;
+.warning {
   display: table;
+  position: relative;
+  left: 20.5rem;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 86.5rem;
   padding: 1.25rem 2.5rem;
   color: #fff;
   border-radius: 1.25rem;
   background: #6ED44A;
-  z-index: 1;
+  margin: 0rem 0rem 5rem;
   &.alert {
     transform: 0.5s;
     background: #f74f2e;
     color: #fff;
   }
 }
-.box6 {
+.num-box {
   position: absolute;
   height: auto;
   width: 3%;
   top: 0%;
 }
-.box1 {
+.lamination-box {
   position: absolute;
   height: auto;
   width: 23%;
   top: 0%;
   left: 74%;
 }
-.box2 {
+.hardware-box {
   position: absolute;
   height: auto;
   top: 0%;
   width: 24%;
   left: 47%;
 }
-.box3 {
+.prof-box {
   position: absolute;
   height: auto;
   width: 13%;
   top: 0%;
   left: 7%;
 }
-.box4 {
+.glass-box {
   position: relative;
   height: auto;
   width: 22%;
@@ -79,26 +78,25 @@
   @include appearance(none);
   background-color: #fff;
 }
-.boxOrder {
+.cont-order {
   position: relative;
   border-radius: 2rem;
   background: rgba(110, 212, 74, 0.51);
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
   height: auto;
   max-width: 100%;
-  top: -2rem;
   @include justify-content(space-between);
 }
-.cart-menu-m {
+.order-path {
+  position: relative;
   border-radius: 2rem;
   background: rgba(#f8f8f8, .95);
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem #242424;
-  @extend .menu-right-general;
-  @include justify-content(space-between);
-  position: relative;
   height: auto;
   overflow: auto;
   margin: 2rem;
+  @extend .menu-right-general;
+  @include justify-content(space-between);
   .value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
@@ -106,7 +104,7 @@
     margin: rem(5px) 0;
     color: $main_gray_txt;
   }
-  .valueAddElem {
+  .add-elem {
     @extend .truncated;
     @include roboto-lt(rem(36px));
     max-width: 100%;
@@ -134,7 +132,7 @@
     left: 58%;
   }
 }
-.cart-item-data-m {
+.element-one {
   @include display-flex();
   @include flex-flow(row wrap);
   @include align-items(center);
@@ -145,7 +143,7 @@
   max-width: 100%;
 }
 
-.addElemBox {
+.one-element {
   position: relative;
   float: right;
   height: 100%;
@@ -153,33 +151,31 @@
 }
 
 .save-m {
+  position:relative;
   @extend .cross-btn;
   @extend .splash;
-  width: rem(85px);
-  height: rem(85px);
-  right: 2rem;
-  bottom: 4rem;
-  &:after {
-    top: 30%;
-    left: 96.6%;
-  }
   @include font-icon(rem(28px), 1.5);
   background-color: $main_green;
-  &:after{
+  width: rem(85px);
+  height: rem(85px);
+  left: 95%;
+  &:after {
+    top: 25%;
+    left: 25%;
     content: $select-history-icon;
   }
-  float: right;
 }
 
 .close-m {
+  position: relative;
   @extend .cross-btn;
   @extend .splash;
   width: 5.3125rem;
   height: 5.3125rem;
-  float: right;
+  left: 95%;
   &:after {
     top: 25%;
-    left: 96.6%;
+    left: 25%;
   }
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;

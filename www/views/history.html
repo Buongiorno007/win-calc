@@ -302,32 +302,28 @@
   </div>
 </div>
 <div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
-  <div class="order-cont">
-    <div class="boxText">
-      <div fs-click="editOrder.close()" class="close-m"></div>
-    </div>
-    <div class="boxText">
-      <div ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}" class="txt">{{::editOrder.CONFIGMENU_ALERT}}</div>
-    </div>
-    <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="boxOrder">
-      <div class="cart-menu-m">
-        <div class="box6">
+  <div class="page-form">
+    <div fs-click="editOrder.close()" class="close-m"></div>
+    <div ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}" class="warning">{{::editOrder.CONFIGMENU_ALERT}}</div>
+    <div ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index" class="cont-order">
+      <div class="order-path">
+        <div class="num-box">
           <div class="title">{{'№'}}</div>
-          <div class="cart-item-data-m">
+          <div class="element-one">
             <div class="value">{{isBoxArray.product_id}}</div>
           </div>
         </div>
-        <div class="box3">
+        <div class="prof-box">
           <div class="title">{{::editOrder.CONFIGMENU_PROFILE}}</div>
-          <div class="cart-item-data-m">
+          <div class="element-one">
             <div class="value">{{isBoxArray.nameProfiles}}
               <select name="Profiles" ng-if="isBoxArray.nameProfiles" ng-change="editOrder.listName(isBoxArray.product_id)" ng-model="isBoxArray.dataProfiles" ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles" required class="user-select-field-m">     </select>
             </div>
           </div>
         </div>
-        <div class="box4">
+        <div class="glass-box">
           <div class="title">{{::editOrder.CONFIGMENU_GLASS}}</div>
-          <div class="cart-item-data-m">
+          <div class="element-one">
             <div ng-repeat="nameGlass in isBoxArray.nameGlass track by $index" class="cart-item">
               <div class="value">{{nameGlass.name}}
                 <select name="Glass" ng-if="isBoxArray.nameGlass" ng-model="nameGlass.dataGlass" ng-options="listNameGlass.name for listNameGlass in isBoxArray.listNameGlass" required class="user-select-field-m">      </select>
@@ -335,26 +331,26 @@
             </div>
           </div>
         </div>
-        <div class="box2">
+        <div class="hardware-box">
           <div class="title">{{::editOrder.CONFIGMENU_HARDWARE}}</div>
-          <div class="cart-item-data-m">
+          <div class="element-one">
             <div class="value">{{isBoxArray.nameHardware }}
               <select name="Hardware" ng-if="isBoxArray.nameHardware" ng-model="isBoxArray.dataHardware" ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware" required class="user-select-field-m"></select>
             </div>
           </div>
         </div>
-        <div class="box1">
+        <div class="lamination-box">
           <div class="title">{{::editOrder.CONFIGMENU_LAMINATION}}</div>
-          <div class="cart-item-data-m">
+          <div class="element-one">
             <div class="value"><span ng-if="isBoxArray.img_in_id &gt; 1">{{ isBoxArray.nameIn }}</span><span ng-if="isBoxArray.img_in_id === 1">{{ isBoxArray.nameIn |translate }}</span><span>/</span><span ng-if="isBoxArray.img_out_id &gt; 1">{{ isBoxArray.nameOut }}</span><span ng-if="isBoxArray.img_out_id === 1">{{ isBoxArray.nameOut |translate }}</span></div>
             <select name="Lamination" ng-model="isBoxArray.dataLamination" ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat" required class="user-select-field-m"></select>
           </div>
         </div>
       </div>
-      <div class="cart-menu-m">
-        <div ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index" ng-if="isBoxDopElem.product_id === isBoxArray.product_id" class="addElemBox">
+      <div class="order-path">
+        <div ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index" ng-if="isBoxDopElem.product_id === isBoxArray.product_id" class="one-element">
           <div class="title">{{::isBoxDopElem.list_group_name|translate}}</div>
-          <div class="valueAddElem">{{isBoxDopElem.name}}
+          <div class="add-elem">{{isBoxDopElem.name}}
             <select name="list_group_name" ng-if="isBoxDopElem.listAddElem" ng-model="isBoxDopElem.selectedAddElem" ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem" required class="user-select-field-add"></select>
           </div>
           <div class="width">{{::editOrder.WIDTH_LABEL}}
@@ -366,8 +362,6 @@
         </div>
       </div>
     </div>
-    <div class="boxText">
-      <div fs-click="editOrder.check()" class="save-m"></div>
-    </div>
+    <div fs-click="editOrder.check()" class="save-m"></div>
   </div>
 </div>
