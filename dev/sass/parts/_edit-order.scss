@@ -13,21 +13,16 @@
 	overflow: auto;
 }
 
-.boxText{
-	position: relative;
-	top: 2rem;
-	left: 0rem;
-	height: 5%;
-	width: 100%;
-    border-radius: 2rem;
-    margin: 2rem;
-	float: left; 
+.boxText {
+  position: relative;
+  height: 6%;
+  width: 97%;
+  margin: 0rem 0rem 5rem;
 }
 .txt {
-  top: -8.625rem;
   left: 16.5rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  position: absolute;
+  position: relative;
   display: table;
   max-width: 86.5rem;
   padding: 1.25rem 2.5rem;
@@ -160,14 +155,13 @@
 .save-m {
   @extend .cross-btn;
   @extend .splash;
-  position: relative;
   width: rem(85px);
   height: rem(85px);
   right: 2rem;
   bottom: 4rem;
   &:after {
-    top: 25%;
-    left: 25%;
+    top: 30%;
+    left: 96.6%;
   }
   @include font-icon(rem(28px), 1.5);
   background-color: $main_green;
@@ -180,15 +174,12 @@
 .close-m {
   @extend .cross-btn;
   @extend .splash;
-  position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
-  right: 2rem;
-  top: -6rem;
   float: right;
   &:after {
     top: 25%;
-    left: 25%;
+    left: 96.6%;
   }
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;

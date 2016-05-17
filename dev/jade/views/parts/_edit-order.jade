@@ -1,10 +1,9 @@
 .background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
  .order-cont
   .boxText
-   .close-m(fs-click="editOrder.close()")
-
+     .close-m(fs-click="editOrder.close()")
   .boxText
-   .txt(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
+     .txt(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
   .boxOrder(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
    .cart-menu-m
      .box6

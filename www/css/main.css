@@ -4813,21 +4813,16 @@ div.drum figure {
 /* line 16, ../../dev/sass/parts/_edit-order.scss */
 .boxText {
   position: relative;
-  top: 2rem;
-  left: 0rem;
-  height: 5%;
-  width: 100%;
-  border-radius: 2rem;
-  margin: 2rem;
-  float: left;
+  height: 6%;
+  width: 97%;
+  margin: 0rem 0rem 5rem;
 }
 
-/* line 26, ../../dev/sass/parts/_edit-order.scss */
+/* line 22, ../../dev/sass/parts/_edit-order.scss */
 .txt {
-  top: -8.625rem;
   left: 16.5rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  position: absolute;
+  position: relative;
   display: table;
   max-width: 86.5rem;
   padding: 1.25rem 2.5rem;
@@ -4836,14 +4831,14 @@ div.drum figure {
   background: #6ED44A;
   z-index: 1;
 }
-/* line 38, ../../dev/sass/parts/_edit-order.scss */
+/* line 33, ../../dev/sass/parts/_edit-order.scss */
 .txt.alert {
   transform: 0.5s;
   background: #f74f2e;
   color: #fff;
 }
 
-/* line 44, ../../dev/sass/parts/_edit-order.scss */
+/* line 39, ../../dev/sass/parts/_edit-order.scss */
 .box6 {
   position: absolute;
   height: auto;
@@ -4851,7 +4846,7 @@ div.drum figure {
   top: 0%;
 }
 
-/* line 50, ../../dev/sass/parts/_edit-order.scss */
+/* line 45, ../../dev/sass/parts/_edit-order.scss */
 .box1 {
   position: absolute;
   height: auto;
@@ -4860,7 +4855,7 @@ div.drum figure {
   left: 74%;
 }
 
-/* line 57, ../../dev/sass/parts/_edit-order.scss */
+/* line 52, ../../dev/sass/parts/_edit-order.scss */
 .box2 {
   position: absolute;
   height: auto;
@@ -4869,7 +4864,7 @@ div.drum figure {
   left: 47%;
 }
 
-/* line 64, ../../dev/sass/parts/_edit-order.scss */
+/* line 59, ../../dev/sass/parts/_edit-order.scss */
 .box3 {
   position: absolute;
   height: auto;
@@ -4878,7 +4873,7 @@ div.drum figure {
   left: 7%;
 }
 
-/* line 71, ../../dev/sass/parts/_edit-order.scss */
+/* line 66, ../../dev/sass/parts/_edit-order.scss */
 .box4 {
   position: relative;
   height: auto;
@@ -4886,21 +4881,21 @@ div.drum figure {
   left: 21%;
 }
 
-/* line 77, ../../dev/sass/parts/_edit-order.scss */
+/* line 72, ../../dev/sass/parts/_edit-order.scss */
 .user-select-field-m {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 82, ../../dev/sass/parts/_edit-order.scss */
+/* line 77, ../../dev/sass/parts/_edit-order.scss */
 .user-select-field-add {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 87, ../../dev/sass/parts/_edit-order.scss */
+/* line 82, ../../dev/sass/parts/_edit-order.scss */
 .boxOrder {
   position: relative;
   border-radius: 2rem;
@@ -4913,7 +4908,7 @@ div.drum figure {
   justify-content: space-between;
 }
 
-/* line 97, ../../dev/sass/parts/_edit-order.scss */
+/* line 92, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m {
   border-radius: 2rem;
   background: rgba(248, 248, 248, 0.95);
@@ -4925,21 +4920,21 @@ div.drum figure {
   overflow: auto;
   margin: 2rem;
 }
-/* line 107, ../../dev/sass/parts/_edit-order.scss */
+/* line 102, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 215px;
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 114, ../../dev/sass/parts/_edit-order.scss */
+/* line 109, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .valueAddElem {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 100%;
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 121, ../../dev/sass/parts/_edit-order.scss */
+/* line 116, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .width {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4949,7 +4944,7 @@ div.drum figure {
   top: 58%;
   left: 46%;
 }
-/* line 131, ../../dev/sass/parts/_edit-order.scss */
+/* line 126, ../../dev/sass/parts/_edit-order.scss */
 .cart-menu-m .quantity {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4960,7 +4955,7 @@ div.drum figure {
   left: 58%;
 }
 
-/* line 142, ../../dev/sass/parts/_edit-order.scss */
+/* line 137, ../../dev/sass/parts/_edit-order.scss */
 .cart-item-data-m {
   display: -webkit-flex;
   display: flex;
@@ -4970,14 +4965,14 @@ div.drum figure {
   align-items: center;
 }
 
-/* line 147, ../../dev/sass/parts/_edit-order.scss */
+/* line 142, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 153, ../../dev/sass/parts/_edit-order.scss */
+/* line 148, ../../dev/sass/parts/_edit-order.scss */
 .addElemBox {
   position: relative;
   float: right;
@@ -4985,9 +4980,8 @@ div.drum figure {
   max-width: 100%;
 }
 
-/* line 160, ../../dev/sass/parts/_edit-order.scss */
+/* line 155, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
-  position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
   right: 2rem;
@@ -4996,31 +4990,28 @@ div.drum figure {
   background-color: #6ed44a;
   float: right;
 }
-/* line 168, ../../dev/sass/parts/_edit-order.scss */
+/* line 162, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
-  top: 25%;
-  left: 25%;
+  top: 30%;
+  left: 96.6%;
 }
-/* line 174, ../../dev/sass/parts/_edit-order.scss */
+/* line 168, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   content: "";
 }
 
-/* line 180, ../../dev/sass/parts/_edit-order.scss */
+/* line 174, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
-  position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
-  right: 2rem;
-  top: -6rem;
   float: right;
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 189, ../../dev/sass/parts/_edit-order.scss */
+/* line 180, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
-  left: 25%;
+  left: 96.6%;
 }
 
 /* line 3, ../../dev/sass/parts/_main-svg.scss */
