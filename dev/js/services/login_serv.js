@@ -651,7 +651,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   );
   GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
   /** change Images Path and save in device */
-  //GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+  GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
 
   GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
   GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(
@@ -671,9 +671,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           /** change Images Path and save in device */
-          //GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
-          //  GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
-          //);
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(
+            GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img
+          );
 
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
@@ -736,7 +736,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           });
 
           while(--roomQty > -1) {
-            //rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
           }
@@ -837,7 +837,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 var deff2 = $q.defer();
 
                 /** change Images Path and save in device */
-                //item.img = downloadElemImg(item.img);
+                item.img = downloadElemImg(item.img);
 
                 localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id})
                   .then(function(result) {
