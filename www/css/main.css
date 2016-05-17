@@ -4899,7 +4899,7 @@ div.drum figure {
 .boxOrder {
   position: relative;
   border-radius: 2rem;
-  background: rgba(248, 248, 248, 0.95);
+  background: rgba(110, 212, 74, 0.51);
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem #242424;
   height: auto;
   max-width: 100%;
@@ -4941,7 +4941,7 @@ div.drum figure {
   width: 15%;
   margin: 0.3125rem 0;
   color: #363636;
-  top: 58%;
+  top: 28%;
   left: 46%;
 }
 /* line 126, ../../dev/sass/parts/_edit-order.scss */
@@ -4951,7 +4951,7 @@ div.drum figure {
   width: 15%;
   margin: 0.3125rem 0;
   color: #363636;
-  top: 58%;
+  top: 28%;
   left: 58%;
 }
 

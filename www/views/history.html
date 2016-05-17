@@ -353,15 +353,15 @@
       </div>
       <div class="cart-menu-m">
         <div ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index" ng-if="isBoxDopElem.product_id === isBoxArray.product_id" class="addElemBox">
-          <div class="title">{{isBoxDopElem.list_group_name}}</div>
+          <div class="title">{{::isBoxDopElem.list_group_name|translate}}</div>
           <div class="valueAddElem">{{isBoxDopElem.name}}
             <select name="list_group_name" ng-if="isBoxDopElem.listAddElem" ng-model="isBoxDopElem.selectedAddElem" ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem" required class="user-select-field-add"></select>
           </div>
-          <div class="width">
+          <div class="width">{{::editOrder.WIDTH_LABEL}}
             <input type="text" name="width" ng-model="isBoxDopElem.selectedWidth" placeholder="{{isBoxDopElem.element_width}}" class="user-select-field-add">
           </div>
-          <div class="quantity">
-            <input type="text" name="width" ng-model="isBoxDopElem.selectedQuantity" placeholder="{{isBoxDopElem.element_qty}}" class="user-select-field-add">
+          <div class="quantity">{{::editOrder.QTY_LABEL}}
+            <input type="text" name="quantity" ng-model="isBoxDopElem.selectedQuantity" placeholder="{{isBoxDopElem.element_qty}}" class="user-select-field-add">
           </div>
         </div>
       </div>

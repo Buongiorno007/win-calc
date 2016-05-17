@@ -33,6 +33,9 @@
     thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+
 
     /**============ METHODS ================*/
     
@@ -127,6 +130,8 @@
 
     }
     function close () {
+      RecOrderServ.extendAddElem();
+      console.log(HistoryStor.history.isBoxDopElem, '>>>><<<<<<isBoxDopElem')
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -137,7 +142,6 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function listName (product_id) {
-      console.log('>>>>>>>>>>>>', HistoryStor.history.isBoxDopElem)
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
@@ -154,6 +158,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
       thisCtrl.check = check;
       thisCtrl.box = RecOrderServ.box;

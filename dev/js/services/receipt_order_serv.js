@@ -173,6 +173,7 @@
               if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
+                HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
                   break
               }
             }
@@ -184,13 +185,25 @@
           }
         }
       }
-      addlist()
     }
     
-    function  addlist() {
-     console.log('GlobalStor.global.addElementsAll', GlobalStor.global.addElementsAll)
+    function extendAddElem() {
+      for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+        var addElem = 0;
+        var width = 0 ;
+        var qty = 0;
+        if (HistoryStor.history.isBoxDopElem[q].selectedWidth > 100 && HistoryStor.history.isBoxDopElem[q].selectedWidth !== NaN) {
+          addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+          width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+          qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+          HistoryStor.history.isBoxDopElem[q].length = 0;
+          HistoryStor.history.isBoxDopElem[q] = [];
+          HistoryStor.history.isBoxDopElem[q] = addElem;
+          HistoryStor.history.isBoxDopElem[q].element_width = width;
+          HistoryStor.history.isBoxDopElem[q].element_qty = qty;
+        }
+      }
     }
-
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord = 0; ord < ordersQty; ord+=1) {
@@ -458,7 +471,6 @@
         }
       }
     }
-
     function errorChecking () {
       HistoryStor.history.errorСhecking = 0;
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -488,7 +500,7 @@
 
 		thisFactory.publicObj = {
       box:box,
-      addlist:addlist,
+      extendAddElem: extendAddElem,
       divideAddElem: divideAddElem,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
@@ -506,7 +518,7 @@
 
     //------ clicking
     	box:box;
-      addlist:addlist;
+      extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;

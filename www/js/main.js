@@ -4130,6 +4130,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+
 
     /**============ METHODS ================*/
     
@@ -4224,6 +4227,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     }
     function close () {
+      RecOrderServ.extendAddElem();
+      console.log(HistoryStor.history.isBoxDopElem, '>>>><<<<<<isBoxDopElem')
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -4234,7 +4239,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       HistoryStor.history.listNameProfiles = [];
     }
     function listName (product_id) {
-      console.log('>>>>>>>>>>>>', HistoryStor.history.isBoxDopElem)
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
@@ -4251,6 +4255,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
       thisCtrl.check = check;
       thisCtrl.box = RecOrderServ.box;
@@ -21418,6 +21423,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
+                HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
                   break
               }
             }
@@ -21429,13 +21435,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
       }
-      addlist()
     }
     
-    function  addlist() {
-     console.log('GlobalStor.global.addElementsAll', GlobalStor.global.addElementsAll)
+    function extendAddElem() {
+      for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+        var addElem = 0;
+        var width = 0 ;
+        var qty = 0;
+        if (HistoryStor.history.isBoxDopElem[q].selectedWidth > 100 && HistoryStor.history.isBoxDopElem[q].selectedWidth !== NaN) {
+          addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+          width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+          qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+          HistoryStor.history.isBoxDopElem[q].length = 0;
+          HistoryStor.history.isBoxDopElem[q] = [];
+          HistoryStor.history.isBoxDopElem[q] = addElem;
+          HistoryStor.history.isBoxDopElem[q].element_width = width;
+          HistoryStor.history.isBoxDopElem[q].element_qty = qty;
+        }
+      }
     }
-
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord = 0; ord < ordersQty; ord+=1) {
@@ -21703,7 +21721,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
       }
     }
-
     function errorChecking () {
       HistoryStor.history.errorСhecking = 0;
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -21733,7 +21750,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 		thisFactory.publicObj = {
       box:box,
-      addlist:addlist,
+      extendAddElem: extendAddElem,
       divideAddElem: divideAddElem,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
@@ -21751,7 +21768,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
-      addlist:addlist;
+      extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;

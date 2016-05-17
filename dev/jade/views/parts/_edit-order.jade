@@ -38,13 +38,15 @@
        select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
    .cart-menu-m
      .addElemBox(ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index", ng-if="isBoxDopElem.product_id === isBoxArray.product_id")
-      .title {{isBoxDopElem.list_group_name}}
+      .title {{::isBoxDopElem.list_group_name|translate}}
       .valueAddElem {{isBoxDopElem.name}}
          select.user-select-field-add(name="list_group_name", ng-if='isBoxDopElem.listAddElem', ng-model="isBoxDopElem.selectedAddElem", ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem", required)
       .width
+         {{::editOrder.WIDTH_LABEL}}
          input.user-select-field-add(type="text", name="width", ng-model="isBoxDopElem.selectedWidth", placeholder ="{{isBoxDopElem.element_width}}")
       .quantity
-         input.user-select-field-add(type="text", name="width", ng-model="isBoxDopElem.selectedQuantity", placeholder ="{{isBoxDopElem.element_qty}}")
+         {{::editOrder.QTY_LABEL}}
+         input.user-select-field-add(type="text", name="quantity", ng-model="isBoxDopElem.selectedQuantity", placeholder ="{{isBoxDopElem.element_qty}}")
 
   .boxText
    .save-m(fs-click="editOrder.check()")

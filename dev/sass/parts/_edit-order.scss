@@ -82,7 +82,7 @@
 .boxOrder {
   position: relative;
   border-radius: 2rem;
-  background: rgba(#f8f8f8, .95);
+  background: rgba(110, 212, 74, 0.51);
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
   height: auto;
   max-width: 100%;
@@ -120,7 +120,7 @@
     width: 15%;
     margin: rem(5px) 0;
     color: $main_gray_txt;
-    top: 58%;
+    top: 28%;
     left: 46%;  
   }
   .quantity {
@@ -130,7 +130,7 @@
     width: 15%;
     margin: rem(5px) 0;
     color: $main_gray_txt;
-    top: 58%;
+    top: 28%;
     left: 58%;
   }
 }
