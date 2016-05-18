@@ -18,9 +18,9 @@
 
     /**============ METHODS ================*/
     function box() {
-/*      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      console.log('HistoryStor.history.orders', HistoryStor.history.orders)*/
-       console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -28,6 +28,26 @@
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
 
       for(ord = 0; ord < ordersQty; ord+=1) {
+        HistoryStor.history.isBoxArray[ord].chosenAddElements = [
+            [], // 0 - grids
+            [], // 1 - visors
+            [], // 2 - spillways
+            [], // 3 - outSlope
+            [], // 4 - louvers
+            [], // 5 - inSlope
+            [], // 6 - connectors
+            [], // 7 - fans
+            [], // 8 - windowSill
+            [], // 9 - handles
+            [], // 10 - others
+            [], // 11 - shutters 
+            [], // 12 - grating 
+            [], // 13 - blind 
+            [], // 14 - shut 
+            [], // 15 - grat 
+            [], // 16 - vis 
+            []  // 17 - spil 
+          ];
         HistoryStor.history.isBoxArray[ord].nameGlass = [];
         if (HistoryStor.history.isBoxArray[ord].glass_id.length) {
           var re = /\s*,\s*/,
@@ -146,7 +166,7 @@
     }
 
     function divideAddElem() {
-    /*divide into groups of additional elements*/
+     /*divide into groups of additional elements*/
       var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999],
           name = [
             'add_elements.GRIDS',
@@ -174,6 +194,8 @@
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                 HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
+                HistoryStor.history.isBoxDopElem[q].selectedWidth = HistoryStor.history.isBoxDopElem[q].element_width
+                HistoryStor.history.isBoxDopElem[q].selectedQuantity = HistoryStor.history.isBoxDopElem[q].element_qty
                   break
               }
             }
@@ -182,27 +204,84 @@
         for (var n=0; n<id.length; n+=1) {
           if (HistoryStor.history.isBoxDopElem[q].list_group_id === id[n]) {
             HistoryStor.history.isBoxDopElem[q].list_group_name = name[n]
+            HistoryStor.history.isBoxDopElem[q].idex = n
           }
         }
       }
     }
-    
     function extendAddElem() {
-      for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
-        var addElem = 0;
-        var width = 0 ;
-        var qty = 0;
-        if (HistoryStor.history.isBoxDopElem[q].selectedWidth > 100 && HistoryStor.history.isBoxDopElem[q].selectedWidth !== NaN) {
-          addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
-          width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
-          qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
-          HistoryStor.history.isBoxDopElem[q].length = 0;
-          HistoryStor.history.isBoxDopElem[q] = [];
-          HistoryStor.history.isBoxDopElem[q] = addElem;
-          HistoryStor.history.isBoxDopElem[q].element_width = width;
-          HistoryStor.history.isBoxDopElem[q].element_qty = qty;
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var addElem = [];
+      var width = 0;
+      var qty = 0;
+      var ind = 0;
+      HistoryStor.history.isBoxDop = [];
+      for(ord = 0; ord < ordersQty; ord+=1) {
+        for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+          if(HistoryStor.history.isBoxArray[ord].product_id === HistoryStor.history.isBoxDopElem[q].product_id) {
+              width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+              qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+              ind = HistoryStor.history.isBoxDopElem[q].idex;
+              addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+              HistoryStor.history.isBoxDop = addElem;
+              HistoryStor.history.isBoxDop.element_width = 1*width;
+              HistoryStor.history.isBoxDop.element_qty = 1*qty;
+              pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+          }
         }
       }
+    }
+    function pushSelectedAddElement(currProduct, currElement, ind) {
+      console.log('currProduct', currProduct)
+      var index = ind,
+          existedElement;
+          console.log(currProduct.chosenAddElements[index], '<<<<<<<<<<')
+          console.log(JSON.stringify(currProduct.chosenAddElements[index]), '<<<<<<<<<<')
+      currProduct.chosenAddElements[index].push(currElement);
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      if(!existedElement) {
+        var newElementSource = {
+              element_type: index,
+              element_width: 0,
+              element_height: 0,
+              block_id: 0
+            },
+        newElement = angular.extend(newElementSource, currElement);
+        currProduct.chosenAddElements[index].push(newElement);
+      } 
+    }
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist+=1;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist+=1;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist+=1;
+          }
+
+          /** increase quantity if exist */
+          if(isExist) {
+            elementsArr[elementsQty].element_qty += 1;
+            break;
+          }
+        }
+
+      }
+      return isExist;
     }
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -501,7 +580,10 @@
 		thisFactory.publicObj = {
       box:box,
       extendAddElem: extendAddElem,
+
+      pushSelectedAddElement:pushSelectedAddElement,
       divideAddElem: divideAddElem,
+      checkExistedSelectAddElement:checkExistedSelectAddElement,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
@@ -518,6 +600,7 @@
 
     //------ clicking
     	box:box;
+      pushSelectedAddElement:pushSelectedAddElement;
       extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
@@ -528,6 +611,7 @@
       extendHardware:extendHardware;
       extendProfile:extendProfile;
       extendGlass:extendGlass;
+      checkExistedSelectAddElement:checkExistedSelectAddElement;
       clear: clear;
   });
 })();

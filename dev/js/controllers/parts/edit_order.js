@@ -17,7 +17,8 @@
     MainServ,
     localDB,
     UserStor,
-    HistoryServ
+    HistoryServ,
+    AddElementMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -45,6 +46,7 @@
       var price = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
+      RecOrderServ.extendAddElem();
       RecOrderServ.extendProfile();
       RecOrderServ.extendGlass();
       RecOrderServ.extendHardware();
@@ -62,12 +64,13 @@
         console.log('end');
       });
 
+
       function calculate (product, _cb) {
         OrderStor.order = OrderStor.setDefaultOrder();
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
-              ProductStor.product.addelem_price = angular.copy(product.addelem_price);
+              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
@@ -81,13 +84,14 @@
             function (_callback) {
               MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
-                  var profileId = ProductStor.product.profile_id,
+                  AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+                    var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
                       laminatId = ProductStor.product.lamination.lamination_in_id,
                       glassIds =  ProductStor.product.glass;     
-                  MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
-                    _callback();               
-                  });
+                    MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
+                      _callback();    
+                    });         
                 });
               });  
             },
@@ -104,6 +108,7 @@
                 for (var n=0; n<orderProdQty; n+=1) {
                   price += OrderStor.order.products[n].productPriceDis;
                 }
+                console.log(ProductStor.product)
                 MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
               _callback();  
             },
@@ -130,8 +135,6 @@
 
     }
     function close () {
-      RecOrderServ.extendAddElem();
-      console.log(HistoryStor.history.isBoxDopElem, '>>>><<<<<<isBoxDopElem')
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;

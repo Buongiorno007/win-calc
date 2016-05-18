@@ -4114,7 +4114,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     MainServ,
     localDB,
     UserStor,
-    HistoryServ
+    HistoryServ,
+    AddElementMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -4142,6 +4143,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       var price = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
+      RecOrderServ.extendAddElem();
       RecOrderServ.extendProfile();
       RecOrderServ.extendGlass();
       RecOrderServ.extendHardware();
@@ -4159,12 +4161,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         console.log('end');
       });
 
+
       function calculate (product, _cb) {
         OrderStor.order = OrderStor.setDefaultOrder();
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
-              ProductStor.product.addelem_price = angular.copy(product.addelem_price);
+              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
@@ -4178,13 +4181,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             function (_callback) {
               MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
-                  var profileId = ProductStor.product.profile_id,
+                  AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+                    var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
                       laminatId = ProductStor.product.lamination.lamination_in_id,
                       glassIds =  ProductStor.product.glass;     
-                  MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
-                    _callback();               
-                  });
+                    MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
+                      _callback();    
+                    });         
                 });
               });  
             },
@@ -4201,6 +4205,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 for (var n=0; n<orderProdQty; n+=1) {
                   price += OrderStor.order.products[n].productPriceDis;
                 }
+                console.log(ProductStor.product)
                 MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
               _callback();  
             },
@@ -4227,8 +4232,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     }
     function close () {
-      RecOrderServ.extendAddElem();
-      console.log(HistoryStor.history.isBoxDopElem, '>>>><<<<<<isBoxDopElem')
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -6377,7 +6380,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-              console.log('откосы')
               var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
@@ -7054,6 +7056,7 @@ function ErrorResult(code, message) {
         if (elemQty > 0) {
           while(--elemQty > -1) {
             currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
+
           }
         }
       }
@@ -7062,7 +7065,9 @@ function ErrorResult(code, message) {
         currProduct.addelem_price, OrderStor.order.discount_addelem
       );
       $timeout(function() {
-        MainServ.setProductPriceTOTAL(currProduct);
+        if(GlobalStor.global.currOpenPage !== 'history') {
+          MainServ.setProductPriceTOTAL(currProduct);
+        }
       }, 50);
     }
 
@@ -7461,7 +7466,6 @@ function ErrorResult(code, message) {
     function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
-
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
       if(!existedElement) {
         var newElementSource = {
@@ -7471,7 +7475,6 @@ function ErrorResult(code, message) {
               block_id: 0
             },
             newElement = angular.extend(newElementSource, currElement);
-
         currProduct.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
         if(currProduct.chosenAddElements[index].length === 2) {
@@ -7764,6 +7767,7 @@ function ErrorResult(code, message) {
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
       chooseAddElement: chooseAddElement,
+      setAddElementsTotalPrice:setAddElementsTotalPrice,
       chooseAddElementList: chooseAddElementList,
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
@@ -12526,8 +12530,9 @@ function ErrorResult(code, message) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
         //console.log(OrderStor.order , 'OrderStor')
-        downloadProducts1();
-        downloadAddElements1();
+        dloadProducts();
+        dloadAddElements();
+        dloadOrder();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -12616,24 +12621,27 @@ function ErrorResult(code, message) {
 
       function orderItem() {
         var  deferred = $q.defer();
-        downloadProducts1().then(function(data) {
+        dloadProducts().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
-          downloadAddElements1().then(function(data) {
-          for (var q = 0; q<data.length; q+=1) {
-            for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
-              for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
-                for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
-                  if (data[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
-                    data[q].selectedAddElem = data[q]
-                      break
+          dloadOrder().then(function(data) {
+            HistoryStor.history.infoOrder = angular.copy(data);
+            dloadAddElements().then(function(data) {
+            for (var q = 0; q<data.length; q+=1) {
+              for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
+                for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
+                  for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
+                    if (data[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
+                      data[q].selectedAddElem = data[q]
+                        break
+                    }
                   }
                 }
-              }
-            }  
-          }
-          HistoryStor.history.isBoxDopElem = angular.copy(data);
-          });
+              }  
+            }
+            HistoryStor.history.isBoxDopElem = angular.copy(data);
+            });
+          }); 
         });
       }
 
@@ -12833,7 +12841,7 @@ function ErrorResult(code, message) {
     }
 
 
-    function downloadProducts1() {
+    function dloadProducts() {
       var deferred = $q.defer();
        localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {
@@ -12847,7 +12855,21 @@ function ErrorResult(code, message) {
       return deferred.promise;
     }
 
-    function downloadAddElements1() {
+    function dloadOrder() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.orders.tableName, {
+          'id': HistoryStor.history.orderEditNumber
+        },
+         'order_type, order_style, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
+       ).then(function(result) {
+          //console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
+
+    function dloadAddElements() {
       var deferred = $q.defer();
        localDB.selectLocalDB(
         localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
@@ -13207,8 +13229,8 @@ function ErrorResult(code, message) {
       orderPrint: orderPrint,
       orderItem: orderItem,
       viewSwitching: viewSwitching,
-      downloadProducts1:downloadProducts1,
-      downloadAddElements1: downloadAddElements1,
+      dloadProducts:dloadProducts,
+      dloadAddElements: dloadAddElements,
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
       openCalendarScroll: openCalendarScroll,
@@ -21268,9 +21290,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**============ METHODS ================*/
     function box() {
-/*      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      console.log('HistoryStor.history.orders', HistoryStor.history.orders)*/
-       console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -21278,6 +21300,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
 
       for(ord = 0; ord < ordersQty; ord+=1) {
+        HistoryStor.history.isBoxArray[ord].chosenAddElements = [
+            [], // 0 - grids
+            [], // 1 - visors
+            [], // 2 - spillways
+            [], // 3 - outSlope
+            [], // 4 - louvers
+            [], // 5 - inSlope
+            [], // 6 - connectors
+            [], // 7 - fans
+            [], // 8 - windowSill
+            [], // 9 - handles
+            [], // 10 - others
+            [], // 11 - shutters 
+            [], // 12 - grating 
+            [], // 13 - blind 
+            [], // 14 - shut 
+            [], // 15 - grat 
+            [], // 16 - vis 
+            []  // 17 - spil 
+          ];
         HistoryStor.history.isBoxArray[ord].nameGlass = [];
         if (HistoryStor.history.isBoxArray[ord].glass_id.length) {
           var re = /\s*,\s*/,
@@ -21396,7 +21438,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
     function divideAddElem() {
-    /*divide into groups of additional elements*/
+     /*divide into groups of additional elements*/
       var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999],
           name = [
             'add_elements.GRIDS',
@@ -21424,6 +21466,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                 HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
+                HistoryStor.history.isBoxDopElem[q].selectedWidth = HistoryStor.history.isBoxDopElem[q].element_width
+                HistoryStor.history.isBoxDopElem[q].selectedQuantity = HistoryStor.history.isBoxDopElem[q].element_qty
                   break
               }
             }
@@ -21432,27 +21476,84 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         for (var n=0; n<id.length; n+=1) {
           if (HistoryStor.history.isBoxDopElem[q].list_group_id === id[n]) {
             HistoryStor.history.isBoxDopElem[q].list_group_name = name[n]
+            HistoryStor.history.isBoxDopElem[q].idex = n
           }
         }
       }
     }
-    
     function extendAddElem() {
-      for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
-        var addElem = 0;
-        var width = 0 ;
-        var qty = 0;
-        if (HistoryStor.history.isBoxDopElem[q].selectedWidth > 100 && HistoryStor.history.isBoxDopElem[q].selectedWidth !== NaN) {
-          addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
-          width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
-          qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
-          HistoryStor.history.isBoxDopElem[q].length = 0;
-          HistoryStor.history.isBoxDopElem[q] = [];
-          HistoryStor.history.isBoxDopElem[q] = addElem;
-          HistoryStor.history.isBoxDopElem[q].element_width = width;
-          HistoryStor.history.isBoxDopElem[q].element_qty = qty;
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var addElem = [];
+      var width = 0;
+      var qty = 0;
+      var ind = 0;
+      HistoryStor.history.isBoxDop = [];
+      for(ord = 0; ord < ordersQty; ord+=1) {
+        for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
+          if(HistoryStor.history.isBoxArray[ord].product_id === HistoryStor.history.isBoxDopElem[q].product_id) {
+              width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+              qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+              ind = HistoryStor.history.isBoxDopElem[q].idex;
+              addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+              HistoryStor.history.isBoxDop = addElem;
+              HistoryStor.history.isBoxDop.element_width = 1*width;
+              HistoryStor.history.isBoxDop.element_qty = 1*qty;
+              pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+          }
         }
       }
+    }
+    function pushSelectedAddElement(currProduct, currElement, ind) {
+      console.log('currProduct', currProduct)
+      var index = ind,
+          existedElement;
+          console.log(currProduct.chosenAddElements[index], '<<<<<<<<<<')
+          console.log(JSON.stringify(currProduct.chosenAddElements[index]), '<<<<<<<<<<')
+      currProduct.chosenAddElements[index].push(currElement);
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      if(!existedElement) {
+        var newElementSource = {
+              element_type: index,
+              element_width: 0,
+              element_height: 0,
+              block_id: 0
+            },
+        newElement = angular.extend(newElementSource, currElement);
+        currProduct.chosenAddElements[index].push(newElement);
+      } 
+    }
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist+=1;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist+=1;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist+=1;
+          }
+
+          /** increase quantity if exist */
+          if(isExist) {
+            elementsArr[elementsQty].element_qty += 1;
+            break;
+          }
+        }
+
+      }
+      return isExist;
     }
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -21751,7 +21852,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 		thisFactory.publicObj = {
       box:box,
       extendAddElem: extendAddElem,
+
+      pushSelectedAddElement:pushSelectedAddElement,
       divideAddElem: divideAddElem,
+      checkExistedSelectAddElement:checkExistedSelectAddElement,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
@@ -21768,6 +21872,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
+      pushSelectedAddElement:pushSelectedAddElement;
       extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
@@ -21778,6 +21883,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       extendHardware:extendHardware;
       extendProfile:extendProfile;
       extendGlass:extendGlass;
+      checkExistedSelectAddElement:checkExistedSelectAddElement;
       clear: clear;
   });
 })();

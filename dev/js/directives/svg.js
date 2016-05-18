@@ -540,7 +540,6 @@
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-              console.log('откосы')
               var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,
