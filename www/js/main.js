@@ -17070,7 +17070,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
             if(GlobalStor.global.addElementsAll[0].elementsList) {
               if(angular.isArray(GlobalStor.global.addElementsAll[0].elementsList)) {
-                angular.extend(GlobalStor.global.addElementsAll[0].elementsList[0], gridsSingl);
+                GlobalStor.global.addElementsAll[0].elementsList[0] = GlobalStor.global.addElementsAll[0].elementsList[0].concat(gridsSingl);
               }
             } else {
               GlobalStor.global.addElementsAll[0].elementType.push({addition_type_id: 20, name: ""});
@@ -18151,16 +18151,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         var priceObj = angular.copy(result),
             priceMargin;
         if(priceObj.priceTotal) {
-
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
-              .then(function(doorData) {
+              .then(function(doorResult) {
+                var doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
-                angular.extend(priceObj.constrElements, doorData.elements);
+                priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
                 ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
                 setProductPriceTOTAL(ProductStor.product);
+
                 deferred.resolve(priceObj);
               });
           } else {
@@ -18334,7 +18335,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+          //console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 

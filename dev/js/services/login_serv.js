@@ -830,7 +830,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
             if(GlobalStor.global.addElementsAll[0].elementsList) {
               if(angular.isArray(GlobalStor.global.addElementsAll[0].elementsList)) {
-                angular.extend(GlobalStor.global.addElementsAll[0].elementsList[0], gridsSingl);
+                GlobalStor.global.addElementsAll[0].elementsList[0] = GlobalStor.global.addElementsAll[0].elementsList[0].concat(gridsSingl);
               }
             } else {
               GlobalStor.global.addElementsAll[0].elementType.push({addition_type_id: 20, name: ""});
