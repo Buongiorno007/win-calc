@@ -26,10 +26,6 @@
         isLoader3: 0,
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
-        //------ navig
-
-        gotoSettingsPage: 0,
-        startProgramm: 1, // for START
         //------ navigation
         isNavMenu: 1,
         isConfigMenu: 0,

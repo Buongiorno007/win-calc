@@ -135,7 +135,8 @@
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ ::cartPage.DISCOUNT_SELECT }}</div>
-            <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
+            <!--.discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")-->
+            <div class="discount-box selected">
               <div fs-click="cartPage.openDiscInput(0)" ng-keyup="cartPage.enterKeyPrice(event)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
@@ -147,7 +148,8 @@
                 <div class="discounts-label">{{ ::cartPage.DISCOUNT_WINDOW }}</div>
               </div>
             </div>
-            <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
+            <!--.discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")-->
+            <div class="discount-box selected">
               <div fs-click="cartPage.openDiscInput(1)" ng-keyup="cartPage.enterKeyDop(event)" class="discount-data">
                 <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">

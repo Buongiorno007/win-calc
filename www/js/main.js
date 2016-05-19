@@ -1855,8 +1855,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
-/*
+          //checkingUser();
+///*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -7828,8 +7828,10 @@ function ErrorResult(code, message) {
       if (AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {
           /** without window */
-          //TODO ?????
-          AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+          gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+            return !item.profile_id;
+          });
+          AuxStor.aux.addElementsList = [gridsSort];
         } else {
           gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
             return item.profile_id === ProductStor.product.profile.id;
@@ -7971,8 +7973,9 @@ function ErrorResult(code, message) {
           if (!g) {
             if(ProductStor.product.is_addelem_only) {
               /** without window */
-              //TODO ????
-              elementsList = allElems[g].elementsList;
+              elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
+                return !item.profile_id;
+              })];
             } else {
               /** grid filtering as ot profile id */
               elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
@@ -8707,7 +8710,6 @@ function ErrorResult(code, message) {
 
 
     function approveNewDisc(type) {
-      //console.info(CartStor.cart.tempConstructDisc);
       if (type) {
         //------- discount x add element
         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);
@@ -9131,9 +9133,9 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-       // serverIP: 'http://api.windowscalculator.net',
-       // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-       // localPath: '/calculator/local/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //localPath: '/calculator/local/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
@@ -13889,6 +13891,23 @@ function ErrorResult(code, message) {
             'foreignKey': ''
           },
 
+          'mosquitos_singles':{
+            'tableName': 'mosquitos_singles',
+            'prop': 'factory_id INTEGER,'+
+            'name VARCHAR,' +
+            'bottom_id INTEGER,' +
+            'bottom_waste INTEGER,' +
+            'left_id INTEGER,' +
+            'left_waste INTEGER,'+
+            'top_id INTEGER,'+
+            'top_waste INTEGER,'+
+            'right_id INTEGER,'+
+            'right_waste INTEGER,'+
+            'cloth_id INTEGER,'+
+            'cloth_waste INTEGER',
+            'foreignKey': ''
+          },
+
           'window_hardware_type_ranges':{
             'tableName': 'window_hardware_type_ranges',
             'prop': 'factory_id INTEGER,'+
@@ -17030,19 +17049,36 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             resultQty = addKits.length,
             i, elemGroupObj;
         for(i = 0; i < resultQty; i+=1) {
+          elemGroupObj = {elementType: [], elementsList: 0};
           if(!i && addKits[i].length) {
             //------ for Grids
-            elemGroupObj = {
-              elementType: [{addition_type_id: 20, name: ""}], elementsList: [addKits[i]]
-            };
+            elemGroupObj.elementType.push({addition_type_id: 20, name: ""});
+            elemGroupObj.elementsList = [addKits[i]];
           } else {
-            elemGroupObj = {elementType: [], elementsList: addKits[i]};
+            elemGroupObj.elementsList = addKits[i];
           }
-
-
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
-        defer.resolve(1);
+
+        localDB.selectLocalDB(localDB.tablesLocalDB.mosquitos_singles.tableName).then(function(gridData) {
+          var gridsSingl = angular.copy(gridData),
+              gridsQty = gridsSingl.length;
+          if(gridsQty) {
+            while(--gridsQty > -1) {
+              gridsSingl[gridsQty]['profile_id'] = 0;
+              delete gridsSingl[gridsQty].factory_id;
+            }
+            if(GlobalStor.global.addElementsAll[0].elementsList) {
+              if(angular.isArray(GlobalStor.global.addElementsAll[0].elementsList)) {
+                angular.extend(GlobalStor.global.addElementsAll[0].elementsList[0], gridsSingl);
+              }
+            } else {
+              GlobalStor.global.addElementsAll[0].elementType.push({addition_type_id: 20, name: ""});
+              GlobalStor.global.addElementsAll[0].elementsList = [gridsSingl];
+            }
+          }
+          defer.resolve(1);
+        });
       });
       return defer.promise;
     }
@@ -25293,10 +25329,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isLoader: 0,
         isLoader2: 0,
         isLoader3: 0,
-        gotoSettingsPage: 0,
-        startProgramm: 1, // for START
-        //------ navig
-
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation
