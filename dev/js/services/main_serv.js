@@ -506,7 +506,6 @@
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
                 ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
                 setProductPriceTOTAL(ProductStor.product);
-
                 deferred.resolve(priceObj);
               });
           } else {
