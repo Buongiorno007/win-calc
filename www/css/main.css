@@ -2141,7 +2141,7 @@ div.drum figure {
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background-image: url('../img/spinner.gif');
+  background-image: url('../img/spinner.gif?1463660797');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -4855,7 +4855,7 @@ div.drum figure {
 }
 
 /* line 51, ../../dev/sass/parts/_edit-order.scss */
-.hardware-box {
+.hardware-cont {
   position: absolute;
   height: auto;
   top: 0%;
@@ -4873,7 +4873,7 @@ div.drum figure {
 }
 
 /* line 65, ../../dev/sass/parts/_edit-order.scss */
-.glass-box {
+.glass-cont {
   position: relative;
   height: auto;
   width: 22%;
