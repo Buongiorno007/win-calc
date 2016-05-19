@@ -53,6 +53,7 @@
         if (elemQty > 0) {
           while(--elemQty > -1) {
             currProduct.addelem_price += (currProduct.chosenAddElements[elemTypeQty][elemQty].element_qty * currProduct.chosenAddElements[elemTypeQty][elemQty].element_price);
+
           }
         }
       }
@@ -61,7 +62,9 @@
         currProduct.addelem_price, OrderStor.order.discount_addelem
       );
       $timeout(function() {
-        MainServ.setProductPriceTOTAL(currProduct);
+        if(GlobalStor.global.currOpenPage !== 'history') {
+          MainServ.setProductPriceTOTAL(currProduct);
+        }
       }, 50);
     }
 
@@ -460,7 +463,6 @@
     function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
-
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
       if(!existedElement) {
         var newElementSource = {
@@ -470,7 +472,6 @@
               block_id: 0
             },
             newElement = angular.extend(newElementSource, currElement);
-
         currProduct.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
         if(currProduct.chosenAddElements[index].length === 2) {
@@ -763,6 +764,7 @@
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
       chooseAddElement: chooseAddElement,
+      setAddElementsTotalPrice:setAddElementsTotalPrice,
       chooseAddElementList: chooseAddElementList,
       getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,

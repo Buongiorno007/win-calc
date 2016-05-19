@@ -131,8 +131,9 @@
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
         //console.log(OrderStor.order , 'OrderStor')
-        downloadProducts1();
-        downloadAddElements1();
+        dloadProducts();
+        dloadAddElements();
+        dloadOrder();
         orderItem(); 
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
@@ -221,12 +222,15 @@
 
       function orderItem() {
         var  deferred = $q.defer();
-        downloadProducts1().then(function(data) {
+        dloadProducts().then(function(data) {
           HistoryStor.history.isBoxArray = angular.copy(data);
           HistoryStor.history.isBoxArrayCopy = angular.copy(data);
-          downloadAddElements1().then(function(data) {
-          HistoryStor.history.isBoxDopElem = angular.copy(data);
-          });
+          dloadOrder().then(function(data) {
+            HistoryStor.history.infoOrder = angular.copy(data);
+            dloadAddElements().then(function(data) {
+            HistoryStor.history.isBoxDopElem = angular.copy(data);
+            });
+          }); 
         });
       }
 
@@ -426,7 +430,7 @@
     }
 
 
-    function downloadProducts1() {
+    function dloadProducts() {
       var deferred = $q.defer();
        localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {
@@ -440,7 +444,21 @@
       return deferred.promise;
     }
 
-    function downloadAddElements1() {
+    function dloadOrder() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.orders.tableName, {
+          'id': HistoryStor.history.orderEditNumber
+        },
+         'order_type, order_style, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
+       ).then(function(result) {
+          //console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
+
+    function dloadAddElements() {
       var deferred = $q.defer();
        localDB.selectLocalDB(
         localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
@@ -800,8 +818,8 @@
       orderPrint: orderPrint,
       orderItem: orderItem,
       viewSwitching: viewSwitching,
-      downloadProducts1:downloadProducts1,
-      downloadAddElements1: downloadAddElements1,
+      dloadProducts:dloadProducts,
+      dloadAddElements: dloadAddElements,
       orderSearching: orderSearching,
       orderDateSelecting: orderDateSelecting,
       openCalendarScroll: openCalendarScroll,

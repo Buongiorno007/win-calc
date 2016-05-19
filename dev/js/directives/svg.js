@@ -265,7 +265,8 @@
             GlobalStor.global.widthCheck = widthT;
             GlobalStor.global.background = heightT/1680;
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
-               GlobalStor.global.imgLink = "fon.png";              
+               GlobalStor.global.imgLink = "fon.jpg";              
+
             } else {
                GlobalStor.global.imgLink = "333.png";
             }
@@ -528,19 +529,17 @@
                 defs.append('pattern')
                 .attr('id', 'background')
                 .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background)
+                .attr('width', 2202.92*GlobalStor.global.background)
+                .attr('height', 1661.3*GlobalStor.global.background)
                 .append("image")
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
-                .attr('width', 2520*GlobalStor.global.background)
-                .attr('height', 1680*GlobalStor.global.background);
- 
+                .attr('width', 2202.92*GlobalStor.global.background)
+                .attr('height', 1661.3*GlobalStor.global.background);
             }
 
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-              console.log('откосы')
               var  scl = scale*4.4;
               if(ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                 var positionX1 = position.x-160,

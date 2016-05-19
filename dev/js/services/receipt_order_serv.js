@@ -18,16 +18,42 @@
 
     /**============ METHODS ================*/
     function box() {
-/*      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      console.log('HistoryStor.history.orders', HistoryStor.history.orders)*/
-       console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
           profilesQty = GlobalStor.global.profiles.length, glbp,
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
 
+      for(var u=0; u<HistoryStor.history.infoOrder.length; u+=1) {
+        HistoryStor.history.information = []
+        HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
+      }
+
       for(ord = 0; ord < ordersQty; ord+=1) {
+        HistoryStor.history.isBoxArray[ord].chosenAddElements = [
+            [], // 0 - grids
+            [], // 1 - visors
+            [], // 2 - spillways
+            [], // 3 - outSlope
+            [], // 4 - louvers
+            [], // 5 - inSlope
+            [], // 6 - connectors
+            [], // 7 - fans
+            [], // 8 - windowSill
+            [], // 9 - handles
+            [], // 10 - others
+            [], // 11 - shutters 
+            [], // 12 - grating 
+            [], // 13 - blind 
+            [], // 14 - shut 
+            [], // 15 - grat 
+            [], // 16 - vis 
+            []  // 17 - spil 
+          ];
         HistoryStor.history.isBoxArray[ord].nameGlass = [];
         if (HistoryStor.history.isBoxArray[ord].glass_id.length) {
           var re = /\s*,\s*/,
@@ -136,17 +162,18 @@
             }
           }
         }
+              divideAddElem();
       //================add name in array==================//   
 
       for(ord = 0; ord < ordersQty; ord+=1) {  
         HistoryStor.history.isBoxArray[ord].template_source = JSON.parse(HistoryStor.history.isBoxArray[ord].template_source);
       }
       clear();
-      divideAddElem();
     }
 
     function divideAddElem() {
-    /*divide into groups of additional elements*/
+
+     /*divide into groups of additional elements*/
       var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999],
           name = [
             'add_elements.GRIDS',
@@ -172,6 +199,10 @@
             for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
               if (HistoryStor.history.isBoxDopElem[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
                 HistoryStor.history.isBoxDopElem[q].list_group_id = GlobalStor.global.addElementsAll[i].elementsList[d][u].list_group_id
+                HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
+                HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
+                HistoryStor.history.isBoxDopElem[q].selectedWidth = HistoryStor.history.isBoxDopElem[q].element_width
+                HistoryStor.history.isBoxDopElem[q].selectedQuantity = HistoryStor.history.isBoxDopElem[q].element_qty
                   break
               }
             }
@@ -180,23 +211,79 @@
         for (var n=0; n<id.length; n+=1) {
           if (HistoryStor.history.isBoxDopElem[q].list_group_id === id[n]) {
             HistoryStor.history.isBoxDopElem[q].list_group_name = name[n]
+            HistoryStor.history.isBoxDopElem[q].idex = n
           }
         }
       }
-      /*group addElem for product_id*/
-      for(var r = 1; r<HistoryStor.history.isBoxArray.length + 1; r+=1) {
-        HistoryStor.history.addElem[r-1] = [];
+    }
+    function extendAddElem() {
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var addElem = [];
+      var width = 0;
+      var qty = 0;
+      var ind = 0;
+      var block = 0;
+      HistoryStor.history.isBoxDop = [];
+      for(ord = 0; ord < ordersQty; ord+=1) {
         for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
-          if(HistoryStor.history.isBoxDopElem[q].product_id === r) {
-            var obj  = {
-                    }
-            obj = (HistoryStor.history.isBoxDopElem[q])
-            HistoryStor.history.addElem[r-1].push(obj)
+          if(HistoryStor.history.isBoxArray[ord].product_id === HistoryStor.history.isBoxDopElem[q].product_id) {
+            width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+            qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+            ind = HistoryStor.history.isBoxDopElem[q].element_type;
+            block = HistoryStor.history.isBoxDopElem[q].element_type;
+            addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+            HistoryStor.history.isBoxDop = addElem;
+            HistoryStor.history.isBoxDop.element_width = 1*width;
+            HistoryStor.history.isBoxDop.element_qty = 1*qty;
+            HistoryStor.history.isBoxDop.block_id = block;
+            HistoryStor.history.isBoxDop.element_type = ind;
+            pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
           }
-        } 
+        }
       }
     }
-    
+    function pushSelectedAddElement(currProduct, currElement, ind) {
+      var index = ind,
+          existedElement;
+      currProduct.chosenAddElements[index].push(currElement);
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      if(!existedElement) {
+        var newElementSource = {
+              element_type: index,
+              element_width: 0,
+              element_height: 0,
+              block_id: 0
+            },
+        newElement = angular.extend(newElementSource, currElement);
+        currProduct.chosenAddElements[index].push(newElement);
+      } 
+    }
+    function checkExistedSelectAddElement(elementsArr, currElement) {
+      var elementsQty = elementsArr.length, isExist = 0;
+      while(--elementsQty > -1){
+        if(elementsArr[elementsQty].id === currElement.id) {
+          /** if element has width and height */
+          if(currElement.element_width && currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              if(elementsArr[elementsQty].element_height === currElement.element_height) {
+                isExist+=1;
+              }
+            }
+          }
+          /** if element has only width */
+          if(currElement.element_width && !currElement.element_height) {
+            if(elementsArr[elementsQty].element_width === currElement.element_width) {
+              isExist+=1;
+            }
+          }
+          /** if element has only qty */
+          if(!currElement.element_width && !currElement.element_height) {
+            isExist+=1;
+          }
+        }
+      }
+      return isExist;
+    }  
 
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -465,7 +552,6 @@
         }
       }
     }
-
     function errorChecking () {
       HistoryStor.history.errorСhecking = 0;
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
@@ -495,7 +581,10 @@
 
 		thisFactory.publicObj = {
       box:box,
+      extendAddElem: extendAddElem,
+      pushSelectedAddElement:pushSelectedAddElement,
       divideAddElem: divideAddElem,
+      checkExistedSelectAddElement:checkExistedSelectAddElement,
       errorChecking: errorChecking,
       dopTemplateSource:dopTemplateSource,
       glassesForProductStor:glassesForProductStor,
@@ -512,6 +601,8 @@
 
     //------ clicking
     	box:box;
+      pushSelectedAddElement:pushSelectedAddElement;
+      extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
       templateSource:templateSource;
@@ -521,6 +612,7 @@
       extendHardware:extendHardware;
       extendProfile:extendProfile;
       extendGlass:extendGlass;
+      checkExistedSelectAddElement:checkExistedSelectAddElement;
       clear: clear;
   });
 })();

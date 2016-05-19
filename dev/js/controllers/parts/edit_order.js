@@ -17,7 +17,8 @@
     MainServ,
     localDB,
     UserStor,
-    HistoryServ
+    HistoryServ,
+    AddElementMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -33,15 +34,21 @@
     thisCtrl.CONFIGMENU_GLASS = $filter('translate')('mainpage.CONFIGMENU_GLASS');
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+
 
     /**============ METHODS ================*/
     
     function okey() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
-      var price = 0;
+      HistoryStor.history.price = 0;
+      var style = '';
+      var type = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
+      RecOrderServ.extendAddElem();
       RecOrderServ.extendProfile();
       RecOrderServ.extendGlass();
       RecOrderServ.extendHardware();
@@ -51,6 +58,7 @@
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
         localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
@@ -59,12 +67,14 @@
         console.log('end');
       });
 
+
       function calculate (product, _cb) {
         OrderStor.order = OrderStor.setDefaultOrder();
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
-              ProductStor.product.addelem_price = angular.copy(product.addelem_price);
+              OrderStor.order.id = angular.copy(product.order_id);
+              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
               ProductStor.product.hardware_id = angular.copy(product.hardware_id);
@@ -78,13 +88,14 @@
             function (_callback) {
               MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
                 MainServ.saveTemplateInProductForOrder().then(function(result) {
-                  var profileId = ProductStor.product.profile_id,
+                  AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+                    var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
                       laminatId = ProductStor.product.lamination.lamination_in_id,
                       glassIds =  ProductStor.product.glass;     
-                  MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
-                    _callback();               
-                  });
+                    MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
+                      _callback();    
+                    });         
                 });
               });  
             },
@@ -99,9 +110,11 @@
             function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
                 for (var n=0; n<orderProdQty; n+=1) {
-                  price += OrderStor.order.products[n].productPriceDis;
+                  HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
                 }
-                MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
+                style = HistoryStor.history.information.order_style;
+                type = HistoryStor.history.information.order_type;
+                MainServ.saveOrderInDB(HistoryStor.history.information, type, style);
               _callback();  
             },
             function (_callback) {
@@ -153,6 +166,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
       thisCtrl.check = check;
       thisCtrl.box = RecOrderServ.box;

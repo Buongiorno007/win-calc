@@ -45,7 +45,6 @@
       typing: 'on'
     };
 
-
     //------- translate
     thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
     thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');

@@ -6,69 +6,63 @@
 	height: 100%;
 	width: 100%; 
 }
-.order-cont {
+.page-form {
 	padding: rem(70px) rem(40px) 0 rem(50px);
-	background-color: #fff;
 	height: 100%;
 	overflow: auto;
 }
 
-.boxText{
-	position: relative;
-	top: 2rem;
-	left: 0rem;
-	height: 5%;
-	width: 100%;
-    border-radius: 2rem;
-    margin: 2rem;
-	float: left; 
+.boxText {
+  position: relative;
+  height: 6%;
+  width: 97%;
+  margin: 0rem 0rem 5rem;
 }
-.txt {
-  top: -8.625rem;
-  left: 16.5rem;
-  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  position: absolute;
+.warning {
   display: table;
+  position: relative;
+  left: 20.5rem;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 86.5rem;
   padding: 1.25rem 2.5rem;
   color: #fff;
   border-radius: 1.25rem;
   background: #6ED44A;
-  z-index: 1;
+  margin: 0rem 0rem 5rem;
   &.alert {
     transform: 0.5s;
     background: #f74f2e;
     color: #fff;
   }
 }
-.box6 {
+.num-box {
   position: absolute;
   height: auto;
   width: 3%;
   top: 0%;
 }
-.box1 {
+.lamination-box {
   position: absolute;
   height: auto;
   width: 23%;
   top: 0%;
   left: 74%;
 }
-.box2 {
+.hardware-box {
   position: absolute;
   height: auto;
   top: 0%;
   width: 24%;
   left: 47%;
 }
-.box3 {
+.prof-box {
   position: absolute;
   height: auto;
   width: 13%;
   top: 0%;
   left: 7%;
 }
-.box4 {
+.glass-box {
   position: relative;
   height: auto;
   width: 22%;
@@ -79,27 +73,31 @@
   @include appearance(none);
   background-color: #fff;
 }
-.boxOrder {
+.user-select-field-add {
+  @extend .user-field-add;
+  @include appearance(none);
+  background-color: #fff;
+}
+.cont-order {
   position: relative;
   border-radius: 2rem;
-  background: rgba(#f8f8f8, .95);
+  background: rgba(110, 212, 74, 0.51);
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
   height: auto;
   max-width: 100%;
-  top: -2rem;
-  @extend .menu-right-general;
   @include justify-content(space-between);
 }
-.cart-menu-m {
+.order-path {
+  position: relative;
   border-radius: 2rem;
   background: rgba(#f8f8f8, .95);
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem #242424;
-  @extend .menu-right-general;
-  @include justify-content(space-between);
-  position: relative;
   height: auto;
   overflow: auto;
   margin: 2rem;
+  @extend .menu-right-general;
+  @include justify-content(space-between);
+
   .value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
@@ -107,47 +105,75 @@
     margin: rem(5px) 0;
     color: $main_gray_txt;
   }
+  .add-elem {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    max-width: 100%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+  }
+  .width {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    position: absolute;
+    width: 15%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+    top: 28%;
+    left: 46%;  
+  }
+  .quantity {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    position: absolute;
+    width: 15%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+    top: 28%;
+    left: 58%;
+  }
 }
-.cart-item-data-m {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include align-items(center);
+.element-one {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include align-items(center);
 }
 .title {
-    margin: rem(10px) 0;
-    color: $main_orange;
-    max-width: 100%;
+  margin: rem(10px) 0;
+  color: $main_orange;
+  max-width: 100%;
+}
+
+.one-element {
+  position: relative;
+  float: right;
+  height: 100%;
+  max-width: 100%;
 }
 
 .save-m {
+  position:relative;
   @extend .cross-btn;
   @extend .splash;
-  position: relative;
+  @include font-icon(rem(28px), 1.5);
+  background-color: $main_green;
   width: rem(85px);
   height: rem(85px);
-  right: 2rem;
-  bottom: 4rem;
+  left: 95%;
   &:after {
     top: 25%;
     left: 25%;
-  }
-  @include font-icon(rem(28px), 1.5);
-  background-color: $main_green;
-  &:after{
     content: $select-history-icon;
   }
-  float: right;
 }
 
 .close-m {
+  position: relative;
   @extend .cross-btn;
   @extend .splash;
-  position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
-  right: 2rem;
-  top: -6rem;
-  float: right;
+  left: 95%;
   &:after {
     top: 25%;
     left: 25%;
