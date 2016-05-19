@@ -4153,6 +4153,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
         localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
@@ -4167,6 +4168,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
+              OrderStor.order.id = angular.copy(product.order_id);
               ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
@@ -19183,6 +19185,42 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         delete productData.doorHandle;
         delete productData.doorLock;
 
+          /**============= SAVE ADDELEMENTS ============ */
+
+        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+        for(add = 0; add < addElemQty; add+=1) {
+          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+          if(elemQty > 0) {
+            for (elem = 0; elem < elemQty; elem+=1) {
+              console.log('OrderStor.order.id,', OrderStor.order.id)
+              var addElementsData = {
+                order_id: OrderStor.order.id,
+                product_id: OrderStor.order.products[p].product_id,
+                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
+                modified: new Date()
+              };
+
+
+              console.log('SEND ADD',addElementsData);
+              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                localDB.insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  localDB.tablesLocalDB.order_addelements.tableName,
+                  addElementsData
+                );
+              
+            }
+          }
+        }
+
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
         console.log('SEND PRODUCT------', productData);
@@ -21292,7 +21330,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function box() {
       //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -21487,28 +21525,30 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var width = 0;
       var qty = 0;
       var ind = 0;
+      var block = 0;
       HistoryStor.history.isBoxDop = [];
       for(ord = 0; ord < ordersQty; ord+=1) {
         for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
           if(HistoryStor.history.isBoxArray[ord].product_id === HistoryStor.history.isBoxDopElem[q].product_id) {
-              width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
-              qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
-              ind = HistoryStor.history.isBoxDopElem[q].idex;
-              addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
-              HistoryStor.history.isBoxDop = addElem;
-              HistoryStor.history.isBoxDop.element_width = 1*width;
-              HistoryStor.history.isBoxDop.element_qty = 1*qty;
-              pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+            width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+            qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+            ind = HistoryStor.history.isBoxDopElem[q].element_type;
+            block = HistoryStor.history.isBoxDopElem[q].element_type;
+            addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+            HistoryStor.history.isBoxDop = addElem;
+            HistoryStor.history.isBoxDop.element_width = 1*width;
+            HistoryStor.history.isBoxDop.element_qty = 1*qty;
+            HistoryStor.history.isBoxDop.block_id = block;
+            HistoryStor.history.isBoxDop.element_type = ind;
+            pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
           }
         }
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
-      console.log('currProduct', currProduct)
+      console.log('currElement', currElement)
       var index = ind,
           existedElement;
-          console.log(currProduct.chosenAddElements[index], '<<<<<<<<<<')
-          console.log(JSON.stringify(currProduct.chosenAddElements[index]), '<<<<<<<<<<')
       currProduct.chosenAddElements[index].push(currElement);
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
       if(!existedElement) {
@@ -21547,7 +21587,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           /** increase quantity if exist */
           if(isExist) {
-            elementsArr[elementsQty].element_qty += 1;
             break;
           }
         }

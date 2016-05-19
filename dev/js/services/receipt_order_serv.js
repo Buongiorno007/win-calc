@@ -20,7 +20,7 @@
     function box() {
       //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
@@ -215,28 +215,30 @@
       var width = 0;
       var qty = 0;
       var ind = 0;
+      var block = 0;
       HistoryStor.history.isBoxDop = [];
       for(ord = 0; ord < ordersQty; ord+=1) {
         for (var q = 0; q<HistoryStor.history.isBoxDopElem.length; q+=1) {
           if(HistoryStor.history.isBoxArray[ord].product_id === HistoryStor.history.isBoxDopElem[q].product_id) {
-              width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
-              qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
-              ind = HistoryStor.history.isBoxDopElem[q].idex;
-              addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
-              HistoryStor.history.isBoxDop = addElem;
-              HistoryStor.history.isBoxDop.element_width = 1*width;
-              HistoryStor.history.isBoxDop.element_qty = 1*qty;
-              pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+            width = HistoryStor.history.isBoxDopElem[q].selectedWidth;
+            qty = HistoryStor.history.isBoxDopElem[q].selectedQuantity;
+            ind = HistoryStor.history.isBoxDopElem[q].element_type;
+            block = HistoryStor.history.isBoxDopElem[q].element_type;
+            addElem = HistoryStor.history.isBoxDopElem[q].selectedAddElem;
+            HistoryStor.history.isBoxDop = addElem;
+            HistoryStor.history.isBoxDop.element_width = 1*width;
+            HistoryStor.history.isBoxDop.element_qty = 1*qty;
+            HistoryStor.history.isBoxDop.block_id = block;
+            HistoryStor.history.isBoxDop.element_type = ind;
+            pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
           }
         }
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
-      console.log('currProduct', currProduct)
+      console.log('currElement', currElement)
       var index = ind,
           existedElement;
-          console.log(currProduct.chosenAddElements[index], '<<<<<<<<<<')
-          console.log(JSON.stringify(currProduct.chosenAddElements[index]), '<<<<<<<<<<')
       currProduct.chosenAddElements[index].push(currElement);
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
       if(!existedElement) {
@@ -275,7 +277,6 @@
 
           /** increase quantity if exist */
           if(isExist) {
-            elementsArr[elementsQty].element_qty += 1;
             break;
           }
         }

@@ -1531,6 +1531,42 @@
         delete productData.doorHandle;
         delete productData.doorLock;
 
+          /**============= SAVE ADDELEMENTS ============ */
+
+        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+        for(add = 0; add < addElemQty; add+=1) {
+          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+          if(elemQty > 0) {
+            for (elem = 0; elem < elemQty; elem+=1) {
+              console.log('OrderStor.order.id,', OrderStor.order.id)
+              var addElementsData = {
+                order_id: OrderStor.order.id,
+                product_id: OrderStor.order.products[p].product_id,
+                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
+                modified: new Date()
+              };
+
+
+              console.log('SEND ADD',addElementsData);
+              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                localDB.insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  localDB.tablesLocalDB.order_addelements.tableName,
+                  addElementsData
+                );
+              
+            }
+          }
+        }
+
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
         console.log('SEND PRODUCT------', productData);

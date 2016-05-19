@@ -56,6 +56,7 @@
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
         localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
@@ -70,6 +71,7 @@
         ProductStor.product = ProductStor.setDefaultProduct();
           async.waterfall([
             function (_callback) {
+              OrderStor.order.id = angular.copy(product.order_id);
               ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
               ProductStor.product.order_id = angular.copy(product.order_id);
               ProductStor.product.template_source = angular.copy(product.template_source);
