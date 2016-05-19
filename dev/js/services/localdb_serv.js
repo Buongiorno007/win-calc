@@ -624,6 +624,23 @@
             'foreignKey': ''
           },
 
+          'mosquitos_singles':{
+            'tableName': 'mosquitos_singles',
+            'prop': 'factory_id INTEGER,'+
+            'name VARCHAR,' +
+            'bottom_id INTEGER,' +
+            'bottom_waste INTEGER,' +
+            'left_id INTEGER,' +
+            'left_waste INTEGER,'+
+            'top_id INTEGER,'+
+            'top_waste INTEGER,'+
+            'right_id INTEGER,'+
+            'right_waste INTEGER,'+
+            'cloth_id INTEGER,'+
+            'cloth_waste INTEGER',
+            'foreignKey': ''
+          },
+
           'window_hardware_type_ranges':{
             'tableName': 'window_hardware_type_ranges',
             'prop': 'factory_id INTEGER,'+

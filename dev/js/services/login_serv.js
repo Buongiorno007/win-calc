@@ -809,19 +809,36 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             resultQty = addKits.length,
             i, elemGroupObj;
         for(i = 0; i < resultQty; i+=1) {
+          elemGroupObj = {elementType: [], elementsList: 0};
           if(!i && addKits[i].length) {
             //------ for Grids
-            elemGroupObj = {
-              elementType: [{addition_type_id: 20, name: ""}], elementsList: [addKits[i]]
-            };
+            elemGroupObj.elementType.push({addition_type_id: 20, name: ""});
+            elemGroupObj.elementsList = [addKits[i]];
           } else {
-            elemGroupObj = {elementType: [], elementsList: addKits[i]};
+            elemGroupObj.elementsList = addKits[i];
           }
-
-
           GlobalStor.global.addElementsAll.push(elemGroupObj);
         }
-        defer.resolve(1);
+
+        localDB.selectLocalDB(localDB.tablesLocalDB.mosquitos_singles.tableName).then(function(gridData) {
+          var gridsSingl = angular.copy(gridData),
+              gridsQty = gridsSingl.length;
+          if(gridsQty) {
+            while(--gridsQty > -1) {
+              gridsSingl[gridsQty]['profile_id'] = 0;
+              delete gridsSingl[gridsQty].factory_id;
+            }
+            if(GlobalStor.global.addElementsAll[0].elementsList) {
+              if(angular.isArray(GlobalStor.global.addElementsAll[0].elementsList)) {
+                GlobalStor.global.addElementsAll[0].elementsList[0] = GlobalStor.global.addElementsAll[0].elementsList[0].concat(gridsSingl);
+              }
+            } else {
+              GlobalStor.global.addElementsAll[0].elementType.push({addition_type_id: 20, name: ""});
+              GlobalStor.global.addElementsAll[0].elementsList = [gridsSingl];
+            }
+          }
+          defer.resolve(1);
+        });
       });
       return defer.promise;
     }

@@ -496,13 +496,13 @@
         var priceObj = angular.copy(result),
             priceMargin;
         if(priceObj.priceTotal) {
-
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
-              .then(function(doorData) {
+              .then(function(doorResult) {
+                var doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
-                angular.extend(priceObj.constrElements, doorData.elements);
+                priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
                 ProductStor.product.template_price = GeneralServ.roundingValue(priceMargin, 2);
                 setProductPriceTOTAL(ProductStor.product);
@@ -679,7 +679,7 @@
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          //        console.log('objXFormedPrice+++++++', objXFormedPrice);
+          //console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 

@@ -32,8 +32,10 @@
       if (AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {
           /** without window */
-          //TODO ?????
-          AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[index].elementsList);
+          gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
+            return !item.profile_id;
+          });
+          AuxStor.aux.addElementsList = [gridsSort];
         } else {
           gridsSort = angular.copy(GlobalStor.global.addElementsAll[index].elementsList)[0].filter(function(item) {
             return item.profile_id === ProductStor.product.profile.id;
@@ -175,8 +177,9 @@
           if (!g) {
             if(ProductStor.product.is_addelem_only) {
               /** without window */
-              //TODO ????
-              elementsList = allElems[g].elementsList;
+              elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {
+                return !item.profile_id;
+              })];
             } else {
               /** grid filtering as ot profile id */
               elementsList = [angular.copy(allElems[g].elementsList)[0].filter(function(item) {

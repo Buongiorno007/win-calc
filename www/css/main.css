@@ -5098,10 +5098,14 @@ div.drum figure {
 
 /* line 59, ../../dev/sass/pages/login.scss */
 .logo {
-  width: 6.125rem;
-  height: 6.125rem;
+  width: 6.25rem;
+  height: 6.25rem;
   margin: 0 auto 4.5625rem auto;
+<<<<<<< HEAD
   background: url('../img/login/logo.png?1463657360') no-repeat;
+=======
+  background: url('../img/login/logo-steko.png?1463068446') no-repeat;
+>>>>>>> 11e5342510e85f55b532f1fa42bc0929fbfb8bfb
   background-size: cover;
 }
 

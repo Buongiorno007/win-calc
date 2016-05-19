@@ -560,7 +560,6 @@
 
 
     function approveNewDisc(type) {
-      //console.info(CartStor.cart.tempConstructDisc);
       if (type) {
         //------- discount x add element
         CartStor.cart.tempAddelemDisc = checkNewDiscount(CartStor.cart.tempAddelemDisc);

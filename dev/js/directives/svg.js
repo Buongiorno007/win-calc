@@ -268,7 +268,7 @@
                GlobalStor.global.imgLink = "fon.jpg";              
 
             } else {
-               GlobalStor.global.imgLink = "333.png";
+               GlobalStor.global.imgLink = "3333.png";
             }
           }
         }
