@@ -4140,7 +4140,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function okey() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
-      var price = 0;
+      HistoryStor.history.price = 0;
+      var style = '';
+      var type = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
       RecOrderServ.extendAddElem();
@@ -4205,10 +4207,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
                 for (var n=0; n<orderProdQty; n+=1) {
-                  price += OrderStor.order.products[n].productPriceDis;
+                  HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
                 }
-                console.log(ProductStor.product)
-                MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
+                style = HistoryStor.history.information.order_style;
+                type = HistoryStor.history.information.order_type;
+                MainServ.saveOrderInDB(HistoryStor.history.information, type, style);
               _callback();  
             },
             function (_callback) {
@@ -12629,18 +12632,6 @@ function ErrorResult(code, message) {
           dloadOrder().then(function(data) {
             HistoryStor.history.infoOrder = angular.copy(data);
             dloadAddElements().then(function(data) {
-            for (var q = 0; q<data.length; q+=1) {
-              for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
-                for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
-                  for(var u = 0; u<GlobalStor.global.addElementsAll[i].elementsList[d].length; u+=1) {
-                    if (data[q].element_id === GlobalStor.global.addElementsAll[i].elementsList[d][u].id) {
-                      data[q].selectedAddElem = data[q]
-                        break
-                    }
-                  }
-                }
-              }  
-            }
             HistoryStor.history.isBoxDopElem = angular.copy(data);
             });
           }); 
@@ -18947,7 +18938,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-        productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+       
+        if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
+          productData.hardware_id = 0;
+        } else {
+          productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+        }
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
         productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
         productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
@@ -19127,122 +19123,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         UserStor.userInfo.heatTransfer,
         UserStor.userInfo.fullLocation
       );
-      //----- finish working with order
-      GlobalStor.global.isCreatedNewProject = 0;
-      return deferred.promise;
-    }
 
-    function saveOrderInDBnew(orderNumber, price) {
-      console.log('OrderStor.order', OrderStor.order)
-      var deferred = $q.defer();
-
-
-      /** ===== SAVE PRODUCTS =====*/
-
-      var prodQty = OrderStor.order.products.length, p;
-      OrderStor.order.products_qty = 0;
-      for(p = 0; p < prodQty; p+=1) {
-        var productData = angular.copy(OrderStor.order.products[p]);
-        productData.order_id = ProductStor.product.order_id;
-        if(!productData.is_addelem_only) {
-          productData.template_source['beads'] = angular.copy(productData.beadsData);
-        }
-        productData.template_source = JSON.stringify(productData.template_source);
-        productData.profile_id = OrderStor.order.products[p].profile.id;
-        productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
-          return item.id;
-        }).join(', ');
-        //console.log('OrderStor.order.products[p]', OrderStor.order.products[p])
-        if (OrderStor.order.products[p].hardware === undefined) {
-          productData.hardware_id = 0;
-        } else {
-          productData.hardware_id = OrderStor.order.products[p].hardware.id;
-        }
-        productData.lamination_id = OrderStor.order.products[p].lamination.id;
-        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
-        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
-        productData.modified = new Date();
-
+      if (GlobalStor.global.currOpenPage === 'history') {
         localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  orderNumber, {order_price_dis: price}
-            );
-        if(productData.template) {
-          delete productData.template;
-        }
-        delete productData.templateIcon;
-        delete productData.profile;
-        delete productData.glass;
-        delete productData.hardware;
-        delete productData.lamination;
-        delete productData.chosenAddElements;
-        delete productData.profileDepths;
-        delete productData.addelemPriceDis;
-        delete productData.productPriceDis;
-        delete productData.report;
-        delete productData.beadsData;
-        delete productData.doorName;
-        delete productData.doorSashName;
-        delete productData.doorHandle;
-        delete productData.doorLock;
-
-          /**============= SAVE ADDELEMENTS ============ */
-
-        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
-        for(add = 0; add < addElemQty; add+=1) {
-          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
-          if(elemQty > 0) {
-            for (elem = 0; elem < elemQty; elem+=1) {
-              console.log('OrderStor.order.id,', OrderStor.order.id)
-              var addElementsData = {
-                order_id: OrderStor.order.id,
-                product_id: OrderStor.order.products[p].product_id,
-                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
-                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
-                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
-                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
-                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
-                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
-                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
-                modified: new Date()
-              };
-
-
-              console.log('SEND ADD',addElementsData);
-              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-                localDB.insertServer(
-                  UserStor.userInfo.phone,
-                  UserStor.userInfo.device_code,
-                  localDB.tablesLocalDB.order_addelements.tableName,
-                  addElementsData
-                );
-              
-            }
-          }
-        }
-
-        /** culculate products quantity for order */
-        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
-        console.log('SEND PRODUCT------', productData);
-        //-------- insert product into local DB
-        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-        //-------- send to Server
-        localDB.insertServer(
-            UserStor.userInfo.phone,
-            UserStor.userInfo.device_code,
-            localDB.tablesLocalDB.order_products.tableName,
-            productData);
-
-
-        var productReportData = angular.copy(OrderStor.order.products[p].report),
-            reportQty = productReportData.length;
+          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {order_price_dis: HistoryStor.history.price}
+        );
       }
+    
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
-
-
 
 
 
@@ -19252,7 +19143,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
-      saveOrderInDBnew: saveOrderInDBnew,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
@@ -21330,12 +21220,18 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function box() {
       //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
           profilesQty = GlobalStor.global.profiles.length, glbp,
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
+
+      for(var u=0; u<HistoryStor.history.infoOrder.length; u+=1) {
+        HistoryStor.history.information = []
+        HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
+      }
 
       for(ord = 0; ord < ordersQty; ord+=1) {
         HistoryStor.history.isBoxArray[ord].chosenAddElements = [
@@ -21546,7 +21442,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
-      console.log('currElement', currElement)
       var index = ind,
           existedElement;
       currProduct.chosenAddElements[index].push(currElement);

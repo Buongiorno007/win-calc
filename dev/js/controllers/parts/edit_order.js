@@ -43,7 +43,9 @@
     function okey() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
-      var price = 0;
+      HistoryStor.history.price = 0;
+      var style = '';
+      var type = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
       RecOrderServ.extendAddElem();
@@ -108,10 +110,11 @@
             function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
                 for (var n=0; n<orderProdQty; n+=1) {
-                  price += OrderStor.order.products[n].productPriceDis;
+                  HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
                 }
-                console.log(ProductStor.product)
-                MainServ.saveOrderInDBnew(ProductStor.product.order_id, price);
+                style = HistoryStor.history.information.order_style;
+                type = HistoryStor.history.information.order_type;
+                MainServ.saveOrderInDB(HistoryStor.history.information, type, style);
               _callback();  
             },
             function (_callback) {

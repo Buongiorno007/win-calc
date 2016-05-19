@@ -20,12 +20,18 @@
     function box() {
       //console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
       //console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      //console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
           profilesQty = GlobalStor.global.profiles.length, glbp,
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
+
+      for(var u=0; u<HistoryStor.history.infoOrder.length; u+=1) {
+        HistoryStor.history.information = []
+        HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
+      }
 
       for(ord = 0; ord < ordersQty; ord+=1) {
         HistoryStor.history.isBoxArray[ord].chosenAddElements = [
@@ -236,7 +242,6 @@
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
-      console.log('currElement', currElement)
       var index = ind,
           existedElement;
       currProduct.chosenAddElements[index].push(currElement);
