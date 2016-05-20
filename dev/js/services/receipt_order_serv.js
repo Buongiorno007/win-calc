@@ -32,8 +32,9 @@
         HistoryStor.history.information = []
         HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
       }
-
+ 
       for(ord = 0; ord < ordersQty; ord+=1) {
+        if( HistoryStor.history.isBoxArray[ord].profile_id !== 'undefined') {
         HistoryStor.history.isBoxArray[ord].chosenAddElements = [
             [], // 0 - grids
             [], // 1 - visors
@@ -54,20 +55,42 @@
             [], // 16 - vis 
             []  // 17 - spil 
           ];
-        HistoryStor.history.isBoxArray[ord].nameGlass = [];
-        if (HistoryStor.history.isBoxArray[ord].glass_id.length) {
-          var re = /\s*,\s*/,
-              arr = HistoryStor.history.isBoxArray[ord].glass_id.split(re);
-              delete HistoryStor.history.isBoxArray[ord].glass_id;
-              HistoryStor.history.isBoxArray[ord].glass_id = arr; 
-          var arrQty = arr.length, tst;
-          for(tst=0; tst<arrQty; tst+=1) {
-            var obj = {
-                  id: 0
-                };
-            obj.id = arr[tst];
-            HistoryStor.history.isBoxArray[ord].glass_id.push(obj);
+          HistoryStor.history.isBoxArray[ord].nameGlass = [];
+          if (HistoryStor.history.isBoxArray[ord].glass_id.length) {
+            var re = /\s*,\s*/,
+                arr = HistoryStor.history.isBoxArray[ord].glass_id.split(re);
+                delete HistoryStor.history.isBoxArray[ord].glass_id;
+                HistoryStor.history.isBoxArray[ord].glass_id = arr; 
+            var arrQty = arr.length, tst;
+            for(tst=0; tst<arrQty; tst+=1) {
+              var obj = {
+                    id: 0
+                  };
+              obj.id = arr[tst];
+              HistoryStor.history.isBoxArray[ord].glass_id.push(obj);
+            }
           }
+        } else {
+            HistoryStor.history.isBoxArray[ord].chosenAddElements = [
+              [], // 0 - grids
+              [], // 1 - visors
+              [], // 2 - spillways
+              [], // 3 - outSlope
+              [], // 4 - louvers
+              [], // 5 - inSlope
+              [], // 6 - connectors
+              [], // 7 - fans
+              [], // 8 - windowSill
+              [], // 9 - handles
+              [], // 10 - others
+              [], // 11 - shutters 
+              [], // 12 - grating 
+              [], // 13 - blind 
+              [], // 14 - shut 
+              [], // 15 - grat 
+              [], // 16 - vis 
+              []  // 17 - spil 
+            ];
         }
       }
 
@@ -170,9 +193,7 @@
       }
       clear();
     }
-
     function divideAddElem() {
-
      /*divide into groups of additional elements*/
       var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999],
           name = [
@@ -284,13 +305,14 @@
       }
       return isExist;
     }  
-
     function clear() {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;
       for(ord = 0; ord < ordersQty; ord+=1) {
-        var tests = HistoryStor.history.isBoxArray[ord].glass_id.length;
-        HistoryStor.history.isBoxArray[ord].glass_id.splice(0,[tests]/2);                 
-      } 
+        if(HistoryStor.history.isBoxArray[ord].profile_id !== 'undefined') {
+          var tests = HistoryStor.history.isBoxArray[ord].glass_id.length;
+          HistoryStor.history.isBoxArray[ord].glass_id.splice(0,[tests]/2);                 
+        } 
+      }
     }
     function nameListGlasses(product_id) {
       var ordersQty = HistoryStor.history.isBoxArray.length, ord;

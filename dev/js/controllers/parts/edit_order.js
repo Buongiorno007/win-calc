@@ -40,7 +40,7 @@
 
     /**============ METHODS ================*/
     
-    function okey() {
+    function saveOrder() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
       HistoryStor.history.price = 0;
@@ -63,7 +63,7 @@
       }
           
       var productArray = HistoryStor.history.isBoxArray;
-      async.eachSeries(productArray, calculate, function (err, result) {
+      async.eachSeries(productArray,calculate, function (err, result) {
         console.log('end');
       });
 
@@ -137,9 +137,80 @@
       HistoryStor.history.isBoxArrayCopy = [];
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
-
     }
-    function close () {
+    function saveAddElem() {
+      GlobalStor.global.isEditBox = 0;
+      GlobalStor.global.isBox = 0;
+      HistoryStor.history.price = 0;
+      var style = '';
+      var type = 0;
+      ProductStor.product = ProductStor.setDefaultProduct();
+      OrderStor.order = OrderStor.setDefaultOrder();
+      RecOrderServ.extendAddElem();
+      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      for(ord=0; ord<ordersQty; ord+=1 ) {
+        var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
+        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
+      }
+          
+      var productArray = HistoryStor.history.isBoxArray;
+      async.eachSeries(productArray, calculate, function (err, result) {
+        console.log('end');
+      });
+
+
+      function calculate (product, _cb) {
+        OrderStor.order = OrderStor.setDefaultOrder();
+        ProductStor.product = ProductStor.setDefaultProduct();
+          async.waterfall([
+            function (_callback) {
+              OrderStor.order.id = angular.copy(product.order_id);
+              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
+
+              _callback(null);
+            },
+            function (_callback) {
+              AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);            
+                _callback();    
+            },
+            function (_callback) {
+              MainServ.setProductPriceTOTAL(ProductStor.product);
+              _callback();  
+            },
+            function (_callback) {
+              OrderStor.order.products.push(ProductStor.product);
+              _callback();  
+            },
+            function (_callback) {
+              HistoryStor.history.price += ProductStor.product.addelemPriceDis;
+              style = HistoryStor.history.information.order_style;
+              type = HistoryStor.history.information.order_type;
+              MainServ.saveOrderInDBAddProd(HistoryStor.history.information, type, style);
+              _callback();  
+            },
+            function (_callback) {
+              OrderStor.order = OrderStor.setDefaultOrder();
+              HistoryServ.downloadOrders();
+              _callback();  
+            }
+          ], function (err, result) {
+            if (err) {
+              //console.log('err', err)
+              return _cb(err);
+            }
+              //console.log('herereer')
+          _cb(null);
+        });
+      }
+
+      HistoryStor.history.listName = [];
+      HistoryStor.history.isBoxArray = [];
+      HistoryStor.history.isBoxArrayCopy = [];
+      HistoryStor.history.listNameHardware = [];
+      HistoryStor.history.listNameProfiles = [];
+    }
+    function close() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -149,14 +220,14 @@
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
     }
-    function listName (product_id) {
+    function itemsForLists(product_id) {
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
     }
-    function check() {
+    function checkProd() {
       RecOrderServ.errorChecking()
       if (HistoryStor.history.errorСhecking < 1) {
-        okey()
+        saveOrder()
         GlobalStor.global.isAlertHistory = 0;
       } else {
           GlobalStor.global.isAlertHistory = 1;
@@ -168,7 +239,7 @@
     //------ clicking
       thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
-      thisCtrl.check = check;
+      thisCtrl.checkProd = checkProd;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
@@ -178,9 +249,9 @@
       thisCtrl.extendHardware = RecOrderServ.extendHardware;
       thisCtrl.extendProfile = RecOrderServ.extendProfile;
       thisCtrl.extendGlass = RecOrderServ.extendGlass;
-      thisCtrl.okey = okey;
+      thisCtrl.saveOrder = saveOrder;
       thisCtrl.close = close;
-      thisCtrl.listName = listName;
+      thisCtrl.itemsForLists = itemsForLists;
 
   });
 })();

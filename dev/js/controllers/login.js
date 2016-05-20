@@ -108,9 +108,8 @@
       "img/room/121.png",
       "img/room/122.png",
       "img/room/123.png",
-      "img/room/fon.gif",
-      "img/room/33.gif",
-      "img/room/333.gif"
+      "img/room/fon.jpg",
+      "img/room/3333.png"
     ]);
 
 

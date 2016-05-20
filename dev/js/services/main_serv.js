@@ -1481,7 +1481,10 @@
 
       if (GlobalStor.global.currOpenPage === 'history') {
         localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {order_price_dis: HistoryStor.history.price}
+          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
+            order_price_dis: HistoryStor.history.price,
+            order_price_dis: HistoryStor.history.price
+          }
         );
       }
     
@@ -1490,7 +1493,183 @@
       return deferred.promise;
     }
 
+    function saveOrderInDBAddProd(newOptions, orderType, orderStyle) {
+      console.log(OrderStor.order, "<<<<<<<<<order")
+      console.log(ProductStor.product, "<<<<<<<<<product")
+      var order_id = OrderStor.order.id;
+      var deferred = $q.defer();
+      //---------- if EDIT Order, before inserting delete old order
+      if(GlobalStor.global.orderEditNumber) {
+        deleteOrderInDB(GlobalStor.global.orderEditNumber);
+        localDB.deleteOrderServer(
+          UserStor.userInfo.phone,
+          UserStor.userInfo.device_code,
+          GlobalStor.global.orderEditNumber
+        );
+        GlobalStor.global.orderEditNumber = 0;
+      }
+      angular.extend(OrderStor.order, newOptions);
 
+      /** ===== SAVE PRODUCTS =====*/
+
+      var prodQty = OrderStor.order.products.length, p;
+      OrderStor.order.products_qty = 0;
+      for(p = 0; p < prodQty; p+=1) {
+        var productData = angular.copy(OrderStor.order.products[p]);
+        productData.order_id = OrderStor.order.id;
+
+
+        /** ====== SAVE Report Data ===== */
+
+        var productReportData = angular.copy(OrderStor.order.products[p].report),
+            reportQty = productReportData.length;
+        //console.log('productReportData', productReportData);
+        while(--reportQty > -1) {
+          productReportData[reportQty].order_id = OrderStor.order.id;
+          productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
+          delete productReportData[reportQty].priceReal;
+          //-------- insert product Report into local DB
+          //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+          //-------- send Report to Server
+          // TODO localDB.insertServer(
+          // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+          // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+        }
+
+        /**============= SAVE ADDELEMENTS ============ */
+
+        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+        for(add = 0; add < addElemQty; add+=1) {
+          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+          if(elemQty > 0) {
+            for (elem = 0; elem < elemQty; elem+=1) {
+
+              var addElementsData = {
+                order_id: OrderStor.order.id,
+                product_id: 1,
+                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
+                modified: new Date()
+              };
+
+
+              console.log('SEND ADD',addElementsData);
+              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+              if(orderType) {
+                localDB.insertServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  localDB.tablesLocalDB.order_addelements.tableName,
+                  addElementsData
+                );
+              }
+            }
+          }
+        }
+      }
+
+      /** ============ SAVE ORDER =========== */
+
+      var orderData = angular.copy(OrderStor.order);
+      orderData.order_date = new Date(OrderStor.order.order_date);
+      orderData.order_type = orderType;
+      orderData.order_style = orderStyle;
+      orderData.factory_id = UserStor.userInfo.factory_id;
+      orderData.user_id = UserStor.userInfo.id;
+      orderData.delivery_date = new Date(OrderStor.order.delivery_date);
+      orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
+      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
+      orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
+      orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
+      orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
+      orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
+      orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+      //----- rates %
+      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+
+      if(orderType) {
+        orderData.additional_payment = '';
+        orderData.created = new Date();
+        orderData.sended = new Date(0);
+        orderData.state_to = new Date(0);
+        orderData.state_buch = new Date(0);
+        orderData.batch = '---';
+        orderData.base_price = 0;
+        orderData.factory_margin = 0;
+        orderData.purchase_price = 0;
+        orderData.sale_price = 0;
+        orderData.modified = new Date();
+      }
+
+      delete orderData.products;
+      delete orderData.floorName;
+      delete orderData.mountingName;
+      delete orderData.selectedInstalmentPeriod;
+      delete orderData.selectedInstalmentPercent;
+      delete orderData.productsPriceDis;
+      delete orderData.orderPricePrimaryDis;
+      delete orderData.paymentFirstDis;
+      delete orderData.paymentMonthlyDis;
+      delete orderData.paymentFirstPrimaryDis;
+      delete orderData.paymentMonthlyPrimaryDis;
+
+
+      console.log('!!!!orderData!!!!', orderData);
+      if(orderType) {
+        localDB.insertServer(
+          UserStor.userInfo.phone,
+          UserStor.userInfo.device_code,
+          localDB.tablesLocalDB.orders.tableName,
+          orderData
+        ).then(function(respond) {
+          if(respond.status) {
+            orderData.order_number = respond.order_number;
+          }
+          localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+          deferred.resolve(1);
+        });
+      } else {
+        //------- save draft
+        localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+        deferred.resolve(1);
+      }
+
+      //TODO
+      //------ send analytics data to Server
+      //      AnalyticsServ.sendAnalyticsDB();
+
+      //----- cleaning order
+      OrderStor.order = OrderStor.setDefaultOrder();
+      //------ set current GeoLocation
+      loginServ.setUserGeoLocation(
+        UserStor.userInfo.city_id,
+        UserStor.userInfo.cityName,
+        UserStor.userInfo.climaticZone,
+        UserStor.userInfo.heatTransfer,
+        UserStor.userInfo.fullLocation
+      );
+
+      // if (GlobalStor.global.currOpenPage === 'history') {
+      //   console.log(order_id, 'HistoryStor.history.price')
+      //   localDB.updateLocalServerDBs(
+      //     localDB.tablesLocalDB.orders.tableName, order_id, {order_price_dis: HistoryStor.history.price}
+      //   );
+      // }
+    
+      //----- finish working with order
+      GlobalStor.global.isCreatedNewProject = 0;
+      return deferred.promise;
+    }
 
 
     /**========== FINISH ==========*/
@@ -1515,6 +1694,7 @@
       saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
+      saveOrderInDBAddProd: saveOrderInDBAddProd,
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
       closeRoomSelectorDialog: closeRoomSelectorDialog,
