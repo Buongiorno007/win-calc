@@ -1,0 +1,36 @@
+.danger-alert-fon {
+	position: absolute;
+	top: 0%;
+	background: rgba(0, 0, 0, 0.5);;
+    height: 100%;
+	width: 100%;
+}
+.danger-alert {
+    position: absolute;
+    background: #F74F2E;
+    height: 70%;
+    top: 15%;
+    left: 9.375%;
+    border-radius: 1.25rem;
+    width: 56.25%;
+    z-index: 1;
+}
+
+.message-alert {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: large;
+    position: absolute;
+    height: 70%;
+    top: 15%;
+    left: 9.375%;
+    max-width: 90%;
+    z-index: 1;
+  }
+.close-danger-alert {
+    @extend .small-cross-btn;
+    position: absolute;
+    top: rem(-20px);
+    right: rem(-20px);
+    background-color: #F98000;
+    z-index: 1;
+  }

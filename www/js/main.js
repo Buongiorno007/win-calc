@@ -4099,6 +4099,37 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// controllers/parts/danger-alert.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('DangerAlertCtrl',
+
+  function($filter, GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.DANGER_ALERT_FIRST_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_FIRST_PAGE');
+    thisCtrl.DANGER_ALERT_SECOND_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_SECOND_PAGE');
+
+
+    /**============ METHODS ================*/
+
+    function close() {
+      GlobalStor.global.dangerAlert=0;
+    }
+
+
+    /**========== FINISH ==========*/
+    thisCtrl.close = close;
+
+  });
+})();
+
+
 // controllers/parts/edit_order.js
 
 (function(){
@@ -25388,6 +25419,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isLoader: 0,
         isLoader2: 0,
         isLoader3: 0,
+        dangerAlert: 0,
         gotoSettingsPage: 0,
         startProgramm: 1, // for START
         //------ navigation

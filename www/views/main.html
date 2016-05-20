@@ -798,3 +798,13 @@
     </div>
   </div>
 </div>
+<div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="mainPage.G.global.dangerAlert===1" class="danger-alert-fon">
+  <div class="danger-alert">
+    <div class="message-alert">
+      {{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}
+      {{br}}
+      {{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}
+    </div>
+    <div ng-click="dangerAlert.close()" class="close-danger-alert"></div>
+  </div>
+</div>

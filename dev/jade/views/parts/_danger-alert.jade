@@ -1,0 +1,7 @@
+.danger-alert-fon(ng-controller="DangerAlertCtrl as dangerAlert", ng-show="mainPage.G.global.dangerAlert===1")
+	.danger-alert
+		.message-alert
+			{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}
+			{{br}}
+			{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}
+		.close-danger-alert(ng-click="dangerAlert.close()")
