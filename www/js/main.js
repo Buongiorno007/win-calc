@@ -9147,12 +9147,12 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      localPath: '/calculator/local/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      // localPath: '/local/', //TODO ipad
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //localPath: '/calculator/local/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -12274,7 +12274,7 @@ function ErrorResult(code, message) {
             mainTypeMenu: 55,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          },
+          }
 
         ];
       
@@ -12289,9 +12289,9 @@ function ErrorResult(code, message) {
     //});
 
     //-------- blocking to refresh page
-    //$window.onbeforeunload = function (){
-    //  return $filter('translate')('common_words.PAGE_REFRESH');
-    //};
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
     /** prevent Backspace back to previos Page */
     $window.addEventListener('keydown', function(e){
@@ -17374,7 +17374,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         });
         frameQty = frameDoor.length;
         sashQty = sashDoor.length;
-
         while(--profsQty > -1) {
           profQty = GlobalStor.global.profiles[profsQty].length;
           while(--profQty > -1) {
