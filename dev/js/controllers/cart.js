@@ -40,7 +40,6 @@
       typing: 'on'
     };
 
-    console.log(ProductStor.product, '111111')
     //------- translate
     thisCtrl.ALL_ADD_ELEMENTS = $filter('translate')('cart.ALL_ADD_ELEMENTS');
     thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');

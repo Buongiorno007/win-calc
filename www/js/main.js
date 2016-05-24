@@ -189,7 +189,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    console.log(ProductStor.product, '111111')
     //------- translate
     thisCtrl.ALL_ADD_ELEMENTS = $filter('translate')('cart.ALL_ADD_ELEMENTS');
     thisCtrl.ADD_ORDER = $filter('translate')('cart.ADD_ORDER');
@@ -2246,16 +2245,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**================ EDIT PRODUCT =================*/
 
     if (GlobalStor.global.productEditNumber) {
-      console.log('EDIT!!!!');
-      console.log('product = ', ProductStor.product);
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
           ProductStor.product.template = data;
         });
     }
-
-
-    console.log(getPCPower());
 
     function getPCPower() {
       var iterations = 1000000;
@@ -4123,10 +4117,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function close() {
+      HistoryStor.history.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
     }
 
     function continued() {
+      HistoryStor.history.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
       GlobalStor.global.continued=1;
     }
@@ -22149,6 +22145,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       });
       $q.all(promises).then(function(result) {
         HistoryStor.history.dataProfiles = angular.copy(result)
+        console.log('result', result)
       })
     }
     function alert() {
@@ -22162,16 +22159,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           };
           for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
             for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
-              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {             
-                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
-                  break        
+              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {          
+                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.parent_element_id === HistoryStor.history.dataProfiles[y][r].list_id) {
+                   console.log('true')          
                 } else {
                   if (GlobalStor.global.continued === 0) {
                     GlobalStor.global.dangerAlert = 1;
                   }
                   obj.name = HistoryStor.history.isBoxDopElem[u].selectedAddElem.name;
                   obj.product = HistoryStor.history.isBoxDopElem[u].product_id;
-                  break 
                 }    
               }
             }

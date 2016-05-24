@@ -92,16 +92,11 @@
     /**================ EDIT PRODUCT =================*/
 
     if (GlobalStor.global.productEditNumber) {
-      console.log('EDIT!!!!');
-      console.log('product = ', ProductStor.product);
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
           ProductStor.product.template = data;
         });
     }
-
-
-    console.log(getPCPower());
 
     function getPCPower() {
       var iterations = 1000000;
