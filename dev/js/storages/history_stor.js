@@ -58,6 +58,7 @@
         isSortTypeDraft: 'last',
         reverseDraft: 1,
 
+        dataProfiles: [],
         listName: [],
         listNameGlass: [],
         listNameHardware: [],

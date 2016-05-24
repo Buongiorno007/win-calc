@@ -35,11 +35,12 @@
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
-    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
 
 
     /**============ METHODS ================*/
-    
+
     function saveOrder() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
@@ -203,7 +204,6 @@
           _cb(null);
         });
       }
-
       HistoryStor.history.listName = [];
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
@@ -221,13 +221,18 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function itemsForLists(product_id) {
+      GlobalStor.global.continued = 0;
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
+      RecOrderServ.profileForAlert();
     }
     function checkProd() {
       RecOrderServ.errorChecking()
       if (HistoryStor.history.errorСhecking < 1) {
-        saveOrder()
+        RecOrderServ.alert()
+        if(GlobalStor.global.dangerAlert < 1) {
+          saveOrder()
+        }
         GlobalStor.global.isAlertHistory = 0;
       } else {
           GlobalStor.global.isAlertHistory = 1;
@@ -237,10 +242,15 @@
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.saveAddElem = saveAddElem;
+      thisCtrl.checkProd = checkProd;
+      thisCtrl.saveOrder = saveOrder;
+      thisCtrl.close = close;
+      thisCtrl.itemsForLists = itemsForLists;
+      thisCtrl.box = RecOrderServ.box;
+      thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
-      thisCtrl.checkProd = checkProd;
-      thisCtrl.box = RecOrderServ.box;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
       thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
@@ -249,9 +259,5 @@
       thisCtrl.extendHardware = RecOrderServ.extendHardware;
       thisCtrl.extendProfile = RecOrderServ.extendProfile;
       thisCtrl.extendGlass = RecOrderServ.extendGlass;
-      thisCtrl.saveOrder = saveOrder;
-      thisCtrl.close = close;
-      thisCtrl.itemsForLists = itemsForLists;
-
   });
 })();

@@ -120,7 +120,17 @@
     margin: rem(5px) 0;
     color: $main_gray_txt;
     top: 28%;
-    left: 46%;  
+    left: 70%;  
+  }
+  .height {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    position: absolute;
+    width: 15%;
+    margin: rem(5px) 0;
+    color: $main_gray_txt;
+    top: 28%;
+    left: 58%;
   }
   .quantity {
     @extend .truncated;
@@ -130,7 +140,7 @@
     margin: rem(5px) 0;
     color: $main_gray_txt;
     top: 28%;
-    left: 58%;
+    left: 46%;
   }
 }
 .element-one {

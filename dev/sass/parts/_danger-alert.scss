@@ -8,19 +8,22 @@
 .danger-alert {
     position: absolute;
     background: #F74F2E;
-    height: 70%;
-    top: 15%;
-    left: 9.375%;
-    border-radius: 1.25rem;
+    height: 40%;
+    top: 25%;
+    left: 21.875%;
+    border-radius: 2.25rem;
     width: 56.25%;
     z-index: 1;
+    &.main {
+        left: 9.375%;
+    }
 }
-
 .message-alert {
     color: rgba(255, 255, 255, 0.85);
     font-size: large;
-    position: absolute;
-    height: 70%;
+    position: relative;
+    text-align: left;
+    text-indent: 5%;
     top: 15%;
     left: 9.375%;
     max-width: 90%;
@@ -34,3 +37,16 @@
     background-color: #F98000;
     z-index: 1;
   }
+.continued-proc {
+    position: absolute;
+    background: #F98000;
+    border-radius: 2.25rem 0rem 0rem 2.25rem;
+    height: 10%;
+    right: 0%;
+    text-align: center;
+    bottom: 6%;
+    color: rgba(255, 255, 255, 0.85);
+    width: 23%;
+    max-width: 50%;
+    font-size: large;
+}

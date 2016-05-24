@@ -1496,7 +1496,7 @@ body {
 }
 
 /* line 159, ../../dev/sass/base/general.scss */
-.truncated, .room-info-container .select-rooms, .menu-right-general .value, .order-path .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .info_container .info_title, .order-path .add-elem, .order-path .width, .order-path .quantity, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr, .glass-container .full-name, .cart-page .addelementunique-header .aux-title {
+.truncated, .room-info-container .select-rooms, .menu-right-general .value, .order-path .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .info_container .info_title, .order-path .add-elem, .order-path .width, .order-path .height, .order-path .quantity, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr, .glass-container .full-name, .cart-page .addelementunique-header .aux-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -4940,10 +4940,10 @@ div.drum figure {
   margin: 0.3125rem 0;
   color: #363636;
   top: 28%;
-  left: 46%;
+  left: 70%;
 }
 /* line 125, ../../dev/sass/parts/_edit-order.scss */
-.order-path .quantity {
+.order-path .height {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
   width: 15%;
@@ -4952,8 +4952,18 @@ div.drum figure {
   top: 28%;
   left: 58%;
 }
+/* line 135, ../../dev/sass/parts/_edit-order.scss */
+.order-path .quantity {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
+  position: absolute;
+  width: 15%;
+  margin: 0.3125rem 0;
+  color: #363636;
+  top: 28%;
+  left: 46%;
+}
 
-/* line 136, ../../dev/sass/parts/_edit-order.scss */
+/* line 146, ../../dev/sass/parts/_edit-order.scss */
 .element-one {
   display: -webkit-flex;
   display: flex;
@@ -4963,14 +4973,14 @@ div.drum figure {
   align-items: center;
 }
 
-/* line 141, ../../dev/sass/parts/_edit-order.scss */
+/* line 151, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 147, ../../dev/sass/parts/_edit-order.scss */
+/* line 157, ../../dev/sass/parts/_edit-order.scss */
 .one-element {
   position: relative;
   float: right;
@@ -4978,7 +4988,7 @@ div.drum figure {
   max-width: 100%;
 }
 
-/* line 154, ../../dev/sass/parts/_edit-order.scss */
+/* line 164, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   font: normal 1.75rem/1.5 icons, sans-serif;
@@ -4987,14 +4997,14 @@ div.drum figure {
   height: 5.3125rem;
   left: 95%;
 }
-/* line 163, ../../dev/sass/parts/_edit-order.scss */
+/* line 173, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
   content: "";
 }
 
-/* line 170, ../../dev/sass/parts/_edit-order.scss */
+/* line 180, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -5003,7 +5013,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 177, ../../dev/sass/parts/_edit-order.scss */
+/* line 187, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;
@@ -5052,33 +5062,53 @@ div.drum figure {
 .danger-alert {
   position: absolute;
   background: #F74F2E;
-  height: 70%;
-  top: 15%;
-  left: 9.375%;
-  border-radius: 1.25rem;
+  height: 40%;
+  top: 25%;
+  left: 21.875%;
+  border-radius: 2.25rem;
   width: 56.25%;
   z-index: 1;
 }
+/* line 17, ../../dev/sass/parts/_danger-alert.scss */
+.danger-alert.main {
+  left: 9.375%;
+}
 
-/* line 19, ../../dev/sass/parts/_danger-alert.scss */
+/* line 21, ../../dev/sass/parts/_danger-alert.scss */
 .message-alert {
   color: rgba(255, 255, 255, 0.85);
   font-size: large;
-  position: absolute;
-  height: 70%;
+  position: relative;
+  text-align: left;
+  text-indent: 5%;
   top: 15%;
   left: 9.375%;
   max-width: 90%;
   z-index: 1;
 }
 
-/* line 29, ../../dev/sass/parts/_danger-alert.scss */
+/* line 32, ../../dev/sass/parts/_danger-alert.scss */
 .close-danger-alert {
   position: absolute;
   top: -1.25rem;
   right: -1.25rem;
   background-color: #F98000;
   z-index: 1;
+}
+
+/* line 40, ../../dev/sass/parts/_danger-alert.scss */
+.continued-proc {
+  position: absolute;
+  background: #F98000;
+  border-radius: 2.25rem 0rem 0rem 2.25rem;
+  height: 10%;
+  right: 0%;
+  text-align: center;
+  bottom: 6%;
+  color: rgba(255, 255, 255, 0.85);
+  width: 23%;
+  max-width: 50%;
+  font-size: large;
 }
 
 /* line 4, ../../dev/sass/pages/login.scss */

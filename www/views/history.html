@@ -353,15 +353,27 @@
           <div class="add-elem">{{isBoxDopElem.name}}
             <select name="list_group_name" ng-if="isBoxDopElem.listAddElem" ng-model="isBoxDopElem.selectedAddElem" ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem" required class="user-select-field-add"></select>
           </div>
-          <div class="width">{{::editOrder.WIDTH_LABEL}}
-            <input type="text" name="width" ng-model="isBoxDopElem.selectedWidth" placeholder="{{isBoxDopElem.element_width}}" class="user-select-field-add">
-          </div>
           <div class="quantity">{{::editOrder.QTY_LABEL}}
             <input type="text" name="quantity" ng-model="isBoxDopElem.selectedQuantity" placeholder="{{isBoxDopElem.element_qty}}" class="user-select-field-add">
+          </div>
+          <div class="height">{{::editOrder.HEIGHT_LABEL}}
+            <input type="text" name="height" ng-model="isBoxDopElem.selectedHeight" placeholder="{{isBoxDopElem.element_height}}" class="user-select-field-add">
+          </div>
+          <div class="width">{{::editOrder.WIDTH_LABEL}}
+            <input type="text" name="width" ng-model="isBoxDopElem.selectedWidth" placeholder="{{isBoxDopElem.element_width}}" class="user-select-field-add">
           </div>
         </div>
       </div>
     </div>
     <div fs-click="editOrder.checkProd()" class="save-m"></div>
+  </div>
+</div>
+<div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="historyPage.G.global.dangerAlert===1" class="danger-alert-fon">
+  <div class="danger-alert">
+    <div class="message-alert">{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}</div>
+    <div ng-repeat="addElem in dangerAlert.H.history.nameAddElem track by $index" class="message-alert">{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}</div>
+    <div class="message-alert">{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}</div>
+    <div ng-click="dangerAlert.close()" class="close-danger-alert"></div>
+    <div ng-click="dangerAlert.continued()" class="continued-proc">{{::dangerAlert.IGNORE}}</div>
   </div>
 </div>

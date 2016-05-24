@@ -223,6 +223,7 @@
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                 HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
                 HistoryStor.history.isBoxDopElem[q].selectedWidth = HistoryStor.history.isBoxDopElem[q].element_width
+                HistoryStor.history.isBoxDopElem[q].selectedHeight = HistoryStor.history.isBoxDopElem[q].element_height
                 HistoryStor.history.isBoxDopElem[q].selectedQuantity = HistoryStor.history.isBoxDopElem[q].element_qty
                   break
               }
@@ -599,10 +600,51 @@
         }
       }
     }
+    function profileForAlert() {
+      HistoryStor.history.dataProfiles = [];
+      var promises = HistoryStor.history.isBoxArray.map(function (item) {
+        return localDB.selectLocalDB(
+        localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': item.dataProfiles.id
+        });
+      });
+      $q.all(promises).then(function(result) {
+        HistoryStor.history.dataProfiles = angular.copy(result)
+      })
+    }
+    function alert() {
+      HistoryStor.history.nameAddElem = [];
+      var name = '';
+      var product = 0;
+        for(var u=0; u<HistoryStor.history.isBoxDopElem.length; u+=1) {
+          var obj = {
+            name : '',
+            product : 0
+          };
+          for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
+            for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
+              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {             
+                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
+                  break        
+                } else {
+                  if (GlobalStor.global.continued === 0) {
+                    GlobalStor.global.dangerAlert = 1;
+                  }
+                  obj.name = HistoryStor.history.isBoxDopElem[u].selectedAddElem.name;
+                  obj.product = HistoryStor.history.isBoxDopElem[u].product_id;
+                  break 
+                }    
+              }
+            }
+          }
+          HistoryStor.history.nameAddElem.push(obj)
+        }
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
       box:box,
+      alert:alert,
       extendAddElem: extendAddElem,
       pushSelectedAddElement:pushSelectedAddElement,
       divideAddElem: divideAddElem,
@@ -612,6 +654,7 @@
       glassesForProductStor:glassesForProductStor,
       nameListLaminat:nameListLaminat,
       templateSource: templateSource,
+      profileForAlert: profileForAlert,
       extendLaminat:extendLaminat,
       extendHardware:extendHardware,
       extendProfile:extendProfile,
@@ -623,7 +666,9 @@
 
     //------ clicking
     	box:box;
+      alert:alert;
       pushSelectedAddElement:pushSelectedAddElement;
+      profileForAlert:profileForAlert;
       extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;

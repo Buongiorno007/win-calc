@@ -39,11 +39,15 @@
       .title {{::isBoxDopElem.list_group_name|translate}}
       .add-elem {{isBoxDopElem.name}}
          select.user-select-field-add(name="list_group_name", ng-if='isBoxDopElem.listAddElem', ng-model="isBoxDopElem.selectedAddElem", ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem", required)
-      .width
-         {{::editOrder.WIDTH_LABEL}}
-         input.user-select-field-add(type="text", name="width", ng-model="isBoxDopElem.selectedWidth", placeholder ="{{isBoxDopElem.element_width}}")
       .quantity
          {{::editOrder.QTY_LABEL}}
          input.user-select-field-add(type="text", name="quantity", ng-model="isBoxDopElem.selectedQuantity", placeholder ="{{isBoxDopElem.element_qty}}")
+      .height
+         {{::editOrder.HEIGHT_LABEL}}
+         input.user-select-field-add(type="text", name="height", ng-model="isBoxDopElem.selectedHeight", placeholder ="{{isBoxDopElem.element_height}}")
+      .width
+         {{::editOrder.WIDTH_LABEL}}
+         input.user-select-field-add(type="text", name="width", ng-model="isBoxDopElem.selectedWidth", placeholder ="{{isBoxDopElem.element_width}}")
+
 
   .save-m(fs-click="editOrder.checkProd()")

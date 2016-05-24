@@ -1,7 +1,11 @@
-.danger-alert-fon(ng-controller="DangerAlertCtrl as dangerAlert", ng-show="mainPage.G.global.dangerAlert===1")
+.danger-alert-fon(ng-controller="DangerAlertCtrl as dangerAlert", ng-show="historyPage.G.global.dangerAlert===1")
 	.danger-alert
 		.message-alert
 			{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}
-			{{br}}
+		.message-alert(ng-repeat="addElem in dangerAlert.H.history.nameAddElem track by $index")
+			{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}
+		.message-alert
 			{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}
 		.close-danger-alert(ng-click="dangerAlert.close()")
+		.continued-proc(ng-click="dangerAlert.continued()")
+			{{::dangerAlert.IGNORE}}

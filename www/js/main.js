@@ -4107,13 +4107,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('MainModule')
     .controller('DangerAlertCtrl',
 
-  function($filter, GlobalStor) {
+  function($filter,
+           GlobalStor,
+           HistoryStor
+           ){
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.H = HistoryStor;
     thisCtrl.DANGER_ALERT_FIRST_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_FIRST_PAGE');
     thisCtrl.DANGER_ALERT_SECOND_PAGE = $filter('translate')('danger-alert.DANGER_ALERT_SECOND_PAGE');
-
+    thisCtrl.IGNORE = $filter('translate')('danger-alert.IGNORE');
+    thisCtrl.PRODUCT = $filter('translate')('danger-alert.PRODUCT');
 
     /**============ METHODS ================*/
 
@@ -4121,9 +4126,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.dangerAlert=0;
     }
 
+    function continued() {
+      GlobalStor.global.dangerAlert=0;
+      GlobalStor.global.continued=1;
+    }
 
     /**========== FINISH ==========*/
     thisCtrl.close = close;
+    thisCtrl.continued = continued;
 
   });
 })();
@@ -4168,11 +4178,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.CONFIGMENU_HARDWARE = $filter('translate')('mainpage.CONFIGMENU_HARDWARE');
     thisCtrl.CONFIGMENU_LAMINATION = $filter('translate')('mainpage.CONFIGMENU_LAMINATION');
     thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
-    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+     thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
 
 
     /**============ METHODS ================*/
-    
+
     function saveOrder() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isBox = 0;
@@ -4336,7 +4347,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           _cb(null);
         });
       }
-
       HistoryStor.history.listName = [];
       HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
@@ -4354,13 +4364,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       HistoryStor.history.listNameProfiles = [];
     }
     function itemsForLists(product_id) {
+      GlobalStor.global.continued = 0;
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
+      RecOrderServ.profileForAlert();
     }
     function checkProd() {
       RecOrderServ.errorChecking()
       if (HistoryStor.history.errorСhecking < 1) {
-        saveOrder()
+        RecOrderServ.alert()
+        if(GlobalStor.global.dangerAlert < 1) {
+          saveOrder()
+        }
         GlobalStor.global.isAlertHistory = 0;
       } else {
           GlobalStor.global.isAlertHistory = 1;
@@ -4370,10 +4385,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**========== FINISH ==========*/
 
     //------ clicking
+      thisCtrl.saveAddElem = saveAddElem;
+      thisCtrl.checkProd = checkProd;
+      thisCtrl.saveOrder = saveOrder;
+      thisCtrl.close = close;
+      thisCtrl.itemsForLists = itemsForLists;
+      thisCtrl.box = RecOrderServ.box;
+      thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
       thisCtrl.errorChecking = RecOrderServ.errorChecking;
-      thisCtrl.checkProd = checkProd;
-      thisCtrl.box = RecOrderServ.box;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
       thisCtrl.templateSource = RecOrderServ.templateSource;
       thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
@@ -4382,10 +4402,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.extendHardware = RecOrderServ.extendHardware;
       thisCtrl.extendProfile = RecOrderServ.extendProfile;
       thisCtrl.extendGlass = RecOrderServ.extendGlass;
-      thisCtrl.saveOrder = saveOrder;
-      thisCtrl.close = close;
-      thisCtrl.itemsForLists = itemsForLists;
-
   });
 })();
 
@@ -21746,6 +21762,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 HistoryStor.history.isBoxDopElem[q].listAddElem = GlobalStor.global.addElementsAll[i].elementsList[d]
                 HistoryStor.history.isBoxDopElem[q].selectedAddElem = GlobalStor.global.addElementsAll[i].elementsList[d][u]
                 HistoryStor.history.isBoxDopElem[q].selectedWidth = HistoryStor.history.isBoxDopElem[q].element_width
+                HistoryStor.history.isBoxDopElem[q].selectedHeight = HistoryStor.history.isBoxDopElem[q].element_height
                 HistoryStor.history.isBoxDopElem[q].selectedQuantity = HistoryStor.history.isBoxDopElem[q].element_qty
                   break
               }
@@ -22122,10 +22139,51 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
       }
     }
+    function profileForAlert() {
+      HistoryStor.history.dataProfiles = [];
+      var promises = HistoryStor.history.isBoxArray.map(function (item) {
+        return localDB.selectLocalDB(
+        localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': item.dataProfiles.id
+        });
+      });
+      $q.all(promises).then(function(result) {
+        HistoryStor.history.dataProfiles = angular.copy(result)
+      })
+    }
+    function alert() {
+      HistoryStor.history.nameAddElem = [];
+      var name = '';
+      var product = 0;
+        for(var u=0; u<HistoryStor.history.isBoxDopElem.length; u+=1) {
+          var obj = {
+            name : '',
+            product : 0
+          };
+          for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
+            for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
+              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {             
+                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
+                  break        
+                } else {
+                  if (GlobalStor.global.continued === 0) {
+                    GlobalStor.global.dangerAlert = 1;
+                  }
+                  obj.name = HistoryStor.history.isBoxDopElem[u].selectedAddElem.name;
+                  obj.product = HistoryStor.history.isBoxDopElem[u].product_id;
+                  break 
+                }    
+              }
+            }
+          }
+          HistoryStor.history.nameAddElem.push(obj)
+        }
+    }
     /**========== FINISH ==========*/
 
 		thisFactory.publicObj = {
       box:box,
+      alert:alert,
       extendAddElem: extendAddElem,
       pushSelectedAddElement:pushSelectedAddElement,
       divideAddElem: divideAddElem,
@@ -22135,6 +22193,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       glassesForProductStor:glassesForProductStor,
       nameListLaminat:nameListLaminat,
       templateSource: templateSource,
+      profileForAlert: profileForAlert,
       extendLaminat:extendLaminat,
       extendHardware:extendHardware,
       extendProfile:extendProfile,
@@ -22146,7 +22205,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //------ clicking
     	box:box;
+      alert:alert;
       pushSelectedAddElement:pushSelectedAddElement;
+      profileForAlert:profileForAlert;
       extendAddElem: extendAddElem;
       divideAddElem: divideAddElem;
       glassesForProductStor:glassesForProductStor;
@@ -25687,6 +25748,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       globalSource: {
         getPCPower: 0,
         isDevice: 0,
+        continued: 0,
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
@@ -25887,6 +25949,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isSortTypeDraft: 'last',
         reverseDraft: 1,
 
+        dataProfiles: [],
         listName: [],
         listNameGlass: [],
         listNameHardware: [],
