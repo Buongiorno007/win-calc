@@ -263,7 +263,15 @@
           if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
             GlobalStor.global.heightCheck = heightT;
             GlobalStor.global.widthCheck = widthT;
+            GlobalStor.global.backgroundH = heightT/1680;
+            GlobalStor.global.backgroundW = widthT/1680;
             GlobalStor.global.background = heightT/1680;
+
+            if(GlobalStor.global.backgroundH < GlobalStor.global.backgroundW) {
+              GlobalStor.global.background = GlobalStor.global.backgroundW
+            } else {
+              GlobalStor.global.background = GlobalStor.global.backgroundH
+            }
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                GlobalStor.global.imgLink = "fon.jpg";              
 
