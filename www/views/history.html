@@ -353,7 +353,14 @@
           <div class="add-elem">{{isBoxDopElem.name}}
             <select name="list_group_name" ng-if="isBoxDopElem.listAddElem" ng-model="isBoxDopElem.selectedAddElem" ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem" required class="user-select-field-add"></select>
           </div>
+<<<<<<< HEAD
           <div ng-if="isBoxDopElem.selectedQuantity" class="quantity">{{::editOrder.QTY_LABEL}}
+=======
+          <div class="width"><span>{{::editOrder.WIDTH_LABEL}}</span>
+            <input type="text" name="width" ng-model="isBoxDopElem.selectedWidth" placeholder="{{isBoxDopElem.element_width}}" class="user-select-field-add">
+          </div>
+          <div class="quantity"><span>{{::editOrder.QTY_LABEL}}</span>
+>>>>>>> 223342d8dbfb70a3a5e7331ba6df4927b9ea0259
             <input type="text" name="quantity" ng-model="isBoxDopElem.selectedQuantity" placeholder="{{isBoxDopElem.element_qty}}" class="user-select-field-add">
           </div>
           <div ng-if="isBoxDopElem.selectedHeight" class="height">{{::editOrder.HEIGHT_LABEL}}

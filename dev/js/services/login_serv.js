@@ -1102,7 +1102,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         });
         frameQty = frameDoor.length;
         sashQty = sashDoor.length;
-
         while(--profsQty > -1) {
           profQty = GlobalStor.global.profiles[profsQty].length;
           while(--profQty > -1) {
