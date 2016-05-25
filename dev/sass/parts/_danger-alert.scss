@@ -14,6 +14,7 @@
     border-radius: 2.25rem;
     width: 56.25%;
     z-index: 1;
+    overflow-x: hidden;
     &.main {
         left: 9.375%;
     }
@@ -23,19 +24,20 @@
     font-size: large;
     position: relative;
     text-align: left;
-    text-indent: 5%;
-    top: 15%;
-    left: 9.375%;
-    max-width: 90%;
+    text-indent: 3%;
+    top: 5%;
+    left: 5%;
+    width: 80%;
+    max-width: 83%;
     z-index: 1;
   }
 .close-danger-alert {
     @extend .small-cross-btn;
     position: absolute;
-    top: rem(-20px);
-    right: rem(-20px);
+    top: 0.75rem;
+    right: 0.75rem;
     background-color: #F98000;
-    z-index: 1;
+    z-index: 3;
   }
 .continued-proc {
     position: absolute;
@@ -49,4 +51,5 @@
     width: 23%;
     max-width: 50%;
     font-size: large;
+    z-index: 2;
 }

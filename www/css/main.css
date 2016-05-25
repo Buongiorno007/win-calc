@@ -5068,35 +5068,37 @@ div.drum figure {
   border-radius: 2.25rem;
   width: 56.25%;
   z-index: 1;
+  overflow-x: hidden;
 }
-/* line 17, ../../dev/sass/parts/_danger-alert.scss */
+/* line 18, ../../dev/sass/parts/_danger-alert.scss */
 .danger-alert.main {
   left: 9.375%;
 }
 
-/* line 21, ../../dev/sass/parts/_danger-alert.scss */
+/* line 22, ../../dev/sass/parts/_danger-alert.scss */
 .message-alert {
   color: rgba(255, 255, 255, 0.85);
   font-size: large;
   position: relative;
   text-align: left;
-  text-indent: 5%;
-  top: 15%;
-  left: 9.375%;
-  max-width: 90%;
+  text-indent: 3%;
+  top: 5%;
+  left: 5%;
+  width: 80%;
+  max-width: 83%;
   z-index: 1;
 }
 
-/* line 32, ../../dev/sass/parts/_danger-alert.scss */
+/* line 34, ../../dev/sass/parts/_danger-alert.scss */
 .close-danger-alert {
   position: absolute;
-  top: -1.25rem;
-  right: -1.25rem;
+  top: 0.75rem;
+  right: 0.75rem;
   background-color: #F98000;
-  z-index: 1;
+  z-index: 3;
 }
 
-/* line 40, ../../dev/sass/parts/_danger-alert.scss */
+/* line 42, ../../dev/sass/parts/_danger-alert.scss */
 .continued-proc {
   position: absolute;
   background: #F98000;
@@ -5109,6 +5111,7 @@ div.drum figure {
   width: 23%;
   max-width: 50%;
   font-size: large;
+  z-index: 2;
 }
 
 /* line 4, ../../dev/sass/pages/login.scss */
