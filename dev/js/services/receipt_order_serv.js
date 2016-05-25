@@ -601,6 +601,7 @@
       }
     }
     function profileForAlert() {
+      GlobalStor.global.continued = 0;
       HistoryStor.history.dataProfiles = [];
       var promises = HistoryStor.history.isBoxArray.map(function (item) {
         return localDB.selectLocalDB(
@@ -617,20 +618,19 @@
       HistoryStor.history.nameAddElem = [];
       var name = '';
       var product = 0;
+      var tr = '';
         for(var u=0; u<HistoryStor.history.isBoxDopElem.length; u+=1) {
           var obj = {
             name : '',
-            product : 0
+            product : 0,
+            tr: ''
           };
           for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
             for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
-              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {          
-                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.parent_element_id === HistoryStor.history.dataProfiles[y][r].list_id) {
-                   console.log('true')          
+              if (HistoryStor.history.isBoxDopElem[u].product_id === y+1) {        
+                if (HistoryStor.history.isBoxDopElem[u].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
+                  obj.tr = HistoryStor.history.isBoxDopElem[u].selectedAddElem.name;
                 } else {
-                  if (GlobalStor.global.continued === 0) {
-                    GlobalStor.global.dangerAlert = 1;
-                  }
                   obj.name = HistoryStor.history.isBoxDopElem[u].selectedAddElem.name;
                   obj.product = HistoryStor.history.isBoxDopElem[u].product_id;
                 }    
@@ -638,6 +638,16 @@
             }
           }
           HistoryStor.history.nameAddElem.push(obj)
+        }
+        for (var d=0; d<HistoryStor.history.nameAddElem.length; d+=1) {
+          if(HistoryStor.history.nameAddElem[d].name === HistoryStor.history.nameAddElem[d].tr) {
+            delete HistoryStor.history.nameAddElem[d].name;
+          }
+        }
+        for (var d=0; d<HistoryStor.history.nameAddElem.length; d+=1) {
+          if(HistoryStor.history.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+            GlobalStor.global.dangerAlert = 1;
+          }
         }
     }
     /**========== FINISH ==========*/

@@ -2,7 +2,7 @@
 	.danger-alert
 		.message-alert
 			{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}
-		.message-alert(ng-repeat="addElem in dangerAlert.H.history.nameAddElem track by $index")
+		.message-alert(ng-repeat="addElem in dangerAlert.H.history.nameAddElem track by $index", ng-if="addElem.name")
 			{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}
 		.message-alert
 			{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}

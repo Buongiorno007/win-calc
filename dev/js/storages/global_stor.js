@@ -21,6 +21,7 @@
         getPCPower: 0,
         isDevice: 0,
         continued: 0,
+        checkAlert: 0,
         loader: 0,
         isLoader: 0,
         isLoader2: 0,
