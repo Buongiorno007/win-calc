@@ -7,6 +7,7 @@
 
   function(
     $filter,
+    $q,
     globalConstants,
     MainServ,
     AnalyticsServ,
@@ -14,7 +15,8 @@
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    localDB
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -44,6 +46,7 @@
 
     //---------- Select profile
     function selectProfile(newId) {
+      profileForAlert(newId)
       var productTEMP;
       if(ProductStor.product.profile.id !== newId) {
 
@@ -98,10 +101,25 @@
 
       }
     }
-
+    function profileForAlert(newId) {
+      GlobalStor.global.continued = 0;
+      var id = 0;
+      id = newId;
+      GlobalStor.global.dataProfiles = [];
+     var deferred = $q.defer();
+       localDB.selectLocalDB(
+         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': newId
+        }).then(function(result) {
+          GlobalStor.global.dataProfiles = angular.copy(result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
 
     /**========== FINISH ==========*/
     //------ clicking
+    thisCtrl.profileForAlert = profileForAlert;
     thisCtrl.selectProfile = selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 

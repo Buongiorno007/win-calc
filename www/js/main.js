@@ -2162,6 +2162,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   function(
     $location,
     $timeout,
+    $q,
+    localDB,
     globalConstants,
     GeneralServ,
     loginServ,
@@ -2252,6 +2254,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function getPCPower() {
+      profile()
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -2269,15 +2272,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
       GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
-
+      
     }
-    
-
-
-
+    console.log(getPCPower(), 'getPCPower()')
+    function profile() {
+     var deferred = $q.defer();
+       localDB.selectLocalDB(
+         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': ProductStor.product.profile.id
+        }).then(function(result) {
+          GlobalStor.global.dataProfiles = angular.copy(result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.profile = profile;
     thisCtrl.getPCPower = getPCPower;
     thisCtrl.goToEditTemplate = goToEditTemplate;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
@@ -2710,6 +2722,51 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
+
+    function alert() {
+      GlobalStor.global.nameAddElem = [];
+      var name = '';
+      var product = 0;
+      var tr = '';
+        for(var u=0; u<ProductStor.product.chosenAddElements.length; u+=1) {
+          for(var f=0; f<ProductStor.product.chosenAddElements[u].length; f+=1) {
+          var obj = {
+            name : '',
+            product : 0,
+            tr: ''
+          };
+            for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
+              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id) {
+                obj.tr = ProductStor.product.chosenAddElements[u][f].name;
+              } else {
+                obj.name = ProductStor.product.chosenAddElements[u][f].name;
+              }    
+            }
+              GlobalStor.global.nameAddElem.push(obj)
+          }
+        }
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+            delete GlobalStor.global.nameAddElem[d].name;
+          }
+        }
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+            GlobalStor.global.dangerAlert = 1;
+          }
+        }
+    }
+
+    function checkForAddElem() {
+      alert();
+      if(GlobalStor.global.dangerAlert < 1) {
+        saveProduct()
+      }
+       else {
+        console.log('errrrrrrror')
+      }
+    }
+
     function showNextTip() {
       var tipQty = thisCtrl.config.TOOLTIP.length;
       GlobalStor.global.configMenuTips +=1;
@@ -2730,6 +2787,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
+    thisCtrl.alert = alert;
+    thisCtrl.checkForAddElem = checkForAddElem;
+
 
   });
 })();
@@ -3758,6 +3818,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   function(
     $filter,
+    $q,
     globalConstants,
     MainServ,
     AnalyticsServ,
@@ -3765,7 +3826,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    localDB
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -3795,6 +3857,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //---------- Select profile
     function selectProfile(newId) {
+      profileForAlert(newId)
       var productTEMP;
       if(ProductStor.product.profile.id !== newId) {
 
@@ -3849,10 +3912,25 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
       }
     }
-
+    function profileForAlert(newId) {
+      GlobalStor.global.continued = 0;
+      var id = 0;
+      id = newId;
+      GlobalStor.global.dataProfiles = [];
+     var deferred = $q.defer();
+       localDB.selectLocalDB(
+         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': newId
+        }).then(function(result) {
+          GlobalStor.global.dataProfiles = angular.copy(result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
 
     /**========== FINISH ==========*/
     //------ clicking
+    thisCtrl.profileForAlert = profileForAlert;
     thisCtrl.selectProfile = selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
@@ -4117,12 +4195,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function close() {
-      HistoryStor.history.nameAddElem = [];
+      GlobalStor.global.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
     }
 
     function continued() {
-      HistoryStor.history.nameAddElem = [];
+      GlobalStor.global.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
       GlobalStor.global.continued=1;
     }
@@ -9268,15 +9346,9 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-<<<<<<< HEAD
       // serverIP: 'http://api.windowscalculator.net',
       // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       // localPath: '/calculator/local/',
-=======
-      //serverIP: 'http://api.windowscalculator.net',
-      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //localPath: '/calculator/local/',
->>>>>>> 223342d8dbfb70a3a5e7331ba6df4927b9ea0259
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
@@ -22163,7 +22235,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       })
     }
     function alert() {
-      HistoryStor.history.nameAddElem = [];
+      GlobalStor.global.nameAddElem = [];
       var name = '';
       var product = 0;
       var tr = '';
@@ -22185,15 +22257,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               }
             }
           }
-          HistoryStor.history.nameAddElem.push(obj)
+          GlobalStor.global.nameAddElem.push(obj)
         }
-        for (var d=0; d<HistoryStor.history.nameAddElem.length; d+=1) {
-          if(HistoryStor.history.nameAddElem[d].name === HistoryStor.history.nameAddElem[d].tr) {
-            delete HistoryStor.history.nameAddElem[d].name;
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+            delete GlobalStor.global.nameAddElem[d].name;
           }
         }
-        for (var d=0; d<HistoryStor.history.nameAddElem.length; d+=1) {
-          if(HistoryStor.history.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
             GlobalStor.global.dangerAlert = 1;
           }
         }

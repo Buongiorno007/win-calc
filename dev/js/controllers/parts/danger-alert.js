@@ -21,12 +21,12 @@
     /**============ METHODS ================*/
 
     function close() {
-      HistoryStor.history.nameAddElem = [];
+      GlobalStor.global.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
     }
 
     function continued() {
-      HistoryStor.history.nameAddElem = [];
+      GlobalStor.global.nameAddElem = [];
       GlobalStor.global.dangerAlert=0;
       GlobalStor.global.continued=1;
     }

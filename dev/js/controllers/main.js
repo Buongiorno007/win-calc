@@ -9,6 +9,8 @@
   function(
     $location,
     $timeout,
+    $q,
+    localDB,
     globalConstants,
     GeneralServ,
     loginServ,
@@ -99,6 +101,7 @@
     }
 
     function getPCPower() {
+      profile()
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -116,15 +119,24 @@
       GlobalStor.global.getPCPower = Math.round(1000000 / diffs);
       GlobalStor.global.loader = 2; 
       return Math.round(1000000 / diffs);
-
+      
     }
-    
-
-
-
+    console.log(getPCPower(), 'getPCPower()')
+    function profile() {
+     var deferred = $q.defer();
+       localDB.selectLocalDB(
+         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+          'profile_system_id': ProductStor.product.profile.id
+        }).then(function(result) {
+          GlobalStor.global.dataProfiles = angular.copy(result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.profile = profile;
     thisCtrl.getPCPower = getPCPower;
     thisCtrl.goToEditTemplate = goToEditTemplate;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;

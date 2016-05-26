@@ -353,14 +353,7 @@
           <div class="add-elem">{{isBoxDopElem.name}}
             <select name="list_group_name" ng-if="isBoxDopElem.listAddElem" ng-model="isBoxDopElem.selectedAddElem" ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem" required class="user-select-field-add"></select>
           </div>
-<<<<<<< HEAD
           <div ng-if="isBoxDopElem.selectedQuantity" class="quantity">{{::editOrder.QTY_LABEL}}
-=======
-          <div class="width"><span>{{::editOrder.WIDTH_LABEL}}</span>
-            <input type="text" name="width" ng-model="isBoxDopElem.selectedWidth" placeholder="{{isBoxDopElem.element_width}}" class="user-select-field-add">
-          </div>
-          <div class="quantity"><span>{{::editOrder.QTY_LABEL}}</span>
->>>>>>> 223342d8dbfb70a3a5e7331ba6df4927b9ea0259
             <input type="text" name="quantity" ng-model="isBoxDopElem.selectedQuantity" placeholder="{{isBoxDopElem.element_qty}}" class="user-select-field-add">
           </div>
           <div ng-if="isBoxDopElem.selectedHeight" class="height">{{::editOrder.HEIGHT_LABEL}}
@@ -375,10 +368,11 @@
     <div fs-click="editOrder.checkProd()" class="save-m"></div>
   </div>
 </div>
-<div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="historyPage.G.global.dangerAlert===1" class="danger-alert-fon">
+<div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="dangerAlert.G.global.dangerAlert===1" class="danger-alert-fon">
   <div class="danger-alert">
     <div class="message-alert">{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}</div>
-    <div ng-repeat="addElem in dangerAlert.H.history.nameAddElem track by $index" ng-if="addElem.name" class="message-alert">{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}</div>
+    <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'history'" class="message-alert">{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}</div>
+    <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'main'" class="message-alert">{{' - ' + addElem.name}}</div>
     <div class="message-alert">{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}</div>
     <div ng-click="dangerAlert.close()" class="close-danger-alert"></div>
     <div ng-click="dangerAlert.continued()" class="continued-proc">{{::dangerAlert.IGNORE}}</div>

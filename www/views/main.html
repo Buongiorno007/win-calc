@@ -539,10 +539,10 @@
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="configMenu.P.product.productPriceDis" price-currency="configMenu.U.userInfo.currency"></price>
-          <button ng-if="!configMenu.G.global.productEditNumber" fs-click="configMenu.inputProductInOrder()" class="cart-btn">{{ ::configMenu.CONFIGMENU_IN_CART }}
+          <button ng-if="!configMenu.G.global.productEditNumber" fs-click="configMenu.checkForAddElem()" class="cart-btn">{{ ::configMenu.CONFIGMENU_IN_CART }}
             <div ng-if="configMenu.O.order.products.length" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.products.length }}</div>
           </button>
-          <button ng-if="configMenu.G.global.productEditNumber" fs-click="configMenu.inputProductInOrder()" class="cart-btn">{{ ::configMenu.SAVE }}</button>
+          <button ng-if="configMenu.G.global.productEditNumber" fs-click="configMenu.checkForAddElem()" class="cart-btn">{{ ::configMenu.SAVE }}</button>
         </footer>
         <div ng-if="configMenu.G.global.isConfigMenu &amp;&amp; configMenu.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': configMenu.P.product.heat_coef_total &lt; configMenu.O.order.heat_coef_min}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">
           <div>R = {{ configMenu.P.product.heat_coef_total }}</div>
@@ -796,5 +796,15 @@
       <button fs-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
       <button fs-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
     </div>
+  </div>
+</div>
+<div ng-controller="DangerAlertCtrl as dangerAlert" ng-show="dangerAlert.G.global.dangerAlert===1" class="danger-alert-fon">
+  <div class="danger-alert">
+    <div class="message-alert">{{::dangerAlert.DANGER_ALERT_FIRST_PAGE }}</div>
+    <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'history'" class="message-alert">{{::dangerAlert.PRODUCT + ' №'+addElem.product + ' - ' + addElem.name}}</div>
+    <div ng-repeat="addElem in dangerAlert.G.global.nameAddElem  track by $index" ng-if="addElem.name &amp;&amp; dangerAlert.G.global.currOpenPage === 'main'" class="message-alert">{{' - ' + addElem.name}}</div>
+    <div class="message-alert">{{::dangerAlert.DANGER_ALERT_SECOND_PAGE }}</div>
+    <div ng-click="dangerAlert.close()" class="close-danger-alert"></div>
+    <div ng-click="dangerAlert.continued()" class="continued-proc">{{::dangerAlert.IGNORE}}</div>
   </div>
 </div>
