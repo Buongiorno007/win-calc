@@ -301,7 +301,7 @@
     </div>
   </div>
 </div>
-<div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" class="background">
+<div ng-show="historyPage.G.global.isEditBox" ng-controller="EditOrderCtrl as editOrder" id="scroll" class="background">
   <div class="page-form">
     <div fs-click="editOrder.close()" class="close-m"></div>
     <div ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}" class="warning">{{::editOrder.CONFIGMENU_ALERT}}</div>

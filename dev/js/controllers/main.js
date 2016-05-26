@@ -99,9 +99,8 @@
           ProductStor.product.template = data;
         });
     }
-
+    console.log(getPCPower(), profile(), 'getPCPower()')
     function getPCPower() {
-      profile()
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -121,7 +120,7 @@
       return Math.round(1000000 / diffs);
       
     }
-    console.log(getPCPower(), 'getPCPower()')
+
     function profile() {
      var deferred = $q.defer();
        localDB.selectLocalDB(

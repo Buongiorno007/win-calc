@@ -235,6 +235,8 @@
         }
         GlobalStor.global.isAlertHistory = 0;
       } else {
+        console.log('scroll')
+          window.scrollTo(0, 0)
           GlobalStor.global.isAlertHistory = 1;
           console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }

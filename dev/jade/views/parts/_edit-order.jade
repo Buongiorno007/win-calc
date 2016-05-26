@@ -1,4 +1,4 @@
-.background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder")
+.background(ng-show ='historyPage.G.global.isEditBox', ng-controller="EditOrderCtrl as editOrder", id="scroll")
  .page-form
   .close-m(fs-click="editOrder.close()")
   .warning(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}

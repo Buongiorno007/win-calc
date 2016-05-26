@@ -2252,9 +2252,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ProductStor.product.template = data;
         });
     }
-
+    console.log(getPCPower(), profile(), 'getPCPower()')
     function getPCPower() {
-      profile()
       var iterations = 1000000;
       var s = 0;
       var diffs = 0;
@@ -2274,7 +2273,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return Math.round(1000000 / diffs);
       
     }
-    console.log(getPCPower(), 'getPCPower()')
+
     function profile() {
      var deferred = $q.defer();
        localDB.selectLocalDB(
@@ -4452,6 +4451,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         }
         GlobalStor.global.isAlertHistory = 0;
       } else {
+        console.log('scroll')
+          window.scrollTo(0, 0)
           GlobalStor.global.isAlertHistory = 1;
           console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }
