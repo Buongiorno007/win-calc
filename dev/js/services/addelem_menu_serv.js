@@ -312,6 +312,9 @@
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
+      $('#'+AuxStor.aux.trfal).css({
+            'color' : '#363636'
+             });
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         finishCalculators();

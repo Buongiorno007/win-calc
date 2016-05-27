@@ -122,19 +122,19 @@
     /**---------- common function to select addElem in 2 cases --------*/
 
     function selectAddElement(typeId, elementId, clickEvent) {
-      if (elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
-        $('#'+elementId+'prod').css({
+      if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
+        $('#'+typeId+'prod'+elementId).css({
                     'color' : '#0079ff'
                      })
       } else if (elementId !== AuxStor.aux.trfal) {
-        $('#'+AuxStor.aux.trfal+'prod').css({
+        $('#'+AuxStor.aux.trfal).css({
                     'color' : '#363636'
                      }),
-        $('#'+elementId+'prod').css({
+        $('#'+typeId+'prod'+elementId).css({
               'color' : '#0079ff'
                      })
       }
-          AuxStor.aux.trfal = elementId
+          AuxStor.aux.trfal = typeId+'prod'+elementId
 
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
