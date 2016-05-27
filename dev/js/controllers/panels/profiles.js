@@ -46,6 +46,7 @@
 
     //---------- Select profile
     function selectProfile(newId) {
+      GlobalStor.global.continued = 0
       profileForAlert(newId)
       var productTEMP;
       if(ProductStor.product.profile.id !== newId) {
@@ -102,7 +103,6 @@
       }
     }
     function profileForAlert(newId) {
-      GlobalStor.global.continued = 0;
       var id = 0;
       id = newId;
       GlobalStor.global.dataProfiles = [];
@@ -116,9 +116,59 @@
         });
       return deferred.promise;
     }
+    function alert() {
+      var  deferred = $q.defer();
+      GlobalStor.global.nameAddElem = [];
+      var name = '';
+      var product = 0;
+      var tr = '';
+        for(var u=0; u<ProductStor.product.chosenAddElements.length; u+=1) {
+          for(var f=0; f<ProductStor.product.chosenAddElements[u].length; f+=1) {
+          var obj = {
+            name : '',
+            product : 0,
+            tr: ''
+          };
+            for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
+              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id) {
+                obj.tr = ProductStor.product.chosenAddElements[u][f].name;
+              } else {
+                obj.name = ProductStor.product.chosenAddElements[u][f].name;
+              }    
+            }
+              GlobalStor.global.nameAddElem.push(obj)
+          }
+        }
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+            delete GlobalStor.global.nameAddElem[d].name;
+          }
+        }
+        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+            GlobalStor.global.dangerAlert = 1;
+          }
+        }
+        return deferred.promise;
+    }
+    function checkForAddElem(newId) {
+      var  deferred = $q.defer();
+      profileForAlert(newId).then(function() {
+        alert().then(function() {
+        });
+        if(GlobalStor.global.dangerAlert < 1 || GlobalStor.global.continued === 1) {
+          selectProfile(newId);
+        }
+      });
+    }
+
+
+
 
     /**========== FINISH ==========*/
     //------ clicking
+    thisCtrl.alert = alert;
+    thisCtrl.checkForAddElem = checkForAddElem;
     thisCtrl.profileForAlert = profileForAlert;
     thisCtrl.selectProfile = selectProfile;
     thisCtrl.showInfoBox = MainServ.showInfoBox;

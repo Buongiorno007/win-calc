@@ -6,7 +6,7 @@
         .group-info
           .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", fs-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
       .box.profile-box.unvisible(ng-repeat="profile in producer track by $index", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
-        .box_inner(fs-click="profilesPanel.selectProfile(profile.id)")
+        .box_inner(fs-click="profilesPanel.checkForAddElem(profile.id)")
           .profile-box-top
             .type {{ profile.cameras }}
               ng-pluralize(count="profile.cameras",

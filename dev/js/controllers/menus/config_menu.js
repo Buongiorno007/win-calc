@@ -107,6 +107,7 @@
     }
 
     function saveProduct() {
+      GlobalStor.global.continued = 0;
       if(MainServ.inputProductInOrder()){
         //--------- moving to Cart when click on Cart button
         MainServ.goToCart();

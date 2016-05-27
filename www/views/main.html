@@ -158,7 +158,7 @@
               </div>
             </div>
             <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
-              <div fs-click="profilesPanel.selectProfile(profile.id)" class="box_inner">
+              <div fs-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner">
                 <div class="profile-box-top">
                   <div class="type">{{ profile.cameras }}
                     <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
