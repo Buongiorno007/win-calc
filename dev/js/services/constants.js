@@ -4,8 +4,8 @@
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.windowscalculator.net',
+      //printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       // localPath: '/calculator/local/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
