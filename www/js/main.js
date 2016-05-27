@@ -6367,7 +6367,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               GlobalStor.global.background = GlobalStor.global.backgroundH
             }
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
-               GlobalStor.global.imgLink = "fon.jpg";              
+               GlobalStor.global.imgLink = "44.png";              
 
             } else {
                GlobalStor.global.imgLink = "3333.png";
