@@ -4153,15 +4153,15 @@ div.drum figure {
 }
 /* line 293, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.street, .cart-dialogs .setting-container .street.set-email-error, .setting-container .cart-dialogs .street.set-email-error {
-  left: 20rem;
+  left: 55rem;
 }
 /* line 296, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.house, .cart-dialogs .setting-container .house.set-email-error, .setting-container .cart-dialogs .house.set-email-error {
-  left: 40rem;
+  left: 55rem;
 }
 /* line 299, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.flat, .cart-dialogs .setting-container .flat.set-email-error, .setting-container .cart-dialogs .flat.set-email-error {
-  left: 48rem;
+  left: 55rem;
 }
 /* line 302, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs .error-tooltip.floor, .cart-dialogs .setting-container .floor.set-email-error, .setting-container .cart-dialogs .floor.set-email-error {
