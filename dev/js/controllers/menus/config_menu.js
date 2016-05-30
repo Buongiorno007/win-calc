@@ -143,7 +143,7 @@
           }
         }
         for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0 && ProductStor.product.is_addelem_only === 0) {
             GlobalStor.global.dangerAlert = 1;
           }
         }

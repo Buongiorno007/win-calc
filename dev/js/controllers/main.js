@@ -122,7 +122,8 @@
     }
 
     function profile() {
-     var deferred = $q.defer();
+      var deferred = $q.defer();
+      if(ProductStor.product.is_addelem_only === 0) {
        localDB.selectLocalDB(
          localDB.tablesLocalDB.beed_profile_systems.tableName, {
           'profile_system_id': ProductStor.product.profile.id
@@ -130,6 +131,7 @@
           GlobalStor.global.dataProfiles = angular.copy(result)
           deferred.resolve(result);
         });
+      }
       return deferred.promise;
     }
     /**========== FINISH ==========*/

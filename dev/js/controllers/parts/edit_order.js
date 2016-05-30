@@ -82,14 +82,16 @@
               ProductStor.product.hardware = angular.copy(product.hardware);
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);
+              ProductStor.product.is_addelem_only = angular.copy(product.is_addelem_only);
               ProductStor.product.profile_id = angular.copy(product.profile_id);
               ProductStor.product.glass = angular.copy(product.glasses);
               _callback(null);
             },
             function (_callback) {
-              MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
-                MainServ.saveTemplateInProductForOrder().then(function(result) {
-                  AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+              if (ProductStor.product.profile_id !== "undefined") {
+                MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
+                  MainServ.saveTemplateInProductForOrder().then(function(result) {
+                    AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
                     var profileId = ProductStor.product.profile_id,
                       hardwareId = ProductStor.product.hardware_id,
                       laminatId = ProductStor.product.lamination.lamination_in_id,
@@ -97,8 +99,14 @@
                     MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
                       _callback();    
                     });         
-                });
-              });  
+                  });
+                });  
+              } else {
+                AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+                  ProductStor.product.template_price = 0;
+                  ProductStor.product.glass = [];
+                _callback();   
+              }
             },
             function (_callback) {
               MainServ.setProductPriceTOTAL(ProductStor.product);
@@ -139,77 +147,6 @@
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
     }
-    function saveAddElem() {
-      GlobalStor.global.isEditBox = 0;
-      GlobalStor.global.isBox = 0;
-      HistoryStor.history.price = 0;
-      var style = '';
-      var type = 0;
-      ProductStor.product = ProductStor.setDefaultProduct();
-      OrderStor.order = OrderStor.setDefaultOrder();
-      RecOrderServ.extendAddElem();
-      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
-      for(ord=0; ord<ordersQty; ord+=1 ) {
-        var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
-      }
-          
-      var productArray = HistoryStor.history.isBoxArray;
-      async.eachSeries(productArray, calculate, function (err, result) {
-        console.log('end');
-      });
-
-
-      function calculate (product, _cb) {
-        OrderStor.order = OrderStor.setDefaultOrder();
-        ProductStor.product = ProductStor.setDefaultProduct();
-          async.waterfall([
-            function (_callback) {
-              OrderStor.order.id = angular.copy(product.order_id);
-              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
-
-              _callback(null);
-            },
-            function (_callback) {
-              AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);            
-                _callback();    
-            },
-            function (_callback) {
-              MainServ.setProductPriceTOTAL(ProductStor.product);
-              _callback();  
-            },
-            function (_callback) {
-              OrderStor.order.products.push(ProductStor.product);
-              _callback();  
-            },
-            function (_callback) {
-              HistoryStor.history.price += ProductStor.product.addelemPriceDis;
-              style = HistoryStor.history.information.order_style;
-              type = HistoryStor.history.information.order_type;
-              MainServ.saveOrderInDBAddProd(HistoryStor.history.information, type, style);
-              _callback();  
-            },
-            function (_callback) {
-              OrderStor.order = OrderStor.setDefaultOrder();
-              HistoryServ.downloadOrders();
-              _callback();  
-            }
-          ], function (err, result) {
-            if (err) {
-              //console.log('err', err)
-              return _cb(err);
-            }
-              //console.log('herereer')
-          _cb(null);
-        });
-      }
-      HistoryStor.history.listName = [];
-      HistoryStor.history.isBoxArray = [];
-      HistoryStor.history.isBoxArrayCopy = [];
-      HistoryStor.history.listNameHardware = [];
-      HistoryStor.history.listNameProfiles = [];
-    }
     function close() {
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
@@ -244,7 +181,6 @@
     /**========== FINISH ==========*/
 
     //------ clicking
-      thisCtrl.saveAddElem = saveAddElem;
       thisCtrl.checkProd = checkProd;
       thisCtrl.saveOrder = saveOrder;
       thisCtrl.close = close;
