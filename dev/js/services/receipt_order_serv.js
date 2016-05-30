@@ -18,10 +18,10 @@
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
-      console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
+      // console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      // console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      // console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      // console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,

@@ -2275,7 +2275,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function profile() {
-     var deferred = $q.defer();
+      var deferred = $q.defer();
+      if(ProductStor.product.is_addelem_only === 0) {
        localDB.selectLocalDB(
          localDB.tablesLocalDB.beed_profile_systems.tableName, {
           'profile_system_id': ProductStor.product.profile.id
@@ -2283,6 +2284,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           GlobalStor.global.dataProfiles = angular.copy(result)
           deferred.resolve(result);
         });
+      }
       return deferred.promise;
     }
     /**========== FINISH ==========*/
@@ -2751,7 +2753,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           }
         }
         for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0 && ProductStor.product.is_addelem_only === 0) {
             GlobalStor.global.dangerAlert = 1;
           }
         }
@@ -21451,10 +21453,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**============ METHODS ================*/
     function box() {
-      console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
-      console.log('HistoryStor.history.orders', HistoryStor.history.orders)
-      console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
-      console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
+      // console.log('HistoryStor.history.isBoxArray', HistoryStor.history.isBoxArray)
+      // console.log('HistoryStor.history.orders', HistoryStor.history.orders)
+      // console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
+      // console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
