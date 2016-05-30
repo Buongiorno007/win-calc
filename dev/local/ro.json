@@ -58,6 +58,12 @@
     "OFFLINE": "Nu există conexiune la Internet!",
     "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!"
   },
+  "danger-alert": {
+    "PRODUCT": "constructie",
+    "IGNORE": "continua",
+    "DANGER_ALERT_FIRST_PAGE": "Atenție! Aceste elemente suplimentare nu corespund sistemului profilului selectat :",
+    "DANGER_ALERT_SECOND_PAGE": "Se recomandă să se efectueze înlocuirea elementelor suplimentare asupra sistemului corespunzător"
+  },
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "zonă climatică",

@@ -33,6 +33,12 @@
     "BACK": "Back",
     "LETTER_M": "m"
   },
+  "danger-alert": {
+    "PRODUCT": "construction",
+    "IGNORE": "Continue",
+    "DANGER_ALERT_FIRST_PAGE": "Attention! These additional elements do not correspond to the selected profile system :",
+    "DANGER_ALERT_SECOND_PAGE": "It is recommended to perform the replacement of additional elements on the corresponding system"
+  },
   "login": {
     "ENTER": "To enter",
     "PASS_CODE": "You will reveal to this code the manager.",
