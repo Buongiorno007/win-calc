@@ -504,7 +504,6 @@
 
               /** background */
               if (GlobalStor.global.currOpenPage === 'main' && GlobalStor.global.activePanel === 0) {
-                console.log('activePanel = 0')
                 elementsRoom(heightT, widthT);
                 backgroundSVG(heightT, widthT);
               } else if (heightT !== GlobalStor.global.heightCheck || widthT !== GlobalStor.global.widthCheck) {
