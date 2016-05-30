@@ -1651,6 +1651,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '66a516f865fca1c921dba625ede4a693',
             '7cebd0178b69b2e88774529e1e59a7b0',
             'ad1df793247a0e650d0d7166341b8d97',
+            'ffc14b7acfd31440e19d0431d4ab0cba',
+            '4736b2b496ba3de748c6eea6c6b9ca65',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1697,6 +1699,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '1000007',
             '1000008',
             '1000009',
+            'wd-op',
+            'op1',
 
             '000001',
             '000002',
@@ -1743,6 +1747,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '1000007',
             '1000008',
             '1000009',
+            'wd-op',
+            'op1op1',
 
             '000001',
             '000002',
@@ -6492,11 +6498,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             });
 
             if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
-              mainSVG.call(d3.behavior.zoom()
+              //disable scrolling and displacement
+          /*  mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
-                .on("zoom", zooming));
+                .on("zoom", zooming));*/
             }
 
             /** Defs */
@@ -9338,11 +9345,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       // localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      //serverIP: 'http://api.steko.com.ua',
+      //printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -21457,6 +21464,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       // console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       // console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       // console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
+
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
