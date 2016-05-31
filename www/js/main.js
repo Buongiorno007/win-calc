@@ -244,7 +244,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     CartMenuServ.calculateOrderPrice();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
-
     //-------- return from Main Page
     if(GlobalStor.global.prevOpenPage === 'main') {
       //----- cleaning product
@@ -13060,7 +13059,7 @@ function ErrorResult(code, message) {
         localDB.tablesLocalDB.orders.tableName, {
           'id': HistoryStor.history.orderEditNumber
         },
-         'order_type, order_style, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
+         'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_maxcustomer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
        ).then(function(result) {
           //console.log('result' , result)
           deferred.resolve(result);

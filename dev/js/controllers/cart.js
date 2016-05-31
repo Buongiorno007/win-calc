@@ -95,7 +95,6 @@
     CartMenuServ.calculateOrderPrice();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
-
     //-------- return from Main Page
     if(GlobalStor.global.prevOpenPage === 'main') {
       //----- cleaning product
