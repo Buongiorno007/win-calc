@@ -32,6 +32,12 @@
     "BACK": "Back",
     "LETTER_M": "m"
   },
+  "danger-alert": {
+    "PRODUCT": "Konstruktion",
+    "IGNORE": "fortgesetzt",
+    "DANGER_ALERT_FIRST_PAGE": "Achtung! Diese zusätzlichen Elemente entsprechen nicht dem ausgewählten Profilsystem :",
+    "DANGER_ALERT_SECOND_PAGE": "Es wird empfohlen, den Austausch von zusätzlichen Elementen auf dem entsprechenden System durchzuführen "
+  },
   "login": {
     "ENTER": "Einloggen",
     "PASS_CODE": "Teilen Sie diesen Kode dem Manager mit.",

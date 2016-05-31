@@ -460,11 +460,12 @@
             });
 
             if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
-              mainSVG.call(d3.behavior.zoom()
+              //disable scrolling and displacement
+          /*  mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
-                .on("zoom", zooming));
+                .on("zoom", zooming));*/
             }
 
             /** Defs */

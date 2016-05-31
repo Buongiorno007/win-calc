@@ -33,6 +33,12 @@
     "BACK": "Back",
     "LETTER_M": "m"
   },
+  "danger-alert": {
+    "PRODUCT": "progetto",
+    "IGNORE": "Continuare",
+    "DANGER_ALERT_FIRST_PAGE": "Attenzione ! Questi elementi aggiuntivi non corrispondono al sistema profilo selezionato :",
+    "DANGER_ALERT_SECOND_PAGE": "Si consiglia di effettuare la sostituzione di elementi aggiuntivi sul corrispondente sistema"
+  },
   "login": {
     "ENTER": "Entrare",
     "PASS_CODE": "Comunicate il codice al manager.",

@@ -244,7 +244,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     CartMenuServ.calculateOrderPrice();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
-
     //-------- return from Main Page
     if(GlobalStor.global.prevOpenPage === 'main') {
       //----- cleaning product
@@ -1651,6 +1650,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '66a516f865fca1c921dba625ede4a693',
             '7cebd0178b69b2e88774529e1e59a7b0',
             'ad1df793247a0e650d0d7166341b8d97',
+            'ffc14b7acfd31440e19d0431d4ab0cba',
+            '4736b2b496ba3de748c6eea6c6b9ca65',
 
             '04fc711301f3c784d66955d98d399afb',
             '768c1c687efe184ae6dd2420710b8799',
@@ -1697,6 +1698,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '1000007',
             '1000008',
             '1000009',
+            'wd-op',
+            'op1',
 
             '000001',
             '000002',
@@ -1743,6 +1746,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '1000007',
             '1000008',
             '1000009',
+            'wd-op',
+            'op1op1',
 
             '000001',
             '000002',
@@ -4441,8 +4446,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         }
         GlobalStor.global.isAlertHistory = 0;
       } else {
-        console.log('scroll')
-          window.scrollTo(0, 0)
+          $('.page-form').scrollTop(0);
           GlobalStor.global.isAlertHistory = 1;
           console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }
@@ -6492,11 +6496,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             });
 
             if (scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
-              mainSVG.call(d3.behavior.zoom()
+              //disable scrolling and displacement
+          /*  mainSVG.call(d3.behavior.zoom()
                 .translate([position.x, position.y])
                 .scale(scale)
                 .scaleExtent([0, 8])
-                .on("zoom", zooming));
+                .on("zoom", zooming));*/
             }
 
             /** Defs */
@@ -9338,12 +9343,12 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      // localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      localPath: '/local/', //TODO ipad
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      localPath: '/calculator/local/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -13054,7 +13059,7 @@ function ErrorResult(code, message) {
         localDB.tablesLocalDB.orders.tableName, {
           'id': HistoryStor.history.orderEditNumber
         },
-         'order_type, order_style, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
+         'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_maxcustomer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
        ).then(function(result) {
           //console.log('result' , result)
           deferred.resolve(result);
@@ -21457,6 +21462,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       // console.log('HistoryStor.history.orders', HistoryStor.history.orders)
       // console.log('HistoryStor.history.isBoxDopElem', HistoryStor.history.isBoxDopElem)
       // console.log('HistoryStor.history.infoOrder', HistoryStor.history.infoOrder)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8fcddf53e0f04403fbea660ba7ab2a6fe735bcc9
       var ordersQty = HistoryStor.history.isBoxArray.length, ord,
           laminatQty = GlobalStor.global.laminatCouples.length, glb,
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
