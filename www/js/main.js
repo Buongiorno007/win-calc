@@ -4278,16 +4278,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.itemsForLists = itemsForLists;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
-      thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
-      thisCtrl.errorChecking = RecOrderServ.errorChecking;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
-      thisCtrl.templateSource = RecOrderServ.templateSource;
-      thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
-      thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
-      thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
-      thisCtrl.extendHardware = RecOrderServ.extendHardware;
-      thisCtrl.extendProfile = RecOrderServ.extendProfile;
-      thisCtrl.extendGlass = RecOrderServ.extendGlass;
   });
 })();
 
@@ -13007,7 +12998,7 @@ function ErrorResult(code, message) {
         localDB.tablesLocalDB.orders.tableName, {
           'id': HistoryStor.history.orderEditNumber
         },
-         'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_maxcustomer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
+         'order_type, order_style, discount_construct, discount_addelem, discount_construct_max, discount_addelem_max, customer_address, customer_age, customer_city, customer_city_id, customer_education, customer_flat, customer_floor, customer_house, customer_infoSource, customer_location, customer_name, customer_occupation, customer_phone, customer_sex'
        ).then(function(result) {
           //console.log('result' , result)
           deferred.resolve(result);
@@ -21674,7 +21665,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
           profilesQty = GlobalStor.global.profiles.length, glbp,
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
-
+          console.log(HistoryStor.history.infoOrder, '1')
       for(var u=0; u<HistoryStor.history.infoOrder.length; u+=1) {
         HistoryStor.history.information = []
         HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
@@ -21890,11 +21881,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             HistoryStor.history.isBoxDop.block_id = block;
             HistoryStor.history.isBoxDop.element_type = ind;
             pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+            console.log(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind, 'do')
           }
         }
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
+      console.log(currProduct, currElement, ind, 'currProduct, currElement, ind')
       var index = ind,
           existedElement;
       currProduct.chosenAddElements[index].push(currElement);

@@ -28,7 +28,7 @@
           hardwaresQty = GlobalStor.global.hardwares.length, glbl,
           profilesQty = GlobalStor.global.profiles.length, glbp,
           glassesQty = GlobalStor.global.glassesAll.length, glbg;
-
+          console.log(HistoryStor.history.infoOrder, '1')
       for(var u=0; u<HistoryStor.history.infoOrder.length; u+=1) {
         HistoryStor.history.information = []
         HistoryStor.history.information = angular.copy(HistoryStor.history.infoOrder[u])
@@ -244,11 +244,13 @@
             HistoryStor.history.isBoxDop.block_id = block;
             HistoryStor.history.isBoxDop.element_type = ind;
             pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
+            console.log(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind, 'do')
           }
         }
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
+      console.log(currProduct, currElement, ind, 'currProduct, currElement, ind')
       var index = ind,
           existedElement;
       currProduct.chosenAddElements[index].push(currElement);

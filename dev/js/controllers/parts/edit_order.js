@@ -186,15 +186,6 @@
       thisCtrl.itemsForLists = itemsForLists;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
-      thisCtrl.extendAddElem = RecOrderServ.extendAddElem;
-      thisCtrl.errorChecking = RecOrderServ.errorChecking;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
-      thisCtrl.templateSource = RecOrderServ.templateSource;
-      thisCtrl.nameListLaminat = RecOrderServ.nameListLaminat;
-      thisCtrl.nameListGlasses = RecOrderServ.nameListGlasses;
-      thisCtrl.extendLaminat = RecOrderServ.extendLaminat;
-      thisCtrl.extendHardware = RecOrderServ.extendHardware;
-      thisCtrl.extendProfile = RecOrderServ.extendProfile;
-      thisCtrl.extendGlass = RecOrderServ.extendGlass;
   });
 })();
