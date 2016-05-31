@@ -16,7 +16,8 @@
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    GlassesServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -49,19 +50,6 @@
 
 
     /**============ METHODS ================*/
-
-    /**-------- Select glass --------*/
-    function selectGlass(newId, newName) {
-      GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
-      GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
-      GlobalStor.global.selectGlassId = newId;
-      GlobalStor.global.selectGlassName = newName;
-      //----- open glass selector dialog
-      GlobalStor.global.showGlassSelectorDialog = 1;
-      DesignServ.initAllGlassXGlass();
-    }
-
-
 
     function changePriceAsNewGlass () {
       var hardwareIds;
@@ -158,7 +146,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
-    thisCtrl.selectGlass = selectGlass;
+    thisCtrl.selectGlass = GlassesServ.selectGlass;
     thisCtrl.confirmGlass = confirmGlass;
     thisCtrl.setGlassToAll = setGlassToAll;
     thisCtrl.closeGlassSelectorDialog = DesignServ.closeGlassSelectorDialog;

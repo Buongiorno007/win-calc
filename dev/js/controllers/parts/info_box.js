@@ -5,7 +5,7 @@
     .module('MainModule')
     .controller('infoBoxCtrl',
 
-  function(GlobalStor) {
+  function(GlobalStor, InfoBoxServ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -26,6 +26,7 @@
     /**========== FINISH ==========*/
     //------ clicking
     thisCtrl.closeInfoBox = closeInfoBox;
+    thisCtrl.isApply = InfoBoxServ.isApply;
 
 
   });

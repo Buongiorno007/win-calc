@@ -17,7 +17,8 @@
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    InfoBoxServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -104,6 +105,9 @@
           GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
         }
       }
+      if(GlobalStor.global.activePanel !== 0) {
+        InfoBoxServ.autoShowInfoBox(id);
+      }
     }
 
     function saveProduct() {
@@ -176,6 +180,7 @@
     /**========== FINISH ==========*/
 
     //------ clicking
+    thisCtrl.autoShowInfoBox = InfoBoxServ.autoShowInfoBox;
     thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
