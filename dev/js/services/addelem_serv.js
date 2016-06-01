@@ -13,7 +13,8 @@
     AddElementMenuServ,
     GlobalStor,
     ProductStor,
-    AuxStor
+    AuxStor,
+    DesignServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -88,10 +89,6 @@
       }
     }
 
-
-
-
-
     /**------------- Select Add Element Parameter --------------*/
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
@@ -125,9 +122,6 @@
         }
       }
     }
-
-
-
     // Open Add Elements in List View
     function viewSwitching() {
       //playSound('swip');
@@ -142,8 +136,6 @@
         AddElementMenuServ.finishCalculators();
       }
     }
-
-
     function openAddElementListView() {
       AuxStor.aux.isAddElementListView = 1;
       viewSwitching();
@@ -153,9 +145,6 @@
       AuxStor.aux.isAddElementListView = 0;
       viewSwitching();
     }
-
-
-
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
@@ -216,16 +205,59 @@
       //console.info(AuxStor.aux.addElementGroups);
     }
 
+    //---------selected addElem
+    function selectAddElem(typeId, elementId, clickEvent) {
+      console.log(AuxStor.aux, 'AuxStor.aux.addElementsList')
+      if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
+        $('#'+typeId+'prod'+elementId).css({
+                    'color' : '#0079ff'
+                     })
+      } else if (elementId !== AuxStor.aux.trfal) {
+        $('#'+AuxStor.aux.trfal).css({
+                    'color' : '#363636'
+                     }),
+        $('#'+typeId+'prod'+elementId).css({
+              'color' : '#0079ff'
+                     })
+      }
+          AuxStor.aux.trfal = typeId+'prod'+elementId
 
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
+      } else {
+        /** if ListView is opened */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        }
+      }
+    }
 
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
+      selectAddElem: selectAddElem,
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
-      createAddElementGroups: createAddElementGroups
+      createAddElementGroups: createAddElementGroups,
+      downloadAddElementsData: downloadAddElementsData
     };
 
     return thisFactory.publicObj;

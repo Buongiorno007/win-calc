@@ -429,6 +429,7 @@
     //--------- when we select new addElement, function checks
     // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
+      console.log(elementsArr, currElement)
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
         if(elementsArr[elementsQty].id === currElement.id) {
@@ -464,6 +465,7 @@
 
 
     function pushSelectedAddElement(currProduct, currElement) {
+      console.log(AuxStor.aux.isFocusedAddElement, 'AuxStor.aux.isFocusedAddElement')
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
@@ -560,6 +562,7 @@
 
 
     function getAddElementPrice(typeIndex, elementIndex) {
+      console.log(typeIndex, elementIndex, 'dsdsdsds')
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
@@ -774,6 +777,7 @@
       deleteAllAddElements: deleteAllAddElements,
       finishCalculators: finishCalculators,
       takeAddElemFilt: takeAddElemFilt,
+      pushSelectedAddElement:pushSelectedAddElement,
       //---- grid
       confirmGrid: confirmGrid,
       setGridToAll: setGridToAll,

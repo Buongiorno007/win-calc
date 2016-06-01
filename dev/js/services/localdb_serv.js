@@ -2666,6 +2666,8 @@
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
         priceObj.consist = angular.copy(result);
+        console.log('result2', result)
+
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
@@ -2676,8 +2678,8 @@
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
               priceObj.kitsElem = angular.copy(kitsElem);
               //console.warn('kitsElem!!!!!!+', kitsElem);
-
               parseConsistElem([priceObj.consist]).then(function(consist){
+
                 //console.warn('consistElem!!!!!!+', consist[0]);
                 priceObj.consistElem = angular.copy(consist[0]);
                 if (AddElement.elementWidth > 0) {

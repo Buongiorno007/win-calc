@@ -2435,47 +2435,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**---------- common function to select addElem in 2 cases --------*/
 
-    function selectAddElement(typeId, elementId, clickEvent) {
-      if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
-        $('#'+typeId+'prod'+elementId).css({
-                    'color' : '#0079ff'
-                     })
-      } else if (elementId !== AuxStor.aux.trfal) {
-        $('#'+AuxStor.aux.trfal).css({
-                    'color' : '#363636'
-                     }),
-        $('#'+typeId+'prod'+elementId).css({
-              'color' : '#0079ff'
-                     })
-      }
-          AuxStor.aux.trfal = typeId+'prod'+elementId
 
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        AddElementMenuServ.finishCalculators();
-      }
-      /** if grid, show grid selector dialog */
-      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
-        if(ProductStor.product.is_addelem_only) {
-          /** without window */
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
-        } else {
-          /** show Grid Selector Dialog */
-          AuxStor.aux.selectedGrid = [typeId, elementId];
-          AuxStor.aux.isGridSelectorDialog = 1;
-          AuxStor.aux.isAddElement = typeId+'-'+elementId;
-          DesignServ.initAllGlassXGrid();
-        }
-      } else {
-        /** if ListView is opened */
-        if (AuxStor.aux.isAddElementListView) {
-          selectAddElementList(typeId, elementId, clickEvent);
-        } else {
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
-        }
-      }
-
-    }
 
 
 
@@ -2486,7 +2446,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
-    thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
     thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
@@ -7446,6 +7406,7 @@ function ErrorResult(code, message) {
     //--------- when we select new addElement, function checks
     // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
+      console.log(elementsArr, currElement)
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
         if(elementsArr[elementsQty].id === currElement.id) {
@@ -7481,6 +7442,7 @@ function ErrorResult(code, message) {
 
 
     function pushSelectedAddElement(currProduct, currElement) {
+      console.log(AuxStor.aux.isFocusedAddElement, 'AuxStor.aux.isFocusedAddElement')
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
@@ -7577,6 +7539,7 @@ function ErrorResult(code, message) {
 
 
     function getAddElementPrice(typeIndex, elementIndex) {
+      console.log(typeIndex, elementIndex, 'dsdsdsds')
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
@@ -7791,6 +7754,7 @@ function ErrorResult(code, message) {
       deleteAllAddElements: deleteAllAddElements,
       finishCalculators: finishCalculators,
       takeAddElemFilt: takeAddElemFilt,
+      pushSelectedAddElement:pushSelectedAddElement,
       //---- grid
       confirmGrid: confirmGrid,
       setGridToAll: setGridToAll,
@@ -7829,7 +7793,8 @@ function ErrorResult(code, message) {
     AddElementMenuServ,
     GlobalStor,
     ProductStor,
-    AuxStor
+    AuxStor,
+    DesignServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -7904,10 +7869,6 @@ function ErrorResult(code, message) {
       }
     }
 
-
-
-
-
     /**------------- Select Add Element Parameter --------------*/
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
@@ -7941,9 +7902,6 @@ function ErrorResult(code, message) {
         }
       }
     }
-
-
-
     // Open Add Elements in List View
     function viewSwitching() {
       //playSound('swip');
@@ -7958,8 +7916,6 @@ function ErrorResult(code, message) {
         AddElementMenuServ.finishCalculators();
       }
     }
-
-
     function openAddElementListView() {
       AuxStor.aux.isAddElementListView = 1;
       viewSwitching();
@@ -7969,9 +7925,6 @@ function ErrorResult(code, message) {
       AuxStor.aux.isAddElementListView = 0;
       viewSwitching();
     }
-
-
-
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
       var groupNamesQty = GeneralServ.addElementDATA.length,
@@ -8032,16 +7985,59 @@ function ErrorResult(code, message) {
       //console.info(AuxStor.aux.addElementGroups);
     }
 
+    //---------selected addElem
+    function selectAddElem(typeId, elementId, clickEvent) {
+      console.log(AuxStor.aux, 'AuxStor.aux.addElementsList')
+      if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
+        $('#'+typeId+'prod'+elementId).css({
+                    'color' : '#0079ff'
+                     })
+      } else if (elementId !== AuxStor.aux.trfal) {
+        $('#'+AuxStor.aux.trfal).css({
+                    'color' : '#363636'
+                     }),
+        $('#'+typeId+'prod'+elementId).css({
+              'color' : '#0079ff'
+                     })
+      }
+          AuxStor.aux.trfal = typeId+'prod'+elementId
 
+      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
+        /** calc Price previous parameter and close caclulators */
+        AddElementMenuServ.finishCalculators();
+      }
+      /** if grid, show grid selector dialog */
+      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
+        if(ProductStor.product.is_addelem_only) {
+          /** without window */
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        } else {
+          /** show Grid Selector Dialog */
+          AuxStor.aux.selectedGrid = [typeId, elementId];
+          AuxStor.aux.isGridSelectorDialog = 1;
+          AuxStor.aux.isAddElement = typeId+'-'+elementId;
+          DesignServ.initAllGlassXGrid();
+        }
+      } else {
+        /** if ListView is opened */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        }
+      }
+    }
 
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
+      selectAddElem: selectAddElem,
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
-      createAddElementGroups: createAddElementGroups
+      createAddElementGroups: createAddElementGroups,
+      downloadAddElementsData: downloadAddElementsData
     };
 
     return thisFactory.publicObj;
@@ -13400,7 +13396,12 @@ function ErrorResult(code, message) {
     GlobalStor,
     ProfileServ,
     GlassesServ,
-    HardwareServ
+    HardwareServ,
+    AddElementsServ,
+    ProductStor,
+    AddElementMenuServ,
+    AuxStor,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -13411,17 +13412,26 @@ function ErrorResult(code, message) {
     function autoShowInfoBox(ids) {
       var tempObj = {};
       var itemArr = [];
-      if(ids === 3) {
+      if(ids === 3 && GlobalStor.global.inform !==3) {
         var id = 311891,
           itemArr = GlobalStor.global.glasses;
       }
-      if(ids === 4) {
+      if(ids === 4 && GlobalStor.global.inform !==4) {
         var id = 275,
           itemArr = GlobalStor.global.hardwares;
       }
-      if(ids === 2) {
+      if(ids === 2 && GlobalStor.global.inform !==2) {
         var id = 345,
           itemArr = GlobalStor.global.profiles;
+      }
+      if(ids === 6 && GlobalStor.global.inform !==6) {
+        var id = 297434,
+        itemArr = [];
+        for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
+          for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
+            itemArr.push(GlobalStor.global.addElementsAll[i].elementsList[d])
+          }
+        }
       }
       if(itemArr.length > 0) {
         for(var i=0; i<itemArr.length; i+=1) {
@@ -13453,6 +13463,10 @@ function ErrorResult(code, message) {
       if(GlobalStor.global.activePanel === 4) {
         var id = 275;
         HardwareServ.selectHardware(id);
+
+      }
+      if(GlobalStor.global.activePanel === 6) {
+        addElemSelected();
       }
       GlobalStor.global.isInfoBox = 0;
       GlobalStor.global.infoTitle = '';
@@ -13460,11 +13474,70 @@ function ErrorResult(code, message) {
       GlobalStor.global.infoLink = '';
       GlobalStor.global.infoDescrip = '';
     }
+    function addElemSelected () {
+      var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999];
+      var addElem = objAdd;
+      var fan = 0;
+      var typeId;
+      var elementId;
+      for(var i=0; i<id.length; i+=1) {
+        if(addElem.list_group_id === id[i]) {
+          fan = i+1;
+          break
+        }
+      }
+      AddElementsServ.downloadAddElementsData(fan)
+      for(var v=0; v<AuxStor.aux.addElementsList.length; v+=1) {
+        for(var z=0; z<AuxStor.aux.addElementsList[v].length; z+=1) {
+          if(addElem.id === AuxStor.aux.addElementsList[v][z].id) {
+            typeId = v;
+            elementId = z;
+          }
+        }
+      }
+      AuxStor.aux.isFocusedAddElement = elementId;
+      AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+      //AuxStor.aux.isTabFrame = true;
+      AddElementsServ.selectAddElem(typeId, elementId, undefined)
+    }
+    var objAdd = {
+      a: 0,
+      add_color_id: 1,
+      addition_folder_id: 0,
+      amendment_pruning: 0,
+      b: 0,
+      beed_lamination_id: 1,
+      c: 0,
+      cameras : 1,
+      d: 0,
+      description: "",
+      doorstep_type: 1,
+      element_height: 0,
+      element_price: 0.38,
+      element_qty: 1,
+      element_width: 0,
+      glass_image: 1,
+      glass_type: 1,
+      id: 297434,
+      img: "http://api.windowscalculator.net/local_storage/set/6393ru4ki_veka_euroline.png",
+      in_door: 0,
+      link: "",
+      list_group_id: 24,
+      list_type_id: 23,
+      modified: "2015-12-01T11:19:41.061Z",
+      name: "Ручка окон.коричн.",
+      parent_element_id: 392714,
+      position: 0,
+      waste: 0,
+    }
+
+
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
     isApply: isApply,
-    autoShowInfoBox: autoShowInfoBox
+    autoShowInfoBox: autoShowInfoBox,
+    addElemSelected: addElemSelected
     };
 
     return thisFactory.publicObj;
@@ -16193,6 +16266,8 @@ function ErrorResult(code, message) {
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
         priceObj.consist = angular.copy(result);
+        console.log('result2', result)
+
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
@@ -16203,8 +16278,8 @@ function ErrorResult(code, message) {
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
               priceObj.kitsElem = angular.copy(kitsElem);
               //console.warn('kitsElem!!!!!!+', kitsElem);
-
               parseConsistElem([priceObj.consist]).then(function(consist){
+
                 //console.warn('consistElem!!!!!!+', consist[0]);
                 priceObj.consistElem = angular.copy(consist[0]);
                 if (AddElement.elementWidth > 0) {
@@ -19002,7 +19077,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-        console.log(itemArr, 'itemArr')
+        console.log(id, itemArr, 'itemArr')
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};
@@ -25869,6 +25944,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         isLoader: 0,
         isLoader2: 0,
         isLoader3: 0,
+        inform: 0,
         dangerAlert: 0,
         gotoSettingsPage: 0,
         startProgramm: 1, // for START

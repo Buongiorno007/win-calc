@@ -121,47 +121,7 @@
 
     /**---------- common function to select addElem in 2 cases --------*/
 
-    function selectAddElement(typeId, elementId, clickEvent) {
-      if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
-        $('#'+typeId+'prod'+elementId).css({
-                    'color' : '#0079ff'
-                     })
-      } else if (elementId !== AuxStor.aux.trfal) {
-        $('#'+AuxStor.aux.trfal).css({
-                    'color' : '#363636'
-                     }),
-        $('#'+typeId+'prod'+elementId).css({
-              'color' : '#0079ff'
-                     })
-      }
-          AuxStor.aux.trfal = typeId+'prod'+elementId
 
-      if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
-        /** calc Price previous parameter and close caclulators */
-        AddElementMenuServ.finishCalculators();
-      }
-      /** if grid, show grid selector dialog */
-      if(GlobalStor.global.currOpenPage === 'main' && AuxStor.aux.isFocusedAddElement === 1) {
-        if(ProductStor.product.is_addelem_only) {
-          /** without window */
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
-        } else {
-          /** show Grid Selector Dialog */
-          AuxStor.aux.selectedGrid = [typeId, elementId];
-          AuxStor.aux.isGridSelectorDialog = 1;
-          AuxStor.aux.isAddElement = typeId+'-'+elementId;
-          DesignServ.initAllGlassXGrid();
-        }
-      } else {
-        /** if ListView is opened */
-        if (AuxStor.aux.isAddElementListView) {
-          selectAddElementList(typeId, elementId, clickEvent);
-        } else {
-          AddElementMenuServ.chooseAddElement(typeId, elementId);
-        }
-      }
-
-    }
 
 
 
@@ -172,7 +132,7 @@
 
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
-    thisCtrl.selectAddElement = selectAddElement;
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
     thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;

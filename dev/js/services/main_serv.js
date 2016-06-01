@@ -1088,7 +1088,7 @@
 
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-        console.log(itemArr, 'itemArr')
+        console.log(id, itemArr, 'itemArr')
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};
