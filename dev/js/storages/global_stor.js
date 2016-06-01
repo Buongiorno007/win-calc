@@ -26,7 +26,8 @@
         isLoader: 0,
         isLoader2: 0,
         isLoader3: 0,
-        inform: 0,
+        inform: [],
+        checkSashInTemplate: 0,
         dangerAlert: 0,
         gotoSettingsPage: 0,
         startProgramm: 1, // for START

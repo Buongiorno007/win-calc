@@ -320,6 +320,7 @@
       while(--templQty > 0) {
         if(template.details[templQty].blockType === 'sash') {
           counter+=1;
+          GlobalStor.global.checkSashInTemplate = counter;
         }
       }
       return counter;

@@ -106,7 +106,7 @@
         }
       }
       if(GlobalStor.global.activePanel !== 0) {
-        InfoBoxServ.autoShowInfoBox(id);
+        InfoBoxServ.autoShow(id);
       }
     }
 

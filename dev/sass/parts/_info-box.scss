@@ -20,7 +20,7 @@
 
   .info_box_inner{
     width: 100%;
-    height: 100%;
+    height: 92%;
     overflow-y: auto;
     text-align: center;
     color: $main_gray_txt;
@@ -49,11 +49,15 @@
   }
 
   .isApply {
-    height: 7%;
+    height: 9%;
     position: relative;
-    width: 40%;
-    left: 30%;
-    top: -3rem;
+    width: 50%;
+    left: 25%;
+    line-height: 6rem;
+    text-align: center;
+    font-size: x-large;
+    border-radius: 1.5rem;
+    color: white;
     background: #f98000;
   }
 }

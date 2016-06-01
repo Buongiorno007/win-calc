@@ -9,6 +9,7 @@
     $location,
     $filter,
     $q,
+    $timeout,
     GlobalStor,
     ProfileServ,
     GlassesServ,
@@ -25,30 +26,47 @@
 
     /**============ METHODS ================*/
 
-    function autoShowInfoBox(ids) {
-      var tempObj = {};
-      var itemArr = [];
-      if(ids === 3 && GlobalStor.global.inform !==3) {
+    function autoShow(ids) {
+      $timeout(function() {
+        infoBox(ids)
+      }, 4000);
+    }
+    function infoBox(ids) {
+      var qtyCheck = GlobalStor.global.inform,
+          tempObj = {},
+          itemArr = [],
+          k = ids;
+
+      for(var i=0; i<qtyCheck.length; i+=1) {
+        if(ids === qtyCheck[i]) {
+          k = 0;
+        }
+      }
+
+      if(ids === 3 && k === 3) {
         var id = 311891,
           itemArr = GlobalStor.global.glasses;
+          console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
-      if(ids === 4 && GlobalStor.global.inform !==4) {
+      if(ids === 4 && k === 4 && GlobalStor.global.checkSashInTemplate > 0) {
         var id = 275,
           itemArr = GlobalStor.global.hardwares;
       }
-      if(ids === 2 && GlobalStor.global.inform !==2) {
+      if(ids === 2 && k === 2) {
         var id = 345,
           itemArr = GlobalStor.global.profiles;
       }
-      if(ids === 6 && GlobalStor.global.inform !==6) {
+      if(ids === 6 && k === 6) {
         var id = 297434,
         itemArr = [];
+
         for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
           for(var d = 0; d<GlobalStor.global.addElementsAll[i].elementsList.length; d+=1) {
             itemArr.push(GlobalStor.global.addElementsAll[i].elementsList[d])
           }
         }
       }
+
       if(itemArr.length > 0) {
         for(var i=0; i<itemArr.length; i+=1) {
           for(var y=0; y<itemArr[i].length; y+=1) {
@@ -69,20 +87,24 @@
     }
     function isApply() {
       if(GlobalStor.global.activePanel === 2) {
-        ProfileServ.checkForAddElem();
+        var id = 345;
+        ProfileServ.checkForAddElem(id);
+        GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
         var id = 311891;
         var name =  'cтекло'
         GlassesServ.selectGlass(id, name);
+        GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
         var id = 275;
         HardwareServ.selectHardware(id);
-
+        GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 6) {
         addElemSelected();
+        GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       GlobalStor.global.isInfoBox = 0;
       GlobalStor.global.infoTitle = '';
@@ -147,12 +169,12 @@
       waste: 0,
     }
 
-
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
     isApply: isApply,
-    autoShowInfoBox: autoShowInfoBox,
+    infoBox: infoBox,
+    autoShow: autoShow,
     addElemSelected: addElemSelected
     };
 
