@@ -21796,8 +21796,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
       }
-
-      for(ord = 0; ord < ordersQty; ord+=1) {
+      for(ord = 0; ord < ordersQty; ord +=1) {
         HistoryStor.history.isBoxArray[ord].chosenAddElements = [
           [], // 0 - grids
           [], // 1 - visors
@@ -21818,6 +21817,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           [], // 16 - vis 
           []  // 17 - spil 
         ];
+      }
+      for(ord = 0; ord < ordersQty; ord+=1) {
         if(HistoryStor.history.isBoxArray[ord].glass_id !== "") {
         //================NameList for select================//
           for(glbl = 0; glbl < hardwaresQty; glbl+=1) {
@@ -21986,13 +21987,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             HistoryStor.history.isBoxDop.block_id = block;
             HistoryStor.history.isBoxDop.element_type = ind;
             pushSelectedAddElement(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind)
-            console.log(HistoryStor.history.isBoxArray[ord], HistoryStor.history.isBoxDop, ind, 'do')
           }
         }
       }
     }
     function pushSelectedAddElement(currProduct, currElement, ind) {
-      console.log(currProduct, currElement, ind, 'currProduct, currElement, ind')
       var index = ind,
           existedElement;
       currProduct.chosenAddElements[index].push(currElement);
@@ -22360,7 +22359,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       });
       $q.all(promises).then(function(result) {
         HistoryStor.history.dataProfiles = angular.copy(result)
-        console.log('result', result)
       })
     }
     function alert() {
