@@ -291,7 +291,7 @@ gulp.task('prod', function() {
 
 
 var server = config.server; 
-// var server = config.serverSteko;
+//var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

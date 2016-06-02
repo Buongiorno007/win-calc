@@ -3744,7 +3744,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     globalConstants,
     GlobalStor,
     ProductStor,
-    ProfileServ
+    ProfileServ,
+    MainServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -3772,6 +3773,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
     thisCtrl.profileForAlert = ProfileServ.profileForAlert;
     thisCtrl.selectProfile = ProfileServ.selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
   });
 })();
@@ -9158,10 +9160,10 @@ function ErrorResult(code, message) {
     .constant('globalConstants', {
       serverIP: 'http://api.windowscalculator.net',
       printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      localPath: '/calculator/local/',
+      // localPath: '/calculator/local/',
       // serverIP: 'http://api.steko.com.ua',
       // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      // localPath: '/local/', //TODO ipad
+      localPath: '/local/', //TODO ipad
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -13435,7 +13437,7 @@ function ErrorResult(code, message) {
       // }
 
       if(ids === 3 && k === 3) {
-        var id = 312393,
+        var id = 324773,
           itemArr = GlobalStor.global.glasses;
           console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
@@ -13483,7 +13485,7 @@ function ErrorResult(code, message) {
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 312393;
+        var id = 324773;
         var name =  'cтекло'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)

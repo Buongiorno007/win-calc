@@ -44,7 +44,7 @@
       // }
 
       if(ids === 3 && k === 3) {
-        var id = 312393,
+        var id = 324773,
           itemArr = GlobalStor.global.glasses;
           console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
@@ -92,7 +92,7 @@
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 312393;
+        var id = 324773;
         var name =  'cтекло'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
