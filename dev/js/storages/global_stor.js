@@ -23,6 +23,7 @@
         continued: 0,
         checkAlert: 0,
         loader: 0,
+        setTimeout: 0,
         isLoader: 0,
         isLoader2: 0,
         isLoader3: 0,

@@ -8,6 +8,7 @@
   function(
     $location,
     $filter,
+    $timeout,
     globalConstants,
     GeneralServ,
     MainServ,
@@ -105,8 +106,11 @@
           GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
         }
       }
-      if(GlobalStor.global.activePanel !== 0) {
-        InfoBoxServ.autoShow(id);
+      if(GlobalStor.global.activePanel !== 0 && GlobalStor.global.setTimeout === 0) {
+        GlobalStor.global.setTimeout = 1;
+        $timeout(function() {
+          InfoBoxServ.autoShow(id);
+        }, 4000);
       }
     }
 

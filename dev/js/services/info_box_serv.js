@@ -9,7 +9,6 @@
     $location,
     $filter,
     $q,
-    $timeout,
     GlobalStor,
     ProfileServ,
     GlassesServ,
@@ -27,9 +26,10 @@
     /**============ METHODS ================*/
 
     function autoShow(ids) {
-      $timeout(function() {
+      GlobalStor.global.setTimeout = 0;
+      if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
         infoBox(ids)
-      }, 4000);
+      }
     }
     function infoBox(ids) {
       var qtyCheck = GlobalStor.global.inform,
@@ -37,23 +37,23 @@
           itemArr = [],
           k = ids;
 
-      for(var i=0; i<qtyCheck.length; i+=1) {
-        if(ids === qtyCheck[i]) {
-          k = 0;
-        }
-      }
+      // for(var i=0; i<qtyCheck.length; i+=1) {
+      //   if(ids === qtyCheck[i]) {
+      //     k = 0;
+      //   }
+      // }
 
       if(ids === 3 && k === 3) {
-        var id = 311891,
+        var id = 312393,
           itemArr = GlobalStor.global.glasses;
           console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
       if(ids === 4 && k === 4 && GlobalStor.global.checkSashInTemplate > 0) {
-        var id = 275,
+        var id = 279,
           itemArr = GlobalStor.global.hardwares;
       }
       if(ids === 2 && k === 2) {
-        var id = 345,
+        var id = 523,
           itemArr = GlobalStor.global.profiles;
       }
       if(ids === 6 && k === 6) {
@@ -87,18 +87,18 @@
     }
     function isApply() {
       if(GlobalStor.global.activePanel === 2) {
-        var id = 345;
+        var id = 523;
         ProfileServ.checkForAddElem(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 311891;
+        var id = 312393;
         var name =  'cтекло'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
-        var id = 275;
+        var id = 279;
         HardwareServ.selectHardware(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
