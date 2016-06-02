@@ -281,6 +281,7 @@ gulp.task('prod', function() {
       doctype: 'html',
       pretty: true
     }))
+    
     .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
     .pipe(gulp.dest(config.build.dest.product));
 });
