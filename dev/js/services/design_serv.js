@@ -744,6 +744,8 @@
 
 
     function setDoorParamValue(product, source) {
+      console.log('designSource', source)
+      console.log('product', product)
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].frame.name +
         '/'+ source.sashShapeList[product.door_sash_shape_id].sash.name;
@@ -765,6 +767,7 @@
 
     /** for start */
     function setDoorConfigDefault(product) {
+      console.log('product', GlobalStor.global.doorKitsT1)
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {

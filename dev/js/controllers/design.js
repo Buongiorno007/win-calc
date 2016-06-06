@@ -386,8 +386,8 @@
 
     /**---------- Select door shape --------*/
 
-    function selectDoor(id) {
-
+    function selectDoor(id) { 
+      console.log(GlobalStor.global.doorKitsT1, 'GlobalStor.global.doorKitsT1')
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';

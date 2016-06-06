@@ -640,7 +640,36 @@
             'cloth_waste INTEGER',
             'foreignKey': ''
           },
+        'doors_groups':{
+            'tableName': 'doors_groups',
+            'prop' :
+            'code_sync_white INTEGER,'+
+            'shtulp_list_id INTEGER,'+
+            'impost_list_id INTEGER,'+
+            'stvorka_list_id INTEGER,'+
+            'door_sill_list_id INTEGER,'+
+            'rama_list_id INTEGER,'+
+            'name VARCHAR,'+
+            'folder_id INTEGER,'+
+            'factory_id INTEGER',
+            'foreignKey': ''  
 
+
+        },
+        'doors_laminations_dependencies':{
+            'tableName': 'doors_laminations_dependencies',
+            'prop' :
+            'group_id INTEGER,'+ 
+            'lamination_in INTEGER,'+ 
+            'lamination_out INTEGER,'+ 
+            'rama_list_id INTEGER,'+ 
+            'door_sill_list_id INTEGER,'+ 
+            'stvorka_list_id INTEGER,'+ 
+            'impost_list_id INTEGER,'+ 
+            'shtulp_list_id INTEGER,'+ 
+            'code_sync VARCHAR',   
+            'foreignKey': ''          
+        },
           'window_hardware_type_ranges':{
             'tableName': 'window_hardware_type_ranges',
             'prop': 'factory_id INTEGER,'+
@@ -795,7 +824,7 @@
                     elem = checkStringToQuote(elem);
                     return "'" + elem + "'";
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], colums, values);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
