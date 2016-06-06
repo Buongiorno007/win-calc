@@ -32,6 +32,9 @@
     "BACK": "Назад",
     "LETTER_M": "м"
   },
+  "natification": {
+    "ASKING_PRICE": "Дізнатись ціну"
+  },
   "login": {
     "ENTER": "Увійти",
     "PASS_CODE": "Повідомте цей код менеджерові.",

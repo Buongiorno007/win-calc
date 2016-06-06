@@ -1262,9 +1262,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           GlobalStor.global.noDoorExist = 1;
         }
       });
+      downloadDoorsGroups();
+      downloadDoorsLamination();
     }
-
-
+    function downloadDoorsGroups() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups.tableName
+      ).then(function(doorData) {
+        GlobalStor.global.doorsGroups = angular.copy(doorData)
+        console.log('GlobalStor.global.doorsGroups', GlobalStor.global.doorsGroups)
+      });
+    }
+    function downloadDoorsLamination() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_laminations_dependencies.tableName
+      ).then(function(doorData) {
+        GlobalStor.global.doorsLaminations = angular.copy(doorData)
+        console.log('GlobalStor.global.doorsLaminations', GlobalStor.global.doorsLaminations)
+      });
+    }
 
 
 

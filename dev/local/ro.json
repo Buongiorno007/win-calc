@@ -32,6 +32,9 @@
     "BACK": "Înapoi",
     "LETTER_M": "m"
   },
+  "natification": {
+    "ASKING_PRICE": " Verificați tarifele"
+  },
   "login": {
     "ENTER": "Intră",
     "PASS_CODE": "Comunicați acest cod managerului.",

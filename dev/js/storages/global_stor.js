@@ -108,6 +108,8 @@
         doorKitsT2: [],
         doorHandlers: [],
         doorLocks: [],
+        doorsGroups: [],
+        doorsLaminations: [],
 
         //------ Cart
         supplyData: [],

@@ -562,7 +562,6 @@
 
 
     function getAddElementPrice(typeIndex, elementIndex) {
-      console.log(typeIndex, elementIndex, 'dsdsdsds')
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {

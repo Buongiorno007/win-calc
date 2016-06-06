@@ -903,8 +903,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**---------- Select door shape --------*/
 
-    function selectDoor(id) {
-
+    function selectDoor(id) { 
+      console.log(GlobalStor.global.doorKitsT1, 'GlobalStor.global.doorKitsT1')
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -7548,7 +7548,6 @@ function ErrorResult(code, message) {
 
 
     function getAddElementPrice(typeIndex, elementIndex) {
-      console.log(typeIndex, elementIndex, 'dsdsdsds')
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       calcAddElemPrice(typeIndex, elementIndex, AuxStor.aux.addElementsList).then(function() {
@@ -9158,12 +9157,13 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      localPath: '/calculator/local/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      // localPath: '/local/', //TODO ipad
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // localPath: '/calculator/local/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      localPath: '/local/', //TODO ipad
+
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -9958,6 +9958,8 @@ function ErrorResult(code, message) {
 
 
     function setDoorParamValue(product, source) {
+      console.log('designSource', source)
+      console.log('product', product)
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].frame.name +
         '/'+ source.sashShapeList[product.door_sash_shape_id].sash.name;
@@ -9979,6 +9981,7 @@ function ErrorResult(code, message) {
 
     /** for start */
     function setDoorConfigDefault(product) {
+      console.log('product', GlobalStor.global.doorKitsT1)
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -13437,16 +13440,16 @@ function ErrorResult(code, message) {
       // }
 
       if(ids === 3 && k === 3) {
-        var id = 324773,
+        var id = 311898,
           itemArr = GlobalStor.global.glasses;
           console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
       if(ids === 4 && k === 4 && GlobalStor.global.checkSashInTemplate > 0) {
-        var id = 279,
+        var id = 281,
           itemArr = GlobalStor.global.hardwares;
       }
       if(ids === 2 && k === 2) {
-        var id = 523,
+        var id = 520,
           itemArr = GlobalStor.global.profiles;
       }
       if(ids === 6 && k === 6) {
@@ -13480,18 +13483,18 @@ function ErrorResult(code, message) {
     }
     function isApply() {
       if(GlobalStor.global.activePanel === 2) {
-        var id = 523;
+        var id = 520;
         ProfileServ.checkForAddElem(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 324773;
-        var name =  'cтекло'
+        var id = 311898;
+        var name =  '4M-16-4'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
-        var id = 279;
+        var id = 281;
         HardwareServ.selectHardware(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
@@ -14271,7 +14274,36 @@ function ErrorResult(code, message) {
             'cloth_waste INTEGER',
             'foreignKey': ''
           },
+        'doors_groups':{
+            'tableName': 'doors_groups',
+            'prop' :
+            'code_sync_white INTEGER,'+
+            'shtulp_list_id INTEGER,'+
+            'impost_list_id INTEGER,'+
+            'stvorka_list_id INTEGER,'+
+            'door_sill_list_id INTEGER,'+
+            'rama_list_id INTEGER,'+
+            'name VARCHAR,'+
+            'folder_id INTEGER,'+
+            'factory_id INTEGER',
+            'foreignKey': ''  
 
+
+        },
+        'doors_laminations_dependencies':{
+            'tableName': 'doors_laminations_dependencies',
+            'prop' :
+            'group_id INTEGER,'+ 
+            'lamination_in INTEGER,'+ 
+            'lamination_out INTEGER,'+ 
+            'rama_list_id INTEGER,'+ 
+            'door_sill_list_id INTEGER,'+ 
+            'stvorka_list_id INTEGER,'+ 
+            'impost_list_id INTEGER,'+ 
+            'shtulp_list_id INTEGER,'+ 
+            'code_sync VARCHAR',   
+            'foreignKey': ''          
+        },
           'window_hardware_type_ranges':{
             'tableName': 'window_hardware_type_ranges',
             'prop': 'factory_id INTEGER,'+
@@ -14426,7 +14458,7 @@ function ErrorResult(code, message) {
                     elem = checkStringToQuote(elem);
                     return "'" + elem + "'";
                   }).join(', ');
-              //console.log('insert ++++', tableKeys[t], colums);
+              //console.log('insert ++++', tableKeys[t], colums, values);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
@@ -17868,9 +17900,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           GlobalStor.global.noDoorExist = 1;
         }
       });
+      downloadDoorsGroups();
+      downloadDoorsLamination();
     }
-
-
+    function downloadDoorsGroups() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups.tableName
+      ).then(function(doorData) {
+        GlobalStor.global.doorsGroups = angular.copy(doorData)
+        console.log('GlobalStor.global.doorsGroups', GlobalStor.global.doorsGroups)
+      });
+    }
+    function downloadDoorsLamination() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_laminations_dependencies.tableName
+      ).then(function(doorData) {
+        GlobalStor.global.doorsLaminations = angular.copy(doorData)
+        console.log('GlobalStor.global.doorsLaminations', GlobalStor.global.doorsLaminations)
+      });
+    }
 
 
 
@@ -26056,6 +26104,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         doorKitsT2: [],
         doorHandlers: [],
         doorLocks: [],
+        doorsGroups: [],
+        doorsLaminations: [],
 
         //------ Cart
         supplyData: [],

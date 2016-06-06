@@ -44,16 +44,16 @@
       // }
 
       if(ids === 3 && k === 3) {
-        var id = 324773,
+        var id = 311898,
           itemArr = GlobalStor.global.glasses;
           console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
       if(ids === 4 && k === 4 && GlobalStor.global.checkSashInTemplate > 0) {
-        var id = 279,
+        var id = 281,
           itemArr = GlobalStor.global.hardwares;
       }
       if(ids === 2 && k === 2) {
-        var id = 523,
+        var id = 520,
           itemArr = GlobalStor.global.profiles;
       }
       if(ids === 6 && k === 6) {
@@ -87,18 +87,18 @@
     }
     function isApply() {
       if(GlobalStor.global.activePanel === 2) {
-        var id = 523;
+        var id = 520;
         ProfileServ.checkForAddElem(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 324773;
-        var name =  'cтекло'
+        var id = 311898;
+        var name =  '4M-16-4'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
-        var id = 279;
+        var id = 281;
         HardwareServ.selectHardware(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
