@@ -36,7 +36,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-value {{ product.template_height }} {{ ::cartPage.MM }}
                       .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                     li.order-item
-                      .order-value {{ product.profile.name }}
+                      .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
+                      .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
                       .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
                     li.order-item
                       .order-value {{ product.glass[0].sku }}

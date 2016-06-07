@@ -1239,23 +1239,18 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function downloadDoorKits() {
       localDB.selectLocalDB(
-        localDB.tablesLocalDB.lists.tableName, {'in_door': 1}, 'id, name, list_group_id, doorstep_type'
+        localDB.tablesLocalDB.lists.tableName, {'list_group_id': 2}, 'id, name, doorstep_type'
       ).then(function(doorData) {
         var door = angular.copy(doorData),
-            doorKitsT1, doorKitsT2,
+            doorKitsT1, profiles = GlobalStor.global.profiles,
             doorQty = door.length;
         if (doorQty) {
           //----- sorting door elements as to doorstep_type
           doorKitsT1 = door.filter(function(item) {
-            return item.doorstep_type === 1;
+            return item.doorstep_type === 1 || item.doorstep_type === 2;
           });
-          doorKitsT2 = door.filter(function(item) {
-            return item.doorstep_type === 2;
-          });
-          //-------- seperate by frame or sash
-          sortingDoorKits(doorKitsT1, GlobalStor.global.doorKitsT1);
-          sortingDoorKits(doorKitsT2, GlobalStor.global.doorKitsT2);
 
+        GlobalStor.global.doorKitsT1 = angular.copy(doorKitsT1);
           /** Handlers */
           downloadDoorHandles();
         } else {
@@ -1270,7 +1265,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         localDB.tablesLocalDB.doors_groups.tableName
       ).then(function(doorData) {
         GlobalStor.global.doorsGroups = angular.copy(doorData)
-        console.log('GlobalStor.global.doorsGroups', GlobalStor.global.doorsGroups)
       });
     }
     function downloadDoorsLamination() {
@@ -1278,7 +1272,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         localDB.tablesLocalDB.doors_laminations_dependencies.tableName
       ).then(function(doorData) {
         GlobalStor.global.doorsLaminations = angular.copy(doorData)
-        console.log('GlobalStor.global.doorsLaminations', GlobalStor.global.doorsLaminations)
       });
     }
 

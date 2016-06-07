@@ -744,17 +744,15 @@
 
 
     function setDoorParamValue(product, source) {
-      console.log('designSource', source)
-      console.log('product', product)
       product.doorName = source.doorShapeList[product.door_shape_id].name;
-      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].frame.name +
-        '/'+ source.sashShapeList[product.door_sash_shape_id].sash.name;
+      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
     }
 
 
     function setNewDoorParamValue(product, source) {
+      console.log(source,  'source')
       //------- save new door config
       product.door_shape_id = source.doorConfig.doorShapeIndex;
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
@@ -767,7 +765,6 @@
 
     /** for start */
     function setDoorConfigDefault(product) {
-      console.log('product', GlobalStor.global.doorKitsT1)
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -783,25 +780,46 @@
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
-
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations)
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups)
+      for(var i=0; i<doorsLaminations.length; i+=1) {
+        if(52 === doorsLaminations[i].lamination_in 
+        && 52 === doorsLaminations[i].lamination_out) {
+          for(var z=0; z<doorsGroups.length; z+=1) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
+              doorsGroups[z].profileId = 345; 
+              break
+            }
+          }
+        }
+      }
       if(!GlobalStor.global.noDoorExist) {
         switch (product.door_shape_id) {
           case 0:
           case 1:
-            if (GlobalStor.global.doorKitsT1.length) {
-              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
-            } else if (GlobalStor.global.doorKitsT2.length) {
-              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            if (doorsGroups.length) {
+              DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
+            } else if (doorsGroups.length) {
+              DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
             }
             break;
           case 2:
-            if (GlobalStor.global.doorKitsT1.length) {
-              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT1;
+            if (doorsGroups.length) {
+              DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 1;
+              });
             }
             break;
           case 3:
-            if (GlobalStor.global.doorKitsT2.length) {
-              DesignStor.designSource.sashShapeList = GlobalStor.global.doorKitsT2;
+            if (doorsGroups.length) {
+              DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 2;
+              });
             }
             break;
         }
