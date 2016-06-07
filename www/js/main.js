@@ -903,14 +903,14 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     /**---------- Select door shape --------*/
 
-    function selectDoor(id) { 
+    function selectDoor(id) {
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
-      for(var i=0; i<doorsLaminations.length; i+=1) {
-        if(52 === doorsLaminations[i].lamination_in 
-        && 52 === doorsLaminations[i].lamination_out) {
-          for(var z=0; z<doorsGroups.length; z+=1) {
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
               doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
@@ -921,7 +921,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               doorsGroups[z].doorstep_type = 0;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
-                if(doorsGroups[z].rama_list_id === doorKitsT1[x].id) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
                 }
               }
@@ -935,7 +935,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               break
             }
           }
-        }
+        } 
       }
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
@@ -1327,7 +1327,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     //-------- Select City
     function selectCity(location) {
-      console.time('function#2')
       thisCtrl.userNewLocation = location.fullLocation;
       
 
@@ -1366,7 +1365,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
-      console.timeEnd('function#2')
     }
 
 
@@ -6258,6 +6256,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
             }
         }
         function buildSVG(template, widthSVG, heightSVG) {
+        console.log(template, widthSVG, heightSVG, 'template, widthSVG, heightSVG')
           if(template && !$.isEmptyObject(template)) {
             var container = document.createElement('div'),
                 lineCreator = d3.svg.line()
@@ -9993,16 +9992,22 @@ function ErrorResult(code, message) {
 
 
     function setDoorParamValue(product, source) {
+      console.log('sashShapeList', source.sashShapeList)
+      console.log('length', product.door_sash_shape_id)
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+      product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+      product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+      product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+      product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+      product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
     }
 
 
     function setNewDoorParamValue(product, source) {
-      console.log(source,  'source')
       //------- save new door config
       product.door_shape_id = source.doorConfig.doorShapeIndex;
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
@@ -10017,12 +10022,15 @@ function ErrorResult(code, message) {
     /** for start */
     function setDoorConfigDefault(product) {
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.designSource.doorShapeList.length = 0;
       for(d = 0; d < doorTypeQty; d+=1) {
         isExist = 0;
-        if(d === 2 && GlobalStor.global.doorKitsT1.length) {
+        if(d === 2 && doorsGroups.length) {
           isExist = 1;
-        } else if(d === 3 && GlobalStor.global.doorKitsT2.length) {
+        } else if(d === 3 && doorsGroups.length) {
           isExist = 1;
         } else if(!d || d === 1){
           isExist = 1;
@@ -10031,11 +10039,9 @@ function ErrorResult(code, message) {
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
-      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations)
-      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups)
       for(var i=0; i<doorsLaminations.length; i+=1) {
-        if(52 === doorsLaminations[i].lamination_in 
-        && 52 === doorsLaminations[i].lamination_out) {
+        if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+        && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
           for(var z=0; z<doorsGroups.length; z+=1) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
@@ -10044,6 +10050,18 @@ function ErrorResult(code, message) {
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].profileId = 345; 
+              for(var x=0; x<doorKitsT1.length; x+=1) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
+                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
+                }
+              }
+              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
+                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
+                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
+                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
+                  }
+                }
+              }
               break
             }
           }
@@ -10070,6 +10088,7 @@ function ErrorResult(code, message) {
             if (doorsGroups.length) {
               DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
                   return item.doorstep_type === 2;
+
               });
             }
             break;
@@ -18914,10 +18933,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_in) {
             GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
             GlobalStor.global.doorsLaminations[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+            GlobalStor.global.doorsLaminations[coupleQty].lamination_in_id = GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
+            delete GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
           }
           if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_out){
             GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
             GlobalStor.global.doorsLaminations[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+            GlobalStor.global.doorsLaminations[coupleQty].lamination_out_id = GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
+            delete GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
           }
         }
       }
@@ -18926,7 +18949,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function laminatFiltering() {
       if(ProductStor.product.construction_type !== 4) {
-        console.log('ProductStor.product.construction_type !== 4', GlobalStor.global.type_door)
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
@@ -18940,7 +18962,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
       //console.info('filter _____ ', lamGroupsTemp);
       } else {
-        console.log('ProductStor.product.construction_type === 4' , GlobalStor.global.type_door)
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
@@ -18971,6 +18992,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       if(!GlobalStor.global.lamGroupFiltered.length) {
         if(!isAnyActive) {
           GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+          console.log(GlobalStor.global.lamGroupFiltered, 'GlobalStor.global.lamGroupFiltered')
         }
       }
     }
@@ -18990,19 +19012,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setCurrLamination(product, newLamId) {
-      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      var selectedLam = [];
+      if (ProductStor.product.construction_type !== 4) {
+        selectedLam = angular.copy(GlobalStor.global.laminatCouples)
+      } else {
+        selectedLam = angular.copy(GlobalStor.global.doorsLaminations)
+      }
+      var laminatGroupQty = selectedLam.length;
       //---- clean filter
       cleanLamFilter();
       while(--laminatGroupQty > -1) {
         if(newLamId) {
           //------ set lamination Couple with color
-          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          if(selectedLam[laminatGroupQty].id === newLamId) {
+            product.lamination = selectedLam[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
-          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          if(!selectedLam[laminatGroupQty].id) {
+            product.lamination = selectedLam[laminatGroupQty];
           }
         }
       }
@@ -19014,7 +19042,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setProfileByLaminat(lamId) {
       console.log(lamId, 'lamId')
-      console.log('laminatCouples', GlobalStor.global.laminatCouples)
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters

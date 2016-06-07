@@ -798,10 +798,14 @@
           if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_in) {
             GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
             GlobalStor.global.doorsLaminations[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+            GlobalStor.global.doorsLaminations[coupleQty].lamination_in_id = GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
+            delete GlobalStor.global.doorsLaminations[coupleQty].lamination_in;
           }
           if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_out){
             GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
             GlobalStor.global.doorsLaminations[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+            GlobalStor.global.doorsLaminations[coupleQty].lamination_out_id = GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
+            delete GlobalStor.global.doorsLaminations[coupleQty].lamination_out;
           }
         }
       }
@@ -810,7 +814,6 @@
 
     function laminatFiltering() {
       if(ProductStor.product.construction_type !== 4) {
-        console.log('ProductStor.product.construction_type !== 4', GlobalStor.global.type_door)
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
@@ -824,7 +827,6 @@
 
       //console.info('filter _____ ', lamGroupsTemp);
       } else {
-        console.log('ProductStor.product.construction_type === 4' , GlobalStor.global.type_door)
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
@@ -855,6 +857,7 @@
       if(!GlobalStor.global.lamGroupFiltered.length) {
         if(!isAnyActive) {
           GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
+          console.log(GlobalStor.global.lamGroupFiltered, 'GlobalStor.global.lamGroupFiltered')
         }
       }
     }
@@ -874,19 +877,25 @@
 
 
     function setCurrLamination(product, newLamId) {
-      var laminatGroupQty = GlobalStor.global.laminatCouples.length;
+      var selectedLam = [];
+      if (ProductStor.product.construction_type !== 4) {
+        selectedLam = angular.copy(GlobalStor.global.laminatCouples)
+      } else {
+        selectedLam = angular.copy(GlobalStor.global.doorsLaminations)
+      }
+      var laminatGroupQty = selectedLam.length;
       //---- clean filter
       cleanLamFilter();
       while(--laminatGroupQty > -1) {
         if(newLamId) {
           //------ set lamination Couple with color
-          if(GlobalStor.global.laminatCouples[laminatGroupQty].id === newLamId) {
-            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          if(selectedLam[laminatGroupQty].id === newLamId) {
+            product.lamination = selectedLam[laminatGroupQty];
           }
         } else {
           //----- set white lamination Couple
-          if(!GlobalStor.global.laminatCouples[laminatGroupQty].id) {
-            product.lamination = GlobalStor.global.laminatCouples[laminatGroupQty];
+          if(!selectedLam[laminatGroupQty].id) {
+            product.lamination = selectedLam[laminatGroupQty];
           }
         }
       }
@@ -898,7 +907,6 @@
 
     function setProfileByLaminat(lamId) {
       console.log(lamId, 'lamId')
-      console.log('laminatCouples', GlobalStor.global.laminatCouples)
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
