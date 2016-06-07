@@ -106,6 +106,7 @@
         noDoorExist: 0,
         doorKitsT1: [],
         doorKitsT2: [],
+        type_door: 0,
         doorHandlers: [],
         doorLocks: [],
         doorsGroups: [],

@@ -401,10 +401,10 @@
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].profileId = 345; 
-              doorsGroups[z].doorstep_type = 1;
+              doorsGroups[z].doorstep_type = 0;
+              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].rama_list_id === doorKitsT1[x].id) {
-                                  console.log(doorKitsT1[x].id, 'doorKitsT1[x].id')
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
                 }
               }

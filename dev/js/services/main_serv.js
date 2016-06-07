@@ -789,11 +789,29 @@
       return noExist;
     }
 
-
+    function laminationDoor() {
+      var coupleQty = GlobalStor.global.doorsLaminations.length,
+              laminatQty = GlobalStor.global.laminats.length,
+              lam;
+      while(--coupleQty > -1) {
+        for(lam = 0; lam < laminatQty; lam+=1) {
+          if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_in) {
+            GlobalStor.global.doorsLaminations[coupleQty].laminat_in_name = GlobalStor.global.laminats[lam].name;
+            GlobalStor.global.doorsLaminations[coupleQty].img_in_id = GlobalStor.global.laminats[lam].type_id;
+          }
+          if(GlobalStor.global.laminats[lam].id === GlobalStor.global.doorsLaminations[coupleQty].lamination_out){
+            GlobalStor.global.doorsLaminations[coupleQty].laminat_out_name = GlobalStor.global.laminats[lam].name;
+            GlobalStor.global.doorsLaminations[coupleQty].img_out_id = GlobalStor.global.laminats[lam].type_id;
+          }
+        }
+      }
+    }
 
 
     function laminatFiltering() {
-      var laminatQty = GlobalStor.global.laminats.length,
+      if(ProductStor.product.construction_type !== 4) {
+        console.log('ProductStor.product.construction_type !== 4', GlobalStor.global.type_door)
+        var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.laminatCouples.filter(function(item) {
             if(item.profile_id) {
@@ -805,7 +823,15 @@
           lamGroupsTempQty, isAnyActive = 0;
 
       //console.info('filter _____ ', lamGroupsTemp);
-
+      } else {
+        console.log('ProductStor.product.construction_type === 4' , GlobalStor.global.type_door)
+        var laminatQty = GlobalStor.global.laminats.length,
+          /** sort by Profile */
+          lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
+              return item.group_id === GlobalStor.global.type_door;
+          }),
+          lamGroupsTempQty, isAnyActive = 0;
+      }
       GlobalStor.global.lamGroupFiltered.length = 0;
 
       while(--laminatQty > -1) {
@@ -871,6 +897,8 @@
 
 
     function setProfileByLaminat(lamId) {
+      console.log(lamId, 'lamId')
+      console.log('laminatCouples', GlobalStor.global.laminatCouples)
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
@@ -879,9 +907,7 @@
         ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
         ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
         ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
-      } else {
-  ProductStor.product.profile = angular.copy(fineItemById(ProductStor.product.profile.id, GlobalStor.global.profiles));
-      }
+      } 
       //------- set Depths
       $q.all([
         downloadProfileDepth(ProductStor.product.profile.rama_list_id),
@@ -1519,6 +1545,7 @@
       showInfoBox: showInfoBox,
       closeRoomSelectorDialog: closeRoomSelectorDialog,
       laminatFiltering: laminatFiltering,
+      laminationDoor: laminationDoor,
       setCurrLamination: setCurrLamination,
       setProfileByLaminat: setProfileByLaminat,
       checkGlassSizes: checkGlassSizes,

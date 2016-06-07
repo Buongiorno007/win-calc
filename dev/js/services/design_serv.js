@@ -748,6 +748,7 @@
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
+      GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
     }
 
 
@@ -758,6 +759,7 @@
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
+     // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
       setDoorParamValue(product, source);
     }

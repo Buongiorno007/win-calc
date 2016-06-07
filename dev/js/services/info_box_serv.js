@@ -37,11 +37,11 @@
           itemArr = [],
           k = ids;
 
-      // for(var i=0; i<qtyCheck.length; i+=1) {
-      //   if(ids === qtyCheck[i]) {
-      //     k = 0;
-      //   }
-      // }
+      for(var i=0; i<qtyCheck.length; i+=1) {
+        if(ids === qtyCheck[i]) {
+          k = 0;
+        }
+      }
 
       if(ids === 3 && k === 3) {
         var id = 311898,
