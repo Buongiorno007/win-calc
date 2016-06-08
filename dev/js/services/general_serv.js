@@ -187,7 +187,18 @@
             mainTypeMenu: 55,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
-          }
+          },
+          /**Expender*/
+          {
+            id: 12,
+            name: '',
+            typeClass: '',
+            typeMenu: 33,
+            mainTypeMenu: 55,
+            //colorClass: 'aux_color_connect',
+            delay: globalConstants.STEP * 30
+          },
+
 
         ];
       

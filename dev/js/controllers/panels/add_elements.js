@@ -55,9 +55,29 @@
 
 
     /**============ METHODS ================*/
+// elementType
+// elementsList
+//     console.log(ProductStor.product, 'ProductStor')
+//     console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
+  
+    function filterAddElem() {
+      var connectors = [];
+      var extenders = [];
+      var addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
+      for(var x=0; x<addElementsAll.legnth; x+=1) {
+        for(var y=0; y<addElementsAll[x].elementsList.legnth; y+=1) {
+          for(var z=0; z<addElementsAll.elementsList[y].legnth; z+=1) {
+
+                  console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
+            
+          }
+        }
+      }
+    }
 
     // Show Window Scheme Dialog
     function showWindowScheme() {
+      filterAddElem();
       //playSound('fly');
       AuxStor.aux.isWindowSchemeDialog = true;
       DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
@@ -69,6 +89,7 @@
     }
 
     function click(id){
+      filterAddElem();
       GlobalStor.global.typeMenu = 0;
       GlobalStor.global.typeMenuID = id;
       $timeout(function(id){
@@ -92,6 +113,7 @@
 
     //------ clicking
     thisCtrl.click = click;
+    thisCtrl.filterAddElem = filterAddElem;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;

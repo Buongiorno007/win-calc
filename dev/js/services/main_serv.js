@@ -857,7 +857,6 @@
       if(!GlobalStor.global.lamGroupFiltered.length) {
         if(!isAnyActive) {
           GlobalStor.global.lamGroupFiltered = lamGroupsTemp;
-          console.log(GlobalStor.global.lamGroupFiltered, 'GlobalStor.global.lamGroupFiltered')
         }
       }
     }
@@ -906,7 +905,6 @@
 
 
     function setProfileByLaminat(lamId) {
-      console.log(lamId, 'lamId')
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters

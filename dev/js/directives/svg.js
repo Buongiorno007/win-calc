@@ -407,7 +407,6 @@
             }
         }
         function buildSVG(template, widthSVG, heightSVG) {
-        console.log(template, widthSVG, heightSVG, 'template, widthSVG, heightSVG')
           if(template && !$.isEmptyObject(template)) {
             var container = document.createElement('div'),
                 lineCreator = d3.svg.line()
