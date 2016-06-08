@@ -31,6 +31,7 @@
         selectedCorner: [],
         selectedImpost: [],
         selectedArc: [],
+        doorsGroups: [],
         //----- Sizes
         openVoiceHelper: 0,
         loudVoice: 0,

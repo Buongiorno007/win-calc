@@ -36,7 +36,6 @@
 
     //-------- Select City
     function selectCity(location) {
-      console.time('function#2')
       thisCtrl.userNewLocation = location.fullLocation;
       
 
@@ -75,7 +74,6 @@
       }
       GlobalStor.global.startProgramm = false;
       SettingServ.closeLocationPage();
-      console.timeEnd('function#2')
     }
 
 

@@ -246,7 +246,7 @@
           <ul class="door-config-list">
             <li ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" fs-click="designPage.selectSash($index)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-label">{{ sashShape.frame.name }} / {{ sashShape.sash.name }}</div>
+                <div class="door-option-label">{{ sashShape.name }}</div>
               </div>
               <div ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index" class="selected-item-arrow"></div>
             </li>

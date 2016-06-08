@@ -47,7 +47,7 @@
       typing: 'on'
     };
 
-
+    MainServ.laminationDoor();
     /**============ METHODS ================*/
 
     //TODO delete

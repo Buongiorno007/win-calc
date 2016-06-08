@@ -207,7 +207,6 @@
 
     //---------selected addElem
     function selectAddElem(typeId, elementId, clickEvent) {
-      console.log(AuxStor.aux, 'AuxStor.aux.addElementsList')
       if (typeId+'prod'+elementId === AuxStor.aux.trfal || AuxStor.aux.trfal === -1) {
         $('#'+typeId+'prod'+elementId).css({
                     'color' : '#0079ff'

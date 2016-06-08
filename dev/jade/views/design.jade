@@ -139,7 +139,7 @@ section.construction-page
           ul.door-config-list
             li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", fs-click="designPage.selectSash($index)")
               .door-inner
-                .door-option-label {{ sashShape.frame.name }} / {{ sashShape.sash.name }}
+                .door-option-label {{ sashShape.name }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
 
       .door-config-column.step3(ng-class="{'active': designPage.config.selectedStep2}")

@@ -72,6 +72,7 @@
     //------- Select menu item
 
     function selectConfigPanel(id) {
+      MainServ.laminatFiltering()
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
@@ -99,8 +100,12 @@
         /** if Door */
         if(ProductStor.product.construction_type === 4) {
           //--------- show only Glasses and AddElements
-          if(id === 3 || id === 6) {
+          if(id === 3 || id === 6 || id === 5) {
             GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+          } else {
+            GlobalStor.global.activePanel = 0;
+            DesignStor.design.isGlassExtra = 0;
+            $location.path('/design');
           }
         } else {
           GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;

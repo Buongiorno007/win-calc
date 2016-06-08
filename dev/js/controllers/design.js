@@ -386,8 +386,40 @@
 
     /**---------- Select door shape --------*/
 
-    function selectDoor(id) { 
-      console.log(GlobalStor.global.doorKitsT1, 'GlobalStor.global.doorKitsT1')
+    function selectDoor(id) {
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
+              doorsGroups[z].profileId = 345; 
+              doorsGroups[z].doorstep_type = 0;
+              DesignStor.design.doorsGroups.push(doorsGroups[z].id)
+              for(var x=0; x<doorKitsT1.length; x+=1) {
+                if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
+                  doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
+                }
+              }
+              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
+                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
+                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
+                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
+                  }
+                }
+              }
+              break
+            }
+          }
+        } 
+      }
       if(!thisCtrl.config.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -397,28 +429,32 @@
           switch (id) {
             case 0:
             case 1:
-              if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
-              } else if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
+              } else if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
               }
               break;
             case 2:
-              if (GlobalStor.global.doorKitsT1.length) {
-                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT1);
-              }
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 1;
+              });
               break;
+            }
             case 3:
-              if (GlobalStor.global.doorKitsT2.length) {
-                DesignStor.design.sashShapeList = angular.copy(GlobalStor.global.doorKitsT2);
-              }
+              if (doorsGroups.length) {
+                DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
+                  return item.doorstep_type === 2;
+              });
               break;
+            }
           }
           DesignStor.design.doorConfig.doorShapeIndex = id;
           thisCtrl.config.selectedStep1 = 1;
         }
       }
-    }
+    } 
 
 
 
