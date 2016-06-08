@@ -4264,7 +4264,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         }
         GlobalStor.global.isAlertHistory = 0;
       } else {
-          $('.page-form').scrollTop(0);
+          $('.page-form').animate({scrollTop: 0},500);
           GlobalStor.global.isAlertHistory = 1;
           console.log('errrrrrrror', HistoryStor.history.errorСhecking)
         }
@@ -4466,10 +4466,14 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     //------- Send Form Data
     function submitForm(form) {
+        console.log('form', form)
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
       if(form.$valid) {
         CartMenuServ.sendOrder();
+      } else {
+        console.log('scrollTop')
+        $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }
 

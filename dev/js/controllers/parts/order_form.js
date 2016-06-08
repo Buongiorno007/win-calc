@@ -81,10 +81,14 @@
 
     //------- Send Form Data
     function submitForm(form) {
+        console.log('form', form)
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
       if(form.$valid) {
         CartMenuServ.sendOrder();
+      } else {
+        console.log('scrollTop')
+        $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }
 
