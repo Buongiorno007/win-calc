@@ -2241,7 +2241,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     MainServ.laminationDoor();
     /**============ METHODS ================*/
-
+    console.log('profiles', GlobalStor.global.profiles)
     //TODO delete
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
@@ -24700,7 +24700,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       while(--hardwareQty > -1) {
         tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
       }
+      ProductStor.product.template_source.hardwareLines = [];
+      ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
       priceElements.sashesBlock.push(tempSashBlock);
+      console.log(ProductStor.product, '')
     }
 
 

@@ -1893,7 +1893,10 @@
       while(--hardwareQty > -1) {
         tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
       }
+      ProductStor.product.template_source.hardwareLines = [];
+      ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
       priceElements.sashesBlock.push(tempSashBlock);
+      console.log(ProductStor.product, '')
     }
 
 

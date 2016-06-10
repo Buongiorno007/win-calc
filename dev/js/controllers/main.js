@@ -49,7 +49,7 @@
 
     MainServ.laminationDoor();
     /**============ METHODS ================*/
-
+    console.log('profiles', GlobalStor.global.profiles)
     //TODO delete
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
