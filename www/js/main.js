@@ -529,6 +529,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     DesignServ,
     GlobalStor,
     ProductStor,
+    MainServ,
     DesignStor
   ) {
     /*jshint validthis:true */
@@ -904,6 +905,8 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
+      console.log('DesignStor.design.doorConfig', DesignStor.design.doorConfig)
+      MainServ.doorProfile();
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
@@ -917,19 +920,13 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = 345; 
               doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = GlobalStor.global.profile || 345;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
+              console.log('doorsGroups', doorsGroups)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
-                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
-                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
-                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
-                  }
                 }
               }
               break
@@ -3769,6 +3766,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
       MainServ.laminatFiltering();
+      MainServ.doorProfile();
       MainServ.setCurrLamination(ProductStor.product, id);
 
       MainServ.setProfileByLaminat(id).then(function() {
@@ -10024,16 +10022,32 @@ function ErrorResult(code, message) {
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
-      if(ProductStor.product.construction_type === 4) {
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      }
     }
 
+    function doorId(product, source) {
+      var deferred = $q.defer();
+      GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+      product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+      product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+      product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+      product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+      product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      $q.all([
+        MainServ.downloadProfileDepth(product.profile.rama_list_id),
+        MainServ.downloadProfileDepth(product.profile.rama_still_list_id),
+        MainServ.downloadProfileDepth(product.profile.stvorka_list_id),
+        MainServ.downloadProfileDepth(product.profile.impost_list_id),
+        MainServ.downloadProfileDepth(product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
+        deferred.resolve(1);
+      });
+      return deferred.promise;
+    }
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
@@ -10042,7 +10056,9 @@ function ErrorResult(code, message) {
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
-
+    if(ProductStor.product.construction_type === 4) {
+      doorId(product, source);
+    }
       setDoorParamValue(product, source);
     }
 
@@ -10077,17 +10093,10 @@ function ErrorResult(code, message) {
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = 345; 
+              doorsGroups[z].profileId = GlobalStor.global.profile || 345; 
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
-                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
-                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
-                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
-                  }
                 }
               }
               break
@@ -12083,10 +12092,10 @@ function ErrorResult(code, message) {
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //---- set door profile
-              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+       /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
                 DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
-              ));
+              ));*/
             }
 
             /** save new template in templates Array */
@@ -18378,6 +18387,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function downloadProfileDepth(elementId) {
+      console.log(elementId, 'elementId')
       var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
         var resultObj = {};
@@ -18419,7 +18429,35 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
-
+    function doorProfile() {
+      var defer = $q.defer;
+      var profile = 0;
+      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
+      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var doorKitsT1 = GlobalStor.global.doorKitsT1;
+      for(var z=0; z<doorsGroups.length; z+=1) {
+        for(var i=0; i<doorsLaminations.length; i+=1) {
+          if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName, {
+                  'id': doorsGroups[z].rama_list_id}, 'parent_element_id').then(function(result) {
+                    localDB.selectLocalDB(
+                    localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
+                        GlobalStor.global.profile = result2[0].profile_system_id;
+                        console.log(GlobalStor.global.profile, 'doorsGroups[z].profileId ')
+                    });
+                });
+                GlobalStor.global.doorsGroups[z].profileId = GlobalStor.global.profile;
+              break
+            }
+          }
+        } 
+      }
+      return defer.promise;
+    }
 
     function getGlassFromTemplateBlocks(template) {
       var blocksQty = template.details.length,
@@ -18854,7 +18892,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          //console.log('objXFormedPrice+++++++', objXFormedPrice);
+          console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -19007,6 +19045,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               return item.group_id === GlobalStor.global.type_door;
           }),
           lamGroupsTempQty, isAnyActive = 0;
+          for(var a=0; a<lamGroupsTemp.length; a+=1) {
+            lamGroupsTemp[a].rama_still_list_id = lamGroupsTemp[a].door_sill_list_id;
+          }
       }
       GlobalStor.global.lamGroupFiltered.length = 0;
 
@@ -19079,6 +19120,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setProfileByLaminat(lamId) {
+       console.log('ProductStor.product.profile.rama_list_id', ProductStor.product.lamination)
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
@@ -19706,6 +19748,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
+      doorProfile: doorProfile,
       setCurrDiscounts: setCurrDiscounts,
       setCurrTemplate: setCurrTemplate,
       prepareTemplates: prepareTemplates,
@@ -19718,6 +19761,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      downloadProfileDepth: downloadProfileDepth,
       saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
