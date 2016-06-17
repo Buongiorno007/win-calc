@@ -18,7 +18,6 @@
     SVGServ,
     DesignServ,
     AddElementMenuServ,
-
     GlobalStor,
     ProductStor,
     DesignStor,
@@ -49,7 +48,6 @@
 
     MainServ.laminationDoor();
     /**============ METHODS ================*/
-    console.log('profiles', GlobalStor.global.profiles)
     //TODO delete
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
@@ -99,7 +97,7 @@
           ProductStor.product.template = data;
         });
     }
-    console.log(getPCPower(), profile(), 'getPCPower()')
+    console.log(getPCPower(), profile(), MainServ.doorProfile(), 'getPCPower()')
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;

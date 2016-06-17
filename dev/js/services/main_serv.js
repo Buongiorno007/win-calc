@@ -204,7 +204,6 @@
 
 
     function downloadProfileDepth(elementId) {
-      console.log(elementId, 'elementId')
       var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
         var resultObj = {};
@@ -247,33 +246,38 @@
     }
 
     function doorProfile() {
-      var defer = $q.defer;
-      var profile = 0;
-      var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
-      var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
-      var doorKitsT1 = GlobalStor.global.doorKitsT1;
-      for(var z=0; z<doorsGroups.length; z+=1) {
-        for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
-          && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
-              doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
+      var door = []
+      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
+        GlobalStor.global.doorsLaminations = angular.copy(door);
+        console.log('end');
+      });
+
+      function calculate (product, _cb) {
+          async.waterfall([
+            function (_callback) {
               localDB.selectLocalDB(
                 localDB.tablesLocalDB.lists.tableName, {
-                  'id': doorsGroups[z].rama_list_id}, 'parent_element_id').then(function(result) {
-                    localDB.selectLocalDB(
-                    localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
-                        GlobalStor.global.profile = result2[0].profile_system_id;
-                        console.log(GlobalStor.global.profile, 'doorsGroups[z].profileId ')
-                    });
+                  'id': product.rama_list_id}, 'parent_element_id').then(function(result) {
+                  _callback(null ,result);
                 });
-                GlobalStor.global.doorsGroups[z].profileId = GlobalStor.global.profile;
-              break
+            },
+            function (result, _callback) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
+                  product.profileId = result2[0].profile_system_id;
+                  door.push(product)
+              });     
+              _callback(product.profileId);
             }
-          }
-        } 
+          ], function (result, err) {
+            if (err) {
+              //console.log('err', err)
+              return _cb(err);
+            }
+              //console.log('herereer')
+          _cb(null, result);
+        });
       }
-      return defer.promise;
     }
 
     function getGlassFromTemplateBlocks(template) {
@@ -288,7 +292,6 @@
       }
       return glassIds;
     }
-
 
     function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
@@ -709,7 +712,6 @@
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -937,7 +939,6 @@
 
 
     function setProfileByLaminat(lamId) {
-       console.log('ProductStor.product.profile.rama_list_id', ProductStor.product.lamination)
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
@@ -1154,7 +1155,6 @@
 
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-        console.log(id, itemArr, 'itemArr')
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};

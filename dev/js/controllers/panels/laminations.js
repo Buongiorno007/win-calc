@@ -52,7 +52,6 @@
     function selectLaminat(id) {
       //console.info('select lamin --- ', id);
       MainServ.laminatFiltering();
-      MainServ.doorProfile();
       MainServ.setCurrLamination(ProductStor.product, id);
 
       MainServ.setProfileByLaminat(id).then(function() {

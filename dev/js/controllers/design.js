@@ -388,8 +388,6 @@
     /**---------- Select door shape --------*/
 
     function selectDoor(id) {
-      console.log('DesignStor.design.doorConfig', DesignStor.design.doorConfig)
-      MainServ.doorProfile();
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
@@ -404,9 +402,8 @@
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = GlobalStor.global.profile || 345;
+              doorsGroups[z].profileId = doorsLaminations[i].profileId;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
-              console.log('doorsGroups', doorsGroups)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -435,14 +432,14 @@
             case 2:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
+                  return item.doorstep_type === 2;
               });
               break;
             }
             case 3:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
+                  return item.doorstep_type === 1;
               });
               break;
             }

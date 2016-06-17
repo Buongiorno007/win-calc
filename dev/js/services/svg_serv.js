@@ -1315,6 +1315,7 @@
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      //AH928206
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1357,6 +1358,7 @@
             part.dir = 'curv';
           } else {
             /**----- DOOR -----*/
+
             if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -1488,7 +1490,7 @@
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill) {
+          if(part.sill || part.doorstep === 1) {
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
@@ -1896,7 +1898,6 @@
       ProductStor.product.template_source.hardwareLines = [];
       ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
       priceElements.sashesBlock.push(tempSashBlock);
-      console.log(ProductStor.product, '')
     }
 
 
