@@ -245,7 +245,40 @@
       return deferred.promise;
     }
 
+    function doorProfile() {
+      var door = []
+      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
+        GlobalStor.global.doorsLaminations = angular.copy(door);
+        console.log('end');
+      });
 
+      function calculate (product, _cb) {
+          async.waterfall([
+            function (_callback) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName, {
+                  'id': product.rama_list_id}, 'parent_element_id').then(function(result) {
+                  _callback(null ,result);
+                });
+            },
+            function (result, _callback) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
+                  product.profileId = result2[0].profile_system_id;
+                  door.push(product)
+              });     
+              _callback(product.profileId);
+            }
+          ], function (result, err) {
+            if (err) {
+              //console.log('err', err)
+              return _cb(err);
+            }
+              //console.log('herereer')
+          _cb(null, result);
+        });
+      }
+    }
 
     function getGlassFromTemplateBlocks(template) {
       var blocksQty = template.details.length,
@@ -259,7 +292,6 @@
       }
       return glassIds;
     }
-
 
     function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
@@ -680,7 +712,6 @@
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          //console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -833,6 +864,9 @@
               return item.group_id === GlobalStor.global.type_door;
           }),
           lamGroupsTempQty, isAnyActive = 0;
+          for(var a=0; a<lamGroupsTemp.length; a+=1) {
+            lamGroupsTemp[a].rama_still_list_id = lamGroupsTemp[a].door_sill_list_id;
+          }
       }
       GlobalStor.global.lamGroupFiltered.length = 0;
 
@@ -1121,7 +1155,6 @@
 
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-        console.log(id, itemArr, 'itemArr')
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};
@@ -1532,6 +1565,7 @@
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
+      doorProfile: doorProfile,
       setCurrDiscounts: setCurrDiscounts,
       setCurrTemplate: setCurrTemplate,
       prepareTemplates: prepareTemplates,
@@ -1544,6 +1578,7 @@
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      downloadProfileDepth: downloadProfileDepth,
       saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,

@@ -12,6 +12,7 @@
     DesignServ,
     GlobalStor,
     ProductStor,
+    MainServ,
     DesignStor
   ) {
     /*jshint validthis:true */
@@ -400,19 +401,12 @@
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = 345; 
               doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = doorsLaminations[i].profileId;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
-                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
-                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
-                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
-                  }
                 }
               }
               break
@@ -438,15 +432,15 @@
             case 2:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
-              });
+                  return item.doorstep_type === 2;
+                });
               break;
             }
             case 3:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
-              });
+                  return item.doorstep_type === 1;
+                });
               break;
             }
           }

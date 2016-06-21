@@ -529,6 +529,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     DesignServ,
     GlobalStor,
     ProductStor,
+    MainServ,
     DesignStor
   ) {
     /*jshint validthis:true */
@@ -917,19 +918,12 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = 345; 
               doorsGroups[z].doorstep_type = 0;
+              doorsGroups[z].profileId = doorsLaminations[i].profileId;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
-                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
-                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
-                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
-                  }
                 }
               }
               break
@@ -955,15 +949,15 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
             case 2:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
-              });
+                  return item.doorstep_type === 2;
+                });
               break;
             }
             case 3:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
-              });
+                  return item.doorstep_type === 1;
+                });
               break;
             }
           }
@@ -2210,7 +2204,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     SVGServ,
     DesignServ,
     AddElementMenuServ,
-
     GlobalStor,
     ProductStor,
     DesignStor,
@@ -2241,7 +2234,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     MainServ.laminationDoor();
     /**============ METHODS ================*/
-
     //TODO delete
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
@@ -2291,7 +2283,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           ProductStor.product.template = data;
         });
     }
-    console.log(getPCPower(), profile(), 'getPCPower()')
+    console.log(getPCPower(), profile(), MainServ.doorProfile(), 'getPCPower()')
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;
@@ -10037,6 +10029,30 @@ function ErrorResult(code, message) {
       }
     }
 
+    function doorId(product, source) {
+      var deferred = $q.defer();
+      GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+      product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+      product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+      product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+      product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+      product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      $q.all([
+        MainServ.downloadProfileDepth(product.profile.rama_list_id),
+        MainServ.downloadProfileDepth(product.profile.rama_still_list_id),
+        MainServ.downloadProfileDepth(product.profile.stvorka_list_id),
+        MainServ.downloadProfileDepth(product.profile.impost_list_id),
+        MainServ.downloadProfileDepth(product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
+        deferred.resolve(1);
+      });
+      return deferred.promise;
+    }
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
@@ -10045,7 +10061,9 @@ function ErrorResult(code, message) {
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
-
+    if(ProductStor.product.construction_type === 4) {
+      doorId(product, source);
+    }
       setDoorParamValue(product, source);
     }
 
@@ -10080,17 +10098,10 @@ function ErrorResult(code, message) {
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = 345; 
+              doorsGroups[z].profileId = doorsLaminations[i].profileId
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
-                }
-              }
-              for(var x=0; x<GlobalStor.global.profiles.length; x+=1) {
-                for(var s=0; s<GlobalStor.global.profiles[x].length; s+=1) {
-                  if(doorsGroups[z].rama_list_id === GlobalStor.global.profiles[x][s].rama_list_id) {
-                    doorsGroups[z].profileId = GlobalStor.global.profiles[x][s].id
-                  }
                 }
               }
               break
@@ -10111,15 +10122,14 @@ function ErrorResult(code, message) {
           case 2:
             if (doorsGroups.length) {
               DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 1;
+                  return item.doorstep_type === 2;
               });
             }
             break;
           case 3:
             if (doorsGroups.length) {
               DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
-                  return item.doorstep_type === 2;
-
+                  return item.doorstep_type === 1;
               });
             }
             break;
@@ -12086,10 +12096,10 @@ function ErrorResult(code, message) {
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
               //---- set door profile
-              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+       /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
                 DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
                 GlobalStor.global.profiles
-              ));
+              ));*/
             }
 
             /** save new template in templates Array */
@@ -15253,6 +15263,7 @@ function ErrorResult(code, message) {
 
 
     function parseMainKit(construction){
+        //AH928206
       var deff = $q.defer(),
           promisesKit = construction.sizes.map(function(item, index, arr) {
             var deff1 = $q.defer();
@@ -16445,7 +16456,6 @@ function ErrorResult(code, message) {
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
         priceObj.consist = angular.copy(result);
-        console.log('result2', result)
 
 
         /** parse Kit */
@@ -18422,7 +18432,40 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
+    function doorProfile() {
+      var door = []
+      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
+        GlobalStor.global.doorsLaminations = angular.copy(door);
+        console.log('end');
+      });
 
+      function calculate (product, _cb) {
+          async.waterfall([
+            function (_callback) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.lists.tableName, {
+                  'id': product.rama_list_id}, 'parent_element_id').then(function(result) {
+                  _callback(null ,result);
+                });
+            },
+            function (result, _callback) {
+              localDB.selectLocalDB(
+                localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
+                  product.profileId = result2[0].profile_system_id;
+                  door.push(product)
+              });     
+              _callback(product.profileId);
+            }
+          ], function (result, err) {
+            if (err) {
+              //console.log('err', err)
+              return _cb(err);
+            }
+              //console.log('herereer')
+          _cb(null, result);
+        });
+      }
+    }
 
     function getGlassFromTemplateBlocks(template) {
       var blocksQty = template.details.length,
@@ -18436,7 +18479,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
       return glassIds;
     }
-
 
     function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
@@ -18857,7 +18899,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
           //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-          //console.log('objXFormedPrice+++++++', objXFormedPrice);
 
           //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -19010,6 +19051,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               return item.group_id === GlobalStor.global.type_door;
           }),
           lamGroupsTempQty, isAnyActive = 0;
+          for(var a=0; a<lamGroupsTemp.length; a+=1) {
+            lamGroupsTemp[a].rama_still_list_id = lamGroupsTemp[a].door_sill_list_id;
+          }
       }
       GlobalStor.global.lamGroupFiltered.length = 0;
 
@@ -19298,7 +19342,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function showInfoBox(id, itemArr) {
       if(GlobalStor.global.isInfoBox !== id) {
-        console.log(id, itemArr, 'itemArr')
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
             tempObj = {};
@@ -19709,6 +19752,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
+      doorProfile: doorProfile,
       setCurrDiscounts: setCurrDiscounts,
       setCurrTemplate: setCurrTemplate,
       prepareTemplates: prepareTemplates,
@@ -19721,6 +19765,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      downloadProfileDepth: downloadProfileDepth,
       saveTemplateInProductForOrder: saveTemplateInProductForOrder,
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
@@ -24125,6 +24170,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      //AH928206
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -24167,6 +24213,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             part.dir = 'curv';
           } else {
             /**----- DOOR -----*/
+
             if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
@@ -24298,7 +24345,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill) {
+          if(part.sill || part.doorstep === 1) {
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
@@ -24703,6 +24750,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       while(--hardwareQty > -1) {
         tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
       }
+      ProductStor.product.template_source.hardwareLines = [];
+      ProductStor.product.template_source.hardwareLines.push(tempSashBlock.sizes)
       priceElements.sashesBlock.push(tempSashBlock);
     }
 

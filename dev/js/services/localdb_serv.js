@@ -1503,6 +1503,7 @@
 
 
     function parseMainKit(construction){
+        //AH928206
       var deff = $q.defer(),
           promisesKit = construction.sizes.map(function(item, index, arr) {
             var deff1 = $q.defer();
@@ -2695,7 +2696,6 @@
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
         //console.warn('consist!!!!!!+', result);
         priceObj.consist = angular.copy(result);
-        console.log('result2', result)
 
 
         /** parse Kit */
