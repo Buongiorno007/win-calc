@@ -748,6 +748,14 @@
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
+      if(ProductStor.product.construction_type === 4) {
+        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      }
     }
 
     function doorId(product, source) {
@@ -782,6 +790,7 @@
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+
     if(ProductStor.product.construction_type === 4) {
       doorId(product, source);
     }

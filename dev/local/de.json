@@ -32,6 +32,9 @@
     "BACK": "Back",
     "LETTER_M": "m"
   },
+  "natification": {
+    "ASKING_PRICE": "Preise überprüfen"
+  },
   "danger-alert": {
     "PRODUCT": "Konstruktion",
     "IGNORE": "fortgesetzt",

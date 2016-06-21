@@ -281,6 +281,7 @@ gulp.task('prod', function() {
       doctype: 'html',
       pretty: true
     }))
+    
     .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
     .pipe(gulp.dest(config.build.dest.product));
 });
@@ -289,8 +290,8 @@ gulp.task('prod', function() {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-// var server = config.server; 
-var server = config.serverSteko;
+var server = config.server; 
+// var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

@@ -805,6 +805,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           });
       $q.all(promises).then(function (result) {
+        if(result[18]) {
+        result[6] = result[6].concat(result[18])
+        }
         var addKits = angular.copy(result),
             resultQty = addKits.length,
             i, elemGroupObj;

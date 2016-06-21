@@ -3798,7 +3798,8 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     globalConstants,
     GlobalStor,
     ProductStor,
-    ProfileServ
+    ProfileServ,
+    MainServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -3826,6 +3827,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
     thisCtrl.profileForAlert = ProfileServ.profileForAlert;
     thisCtrl.selectProfile = ProfileServ.selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
   });
 })();
@@ -9212,12 +9214,13 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       // localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
+
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
       REG_PHONE: /^\d+$/, // /^[0-9]{1,10}$/
@@ -10016,6 +10019,14 @@ function ErrorResult(code, message) {
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[product.door_lock_shape_id];
+      if(ProductStor.product.construction_type === 4) {
+        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      }
     }
 
     function doorId(product, source) {
@@ -10050,6 +10061,7 @@ function ErrorResult(code, message) {
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+
     if(ProductStor.product.construction_type === 4) {
       doorId(product, source);
     }
@@ -12394,17 +12406,16 @@ function ErrorResult(code, message) {
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
-          /**Expender*/
+
           {
-            id: 12,
-            name: '',
-            typeClass: '',
+            id: 13,
+            name: 'add_elements.CONNECTORS',
+            typeClass: 'aux-connectors',
             typeMenu: 33,
             mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
-          },
-
+          }
 
         ];
       
@@ -17559,6 +17570,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           });
       $q.all(promises).then(function (result) {
+        if(result[18]) {
+        result[6] = result[6].concat(result[18])
+        }
+        console.log(result, 'result!!!!!!!!!!!!!!!!!!!!1')
         var addKits = angular.copy(result),
             resultQty = addKits.length,
             i, elemGroupObj;

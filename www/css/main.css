@@ -4341,6 +4341,7 @@ div.drum figure {
   position: relative;
   width: 50%;
   left: 25%;
+  top: 1rem;
   line-height: 6rem;
   text-align: center;
   font-size: x-large;

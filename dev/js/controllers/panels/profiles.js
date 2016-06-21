@@ -10,7 +10,8 @@
     globalConstants,
     GlobalStor,
     ProductStor,
-    ProfileServ
+    ProfileServ,
+    MainServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -38,6 +39,7 @@
     thisCtrl.checkForAddElem = ProfileServ.checkForAddElem;
     thisCtrl.profileForAlert = ProfileServ.profileForAlert;
     thisCtrl.selectProfile = ProfileServ.selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
   });
 })();
