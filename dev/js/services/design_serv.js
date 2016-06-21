@@ -790,6 +790,7 @@
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+
     if(ProductStor.product.construction_type === 4) {
       doorId(product, source);
     }

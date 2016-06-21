@@ -188,17 +188,16 @@
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
-          /**Expender*/
+
           {
-            id: 12,
-            name: '',
-            typeClass: '',
+            id: 13,
+            name: 'add_elements.CONNECTORS',
+            typeClass: 'aux-connectors',
             typeMenu: 33,
             mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
-          },
-
+          }
 
         ];
       

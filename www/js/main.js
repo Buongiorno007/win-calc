@@ -10061,6 +10061,7 @@ function ErrorResult(code, message) {
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+
     if(ProductStor.product.construction_type === 4) {
       doorId(product, source);
     }
@@ -12404,17 +12405,16 @@ function ErrorResult(code, message) {
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
-          /**Expender*/
+
           {
-            id: 12,
-            name: '',
-            typeClass: '',
+            id: 13,
+            name: 'add_elements.CONNECTORS',
+            typeClass: 'aux-connectors',
             typeMenu: 33,
             mainTypeMenu: 55,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
-          },
-
+          }
 
         ];
       
@@ -17569,6 +17569,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           });
       $q.all(promises).then(function (result) {
+        if(result[18]) {
+        result[6] = result[6].concat(result[18])
+        }
         var addKits = angular.copy(result),
             resultQty = addKits.length,
             i, elemGroupObj;
