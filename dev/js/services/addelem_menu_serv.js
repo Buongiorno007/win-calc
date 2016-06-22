@@ -139,6 +139,8 @@
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
+            console.log(results, 'results!!!!!!!!!!!')
+            console.log(item.element_price, 'item.element_price!!!!!!!!')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
@@ -690,7 +692,6 @@
     function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
       clickEvent.stopPropagation();
       closeAddElementsMenu();
-
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
 
       /** if grid,  show grid selector dialog */

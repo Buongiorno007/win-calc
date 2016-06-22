@@ -3422,26 +3422,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
 
     /**============ METHODS ================*/
-// elementType
-// elementsList
-//     console.log(ProductStor.product, 'ProductStor')
-//     console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
-  
-    function filterAddElem() {
-      var connectors = [];
-      var extenders = [];
-      var addElementsAll = angular.copy(GlobalStor.global.addElementsAll);
-      for(var x=0; x<addElementsAll.legnth; x+=1) {
-        for(var y=0; y<addElementsAll[x].elementsList.legnth; y+=1) {
-          for(var z=0; z<addElementsAll.elementsList[y].legnth; z+=1) {
-
-                  console.log(GlobalStor.global.addElementsAll, 'GlobalStor.global.addElementsAll')
-            
-          }
-        }
-      }
-    }
-
     // Show Window Scheme Dialog
     function showWindowScheme() {
       filterAddElem();
@@ -3456,7 +3436,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     }
 
     function click(id){
-      filterAddElem();
       GlobalStor.global.typeMenu = 0;
       GlobalStor.global.typeMenuID = id;
       $timeout(function(id){
@@ -3480,7 +3459,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     //------ clicking
     thisCtrl.click = click;
-    thisCtrl.filterAddElem = filterAddElem;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
@@ -7183,6 +7161,8 @@ function ErrorResult(code, message) {
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
+            console.log(results, 'results!!!!!!!!!!!')
+            console.log(item.element_price, 'item.element_price!!!!!!!!')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
@@ -7734,7 +7714,6 @@ function ErrorResult(code, message) {
     function takeAddElemFilt(groupId, typeId, elementId, clickEvent) {
       clickEvent.stopPropagation();
       closeAddElementsMenu();
-
       AuxStor.aux.addElementsList = angular.copy(GlobalStor.global.addElementsAll[groupId-1].elementsList);
 
       /** if grid,  show grid selector dialog */
@@ -12336,7 +12315,8 @@ function ErrorResult(code, message) {
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
-            typeMenu: 22,
+            typeMenu: 44,
+            mainTypeMenu: 55,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -16445,6 +16425,10 @@ function ErrorResult(code, message) {
     /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
+        //602829HA
+        if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
+            AddElement.elementWidth = 1;
+        }
       var deffMain = $q.defer(),
           finishPriceObj = {},
           priceObj = {
