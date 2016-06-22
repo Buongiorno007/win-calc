@@ -44,20 +44,19 @@
       }
 
       if(ids === 3 && k === 3) {
-        var id = 311898,
+        var id = 999999,
           itemArr = GlobalStor.global.glasses;
-          console.log(GlobalStor.global.glasses, GlobalStor.global.glasses)
       }
       if(ids === 4 && k === 4 && GlobalStor.global.checkSashInTemplate > 0) {
-        var id = 281,
+        var id = 999,
           itemArr = GlobalStor.global.hardwares;
       }
       if(ids === 2 && k === 2) {
-        var id = 520,
+        var id = 999,
           itemArr = GlobalStor.global.profiles;
       }
       if(ids === 6 && k === 6) {
-        var id = 297434,
+        var id = 999999,
         itemArr = [];
 
         for(var i = 0; i<GlobalStor.global.addElementsAll.length; i+=1) {
@@ -87,18 +86,18 @@
     }
     function isApply() {
       if(GlobalStor.global.activePanel === 2) {
-        var id = 520;
+        var id = 999;
         ProfileServ.checkForAddElem(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 3) {
-        var id = 311898;
+        var id = 999999;
         var name =  '4M-16-4'
         GlassesServ.selectGlass(id, name);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
-        var id = 281;
+        var id = 999;
         HardwareServ.selectHardware(id);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
@@ -156,7 +155,7 @@
       element_width: 0,
       glass_image: 1,
       glass_type: 1,
-      id: 297434,
+      id: 999999,
       img: "http://api.windowscalculator.net/local_storage/set/6393ru4ki_veka_euroline.png",
       in_door: 0,
       link: "",
