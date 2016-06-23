@@ -623,11 +623,13 @@
             if(!angular.isNumber(ProductStor.product.glass[g].transcalency)){
               ProductStor.product.glass[g].transcalency = 1;
             }
-            glassHeatCT += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
+            console.log(ProductStor.product.glass[g].transcalency, 'ProductStor.product.glass[g].transcalency')
+
+            glassHeatCT += objXFormedPrice.sizes[5][glassSizeQty].square/ProductStor.product.glass[g].transcalency; //Sglasses
           }
         }
         /** get total glasses square */
-        glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square;
+        glassSqT += objXFormedPrice.sizes[5][glassSizeQty].square; //Sстекломакетов
       }
       glassHeatCT = GeneralServ.roundingValue(glassHeatCT);
       glassSqT = GeneralServ.roundingValue(glassSqT, 3);
@@ -636,14 +638,14 @@
       if(!angular.isNumber(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
-      profHeatCT = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSqT);
+      profHeatCT = (ProductStor.product.template_square - glassSqT)/ProductStor.product.profile.heat_coeff_value;
 
       heatCoeffTotal = profHeatCT + glassHeatCT;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
-          heatCoeffTotal/ProductStor.product.template_square
+          ProductStor.product.template_square/heatCoeffTotal
         );
       } else {
         /** U */
