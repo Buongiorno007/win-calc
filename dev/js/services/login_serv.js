@@ -117,19 +117,27 @@
     function downloadAllCities(allCityParam) {
       var deff = $q.defer(),
           cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
-          countryQty, regionQty, cityQty;
+          countryQty, regionQty, cityQty, areasQty;
 
       localDB.selectLocalDB(
         localDB.tablesLocalDB.cities.tableName,
         cityOption,
-        'id as cityId, name as cityName, region_id as regionId'
+        'id as cityId, area_id, name as cityName, region_id as regionId'
       ).then(function(data) {
-        //console.log('cities!!!', data);
+        console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
           GlobalStor.global.locations.cities = angular.copy(data);
           while(--cityQty > -1) {
             regionQty = GlobalStor.global.locations.regions.length;
+            areasQty = GlobalStor.global.locations.regions.length;
+            while(--areasQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
+                if(GlobalStor.global.locations.areas[areasQty].name) {
+                  GlobalStor.global.locations.cities[cityQty].cityName += ', '+GlobalStor.global.locations.areas[areasQty].name;
+                }
+              }
+            }
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
                 GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
@@ -190,9 +198,23 @@
               }
 
             }).then(function () {
-              //--------- get city
-              downloadAllCities(allCityParam).then(function () {
-                deferred.resolve(1);
+            //--------- get all areas
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.areas.tableName)
+              .then(function (data) {
+                //console.log('areas!!!', data);
+                regionQty = data.length;
+                if (regionQty) {
+                  GlobalStor.global.locations.areas = angular.copy(data);
+                } else {
+                  console.log('Error!!!', data);
+                }
+
+              }).then(function () {
+                //--------- get city
+                downloadAllCities(allCityParam).then(function () {
+                  deferred.resolve(1);
+                });
               });
             });
         });

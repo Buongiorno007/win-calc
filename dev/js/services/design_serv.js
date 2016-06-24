@@ -34,7 +34,6 @@
     /**============ METHODS ================*/
 
 
-
     function hideAllDimension() {
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);

@@ -4464,7 +4464,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     //------- Send Form Data
     function submitForm(form) {
-        console.log('form', form)
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
       if(form.$valid) {
@@ -9284,7 +9283,6 @@ function ErrorResult(code, message) {
     /**============ METHODS ================*/
 
 
-
     function hideAllDimension() {
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);
@@ -13771,7 +13769,7 @@ function ErrorResult(code, message) {
           },
           'cities': {
             'tableName': 'cities',
-            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), area_id INTEGER',
             'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
@@ -14380,7 +14378,7 @@ function ErrorResult(code, message) {
             'cloth_waste INTEGER',
             'foreignKey': ''
           },
-        'doors_groups':{
+          'doors_groups':{
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
@@ -14393,10 +14391,15 @@ function ErrorResult(code, message) {
             'folder_id INTEGER,'+
             'factory_id INTEGER',
             'foreignKey': ''  
-
-
-        },
-        'doors_laminations_dependencies':{
+          },
+          'areas':{
+            'tableName': 'areas',
+            'prop':
+            'name VARCHAR(255),'+ 
+            'region_id INTEGER',
+            'foreignKey': ', FOREIGN KEY (region_id) REFERENCES regions(id)'
+          },
+          'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
             'group_id INTEGER,'+ 
@@ -16697,10 +16700,6 @@ function ErrorResult(code, message) {
       return deffMain.promise;
     }
 
-
-
-
-
     /**========== FINISH ==========*/
 
 
@@ -16865,19 +16864,27 @@ function ErrorResult(code, message) {
     function downloadAllCities(allCityParam) {
       var deff = $q.defer(),
           cityOption = allCityParam ? null : {'id': UserStor.userInfo.city_id},
-          countryQty, regionQty, cityQty;
+          countryQty, regionQty, cityQty, areasQty;
 
       localDB.selectLocalDB(
         localDB.tablesLocalDB.cities.tableName,
         cityOption,
-        'id as cityId, name as cityName, region_id as regionId'
+        'id as cityId, area_id, name as cityName, region_id as regionId'
       ).then(function(data) {
-        //console.log('cities!!!', data);
+        console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
           GlobalStor.global.locations.cities = angular.copy(data);
           while(--cityQty > -1) {
             regionQty = GlobalStor.global.locations.regions.length;
+            areasQty = GlobalStor.global.locations.regions.length;
+            while(--areasQty > -1) {
+              if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
+                if(GlobalStor.global.locations.areas[areasQty].name) {
+                  GlobalStor.global.locations.cities[cityQty].cityName += ', '+GlobalStor.global.locations.areas[areasQty].name;
+                }
+              }
+            }
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
                 GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
@@ -16938,9 +16945,23 @@ function ErrorResult(code, message) {
               }
 
             }).then(function () {
-              //--------- get city
-              downloadAllCities(allCityParam).then(function () {
-                deferred.resolve(1);
+            //--------- get all areas
+            localDB.selectLocalDB(
+              localDB.tablesLocalDB.areas.tableName)
+              .then(function (data) {
+                //console.log('areas!!!', data);
+                regionQty = data.length;
+                if (regionQty) {
+                  GlobalStor.global.locations.areas = angular.copy(data);
+                } else {
+                  console.log('Error!!!', data);
+                }
+
+              }).then(function () {
+                //--------- get city
+                downloadAllCities(allCityParam).then(function () {
+                  deferred.resolve(1);
+                });
               });
             });
         });
@@ -26308,7 +26329,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         locations: {
           countries: [],
           regions: [],
-          cities: []
+          cities: [],
+          areas: []
         },
         margins: {},
         deliveryCoeff: {},

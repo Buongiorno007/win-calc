@@ -81,7 +81,6 @@
 
     //------- Send Form Data
     function submitForm(form) {
-        console.log('form', form)
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
       if(form.$valid) {

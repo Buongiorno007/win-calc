@@ -131,7 +131,8 @@
         locations: {
           countries: [],
           regions: [],
-          cities: []
+          cities: [],
+          areas: []
         },
         margins: {},
         deliveryCoeff: {},

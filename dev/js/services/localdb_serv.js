@@ -31,7 +31,7 @@
           },
           'cities': {
             'tableName': 'cities',
-            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), area_id INTEGER',
             'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
@@ -640,7 +640,7 @@
             'cloth_waste INTEGER',
             'foreignKey': ''
           },
-        'doors_groups':{
+          'doors_groups':{
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
@@ -653,10 +653,15 @@
             'folder_id INTEGER,'+
             'factory_id INTEGER',
             'foreignKey': ''  
-
-
-        },
-        'doors_laminations_dependencies':{
+          },
+          'areas':{
+            'tableName': 'areas',
+            'prop':
+            'name VARCHAR(255),'+ 
+            'region_id INTEGER',
+            'foreignKey': ', FOREIGN KEY (region_id) REFERENCES regions(id)'
+          },
+          'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
             'group_id INTEGER,'+ 
@@ -2956,10 +2961,6 @@
 
       return deffMain.promise;
     }
-
-
-
-
 
     /**========== FINISH ==========*/
 
