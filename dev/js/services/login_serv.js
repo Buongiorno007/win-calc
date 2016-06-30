@@ -124,7 +124,6 @@
         cityOption,
         'id as cityId, area_id, name as cityName, region_id as regionId'
       ).then(function(data) {
-        console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
           GlobalStor.global.locations.cities = angular.copy(data);

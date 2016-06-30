@@ -14378,6 +14378,50 @@ function ErrorResult(code, message) {
             'cloth_waste INTEGER',
             'foreignKey': ''
           },
+          'doors_groups_dependencies':{
+            'tableName': 'doors_groups_dependencies',
+            'prop' :
+            'doors_group_id INTEGER,'+
+            'hardware_group_id INTEGER',
+            'foreignKey': ''  
+          },
+          'doors_hardware_items':{
+            'tableName': 'doors_hardware_items',
+            'prop' :
+            'hardware_group_id  INTEGER,'+  
+            'min_width INTEGER,'+
+            'max_width INTEGER,'+
+            'min_height INTEGER,'+
+            'max_height INTEGER,'+
+            'direction_id   INTEGER,'+  
+            'hardware_color_id  INTEGER,'+  
+            'length INTEGER,'+  
+            'count  INTEGER,'+  
+            'child_id INTEGER,'+  
+            'position INTEGER,'+
+            'child_type STRING',    
+            'foreignKey': ''  
+          },
+          'doors_hardware_groups':{
+            'tableName': 'doors_hardware_groups',
+            'prop' :
+            'burglar_coeff INTEGER,'+   
+            'anticorrosion_coeff INTEGER,'+ 
+            'image VARCHAR(255),'+  
+            'description VARCHAR(255),'+    
+            'link VARCHAR(255),'+   
+            'country VARCHAR(255),'+    
+            'producer VARCHAR(255),'+   
+            'name VARCHAR(255),'+   
+            'hardware_type_id INTEGER,'+    
+            'factory_id INTEGER,'+  
+            'type INTEGER,'+    
+            'height_max INTEGER,'+  
+            'height_min INTEGER,'+  
+            'width_max INTEGER,'+
+            'width_min INTEGER',
+            'foreignKey': ''  
+          },
           'doors_groups':{
             'tableName': 'doors_groups',
             'prop' :
@@ -16871,7 +16915,6 @@ function ErrorResult(code, message) {
         cityOption,
         'id as cityId, area_id, name as cityName, region_id as regionId'
       ).then(function(data) {
-        console.log('cities!!!', data);
         cityQty = data.length;
         if(cityQty) {
           GlobalStor.global.locations.cities = angular.copy(data);
