@@ -132,6 +132,7 @@
       }
       return deferred.promise;
     }
+    console.log(ProductStor.product, 'ProductStor.product')
     /**========== FINISH ==========*/
 
     //------ clicking

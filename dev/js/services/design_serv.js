@@ -827,7 +827,7 @@
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsLaminations[i].profileId
+              doorsGroups[z].profileId = doorsGroups[z].id
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -865,8 +865,7 @@
         }
 
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
-        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
-
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks;
         setDoorParamValue(product, DesignStor.designSource);
       }
     }

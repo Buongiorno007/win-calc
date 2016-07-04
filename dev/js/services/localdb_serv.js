@@ -2698,16 +2698,16 @@
             priceTot: 0,
             elements: []
           };
-      //console.log(handleSource, lockSource);
+      //console.log(handleSource, lockSource, '<<<handle and lock');
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
         getDoorElem(priceObj, handleData);
 
-        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
+        getElementByListId(0, 410450).then(function(lockData) {
           //console.info('price lock kit', lockData);
           getDoorElem(priceObj, lockData);
 
-          parseListContent(lockSource.id).then(function (consist) {
+          parseListContent(312777).then(function (consist) {
             //console.warn('consist!!!!!!+', consist);
             priceObj.consist = consist;
             parseConsistElem([priceObj.consist]).then(function(consistElem) {

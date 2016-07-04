@@ -1155,35 +1155,35 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     /**------ download Locks ------*/
-
     function downloadLocks() {
-      var promises = GlobalStor.global.doorHandlers.map(function(item) {
-        var deff = $q.defer();
-        localDB.selectLocalDB(
-          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
-        ).then(function(lockIds) {
-          //console.info('--lockIds---', lockIds);
-          if(lockIds.length) {
-            var promises2 = lockIds.map(function(item2) {
-              var deff2 = $q.defer();
-              localDB.selectLocalDB(
-                localDB.tablesLocalDB.lists.tableName,{'id': item2.list_id}, 'id, name, list_type_id, parent_element_id'
-              ).then(function(lockKid) {
-                  deff2.resolve(lockKid[0]);
-                });
-              return deff2.promise;
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups_dependencies.tableName
+        ).then(function(dependencies) {
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.doors_hardware_groups.tableName    
+          ).then(function(hardware_groups) {
+              // console.info('--hardware_groups---', hardware_groups);
+              // console.info('--dependencies---', dependencies);
+              for(var x=0; x<hardware_groups.length; x+=1) {
+                hardware_groups[x].profIds = [];
+                for(var y=0; y<dependencies.length; y+=1) {
+                  if(hardware_groups[x].id === dependencies[y].hardware_group_id) {
+                    hardware_groups[x].profIds.push(dependencies[y].doors_group_id);
+                  }
+                }
+                hardware_groups[x].profIds = hardware_groups[x].profIds.join(', ');                
+              }
+              GlobalStor.global.doorLocks = angular.copy(hardware_groups) 
             });
-            deff.resolve($q.all(promises2));
-          } else {
-            deff.resolve(0);
-          }
-        });
-        return deff.promise;
-      });
+          });
+    }
 
-      $q.all(promises).then(function(lockData) {
-        //console.info('--lockData---', lockData);
-        GlobalStor.global.doorLocks = angular.copy(lockData);
+    function accessoryHandles() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lock_lists.tableName
+        ).then(function(lockIds) {
+        //console.info('--lockIds---', lockIds);
+        GlobalStor.global.locksList = angular.copy(lockIds)
       });
     }
 
@@ -1193,18 +1193,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           profArrQty = profArr.length,
           profsQty, profQty, isExist, i;
       for(i = 0; i < profArrQty; i+=1) {
-        profsQty = GlobalStor.global.profiles.length;
+        profsQty = GlobalStor.global.locksList.length;
         isExist = 0;
         while(--profsQty > -1) {
-          profQty = GlobalStor.global.profiles[profsQty].length;
-          while(--profQty > -1) {
-            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
-              isExist = 1;
-            }
+          if(GlobalStor.global.locksList[profsQty].accessory_id === profArr[i].accessory_id) {
+            isExist = 1;
           }
         }
         if(isExist) {
-          profIds.push(profArr[i].profile_system_id);
+          profIds.push(profArr[i].accessory_id);
         }
       }
       return profIds.join(', ');
@@ -1229,14 +1226,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           /** download Locks */
           downloadLocks();
-
+          accessoryHandles();
           //------- get link between handler and profile
           var promises = GlobalStor.global.doorHandlers.map(function(item) {
             var deff = $q.defer();
             localDB.selectLocalDB(
-              localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'element_id': item.parent_element_id},
-              'profile_system_id'
+              localDB.tablesLocalDB.lock_lists.tableName,
+              {'list_id': item.id},
+              'accessory_id'
             ).then(function(profileIds) {
               //console.info('--prof---', profileIds);
               deff.resolve(profileIds);
@@ -1252,10 +1249,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           });
         });
-
       });
-
-
     }
 
 

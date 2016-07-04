@@ -402,7 +402,7 @@
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsLaminations[i].profileId;
+              doorsGroups[z].profileId = doorsGroups[z].id;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
@@ -476,6 +476,7 @@
     /**---------- Select handle shape --------*/
 
     function selectHandle(id) {
+      var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -484,7 +485,10 @@
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
-        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
+        var newHandleArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
+        });
+        DesignStor.design.lockShapeList = newHandleArr;
       }
     }
 

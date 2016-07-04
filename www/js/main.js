@@ -919,7 +919,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsLaminations[i].profileId;
+              doorsGroups[z].profileId = doorsGroups[z].id;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
@@ -993,6 +993,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**---------- Select handle shape --------*/
 
     function selectHandle(id) {
+      var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -1001,7 +1002,10 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
-        DesignStor.design.lockShapeList = GlobalStor.global.doorLocks[id];
+        var newHandleArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
+        });
+        DesignStor.design.lockShapeList = newHandleArr;
       }
     }
 
@@ -2318,6 +2322,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       }
       return deferred.promise;
     }
+    console.log(ProductStor.product, 'ProductStor.product')
     /**========== FINISH ==========*/
 
     //------ clicking
@@ -10076,7 +10081,7 @@ function ErrorResult(code, message) {
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsLaminations[i].profileId
+              doorsGroups[z].profileId = doorsGroups[z].id
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -10114,8 +10119,7 @@ function ErrorResult(code, message) {
         }
 
         DesignStor.designSource.handleShapeList = GlobalStor.global.doorHandlers;
-        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks[product.door_handle_shape_id];
-
+        DesignStor.designSource.lockShapeList = GlobalStor.global.doorLocks;
         setDoorParamValue(product, DesignStor.designSource);
       }
     }
@@ -16436,16 +16440,16 @@ function ErrorResult(code, message) {
             priceTot: 0,
             elements: []
           };
-      //console.log(handleSource, lockSource);
+      //console.log(handleSource, lockSource, '<<<handle and lock');
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
         getDoorElem(priceObj, handleData);
 
-        getElementByListId(0, lockSource.parent_element_id).then(function(lockData) {
+        getElementByListId(0, 410450).then(function(lockData) {
           //console.info('price lock kit', lockData);
           getDoorElem(priceObj, lockData);
 
-          parseListContent(lockSource.id).then(function (consist) {
+          parseListContent(312777).then(function (consist) {
             //console.warn('consist!!!!!!+', consist);
             priceObj.consist = consist;
             parseConsistElem([priceObj.consist]).then(function(consistElem) {
@@ -17946,35 +17950,35 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     /**------ download Locks ------*/
-
     function downloadLocks() {
-      var promises = GlobalStor.global.doorHandlers.map(function(item) {
-        var deff = $q.defer();
-        localDB.selectLocalDB(
-          localDB.tablesLocalDB.lock_lists.tableName, {'accessory_id': item.id}, 'list_id'
-        ).then(function(lockIds) {
-          //console.info('--lockIds---', lockIds);
-          if(lockIds.length) {
-            var promises2 = lockIds.map(function(item2) {
-              var deff2 = $q.defer();
-              localDB.selectLocalDB(
-                localDB.tablesLocalDB.lists.tableName,{'id': item2.list_id}, 'id, name, list_type_id, parent_element_id'
-              ).then(function(lockKid) {
-                  deff2.resolve(lockKid[0]);
-                });
-              return deff2.promise;
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups_dependencies.tableName
+        ).then(function(dependencies) {
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.doors_hardware_groups.tableName    
+          ).then(function(hardware_groups) {
+              // console.info('--hardware_groups---', hardware_groups);
+              // console.info('--dependencies---', dependencies);
+              for(var x=0; x<hardware_groups.length; x+=1) {
+                hardware_groups[x].profIds = [];
+                for(var y=0; y<dependencies.length; y+=1) {
+                  if(hardware_groups[x].id === dependencies[y].hardware_group_id) {
+                    hardware_groups[x].profIds.push(dependencies[y].doors_group_id);
+                  }
+                }
+                hardware_groups[x].profIds = hardware_groups[x].profIds.join(', ');                
+              }
+              GlobalStor.global.doorLocks = angular.copy(hardware_groups) 
             });
-            deff.resolve($q.all(promises2));
-          } else {
-            deff.resolve(0);
-          }
-        });
-        return deff.promise;
-      });
+          });
+    }
 
-      $q.all(promises).then(function(lockData) {
-        //console.info('--lockData---', lockData);
-        GlobalStor.global.doorLocks = angular.copy(lockData);
+    function accessoryHandles() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.lock_lists.tableName
+        ).then(function(lockIds) {
+        //console.info('--lockIds---', lockIds);
+        GlobalStor.global.locksList = angular.copy(lockIds)
       });
     }
 
@@ -17984,18 +17988,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           profArrQty = profArr.length,
           profsQty, profQty, isExist, i;
       for(i = 0; i < profArrQty; i+=1) {
-        profsQty = GlobalStor.global.profiles.length;
+        profsQty = GlobalStor.global.locksList.length;
         isExist = 0;
         while(--profsQty > -1) {
-          profQty = GlobalStor.global.profiles[profsQty].length;
-          while(--profQty > -1) {
-            if(GlobalStor.global.profiles[profsQty][profQty].id === profArr[i].profile_system_id) {
-              isExist = 1;
-            }
+          if(GlobalStor.global.locksList[profsQty].accessory_id === profArr[i].accessory_id) {
+            isExist = 1;
           }
         }
         if(isExist) {
-          profIds.push(profArr[i].profile_system_id);
+          profIds.push(profArr[i].accessory_id);
         }
       }
       return profIds.join(', ');
@@ -18020,14 +18021,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           /** download Locks */
           downloadLocks();
-
+          accessoryHandles();
           //------- get link between handler and profile
           var promises = GlobalStor.global.doorHandlers.map(function(item) {
             var deff = $q.defer();
             localDB.selectLocalDB(
-              localDB.tablesLocalDB.elements_profile_systems.tableName,
-              {'element_id': item.parent_element_id},
-              'profile_system_id'
+              localDB.tablesLocalDB.lock_lists.tableName,
+              {'list_id': item.id},
+              'accessory_id'
             ).then(function(profileIds) {
               //console.info('--prof---', profileIds);
               deff.resolve(profileIds);
@@ -18043,10 +18044,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             }
           });
         });
-
       });
-
-
     }
 
 
@@ -19796,6 +19794,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       GlobalStor.global.isCreatedNewProject = 0;
       return deferred.promise;
     }
+
 
 
     /**========== FINISH ==========*/
