@@ -10005,11 +10005,16 @@ function ErrorResult(code, message) {
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       //var pnt = PointsServ.templatePoints(ProductStor.product.template),
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
+      console.log(source.lockShapeList, 'source.lockShapeList')
       for(var x=0; x<doorsItems.length; x+=1) {
-        if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
-          if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
-            source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
-          } 
+        if(doorsItems[x].hardware_color_id === product.lamination.id) {
+          if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
+            if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
+              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
+            } else if (doorsItems[x].max_width === 0 && doorsItems[x].min_width === 0) {
+              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
+            }
+          }
         }
       }
       product.doorLock = source.lockShapeList[k];
@@ -16940,13 +16945,13 @@ function ErrorResult(code, message) {
             while(--areasQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
                 if(GlobalStor.global.locations.areas[areasQty].name) {
-                  GlobalStor.global.locations.cities[cityQty].cityName += ', '+GlobalStor.global.locations.areas[areasQty].name;
+                  GlobalStor.global.locations.cities[cityQty].areasName = GlobalStor.global.locations.areas[areasQty].name;
                 }
               }
             }
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName + ', '+ GlobalStor.global.locations.cities[cityQty].areasName + ', '+ GlobalStor.global.locations.regions[regionQty].name;
                 GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                 GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                 countryQty = GlobalStor.global.locations.countries.length;

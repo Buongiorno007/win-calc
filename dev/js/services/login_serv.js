@@ -133,13 +133,13 @@
             while(--areasQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
                 if(GlobalStor.global.locations.areas[areasQty].name) {
-                  GlobalStor.global.locations.cities[cityQty].cityName += ', '+GlobalStor.global.locations.areas[areasQty].name;
+                  GlobalStor.global.locations.cities[cityQty].areasName = GlobalStor.global.locations.areas[areasQty].name;
                 }
               }
             }
             while(--regionQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName +', '+ GlobalStor.global.locations.regions[regionQty].name;
+                GlobalStor.global.locations.cities[cityQty].fullLocation = ''+ GlobalStor.global.locations.cities[cityQty].cityName + ', '+ GlobalStor.global.locations.cities[cityQty].areasName + ', '+ GlobalStor.global.locations.regions[regionQty].name;
                 GlobalStor.global.locations.cities[cityQty].climaticZone = GlobalStor.global.locations.regions[regionQty].climaticZone;
                 GlobalStor.global.locations.cities[cityQty].heatTransfer = GlobalStor.global.locations.regions[regionQty].heatTransfer;
                 countryQty = GlobalStor.global.locations.countries.length;
