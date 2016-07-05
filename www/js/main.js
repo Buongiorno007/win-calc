@@ -13785,7 +13785,7 @@ function ErrorResult(code, message) {
           },
           'cities': {
             'tableName': 'cities',
-            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), area_id INTEGER',
+            'prop': 'region_id INTEGER, name VARCHAR(255), transport VARCHAR(2), lat NUMERIC, long NUMERIC, is_capital INTEGER, code_sync INTEGER, name_sync VARCHAR(255), area_id INTEGER',
             'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
@@ -16936,7 +16936,7 @@ function ErrorResult(code, message) {
           GlobalStor.global.locations.cities = angular.copy(data);
           while(--cityQty > -1) {
             regionQty = GlobalStor.global.locations.regions.length;
-            areasQty = GlobalStor.global.locations.regions.length;
+            areasQty = GlobalStor.global.locations.areas.length;
             while(--areasQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
                 if(GlobalStor.global.locations.areas[areasQty].name) {

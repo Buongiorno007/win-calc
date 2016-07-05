@@ -129,7 +129,7 @@
           GlobalStor.global.locations.cities = angular.copy(data);
           while(--cityQty > -1) {
             regionQty = GlobalStor.global.locations.regions.length;
-            areasQty = GlobalStor.global.locations.regions.length;
+            areasQty = GlobalStor.global.locations.areas.length;
             while(--areasQty > -1) {
               if(GlobalStor.global.locations.cities[cityQty].area_id === GlobalStor.global.locations.areas[areasQty].id) {
                 if(GlobalStor.global.locations.areas[areasQty].name) {

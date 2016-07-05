@@ -31,7 +31,7 @@
           },
           'cities': {
             'tableName': 'cities',
-            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), area_id INTEGER',
+            'prop': 'region_id INTEGER, name VARCHAR(255), transport VARCHAR(2), lat NUMERIC, long NUMERIC, is_capital INTEGER, code_sync INTEGER, name_sync VARCHAR(255), area_id INTEGER',
             'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
