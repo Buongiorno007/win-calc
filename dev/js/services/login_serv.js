@@ -1227,6 +1227,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           /** download Locks */
           downloadLocks();
           accessoryHandles();
+          downloadDoorsItems();
           //------- get link between handler and profile
           var promises = GlobalStor.global.doorHandlers.map(function(item) {
             var deff = $q.defer();
@@ -1290,6 +1291,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         localDB.tablesLocalDB.doors_laminations_dependencies.tableName
       ).then(function(doorData) {
         GlobalStor.global.doorsLaminations = angular.copy(doorData)
+      });
+    }
+    function downloadDoorsItems() {
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_hardware_items.tableName
+      ).then(function(doorData) {
+        for(var x=0; x<doorData.length; x+=1) {
+          doorData[x].parent_element_id = doorData[x].child_id;
+          delete doorData[x].child_id;
+        }
+        GlobalStor.global.doorsItems = angular.copy(doorData)
       });
     }
 

@@ -485,10 +485,10 @@
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
-        var newHandleArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+        var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
         });
-        DesignStor.design.lockShapeList = newHandleArr;
+        DesignStor.design.lockShapeList = newLockArr;
       }
     }
 
