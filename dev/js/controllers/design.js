@@ -105,7 +105,7 @@
       DesignStor.design.activeSubMenuItem = 0;
       DesignStor.design.isDropSubMenu = 0;
     }
-
+    console.log(DesignStor.design, 'product')
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;

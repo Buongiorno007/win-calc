@@ -10,42 +10,42 @@
 
 	.doors-info {
 		position: absolute;
-	    height: 70%;
-	    top: 15%;
-	    left: 15%;
-	    width: 70%;
+	    height: 32%;
+	    top: 34%;
+	    left: 25%;
+	    width: 50%;
 	    z-index: 20;
-	    border-radius: 3rem;
+	    border-radius: 2rem;
 	    background: #F74F2E;
 	}
 
 	.isSize {
-	    height: 9%;
+	    height: 12%;
 	    position: relative;
 	    width: 32%;
-	    left: 10%;
-	    top: 89%;
+	    /* left: 9%; */
+	    top: 38%;
 	    line-height: 6rem;
 	    text-align: center;
-	    font-size: x-large;
-	    border-radius: 1.5rem;
+	    font-size: large;
+	    border-radius: 1.5rem 0rem 0rem 1.5rem;
 	    color: white;
 	    background: #f98000;
-	    float: left;
+	    float: right;
 	}
 	.isHardware {
-	   height: 9%;
-	   position: relative;
-	   width: 32%;
-	   left: -10%;
-	   top: 89%;
-	   line-height: 6rem;
-	   text-align: center;
-	   font-size: x-large;
-	   border-radius: 1.5rem;
-	   color: white;
-	   background: #f98000;
-	   float: right;
+	    height: 12%;
+	    position: relative;
+	    width: 32%;
+	    left: -5%;
+	    top: 38%;
+	    line-height: 6rem;
+	    text-align: center;
+	    font-size: large;
+	    border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;
+	    color: white;
+	    background: #f98000;
+	    float: right;
 	}
 	.message-alert {
 	    color: rgba(255, 255, 255, 0.85);
@@ -53,10 +53,10 @@
 	    position: relative;
 	    text-align: left;
 	    text-indent: 3%;
-	    top: 5%;
+	    top: 8%;
 	    left: 5%;
-	    width: 80%;
-	    max-width: 83%;
+	    width: 90%;
+	    max-width: 90%;
 	    z-index: 1;
 	}
 

@@ -622,7 +622,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       DesignStor.design.activeSubMenuItem = 0;
       DesignStor.design.isDropSubMenu = 0;
     }
-
+    console.log(DesignStor.design, 'product')
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
@@ -4072,11 +4072,14 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
     thisCtrl.TEXT3 = $filter('translate')('natification.TEXT3');
+    thisCtrl.EDIT_HARDWARE = $filter('translate')('natification.EDIT_HARDWARE');
+    thisCtrl.EDIT_SIZE = $filter('translate')('natification.EDIT_SIZE');
     /**============ METHODS ================*/
 
     /**========== FINISH ==========*/
       //------ clicking
-    // thisCtrl. = ;
+    thisCtrl.stepBack = DesignServ.stepBack;
+    thisCtrl.toggleDoorConfig = DesignServ.toggleDoorConfig;
 
   });
 })();
@@ -12085,12 +12088,8 @@ function ErrorResult(code, message) {
       rebuildSVGTemplate();
     }
 
-
-
-
-
-
     function stepBack() {
+      GlobalStor.global.checkDoors = 0;
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
       rebuildSVGTemplate();
@@ -12098,11 +12097,6 @@ function ErrorResult(code, message) {
       cleanTempSize();
       hideSizeTools();
     }
-
-
-
-
-
 
 
     /**------- Save and Close Construction Page ----------*/

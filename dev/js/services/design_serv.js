@@ -2797,12 +2797,8 @@
       rebuildSVGTemplate();
     }
 
-
-
-
-
-
     function stepBack() {
+      GlobalStor.global.checkDoors = 0;
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
       rebuildSVGTemplate();
@@ -2810,11 +2806,6 @@
       cleanTempSize();
       hideSizeTools();
     }
-
-
-
-
-
 
 
     /**------- Save and Close Construction Page ----------*/
