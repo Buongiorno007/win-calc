@@ -329,6 +329,13 @@
         <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
       </div>
     </div>
+    <div ng-controller="DoorCheckCtrl as checkBox" ng-show="checkBox.G.global.checkDoors" class="doors-background">
+      <div class="doors-info">
+        <div class="message-alert">{{::checkBox.TEXT1 + ' ' + checkBox.G.global.heightTEMP + 'x' + checkBox.G.global.widthTEMP + ' ' + checkBox.TEXT2 + ' ' + checkBox.TEXT2}}</div>
+        <div class="isSize"></div>
+        <div class="isHardware"></div>
+      </div>
+    </div>
   </section>
 </section>
 <div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">

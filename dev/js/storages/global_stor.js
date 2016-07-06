@@ -56,6 +56,8 @@
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
+        heightTEMP: 0,
+        widthTEMP: 0,
 
         //------ Rooms background
         showRoomSelectorDialog: 0,
@@ -104,6 +106,7 @@
 
         //-------- Door
         noDoorExist: 0,
+        checkDoors: 0,
         doorKitsT1: [],
         doorKitsT2: [],
         type_door: 0,

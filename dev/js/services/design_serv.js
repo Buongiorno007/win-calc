@@ -23,8 +23,7 @@
     DesignStor,
     OrderStor,
     ProductStor,
-    UserStor,
-    PointsServ
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -359,7 +358,41 @@
     }
 
 
+    function checkSize(res) {
+      if(ProductStor.product.construction_type === 4) {
+        var sizeX = res.dimension.dimX;
+        var sizeY = res.dimension.dimY;
+        var heightT = 0, widthT = 0;
+        for(var x=0; x<sizeX.length; x+=1) {
+          if(sizeX[x].dimId == 'fp3') {
+            widthT = GlobalStor.global.heightTEMP = sizeX[x].text
+          }
+        }
+        for(var y=0; y<sizeY.length; y+=1) {
+          if(sizeY[y].dimId == 'fp3') {
+            heightT = GlobalStor.global.widthTEMP = sizeY[y].text
+          }
+        }
+        size(heightT, widthT)
+          return {
+          widthT:widthT,
+          heightT:heightT
+        }
+      }
+    }
 
+    function size(heightT, widthT) {
+      var product = ProductStor.product.doorLock;
+      if(heightT <= product.height_max && heightT >= product.height_min) {
+        if(widthT <= product.width_max && widthT >= product.width_min) {
+        } else {
+          GlobalStor.global.checkDoors = 1;
+        }
+      } else {
+        GlobalStor.global.checkDoors = 1;
+      }
+    }
+    
 
     function closeSizeCaclulator(prom) {
       var deff = $q.defer();
@@ -380,6 +413,7 @@
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
               .then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
+                checkSize(result);
                 cleanTempSize();
                 deff.resolve(1);
               });
@@ -749,11 +783,9 @@
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      //var pnt = PointsServ.templatePoints(ProductStor.product.template),
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-      console.log(source.lockShapeList, 'source.lockShapeList')
       for(var x=0; x<doorsItems.length; x+=1) {
-        if(doorsItems[x].hardware_color_id === product.lamination.id) {
+        if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
           if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
             if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
               source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
@@ -2900,6 +2932,7 @@
       setDefaultTemplate: setDefaultTemplate,
       designSaved: designSaved,
       designCancel: designCancel,
+      checkSize: checkSize,
       setDefaultConstruction: setDefaultConstruction,
 
       initAllImposts: initAllImposts,

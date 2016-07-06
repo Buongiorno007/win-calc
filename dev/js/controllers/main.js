@@ -132,7 +132,6 @@
       }
       return deferred.promise;
     }
-
     /**========== FINISH ==========*/
 
     //------ clicking

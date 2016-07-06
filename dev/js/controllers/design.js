@@ -475,8 +475,11 @@
 
     /**---------- Select handle shape --------*/
 
+
     function selectHandle(id) {
+      var pnt = DesignServ.checkSize(DesignStor.design.templateTEMP);
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
+      var array = [];
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -488,7 +491,14 @@
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
         });
-        DesignStor.design.lockShapeList = newLockArr;
+        for(var x=0; x<newLockArr.length; x+=1) {
+          if (pnt.heightT <= newLockArr[x].height_max && pnt.heightT >= newLockArr[x].height_min) {
+            if (pnt.widthT <= newLockArr[x].width_max && pnt.widthT >= newLockArr[x].width_min) {
+              array.push(newLockArr[x])
+            }
+          }
+        }
+        DesignStor.design.lockShapeList = array;
       }
     }
 
@@ -646,10 +656,6 @@
       DesignStor.design.isDimExtra = 0;
       DesignStor.design.isSquareExtra = 0;
     }
-
-
-
-
 
 
     /**========== FINISH ==========*/

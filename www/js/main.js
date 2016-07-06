@@ -992,8 +992,11 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     /**---------- Select handle shape --------*/
 
+
     function selectHandle(id) {
+      var pnt = DesignServ.checkSize(DesignStor.design.templateTEMP);
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
+      var array = [];
       if(!thisCtrl.config.selectedStep4) {
         if(DesignStor.design.doorConfig.handleShapeIndex === id) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
@@ -1005,7 +1008,14 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
         });
-        DesignStor.design.lockShapeList = newLockArr;
+        for(var x=0; x<newLockArr.length; x+=1) {
+          if (pnt.heightT <= newLockArr[x].height_max && pnt.heightT >= newLockArr[x].height_min) {
+            if (pnt.widthT <= newLockArr[x].width_max && pnt.widthT >= newLockArr[x].width_min) {
+              array.push(newLockArr[x])
+            }
+          }
+        }
+        DesignStor.design.lockShapeList = array;
       }
     }
 
@@ -1163,10 +1173,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       DesignStor.design.isDimExtra = 0;
       DesignStor.design.isSquareExtra = 0;
     }
-
-
-
-
 
 
     /**========== FINISH ==========*/
@@ -1889,8 +1895,8 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
-/*
+//           checkingUser();
+// /*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -2322,7 +2328,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       }
       return deferred.promise;
     }
-
     /**========== FINISH ==========*/
 
     //------ clicking
@@ -4043,6 +4048,35 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**========== FINISH ==========*/
       //------ clicking
     thisCtrl.closeAttantion = closeAttantion;
+
+  });
+})();
+
+
+// controllers/parts/check-doors.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('DoorCheckCtrl',
+
+  function($filter, DesignStor, HistoryStor, GlobalStor, DesignServ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.D = DesignStor;
+    thisCtrl.G = GlobalStor;
+
+    //------- translate
+    thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
+    thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
+    thisCtrl.TEXT3 = $filter('translate')('natification.TEXT3');
+    /**============ METHODS ================*/
+
+    /**========== FINISH ==========*/
+      //------ clicking
+    // thisCtrl. = ;
 
   });
 })();
@@ -9277,8 +9311,7 @@ function ErrorResult(code, message) {
     DesignStor,
     OrderStor,
     ProductStor,
-    UserStor,
-    PointsServ
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -9613,7 +9646,41 @@ function ErrorResult(code, message) {
     }
 
 
+    function checkSize(res) {
+      if(ProductStor.product.construction_type === 4) {
+        var sizeX = res.dimension.dimX;
+        var sizeY = res.dimension.dimY;
+        var heightT = 0, widthT = 0;
+        for(var x=0; x<sizeX.length; x+=1) {
+          if(sizeX[x].dimId == 'fp3') {
+            widthT = GlobalStor.global.heightTEMP = sizeX[x].text
+          }
+        }
+        for(var y=0; y<sizeY.length; y+=1) {
+          if(sizeY[y].dimId == 'fp3') {
+            heightT = GlobalStor.global.widthTEMP = sizeY[y].text
+          }
+        }
+        size(heightT, widthT)
+          return {
+          widthT:widthT,
+          heightT:heightT
+        }
+      }
+    }
 
+    function size(heightT, widthT) {
+      var product = ProductStor.product.doorLock;
+      if(heightT <= product.height_max && heightT >= product.height_min) {
+        if(widthT <= product.width_max && widthT >= product.width_min) {
+        } else {
+          GlobalStor.global.checkDoors = 1;
+        }
+      } else {
+        GlobalStor.global.checkDoors = 1;
+      }
+    }
+    
 
     function closeSizeCaclulator(prom) {
       var deff = $q.defer();
@@ -9634,6 +9701,7 @@ function ErrorResult(code, message) {
             SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
               .then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
+                checkSize(result);
                 cleanTempSize();
                 deff.resolve(1);
               });
@@ -10003,11 +10071,9 @@ function ErrorResult(code, message) {
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      //var pnt = PointsServ.templatePoints(ProductStor.product.template),
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-      console.log(source.lockShapeList, 'source.lockShapeList')
       for(var x=0; x<doorsItems.length; x+=1) {
-        if(doorsItems[x].hardware_color_id === product.lamination.id) {
+        if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
           if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
             if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
               source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
@@ -12154,6 +12220,7 @@ function ErrorResult(code, message) {
       setDefaultTemplate: setDefaultTemplate,
       designSaved: designSaved,
       designCancel: designCancel,
+      checkSize: checkSize,
       setDefaultConstruction: setDefaultConstruction,
 
       initAllImposts: initAllImposts,
@@ -26325,6 +26392,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
+        heightTEMP: 0,
+        widthTEMP: 0,
 
         //------ Rooms background
         showRoomSelectorDialog: 0,
@@ -26373,6 +26442,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         //-------- Door
         noDoorExist: 0,
+        checkDoors: 0,
         doorKitsT1: [],
         doorKitsT2: [],
         type_door: 0,
