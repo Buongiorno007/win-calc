@@ -1008,10 +1008,13 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
         });
+        var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
           if (pnt.heightT <= newLockArr[x].height_max && pnt.heightT >= newLockArr[x].height_min) {
             if (pnt.widthT <= newLockArr[x].width_max && pnt.widthT >= newLockArr[x].width_min) {
-              array.push(newLockArr[x])
+              if(newLockArr[x].hardware_type_id === (template.length)+1) {
+                array.push(newLockArr[x])
+              }
             }
           }
         }
@@ -1020,7 +1023,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     }
 
 
-
+console.log(ProductStor.product, 'products')
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {
@@ -2928,6 +2931,114 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 })();
 
 
+// controllers/panels/add_elements.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AddElementsCtrl',
+
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.A = AuxStor;
+
+    thisCtrl.config = {
+      DELAY_START: globalConstants.STEP,
+      addElementDATA: GeneralServ.addElementDATA,
+      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
+      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
+      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
+      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
+      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
+      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
+      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 55,
+      typing: 'on'
+    };
+
+    //------- translate
+    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
+    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
+    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
+    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
+
+
+    /**============ METHODS ================*/
+    // Show Window Scheme Dialog
+    function showWindowScheme() {
+      filterAddElem();
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = true;
+      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
+    }
+
+    function closeWindowScheme() {
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = false;
+    }
+
+    function click(id){
+      GlobalStor.global.typeMenu = 0;
+      GlobalStor.global.typeMenuID = id;
+      $timeout(function(id){
+        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
+        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
+        if (GlobalStor.global.typeMenu === 55) {
+          $('.aux-handle').css({
+          'left': 14.375 +'rem',
+           'top': 82.625 +'rem'
+          });
+        } else {
+          $('.aux-handle').css({
+           'left': 34.375 +'rem',
+           'top': 65.625 +'rem'
+          });
+        }
+      },100);
+    }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.click = click;
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
+})();
+
+
+
 // controllers/panels/add_elements_cart.js
 
 (function(){
@@ -3367,114 +3478,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-
-  });
-})();
-
-
-
-// controllers/panels/add_elements.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('MainModule')
-    .controller('AddElementsCtrl',
-
-  function(
-    $filter,
-    $timeout,
-    globalConstants,
-    GeneralServ,
-    AddElementsServ,
-    AddElementMenuServ,
-    DesignServ,
-    GlobalStor,
-    AuxStor,
-    ProductStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.A = AuxStor;
-
-    thisCtrl.config = {
-      DELAY_START: globalConstants.STEP,
-      addElementDATA: GeneralServ.addElementDATA,
-      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
-      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
-      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
-      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
-      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
-      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
-      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 55,
-      typing: 'on'
-    };
-
-    //------- translate
-    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
-    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
-    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
-    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
-    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
-    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
-    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
-    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
-    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
-    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
-    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
-    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
-    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
-
-
-    /**============ METHODS ================*/
-    // Show Window Scheme Dialog
-    function showWindowScheme() {
-      filterAddElem();
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = true;
-      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
-    }
-
-    function closeWindowScheme() {
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = false;
-    }
-
-    function click(id){
-      GlobalStor.global.typeMenu = 0;
-      GlobalStor.global.typeMenuID = id;
-      $timeout(function(id){
-        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
-        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 55) {
-          $('.aux-handle').css({
-          'left': 14.375 +'rem',
-           'top': 82.625 +'rem'
-          });
-        } else {
-          $('.aux-handle').css({
-           'left': 34.375 +'rem',
-           'top': 65.625 +'rem'
-          });
-        }
-      },100);
-    }
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.click = click;
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
 
   });
 })();
@@ -5279,6 +5282,63 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 })();
 
 
+// directives/calendar.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .directive('calendar',
+
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
+
+    return {
+      restrict: 'E',
+      transclude: true,
+      link: function (scope, element) {
+
+        var orderDay = new Date(OrderStor.order.order_date).getDate(),
+        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
+        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
+        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
+
+        $(function(){
+          var opt = {
+            flat: true,
+            format: 'd.m.Y',
+            locale: {
+              days: [],
+              daysShort: [],
+              daysMin: [],
+              monthsShort: [],
+              months: []
+            },
+            date: deliveryDate,
+            min: minDeliveryDate,
+//            max: maxDeliveryDate,
+            change: function (date) {
+              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
+              scope.$apply();
+            }
+          };
+          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
+          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
+          element.pickmeup(opt);
+        });
+      }
+    };
+
+  });
+})();
+
+
+
 // directives/calendar_scroll.js
 
 (function(){
@@ -5434,63 +5494,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
   });
 })();
-
-
-// directives/calendar.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .directive('calendar',
-
-  function(
-    $filter,
-    CartMenuServ,
-    GlobalStor,
-    OrderStor
-  ) {
-
-    return {
-      restrict: 'E',
-      transclude: true,
-      link: function (scope, element) {
-
-        var orderDay = new Date(OrderStor.order.order_date).getDate(),
-        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
-        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
-        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
-
-        $(function(){
-          var opt = {
-            flat: true,
-            format: 'd.m.Y',
-            locale: {
-              days: [],
-              daysShort: [],
-              daysMin: [],
-              monthsShort: [],
-              months: []
-            },
-            date: deliveryDate,
-            min: minDeliveryDate,
-//            max: maxDeliveryDate,
-            change: function (date) {
-              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
-              scope.$apply();
-            }
-          };
-          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
-          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
-          element.pickmeup(opt);
-        });
-      }
-    };
-
-  });
-})();
-
 
 
 // directives/fast_click.js
@@ -5699,49 +5702,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
 
 
-// directives/price_x_qty.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('BauVoiceApp')
-    .directive('priceFixed',
-
-  function() {
-
-    return {
-      restrict: 'A',
-      scope: {
-        priceFixed: '@',
-        qtyElement: '@',
-        currencyElement: '@'
-      },
-
-      link: function (scope, element, attrs) {
-
-        function getNewPrice(priceAtr, qty, currency) {
-          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
-          element.text(newPrice);
-        }
-
-        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-
-        attrs.$observe('qtyElement', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-        attrs.$observe('priceFixed', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-
-      }
-    };
-
-  });
-})();
-
-
-
 // directives/price.js
 
 (function(){
@@ -5850,6 +5810,49 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 // event.srcEvent.stopPropagation();
   });
 })();
+
+
+// directives/price_x_qty.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .directive('priceFixed',
+
+  function() {
+
+    return {
+      restrict: 'A',
+      scope: {
+        priceFixed: '@',
+        qtyElement: '@',
+        currencyElement: '@'
+      },
+
+      link: function (scope, element, attrs) {
+
+        function getNewPrice(priceAtr, qty, currency) {
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
+          element.text(newPrice);
+        }
+
+        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+
+        attrs.$observe('qtyElement', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+        attrs.$observe('priceFixed', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+
+      }
+    };
+
+  });
+})();
+
 
 
 // directives/show_delay.js
@@ -9470,11 +9473,11 @@ function ErrorResult(code, message) {
           curDimType = DesignStor.design.oldSize.attributes[5].nodeValue,
           curBlockId = DesignStor.design.oldSize.attributes[6].nodeValue,
           dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          finishSize = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          startSize =+DesignStor.design.oldSize.attributes[11].nodeValue,
+          finishSize =+DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
-          level = +DesignStor.design.oldSize.attributes[14].nodeValue,
-          newCoord = startSize + newLength,
+          level =+DesignStor.design.oldSize.attributes[14].nodeValue,
+          newCoord = startSize+newLength,
           newCoordLast = finishSize - newLength,
           blocksQty = blocks.length, isLastDim = 0,
           overall = [], overallQty, newHeightQ, b, i, pointsQQty, pointsOutQty;
@@ -9534,7 +9537,7 @@ function ErrorResult(code, message) {
         //------- defined last dim for inside dimensions
         if(!level) {
           //------- collect overall dimensions
-          for (b = 1; b < blocksQty; b += 1) {
+          for (b = 1; b < blocksQty; b+= 1) {
             if (blocks[b].level === 1) {
               overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
             }
@@ -9611,8 +9614,8 @@ function ErrorResult(code, message) {
     function rebuildPointsOut(newLength) {
       var blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
-          startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
-          oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
+          startSize =+DesignStor.design.oldSize.attributes[11].nodeValue,
+          oldSizeValue =+DesignStor.design.oldSize.attributes[12].nodeValue,
           axis = DesignStor.design.oldSize.attributes[13].nodeValue,
           newPointsOut, b, pointsOutQty, isRealBlock;
 
@@ -9633,11 +9636,11 @@ function ErrorResult(code, message) {
               while (--pointsOutQty > -1) {
                 if (axis === 'x') {
                   if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                    newPointsOut[pointsOutQty].x = startSize + newLength;
+                    newPointsOut[pointsOutQty].x = startSize+newLength;
                   }
                 } else if (axis === 'y') {
                   if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                    newPointsOut[pointsOutQty].y = startSize + newLength;
+                    newPointsOut[pointsOutQty].y = startSize+newLength;
                   }
                 }
               }
@@ -9651,17 +9654,20 @@ function ErrorResult(code, message) {
 
     function checkSize(res) {
       if(ProductStor.product.construction_type === 4) {
+        var product = ProductStor.product.doorLock;
+        GlobalStor.global.heightLim = product.height_min+' '+product.height_max;
+        GlobalStor.global.widthLim = product.width_min+' '+product.width_max;
         var sizeX = res.dimension.dimX;
         var sizeY = res.dimension.dimY;
         var heightT = 0, widthT = 0;
         for(var x=0; x<sizeX.length; x+=1) {
           if(sizeX[x].dimId == 'fp3') {
-            widthT = GlobalStor.global.heightTEMP = sizeX[x].text
+            widthT = GlobalStor.global.widthTEMP = sizeX[x].text
           }
         }
         for(var y=0; y<sizeY.length; y+=1) {
           if(sizeY[y].dimId == 'fp3') {
-            heightT = GlobalStor.global.widthTEMP = sizeY[y].text
+            heightT = GlobalStor.global.heightTEMP = sizeY[y].text
           }
         }
         size(heightT, widthT)
@@ -9674,6 +9680,8 @@ function ErrorResult(code, message) {
 
     function size(heightT, widthT) {
       var product = ProductStor.product.doorLock;
+      GlobalStor.global.heightLim = '('+product.height_min+' - '+product.height_max+')';
+      GlobalStor.global.widthLim = '('+product.width_min+' - '+product.width_max+')';
       if(heightT <= product.height_max && heightT >= product.height_min) {
         if(widthT <= product.width_max && widthT >= product.width_min) {
         } else {
@@ -9791,7 +9799,7 @@ function ErrorResult(code, message) {
         DesignStor.design.openVoiceHelper = false;
 
         if ((tempVal > 0) && (tempVal < 10000)) {
-          DesignStor.design.tempSize = ("" + tempVal).split('');
+          DesignStor.design.tempSize = (""+tempVal).split('');
           //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
           changeSize();
         }
@@ -9954,8 +9962,8 @@ function ErrorResult(code, message) {
                 dim.classed('active', true);
                 DesignStor.design.oldSize = dim[0][0];
                 DesignStor.design.prevSize = dim[0][0].textContent;
-                DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
-                DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
+                DesignStor.design.minSizeLimit =+dim[0][0].attributes[8].nodeValue;
+                DesignStor.design.maxSizeLimit =+dim[0][0].attributes[9].nodeValue;
                 //------- show caclulator or voice helper
                 if (GlobalStor.global.isVoiceHelper) {
                   DesignStor.design.openVoiceHelper = 1;
@@ -10000,7 +10008,7 @@ function ErrorResult(code, message) {
         while(--blockQty > 0) {
           //------- if grid there is in this block
           if(blocks[blockQty].gridId) {
-            for (g = 0; g < gridQty; g += 1) {
+            for (g = 0; g < gridQty; g+= 1) {
               if(blocks[blockQty].id === gridsOld[g].block_id) {
                 gridTemp = gridsOld[g];
                 sizeTemp = {};
@@ -10366,7 +10374,7 @@ function ErrorResult(code, message) {
               } else {
                 glass.classed('glass-active', false);
                 //------- hide Dimensions of current Block
-                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id=' + blockID + ']')
+                d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+blockID+']')
                   .classed('dim_hidden', true);
 
                 if (!DesignStor.design.selectedGlass.length) {
@@ -10398,7 +10406,7 @@ function ErrorResult(code, message) {
 
               if (isGlass) {
                 glass.classed('glass-active', true);
-                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.selectGlassName);
+                d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.selectGlassName);
                 MainServ.setGlassToTemplateBlocks(
                   ProductStor.product.template,
                   GlobalStor.global.selectGlassId,
@@ -10407,7 +10415,7 @@ function ErrorResult(code, message) {
                 );
               } else {
                 glass.classed('glass-active', false);
-                d3.select('.glass-txt[block_id=' + blockID + ']').text(GlobalStor.global.prevGlassName);
+                d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.prevGlassName);
                 MainServ.setGlassToTemplateBlocks(
                   ProductStor.product.template,
                   GlobalStor.global.prevGlassId,
@@ -10549,7 +10557,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Edit Sash +++++++++*/
+    /**++++++++++Edit Sash+++++++++*/
 
     function checkImpPointInCorner(linePoint, impPoint) {
       var noMatch = 1,
@@ -10596,8 +10604,8 @@ function ErrorResult(code, message) {
     function createChildBlock (blockN, blockIndex, blocks, isShtulp, sashParams) {
       var newBlock = {
         type: 'skylight',
-        id: 'block_' + blockN,
-        level: blocks[blockIndex].level + 1,
+        id: 'block_'+blockN,
+        level: blocks[blockIndex].level+1,
         blockType: 'frame',
         parent: blocks[blockIndex].id,
         children: [],
@@ -10678,7 +10686,7 @@ function ErrorResult(code, message) {
               if(noInCorner1) {
                 noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
                 if(noInCorner2) {
-                  //console.log('IMp++++++++++ line', lines[l]);
+                  //console.log('IMp++++++++++line', lines[l]);
                   //console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
                 }
@@ -10734,7 +10742,7 @@ function ErrorResult(code, message) {
         //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
         currBlockCenter = SVGServ.centerBlock(currPoints);
         //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
+        distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x+impLine.coefB * currBlockCenter.y+impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
         //      console.log('IMP -------------',impRadius, distCenterToImpost);
         if (impRadius < distCenterToImpost) {
           return impRadius / 2;
@@ -10775,7 +10783,7 @@ function ErrorResult(code, message) {
       //------- find lines as to current block
       while (--blocksQty > 0) {
         if (blocks[blocksQty].id === blockID) {
-          currBlockInd = +blocksQty;
+          currBlockInd =+blocksQty;
           curBlockN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
         }
       }
@@ -11027,22 +11035,22 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Edit Corners ++++++++*/
+    /**++++++++++Edit Corners++++++++*/
 
 
     function createCornerPoint(pointN, cornerN, line, blockIndex, blocks) {
       var dictance = 200,
           cornerPoint = {
             type:'corner',
-            id: 'c' + cornerN + '-' + pointN,
+            id: 'c'+cornerN+'-'+pointN,
             dir:'line'
           };
       if(pointN === 1) {
-        cornerPoint.x = ( line.from.x * (line.size - dictance) + line.to.x * dictance)/ line.size;
-        cornerPoint.y = ( line.from.y * (line.size - dictance) + line.to.y * dictance)/ line.size;
+        cornerPoint.x = ( line.from.x * (line.size - dictance)+line.to.x * dictance)/ line.size;
+        cornerPoint.y = ( line.from.y * (line.size - dictance)+line.to.y * dictance)/ line.size;
       } else if(pointN === 2) {
-        cornerPoint.x = ( line.from.x * dictance + line.to.x * (line.size - dictance))/ line.size;
-        cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
+        cornerPoint.x = ( line.from.x * dictance+line.to.x * (line.size - dictance))/ line.size;
+        cornerPoint.y = ( line.from.y * dictance+line.to.y * (line.size - dictance))/ line.size;
       }
       blocks[blockIndex].pointsOut.push(cornerPoint);
     }
@@ -11109,10 +11117,10 @@ function ErrorResult(code, message) {
           currLine = {};
       while (--pointOutQty > -1) {
         if(blocks[blocksInd].pointsOut[pointOutQty].type === 'corner') {
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-2') {
+          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-2') {
             currLine.from = blocks[blocksInd].pointsOut[pointOutQty];
           }
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c' + cornerN + '-1') {
+          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-1') {
             currLine.to = blocks[blocksInd].pointsOut[pointOutQty];
           }
         }
@@ -11224,7 +11232,7 @@ function ErrorResult(code, message) {
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //------- delete corner point in block
-      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2'], blockID, blocksSource);
+      removePoint(['c'+cornerN+'-1', 'c'+cornerN+'-2'], blockID, blocksSource);
 
       //------- delete Q point in block
       removePointQ('qc'+cornerN, blockID, blocksSource);
@@ -11250,20 +11258,20 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Edit Arc ++++++++*/
+    /**++++++++++Edit Arc++++++++*/
 
 
     function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
       while(--pointsQty > -1) {
         if(param) {
           if(dir) {
-            points[pointsQty].x += shift;
+            points[pointsQty].x+= shift;
           } else {
             points[pointsQty].x -= shift;
           }
         } else {
           if(dir) {
-            points[pointsQty].y += shift;
+            points[pointsQty].y+= shift;
           } else {
             points[pointsQty].y -= shift;
           }
@@ -11319,7 +11327,7 @@ function ErrorResult(code, message) {
       if(!$.isEmptyObject(arcObj)) {
 
         var arc = arcObj.__data__;
-//        console.log('+++++++++++++ ARC +++++++++++++++++++++');
+//        console.log('+++++++++++++ARC+++++++++++++++++++++');
         //------ make changes only if element is frame, don't touch arc
         if (arc.type === 'frame') {
           var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
@@ -11480,7 +11488,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Edit Imposts ++++++++*/
+    /**++++++++++Edit Imposts++++++++*/
 
 
 
@@ -11617,7 +11625,7 @@ function ErrorResult(code, message) {
         } else {
           //------ show error
           showErrorInBlock(blockID);
-          //TODO reload again createImpost(impType, glassObj) with angel changed +10 degree
+          //TODO reload again createImpost(impType, glassObj) with angel changed+10 degree
         }
 
       } else {
@@ -11660,7 +11668,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Create Mirror ++++++++*/
+    /**++++++++++Create Mirror++++++++*/
 
 
 
@@ -11792,7 +11800,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Set Position by Axises ++++++++*/
+    /**++++++++++Set Position by Axises++++++++*/
 
 
 
@@ -11875,9 +11883,9 @@ function ErrorResult(code, message) {
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
-            newX = (parentSizeMin + step);
+            newX = (parentSizeMin+step);
           } else {
-            newX = (impostIndSort[i-1].x + step);
+            newX = (impostIndSort[i-1].x+step);
           }
           //console.warn('final----', newX);
           //--------- checking is new impost Position inside of block
@@ -11905,7 +11913,7 @@ function ErrorResult(code, message) {
 
 
 
-    /**++++++++++ Set Position by Glass Width ++++++++*/
+    /**++++++++++Set Position by Glass Width++++++++*/
 
 
     function prepareBlockXPosition(currBlock, selectedBlocks) {
@@ -12005,7 +12013,7 @@ function ErrorResult(code, message) {
       //------ common glass width for each selectedBlocks
       //glassWidthAvg = GeneralServ.rounding100(selectedBlocks.reduce(function(summ, item) {
       glassWidthAvg = GeneralServ.roundingValue(selectedBlocks.reduce(function(summ, item) {
-        return {width: (summ.width + item.width)};
+        return {width: (summ.width+item.width)};
       }).width/selectedBlocksQty);
 
       //console.info(selectedBlocks, glassWidthAvg);
@@ -12031,7 +12039,7 @@ function ErrorResult(code, message) {
         impsSBQty = selectedBlocks[sb].imps.length;
         step = Math.round(glassWidthAvg - selectedBlocks[sb].width);
         //console.info('step----', selectedBlocks[sb]);
-        //console.info('step----', glassWidthAvg +' - '+ selectedBlocks[sb].width, step);
+        //console.info('step----', glassWidthAvg+' - '+selectedBlocks[sb].width, step);
         for(isb = 0; isb < impsSBQty; isb+=1) {
           if(!selectedBlocks[sb].imps[isb].isChanged) {
             isAprove = 0;
@@ -12047,7 +12055,7 @@ function ErrorResult(code, message) {
                 //----- if impost is left, it shoud be decrece if glass is bigger
                 step *= -1;
               }
-              selectedBlocks[sb].imps[isb].x += step;
+              selectedBlocks[sb].imps[isb].x+= step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks
               for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
@@ -12076,8 +12084,8 @@ function ErrorResult(code, message) {
               blockN = Number(blocksSource[p].id.replace(/\D+/g, ""));
               if(blockN === impostN) {
                 if(blocksSource[p].impost) {
-                  blocksSource[p].impost.impostAxis[0].x = +selectedBlocks[sb].imps[isb].x;
-                  blocksSource[p].impost.impostAxis[1].x = +selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[0].x =+selectedBlocks[sb].imps[isb].x;
+                  blocksSource[p].impost.impostAxis[1].x =+selectedBlocks[sb].imps[isb].x;
                 }
               }
             }

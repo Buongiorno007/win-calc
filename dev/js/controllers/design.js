@@ -491,10 +491,13 @@
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
         });
+        var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
           if (pnt.heightT <= newLockArr[x].height_max && pnt.heightT >= newLockArr[x].height_min) {
             if (pnt.widthT <= newLockArr[x].width_max && pnt.widthT >= newLockArr[x].width_min) {
-              array.push(newLockArr[x])
+              if(newLockArr[x].hardware_type_id === (template.length)+1) {
+                array.push(newLockArr[x])
+              }
             }
           }
         }
@@ -503,7 +506,7 @@
     }
 
 
-
+console.log(ProductStor.product, 'products')
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {

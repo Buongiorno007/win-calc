@@ -19,13 +19,11 @@
 	    background: #F74F2E;
 	}
 
-	.isSize {
+	.isHardware {
 	    height: 12%;
 	    position: relative;
 	    width: 32%;
-	    /* left: 9%; */
 	    top: 38%;
-	    line-height: 6rem;
 	    text-align: center;
 	    font-size: large;
 	    border-radius: 1.5rem 0rem 0rem 1.5rem;
@@ -33,13 +31,12 @@
 	    background: #f98000;
 	    float: right;
 	}
-	.isHardware {
+	.isSize {
 	    height: 12%;
 	    position: relative;
 	    width: 32%;
 	    left: -5%;
 	    top: 38%;
-	    line-height: 6rem;
 	    text-align: center;
 	    font-size: large;
 	    border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;

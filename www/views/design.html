@@ -331,7 +331,7 @@
     </div>
     <div ng-controller="DoorCheckCtrl as checkBox" ng-show="checkBox.G.global.checkDoors" class="doors-background">
       <div class="doors-info">
-        <div class="message-alert">{{::checkBox.TEXT1 + ' 2000x700 ' + br + checkBox.TEXT2 + '2100-2400х600-900' + checkBox.TEXT3}}</div>
+        <div class="message-alert">{{checkBox.TEXT1+checkBox.G.global.widthTEMP+' x '+checkBox.G.global.heightTEMP+' '+checkBox.TEXT2+checkBox.G.global.widthLim+'х'+checkBox.G.global.heightLim+checkBox.TEXT3}}</div>
         <div fs-click="checkBox.stepBack()" class="isSize">{{::checkBox.EDIT_HARDWARE}}</div>
         <div fs-click="checkBox.toggleDoorConfig()" class="isHardware">{{::checkBox.EDIT_SIZE}}</div>
       </div>
