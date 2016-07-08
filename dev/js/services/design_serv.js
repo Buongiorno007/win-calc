@@ -361,8 +361,6 @@
     function checkSize(res) {
       if(ProductStor.product.construction_type === 4) {
         var product = ProductStor.product.doorLock;
-        GlobalStor.global.heightLim = product.height_min+' '+product.height_max;
-        GlobalStor.global.widthLim = product.width_min+' '+product.width_max;
         var sizeX = res.dimension.dimX;
         var sizeY = res.dimension.dimY;
         var heightT = 0, widthT = 0;
@@ -386,8 +384,7 @@
 
     function size(heightT, widthT) {
       var product = ProductStor.product.doorLock;
-      GlobalStor.global.heightLim = '('+product.height_min+' - '+product.height_max+')';
-      GlobalStor.global.widthLim = '('+product.width_min+' - '+product.width_max+')';
+      GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
       if(heightT <= product.height_max && heightT >= product.height_min) {
         if(widthT <= product.width_max && widthT >= product.width_min) {
         } else {

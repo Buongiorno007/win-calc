@@ -506,7 +506,6 @@
     }
 
 
-console.log(ProductStor.product, 'products')
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {

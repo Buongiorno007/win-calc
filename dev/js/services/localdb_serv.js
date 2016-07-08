@@ -2678,6 +2678,7 @@
     /**========= DOOR PRICE ==========*/
 
     function getDoorElem(container, elem, kit) {
+        console.log(container, elem, kit, 'container, elem, kit')
       var elemObj = angular.copy(elem);
       /** currency conversion */
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
