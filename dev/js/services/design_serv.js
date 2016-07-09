@@ -781,31 +781,27 @@
 
     function setDoorParamValue(product, source) {
       var k = product.door_lock_shape_id;
-      source.lockShapeList[k].parent_element_id = [];
+      source.lockShapeList[k].elem = [];
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       for(var x=0; x<doorsItems.length; x+=1) {
-        if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-          if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
-            if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
-              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
-            } else if (doorsItems[x].max_width === 0 && doorsItems[x].min_width === 0) {
-              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
+        if(source.lockShapeList[k].profIds.indexOf(doorsItems[x].hardware_group_id) != -1) {
+          if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+            if(source.lockShapeList[k].height_max <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+              if(source.lockShapeList[k].height_min >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                if(source.lockShapeList[k].width_max <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                  if(source.lockShapeList[k].width_min >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                    source.lockShapeList[k].elem.push(doorsItems[x]);
+                  }
+                }
+              }
             }
           }
         }
       }
       product.doorLock = source.lockShapeList[k];
-      if(ProductStor.product.construction_type === 4) {
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      }
     }
 
     function doorId(product, source) {
@@ -841,10 +837,10 @@
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
-    if(ProductStor.product.construction_type === 4) {
-      doorId(product, source);
-    }
-      setDoorParamValue(product, source);
+      if(ProductStor.product.construction_type === 4) {
+        doorId(product, source);
+        setDoorParamValue(product, source);
+      }
     }
 
 
@@ -921,9 +917,6 @@
       }
     }
 
-
-
-
     //------- set Default Construction
     function setDefaultConstruction() {
       //------- close calculator if is opened
@@ -931,15 +924,6 @@
       DesignStor.design = DesignStor.setDefaultDesign();
       setDefaultTemplate();
     }
-
-
-
-
-
-
-
-
-
 
     /**-------------- Edit Design --------------*/
 
@@ -1031,22 +1015,16 @@
       }
     }
 
-
-
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']');
       showBlockDimensions(dim, globalConstants.SVG_ID_EDIT);
     }
-
-
 
     /**------- show all dimensions for Glass and Grid Selectors -------*/
     function showAllDimension(svgID) {
       var dim = d3.selectAll('#'+svgID+' .dim_block');
       showBlockDimensions(dim, svgID);
     }
-
-
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {

@@ -505,7 +505,6 @@
       }
     }
 
-
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {

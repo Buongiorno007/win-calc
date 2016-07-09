@@ -1022,7 +1022,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       }
     }
 
-
     /**---------- Select lock shape --------*/
 
     function selectLock(id) {
@@ -10074,31 +10073,27 @@ function ErrorResult(code, message) {
 
     function setDoorParamValue(product, source) {
       var k = product.door_lock_shape_id;
-      source.lockShapeList[k].parent_element_id = [];
+      source.lockShapeList[k].elem = [];
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       for(var x=0; x<doorsItems.length; x+=1) {
-        if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-          if (source.lockShapeList[k].height_max <= doorsItems[x].max_height && source.lockShapeList[k].height_min >= doorsItems[x].min_height) {
-            if (source.lockShapeList[k].width_max <= doorsItems[x].max_width && source.lockShapeList[k].width_min >= doorsItems[x].min_width) {
-              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
-            } else if (doorsItems[x].max_width === 0 && doorsItems[x].min_width === 0) {
-              source.lockShapeList[k].parent_element_id.push(doorsItems[x]);
+        if(source.lockShapeList[k].profIds.indexOf(doorsItems[x].hardware_group_id) != -1) {
+          if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+            if(source.lockShapeList[k].height_max <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+              if(source.lockShapeList[k].height_min >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                if(source.lockShapeList[k].width_max <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                  if(source.lockShapeList[k].width_min >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                    source.lockShapeList[k].elem.push(doorsItems[x]);
+                  }
+                }
+              }
             }
           }
         }
       }
       product.doorLock = source.lockShapeList[k];
-      if(ProductStor.product.construction_type === 4) {
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      }
     }
 
     function doorId(product, source) {
@@ -10134,10 +10129,10 @@ function ErrorResult(code, message) {
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
-    if(ProductStor.product.construction_type === 4) {
-      doorId(product, source);
-    }
-      setDoorParamValue(product, source);
+      if(ProductStor.product.construction_type === 4) {
+        doorId(product, source);
+        setDoorParamValue(product, source);
+      }
     }
 
 
@@ -10214,9 +10209,6 @@ function ErrorResult(code, message) {
       }
     }
 
-
-
-
     //------- set Default Construction
     function setDefaultConstruction() {
       //------- close calculator if is opened
@@ -10224,15 +10216,6 @@ function ErrorResult(code, message) {
       DesignStor.design = DesignStor.setDefaultDesign();
       setDefaultTemplate();
     }
-
-
-
-
-
-
-
-
-
 
     /**-------------- Edit Design --------------*/
 
@@ -10324,22 +10307,16 @@ function ErrorResult(code, message) {
       }
     }
 
-
-
     function showCurrentDimLevel(currDimId) {
       var dim = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+currDimId+']');
       showBlockDimensions(dim, globalConstants.SVG_ID_EDIT);
     }
-
-
 
     /**------- show all dimensions for Glass and Grid Selectors -------*/
     function showAllDimension(svgID) {
       var dim = d3.selectAll('#'+svgID+' .dim_block');
       showBlockDimensions(dim, svgID);
     }
-
-
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
@@ -16502,7 +16479,6 @@ function ErrorResult(code, message) {
     /**========= DOOR PRICE ==========*/
 
     function getDoorElem(container, elem, kit) {
-        console.log(container, elem, kit, 'container, elem, kit')
       var elemObj = angular.copy(elem);
       /** currency conversion */
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
@@ -16523,33 +16499,51 @@ function ErrorResult(code, message) {
             priceTot: 0,
             elements: []
           };
-      //console.log(handleSource, lockSource, '<<<handle and lock');
+
+      var list = lockSource.filter(function(list) {
+        list.child_id = list.parent_element_id;
+        list.child_type = list.position;
+        list.value = list.count;
+        return list.position === 'list'
+      });
+      var elements = lockSource.filter(function(element) {
+        element.child_id = element.parent_element_id;
+        element.child_type = element.position;
+        element.value = element.count;
+        return element.position === 'element'
+      });
+          
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
         getDoorElem(priceObj, handleData);
-
-        getElementByListId(0, 410450).then(function(lockData) {
-          //console.info('price lock kit', lockData);
-          getDoorElem(priceObj, lockData);
-
-          parseListContent(312777).then(function (consist) {
-            //console.warn('consist!!!!!!+', consist);
-            priceObj.consist = consist;
-            parseConsistElem([priceObj.consist]).then(function(consistElem) {
-              //console.warn('consistElem!!!!!!+', consistElem);
-              priceObj.consistElem = consistElem[0];
-              var elemsQty = priceObj.consist.length;
-              while(--elemsQty > -1) {
-                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-              }
-              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-              //console.warn('!!!!!!+', priceObj);
-              deffMain.resolve(priceObj);
+        (function nextRecord() {
+            if (list.length) {
+              var firstKit = list.shift(0),
+                  firstKitId = 0;
+                  firstKitId = firstKit;
+            selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
+                getElementByListId(0, result[0].parent_element_id).then(function(lockData) {
+                  //console.info('price lock kit', lockData);
+                  getDoorElem(priceObj, lockData);
+                nextRecord();
+                });
             });
-          });
+        } else {
+            priceObj.consist = elements;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+                //console.warn('consistElem!!!!!!+', consistElem);
+                priceObj.consistElem = consistElem[0];
+                var elemsQty = priceObj.consist.length;
+                while(--elemsQty > -1) {
+                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+                }
+                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+                //console.warn('!!!!!!+', priceObj);
+                deffMain.resolve(priceObj);
+            });
+          }
+        })();
 
-
-        });
       });
       return deffMain.promise;
     }
@@ -18862,9 +18856,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
-            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock)
+            localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                console.log(doorResult, 'doorResult')
+                //console.log(doorResult, 'doorResult')
                 var doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);

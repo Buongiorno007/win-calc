@@ -2678,7 +2678,6 @@
     /**========= DOOR PRICE ==========*/
 
     function getDoorElem(container, elem, kit) {
-        console.log(container, elem, kit, 'container, elem, kit')
       var elemObj = angular.copy(elem);
       /** currency conversion */
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
@@ -2699,33 +2698,51 @@
             priceTot: 0,
             elements: []
           };
-      //console.log(handleSource, lockSource, '<<<handle and lock');
+
+      var list = lockSource.filter(function(list) {
+        list.child_id = list.parent_element_id;
+        list.child_type = list.position;
+        list.value = list.count;
+        return list.position === 'list'
+      });
+      var elements = lockSource.filter(function(element) {
+        element.child_id = element.parent_element_id;
+        element.child_type = element.position;
+        element.value = element.count;
+        return element.position === 'element'
+      });
+          
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
         getDoorElem(priceObj, handleData);
-
-        getElementByListId(0, 410450).then(function(lockData) {
-          //console.info('price lock kit', lockData);
-          getDoorElem(priceObj, lockData);
-
-          parseListContent(312777).then(function (consist) {
-            //console.warn('consist!!!!!!+', consist);
-            priceObj.consist = consist;
-            parseConsistElem([priceObj.consist]).then(function(consistElem) {
-              //console.warn('consistElem!!!!!!+', consistElem);
-              priceObj.consistElem = consistElem[0];
-              var elemsQty = priceObj.consist.length;
-              while(--elemsQty > -1) {
-                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-              }
-              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-              //console.warn('!!!!!!+', priceObj);
-              deffMain.resolve(priceObj);
+        (function nextRecord() {
+            if (list.length) {
+              var firstKit = list.shift(0),
+                  firstKitId = 0;
+                  firstKitId = firstKit;
+            selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
+                getElementByListId(0, result[0].parent_element_id).then(function(lockData) {
+                  //console.info('price lock kit', lockData);
+                  getDoorElem(priceObj, lockData);
+                nextRecord();
+                });
             });
-          });
+        } else {
+            priceObj.consist = elements;
+            parseConsistElem([priceObj.consist]).then(function(consistElem) {
+                //console.warn('consistElem!!!!!!+', consistElem);
+                priceObj.consistElem = consistElem[0];
+                var elemsQty = priceObj.consist.length;
+                while(--elemsQty > -1) {
+                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+                }
+                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+                //console.warn('!!!!!!+', priceObj);
+                deffMain.resolve(priceObj);
+            });
+          }
+        })();
 
-
-        });
       });
       return deffMain.promise;
     }
