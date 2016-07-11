@@ -897,8 +897,10 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+
       GlobalStor.global.checkDoors = 0;
       thisCtrl.config.isDoorConfig = 1;
+            console.log(thisCtrl.config.isDoorConfig, 'thisCtrl.config.isDoorConfig')
       DesignServ.closeSizeCaclulator();
       //----- show current items
       //thisCtrl.config.selectedStep1 = 1;
@@ -1902,8 +1904,8 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-//           checkingUser();
-// /*
+          checkingUser();
+/*
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;

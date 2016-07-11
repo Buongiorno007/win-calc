@@ -380,8 +380,10 @@
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+
       GlobalStor.global.checkDoors = 0;
       thisCtrl.config.isDoorConfig = 1;
+            console.log(thisCtrl.config.isDoorConfig, 'thisCtrl.config.isDoorConfig')
       DesignServ.closeSizeCaclulator();
       //----- show current items
       //thisCtrl.config.selectedStep1 = 1;
