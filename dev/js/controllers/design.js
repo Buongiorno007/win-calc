@@ -47,6 +47,11 @@
     };
 
     //------- translate
+    thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
+    thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
+    thisCtrl.TEXT3 = $filter('translate')('natification.TEXT3');
+    thisCtrl.EDIT_HARDWARE = $filter('translate')('natification.EDIT_HARDWARE');
+    thisCtrl.EDIT_SIZE = $filter('translate')('natification.EDIT_SIZE');
     thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
     thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
     thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
@@ -375,6 +380,7 @@
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+      GlobalStor.global.checkDoors = 0;
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
@@ -402,7 +408,7 @@
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsGroups[z].id;
+              doorsGroups[z].profileId = doorsGroups[z].profileId || 345;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
@@ -465,7 +471,7 @@
           thisCtrl.config.selectedStep2 = 1;
         }
         newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
+          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].id)+1;
         });
         DesignStor.design.handleShapeList = newHandleArr;
       }
@@ -489,7 +495,7 @@
           thisCtrl.config.selectedStep3 = 1;
         }
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
-          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
         });
         var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {

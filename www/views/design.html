@@ -329,7 +329,7 @@
         <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>
       </div>
     </div>
-    <div ng-controller="DoorCheckCtrl as checkBox" ng-show="checkBox.G.global.checkDoors" class="doors-background">
+    <div ng-controller="DesignCtrl as checkBox" ng-show="checkBox.G.global.checkDoors" class="doors-background">
       <div class="doors-info">
         <div class="message-alert">{{checkBox.TEXT1 + checkBox.G.global.widthTEMP +' x '+checkBox.G.global.heightTEMP + br + checkBox.TEXT2 + checkBox.G.global.heightLim + checkBox.TEXT3}}</div>
         <div fs-click="checkBox.stepBack()" class="isSize">{{::checkBox.EDIT_SIZE}}</div>

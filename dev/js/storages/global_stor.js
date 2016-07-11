@@ -66,6 +66,7 @@
 
         //------- Templates
         imgLink: '',
+        selectRoom: 0,
         background: 0,
         heightCheck: 0,
         widthCheck: 0,

@@ -37,6 +37,7 @@
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.selectRoom = 1;
       GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
       //playSound('fly');
     }
@@ -71,7 +72,7 @@
         $timeout(function() {
           GlobalStor.global.showRoomSelectorDialog = 1;
         }, 2000);
-        $timeout(closeRoomSelectorDialog, 5000);
+       // $timeout(closeRoomSelectorDialog, 5000);
       }
     }
 

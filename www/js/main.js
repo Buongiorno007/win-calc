@@ -564,6 +564,11 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     };
 
     //------- translate
+    thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
+    thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
+    thisCtrl.TEXT3 = $filter('translate')('natification.TEXT3');
+    thisCtrl.EDIT_HARDWARE = $filter('translate')('natification.EDIT_HARDWARE');
+    thisCtrl.EDIT_SIZE = $filter('translate')('natification.EDIT_SIZE');
     thisCtrl.IMPOST_SHAPE = $filter('translate')('design.IMPOST_SHAPE');
     thisCtrl.SASH_SHAPE = $filter('translate')('design.SASH_SHAPE');
     thisCtrl.ANGEL_SHAPE = $filter('translate')('design.ANGEL_SHAPE');
@@ -892,6 +897,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+      GlobalStor.global.checkDoors = 0;
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
@@ -919,7 +925,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
-              doorsGroups[z].profileId = doorsGroups[z].id;
+              doorsGroups[z].profileId = doorsGroups[z].profileId || 345;
               DesignStor.design.doorsGroups.push(doorsGroups[z].id)
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
@@ -982,7 +988,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           thisCtrl.config.selectedStep2 = 1;
         }
         newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].profileId)+1;
+          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].id)+1;
         });
         DesignStor.design.handleShapeList = newHandleArr;
       }
@@ -1006,7 +1012,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           thisCtrl.config.selectedStep3 = 1;
         }
         var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
-          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].profileId)+1;
+          return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
         });
         var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
@@ -2242,7 +2248,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-
+    console.log(GlobalStor.global.startProgramm, 'GlobalStor.global.startProgramm')
     MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete
@@ -2929,6 +2935,114 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 })();
 
 
+// controllers/panels/add_elements.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AddElementsCtrl',
+
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.A = AuxStor;
+
+    thisCtrl.config = {
+      DELAY_START: globalConstants.STEP,
+      addElementDATA: GeneralServ.addElementDATA,
+      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
+      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
+      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
+      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
+      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
+      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
+      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 55,
+      typing: 'on'
+    };
+
+    //------- translate
+    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
+    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
+    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
+    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
+
+
+    /**============ METHODS ================*/
+    // Show Window Scheme Dialog
+    function showWindowScheme() {
+      filterAddElem();
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = true;
+      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
+    }
+
+    function closeWindowScheme() {
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = false;
+    }
+
+    function click(id){
+      GlobalStor.global.typeMenu = 0;
+      GlobalStor.global.typeMenuID = id;
+      $timeout(function(id){
+        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
+        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
+        if (GlobalStor.global.typeMenu === 55) {
+          $('.aux-handle').css({
+          'left': 14.375 +'rem',
+           'top': 82.625 +'rem'
+          });
+        } else {
+          $('.aux-handle').css({
+           'left': 34.375 +'rem',
+           'top': 65.625 +'rem'
+          });
+        }
+      },100);
+    }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.click = click;
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
+})();
+
+
+
 // controllers/panels/add_elements_cart.js
 
 (function(){
@@ -3368,114 +3482,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-
-  });
-})();
-
-
-
-// controllers/panels/add_elements.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('MainModule')
-    .controller('AddElementsCtrl',
-
-  function(
-    $filter,
-    $timeout,
-    globalConstants,
-    GeneralServ,
-    AddElementsServ,
-    AddElementMenuServ,
-    DesignServ,
-    GlobalStor,
-    AuxStor,
-    ProductStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.A = AuxStor;
-
-    thisCtrl.config = {
-      DELAY_START: globalConstants.STEP,
-      addElementDATA: GeneralServ.addElementDATA,
-      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
-      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
-      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
-      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
-      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
-      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
-      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 55,
-      typing: 'on'
-    };
-
-    //------- translate
-    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
-    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
-    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
-    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
-    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
-    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
-    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
-    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
-    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
-    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
-    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
-    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
-    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
-
-
-    /**============ METHODS ================*/
-    // Show Window Scheme Dialog
-    function showWindowScheme() {
-      filterAddElem();
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = true;
-      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
-    }
-
-    function closeWindowScheme() {
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = false;
-    }
-
-    function click(id){
-      GlobalStor.global.typeMenu = 0;
-      GlobalStor.global.typeMenuID = id;
-      $timeout(function(id){
-        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
-        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 55) {
-          $('.aux-handle').css({
-          'left': 14.375 +'rem',
-           'top': 82.625 +'rem'
-          });
-        } else {
-          $('.aux-handle').css({
-           'left': 34.375 +'rem',
-           'top': 65.625 +'rem'
-          });
-        }
-      },100);
-    }
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.click = click;
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
 
   });
 })();
@@ -4800,6 +4806,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     .controller('RoomSelectorCtrl',
 
   function(
+    $location,
     globalConstants,
     MainServ,
     TemplatesServ,
@@ -4823,7 +4830,13 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
     //---------- Room Select
     function selectRoom(id) {
-      TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+      if(GlobalStor.global.selectRoom === 0) {
+        $location.path('/design');
+        GlobalStor.global.selectRoom = 1;
+        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+      } else {
+        TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+      }
     }
 
 
@@ -5280,6 +5293,63 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 })();
 
 
+// directives/calendar.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .directive('calendar',
+
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
+
+    return {
+      restrict: 'E',
+      transclude: true,
+      link: function (scope, element) {
+
+        var orderDay = new Date(OrderStor.order.order_date).getDate(),
+        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
+        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
+        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
+
+        $(function(){
+          var opt = {
+            flat: true,
+            format: 'd.m.Y',
+            locale: {
+              days: [],
+              daysShort: [],
+              daysMin: [],
+              monthsShort: [],
+              months: []
+            },
+            date: deliveryDate,
+            min: minDeliveryDate,
+//            max: maxDeliveryDate,
+            change: function (date) {
+              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
+              scope.$apply();
+            }
+          };
+          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
+          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
+          element.pickmeup(opt);
+        });
+      }
+    };
+
+  });
+})();
+
+
+
 // directives/calendar_scroll.js
 
 (function(){
@@ -5435,63 +5505,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
   });
 })();
-
-
-// directives/calendar.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .directive('calendar',
-
-  function(
-    $filter,
-    CartMenuServ,
-    GlobalStor,
-    OrderStor
-  ) {
-
-    return {
-      restrict: 'E',
-      transclude: true,
-      link: function (scope, element) {
-
-        var orderDay = new Date(OrderStor.order.order_date).getDate(),
-        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
-        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
-        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
-
-        $(function(){
-          var opt = {
-            flat: true,
-            format: 'd.m.Y',
-            locale: {
-              days: [],
-              daysShort: [],
-              daysMin: [],
-              monthsShort: [],
-              months: []
-            },
-            date: deliveryDate,
-            min: minDeliveryDate,
-//            max: maxDeliveryDate,
-            change: function (date) {
-              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
-              scope.$apply();
-            }
-          };
-          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
-          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
-          element.pickmeup(opt);
-        });
-      }
-    };
-
-  });
-})();
-
 
 
 // directives/fast_click.js
@@ -5700,49 +5713,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
 
 
-// directives/price_x_qty.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('BauVoiceApp')
-    .directive('priceFixed',
-
-  function() {
-
-    return {
-      restrict: 'A',
-      scope: {
-        priceFixed: '@',
-        qtyElement: '@',
-        currencyElement: '@'
-      },
-
-      link: function (scope, element, attrs) {
-
-        function getNewPrice(priceAtr, qty, currency) {
-          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
-          element.text(newPrice);
-        }
-
-        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-
-        attrs.$observe('qtyElement', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-        attrs.$observe('priceFixed', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-
-      }
-    };
-
-  });
-})();
-
-
-
 // directives/price.js
 
 (function(){
@@ -5851,6 +5821,49 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 // event.srcEvent.stopPropagation();
   });
 })();
+
+
+// directives/price_x_qty.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .directive('priceFixed',
+
+  function() {
+
+    return {
+      restrict: 'A',
+      scope: {
+        priceFixed: '@',
+        qtyElement: '@',
+        currencyElement: '@'
+      },
+
+      link: function (scope, element, attrs) {
+
+        function getNewPrice(priceAtr, qty, currency) {
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
+          element.text(newPrice);
+        }
+
+        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+
+        attrs.$observe('qtyElement', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+        attrs.$observe('priceFixed', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+
+      }
+    };
+
+  });
+})();
+
 
 
 // directives/show_delay.js
@@ -10094,6 +10107,14 @@ function ErrorResult(code, message) {
         }
       }
       product.doorLock = source.lockShapeList[k];
+      if(ProductStor.product.construction_type === 4) {
+        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      }
     }
 
     function doorId(product, source) {
@@ -10123,16 +10144,16 @@ function ErrorResult(code, message) {
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
-      product.door_shape_id = source.doorConfig.doorShapeIndex;
-      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
-      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
-      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
+      product.door_shape_id = source.doorConfig.doorShapeIndex || 0;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {
         doorId(product, source);
-        setDoorParamValue(product, source);
       }
+      setDoorParamValue(product, source);
     }
 
 
@@ -10166,7 +10187,7 @@ function ErrorResult(code, message) {
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsGroups[z].id
+              doorsGroups[z].profileId = doorsGroups[z].profileId || 345
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -12135,6 +12156,8 @@ function ErrorResult(code, message) {
 
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
+              setNewDoorParamValue(ProductStor.product, DesignStor.design);
+              rebuildSVGTemplate();
               //---- set door profile
        /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
                 DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
@@ -18155,7 +18178,29 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups.tableName
       ).then(function(doorData) {
-        GlobalStor.global.doorsGroups = angular.copy(doorData)
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName
+        ).then(function(items) {
+          for(var x=0; x<items.length; x+=1) {
+            for(var y=0; y<doorData.length; y+=1) {
+              if(items[x].id === doorData[y].rama_list_id) {
+                doorData[y].list_id = items[x].parent_element_id;
+              }
+            }
+          } 
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.elements_profile_systems.tableName
+          ).then(function(prof) {
+            for(var x=0; x<prof.length; x+=1) {
+              for(var y=0; y<doorData.length; y+=1) {
+                if(doorData[y].list_id === prof[x].element_id) {
+                  doorData[y].profile_id = prof[x].profile_system_id;
+                }
+              }
+            }
+            GlobalStor.global.doorsGroups = angular.copy(doorData)
+          });
+        });
       });
     }
     function downloadDoorsLamination() {
@@ -18362,6 +18407,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.selectRoom = 1;
       GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
       //playSound('fly');
     }
@@ -18396,7 +18442,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         $timeout(function() {
           GlobalStor.global.showRoomSelectorDialog = 1;
         }, 2000);
-        $timeout(closeRoomSelectorDialog, 5000);
+       // $timeout(closeRoomSelectorDialog, 5000);
       }
     }
 
@@ -26396,6 +26442,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         //------- Templates
         imgLink: '',
+        selectRoom: 0,
         background: 0,
         heightCheck: 0,
         widthCheck: 0,

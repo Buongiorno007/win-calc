@@ -802,6 +802,14 @@
         }
       }
       product.doorLock = source.lockShapeList[k];
+      if(ProductStor.product.construction_type === 4) {
+        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      }
     }
 
     function doorId(product, source) {
@@ -831,16 +839,16 @@
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
-      product.door_shape_id = source.doorConfig.doorShapeIndex;
-      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
-      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
-      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
+      product.door_shape_id = source.doorConfig.doorShapeIndex || 0;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {
         doorId(product, source);
-        setDoorParamValue(product, source);
       }
+      setDoorParamValue(product, source);
     }
 
 
@@ -874,7 +882,7 @@
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsGroups[z].id
+              doorsGroups[z].profileId = doorsGroups[z].profileId || 345
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -2843,6 +2851,8 @@
 
             /** if Door Construction */
             if (ProductStor.product.construction_type === 4) {
+              setNewDoorParamValue(ProductStor.product, DesignStor.design);
+              rebuildSVGTemplate();
               //---- set door profile
        /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
                 DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,

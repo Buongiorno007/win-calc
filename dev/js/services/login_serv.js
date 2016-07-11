@@ -1283,7 +1283,29 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups.tableName
       ).then(function(doorData) {
-        GlobalStor.global.doorsGroups = angular.copy(doorData)
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.lists.tableName
+        ).then(function(items) {
+          for(var x=0; x<items.length; x+=1) {
+            for(var y=0; y<doorData.length; y+=1) {
+              if(items[x].id === doorData[y].rama_list_id) {
+                doorData[y].list_id = items[x].parent_element_id;
+              }
+            }
+          } 
+          localDB.selectLocalDB(
+            localDB.tablesLocalDB.elements_profile_systems.tableName
+          ).then(function(prof) {
+            for(var x=0; x<prof.length; x+=1) {
+              for(var y=0; y<doorData.length; y+=1) {
+                if(doorData[y].list_id === prof[x].element_id) {
+                  doorData[y].profile_id = prof[x].profile_system_id;
+                }
+              }
+            }
+            GlobalStor.global.doorsGroups = angular.copy(doorData)
+          });
+        });
       });
     }
     function downloadDoorsLamination() {
