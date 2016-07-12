@@ -22,6 +22,7 @@
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
             ' addition_type_id INTEGER,' +
+            ' is_push INTEGER,' +
             ' factory_id INTEGER,' +
             ' position INTEGER,' +
             ' img VARCHAR,' +
@@ -63,6 +64,7 @@
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
             ' img VARCHAR,' +
+            ' is_push INTEGER,' +
             ' position INTEGER,' +
             ' factory_id INTEGER,' +
             ' description VARCHAR,' +
@@ -222,7 +224,8 @@
             ' heat_coeff_value NUMERIC(5,2),' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
-            ' img VARCHAR',
+            ' img VARCHAR,' +
+            ' is_push INTEGER',
             'foreignKey': ''
           },
           'profile_laminations': {
@@ -393,6 +396,7 @@
             ' max_height INTEGER,' +
             ' min_width INTEGER,' +
             ' max_width INTEGER,' +
+            ' is_push INTEGER,' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR',
@@ -677,7 +681,8 @@
             'name VARCHAR(255),'+   
             'hardware_type_id INTEGER,'+    
             'factory_id INTEGER,'+  
-            'type INTEGER,'+    
+            'type INTEGER,'+
+            'is_push INTEGER,' +    
             'height_max INTEGER,'+  
             'height_min INTEGER,'+  
             'width_max INTEGER,'+

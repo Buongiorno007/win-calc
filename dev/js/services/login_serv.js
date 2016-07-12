@@ -1201,7 +1201,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
         if(isExist) {
-          profIds.push(profArr[i].accessory_id);
+          profIds.push('hel'+profArr[i].accessory_id+'lo');
         }
       }
       return profIds.join(', ');

@@ -530,7 +530,8 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     GlobalStor,
     ProductStor,
     MainServ,
-    DesignStor
+    DesignStor,
+    localDB
   ) {
     /*jshint validthis:true */
     var thisCtrl = this,
@@ -979,7 +980,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**---------- Select prifile/sash shape --------*/
 
     function selectSash(id) {
-      var newHandleArr;
+      DesignStor.design.handleShapeList = []
       if(!thisCtrl.config.selectedStep3) {
         if(DesignStor.design.doorConfig.sashShapeIndex === id) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
@@ -988,11 +989,33 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           DesignStor.design.doorConfig.sashShapeIndex = id;
           thisCtrl.config.selectedStep2 = 1;
         }
-        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf(DesignStor.design.sashShapeList[id].id)+1;
-        });
-        DesignStor.design.handleShapeList = newHandleArr;
       }
+      localDB.selectLocalDB(
+        localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
+        ).then(function(dependencies) {
+          for(var x=0; x<dependencies.length; x+=1) {
+            depend(dependencies[x])
+          }
+        });  
+    }
+
+
+    function depend(item) {
+      var newHandleArr;
+        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+          return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
+        });
+        DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
+        var used = {};
+        var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
+        return obj.id in used ? 0:(used[obj.id]=1);
+        /*
+        var res = !(obj.id in used);
+        used[obj.id] = null;
+        return res;
+        */
+      });
+      DesignStor.design.handleShapeList = filtered;
     }
 
 
@@ -1012,20 +1035,29 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           DesignStor.design.doorConfig.handleShapeIndex = id;
           thisCtrl.config.selectedStep3 = 1;
         }
-        var newLockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
+        var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
+        });
+
+        var newLockArr = lockArr.filter(function(doorLocks) {
+          return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
         });
         var template = DesignStor.design.templateTEMP.priceElements.shtulpsSize;
         for(var x=0; x<newLockArr.length; x+=1) {
-          if (pnt.heightT <= newLockArr[x].height_max && pnt.heightT >= newLockArr[x].height_min) {
-            if (pnt.widthT <= newLockArr[x].width_max && pnt.widthT >= newLockArr[x].width_min) {
-              if(newLockArr[x].hardware_type_id === (template.length)+1) {
-                array.push(newLockArr[x])
+          if (pnt.heightT <= newLockArr[x].height_max) {
+            if (pnt.heightT >= newLockArr[x].height_min) {
+              if (pnt.widthT <= newLockArr[x].width_max) {
+                if (pnt.widthT >= newLockArr[x].width_min) {
+                  if(newLockArr[x].hardware_type_id === (template.length)+1) {
+                    array.push(newLockArr[x])
+                  }
+                }
               }
             }
           }
         }
         DesignStor.design.lockShapeList = array;
+        console.log(DesignStor.design.lockShapeList, 'DesignStor.design.lockShapeList')
       }
     }
 
@@ -13847,6 +13879,7 @@ function ErrorResult(code, message) {
             'tableName': 'addition_folders',
             'prop': 'name VARCHAR(255),' +
             ' addition_type_id INTEGER,' +
+            ' is_push INTEGER,' +
             ' factory_id INTEGER,' +
             ' position INTEGER,' +
             ' img VARCHAR,' +
@@ -13888,6 +13921,7 @@ function ErrorResult(code, message) {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
             ' img VARCHAR,' +
+            ' is_push INTEGER,' +
             ' position INTEGER,' +
             ' factory_id INTEGER,' +
             ' description VARCHAR,' +
@@ -14047,7 +14081,8 @@ function ErrorResult(code, message) {
             ' heat_coeff_value NUMERIC(5,2),' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
-            ' img VARCHAR',
+            ' img VARCHAR,' +
+            ' is_push INTEGER',
             'foreignKey': ''
           },
           'profile_laminations': {
@@ -14218,6 +14253,7 @@ function ErrorResult(code, message) {
             ' max_height INTEGER,' +
             ' min_width INTEGER,' +
             ' max_width INTEGER,' +
+            ' is_push INTEGER,' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR',
@@ -14502,7 +14538,8 @@ function ErrorResult(code, message) {
             'name VARCHAR(255),'+   
             'hardware_type_id INTEGER,'+    
             'factory_id INTEGER,'+  
-            'type INTEGER,'+    
+            'type INTEGER,'+
+            'is_push INTEGER,' +    
             'height_max INTEGER,'+  
             'height_min INTEGER,'+  
             'width_max INTEGER,'+
@@ -18097,7 +18134,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         }
         if(isExist) {
-          profIds.push(profArr[i].accessory_id);
+          profIds.push('hel'+profArr[i].accessory_id+'lo');
         }
       }
       return profIds.join(', ');
