@@ -628,7 +628,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       DesignStor.design.activeSubMenuItem = 0;
       DesignStor.design.isDropSubMenu = 0;
     }
-    console.log(DesignStor.design, 'product')
 
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
@@ -1057,7 +1056,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
           }
         }
         DesignStor.design.lockShapeList = array;
-        console.log(DesignStor.design.lockShapeList, 'DesignStor.design.lockShapeList')
       }
     }
 
@@ -10118,14 +10116,18 @@ function ErrorResult(code, message) {
 
 
     function setDoorParamValue(product, source) {
+      console.log( source.lockShapeList, ' source.lockShapeList')
+      console.log( product.door_lock_shape_id, ' k')
       var k = product.door_lock_shape_id;
       source.lockShapeList[k].elem = [];
+      product.profile.short_name = '';
+      product.profile.description = '';
       product.doorName = source.doorShapeList[product.door_shape_id].name;
-      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
+      product.doorSashName = product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       for(var x=0; x<doorsItems.length; x+=1) {
-        if(source.lockShapeList[k].profIds.indexOf(doorsItems[x].hardware_group_id) != -1) {
+        if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
             if(source.lockShapeList[k].height_max <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
               if(source.lockShapeList[k].height_min >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
@@ -10179,8 +10181,16 @@ function ErrorResult(code, message) {
       //------- save new door config
       product.door_shape_id = source.doorConfig.doorShapeIndex || 0;
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
-      product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
-      product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
+      if(source.doorConfig.handleShapeIndex === 0) {
+        product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
+      } else {
+        product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 6;
+      }
+      if(source.doorConfig.lockShapeIndex === 0) {
+        product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
+      } else {
+        product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 1;
+      }
      // GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {

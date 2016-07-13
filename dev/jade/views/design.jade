@@ -180,7 +180,7 @@ section.construction-page
 
       .door-config-tools
         button.door-config-finish-btn.close-door-config(fs-click="designPage.closeDoorConfig()")
-        button.door-config-finish-btn.save-door-config(ng-show="designPage.config.selectedStep4", fs-click="designPage.saveDoorConfig()")
+        button.door-config-finish-save-btn.save-door-config(ng-show="designPage.config.selectedStep4", fs-click="designPage.saveDoorConfig()")
 
     .design-attantion(ng-if="designPage.config.isDesignError") {{ ::designPage.NOT_AVAILABLE }}
     .design-attantion(ng-if="designPage.D.design.isDimExtra") {{ ::designPage.DIM_EXTRA }}

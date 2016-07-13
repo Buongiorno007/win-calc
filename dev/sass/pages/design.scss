@@ -617,7 +617,17 @@ $door-config-content: $ipad-height - $door-config-header;
   .door-config-finish-btn {
     @extend button;
     @extend .icon-setting;
-    @include font-icon(rem(60px), 1);
+    @include font-icon(rem(176px), 1);
+
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border: none;
+  }
+  .door-config-finish-save-btn {
+    @extend button;
+    @extend .icon-setting;
+    @include font-icon(rem(120px), 1);
 
     width: 100%;
     color: #fff;

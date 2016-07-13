@@ -215,7 +215,7 @@ hr {
 }
 
 /* line 294, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-finish-btn,
+button, .door-configuration .door-config-finish-btn, .door-configuration .door-config-finish-save-btn,
 input,
 optgroup,
 select,
@@ -226,13 +226,13 @@ textarea {
 }
 
 /* line 308, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-finish-btn,
+button, .door-configuration .door-config-finish-btn, .door-configuration .door-config-finish-save-btn,
 select {
   text-transform: none;
 }
 
 /* line 320, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-finish-btn,
+button, .door-configuration .door-config-finish-btn, .door-configuration .door-config-finish-save-btn,
 html input[type='button'],
 input[type='reset'],
 input[type='submit'] {
@@ -241,7 +241,7 @@ input[type='submit'] {
 }
 
 /* line 330, ../../dev/sass/base/normalize.scss */
-button[disabled], .door-configuration [disabled].door-config-finish-btn,
+button[disabled], .door-configuration [disabled].door-config-finish-btn, .door-configuration [disabled].door-config-finish-save-btn,
 html input[disabled] {
   cursor: default;
 }
@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1468168526') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1468400376') format('truetype');
 }
 /* line 124, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1427,7 +1427,7 @@ body {
 
 /* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .close-danger-alert, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .alert-sign, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .grid-selector-dialog .set-grid-warning span, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .grid-selector-dialog .set-grid-warning span, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .door-configuration .door-config-finish-btn, .door-configuration .door-config-finish-save-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after, .cart-page .close-alladdelements {
   font-weight: normal;
   font-style: normal;
@@ -1441,7 +1441,7 @@ body {
 }
 
 /* line 96, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .close-danger-alert, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .close-danger-alert, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1462,7 +1462,7 @@ body {
 }
 
 /* line 118, ../../dev/sass/base/general.scss */
-.middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
+.middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif, icons;
   border-radius: 2rem;
 }
@@ -1684,7 +1684,7 @@ body {
   justify-content: space-around;
 }
 /* line 344, ../../dev/sass/base/general.scss */
-.alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn {
+.alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn {
   width: 10rem;
   height: 4rem;
   border-radius: 1rem;
@@ -7633,35 +7633,43 @@ tr.factory_item {
 }
 /* line 617, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-finish-btn {
-  font: normal 3.75rem/1 icons, sans-serif;
+  font: normal 11rem/1 icons, sans-serif;
   width: 100%;
   color: #fff;
   outline: none;
   border: none;
 }
 /* line 627, ../../dev/sass/pages/design.scss */
+.door-configuration .door-config-finish-save-btn {
+  font: normal 7.5rem/1 icons, sans-serif;
+  width: 100%;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+/* line 637, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 630, ../../dev/sass/pages/design.scss */
+/* line 640, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
-  content: "";
+  content: "";
 }
-/* line 634, ../../dev/sass/pages/design.scss */
+/* line 644, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 637, ../../dev/sass/pages/design.scss */
+/* line 647, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
   content: "";
 }
-/* line 641, ../../dev/sass/pages/design.scss */
+/* line 651, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 644, ../../dev/sass/pages/design.scss */
+/* line 654, ../../dev/sass/pages/design.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }
