@@ -2703,7 +2703,6 @@
             priceTot: 0,
             elements: []
           };
-
       var list = lockSource.filter(function(list) {
         list.child_id = list.parent_element_id;
         list.child_type = list.position;
@@ -2725,10 +2724,12 @@
               var firstKit = list.shift(0),
                   firstKitId = 0;
                   firstKitId = firstKit;
+                  var kit = {};
             selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
                 getElementByListId(0, result[0].parent_element_id).then(function(lockData) {
+                    kit.value = firstKitId.count;
                   //console.info('price lock kit', lockData);
-                  getDoorElem(priceObj, lockData);
+                  getDoorElem(priceObj, lockData, kit);
                 nextRecord();
                 });
             });

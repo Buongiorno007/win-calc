@@ -10116,8 +10116,9 @@ function ErrorResult(code, message) {
 
 
     function setDoorParamValue(product, source) {
-      console.log( source.lockShapeList, ' source.lockShapeList')
-      console.log( product.door_lock_shape_id, ' k')
+
+      var widthTEMP = GlobalStor.global.widthTEMP || 900;
+      var heightTEMP = GlobalStor.global.heightTEMP || 2200;
       var k = product.door_lock_shape_id;
       source.lockShapeList[k].elem = [];
       product.profile.short_name = '';
@@ -10126,13 +10127,15 @@ function ErrorResult(code, message) {
       product.doorSashName = product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
+
+
       for(var x=0; x<doorsItems.length; x+=1) {
         if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-            if(source.lockShapeList[k].height_max <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
-              if(source.lockShapeList[k].height_min >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
-                if(source.lockShapeList[k].width_max <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
-                  if(source.lockShapeList[k].width_min >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+            if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+              if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                  if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
                     source.lockShapeList[k].elem.push(doorsItems[x]);
                   }
                 }
@@ -16570,7 +16573,6 @@ function ErrorResult(code, message) {
             priceTot: 0,
             elements: []
           };
-
       var list = lockSource.filter(function(list) {
         list.child_id = list.parent_element_id;
         list.child_type = list.position;
@@ -16592,10 +16594,12 @@ function ErrorResult(code, message) {
               var firstKit = list.shift(0),
                   firstKitId = 0;
                   firstKitId = firstKit;
+                  var kit = {};
             selectLocalDB(tablesLocalDB.lists.tableName, {id: firstKitId.parent_element_id}).then(function(result) {
                 getElementByListId(0, result[0].parent_element_id).then(function(lockData) {
+                    kit.value = firstKitId.count;
                   //console.info('price lock kit', lockData);
-                  getDoorElem(priceObj, lockData);
+                  getDoorElem(priceObj, lockData, kit);
                 nextRecord();
                 });
             });
