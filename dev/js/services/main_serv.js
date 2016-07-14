@@ -1330,7 +1330,7 @@
     }
 
 
-    //-------- save Order into Local DB
+ //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
       //---------- if EDIT Order, before inserting delete old order
@@ -1353,10 +1353,11 @@
         var productData = angular.copy(OrderStor.order.products[p]);
         productData.order_id = OrderStor.order.id;
         if(!productData.is_addelem_only) {
-          productData.template_source['beads'] = angular.copy(productData.beadsData);
+          //productData.template_source['beads'] = angular.copy(productData.beadsData);
         }
         productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
+        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p]')
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');

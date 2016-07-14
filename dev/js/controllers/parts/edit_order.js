@@ -49,21 +49,15 @@
       var type = 0;
       ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
-      RecOrderServ.extendAddElem();
-      RecOrderServ.extendProfile();
-      RecOrderServ.extendGlass();
-      RecOrderServ.extendHardware();
-      RecOrderServ.extendLaminat();
-      RecOrderServ.templateSource();
-      var ordersQty = HistoryStor.history.isBoxArray.length, ord;
+      var ordersQty = HistoryStor.history.isBoxArray.products.length, ord;
       for(ord=0; ord<ordersQty; ord+=1 ) {
-        var orderNum = angular.copy(HistoryStor.history.isBoxArray[ord].order_id);
+        var orderNum = angular.copy(HistoryStor.history.isBoxArray.products[ord].order_id);
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
         localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
       }
           
-      var productArray = HistoryStor.history.isBoxArray;
+      var productArray = HistoryStor.history.isBoxArray.products;
       async.eachSeries(productArray,calculate, function (err, result) {
         console.log('end');
       });
@@ -75,38 +69,41 @@
           async.waterfall([
             function (_callback) {
               OrderStor.order.id = angular.copy(product.order_id);
-              ProductStor.product.chosenAddElements = angular.copy(product.chosenAddElements);
+              ProductStor.product.chosenAddElements = angular.copy(product.addElementDATA);
               ProductStor.product.order_id = angular.copy(product.order_id);
-              ProductStor.product.template_source = angular.copy(product.template_source);
-              ProductStor.product.hardware_id = angular.copy(product.hardware_id);
-              ProductStor.product.hardware = angular.copy(product.hardware);
+              ProductStor.product.template_source = angular.copy( JSON.parse(product.template_source));
+              ProductStor.product.hardware = angular.copy(product.hardware || {});
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);
               ProductStor.product.is_addelem_only = angular.copy(product.is_addelem_only);
-              ProductStor.product.profile_id = angular.copy(product.profile_id);
-              ProductStor.product.glass = angular.copy(product.glasses);
+              ProductStor.product.profile = angular.copy(product.profile);
+              ProductStor.product.glass = angular.copy(product.glass_id);
+              ProductStor.product.is_addelem_only = angular.copy(product.is_addelem_only);
+              ProductStor.product.construction_type = angular.copy(product.construction_type);
+              console.log(product, 'product')
               _callback(null);
             },
             function (_callback) {
-              if (ProductStor.product.profile_id !== "undefined") {
-                MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile_id).then(function(result) {        
+              if(ProductStor.product.is_addelem_only === 0) {
+                MainServ.setCurrentProfile(ProductStor.product, ProductStor.product.profile.id).then(function(result) {        
                   MainServ.saveTemplateInProductForOrder().then(function(result) {
-                    AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
-                    var profileId = ProductStor.product.profile_id,
-                      hardwareId = ProductStor.product.hardware_id,
-                      laminatId = ProductStor.product.lamination.lamination_in_id,
-                      glassIds =  ProductStor.product.glass;     
+                    var profileId = ProductStor.product.profile.id,
+                        hardwareId = ProductStor.product.hardware_id,
+                        laminatId = ProductStor.product.lamination.lamination_in_id,
+                        glassIds =  ProductStor.product.glass;     
                     MainServ.preparePrice(ProductStor.product.template, profileId, glassIds, hardwareId, laminatId).then(function(result) {
                       _callback();    
                     });         
-                  });
-                });  
+                  }); 
+                });
+                _callback()
               } else {
-                AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
-                  ProductStor.product.template_price = 0;
-                  ProductStor.product.glass = [];
-                _callback();   
+                _callback()
               }
+            },            
+            function (_callback) {
+              AddElementMenuServ.setAddElementsTotalPrice(ProductStor.product);
+              _callback();  
             },
             function (_callback) {
               MainServ.setProductPriceTOTAL(ProductStor.product);
@@ -118,12 +115,13 @@
             },
             function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
-                for (var n=0; n<orderProdQty; n+=1) {
-                  HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
-                }
-                style = HistoryStor.history.information.order_style;
-                type = HistoryStor.history.information.order_type;
-                MainServ.saveOrderInDB(HistoryStor.history.information, type, style);
+                // for (var n=0; n<orderProdQty; n+=1) {
+                //   HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
+                // }
+                style = HistoryStor.history.isBoxArray.order_style;
+                type = HistoryStor.history.isBoxArray.order_type;
+
+                MainServ.saveOrderInDB(HistoryStor.history.isBoxArray.info, type, style);
               _callback();  
             },
             function (_callback) {
@@ -142,12 +140,13 @@
       }
 
       HistoryStor.history.listName = [];
-      HistoryStor.history.isBoxArray = [];
+      //HistoryStor.history.isBoxArray = [];
       HistoryStor.history.isBoxArrayCopy = [];
       HistoryStor.history.listNameHardware = [];
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
+      RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -164,18 +163,12 @@
       RecOrderServ.profileForAlert();
     }
     function checkProd() {
-      RecOrderServ.errorChecking()
-      if (HistoryStor.history.errorСhecking < 1) {
         RecOrderServ.alert()
         if(GlobalStor.global.dangerAlert < 1) {
+          RecOrderServ.extend();
           saveOrder()
         }
         GlobalStor.global.isAlertHistory = 0;
-      } else {
-          $('.page-form').animate({scrollTop: 0},500);
-          GlobalStor.global.isAlertHistory = 1;
-          console.log('errrrrrrror', HistoryStor.history.errorСhecking)
-        }
     }
     /**========== FINISH ==========*/
 
@@ -183,6 +176,7 @@
       thisCtrl.checkProd = checkProd;
       thisCtrl.saveOrder = saveOrder;
       thisCtrl.close = close;
+      thisCtrl.extend = RecOrderServ.extend;
       thisCtrl.itemsForLists = itemsForLists;
       thisCtrl.box = RecOrderServ.box;
       thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
