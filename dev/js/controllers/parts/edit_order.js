@@ -80,7 +80,6 @@
               ProductStor.product.glass = angular.copy(product.glass_id);
               ProductStor.product.is_addelem_only = angular.copy(product.is_addelem_only);
               ProductStor.product.construction_type = angular.copy(product.construction_type);
-              console.log(product, 'product')
               _callback(null);
             },
             function (_callback) {
@@ -96,7 +95,6 @@
                     });         
                   }); 
                 });
-                _callback()
               } else {
                 _callback()
               }

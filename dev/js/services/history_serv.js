@@ -222,14 +222,66 @@
     }
 
       function orderItem() {
-        var  deferred = $q.defer();
-        dloadProducts().then(function(data) {
-          HistoryStor.history.isBoxArray = angular.copy(data);
-          HistoryStor.history.isBoxArrayCopy = angular.copy(data);
-          dloadOrder().then(function(data) {
-            HistoryStor.history.infoOrder = angular.copy(data);
+        var  deferred = $q.defer(), index;
+        dloadOrder().then(function(data) {
+          HistoryStor.history.isBoxArray = angular.copy(data[0]);
+          dloadProducts().then(function(data) {
+            HistoryStor.history.isBoxArray.products = angular.copy(data);
+            for(var x = 0; x < HistoryStor.history.isBoxArray.products.length; x+=1) {
+              HistoryStor.history.isBoxArray.products[x].addElementDATA  = [
+                [], // 0 - grids
+                [], // 1 - visors
+                [], // 2 - spillways
+                [], // 3 - outSlope
+                [], // 4 - louvers
+                [], // 5 - inSlope
+                [], // 6 - connectors
+                [], // 7 - fans
+                [], // 8 - windowSill
+                [], // 9 - handles
+                [], // 10 - others
+                [], // 11 - shutters 
+                [], // 12 - grating 
+                [], // 13 - blind 
+                [], // 14 - shut 
+                [], // 15 - grat 
+                [], // 16 - vis 
+                []  // 17 - spil 
+              ];
+            }
             dloadAddElements().then(function(data) {
-            HistoryStor.history.isBoxDopElem = angular.copy(data);
+              if(data) {
+                for(var i = 0; i < data.length; i+=1) {
+                  for(var x = 0; x < HistoryStor.history.isBoxArray.products.length; x+=1) {
+                    if(data[i].product_id === HistoryStor.history.isBoxArray.products[x].product_id) {
+                      index = data[i].element_type;
+                      data[i].id = angular.copy(data[i].element_id);
+                      delete data[i].element_id;
+                      delete data[i].modified;
+                      data[i].elementPriceDis = GeneralServ.setPriceDis(
+                        data[i].element_price, HistoryStor.history.isBoxArray.discount_addelem
+                      );
+                      data[i].list_group_id = GeneralServ.addElementDATA[index].id;
+                      HistoryStor.history.isBoxArray.products[x].addElementDATA[index].push(data[i]);
+                      if(!i) {
+                        deferred.resolve(1);
+                      }
+                    }
+                  }
+                }
+
+              } else {
+                deferred.resolve(1);
+              }
+
+
+
+
+
+
+
+
+
             });
           }); 
         });
@@ -436,15 +488,22 @@
        localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {
           'order_id': HistoryStor.history.orderEditNumber
-        },
-          'profile_id, glass_id, addelem_price, hardware_id, product_id, order_id, template_source, is_addelem_only, lamination_id, lamination_out_id, lamination_in_id'
-       ).then(function(result) {
+        }).then(function(result) {
           //console.log('result' , result)
           deferred.resolve(result);
         });
       return deferred.promise;
     }
-
+    function dloadAddElements() {
+      var deferred = $q.defer();
+       localDB.selectLocalDB(
+        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
+      ).then(function(result) {
+          //console.log('result' , result)
+          deferred.resolve(result);
+        });
+      return deferred.promise;
+    }
     function dloadOrder() {
       var deferred = $q.defer();
        localDB.selectLocalDB(
@@ -459,16 +518,6 @@
       return deferred.promise;
     }
 
-    function dloadAddElements() {
-      var deferred = $q.defer();
-       localDB.selectLocalDB(
-        localDB.tablesLocalDB.order_addelements.tableName, {'order_id': HistoryStor.history.orderEditNumber}
-      ).then(function(result) {
-          //console.log('result' , result)
-          deferred.resolve(result);
-        });
-      return deferred.promise;
-    }
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();

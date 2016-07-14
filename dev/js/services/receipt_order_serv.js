@@ -19,6 +19,7 @@
 
     /**============ METHODS1 ================*/
       function box() {
+        console.log(HistoryStor.history.isBoxArray, 'HistoryStor.history.isBoxArray')
         var productArray = HistoryStor.history.isBoxArray.products;
         async.eachSeries(productArray,calculate, function (err, result) {
           console.log('end', HistoryStor.history.isBoxArray);
@@ -275,6 +276,7 @@
         function calculate (products, _cb) {
           async.waterfall([
             function (_callback) {   
+              console.log(products.glass_id, 'products.glass_id')
               JSON.parse(products.template_source);
           if (products.dataProfiles) {
             products.profile = products.dataProfiles
