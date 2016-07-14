@@ -198,7 +198,7 @@
         /** changing Radius */
         newHeightQ = culcHeightQByRadiusCurve(startSize, newLength);
 
-        mainFor: for (b = 1; b < blocksQty; b+=1) {
+        mainFor: for(b = 1; b < blocksQty; b+=1) {
           if(blocks[b].id === curBlockId) {
             //-------- search in PointsQ
             if(blocks[b].pointsQ) {
@@ -243,20 +243,20 @@
         //------- defined last dim for inside dimensions
         if(!level) {
           //------- collect overall dimensions
-          for (b = 1; b < blocksQty; b+= 1) {
-            if (blocks[b].level === 1) {
+          for(b = 1; b < blocksQty; b+= 1) {
+            if(blocks[b].level === 1) {
               overall.push(GeneralServ.getMaxMinCoord(blocks[b].pointsOut));
             }
           }
           //------- check current dimension with overall
           overallQty = overall.length;
           while (--overallQty > -1) {
-            if (axis === 'x') {
-              if (overall[overallQty].maxX === finishSize) {
+            if(axis === 'x') {
+              if(overall[overallQty].maxX === finishSize) {
                 isLastDim = 1;
               }
-            } else if (axis === 'y') {
-              if (overall[overallQty].maxY === finishSize) {
+            } else if(axis === 'y') {
+              if(overall[overallQty].maxY === finishSize) {
                 isLastDim = 1;
               }
             }
@@ -269,12 +269,12 @@
             while(--pointsOutQty > -1) {
               //------ if not last dimension
               if(!isLastDim) {
-                if (axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === finishSize) {
+                if(axis === 'x') {
+                  if(blocks[b].pointsOut[pointsOutQty].x === finishSize) {
                     blocks[b].pointsOut[pointsOutQty].x = newCoord;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === finishSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].pointsOut[pointsOutQty].y === finishSize) {
                     blocks[b].pointsOut[pointsOutQty].y = newCoord;
                   }
                 }
@@ -285,22 +285,22 @@
             for(i = 0; i < 2; i+=1) {
               //------ if last dimension
               if(isLastDim) {
-                if (axis === 'x') {
-                  if (blocks[b].impost.impostAxis[i].x === startSize) {
+                if(axis === 'x') {
+                  if(blocks[b].impost.impostAxis[i].x === startSize) {
                     blocks[b].impost.impostAxis[i].x = newCoordLast;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].impost.impostAxis[i].y === startSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].impost.impostAxis[i].y === startSize) {
                     blocks[b].impost.impostAxis[i].y = newCoordLast;
                   }
                 }
               } else {
-                if (axis === 'x') {
-                  if (blocks[b].impost.impostAxis[i].x === finishSize) {
+                if(axis === 'x') {
+                  if(blocks[b].impost.impostAxis[i].x === finishSize) {
                     blocks[b].impost.impostAxis[i].x = newCoord;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].impost.impostAxis[i].y === finishSize) {
+                } else if(axis === 'y') {
+                  if(blocks[b].impost.impostAxis[i].y === finishSize) {
                     blocks[b].impost.impostAxis[i].y = newCoord;
                   }
                 }
@@ -326,26 +326,26 @@
           newPointsOut, b, pointsOutQty, isRealBlock;
 
       for(b = 1; b < blocksQty; b+=1) {
-        if (blocks[b].level === 1) {
+        if(blocks[b].level === 1) {
           pointsOutQty = blocks[b].pointsOut.length;
-          if (pointsOutQty) {
+          if(pointsOutQty) {
             isRealBlock = 0;
             isRealBlock = blocks[b].pointsOut.some(function(item) {
-              if (axis === 'x') {
+              if(axis === 'x') {
                 return item.x === oldSizeValue;
-              } else if (axis === 'y') {
+              } else if(axis === 'y') {
                 return item.y === oldSizeValue;
               }
             });
             if(isRealBlock) {
               newPointsOut = angular.copy(blocks[b].pointsOut);
               while (--pointsOutQty > -1) {
-                if (axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                if(axis === 'x') {
+                  if(blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
                     newPointsOut[pointsOutQty].x = startSize+newLength;
                   }
-                } else if (axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                } else if(axis === 'y') {
+                  if(blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
                     newPointsOut[pointsOutQty].y = startSize+newLength;
                   }
                 }
@@ -407,7 +407,7 @@
         if(currSquare < GlobalStor.global.maxSquareLimit) {
           /** Dimensions limits checking */
 
-          if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+          if(newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
             addNewSizeInTemplate(newLength);
             //------ close size calculator and deactive size box in svg
             hideSizeTools();
@@ -501,7 +501,7 @@
         DesignStor.design.voiceTxt = '';
         DesignStor.design.openVoiceHelper = false;
 
-        if ((tempVal > 0) && (tempVal < 10000)) {
+        if((tempVal > 0) && (tempVal < 10000)) {
           DesignStor.design.tempSize = (""+tempVal).split('');
           //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
           changeSize();
@@ -510,19 +510,19 @@
 
       } else {
         //---- clear array from 0 after delete all number in array
-        if (sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
+        if(sizeLength === 4 || (sizeLength === 1 && !DesignStor.design.tempSize[0])) {
           DesignStor.design.tempSize.length = 0;
         }
-        if (newValue === '0') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
+        if(newValue === '0') {
+          if(sizeLength && DesignStor.design.tempSize[0]) {
             DesignStor.design.tempSize.push(newValue);
             changeSize();
           }
         } else if(newValue === '00') {
-          if (sizeLength && DesignStor.design.tempSize[0]) {
-            if (sizeLength < 3) {
+          if(sizeLength && DesignStor.design.tempSize[0]) {
+            if(sizeLength < 3) {
               DesignStor.design.tempSize.push(0, 0);
-            } else if (sizeLength === 3) {
+            } else if(sizeLength === 3) {
               DesignStor.design.tempSize.push(0);
             }
             changeSize();
@@ -548,7 +548,7 @@
     function pressCulculator(keyEvent) {
       var newValue;
       //--------- Enter
-      if (keyEvent.which === 13) {
+      if(keyEvent.which === 13) {
         closeSizeCaclulator();
         $rootScope.$apply();
       } else if(keyEvent.which === 8) {
@@ -615,7 +615,7 @@
         var intValue = parseStringToDimension(value);
         //console.log("данные после парса", intValue);
         //console.log("тип полученных данных", typeof intValue);
-        if (intValue === "NaN") {
+        if(intValue === "NaN") {
           intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
         }
         playTTS(intValue);
@@ -628,7 +628,7 @@
 
     //---------- define voice force
     function recognitionProgress(value) {
-      if (value > 100) {
+      if(value > 100) {
         //console.log('value', value);
         DesignStor.design.loudVoice = true;
         DesignStor.design.quietVoice = false;
@@ -656,7 +656,7 @@
               closeSizeCaclulator();
               cleanTempSize();
             } else {
-              if (isActive) {
+              if(isActive) {
                 hideSizeTools();
               } else {
                 deselectAllDimension();
@@ -668,7 +668,7 @@
                 DesignStor.design.minSizeLimit =+dim[0][0].attributes[8].nodeValue;
                 DesignStor.design.maxSizeLimit =+dim[0][0].attributes[9].nodeValue;
                 //------- show caclulator or voice helper
-                if (GlobalStor.global.isVoiceHelper) {
+                if(GlobalStor.global.isVoiceHelper) {
                   DesignStor.design.openVoiceHelper = 1;
                   startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
                 } else {
@@ -711,7 +711,7 @@
         while(--blockQty > 0) {
           //------- if grid there is in this block
           if(blocks[blockQty].gridId) {
-            for (g = 0; g < gridQty; g+= 1) {
+            for(g = 0; g < gridQty; g+= 1) {
               if(blocks[blockQty].id === gridsOld[g].block_id) {
                 gridTemp = gridsOld[g];
                 sizeTemp = {};
@@ -785,10 +785,13 @@
       var heightTEMP = GlobalStor.global.heightTEMP || 2200;
       var k = product.door_lock_shape_id;
       source.lockShapeList[k].elem = [];
-      product.profile.short_name = '';
-      product.profile.description = '';
+      if(product.construction_type === 4) {
+        product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
+        product.profile.short_name = '';
+        product.profile.description = '';
+      }
       product.doorName = source.doorShapeList[product.door_shape_id].name;
-      product.doorSashName = product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
+      product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
 
@@ -891,7 +894,7 @@
         if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
           for(var z=0; z<doorsGroups.length; z+=1) {
-            if (doorsGroups[z].id === doorsLaminations[i].group_id) {
+            if(doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
               doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
@@ -912,21 +915,21 @@
         switch (product.door_shape_id) {
           case 0:
           case 1:
-            if (doorsGroups.length) {
+            if(doorsGroups.length) {
               DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
-            } else if (doorsGroups.length) {
+            } else if(doorsGroups.length) {
               DesignStor.designSource.sashShapeList = angular.copy(doorsGroups);;
             }
             break;
           case 2:
-            if (doorsGroups.length) {
+            if(doorsGroups.length) {
               DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
                   return item.doorstep_type === 2;
               });
             }
             break;
           case 3:
-            if (doorsGroups.length) {
+            if(doorsGroups.length) {
               DesignStor.designSource.sashShapeList = doorsGroups.filter(function(item) {
                   return item.doorstep_type === 1;
               });
@@ -982,7 +985,7 @@
               cleanTempSize();
             } else {
               var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
-              if (isImpost) {
+              if(isImpost) {
                 impost.classed('frame-active', true);
                 //------- active impost menu and submenu
                 DesignStor.design.activeMenuItem = 3;
@@ -995,7 +998,7 @@
               } else {
                 impost.classed('frame-active', false);
                 //----- if none imposts
-                if (!DesignStor.design.selectedImpost.length) {
+                if(!DesignStor.design.selectedImpost.length) {
                   //------- close impost menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -1019,10 +1022,10 @@
       if(dimQty) {
         while (--dimQty > -1) {
           axis = dim[0][dimQty].attributes.axis;
-          if (axis) {
-            if (axis.nodeValue === 'x') {
+          if(axis) {
+            if(axis.nodeValue === 'x') {
               isXDim = 1;
-            } else if (axis.nodeValue === 'y') {
+            } else if(axis.nodeValue === 'y') {
               isYDim = 1;
             }
           }
@@ -1064,7 +1067,7 @@
               var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if (isGlass) {
+              if(isGlass) {
                 glass.classed('glass-active', true);
                 hideCornerMarks();
                 deselectAllImpost();
@@ -1081,7 +1084,7 @@
                 d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block[block_id='+blockID+']')
                   .classed('dim_hidden', true);
 
-                if (!DesignStor.design.selectedGlass.length) {
+                if(!DesignStor.design.selectedGlass.length) {
                   //------- close glass menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -1108,7 +1111,7 @@
               var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                   blockID = glass[0][0].attributes.block_id.nodeValue;
 
-              if (isGlass) {
+              if(isGlass) {
                 glass.classed('glass-active', true);
                 d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.selectGlassName);
                 MainServ.setGlassToTemplateBlocks(
@@ -1168,10 +1171,10 @@
             //-------- check glass per sash
             while(--blocksQty > 0) {
               if(blocks[blocksQty].id === blockID) {
-                if (blocks[blocksQty].blockType === "sash") {
+                if(blocks[blocksQty].blockType === "sash") {
                   isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
                   //========= select glass
-                  if (isGlass) {
+                  if(isGlass) {
                     glass.classed('glass-active', true);
                   } else {
                     glass.classed('glass-active', false);
@@ -1216,7 +1219,7 @@
 
     function initAllArcs() {
       var arcs = d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .frame')[0].filter(function (item) {
-        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+        if(item.__data__.type === 'frame' || item.__data__.type === 'arc') {
           return true;
         }
       });
@@ -1230,7 +1233,7 @@
             } else {
               var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
               //console.log('add to ARC++++', DesignStor.design.selectedArc);
-              if (isArc) {
+              if(isArc) {
                 arc.classed('active_svg', true);
                 deselectAllGlass();
                 hideCornerMarks();
@@ -1239,7 +1242,7 @@
                 $rootScope.$apply();
               } else {
                 arc.classed('active_svg', false);
-                if (!DesignStor.design.selectedArc.length) {
+                if(!DesignStor.design.selectedArc.length) {
                   //------- close glass menu and submenu
                   DesignStor.design.activeMenuItem = 0;
                   DesignStor.design.activeSubMenuItem = 0;
@@ -1428,17 +1431,17 @@
         SVGServ.setLineCoef(impLine);
         coordQ = SVGServ.setQPointCoord(position, impLine, impRadius);
         //------ if impost vert or hor
-        if (!impLine.coefA && position === 1) {
+        if(!impLine.coefA && position === 1) {
           coordQ.y -= impRadius * 2;
-        } else if (!impLine.coefB && position === 4) {
+        } else if(!impLine.coefB && position === 4) {
           coordQ.x -= impRadius * 2;
         }
         posQ = SVGServ.setPointLocationToLine(impLine.from, impLine.to, coordQ);
         while (--pointsQty > -1) {
           var posP = SVGServ.setPointLocationToLine(impLine.from, impLine.to, pointsIn[pointsQty]);
-          if (posP > 0 && posQ > 0) {
+          if(posP > 0 && posQ > 0) {
             currPoints.push(pointsIn[pointsQty]);
-          } else if (posP < 0 && posQ < 0) {
+          } else if(posP < 0 && posQ < 0) {
             currPoints.push(pointsIn[pointsQty]);
           }
         }
@@ -1448,7 +1451,7 @@
         //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
         distCenterToImpost = GeneralServ.roundingValue( (Math.abs((impLine.coefA * currBlockCenter.x+impLine.coefB * currBlockCenter.y+impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))), 1 );
         //      console.log('IMP -------------',impRadius, distCenterToImpost);
-        if (impRadius < distCenterToImpost) {
+        if(impRadius < distCenterToImpost) {
           return impRadius / 2;
         } else {
           return distCenterToImpost / 2;
@@ -1486,7 +1489,7 @@
 
       //------- find lines as to current block
       while (--blocksQty > 0) {
-        if (blocks[blocksQty].id === blockID) {
+        if(blocks[blocksQty].id === blockID) {
           currBlockInd =+blocksQty;
           curBlockN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
         }
@@ -1500,7 +1503,7 @@
       }
 
       var impPointsQty = crossPoints.length;
-      if (impPointsQty === 2) {
+      if(impPointsQty === 2) {
         while (--impPointsQty > -1) {
           createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, dimType, 1);
           createChildBlock(lastBlockN+=1, currBlockInd, blocksSource, 1, sashesParams[impPointsQty]);
@@ -1564,13 +1567,13 @@
 
       } else {
 
-        if (minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+        if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-          for (b = 1; b < blocksQty; b+=1) {
-            if (blocks[b].id === blockID) {
+          for(b = 1; b < blocksQty; b+=1) {
+            if(blocks[b].id === blockID) {
               blocks[b].blockType = 'sash';
               blocks[b].gridId = 0;
               blocks[b].gridTxt = '';
@@ -1686,7 +1689,7 @@
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       for(b = 1; b < blocksQty; b+=1) {
-        if (blocks[b].id === blockID) {
+        if(blocks[b].id === blockID) {
           //console.log('delete sash-----', blocks[b]);
 
           //------- checking existing SHTULP
@@ -1821,10 +1824,10 @@
           currLine = {};
       while (--pointOutQty > -1) {
         if(blocks[blocksInd].pointsOut[pointOutQty].type === 'corner') {
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-2') {
+          if(blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-2') {
             currLine.from = blocks[blocksInd].pointsOut[pointOutQty];
           }
-          if (blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-1') {
+          if(blocks[blocksInd].pointsOut[pointOutQty].id === 'c'+cornerN+'-1') {
             currLine.to = blocks[blocksInd].pointsOut[pointOutQty];
           }
         }
@@ -1901,14 +1904,14 @@
       while(--blocksQty > 0) {
         if(blocks[blocksQty].id === blockID) {
           //----- set curve corner
-          if (cornerObj.__data__.view) {
+          if(cornerObj.__data__.view) {
             startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
             createQCPoint(cornerN, blocksQty, blocksSource);
             //----- change simple corner to corve
           } else {
             linesQty = blocks[blocksQty].linesOut.length;
-            for (l = 0; l < linesQty; l+=1) {
-              if (blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+            for(l = 0; l < linesQty; l+=1) {
+              if(blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
                 createCurveQPoint(
                   'corner', 'qc'+cornerN, blocks[blocksQty].linesOut[l], cornerN, blocksQty, blocksSource
                 );
@@ -2033,7 +2036,7 @@
         var arc = arcObj.__data__;
 //        console.log('+++++++++++++ARC+++++++++++++++++++++');
         //------ make changes only if element is frame, don't touch arc
-        if (arc.type === 'frame') {
+        if(arc.type === 'frame') {
           var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
               blockID = arcObj.attributes.block_id.nodeValue,
               blocks = angular.copy(DesignStor.design.templateTEMP.details),
@@ -2045,11 +2048,11 @@
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
           //------- find line and block in order to insert Q point
-          for (b = 1; b < blocksQty; b+=1) {
-            if (blocks[b].id === blockID) {
+          for(b = 1; b < blocksQty; b+=1) {
+            if(blocks[b].id === blockID) {
               linesQty = blocks[b].linesOut.length;
               while (--linesQty > -1) {
-                if (blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
+                if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
                   currBlockIndex = b;
                   currLine = blocks[b].linesOut[linesQty];
                 }
@@ -2057,30 +2060,30 @@
             }
           }
           //------ up
-          if (arc.points[0].fi < 180 && arc.points[1].fi < 180) {
+          if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
             position = 1;
             //------ right
-          } else if (arc.points[0].fi < 90 && arc.points[1].fi > 270) {
+          } else if(arc.points[0].fi < 90 && arc.points[1].fi > 270) {
             position = 2;
             //------ down
-          } else if (arc.points[0].fi > 180 && arc.points[1].fi > 180) {
+          } else if(arc.points[0].fi > 180 && arc.points[1].fi > 180) {
             position = 3;
             //------ left
-          } else if (arc.points[0].fi < 270 && arc.points[1].fi > 90) {
+          } else if(arc.points[0].fi < 270 && arc.points[1].fi > 90) {
             position = 4;
           }
           var coordQ = SVGServ.setQPointCoord(position, currLine, currLine.size / 2);
-          if (position === 1) {
+          if(position === 1) {
             shiftingAllPoints(1, 0, coordQ.y, blocks);
             shiftingAllPoints(1, 0, coordQ.y, blocksSource);
             coordQ.y = 0;
-          } else if (position === 4) {
+          } else if(position === 4) {
             shiftingAllPoints(1, 1, coordQ.x, blocks);
             shiftingAllPoints(1, 1, coordQ.x, blocksSource);
             coordQ.x = 0;
           }
           //------- rebuild linesOut after shifting of points
-          if (!coordQ.y || !coordQ.x) {
+          if(!coordQ.y || !coordQ.x) {
             currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource);
           }
           createCurveQPoint('arc', 'qa'+arcN, currLine, position, currBlockIndex, blocksSource);
@@ -2090,7 +2093,7 @@
             .then(function (result) {
               //------ delete sash if block sizes are small
               var wasSashDelet = checkSashesBySizeBlock(result);
-              if (wasSashDelet) {
+              if(wasSashDelet) {
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
                     DesignStor.design.templateTEMP = angular.copy(result);
@@ -2119,7 +2122,7 @@
       if(!$.isEmptyObject(arcObj)) {
         var arc = arcObj.__data__;
 //console.log('DELET ARC+++++++',arc);
-        if (arc.type === 'arc') {
+        if(arc.type === 'arc') {
           var arcID = arc.points[1].id,
               blockID = arcObj.attributes.block_id.nodeValue,
               blocksSource = DesignStor.design.templateSourceTEMP.details;
@@ -2131,9 +2134,9 @@
           removePointQ(arcID, blockID, blocksSource);
 
           //------ unshifting
-          if (!arc.points[1].x) {
+          if(!arc.points[1].x) {
             shiftingAllPoints(0, 1, arc.points[0].x, blocksSource);
-          } else if (!arc.points[1].y) {
+          } else if(!arc.points[1].y) {
             shiftingAllPoints(0, 0, arc.points[0].y, blocksSource);
           }
 
@@ -2142,7 +2145,7 @@
             .then(function (result) {
               //------ delete sash if block sizes are small
               var wasSashDelet = checkSashesBySizeBlock(result);
-              if (wasSashDelet) {
+              if(wasSashDelet) {
                 SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                   .then(function (result) {
                     DesignStor.design.templateTEMP = angular.copy(result);
@@ -2293,8 +2296,8 @@
             break;
         }
         //------- find lines as to current block
-        for (b = 1; b < blocksQty; b+=1) {
-          if (blocks[b].id === blockID) {
+        for(b = 1; b < blocksQty; b+=1) {
+          if(blocks[b].id === blockID) {
             currBlockInd = b;
             curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
           }
@@ -2309,7 +2312,7 @@
         }
 
         var impPointsQty = crossPoints.length;
-        if (impPointsQty === 2) {
+        if(impPointsQty === 2) {
 
           while (--impPointsQty > -1) {
 //            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
@@ -2317,7 +2320,7 @@
             createChildBlock(++lastBlockN, currBlockInd, blocksSource);
           }
           //------- if impost is curve
-          if (isImpCurv) {
+          if(isImpCurv) {
             var distMax = getRadiusMaxImpostCurv(
               positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn
             );
@@ -2380,9 +2383,9 @@
       var pointsQty = points.length;
       while(--pointsQty > -1) {
         //        if(points[pointsQty].type !== 'frame') {
-        if (points[pointsQty].x === 0) {
+        if(points[pointsQty].x === 0) {
           points[pointsQty].x = maxX;
-        } else if (points[pointsQty].x === maxX) {
+        } else if(points[pointsQty].x === maxX) {
           points[pointsQty].x = 0;
         } else {
           points[pointsQty].x = maxX - points[pointsQty].x;
@@ -2762,11 +2765,11 @@
               selectedBlocks[sb].imps[isb].x+= step;
               //console.info('impst----', selectedBlocks[sb].imps[isb].x);
               //------- set mark in equals impost other blocks
-              for (sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
-                if (isb !== sb2) {
+              for(sb2 = 0; sb2 < selectedBlocksQty; sb2+=1) {
+                if(isb !== sb2) {
                   impsSBQty2 = selectedBlocks[sb2].imps.length;
-                  for (isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
-                    if (sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
+                  for(isb2 = 0; isb2 < impsSBQty2; isb2+=1) {
+                    if(sb !== sb2 && selectedBlocks[sb2].imps[isb2].id === selectedBlocks[sb].imps[isb].id) {
                       selectedBlocks[sb2].imps[isb2].isChanged = 1;
                       selectedBlocks[sb2].width -= step;
                     }
@@ -2828,9 +2831,9 @@
         } else {
           /** if sash was added/removed in template */
           isSashesInTemplate = MainServ.checkSashInTemplate(DesignStor.design.templateSourceTEMP);
-          if (isSashesInTemplate) {
+          if(isSashesInTemplate) {
             /** set first hardware if sash were not existed before */
-            if (!GlobalStor.global.isSashesInTemplate) {
+            if(!GlobalStor.global.isSashesInTemplate) {
               GlobalStor.global.isSashesInTemplate = 1;
               ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
             }
@@ -2865,7 +2868,7 @@
               });
 
             /** if Door Construction */
-            if (ProductStor.product.construction_type === 4) {
+            if(ProductStor.product.construction_type === 4) {
               setNewDoorParamValue(ProductStor.product, DesignStor.design);
               rebuildSVGTemplate();
               //---- set door profile
@@ -2882,7 +2885,7 @@
 
             /** check grids */
             var isChanged = updateGrids();
-            if (isChanged) {
+            if(isChanged) {
               //------ get new grids price
               loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
             }
