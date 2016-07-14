@@ -4997,12 +4997,16 @@ div.drum figure {
 /* line 157, ../../dev/sass/parts/_edit-order.scss */
 .one-element {
   position: relative;
-  float: right;
   height: 100%;
   max-width: 100%;
 }
 
-/* line 164, ../../dev/sass/parts/_edit-order.scss */
+/* line 162, ../../dev/sass/parts/_edit-order.scss */
+.repeat-cont {
+  position: relative;
+}
+
+/* line 166, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   font: normal 1.75rem/1.5 icons, sans-serif;
@@ -5011,14 +5015,14 @@ div.drum figure {
   height: 5.3125rem;
   left: 95%;
 }
-/* line 173, ../../dev/sass/parts/_edit-order.scss */
+/* line 175, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
   content: "";
 }
 
-/* line 180, ../../dev/sass/parts/_edit-order.scss */
+/* line 182, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -5027,7 +5031,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 187, ../../dev/sass/parts/_edit-order.scss */
+/* line 189, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;

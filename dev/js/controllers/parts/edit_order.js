@@ -96,6 +96,18 @@
                   }); 
                 });
               } else {
+                ProductStor.product.glass = [];
+                ProductStor.product.profile = {};
+                ProductStor.product.hardware = {};
+                ProductStor.product.lamination = {
+                  id:0,
+                  img_in_id:1,
+                  img_out_id:1,
+                  laminat_in_name:"mainpage.WHITE_LAMINATION",
+                  laminat_out_name:"mainpage.WHITE_LAMINATION",
+                  lamination_in_id:1,
+                  lamination_out_id:1
+                };
                 _callback()
               }
             },            
@@ -144,6 +156,7 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
+      console.log(HistoryStor.history.isBoxArray, 'isBoxArrayyz')
       RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;

@@ -4266,6 +4266,18 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
                   }); 
                 });
               } else {
+                ProductStor.product.glass = [];
+                ProductStor.product.profile = {};
+                ProductStor.product.hardware = {};
+                ProductStor.product.lamination = {
+                  id:0,
+                  img_in_id:1,
+                  img_out_id:1,
+                  laminat_in_name:"mainpage.WHITE_LAMINATION",
+                  laminat_out_name:"mainpage.WHITE_LAMINATION",
+                  lamination_in_id:1,
+                  lamination_out_id:1
+                };
                 _callback()
               }
             },            
@@ -4314,6 +4326,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
+      console.log(HistoryStor.history.isBoxArray, 'isBoxArrayyz')
       RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
@@ -18991,6 +19004,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //---------- Price define
     function calculationPrice(obj) {
+      console.log(obj, 'obj')
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
@@ -19823,7 +19837,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
         productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
-        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p]')
+        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p].glass')
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
@@ -19874,7 +19888,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
         /** ====== SAVE Report Data ===== */
-
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
         //console.log('productReportData', productReportData);
@@ -20013,15 +20026,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         UserStor.userInfo.fullLocation
       );
 
-      if (GlobalStor.global.currOpenPage === 'history') {
-        localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-            order_price: HistoryStor.history.price,
-            order_price_dis: HistoryStor.history.price,
-            order_price_primary: HistoryStor.history.price
-          }
-        );
-      }
+      // if (GlobalStor.global.currOpenPage === 'history') {
+      //   localDB.updateLocalServerDBs(
+      //     localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
+      //       order_price: HistoryStor.history.price,
+      //       order_price_dis: HistoryStor.history.price,
+      //       order_price_primary: HistoryStor.history.price
+      //     }
+      //   );
+      // }
     
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
@@ -22536,15 +22549,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         async.eachSeries(productArray,calculate, function (err, result) {
           console.log('end', HistoryStor.history.isBoxArray);
         });
-
         function calculate (products, _cb) {
           async.waterfall([
-            function (_callback) {   
-              console.log(products.glass_id, 'products.glass_id')
+            function (_callback) {
               JSON.parse(products.template_source);
           if (products.dataProfiles) {
             products.profile = products.dataProfiles
-            delete products.dataProfiles;
           } else {
             products.profile = ''
           }
@@ -22581,8 +22591,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               products.addElementDATA[y] = angular.copy(obj);
             }
           }
-          delete products.listNameLaminat;
-          delete products.listNameGlass;
           _callback();                      
               },
             ],

@@ -1,15 +1,15 @@
 .background {
-	background: #FFFFFF;
-	position: absolute;
-	top: 0rem;
-	left: 0rem;
-	height: 100%;
-	width: 100%; 
+  background: #FFFFFF;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  height: 100%;
+  width: 100%; 
 }
 .page-form {
-	padding: rem(70px) rem(40px) 0 rem(50px);
-	height: 100%;
-	overflow: auto;
+  padding: rem(70px) rem(40px) 0 rem(50px);
+  height: 100%;
+  overflow: auto;
 }
 
 .boxText {
@@ -156,9 +156,11 @@
 
 .one-element {
   position: relative;
-  float: right;
   height: 100%;
   max-width: 100%;
+}
+.repeat-cont {
+  position: relative;
 }
 
 .save-m {

@@ -525,6 +525,7 @@
 
     //---------- Price define
     function calculationPrice(obj) {
+      console.log(obj, 'obj')
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
@@ -1357,7 +1358,7 @@
         }
         productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
-        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p]')
+        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p].glass')
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
@@ -1408,7 +1409,6 @@
 
 
         /** ====== SAVE Report Data ===== */
-
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
         //console.log('productReportData', productReportData);
@@ -1547,15 +1547,15 @@
         UserStor.userInfo.fullLocation
       );
 
-      if (GlobalStor.global.currOpenPage === 'history') {
-        localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-            order_price: HistoryStor.history.price,
-            order_price_dis: HistoryStor.history.price,
-            order_price_primary: HistoryStor.history.price
-          }
-        );
-      }
+      // if (GlobalStor.global.currOpenPage === 'history') {
+      //   localDB.updateLocalServerDBs(
+      //     localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
+      //       order_price: HistoryStor.history.price,
+      //       order_price_dis: HistoryStor.history.price,
+      //       order_price_primary: HistoryStor.history.price
+      //     }
+      //   );
+      // }
     
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
