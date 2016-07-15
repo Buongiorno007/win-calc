@@ -4326,7 +4326,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
-      console.log(HistoryStor.history.isBoxArray, 'isBoxArrayyz')
       RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
@@ -4341,10 +4340,10 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       GlobalStor.global.continued = 0;
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
-      RecOrderServ.profileForAlert();
+      // RecOrderServ.profileForAlert();
     }
     function checkProd() {
-        RecOrderServ.alert()
+        // RecOrderServ.alert()
         if(GlobalStor.global.dangerAlert < 1) {
           RecOrderServ.extend();
           saveOrder()
@@ -4360,7 +4359,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       thisCtrl.extend = RecOrderServ.extend;
       thisCtrl.itemsForLists = itemsForLists;
       thisCtrl.box = RecOrderServ.box;
-      thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
+      // thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
   });
 })();
@@ -12972,7 +12971,6 @@ function ErrorResult(code, message) {
         for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
-                        console.log('order', newOrderCopy)
           }
         }
         newOrderCopy.id = MainServ.createOrderID();
@@ -13068,7 +13066,6 @@ function ErrorResult(code, message) {
                     }
                   }
                 }
-
               } else {
                 deferred.resolve(1);
               }
@@ -19837,11 +19834,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
         productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
-        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p].glass')
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-       
         if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
           productData.hardware_id = 0;
         } else {
@@ -22426,12 +22421,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                       for(var o=0; o<addElementDATA.length; o+=1) {
                         for(var a=0; a<addElementDATA[o].length; a+=1) {
                           if(addElementDATA[o][a].list_group_id === addElementsAll[g].elementsList[l][n].list_group_id)
-                          addElementDATA[o][a].list.push(addElementsAll[g].elementsList[l][n])
+                            addElementDATA[o][a].list.push(addElementsAll[g].elementsList[l][n])
                         }
                       }
                     }
                   }
                 }
+
               //================add name in array==================//   
               
               _callback();                      
@@ -22526,6 +22522,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**============ METHODS2 ================*/
       function extend() {
         var info = {};
+        var obj = [];
           info.customer_age = HistoryStor.history.isBoxArray.customer_age;
           info.customer_city = HistoryStor.history.isBoxArray.customer_city;
           info.customer_city_id = HistoryStor.history.isBoxArray.customer_city_id;
@@ -22578,17 +22575,22 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           } else {
             products.lamination = ''
           }
-          var obj = [];
+
           for(var y=0; y<products.addElementDATA.length; y+=1) {
             if(products.addElementDATA[y].length>0) {
               for(var z=0; z<products.addElementDATA[y].length; z+=1) {
                 products.addElementDATA[y][z].selectedAddElem.element_width=products.addElementDATA[y][z].width*1
                 products.addElementDATA[y][z].selectedAddElem.element_qty=products.addElementDATA[y][z].qty*1
                 products.addElementDATA[y][z].selectedAddElem.element_height=products.addElementDATA[y][z].height*1
+                products.addElementDATA[y][z].selectedAddElem.element_type=products.addElementDATA[y][z].element_type
+                products.addElementDATA[y][z].selectedAddElem.block_id=products.addElementDATA[y][z].block_id
+
                 obj.push(products.addElementDATA[y][z].selectedAddElem);
               }
               products.addElementDATA[y] = [];
+              console.log(obj, 'obj')
               products.addElementDATA[y] = angular.copy(obj);
+              obj = [];
             }
           }
           _callback();                      
@@ -22606,69 +22608,68 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**============ METHODS2 ================*/
 
 
-    function profileForAlert() {
-      GlobalStor.global.continued = 0;
-      HistoryStor.history.dataProfiles = [];
-      var promises = HistoryStor.history.isBoxArray.products.map(function (item) {
-        return localDB.selectLocalDB(
-        localDB.tablesLocalDB.beed_profile_systems.tableName, {
-          'profile_system_id': item.dataProfiles.id
-        });
-      });
-      $q.all(promises).then(function(result) {
-        HistoryStor.history.dataProfiles = angular.copy(result)
-      })
-    }
-    function alert() {
-      GlobalStor.global.nameAddElem = [];
-      var products = HistoryStor.history.isBoxArray.products;
-      var name = '';
-      var product = 0;
-      var tr = '';
-        for(var u=0; u<products.length; u+=1) {
-          for(var x=0; x<products[u].addElementDATA.length; x+=1) {
-          var obj = {
-            name : '',
-            product : 0,
-            tr: ''
-          };
-            for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
-              for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
-                if (products[u].product_id === y+1) {
-                  for(var p = 0; p<products[u].addElementDATA[x].length; p+=1) {
-                    if (products[u].addElementDATA[x][p].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
-                      obj.tr = products[u].addElementDATA[x][p].selectedAddElem.name;
-                    } else {
-                      obj.name = products[u].addElementDATA[x][p].selectedAddElem.name;
-                      obj.product = products[u].product_id;
-                    }    
-                  }
-                }
-              }
-            }
-          }
-          GlobalStor.global.nameAddElem.push(obj)
-        }
-        console.log('GlobalStor.global.nameAddElem1111', GlobalStor.global.nameAddElem)
-        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
-            delete GlobalStor.global.nameAddElem[d].name;
-          }
-        }
-        for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
-            GlobalStor.global.dangerAlert = 1;
-          }
-        }
-    }
+    // function profileForAlert() {
+    //   GlobalStor.global.continued = 0;
+    //   HistoryStor.history.dataProfiles = [];
+    //   var promises = HistoryStor.history.isBoxArray.products.map(function (item) {
+    //     return localDB.selectLocalDB(
+    //     localDB.tablesLocalDB.beed_profile_systems.tableName, {
+    //       'profile_system_id': item.dataProfiles.id
+    //     });
+    //   });
+    //   $q.all(promises).then(function(result) {
+    //     HistoryStor.history.dataProfiles = angular.copy(result)
+    //   })
+    // }
+    // function alert() {
+    //   GlobalStor.global.nameAddElem = [];
+    //   var products = HistoryStor.history.isBoxArray.products;
+    //   var name = '';
+    //   var product = 0;
+    //   var tr = '';
+    //     for(var u=0; u<products.length; u+=1) {
+    //       for(var x=0; x<products[u].addElementDATA.length; x+=1) {
+    //       var obj = {
+    //         name : '',
+    //         product : 0,
+    //         tr: ''
+    //       };
+    //         for (var y = 0; y<HistoryStor.history.dataProfiles.length; y+=1) {
+    //           for (var r = 0; r<HistoryStor.history.dataProfiles[y].length; r+=1) {
+    //             if (products[u].product_id === y+1) {
+    //               for(var p = 0; p<products[u].addElementDATA[x].length; p+=1) {
+    //                 if (products[u].addElementDATA[x][p].selectedAddElem.id === HistoryStor.history.dataProfiles[y][r].list_id) {
+    //                   obj.tr = products[u].addElementDATA[x][p].selectedAddElem.name;
+    //                 } else {
+    //                   obj.name = products[u].addElementDATA[x][p].selectedAddElem.name;
+    //                   obj.product = products[u].product_id;
+    //                 }    
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //       GlobalStor.global.nameAddElem.push(obj)
+    //     }
+    //     for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+    //       if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+    //         delete GlobalStor.global.nameAddElem[d].name;
+    //       }
+    //     }
+    //     for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
+    //       if(GlobalStor.global.nameAddElem[d].name !== undefined && GlobalStor.global.continued === 0) {
+    //         GlobalStor.global.dangerAlert = 1;
+    //       }
+    //     }
+    // }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
       box:box,
       extend:extend,
-      alert:alert,
+      // alert:alert,
       nameListLaminat:nameListLaminat,
-      profileForAlert:profileForAlert,
+      // profileForAlert:profileForAlert,
       nameListGlasses:nameListGlasses,
     };
       return thisFactory.publicObj;
@@ -22676,8 +22677,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //------ clicking
       box:box;
       extend:extend;
-      alert:alert;
-      profileForAlert:profileForAlert;
+      // alert:alert;
+      // profileForAlert:profileForAlert;
       nameListLaminat:nameListLaminat;
       nameListGlasses:nameListGlasses;
 

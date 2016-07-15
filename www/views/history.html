@@ -306,7 +306,7 @@
     <div fs-click="editOrder.close()" class="close-m"></div>
     <div ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}" class="warning">{{::editOrder.CONFIGMENU_ALERT}}</div>
     <div ng-repeat="products in editOrder.H.history.isBoxArray.products track by $index" class="cont-order">
-      <div class="order-path">
+      <div ng-if="products.is_addelem_only === 0" class="order-path">
         <div class="num-box">
           <div class="title">{{'№'}}</div>
           <div class="element-one">
@@ -348,9 +348,15 @@
         </div>
       </div>
       <div class="order-path">
+        <div ng-if="products.is_addelem_only === 1" class="num-box">
+          <div class="title">{{'№'}}</div>
+          <div class="element-one">
+            <div class="value">{{products.product_id}}</div>
+          </div>
+        </div>
         <div ng-repeat="addElementDATA in products.addElementDATA track by $index" class="repeat-cont">
           <div ng-repeat="addElem in addElementDATA track by $index" class="one-element">
-            <div class="title">{{::addElem.list_group_name|translate}}</div>
+            <div class="add-title">{{::addElem.list_group_name|translate}}</div>
             <div class="add-elem">{{addElem.name}}
               <select name="list_group_name" ng-model="addElem.selectedAddElem" ng-options="list.name for list in addElem.list" required class="user-select-field-add"></select>
             </div>

@@ -3,7 +3,7 @@
   .close-m(fs-click="editOrder.close()")
   .warning(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
   .cont-order(ng-repeat="products in editOrder.H.history.isBoxArray.products track by $index")
-   .order-path
+   .order-path(ng-if="products.is_addelem_only === 0")
      .num-box
       .title {{'№'}}
       .element-one
@@ -35,9 +35,13 @@
          span(ng-if="products.lamination.lamination_out_id === 1") {{ products.lamination.laminat_out_name |translate }}
        select.user-select-field-m(name="Lamination", ng-model="products.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in products.listNameLaminat", required)
    .order-path
+     .num-box(ng-if="products.is_addelem_only === 1")
+      .title {{'№'}}
+      .element-one
+       .value {{products.product_id}}
      .repeat-cont(ng-repeat="addElementDATA in products.addElementDATA track by $index")
       .one-element(ng-repeat="addElem in addElementDATA track by $index")
-        .title {{::addElem.list_group_name|translate}}
+        .add-title {{::addElem.list_group_name|translate}}
         .add-elem {{addElem.name}}
            select.user-select-field-add(name="list_group_name", ng-model="addElem.selectedAddElem", ng-options="list.name for list in addElem.list", required)
         .quantity {{::editOrder.QTY_LABEL}}

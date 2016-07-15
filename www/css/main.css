@@ -4916,11 +4916,12 @@ div.drum figure {
   box-shadow: -0.1875rem 0 0.9375rem -0.3125rem #242424;
   height: auto;
   max-width: 100%;
+  margin: 5rem 0rem 5rem 0rem;
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
 
-/* line 90, ../../dev/sass/parts/_edit-order.scss */
+/* line 91, ../../dev/sass/parts/_edit-order.scss */
 .order-path {
   position: relative;
   border-radius: 2rem;
@@ -4932,21 +4933,23 @@ div.drum figure {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 101, ../../dev/sass/parts/_edit-order.scss */
+/* line 102, ../../dev/sass/parts/_edit-order.scss */
 .order-path .value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
-  max-width: 215px;
+  max-width: 190px;
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 108, ../../dev/sass/parts/_edit-order.scss */
+/* line 109, ../../dev/sass/parts/_edit-order.scss */
 .order-path .add-elem {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 100%;
   margin: 0.3125rem 0;
   color: #363636;
+  position: relative;
+  left: 7rem;
 }
-/* line 115, ../../dev/sass/parts/_edit-order.scss */
+/* line 118, ../../dev/sass/parts/_edit-order.scss */
 .order-path .width {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4956,7 +4959,7 @@ div.drum figure {
   top: 28%;
   left: 70%;
 }
-/* line 125, ../../dev/sass/parts/_edit-order.scss */
+/* line 128, ../../dev/sass/parts/_edit-order.scss */
 .order-path .height {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4966,7 +4969,7 @@ div.drum figure {
   top: 28%;
   left: 58%;
 }
-/* line 135, ../../dev/sass/parts/_edit-order.scss */
+/* line 138, ../../dev/sass/parts/_edit-order.scss */
 .order-path .quantity {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -4977,7 +4980,7 @@ div.drum figure {
   left: 46%;
 }
 
-/* line 146, ../../dev/sass/parts/_edit-order.scss */
+/* line 149, ../../dev/sass/parts/_edit-order.scss */
 .element-one {
   display: -webkit-flex;
   display: flex;
@@ -4985,28 +4988,40 @@ div.drum figure {
   flex-flow: row wrap;
   -webkit-align-items: center;
   align-items: center;
+  overflow: hidden;
 }
 
-/* line 151, ../../dev/sass/parts/_edit-order.scss */
+/* line 155, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 157, ../../dev/sass/parts/_edit-order.scss */
+/* line 161, ../../dev/sass/parts/_edit-order.scss */
+.add-title {
+  margin: 0.625rem 0;
+  color: #f98000;
+  max-width: 100%;
+  position: relative;
+  font-size: small;
+  left: 7rem;
+}
+
+/* line 169, ../../dev/sass/parts/_edit-order.scss */
 .one-element {
   position: relative;
   height: 100%;
   max-width: 100%;
+  overflow: hidden;
 }
 
-/* line 162, ../../dev/sass/parts/_edit-order.scss */
+/* line 175, ../../dev/sass/parts/_edit-order.scss */
 .repeat-cont {
   position: relative;
 }
 
-/* line 166, ../../dev/sass/parts/_edit-order.scss */
+/* line 179, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   font: normal 1.75rem/1.5 icons, sans-serif;
@@ -5015,14 +5030,14 @@ div.drum figure {
   height: 5.3125rem;
   left: 95%;
 }
-/* line 175, ../../dev/sass/parts/_edit-order.scss */
+/* line 188, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
   content: "";
 }
 
-/* line 182, ../../dev/sass/parts/_edit-order.scss */
+/* line 195, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -5031,7 +5046,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 189, ../../dev/sass/parts/_edit-order.scss */
+/* line 202, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;

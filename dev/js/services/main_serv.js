@@ -1358,11 +1358,9 @@
         }
         productData.template_source = JSON.stringify(productData.template_source);
         productData.profile_id = OrderStor.order.products[p].profile.id;
-        console.log(OrderStor.order.products[p], 'OrderStor.order.products[p].glass')
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-       
         if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
           productData.hardware_id = 0;
         } else {

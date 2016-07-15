@@ -156,7 +156,6 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
-      console.log(HistoryStor.history.isBoxArray, 'isBoxArrayyz')
       RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
@@ -171,10 +170,10 @@
       GlobalStor.global.continued = 0;
       RecOrderServ.nameListLaminat(product_id);
       RecOrderServ.nameListGlasses(product_id);
-      RecOrderServ.profileForAlert();
+      // RecOrderServ.profileForAlert();
     }
     function checkProd() {
-        RecOrderServ.alert()
+        // RecOrderServ.alert()
         if(GlobalStor.global.dangerAlert < 1) {
           RecOrderServ.extend();
           saveOrder()
@@ -190,7 +189,7 @@
       thisCtrl.extend = RecOrderServ.extend;
       thisCtrl.itemsForLists = itemsForLists;
       thisCtrl.box = RecOrderServ.box;
-      thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
+      // thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
   });
 })();

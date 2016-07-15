@@ -173,7 +173,6 @@
         for(ord = 0; ord < ordersQty; ord+=1) {
           if(HistoryStor.history.orders[ord].id === orderNum) {
             newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
-                        console.log('order', newOrderCopy)
           }
         }
         newOrderCopy.id = MainServ.createOrderID();
@@ -269,7 +268,6 @@
                     }
                   }
                 }
-
               } else {
                 deferred.resolve(1);
               }

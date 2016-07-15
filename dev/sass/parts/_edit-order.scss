@@ -85,6 +85,7 @@
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) #242424;
   height: auto;
   max-width: 100%;
+  margin: 5rem 0rem 5rem 0rem;
   @include justify-content(space-between);
 }
 .order-path {
@@ -101,7 +102,7 @@
   .value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
-    max-width: 215px;
+    max-width: 190px;
     margin: rem(5px) 0;
     color: $main_gray_txt;
   }
@@ -111,6 +112,8 @@
     max-width: 100%;
     margin: rem(5px) 0;
     color: $main_gray_txt;
+    position: relative;
+    left: 7rem;
   }
   .width {
     @extend .truncated;
@@ -147,6 +150,7 @@
   @include display-flex();
   @include flex-flow(row wrap);
   @include align-items(center);
+  overflow: hidden;
 }
 .title {
   margin: rem(10px) 0;
@@ -154,10 +158,19 @@
   max-width: 100%;
 }
 
+.add-title {
+  margin: rem(10px) 0;
+  color: $main_orange;
+  max-width: 100%;
+  position: relative;
+  font-size: small;
+  left: 7rem;
+}
 .one-element {
   position: relative;
   height: 100%;
   max-width: 100%;
+  overflow: hidden;
 }
 .repeat-cont {
   position: relative;
