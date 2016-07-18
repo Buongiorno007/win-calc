@@ -26,10 +26,10 @@
     /**============ METHODS ================*/
 
     function autoShow(ids) {
-      GlobalStor.global.setTimeout = 0;
-      if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
-        infoBox(ids)
-      }
+      // GlobalStor.global.setTimeout = 0;
+      // if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
+      //   infoBox(ids)
+      // }
     }
     function infoBox(ids) {
       var qtyCheck = GlobalStor.global.inform,

@@ -11,13 +11,7 @@
   background: rgba(#fff, .9);
   z-index: 12;
   &.active {
-    @include top_left_coord(1200px, 0px);
-    height: 21rem;
-    overflow: hidden;
-  }
-    &.select {
-    @include top_left_coord(1450px, 0px);
-    height: 21rem;
+    @include top_left_coord(0px, 0px);
     overflow: hidden;
   }
 
@@ -70,7 +64,58 @@
     overflow-y: auto;
   }
 }
-
+.configur-panel {
+  @include transition(all .2s linear);
+  @include top_left_coord(0px, -2000px);
+  @include transform(all .2s linear);
+  @include transform(translate3d(0,0,0));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(#fff, .9);
+  z-index: 12;
+  &.active {
+    @include top_left_coord(1200px, 0px);
+    height: 21rem;
+    overflow: hidden;
+  }
+    &.select {
+    @include top_left_coord(1465px, 0px);
+    height: 21rem;
+    overflow: hidden;
+  }
+    .construction-type {
+    position: absolute;
+    height: 3rem;
+    left: 2rem;
+    width: 100%;
+    .type-btn {
+      position: relative;
+      height: 100%;
+      width: auto;
+      margin: 0rem 5rem 0rem 0rem;
+      float: left;
+      font-size: large;
+      overflow: hidden;
+      text-transform: uppercase;
+      &.selected {
+        color: #4bd963;
+        text-decoration: underline;
+      }
+    }
+    .hide {
+      height: 2rem;
+      width: 2rem;
+      left: -0.8%;
+      border-radius: 1rem;
+      top: 0.7rem;
+      background: #f74f2e;
+      position: absolute;
+    }
+  }
+}
 .config-section {
   width: 98%;
   //width: 96rem;

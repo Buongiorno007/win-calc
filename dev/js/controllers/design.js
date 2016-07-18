@@ -668,7 +668,7 @@
         }
       }
     }
-
+    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'templateSourceTEMP')
 
     /**----- open/close template pannel -------*/
 

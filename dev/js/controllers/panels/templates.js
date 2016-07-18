@@ -36,7 +36,7 @@
       'panels.TEMPLATE_BALCONY_HAND',
       'panels.TEMPLATE_DOOR_HAND'
     ]
-    thisCtrl.selected = 1;
+    thisCtrl.selected = ProductStor.product.construction_type;
     //------- translate
     thisCtrl.TEMPLATE_WINDOW_HAND = $filter('translate')('panels.TEMPLATE_WINDOW_HAND');
     thisCtrl.TEMPLATE_BALCONY_HAND = $filter('translate')('panels.TEMPLATE_BALCONY_HAND');
@@ -52,7 +52,7 @@
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === GlobalStor.global.templatesType;
+              return data.type === ProductStor.product.construction_type;
             });
           } else {
             console.log(results);

@@ -181,7 +181,7 @@
         <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ ::designPage.VOICE_SPEACH }}" class="voice-input">
       </div>
     </div>
-    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 0, 'select': templatesPanel.G.global.activePanel == -1}" class="config-panel template-container">
+    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 0, 'select': templatesPanel.G.global.activePanel == -1}" class="configur-panel template-container">
       <div class="construction-type">
         <div fs-click="templatesPanel.closeTemplates()" class="construction-type hide"></div>
         <div ng-repeat="name in templatesPanel.templateName track by $index" fs-click="templatesPanel.selectNewTemplateType($index+1)" ng-class="{'selected': templatesPanel.selected === $index+1}" class="construction-type type-btn">{{ ::templatesPanel.templateName[$index]|translate }}</div>

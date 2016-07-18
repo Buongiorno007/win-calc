@@ -1185,7 +1185,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         }
       }
     }
-
+    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'templateSourceTEMP')
 
     /**----- open/close template pannel -------*/
 
@@ -3897,7 +3897,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       'panels.TEMPLATE_BALCONY_HAND',
       'panels.TEMPLATE_DOOR_HAND'
     ]
-    thisCtrl.selected = 1;
+    thisCtrl.selected = ProductStor.product.construction_type;
     //------- translate
     thisCtrl.TEMPLATE_WINDOW_HAND = $filter('translate')('panels.TEMPLATE_WINDOW_HAND');
     thisCtrl.TEMPLATE_BALCONY_HAND = $filter('translate')('panels.TEMPLATE_BALCONY_HAND');
@@ -3913,7 +3913,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === GlobalStor.global.templatesType;
+              return data.type === ProductStor.product.construction_type;
             });
           } else {
             console.log(results);
@@ -13705,10 +13705,10 @@ function ErrorResult(code, message) {
     /**============ METHODS ================*/
 
     function autoShow(ids) {
-      GlobalStor.global.setTimeout = 0;
-      if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
-        infoBox(ids)
-      }
+      // GlobalStor.global.setTimeout = 0;
+      // if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
+      //   infoBox(ids)
+      // }
     }
     function infoBox(ids) {
       var qtyCheck = GlobalStor.global.inform,
@@ -20303,101 +20303,94 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               type: 1
             },
             {
-              id: 2,
-              name: $filter('translate')('panels.ONE_WINDOW_TYPE'),
-              src: 'img/templates/1.png',
-              type: 1
-            },
-            {
               id: 3,
               name: $filter('translate')('panels.TURNING_WINDOW'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/2.png',
               type: 1
             },
             {
               id: 4,
               name: $filter('translate')('panels.SWING_OUT_WINDOW'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/3.png',
               type: 1
             },
             {
               id: 5,
               name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
-              src: 'img/templates/3.png',
+              src: 'img/templates/4.png',
               type: 1
             },
             {
               id: 6,
               name: $filter('translate')('panels.TURNING_WINDOW'),
-              src: 'img/templates/3.png',
+              src: 'img/templates/5.png',
               type: 1
             },
             {
               id: 7,
               name: $filter('translate')('panels.SWING_OUT_WINDOW'),
-              src: 'img/templates/3.png',
+              src: 'img/templates/6.png',
               type: 1
             },
             {
               id: 8,
               name: $filter('translate')('panels.LEAVED_WINDOW_IMP'),
-              src: 'img/templates/3.png',
+              src: 'img/templates/7.png',
               type: 1
             },
             {
               id: 9,
               name: $filter('translate')('panels.LEAVED_WINDOW'),
-              src: 'img/templates/3.png',
+              src: 'img/templates/8.png',
               type: 1
             },
             {
               id: 10,
               name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
-              src: 'img/templates/4.png',
+              src: 'img/templates/9.png',
               type: 1
             },
             {
               id: 11,
               name: $filter('translate')('panels.TURNING_WINDOW'),
-              src: 'img/templates/4.png',
+              src: 'img/templates/10.png',
               type: 1
             },
             {
               id: 12,
               name: $filter('translate')('panels.SWING_OUT_WINDOW'),
-              src: 'img/templates/4.png',
+              src: 'img/templates/11.png',
               type: 1
             },
             {
               id: 1,
               name: $filter('translate')('panels.SWING_OUT_TYPE'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/21.png',
               type: 2
             },
             {
               id: 2,
               name: $filter('translate')('panels.TURNING_TYPE'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/22.png',
               type: 2
             },
             {
               id: 3,
               name: $filter('translate')('panels.LEAVED_TYPE'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/23.png',
               type: 2
             },            
-
 
             {
               id: 1,
               name: $filter('translate')('panels.TURNING_TYPE'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/31.png',
               type: 4
             },
             {
               id: 2,
               name: $filter('translate')('panels.LEAVED_TYPE'),
-              src: 'img/templates/1.png',
+              src: 'img/templates/32.png',
               type: 4
             }
           ]
@@ -20444,69 +20437,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 }
               ]
             },
-
-            {
-              name:"Глухое",
-              details:[
-                {
-                  type:"skylight",
-                  id:"block_0",
-                  level:0,
-                  blockType:"frame",
-                  children:["block_1"],
-                  maxSizeLimit:5000
-                },
-                {
-                  type:"skylight",
-                  id:"block_1",
-                  level:1,
-                  blockType:"frame",
-                  parent:"block_0",
-                  children:[],
-                  pointsOut:[
-                {
-                  type:"frame",
-                  id:"fp1",
-                  x:0,
-                  y:0,
-                  dir:"line",
-                  view:1
-                },
-                {
-                  type:"frame",
-                  id:"fp2",
-                  x:700,
-                  y:0,
-                  dir:"line",
-                  view:1
-                },
-                {
-                  type:"frame",
-                  id:"fp3",
-                  x:700,
-                  y:1400,
-                  dir:"line",
-                  view:1,
-                  sill:1
-                },
-                {
-                  type:"frame",
-                  id:"fp4",
-                  x:0,
-                  y:1400,
-                  dir:"line",
-                  view:1,
-                  sill:1
-                }],
-                  pointsIn:[],
-                  pointsLight:[],
-                  parts:[],
-                  glassId:311891,
-                  glassTxt:"4-16-4"
-                }
-              ]
-            },
-            
+           
             {
               name:"Глухое",
               details:[{type:"skylight",
@@ -20944,15 +20875,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               glassTxt:"4-16-4",
               gridId:0,
               gridTxt:"",
-              openDir:[4],
+              openDir:[1,4],
               handlePos:4,
-              sashType:2
-              }],
+              sashType:6}],
               hardwareLines:[[482,1190,482,1190]]
             },
             
             {
-              name:"Глухое",
+              name: "Глухое",
               details:[{type:"skylight",
               id:"block_0",
               level:0,
@@ -21017,9 +20947,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
-              openDir:[2],
+              openDir:[1,2],
               handlePos:2,
-              sashType:2,
+              sashType:6,
               gridId:0,
               gridTxt:""},{type:"skylight",
               id:"block_3",
@@ -21553,7 +21483,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               id:"block_0",
               level:0,
               blockType:"frame",
-              children:["block_1","block_1"],
+              children:["block_1", "block_1"],
               maxSizeLimit:5000},{type:"skylight",
               id:"block_2",
               level:1,
@@ -21611,9 +21541,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
-              openDir:[2],
+              openDir:[1,2],
               handlePos:2,
-              sashType:2,
+              sashType:6,
               gridId:0,
               gridTxt:""},{type:"skylight",
               id:"block_4",
@@ -21631,7 +21561,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               handlePos:0,
               sashType:4}],
               hardwareLines:[[497,1890,497,1890]]
-            }
+            } 
 
           ]
 
@@ -21757,144 +21687,90 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
             {
-              name:"Штульповые",
-              details:[
-                {
-                  type: "skylight",
-                  id:"block_0",
-                  level:0,
-                  blockType:"frame",
-                  children:["block_1","block_1"],
-                  maxSizeLimit:5000
-                },
-
-              {
-                type:"skylight",
-                id:"block_2",
-                level:1,
-                blockType:"frame",
-                parent:"block_0",
-                children:["block_3", "block_4"],
-
-                pointsOut:[{
-                type:"frame",
-                id:"fp1",
-                x:0,
-                y:0,
-                dir:"line",
-                view:1
-              }
-
-              ,{
-                type:"frame",
-                id:"fp2",
-                x:1200,
-                y:0,
-                dir:"line",
-                view:1
-              }
-
-              ,{
-                type:"frame",
-                id:"fp3",
-                x:1200,
-                y:2100,
-                dir:"line",
-                view:1
-              }
-
-              ,{
-                type:"frame",
-                id:"fp4",
-                x:0,
-                y:2100,
-                dir:"line",
-                view:1
-              }
-
-              ],
-                pointsIn:[],
-                pointsLight:[],
-                parts:[],
-                glassId:311891,
-                glassTxt:"4-16-4",
-                impost:{
-                impostAxis:[{
-                type:"impost",
-                id:"ip2",
-                x:600,
-                y:0,
-                dir:"line",
-                dimType:0
-              }
-
-              ,{
-                type:"impost",
-                id:"ip2",
-                x:600,
-                y:2100,
-                dir:"line",
-                dimType:0
-              }
-
-              ],
-                impostOut:[],
-                impostIn:[],
-                impostLight:[]
-                }
-              }
-
-              ,{
-                type:"skylight",
-                id:"block_3",
-                level:2,
-                blockType:"sash",
-                parent:"block_2",
-                children:[],
-                pointsOut:[],
-                pointsIn:[],
-                pointsLight:[],
-                parts:[],
-                glassId:311891,
-                glassTxt:"4-16-4",
-                gridId:0,
-                gridTxt:"",
-                openDir:[2],
-                handlePos:2,
-                sashType:2
-              }
-
-              ,{
-                type:"skylight",
-                id:"block_4",
-                level:2,
-                blockType:"sash",
-                parent:"block_2",
-                children:[],
-                pointsOut:[],
-                pointsIn:[],
-                pointsLight:[],
-                parts:[],
-                glassId:311891,
-                glassTxt:"4-16-4",
-                gridId:0,
-                gridTxt:"",
-                openDir:[4],
-                handlePos:4,
-                sashType:2
-              }
-
-              ],
-
-              hardwareLines:[
-                    [
-                      432,
-                      1890,
-                      432,
-                      1890
-                    ]
-                  ]
-            }
+            name:"Штульповые",
+            details:[{type:"skylight",
+            id:"block_0",
+            level:0,
+            blockType:"frame",
+            children:["block_1", "block_1"],
+            maxSizeLimit:5000},{type:"skylight",
+            id:"block_2",
+            level:1,
+            blockType:"frame",
+            parent:"block_0",
+            children:["block_3","block_4"],
+            pointsOut:[{type:"frame",
+            id:"fp1",
+            x:0,
+            y:0,
+            dir:"line",
+            view:1},{type:"frame",
+            id:"fp2",
+            x:1300,
+            y:0,
+            dir:"line",
+            view:1},{type:"frame",
+            id:"fp3",
+            x:1300,
+            y:2100,
+            dir:"line",
+            view:1},{type:"frame",
+            id:"fp4",
+            x:0,
+            y:2100,
+            dir:"line",
+            view:1}],
+            pointsIn:[],
+            pointsLight:[],
+            parts:[],
+            glassId:311891,
+            glassTxt:"4-16-4",
+            impost:{impostAxis:[{type:"shtulp",
+            id:"sht2",
+            x:650,
+            y:0,
+            dir:"line",
+            dimType:0},{type:"shtulp",
+            id:"sht2",
+            x:650,
+            y:2100,
+            dir:"line",
+            dimType:0}],
+            impostOut:[],
+            impostIn:[],
+            impostLight:[]}},{type:"skylight",
+            id:"block_3",
+            level:2,
+            blockType:"sash",
+            parent:"block_2",
+            children:[],
+            pointsOut:[],
+            pointsIn:[],
+            pointsLight:[],
+            parts:[],
+            glassId:311891,
+            glassTxt:"4-16-4",
+            openDir:[1,2],
+            handlePos:2,
+            sashType:6,
+            gridId:0,
+            gridTxt:""},{type:"skylight",
+            id:"block_4",
+            level:2,
+            blockType:"sash",
+            parent:"block_2",
+            children:[],
+            pointsOut:[],
+            pointsIn:[],
+            pointsLight:[],
+            parts:[],
+            glassId:311891,
+            glassTxt:"4-16-4",
+            openDir:[4],
+            handlePos:0,
+            sashType:4}],
+            hardwareLines:[[497,1890,497,1890]]
+            } 
 
           ]
 
@@ -21928,8 +21804,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   pointsOut: [
                     {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp2', x:900, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp3', x:900, y:2200, dir:'line', view:1},
-                    {type:'frame', id:'fp4', x:0, y:2200, dir:'line', view:1}
+                    {type:'frame', id:'fp3', x:900, y:2000, dir:'line', view:1},
+                    {type:'frame', id:'fp4', x:0, y:2000, dir:'line', view:1}
                   ],
                   pointsIn: [],
                   pointsLight: [],
@@ -21968,12 +21844,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               view:1},{type:"frame",
               id:"fp3",
               x:1800,
-              y:2200,
+              y:2000,
               dir:"line",
               view:1},{type:"frame",
               id:"fp4",
               x:0,
-              y:2200,
+              y:2000,
               dir:"line",
               view:1}],
               pointsIn:[],
@@ -21989,7 +21865,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               dimType:0},{type:"shtulp",
               id:"sht1",
               x:900,
-              y:2200,
+              y:2000,
               dir:"line",
               dimType:0}],
               impostOut:[],
@@ -22030,10 +21906,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         }));
       },
-
-
-
-
 
 
       getInstalment: function (callback) {
