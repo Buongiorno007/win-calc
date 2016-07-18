@@ -1,4 +1,4 @@
-{
+{ 
   "common_words": {
     "CHANGE": "Modifică",
     "MONTHS": "Ianuarie, Februarie, Martie, Aprilie, Mai, Iunie, Iulie, August, Septembrie, Octombrie, Decembrie",
@@ -118,6 +118,28 @@
     "HEAT_INSULATION": "izolare termică",
     "NOICE_INSULATION": "izolare fonică",
     "CORROSION_COEFF": "anticoroziune",
+
+    "TEMPLATE_WINDOW_HAND": "Modele de ferestre",
+    "TEMPLATE_BALCONY_HAND": "Uși de balcon",
+    "TEMPLATE_DOOR_HAND": "Usi de intrare",
+
+    "1_TYPE": "Fereastra orb",
+    "2_TYPE": "fereastra de pivotare",
+    "3_TYPE": "fereastră prelate & rândul său",
+    "4_TYPE": "fereastra orb cu bir",
+    "5_TYPE": "răsucirii fereastra cu bir",
+    "6_TYPE": "fereastră prelate & rândul său la Impost",
+    "7_TYPE": "geam dublu",
+    "8_TYPE": "ferestre cu frunze",
+    "9_TYPE": "fereastra blind cu bir",
+    "10_TYPE": "răsucirii fereastra cu bir",
+    "11_TYPE": "fereastra si inclinare activa cu montant",
+    "21_TYPE": "cu balamale pivotant",
+    "22_TYPE": "leagăn",
+    "23_TYPE": "cu frunze",
+    "31_TYPE": "ușa din față cu o singură aripă",
+    "32_TYPE": "ușa din față cu frunze",
+
     "BURGLAR_COEFF": "antiefracție",
     "LAMINAT_INSIDE": "în cameră",
     "LAMINAT_OUTSIDE": "fațadă",

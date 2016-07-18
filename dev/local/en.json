@@ -1,4 +1,4 @@
-{
+{ 
   "common_words": {
     "CHANGE": "Change",
     "MONTHS": "January, February, March, April, May, June, July, August, September, October, November, December",
@@ -131,6 +131,29 @@
     "SENDVICH": "Сэндвич панель",
     "PVX": "ПВХ панель",
     "CAMERa": "cameras",
+
+
+    "TEMPLATE_WINDOW_HAND": "Templates for Windows",
+    "TEMPLATE_BALCONY_HAND": "Doors balcony",
+    "TEMPLATE_DOOR_HAND": "Entrance doors",
+
+    "1_TYPE": "blind",
+    "2_TYPE": "pivoting",
+    "3_TYPE": "tilt & turn",
+    "4_TYPE": "blind with impost",
+    "5_TYPE": "swivel with impost",
+    "6_TYPE": "tilt & turn to the impost",
+    "7_TYPE": "DOUBLE",
+    "8_TYPE": "leaved",
+    "9_TYPE": "blind with impost",
+    "10_TYPE": "swivel with impost",
+    "11_TYPE": "tilt & turn with mullion",
+    "21_TYPE": "swivel-hinged",
+    "22_TYPE": "swing",
+    "23_TYPE": "leaved",
+    "31_TYPE": "Single-wing",
+    "32_TYPE": "leaved",
+
     "CAMER": "cameras",
     "CAMERs": "cameras",
     "ENERGY_SAVE": "+energy saving",

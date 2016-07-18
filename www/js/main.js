@@ -20298,98 +20298,98 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           templateImgs: [
             {
               id: 1,
-              name: $filter('translate')('panels.ONE_WINDOW_TYPE'),
+              name: $filter('translate')('panels.1_TYPE'),
               src: 'img/templates/1.png',
               type: 1
             },
             {
               id: 3,
-              name: $filter('translate')('panels.TURNING_WINDOW'),
+              name: $filter('translate')('panels.2_TYPE'),
               src: 'img/templates/2.png',
               type: 1
             },
             {
               id: 4,
-              name: $filter('translate')('panels.SWING_OUT_WINDOW'),
+              name: $filter('translate')('panels.3_TYPE'),
               src: 'img/templates/3.png',
               type: 1
             },
             {
               id: 5,
-              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
+              name: $filter('translate')('panels.4_TYPE'),
               src: 'img/templates/4.png',
               type: 1
             },
             {
               id: 6,
-              name: $filter('translate')('panels.TURNING_WINDOW'),
+              name: $filter('translate')('panels.5_TYPE'),
               src: 'img/templates/5.png',
               type: 1
             },
             {
               id: 7,
-              name: $filter('translate')('panels.SWING_OUT_WINDOW'),
+              name: $filter('translate')('panels.6_TYPE'),
               src: 'img/templates/6.png',
               type: 1
             },
             {
               id: 8,
-              name: $filter('translate')('panels.LEAVED_WINDOW_IMP'),
+              name: $filter('translate')('panels.7_TYPE'),
               src: 'img/templates/7.png',
               type: 1
             },
             {
               id: 9,
-              name: $filter('translate')('panels.LEAVED_WINDOW'),
+              name: $filter('translate')('panels.8_TYPE'),
               src: 'img/templates/8.png',
               type: 1
             },
             {
               id: 10,
-              name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
+              name: $filter('translate')('panels.9_TYPE'),
               src: 'img/templates/9.png',
               type: 1
             },
             {
               id: 11,
-              name: $filter('translate')('panels.TURNING_WINDOW'),
+              name: $filter('translate')('panels.10_TYPE'),
               src: 'img/templates/10.png',
               type: 1
             },
             {
               id: 12,
-              name: $filter('translate')('panels.SWING_OUT_WINDOW'),
+              name: $filter('translate')('panels.11_TYPE'),
               src: 'img/templates/11.png',
               type: 1
             },
             {
               id: 1,
-              name: $filter('translate')('panels.SWING_OUT_TYPE'),
+              name: $filter('translate')('panels.21_TYPE'),
               src: 'img/templates/21.png',
               type: 2
             },
             {
               id: 2,
-              name: $filter('translate')('panels.TURNING_TYPE'),
+              name: $filter('translate')('panels.22_TYPE'),
               src: 'img/templates/22.png',
               type: 2
             },
             {
               id: 3,
-              name: $filter('translate')('panels.LEAVED_TYPE'),
+              name: $filter('translate')('panels.23_TYPE'),
               src: 'img/templates/23.png',
               type: 2
             },            
 
             {
               id: 1,
-              name: $filter('translate')('panels.TURNING_TYPE'),
+              name: $filter('translate')('panels.31_TYPE'),
               src: 'img/templates/31.png',
               type: 4
             },
             {
               id: 2,
-              name: $filter('translate')('panels.LEAVED_TYPE'),
+              name: $filter('translate')('panels.32_TYPE'),
               src: 'img/templates/32.png',
               type: 4
             }

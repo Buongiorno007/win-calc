@@ -1,4 +1,4 @@
-{
+{ 
   "common_words": {
     "CHANGE": "untreu sein",
     "MONTHS": "Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember",
@@ -124,6 +124,29 @@
     "ONE_WINDOW_TYPE": "Das Einaufklappbare",
     "TWO_WINDOW_TYPE": "Das Zweiaufklappbare",
     "THREE_WINDOW_TYPE": "Das Dreiaufklappbare",
+
+
+    "TEMPLATE_WINDOW_HAND": "Vorlagen für Fenster",
+    "TEMPLATE_BALCONY_HAND": "Türen Balkon",
+    "TEMPLATE_DOOR_HAND": "Eingangstüren",
+
+    "1_TYPE": "Fenster blind",
+    "2_TYPE": "Box-Schwenk",
+    "3_TYPE": "Box Schwenk-Neige",
+    "4_TYPE": "Fensterjalousie mit impost",
+    "5_TYPE": "Fenster mit schwenkbarem impost",
+    "6_TYPE": "Drehkipp- Fenster mit impost",
+    "7_TYPE": "Fenster DOUBLE",
+    "8_TYPE": "Fenster Endivie",
+    "9_TYPE": "Fensterjalousie mit Pfosten",
+    "10_TYPE": "Fenster mit schwenkbarem impost",
+    "11_TYPE": "Drehkipp- Fenster mit Pfosten",
+    "21_TYPE": "Balkontür Drehscharnier",
+    "22_TYPE": "Schaukel Balkontür Balkontür Endivie",
+    "23_TYPE": "Schaukel Balkontür Balkontür Endivie",
+    "31_TYPE": "Einflügelige Tür",
+    "32_TYPE": "Haustür Endivie",
+
     "CAMER_1": "1 камера",
     "CAMER_2": "2 камеры",
     "CAMER_GLASS": "Стекло",

@@ -1,4 +1,4 @@
-{
+{ 
   "common_words": {
     "CHANGE": "Cambiare",
     "MONTHS": "Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre",
@@ -122,6 +122,28 @@
     "BURGLAR_COEFF": "protezione contro rottura",
     "LAMINAT_INSIDE": "in camera",
     "LAMINAT_OUTSIDE": "la facciata",
+
+    "TEMPLATE_WINDOW_HAND": "Modelli di finestre",
+    "TEMPLATE_BALCONY_HAND": "Portefinestre",
+    "TEMPLATE_DOOR_HAND": "Porte d'ingresso",
+
+    "1_TYPE": "cieca",
+    "2_TYPE": "basculante",
+    "3_TYPE": "ad anta ribalta",
+    "4_TYPE": "cieca con imposta",
+    "5_TYPE": "girevole  con imposta",
+    "6_TYPE": "la  di inclinazione e girare a imposta",
+    "7_TYPE": "doppia",
+    "8_TYPE": "leaved",
+    "9_TYPE": "cieca con imposta",
+    "10_TYPE": "girevole  con imposta",
+    "11_TYPE": "la  di inclinazione e girare con montante",
+    "21_TYPE": "Balcone porta girevole a battente",
+    "22_TYPE": "porta a battente balcone",
+    "23_TYPE": "porta del balcone leaved",
+    "31_TYPE": "Single- ala",
+    "32_TYPE": "leaved",
+
     "ONE_WINDOW_TYPE": "La porta sola",
     "TWO_WINDOW_TYPE": "L'ala doppio",
     "THREE_WINDOW_TYPE": "Il da tre foglie",
