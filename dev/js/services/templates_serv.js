@@ -122,6 +122,7 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
+      GlobalStor.global.selectedTemplate = templateIndex;
       GlobalStor.global.isTemplateTypeMenu = 0;
 
       //-------- check changes in current template

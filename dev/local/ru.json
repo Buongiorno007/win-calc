@@ -107,6 +107,9 @@
     "SELECT_GLASS_WARN": "Кликните на стеклопакет, который хотите изменить"
   },
   "panels": {
+    "TEMPLATE_WINDOW_HAND": "Шаблоны окна",
+    "TEMPLATE_BALCONY_HAND": "Двери балконные",
+    "TEMPLATE_DOOR_HAND": "Двери входные",
     "TEMPLATE_WINDOW": "Oкно",
     "TEMPLATE_BALCONY": "Балкон",
     "TEMPLATE_DOOR": "Дверь",
@@ -122,6 +125,15 @@
     "LAMINAT_INSIDE": "в комнате",
     "LAMINAT_OUTSIDE": "фасад",
     "ONE_WINDOW_TYPE": "Одностворчатое",
+    "TURNING_TYPE": "Поворотная",
+    "SWING_OUT_TYPE": "Поворотно-откидная",
+    "LEAVED_TYPE": "Штульповая",
+
+    "TURNING_WINDOW": "Поворотное",
+    "SWING_OUT_WINDOW": "Поворотно-откидное",
+    "LEAVED_WINDOW": "Штульповое",
+    "LEAVED_WINDOW_IMP": "Штульповое c импостом",
+
     "TWO_WINDOW_TYPE": "Двухстворчатое",
     "THREE_WINDOW_TYPE": "Трехстворчатое",
     "CAMER_1": "1 камера",

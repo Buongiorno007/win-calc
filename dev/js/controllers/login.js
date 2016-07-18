@@ -507,8 +507,8 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
-/*
+          // checkingUser();
+
           //------- check available Local DB
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
@@ -556,7 +556,7 @@
               checkingUser();
             }
           });
-//*/
+//
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');

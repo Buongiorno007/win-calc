@@ -45,7 +45,6 @@
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-    console.log(GlobalStor.global.startProgramm, 'GlobalStor.global.startProgramm')
     MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete

@@ -2778,7 +2778,7 @@
     function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)-40
       };
       return position;
     }

@@ -31,8 +31,17 @@
       typing: 'on'
     };
 
-
+    thisCtrl.templateName = [
+      'panels.TEMPLATE_WINDOW_HAND',
+      'panels.TEMPLATE_BALCONY_HAND',
+      'panels.TEMPLATE_DOOR_HAND'
+    ]
+    thisCtrl.selected = 1;
     //------- translate
+    thisCtrl.TEMPLATE_WINDOW_HAND = $filter('translate')('panels.TEMPLATE_WINDOW_HAND');
+    thisCtrl.TEMPLATE_BALCONY_HAND = $filter('translate')('panels.TEMPLATE_BALCONY_HAND');
+    thisCtrl.TEMPLATE_DOOR_HAND = $filter('translate')('panels.TEMPLATE_DOOR_HAND');
+
     thisCtrl.TEMPLATE_WINDOW = $filter('translate')('panels.TEMPLATE_WINDOW');
     thisCtrl.TEMPLATE_DOOR = $filter('translate')('panels.TEMPLATE_DOOR');
     thisCtrl.TEMPLATE_BALCONY_ENTER = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
@@ -40,13 +49,15 @@
 
 
     //---------- download templates Img icons
-    optionsServ.getTemplateImgIcons(function (results) {
-      if (results.status) {
-        thisCtrl.templatesImgs = results.data.templateImgs;
-      } else {
-        console.log(results);
-      }
-    });
+        optionsServ.getTemplateImgIcons(function (results) {
+          if (results.status)  {
+            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
+              return data.type === GlobalStor.global.templatesType;
+            });
+          } else {
+            console.log(results);
+          }
+        });
 
 
 
@@ -58,9 +69,40 @@
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
-
+    function closeTemplates() {
+      if(GlobalStor.global.activePanel === 0) {
+        GlobalStor.global.activePanel = -1
+      } else {
+        GlobalStor.global.activePanel = 0;
+      }
+    }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
+      GlobalStor.global.selectedTemplate = -1;
+      thisCtrl.selected = marker;
+      if(marker === 3) {
+        marker = 4;
+      }
+      GlobalStor.global.templatesType = marker;
+
+        optionsServ.getTemplateImgIcons(function (results) {
+          if (results.status)  {
+            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
+              return data.type === GlobalStor.global.templatesType;
+            });
+          } else {
+            console.log(results);
+          }
+        });
+      
+
+        MainServ.downloadAllTemplates(marker).then(function(data) {
+          if (data) {
+            GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+            GlobalStor.global.templatesSource = angular.copy(data);
+          }
+        });
+
       GlobalStor.global.isTemplateTypeMenu = 0;
 
       function goToNewTemplateType() {
@@ -102,6 +144,7 @@
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
+    thisCtrl.closeTemplates = closeTemplates;
 
   });
 })();

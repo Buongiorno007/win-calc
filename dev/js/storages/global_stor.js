@@ -75,6 +75,8 @@
         templatesSourceSTORE: [],
         //TODO templateIcons: [],
         isSashesInTemplate: 0,
+        templateIndex: -1,
+        templatesType: 1,
 
         //------ Profiles
         profiles: [],

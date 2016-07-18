@@ -89,7 +89,7 @@
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
 
-
+    console.log(JSON.stringify(ProductStor.product.template_source), 'product')
 
 
     /**----- initialize Events again in order to svg in template pannel -------*/

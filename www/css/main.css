@@ -1758,6 +1758,7 @@ body {
   width: 65%;
   height: 70%;
   z-index: 5;
+  cursor: pointer;
 }
 
 /* line 17, ../../dev/vendor/calendar/pickmeup.scss */
@@ -2991,16 +2992,57 @@ div.drum figure {
 }
 /* line 13, ../../dev/sass/parts/_config-panel.scss */
 .config-panel.active {
-  top: 0rem;
+  top: 75rem;
   left: 0rem;
+  height: 21rem;
   overflow: hidden;
 }
-/* line 17, ../../dev/sass/parts/_config-panel.scss */
+/* line 18, ../../dev/sass/parts/_config-panel.scss */
+.config-panel.select {
+  top: 90.625rem;
+  left: 0rem;
+  height: 21rem;
+  overflow: hidden;
+}
+/* line 24, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type {
+  position: absolute;
+  height: 3rem;
+  left: 2rem;
+  width: 100%;
+}
+/* line 29, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type .type-btn {
+  position: relative;
+  height: 100%;
+  width: auto;
+  margin: 0rem 5rem 0rem 0rem;
+  float: left;
+  font-size: large;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+/* line 38, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type .type-btn.selected {
+  color: #4bd963;
+  text-decoration: underline;
+}
+/* line 43, ../../dev/sass/parts/_config-panel.scss */
+.config-panel .construction-type .hide {
+  height: 2rem;
+  width: 2rem;
+  left: -0.8%;
+  border-radius: 1rem;
+  top: 0.7rem;
+  background: #f74f2e;
+  position: absolute;
+}
+/* line 53, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info {
   position: absolute;
   cursor: pointer;
 }
-/* line 20, ../../dev/sass/parts/_config-panel.scss */
+/* line 56, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info:before {
   top: 0.9375rem;
   left: 0.9375rem;
@@ -3009,7 +3051,7 @@ div.drum figure {
   color: #6ed44a;
   content: "";
 }
-/* line 30, ../../dev/sass/parts/_config-panel.scss */
+/* line 66, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .panel-inner {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -3021,17 +3063,17 @@ div.drum figure {
   overflow-y: auto;
 }
 
-/* line 38, ../../dev/sass/parts/_config-panel.scss */
+/* line 74, ../../dev/sass/parts/_config-panel.scss */
 .config-section, .profile-container .profile-block, .glass-container .glass-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 43, ../../dev/sass/parts/_config-panel.scss */
+/* line 79, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected, .profile-container .selected.profile-block, .glass-container .selected.glass-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 45, ../../dev/sass/parts/_config-panel.scss */
+/* line 81, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected:before, .profile-container .selected.profile-block:before, .glass-container .selected.glass-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
@@ -3040,7 +3082,7 @@ div.drum figure {
   color: #6ed44a;
   content: "";
 }
-/* line 55, ../../dev/sass/parts/_config-panel.scss */
+/* line 91, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-block-header, .profile-container .profile-block .group-block-header, .glass-container .glass-block .group-block-header, .hardware-container .hardware-block .group-block-header {
   display: -webkit-flex;
   display: flex;
@@ -3049,21 +3091,21 @@ div.drum figure {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 60, ../../dev/sass/parts/_config-panel.scss */
+/* line 96, ../../dev/sass/parts/_config-panel.scss */
 .config-section .title, .profile-container .profile-block .title, .glass-container .glass-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif, icons;
   color: #363636;
 }
-/* line 65, ../../dev/sass/parts/_config-panel.scss */
+/* line 101, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info, .profile-container .profile-block .group-info, .glass-container .glass-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 68, ../../dev/sass/parts/_config-panel.scss */
+/* line 104, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info .info, .profile-container .profile-block .group-info .info, .glass-container .glass-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 73, ../../dev/sass/parts/_config-panel.scss */
+/* line 109, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type, .profile-container .profile-block .type, .glass-container .glass-block .type, .hardware-container .hardware-block .type {
   font: normal 2.25rem/3.5rem roboto-medium, sans-serif, icons;
   display: inline;
@@ -3072,37 +3114,37 @@ div.drum figure {
   border-radius: 2rem;
   background-color: #6ed44a;
 }
-/* line 82, ../../dev/sass/parts/_config-panel.scss */
+/* line 118, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index, .profile-container .profile-block .coef-index, .glass-container .glass-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
 }
-/* line 86, ../../dev/sass/parts/_config-panel.scss */
+/* line 122, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .glass-container .glass-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 91, ../../dev/sass/parts/_config-panel.scss */
+/* line 127, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .glass-container .glass-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 94, ../../dev/sass/parts/_config-panel.scss */
+/* line 130, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .glass-container .glass-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 97, ../../dev/sass/parts/_config-panel.scss */
+/* line 133, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .glass-container .glass-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 100, ../../dev/sass/parts/_config-panel.scss */
+/* line 136, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .glass-container .glass-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 106, ../../dev/sass/parts/_config-panel.scss */
+/* line 142, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
@@ -3114,93 +3156,93 @@ div.drum figure {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 115, ../../dev/sass/parts/_config-panel.scss */
+/* line 151, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected, .profile-container .profile-block .box.selected, .glass-container .glass-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 118, ../../dev/sass/parts/_config-panel.scss */
+/* line 154, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .type, .profile-container .profile-block .box.selected .type, .glass-container .glass-block .box.selected .type, .hardware-container .hardware-block .box.selected .type {
   background-color: #57b23c;
 }
-/* line 121, ../../dev/sass/parts/_config-panel.scss */
+/* line 157, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .glass-container .glass-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 128, ../../dev/sass/parts/_config-panel.scss */
+/* line 164, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .glass-container .glass-block .box.selected .label, .hardware-container .hardware-block .box.selected .label {
   color: #363636;
 }
-/* line 132, ../../dev/sass/parts/_config-panel.scss */
+/* line 168, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .glass-container .glass-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 135, ../../dev/sass/parts/_config-panel.scss */
+/* line 171, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .glass-container .glass-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 138, ../../dev/sass/parts/_config-panel.scss */
+/* line 174, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .glass-container .glass-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 141, ../../dev/sass/parts/_config-panel.scss */
+/* line 177, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .glass-container .glass-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 144, ../../dev/sass/parts/_config-panel.scss */
+/* line 180, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .glass-container .glass-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 150, ../../dev/sass/parts/_config-panel.scss */
+/* line 186, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box_inner, .profile-container .profile-block .box_inner, .glass-container .glass-block .box_inner, .hardware-container .hardware-block .box_inner {
   padding: 2.8125rem;
 }
-/* line 153, ../../dev/sass/parts/_config-panel.scss */
+/* line 189, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .glass-container .glass-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
   margin-top: 0.625rem;
 }
-/* line 157, ../../dev/sass/parts/_config-panel.scss */
+/* line 193, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .glass-container .glass-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 162, ../../dev/sass/parts/_config-panel.scss */
+/* line 198, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   display: none;
 }
-/* line 168, ../../dev/sass/parts/_config-panel.scss */
+/* line 204, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:first-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:first-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 176, ../../dev/sass/parts/_config-panel.scss */
+/* line 212, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   display: none;
 }
-/* line 181, ../../dev/sass/parts/_config-panel.scss */
+/* line 217, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(2) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 189, ../../dev/sass/parts/_config-panel.scss */
+/* line 225, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   display: none;
 }
-/* line 193, ../../dev/sass/parts/_config-panel.scss */
+/* line 229, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(3) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 201, ../../dev/sass/parts/_config-panel.scss */
+/* line 237, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-4 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-4 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:nth-child(4) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 205, ../../dev/sass/parts/_config-panel.scss */
+/* line 241, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   display: none;
 }
@@ -6999,8 +7041,8 @@ tr.factory_item {
 /* line 108, ../../dev/sass/pages/design.scss */
 .construction-left-menu .left-menu-footer {
   position: absolute;
-  left: 3.75rem;
-  bottom: 8rem;
+  left: 90.75rem;
+  bottom: 87rem;
   width: 21.875rem;
 }
 /* line 117, ../../dev/sass/pages/design.scss */
@@ -8706,20 +8748,21 @@ tr.factory_item {
 /* line 7, ../../dev/sass/parts/_size-calculator.scss */
 .calculators-box.active {
   bottom: 0;
+  z-index: 14;
 }
 
-/* line 12, ../../dev/sass/parts/_size-calculator.scss */
+/* line 13, ../../dev/sass/parts/_size-calculator.scss */
 .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 19, ../../dev/sass/parts/_size-calculator.scss */
+/* line 20, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-delete {
   position: relative;
   display: table;
   background-color: #bebebe;
 }
-/* line 23, ../../dev/sass/parts/_size-calculator.scss */
+/* line 24, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-delete:after {
   font: normal 2.25rem/0 icons, sans-serif;
   left: 30%;
@@ -8727,13 +8770,13 @@ tr.factory_item {
   color: #363636;
   content: "";
 }
-/* line 34, ../../dev/sass/parts/_size-calculator.scss */
+/* line 35, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-interval {
   -webkit-justify-content: space-around;
   justify-content: space-around;
   position: relative;
 }
-/* line 39, ../../dev/sass/parts/_size-calculator.scss */
+/* line 40, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-interval:after {
   font: normal 2.25rem/0 icons, sans-serif;
   top: 45%;
@@ -8742,12 +8785,12 @@ tr.factory_item {
   color: #bebebe;
   content: "";
 }
-/* line 51, ../../dev/sass/parts/_size-calculator.scss */
+/* line 52, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 7rem;
 }
-/* line 55, ../../dev/sass/parts/_size-calculator.scss */
+/* line 56, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit.restriction {
   color: #f74f2e;
 }
@@ -8767,11 +8810,6 @@ tr.factory_item {
   color: #363636;
 }
 
-/* line 1, ../../dev/sass/panels/template-selector.scss */
-.template-container {
-  padding: 3.125rem;
-  left: -135rem;
-}
 /* line 5, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-header {
   text-align: center;
@@ -8847,8 +8885,13 @@ tr.factory_item {
 .template-container .template-footer {
   display: -webkit-flex;
   display: flex;
+  overflow: auto;
+  position: relative;
+  top: 5rem;
+  display: flex;
+  overflow: auto;
 }
-/* line 79, ../../dev/sass/panels/template-selector.scss */
+/* line 84, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-templates {
   display: -webkit-flex;
   display: flex;
@@ -8861,22 +8904,27 @@ tr.factory_item {
   overflow-y: hidden;
   overflow-x: auto;
 }
-/* line 87, ../../dev/sass/panels/template-selector.scss */
+/* line 92, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template {
   display: inline-block;
   min-width: 18.75rem;
   margin: 0 0.625rem;
   cursor: pointer;
 }
-/* line 94, ../../dev/sass/panels/template-selector.scss */
+/* line 97, ../../dev/sass/panels/template-selector.scss */
+.template-container .other-template.selected {
+  background-color: rgba(114, 225, 133, 0.55);
+  border-radius: 1rem;
+}
+/* line 103, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-img {
   text-align: center;
 }
-/* line 97, ../../dev/sass/panels/template-selector.scss */
+/* line 106, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-img img {
   max-height: 7.6875rem;
 }
-/* line 102, ../../dev/sass/panels/template-selector.scss */
+/* line 111, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-label {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 9.375rem;
@@ -8885,7 +8933,7 @@ tr.factory_item {
   word-wrap: break-word;
   color: #666;
 }
-/* line 111, ../../dev/sass/panels/template-selector.scss */
+/* line 120, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-subscr {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 12.5rem;

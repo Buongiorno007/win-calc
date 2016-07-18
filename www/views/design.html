@@ -76,11 +76,9 @@
         <div fs-click="designPage.positionAxis()" class="constr-shape-icon position-axis"></div>
         <div fs-click="designPage.positionGlass()" class="constr-shape-icon position-glass"></div>
       </div>
-      <div class="left-menu-footer">
-        <div data-output="{{ ::designPage.UNITS_DESCRIP }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
-        <div fs-click="designPage.setDefaultConstruction()" class="project-default">{{ ::designPage.PROJECT_DEFAULT }}</div>
-        <div fs-click="designPage.showTemplates()" class="project-default">{{ ::designPage.ROOM_SELECTION }}</div>
-      </div>
+      
+      
+      
     </div>
     <div class="construction-block">
       <div class="construction-scrollbox">
@@ -183,33 +181,16 @@
         <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ ::designPage.VOICE_SPEACH }}" class="voice-input">
       </div>
     </div>
-    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
-      <div class="template-inner">
-        <div fs-click="designPage.showTemplates()" class="close-dialog"></div>
-        <div class="template-header">
-          <button ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}" fs-click="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}</button>
-          <div class="tempate-type-box">
-            <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
-              <div fs-click="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_WINDOW }}</div>
-              <div fs-click="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_BALCONY_ENTER }}</div>
-              <!--.template-type-btn(fs-click="templatesPanel.selectNewTemplateType(3)") {{ ::templatesPanel.TEMPLATE_BALCONY }}-->
-              <div fs-click="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ ::templatesPanel.TEMPLATE_DOOR }}</div>
-            </div>
-          </div>
-          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
-        </div>
-        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" fs-click="designPage.showTemplates()" class="template-section unvisible">
-          <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="templatesPanel.constants.SVG_ID_ICON"></svg-template>
-        </div>
-        <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
-          <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
-            <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", fs-click="selectNewTemplate($index)")-->
-            <div ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index" fs-click="templatesPanel.selectNewTemplate($index)" class="other-template">
-              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
-              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
-              <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
-            </div>
-          </div>
+    <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 0, 'select': templatesPanel.G.global.activePanel == -1}" class="config-panel template-container">
+      <div class="construction-type">
+        <div fs-click="templatesPanel.closeTemplates()" class="construction-type hide"></div>
+        <div ng-repeat="name in templatesPanel.templateName track by $index" fs-click="templatesPanel.selectNewTemplateType($index+1)" ng-class="{'selected': templatesPanel.selected === $index+1}" class="construction-type type-btn">{{ ::templatesPanel.templateName[$index]|translate }}</div>
+      </div>
+      <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
+        <div ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index" fs-click="templatesPanel.selectNewTemplate($index)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-template">
+          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
+          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
+          <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>
         </div>
       </div>
     </div>
