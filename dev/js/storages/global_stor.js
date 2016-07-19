@@ -56,8 +56,8 @@
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
-        heightTEMP: 0,
-        widthTEMP: 0,
+        heightTEMP: [],
+        widthTEMP: [],
 
         //------ Rooms background
         showRoomSelectorDialog: 0,

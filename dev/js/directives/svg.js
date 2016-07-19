@@ -354,6 +354,9 @@
                   'left' : 3 + 'px',
                   'top' : (hD - sunH-dnl) + 'px'
               });
+              $('.elem24').css({
+                  'width' : widthT/4.1 + 108 + 'px'
+              });
             }
 
               if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {

@@ -596,6 +596,7 @@
     /**-------- Select menu item ---------*/
 
     function selectMenuItem(id) {
+      GlobalStor.global.activePanel = 0;
       if(DesignStor.design.tempSize.length) {
         //----- finish size culculation
         DesignServ.closeSizeCaclulator();
@@ -668,7 +669,6 @@
         }
       }
     }
-    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'templateSourceTEMP')
 
     /**----- open/close template pannel -------*/
 

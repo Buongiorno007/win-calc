@@ -254,7 +254,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
     }
 
-console.log(OrderStor.order, ',,,,,,,,,,,')
 
  
 
@@ -1113,6 +1112,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     /**-------- Select menu item ---------*/
 
     function selectMenuItem(id) {
+      GlobalStor.global.activePanel = 0;
       if(DesignStor.design.tempSize.length) {
         //----- finish size culculation
         DesignServ.closeSizeCaclulator();
@@ -1185,7 +1185,6 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         }
       }
     }
-    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'templateSourceTEMP')
 
     /**----- open/close template pannel -------*/
 
@@ -3930,15 +3929,16 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
-    function closeTemplates() {
-      if(GlobalStor.global.activePanel === 0) {
-        GlobalStor.global.activePanel = -1
-      } else {
-        GlobalStor.global.activePanel = 0;
-      }
-    }
+    // function closeTemplates() {
+    //   if(GlobalStor.global.activePanel === 0) {
+    //     GlobalStor.global.activePanel = -1
+    //   } else {
+    //     GlobalStor.global.activePanel = 0;
+    //   }
+    // }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
+      GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
       if(marker === 3) {
@@ -3949,7 +3949,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === GlobalStor.global.templatesType;
+              return data.type === marker;
             });
           } else {
             console.log(results);
@@ -3966,35 +3966,35 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
 
       GlobalStor.global.isTemplateTypeMenu = 0;
 
-      function goToNewTemplateType() {
-        if (marker === 4) {
-          MainServ.setDefaultDoorConfig();
-        }
-        GlobalStor.global.isChangedTemplate = 0;
-        TemplatesServ.initNewTemplateType(marker);
-      }
+      // function goToNewTemplateType() {
+      //   if (marker === 4) {
+      //     MainServ.setDefaultDoorConfig();
+      //   }
+      //   GlobalStor.global.isChangedTemplate = 0;
+      //   TemplatesServ.initNewTemplateType(marker);
+      // }
 
       //----- if Door
-      if(marker === 4 && GlobalStor.global.noDoorExist) {
-        //-------- show alert than door not existed
-        DesignStor.design.isNoDoors = 1;
-      } else {
-        //-------- check changes in current template
-        if (GlobalStor.global.currOpenPage === 'design') {
-          GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-        }
+      // if(marker === 4 && GlobalStor.global.noDoorExist) {
+      //   //-------- show alert than door not existed
+      //   DesignStor.design.isNoDoors = 1;
+      // } else {
+      //   //-------- check changes in current template
+      //   if (GlobalStor.global.currOpenPage === 'design') {
+      //     GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      //   }
 
-        if (GlobalStor.global.isChangedTemplate) {
-          //----- если выбран новый шаблон после изменения предыдущего
-          GeneralServ.confirmAlert(
-            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-            goToNewTemplateType
-          );
-        } else {
-          TemplatesServ.initNewTemplateType(marker);
-        }
-      }
+      //   if (GlobalStor.global.isChangedTemplate) {
+      //     //----- если выбран новый шаблон после изменения предыдущего
+      //     GeneralServ.confirmAlert(
+      //       $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+      //       $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+      //       goToNewTemplateType
+      //     );
+      //   } else {
+      //     TemplatesServ.initNewTemplateType(marker);
+      //   }
+      // }
     }
 
 
@@ -4005,7 +4005,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.closeTemplates = closeTemplates;
+    //thisCtrl.closeTemplates = closeTemplates;
 
   });
 })();
@@ -5062,6 +5062,7 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
       thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = DesignServ.closeSizeCaclulator;
     }
+    GlobalStor.global.activePanel = 0;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
@@ -6330,6 +6331,9 @@ console.log(OrderStor.order, ',,,,,,,,,,,')
                   'height' : sunH + 'px',
                   'left' : 3 + 'px',
                   'top' : (hD - sunH-dnl) + 'px'
+              });
+              $('.elem24').css({
+                  'width' : widthT/4.1 + 108 + 'px'
               });
             }
 
@@ -9741,13 +9745,17 @@ function ErrorResult(code, message) {
         var sizeY = res.dimension.dimY;
         var heightT = 0, widthT = 0;
         for(var x=0; x<sizeX.length; x+=1) {
-          if(sizeX[x].dimId == 'fp3') {
-            widthT = GlobalStor.global.widthTEMP = sizeX[x].text
+          if(sizeX[x].dimId !== 'fp3' || sizeX.length === 1) {
+            if(widthT<sizeX[x].text || widthT === 0) {
+              widthT = GlobalStor.global.widthTEMP = sizeX[x].text
+            }
           }
         }
         for(var y=0; y<sizeY.length; y+=1) {
-          if(sizeY[y].dimId == 'fp3') {
-            heightT = GlobalStor.global.heightTEMP = sizeY[y].text
+          if(sizeY[y].dimId !== 'fp3' || sizeY.length === 1) {
+            if(heightT<sizeY[y].text || heightT === 0) {
+              heightT = GlobalStor.global.heightTEMP = sizeY[y].text
+            }
           }
         }
         size(heightT, widthT)
@@ -9869,6 +9877,7 @@ function ErrorResult(code, message) {
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
+      GlobalStor.global.activePanel = 0;
       var sizeLength = DesignStor.design.tempSize.length;
       //console.log('take new value = ', newValue);
       if(GlobalStor.global.isVoiceHelper) {
@@ -10022,6 +10031,7 @@ function ErrorResult(code, message) {
 
     //------- set click to all Dimensions
     function initAllDimension() {
+      GlobalStor.global.activePanel = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
         .each(function() {
           var size = d3.select(this);
@@ -18764,7 +18774,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     }
 
     function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
-      console.log(template, glassId, glassName, blockId, 'template, glassId, glassName, blockId')
       var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
@@ -25837,7 +25846,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+600),
+      var templateW = (dim.maxX - dim.minX),
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()
@@ -26096,6 +26105,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
+      ProductStor.product.construction_type = GlobalStor.global.templatesType;
+      GlobalStor.global.activePanel = 0;
       GlobalStor.global.selectedTemplate = templateIndex;
       GlobalStor.global.isTemplateTypeMenu = 0;
 
@@ -26501,8 +26512,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
-        heightTEMP: 0,
-        widthTEMP: 0,
+        heightTEMP: [],
+        widthTEMP: [],
 
         //------ Rooms background
         showRoomSelectorDialog: 0,

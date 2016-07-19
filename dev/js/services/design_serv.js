@@ -365,13 +365,17 @@
         var sizeY = res.dimension.dimY;
         var heightT = 0, widthT = 0;
         for(var x=0; x<sizeX.length; x+=1) {
-          if(sizeX[x].dimId == 'fp3') {
-            widthT = GlobalStor.global.widthTEMP = sizeX[x].text
+          if(sizeX[x].dimId !== 'fp3' || sizeX.length === 1) {
+            if(widthT<sizeX[x].text || widthT === 0) {
+              widthT = GlobalStor.global.widthTEMP = sizeX[x].text
+            }
           }
         }
         for(var y=0; y<sizeY.length; y+=1) {
-          if(sizeY[y].dimId == 'fp3') {
-            heightT = GlobalStor.global.heightTEMP = sizeY[y].text
+          if(sizeY[y].dimId !== 'fp3' || sizeY.length === 1) {
+            if(heightT<sizeY[y].text || heightT === 0) {
+              heightT = GlobalStor.global.heightTEMP = sizeY[y].text
+            }
           }
         }
         size(heightT, widthT)
@@ -493,6 +497,7 @@
 
     //-------- Get number from calculator
     function setValueSize(newValue) {
+      GlobalStor.global.activePanel = 0;
       var sizeLength = DesignStor.design.tempSize.length;
       //console.log('take new value = ', newValue);
       if(GlobalStor.global.isVoiceHelper) {
@@ -646,6 +651,7 @@
 
     //------- set click to all Dimensions
     function initAllDimension() {
+      GlobalStor.global.activePanel = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .size-box')
         .each(function() {
           var size = d3.select(this);

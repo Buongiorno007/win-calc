@@ -2726,7 +2726,7 @@
     //----------- SCALE
 
     function setTemplateScale(dim, windowW, windowH, padding) {
-      var templateW = ((dim.maxX - dim.minX)+600),
+      var templateW = (dim.maxX - dim.minX),
           templateH = (dim.maxY - dim.minY),
           scaleTmp,
           d3scaling = d3.scale.linear()

@@ -218,6 +218,33 @@
 			height: 95%;
 			width: 95%; }  
 		}
+  	.elem24 {
+		position: absolute;
+	    z-index: 1;
+	    left: 25rem;
+	    top: 12rem;
+	    height: 280px;
+		img {
+		    height: 100%;
+			width: 100%; }  
+		}
+  	.elem25 {
+  		position: absolute;
+		z-index: 1;
+		top: 0px;
+		img {
+		    height: 50%;
+		    width: 50%;
+		    float: right;}  
+		}
+  	.elem26 {
+  		position: absolute;
+		z-index: 2;
+		top: 5rem;
+		img {
+			height: 95%;
+			width: 95%; }  
+		}
 
 	.blockCheck {
 	    height: 6%;

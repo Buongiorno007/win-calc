@@ -122,6 +122,8 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
+      ProductStor.product.construction_type = GlobalStor.global.templatesType;
+      GlobalStor.global.activePanel = 0;
       GlobalStor.global.selectedTemplate = templateIndex;
       GlobalStor.global.isTemplateTypeMenu = 0;
 

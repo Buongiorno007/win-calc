@@ -35,6 +35,7 @@
       thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = DesignServ.closeSizeCaclulator;
     }
+    GlobalStor.global.activePanel = 0;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 

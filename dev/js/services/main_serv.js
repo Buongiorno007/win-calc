@@ -295,7 +295,6 @@
     }
 
     function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
-      console.log(template, glassId, glassName, blockId, 'template, glassId, glassName, blockId')
       var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {

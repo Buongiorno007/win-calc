@@ -69,15 +69,16 @@
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
-    function closeTemplates() {
-      if(GlobalStor.global.activePanel === 0) {
-        GlobalStor.global.activePanel = -1
-      } else {
-        GlobalStor.global.activePanel = 0;
-      }
-    }
+    // function closeTemplates() {
+    //   if(GlobalStor.global.activePanel === 0) {
+    //     GlobalStor.global.activePanel = -1
+    //   } else {
+    //     GlobalStor.global.activePanel = 0;
+    //   }
+    // }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
+      GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
       if(marker === 3) {
@@ -88,7 +89,7 @@
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
             thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === GlobalStor.global.templatesType;
+              return data.type === marker;
             });
           } else {
             console.log(results);
@@ -105,35 +106,35 @@
 
       GlobalStor.global.isTemplateTypeMenu = 0;
 
-      function goToNewTemplateType() {
-        if (marker === 4) {
-          MainServ.setDefaultDoorConfig();
-        }
-        GlobalStor.global.isChangedTemplate = 0;
-        TemplatesServ.initNewTemplateType(marker);
-      }
+      // function goToNewTemplateType() {
+      //   if (marker === 4) {
+      //     MainServ.setDefaultDoorConfig();
+      //   }
+      //   GlobalStor.global.isChangedTemplate = 0;
+      //   TemplatesServ.initNewTemplateType(marker);
+      // }
 
       //----- if Door
-      if(marker === 4 && GlobalStor.global.noDoorExist) {
-        //-------- show alert than door not existed
-        DesignStor.design.isNoDoors = 1;
-      } else {
-        //-------- check changes in current template
-        if (GlobalStor.global.currOpenPage === 'design') {
-          GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-        }
+      // if(marker === 4 && GlobalStor.global.noDoorExist) {
+      //   //-------- show alert than door not existed
+      //   DesignStor.design.isNoDoors = 1;
+      // } else {
+      //   //-------- check changes in current template
+      //   if (GlobalStor.global.currOpenPage === 'design') {
+      //     GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
+      //   }
 
-        if (GlobalStor.global.isChangedTemplate) {
-          //----- если выбран новый шаблон после изменения предыдущего
-          GeneralServ.confirmAlert(
-            $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-            $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-            goToNewTemplateType
-          );
-        } else {
-          TemplatesServ.initNewTemplateType(marker);
-        }
-      }
+      //   if (GlobalStor.global.isChangedTemplate) {
+      //     //----- если выбран новый шаблон после изменения предыдущего
+      //     GeneralServ.confirmAlert(
+      //       $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+      //       $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+      //       goToNewTemplateType
+      //     );
+      //   } else {
+      //     TemplatesServ.initNewTemplateType(marker);
+      //   }
+      // }
     }
 
 
@@ -144,7 +145,7 @@
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    thisCtrl.closeTemplates = closeTemplates;
+    //thisCtrl.closeTemplates = closeTemplates;
 
   });
 })();
