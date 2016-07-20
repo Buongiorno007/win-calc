@@ -430,18 +430,16 @@
             case 1:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              } else if (doorsGroups.length) {
-                DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              }
+              } 
               break;
-            case 2:
+            case 3:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
                   return item.doorstep_type === 2;
                 });
               break;
             }
-            case 3:
+            case 2:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
                   return item.doorstep_type === 1;

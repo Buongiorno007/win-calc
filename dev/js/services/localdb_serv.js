@@ -346,6 +346,7 @@
             ' img VARCHAR,' +
             ' beed_lamination_id INTEGER,' +
             ' in_door INTEGER,' +
+            ' is_push INTEGER,' +
             ' doorstep_type INTEGER,' +
             ' glass_type INTEGER,' +
             ' glass_image INTEGER',
