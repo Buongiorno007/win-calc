@@ -3911,9 +3911,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //---------- download templates Img icons
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === ProductStor.product.construction_type;
-            });
+            thisCtrl.templatesImgs = results.data.templateImgs;
           } else {
             console.log(results);
           }
@@ -3974,7 +3972,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //   TemplatesServ.initNewTemplateType(marker);
       // }
 
-      //----- if Door
       // if(marker === 4 && GlobalStor.global.noDoorExist) {
       //   //-------- show alert than door not existed
       //   DesignStor.design.isNoDoors = 1;
@@ -3983,6 +3980,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //   if (GlobalStor.global.currOpenPage === 'design') {
       //     GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       //   }
+      // }
 
       //   if (GlobalStor.global.isChangedTemplate) {
       //     //----- если выбран новый шаблон после изменения предыдущего
@@ -15024,7 +15022,7 @@ function ErrorResult(code, message) {
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
@@ -15043,7 +15041,7 @@ function ErrorResult(code, message) {
         var defer = $q.defer();
         $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
           function (result) {
-            console.log('send changes to server success:', result);
+            //console.log('send changes to server success:', result);
             defer.resolve(1);
           },
           function () {
@@ -15133,7 +15131,7 @@ function ErrorResult(code, message) {
         transformRequest: angular.identity
       }).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(1);
         },
         function () {
@@ -17054,7 +17052,7 @@ function ErrorResult(code, message) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result.value);
+            //console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
@@ -17087,7 +17085,7 @@ function ErrorResult(code, message) {
           localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(user) {
             if(user.length) {
               localDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
-                console.log('FINISH export',result);
+                //console.log('FINISH export',result);
                 //----- if update Server is success, clean Export in LocalDB
                 if(result) {
                   localDB.cleanLocalDB({export: 1});
@@ -17182,7 +17180,7 @@ function ErrorResult(code, message) {
           if (countryQty) {
             GlobalStor.global.locations.countries = angular.copy(data);
           } else {
-            console.log('Error!!!', data);
+            //console.log('Error!!!', data);
           }
         }).then(function () {
 
@@ -17210,7 +17208,7 @@ function ErrorResult(code, message) {
                 if (regionQty) {
                   GlobalStor.global.locations.areas = angular.copy(data);
                 } else {
-                  console.log('Error!!!', data);
+                  //console.log('Error!!!', data);
                 }
 
               }).then(function () {
@@ -17353,7 +17351,7 @@ function ErrorResult(code, message) {
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-        //        console.log('DISCTOUN=====', result);
+            //    console.log('DISCTOUN=====', result);
         var discounts = angular.copy(result[0]);
         if(discounts) {
           UserStor.userInfo.discountConstr = +discounts.default_construct;
@@ -26052,7 +26050,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         if(GlobalStor.global.rooms[roomInd-1].group_id === 4 && GlobalStor.global.noDoorExist) {
           //-------- show alert than door not existed
           DesignStor.design.isNoDoors = 1;
-        } else {
+        } 
           /** set new Template Group */
           if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
@@ -26084,7 +26082,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           } else {
             culcPriceNewTemplate(templateIndex);
           }
-        }
+        
       } else {
         //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);

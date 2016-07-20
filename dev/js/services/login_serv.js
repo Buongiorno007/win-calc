@@ -50,7 +50,7 @@
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
-            console.log('language++', result.value);
+            //console.log('language++', result.value);
             checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
@@ -83,7 +83,7 @@
           localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(user) {
             if(user.length) {
               localDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
-                console.log('FINISH export',result);
+                //console.log('FINISH export',result);
                 //----- if update Server is success, clean Export in LocalDB
                 if(result) {
                   localDB.cleanLocalDB({export: 1});
@@ -178,7 +178,7 @@
           if (countryQty) {
             GlobalStor.global.locations.countries = angular.copy(data);
           } else {
-            console.log('Error!!!', data);
+            //console.log('Error!!!', data);
           }
         }).then(function () {
 
@@ -206,7 +206,7 @@
                 if (regionQty) {
                   GlobalStor.global.locations.areas = angular.copy(data);
                 } else {
-                  console.log('Error!!!', data);
+                  //console.log('Error!!!', data);
                 }
 
               }).then(function () {
@@ -349,7 +349,7 @@
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
-        //        console.log('DISCTOUN=====', result);
+            //    console.log('DISCTOUN=====', result);
         var discounts = angular.copy(result[0]);
         if(discounts) {
           UserStor.userInfo.discountConstr = +discounts.default_construct;

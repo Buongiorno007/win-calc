@@ -69,7 +69,7 @@
         if(GlobalStor.global.rooms[roomInd-1].group_id === 4 && GlobalStor.global.noDoorExist) {
           //-------- show alert than door not existed
           DesignStor.design.isNoDoors = 1;
-        } else {
+        } 
           /** set new Template Group */
           if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
@@ -101,7 +101,7 @@
           } else {
             culcPriceNewTemplate(templateIndex);
           }
-        }
+        
       } else {
         //if(ProductStor.product.template_id !== templateIndex) {
           culcPriceNewTemplate(templateIndex);

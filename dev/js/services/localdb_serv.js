@@ -1097,7 +1097,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
@@ -1116,7 +1116,7 @@
         var defer = $q.defer();
         $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
           function (result) {
-            console.log('send changes to server success:', result);
+            //console.log('send changes to server success:', result);
             defer.resolve(1);
           },
           function () {
@@ -1206,7 +1206,7 @@
         transformRequest: angular.identity
       }).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(1);
         },
         function () {

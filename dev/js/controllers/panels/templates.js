@@ -51,9 +51,7 @@
     //---------- download templates Img icons
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === ProductStor.product.construction_type;
-            });
+            thisCtrl.templatesImgs = results.data.templateImgs;
           } else {
             console.log(results);
           }
@@ -114,7 +112,6 @@
       //   TemplatesServ.initNewTemplateType(marker);
       // }
 
-      //----- if Door
       // if(marker === 4 && GlobalStor.global.noDoorExist) {
       //   //-------- show alert than door not existed
       //   DesignStor.design.isNoDoors = 1;
@@ -123,6 +120,7 @@
       //   if (GlobalStor.global.currOpenPage === 'design') {
       //     GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       //   }
+      // }
 
       //   if (GlobalStor.global.isChangedTemplate) {
       //     //----- если выбран новый шаблон после изменения предыдущего
