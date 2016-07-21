@@ -21841,48 +21841,40 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           doors: [
             {
-              name:"Одностворчатая",
-              details:[{type:"skylight",
-              id:"block_0",
-              level:0,
-              blockType:"frame",
-              children:["block_1"],
-              maxSizeLimit:5000},{type:"skylight",
-              id:"block_1",
-              level:1,
-              blockType:"sash",
-              parent:"block_0",
-              children:[],
-              pointsOut:[{type:"frame",
-              id:"fp1",
-              x:0,
-              y:0,
-              dir:"line",
-              view:1},{type:"frame",
-              id:"fp2",
-              x:900,
-              y:0,
-              dir:"line",
-              view:1},{type:"frame",
-              id:"fp3",
-              x:900,
-              y:2000,
-              dir:"line",
-              view:1},{type:"frame",
-              id:"fp4",
-              x:0,
-              y:2000,
-              dir:"line",
-              view:1}],
-              pointsIn:[],
-              pointsLight:[],
-              parts:[],
-              glassId:311891,
-              glassTxt:"4-16-4",
-              openDir:[4],
-              handlePos:4,
-              sashType:2}],
-              hardwareLines:[[795,1895,795,1895]]
+              name: 'Одностворчатая',
+              details: [
+                {
+                  type:'skylight',
+                  id:'block_0',
+                  level: 0,
+                  blockType:'frame',
+                  children:['block_1'],
+                  maxSizeLimit: 5000
+                },
+                //------- Level 1
+                {
+                  type:'skylight',
+                  id:'block_1',
+                  level: 1,
+                  blockType:'sash',
+                  parent: 'block_0',
+                  children: [],
+                  pointsOut: [
+                    {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp2', x:900, y:0, dir:'line', view:1},
+                    {type:'frame', id:'fp3', x:900, y:2000, dir:'line', view:1},
+                    {type:'frame', id:'fp4', x:0, y:2000, dir:'line', view:1}
+                  ],
+                  pointsIn: [],
+                  pointsLight: [],
+                  parts: [],
+                  glassId: 0,
+                  glassTxt: '',
+                  openDir: [4],
+                  handlePos: 4,
+                  sashType: 2
+                }
+              ]
             },
             {
               name:"Одностворчатая",

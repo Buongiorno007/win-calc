@@ -752,7 +752,8 @@
     <div class="info_box">
       <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length" ng-src="{{infoBox.G.global.infoImg}}">
         <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
-        <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div><a ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</a>
+        <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+        <div ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</div>
       </div>
       <div fs-click="infoBox.closeInfoBox()" class="close-dialog"></div>
       <div fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" class="isApply">{{::infoBox.ASKING_PRICE}}</div>

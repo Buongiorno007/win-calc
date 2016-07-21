@@ -4,6 +4,6 @@
       img(ng-if="infoBox.G.global.infoImg.length", ng-src="{{infoBox.G.global.infoImg}}")
       .info_title {{infoBox.G.global.infoTitle}}
       .info_descrip {{infoBox.G.global.infoDescrip}}
-      a.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}
+      .info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}
     .close-dialog(fs-click="infoBox.closeInfoBox()")
     .isApply(fs-click="infoBox.isApply()", ng-show="infoBox.G.global.showApply === 1" ) {{::infoBox.ASKING_PRICE}}
