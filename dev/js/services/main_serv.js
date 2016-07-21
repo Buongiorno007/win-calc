@@ -760,6 +760,7 @@
 
 
     function parseTemplate() {
+      console.log(ProductStor.product.template, '1')
       var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
@@ -967,6 +968,7 @@
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
+             console.log(ProductStor.product.template, '2')
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,

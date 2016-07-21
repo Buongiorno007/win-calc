@@ -47,6 +47,7 @@
       typing: 'on'
     };
 
+    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'ds')
     //------- translate
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
