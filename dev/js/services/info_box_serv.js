@@ -29,12 +29,13 @@
       GlobalStor.global.isPush = [];
       localDB.selectLocalDB(
         localDB.tablesLocalDB.lists.tableName,
-        {'is_push': 1, 'list_group_id': 6},
+        {'is_push': 1},
         'id, name, list_group_id'
       ).then(function (result) {
         GlobalStor.global.isPush = angular.copy(result)
         GlobalStor.global.setTimeout = 0;
         if(GlobalStor.global.activePanel !== 0 && ids === GlobalStor.global.activePanel) {
+          (GlobalStor.global.inform!==1) ? GlobalStor.global.showApply = 1 : GlobalStor.global.showApply = 0;
           infoBox(ids)
         }
       });
@@ -95,7 +96,6 @@
           }
         }
       }
-
       if(itemArr.length > 0) {
         for(var i=0; i<itemArr.length; i+=1) {
           for(var y=0; y<itemArr[i].length; y+=1) {
@@ -133,7 +133,6 @@
       }
       if(GlobalStor.global.activePanel === 6) {
         addElemSelected();
-        GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       GlobalStor.global.isInfoBox = 0;
       GlobalStor.global.infoTitle = '';
@@ -143,7 +142,7 @@
     }
     function addElemSelected () {
       var id = [20, 21, 9, 19, 26, 19, 12, 27, 8, 24, 18, 99, 9999, 999, 999, 9999];
-      var addElem = objAdd;
+      var addElem = GlobalStor.global.infoBoxaddElem;
       var fan = 0;
       var typeId;
       var elementId;
@@ -166,36 +165,6 @@
       AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       //AuxStor.aux.isTabFrame = true;
       AddElementsServ.selectAddElem(typeId, elementId, undefined)
-    }
-    var objAdd = {
-      a: 0,
-      add_color_id: 1,
-      addition_folder_id: 0,
-      amendment_pruning: 0,
-      b: 0,
-      beed_lamination_id: 1,
-      c: 0,
-      cameras : 1,
-      d: 0,
-      description: "",
-      doorstep_type: 1,
-      element_height: 0,
-      element_price: 0.38,
-      element_qty: 1,
-      element_width: 0,
-      glass_image: 1,
-      glass_type: 1,
-      id: 297434,
-      img: "http://api.windowscalculator.net/local_storage/set/6393ru4ki_veka_euroline.png",
-      in_door: 0,
-      link: "",
-      list_group_id: 24,
-      list_type_id: 23,
-      modified: "2015-12-01T11:19:41.061Z",
-      name: "Ручка окон.коричн.",
-      parent_element_id: 392714,
-      position: 0,
-      waste: 0,
     }
 
     /**========== FINISH ==========*/

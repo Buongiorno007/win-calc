@@ -755,7 +755,7 @@
         <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div><a ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</a>
       </div>
       <div fs-click="infoBox.closeInfoBox()" class="close-dialog"></div>
-      <!--.isApply(fs-click="infoBox.isApply()") {{::infoBox.ASKING_PRICE}}-->
+      <div fs-click="infoBox.isApply()" ng-show="infoBox.G.global.showApply === 1" class="isApply">{{::infoBox.ASKING_PRICE}}</div>
     </div>
   </div>
   <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
