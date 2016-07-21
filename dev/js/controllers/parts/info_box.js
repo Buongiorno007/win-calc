@@ -17,7 +17,7 @@
 
     /** close Info Box */
     function closeInfoBox() {
-      GlobalStor.global.inform.push( GlobalStor.global.activePanel)
+      GlobalStor.global.inform = 1;
       GlobalStor.global.isInfoBox = 0;
       GlobalStor.global.infoTitle = '';
       GlobalStor.global.infoImg =  '';
