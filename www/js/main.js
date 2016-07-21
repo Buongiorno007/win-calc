@@ -7290,8 +7290,6 @@ function ErrorResult(code, message) {
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results!!!!!!!!!!!')
-            console.log(item.element_price, 'item.element_price!!!!!!!!')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
@@ -7582,7 +7580,6 @@ function ErrorResult(code, message) {
     //--------- when we select new addElement, function checks
     // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
-      console.log(elementsArr, currElement)
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
         if(elementsArr[elementsQty].id === currElement.id) {
@@ -7618,7 +7615,6 @@ function ErrorResult(code, message) {
 
 
     function pushSelectedAddElement(currProduct, currElement) {
-      console.log(AuxStor.aux.isFocusedAddElement, 'AuxStor.aux.isFocusedAddElement')
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
@@ -13783,6 +13779,10 @@ function ErrorResult(code, message) {
       }
       if(ids === 6 && qtyCheck !== 1) {
         itemArr = [];
+        function sort(a,b) {
+          return Math.random()-0,5;
+        }
+        isPush.sort(sort);
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id !== 6) {
             var id = isPush[x].id;
@@ -13799,7 +13799,7 @@ function ErrorResult(code, message) {
       if(itemArr.length > 0) {
         for(var i=0; i<itemArr.length; i+=1) {
           for(var y=0; y<itemArr[i].length; y+=1) {
-            if(itemArr[i][y].id === id && itemArr[i][y].img.length > 5) {
+            if(itemArr[i][y].id === id /*&& itemArr[i][y].img.length > 5*/) {
               tempObj = itemArr[i][y];
               break
             }
@@ -13861,7 +13861,7 @@ function ErrorResult(code, message) {
           }
         }
       }
-      AuxStor.aux.isFocusedAddElement = elementId;
+      AuxStor.aux.isFocusedAddElement = fan;
       AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       //AuxStor.aux.isTabFrame = true;
       AddElementsServ.selectAddElem(typeId, elementId, undefined)

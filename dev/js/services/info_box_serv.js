@@ -83,6 +83,10 @@
       }
       if(ids === 6 && qtyCheck !== 1) {
         itemArr = [];
+        function sort(a,b) {
+          return Math.random()-0,5;
+        }
+        isPush.sort(sort);
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id !== 6) {
             var id = isPush[x].id;
@@ -99,7 +103,7 @@
       if(itemArr.length > 0) {
         for(var i=0; i<itemArr.length; i+=1) {
           for(var y=0; y<itemArr[i].length; y+=1) {
-            if(itemArr[i][y].id === id && itemArr[i][y].img.length > 5) {
+            if(itemArr[i][y].id === id /*&& itemArr[i][y].img.length > 5*/) {
               tempObj = itemArr[i][y];
               break
             }
@@ -161,7 +165,7 @@
           }
         }
       }
-      AuxStor.aux.isFocusedAddElement = elementId;
+      AuxStor.aux.isFocusedAddElement = fan;
       AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
       //AuxStor.aux.isTabFrame = true;
       AddElementsServ.selectAddElem(typeId, elementId, undefined)

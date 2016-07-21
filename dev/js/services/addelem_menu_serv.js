@@ -139,8 +139,6 @@
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results!!!!!!!!!!!')
-            console.log(item.element_price, 'item.element_price!!!!!!!!')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
@@ -431,7 +429,6 @@
     //--------- when we select new addElement, function checks
     // is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, currElement) {
-      console.log(elementsArr, currElement)
       var elementsQty = elementsArr.length, isExist = 0;
       while(--elementsQty > -1){
         if(elementsArr[elementsQty].id === currElement.id) {
@@ -467,7 +464,6 @@
 
 
     function pushSelectedAddElement(currProduct, currElement) {
-      console.log(AuxStor.aux.isFocusedAddElement, 'AuxStor.aux.isFocusedAddElement')
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
       existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
