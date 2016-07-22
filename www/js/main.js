@@ -563,7 +563,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       typing: 'on'
     };
 
-    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'ds')
     //------- translate
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
@@ -900,10 +899,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      //thisCtrl.config.selectedStep1 = 1;
-      //thisCtrl.config.selectedStep2 = 1;
-      //thisCtrl.config.selectedStep3 = 1;
-      //thisCtrl.config.selectedStep4 = 1;
+      thisCtrl.config.selectedStep1 = 1;
+      thisCtrl.config.selectedStep2 = 1;
+      thisCtrl.config.selectedStep3 = 1;
+      thisCtrl.config.selectedStep4 = 1;
     }
 
 
@@ -913,6 +912,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
+
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
           if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
@@ -997,18 +997,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function depend(item) {
       var newHandleArr;
-        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
-        });
-        DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
-        var used = {};
-        var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
+      newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+        return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
+      });
+      DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
+      var used = {};
+      var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
         return obj.id in used ? 0:(used[obj.id]=1);
-        /*
-        var res = !(obj.id in used);
-        used[obj.id] = null;
-        return res;
-        */
       });
       DesignStor.design.handleShapeList = filtered;
     }
@@ -10179,7 +10174,6 @@ function ErrorResult(code, message) {
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
 
-
       for(var x=0; x<doorsItems.length; x+=1) {
         if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
@@ -10323,13 +10317,13 @@ function ErrorResult(code, message) {
             break;
         }
 
-      localDB.selectLocalDB(
-        localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.designSource.sashShapeList[0].id}
-        ).then(function(dependencies) {
-          for(var x=0; x<dependencies.length; x+=1) {
-            depend(dependencies[x], dependencies.length, x)
-          }
-        });  
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.designSource.sashShapeList[0].id}
+          ).then(function(dependencies) {
+            for(var x=0; x<dependencies.length; x+=1) {
+              depend(dependencies[x], dependencies.length, x)
+            }
+          });  
     
         function depend(item, length, x) {
           var newHandleArr;

@@ -803,7 +803,6 @@
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
 
-
       for(var x=0; x<doorsItems.length; x+=1) {
         if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
@@ -947,13 +946,13 @@
             break;
         }
 
-      localDB.selectLocalDB(
-        localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.designSource.sashShapeList[0].id}
-        ).then(function(dependencies) {
-          for(var x=0; x<dependencies.length; x+=1) {
-            depend(dependencies[x], dependencies.length, x)
-          }
-        });  
+        localDB.selectLocalDB(
+          localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.designSource.sashShapeList[0].id}
+          ).then(function(dependencies) {
+            for(var x=0; x<dependencies.length; x+=1) {
+              depend(dependencies[x], dependencies.length, x)
+            }
+          });  
     
         function depend(item, length, x) {
           var newHandleArr;

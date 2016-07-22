@@ -47,7 +47,6 @@
       typing: 'on'
     };
 
-    console.log(JSON.stringify(DesignStor.design.templateSourceTEMP), 'ds')
     //------- translate
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
@@ -384,10 +383,10 @@
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      //thisCtrl.config.selectedStep1 = 1;
-      //thisCtrl.config.selectedStep2 = 1;
-      //thisCtrl.config.selectedStep3 = 1;
-      //thisCtrl.config.selectedStep4 = 1;
+      thisCtrl.config.selectedStep1 = 1;
+      thisCtrl.config.selectedStep2 = 1;
+      thisCtrl.config.selectedStep3 = 1;
+      thisCtrl.config.selectedStep4 = 1;
     }
 
 
@@ -397,6 +396,7 @@
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
+
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
           if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
@@ -481,18 +481,13 @@
 
     function depend(item) {
       var newHandleArr;
-        newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
-          return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
-        });
-        DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
-        var used = {};
-        var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
+      newHandleArr = GlobalStor.global.doorHandlers.filter(function(handle) {
+        return handle.profIds.indexOf('hel'+item.hardware_group_id+'lo')+1;
+      });
+      DesignStor.design.handleShapeList = DesignStor.design.handleShapeList.concat(newHandleArr);
+      var used = {};
+      var filtered = DesignStor.design.handleShapeList.filter(function(obj) {
         return obj.id in used ? 0:(used[obj.id]=1);
-        /*
-        var res = !(obj.id in used);
-        used[obj.id] = null;
-        return res;
-        */
       });
       DesignStor.design.handleShapeList = filtered;
     }
