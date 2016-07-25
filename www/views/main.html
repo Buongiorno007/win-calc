@@ -66,7 +66,6 @@
         <div class="elem20"><img ng-src="img/room/123.png"></div>
         <div class="elem21"><img ng-src="img/room/12.png"></div>
         <div class="elem23"><img ng-src="img/room/41.png"></div>
-        <div ng-show="mainPage.P.product.construction_type === 1" class="elem24"><img ng-src="img/room/51.png"></div>
         <div class="elem25"><img ng-src="img/room/52.png"></div>
         <div ng-show="mainPage.P.product.construction_type === 1" class="elem26"><img ng-src="img/room/53.png"></div>
       </div>
@@ -75,7 +74,7 @@
           <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="mainPage.constants.SVG_ID_MAIN"></svg-template>
         </div>
       </div>
-      <div fs-click="mainPage.goToEditTemplate()" class="main-svg-click"></div>
+      <!--.main-svg-click(fs-click="mainPage.goToEditTemplate()")-->
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>

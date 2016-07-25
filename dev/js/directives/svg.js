@@ -546,6 +546,17 @@
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2202.92*GlobalStor.global.background)
                 .attr('height', 1661.3*GlobalStor.global.background);
+
+                // defs.append('pattern')
+                // .attr('id', 'backgroundBrown')
+                // .attr('patternUnits', 'userSpaceOnUse')
+                // .attr('width', 2202.92*GlobalStor.global.background)
+                // .attr('height', 1661.3*GlobalStor.global.background)
+                // .append("image")
+                // .attr("xlink:href", "img/room/321.png")
+                // .attr('width', 2202.92*GlobalStor.global.background)
+                // .attr('height', 1661.3*GlobalStor.global.background);
+
             }
 
           /** soffits */
@@ -654,7 +665,13 @@
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                          fillName = 'url(#background)';
+                        // for(var x=0; x<d.points.length; x+=1) {
+                        //   if(d.points[x].id === "ip1") {
+                        //     fillName = 'url(#backgroundf)';
+                        //   } else {
+                            fillName = 'url(#background)';
+                          // }
+                        // }
                       } else {
                           fillName = 'rgba(155, 204, 255, 0.20)';
                         }
@@ -672,7 +689,23 @@
                         }
                     }
                     return fillName;
-                  }
+                  },
+                  // 'fill-opacity': function(d) {
+                  //   var fillName;
+                  //   if (d.type === 'glass') {
+                  //     if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                  //       for(var x=0; x<d.points.length; x+=1) {
+                  //         if(d.points[x].id === "ip1") {
+                  //           fillName = 0.5;
+                  //         } else {
+                  //           fillName = 0.5;
+                  //         }
+                  //       }
+                  //     } 
+                  //   }
+                  //   return fillName
+                  // }
+                  
                 });
 
 

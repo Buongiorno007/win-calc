@@ -61,6 +61,7 @@
 
 
     function newPriceForNewTemplate(templateIndex, roomInd) {
+      console.log(templateIndex)
       /** if was selected room */
       if(roomInd) {
         MainServ.closeRoomSelectorDialog();
@@ -122,16 +123,18 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      ProductStor.product.construction_type = GlobalStor.global.templatesType;
       GlobalStor.global.activePanel = 0;
       GlobalStor.global.selectedTemplate = templateIndex;
       GlobalStor.global.isTemplateTypeMenu = 0;
 
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
+        ProductStor.product.construction_type = GlobalStor.global.templatesType;
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
-
+      if(ProductStor.product.construction_type === 4) {
+        DesignServ.setDoorConfigDefault(ProductStor.product);
+      }
       function goToNewTemplate() {
         //------ change last changed template to old one
         backDefaultTemplate();

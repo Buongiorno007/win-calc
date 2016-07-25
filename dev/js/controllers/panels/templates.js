@@ -76,6 +76,7 @@
     // }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
+
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;

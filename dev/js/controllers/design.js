@@ -83,7 +83,7 @@
 
 
     //------ DOOR
-    DesignServ.setDoorConfigDefault(ProductStor.product);
+    //DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
     DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
@@ -383,10 +383,10 @@
       thisCtrl.config.isDoorConfig = 1;
       DesignServ.closeSizeCaclulator();
       //----- show current items
-      thisCtrl.config.selectedStep1 = 1;
-      thisCtrl.config.selectedStep2 = 1;
-      thisCtrl.config.selectedStep3 = 1;
-      thisCtrl.config.selectedStep4 = 1;
+      // thisCtrl.config.selectedStep1 = 1;
+      // thisCtrl.config.selectedStep2 = 1;
+      // thisCtrl.config.selectedStep3 = 1;
+      // thisCtrl.config.selectedStep4 = 1;
     }
 
 
