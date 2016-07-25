@@ -61,7 +61,6 @@
 
 
     function newPriceForNewTemplate(templateIndex, roomInd) {
-      console.log(templateIndex)
       /** if was selected room */
       if(roomInd) {
         MainServ.closeRoomSelectorDialog();

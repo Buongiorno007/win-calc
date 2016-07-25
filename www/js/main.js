@@ -2342,7 +2342,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       return Math.round(1000000 / diffs);
       
     }
-
     function profile() {
       var deferred = $q.defer();
       if(ProductStor.product.is_addelem_only === 0) {
@@ -2777,20 +2776,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           var obj = {
             name : '',
             product : 0,
-            tr: ''
+            tr: '',
+            list: 0
           };
             for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
-              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id) {
+              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id ) {
                 obj.tr = ProductStor.product.chosenAddElements[u][f].name;
               } else {
                 obj.name = ProductStor.product.chosenAddElements[u][f].name;
+                obj.list = ProductStor.product.chosenAddElements[u][f].list_group_id;
               }    
             }
               GlobalStor.global.nameAddElem.push(obj)
           }
         }
         for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr || GlobalStor.global.nameAddElem[d].list === 20) {
             delete GlobalStor.global.nameAddElem[d].name;
           }
         }
@@ -21432,137 +21433,169 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           windowDoor: [
             {
-              name: 'поворотно-откидные',
-              details: [
-                {
-                  type:'skylight',
-                  id:'block_0',
-                  level: 0,
-                  blockType:'frame',
-                  children:['block_1', 'block_2'],
-                  maxSizeLimit: 5000
-                },
-                //------- Level 1
-/*                {
-                  type:'skylight',
-                  id:'block_1',
-                  level: 1,
-                  blockType:'frame',
-                  parent: 'block_0',
-                  children: [],
-                  pointsOut: [
-                    {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp2', x:1300, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp3', x:1300, y:1400, dir:'line', view:1, sill:1},
-                    {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1, sill:1}
-                  ],
-                  pointsIn: [],
-                  pointsLight: [],
-                  parts: [],
-                  glassId: 0,
-                  glassTxt: ''
-                },*/
-                {
-                  type:'skylight',
-                  id:'block_2',
-                  level: 1,
-                  blockType:'sash',
-                  parent: 'block_0',
-                  children: [],
-                  pointsOut: [
-/*          Старые точки двери. Выход на балкон + окно(точки окна выше):       
-                    {type:'frame', id:'fp5', x:1300, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp6', x:2000, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp7', x:2000, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp8', x:1300, y:2100, dir:'line', view:1}*/
-                    {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp2', x:700, y:0, dir:'line', view:1},
-                    {type:'frame', id:'fp3', x:700, y:2100, dir:'line', view:1},
-                    {type:'frame', id:'fp4', x:0, y:2100, dir:'line', view:1}
-                  ],
-                  pointsIn: [],
-                  pointsLight: [],
-                  parts: [],
-                  glassId: 0,
-                  glassTxt: '',
-                  openDir: [1, 4],
-                  handlePos: 4,
-                  sashType: 2
-                }
-              ]
+              name:"поворотно-откидные",
+              details:[{type:"skylight",
+              id:"block_0",
+              level:0,
+              blockType:"frame",
+              children:["block_1", "block_2"],
+              maxSizeLimit:5000},{type:"skylight",
+              id:"block_2",
+              level:1,
+              blockType:"sash",
+              parent:"block_0",
+              children:["block_3","block_4"],
+              pointsOut:[{type:"frame",
+              id:"fp1",
+              x:0,
+              y:0,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp2",
+              x:700,
+              y:0,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp3",
+              x:700,
+              y:2100,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp4",
+              x:0,
+              y:2100,
+              dir:"line",
+              view:1}],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4",
+              gridId:0,
+              gridTxt:"",
+              openDir:[1,4],
+              handlePos:4,
+              sashType:6,
+              impost:{impostAxis:[{type:"impost",
+              id:"ip2",
+              x:0,
+              y:1400,
+              dir:"line",
+              dimType:1},{type:"impost",
+              id:"ip2",
+              x:700,
+              y:1400,
+              dir:"line",
+              dimType:1}],
+              impostOut:[],
+              impostIn:[],
+              impostLight:[]}},{type:"skylight",
+              id:"block_3",
+              level:2,
+              blockType:"frame",
+              parent:"block_2",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"},{type:"skylight",
+              id:"block_4",
+              level:2,
+              blockType:"frame",
+              parent:"block_2",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"}],
+              hardwareLines:[[490,1890,490,1890]]
             },
 
             {
-              name:"Поворотные",
-              details:[
-                  {
-                    type:"skylight",
-                    id:"block_0",
-                    level:0,
-                    blockType:"frame",
-                    children:["block_1","block_2"],
-                    maxSizeLimit:5000
-                  },
-                  {
-                    type:"skylight",
-                    id:"block_2",
-                    level:1,
-                    blockType:"sash",
-                    parent:"block_0",
-                    children:[],
-                    pointsOut:[
-                      {
-                        type:"frame",
-                        id:"fp1",
-                        x:0,
-                        y:0,
-                        dir:"line",
-                        view:1
-                      },
-                      {
-                        type:"frame",
-                        id:"fp2",
-                        x:700,
-                        y:0,
-                        dir:"line",
-                        view:1
-                      },
-                      {
-                        type:"frame",
-                        id:"fp3",
-                        x:700,
-                        y:2100,
-                        dir:"line",
-                        view:1
-                      },
-                      {
-                        type:"frame",
-                        id:"fp4",
-                        x:0,
-                        y:2100,
-                        dir:"line",
-                        view:1
-                      }
-                    ],
-                    pointsIn:[],
-                    pointsLight:[],
-                    parts:[],
-                    glassId:311891,
-                    glassTxt:"4-16-4",
-                    gridId:0,
-                    gridTxt:"",
-                    openDir:[4],
-                    handlePos:4,
-                    sashType:2
-                  }],
-                hardwareLines:[
-                      [
-                        490,
-                        1890,
-                        490,
-                        1890
-                      ]
-                    ]
+              name:"поворотно",
+              details:[{type:"skylight",
+              id:"block_0",
+              level:0,
+              blockType:"frame",
+              children:["block_1","block_2"],
+              maxSizeLimit:5000},{type:"skylight",
+              id:"block_2",
+              level:1,
+              blockType:"sash",
+              parent:"block_0",
+              children:["block_3","block_4"],
+              pointsOut:[{type:"frame",
+              id:"fp1",
+              x:0,
+              y:0,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp2",
+              x:700,
+              y:0,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp3",
+              x:700,
+              y:2100,
+              dir:"line",
+              view:1},{type:"frame",
+              id:"fp4",
+              x:0,
+              y:2100,
+              dir:"line",
+              view:1}],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4",
+              gridId:0,
+              gridTxt:"",
+              openDir:[4],
+              handlePos:4,
+              sashType:2,
+              impost:{impostAxis:[{type:"impost",
+              id:"ip2",
+              x:0,
+              y:1400,
+              dir:"line",
+              dimType:1},{type:"impost",
+              id:"ip2",
+              x:700,
+              y:1400,
+              dir:"line",
+              dimType:1}],
+              impostOut:[],
+              impostIn:[],
+              impostLight:[]}},{type:"skylight",
+              id:"block_3",
+              level:2,
+              blockType:"frame",
+              parent:"block_2",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"},{type:"skylight",
+              id:"block_4",
+              level:2,
+              blockType:"frame",
+              parent:"block_2",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"}],
+              hardwareLines:[[490,1890,490,1890]]
             },
 
             {
@@ -21571,7 +21604,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               id:"block_0",
               level:0,
               blockType:"frame",
-              children:["block_1", "block_1"],
+              children:["block_1","block_1"],
               maxSizeLimit:5000},{type:"skylight",
               id:"block_2",
               level:1,
@@ -21622,7 +21655,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               level:2,
               blockType:"sash",
               parent:"block_2",
-              children:[],
+              children:["block_5","block_6"],
               pointsOut:[],
               pointsIn:[],
               pointsLight:[],
@@ -21631,14 +21664,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               glassTxt:"4-16-4",
               openDir:[1,2],
               handlePos:2,
-              sashType:6,
-              gridId:0,
-              gridTxt:""},{type:"skylight",
+              sashType:17,
+              impost:{impostAxis:[{type:"impost",
+              id:"ip3",
+              x:0,
+              y:1400,
+              dir:"line",
+              dimType:1},{type:"impost",
+              id:"ip3",
+              x:650,
+              y:1400,
+              dir:"line",
+              dimType:1}],
+              impostOut:[],
+              impostIn:[],
+              impostLight:[]}},{type:"skylight",
               id:"block_4",
               level:2,
               blockType:"sash",
               parent:"block_2",
-              children:[],
+              children:["block_7","block_8"],
               pointsOut:[],
               pointsIn:[],
               pointsLight:[],
@@ -21647,9 +21692,67 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               glassTxt:"4-16-4",
               openDir:[4],
               handlePos:0,
-              sashType:4}],
+              sashType:4,
+              impost:{impostAxis:[{type:"impost",
+              id:"ip4",
+              x:650,
+              y:1400,
+              dir:"line",
+              dimType:1},{type:"impost",
+              id:"ip4",
+              x:1300,
+              y:1400,
+              dir:"line",
+              dimType:1}],
+              impostOut:[],
+              impostIn:[],
+              impostLight:[]}},{type:"skylight",
+              id:"block_5",
+              level:3,
+              blockType:"frame",
+              parent:"block_3",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"},{type:"skylight",
+              id:"block_6",
+              level:3,
+              blockType:"frame",
+              parent:"block_3",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"},{type:"skylight",
+              id:"block_7",
+              level:3,
+              blockType:"frame",
+              parent:"block_4",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"},{type:"skylight",
+              id:"block_8",
+              level:3,
+              blockType:"frame",
+              parent:"block_4",
+              children:[],
+              pointsOut:[],
+              pointsIn:[],
+              pointsLight:[],
+              parts:[],
+              glassId:311891,
+              glassTxt:"4-16-4"}],
               hardwareLines:[[497,1890,497,1890]]
-            } 
+            }
 
           ]
 
@@ -26123,7 +26226,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function newPriceForNewTemplate(templateIndex, roomInd) {
-      console.log(templateIndex)
       /** if was selected room */
       if(roomInd) {
         MainServ.closeRoomSelectorDialog();

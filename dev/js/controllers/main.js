@@ -117,7 +117,6 @@
       return Math.round(1000000 / diffs);
       
     }
-
     function profile() {
       var deferred = $q.defer();
       if(ProductStor.product.is_addelem_only === 0) {

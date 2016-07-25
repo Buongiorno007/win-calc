@@ -138,20 +138,22 @@
           var obj = {
             name : '',
             product : 0,
-            tr: ''
+            tr: '',
+            list: 0
           };
             for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
-              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id) {
+              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id ) {
                 obj.tr = ProductStor.product.chosenAddElements[u][f].name;
               } else {
                 obj.name = ProductStor.product.chosenAddElements[u][f].name;
+                obj.list = ProductStor.product.chosenAddElements[u][f].list_group_id;
               }    
             }
               GlobalStor.global.nameAddElem.push(obj)
           }
         }
         for (var d=0; d<GlobalStor.global.nameAddElem.length; d+=1) {
-          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr) {
+          if(GlobalStor.global.nameAddElem[d].name === GlobalStor.global.nameAddElem[d].tr || GlobalStor.global.nameAddElem[d].list === 20) {
             delete GlobalStor.global.nameAddElem[d].name;
           }
         }
