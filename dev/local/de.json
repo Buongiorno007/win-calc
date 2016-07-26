@@ -33,7 +33,12 @@
     "LETTER_M": "m"
   },
   "natification": {
-    "ASKING_PRICE": "Preise überprüfen"
+    "ASKING_PRICE": "Preise überprüfen",
+    "TEXT1": " Aktuelle Größe des Nahtschlags: ",
+    "TEXT2": " außerhalb des zulässigen Bereichs: ",
+    "TEXT3": ". So speichern Design Größe ändern.",
+    "EDIT_HARDWARE": "Другая фурнитура",
+    "EDIT_SIZE": "Вернуть размер"
   },
   "danger-alert": {
     "PRODUCT": "Konstruktion",
@@ -244,7 +249,7 @@
     "SQUARE_EXTRA": "Площадь конструкции превышает допустимую",
     "DIM_EXTRA": "Габаритный размер конструкции превышает допустимый",
     "NOT_AVAILABLE": "nicht Verfügbar!",
-    "TEST_STAGE": "Находится в стадии тестирования",
+    "TEST_STAGE": "Verfügbar für die technische Abteilung",
     "GLASS": "Стеклопакет",
     "GLASS_SIZE": "размером",
     "NO_MATCH_RANGE": "не соответствует допустимому диапазону",
@@ -311,9 +316,9 @@
     "CALL_MASTER_DESCRIP": "Um Gager nennen wir brauchen etwas für Sie zu wissen. Beide Felder sind Pflichtfelder.",
     "CLIENT_LOCATION": "Lage",
     "CLIENT_ADDRESS": "Anschrift",
-    "CLIENT_HOUSE": "Буд",
-    "CLIENT_FLAT": "Кв",
-    "CLIENT_FLOOR": "Пов",
+    "CLIENT_HOUSE": "Hs.",
+    "CLIENT_FLAT": "Whg.",
+    "CLIENT_FLOOR": "Etg.",
     "CALL_ORDER": "Bestellung zur Berechnung",
     "CALL_ORDER_DESCRIP": "Um den Auftrag zu erfüllen, müssen wir etwas über Sie wissen.",
     "CALL_ORDER_CLIENT_INFO": "Kundeninformation (muss ausgefüllt werden):",

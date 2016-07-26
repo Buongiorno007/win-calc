@@ -34,7 +34,12 @@
     "LETTER_M": "m"
   },
   "natification": {
-    "ASKING_PRICE": "Controlla i prezzi"
+    "ASKING_PRICE": "Controlla i prezzi",
+    "TEXT1": " Dimensione attuale della cucitura lembo: ",
+    "TEXT2": " al di là del campo ammesso: ",
+    "TEXT3": ". Per salvare la progettazione di ridimensionamento.",
+    "EDIT_HARDWARE": "Другая фурнитура",
+    "EDIT_SIZE": "Вернуть размер"
   },
   "danger-alert": {
     "PRODUCT": "progetto",
@@ -244,7 +249,7 @@
     "SQUARE_EXTRA": "Площадь конструкции превышает допустимую",
     "DIM_EXTRA": "Габаритный размер конструкции превышает допустимый",
     "NOT_AVAILABLE": "È inaccessibile!",
-    "TEST_STAGE": "Находится в стадии тестирования",
+    "TEST_STAGE": "Disponibile per l'ufficio tecnico",
     "GLASS": "Стеклопакет",
     "GLASS_SIZE": "размером",
     "NO_MATCH_RANGE": "не соответствует допустимому диапазону",
@@ -311,9 +316,9 @@
     "CALL_MASTER_DESCRIP": "Per la telefonata del measurer abbiamo bisogno di sapere qualcosa su Lei. Entrambi i campi sono obbligatori per riempitura.",
     "CLIENT_LOCATION": "Località",
     "CLIENT_ADDRESS": "Indirizzo",
-    "CLIENT_HOUSE": "Буд",
-    "CLIENT_FLAT": "Кв",
-    "CLIENT_FLOOR": "Пов",
+    "CLIENT_HOUSE": "Casa",
+    "CLIENT_FLAT": " Int.",
+    "CLIENT_FLOOR": "Fl.",
     "CALL_ORDER": "Stesura dell’ordine per il conteggio",
     "CALL_ORDER_DESCRIP": "Per poter eseguire il vostro ordine dobbiamo sapere qualccosa di voi.",
     "CALL_ORDER_CLIENT_INFO": "Informazioni sul cliente (campo obbligatorio):",

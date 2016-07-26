@@ -584,9 +584,6 @@
 
 
 
-
-
-
     /**-------- Select menu item ---------*/
 
     function selectMenuItem(id) {
@@ -692,7 +689,7 @@
 
     //------ clicking
 
-    thisCtrl.designSaved = DesignServ.designSaved;
+    thisCtrl.designSaved = DesignServ.saveSizeCheck;
     thisCtrl.designCancel = DesignServ.designCancel;
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;

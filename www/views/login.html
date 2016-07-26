@@ -24,7 +24,7 @@
       </div>
       <button type="submit" class="login-submit">{{ ::loginPage.ENTER }}</button>
     </form>
-    <button fs-click="loginPage.switchRegistration()" class="login-submit">{{ ::loginPage.REGISTRATION }}</button>
+    <!--button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}-->
     <div ng-show="loginPage.isFactoryId" fs-click="loginPage.isFactoryNotSelect = 0;" class="factory_box">
       <div ng-show="loginPage.isFactoryNotSelect" class="attantion">{{ ::loginPage.SELECT_FACTORY }}</div>
       <button type="button" fs-click="loginPage.closeFactoryDialog()" class="close_dialog"></button>

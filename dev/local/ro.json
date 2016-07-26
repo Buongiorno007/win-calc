@@ -33,7 +33,12 @@
     "LETTER_M": "m"
   },
   "natification": {
-    "ASKING_PRICE": " Verificați tarifele"
+    "ASKING_PRICE": " Verificați tarifele",
+    "TEXT1": "  Dimensiunea actuală a cordonului clapei: ",
+    "TEXT2": " dincolo de intervalul permis: ",
+    "TEXT3": ". Pentru a salva un design de redimensionare.",
+    "EDIT_HARDWARE": "Другая фурнитура",
+    "EDIT_SIZE": "Вернуть размер"
   },
   "login": {
     "ENTER": "Intră",
@@ -243,7 +248,7 @@
     "SQUARE_EXTRA": "Suprafața construcției depășește valorile admisibile.",
     "DIM_EXTRA": "Dimensiunile construcției depășesc valorile admisibile. ",
     "NOT_AVAILABLE": "Nu este disponibil!",
-    "TEST_STAGE": "Se află la etapa de testare.",
+    "TEST_STAGE": "Disponibil pentru departamentul tehnic",
     "GLASS": "Termopanul",
     "GLASS_SIZE": "cu dimensiunea de",
     "NO_MATCH_RANGE": "nu corespunde diapazonului permis",

@@ -359,46 +359,48 @@
 
 
     function checkSize(res) {
-      var heightT = 0, widthT = 0;  
+      GlobalStor.global.timeoutFunc = 0;
+      console.log(res, 'res')
+      res = res.priceElements.sashesBlock;
+      var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4) {
-        var sizeX = res.dimension.dimX;
-        var sizeY = res.dimension.dimY;
-        for(var x=0; x<sizeX.length; x+=1) {
-          if(sizeX[x].dimId !== 'fp3' || sizeX.length === 1) {
-            if(widthT<sizeX[x].text || widthT === 0) {
-              widthT = GlobalStor.global.widthTEMP = sizeX[x].text
-            }
-          }
-        }
-        for(var y=0; y<sizeY.length; y+=1) {
-          if(sizeY[y].dimId !== 'fp3' || sizeY.length === 1) {
-            if(heightT<sizeY[y].text || heightT === 0) {
-              heightT = GlobalStor.global.heightTEMP = sizeY[y].text
-            }
-          }
-        }
-         size(heightT, widthT)
-      }
+        widthT = res[0].sizes[0];
+        heightT = res[0].sizes[1];
+        size(res)
+      
         return {
-        widthT:widthT,
-        heightT:heightT
-      } 
+          widthT:widthT,
+          heightT:heightT
+        }
+      }
     }
 
-    function size(heightT, widthT) {
+    function size(res) {
+      console.log(res, 'res')
       var intervalID = setInterval( function() {
         if(ProductStor.product.doorLock){
           clearInterval(intervalID);
-          var product = ProductStor.product.doorLock ;
-          GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
-          if(heightT <= product.height_max && heightT >= product.height_min) {
-            if(widthT <= product.width_max && widthT >= product.width_min) {
-            } else {
-              GlobalStor.global.checkDoors = 1;
+          var heightT = 0,
+              widthT = 0;
+          var product = ProductStor.product.doorLock;
+          for(var x=0; x<res.length; x+=1) {
+            if(GlobalStor.global.checkDoors !== 1) {
+              widthT = GlobalStor.global.widthTEMP = res[x].sizes[0];
+              heightT = GlobalStor.global.heightTEMP = res[x].sizes[1];
+              GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
+              if(heightT <= product.height_max && heightT >= product.height_min) {
+                if(widthT <= product.width_max && widthT >= product.width_min) {
+                } else {  
+                  GlobalStor.global.checkDoors = 1;
+                  break
+                }
+              } else {
+                GlobalStor.global.checkDoors = 1;
+                break
+              } 
             }
-          } else {
-            GlobalStor.global.checkDoors = 1;
-          } 
+          }
+          GlobalStor.global.timeoutFunc = 1;
         }
       } , 50);
     }
@@ -2871,9 +2873,23 @@
 
 
     /**------- Save and Close Construction Page ----------*/
+    function saveSizeCheck() {
+      if(ProductStor.product.construction_type === 4) {
+        checkSize(DesignStor.design.templateTEMP);
+        var intervalID = setInterval( function() {
+          if(GlobalStor.global.timeoutFunc === 1){
+            clearInterval(intervalID);
+              designSaved()
+          }
+        } , 50);
+      } else {
+        designSaved()
+      }
+    }
+
+
 
     function designSaved() {
-      checkSize(DesignStor.design.templateTEMP)
       if(GlobalStor.global.checkDoors === 0) {
         var doorConfig = DesignStor.design.doorConfig,
             isSashesInTemplate;
@@ -3037,7 +3053,8 @@
       stepBack: stepBack,
       //---- door
       setNewDoorParamValue: setNewDoorParamValue,
-      setDoorConfigDefault: setDoorConfigDefault
+      setDoorConfigDefault: setDoorConfigDefault,
+      saveSizeCheck: saveSizeCheck
 
     };
 

@@ -34,7 +34,12 @@
     "LETTER_M": "m"
   },
   "natification": {
-    "ASKING_PRICE": "Check rates"
+    "ASKING_PRICE": "Check rates",
+    "TEXT1": " Current size of the seam flap: ",
+    "TEXT2": " beyond the permitted range: ",
+    "TEXT3": ". To save design resize.",
+    "EDIT_HARDWARE": "Другая фурнитура",
+    "EDIT_SIZE": "Вернуть размер"
   },
   "danger-alert": {
     "PRODUCT": "construction",
@@ -245,7 +250,7 @@
     "SQUARE_EXTRA": "Площадь конструкции превышает допустимую",
     "DIM_EXTRA": "Габаритный размер конструкции превышает допустимый",
     "NOT_AVAILABLE": "Not Available!",
-    "TEST_STAGE": "Находится в стадии тестирования",
+    "TEST_STAGE": "Available for the technical department",
     "GLASS": "Стеклопакет",
     "GLASS_SIZE": "размером",
     "NO_MATCH_RANGE": "не соответствует допустимому диапазону",
@@ -312,9 +317,9 @@
     "CALL_MASTER_DESCRIP": "To call gager we need something for you to know. Both fields are required.",
     "CLIENT_LOCATION": "Location",
     "CLIENT_ADDRESS": "address",
-    "CLIENT_HOUSE": "Буд",
-    "CLIENT_FLAT": "Кв",
-    "CLIENT_FLOOR": "Пов",
+    "CLIENT_HOUSE": "Bld.",
+    "CLIENT_FLAT": "Apt.",
+    "CLIENT_FLOOR": "Fl.",
     "CALL_ORDER": "Ordering for calculating",
     "CALL_ORDER_DESCRIP": "In order to fulfill the order, we need to something about you know.",
     "CALL_ORDER_CLIENT_INFO": "Customer Information (must be filled):",
