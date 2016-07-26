@@ -38,8 +38,8 @@
     "TEXT1": " Current size of the seam flap: ",
     "TEXT2": " beyond the permitted range: ",
     "TEXT3": ". To save design resize.",
-    "EDIT_HARDWARE": "Другая фурнитура",
-    "EDIT_SIZE": "Вернуть размер"
+    "EDIT_HARDWARE": "Gibt die Größe des",
+    "EDIT_SIZE": "Return the size of the"
   },
   "danger-alert": {
     "PRODUCT": "construction",

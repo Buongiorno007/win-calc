@@ -38,8 +38,8 @@
     "TEXT1": " Dimensione attuale della cucitura lembo: ",
     "TEXT2": " al di là del campo ammesso: ",
     "TEXT3": ". Per salvare la progettazione di ridimensionamento.",
-    "EDIT_HARDWARE": "Другая фурнитура",
-    "EDIT_SIZE": "Вернуть размер"
+    "EDIT_HARDWARE": "Altri accessor",
+    "EDIT_SIZE": " Ritorna la dimensione del"
   },
   "danger-alert": {
     "PRODUCT": "progetto",

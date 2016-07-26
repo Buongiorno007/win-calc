@@ -37,8 +37,8 @@
     "TEXT1": " Aktuelle Größe des Nahtschlags: ",
     "TEXT2": " außerhalb des zulässigen Bereichs: ",
     "TEXT3": ". So speichern Design Größe ändern.",
-    "EDIT_HARDWARE": "Другая фурнитура",
-    "EDIT_SIZE": "Вернуть размер"
+    "EDIT_HARDWARE": "Sonstiges Zubehör",
+    "EDIT_SIZE": "Gibt die Größe des"
   },
   "danger-alert": {
     "PRODUCT": "Konstruktion",
