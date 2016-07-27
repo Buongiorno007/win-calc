@@ -76,7 +76,6 @@
 
 
 
-console.log('console', ProductStor.product.construction_type)
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {

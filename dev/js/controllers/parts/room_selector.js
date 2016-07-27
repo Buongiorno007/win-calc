@@ -32,6 +32,7 @@
     function selectRoom(id) {
       if(GlobalStor.global.selectRoom === 0) {
         $location.path('/design');
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.selectRoom = 1;
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
       } else {

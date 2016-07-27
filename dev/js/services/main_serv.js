@@ -250,7 +250,6 @@
       var door = []
       async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
         GlobalStor.global.doorsLaminations = angular.copy(door);
-        console.log('end');
       });
 
       function calculate (product, _cb) {
@@ -761,7 +760,6 @@
 
 
     function parseTemplate() {
-      console.log(ProductStor.product.template, '1')
       var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {

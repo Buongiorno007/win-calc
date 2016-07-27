@@ -93,6 +93,7 @@
       }
 
       if(id === 1) {
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');

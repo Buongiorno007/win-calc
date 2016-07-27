@@ -2630,7 +2630,6 @@
 
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-              console.log(thisObj, 'thisObj')
               thisObj.details[i].parts.push(setGlass(
                 thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
@@ -2732,31 +2731,30 @@
           d3scaling = d3.scale.linear()
             .domain([0, 1])
             .range([0, padding]);
-
       if(templateW > templateH) {
         if(windowW > templateW) {
-          scaleTmp = d3scaling(templateW/windowW);
-          //console.info('W < =====', templateW/windowW, scaleTmp);
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
         } else if(windowW < templateW) {
-          scaleTmp = d3scaling(windowW/templateW);
-          //console.info('W > =====', windowW/templateW, scaleTmp);
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('W======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('W======', scaleTmp);
         }
-        //console.info('W > H --', scaleTmp);
+        // console.info('W > H --', scaleTmp);
       } else if(templateW <= templateH) {
         if(windowH > templateH) {
           scaleTmp = d3scaling(templateH/windowH);
-          //console.info('H < =====', templateH/windowH, scaleTmp);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
         } else if(windowH < templateH) {
           scaleTmp = d3scaling(windowH/templateH);
-          //console.info('H > =====', (windowH/templateH), scaleTmp);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('H======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('H======', scaleTmp);
         }
-        //console.info('H > W --', scaleTmp);
+      // console.info('H > W --', scaleTmp);
       }
       return scaleTmp;
     }
@@ -2777,8 +2775,8 @@
 
     function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
-        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)-40
+        x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
       };
       return position;
     }

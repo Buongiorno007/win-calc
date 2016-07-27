@@ -2297,7 +2297,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-console.log('console', ProductStor.product.construction_type)
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -2727,6 +2726,7 @@ console.log('console', ProductStor.product.construction_type)
       }
 
       if(id === 1) {
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
         $location.path('/design');
@@ -4900,6 +4900,7 @@ console.log('console', ProductStor.product.construction_type)
     function selectRoom(id) {
       if(GlobalStor.global.selectRoom === 0) {
         $location.path('/design');
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.selectRoom = 1;
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
       } else {
@@ -12395,6 +12396,7 @@ function ErrorResult(code, message) {
     //--------- Cancel and Close Construction Page
     function designCancel() {
       //------- close calculator if is opened
+      ProductStor.product = angular.copy(GlobalStor.global.templateTEMP)
       hideSizeTools();
       //------ go to Main Page
       backtoTemplatePanel();
@@ -18830,7 +18832,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var door = []
       async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
         GlobalStor.global.doorsLaminations = angular.copy(door);
-        console.log('end');
       });
 
       function calculate (product, _cb) {
@@ -19341,7 +19342,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function parseTemplate() {
-      console.log(ProductStor.product.template, '1')
       var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.template_id).then(function() {
@@ -26072,7 +26072,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-              console.log(thisObj, 'thisObj')
               thisObj.details[i].parts.push(setGlass(
                 thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
@@ -26174,31 +26173,30 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           d3scaling = d3.scale.linear()
             .domain([0, 1])
             .range([0, padding]);
-
       if(templateW > templateH) {
         if(windowW > templateW) {
-          scaleTmp = d3scaling(templateW/windowW);
-          //console.info('W < =====', templateW/windowW, scaleTmp);
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
         } else if(windowW < templateW) {
-          scaleTmp = d3scaling(windowW/templateW);
-          //console.info('W > =====', windowW/templateW, scaleTmp);
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('W======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('W======', scaleTmp);
         }
-        //console.info('W > H --', scaleTmp);
+        // console.info('W > H --', scaleTmp);
       } else if(templateW <= templateH) {
         if(windowH > templateH) {
           scaleTmp = d3scaling(templateH/windowH);
-          //console.info('H < =====', templateH/windowH, scaleTmp);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
         } else if(windowH < templateH) {
           scaleTmp = d3scaling(windowH/templateH);
-          //console.info('H > =====', (windowH/templateH), scaleTmp);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
         } else {
-          scaleTmp = d3scaling(1);
-          //console.info('H======', scaleTmp);
+          scaleTmp = d3scaling(0.9);
+          // console.info('H======', scaleTmp);
         }
-        //console.info('H > W --', scaleTmp);
+      // console.info('H > W --', scaleTmp);
       }
       return scaleTmp;
     }
@@ -26219,8 +26217,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
-        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
-        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)-40
+        x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
       };
       return position;
     }

@@ -2991,6 +2991,7 @@
     //--------- Cancel and Close Construction Page
     function designCancel() {
       //------- close calculator if is opened
+      ProductStor.product = angular.copy(GlobalStor.global.templateTEMP)
       hideSizeTools();
       //------ go to Main Page
       backtoTemplatePanel();
