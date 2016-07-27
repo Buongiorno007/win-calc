@@ -360,7 +360,6 @@
 
     function checkSize(res) {
       GlobalStor.global.timeoutFunc = 0;
-      console.log(res, 'res')
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4) {
@@ -376,7 +375,6 @@
     }
 
     function size(res) {
-      console.log(res, 'res')
       var intervalID = setInterval( function() {
         if(ProductStor.product.doorLock){
           clearInterval(intervalID);
@@ -818,21 +816,21 @@
           }
         }
       }
-      if(product.construction_type === 4) {
-        product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
-        product.profile.short_name = '';
-        product.profile.description = '';
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      }
+      // if(product.construction_type === 4) {
+        // GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        // product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        // product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        // product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        // product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        // product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      // }
     }
 
     function doorId(product, source) {
       var deferred = $q.defer();
+      product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
+      product.profile.short_name = '';
+      product.profile.description = '';
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
@@ -866,8 +864,8 @@
 
       if(ProductStor.product.construction_type === 4) {
         setDoorParamValue(product, source);
-        doorId(product, source);
       }
+      doorId(product, source);
      
     }
 
@@ -1173,6 +1171,7 @@
                 glass.classed('glass-active', true);
                 d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.selectGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.selectGlassId,
                   GlobalStor.global.selectGlassName,
@@ -1182,6 +1181,7 @@
                 glass.classed('glass-active', false);
                 d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.prevGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.prevGlassId,
                   GlobalStor.global.prevGlassName,

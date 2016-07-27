@@ -131,6 +131,14 @@
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
+
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        }
+      });
+      
       if(ProductStor.product.construction_type === 4) {
         DesignServ.setDoorConfigDefault(ProductStor.product);
       }

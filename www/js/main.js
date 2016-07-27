@@ -562,7 +562,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-
     //------- translate
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');
@@ -2298,7 +2297,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
+console.log('console', ProductStor.product.construction_type)
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -3587,6 +3586,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function setGlassToAll() {
       MainServ.setGlassToTemplateBlocks(
+        GlobalStor.global.selectGlassType,
         ProductStor.product.template_source,
         GlobalStor.global.selectGlassId,
         GlobalStor.global.selectGlassName
@@ -3607,6 +3607,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       /** there are selected glasses */
       if(!selectBlockQty) {
         MainServ.setGlassToTemplateBlocks(
+          GlobalStor.global.selectGlassType,
           ProductStor.product.template,
           GlobalStor.global.selectGlassId,
           GlobalStor.global.selectGlassName
@@ -3627,6 +3628,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         ProductStor.product.glass = angular.copy(glassesTEMP);
         /** return prev value in template */
         MainServ.setGlassToTemplateBlocks(
+          GlobalStor.global.selectGlassType,
           ProductStor.product.template,
           GlobalStor.global.prevGlassId,
           GlobalStor.global.prevGlassName
@@ -3637,6 +3639,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           while (--selectBlockQty > -1) {
             blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
             MainServ.setGlassToTemplateBlocks(
+              GlobalStor.global.selectGlassType,
               ProductStor.product.template_source,
               GlobalStor.global.selectGlassId,
               GlobalStor.global.selectGlassName,
@@ -6637,13 +6640,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                        // for(var x=0; x<d.points.length; x+=1) {
-                        //   if(d.points[x].id === "ip1") {
-                        //     fillName = 'url(#backgroundf)';
-                        //   } else {
-                            fillName = 'url(#background)';
-                          // }
-                        // }
+                        if(d.glass_type === 4) {
+                          fillName = '#ececec';
+                        } else {
+                          fillName = 'url(#background)';
+                        }                       
                       } else {
                           fillName = 'rgba(155, 204, 255, 0.20)';
                         }
@@ -9763,7 +9764,6 @@ function ErrorResult(code, message) {
 
     function checkSize(res) {
       GlobalStor.global.timeoutFunc = 0;
-      console.log(res, 'res')
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4) {
@@ -9779,7 +9779,6 @@ function ErrorResult(code, message) {
     }
 
     function size(res) {
-      console.log(res, 'res')
       var intervalID = setInterval( function() {
         if(ProductStor.product.doorLock){
           clearInterval(intervalID);
@@ -10221,21 +10220,21 @@ function ErrorResult(code, message) {
           }
         }
       }
-      if(product.construction_type === 4) {
-        product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
-        product.profile.short_name = '';
-        product.profile.description = '';
-        GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      }
+      // if(product.construction_type === 4) {
+        // GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
+        // product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+        // product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
+        // product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
+        // product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
+        // product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      // }
     }
 
     function doorId(product, source) {
       var deferred = $q.defer();
+      product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
+      product.profile.short_name = '';
+      product.profile.description = '';
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
@@ -10269,8 +10268,8 @@ function ErrorResult(code, message) {
 
       if(ProductStor.product.construction_type === 4) {
         setDoorParamValue(product, source);
-        doorId(product, source);
       }
+      doorId(product, source);
      
     }
 
@@ -10576,6 +10575,7 @@ function ErrorResult(code, message) {
                 glass.classed('glass-active', true);
                 d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.selectGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.selectGlassId,
                   GlobalStor.global.selectGlassName,
@@ -10585,6 +10585,7 @@ function ErrorResult(code, message) {
                 glass.classed('glass-active', false);
                 d3.select('.glass-txt[block_id='+blockID+']').text(GlobalStor.global.prevGlassName);
                 MainServ.setGlassToTemplateBlocks(
+                  GlobalStor.global.selectGlassType,
                   ProductStor.product.template,
                   GlobalStor.global.prevGlassId,
                   GlobalStor.global.prevGlassName,
@@ -12827,11 +12828,12 @@ function ErrorResult(code, message) {
 
     /**============ METHODS ================*/
     
-    function selectGlass(newId, newName) {
+    function selectGlass(newId, newName, type) {
       GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
       GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
       GlobalStor.global.selectGlassId = newId;
       GlobalStor.global.selectGlassName = newName;
+      GlobalStor.global.selectGlassType = type;
       //----- open glass selector dialog
       GlobalStor.global.showGlassSelectorDialog = 1;
       DesignServ.initAllGlassXGlass();
@@ -13808,7 +13810,7 @@ function ErrorResult(code, message) {
       localDB.selectLocalDB(
         localDB.tablesLocalDB.lists.tableName,
         {'is_push': 1},
-        'id, name, list_group_id'
+        'id, name, list_group_id, glass_type, name'
       ).then(function (result) {
         GlobalStor.global.isPush = angular.copy(result)
         GlobalStor.global.setTimeout = 0;
@@ -13831,9 +13833,13 @@ function ErrorResult(code, message) {
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id === 6) {
             var id = isPush[x].id;
+            var type = isPush[x].glass_type;
+            var name = isPush[x].name;
             break
           }
         }
+        GlobalStor.global.infoBoxglassName = name;
+        GlobalStor.global.infoBoxglassType = type;
         GlobalStor.global.infoBoxglasses = id;
         itemArr = GlobalStor.global.glasses;
       }
@@ -13904,8 +13910,8 @@ function ErrorResult(code, message) {
       }
       if(GlobalStor.global.activePanel === 3) {
         var id = GlobalStor.global.infoBoxglasses;
-        var name = 'glasses'
-        GlassesServ.selectGlass(id, name);
+        var name = GlobalStor.global.infoBoxglassName;
+        GlassesServ.selectGlass(id, name, GlobalStor.global.infoBoxglassType);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
@@ -17668,7 +17674,7 @@ function ErrorResult(code, message) {
                   localDB.tablesLocalDB.lists.tableName,
                   {'parent_element_id': item.element_id, 'list_group_id': 6},
                   'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, '+
-                  'img, link, glass_image'
+                  'img, link, glass_image, glass_type'
                 ).then(function (result2) {
                     //console.log('list +++++', result2);
                     var list = angular.copy(result2),
@@ -17762,6 +17768,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
   GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].cameras
+  );
+    GlobalStor.global.glassesAll[g].glasses[l].glass_type = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].glass_type
   );
   GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].position
@@ -18865,7 +18874,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return glassIds;
     }
 
-    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+    function setGlassToTemplateBlocks(type, template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
@@ -18873,6 +18882,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           if(template.details[blocksQty].id === blockId) {
             template.details[blocksQty].glassId = glassId;
             template.details[blocksQty].glassTxt = glassName;
+            template.details[blocksQty].glass_type = type;
             break;
           }
         } else {
@@ -18880,6 +18890,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           //if(!template.details[blocksQty].children.length) {
           template.details[blocksQty].glassId = glassId;
           template.details[blocksQty].glassTxt = glassName;
+          template.details[blocksQty].glass_type = type;
           //}
         }
       }
@@ -18910,7 +18921,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           GlobalStor.global.selectGlassId = product.glass[0].id;
           GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(product.glass[0].glass_type, ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
@@ -18997,7 +19008,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
-      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();
@@ -25002,12 +25012,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function setGlass(glassPoints, priceElements, currGlassId) {
+    function setGlass(glassType, glassPoints, priceElements, currGlassId) {
       var part = {
             type: 'glass',
             points: glassPoints,
             path: 'M ',
-            square: 0
+            square: 0,
+            glass_type: glassType
           },
           glassObj = {
             elemId: currGlassId
@@ -25047,7 +25058,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
-
       //------- per Price
       glassObj.square = angular.copy(part.square);
       //----- converting size from mm to m
@@ -26062,9 +26072,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-
+              console.log(thisObj, 'thisObj')
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
                 thisObj.details[i].beadPointsOut,
@@ -26098,7 +26108,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
                 thisObj.details[i].beadPointsOut,
@@ -26426,6 +26436,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
+
+      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+        if(GlobalStor.global.currOpenPage === 'design') {
+          //--------- set template from ProductStor
+          DesignServ.setDefaultConstruction();
+        }
+      });
+      
       if(ProductStor.product.construction_type === 4) {
         DesignServ.setDoorConfigDefault(ProductStor.product);
       }

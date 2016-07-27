@@ -1570,12 +1570,13 @@
 
 
 
-    function setGlass(glassPoints, priceElements, currGlassId) {
+    function setGlass(glassType, glassPoints, priceElements, currGlassId) {
       var part = {
             type: 'glass',
             points: glassPoints,
             path: 'M ',
-            square: 0
+            square: 0,
+            glass_type: glassType
           },
           glassObj = {
             elemId: currGlassId
@@ -1615,7 +1616,6 @@
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
-
       //------- per Price
       glassObj.square = angular.copy(part.square);
       //----- converting size from mm to m
@@ -2630,9 +2630,9 @@
 
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
-
+              console.log(thisObj, 'thisObj')
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
                 thisObj.details[i].beadPointsOut,
@@ -2666,7 +2666,7 @@
                 thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
                 thisObj.details[i].beadPointsOut,

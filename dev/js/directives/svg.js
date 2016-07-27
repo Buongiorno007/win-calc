@@ -665,13 +665,11 @@
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                        // for(var x=0; x<d.points.length; x+=1) {
-                        //   if(d.points[x].id === "ip1") {
-                        //     fillName = 'url(#backgroundf)';
-                        //   } else {
-                            fillName = 'url(#background)';
-                          // }
-                        // }
+                        if(d.glass_type === 4) {
+                          fillName = '#ececec';
+                        } else {
+                          fillName = 'url(#background)';
+                        }                       
                       } else {
                           fillName = 'rgba(155, 204, 255, 0.20)';
                         }

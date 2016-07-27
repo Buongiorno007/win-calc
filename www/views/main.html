@@ -74,7 +74,7 @@
           <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="mainPage.constants.SVG_ID_MAIN"></svg-template>
         </div>
       </div>
-      <!--.main-svg-click(fs-click="mainPage.goToEditTemplate()")-->
+      <div fs-click="mainPage.goToEditTemplate()" class="main-svg-click"></div>
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
@@ -205,7 +205,7 @@
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
                 <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div fs-click="glassPanel.selectGlass(glass.id, glass.sku)" class="box_inner">
+                  <div fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_type)" class="box_inner">
                     <div class="glass-box-view">
                       <div class="glass-img"><img ng-src="img/glasses/glass{{ glass.glass_image }}.png"></div>
                       <div class="label"><span>{{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}</span><span ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7">{{ ::glassPanel.ENERGY_SAVE }}</span></div>

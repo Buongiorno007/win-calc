@@ -46,7 +46,6 @@
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-
     //------- translate
     thisCtrl.TEXT1 = $filter('translate')('natification.TEXT1');
     thisCtrl.TEXT2 = $filter('translate')('natification.TEXT2');

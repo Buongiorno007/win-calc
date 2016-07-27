@@ -294,7 +294,7 @@
       return glassIds;
     }
 
-    function setGlassToTemplateBlocks(template, glassId, glassName, blockId) {
+    function setGlassToTemplateBlocks(type, template, glassId, glassName, blockId) {
       var blocksQty = template.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
@@ -302,6 +302,7 @@
           if(template.details[blocksQty].id === blockId) {
             template.details[blocksQty].glassId = glassId;
             template.details[blocksQty].glassTxt = glassName;
+            template.details[blocksQty].glass_type = type;
             break;
           }
         } else {
@@ -309,6 +310,7 @@
           //if(!template.details[blocksQty].children.length) {
           template.details[blocksQty].glassId = glassId;
           template.details[blocksQty].glassTxt = glassName;
+          template.details[blocksQty].glass_type = type;
           //}
         }
       }
@@ -339,7 +341,7 @@
           GlobalStor.global.selectGlassId = product.glass[0].id;
           GlobalStor.global.selectGlassName = product.glass[0].sku;
           /** set Glass to all template blocks without children */
-          setGlassToTemplateBlocks(ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(product.glass[0].glass_type, ProductStor.product.template_source, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
@@ -426,7 +428,6 @@
 
     /** set Bead Id */
     function setBeadId(profileId, laminatId) {
-      //console.log('setBeadId', ProductStor.product.glass, profileId, laminatId);
       var deff = $q.defer(),
           promisBeads = ProductStor.product.glass.map(function(item) {
             var deff2 = $q.defer();

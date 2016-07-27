@@ -19,11 +19,12 @@
 
     /**============ METHODS ================*/
     
-    function selectGlass(newId, newName) {
+    function selectGlass(newId, newName, type) {
       GlobalStor.global.prevGlassId = angular.copy(GlobalStor.global.selectGlassId);
       GlobalStor.global.prevGlassName = angular.copy(GlobalStor.global.selectGlassName);
       GlobalStor.global.selectGlassId = newId;
       GlobalStor.global.selectGlassName = newName;
+      GlobalStor.global.selectGlassType = type;
       //----- open glass selector dialog
       GlobalStor.global.showGlassSelectorDialog = 1;
       DesignServ.initAllGlassXGlass();

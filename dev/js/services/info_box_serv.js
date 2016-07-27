@@ -30,7 +30,7 @@
       localDB.selectLocalDB(
         localDB.tablesLocalDB.lists.tableName,
         {'is_push': 1},
-        'id, name, list_group_id'
+        'id, name, list_group_id, glass_type, name'
       ).then(function (result) {
         GlobalStor.global.isPush = angular.copy(result)
         GlobalStor.global.setTimeout = 0;
@@ -53,9 +53,13 @@
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id === 6) {
             var id = isPush[x].id;
+            var type = isPush[x].glass_type;
+            var name = isPush[x].name;
             break
           }
         }
+        GlobalStor.global.infoBoxglassName = name;
+        GlobalStor.global.infoBoxglassType = type;
         GlobalStor.global.infoBoxglasses = id;
         itemArr = GlobalStor.global.glasses;
       }
@@ -126,8 +130,8 @@
       }
       if(GlobalStor.global.activePanel === 3) {
         var id = GlobalStor.global.infoBoxglasses;
-        var name = 'glasses'
-        GlassesServ.selectGlass(id, name);
+        var name = GlobalStor.global.infoBoxglassName;
+        GlassesServ.selectGlass(id, name, GlobalStor.global.infoBoxglassType);
         GlobalStor.global.inform.push( GlobalStor.global.activePanel)
       }
       if(GlobalStor.global.activePanel === 4) {
