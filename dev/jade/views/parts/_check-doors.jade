@@ -1,5 +1,5 @@
 .doors-background(ng-show="designPage.G.global.checkDoors")
 	.doors-info
 		.message-alert {{designPage.TEXT1 + designPage.G.global.widthTEMP +' x '+designPage.G.global.heightTEMP + br + designPage.TEXT2 + designPage.G.global.heightLim + designPage.TEXT3}}
-		.isSize(fs-click="designPage.stepBack()"){{::designPage.EDIT_SIZE}}
-		.isHardware(fs-click="designPage.toggleDoorConfig()"){{::designPage.EDIT_HARDWARE}}
+		.isSize(fs-click="designPage.stepBack()") {{::designPage.EDIT_SIZE}}
+		.isHardware(fs-click="designPage.toggleDoorConfig()") {{::designPage.EDIT_HARDWARE}}

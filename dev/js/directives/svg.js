@@ -638,7 +638,15 @@
                   'class': function (d) {
                     var className;
                     if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
-                      className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
+                      if(d.type === 'glass') {
+                        if(d.glass_type === 4) {
+                            className ='glass-sandwich'
+                        } else {
+                            className ='glass-icon'
+                        }
+                      } else {
+                        className = 'frame-icon';
+                      }
                     } else {
                       if(d.doorstep) {
                         className = 'doorstep';
@@ -671,8 +679,12 @@
                           fillName = 'url(#background)';
                         }                       
                       } else {
-                          fillName = 'rgba(155, 204, 255, 0.20)';
-                        }
+                          if(d.glass_type === 4) {
+                            fillName = '#ececec';
+                          } else {
+                            fillName = 'rgba(155, 204, 255, 0.20)';
+                          }
+                        }   
                       } else {
                         if(ProductStor.product.lamination.img_in_id > 1) {
                             if ((d.type === 'frame') || (d.type === 'impost')) {

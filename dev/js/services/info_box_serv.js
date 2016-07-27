@@ -123,6 +123,7 @@
       }
     }
     function isApply() {
+      GlobalStor.global.showApply = 0
       if(GlobalStor.global.activePanel === 2) {
         var id = GlobalStor.global.infoBoxprofiles;
         ProfileServ.checkForAddElem(id);

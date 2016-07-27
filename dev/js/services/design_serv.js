@@ -1379,7 +1379,8 @@
         pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
-        glassTxt: blocks[blockIndex].glassTxt
+        glassTxt: blocks[blockIndex].glassTxt,
+        glass_type: blocks[blockIndex].glass_type
       };
 
       //---------- for SHTULP

@@ -6614,7 +6614,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'class': function (d) {
                     var className;
                     if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
-                      className = (d.type === 'glass') ? 'glass-icon' : 'frame-icon';
+                      if(d.type === 'glass') {
+                        if(d.glass_type === 4) {
+                            className ='glass-sandwich'
+                        } else {
+                            className ='glass-icon'
+                        }
+                      } else {
+                        className = 'frame-icon';
+                      }
                     } else {
                       if(d.doorstep) {
                         className = 'doorstep';
@@ -6647,8 +6655,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                           fillName = 'url(#background)';
                         }                       
                       } else {
-                          fillName = 'rgba(155, 204, 255, 0.20)';
-                        }
+                          if(d.glass_type === 4) {
+                            fillName = '#ececec';
+                          } else {
+                            fillName = 'rgba(155, 204, 255, 0.20)';
+                          }
+                        }   
                       } else {
                         if(ProductStor.product.lamination.img_in_id > 1) {
                             if ((d.type === 'frame') || (d.type === 'impost')) {
@@ -10784,7 +10796,8 @@ function ErrorResult(code, message) {
         pointsLight: [],
         parts: [],
         glassId: blocks[blockIndex].glassId,
-        glassTxt: blocks[blockIndex].glassTxt
+        glassTxt: blocks[blockIndex].glassTxt,
+        glass_type: blocks[blockIndex].glass_type
       };
 
       //---------- for SHTULP
@@ -13905,6 +13918,7 @@ function ErrorResult(code, message) {
       }
     }
     function isApply() {
+      GlobalStor.global.showApply = 0
       if(GlobalStor.global.activePanel === 2) {
         var id = GlobalStor.global.infoBoxprofiles;
         ProfileServ.checkForAddElem(id);
@@ -14375,7 +14389,8 @@ function ErrorResult(code, message) {
             ' is_push INTEGER,' +
             ' doorstep_type INTEGER,' +
             ' glass_type INTEGER,' +
-            ' glass_image INTEGER',
+            ' glass_image INTEGER,' +
+            ' glass_color INTEGER',
             'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
@@ -21661,6 +21676,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
+              glass_type:1,
               impost:{impostAxis:[{type:"shtulp",
               id:"sht2",
               x:650,
@@ -21686,9 +21702,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
-              openDir:[1,2],
-              handlePos:2,
-              sashType:17,
+              glass_type:1,
+              openDir:[2],
+              handlePos:0,
+              sashType:4,
               impost:{impostAxis:[{type:"impost",
               id:"ip3",
               x:0,
@@ -21714,9 +21731,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
-              openDir:[4],
-              handlePos:0,
-              sashType:4,
+              glass_type:1,
+              openDir:[1,4],
+              handlePos:4,
+              sashType:17,
               impost:{impostAxis:[{type:"impost",
               id:"ip4",
               x:650,
@@ -21741,7 +21759,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_6",
               level:3,
               blockType:"frame",
@@ -21752,7 +21771,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_7",
               level:3,
               blockType:"frame",
@@ -21763,7 +21783,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_8",
               level:3,
               blockType:"frame",
@@ -21774,7 +21795,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"}],
+              glassTxt:"4-16-4",
+              glass_type:1}],
               hardwareLines:[[497,1890,497,1890]]
             }
 
@@ -22116,6 +22138,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
+              glass_type:1,
               impost:{impostAxis:[{type:"shtulp",
               id:"sht1",
               x:900,
@@ -22141,9 +22164,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
+              glass_type:1,
               openDir:[2],
-              handlePos:2,
-              sashType:2,
+              handlePos:0,
+              sashType:4,
               impost:{impostAxis:[{type:"impost",
               id:"ip2",
               x:0,
@@ -22169,9 +22193,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               parts:[],
               glassId:311891,
               glassTxt:"4-16-4",
+              glass_type:1,
               openDir:[4],
-              handlePos:0,
-              sashType:4,
+              handlePos:4,
+              sashType:2,
               impost:{impostAxis:[{type:"impost",
               id:"ip3",
               x:900,
@@ -22196,7 +22221,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_5",
               level:3,
               blockType:"frame",
@@ -22207,7 +22233,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_6",
               level:3,
               blockType:"frame",
@@ -22218,7 +22245,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"},{type:"skylight",
+              glassTxt:"4-16-4",
+              glass_type:1},{type:"skylight",
               id:"block_7",
               level:3,
               blockType:"frame",
@@ -22229,7 +22257,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               pointsLight:[],
               parts:[],
               glassId:311891,
-              glassTxt:"4-16-4"}],
+              glassTxt:"4-16-4",
+              glass_type:1}],
               hardwareLines:[[823.5,1895,823.5,1895]]
             }
 
