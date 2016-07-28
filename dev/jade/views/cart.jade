@@ -39,7 +39,10 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-value(ng-if="product.construction_type !== 4") {{ product.profile.name }}
                       .order-value(ng-if="product.construction_type === 4") {{ product.doorSashName }}
                       .order-label {{ ::cartPage.CONFIGMENU_PROFILE }}
-                    li.order-item
+                    li.order-item(ng-if="product.glass.length > 1")
+                      .order-value {{ product.glass[0].sku + ', ...' }}
+                      .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
+                    li.order-item(ng-if="product.glass.length <= 1")
                       .order-value {{ product.glass[0].sku }}
                       .order-label {{ ::cartPage.CONFIGMENU_GLASS }}
                     li.order-item

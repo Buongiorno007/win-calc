@@ -30,7 +30,7 @@
       localDB.selectLocalDB(
         localDB.tablesLocalDB.lists.tableName,
         {'is_push': 1},
-        'id, name, list_group_id, glass_type, name'
+        'id, name, list_group_id, glass_type, glass_color, name'
       ).then(function (result) {
         GlobalStor.global.isPush = angular.copy(result)
         GlobalStor.global.setTimeout = 0;
@@ -53,7 +53,7 @@
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id === 6) {
             var id = isPush[x].id;
-            var type = isPush[x].glass_type;
+            var type = isPush[x].glass_color;
             var name = isPush[x].name;
             break
           }

@@ -93,7 +93,7 @@
       var selectBlockQty = DesignStor.design.selectedGlass.length,
           glassesTEMP = angular.copy(ProductStor.product.glass),
           blockId;
-
+          
       /** there are selected glasses */
       if(!selectBlockQty) {
         MainServ.setGlassToTemplateBlocks(
@@ -143,7 +143,10 @@
           setGlassToAll();
         }
       }
-
+      SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
     }
 
 

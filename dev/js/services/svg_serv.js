@@ -1571,12 +1571,13 @@
 
 
     function setGlass(glassType, glassPoints, priceElements, currGlassId) {
+
       var part = {
             type: 'glass',
             points: glassPoints,
             path: 'M ',
             square: 0,
-            glass_type: glassType
+            glass_type: glassType,
           },
           glassObj = {
             elemId: currGlassId

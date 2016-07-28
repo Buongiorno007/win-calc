@@ -61,9 +61,9 @@
         <div class="elem15"></div>
         <div class="elem16"><img ng-src="img/room/26.png"></div>
         <div class="elem17"><img ng-src="img/room/11.png"></div>
-        <div class="elem18"><img ng-src="img/room/121.png"></div>
-        <div class="elem19"><img ng-src="img/room/122.png"></div>
-        <div class="elem20"><img ng-src="img/room/123.png"></div>
+        <div ng-show="mainPage.G.global.selectGlassType !==4" class="elem18"><img ng-src="img/room/121.png"></div>
+        <div ng-show="mainPage.G.global.selectGlassType !==4" class="elem19"><img ng-src="img/room/122.png"></div>
+        <div ng-show="mainPage.G.global.selectGlassType !==4" class="elem20"><img ng-src="img/room/123.png"></div>
         <div class="elem21"><img ng-src="img/room/12.png"></div>
         <div class="elem23"><img ng-src="img/room/41.png"></div>
         <div class="elem25"><img ng-src="img/room/52.png"></div>
@@ -205,7 +205,7 @@
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
                 <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_type)" class="box_inner">
+                  <div fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="box_inner">
                     <div class="glass-box-view">
                       <div class="glass-img"><img ng-src="img/glasses/glass{{ glass.glass_image }}.png"></div>
                       <div class="label"><span>{{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}</span><span ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7">{{ ::glassPanel.ENERGY_SAVE }}</span></div>

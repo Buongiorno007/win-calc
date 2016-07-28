@@ -92,7 +92,11 @@
                       <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorSashName }}</div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
                     </li>
-                    <li class="order-item">
+                    <li ng-if="product.glass.length &gt; 1" class="order-item">
+                      <div class="order-value">{{ product.glass[0].sku + ', ...' }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
+                    </li>
+                    <li ng-if="product.glass.length &lt;= 1" class="order-item">
                       <div class="order-value">{{ product.glass[0].sku }}</div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
                     </li>

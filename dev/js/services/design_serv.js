@@ -1380,7 +1380,8 @@
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt,
-        glass_type: blocks[blockIndex].glass_type
+        glass_type: blocks[blockIndex].glass_type,
+        glass_color: blocks[blockIndex].glass_color
       };
 
       //---------- for SHTULP

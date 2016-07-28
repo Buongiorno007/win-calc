@@ -2269,6 +2269,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete
+    console.log(ProductStor.product.templateIcon, 'P.product.templateIcon')
+    console.log(ProductStor.product, 'ProductStor.product')
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
@@ -3603,7 +3605,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       var selectBlockQty = DesignStor.design.selectedGlass.length,
           glassesTEMP = angular.copy(ProductStor.product.glass),
           blockId;
-
+          
       /** there are selected glasses */
       if(!selectBlockQty) {
         MainServ.setGlassToTemplateBlocks(
@@ -3653,7 +3655,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           setGlassToAll();
         }
       }
-
+      SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
+        .then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
     }
 
 
@@ -6615,8 +6620,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     var className;
                     if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                       if(d.type === 'glass') {
-                        if(d.glass_type === 4) {
-                            className ='glass-sandwich'
+                        if(d.glass_type === 3) {
+                          className ='glass-sandwich'
+                        } else if(d.glass_type === 4) {
+                          className ='glass-brown'
                         } else {
                             className ='glass-icon'
                         }
@@ -6646,17 +6653,22 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     return d.path;
                   },
                   'fill': function(d) {
+
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                        if(d.glass_type === 4) {
+                        if(d.glass_type === 3) {
                           fillName = '#ececec';
+                        } else if (d.glass_type === 4) {
+                          fillName = '#A52A2A'; 
                         } else {
                           fillName = 'url(#background)';
                         }                       
                       } else {
-                          if(d.glass_type === 4) {
-                            fillName = '#ececec';
+                          if(d.glass_type === 3) {
+                            fillName = '#ececec';                      
+                          } else if (d.glass_type === 4) {
+                            fillName = '#A52A2A'; 
                           } else {
                             fillName = 'rgba(155, 204, 255, 0.20)';
                           }
@@ -6676,21 +6688,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     }
                     return fillName;
                   },
-                  // 'fill-opacity': function(d) {
-                  //   var fillName;
-                  //   if (d.type === 'glass') {
-                  //     if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                  //       for(var x=0; x<d.points.length; x+=1) {
-                  //         if(d.points[x].id === "ip1") {
-                  //           fillName = 0.5;
-                  //         } else {
-                  //           fillName = 0.5;
-                  //         }
-                  //       }
-                  //     } 
-                  //   }
-                  //   return fillName
-                  // }
+                  'fill-opacity': function(d) {
+                    var fillName;
+                    if (d.type === 'glass') {
+                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          if(d.glass_type === 2) {
+                            fillName = 0.5;
+                          } else {
+                            fillName = 1;
+                          }
+                        
+                      } 
+                    }
+                    return fillName
+                  }
                   
                 });
 
@@ -10797,7 +10808,8 @@ function ErrorResult(code, message) {
         parts: [],
         glassId: blocks[blockIndex].glassId,
         glassTxt: blocks[blockIndex].glassTxt,
-        glass_type: blocks[blockIndex].glass_type
+        glass_type: blocks[blockIndex].glass_type,
+        glass_color: blocks[blockIndex].glass_color
       };
 
       //---------- for SHTULP
@@ -13825,7 +13837,7 @@ function ErrorResult(code, message) {
       localDB.selectLocalDB(
         localDB.tablesLocalDB.lists.tableName,
         {'is_push': 1},
-        'id, name, list_group_id, glass_type, name'
+        'id, name, list_group_id, glass_type, glass_color, name'
       ).then(function (result) {
         GlobalStor.global.isPush = angular.copy(result)
         GlobalStor.global.setTimeout = 0;
@@ -13848,7 +13860,7 @@ function ErrorResult(code, message) {
         for(var x=0; x<isPush.length; x+=1) {
           if(isPush[x].list_group_id === 6) {
             var id = isPush[x].id;
-            var type = isPush[x].glass_type;
+            var type = isPush[x].glass_color;
             var name = isPush[x].name;
             break
           }
@@ -17691,7 +17703,7 @@ function ErrorResult(code, message) {
                   localDB.tablesLocalDB.lists.tableName,
                   {'parent_element_id': item.element_id, 'list_group_id': 6},
                   'id, name, parent_element_id, cameras, list_group_id, list_type_id, position, description, '+
-                  'img, link, glass_image, glass_type'
+                  'img, link, glass_image, glass_type, glass_color'
                 ).then(function (result2) {
                     //console.log('list +++++', result2);
                     var list = angular.copy(result2),
@@ -17788,6 +17800,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
   );
     GlobalStor.global.glassesAll[g].glasses[l].glass_type = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].glass_type
+  );
+    GlobalStor.global.glassesAll[g].glasses[l].glass_color = angular.copy(
+    GlobalStor.global.glassesAll[g].glassLists[l].glass_color
   );
   GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(
     GlobalStor.global.glassesAll[g].glassLists[l].position
@@ -25042,12 +25057,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setGlass(glassType, glassPoints, priceElements, currGlassId) {
+
       var part = {
             type: 'glass',
             points: glassPoints,
             path: 'M ',
             square: 0,
-            glass_type: glassType
+            glass_type: glassType,
           },
           glassObj = {
             elemId: currGlassId

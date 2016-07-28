@@ -639,8 +639,10 @@
                     var className;
                     if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON) {
                       if(d.type === 'glass') {
-                        if(d.glass_type === 4) {
-                            className ='glass-sandwich'
+                        if(d.glass_type === 3) {
+                          className ='glass-sandwich'
+                        } else if(d.glass_type === 4) {
+                          className ='glass-brown'
                         } else {
                             className ='glass-icon'
                         }
@@ -670,17 +672,22 @@
                     return d.path;
                   },
                   'fill': function(d) {
+
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                        if(d.glass_type === 4) {
+                        if(d.glass_type === 3) {
                           fillName = '#ececec';
+                        } else if (d.glass_type === 4) {
+                          fillName = '#A52A2A'; 
                         } else {
                           fillName = 'url(#background)';
                         }                       
                       } else {
-                          if(d.glass_type === 4) {
-                            fillName = '#ececec';
+                          if(d.glass_type === 3) {
+                            fillName = '#ececec';                      
+                          } else if (d.glass_type === 4) {
+                            fillName = '#A52A2A'; 
                           } else {
                             fillName = 'rgba(155, 204, 255, 0.20)';
                           }
@@ -700,21 +707,20 @@
                     }
                     return fillName;
                   },
-                  // 'fill-opacity': function(d) {
-                  //   var fillName;
-                  //   if (d.type === 'glass') {
-                  //     if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                  //       for(var x=0; x<d.points.length; x+=1) {
-                  //         if(d.points[x].id === "ip1") {
-                  //           fillName = 0.5;
-                  //         } else {
-                  //           fillName = 0.5;
-                  //         }
-                  //       }
-                  //     } 
-                  //   }
-                  //   return fillName
-                  // }
+                  'fill-opacity': function(d) {
+                    var fillName;
+                    if (d.type === 'glass') {
+                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                          if(d.glass_type === 2) {
+                            fillName = 0.5;
+                          } else {
+                            fillName = 1;
+                          }
+                        
+                      } 
+                    }
+                    return fillName
+                  }
                   
                 });
 
