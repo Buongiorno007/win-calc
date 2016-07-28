@@ -48,8 +48,6 @@
     MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete
-    console.log(ProductStor.product.templateIcon, 'P.product.templateIcon')
-    console.log(ProductStor.product, 'ProductStor.product')
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {

@@ -1920,56 +1920,56 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          // checkingUser();
+          checkingUser();
 
           //------- check available Local DB
-          loginServ.isLocalDBExist().then(function(data){
-            thisCtrl.isLocalDB = data;
-            if(thisCtrl.isLocalDB) {
+          // loginServ.isLocalDBExist().then(function(data){
+          //   thisCtrl.isLocalDB = data;
+          //   if(thisCtrl.isLocalDB) {
 
-              //======== SYNC
-              console.log('SYNC');
-              //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-                .then(function(data) {
-                  //---- user exists
-                  if(data.length) {
-                    //---------- check user password
-                    newUserPassword = localDB.md5(thisCtrl.user.password);
-                    if(newUserPassword === data[0].password) {
-                      //----- checking user activation
-                      if(data[0].locked) {
-                        angular.extend(UserStor.userInfo, data[0]);
-                        //------- set User Location
-                        loginServ.prepareLocationToUse().then(function() {
-                          checkingFactory();
-                        });
+          //     //======== SYNC
+          //     console.log('SYNC');
+          //     //---- checking user in LocalDB
+          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+          //       .then(function(data) {
+          //         //---- user exists
+          //         if(data.length) {
+          //           //---------- check user password
+          //           newUserPassword = localDB.md5(thisCtrl.user.password);
+          //           if(newUserPassword === data[0].password) {
+          //             //----- checking user activation
+          //             if(data[0].locked) {
+          //               angular.extend(UserStor.userInfo, data[0]);
+          //               //------- set User Location
+          //               loginServ.prepareLocationToUse().then(function() {
+          //                 checkingFactory();
+          //               });
 
-                      } else {
-                        GlobalStor.global.isLoader = 0;
-                        //---- show attantion
-                        thisCtrl.isUserNotActive = 1;
-                      }
-                    } else {
-                      GlobalStor.global.isLoader = 0;
-                      //---- user not exists
-                      thisCtrl.isUserPasswordError = 1;
-                    }
-                  } else {
-                    //======== IMPORT
-                    console.log('Sync IMPORT');
-                    checkingUser();
-                  }
-                });
+          //             } else {
+          //               GlobalStor.global.isLoader = 0;
+          //               //---- show attantion
+          //               thisCtrl.isUserNotActive = 1;
+          //             }
+          //           } else {
+          //             GlobalStor.global.isLoader = 0;
+          //             //---- user not exists
+          //             thisCtrl.isUserPasswordError = 1;
+          //           }
+          //         } else {
+          //           //======== IMPORT
+          //           console.log('Sync IMPORT');
+          //           checkingUser();
+          //         }
+          //       });
 
 
-            } else {
-              //======== IMPORT
-              console.log('IMPORT');
-              checkingUser();
-            }
-          });
-//
+          //   } else {
+          //     //======== IMPORT
+          //     console.log('IMPORT');
+          //     checkingUser();
+          //   }
+          // });
+
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
@@ -2269,8 +2269,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     MainServ.laminationDoor();
     /**============ METHODS ================*/
     //TODO delete
-    console.log(ProductStor.product.templateIcon, 'P.product.templateIcon')
-    console.log(ProductStor.product, 'ProductStor.product')
     function goToEditTemplate() {
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
