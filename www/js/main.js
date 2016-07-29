@@ -4589,7 +4589,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       if(form.$valid) {
         CartMenuServ.sendOrder();
       } else {
-        console.log('scrollTop')
         $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }
@@ -9802,7 +9801,7 @@ function ErrorResult(code, message) {
 
     function size(res) {
       var intervalID = setInterval( function() {
-        if(ProductStor.product.doorLock){
+        if(ProductStor.product.doorLock.width_min){
           clearInterval(intervalID);
           var heightT = 0,
               widthT = 0;
@@ -10242,14 +10241,6 @@ function ErrorResult(code, message) {
           }
         }
       }
-      // if(product.construction_type === 4) {
-        // GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        // product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        // product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        // product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        // product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        // product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      // }
     }
 
     function doorId(product, source) {
@@ -10257,6 +10248,9 @@ function ErrorResult(code, message) {
       product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
       product.profile.short_name = '';
       product.profile.description = '';
+      product.template_source.profile_door_id = source.sashShapeList[product.door_sash_shape_id].id;
+      product.template_source.profile_window_id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.template_source.hardware_id = product.hardware.id;
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.idz = source.sashShapeList[product.door_sash_shape_id].id;
@@ -10400,7 +10394,6 @@ function ErrorResult(code, message) {
           var array = [];
           var constructionSize = (product.template.priceElements) ? product.template : product.templateIcon;
           var pnt = checkSize(constructionSize, product.construction_type);
-          //(pnt !== undefined) ? console.info('size ok') : pnt = {heightT: 2000, widthT: 900};
           var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
             return doorLocks.profIds.indexOf(DesignStor.designSource.sashShapeList[0].id)+1;
           });
@@ -13311,9 +13304,11 @@ function ErrorResult(code, message) {
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
-
+              if(tempProd.construction_type === 4) {
+                tempProfileId = tempProd.template_source.profile_window_id;
+              } else {
                 tempProfileId = tempProd.profile_id;
-
+              }
 
               //----- find depths and build design icon
               MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
@@ -13327,7 +13322,8 @@ function ErrorResult(code, message) {
                   }
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
-                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) :
+                MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
                 MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
@@ -13486,7 +13482,7 @@ function ErrorResult(code, message) {
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
             angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-            CartStor.fillOrderForm();
+            CartStor.fillOrderForm();             
           }
         } else {
           if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
@@ -13494,7 +13490,6 @@ function ErrorResult(code, message) {
             CartStor.fillOrderForm();
           }
         }
-
       }
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
@@ -19578,7 +19573,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
-             console.log(ProductStor.product.template, '2')
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,
@@ -19703,64 +19697,66 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**----------- Hardware sizes checking -------------*/
 
     function checkHardwareSizes(template, harwareID) {
-      var blocks = template.details,
-          blocksQty = blocks.length,
-          harwareId = harwareID || ProductStor.product.hardware.id,
-          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
-            return  item.group_id === harwareId;
-          }),
-          limitsQty = limits.length,
-          currLimit = 0,
-          overallSize, currWidth, currHeight,
-          wranSash, isSizeError, b, lim;
+      if(ProductStor.product.construction_type !== 4) {
+        var blocks = template.details,
+            blocksQty = blocks.length,
+            harwareId = harwareID || ProductStor.product.hardware.id,
+            limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+              return  item.group_id === harwareId;
+            }),
+            limitsQty = limits.length,
+            currLimit = 0,
+            overallSize, currWidth, currHeight,
+            wranSash, isSizeError, b, lim;
 
-      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
-      /** clean extra Hardware */
-      DesignStor.design.extraHardware.length = 0;
+        //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
+        /** clean extra Hardware */
+        DesignStor.design.extraHardware.length = 0;
 
-      if(limitsQty) {
-        /** template loop */
-        for (b = 1; b < blocksQty; b += 1) {
-          isSizeError = 0;
-          if (blocks[b].blockType === 'sash') {
-            /** finde limit for current sash */
-            for (lim = 0; lim < limitsQty; lim += 1) {
-              if (limits[lim].type_id === blocks[b].sashType) {
-                /** check available max/min sizes */
-                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                  currLimit = limits[lim];
+        if(limitsQty) {
+          /** template loop */
+          for (b = 1; b < blocksQty; b += 1) {
+            isSizeError = 0;
+            if (blocks[b].blockType === 'sash') {
+              /** finde limit for current sash */
+              for (lim = 0; lim < limitsQty; lim += 1) {
+                if (limits[lim].type_id === blocks[b].sashType) {
+                  /** check available max/min sizes */
+                  if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                    currLimit = limits[lim];
+                  }
+                  break;
                 }
-                break;
               }
-            }
-            if (currLimit) {
-              if (blocks[b].hardwarePoints.length) {
-                /** estimate current sash sizes */
-                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-                currWidth = Math.round(overallSize.maxX - overallSize.minX);
-                currHeight = Math.round(overallSize.maxY - overallSize.minY);
-                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                  isSizeError = 1;
-                }
-                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                  isSizeError = 1;
-                }
+              if (currLimit) {
+                if (blocks[b].hardwarePoints.length) {
+                  /** estimate current sash sizes */
+                  overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                  currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                  currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                  if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                    isSizeError = 1;
+                  }
+                  if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                    isSizeError = 1;
+                  }
 
-                if (isSizeError) {
-                  wranSash = currWidth + ' x ' + currHeight + ' ' +
-                    $filter('translate')('design.NO_MATCH_RANGE') +
-                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                  if (isSizeError) {
+                    wranSash = currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
+                      ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                      'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                  DesignStor.design.extraHardware.push(wranSash);
+                    DesignStor.design.extraHardware.push(wranSash);
+                  }
+
                 }
-
               }
             }
           }
         }
       }
-      //console.info('glass result', DesignStor.design.extraHardware);
+        //console.info('glass result', DesignStor.design.extraHardware);
     }
 
 
@@ -19797,7 +19793,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
-      console.log('new project!!!!!!!!!!!!!!', OrderStor.order);
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
@@ -19834,7 +19829,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**========== CREATE PRODUCT ==========*/
 
     function createNewProduct() {
-      console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       GlobalStor.global.isCreatedNewProduct = 1;
@@ -19922,6 +19916,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       $timeout(function() {
         //------- set previos Page
         GeneralServ.setPreviosPage();
+
         $location.path('/cart');
       }, 100);
     }
@@ -19960,19 +19955,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var prodQty = OrderStor.order.products.length, p;
       OrderStor.order.products_qty = 0;
       for(p = 0; p < prodQty; p+=1) {
-        var productData = angular.copy(OrderStor.order.products[p]);
+        var productData = angular.copy(OrderStor.order.products[p]);    
         productData.order_id = OrderStor.order.id;
         if(!productData.is_addelem_only) {
           productData.template_source['beads'] = angular.copy(productData.beadsData);
         }
         productData.template_source = JSON.stringify(productData.template_source);
-        productData.profile_id = OrderStor.order.products[p].profile.id;
+        if(productData.construction_type === 4) {
+          productData.profile_id = OrderStor.order.products[p].template_source.profile_door_id;
+        } else {
+          productData.profile_id = OrderStor.order.products[p].profile.id;
+        }  
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
        
-        if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
+        if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
           productData.hardware_id = 0;
+        } else if(OrderStor.order.products[p].construction_type ===4){
+          productData.hardware_id = OrderStor.order.products[p].doorLock.id;
         } else {
           productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
         }

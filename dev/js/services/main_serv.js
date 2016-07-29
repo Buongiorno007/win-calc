@@ -967,7 +967,6 @@
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
-             console.log(ProductStor.product.template, '2')
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,
@@ -1092,64 +1091,66 @@
     /**----------- Hardware sizes checking -------------*/
 
     function checkHardwareSizes(template, harwareID) {
-      var blocks = template.details,
-          blocksQty = blocks.length,
-          harwareId = harwareID || ProductStor.product.hardware.id,
-          limits = GlobalStor.global.hardwareLimits.filter(function(item) {
-            return  item.group_id === harwareId;
-          }),
-          limitsQty = limits.length,
-          currLimit = 0,
-          overallSize, currWidth, currHeight,
-          wranSash, isSizeError, b, lim;
+      if(ProductStor.product.construction_type !== 4) {
+        var blocks = template.details,
+            blocksQty = blocks.length,
+            harwareId = harwareID || ProductStor.product.hardware.id,
+            limits = GlobalStor.global.hardwareLimits.filter(function(item) {
+              return  item.group_id === harwareId;
+            }),
+            limitsQty = limits.length,
+            currLimit = 0,
+            overallSize, currWidth, currHeight,
+            wranSash, isSizeError, b, lim;
 
-      //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
-      /** clean extra Hardware */
-      DesignStor.design.extraHardware.length = 0;
+        //console.info('*******', harwareId, GlobalStor.global.hardwareLimits, limits);
+        /** clean extra Hardware */
+        DesignStor.design.extraHardware.length = 0;
 
-      if(limitsQty) {
-        /** template loop */
-        for (b = 1; b < blocksQty; b += 1) {
-          isSizeError = 0;
-          if (blocks[b].blockType === 'sash') {
-            /** finde limit for current sash */
-            for (lim = 0; lim < limitsQty; lim += 1) {
-              if (limits[lim].type_id === blocks[b].sashType) {
-                /** check available max/min sizes */
-                if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
-                  currLimit = limits[lim];
+        if(limitsQty) {
+          /** template loop */
+          for (b = 1; b < blocksQty; b += 1) {
+            isSizeError = 0;
+            if (blocks[b].blockType === 'sash') {
+              /** finde limit for current sash */
+              for (lim = 0; lim < limitsQty; lim += 1) {
+                if (limits[lim].type_id === blocks[b].sashType) {
+                  /** check available max/min sizes */
+                  if (limits[lim].max_width && limits[lim].max_height && limits[lim].min_width && limits[lim].min_height){
+                    currLimit = limits[lim];
+                  }
+                  break;
                 }
-                break;
               }
-            }
-            if (currLimit) {
-              if (blocks[b].hardwarePoints.length) {
-                /** estimate current sash sizes */
-                overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
-                currWidth = Math.round(overallSize.maxX - overallSize.minX);
-                currHeight = Math.round(overallSize.maxY - overallSize.minY);
-                if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
-                  isSizeError = 1;
-                }
-                if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
-                  isSizeError = 1;
-                }
+              if (currLimit) {
+                if (blocks[b].hardwarePoints.length) {
+                  /** estimate current sash sizes */
+                  overallSize = GeneralServ.getMaxMinCoord(blocks[b].hardwarePoints);
+                  currWidth = Math.round(overallSize.maxX - overallSize.minX);
+                  currHeight = Math.round(overallSize.maxY - overallSize.minY);
+                  if (currWidth > currLimit.max_width || currWidth < currLimit.min_width) {
+                    isSizeError = 1;
+                  }
+                  if (currHeight > currLimit.max_height || currHeight < currLimit.min_height) {
+                    isSizeError = 1;
+                  }
 
-                if (isSizeError) {
-                  wranSash = currWidth + ' x ' + currHeight + ' ' +
-                    $filter('translate')('design.NO_MATCH_RANGE') +
-                    ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
-                    'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
+                  if (isSizeError) {
+                    wranSash = currWidth + ' x ' + currHeight + ' ' +
+                      $filter('translate')('design.NO_MATCH_RANGE') +
+                      ' (' + currLimit.min_width + ' - ' + currLimit.max_width + ') ' +
+                      'x (' + currLimit.min_height + ' - ' + currLimit.max_height + ')';
 
-                  DesignStor.design.extraHardware.push(wranSash);
+                    DesignStor.design.extraHardware.push(wranSash);
+                  }
+
                 }
-
               }
             }
           }
         }
       }
-      //console.info('glass result', DesignStor.design.extraHardware);
+        //console.info('glass result', DesignStor.design.extraHardware);
     }
 
 
@@ -1186,7 +1187,6 @@
     /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
-      console.log('new project!!!!!!!!!!!!!!', OrderStor.order);
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
@@ -1223,7 +1223,6 @@
     /**========== CREATE PRODUCT ==========*/
 
     function createNewProduct() {
-      console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       GlobalStor.global.isCreatedNewProduct = 1;
@@ -1311,6 +1310,7 @@
       $timeout(function() {
         //------- set previos Page
         GeneralServ.setPreviosPage();
+
         $location.path('/cart');
       }, 100);
     }
@@ -1349,19 +1349,25 @@
       var prodQty = OrderStor.order.products.length, p;
       OrderStor.order.products_qty = 0;
       for(p = 0; p < prodQty; p+=1) {
-        var productData = angular.copy(OrderStor.order.products[p]);
+        var productData = angular.copy(OrderStor.order.products[p]);    
         productData.order_id = OrderStor.order.id;
         if(!productData.is_addelem_only) {
           productData.template_source['beads'] = angular.copy(productData.beadsData);
         }
         productData.template_source = JSON.stringify(productData.template_source);
-        productData.profile_id = OrderStor.order.products[p].profile.id;
+        if(productData.construction_type === 4) {
+          productData.profile_id = OrderStor.order.products[p].template_source.profile_door_id;
+        } else {
+          productData.profile_id = OrderStor.order.products[p].profile.id;
+        }  
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
        
-        if (OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
+        if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
           productData.hardware_id = 0;
+        } else if(OrderStor.order.products[p].construction_type ===4){
+          productData.hardware_id = OrderStor.order.products[p].doorLock.id;
         } else {
           productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
         }

@@ -86,7 +86,6 @@
       if(form.$valid) {
         CartMenuServ.sendOrder();
       } else {
-        console.log('scrollTop')
         $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }

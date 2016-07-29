@@ -344,9 +344,11 @@
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
-
+              if(tempProd.construction_type === 4) {
+                tempProfileId = tempProd.template_source.profile_window_id;
+              } else {
                 tempProfileId = tempProd.profile_id;
-
+              }
 
               //----- find depths and build design icon
               MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
@@ -360,7 +362,8 @@
                   }
                 }
                 GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd.template_source);
-                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                (tempProd.construction_type !== 4) ? MainServ.setCurrentHardware(tempProd, tempProd.hardware_id) :
+                MainServ.setCurrentHardware(tempProd, tempProd.template_source.hardware_id);
                 MainServ.setCurrLamination(tempProd, tempProd.lamination_id);
                 delete tempProd.lamination_id;
                 delete tempProd.lamination_in_id;
@@ -519,7 +522,7 @@
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
             angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-            CartStor.fillOrderForm();
+            CartStor.fillOrderForm();             
           }
         } else {
           if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
@@ -527,7 +530,6 @@
             CartStor.fillOrderForm();
           }
         }
-
       }
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();

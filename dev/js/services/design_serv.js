@@ -375,7 +375,7 @@
 
     function size(res) {
       var intervalID = setInterval( function() {
-        if(ProductStor.product.doorLock){
+        if(ProductStor.product.doorLock.width_min){
           clearInterval(intervalID);
           var heightT = 0,
               widthT = 0;
@@ -815,14 +815,6 @@
           }
         }
       }
-      // if(product.construction_type === 4) {
-        // GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
-        // product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-        // product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
-        // product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
-        // product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
-        // product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
-      // }
     }
 
     function doorId(product, source) {
@@ -830,6 +822,9 @@
       product.profile.name = source.sashShapeList[product.door_sash_shape_id].name;
       product.profile.short_name = '';
       product.profile.description = '';
+      product.template_source.profile_door_id = source.sashShapeList[product.door_sash_shape_id].id;
+      product.template_source.profile_window_id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.template_source.hardware_id = product.hardware.id;
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.idz = source.sashShapeList[product.door_sash_shape_id].id;
@@ -973,7 +968,6 @@
           var array = [];
           var constructionSize = (product.template.priceElements) ? product.template : product.templateIcon;
           var pnt = checkSize(constructionSize, product.construction_type);
-          //(pnt !== undefined) ? console.info('size ok') : pnt = {heightT: 2000, widthT: 900};
           var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
             return doorLocks.profIds.indexOf(DesignStor.designSource.sashShapeList[0].id)+1;
           });
