@@ -376,7 +376,6 @@
                   DesignStor.design.isNoDoors = 1;
                   defer1.reject(1);
                 } else {
-                  DesignServ.setDoorConfigDefault(tempProd);
                   //------ cleaning DesignStor
                   DesignStor.design = DesignStor.setDefaultDesign();
                 }
@@ -413,14 +412,19 @@
                   item.productPriceDis = (GeneralServ.setPriceDis(
                     item.template_price, OrderStor.order.discount_construct
                   ) + item.addelemPriceDis);
-
-                  OrderStor.order.products.push(item);
-                  deferIcon.resolve(1);
+                  if(item.construction_type === 4) {
+                    DesignServ.setDoorConfigDefault(item);
+                    item.profile = angular.copy(ProductStor.product.profile)
+                    OrderStor.order.products.push(item);
+                    deferIcon.resolve(1);
+                  } else {
+                    OrderStor.order.products.push(item);
+                    deferIcon.resolve(1);
+                  }
                 });
               }
               return deferIcon.promise;
             });
-
             deferred.resolve($q.all(iconPromise));
           });
 

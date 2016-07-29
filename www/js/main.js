@@ -10253,7 +10253,7 @@ function ErrorResult(code, message) {
       product.template_source.hardware_id = product.hardware.id;
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
-      product.profile.idz = source.sashShapeList[product.door_sash_shape_id].id;
+      product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -10293,6 +10293,7 @@ function ErrorResult(code, message) {
 
     /** for start */
     function setDoorConfigDefault(product) {
+      console.log(product.template, product.templateIcon, '<><><><><')
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
@@ -10416,6 +10417,7 @@ function ErrorResult(code, message) {
           }
           DesignStor.designSource.lockShapeList = array;
           DesignStor.design.lockShapeList = array;
+          setNewDoorParamValue(product, DesignStor.designSource)
           setDoorParamValue(product, DesignStor.designSource);
         }
       }
@@ -13336,7 +13338,6 @@ function ErrorResult(code, message) {
                   DesignStor.design.isNoDoors = 1;
                   defer1.reject(1);
                 } else {
-                  DesignServ.setDoorConfigDefault(tempProd);
                   //------ cleaning DesignStor
                   DesignStor.design = DesignStor.setDefaultDesign();
                 }
@@ -13373,14 +13374,19 @@ function ErrorResult(code, message) {
                   item.productPriceDis = (GeneralServ.setPriceDis(
                     item.template_price, OrderStor.order.discount_construct
                   ) + item.addelemPriceDis);
-
-                  OrderStor.order.products.push(item);
-                  deferIcon.resolve(1);
+                  if(item.construction_type === 4) {
+                    DesignServ.setDoorConfigDefault(item);
+                    item.profile = angular.copy(ProductStor.product.profile)
+                    OrderStor.order.products.push(item);
+                    deferIcon.resolve(1);
+                  } else {
+                    OrderStor.order.products.push(item);
+                    deferIcon.resolve(1);
+                  }
                 });
               }
               return deferIcon.promise;
             });
-
             deferred.resolve($q.all(iconPromise));
           });
 
