@@ -358,15 +358,14 @@
     }
 
 
-    function checkSize(res) {
+    function checkSize(res, construction_type) {
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];  
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 || construction_type === 4) {
         widthT = res[0].sizes[0];
         heightT = res[0].sizes[1];
         size(res)
-      
         return {
           widthT:widthT,
           heightT:heightT
@@ -833,6 +832,7 @@
       product.profile.description = '';
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
+      product.profile.idz = source.sashShapeList[product.door_sash_shape_id].id;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -889,6 +889,7 @@
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].profileId = doorsGroups[z].profileId || 345
+
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
@@ -944,7 +945,7 @@
                   return item.doorstep_type === 1;
               });
             }
-            break;
+            break
         }
         localDB.selectLocalDB(
           localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.designSource.sashShapeList[0].id}
@@ -970,7 +971,8 @@
         }
         function lock() {
           var array = [];
-          var pnt = checkSize(ProductStor.product.template);
+          var constructionSize = (product.template.priceElements) ? product.template : product.templateIcon;
+          var pnt = checkSize(constructionSize, product.construction_type);
           //(pnt !== undefined) ? console.info('size ok') : pnt = {heightT: 2000, widthT: 900};
           var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
             return doorLocks.profIds.indexOf(DesignStor.designSource.sashShapeList[0].id)+1;
@@ -978,7 +980,7 @@
           var newLockArr = lockArr.filter(function(doorLocks) {
             return DesignStor.designSource.handleShapeList[0].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
           });
-          var template = ProductStor.product.template.priceElements.shtulpsSize;
+          var template = (product.template.priceElements) ? product.template.priceElements.shtulpsSize : product.templateIcon.priceElements.shtulpsSize;
           for(var x=0; x<newLockArr.length; x+=1) {
             if (pnt.heightT <= newLockArr[x].height_max) {            
               if (pnt.heightT >= newLockArr[x].height_min) {        

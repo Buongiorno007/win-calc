@@ -344,21 +344,9 @@
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
 
-              /** if Door */
-              if(tempProd.construction_type === 4) {
-                if(GlobalStor.global.noDoorExist) {
-                  //-------- show alert than door not existed
-                  DesignStor.design.isNoDoors = 1;
-                  defer1.reject(1);
-                } else {
-                  DesignServ.setDoorConfigDefault(tempProd);
-                  //------ cleaning DesignStor
-                  DesignStor.design = DesignStor.setDefaultDesign();
-                  tempProfileId = DesignStor.design.sashShapeList[tempProd.door_sash_shape_id].profileId;
-                }
-              } else {
+
                 tempProfileId = tempProd.profile_id;
-              }
+
 
               //----- find depths and build design icon
               MainServ.setCurrentProfile(tempProd, tempProfileId).then(function(){
@@ -379,7 +367,17 @@
                 delete tempProd.lamination_out_id;
                 defer1.resolve(tempProd);
               });
-
+              if(tempProd.construction_type === 4) {
+                if(GlobalStor.global.noDoorExist) {
+                  //-------- show alert than door not existed
+                  DesignStor.design.isNoDoors = 1;
+                  defer1.reject(1);
+                } else {
+                  DesignServ.setDoorConfigDefault(tempProd);
+                  //------ cleaning DesignStor
+                  DesignStor.design = DesignStor.setDefaultDesign();
+                }
+              }
             } else {
               defer1.resolve(tempProd);
             }
