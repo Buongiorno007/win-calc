@@ -222,7 +222,9 @@
     "TAB_NAME_HARD_FRAME": "Structură din materiale compozite",
     "TAB_EMPTY_EXPLAIN": "Selectați din listă primul element, pentru a începe crearea structurii."
   },
-  "design": {
+  "design": {    
+    "BY_AXIS": "axă",
+    "BY_GLASS": "sticlă",
     "SASH_SHAPE": "canaturi",
     "ANGEL_SHAPE": "colțuri",
     "IMPOST_SHAPE": "imposte",

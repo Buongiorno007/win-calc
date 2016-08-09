@@ -100,7 +100,6 @@
         }
         //------- set previos Page
         GeneralServ.setPreviosPage();
-        console.log(ProductStor.product, 'ProductStor.product')
         $location.path('/main');
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }

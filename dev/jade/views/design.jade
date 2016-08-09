@@ -65,10 +65,10 @@ section.construction-page
         .constr-shape-icon.clean(fs-click="designPage.insertArc(1)")
         .constr-shape-icon.arc(fs-click="designPage.insertArc(2)")
 
-      #position-menu.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
+      #position-menu-for-position.edit_submenu(ng-hide="designPage.P.product.construction_type === 4", ng-class="{'active': designPage.D.design.activeSubMenuItem == 5}")
         //- .constr-shape-icon.mirror(fs-click="designPage.initMirror()")
-        .constr-shape-icon.position-axis(fs-click="designPage.positionAxis()")
-        .constr-shape-icon.position-glass(fs-click="designPage.positionGlass()")
+        .constr-shape-position(fs-click="designPage.positionAxis()"){{::designPage.BY_AXIS}}
+        .constr-shape-position(fs-click="designPage.positionGlass()"){{::designPage.BY_GLASS}}
 
       //- .left-menu-footer
       //-   .footer-description(data-output="{{ ::designPage.UNITS_DESCRIP }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")

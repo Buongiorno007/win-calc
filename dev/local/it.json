@@ -224,6 +224,8 @@
     "TAB_EMPTY_EXPLAIN": "Scegliete il primo elemento dalla lista."
   },
   "design": {
+    "BY_AXIS": "asse",
+    "BY_GLASS": "vetro",
     "SASH_SHAPE": "battenti",
     "ANGEL_SHAPE": "angoli",
     "IMPOST_SHAPE": "imposte",

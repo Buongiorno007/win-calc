@@ -9,7 +9,7 @@
 				li.item.empty-element(ng-class="{'active': elementsMenu.A.aux.isAddElement == false}", ng-click="elementsMenu.chooseAddElement()")
 					.value {{ ::elementsMenu.EMPTY_ELEMENT }}
 
-			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}")
+			ul.items-lister(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index", id="{{$index}}", ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length<=1}")
 				.title(ng-click="elementsMenu.hideMenu($index)") {{ elementsMenu.A.aux.addElementsType[$index].name }}
 					.open-list(id="{{$index + 'open'}}")
 						img(ng-src='img/plus.png')

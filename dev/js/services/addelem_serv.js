@@ -60,8 +60,72 @@
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
         }
       }
+      hideMenu('close');
     }
 
+    function hideMenu(elementId) {
+      if(elementId === 'close') {
+        if(AuxStor.aux.addElementsList.length>1) {
+        for(var x=0; x<AuxStor.aux.addElementsList.length; x+=1) {
+          $('#'+x).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+          $('#'+x+'open').css({
+                      'visibility' : 'visible'
+                       })
+          $('#'+x+'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        }
+      } else {
+        $('#'+ 0).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+ 0 + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+ 0 + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+      }
+      } else {
+        if (AuxStor.aux.truefalse === 1) {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'visible'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        } else {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+        }
+      }
+    }
 
     /**--------- Select additional element group -----------*/
 
@@ -256,6 +320,7 @@
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
       createAddElementGroups: createAddElementGroups,
+      hideMenu: hideMenu,
       downloadAddElementsData: downloadAddElementsData
     };
 

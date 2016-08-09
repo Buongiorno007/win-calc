@@ -225,6 +225,8 @@
     "TAB_EMPTY_EXPLAIN": "Please select the first item to start up construction."
   },
   "design": {
+    "BY_AXIS": "glass",
+    "BY_GLASS": "axis",
     "SASH_SHAPE": "shutters",
     "ANGEL_SHAPE": "corners",
     "IMPOST_SHAPE": "imposts",

@@ -33,6 +33,9 @@
     margin: 0;
     padding: 0 0 rem(20px) 0;
     list-style: none;
+    &.one-elem {
+      height: auto;
+    }
   }
 
   .item {

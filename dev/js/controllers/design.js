@@ -78,8 +78,8 @@
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
-
-
+    thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
+    thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);

@@ -224,6 +224,8 @@
     "TAB_EMPTY_EXPLAIN": "Wählen Sie den Anfangspunkt zu starten Bau."
   },
   "design": {
+    "BY_AXIS": "achse",
+    "BY_GLASS": "glas",
     "SASH_SHAPE": "Flügel",
     "ANGEL_SHAPE": "Winkel",
     "IMPOST_SHAPE": "Abgaben",

@@ -594,8 +594,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
     thisCtrl.TEST_STAGE = $filter('translate')('design.TEST_STAGE');
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
-
-
+    thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
+    thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -2429,39 +2429,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'visible'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'hidden'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } else {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100+'%',
-                    'height' : 'auto'
-                  })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'hidden'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'visible'
-                     })
-        AuxStor.aux.truefalse = 1;
-      }
-    }
 
     /**----------- Select Add Element when open List View ------------*/
 
@@ -2505,7 +2472,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
-    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
@@ -2516,6 +2482,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.hideMenu = AddElementsServ.hideMenu;
 
 
   });
@@ -8060,8 +8027,72 @@ function ErrorResult(code, message) {
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
         }
       }
+      hideMenu('close');
     }
 
+    function hideMenu(elementId) {
+      if(elementId === 'close') {
+        if(AuxStor.aux.addElementsList.length>1) {
+        for(var x=0; x<AuxStor.aux.addElementsList.length; x+=1) {
+          $('#'+x).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+          $('#'+x+'open').css({
+                      'visibility' : 'visible'
+                       })
+          $('#'+x+'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        }
+      } else {
+        $('#'+ 0).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+ 0 + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+ 0 + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+      }
+      } else {
+        if (AuxStor.aux.truefalse === 1) {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100 + '%',
+                      'height' : 7 + '%'
+                       })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'visible'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'hidden'
+                       })
+          AuxStor.aux.truefalse = 0;
+        } else {
+          $('#'+AuxStor.aux.trfal+'prod').css({
+              'color' : '#363636'
+               }),
+          $('#'+elementId).css({
+                      'width' : 100+'%',
+                      'height' : 'auto'
+                    })
+        $('#'+elementId + 'open').css({
+                      'visibility' : 'hidden'
+                       })
+        $('#'+elementId + 'close').css({
+                      'visibility' : 'visible'
+                       })
+          AuxStor.aux.truefalse = 1;
+        }
+      }
+    }
 
     /**--------- Select additional element group -----------*/
 
@@ -8256,6 +8287,7 @@ function ErrorResult(code, message) {
       openAddElementListView: openAddElementListView,
       closeAddElementListView: closeAddElementListView,
       createAddElementGroups: createAddElementGroups,
+      hideMenu: hideMenu,
       downloadAddElementsData: downloadAddElementsData
     };
 
@@ -9179,7 +9211,6 @@ function ErrorResult(code, message) {
         }
         //------- set previos Page
         GeneralServ.setPreviosPage();
-        console.log(ProductStor.product, 'ProductStor.product')
         $location.path('/main');
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }

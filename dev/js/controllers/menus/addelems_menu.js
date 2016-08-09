@@ -57,39 +57,6 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    function hideMenu(elementId) {
-      if (AuxStor.aux.truefalse === 1) {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100 + '%',
-                    'height' : 7 + '%'
-                     })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'visible'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'hidden'
-                     })
-        AuxStor.aux.truefalse = 0;
-      } else {
-        $('#'+AuxStor.aux.trfal+'prod').css({
-            'color' : '#363636'
-             }),
-        $('#'+elementId).css({
-                    'width' : 100+'%',
-                    'height' : 'auto'
-                  })
-      $('#'+elementId + 'open').css({
-                    'visibility' : 'hidden'
-                     })
-      $('#'+elementId + 'close').css({
-                    'visibility' : 'visible'
-                     })
-        AuxStor.aux.truefalse = 1;
-      }
-    }
 
     /**----------- Select Add Element when open List View ------------*/
 
@@ -133,7 +100,6 @@
       //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
-    thisCtrl.hideMenu = hideMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
@@ -144,6 +110,7 @@
     thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.hideMenu = AddElementsServ.hideMenu;
 
 
   });

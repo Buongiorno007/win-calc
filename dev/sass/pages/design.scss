@@ -14,7 +14,7 @@ $door-config-content: $ipad-height - $door-config-header;
 }
 
 .construction-label {
-  @include roboto-bd(rem(24px), rem(24px));
+  @include roboto-bd(rem(22px), rem(24px));
 
   margin-top: rem(20px);
   text-transform: uppercase;
@@ -165,7 +165,9 @@ $door-config-content: $ipad-height - $door-config-header;
 #position-menu {
   top: 58rem;
 }
-
+#position-menu-for-position {
+  top: 58rem;
+}
 .constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   position: relative;
@@ -181,6 +183,18 @@ $door-config-content: $ipad-height - $door-config-header;
 
 }
 
+.constr-shape-position {
+  /* font: normal 2.125rem/2.5rem icons, sans-serif; */
+  position: relative;
+  /* padding: 0 0.7rem; */
+  border-right: 1px solid #bebebe;
+  text-align: center;
+  color: #ddd;
+  background-color: #242424;
+  z-index: 5;
+  width: 11rem;
+  text-transform: lowercase;
+}
 
 .drop-shape-icon {
   @include transition(top 0.3s linear);
@@ -392,7 +406,6 @@ $door-config-content: $ipad-height - $door-config-header;
 .position-glass:after {
   content: $position-glass;
 }
-
 // Construction SVG
 
 .construction-block {
