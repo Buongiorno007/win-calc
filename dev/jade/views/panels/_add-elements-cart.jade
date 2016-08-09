@@ -10,7 +10,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
   .alladdelements-block
 
     .aux-list-block(ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index", ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'")
-      .aux-block-inner(ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length")
+      .aux-block-inner(ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length && elemType.mainTypeMenu === 55")
         .aux-list-block-title {{ elemCartPanel.config.addElementDATA[$index].name | translate }}
 
         table.aux-list-addellement
