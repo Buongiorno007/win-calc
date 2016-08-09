@@ -227,7 +227,7 @@
     "ANGEL_SHAPE": "colțuri",
     "IMPOST_SHAPE": "imposte",
     "ARCH_SHAPE": "arce",
-    "POSITION_SHAPE": "poziție",
+    "POSITION_SHAPE": "allineare",
     "UNITS_DESCRIP": "Ca unitate de măsură sunt folosiți milimetrii",
     "PROJECT_DEFAULT": "Proiect implicit",
     "DOOR_CONFIG_LABEL": "configurația ușii",

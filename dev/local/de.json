@@ -228,7 +228,7 @@
     "ANGEL_SHAPE": "Winkel",
     "IMPOST_SHAPE": "Abgaben",
     "ARCH_SHAPE": "Gewölbe",
-    "POSITION_SHAPE": "Position",
+    "POSITION_SHAPE": "Ausrichten",
     "UNITS_DESCRIP": "Da die Einheiten in mm",
     "PROJECT_DEFAULT": "Standardprojekt",
     "DOOR_CONFIG_LABEL": "Anordnung der Türen",

@@ -229,7 +229,7 @@
     "ANGEL_SHAPE": "corners",
     "IMPOST_SHAPE": "imposts",
     "ARCH_SHAPE": "arches",
-    "POSITION_SHAPE": "position",
+    "POSITION_SHAPE": "align",
     "UNITS_DESCRIP": "All Units are in mm",
     "PROJECT_DEFAULT": "Default project",
     "DOOR_CONFIG_LABEL": "configuration of doors",

@@ -229,7 +229,7 @@
     "ANGEL_SHAPE": "углы",
     "IMPOST_SHAPE": "импосты",
     "ARCH_SHAPE": "арки",
-    "POSITION_SHAPE": "позиция",
+    "POSITION_SHAPE": "выровнять",
     "UNITS_DESCRIP": "В качестве единиц измерения используются миллиметры",
     "PROJECT_DEFAULT": "Проект по умолчанию",
     "DOOR_CONFIG_LABEL": "конфигурация двери",

@@ -228,7 +228,7 @@
     "ANGEL_SHAPE": "angoli",
     "IMPOST_SHAPE": "imposte",
     "ARCH_SHAPE": "archi",
-    "POSITION_SHAPE": "posizione",
+    "POSITION_SHAPE": "allineare",
     "UNITS_DESCRIP": "come unità di musura sono usati millimetri",
     "PROJECT_DEFAULT": "progetto per difetto",
     "DOOR_CONFIG_LABEL": "configurazione delal porta",
