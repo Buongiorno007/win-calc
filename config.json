@@ -72,10 +72,10 @@
   },
 
   "server": {
-    "host": "okoshko.ua",
+    "host": "windowscalculator.net",
     "port": "",
-    "user": "voiceapp",
-    "pass": "Je6HDVaSQcaxaRo",
+    "user": "windowscalculator_netfpm",
+    "pass": "tyKlB@E0",
     "remotePath": "/web/calculator"
   },
   "serverSteko": {

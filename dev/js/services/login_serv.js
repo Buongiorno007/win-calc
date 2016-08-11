@@ -1294,8 +1294,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ).then(function(items) {
           for(var x=0; x<items.length; x+=1) {
             for(var y=0; y<doorData.length; y+=1) {
-              if(items[x].id === doorData[y].rama_list_id) {
+              if(items[x].id === doorData[y].stvorka_list_id) {
                 doorData[y].list_id = items[x].parent_element_id;
+                doorData[y].list_type_id = items[x].list_type_id;
               }
             }
           } 

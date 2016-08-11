@@ -254,9 +254,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
     }
 
-
- 
-
     /**============ METHODS ================*/
 
 
@@ -350,6 +347,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.pressEnterInDisc = pressEnterInDisc;
   });
 })();
+
 
 
 // controllers/change_lang.js
@@ -2366,6 +2364,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 //event.srcEvent.stopPropagation();
 //event.preventDefault();
 //$event.stopImmediatePropagation();
+
 
 
 // controllers/menus/addelems_menu.js
@@ -6461,7 +6460,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               }
 
               /** lamination */
-              if(ProductStor.product.lamination.img_in_id > 1) {
+              if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !==6) {
                 defs.append('pattern')
                   .attr('id', 'laminat')
                   .attr('patternUnits', 'userSpaceOnUse')
@@ -6481,6 +6480,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
                   .attr('width', 150)
                   .attr('height', 100);
+              } else if(ProductStor.product.doorLock.stvorka_type === 6) {
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_out_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+
+                defs.append('pattern')
+                  .attr('id', 'laminat1')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 150)
+                  .attr('height', 100)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_out_id+".jpg")
+                  .attr('width', 150)
+                  .attr('height', 100);
               }
                 defs.append('pattern')
                 .attr('id', 'background')
@@ -6491,17 +6510,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2202.92*GlobalStor.global.background)
                 .attr('height', 1661.3*GlobalStor.global.background);
-
-                // defs.append('pattern')
-                // .attr('id', 'backgroundBrown')
-                // .attr('patternUnits', 'userSpaceOnUse')
-                // .attr('width', 2202.92*GlobalStor.global.background)
-                // .attr('height', 1661.3*GlobalStor.global.background)
-                // .append("image")
-                // .attr("xlink:href", "img/room/321.png")
-                // .attr('width', 2202.92*GlobalStor.global.background)
-                // .attr('height', 1661.3*GlobalStor.global.background);
-
             }
 
           /** soffits */
@@ -6638,12 +6646,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                           }
                         }   
                       } else {
-                        if(ProductStor.product.lamination.img_in_id > 1) {
-                            if ((d.type === 'frame') || (d.type === 'impost')) {
+                        if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock !==6) {
+                          if ((d.type === 'frame') || (d.type === 'impost')) {
                             fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
-                            } else {
+                          } else {
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
-                              }
+                            }
+                        } else if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
+                          if ((d.type === 'frame') || (d.type === 'impost')) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                          } else {
+                              fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                            }
                         } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                           fillName = '#DCDCDC';
                         } else {
@@ -6794,6 +6808,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // directives/typing.js
@@ -10289,6 +10304,7 @@ function ErrorResult(code, message) {
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
       product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      product.doorLock.stvorka_type = source.sashShapeList[product.door_sash_shape_id].list_type_id;
       $q.all([
         MainServ.downloadProfileDepth(product.profile.rama_list_id),
         MainServ.downloadProfileDepth(product.profile.rama_still_list_id),
@@ -10324,13 +10340,11 @@ function ErrorResult(code, message) {
 
     /** for start */
     function setDoorConfigDefault(product) {
-      console.log(product.template, product.templateIcon, '<><><><><')
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.designSource.doorShapeList.length = 0;
-
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
@@ -12340,6 +12354,7 @@ function ErrorResult(code, message) {
           }
         } , 50);
       } else {
+        ProductStor.product.doorLock = {};
         designSaved()
       }
     }
@@ -18456,8 +18471,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ).then(function(items) {
           for(var x=0; x<items.length; x+=1) {
             for(var y=0; y<doorData.length; y+=1) {
-              if(items[x].id === doorData[y].rama_list_id) {
+              if(items[x].id === doorData[y].stvorka_list_id) {
                 doorData[y].list_id = items[x].parent_element_id;
+                doorData[y].list_type_id = items[x].list_type_id;
               }
             }
           } 
@@ -18637,6 +18653,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
   });
 })();
+
 
 
 // services/main_serv.js
@@ -21551,11 +21568,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               x:700,
               y:2100,
               dir:"line",
+              sill:1,
               view:1},{type:"frame",
               id:"fp4",
               x:0,
               y:2100,
               dir:"line",
+              sill:1,
               view:1}],
               pointsIn:[],
               pointsLight:[],
@@ -21634,11 +21653,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               x:700,
               y:2100,
               dir:"line",
+              sill:1,
               view:1},{type:"frame",
               id:"fp4",
               x:0,
               y:2100,
               dir:"line",
+              sill:1,
               view:1}],
               pointsIn:[],
               pointsLight:[],
@@ -21716,6 +21737,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               id:"fp3",
               x:1300,
               y:2100,
+              sill:1,
               dir:"line",
               view:1},{type:"frame",
               id:"fp4",
@@ -21733,6 +21755,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               id:"sht2",
               x:650,
               y:0,
+              sill:1,
               dir:"line",
               dimType:0},{type:"shtulp",
               id:"sht2",
@@ -24838,7 +24861,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
-      //AH928206
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -25013,7 +25035,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill || part.doorstep === 1) {
+          if(part.sill || part.doorstep === 1) {          
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
@@ -26526,6 +26548,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       
       if(ProductStor.product.construction_type === 4) {
         DesignServ.setDoorConfigDefault(ProductStor.product);
+      } else {
+        ProductStor.product.doorLock = {};
       }
       function goToNewTemplate() {
         //------ change last changed template to old one

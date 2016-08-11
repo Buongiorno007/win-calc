@@ -141,6 +141,8 @@
       
       if(ProductStor.product.construction_type === 4) {
         DesignServ.setDoorConfigDefault(ProductStor.product);
+      } else {
+        ProductStor.product.doorLock = {};
       }
       function goToNewTemplate() {
         //------ change last changed template to old one

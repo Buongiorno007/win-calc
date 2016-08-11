@@ -105,9 +105,6 @@
       CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
     }
 
-
- 
-
     /**============ METHODS ================*/
 
 

@@ -516,7 +516,7 @@
               }
 
               /** lamination */
-              if(ProductStor.product.lamination.img_in_id > 1) {
+              if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !==6) {
                 defs.append('pattern')
                   .attr('id', 'laminat')
                   .attr('patternUnits', 'userSpaceOnUse')
@@ -536,6 +536,26 @@
                   .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_in_id+".jpg")
                   .attr('width', 150)
                   .attr('height', 100);
+              } else if(ProductStor.product.doorLock.stvorka_type === 6) {
+                defs.append('pattern')
+                  .attr('id', 'laminat')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 600)
+                  .attr('height', 400)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_out_id+".jpg")
+                  .attr('width', 600)
+                  .attr('height', 400);
+
+                defs.append('pattern')
+                  .attr('id', 'laminat1')
+                  .attr('patternUnits', 'userSpaceOnUse')
+                  .attr('width', 150)
+                  .attr('height', 100)
+                  .append("image")
+                  .attr("xlink:href", "img/lamination/"+ProductStor.product.lamination.img_out_id+".jpg")
+                  .attr('width', 150)
+                  .attr('height', 100);
               }
                 defs.append('pattern')
                 .attr('id', 'background')
@@ -546,17 +566,6 @@
                 .attr("xlink:href", "img/room/"+ GlobalStor.global.imgLink)
                 .attr('width', 2202.92*GlobalStor.global.background)
                 .attr('height', 1661.3*GlobalStor.global.background);
-
-                // defs.append('pattern')
-                // .attr('id', 'backgroundBrown')
-                // .attr('patternUnits', 'userSpaceOnUse')
-                // .attr('width', 2202.92*GlobalStor.global.background)
-                // .attr('height', 1661.3*GlobalStor.global.background)
-                // .append("image")
-                // .attr("xlink:href", "img/room/321.png")
-                // .attr('width', 2202.92*GlobalStor.global.background)
-                // .attr('height', 1661.3*GlobalStor.global.background);
-
             }
 
           /** soffits */
@@ -693,12 +702,18 @@
                           }
                         }   
                       } else {
-                        if(ProductStor.product.lamination.img_in_id > 1) {
-                            if ((d.type === 'frame') || (d.type === 'impost')) {
+                        if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock !==6) {
+                          if ((d.type === 'frame') || (d.type === 'impost')) {
                             fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
-                            } else {
+                          } else {
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
-                              }
+                            }
+                        } else if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
+                          if ((d.type === 'frame') || (d.type === 'impost')) {
+                            fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
+                          } else {
+                              fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
+                            }
                         } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                           fillName = '#DCDCDC';
                         } else {

@@ -1315,7 +1315,6 @@
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
-      //AH928206
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1490,7 +1489,7 @@
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill || part.doorstep === 1) {
+          if(part.sill || part.doorstep === 1) {          
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);

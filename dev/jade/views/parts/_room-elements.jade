@@ -1,4 +1,4 @@
-.coeff-RoomContainer(ng-show="mainPage.G.global.isRoomElements>0")
+.coeff-RoomContainer(ng-show="mainPage.G.global.isRoomElements>0 && mainPage.P.product.doorLock.stvorka_type !== 6")
   .blockCheck {{mainPage.G.global.getPCPower}}
   .elem1
     img(ng-src='img/room/1.png')

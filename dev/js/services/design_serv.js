@@ -832,6 +832,7 @@
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
       product.profile.shtulp_list_id = source.sashShapeList[product.door_sash_shape_id].shtulp_list_id;
+      product.doorLock.stvorka_type = source.sashShapeList[product.door_sash_shape_id].list_type_id;
       $q.all([
         MainServ.downloadProfileDepth(product.profile.rama_list_id),
         MainServ.downloadProfileDepth(product.profile.rama_still_list_id),
@@ -867,13 +868,11 @@
 
     /** for start */
     function setDoorConfigDefault(product) {
-      console.log(product.template, product.templateIcon, '<><><><><')
       var doorTypeQty = DesignStor.designSource.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.designSource.doorShapeList.length = 0;
-
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && ProductStor.product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
@@ -2883,6 +2882,7 @@
           }
         } , 50);
       } else {
+        ProductStor.product.doorLock = {};
         designSaved()
       }
     }
