@@ -441,7 +441,6 @@
 
 
 
-
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
       //console.info('depth++++', group, line.type);

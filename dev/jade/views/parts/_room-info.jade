@@ -11,6 +11,6 @@
       .coeff-title(data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
       button.select-rooms.unvisible(ng-hide="roomInfo.P.product.is_addelem_only", show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", fs-click="roomInfo.showRoomSelectorDialog()") {{ ::roomInfo.ROOM_SELECTION }}
-    .comment-btn(fs-click="roomInfo.switchComment()")
-  .product-comment
-    textarea.comment-field.noPreventDefault(ng-model="roomInfo.P.product.comment", placeholder="{{ ::roomInfo.COMMENT }}")
+  //-   .comment-btn(fs-click="roomInfo.switchComment()")
+  //- .product-comment
+  //-   textarea.comment-field.noPreventDefault(ng-model="roomInfo.P.product.comment", placeholder="{{ ::roomInfo.COMMENT }}")

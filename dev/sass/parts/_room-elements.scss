@@ -1,34 +1,36 @@
   .coeff-RoomContainer {
-	position: absolute;
-	top: 0rem;
-	left: -4px;
-	height: 83%;
-	width: 143%;  
+		position: absolute;
+		top: 0rem;
+		left: -4px;
+		height: 83%;
+		width: 143%;  
 	}
-  	.elem1 {
-  		position: absolute;
-  		z-index: -20;
+	.elem1 {
+		position: absolute;
+		z-index: -20;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; } 
-		}
+			width: 100%; 
+		} 
+	}
 	.elem2 {
-  		position: absolute;
-  		z-index: -19;
+		position: absolute;
+		z-index: -19;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
 		min-width: 100%;
 		img {
 			height: 100%;
-			width: 100%; } 
-		}
+			width: 100%; 
+		} 
+	}
 	.elem3 {
-  		position: absolute;
+		position: absolute;
 		z-index: -18;
 		top: 0rem;
 		left: 0rem;
@@ -36,20 +38,22 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }
+			width: 100%; 
 		}
+	}
 	.elem5 {
-  		position: absolute;
+		position: absolute;
 		z-index: -16;
 		top: 456px;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
 			height: 32%;
-			width: 32%; }  
-		}
+			width: 32%; 
+		}  
+	}
 	.elem6 {
-  		position: absolute;
+		position: absolute;
 		z-index: -15;
 		top: 0rem;
 		left: 0rem;
@@ -57,10 +61,11 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }  
-		}
+			width: 100%; 
+		}  
+	}
 	.elem7 {
-  		position: absolute;
+		position: absolute;
 		z-index: -14;
 		top: 0rem;
 		left: 0rem;
@@ -68,20 +73,22 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }  
-		}
+			width: 100%; 
+		}  
+	}
 	.elem8 {
-  		position: absolute;
+		position: absolute;
 		z-index: -13;
 		top: 653px;
 		max-height: 90%;
 		min-width: 90%; 
 		img {
 			height: 90%;
-			width: 90%; }  
-		}
+			width: 90%; 
+		}  
+	}
 	.elem9 {
-  		position: absolute;
+		position: absolute;
 		z-index: -12;
 		top: 0rem;
 		left: 0rem;
@@ -89,10 +96,11 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }  
-		}
+			width: 100%; 
+		}  
+	}
 	.elem10 {
-  		position: absolute;
+		position: absolute;
 		z-index: -11;
 		top: 582px;
 		left: 267px;
@@ -100,22 +108,24 @@
 		min-width: 11%; 
 		img {
 			height: 11%;
-			width: 11%; }  
-		}
+			width: 11%; 
+		}  
+	}
 
 	.elem11 {
-  		position: absolute;
+		position: absolute;
 		z-index: -10;
 		top: 572px;
 		max-height: 12%;
 		min-width: 12%; 
 		img {
 			height: 11.5%;
-			width: 11.5%; }  
-		}
+			width: 11.5%; 
+		}  
+	}
 
 	.elem13 {
-  		position: absolute;
+		position: absolute;
 		z-index: -8;
 		top: -5.5rem;
 		left: 0rem;
@@ -123,10 +133,11 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }  
-		}
+			width: 100%; 
+		}  
+	}
 	.elem14 {
-  		position: absolute;
+		position: absolute;
 		z-index: -7;
 		top: -5.5rem;
 		left: 0rem;
@@ -134,8 +145,9 @@
 		min-width: 100%; 
 		img {
 			height: 100%;
-			width: 100%; }  
-		}
+			width: 100%; 
+		}  
+	}
 
 	.elem15 {
 	  background: #FFFFFF;
@@ -151,7 +163,7 @@
 	}
 
 	.elem16 {
-  		position: absolute;
+		position: absolute;
 		z-index: -5;
 		top: 337px;
 		opacity: 0.7;
@@ -164,7 +176,7 @@
 	}
 
 	.elem17 {
-  		position: absolute;
+		position: absolute;
 		z-index: 1;
 		img {
 			height: 57%;
@@ -173,7 +185,7 @@
 	}
 	
 	.elem18 {
-  		position: absolute;
+		position: absolute;
 		z-index: 4;
 		opasity: 1;
 		@extend .firstLight;
@@ -184,7 +196,7 @@
 	}
 
 	.elem19 {
-  		position: absolute;
+		position: absolute;
 		z-index: 2;
 		opacity: 1;
 		@extend .secondLight;
@@ -195,7 +207,7 @@
 	}
 
 	.elem20 {
-  		position: absolute;
+		position: absolute;
 		z-index: 3;
 		opacity: 1;
 		@extend .thirdLight;
@@ -206,7 +218,7 @@
 	}
 
 	.elem21 {
-  		position: absolute;
+		position: absolute;
 		z-index: 4;
 		opacity: 1;
 		img {
@@ -215,8 +227,8 @@
 		}  
 	}	
 
-  	.elem23 {
-  		position: absolute;
+	.elem23 {
+		position: absolute;
 		z-index: -7;
 		top: 0px;
 		opacity: 0.5;
@@ -225,104 +237,159 @@
 			width: 95%; 
 		}  
 	}
-  	.elem24 {
+	.elem24 {
 		position: absolute;
-	    z-index: 1;
-	    left: 25rem;
-	    top: 12rem;
-	    height: 280px;
+    z-index: 1;
+    left: 25rem;
+    top: 12rem;
+    height: 280px;
 		img {
-		    height: 100%;
+	    height: 100%;
 			width: 100%; 
 		}  
 	}
-  	.elem25 {
-  		position: absolute;
+	.elem25 {
+		position: absolute;
 		z-index: 1;
 		top: 0px;
 		left: 65rem;
 		height: 257px;
 		width: 550px;
 		img {
-		    height: 100%;
-		    width: 100%;
-
-		}  
-	}
-  	.elem26 {
-	    position: absolute;
-	    z-index: 2;
-	    top: 5rem;
 	    height: 100%;
 	    width: 100%;
-	    top: 14rem;
+		}  
+	}
+	.elem26 {
+    position: absolute;
+    z-index: 2;
+    top: 5rem;
+    height: 100%;
+    width: 100%;
+    top: 14rem;
 		img {
 			height: 104%;
 			width: 104%; 
 		}  
 	}
-  	.elem31 {
-  		position: absolute;
-  		z-index: -20;
+	.elem31 {
+		position: absolute;
+		z-index: -20;
 		top: 0rem;
 		left: 0rem;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
 			height: 93%;
-			width: 93%; } 
-		}
-  	.elem32 {
-  		position: absolute;
-	    top: 17rem;
-	    left: 67rem;
+			width: 93%; 
+		} 
+	}
+	.elem32 {
+		position: absolute;
+    top: 17rem;
+    left: 67rem;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
 			height: 42%;
-			width: 42%; } 
-		}
-  	.elem33 {
-  		position: absolute;
-	    top: 17rem;
-	    left: 67rem;
+			width: 42%; 
+		} 
+	}
+	.elem33 {
+		position: absolute;
+    left: 27.3rem;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
-		    height: 5.5%;
-   			width: 5.5%; } 
-		}
-  	.elem34 {
-  		position: absolute;
-	    top: 17rem;
-	    left: 67rem;
+			height: 10.2%;
+	    width: 10.2%; 
+    } 
+	}
+	.elem34 {
+		position: absolute;
+    top: 17rem;
+    left: 67rem;
 		max-height: 100%;
 		min-width: 100%; 
 		img {
-		    height: 5.5%;
-    		width: 5.5%; } 
-		}
-  	.elem35 {
-	    position: absolute;
-	    top: 77.4rem;
-	    left: 57rem;
-	    max-height: 100%;
-	    min-width: 100%;
+			height: 10.2%;
+	    width: 10.2%;
+    } 
+	}
+	.elem35 {
+    position: absolute;
+    top: 75rem;
+    left: 57rem;
+    max-height: 100%;
+    min-width: 100%;
 		img {
-		    height: 5.5%;
-	    	width: 5.5%; } 
+			height: 7.9%;
+	    width: 7.9%; 
+	    } 
 		}
-  	.elem36 {
-			position: absolute;
-	    top: 77.4rem;
-	    left: 26.5rem;
-	    max-height: 100%;
-	    min-width: 100%;
+	.elem36 {
+		position: absolute;
+    top: 75.4rem;
+    left: 27.3rem;
+    max-height: 100%;
+    min-width: 100%;
 		img {
-		    height: 5.5%;
-		    width: 5.5%; } 
-		}
+			height: 15%;
+	    width: 15%; 
+    } 
+	}
+	.elem37 {
+    position: absolute;
+    left: 0rem;
+    height: 121%;
+    width: 100%;
+    background-color: #6b6b6d;
+    transform: rotate(-15deg);
+    opacity: 0.1;
+	}
 
+	.elem38 {
+    position: absolute;
+    top: 23.6rem;
+    left: 41.3rem;
+		height: 8%;
+    width: 7%;
+		img {
+		height: 100%;
+    width: 100%;
+    background-image: url('../img/room/top.png');
+    background-repeat: repeat-x;
+    background-size: contain; 
+    } 
+	}
+	.elem39 {
+    position: absolute;
+    top: 58.6rem;
+    left: 58.6rem;
+    height: 21%;
+    width: 3.75%;
+		img {
+		height: 100%;
+    width: 100%;
+    background-image: url('../img/room/right.png');
+    background-repeat: repeat-y;
+    background-size: contain; 
+    } 
+	}
+	.elem40 {
+		position: absolute;
+    top: 58.6rem;
+    left: 27.3rem;
+    height: 21%;
+    width: 4.2%;
+		img {
+		height: 100%;
+    width: 100%;
+    background-image: url('../img/room/left.png');
+    background-repeat: repeat-y;
+    background-size: contain; 
+    } 
+	}
 	.blockCheck {
 	    height: 6%;
 	    left: 19rem;

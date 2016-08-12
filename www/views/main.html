@@ -80,8 +80,12 @@
         <div class="elem32"><img ng-src="img/room/32.png"></div>
         <div class="elem33"><img ng-src="img/room/11a.png"></div>
         <div class="elem34"><img ng-src="img/room/12a.png"></div>
-        <div class="elem35"><img ng-src="img/room/13a.png"></div>
-        <div class="elem36"><img ng-src="img/room/14a.png"></div>
+        <div class="elem35"><img ng-src="img/room/14a.png"></div>
+        <div class="elem36"><img ng-src="img/room/13a.png"></div>
+        <div class="elem37"></div>
+        <div class="elem38"><img></div>
+        <div class="elem39"><img></div>
+        <div class="elem40"><img></div>
       </div>
       <div fs-click="mainPage.goToEditTemplate()" class="main-svg-click"></div>
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
@@ -137,10 +141,6 @@
           <div class="coeff-block">
             <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" fs-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
           </div>
-          <div fs-click="roomInfo.switchComment()" class="comment-btn"></div>
-        </div>
-        <div class="product-comment">
-          <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ ::roomInfo.COMMENT }}" class="comment-field noPreventDefault"></textarea>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">

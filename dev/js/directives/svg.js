@@ -275,6 +275,8 @@
             if (ProductStor.product.construction_type === 1 || ProductStor.product.construction_type === 3) {
                GlobalStor.global.imgLink = "44.png";              
 
+            } else if (ProductStor.product.doorLock.stvorka_type === 6) {
+              GlobalStor.global.imgLink = "31.jpg";      
             } else {
                GlobalStor.global.imgLink = "3333.png";
             }
@@ -402,10 +404,27 @@
                   'left' : (430+(0.48*((widthT/2)-700*0.32))) + 'px' 
                 });
                 $('.elem34').css({ 
-                  'left' : (0.23*widthT+254) + 'px',
-                  'top': (heightT-2000) + 'px',
+                  'left' : (0.23*widthT+190) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
-                $('.elem35').css('left' , (0.23*widthT+250) + 'px');
+                $('.elem38').css({ 
+                  'width' : (0.23*widthT-135) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
+                });
+                $('.elem39').css({ 
+                  'left' : (0.23*widthT+261.06) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 468 + 'px',
+                  'height' : 0.23*(heightT-2000) + 134 + 'px',
+                });
+                $('.elem40').css({ 
+                  'top': 0.23*((heightT-2000)*(-1))+ 470 + 'px',
+                  'height' : 0.23*(heightT-2000) + 140 + 'px',
+                });
+
+                $('.elem33').css({ 
+                  'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
+                });
+                $('.elem35').css('left' , (0.23*widthT+216) + 'px');
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.elem8').css('left' , (0.23*widthT+275) + 'px');
@@ -488,6 +507,24 @@
                     "6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z",
                 pathHinge = "M0,0L5,0L5,15L0,15z";
               /** dimension */
+              if(ProductStor.product.doorLock.stvorka_type !==6) {
+                              /** hinge */
+                setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+                              /** handle */
+                setMarker(defs, 'handleR', '0 -1 9 32', -5, 5, 0, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleL', '0 -1 9 32', 14, 5, 0, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
+              } else { 
+                              /** handle */
+                setMarker(defs, 'handleR', '0 -1 9 32', -5, 15, 90, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleL', '0 -1 9 32', 14, 15, 270, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
+                setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
+              }
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
               setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -497,19 +534,9 @@
 
               setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
-              /** handle */
-              setMarker(defs, 'handleR', '0 -1 9 32', -5, 5, 0, 29, 80, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleL', '0 -1 9 32', 14, 5, 0, 29, 80, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
-              setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
-
-              /** hinge */
-              setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
-              setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
 
                /** Points */
+              
               var noVvPath = pnt.noVvPath,
                   widthT = pnt.widthT,
                   heightT = pnt.heightT;

@@ -4649,7 +4649,7 @@ div.drum figure {
   width: 100%;
 }
 
-/* line 19, ../../dev/sass/parts/_room-elements.scss */
+/* line 20, ../../dev/sass/parts/_room-elements.scss */
 .elem2 {
   position: absolute;
   z-index: -19;
@@ -4658,13 +4658,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 26, ../../dev/sass/parts/_room-elements.scss */
+/* line 27, ../../dev/sass/parts/_room-elements.scss */
 .elem2 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 30, ../../dev/sass/parts/_room-elements.scss */
+/* line 32, ../../dev/sass/parts/_room-elements.scss */
 .elem3 {
   position: absolute;
   z-index: -18;
@@ -4673,13 +4673,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 37, ../../dev/sass/parts/_room-elements.scss */
+/* line 39, ../../dev/sass/parts/_room-elements.scss */
 .elem3 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 41, ../../dev/sass/parts/_room-elements.scss */
+/* line 44, ../../dev/sass/parts/_room-elements.scss */
 .elem5 {
   position: absolute;
   z-index: -16;
@@ -4687,13 +4687,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 47, ../../dev/sass/parts/_room-elements.scss */
+/* line 50, ../../dev/sass/parts/_room-elements.scss */
 .elem5 img {
   height: 32%;
   width: 32%;
 }
 
-/* line 51, ../../dev/sass/parts/_room-elements.scss */
+/* line 55, ../../dev/sass/parts/_room-elements.scss */
 .elem6 {
   position: absolute;
   z-index: -15;
@@ -4702,13 +4702,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 58, ../../dev/sass/parts/_room-elements.scss */
+/* line 62, ../../dev/sass/parts/_room-elements.scss */
 .elem6 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 62, ../../dev/sass/parts/_room-elements.scss */
+/* line 67, ../../dev/sass/parts/_room-elements.scss */
 .elem7 {
   position: absolute;
   z-index: -14;
@@ -4717,13 +4717,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 69, ../../dev/sass/parts/_room-elements.scss */
+/* line 74, ../../dev/sass/parts/_room-elements.scss */
 .elem7 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 73, ../../dev/sass/parts/_room-elements.scss */
+/* line 79, ../../dev/sass/parts/_room-elements.scss */
 .elem8 {
   position: absolute;
   z-index: -13;
@@ -4731,13 +4731,13 @@ div.drum figure {
   max-height: 90%;
   min-width: 90%;
 }
-/* line 79, ../../dev/sass/parts/_room-elements.scss */
+/* line 85, ../../dev/sass/parts/_room-elements.scss */
 .elem8 img {
   height: 90%;
   width: 90%;
 }
 
-/* line 83, ../../dev/sass/parts/_room-elements.scss */
+/* line 90, ../../dev/sass/parts/_room-elements.scss */
 .elem9 {
   position: absolute;
   z-index: -12;
@@ -4746,13 +4746,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 90, ../../dev/sass/parts/_room-elements.scss */
+/* line 97, ../../dev/sass/parts/_room-elements.scss */
 .elem9 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 94, ../../dev/sass/parts/_room-elements.scss */
+/* line 102, ../../dev/sass/parts/_room-elements.scss */
 .elem10 {
   position: absolute;
   z-index: -11;
@@ -4761,13 +4761,13 @@ div.drum figure {
   max-height: 11%;
   min-width: 11%;
 }
-/* line 101, ../../dev/sass/parts/_room-elements.scss */
+/* line 109, ../../dev/sass/parts/_room-elements.scss */
 .elem10 img {
   height: 11%;
   width: 11%;
 }
 
-/* line 106, ../../dev/sass/parts/_room-elements.scss */
+/* line 115, ../../dev/sass/parts/_room-elements.scss */
 .elem11 {
   position: absolute;
   z-index: -10;
@@ -4775,13 +4775,13 @@ div.drum figure {
   max-height: 12%;
   min-width: 12%;
 }
-/* line 112, ../../dev/sass/parts/_room-elements.scss */
+/* line 121, ../../dev/sass/parts/_room-elements.scss */
 .elem11 img {
   height: 11.5%;
   width: 11.5%;
 }
 
-/* line 117, ../../dev/sass/parts/_room-elements.scss */
+/* line 127, ../../dev/sass/parts/_room-elements.scss */
 .elem13 {
   position: absolute;
   z-index: -8;
@@ -4790,13 +4790,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 124, ../../dev/sass/parts/_room-elements.scss */
+/* line 134, ../../dev/sass/parts/_room-elements.scss */
 .elem13 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 128, ../../dev/sass/parts/_room-elements.scss */
+/* line 139, ../../dev/sass/parts/_room-elements.scss */
 .elem14 {
   position: absolute;
   z-index: -7;
@@ -4805,13 +4805,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 135, ../../dev/sass/parts/_room-elements.scss */
+/* line 146, ../../dev/sass/parts/_room-elements.scss */
 .elem14 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 140, ../../dev/sass/parts/_room-elements.scss */
+/* line 152, ../../dev/sass/parts/_room-elements.scss */
 .elem15 {
   background: #FFFFFF;
   -webkit-transform: skewX(130deg);
@@ -4825,7 +4825,7 @@ div.drum figure {
   opacity: .3;
 }
 
-/* line 153, ../../dev/sass/parts/_room-elements.scss */
+/* line 165, ../../dev/sass/parts/_room-elements.scss */
 .elem16 {
   position: absolute;
   z-index: -5;
@@ -4834,85 +4834,85 @@ div.drum figure {
   max-height: 45%;
   min-width: 45%;
 }
-/* line 160, ../../dev/sass/parts/_room-elements.scss */
+/* line 172, ../../dev/sass/parts/_room-elements.scss */
 .elem16 img {
   height: 30%;
   width: 30%;
 }
 
-/* line 166, ../../dev/sass/parts/_room-elements.scss */
+/* line 178, ../../dev/sass/parts/_room-elements.scss */
 .elem17 {
   position: absolute;
   z-index: 1;
 }
-/* line 169, ../../dev/sass/parts/_room-elements.scss */
+/* line 181, ../../dev/sass/parts/_room-elements.scss */
 .elem17 img {
   height: 57%;
   width: 57%;
 }
 
-/* line 175, ../../dev/sass/parts/_room-elements.scss */
+/* line 187, ../../dev/sass/parts/_room-elements.scss */
 .elem18 {
   position: absolute;
   z-index: 4;
   opasity: 1;
 }
-/* line 180, ../../dev/sass/parts/_room-elements.scss */
+/* line 192, ../../dev/sass/parts/_room-elements.scss */
 .elem18 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 186, ../../dev/sass/parts/_room-elements.scss */
+/* line 198, ../../dev/sass/parts/_room-elements.scss */
 .elem19 {
   position: absolute;
   z-index: 2;
   opacity: 1;
 }
-/* line 191, ../../dev/sass/parts/_room-elements.scss */
+/* line 203, ../../dev/sass/parts/_room-elements.scss */
 .elem19 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 197, ../../dev/sass/parts/_room-elements.scss */
+/* line 209, ../../dev/sass/parts/_room-elements.scss */
 .elem20 {
   position: absolute;
   z-index: 3;
   opacity: 1;
 }
-/* line 202, ../../dev/sass/parts/_room-elements.scss */
+/* line 214, ../../dev/sass/parts/_room-elements.scss */
 .elem20 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 208, ../../dev/sass/parts/_room-elements.scss */
+/* line 220, ../../dev/sass/parts/_room-elements.scss */
 .elem21 {
   position: absolute;
   z-index: 4;
   opacity: 1;
 }
-/* line 212, ../../dev/sass/parts/_room-elements.scss */
+/* line 224, ../../dev/sass/parts/_room-elements.scss */
 .elem21 img {
   height: 122%;
   width: 105%;
 }
 
-/* line 218, ../../dev/sass/parts/_room-elements.scss */
+/* line 230, ../../dev/sass/parts/_room-elements.scss */
 .elem23 {
   position: absolute;
   z-index: -7;
   top: 0px;
   opacity: 0.5;
 }
-/* line 223, ../../dev/sass/parts/_room-elements.scss */
+/* line 235, ../../dev/sass/parts/_room-elements.scss */
 .elem23 img {
   height: 95%;
   width: 95%;
 }
 
-/* line 228, ../../dev/sass/parts/_room-elements.scss */
+/* line 240, ../../dev/sass/parts/_room-elements.scss */
 .elem24 {
   position: absolute;
   z-index: 1;
@@ -4920,13 +4920,13 @@ div.drum figure {
   top: 12rem;
   height: 280px;
 }
-/* line 234, ../../dev/sass/parts/_room-elements.scss */
+/* line 246, ../../dev/sass/parts/_room-elements.scss */
 .elem24 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 239, ../../dev/sass/parts/_room-elements.scss */
+/* line 251, ../../dev/sass/parts/_room-elements.scss */
 .elem25 {
   position: absolute;
   z-index: 1;
@@ -4935,13 +4935,13 @@ div.drum figure {
   height: 257px;
   width: 550px;
 }
-/* line 246, ../../dev/sass/parts/_room-elements.scss */
+/* line 258, ../../dev/sass/parts/_room-elements.scss */
 .elem25 img {
   height: 100%;
   width: 100%;
 }
 
-/* line 252, ../../dev/sass/parts/_room-elements.scss */
+/* line 263, ../../dev/sass/parts/_room-elements.scss */
 .elem26 {
   position: absolute;
   z-index: 2;
@@ -4950,13 +4950,13 @@ div.drum figure {
   width: 100%;
   top: 14rem;
 }
-/* line 259, ../../dev/sass/parts/_room-elements.scss */
+/* line 270, ../../dev/sass/parts/_room-elements.scss */
 .elem26 img {
   height: 104%;
   width: 104%;
 }
 
-/* line 264, ../../dev/sass/parts/_room-elements.scss */
+/* line 275, ../../dev/sass/parts/_room-elements.scss */
 .elem31 {
   position: absolute;
   z-index: -20;
@@ -4965,13 +4965,13 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 271, ../../dev/sass/parts/_room-elements.scss */
+/* line 282, ../../dev/sass/parts/_room-elements.scss */
 .elem31 img {
   height: 93%;
   width: 93%;
 }
 
-/* line 275, ../../dev/sass/parts/_room-elements.scss */
+/* line 287, ../../dev/sass/parts/_room-elements.scss */
 .elem32 {
   position: absolute;
   top: 17rem;
@@ -4979,27 +4979,26 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 281, ../../dev/sass/parts/_room-elements.scss */
+/* line 293, ../../dev/sass/parts/_room-elements.scss */
 .elem32 img {
   height: 42%;
   width: 42%;
 }
 
-/* line 285, ../../dev/sass/parts/_room-elements.scss */
+/* line 298, ../../dev/sass/parts/_room-elements.scss */
 .elem33 {
   position: absolute;
-  top: 17rem;
-  left: 67rem;
+  left: 27.3rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 291, ../../dev/sass/parts/_room-elements.scss */
+/* line 303, ../../dev/sass/parts/_room-elements.scss */
 .elem33 img {
-  height: 5.5%;
-  width: 5.5%;
+  height: 10.2%;
+  width: 10.2%;
 }
 
-/* line 295, ../../dev/sass/parts/_room-elements.scss */
+/* line 308, ../../dev/sass/parts/_room-elements.scss */
 .elem34 {
   position: absolute;
   top: 17rem;
@@ -5007,41 +5006,103 @@ div.drum figure {
   max-height: 100%;
   min-width: 100%;
 }
-/* line 301, ../../dev/sass/parts/_room-elements.scss */
+/* line 314, ../../dev/sass/parts/_room-elements.scss */
 .elem34 img {
-  height: 5.5%;
-  width: 5.5%;
+  height: 10.2%;
+  width: 10.2%;
 }
 
-/* line 305, ../../dev/sass/parts/_room-elements.scss */
+/* line 319, ../../dev/sass/parts/_room-elements.scss */
 .elem35 {
   position: absolute;
-  top: 77.4rem;
+  top: 75rem;
   left: 57rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 311, ../../dev/sass/parts/_room-elements.scss */
+/* line 325, ../../dev/sass/parts/_room-elements.scss */
 .elem35 img {
-  height: 5.5%;
-  width: 5.5%;
+  height: 7.9%;
+  width: 7.9%;
 }
 
-/* line 315, ../../dev/sass/parts/_room-elements.scss */
+/* line 330, ../../dev/sass/parts/_room-elements.scss */
 .elem36 {
   position: absolute;
-  top: 77.4rem;
-  left: 26.5rem;
+  top: 75.4rem;
+  left: 27.3rem;
   max-height: 100%;
   min-width: 100%;
 }
-/* line 321, ../../dev/sass/parts/_room-elements.scss */
+/* line 336, ../../dev/sass/parts/_room-elements.scss */
 .elem36 img {
-  height: 5.5%;
-  width: 5.5%;
+  height: 15%;
+  width: 15%;
 }
 
-/* line 326, ../../dev/sass/parts/_room-elements.scss */
+/* line 341, ../../dev/sass/parts/_room-elements.scss */
+.elem37 {
+  position: absolute;
+  left: 0rem;
+  height: 121%;
+  width: 100%;
+  background-color: #6b6b6d;
+  transform: rotate(-15deg);
+  opacity: 0.1;
+}
+
+/* line 351, ../../dev/sass/parts/_room-elements.scss */
+.elem38 {
+  position: absolute;
+  top: 23.6rem;
+  left: 41.3rem;
+  height: 8%;
+  width: 7%;
+}
+/* line 357, ../../dev/sass/parts/_room-elements.scss */
+.elem38 img {
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/room/top.png");
+  background-repeat: repeat-x;
+  background-size: contain;
+}
+
+/* line 365, ../../dev/sass/parts/_room-elements.scss */
+.elem39 {
+  position: absolute;
+  top: 58.6rem;
+  left: 58.6rem;
+  height: 21%;
+  width: 3.75%;
+}
+/* line 371, ../../dev/sass/parts/_room-elements.scss */
+.elem39 img {
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/room/right.png");
+  background-repeat: repeat-y;
+  background-size: contain;
+}
+
+/* line 379, ../../dev/sass/parts/_room-elements.scss */
+.elem40 {
+  position: absolute;
+  top: 58.6rem;
+  left: 27.3rem;
+  height: 21%;
+  width: 4.2%;
+}
+/* line 385, ../../dev/sass/parts/_room-elements.scss */
+.elem40 img {
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/room/left.png");
+  background-repeat: repeat-y;
+  background-size: contain;
+}
+
+/* line 393, ../../dev/sass/parts/_room-elements.scss */
 .blockCheck {
   height: 6%;
   left: 19rem;
