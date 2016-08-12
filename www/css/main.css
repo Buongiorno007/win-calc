@@ -4956,7 +4956,92 @@ div.drum figure {
   width: 104%;
 }
 
-/* line 265, ../../dev/sass/parts/_room-elements.scss */
+/* line 264, ../../dev/sass/parts/_room-elements.scss */
+.elem31 {
+  position: absolute;
+  z-index: -20;
+  top: 0rem;
+  left: 0rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 271, ../../dev/sass/parts/_room-elements.scss */
+.elem31 img {
+  height: 93%;
+  width: 93%;
+}
+
+/* line 275, ../../dev/sass/parts/_room-elements.scss */
+.elem32 {
+  position: absolute;
+  top: 17rem;
+  left: 67rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 281, ../../dev/sass/parts/_room-elements.scss */
+.elem32 img {
+  height: 42%;
+  width: 42%;
+}
+
+/* line 285, ../../dev/sass/parts/_room-elements.scss */
+.elem33 {
+  position: absolute;
+  top: 17rem;
+  left: 67rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 291, ../../dev/sass/parts/_room-elements.scss */
+.elem33 img {
+  height: 5.5%;
+  width: 5.5%;
+}
+
+/* line 295, ../../dev/sass/parts/_room-elements.scss */
+.elem34 {
+  position: absolute;
+  top: 17rem;
+  left: 67rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 301, ../../dev/sass/parts/_room-elements.scss */
+.elem34 img {
+  height: 5.5%;
+  width: 5.5%;
+}
+
+/* line 305, ../../dev/sass/parts/_room-elements.scss */
+.elem35 {
+  position: absolute;
+  top: 77.4rem;
+  left: 57rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 311, ../../dev/sass/parts/_room-elements.scss */
+.elem35 img {
+  height: 5.5%;
+  width: 5.5%;
+}
+
+/* line 315, ../../dev/sass/parts/_room-elements.scss */
+.elem36 {
+  position: absolute;
+  top: 77.4rem;
+  left: 26.5rem;
+  max-height: 100%;
+  min-width: 100%;
+}
+/* line 321, ../../dev/sass/parts/_room-elements.scss */
+.elem36 img {
+  height: 5.5%;
+  width: 5.5%;
+}
+
+/* line 326, ../../dev/sass/parts/_room-elements.scss */
 .blockCheck {
   height: 6%;
   left: 19rem;

@@ -256,7 +256,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**============ METHODS ================*/
 
-
+    console.log('OrderStor.prder', OrderStor.order)
     //============= AddElements detail block
     //------- Show AddElements detail block for product
     function showAddElementDetail(productIndex) {
@@ -6342,6 +6342,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'left' : 130 + 'px',
                     'top' : (hD - sunH + 50) + 'px'
                 });
+                $('.elem32').css({ 
+                  'left' : (430+(0.48*((widthT/2)-700*0.32))) + 'px' 
+                });
+                $('.elem34').css({ 
+                  'left' : (0.23*widthT+254) + 'px',
+                  'top': (heightT-2000) + 'px',
+                });
+                $('.elem35').css('left' , (0.23*widthT+250) + 'px');
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.elem8').css('left' , (0.23*widthT+275) + 'px');
@@ -26348,9 +26356,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
+      if(ProductStor.product.construction_type === 2) {
         position.x = 276;
         position.y = valueY-110;
+      }
+      if(ProductStor.product.construction_type === 4) {
+        position.x = 260;
+        position.y = valueY-72;
       }
       return position;
     }

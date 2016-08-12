@@ -107,7 +107,7 @@
 
     /**============ METHODS ================*/
 
-
+    console.log('OrderStor.prder', OrderStor.order)
     //============= AddElements detail block
     //------- Show AddElements detail block for product
     function showAddElementDetail(productIndex) {

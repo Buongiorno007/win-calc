@@ -74,6 +74,15 @@
           <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="mainPage.constants.SVG_ID_MAIN"></svg-template>
         </div>
       </div>
+      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; mainPage.P.product.doorLock.stvorka_type === 6" class="coeff-RoomContainer">
+        <div class="blockCheck">{{mainPage.G.global.getPCPower}}</div>
+        <div class="elem31"><img ng-src="img/room/33.png"></div>
+        <div class="elem32"><img ng-src="img/room/32.png"></div>
+        <div class="elem33"><img ng-src="img/room/11a.png"></div>
+        <div class="elem34"><img ng-src="img/room/12a.png"></div>
+        <div class="elem35"><img ng-src="img/room/13a.png"></div>
+        <div class="elem36"><img ng-src="img/room/14a.png"></div>
+      </div>
       <div fs-click="mainPage.goToEditTemplate()" class="main-svg-click"></div>
       <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">

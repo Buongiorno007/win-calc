@@ -2802,9 +2802,13 @@
           position.y = valueY-130;
         }
       }
-      if(ProductStor.product.construction_type === 4 || ProductStor.product.construction_type === 2) {
+      if(ProductStor.product.construction_type === 2) {
         position.x = 276;
         position.y = valueY-110;
+      }
+      if(ProductStor.product.construction_type === 4) {
+        position.x = 260;
+        position.y = valueY-72;
       }
       return position;
     }
