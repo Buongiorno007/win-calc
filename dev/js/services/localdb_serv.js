@@ -191,7 +191,8 @@
             ' noise_coeff NUMERIC,' +
             ' sku VARCHAR(100),' +
             ' lamination_in_id INTEGER,' +
-            ' lamination_out_id INTEGER',
+            ' lamination_out_id INTEGER,' +
+            ' reg_coeff NUMERIC',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {

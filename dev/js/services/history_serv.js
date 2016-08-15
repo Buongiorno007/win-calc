@@ -9,6 +9,7 @@
     $location,
     $filter,
     $q,
+    $http,
     globalConstants,
     localDB,
     GeneralServ,
@@ -94,7 +95,7 @@
 
     /**========== Send Order to Factory ========*/
 
-    function sendOrderToFactory(orderStyle, orderNum) {
+    function orderToFactory(orderStyle, orderNum) {
       function sendOrder() {
         var ordersQty = HistoryStor.history.orders.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {
@@ -126,11 +127,19 @@
 
 
     /**========= make Order Copy =========*/
+    function sendOrderToFactory(orderStyle, orderNum) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
+      xhr.send();
+      if (xhr.status === 200) {
+        orderToFactory(orderStyle, orderNum);
+      } 
+    }
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
+
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
-        //console.log(OrderStor.order , 'OrderStor')
         dloadProducts();
         dloadAddElements();
         dloadOrder();

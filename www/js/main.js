@@ -13052,6 +13052,7 @@ function ErrorResult(code, message) {
     $location,
     $filter,
     $q,
+    $http,
     globalConstants,
     localDB,
     GeneralServ,
@@ -13137,7 +13138,7 @@ function ErrorResult(code, message) {
 
     /**========== Send Order to Factory ========*/
 
-    function sendOrderToFactory(orderStyle, orderNum) {
+    function orderToFactory(orderStyle, orderNum) {
       function sendOrder() {
         var ordersQty = HistoryStor.history.orders.length, ord;
         for(ord = 0; ord < ordersQty; ord+=1) {
@@ -13169,11 +13170,19 @@ function ErrorResult(code, message) {
 
 
     /**========= make Order Copy =========*/
+    function sendOrderToFactory(orderStyle, orderNum) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
+      xhr.send();
+      if (xhr.status === 200) {
+        orderToFactory(orderStyle, orderNum);
+      } 
+    }
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
+
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
-        //console.log(OrderStor.order , 'OrderStor')
         dloadProducts();
         dloadAddElements();
         dloadOrder();
@@ -14324,7 +14333,8 @@ function ErrorResult(code, message) {
             ' noise_coeff NUMERIC,' +
             ' sku VARCHAR(100),' +
             ' lamination_in_id INTEGER,' +
-            ' lamination_out_id INTEGER',
+            ' lamination_out_id INTEGER,' +
+            ' reg_coeff NUMERIC',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
@@ -17206,6 +17216,7 @@ function ErrorResult(code, message) {
 
   });
 })();
+
 
 
 // services/login_serv.js
