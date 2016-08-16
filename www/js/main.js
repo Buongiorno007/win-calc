@@ -13055,6 +13055,7 @@ function ErrorResult(code, message) {
     $http,
     globalConstants,
     localDB,
+    $timeout,
     GeneralServ,
     MainServ,
     RecOrderServ,
@@ -13171,16 +13172,24 @@ function ErrorResult(code, message) {
 
     /**========= make Order Copy =========*/
     function sendOrderToFactory(orderStyle, orderNum) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
-      xhr.send();
-      if (xhr.status === 200) {
-        orderToFactory(orderStyle, orderNum);
-      } 
+      if(HistoryStor.history.orderOk !==1) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
+        xhr.send();
+        if (xhr.status === 200) {
+          HistoryStor.history.orderOk=1;
+          orderToFactory(orderStyle, orderNum);
+        } 
+        if(HistoryStor.history.orderOk!==0) {
+          $timeout(function() {
+            HistoryStor.history.orderOk=0;
+          }, 3100);
+        }
+      }
     }
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
-
+      HistoryStor.history.orderOk=0;
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
         HistoryStor.history.orderEditNumber = orderNum;
         dloadProducts();
@@ -13256,6 +13265,7 @@ function ErrorResult(code, message) {
       }
 
       function editOrder() {
+        HistoryStor.history.orderOk=1;
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
         RecOrderServ.box();
       }
@@ -13666,6 +13676,7 @@ function ErrorResult(code, message) {
 
 
     function orderPrint(orderId) {
+      HistoryStor.history.orderOk=1;
       //var domainLink = globalConstants.serverIP.split('api.').join(''),
       //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
       //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
@@ -26397,9 +26408,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         position.x = 276;
         position.y = valueY-110;
       }
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type === 6) {
         position.x = 260;
         position.y = valueY-72;
+      }       
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type !== 6) {
+        position.x = 276;
+        position.y = valueY-110;
       }
       return position;
     }

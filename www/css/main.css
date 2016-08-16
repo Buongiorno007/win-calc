@@ -339,7 +339,7 @@ th {
   font-family: "icons";
   src: url('../fonts/icons/icomoon.ttf?1471245810') format('truetype');
 }
-/* line 124, ../../dev/sass/base/_animations.scss */
+/* line 141, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .hardware-container .hardware-box, .lamination-container .laminat-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .products-selector .products-selector-block .products-block .select-mark {
   -moz-animation: splashing 0.5s ease 0s 1;
@@ -380,7 +380,7 @@ th {
     transform: scale(1);
   }
 }
-/* line 129, ../../dev/sass/base/_animations.scss */
+/* line 146, ../../dev/sass/base/_animations.scss */
 .flashing, .coeff-low, .room-info-container .coeff.coeff-low, .cart-page .full-view .order-u-coeff.coeff-low, .config-menu .product-u-coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s ease 0s 1;
   -webkit-animation: flashing 1.5s ease 0s 1;
@@ -411,7 +411,7 @@ th {
     opacity: 0;
   }
 }
-/* line 134, ../../dev/sass/base/_animations.scss */
+/* line 151, ../../dev/sass/base/_animations.scss */
 .firstLight, .elem18 {
   -moz-animation: firstLight 10s ease 0s infinite;
   -webkit-animation: firstLight 10s ease 0s infinite;
@@ -442,7 +442,56 @@ th {
     opacity: .5;
   }
 }
-/* line 139, ../../dev/sass/base/_animations.scss */
+/* line 156, ../../dev/sass/base/_animations.scss */
+.ordersAlert, .tn-box {
+  -moz-animation: ordersAlert 3s ease 0s;
+  -webkit-animation: ordersAlert 3s ease 0s;
+  animation: ordersAlert 3s ease 0s;
+}
+
+@-moz-keyframes ordersAlert {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes ordersAlert {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes ordersAlert {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* line 161, ../../dev/sass/base/_animations.scss */
 .secondLight, .elem19 {
   -moz-animation: secondLight 12s ease 0s infinite;
   -webkit-animation: secondLight 12s ease 0s infinite;
@@ -473,7 +522,7 @@ th {
     opacity: 1;
   }
 }
-/* line 144, ../../dev/sass/base/_animations.scss */
+/* line 166, ../../dev/sass/base/_animations.scss */
 .thirdLight, .elem20 {
   -moz-animation: thirdLight 9s ease 0s infinite;
   -webkit-animation: thirdLight 9s ease 0s infinite;
@@ -504,7 +553,7 @@ th {
     opacity: .7;
   }
 }
-/* line 149, ../../dev/sass/base/_animations.scss */
+/* line 171, ../../dev/sass/base/_animations.scss */
 .elements {
   -moz-animation: elements 3s ease 0s 1;
   -webkit-animation: elements 3s ease 0s 1;
@@ -535,7 +584,7 @@ th {
     opacity: 1;
   }
 }
-/* line 154, ../../dev/sass/base/_animations.scss */
+/* line 176, ../../dev/sass/base/_animations.scss */
 .jumping, .config-menu .menu_tooltip {
   -moz-animation: jump-hor 2s ease-in 0s infinite;
   -webkit-animation: jump-hor 2s ease-in 0s infinite;
@@ -584,7 +633,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 164, ../../dev/sass/base/_animations.scss */
+/* line 186, ../../dev/sass/base/_animations.scss */
 .move-grid {
   -moz-animation: move-grid 1s ease 0s 1;
   -webkit-animation: move-grid 1s ease 0s 1;
@@ -615,7 +664,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 169, ../../dev/sass/base/_animations.scss */
+/* line 191, ../../dev/sass/base/_animations.scss */
 .move-grating {
   -moz-animation: move-grating 1s ease 0s 1;
   -webkit-animation: move-grating 1s ease 0s 1;
@@ -646,7 +695,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 174, ../../dev/sass/base/_animations.scss */
+/* line 196, ../../dev/sass/base/_animations.scss */
 .move-shutters {
   -moz-animation: move-shutters 1s ease 0s 1;
   -webkit-animation: move-shutters 1s ease 0s 1;
@@ -677,7 +726,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 179, ../../dev/sass/base/_animations.scss */
+/* line 201, ../../dev/sass/base/_animations.scss */
 .move-shut {
   -moz-animation: move-shut 1s ease 0s 1;
   -webkit-animation: move-shut 1s ease 0s 1;
@@ -708,7 +757,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 184, ../../dev/sass/base/_animations.scss */
+/* line 206, ../../dev/sass/base/_animations.scss */
 .move-blind {
   -moz-animation: move-blind 1s ease 0s 1;
   -webkit-animation: move-blind 1s ease 0s 1;
@@ -739,7 +788,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 189, ../../dev/sass/base/_animations.scss */
+/* line 211, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s ease 0s 1;
   -webkit-animation: move-visor 1s ease 0s 1;
@@ -770,7 +819,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 194, ../../dev/sass/base/_animations.scss */
+/* line 216, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s ease 0s 1;
   -webkit-animation: move-spillway 1s ease 0s 1;
@@ -801,7 +850,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 199, ../../dev/sass/base/_animations.scss */
+/* line 221, ../../dev/sass/base/_animations.scss */
 .move-vis {
   -moz-animation: move-vis 1s ease 0s 1;
   -webkit-animation: move-vis 1s ease 0s 1;
@@ -832,7 +881,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 204, ../../dev/sass/base/_animations.scss */
+/* line 226, ../../dev/sass/base/_animations.scss */
 .move-spil {
   -moz-animation: move-spil 1s ease 0s 1;
   -webkit-animation: move-spil 1s ease 0s 1;
@@ -863,7 +912,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 209, ../../dev/sass/base/_animations.scss */
+/* line 231, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s ease 0s 1;
   -webkit-animation: move-outside 1s ease 0s 1;
@@ -894,7 +943,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 214, ../../dev/sass/base/_animations.scss */
+/* line 236, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s ease 0s 1;
   -webkit-animation: move-windowsill 2s ease 0s 1;
@@ -925,7 +974,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 220, ../../dev/sass/base/_animations.scss */
+/* line 242, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s ease 0s 1;
   -webkit-animation: move-louvers 2s ease 0s 1;
@@ -956,7 +1005,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 225, ../../dev/sass/base/_animations.scss */
+/* line 247, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s ease 2s 1;
   -webkit-animation: move-louver-1 2s ease 2s 1;
@@ -996,7 +1045,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 230, ../../dev/sass/base/_animations.scss */
+/* line 252, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s ease 2s 1;
   -webkit-animation: move-louver-2 2s ease 2s 1;
@@ -1036,7 +1085,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 235, ../../dev/sass/base/_animations.scss */
+/* line 257, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s ease 2s 1;
   -webkit-animation: move-louver-3 2s ease 2s 1;
@@ -1076,7 +1125,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 240, ../../dev/sass/base/_animations.scss */
+/* line 262, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s ease 2s 1;
   -webkit-animation: move-louver-bottom 2s ease 2s 1;
@@ -1116,7 +1165,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 246, ../../dev/sass/base/_animations.scss */
+/* line 268, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s ease 0s 1;
   -webkit-animation: move-slope-top 1s ease 0s 1;
@@ -1147,7 +1196,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 251, ../../dev/sass/base/_animations.scss */
+/* line 273, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s ease 0s 1;
   -webkit-animation: move-slope-right 1s ease 0s 1;
@@ -1178,7 +1227,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 256, ../../dev/sass/base/_animations.scss */
+/* line 278, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s ease 0s 1;
   -webkit-animation: move-slope-left 1s ease 0s 1;
@@ -1209,7 +1258,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 262, ../../dev/sass/base/_animations.scss */
+/* line 284, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
@@ -1264,7 +1313,7 @@ th {
     transform: rotate(360deg);
   }
 }
-/* line 269, ../../dev/sass/base/_animations.scss */
+/* line 291, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s ease 0s 1;
   -webkit-animation: move-handle 1s ease 0s 1;
@@ -1295,7 +1344,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 275, ../../dev/sass/base/_animations.scss */
+/* line 297, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s ease 0s 1;
   -webkit-animation: move-tab 1s ease 0s 1;
@@ -5506,6 +5555,26 @@ div.drum figure {
   width: 90%;
   max-width: 90%;
   z-index: 1;
+}
+
+/* line 61, ../../dev/sass/parts/_check-doors.scss */
+.tn-box {
+  width: 360px;
+  position: absolute;
+  margin: 0 auto 20px auto;
+  text-align: left;
+  top: 5rem;
+  left: 45rem;
+  opacity: 1;
+  font-size: 16px;
+  text-align: center;
+  color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  cursor: default;
+  background: #6ed44a;
+  border: 0px solid #474747;
+  z-index: 10;
 }
 
 /* line 4, ../../dev/sass/pages/login.scss */

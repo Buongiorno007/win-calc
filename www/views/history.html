@@ -258,6 +258,7 @@
     </section>
   </section>
 </section>
+<div ng-show="historyPage.H.history.orderOk===1" class="tn-box">{{'Заказ отправлен на обработку'}}  </div>
 <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
   <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
     <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>

@@ -171,6 +171,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .result-text {{ ::historyPage.BY_YOUR_REQUEST }} {{ ::historyPage.NOT_FIND }}.
 
           button.view-switch-tab(fs-click="historyPage.viewSwitching()") {{ ::historyPage.HISTORY_VIEW }}
+.tn-box(ng-show="historyPage.H.history.orderOk===1") {{'Заказ отправлен на обработку'}}  
 include parts/_attantions
 include parts/_loader
 include parts/_alert

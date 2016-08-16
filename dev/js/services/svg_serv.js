@@ -2805,9 +2805,13 @@
         position.x = 276;
         position.y = valueY-110;
       }
-      if(ProductStor.product.construction_type === 4) {
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type === 6) {
         position.x = 260;
         position.y = valueY-72;
+      }       
+      if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type !== 6) {
+        position.x = 276;
+        position.y = valueY-110;
       }
       return position;
     }
