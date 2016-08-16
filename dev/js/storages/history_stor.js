@@ -62,7 +62,8 @@
         listName: [],
         listNameGlass: [],
         listNameHardware: [],
-        listNameProfiles: []
+        listNameProfiles: [],
+        firstClick: []
 
       },
       setDefaultHistory: setDefaultHistory

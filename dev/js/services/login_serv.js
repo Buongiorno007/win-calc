@@ -293,6 +293,7 @@
     /**--------- set user location -------*/
     function setUserLocation() {
       var cityQty = GlobalStor.global.locations.cities.length;
+      var regionQty = GlobalStor.global.locations.regions.length;
       while(--cityQty > -1) {
         if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
           UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
@@ -300,11 +301,28 @@
           UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
           UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+          while(--regionQty > -1) {
+            if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
+              // getCoefPrice(GlobalStor.global.locations.regions[regionQty].id)
+            }
+          }
         }
       }
     }
 
-
+    // function getCoefPrice(regionId) { 
+    //   regionId = GlobalStor.global.regionCoefs;
+    //   var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+    //   for(var x=0; x<regions.length; x+=1) {
+    //     if(regionId === regions[x]) {
+    //       localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, null, 'price, reg_coeff')
+    //         .then(function (result) {
+    //           console.log(result, 'res')
+    //       });
+    //     }
+    //   }
+    // }
 
 
 
@@ -608,7 +626,7 @@
                       localDB.tablesLocalDB.elements.tableName,
                       {'id': item.parent_element_id},
                       'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
-                      'max_width, min_width, max_height, min_height, max_sq'
+                      'max_width, min_width, max_height, min_height, max_sq, reg_coeff'
                     ).then(function (result) {
                         //console.log('glass!!!!', result);
                         var glass = angular.copy(result),

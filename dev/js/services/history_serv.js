@@ -129,18 +129,35 @@
 
     /**========= make Order Copy =========*/
     function sendOrderToFactory(orderStyle, orderNum) {
-      if(HistoryStor.history.orderOk !==1) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
-        xhr.send();
-        if (xhr.status === 200) {
-          HistoryStor.history.orderOk=1;
-          orderToFactory(orderStyle, orderNum);
-        } 
-        if(HistoryStor.history.orderOk!==0) {
-          $timeout(function() {
-            HistoryStor.history.orderOk=0;
-          }, 3100);
+      var check = [];
+      check = HistoryStor.history.firstClick.filter(function(item) {
+        return item === orderNum
+      });
+      if(check.length !== 0) {
+        //console.info('second click')
+        for(var x=0; x<check.length; x+=1) {
+          if(check[x] !== orderNum) {
+            HistoryStor.history.firstClick.push(orderNum);
+          } 
+        }
+      } else {
+        //console.info('first click')
+        HistoryStor.history.firstClick.push(orderNum);
+        if(HistoryStor.history.orderOk !==1 && HistoryStor.history.firstClick !==orderNum) {
+          HistoryStor.history.firstClick.push(orderNum);
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
+          xhr.send();
+          if (xhr.status === 200) {
+            //console.info('it`s okey')
+            HistoryStor.history.orderOk=1;
+            orderToFactory(orderStyle, orderNum);
+          } 
+          if(HistoryStor.history.orderOk!==0) {
+            $timeout(function() {
+              HistoryStor.history.orderOk=0;
+            }, 3100);
+          }
         }
       }
     }

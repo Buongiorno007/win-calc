@@ -13172,18 +13172,35 @@ function ErrorResult(code, message) {
 
     /**========= make Order Copy =========*/
     function sendOrderToFactory(orderStyle, orderNum) {
-      if(HistoryStor.history.orderOk !==1) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
-        xhr.send();
-        if (xhr.status === 200) {
-          HistoryStor.history.orderOk=1;
-          orderToFactory(orderStyle, orderNum);
-        } 
-        if(HistoryStor.history.orderOk!==0) {
-          $timeout(function() {
-            HistoryStor.history.orderOk=0;
-          }, 3100);
+      var check = [];
+      check = HistoryStor.history.firstClick.filter(function(item) {
+        return item === orderNum
+      });
+      if(check.length !== 0) {
+        //console.info('second click')
+        for(var x=0; x<check.length; x+=1) {
+          if(check[x] !== orderNum) {
+            HistoryStor.history.firstClick.push(orderNum);
+          } 
+        }
+      } else {
+        //console.info('first click')
+        HistoryStor.history.firstClick.push(orderNum);
+        if(HistoryStor.history.orderOk !==1 && HistoryStor.history.firstClick !==orderNum) {
+          HistoryStor.history.firstClick.push(orderNum);
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
+          xhr.send();
+          if (xhr.status === 200) {
+            //console.info('it`s okey')
+            HistoryStor.history.orderOk=1;
+            orderToFactory(orderStyle, orderNum);
+          } 
+          if(HistoryStor.history.orderOk!==0) {
+            $timeout(function() {
+              HistoryStor.history.orderOk=0;
+            }, 3100);
+          }
         }
       }
     }
@@ -17527,6 +17544,7 @@ function ErrorResult(code, message) {
     /**--------- set user location -------*/
     function setUserLocation() {
       var cityQty = GlobalStor.global.locations.cities.length;
+      var regionQty = GlobalStor.global.locations.regions.length;
       while(--cityQty > -1) {
         if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
           UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
@@ -17534,11 +17552,28 @@ function ErrorResult(code, message) {
           UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
           UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+          while(--regionQty > -1) {
+            if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
+              // getCoefPrice(GlobalStor.global.locations.regions[regionQty].id)
+            }
+          }
         }
       }
     }
 
-
+    // function getCoefPrice(regionId) { 
+    //   regionId = GlobalStor.global.regionCoefs;
+    //   var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+    //   for(var x=0; x<regions.length; x+=1) {
+    //     if(regionId === regions[x]) {
+    //       localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, null, 'price, reg_coeff')
+    //         .then(function (result) {
+    //           console.log(result, 'res')
+    //       });
+    //     }
+    //   }
+    // }
 
 
 
@@ -17842,7 +17877,7 @@ function ErrorResult(code, message) {
                       localDB.tablesLocalDB.elements.tableName,
                       {'id': item.parent_element_id},
                       'id, name, sku, glass_folder_id, glass_width, heat_coeff, noise_coeff, transcalency, '+
-                      'max_width, min_width, max_height, min_height, max_sq'
+                      'max_width, min_width, max_height, min_height, max_sq, reg_coeff'
                     ).then(function (result) {
                         //console.log('glass!!!!', result);
                         var glass = angular.copy(result),
@@ -27195,7 +27230,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         listName: [],
         listNameGlass: [],
         listNameHardware: [],
-        listNameProfiles: []
+        listNameProfiles: [],
+        firstClick: []
 
       },
       setDefaultHistory: setDefaultHistory
