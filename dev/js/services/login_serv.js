@@ -303,26 +303,13 @@
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           while(--regionQty > -1) {
             if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
-              // getCoefPrice(GlobalStor.global.locations.regions[regionQty].id)
+              GlobalStor.global.regionCoefs = 2;
             }
           }
         }
       }
     }
 
-    // function getCoefPrice(regionId) { 
-    //   regionId = GlobalStor.global.regionCoefs;
-    //   var regions = [2, 6, 8, 13, 17, 19, 22, 25];
-    //   for(var x=0; x<regions.length; x+=1) {
-    //     if(regionId === regions[x]) {
-    //       localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, null, 'price, reg_coeff')
-    //         .then(function (result) {
-    //           console.log(result, 'res')
-    //       });
-    //     }
-    //   }
-    // }
 
 
 

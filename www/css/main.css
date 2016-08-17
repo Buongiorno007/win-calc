@@ -6526,7 +6526,7 @@ tr.factory_item {
 /* line 416, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn {
   font: normal 1.875rem/1 icons, sans-serif;
-  top: 3.125rem;
+  top: 6.125rem;
   right: -7.5rem;
   background-color: #6ed44a;
 }
@@ -6548,7 +6548,7 @@ tr.factory_item {
 }
 /* line 435, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
-  top: 19.375rem;
+  top: 16.375rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }

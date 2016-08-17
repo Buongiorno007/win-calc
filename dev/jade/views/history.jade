@@ -100,7 +100,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                   .account-date {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
               button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)")
-              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.makeOrderCopy(order.order_style, order.id)")
+              //- button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.makeOrderCopy(order.order_style, order.id)")
               button.account-tool.account-print-btn(fs-click="historyPage.orderPrint(order.id)")
               button.account-delete-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)")
               button.account-change-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.editOrder(1, order.id)") {{ ::historyPage.CHANGE }}

@@ -2215,6 +2215,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+
 // controllers/main.js
 
 (function(){
@@ -15032,7 +15033,20 @@ function ErrorResult(code, message) {
 
 
     function insertTablesLocalDB(result) {
-      //        console.log('INSERT START');
+      //console.log('INSERT START', result.tables);
+      var regionId = GlobalStor.global.regionCoefs;
+      console.log(regionId, 'regionId')
+      var regions = [2, 6, 8, 13, 17, 19, 22, 25];
+      for(var x=0; x<regions.length; x+=1) {
+        if(regionId === regions[x]) {
+          if(result.tables.elements) {
+            for(var x=0; x<result.tables.elements.rows.length; x+=1) {
+              if(result.tables.elements.rows[x][28] > 0)
+              result.tables.elements.rows[x][21] = result.tables.elements.rows[x][21]*result.tables.elements.rows[x][28];
+            }
+          }
+        }
+      }
       var promises = [],
           tableKeys = Object.keys(result.tables),
           tableQty = tableKeys.length;
@@ -17554,26 +17568,13 @@ function ErrorResult(code, message) {
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           while(--regionQty > -1) {
             if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
-              // getCoefPrice(GlobalStor.global.locations.regions[regionQty].id)
+              GlobalStor.global.regionCoefs = 2;
             }
           }
         }
       }
     }
 
-    // function getCoefPrice(regionId) { 
-    //   regionId = GlobalStor.global.regionCoefs;
-    //   var regions = [2, 6, 8, 13, 17, 19, 22, 25];
-    //   for(var x=0; x<regions.length; x+=1) {
-    //     if(regionId === regions[x]) {
-    //       localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, null, 'price, reg_coeff')
-    //         .then(function (result) {
-    //           console.log(result, 'res')
-    //       });
-    //     }
-    //   }
-    // }
 
 
 

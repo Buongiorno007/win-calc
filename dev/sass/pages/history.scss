@@ -415,7 +415,7 @@
   }
   .account-select-btn {
     @include font-icon(rem(30px), 1);
-    top: rem(50px);
+    top: rem(98px);
     right: rem(-120px);
     background-color: $main_green;
     &:after {
@@ -433,7 +433,7 @@
     }
   }
   .account-print-btn {
-    top: rem(310px);
+    top: rem(262px);
     right: rem(-120px);
     background-color: #c6c6c6;
     &:after {
