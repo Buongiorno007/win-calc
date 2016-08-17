@@ -627,7 +627,8 @@
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
 
@@ -644,7 +645,8 @@
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
           'doors_groups_dependencies':{
@@ -864,7 +866,6 @@
     function insertTablesLocalDB(result) {
       //console.log('INSERT START', result.tables);
       var regionId = GlobalStor.global.regionCoefs;
-      console.log(regionId, 'regionId')
       var regions = [2, 6, 8, 13, 17, 19, 22, 25];
       for(var x=0; x<regions.length; x+=1) {
         if(regionId === regions[x]) {

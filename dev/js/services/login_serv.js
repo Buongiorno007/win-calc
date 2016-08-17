@@ -303,7 +303,7 @@
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           while(--regionQty > -1) {
             if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-              GlobalStor.global.regionCoefs = 2;
+              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
             }
           }
         }

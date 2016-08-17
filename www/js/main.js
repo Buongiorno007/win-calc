@@ -256,7 +256,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /**============ METHODS ================*/
 
-    console.log('OrderStor.prder', OrderStor.order)
     //============= AddElements detail block
     //------- Show AddElements detail block for product
     function showAddElementDetail(productIndex) {
@@ -14798,7 +14797,8 @@ function ErrorResult(code, message) {
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
 
@@ -14815,7 +14815,8 @@ function ErrorResult(code, message) {
             'right_id INTEGER,'+
             'right_waste INTEGER,'+
             'cloth_id INTEGER,'+
-            'cloth_waste INTEGER',
+            'cloth_waste INTEGER,'+
+            'group_id INTEGER',
             'foreignKey': ''
           },
           'doors_groups_dependencies':{
@@ -15035,7 +15036,6 @@ function ErrorResult(code, message) {
     function insertTablesLocalDB(result) {
       //console.log('INSERT START', result.tables);
       var regionId = GlobalStor.global.regionCoefs;
-      console.log(regionId, 'regionId')
       var regions = [2, 6, 8, 13, 17, 19, 22, 25];
       for(var x=0; x<regions.length; x+=1) {
         if(regionId === regions[x]) {
@@ -17568,7 +17568,7 @@ function ErrorResult(code, message) {
           UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
           while(--regionQty > -1) {
             if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-              GlobalStor.global.regionCoefs = 2;
+              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
             }
           }
         }
@@ -19129,7 +19129,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           //        console.log('TEMPLATE +++', ProductStor.product.template);
           //----- create template icon
           SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths)
-
             .then(function(result) {
               //------ show elements of room
               GlobalStor.global.isRoomElements = 1;
@@ -25127,7 +25126,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           part.type = 'sash';
           priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
-          if(part.sill || part.doorstep === 1) {          
+          if(part.sill || part.doorstep === 1) {        
             priceElements.frameSillSize.push(sizeValue);
           } else {
             priceElements.framesSize.push(sizeValue);
