@@ -6345,10 +6345,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     'top' : (hD - sunH + 50) + 'px'
                 });
                 $('.elem32').css({ 
-                  'left' : (430+(0.48*((widthT/2)-700*0.32))) + 'px' 
+                  'left' : (381+(0.48*((widthT/2)-700*0.32))) + 'px' 
                 });
                 $('.elem34').css({ 
-                  'left' : (0.23*widthT+190) + 'px',
+                  'left' : (0.23*widthT+(190-16)) + 'px',
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
                 $('.elem38').css({ 
@@ -6356,7 +6356,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
                 $('.elem39').css({ 
-                  'left' : (0.23*widthT+261.06) + 'px',
+                  'left' : (0.23*widthT+(261-16)) + 'px',
                   'top': 0.23*((heightT-2000)*(-1))+ 468 + 'px',
                   'height' : 0.23*(heightT-2000) + 134 + 'px',
                 });
@@ -6368,7 +6368,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 $('.elem33').css({ 
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
-                $('.elem35').css('left' , (0.23*widthT+216) + 'px');
+                $('.elem35').css('left' , (0.23*widthT+(216-8)) + 'px');
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.elem8').css('left' , (0.23*widthT+275) + 'px');
@@ -6452,11 +6452,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 pathHinge = "M0,0L5,0L5,15L0,15z";
               /** dimension */
               if(ProductStor.product.doorLock.stvorka_type !==6) {
-                              /** hinge */
-                setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
                               /** handle */
                 setMarker(defs, 'handleR', '0 -1 9 32', -5, 5, 0, 29, 80, pathHandle, 'handle-mark');
                 setMarker(defs, 'handleL', '0 -1 9 32', 14, 5, 0, 29, 80, pathHandle, 'handle-mark');
@@ -6469,6 +6464,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
                 setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
               }
+                              /** hinge */
+                setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
               //----- horizontal marker arrow
               setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
               setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -6657,7 +6657,11 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     return d.points[0].id;
                   },
                   'd': function (d) {
-                    return d.path;
+                    if(ProductStor.product.doorLock.stvorka_type !==6) {
+                      return d.path;
+                    } else if(ProductStor.product.doorLock.stvorka_type ===6 && d.type !== 'bead') {
+                      return d.path;
+                    }
                   },
                   'fill': function(d) {
 
@@ -6705,14 +6709,15 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                     var fillName;
                     if (d.type === 'glass') {
                       if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
-                          if(d.glass_type === 2) {
-                            fillName = 0.5;
-                          } else {
-                            fillName = 1;
-                          }
-                        
+                        if(d.glass_type === 2) {
+                          fillName = 0.5;
+                        } else {
+                          fillName = 1;
+                        }
                       } 
-                    }
+                    } else if (d.type === 'bead' && ProductStor.product.doorLock.stvorka_type === 6) {
+                        fillName = 0;
+                      } 
                     return fillName
                   }
                   
@@ -26444,7 +26449,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         position.y = valueY-110;
       }
       if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type === 6) {
-        position.x = 260;
+        position.x = 245;
         position.y = valueY-72;
       }       
       if(ProductStor.product.construction_type === 4 && ProductStor.product.doorLock.stvorka_type !== 6) {
