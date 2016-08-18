@@ -317,7 +317,7 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1471520880') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
@@ -333,7 +333,7 @@ th {
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1471520880') format('truetype');
 }
 @font-face {
   font-family: "icons";
@@ -5044,8 +5044,8 @@ div.drum figure {
 }
 /* line 304, ../../dev/sass/parts/_room-elements.scss */
 .elem33 img {
-  height: 10.2%;
-  width: 10.2%;
+  height: 10.1%;
+  width: 10.1%;
 }
 
 /* line 309, ../../dev/sass/parts/_room-elements.scss */
@@ -5066,7 +5066,7 @@ div.drum figure {
 /* line 321, ../../dev/sass/parts/_room-elements.scss */
 .elem35 {
   position: absolute;
-  top: 75rem;
+  top: 74.95rem;
   left: 57rem;
   z-index: 2;
   width: 9.77rem;
@@ -5080,16 +5080,16 @@ div.drum figure {
 /* line 332, ../../dev/sass/parts/_room-elements.scss */
 .elem36 {
   position: absolute;
-  top: 603.4px;
-  left: 25.4rem;
+  top: 606px;
+  left: 25.39rem;
   z-index: 2;
   max-height: 100%;
   min-width: 100%;
 }
 /* line 339, ../../dev/sass/parts/_room-elements.scss */
 .elem36 img {
-  height: 15%;
-  width: 15%;
+  height: 14.5%;
+  width: 14.5%;
 }
 
 /* line 344, ../../dev/sass/parts/_room-elements.scss */
@@ -5109,7 +5109,7 @@ div.drum figure {
   position: absolute;
   top: 23.6rem;
   left: 39rem;
-  height: 8%;
+  height: 50px;
   width: 7%;
   z-index: 1;
 }
@@ -5123,15 +5123,34 @@ div.drum figure {
 }
 
 /* line 370, ../../dev/sass/parts/_room-elements.scss */
+.elem42 {
+  position: absolute;
+  top: 688.9px;
+  left: 43rem;
+  height: 3px;
+  width: 7%;
+  z-index: 1;
+  border-radius: 0;
+}
+/* line 378, ../../dev/sass/parts/_room-elements.scss */
+.elem42 img {
+  height: 100%;
+  width: 100%;
+  background-image: url("../img/room/down.png");
+  background-repeat: repeat-x;
+  background-size: contain;
+}
+
+/* line 386, ../../dev/sass/parts/_room-elements.scss */
 .elem39 {
   position: absolute;
   top: 58.6rem;
   left: 58.6rem;
   height: 21%;
-  width: 3.75%;
+  width: 3.746%;
   z-index: 1;
 }
-/* line 377, ../../dev/sass/parts/_room-elements.scss */
+/* line 393, ../../dev/sass/parts/_room-elements.scss */
 .elem39 img {
   height: 100%;
   width: 100%;
@@ -5140,16 +5159,16 @@ div.drum figure {
   background-size: contain;
 }
 
-/* line 385, ../../dev/sass/parts/_room-elements.scss */
+/* line 401, ../../dev/sass/parts/_room-elements.scss */
 .elem40 {
   position: absolute;
   top: 58.6rem;
-  left: 25.4rem;
+  left: 25.42rem;
   height: 21%;
   z-index: 1;
-  width: 4.2%;
+  width: 4.15%;
 }
-/* line 392, ../../dev/sass/parts/_room-elements.scss */
+/* line 408, ../../dev/sass/parts/_room-elements.scss */
 .elem40 img {
   height: 100%;
   width: 100%;
@@ -5158,7 +5177,7 @@ div.drum figure {
   background-size: contain;
 }
 
-/* line 400, ../../dev/sass/parts/_room-elements.scss */
+/* line 416, ../../dev/sass/parts/_room-elements.scss */
 .blockCheck {
   height: 6%;
   left: 19rem;

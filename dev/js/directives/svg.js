@@ -404,7 +404,7 @@
                   'left' : (381+(0.48*((widthT/2)-700*0.32))) + 'px' 
                 });
                 $('.elem34').css({ 
-                  'left' : (0.23*widthT+(190-16)) + 'px',
+                  'left' : (0.23*widthT+(190-19)) + 'px',
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
                 $('.elem38').css({ 
@@ -412,19 +412,22 @@
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
                 $('.elem39').css({ 
-                  'left' : (0.23*widthT+(261-16)) + 'px',
+                  'left' : (0.23*widthT+(261-18.3)) + 'px',
                   'top': 0.23*((heightT-2000)*(-1))+ 468 + 'px',
                   'height' : 0.23*(heightT-2000) + 134 + 'px',
                 });
+                $('.elem42').css({ 
+                  'width' : (0.23*widthT-135) + 'px'
+                });
                 $('.elem40').css({ 
-                  'top': 0.23*((heightT-2000)*(-1))+ 470 + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 467 + 'px',
                   'height' : 0.23*(heightT-2000) + 140 + 'px',
                 });
 
                 $('.elem33').css({ 
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
-                $('.elem35').css('left' , (0.23*widthT+(216-8)) + 'px');
+                $('.elem35').css('left' , (0.23*widthT+(216-11.1)) + 'px');
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.elem8').css('left' , (0.23*widthT+275) + 'px');

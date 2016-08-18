@@ -302,8 +302,8 @@
 		max-height: 100%;
 		min-width: 100%; 
 		img {
-			height: 10.2%;
-	    width: 10.2%; 
+			height: 10.1%;
+	    width: 10.1%; 
     } 
 	}
 	.elem34 {
@@ -320,7 +320,7 @@
 	}
 	.elem35 {
     position: absolute;
-    top: 75rem;
+    top: 74.95rem;
     left: 57rem;
     z-index: 2;
     width: 9.77rem;
@@ -330,15 +330,15 @@
 	    } 
 		}
 	.elem36 {
-		position: absolute;
-    top: 603.4px;
-    left: 25.4rem;
+    position: absolute;
+    top: 606px;
+    left: 25.39rem;
     z-index: 2;
     max-height: 100%;
     min-width: 100%;
 		img {
-			height: 15%;
-	    width: 15%; 
+			height: 14.5%;
+	    width: 14.5%; 
     } 
 	}
 	.elem37 {
@@ -356,7 +356,7 @@
     position: absolute;
     top: 23.6rem;
     left: 39rem;
-		height: 8%;
+		height: 50px;
     width: 7%;
     z-index: 1;
 		img {
@@ -367,12 +367,28 @@
     background-size: contain; 
     } 
 	}
+		.elem42 {
+    position: absolute;
+    top: 688.9px;
+    left: 43rem;
+    height: 3px;
+    width: 7%;
+    z-index: 1;
+    border-radius: 0;
+		img {
+		height: 100%;
+    width: 100%;
+    background-image: url('../img/room/down.png');
+    background-repeat: repeat-x;
+    background-size: contain; 
+    } 
+	}
 	.elem39 {
     position: absolute;
     top: 58.6rem;
     left: 58.6rem;
     height: 21%;
-    width: 3.75%;
+    width: 3.746%;
     z-index: 1;
 		img {
 		height: 100%;
@@ -383,12 +399,12 @@
     } 
 	}
 	.elem40 {
-		position: absolute;
+    position: absolute;
     top: 58.6rem;
-    left: 25.4rem;
+    left: 25.42rem;
     height: 21%;
     z-index: 1;
-    width: 4.2%;
+    width: 4.15%;
 		img {
 		height: 100%;
     width: 100%;
