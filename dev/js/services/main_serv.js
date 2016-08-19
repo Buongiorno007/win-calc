@@ -524,6 +524,7 @@
 
     //---------- Price define
     function calculationPrice(obj) {
+      console.log(obj, 'obj')
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
@@ -1328,7 +1329,7 @@
     }
 
 
-    //-------- save Order into Local DB
+ //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
       //---------- if EDIT Order, before inserting delete old order
@@ -1351,7 +1352,7 @@
         var productData = angular.copy(OrderStor.order.products[p]);    
         productData.order_id = OrderStor.order.id;
         if(!productData.is_addelem_only) {
-          productData.template_source['beads'] = angular.copy(productData.beadsData);
+          //productData.template_source['beads'] = angular.copy(productData.beadsData);
         }
         productData.template_source = JSON.stringify(productData.template_source);
         if(productData.construction_type === 4) {
@@ -1362,7 +1363,6 @@
         productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
           return item.id;
         }).join(', ');
-       
         if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
           productData.hardware_id = 0;
         } else if(OrderStor.order.products[p].construction_type ===4){
@@ -1411,7 +1411,6 @@
 
 
         /** ====== SAVE Report Data ===== */
-
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
         //console.log('productReportData', productReportData);
@@ -1550,15 +1549,15 @@
         UserStor.userInfo.fullLocation
       );
 
-      if (GlobalStor.global.currOpenPage === 'history') {
-        localDB.updateLocalServerDBs(
-          localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-            order_price: HistoryStor.history.price,
-            order_price_dis: HistoryStor.history.price,
-            order_price_primary: HistoryStor.history.price
-          }
-        );
-      }
+      // if (GlobalStor.global.currOpenPage === 'history') {
+      //   localDB.updateLocalServerDBs(
+      //     localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
+      //       order_price: HistoryStor.history.price,
+      //       order_price_dis: HistoryStor.history.price,
+      //       order_price_primary: HistoryStor.history.price
+      //     }
+      //   );
+      // }
     
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;

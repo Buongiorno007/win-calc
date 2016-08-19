@@ -2,49 +2,54 @@
  .page-form
   .close-m(fs-click="editOrder.close()")
   .warning(ng-class="{'alert':historyPage.G.global.isAlertHistory === 1}") {{::editOrder.CONFIGMENU_ALERT}}
-  .cont-order(ng-repeat="isBoxArray in editOrder.H.history.isBoxArray track by $index")
-   .order-path
+  .cont-order(ng-repeat="products in editOrder.H.history.isBoxArray.products track by $index")
+   .order-path(ng-if="products.is_addelem_only === 0")
      .num-box
       .title {{'№'}}
       .element-one
-       .value {{isBoxArray.product_id}}
+       .value {{products.product_id}}
      .prof-box
       .title {{::editOrder.CONFIGMENU_PROFILE}}
       .element-one
-       .value {{isBoxArray.nameProfiles}}
-         select.user-select-field-m(name="Profiles", ng-if='isBoxArray.nameProfiles', ng-change ="editOrder.itemsForLists(isBoxArray.product_id)", ng-model="isBoxArray.dataProfiles", ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles", required)      
+       .value {{products.nameProfiles}}
+         select.user-select-field-m(name="Profiles", ng-if='products.nameProfiles', ng-change ="editOrder.itemsForLists(products.product_id)", ng-model="products.dataProfiles", ng-options="listNameProfiles.name for listNameProfiles in editOrder.H.history.listNameProfiles", required)      
      .glass-cont
       .title {{::editOrder.CONFIGMENU_GLASS}}
       .element-one
-       .cart-item(ng-repeat="nameGlass in isBoxArray.nameGlass track by $index")
+       .cart-item(ng-repeat="nameGlass in products.nameGlass track by $index")
         .value {{nameGlass.name}}
-          select.user-select-field-m(name="Glass", ng-if='isBoxArray.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in isBoxArray.listNameGlass", required)       
+          select.user-select-field-m(name="Glass", ng-if='products.nameGlass', ng-model="nameGlass.dataGlass", ng-options="listNameGlass.name for listNameGlass in products.listNameGlass", required)       
      .hardware-cont
       .title {{::editOrder.CONFIGMENU_HARDWARE}}
       .element-one
-       .value {{isBoxArray.nameHardware }}
-         select.user-select-field-m(name="Hardware", ng-if='isBoxArray.nameHardware', ng-model="isBoxArray.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
+       .value {{products.nameHardware }}
+         select.user-select-field-m(name="Hardware", ng-if='products.nameHardware', ng-model="products.dataHardware", ng-options="listNameHardware.name for listNameHardware in editOrder.H.history.listNameHardware", required)
      .lamination-box
       .title {{::editOrder.CONFIGMENU_LAMINATION}}
       .element-one
        .value
-         span(ng-if="isBoxArray.img_in_id > 1") {{ isBoxArray.nameIn }}
-         span(ng-if="isBoxArray.img_in_id === 1") {{ isBoxArray.nameIn |translate }}
+         span(ng-if="products.lamination.lamination_in_id > 1") {{ products.lamination.laminat_in_name }}
+         span(ng-if="products.lamination.lamination_in_id === 1") {{ products.lamination.laminat_in_name |translate }}
          span /
-         span(ng-if="isBoxArray.img_out_id > 1") {{ isBoxArray.nameOut }}
-         span(ng-if="isBoxArray.img_out_id === 1") {{ isBoxArray.nameOut |translate }}
-       select.user-select-field-m(name="Lamination", ng-model="isBoxArray.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in isBoxArray.listNameLaminat", required)
+         span(ng-if="products.lamination.lamination_out_id > 1") {{ products.lamination.laminat_out_name }}
+         span(ng-if="products.lamination.lamination_out_id === 1") {{ products.lamination.laminat_out_name |translate }}
+       select.user-select-field-m(name="Lamination", ng-model="products.dataLamination", ng-options="listNameLaminat.name for listNameLaminat in products.listNameLaminat", required)
    .order-path
-     .one-element(ng-repeat="isBoxDopElem in editOrder.H.history.isBoxDopElem track by $index", ng-if="isBoxDopElem.product_id === isBoxArray.product_id")
-      .title {{::isBoxDopElem.list_group_name|translate}}
-      .add-elem {{isBoxDopElem.name}}
-         select.user-select-field-add(name="list_group_name", ng-if='isBoxDopElem.listAddElem', ng-model="isBoxDopElem.selectedAddElem", ng-options="listAddElem.name for listAddElem in isBoxDopElem.listAddElem", required)
-      .quantity {{::editOrder.QTY_LABEL}}
-         input.user-select-field-add(type="text", name="quantity", ng-model="isBoxDopElem.selectedQuantity", placeholder ="{{isBoxDopElem.element_qty}}")
-      .height {{::editOrder.HEIGHT_LABEL}}
-         input.user-select-field-add(type="text", name="height", ng-model="isBoxDopElem.selectedHeight", placeholder ="{{isBoxDopElem.element_height}}")
-      .width {{::editOrder.WIDTH_LABEL}}
-         input.user-select-field-add(type="text", name="width", ng-model="isBoxDopElem.selectedWidth", placeholder ="{{isBoxDopElem.element_width}}")
+     .num-box(ng-if="products.is_addelem_only === 1")
+      .title {{'№'}}
+      .element-one
+       .value {{products.product_id}}
+     .repeat-cont(ng-repeat="addElementDATA in products.addElementDATA track by $index")
+      .one-element(ng-repeat="addElem in addElementDATA track by $index")
+        .add-title {{::addElem.list_group_name|translate}}
+        .add-elem {{addElem.name}}
+           select.user-select-field-add(name="list_group_name", ng-model="addElem.selectedAddElem", ng-options="list.name for list in addElem.list", required)
+        .quantity {{::editOrder.QTY_LABEL}}
+           input.user-select-field-add(type="text", name="quantity", ng-model="addElem.qty", placeholder ="{{addElem.element_qty}}")
+        .height {{::editOrder.HEIGHT_LABEL}}
+           input.user-select-field-add(type="text", name="height", ng-model="addElem.height", placeholder ="{{addElem.element_height}}")
+        .width {{::editOrder.WIDTH_LABEL}}
+           input.user-select-field-add(type="text", name="width", ng-model="addElem.width", placeholder ="{{addElem.element_width}}")
 
 
   .save-m(fs-click="editOrder.checkProd()")

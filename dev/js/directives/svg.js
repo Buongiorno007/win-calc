@@ -412,7 +412,7 @@
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
                 $('.elem39').css({ 
-                  'left' : (0.23*widthT+(261-18.3)) + 'px',
+                  'left' : (0.23*widthT+(261-19.3)) + 'px',
                   'top': 0.23*((heightT-2000)*(-1))+ 468 + 'px',
                   'height' : 0.23*(heightT-2000) + 134 + 'px',
                 });
@@ -420,14 +420,14 @@
                   'width' : (0.23*widthT-135) + 'px'
                 });
                 $('.elem40').css({ 
-                  'top': 0.23*((heightT-2000)*(-1))+ 467 + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 468 + 'px',
                   'height' : 0.23*(heightT-2000) + 140 + 'px',
                 });
 
                 $('.elem33').css({ 
                   'top': 0.23*((heightT-2000)*(-1))+ 189 + 'px',
                 });
-                $('.elem35').css('left' , (0.23*widthT+(216-11.1)) + 'px');
+                $('.elem35').css('left' , (0.23*widthT+(217-12.1)) + 'px');
 
                 $('.elem11').css('left' , (0.23*(0.991*widthT)+280) + 'px');
                 $('.elem8').css('left' , (0.23*widthT+275) + 'px');
