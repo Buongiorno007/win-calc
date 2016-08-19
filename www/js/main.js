@@ -2294,7 +2294,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-
+console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -19991,6 +19991,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
+      console.log(id, itemArr, 'id, itemArr')
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,

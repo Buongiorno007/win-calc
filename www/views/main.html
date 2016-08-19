@@ -583,6 +583,7 @@
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
               <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
                 <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
               </div>

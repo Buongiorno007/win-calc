@@ -75,7 +75,7 @@
     }
 
 
-
+console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
