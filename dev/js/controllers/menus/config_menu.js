@@ -143,7 +143,7 @@
             list: 0
           };
             for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
-              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id ) {
+              if(ProductStor.product.chosenAddElements[u][f].parent_element_id === GlobalStor.global.dataProfiles[y].element_id ) {
                 obj.tr = ProductStor.product.chosenAddElements[u][f].name;
               } else {
                 obj.name = ProductStor.product.chosenAddElements[u][f].name;

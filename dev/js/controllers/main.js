@@ -75,7 +75,6 @@
     }
 
 
-console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -120,7 +119,7 @@ console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
       var deferred = $q.defer();
       if(ProductStor.product.is_addelem_only === 0) {
        localDB.selectLocalDB(
-         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+         localDB.tablesLocalDB.elements_profile_systems.tableName, {
           'profile_system_id': ProductStor.product.profile.id
         }).then(function(result) {
           GlobalStor.global.dataProfiles = angular.copy(result)

@@ -1158,7 +1158,6 @@
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
-      console.log(id, itemArr, 'id, itemArr')
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,

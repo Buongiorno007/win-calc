@@ -2294,7 +2294,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
 
-console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
     /**=============== FIRST START =========*/
 
     if(GlobalStor.global.startProgramm) {
@@ -2339,7 +2338,7 @@ console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
       var deferred = $q.defer();
       if(ProductStor.product.is_addelem_only === 0) {
        localDB.selectLocalDB(
-         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+         localDB.tablesLocalDB.elements_profile_systems.tableName, {
           'profile_system_id': ProductStor.product.profile.id
         }).then(function(result) {
           GlobalStor.global.dataProfiles = angular.copy(result)
@@ -2742,7 +2741,7 @@ console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
             list: 0
           };
             for (var y = 0; y<GlobalStor.global.dataProfiles.length; y+=1) {
-              if (ProductStor.product.chosenAddElements[u][f].id === GlobalStor.global.dataProfiles[y].list_id ) {
+              if(ProductStor.product.chosenAddElements[u][f].parent_element_id === GlobalStor.global.dataProfiles[y].element_id ) {
                 obj.tr = ProductStor.product.chosenAddElements[u][f].name;
               } else {
                 obj.name = ProductStor.product.chosenAddElements[u][f].name;
@@ -2801,6 +2800,7 @@ console.log(AuxStor.aux.addElementsType, 'AuxStor.aux.addElementsList')
 
   });
 })();
+
 
 
 // controllers/menus/navigation_menu.js
@@ -19991,7 +19991,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
-      console.log(id, itemArr, 'id, itemArr')
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,
@@ -22760,7 +22759,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       GlobalStor.global.dataProfiles = [];
      var deferred = $q.defer();
        localDB.selectLocalDB(
-         localDB.tablesLocalDB.beed_profile_systems.tableName, {
+         localDB.tablesLocalDB.elements_profile_systems.tableName, {
           'profile_system_id': newId
         }).then(function(result) {
           GlobalStor.global.dataProfiles = angular.copy(result)
