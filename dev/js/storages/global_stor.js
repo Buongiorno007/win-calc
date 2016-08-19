@@ -56,6 +56,7 @@
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
+        createHandle: [],
         heightTEMP: [],
         widthTEMP: [],
 
