@@ -667,9 +667,11 @@
 //console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
+        //console.log(beadResult, 'beadResult')
         if(beadResult.length && beadResult[0]) {
           var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
             var beadQty = template.priceElements.beadsSize.length;
+            console.log(beadQty, 'beadQty1')
             while (--beadQty > -1) {
               if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
                 template.priceElements.beadsSize[beadQty].elemId = item.beadId;
@@ -695,6 +697,7 @@
 
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+              console.log(ProductStor.product, '2')
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
             /** for door elements */
@@ -1352,7 +1355,7 @@
         var productData = angular.copy(OrderStor.order.products[p]);    
         productData.order_id = OrderStor.order.id;
         if(!productData.is_addelem_only) {
-          //productData.template_source['beads'] = angular.copy(productData.beadsData);
+          productData.template_source['beads'] = angular.copy(productData.beadsData);
         }
         productData.template_source = JSON.stringify(productData.template_source);
         if(productData.construction_type === 4) {
