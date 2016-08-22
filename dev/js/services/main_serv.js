@@ -524,7 +524,6 @@
 
     //---------- Price define
     function calculationPrice(obj) {
-      console.log(obj, 'obj')
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
@@ -667,11 +666,9 @@
 //console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        //console.log(beadResult, 'beadResult')
         if(beadResult.length && beadResult[0]) {
           var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
             var beadQty = template.priceElements.beadsSize.length;
-            console.log(beadQty, 'beadQty1')
             while (--beadQty > -1) {
               if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
                 template.priceElements.beadsSize[beadQty].elemId = item.beadId;
@@ -697,7 +694,6 @@
 
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-              console.log(ProductStor.product, '2')
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
             /** for door elements */
@@ -1178,12 +1174,13 @@
         }
         if(!$.isEmptyObject(tempObj)) {
           GlobalStor.global.infoTitle = tempObj.name;
-          GlobalStor.global.infoImg =  tempObj.img;
+          GlobalStor.global.infoImg = tempObj.img;
           GlobalStor.global.infoLink = tempObj.link;
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;
         }
       }
+
     }
 
 
@@ -1399,7 +1396,7 @@
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
 
-        console.log('SEND PRODUCT------', productData);
+        //console.log('SEND PRODUCT------', productData);
         //-------- insert product into local DB
         localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
         //-------- send to Server
@@ -1452,7 +1449,7 @@
               };
 
 
-              console.log('SEND ADD',addElementsData);
+              //console.log('SEND ADD',addElementsData);
               localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
               if(orderType) {
                 localDB.insertServer(
@@ -1468,10 +1465,12 @@
       }
 
       /** ============ SAVE ORDER =========== */
-
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
+      orderData.order_price_dis = OrderStor.order.order_price_dis;
+      orderData.order_price = OrderStor.order.order_price;
+      orderData.order_price_primary = OrderStor.order.order_primary;
       orderData.order_style = orderStyle;
       orderData.factory_id = UserStor.userInfo.factory_id;
       orderData.user_id = UserStor.userInfo.id;
@@ -1517,7 +1516,7 @@
       delete orderData.paymentMonthlyPrimaryDis;
 
 
-      console.log('!!!!orderData!!!!', orderData);
+      //console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
           UserStor.userInfo.phone,
@@ -1551,16 +1550,6 @@
         UserStor.userInfo.heatTransfer,
         UserStor.userInfo.fullLocation
       );
-
-      // if (GlobalStor.global.currOpenPage === 'history') {
-      //   localDB.updateLocalServerDBs(
-      //     localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-      //       order_price: HistoryStor.history.price,
-      //       order_price_dis: HistoryStor.history.price,
-      //       order_price_primary: HistoryStor.history.price
-      //     }
-      //   );
-      // }
     
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;

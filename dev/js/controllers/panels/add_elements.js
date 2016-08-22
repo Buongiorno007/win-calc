@@ -34,7 +34,7 @@
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 55,
+      colorFilter: 5555,
       typing: 'on'
     };
 
@@ -74,7 +74,7 @@
       $timeout(function(id){
         GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
         thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 55) {
+        if (GlobalStor.global.typeMenu === 5555) {
           $('.aux-handle').css({
           'left': 14.375 +'rem',
            'top': 82.625 +'rem'

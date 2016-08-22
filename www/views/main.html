@@ -339,8 +339,8 @@
       <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
         <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
           <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
-            <div ng-show="elementsPanel.G.global.typeMenu === 22" class="aux-template2-img move-outside"></div>
-            <div ng-show="elementsPanel.G.global.typeMenu === 11 || elementsPanel.G.global.typeMenu === 33 || elementsPanel.G.global.typeMenu === 55" class="aux-template1-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.typeMenu === 2222" class="aux-template2-img move-outside"></div>
+            <div ng-show="elementsPanel.G.global.typeMenu === 1111 || elementsPanel.G.global.typeMenu === 3333 || elementsPanel.G.global.typeMenu === 5555" class="aux-template1-img move-outside"></div>
           </div>
           <div ng-repeat="addElemGroup in elementsPanel.P.product.chosenAddElements track by $index" ng-if="elementsPanel.G.global.addElementsAll[$index].elementsList &amp;&amp; elementsPanel.config.addElementDATA[$index].mainTypeMenu === elementsPanel.G.global.typeMenu || elementsPanel.G.global.addElementsAll[$index].elementsList &amp;&amp; elementsPanel.config.addElementDATA[$index].typeMenu === elementsPanel.G.global.typeMenu" ng-switch="$index" show-delay="{{ elementsPanel.config.addElementDATA[$index].delay }}" ng-class="[elementsPanel.config.addElementDATA[$index].typeClass, elementsPanel.config.addElementDATA[$index].typeClass + '-theme', {'focused': elementsPanel.A.aux.isFocusedAddElement == ($index+1) &amp;&amp; !addElemGroup.length, 'selected': addElemGroup.length}]" class="auxiliary-item unvisible">
             <div ng-switch-when="0" class="aux-grid-img move-grid"></div>
@@ -402,11 +402,11 @@
               </div>
             </div>
           </div>
-          <div fs-click="elementsPanel.click(55)" ng-class="{'green': elementsPanel.config.colorFilter===55}" id="55" class="numberMenu">{{::elementsPanel.ALL}}</div>
-          <div fs-click="elementsPanel.click(11)" ng-class="{'green': elementsPanel.config.colorFilter===11}" id="11" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
-          <div fs-click="elementsPanel.click(22)" ng-class="{'green': elementsPanel.config.colorFilter===22}" id="22" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
-          <div fs-click="elementsPanel.click(33)" ng-class="{'green': elementsPanel.config.colorFilter===33}" id="33" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
-          <div fs-click="elementsPanel.click(44)" ng-class="{'green': elementsPanel.config.colorFilter===44}" id="44" class="numberMenu">{{::elementsPanel.OTHER}}</div>
+          <div fs-click="elementsPanel.click(5555)" ng-class="{'green': elementsPanel.config.colorFilter===5555}" id="5555" class="numberMenu">{{::elementsPanel.ALL}}</div>
+          <div fs-click="elementsPanel.click(1111)" ng-class="{'green': elementsPanel.config.colorFilter===1111}" id="1111" class="numberMenu">{{::elementsPanel.INSIDES}}</div>
+          <div fs-click="elementsPanel.click(2222)" ng-class="{'green': elementsPanel.config.colorFilter===2222}" id="2222" class="numberMenu">{{::elementsPanel.OUTSIDES}}</div>
+          <div fs-click="elementsPanel.click(3333)" ng-class="{'green': elementsPanel.config.colorFilter===3333}" id="3333" class="numberMenu">{{::elementsPanel.COMPONENTS}}</div>
+          <div fs-click="elementsPanel.click(4444)" ng-class="{'green': elementsPanel.config.colorFilter===4444}" id="4444" class="numberMenu">{{::elementsPanel.OTHER}}</div>
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" fs-click="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}" class="scheme-view-dialog">
             <svg-template template="elementsPanel.P.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="elementsPanel.constants.SVG_ID_ICON"></svg-template>

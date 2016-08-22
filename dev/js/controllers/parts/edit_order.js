@@ -18,7 +18,8 @@
     localDB,
     UserStor,
     HistoryServ,
-    AddElementMenuServ
+    AddElementMenuServ,
+    CartMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -42,8 +43,8 @@
     /**============ METHODS ================*/
 
     function saveOrder() {
-      GlobalStor.global.isEditBox = 0;
-      GlobalStor.global.isBox = 0;
+      CartMenuServ.calculateAllProductsPrice();
+      CartMenuServ.calculateOrderPrice();
       HistoryStor.history.price = 0;
       var style = '';
       var type = 0;
@@ -52,9 +53,7 @@
       var ordersQty = HistoryStor.history.isBoxArray.products.length, ord;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray.products[ord].order_id);
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
+        MainServ.deleteOrderInDB(orderNum);
       }
           
       var productArray = HistoryStor.history.isBoxArray.products;
@@ -124,19 +123,26 @@
               _callback();  
             },
             function (_callback) {
+              CartMenuServ.calculateAllProductsPrice();
+              _callback();  
+            },
+            function (_callback) {
+              CartMenuServ.calculateOrderPrice();
+              _callback();  
+            },
+            function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
-                // for (var n=0; n<orderProdQty; n+=1) {
-                //   HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
-                // }
                 style = HistoryStor.history.isBoxArray.order_style;
                 type = HistoryStor.history.isBoxArray.order_type;
-
-                MainServ.saveOrderInDB(HistoryStor.history.isBoxArray.info, type, style);
+                MainServ.saveOrderInDB(HistoryStor.history.isBoxArray.info, type, style).then(function(res) {
+                  HistoryServ.downloadOrders();
+                  GlobalStor.global.isEditBox = 0;
+                  GlobalStor.global.isBox = 0;
+                });
               _callback();  
             },
             function (_callback) {
               OrderStor.order = OrderStor.setDefaultOrder();
-              HistoryServ.downloadOrders();
               _callback();  
             }
           ], function (err, result) {
@@ -156,7 +162,6 @@
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
-      RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;

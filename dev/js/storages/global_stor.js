@@ -103,8 +103,8 @@
         lamGroupFiltered: [],
 
         //------ Add Elements
-        typeMenu: 55,
-        typeMenuID: 55,
+        typeMenu: 5555,
+        typeMenuID: 5555,
         addElementsAll: [],
         tempAddElements: [],
 

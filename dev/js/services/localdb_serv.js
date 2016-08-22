@@ -1081,10 +1081,10 @@
 
     function importAllDB(login, access) {
       var defer = $q.defer();
-      console.log('Import database begin!');
+      //console.log('Import database begin!');
       $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
         function (result) {
-          console.log('importAllDB+++', result);
+          //console.log('importAllDB+++', result);
           if(result.data.status) {
             //-------- insert in LocalDB
             insertTablesLocalDB(result.data).then(function() {
@@ -1096,7 +1096,7 @@
           }
         },
         function () {
-          console.log('Something went wrong with importing Database!');
+          //console.log('Something went wrong with importing Database!');
           defer.resolve(0);
         }
       );

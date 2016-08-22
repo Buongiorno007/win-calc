@@ -3402,7 +3402,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
       DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 55,
+      colorFilter: 5555,
       typing: 'on'
     };
 
@@ -3442,7 +3442,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       $timeout(function(id){
         GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
         thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 55) {
+        if (GlobalStor.global.typeMenu === 5555) {
           $('.aux-handle').css({
           'left': 14.375 +'rem',
            'top': 82.625 +'rem'
@@ -4191,7 +4191,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     localDB,
     UserStor,
     HistoryServ,
-    AddElementMenuServ
+    AddElementMenuServ,
+    CartMenuServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -4215,8 +4216,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     function saveOrder() {
-      GlobalStor.global.isEditBox = 0;
-      GlobalStor.global.isBox = 0;
+      CartMenuServ.calculateAllProductsPrice();
+      CartMenuServ.calculateOrderPrice();
       HistoryStor.history.price = 0;
       var style = '';
       var type = 0;
@@ -4225,9 +4226,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       var ordersQty = HistoryStor.history.isBoxArray.products.length, ord;
       for(ord=0; ord<ordersQty; ord+=1 ) {
         var orderNum = angular.copy(HistoryStor.history.isBoxArray.products[ord].order_id);
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
-        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
-        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
+        MainServ.deleteOrderInDB(orderNum);
       }
           
       var productArray = HistoryStor.history.isBoxArray.products;
@@ -4297,19 +4296,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               _callback();  
             },
             function (_callback) {
+              CartMenuServ.calculateAllProductsPrice();
+              _callback();  
+            },
+            function (_callback) {
+              CartMenuServ.calculateOrderPrice();
+              _callback();  
+            },
+            function (_callback) {
                 var orderProdQty = OrderStor.order.products.length;
-                // for (var n=0; n<orderProdQty; n+=1) {
-                //   HistoryStor.history.price += OrderStor.order.products[n].productPriceDis;
-                // }
                 style = HistoryStor.history.isBoxArray.order_style;
                 type = HistoryStor.history.isBoxArray.order_type;
-
-                MainServ.saveOrderInDB(HistoryStor.history.isBoxArray.info, type, style);
+                MainServ.saveOrderInDB(HistoryStor.history.isBoxArray.info, type, style).then(function(res) {
+                  HistoryServ.downloadOrders();
+                  GlobalStor.global.isEditBox = 0;
+                  GlobalStor.global.isBox = 0;
+                });
               _callback();  
             },
             function (_callback) {
               OrderStor.order = OrderStor.setDefaultOrder();
-              HistoryServ.downloadOrders();
               _callback();  
             }
           ], function (err, result) {
@@ -4329,7 +4335,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       HistoryStor.history.listNameProfiles = [];
     }
     function close() {
-      RecOrderServ.extend();
       GlobalStor.global.isEditBox = 0;
       GlobalStor.global.isAlertHistory = 0;
       GlobalStor.global.isBox = 0;
@@ -4366,6 +4371,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
   });
 })();
+
 
 
 // controllers/parts/grid_selector.js
@@ -8081,6 +8087,10 @@ function ErrorResult(code, message) {
       var index = (id - 1), gridsSort;
       AuxStor.aux.addElementsMenuStyle = GeneralServ.addElementDATA[index].typeClass + '-theme';
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
+      AuxStor.aux.addElementsType = AuxStor.aux.addElementsType.filter(function(res) {
+        res.img = globalConstants.serverIP + res.img;
+        return res;
+      }) 
       /** if Grids */
       if (AuxStor.aux.isFocusedAddElement === 1) {
         if(ProductStor.product.is_addelem_only) {
@@ -12634,8 +12644,8 @@ function ErrorResult(code, message) {
             id: 20,
             name: 'add_elements.GRIDS',
             typeClass: 'aux-grid',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 5
           },
@@ -12644,7 +12654,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-visor',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 6
           },
@@ -12653,7 +12663,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spillway',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 6
           },
@@ -12662,7 +12672,7 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.OUTSIDE',
             typeClass: 'aux-outside',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 10
           },
@@ -12671,8 +12681,8 @@ function ErrorResult(code, message) {
             id: 26,
             name: 'add_elements.LOUVERS',
             typeClass: 'aux-louver',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 15
           },
@@ -12681,8 +12691,8 @@ function ErrorResult(code, message) {
             id: 19,
             name: 'add_elements.INSIDE',
             typeClass: 'aux-inside',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_slope',
             delay: globalConstants.STEP * 20
           },
@@ -12691,8 +12701,8 @@ function ErrorResult(code, message) {
             id: 12,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           },
@@ -12701,8 +12711,8 @@ function ErrorResult(code, message) {
             id: 27,
             name: 'add_elements.FAN',
             typeClass: 'aux-fan',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12711,8 +12721,8 @@ function ErrorResult(code, message) {
             id: 8,
             name: 'add_elements.WINDOWSILLS',
             typeClass: 'aux-windowsill',
-            typeMenu: 11,
-            mainTypeMenu: 55,
+            typeMenu: 1111,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_big',
             delay: globalConstants.STEP * 13
           },
@@ -12721,8 +12731,8 @@ function ErrorResult(code, message) {
             id: 24,
             name: 'add_elements.HANDLELS',
             typeClass: 'aux-handle',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_middle',
             delay: globalConstants.STEP * 28
           },
@@ -12731,8 +12741,8 @@ function ErrorResult(code, message) {
             id: 18,
             name: 'add_elements.OTHERS',
             typeClass: 'aux-others',
-            typeMenu: 44,
-            mainTypeMenu: 55,
+            typeMenu: 4444,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12742,7 +12752,7 @@ function ErrorResult(code, message) {
             id: 99,
             name: 'add_elements.BLIND',
             typeClass: 'aux-blind',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12752,7 +12762,7 @@ function ErrorResult(code, message) {
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grating',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12761,7 +12771,7 @@ function ErrorResult(code, message) {
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shutters',
-            typeMenu: 22,
+            typeMenu: 2222,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },          
@@ -12770,7 +12780,7 @@ function ErrorResult(code, message) {
             id: 999,
             name: 'add_elements.SHUTTERS',
             typeClass: 'aux-shut',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },          
@@ -12779,7 +12789,7 @@ function ErrorResult(code, message) {
             id: 9999,
             name: 'add_elements.GRATING',
             typeClass: 'aux-grat',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12788,7 +12798,7 @@ function ErrorResult(code, message) {
             id: 21,
             name: 'add_elements.VISORS',
             typeClass: 'aux-vis',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12797,7 +12807,7 @@ function ErrorResult(code, message) {
             id: 9,
             name: 'add_elements.SPILLWAYS',
             typeClass: 'aux-spil',
-            mainTypeMenu: 55,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_small',
             delay: globalConstants.STEP * 31
           },
@@ -12806,8 +12816,8 @@ function ErrorResult(code, message) {
             id: 13,
             name: 'add_elements.CONNECTORS',
             typeClass: 'aux-connectors',
-            typeMenu: 33,
-            mainTypeMenu: 55,
+            typeMenu: 3333,
+            mainTypeMenu: 5555,
             //colorClass: 'aux_color_connect',
             delay: globalConstants.STEP * 30
           }
@@ -15331,10 +15341,10 @@ function ErrorResult(code, message) {
 
     function importAllDB(login, access) {
       var defer = $q.defer();
-      console.log('Import database begin!');
+      //console.log('Import database begin!');
       $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
         function (result) {
-          console.log('importAllDB+++', result);
+          //console.log('importAllDB+++', result);
           if(result.data.status) {
             //-------- insert in LocalDB
             insertTablesLocalDB(result.data).then(function() {
@@ -15346,7 +15356,7 @@ function ErrorResult(code, message) {
           }
         },
         function () {
-          console.log('Something went wrong with importing Database!');
+          //console.log('Something went wrong with importing Database!');
           defer.resolve(0);
         }
       );
@@ -19357,7 +19367,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //---------- Price define
     function calculationPrice(obj) {
-      console.log(obj, 'obj')
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
@@ -19500,11 +19509,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 //console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
-        //console.log(beadResult, 'beadResult')
         if(beadResult.length && beadResult[0]) {
           var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
             var beadQty = template.priceElements.beadsSize.length;
-            console.log(beadQty, 'beadQty1')
             while (--beadQty > -1) {
               if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
                 template.priceElements.beadsSize[beadQty].elemId = item.beadId;
@@ -19530,7 +19537,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
           //-------- beads data for analysis
           ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-              console.log(ProductStor.product, '2')
           //------- fill objXFormedPrice for sizes
           for (var size in template.priceElements) {
             /** for door elements */
@@ -20011,12 +20017,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
         if(!$.isEmptyObject(tempObj)) {
           GlobalStor.global.infoTitle = tempObj.name;
-          GlobalStor.global.infoImg =  tempObj.img;
+          GlobalStor.global.infoImg = tempObj.img;
           GlobalStor.global.infoLink = tempObj.link;
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;
         }
       }
+
     }
 
 
@@ -20232,7 +20239,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
 
-        console.log('SEND PRODUCT------', productData);
+        //console.log('SEND PRODUCT------', productData);
         //-------- insert product into local DB
         localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
         //-------- send to Server
@@ -20285,7 +20292,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               };
 
 
-              console.log('SEND ADD',addElementsData);
+              //console.log('SEND ADD',addElementsData);
               localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
               if(orderType) {
                 localDB.insertServer(
@@ -20301,10 +20308,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
 
       /** ============ SAVE ORDER =========== */
-
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
+      orderData.order_price_dis = OrderStor.order.order_price_dis;
+      orderData.order_price = OrderStor.order.order_price;
+      orderData.order_price_primary = OrderStor.order.order_primary;
       orderData.order_style = orderStyle;
       orderData.factory_id = UserStor.userInfo.factory_id;
       orderData.user_id = UserStor.userInfo.id;
@@ -20350,7 +20359,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       delete orderData.paymentMonthlyPrimaryDis;
 
 
-      console.log('!!!!orderData!!!!', orderData);
+      //console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
           UserStor.userInfo.phone,
@@ -20384,16 +20393,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         UserStor.userInfo.heatTransfer,
         UserStor.userInfo.fullLocation
       );
-
-      // if (GlobalStor.global.currOpenPage === 'history') {
-      //   localDB.updateLocalServerDBs(
-      //     localDB.tablesLocalDB.orders.tableName,  ProductStor.product.order_id, {
-      //       order_price: HistoryStor.history.price,
-      //       order_price_dis: HistoryStor.history.price,
-      //       order_price_primary: HistoryStor.history.price
-      //     }
-      //   );
-      // }
     
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
@@ -22863,7 +22862,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     /**============ METHODS1 ================*/
       function box() {
-        console.log(HistoryStor.history.isBoxArray, 'HistoryStor.history.isBoxArray')
         var productArray = HistoryStor.history.isBoxArray.products;
         async.eachSeries(productArray,calculate, function (err, result) {
           console.log('end', HistoryStor.history.isBoxArray);
@@ -23256,6 +23254,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
   });
 })();
+
 
 
 // services/settings_serv.js
@@ -26890,8 +26889,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         lamGroupFiltered: [],
 
         //------ Add Elements
-        typeMenu: 55,
-        typeMenuID: 55,
+        typeMenu: 5555,
+        typeMenuID: 5555,
         addElementsAll: [],
         tempAddElements: [],
 

@@ -19,7 +19,6 @@
 
     /**============ METHODS1 ================*/
       function box() {
-        console.log(HistoryStor.history.isBoxArray, 'HistoryStor.history.isBoxArray')
         var productArray = HistoryStor.history.isBoxArray.products;
         async.eachSeries(productArray,calculate, function (err, result) {
           console.log('end', HistoryStor.history.isBoxArray);
