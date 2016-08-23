@@ -631,7 +631,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }, 800);
     }
 
-
     /**++++++++++ Edit Sash ++++++++++*/
 
     function showAllAvailableGlass(menuId) {
@@ -4243,7 +4242,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
               OrderStor.order.id = angular.copy(product.order_id);
               ProductStor.product.chosenAddElements = angular.copy(product.addElementDATA);
               ProductStor.product.order_id = angular.copy(product.order_id);
-              ProductStor.product.template_source = angular.copy( JSON.parse(product.template_source));
+              ProductStor.product.template_source = angular.copy(product.template_source);
+              ProductStor.product.template = angular.copy(product.template_source);
+              ProductStor.product.templateIcon = angular.copy(product.template_source);
               ProductStor.product.hardware = angular.copy(product.hardware || {});
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);
@@ -13733,7 +13734,7 @@ function ErrorResult(code, message) {
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          //          console.warn('ORDER ====', OrderStor.order);
+          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
@@ -19233,6 +19234,16 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function saveTemplateInProductForOrder(templateIndex) {
       //-----копия функции создания template для подсчета цены.
       var defer = $q.defer();
+               //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === ProductStor.product.profile.id;
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          GlobalStor.global.selectGlassId = ProductStor.product.glass[0].id;
+          GlobalStor.global.selectGlassName = ProductStor.product.glass[0].sku;
+        }
         ProductStor.product.template_source;
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
@@ -23119,7 +23130,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         function calculate (products, _cb) {
           async.waterfall([
             function (_callback) {
-              JSON.parse(products.template_source);
+          
           if (products.dataProfiles) {
             products.profile = products.dataProfiles
           } else {
@@ -23127,10 +23138,20 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
           if(products.dataProfiles) {
             if(products.nameGlass) {
-             for(var x=0; x<products.nameGlass.length; x+=1) {
-               products.glass_id[x] = products.nameGlass[x].dataGlass.id;
-             }
-             delete products.nameGlass;
+              products.template_source = JSON.parse(products.template_source);
+              var tempOldGlass = angular.copy(products.glass_id)
+              for(var x=0; x<products.nameGlass.length; x+=1) {
+                products.glass_id[x] = products.nameGlass[x].dataGlass.id;
+                products.template_source.beads[x].glassId = products.nameGlass[x].dataGlass.id.id; 
+                for(var b=0; b<products.template_source.details.length; b+=1) {
+                  if(products.template_source.details[b].glassId === tempOldGlass[x]*1) {
+                    products.template_source.details[b].glassId = products.nameGlass[x].dataGlass.id.id;
+                    products.template_source.details[b].glassTxt = products.nameGlass[x].dataGlass.id.sku;
+                    products.template_source.details[b].glass_type = products.nameGlass[x].dataGlass.id.glass_color;
+                  }
+                }
+              }
+              delete products.nameGlass;
             } 
           }
           if (products.dataHardware) {

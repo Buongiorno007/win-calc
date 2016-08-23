@@ -645,7 +645,7 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          //          console.warn('ORDER ====', OrderStor.order);
+          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });

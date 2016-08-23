@@ -390,6 +390,16 @@
     function saveTemplateInProductForOrder(templateIndex) {
       //-----копия функции создания template для подсчета цены.
       var defer = $q.defer();
+               //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === ProductStor.product.profile.id;
+        });
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          GlobalStor.global.selectGlassId = ProductStor.product.glass[0].id;
+          GlobalStor.global.selectGlassName = ProductStor.product.glass[0].sku;
+        }
         ProductStor.product.template_source;
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)

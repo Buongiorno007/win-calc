@@ -70,7 +70,9 @@
               OrderStor.order.id = angular.copy(product.order_id);
               ProductStor.product.chosenAddElements = angular.copy(product.addElementDATA);
               ProductStor.product.order_id = angular.copy(product.order_id);
-              ProductStor.product.template_source = angular.copy( JSON.parse(product.template_source));
+              ProductStor.product.template_source = angular.copy(product.template_source);
+              ProductStor.product.template = angular.copy(product.template_source);
+              ProductStor.product.templateIcon = angular.copy(product.template_source);
               ProductStor.product.hardware = angular.copy(product.hardware || {});
               ProductStor.product.lamination = angular.copy(product.lamination);
               ProductStor.product.product_id = angular.copy(product.product_id);

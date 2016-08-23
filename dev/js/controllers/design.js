@@ -118,7 +118,6 @@
       }, 800);
     }
 
-
     /**++++++++++ Edit Sash ++++++++++*/
 
     function showAllAvailableGlass(menuId) {

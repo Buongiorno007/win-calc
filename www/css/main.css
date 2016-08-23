@@ -5266,19 +5266,15 @@ div.drum figure {
   -webkit-appearance: none;
   background-color: #fff;
 }
-/* line 75, ../../dev/sass/parts/_edit-order.scss */
-.user-select-field-m.no-active {
-  background-color: #fff;
-}
 
-/* line 79, ../../dev/sass/parts/_edit-order.scss */
+/* line 76, ../../dev/sass/parts/_edit-order.scss */
 .user-select-field-add {
   -moz-appearance: none;
   -webkit-appearance: none;
   background-color: #fff;
 }
 
-/* line 84, ../../dev/sass/parts/_edit-order.scss */
+/* line 81, ../../dev/sass/parts/_edit-order.scss */
 .cont-order {
   position: relative;
   border-radius: 2rem;
@@ -5291,7 +5287,7 @@ div.drum figure {
   justify-content: space-between;
 }
 
-/* line 94, ../../dev/sass/parts/_edit-order.scss */
+/* line 91, ../../dev/sass/parts/_edit-order.scss */
 .order-path {
   position: relative;
   border-radius: 2rem;
@@ -5303,14 +5299,14 @@ div.drum figure {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 105, ../../dev/sass/parts/_edit-order.scss */
+/* line 102, ../../dev/sass/parts/_edit-order.scss */
 .order-path .value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 190px;
   margin: 0.3125rem 0;
   color: #363636;
 }
-/* line 112, ../../dev/sass/parts/_edit-order.scss */
+/* line 109, ../../dev/sass/parts/_edit-order.scss */
 .order-path .add-elem {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   max-width: 100%;
@@ -5319,7 +5315,7 @@ div.drum figure {
   position: relative;
   left: 7rem;
 }
-/* line 121, ../../dev/sass/parts/_edit-order.scss */
+/* line 118, ../../dev/sass/parts/_edit-order.scss */
 .order-path .width {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -5329,7 +5325,7 @@ div.drum figure {
   top: 28%;
   left: 70%;
 }
-/* line 131, ../../dev/sass/parts/_edit-order.scss */
+/* line 128, ../../dev/sass/parts/_edit-order.scss */
 .order-path .height {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -5339,7 +5335,7 @@ div.drum figure {
   top: 28%;
   left: 58%;
 }
-/* line 141, ../../dev/sass/parts/_edit-order.scss */
+/* line 138, ../../dev/sass/parts/_edit-order.scss */
 .order-path .quantity {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   position: absolute;
@@ -5350,7 +5346,7 @@ div.drum figure {
   left: 46%;
 }
 
-/* line 152, ../../dev/sass/parts/_edit-order.scss */
+/* line 149, ../../dev/sass/parts/_edit-order.scss */
 .element-one {
   display: -webkit-flex;
   display: flex;
@@ -5361,14 +5357,14 @@ div.drum figure {
   overflow: hidden;
 }
 
-/* line 158, ../../dev/sass/parts/_edit-order.scss */
+/* line 155, ../../dev/sass/parts/_edit-order.scss */
 .title {
   margin: 0.625rem 0;
   color: #f98000;
   max-width: 100%;
 }
 
-/* line 164, ../../dev/sass/parts/_edit-order.scss */
+/* line 161, ../../dev/sass/parts/_edit-order.scss */
 .add-title {
   margin: 0.625rem 0;
   color: #f98000;
@@ -5378,7 +5374,7 @@ div.drum figure {
   left: 7rem;
 }
 
-/* line 172, ../../dev/sass/parts/_edit-order.scss */
+/* line 169, ../../dev/sass/parts/_edit-order.scss */
 .one-element {
   position: relative;
   height: 100%;
@@ -5386,12 +5382,12 @@ div.drum figure {
   overflow: hidden;
 }
 
-/* line 178, ../../dev/sass/parts/_edit-order.scss */
+/* line 175, ../../dev/sass/parts/_edit-order.scss */
 .repeat-cont {
   position: relative;
 }
 
-/* line 182, ../../dev/sass/parts/_edit-order.scss */
+/* line 179, ../../dev/sass/parts/_edit-order.scss */
 .save-m {
   position: relative;
   font: normal 1.75rem/1.5 icons, sans-serif;
@@ -5400,14 +5396,14 @@ div.drum figure {
   height: 5.3125rem;
   left: 95%;
 }
-/* line 191, ../../dev/sass/parts/_edit-order.scss */
+/* line 188, ../../dev/sass/parts/_edit-order.scss */
 .save-m:after {
   top: 25%;
   left: 25%;
   content: "";
 }
 
-/* line 198, ../../dev/sass/parts/_edit-order.scss */
+/* line 195, ../../dev/sass/parts/_edit-order.scss */
 .close-m {
   position: relative;
   width: 5.3125rem;
@@ -5416,7 +5412,7 @@ div.drum figure {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 205, ../../dev/sass/parts/_edit-order.scss */
+/* line 202, ../../dev/sass/parts/_edit-order.scss */
 .close-m:after {
   top: 25%;
   left: 25%;
@@ -6570,7 +6566,7 @@ tr.factory_item {
 }
 /* line 435, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
-  top: 16.375rem;
+  top: 11.375rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }

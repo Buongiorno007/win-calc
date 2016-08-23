@@ -276,7 +276,7 @@
         function calculate (products, _cb) {
           async.waterfall([
             function (_callback) {
-              JSON.parse(products.template_source);
+          
           if (products.dataProfiles) {
             products.profile = products.dataProfiles
           } else {
@@ -284,10 +284,20 @@
           }
           if(products.dataProfiles) {
             if(products.nameGlass) {
-             for(var x=0; x<products.nameGlass.length; x+=1) {
-               products.glass_id[x] = products.nameGlass[x].dataGlass.id;
-             }
-             delete products.nameGlass;
+              products.template_source = JSON.parse(products.template_source);
+              var tempOldGlass = angular.copy(products.glass_id)
+              for(var x=0; x<products.nameGlass.length; x+=1) {
+                products.glass_id[x] = products.nameGlass[x].dataGlass.id;
+                products.template_source.beads[x].glassId = products.nameGlass[x].dataGlass.id.id; 
+                for(var b=0; b<products.template_source.details.length; b+=1) {
+                  if(products.template_source.details[b].glassId === tempOldGlass[x]*1) {
+                    products.template_source.details[b].glassId = products.nameGlass[x].dataGlass.id.id;
+                    products.template_source.details[b].glassTxt = products.nameGlass[x].dataGlass.id.sku;
+                    products.template_source.details[b].glass_type = products.nameGlass[x].dataGlass.id.glass_color;
+                  }
+                }
+              }
+              delete products.nameGlass;
             } 
           }
           if (products.dataHardware) {
