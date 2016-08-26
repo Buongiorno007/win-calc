@@ -45,7 +45,6 @@
 
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
-
       function deleteProduct() {
         //playSound('delete');
         OrderStor.order.products.splice(productIndex, 1);
@@ -53,7 +52,13 @@
 
         //----- if all products were deleted go to main page????
         CartMenuServ.calculateOrderPrice();
-        if(OrderStor.order.products.length > 0 ) {
+        var products = OrderStor.order.products;
+        if(products.length > 0 ) {
+          for(var x=0; x<products.length; x+=1) {
+            if(products[x].product_id > productIndex+1) {
+              OrderStor.order.products[x].product_id = products[x].product_id-1;
+            }
+          }
           //--------- Change order price
         } else {
           //$scope.global.createNewProjectCart();
