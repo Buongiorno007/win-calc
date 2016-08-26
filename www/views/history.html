@@ -136,9 +136,11 @@
                 </div>
               </div>
             </div>
-            <div class="history-req-panel">
-              <button class="req-res">{{"подтянуть историю"}}</button>
-              <select name="country" ng-model="historyPage.H.history.sgdfsgsd" ng-options="historyPage.H.history.dataProfiles" disabled class="period-of-time"></select>
+            <div ng-show="!historyPage.H.history.isOrderSearch" class="history-req-panel">
+              <button fs-click="historyPage.reqResult()" class="req-res">{{"подтянуть историю"}}</button>
+              <select ng-model="historyPage.H.history.resTimeBox" ng-options="timeBox.name for timeBox in historyPage.H.history.timeBox" ng-change="historyPage.deleteOption()" class="period-of-time">
+                <option id="deleteOption" value="">{{::"за неделю"}}</option>
+              </select>
             </div>
           </div>
           <div class="scroll-vert-container">

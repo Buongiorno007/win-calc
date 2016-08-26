@@ -73,17 +73,17 @@
   .history-req-panel {
     @include display-flex();
     position: relative;
-    top: 27%;
-    right: -63rem;
-    width: 43rem;
+    top: 30%;
+    right: -65rem;
+    width: 40rem;
+
     .period-of-time {
       position: relative;
-      width: 14rem;
+      width: 15rem;
       height: 3rem;
       position: relative;
-      height: 3.5rem;
+      height: 3rem;
       display: inline-block;
-      color: white;
       text-decoration: none;
       outline: none;
       border-width: 2px 0;
@@ -91,23 +91,23 @@
       border-color: #f98000;
       border-radius: 6px;
       transition: 0.2s;
-      font-size: x-small;
+      font-size: 1.6rem; 
     }
     .req-res {
       position: relative;
       width: 27rem;
-      height: 3.5rem;
+      height: 3rem;
       display: inline-block;
       color: white;
       text-decoration: none;
       outline: none;
       border-width: 2px 0;
-      border-style: solid none;
-      border-color: #FDBE33 #000 #D77206;
-      border-radius: 6px;
+      /* border-style: groove; */
+      border-color: #ff921e #f7f7f7 #f98000;
+      border-radius: 10px;
       background: #f98000;
       transition: 0.2s;
-      font-size: medium;    
+      font-size: 1.6rem;   
     }
   }
 

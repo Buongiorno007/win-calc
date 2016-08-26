@@ -65,10 +65,12 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", fs-click="historyPage.sortingInit(1, 'done')")
                       .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
                       .filter-select-icon
-            .history-req-panel
+            .history-req-panel(ng-show="!historyPage.H.history.isOrderSearch")
 
-              button.req-res{{"подтянуть историю"}}
-              select.period-of-time(name="country", ng-model="historyPage.H.history.sgdfsgsd", ng-options="historyPage.H.history.dataProfiles", disabled)
+              button.req-res(fs-click="historyPage.reqResult()"){{"подтянуть историю"}}
+              select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="timeBox.name for timeBox in historyPage.H.history.timeBox",
+              ng-change ="historyPage.deleteOption()")
+                option(id='deleteOption', value=''){{::"за неделю"}}
           .scroll-vert-container
             .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")

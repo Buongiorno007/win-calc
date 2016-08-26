@@ -161,6 +161,19 @@
         }
       }
     }
+    function reqResult() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://admin.steko.com.ua/api/orders?'+UserStor.userInfo.phone+'&'+UserStor.userInfo.device_code+'&page='+HistoryStor.history.resTimeBox.namb, false);
+      xhr.send();
+      if (xhr.status != 200) {
+        console.info( xhr.status + ': ' + xhr.statusText );
+      } else {
+        //alert( xhr.responseText );
+      }
+    } 
+    function deleteOption() {
+      $("#deleteOption").remove();
+    }
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       HistoryStor.history.orderOk=0;
@@ -911,7 +924,9 @@
       orderDateSelecting: orderDateSelecting,
       openCalendarScroll: openCalendarScroll,
       orderSorting: orderSorting,
-      sortingInit: sortingInit
+      sortingInit: sortingInit,
+      reqResult: reqResult,
+      deleteOption: deleteOption
     };
 
     return thisFactory.publicObj;
