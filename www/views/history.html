@@ -76,22 +76,26 @@
               <div ng-class="{ 'active': historyPage.H.history.isOrderSearch }" class="tools-block search-tool">
                 <button fs-click="historyPage.orderSearching()" class="tool search-btn"></button>
               </div>
-              <div ng-class="{ 'active': historyPage.H.history.isOrderDate }" class="tools-block tool-drop">
-                <button fs-click="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.H.history.startDate === '' &amp;&amp;  historyPage.H.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDate !== ''">{{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</span><span ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDate !== ''">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</span></div>
-                <div ng-if="!historyPage.H.history.isDraftView" class="dropdown-tool-dialog date-filter">
-                  <div class="filter-title">{{ ::historyPage.DATE_RANGE }}</div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isStartDate }" fs-click="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</div>
-                  <div ng-class="{ 'active': historyPage.H.history.isStartDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll order-type="1" calendar-type="1"></calendar-scroll>
-                  </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDate }" fs-click="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</div>
-                  <div ng-class="{ 'active': historyPage.H.history.isFinishDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll order-type="1" calendar-type="0"></calendar-scroll>
-                  </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriod }" fs-click="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ ::historyPage.ALL_TIME }}</div>
-                </div>
-              </div>
+              <!--.tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
+              button.tool.calendar-btn(fs-click="historyPage.orderDateSelecting()")
+              .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
+                span(ng-if="historyPage.H.history.startDate !== ''") {{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                span(ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''") &nbsp; - &nbsp;
+                span(ng-if="historyPage.H.history.finishDate !== ''") {{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+              
+              .dropdown-tool-dialog.date-filter(ng-if="!historyPage.H.history.isDraftView")
+                .filter-title {{ ::historyPage.DATE_RANGE }}
+                .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDate }", fs-click="historyPage.openCalendarScroll('start-date')") {{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isStartDate }")
+                  calendar-scroll(order-type="1", calendar-type="1")
+              
+                .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDate }", fs-click="historyPage.openCalendarScroll('finish-date')") {{ ::historyPage.UNTIL }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+                .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isFinishDate }")
+                  calendar-scroll(order-type="1", calendar-type="0")
+              
+                .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriod }", fs-click="historyPage.openCalendarScroll('full-date')") {{ ::historyPage.ALL_TIME }}
+              
+              -->
               <div ng-class="{ 'active': historyPage.H.history.isOrderSort }" class="tools-block tool-drop">
                 <button fs-click="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
@@ -131,6 +135,10 @@
                   </ul>
                 </div>
               </div>
+            </div>
+            <div class="history-req-panel">
+              <button class="req-res">{{"подтянуть историю"}}</button>
+              <select name="country" ng-model="historyPage.H.history.sgdfsgsd" ng-options="historyPage.H.history.dataProfiles" disabled class="period-of-time"></select>
             </div>
           </div>
           <div class="scroll-vert-container">

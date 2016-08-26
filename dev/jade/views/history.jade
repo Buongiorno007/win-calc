@@ -18,7 +18,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .tools-block.search-tool(ng-class="{ 'active': historyPage.H.history.isOrderSearch }")
                 button.tool.search-btn(fs-click="historyPage.orderSearching()")
 
-              .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
+              //.tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
                 button.tool.calendar-btn(fs-click="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
                   span(ng-if="historyPage.H.history.startDate !== ''") {{ ::historyPage.FROM }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
@@ -65,8 +65,10 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", fs-click="historyPage.sortingInit(1, 'done')")
                       .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
                       .filter-select-icon
+            .history-req-panel
 
-
+              button.req-res{{"подтянуть историю"}}
+              select.period-of-time(name="country", ng-model="historyPage.H.history.sgdfsgsd", ng-options="historyPage.H.history.dataProfiles", disabled)
           .scroll-vert-container
             .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")

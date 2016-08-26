@@ -69,6 +69,48 @@
     top: 30%;
     right: 0;
   }
+
+  .history-req-panel {
+    @include display-flex();
+    position: relative;
+    top: 27%;
+    right: -63rem;
+    width: 43rem;
+    .period-of-time {
+      position: relative;
+      width: 14rem;
+      height: 3rem;
+      position: relative;
+      height: 3.5rem;
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      outline: none;
+      border-width: 2px 0;
+      border-style: solid none;
+      border-color: #f98000;
+      border-radius: 6px;
+      transition: 0.2s;
+      font-size: x-small;
+    }
+    .req-res {
+      position: relative;
+      width: 27rem;
+      height: 3.5rem;
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      outline: none;
+      border-width: 2px 0;
+      border-style: solid none;
+      border-color: #FDBE33 #000 #D77206;
+      border-radius: 6px;
+      background: #f98000;
+      transition: 0.2s;
+      font-size: medium;    
+    }
+  }
+
   .tools-block {
     @include display-flex();
     @include flex-flow(row nowrap);
