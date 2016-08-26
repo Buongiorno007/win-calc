@@ -13258,14 +13258,20 @@ function ErrorResult(code, message) {
         }
       }
     }
+
     function reqResult() {
       var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://admin.steko.com.ua/api/orders?'+UserStor.userInfo.phone+'&'+UserStor.userInfo.device_code+'&page='+HistoryStor.history.resTimeBox.namb, false);
+      xhr.open('GET', 'http://admin.steko.com.ua/api/orders?login='+UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code+'&type='+HistoryStor.history.resTimeBox.namb, false);
       xhr.send();
       if (xhr.status != 200) {
         console.info( xhr.status + ': ' + xhr.statusText );
       } else {
-        //alert( xhr.responseText );
+        var asdsaersa = JSON.parse(xhr.response);
+        delete asdsaersa.tables.order_addelements;
+        delete asdsaersa.tables.order_products;
+        localDB.insertTablesLocalDB(asdsaersa).then(function() {
+             downloadOrders();
+          });
       }
     } 
     function deleteOption() {
