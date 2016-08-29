@@ -69,12 +69,8 @@
             namb: 2
         },
         {
-            name:'за пол года',
+            name:'за  год',
             namb: 3
-        },
-        {
-            name:'за весь период',
-            namb: 4
         }
         ],
         resTimeBox: {

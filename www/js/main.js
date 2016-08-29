@@ -13163,12 +13163,14 @@ function ErrorResult(code, message) {
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
+          GlobalStor.global.isLoader = 0;
 //          console.info('HISTORY orders+++++', HistoryStor.history.orders);
           //----- max day for calendar-scroll
 //          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
           HistoryStor.history.isEmptyResult = 1;
+          GlobalStor.global.isLoader = 0;
         }
       });
     }
@@ -13260,19 +13262,47 @@ function ErrorResult(code, message) {
     }
 
     function reqResult() {
+      GlobalStor.global.isLoader = 1;
       var xhr = new XMLHttpRequest();
+      var res;
+      var obj = {
+        order_products : localDB.tablesLocalDB.order_products,
+        orders : localDB.tablesLocalDB.orders,
+        order_addelements : localDB.tablesLocalDB.order_addelements
+      };
       xhr.open('GET', 'http://admin.steko.com.ua/api/orders?login='+UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code+'&type='+HistoryStor.history.resTimeBox.namb, false);
       xhr.send();
       if (xhr.status != 200) {
         console.info( xhr.status + ': ' + xhr.statusText );
+        GlobalStor.global.isLoader = 0;
       } else {
-        var asdsaersa = JSON.parse(xhr.response);
-        delete asdsaersa.tables.order_addelements;
-        delete asdsaersa.tables.order_products;
-        localDB.insertTablesLocalDB(asdsaersa).then(function() {
-             downloadOrders();
-          });
-      }
+          localDB.cleanLocalDB(obj).then(function(data) {
+            if(data) {
+              localDB.createTablesLocalDB(obj).then(function(data) {
+              if(data) {
+                res = JSON.parse(xhr.response);
+                res.tables.order_products.fields.splice(0,1);
+                res.tables.order_products.fields.splice(1,1);
+                res.tables.order_products.fields.splice(5,1);
+                res.tables.order_products.fields.splice(26,1);
+                res.tables.orders.fields.splice(0,1);
+                for(var x=0; x<res.tables.order_products.rows.length; x+=1) {
+                  res.tables.order_products.rows[x].splice(0,1);
+                  res.tables.order_products.rows[x].splice(1,1);
+                  res.tables.order_products.rows[x].splice(5,1);
+                  res.tables.order_products.rows[x].splice(26,1);
+                };
+                for(var x=0; x<res.tables.orders.rows.length; x+=1) {
+                  res.tables.orders.rows[x].splice(0,1);
+                };
+                localDB.insertTablesLocalDB(res).then(function() {
+                   downloadOrders();
+                });
+              }
+            });
+          }
+        });
+      }  
     } 
     function deleteOption() {
       $("#deleteOption").remove();
@@ -27083,12 +27113,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             namb: 2
         },
         {
-            name:'за пол года',
+            name:'за  год',
             namb: 3
-        },
-        {
-            name:'за весь период',
-            namb: 4
         }
         ],
         resTimeBox: {
