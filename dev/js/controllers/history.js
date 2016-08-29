@@ -49,7 +49,26 @@
     thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
     thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
     thisCtrl.DRAFT = $filter('translate')('history.DRAFT');
+    thisCtrl.DOWNLOAD_ORDERS = $filter('translate')('history.DOWNLOAD_ORDERS');
+    thisCtrl.DURING_THE_WEEK = $filter('translate')('history.DURING_THE_WEEK')
+    thisCtrl.PER_MOUNTH = $filter('translate')('history.PER_MOUNTH')
+    thisCtrl.IN_A_YEAR = $filter('translate')('history.IN_A_YEAR')
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+    thisCtrl.time = [
+        {
+            name:$filter('translate')('history.DURING_THE_WEEK'),
+            namb: 1
+        },
+        {
+            name:$filter('translate')('history.PER_MOUNTH'),
+            namb: 2
+        },
+        {
+            name:$filter('translate')('history.IN_A_YEAR'),
+            namb: 3
+        }
+        ];
+    
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'history';

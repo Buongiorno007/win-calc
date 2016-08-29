@@ -1443,7 +1443,7 @@
           var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
           if(elemQty > 0) {
             for (elem = 0; elem < elemQty; elem+=1) {
-
+              OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
               var addElementsData = {
                 order_id: OrderStor.order.id,
                 product_id: OrderStor.order.products[p].product_id,
@@ -1454,7 +1454,7 @@
                 element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
                 element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                 element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
                 modified: new Date()
               };
 

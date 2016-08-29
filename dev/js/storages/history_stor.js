@@ -59,22 +59,8 @@
         reverseDraft: 1,
 
         dataProfiles: [],
-        timeBox: [
-        {
-            name:'за неделю',
-            namb: 1
-        },
-        {
-            name:'за месяц',
-            namb: 2
-        },
-        {
-            name:'за  год',
-            namb: 3
-        }
-        ],
         resTimeBox: {
-            name:'за неделю',
+            name:'history.DURING_THE_WEEK',
             namb: 1
         },
         listName: [],

@@ -137,15 +137,15 @@
               </div>
             </div>
             <div ng-show="!historyPage.H.history.isOrderSearch" class="history-req-panel">
-              <button fs-click="historyPage.reqResult()" class="req-res">{{"подтянуть историю"}}</button>
-              <select ng-model="historyPage.H.history.resTimeBox" ng-options="timeBox.name for timeBox in historyPage.H.history.timeBox" ng-change="historyPage.deleteOption()" class="period-of-time">
-                <option id="deleteOption" value="">{{::"за неделю"}}</option>
+              <button fs-click="historyPage.reqResult()" class="req-res">{{::historyPage.DOWNLOAD_ORDERS}}</button>
+              <select ng-model="historyPage.H.history.resTimeBox" ng-options="time.name for time in historyPage.time" ng-change="historyPage.deleteOption()" class="period-of-time">
+                <option id="deleteOption" value="">{{::historyPage.DURING_THE_WEEK}}</option>
               </select>
             </div>
           </div>
           <div class="scroll-vert-container">
             <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index" class="account-block">
-              <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
+              <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account"> 
                 <div class="account-row header">
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>

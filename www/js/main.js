@@ -1284,7 +1284,26 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
     thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
     thisCtrl.DRAFT = $filter('translate')('history.DRAFT');
+    thisCtrl.DOWNLOAD_ORDERS = $filter('translate')('history.DOWNLOAD_ORDERS');
+    thisCtrl.DURING_THE_WEEK = $filter('translate')('history.DURING_THE_WEEK')
+    thisCtrl.PER_MOUNTH = $filter('translate')('history.PER_MOUNTH')
+    thisCtrl.IN_A_YEAR = $filter('translate')('history.IN_A_YEAR')
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+    thisCtrl.time = [
+        {
+            name:$filter('translate')('history.DURING_THE_WEEK'),
+            namb: 1
+        },
+        {
+            name:$filter('translate')('history.PER_MOUNTH'),
+            namb: 2
+        },
+        {
+            name:$filter('translate')('history.IN_A_YEAR'),
+            namb: 3
+        }
+        ];
+    
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'history';
@@ -20346,7 +20365,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
           if(elemQty > 0) {
             for (elem = 0; elem < elemQty; elem+=1) {
-
+              OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
               var addElementsData = {
                 order_id: OrderStor.order.id,
                 product_id: OrderStor.order.products[p].product_id,
@@ -20357,7 +20376,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
                 element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
                 element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id,
+                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
                 modified: new Date()
               };
 
@@ -27103,22 +27122,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         reverseDraft: 1,
 
         dataProfiles: [],
-        timeBox: [
-        {
-            name:'за неделю',
-            namb: 1
-        },
-        {
-            name:'за месяц',
-            namb: 2
-        },
-        {
-            name:'за  год',
-            namb: 3
-        }
-        ],
         resTimeBox: {
-            name:'за неделю',
+            name:'history.DURING_THE_WEEK',
             namb: 1
         },
         listName: [],
