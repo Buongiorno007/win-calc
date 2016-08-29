@@ -107,7 +107,7 @@
                     </li>
                     <li class="order-item">
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}</div>
-                      <div class="order-value"><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span></div>
+                      <div class="order-value"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
                       <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION }}</div>
                     </li>
                     <li fs-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">

@@ -52,11 +52,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     li.order-item
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}
                       .order-value
-                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
-                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
-                        span /
                         span(ng-if="product.lamination.lamination_in_id > 1") {{ product.lamination.laminat_in_name }}
                         span(ng-if="product.lamination.lamination_in_id === 1") {{ product.lamination.laminat_in_name |translate }}
+                        span /
+                        span(ng-if="product.lamination.lamination_out_id > 1") {{ product.lamination.laminat_out_name }}
+                        span(ng-if="product.lamination.lamination_out_id === 1") {{ product.lamination.laminat_out_name |translate }}
                       .order-label {{ ::cartPage.CONFIGMENU_LAMINATION }}
                     li.order-item.addelements-btn(fs-click="cartPage.showAddElementDetail($index)")
                       .order-value {{cartPage.C.cart.allAddElements[$index].length}}
