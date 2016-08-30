@@ -13313,6 +13313,9 @@ function ErrorResult(code, message) {
                 };
                 for(var x=0; x<res.tables.orders.rows.length; x+=1) {
                   res.tables.orders.rows[x].splice(0,1);
+                  (res.tables.orders.rows[x][23] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
+                  (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
+                  (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
                 };
                 localDB.insertTablesLocalDB(res).then(function() {
                    downloadOrders();
@@ -20365,7 +20368,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
           if(elemQty > 0) {
             for (elem = 0; elem < elemQty; elem+=1) {
-              OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+              if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20) {
+                OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+              }
               var addElementsData = {
                 order_id: OrderStor.order.id,
                 product_id: OrderStor.order.products[p].product_id,
