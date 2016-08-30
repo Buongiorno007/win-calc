@@ -179,8 +179,8 @@
                 </div>
               </div>
               <!--button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)")-->
-              <!--button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.makeOrderCopy(order.order_style, order.id)")-->
-              <button fs-click="historyPage.orderPrint(order.id)" class="account-tool account-print-btn"></button>
+              <button ng-hide="order.order_style == 'done'" fs-click="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"></button>
+              <!--button.account-tool.account-print-btn(fs-click="historyPage.orderPrint(order.id)")-->
               <button ng-hide="order.order_style == 'done'" fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)" class="account-delete-btn"></button>
               <button ng-hide="order.order_style == 'done'" fs-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ ::historyPage.CHANGE }}</button>
             </div>

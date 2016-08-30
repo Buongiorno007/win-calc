@@ -13381,6 +13381,10 @@ function ErrorResult(code, message) {
         newOrderCopy.id = MainServ.createOrderID();
         newOrderCopy.order_number = 0;
         newOrderCopy.order_hz = '---';
+        (newOrderCopy.order_price_primary === 'undefined') ? newOrderCopy.order_price_primary = undefined : newOrderCopy.order_price_primary = newOrderCopy.order_price_primary;
+        newOrderCopy.sended = new Date(0);
+        newOrderCopy.state_to = new Date(0);
+        newOrderCopy.state_buch = new Date(0);
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
 
