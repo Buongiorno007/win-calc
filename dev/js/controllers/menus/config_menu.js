@@ -170,9 +170,6 @@
       if(GlobalStor.global.dangerAlert < 1) {
         saveProduct()
       }
-       else {
-        console.log('errrrrrrror')
-      }
     }
 
     function showNextTip() {

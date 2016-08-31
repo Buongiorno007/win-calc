@@ -1,3 +1,22 @@
+.tn-box {
+  width: 100%;
+  position: absolute;
+  left: 0rem;
+  text-align: center;
+  color: #363636;
+  cursor: default;
+  z-index: -10;
+  .result {
+    font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
+    color: #363636;
+    height: 100%;
+  }
+  .error {
+    font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
+    height: 100%;
+    color: #f74f2e;
+  }
+}
 .main-history {
   @extend .main-content;
   width: rem($ipad-width);
@@ -402,6 +421,9 @@
       border-bottom-right-radius: rem($radius_account-bottom);
       color: $main_gray_txt;
       cursor: pointer;
+      &.error {
+        background-color: #f74f2e;
+      }
     }
   }
   .account-data {
@@ -457,9 +479,12 @@
   }
   .account-select-btn {
     @include font-icon(rem(30px), 1);
-    top: rem(98px);
+    top: rem(36px);
     right: rem(-120px);
     background-color: $main_green;
+    &.error {
+      background-color: #f74f2e;
+    }
     &:after {
       color: #fff;
       content: $select-history-icon;
@@ -475,7 +500,7 @@
     }
   }
   .account-print-btn {
-    top: rem(182px);
+    top: rem(324px);
     right: rem(-120px);
     background-color: #c6c6c6;
     &:after {
@@ -509,6 +534,9 @@
     background-color: $main_green;
     color: #fff;
     z-index: 2;
+    &.error {
+      background-color: #f74f2e;
+    }
   }
 }
 

@@ -10,73 +10,55 @@
 
 	.doors-info {
 		position: absolute;
-	    height: 32%;
-	    top: 34%;
-	    left: 25%;
-	    width: 50%;
-	    z-index: 20;
-	    border-radius: 2rem;
-	    background: #F74F2E;
+    height: 32%;
+    top: 34%;
+    left: 25%;
+    width: 50%;
+    z-index: 20;
+    border-radius: 2rem;
+    background: #F74F2E;
 	}
 
 	.isSize {
-	    height: 12%;
-	    position: relative;
-	    width: 32%;
-	    top: 38%;
-	    text-align: center;
-	    font-size: large;
-	    border-radius: 1.5rem 0rem 0rem 1.5rem;
-	    color: white;
-	    background: #f98000;
-	    float: right;
+    height: 12%;
+    position: relative;
+    width: 32%;
+    top: 38%;
+    text-align: center;
+    font-size: large;
+    border-radius: 1.5rem 0rem 0rem 1.5rem;
+    color: white;
+    background: #f98000;
+    float: right;
 	}
 	.isHardware {
-	    height: 12%;
-	    position: relative;
-	    width: 32%;
-	    left: -5%;
-	    top: 38%;
-	    text-align: center;
-	    font-size: large;
-	    border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;
-	    color: white;
-	    background: #f98000;
-	    float: right;
+    height: 12%;
+    position: relative;
+    width: 32%;
+    left: -5%;
+    top: 38%;
+    text-align: center;
+    font-size: large;
+    border-radius: 1.5rem 1.5rem 1.5rem 1.5rem;
+    color: white;
+    background: #f98000;
+    float: right;
 	}
 	.message-alert {
-	    color: rgba(255, 255, 255, 0.85);
-	    font-size: large;
-	    position: relative;
-	    text-align: left;
-	    text-indent: 3%;
-	    top: 8%;
-	    left: 5%;
-	    width: 90%;
-	    max-width: 90%;
-	    z-index: 1;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: large;
+    position: relative;
+    text-align: left;
+    text-indent: 3%;
+    top: 8%;
+    left: 5%;
+    width: 90%;
+    max-width: 90%;
+    z-index: 1;
 	}
 
 }
-.tn-box {
-    width: 360px;
-    position: absolute;
-    margin: 0 auto 20px auto;
-    text-align: left;
-    top: 5rem;
-    left: 45rem;
-    opacity: 1;
-    font-size: 16px;
-    text-align: center;
-    color: #f8f8f8;
-    border-radius: 5px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    cursor: default;
-    background: #6ed44a;
-    border: 0px solid #474747;
-    z-index: 10;
-    @extend .ordersAlert;
-}
+
 
 
 

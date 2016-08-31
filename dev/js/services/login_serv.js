@@ -74,7 +74,7 @@
 
     function initExport() {
       var defer = $q.defer();
-      console.log('EXPORT');
+      //console.log('EXPORT');
       //------- check Export Table
       localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function(data) {
         //        console.log('data ===', data);

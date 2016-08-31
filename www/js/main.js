@@ -1289,6 +1289,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.PER_MOUNTH = $filter('translate')('history.PER_MOUNTH')
     thisCtrl.IN_A_YEAR = $filter('translate')('history.IN_A_YEAR')
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+    thisCtrl.ORDER_DONE = $filter('translate')('history.ORDER_DONE')
+    thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
     thisCtrl.time = [
         {
             name:$filter('translate')('history.DURING_THE_WEEK'),
@@ -2289,11 +2291,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
+      GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
           /** calc Price previous parameter and close caclulators */
           AddElementMenuServ.finishCalculators();
-        }
+        } 
         //---- hide rooms if opened
         GlobalStor.global.showRoomSelectorDialog = 0;
         //---- hide tips
@@ -2788,9 +2791,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       alert();
       if(GlobalStor.global.dangerAlert < 1) {
         saveProduct()
-      }
-       else {
-        console.log('errrrrrrror')
       }
     }
 
@@ -4603,6 +4603,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // controllers/parts/qty_calculator.js
@@ -13228,6 +13229,7 @@ function ErrorResult(code, message) {
             );
           }
         }
+        GlobalStor.global.isLoader = 0;
       }
       /** check user */
       if(orderStyle !== orderMasterStyle && UserStor.userInfo.code_sync.length && UserStor.userInfo.code_sync !== 'null') {
@@ -13237,7 +13239,7 @@ function ErrorResult(code, message) {
           sendOrder
         );
       }
-
+      GlobalStor.global.isLoader = 0;
     }
 
 
@@ -13247,12 +13249,14 @@ function ErrorResult(code, message) {
 
     /**========= make Order Copy =========*/
     function sendOrderToFactory(orderStyle, orderNum) {
+      GlobalStor.global.isLoader = 1
       var check = [];
       check = HistoryStor.history.firstClick.filter(function(item) {
         return item === orderNum
       });
       if(check.length !== 0) {
         //console.info('second click')
+        GlobalStor.global.isLoader = 0;
         for(var x=0; x<check.length; x+=1) {
           if(check[x] !== orderNum) {
             HistoryStor.history.firstClick.push(orderNum);
@@ -13261,25 +13265,24 @@ function ErrorResult(code, message) {
       } else {
         //console.info('first click')
         HistoryStor.history.firstClick.push(orderNum);
-        if(HistoryStor.history.orderOk !==1 && HistoryStor.history.firstClick !==orderNum) {
-          HistoryStor.history.firstClick.push(orderNum);
-          var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
+        if(xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false)) {
           xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
           xhr.send();
           if (xhr.status === 200) {
-            //console.info('it`s okey')
-            HistoryStor.history.orderOk=1;
             orderToFactory(orderStyle, orderNum);
-          } 
-          if(HistoryStor.history.orderOk!==0) {
-            $timeout(function() {
-              HistoryStor.history.orderOk=0;
-            }, 3100);
+          } else {
+            GlobalStor.global.isLoader = 0
+            HistoryStor.history.resAPI = orderNum + 'errorOrder';
           }
-        }
+          HistoryStor.history.resAPI = orderNum + 'doneOrder';
+          GlobalStor.global.isLoader = 0
+        } else {
+          GlobalStor.global.isLoader = 0;
+          HistoryStor.history.resAPI = orderNum + 'errorOrder';
+        } 
       }
     }
-
     function reqResult() {
       GlobalStor.global.isLoader = 1;
       var xhr = new XMLHttpRequest();
@@ -13332,12 +13335,12 @@ function ErrorResult(code, message) {
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
       HistoryStor.history.orderOk=0;
-      GlobalStor.global.isBox = !GlobalStor.global.isBox;
+/*      GlobalStor.global.isBox = !GlobalStor.global.isBox;*/
         HistoryStor.history.orderEditNumber = orderNum;
-        dloadProducts();
+/*        dloadProducts();
         dloadAddElements();
         dloadOrder();
-        orderItem(); 
+        orderItem(); */
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
@@ -13409,12 +13412,12 @@ function ErrorResult(code, message) {
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
-      function editOrder() {
+/*      function editOrder() {
         GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
         RecOrderServ.box();
-      }
+      }*/
 
-      if(orderStyle !== orderMasterStyle) {
+/*      if(orderStyle !== orderMasterStyle) {
         GeneralServ.confirmAlert(
           $filter('translate')('common_words.EDIT_COPY_TXT'),
           $filter('translate')('  '),
@@ -13423,8 +13426,8 @@ function ErrorResult(code, message) {
         GeneralServ.confirmPath(
           copyOrder
         );
-      }
-
+      }*/
+      copyOrder(); // временноsendOrderToFactory
     }
 
       function orderItem() {
@@ -17515,7 +17518,7 @@ function ErrorResult(code, message) {
 
     function initExport() {
       var defer = $q.defer();
-      console.log('EXPORT');
+      //console.log('EXPORT');
       //------- check Export Table
       localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function(data) {
         //        console.log('data ===', data);
@@ -20457,7 +20460,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       delete orderData.paymentMonthlyPrimaryDis;
 
 
-      //console.log('!!!!orderData!!!!', orderData);
+      console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
           UserStor.userInfo.phone,
@@ -20467,6 +20470,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ).then(function(respond) {
           if(respond.status) {
             orderData.order_number = respond.order_number;
+          } else {
+            console.info('ошибка: orderData>>>', orderData)
           }
           localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
           deferred.resolve(1);

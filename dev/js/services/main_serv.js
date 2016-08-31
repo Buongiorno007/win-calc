@@ -1528,7 +1528,7 @@
       delete orderData.paymentMonthlyPrimaryDis;
 
 
-      //console.log('!!!!orderData!!!!', orderData);
+      console.log('!!!!orderData!!!!', orderData);
       if(orderType) {
         localDB.insertServer(
           UserStor.userInfo.phone,
@@ -1538,6 +1538,8 @@
         ).then(function(respond) {
           if(respond.status) {
             orderData.order_number = respond.order_number;
+          } else {
+            console.info('ошибка: orderData>>>', orderData)
           }
           localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
           deferred.resolve(1);

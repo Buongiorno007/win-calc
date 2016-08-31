@@ -147,6 +147,10 @@
             <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index" class="account-block">
               <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account"> 
                 <div class="account-row header">
+                  <div class="tn-box">
+                    <div ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'" class="result">{{::historyPage.ORDER_DONE}} </div>
+                    <div ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'" class="error">{{::historyPage.ORDER_ERROR}} </div>
+                  </div>
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
                     <div ng-if="order.order_number" class="account-id">id {{ order.order_number }}<span ng-if="order.order_hz &amp;&amp; order.order_hz !== '---'">{{ order.order_hz }}</span></div>
@@ -172,17 +176,17 @@
                     <div class="account-label">{{ ::historyPage.ADDRESS }}</div>
                   </div>
                 </div>
-                <div class="account-row footer">
+                <div ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" class="account-row footer">
                   <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ ::historyPage.WAIT_MASTER }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
-              <!--button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)")-->
+              <button ng-hide="order.order_style == 'done'" fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)" ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" class="account-tool account-select-btn"></button>
               <button ng-hide="order.order_style == 'done'" fs-click="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"></button>
-              <!--button.account-tool.account-print-btn(fs-click="historyPage.orderPrint(order.id)")-->
+              <button fs-click="historyPage.orderPrint(order.id)" class="account-tool account-print-btn"></button>
               <button ng-hide="order.order_style == 'done'" fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)" class="account-delete-btn"></button>
-              <button ng-hide="order.order_style == 'done'" fs-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ ::historyPage.CHANGE }}</button>
+              <button ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" ng-hide="order.order_style == 'done'" fs-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ ::historyPage.CHANGE }}</button>
             </div>
             <div ng-show="historyPage.H.history.searchingWord.length &amp;&amp; (historyPage.H.history.orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
@@ -262,13 +266,12 @@
               <div class="result-text">{{ ::historyPage.BY_YOUR_REQUEST }} {{ ::historyPage.NOT_FIND }}.</div>
             </div>
           </div>
-          <button fs-click="historyPage.viewSwitching()" class="view-switch-tab">{{ ::historyPage.HISTORY_VIEW }}</button>
+          <button fs-click="historyPage.viewSwitching()" class="view-switch-tab">{{ ::historyPage.HISTORY_VIEW }} </button>
         </section>
       </section>
     </section>
   </section>
 </section>
-<div ng-show="historyPage.H.history.orderOk===1" class="tn-box">{{'Заказ отправлен на обработку'}}  </div>
 <div ng-controller="AttantCtrl as attantBox" ng-show="attantBox.D.design.isGlassExtra || attantBox.D.design.isHardwareExtra || attantBox.H.history.isNoPrint || attantBox.D.design.isNoDoors" class="attantion-block">
   <div ng-show="attantBox.D.design.isGlassExtra &amp;&amp; attantBox.D.design.extraGlass.length" class="glass-attantion">
     <div fs-click="attantBox.closeAttantion()" class="close-dialog"></div>

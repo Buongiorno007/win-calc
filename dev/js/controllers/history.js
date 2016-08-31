@@ -54,6 +54,8 @@
     thisCtrl.PER_MOUNTH = $filter('translate')('history.PER_MOUNTH')
     thisCtrl.IN_A_YEAR = $filter('translate')('history.IN_A_YEAR')
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
+    thisCtrl.ORDER_DONE = $filter('translate')('history.ORDER_DONE')
+    thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
     thisCtrl.time = [
         {
             name:$filter('translate')('history.DURING_THE_WEEK'),

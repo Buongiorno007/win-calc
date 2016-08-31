@@ -49,11 +49,12 @@
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
+      GlobalStor.global.templateTEMP = angular.copy(ProductStor.product);
       if(!ProductStor.product.is_addelem_only) {
         if (GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
           /** calc Price previous parameter and close caclulators */
           AddElementMenuServ.finishCalculators();
-        }
+        } 
         //---- hide rooms if opened
         GlobalStor.global.showRoomSelectorDialog = 0;
         //---- hide tips
