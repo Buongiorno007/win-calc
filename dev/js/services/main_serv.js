@@ -673,7 +673,6 @@
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
-//console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
         if(beadResult.length && beadResult[0]) {
@@ -1381,8 +1380,8 @@
           productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
         }
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
-        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
-        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;

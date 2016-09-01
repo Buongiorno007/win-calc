@@ -1940,7 +1940,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
           //------- check available Local DB
           // loginServ.isLocalDBExist().then(function(data){
@@ -1948,39 +1948,39 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           //   if(thisCtrl.isLocalDB) {
 
           //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
           //   } else {
@@ -9322,6 +9322,7 @@ function ErrorResult(code, message) {
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      console.log(OrderStor.order, 'order')
       //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
@@ -13603,7 +13604,9 @@ function ErrorResult(code, message) {
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
-
+              if(tempProd.template_source.beads) {
+                tempProd.beadsData = angular.copy(tempProd.template_source.beads);
+              }
               if(tempProd.construction_type === 4) {
                 tempProfileId = tempProd.template_source.profile_window_id;
               } else {
@@ -13663,24 +13666,28 @@ function ErrorResult(code, message) {
               } else {
                 SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function (data) {
                   item.templateIcon = data;
-                  delete item.profile_id;
-                  delete item.glass_id;
-                  delete item.hardware_id;
+                  SVGServ.createSVGTemplate(item.template_source, item.profileDepths).then(function (data2) {
+                    item.template = data2;
+                    delete item.profile_id;
+                    delete item.glass_id;
+                    delete item.hardware_id;
 
-                  //----- set price Discounts
-                  item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                  item.productPriceDis = (GeneralServ.setPriceDis(
-                    item.template_price, OrderStor.order.discount_construct
-                  ) + item.addelemPriceDis);
-                  if(item.construction_type === 4) {
-                    DesignServ.setDoorConfigDefault(item);
-                    item.profile = angular.copy(ProductStor.product.profile)
-                    OrderStor.order.products.push(item);
-                    deferIcon.resolve(1);
-                  } else {
-                    OrderStor.order.products.push(item);
-                    deferIcon.resolve(1);
-                  }
+                    //----- set price Discounts
+                    item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                    item.productPriceDis = (GeneralServ.setPriceDis(
+                      item.template_price, OrderStor.order.discount_construct
+                    ) + item.addelemPriceDis);
+                    if(item.construction_type === 4) {
+                      DesignServ.setDoorConfigDefault(item);
+                      item.profile = angular.copy(ProductStor.product.profile)
+                      OrderStor.order.products.push(item);
+                      deferIcon.resolve(1);
+                    } else {
+                      OrderStor.order.products.push(item);
+                      console.log(item, 'item')
+                      deferIcon.resolve(1);
+                    }
+                  });
                 });
               }
               return deferIcon.promise;
@@ -19605,7 +19612,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {
       var deferred = $q.defer();
-//console.time('price');
       GlobalStor.global.isLoader = 1;
       setBeadId(profileId, laminatId).then(function(beadResult) {
         if(beadResult.length && beadResult[0]) {
@@ -20313,8 +20319,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
         }
         productData.lamination_id = OrderStor.order.products[p].lamination.id;
-        productData.lamination_in_id = OrderStor.order.products[p].lamination.lamination_in_id;
-        productData.lamination_out_id = OrderStor.order.products[p].lamination.lamination_out_id;
+        productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
+        productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
         productData.modified = new Date();
         if(productData.template) {
           delete productData.template;

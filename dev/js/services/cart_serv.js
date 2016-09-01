@@ -92,6 +92,7 @@
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
+      console.log(OrderStor.order, 'order')
       //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);

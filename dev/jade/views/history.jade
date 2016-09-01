@@ -67,17 +67,17 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                       .filter-select-icon
             .history-req-panel(ng-show="!historyPage.H.history.isOrderSearch")
 
-              button.req-res(fs-click="historyPage.reqResult()"){{::historyPage.DOWNLOAD_ORDERS}}
+              button.req-res(fs-click="historyPage.reqResult()") {{::historyPage.DOWNLOAD_ORDERS}}
               select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
               ng-change ="historyPage.deleteOption()")
-                option(id='deleteOption', value=''){{::historyPage.DURING_THE_WEEK}}
+                option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
           .scroll-vert-container
             .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }") 
                 .account-row.header
                   .tn-box
-                    .result(ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'"){{::historyPage.ORDER_DONE}} 
-                    .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'"){{::historyPage.ORDER_ERROR}} 
+                    .result(ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'") {{::historyPage.ORDER_DONE}}
+                    .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'") {{::historyPage.ORDER_ERROR}}
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
                     .account-id(ng-if="order.order_number") id {{ order.order_number }}

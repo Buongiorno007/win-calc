@@ -486,7 +486,9 @@
             if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
               tempProd.template_source = JSON.parse(tempProd.template_source);
-
+              if(tempProd.template_source.beads) {
+                tempProd.beadsData = angular.copy(tempProd.template_source.beads);
+              }
               if(tempProd.construction_type === 4) {
                 tempProfileId = tempProd.template_source.profile_window_id;
               } else {
@@ -546,24 +548,28 @@
               } else {
                 SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function (data) {
                   item.templateIcon = data;
-                  delete item.profile_id;
-                  delete item.glass_id;
-                  delete item.hardware_id;
+                  SVGServ.createSVGTemplate(item.template_source, item.profileDepths).then(function (data2) {
+                    item.template = data2;
+                    delete item.profile_id;
+                    delete item.glass_id;
+                    delete item.hardware_id;
 
-                  //----- set price Discounts
-                  item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
-                  item.productPriceDis = (GeneralServ.setPriceDis(
-                    item.template_price, OrderStor.order.discount_construct
-                  ) + item.addelemPriceDis);
-                  if(item.construction_type === 4) {
-                    DesignServ.setDoorConfigDefault(item);
-                    item.profile = angular.copy(ProductStor.product.profile)
-                    OrderStor.order.products.push(item);
-                    deferIcon.resolve(1);
-                  } else {
-                    OrderStor.order.products.push(item);
-                    deferIcon.resolve(1);
-                  }
+                    //----- set price Discounts
+                    item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                    item.productPriceDis = (GeneralServ.setPriceDis(
+                      item.template_price, OrderStor.order.discount_construct
+                    ) + item.addelemPriceDis);
+                    if(item.construction_type === 4) {
+                      DesignServ.setDoorConfigDefault(item);
+                      item.profile = angular.copy(ProductStor.product.profile)
+                      OrderStor.order.products.push(item);
+                      deferIcon.resolve(1);
+                    } else {
+                      OrderStor.order.products.push(item);
+                      console.log(item, 'item')
+                      deferIcon.resolve(1);
+                    }
+                  });
                 });
               }
               return deferIcon.promise;
