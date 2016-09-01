@@ -871,7 +871,7 @@
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
-              return item.group_id === GlobalStor.global.type_door;
+              return item.group_id === GlobalStor.global.type_door || GlobalStor.global.doorsGroups[0].id;
           }),
           lamGroupsTempQty, isAnyActive = 0;
           for(var a=0; a<lamGroupsTemp.length; a+=1) {
@@ -1481,7 +1481,7 @@
       orderData.order_type = orderType;
       orderData.order_price_dis = OrderStor.order.order_price_dis;
       orderData.order_price = OrderStor.order.order_price;
-      orderData.order_price_primary = OrderStor.order.order_primary;
+      orderData.order_price_primary = OrderStor.order.order_price_primary;
       orderData.order_style = orderStyle;
       orderData.factory_id = UserStor.userInfo.factory_id;
       orderData.user_id = UserStor.userInfo.id;

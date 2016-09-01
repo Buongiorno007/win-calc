@@ -893,7 +893,7 @@
               break
             }
           }
-        }
+        } 
       }
       for(d = 0; d < doorTypeQty; d+=1) {
 

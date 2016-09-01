@@ -9322,7 +9322,6 @@ function ErrorResult(code, message) {
     //----- Edit Produtct in main page
     function box(productIndex, type) {
       GlobalStor.global.isBox = !GlobalStor.global.isBox;
-      console.log(OrderStor.order, 'order')
       //console.log(GlobalStor.global.isBox, 'GlobalStor.global.isBox')
       function editProduct() {
         ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
@@ -10475,7 +10474,7 @@ function ErrorResult(code, message) {
               break
             }
           }
-        }
+        } 
       }
       for(d = 0; d < doorTypeQty; d+=1) {
 
@@ -13385,7 +13384,6 @@ function ErrorResult(code, message) {
         newOrderCopy.id = MainServ.createOrderID();
         newOrderCopy.order_number = 0;
         newOrderCopy.order_hz = '---';
-        (newOrderCopy.order_price_primary === 'undefined') ? newOrderCopy.order_price_primary = undefined : newOrderCopy.order_price_primary = newOrderCopy.order_price_primary;
         newOrderCopy.sended = new Date(0);
         newOrderCopy.state_to = new Date(0);
         newOrderCopy.state_buch = new Date(0);
@@ -19810,7 +19808,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
-              return item.group_id === GlobalStor.global.type_door;
+              return item.group_id === GlobalStor.global.type_door || GlobalStor.global.doorsGroups[0].id;
           }),
           lamGroupsTempQty, isAnyActive = 0;
           for(var a=0; a<lamGroupsTemp.length; a+=1) {
@@ -20420,7 +20418,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       orderData.order_type = orderType;
       orderData.order_price_dis = OrderStor.order.order_price_dis;
       orderData.order_price = OrderStor.order.order_price;
-      orderData.order_price_primary = OrderStor.order.order_primary;
+      orderData.order_price_primary = OrderStor.order.order_price_primary;
       orderData.order_style = orderStyle;
       orderData.factory_id = UserStor.userInfo.factory_id;
       orderData.user_id = UserStor.userInfo.id;
