@@ -19185,7 +19185,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function doorProfile() {
       var door = []
-      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (result, err) {
+      async.eachSeries(GlobalStor.global.doorsLaminations,calculate, function (err, result) {
         GlobalStor.global.doorsLaminations = angular.copy(door);
       });
 
@@ -19203,15 +19203,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 localDB.tablesLocalDB.elements_profile_systems.tableName, {'element_id': result[0].parent_element_id}, 'profile_system_id').then(function(result2) {
                   product.profileId = result2[0].profile_system_id;
                   door.push(product)
+                  _callback(null, product.profileId);
               });     
-              _callback(product.profileId);
             }
-          ], function (result, err) {
+          ], function (err, result) {
             if (err) {
-              //console.log('err', err)
-              return _cb(err);
+              return _cb(err, result);
             }
-              //console.log('herereer')
           _cb(null, result);
         });
       }
