@@ -90,7 +90,9 @@
         customer_age: 0,
         customer_education: 0,
         customer_occupation: 0,
-        customer_infoSource: 0
+        customer_infoSource: 0,
+
+        order_edit:0
       },
 
       setDefaultOrder: setDefaultOrder

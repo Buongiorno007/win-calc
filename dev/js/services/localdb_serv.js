@@ -1126,9 +1126,37 @@
     }
 
 
+    function updateOrderServer(login, access, table, data, orderId) {
+      var defer = $q.defer();
+      if (data.id) {
+        delete data.id;
+      };
+      if (data.modified) {
+        delete data.modified;
+      };
+      var dataToSend = {
+        model: table,
+        rowId: orderId*1,
+        field: JSON.stringify(data)
+      };
+      $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, dataToSend).then(
+        function (result) {
+          console.log('send changes to server success');
+          defer.resolve(1);
+        },
+        function (result) {
+          console.log('send changes to server failed', result, table);
+          defer.resolve(0);
+        }
+      );
+      return defer.promise;
+    }
+
+
+
+
 
     function updateServer(login, access, data) {
-      //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
       var promises = data.map(function(item) {
         var defer = $q.defer();
         $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
@@ -3069,6 +3097,7 @@
       importAllDB: importAllDB,
       insertServer: insertServer,
       updateServer: updateServer,
+      updateOrderServer: updateOrderServer,
       createUserServer: createUserServer,
       exportUserEntrance: exportUserEntrance,
       deleteOrderServer: deleteOrderServer,

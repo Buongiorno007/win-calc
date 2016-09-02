@@ -2789,6 +2789,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function checkForAddElem() {
       alert();
+        console.log(ProductStor.product, 'ds')
       if(GlobalStor.global.dangerAlert < 1) {
         saveProduct()
       }
@@ -13800,6 +13801,7 @@ function ErrorResult(code, message) {
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
       OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+      OrderStor.order.order_edit = 1;
       setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.supplyData);
       setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
       setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
@@ -15480,9 +15482,37 @@ function ErrorResult(code, message) {
     }
 
 
+    function updateOrderServer(login, access, table, data, orderId) {
+      var defer = $q.defer();
+      if (data.id) {
+        delete data.id;
+      };
+      if (data.modified) {
+        delete data.modified;
+      };
+      var dataToSend = {
+        model: table,
+        rowId: orderId*1,
+        field: JSON.stringify(data)
+      };
+      $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, dataToSend).then(
+        function (result) {
+          console.log('send changes to server success');
+          defer.resolve(1);
+        },
+        function (result) {
+          console.log('send changes to server failed', result, table);
+          defer.resolve(0);
+        }
+      );
+      return defer.promise;
+    }
+
+
+
+
 
     function updateServer(login, access, data) {
-      //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
       var promises = data.map(function(item) {
         var defer = $q.defer();
         $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
@@ -17423,6 +17453,7 @@ function ErrorResult(code, message) {
       importAllDB: importAllDB,
       insertServer: insertServer,
       updateServer: updateServer,
+      updateOrderServer: updateOrderServer,
       createUserServer: createUserServer,
       exportUserEntrance: exportUserEntrance,
       deleteOrderServer: deleteOrderServer,
@@ -20276,16 +20307,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
  //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
-      //---------- if EDIT Order, before inserting delete old order
-      if(GlobalStor.global.orderEditNumber) {
-        deleteOrderInDB(GlobalStor.global.orderEditNumber);
-        localDB.deleteOrderServer(
-          UserStor.userInfo.phone,
-          UserStor.userInfo.device_code,
-          GlobalStor.global.orderEditNumber
-        );
-        GlobalStor.global.orderEditNumber = 0;
-      }
       angular.extend(OrderStor.order, newOptions);
 
       /** ===== SAVE PRODUCTS =====*/
@@ -20339,25 +20360,33 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
         /** culculate products quantity for order */
         OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
-
         //console.log('SEND PRODUCT------', productData);
-        //-------- insert product into local DB
-        localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-        //-------- send to Server
-        if(orderType) {
+
+
+        if(orderType && OrderStor.order.order_edit === 0) {
+          localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
           localDB.insertServer(
             UserStor.userInfo.phone,
             UserStor.userInfo.device_code,
             localDB.tablesLocalDB.order_products.tableName,
             productData
           );
-        }
+        } else if(orderType && OrderStor.order.order_edit === 1) {
+            localDB.updateOrderServer(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code,
+              localDB.tablesLocalDB.order_products.tableName,
+              productData,
+              productData.order_id
+            ).then( function(res) {
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, {order_id:productData.order_id}, productData);
+              });
+          };
 
 
         /** ====== SAVE Report Data ===== */
         var productReportData = angular.copy(OrderStor.order.products[p].report),
             reportQty = productReportData.length;
-        //console.log('productReportData', productReportData);
         while(--reportQty > -1) {
           productReportData[reportQty].order_id = OrderStor.order.id;
           productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
@@ -20377,8 +20406,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
           if(elemQty > 0) {
             for (elem = 0; elem < elemQty; elem+=1) {
-              if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20) {
-                OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+              if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
+                if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
+                  OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+                }
               }
               var addElementsData = {
                 order_id: OrderStor.order.id,
@@ -20396,15 +20427,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
               //console.log('SEND ADD',addElementsData);
-              localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-              if(orderType) {
+              if(orderType && OrderStor.order.order_edit === 0) {
+                localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                 localDB.insertServer(
                   UserStor.userInfo.phone,
                   UserStor.userInfo.device_code,
                   localDB.tablesLocalDB.order_addelements.tableName,
                   addElementsData
                 );
-              }
+              } else if(orderType && OrderStor.order.order_edit === 1) {
+                  localDB.updateOrderServer(
+                  UserStor.userInfo.phone,
+                  UserStor.userInfo.device_code,
+                  localDB.tablesLocalDB.order_addelements.tableName,
+                  addElementsData,
+                  addElementsData.order_id
+              ).then(function(res) {
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {order_id:addElementsData.order_id}, addElementsData);
+              });
+            };
             }
           }
         }
@@ -20462,8 +20503,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       delete orderData.paymentMonthlyPrimaryDis;
 
 
-      console.log('!!!!orderData!!!!', orderData);
-      if(orderType) {
+      //console.log('!!!!orderData!!!!', orderData);
+      if(orderType && orderData.order_edit === 0) {
+        console.log('insert order')
+        delete orderData.order_edit;
         localDB.insertServer(
           UserStor.userInfo.phone,
           UserStor.userInfo.device_code,
@@ -20472,17 +20515,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ).then(function(respond) {
           if(respond.status) {
             orderData.order_number = respond.order_number;
-          } else {
-            console.info('ошибка: orderData>>>', orderData)
           }
           localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
           deferred.resolve(1);
         });
-      } else {
-        //------- save draft
-        localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
-        deferred.resolve(1);
-      }
+      } else if(orderType && orderData.order_edit === 1) {
+        var orderId = angular.copy(orderData.id);
+        delete orderData.order_edit;
+        localDB.updateOrderServer(
+          UserStor.userInfo.phone,
+          UserStor.userInfo.device_code,
+          localDB.tablesLocalDB.orders.tableName,
+          orderData,
+          orderId
+        ).then(function(res) {
+          //------- save draft
+          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, {id:orderId}, orderData);
+            deferred.resolve(1);
+          })
+        }
 
       //TODO
       //------ send analytics data to Server
@@ -27255,7 +27306,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         customer_age: 0,
         customer_education: 0,
         customer_occupation: 0,
-        customer_infoSource: 0
+        customer_infoSource: 0,
+
+        order_edit:0
       },
 
       setDefaultOrder: setDefaultOrder
