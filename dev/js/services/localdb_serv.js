@@ -981,7 +981,6 @@
           }
         }
       }
-      console.log(tableName, elements, vhereOptions, 'tableName, elements, vhereOptions')
       db.transaction(function (trans) {
         trans.executeSql("UPDATE " + tableName + " SET " + elements + vhereOptions, [], function () {
         }, function () {

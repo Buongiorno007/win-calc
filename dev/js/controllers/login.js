@@ -507,7 +507,7 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
+          checkingUser();
 
           //------- check available Local DB
           // loginServ.isLocalDBExist().then(function(data){
@@ -515,39 +515,39 @@
           //   if(thisCtrl.isLocalDB) {
 
           //     //======== SYNC
-              console.log('SYNC');
-              //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-                .then(function(data) {
-                  //---- user exists
-                  if(data.length) {
-                    //---------- check user password
-                    newUserPassword = localDB.md5(thisCtrl.user.password);
-                    if(newUserPassword === data[0].password) {
-                      //----- checking user activation
-                      if(data[0].locked) {
-                        angular.extend(UserStor.userInfo, data[0]);
-                        //------- set User Location
-                        loginServ.prepareLocationToUse().then(function() {
-                          checkingFactory();
-                        });
+              // console.log('SYNC');
+              // //---- checking user in LocalDB
+              // localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+              //   .then(function(data) {
+              //     //---- user exists
+              //     if(data.length) {
+              //       //---------- check user password
+              //       newUserPassword = localDB.md5(thisCtrl.user.password);
+              //       if(newUserPassword === data[0].password) {
+              //         //----- checking user activation
+              //         if(data[0].locked) {
+              //           angular.extend(UserStor.userInfo, data[0]);
+              //           //------- set User Location
+              //           loginServ.prepareLocationToUse().then(function() {
+              //             checkingFactory();
+              //           });
 
-                      } else {
-                        GlobalStor.global.isLoader = 0;
-                        //---- show attantion
-                        thisCtrl.isUserNotActive = 1;
-                      }
-                    } else {
-                      GlobalStor.global.isLoader = 0;
-                      //---- user not exists
-                      thisCtrl.isUserPasswordError = 1;
-                    }
-                  } else {
-                    //======== IMPORT
-                    console.log('Sync IMPORT');
-                    checkingUser();
-                  }
-                });
+              //         } else {
+              //           GlobalStor.global.isLoader = 0;
+              //           //---- show attantion
+              //           thisCtrl.isUserNotActive = 1;
+              //         }
+              //       } else {
+              //         GlobalStor.global.isLoader = 0;
+              //         //---- user not exists
+              //         thisCtrl.isUserPasswordError = 1;
+              //       }
+              //     } else {
+              //       //======== IMPORT
+              //       console.log('Sync IMPORT');
+              //       checkingUser();
+              //     }
+              //   });
 
 
           //   } else {

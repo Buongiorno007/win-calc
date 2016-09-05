@@ -167,7 +167,7 @@
 
     function checkForAddElem() {
       alert();
-        console.log(ProductStor.product, 'ds')
+        console.info(ProductStor.product, 'product')
       if(GlobalStor.global.dangerAlert < 1) {
         saveProduct()
       }
