@@ -77,13 +77,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  function configurationApp($routeProvider, $locationProvider, $translateProvider) {
+  function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider) {
 
     //-------- delete # !!!
     //$locationProvider.html5Mode({
     //  enabled: true,
     //  requireBase: false
     //});
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
@@ -134,7 +135,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         redirectTo: '/'
       });
 
-
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    $httpProvider.defaults.headers.common["Accept"] = "application/json";
+    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
     $translateProvider.preferredLanguage('en');
     $translateProvider.useLoader('AsyncLoader');
   }

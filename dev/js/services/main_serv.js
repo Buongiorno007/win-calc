@@ -1340,7 +1340,10 @@
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
       angular.extend(OrderStor.order, newOptions);
-
+      if(OrderStor.order.order_edit === 1) {
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
+        localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
+      }
       /** ===== SAVE PRODUCTS =====*/
 
       var prodQty = OrderStor.order.products.length, p;
@@ -1395,7 +1398,7 @@
         //console.log('SEND PRODUCT------', productData);
 
 
-        if(orderType && OrderStor.order.order_edit === 0) {
+        if(orderType) {
           localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
           localDB.insertServer(
             UserStor.userInfo.phone,
@@ -1403,18 +1406,7 @@
             localDB.tablesLocalDB.order_products.tableName,
             productData
           );
-        } else if(orderType && OrderStor.order.order_edit === 1) {
-            localDB.updateOrderServer(
-              UserStor.userInfo.phone,
-              UserStor.userInfo.device_code,
-              localDB.tablesLocalDB.order_products.tableName,
-              productData,
-              productData.order_id
-            ).then( function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, productData, {order_id:productData.order_id});
-              });
-          };
-
+        }
 
         /** ====== SAVE Report Data ===== */
         var productReportData = angular.copy(OrderStor.order.products[p].report),
@@ -1459,7 +1451,7 @@
 
 
               //console.log('SEND ADD',addElementsData);
-              if(orderType && OrderStor.order.order_edit === 0) {
+              if(orderType) {
                 localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                 localDB.insertServer(
                   UserStor.userInfo.phone,
@@ -1467,17 +1459,7 @@
                   localDB.tablesLocalDB.order_addelements.tableName,
                   addElementsData
                 );
-              } else if(orderType && OrderStor.order.order_edit === 1) {
-                  localDB.updateOrderServer(
-                  UserStor.userInfo.phone,
-                  UserStor.userInfo.device_code,
-                  localDB.tablesLocalDB.order_addelements.tableName,
-                  addElementsData,
-                  addElementsData.order_id
-              ).then(function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, addElementsData, {order_id:addElementsData.order_id});
-              });
-            };
+              } 
             }
           }
         }
@@ -1537,7 +1519,6 @@
 
       //console.log('!!!!orderData!!!!', orderData);
       if(orderType && orderData.order_edit === 0) {
-        console.log('insert order')
         delete orderData.order_edit;
         localDB.insertServer(
           UserStor.userInfo.phone,
@@ -1562,7 +1543,7 @@
           orderId
         ).then(function(res) {
           //------- save draft
-          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName,{orderData}, {id:orderId});
+          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, orderData, {id:orderId});
             deferred.resolve(1);
           })
         }
