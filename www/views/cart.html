@@ -810,7 +810,7 @@
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
               </div>
               <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
-              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.location.$error.required }" class="input-field">
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.location.$error.required &amp;&amp; orderForm.G.global.changeLocation === 0}" class="input-field">
                 <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
                 <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
                 <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">

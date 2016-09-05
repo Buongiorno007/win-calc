@@ -4589,11 +4589,24 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------- Send Form Data
     function submitForm(form) {
+        console.log(form, 'form')
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
-      if(form.$valid) {
+      if(form.$valid && GlobalStor.global.changeLocation === 1) {
         CartMenuServ.sendOrder();
-      } else {
+      } else if(GlobalStor.global.changeLocation === 0) {
+        CartStor.cart.customer.customer_city_id = "";
+        CartStor.cart.customer.customer_city = "";
+        CartStor.cart.customer.customer_location = "";
+        OrderStor.order.customer_city_id = "";
+        OrderStor.order.customer_city = "";
+        OrderStor.order.customer_location = "";
+        form.location.$viewValue = "";
+        form.location.$modelValue = "";
+        form.location.$valid = false;
+        $('.cart-dialogs').animate({scrollTop: 0},500);
+      } 
+      else {
         $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }
@@ -9178,6 +9191,7 @@ function ErrorResult(code, message) {
 
 
     function changeLocation() {
+      GlobalStor.global.changeLocation = 0;
       if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = 1;
       } else {
@@ -9188,6 +9202,7 @@ function ErrorResult(code, message) {
     /**------------ Select City in Order Dialogs -------------*/
 
     function selectCity(location) {
+      GlobalStor.global.changeLocation = 1;
       setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }
@@ -19647,8 +19662,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         var deferred = $q.defer();
         GlobalStor.global.isLoader = 1;
         setBeadId(profileId, laminatId).then(function(beadResult) {
+          console.info(beadResult, 'beadResult')
           if(beadResult.length && beadResult[0]) {
             var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+              console.info(item, 'item')
               var beadQty = template.priceElements.beadsSize.length;
               while (--beadQty > -1) {
                 if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -19672,7 +19689,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               ],
               sizes: []
             };
-
+            console.info(objXFormedPrice, 'objXFormedPrice')
             //-------- beads data for analysis
             ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
             //------- fill objXFormedPrice for sizes

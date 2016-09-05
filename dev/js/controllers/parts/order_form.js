@@ -81,11 +81,24 @@
 
     //------- Send Form Data
     function submitForm(form) {
+        console.log(form, 'form')
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
-      if(form.$valid) {
+      if(form.$valid && GlobalStor.global.changeLocation === 1) {
         CartMenuServ.sendOrder();
-      } else {
+      } else if(GlobalStor.global.changeLocation === 0) {
+        CartStor.cart.customer.customer_city_id = "";
+        CartStor.cart.customer.customer_city = "";
+        CartStor.cart.customer.customer_location = "";
+        OrderStor.order.customer_city_id = "";
+        OrderStor.order.customer_city = "";
+        OrderStor.order.customer_location = "";
+        form.location.$viewValue = "";
+        form.location.$modelValue = "";
+        form.location.$valid = false;
+        $('.cart-dialogs').animate({scrollTop: 0},500);
+      } 
+      else {
         $('.cart-dialogs').animate({scrollTop: 0},500);
       }
     }

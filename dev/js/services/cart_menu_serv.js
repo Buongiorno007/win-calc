@@ -636,6 +636,7 @@
 
 
     function changeLocation() {
+      GlobalStor.global.changeLocation = 0;
       if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = 1;
       } else {
@@ -646,6 +647,7 @@
     /**------------ Select City in Order Dialogs -------------*/
 
     function selectCity(location) {
+      GlobalStor.global.changeLocation = 1;
       setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }

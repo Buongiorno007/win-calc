@@ -674,8 +674,10 @@
         var deferred = $q.defer();
         GlobalStor.global.isLoader = 1;
         setBeadId(profileId, laminatId).then(function(beadResult) {
+          console.info(beadResult, 'beadResult')
           if(beadResult.length && beadResult[0]) {
             var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+              console.info(item, 'item')
               var beadQty = template.priceElements.beadsSize.length;
               while (--beadQty > -1) {
                 if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
@@ -699,7 +701,7 @@
               ],
               sizes: []
             };
-
+            console.info(objXFormedPrice, 'objXFormedPrice')
             //-------- beads data for analysis
             ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
             //------- fill objXFormedPrice for sizes
