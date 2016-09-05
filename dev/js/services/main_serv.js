@@ -1411,7 +1411,7 @@
               productData,
               productData.order_id
             ).then( function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, {order_id:productData.order_id}, productData);
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, productData, {order_id:productData.order_id});
               });
           };
 
@@ -1475,7 +1475,7 @@
                   addElementsData,
                   addElementsData.order_id
               ).then(function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {order_id:addElementsData.order_id}, addElementsData);
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, addElementsData, {order_id:addElementsData.order_id});
               });
             };
             }
@@ -1562,7 +1562,7 @@
           orderId
         ).then(function(res) {
           //------- save draft
-          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, {id:orderId}, orderData);
+          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName,{orderData}, {id:orderId});
             deferred.resolve(1);
           })
         }

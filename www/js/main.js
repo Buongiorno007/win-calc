@@ -2941,6 +2941,114 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// controllers/panels/add_elements.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('AddElementsCtrl',
+
+  function(
+    $filter,
+    $timeout,
+    globalConstants,
+    GeneralServ,
+    AddElementsServ,
+    AddElementMenuServ,
+    DesignServ,
+    GlobalStor,
+    AuxStor,
+    ProductStor
+  ) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.A = AuxStor;
+
+    thisCtrl.config = {
+      DELAY_START: globalConstants.STEP,
+      addElementDATA: GeneralServ.addElementDATA,
+      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
+      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
+      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
+      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
+      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
+      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
+      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
+      colorFilter: 5555,
+      typing: 'on'
+    };
+
+    //------- translate
+    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
+    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
+    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
+    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
+    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
+    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
+    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
+    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
+    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
+    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
+    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
+    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
+    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
+
+
+    /**============ METHODS ================*/
+    // Show Window Scheme Dialog
+    function showWindowScheme() {
+      filterAddElem();
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = true;
+      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
+    }
+
+    function closeWindowScheme() {
+      //playSound('fly');
+      AuxStor.aux.isWindowSchemeDialog = false;
+    }
+
+    function click(id){
+      GlobalStor.global.typeMenu = 0;
+      GlobalStor.global.typeMenuID = id;
+      $timeout(function(id){
+        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
+        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
+        if (GlobalStor.global.typeMenu === 5555) {
+          $('.aux-handle').css({
+          'left': 14.375 +'rem',
+           'top': 82.625 +'rem'
+          });
+        } else {
+          $('.aux-handle').css({
+           'left': 34.375 +'rem',
+           'top': 65.625 +'rem'
+          });
+        }
+      },100);
+    }
+
+    /**========== FINISH ==========*/
+
+    //------ clicking
+    thisCtrl.click = click;
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+  });
+})();
+
+
+
 // controllers/panels/add_elements_cart.js
 
 (function(){
@@ -3380,114 +3488,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
     thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-
-  });
-})();
-
-
-
-// controllers/panels/add_elements.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('MainModule')
-    .controller('AddElementsCtrl',
-
-  function(
-    $filter,
-    $timeout,
-    globalConstants,
-    GeneralServ,
-    AddElementsServ,
-    AddElementMenuServ,
-    DesignServ,
-    GlobalStor,
-    AuxStor,
-    ProductStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.P = ProductStor;
-    thisCtrl.A = AuxStor;
-
-    thisCtrl.config = {
-      DELAY_START: globalConstants.STEP,
-      addElementDATA: GeneralServ.addElementDATA,
-      DELAY_SHOW_INSIDESLOPETOP: globalConstants.STEP * 20,
-      DELAY_SHOW_INSIDESLOPERIGHT: globalConstants.STEP * 22,
-      DELAY_SHOW_INSIDESLOPELEFT: globalConstants.STEP * 21,
-      DELAY_SHOW_FORCECONNECT: globalConstants.STEP * 30,
-      DELAY_SHOW_BALCONCONNECT: globalConstants.STEP * 35,
-      DELAY_SHOW_BUTTON: globalConstants.STEP * 40,
-      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 12,
-      colorFilter: 5555,
-      typing: 'on'
-    };
-
-    //------- translate
-    thisCtrl.INSIDES = $filter('translate')('add_elements.INSIDES');
-    thisCtrl.OUTSIDES = $filter('translate')('add_elements.OUTSIDES');
-    thisCtrl.COMPONENTS = $filter('translate')('add_elements.COMPONENTS');
-    thisCtrl.OTHERS = $filter('translate')('add_elements.OTHERS');
-    thisCtrl.OTHER = $filter('translate')('add_elements.OTHER');
-    thisCtrl.ALL = $filter('translate')('add_elements.ALL');
-    thisCtrl.CHOOSE = $filter('translate')('add_elements.CHOOSE');
-    thisCtrl.QTY_LABEL = $filter('translate')('add_elements.QTY_LABEL');
-    thisCtrl.WIDTH_LABEL = $filter('translate')('add_elements.WIDTH_LABEL');
-    thisCtrl.HEIGHT_LABEL = $filter('translate')('add_elements.HEIGHT_LABEL');
-    thisCtrl.OTHER_ELEMENTS1 = $filter('translate')('add_elements.OTHER_ELEMENTS1');
-    thisCtrl.OTHER_ELEMENTS2 = $filter('translate')('add_elements.OTHER_ELEMENTS2');
-    thisCtrl.LIST_VIEW = $filter('translate')('add_elements.LIST_VIEW');
-
-
-    /**============ METHODS ================*/
-    // Show Window Scheme Dialog
-    function showWindowScheme() {
-      filterAddElem();
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = true;
-      DesignServ.showAllDimension(globalConstants.SVG_ID_ICON);
-    }
-
-    function closeWindowScheme() {
-      //playSound('fly');
-      AuxStor.aux.isWindowSchemeDialog = false;
-    }
-
-    function click(id){
-      GlobalStor.global.typeMenu = 0;
-      GlobalStor.global.typeMenuID = id;
-      $timeout(function(id){
-        GlobalStor.global.typeMenu = GlobalStor.global.typeMenuID;
-        thisCtrl.config.colorFilter = GlobalStor.global.typeMenuID;
-        if (GlobalStor.global.typeMenu === 5555) {
-          $('.aux-handle').css({
-          'left': 14.375 +'rem',
-           'top': 82.625 +'rem'
-          });
-        } else {
-          $('.aux-handle').css({
-           'left': 34.375 +'rem',
-           'top': 65.625 +'rem'
-          });
-        }
-      },100);
-    }
-
-    /**========== FINISH ==========*/
-
-    //------ clicking
-    thisCtrl.click = click;
-    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
-    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
-    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
-    thisCtrl.showWindowScheme = showWindowScheme;
-    thisCtrl.closeWindowScheme = closeWindowScheme;
 
   });
 })();
@@ -5366,6 +5366,63 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 })();
 
 
+// directives/calendar.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .directive('calendar',
+
+  function(
+    $filter,
+    CartMenuServ,
+    GlobalStor,
+    OrderStor
+  ) {
+
+    return {
+      restrict: 'E',
+      transclude: true,
+      link: function (scope, element) {
+
+        var orderDay = new Date(OrderStor.order.order_date).getDate(),
+        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
+        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
+        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
+
+        $(function(){
+          var opt = {
+            flat: true,
+            format: 'd.m.Y',
+            locale: {
+              days: [],
+              daysShort: [],
+              daysMin: [],
+              monthsShort: [],
+              months: []
+            },
+            date: deliveryDate,
+            min: minDeliveryDate,
+//            max: maxDeliveryDate,
+            change: function (date) {
+              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
+              scope.$apply();
+            }
+          };
+          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
+          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
+          element.pickmeup(opt);
+        });
+      }
+    };
+
+  });
+})();
+
+
+
 // directives/calendar_scroll.js
 
 (function(){
@@ -5521,63 +5578,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
-
-
-// directives/calendar.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .directive('calendar',
-
-  function(
-    $filter,
-    CartMenuServ,
-    GlobalStor,
-    OrderStor
-  ) {
-
-    return {
-      restrict: 'E',
-      transclude: true,
-      link: function (scope, element) {
-
-        var orderDay = new Date(OrderStor.order.order_date).getDate(),
-        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
-        deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
-        oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
-
-        $(function(){
-          var opt = {
-            flat: true,
-            format: 'd.m.Y',
-            locale: {
-              days: [],
-              daysShort: [],
-              daysMin: [],
-              monthsShort: [],
-              months: []
-            },
-            date: deliveryDate,
-            min: minDeliveryDate,
-//            max: maxDeliveryDate,
-            change: function (date) {
-              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
-              scope.$apply();
-            }
-          };
-          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
-          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
-          element.pickmeup(opt);
-        });
-      }
-    };
-
-  });
-})();
-
 
 
 // directives/fast_click.js
@@ -5786,49 +5786,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-// directives/price_x_qty.js
-
-(function(){
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('BauVoiceApp')
-    .directive('priceFixed',
-
-  function() {
-
-    return {
-      restrict: 'A',
-      scope: {
-        priceFixed: '@',
-        qtyElement: '@',
-        currencyElement: '@'
-      },
-
-      link: function (scope, element, attrs) {
-
-        function getNewPrice(priceAtr, qty, currency) {
-          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
-          element.text(newPrice);
-        }
-
-        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-
-        attrs.$observe('qtyElement', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-        attrs.$observe('priceFixed', function () {
-          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
-        });
-
-      }
-    };
-
-  });
-})();
-
-
-
 // directives/price.js
 
 (function(){
@@ -5937,6 +5894,49 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 // event.srcEvent.stopPropagation();
   });
 })();
+
+
+// directives/price_x_qty.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('BauVoiceApp')
+    .directive('priceFixed',
+
+  function() {
+
+    return {
+      restrict: 'A',
+      scope: {
+        priceFixed: '@',
+        qtyElement: '@',
+        currencyElement: '@'
+      },
+
+      link: function (scope, element, attrs) {
+
+        function getNewPrice(priceAtr, qty, currency) {
+          var newPrice = parseFloat(((Math.round(parseFloat(priceAtr) * 100)/100) * qty).toFixed(2)) + ' ' + currency;
+          element.text(newPrice);
+        }
+
+        getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+
+        attrs.$observe('qtyElement', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+        attrs.$observe('priceFixed', function () {
+          getNewPrice(scope.priceFixed, scope.qtyElement, scope.currencyElement);
+        });
+
+      }
+    };
+
+  });
+})();
+
 
 
 // directives/show_delay.js
@@ -15337,6 +15337,7 @@ function ErrorResult(code, message) {
           }
         }
       }
+      console.log(tableName, elements, vhereOptions, 'tableName, elements, vhereOptions')
       db.transaction(function (trans) {
         trans.executeSql("UPDATE " + tableName + " SET " + elements + vhereOptions, [], function () {
         }, function () {
@@ -20379,7 +20380,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               productData,
               productData.order_id
             ).then( function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, {order_id:productData.order_id}, productData);
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_products.tableName, productData, {order_id:productData.order_id});
               });
           };
 
@@ -20443,7 +20444,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   addElementsData,
                   addElementsData.order_id
               ).then(function(res) {
-                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {order_id:addElementsData.order_id}, addElementsData);
+                localDB.updateLocalDB(localDB.tablesLocalDB.order_addelements.tableName, addElementsData, {order_id:addElementsData.order_id});
               });
             };
             }
@@ -20530,7 +20531,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           orderId
         ).then(function(res) {
           //------- save draft
-          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, {id:orderId}, orderData);
+          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName,{orderData}, {id:orderId});
             deferred.resolve(1);
           })
         }
