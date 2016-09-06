@@ -314,10 +314,36 @@
         }
       }
     }
+    /**----------- Select Add Element when open List View ------------*/
 
+    function selectAddElementList(typeId, elementId, clickEvent) {
+      var coord;
+      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
+        AuxStor.aux.isAddElement = false;
+      } else if(AuxStor.aux.isAddElement === false) {
+        coord = $(clickEvent.target).offset();
+        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+        AuxStor.aux.coordinats = {'top': coord.top-17};
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
+        }, 500);
+      } else {
+        AuxStor.aux.isAddElement = false;
+        $timeout(function() {
+          coord = $(clickEvent.target).offset();
+          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
+          AuxStor.aux.coordinats = {'top': coord.top-11};
+        }, 500);
+        $timeout(function() {
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+        }, 1000);
+      }
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
+      selectAddElementList: selectAddElementList,
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
       selectAddElem: selectAddElem,

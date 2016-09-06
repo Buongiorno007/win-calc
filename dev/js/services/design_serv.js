@@ -883,7 +883,7 @@
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
               doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
-              doorsGroups[z].profileId = doorsGroups[z].profileId || 345
+              doorsGroups[z].profileId = doorsGroups[z].profile_id || 345
 
               for(var x=0; x<doorKitsT1.length; x+=1) {
                 if(doorsGroups[z].door_sill_list_id === doorKitsT1[x].id) {
@@ -2944,6 +2944,7 @@
               /** if Door Construction */
               if(ProductStor.product.construction_type === 4) {
                 setNewDoorParamValue(ProductStor.product, DesignStor.design);
+                MainServ.setCurrentGlass(ProductStor.product);
                 rebuildSVGTemplate();
                 //---- set door profile
          /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(

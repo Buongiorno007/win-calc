@@ -321,10 +321,10 @@
             <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}" class="aux-search-content">
               <div class="aux-list-groups">
                 <div ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index" class="aux-list-type">
-                  <div fs-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
+                  <div ng-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
                     <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}" class="group-indicator"></button>
                     <div class="search-elements-block">
-                      <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" fs-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
+                      <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
                     </div>
                   </div>
                 </div>
@@ -684,7 +684,7 @@
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
-                <div fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
@@ -698,7 +698,7 @@
         <!--========== one element pannel in List View-->
         <div ng-show="elementsMenu.A.aux.isAddElementListView &amp;&amp; elementsMenu.A.aux.showAddElementsMenu &amp;&amp; ((elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement &gt; 1) || elementsMenu.G.global.currOpenPage === 'cart')" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
           <div ng-repeat="addElement in type track by $index" class="list-item">
-            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
+            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.A.aux.coordinats" class="aux-list-item">
               <div class="aux-list-row">
                 <div class="aux-name">
                   <div class="aux-title">{{ addElement.name }}</div>

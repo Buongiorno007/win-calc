@@ -376,7 +376,7 @@
             <div ng-switch-when="17" class="aux-spil-img move-spil"></div>
             <div ng-class="elementsPanel.config.addElementDATA[$index].typeClass + '-txt'" class="aux-txt-box">
               <div ng-hide="addElemGroup.length" show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="choose-block unvisible">
-                <button fs-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
+                <button ng-click="elementsPanel.selectAddElement($index+1)" class="aux-choose-but">{{ ::elementsPanel.CHOOSE }}</button>
                 <div data-output="{{ elementsPanel.config.addElementDATA[$index].name | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
               <div ng-show="addElemGroup.length" ng-class="($index==1)?'horisontal':'vertival'" class="selected-block">
@@ -415,7 +415,7 @@
           <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" fs-click="elementsPanel.openAddElementListView()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
         </div>
       </div>
-      <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'active': elementsListPanel.A.aux.isAddElementListView}" class="config-panel additional-list-container">
+      <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'actived': elementsListPanel.A.aux.isAddElementListView}" class="config-panel additional-list-container">
         <form ng-controller="searchCtrl as searchBox" name="searchForm">
           <div class="search-block">
             <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
@@ -426,10 +426,10 @@
         <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}" class="aux-search-content">
           <div class="aux-list-groups">
             <div ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index" class="aux-list-type">
-              <div fs-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
+              <div ng-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
                 <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}" class="group-indicator"></button>
                 <div class="search-elements-block">
-                  <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" fs-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
+                  <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
                 </div>
               </div>
             </div>
@@ -443,7 +443,7 @@
                 <tr ng-repeat="addElement in elemType track by $index" class="aux-list-row">
                   <td class="aux-tablecell-name">
                     <div class="aux-name">
-                      <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" fs-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title">)</div>
+                      <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" ng-click="elementsListPanel.selectAddElement($parent.$index + 1)" class="aux-title">)</div>
                       <div data-output="{{ ::elementsListPanel.NAME_LABEL }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                     </div>
                   </td>
@@ -588,7 +588,7 @@
                 <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
               </div>
               <li ng-repeat="addElement in type track by $index" class="item">
-                <div fs-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
@@ -602,7 +602,7 @@
         <!--========== one element pannel in List View-->
         <div ng-show="elementsMenu.A.aux.isAddElementListView &amp;&amp; elementsMenu.A.aux.showAddElementsMenu &amp;&amp; ((elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement &gt; 1) || elementsMenu.G.global.currOpenPage === 'cart')" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
           <div ng-repeat="addElement in type track by $index" class="list-item">
-            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
+            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.A.aux.coordinats" class="aux-list-item">
               <div class="aux-list-row">
                 <div class="aux-name">
                   <div class="aux-title">{{ addElement.name }}</div>

@@ -1,10 +1,10 @@
 .aux-search-content(ng-controller="AddElemGroupMenuCtrl as addElemGroups", ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}")
   .aux-list-groups
     .aux-list-type(ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index")
-      .aux-list-group(fs-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)",
+      .aux-list-group(ng-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)",
       ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]") {{ typeAddElement.type.groupName }}
 
         button.group-indicator(ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}")
         .search-elements-block
           .search-elem(ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index",
-          ng-class="typeAddElement.type.groupClass", fs-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)") {{ elemFind.name }}
+          ng-class="typeAddElement.type.groupClass", ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)") {{ elemFind.name }}

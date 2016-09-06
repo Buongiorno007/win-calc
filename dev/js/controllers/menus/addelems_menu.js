@@ -32,7 +32,7 @@
       DELAY_SHOW_ELEMENTS_MENU: 10 * globalConstants.STEP,
       typing: 'on'
     };
-
+    AuxStor.aux.coordinats = 0;
     //------- translate
     thisCtrl.TIP = $filter('translate')('add_elements_menu.TIP');
     thisCtrl.EMPTY_ELEMENT = $filter('translate')('add_elements_menu.EMPTY_ELEMENT');
@@ -58,46 +58,11 @@
     }
 
 
-    /**----------- Select Add Element when open List View ------------*/
-
-    function selectAddElementList(typeId, elementId, clickEvent) {
-      var coord;
-      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
-        AuxStor.aux.isAddElement = false;
-      } else if(AuxStor.aux.isAddElement === false) {
-        coord = $(clickEvent.target).offset();
-        //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-        thisCtrl.coordinats = {'top': coord.top-17};
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
-        }, 500);
-      } else {
-        AuxStor.aux.isAddElement = false;
-        $timeout(function() {
-          coord = $(clickEvent.target).offset();
-          //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-          thisCtrl.coordinats = {'top': coord.top-17};
-        }, 500);
-        $timeout(function() {
-          AddElementMenuServ.getAddElementPrice(typeId, elementId);
-        }, 1000);
-      }
-    }
-
-
-    /**---------- common function to select addElem in 2 cases --------*/
-
-
-
-
-
-
-
 
     /**========== FINISH ==========*/
 
       //------ clicking
+    thisCtrl.selectAddElementList = AddElementsServ.selectAddElementList;
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.selectAddElement = AddElementsServ.selectAddElem;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
