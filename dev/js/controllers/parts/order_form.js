@@ -49,6 +49,7 @@
     thisCtrl.CLIENT_SEX_M = $filter('translate')('cart.CLIENT_SEX_M');
     thisCtrl.CLIENT_SEX_F = $filter('translate')('cart.CLIENT_SEX_F');
     thisCtrl.CLIENT_AGE = $filter('translate')('cart.CLIENT_AGE');
+    thisCtrl.EMPTY_FIELD_LOCATION = $filter('translate')('login.EMPTY_FIELD_LOCATION');
     thisCtrl.SELECT_PLACEHOLD = $filter('translate')('cart.SELECT_PLACEHOLD');
     thisCtrl.CLIENT_EDUCATION = $filter('translate')('cart.CLIENT_EDUCATION');
     thisCtrl.CLIENT_OCCUPATION = $filter('translate')('cart.CLIENT_OCCUPATION');
@@ -81,18 +82,13 @@
 
     //------- Send Form Data
     function submitForm(form) {
-        console.log(form, 'form')
       //------- Trigger validation flag.
       CartStor.cart.submitted = true;
       if(form.$valid && GlobalStor.global.changeLocation === 1) {
         CartMenuServ.sendOrder();
       } else if(GlobalStor.global.changeLocation === 0) {
-        CartStor.cart.customer.customer_city_id = "";
-        CartStor.cart.customer.customer_city = "";
-        CartStor.cart.customer.customer_location = "";
-        OrderStor.order.customer_city_id = "";
-        OrderStor.order.customer_city = "";
-        OrderStor.order.customer_location = "";
+        CartStor.cart.customer.customer_location = undefined;
+        $('#impLocation').val('');
         form.location.$viewValue = "";
         form.location.$modelValue = "";
         form.location.$valid = false;

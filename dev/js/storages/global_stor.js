@@ -159,7 +159,8 @@
         isSizeCalculator: 0,
         isWidthCalculator: 0,
         maxSizeLimit: 3200,
-        maxSquareLimit: 6
+        maxSquareLimit: 6,
+        changeLocation: 1
       },
 
       setDefaultGlobal: setDefaultGlobal

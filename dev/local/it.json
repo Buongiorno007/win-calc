@@ -52,6 +52,7 @@
     "PASS_CODE": "Comunicate il codice al manager.",
     "YOUR_CODE": "Il vostro codice: ",
     "EMPTY_FIELD": "Riempite questo campo.",
+    "EMPTY_FIELD_LOCATION": "Cambiare posizione della proposta",
     "WRONG_LOGIN": "For login (password) use only numbers, letters and symbols \"@\", \".\", \"-\", \"_\".",
     "SHORT_NAME": "Nome troppo piccolo.",
     "IMPORT_DB_START": "Aspetti, il carico di un database ha cominciato",
