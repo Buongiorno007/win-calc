@@ -15380,7 +15380,22 @@ function ErrorResult(code, message) {
     }
 
 
-
+    function deleteProductServer(login, access, orderNumber, table) {
+      var defer = $q.defer();
+      var dataSend = {
+              model: table,
+              orderId: orderNumber
+            }
+      $http.post(globalConstants.serverIP+'/api/remove-order-properties?login='+login+'&access_token='+access, dataSend).then(
+        function (result) {
+          defer.resolve(result.data);
+        },
+        function () {
+          defer.resolve({status: 0});
+        }
+      );
+      return defer.promise;
+    }
 
 
 
@@ -17478,7 +17493,8 @@ function ErrorResult(code, message) {
       getAdditionalPrice: getAdditionalPrice,
       calculationGridPrice: calculationGridPrice,
       calcDoorElemPrice: calcDoorElemPrice,
-      currencyExgange: currencyExgange
+      currencyExgange: currencyExgange,
+      deleteProductServer: deleteProductServer
     };
 
     return thisFactory.publicObj;
@@ -20328,233 +20344,252 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
  //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
-      var deferred = $q.defer();
+    var deferred = $q.defer();
       angular.extend(OrderStor.order, newOptions);
       if(OrderStor.order.order_edit === 1) {
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
+        localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_products.tableName).then(function(def1) {
+          console.log('def1', def1)
+          localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_addelements.tableName).then(function(def2) {
+            console.log('def1', def2)
+            save().then(function(res) {
+              console.log(res,'res')
+              deferred.resolve(1);
+            });
+          });
+        }); 
+        
+      } else {
+        save().then(function(res) {
+          deferred.resolve(1);
+        })
       }
+
       /** ===== SAVE PRODUCTS =====*/
+      function save() {
+        var defer = $q.defer();
+        var prodQty = OrderStor.order.products.length, p;
+        OrderStor.order.products_qty = 0;
+        for(p = 0; p < prodQty; p+=1) {
+          var productData = angular.copy(OrderStor.order.products[p]);    
+          productData.order_id = OrderStor.order.id;
+          if(!productData.is_addelem_only) {
+            productData.template_source['beads'] = angular.copy(productData.beadsData);
+          }
+          productData.template_source = JSON.stringify(productData.template_source);
+          if(productData.construction_type === 4) {
+            productData.profile_id = OrderStor.order.products[p].template_source.profile_door_id;
+          } else {
+            productData.profile_id = OrderStor.order.products[p].profile.id;
+          }  
+          productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+            return item.id;
+          }).join(', ');
+          if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
+            productData.hardware_id = 0;
+          } else if(OrderStor.order.products[p].construction_type ===4){
+            productData.hardware_id = OrderStor.order.products[p].doorLock.id;
+          } else {
+            productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+          }
+          productData.lamination_id = OrderStor.order.products[p].lamination.id;
+          productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
+          productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
+          productData.modified = new Date();
+          if(productData.template) {
+            delete productData.template;
+          }
+          delete productData.templateIcon;
+          delete productData.profile;
+          delete productData.glass;
+          delete productData.hardware;
+          delete productData.lamination;
+          delete productData.chosenAddElements;
+          delete productData.profileDepths;
+          delete productData.addelemPriceDis;
+          delete productData.productPriceDis;
+          delete productData.report;
+          delete productData.beadsData;
+          delete productData.doorName;
+          delete productData.doorSashName;
+          delete productData.doorHandle;
+          delete productData.doorLock;
 
-      var prodQty = OrderStor.order.products.length, p;
-      OrderStor.order.products_qty = 0;
-      for(p = 0; p < prodQty; p+=1) {
-        var productData = angular.copy(OrderStor.order.products[p]);    
-        productData.order_id = OrderStor.order.id;
-        if(!productData.is_addelem_only) {
-          productData.template_source['beads'] = angular.copy(productData.beadsData);
-        }
-        productData.template_source = JSON.stringify(productData.template_source);
-        if(productData.construction_type === 4) {
-          productData.profile_id = OrderStor.order.products[p].template_source.profile_door_id;
-        } else {
-          productData.profile_id = OrderStor.order.products[p].profile.id;
-        }  
-        productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
-          return item.id;
-        }).join(', ');
-        if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
-          productData.hardware_id = 0;
-        } else if(OrderStor.order.products[p].construction_type ===4){
-          productData.hardware_id = OrderStor.order.products[p].doorLock.id;
-        } else {
-          productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
-        }
-        productData.lamination_id = OrderStor.order.products[p].lamination.id;
-        productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
-        productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
-        productData.modified = new Date();
-        if(productData.template) {
-          delete productData.template;
-        }
-        delete productData.templateIcon;
-        delete productData.profile;
-        delete productData.glass;
-        delete productData.hardware;
-        delete productData.lamination;
-        delete productData.chosenAddElements;
-        delete productData.profileDepths;
-        delete productData.addelemPriceDis;
-        delete productData.productPriceDis;
-        delete productData.report;
-        delete productData.beadsData;
-        delete productData.doorName;
-        delete productData.doorSashName;
-        delete productData.doorHandle;
-        delete productData.doorLock;
-
-        /** culculate products quantity for order */
-        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
-        //console.log('SEND PRODUCT------', productData);
+          /** culculate products quantity for order */
+          OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
+          //console.log('SEND PRODUCT------', productData);
 
 
-        if(orderType) {
-          localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-          localDB.insertServer(
-            UserStor.userInfo.phone,
-            UserStor.userInfo.device_code,
-            localDB.tablesLocalDB.order_products.tableName,
-            productData
-          );
-        }
+          if(orderType) {
+            localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+            localDB.insertServer(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code,
+              localDB.tablesLocalDB.order_products.tableName,
+              productData
+            );
+          }
 
-        /** ====== SAVE Report Data ===== */
-        var productReportData = angular.copy(OrderStor.order.products[p].report),
-            reportQty = productReportData.length;
-        while(--reportQty > -1) {
-          productReportData[reportQty].order_id = OrderStor.order.id;
-          productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
-          delete productReportData[reportQty].priceReal;
-          //-------- insert product Report into local DB
-          //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
-          //-------- send Report to Server
-          // TODO localDB.insertServer(
-          // UserStor.userInfo.phone, UserStor.userInfo.device_code,
-          // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
-        }
+          /** ====== SAVE Report Data ===== */
+          var productReportData = angular.copy(OrderStor.order.products[p].report),
+              reportQty = productReportData.length;
+          while(--reportQty > -1) {
+            productReportData[reportQty].order_id = OrderStor.order.id;
+            productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
+            delete productReportData[reportQty].priceReal;
+            //-------- insert product Report into local DB
+            //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+            //-------- send Report to Server
+            // TODO localDB.insertServer(
+            // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+            // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          }
 
-        /**============= SAVE ADDELEMENTS ============ */
+          /**============= SAVE ADDELEMENTS ============ */
 
-        var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
-        for(add = 0; add < addElemQty; add+=1) {
-          var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
-          if(elemQty > 0) {
-            for (elem = 0; elem < elemQty; elem+=1) {
-              if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
-                if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
-                  OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+          var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+          for(add = 0; add < addElemQty; add+=1) {
+            var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+            if(elemQty > 0) {
+              for (elem = 0; elem < elemQty; elem+=1) {
+                if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
+                  if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
+                    OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+                  }
                 }
+                var addElementsData = {
+                  order_id: OrderStor.order.id,
+                  product_id: OrderStor.order.products[p].product_id,
+                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                  name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                  block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
+                  modified: new Date()
+                };
+
+
+                //console.log('SEND ADD',addElementsData);
+                if(orderType) {
+                  localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                  localDB.insertServer(
+                    UserStor.userInfo.phone,
+                    UserStor.userInfo.device_code,
+                    localDB.tablesLocalDB.order_addelements.tableName,
+                    addElementsData
+                  );
+                } 
               }
-              var addElementsData = {
-                order_id: OrderStor.order.id,
-                product_id: OrderStor.order.products[p].product_id,
-                element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
-                element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
-                name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
-                element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
-                element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
-                element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
-                element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
-                modified: new Date()
-              };
-
-
-              //console.log('SEND ADD',addElementsData);
-              if(orderType) {
-                localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-                localDB.insertServer(
-                  UserStor.userInfo.phone,
-                  UserStor.userInfo.device_code,
-                  localDB.tablesLocalDB.order_addelements.tableName,
-                  addElementsData
-                );
-              } 
             }
           }
         }
-      }
 
-      /** ============ SAVE ORDER =========== */
-      var orderData = angular.copy(OrderStor.order);
-      orderData.order_date = new Date(OrderStor.order.order_date);
-      orderData.order_type = orderType;
-      orderData.order_price_dis = OrderStor.order.order_price_dis;
-      orderData.order_price = OrderStor.order.order_price;
-      orderData.order_price_primary = OrderStor.order.order_price_primary;
-      orderData.order_style = orderStyle;
-      orderData.factory_id = UserStor.userInfo.factory_id;
-      orderData.user_id = UserStor.userInfo.id;
-      orderData.delivery_date = new Date(OrderStor.order.delivery_date);
-      orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
-      orderData.customer_sex = +OrderStor.order.customer_sex || 0;
-      orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
-      orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
-      orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
-      orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
-      orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
-      //----- rates %
-      orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
-      orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
-      orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
-      orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
-      orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
+        /** ============ SAVE ORDER =========== */
+        var orderData = angular.copy(OrderStor.order);
+        orderData.order_date = new Date(OrderStor.order.order_date);
+        orderData.order_type = orderType;
+        orderData.order_price_dis = OrderStor.order.order_price_dis;
+        orderData.order_price = OrderStor.order.order_price;
+        orderData.order_price_primary = OrderStor.order.order_price_primary;
+        orderData.order_style = orderStyle;
+        orderData.factory_id = UserStor.userInfo.factory_id;
+        orderData.user_id = UserStor.userInfo.id;
+        orderData.delivery_date = new Date(OrderStor.order.delivery_date);
+        orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
+        orderData.customer_sex = +OrderStor.order.customer_sex || 0;
+        orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
+        orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
+        orderData.customer_occupation = (OrderStor.order.customer_occupation)? OrderStor.order.customer_occupation.id : 0;
+        orderData.customer_infoSource = (OrderStor.order.customer_infoSource)? OrderStor.order.customer_infoSource.id : 0;
+        orderData.products_qty = GeneralServ.roundingValue(OrderStor.order.products_qty);
+        //----- rates %
+        orderData.discount_construct_max = UserStor.userInfo.discountConstrMax;
+        orderData.discount_addelem_max = UserStor.userInfo.discountAddElemMax;
+        orderData.default_term_plant = GlobalStor.global.deliveryCoeff.percents[GlobalStor.global.deliveryCoeff.standart_time];
+        orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
+        orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
 
-      if(orderType) {
-        orderData.additional_payment = '';
-        orderData.created = new Date();
-        orderData.sended = new Date(0);
-        orderData.state_to = new Date(0);
-        orderData.state_buch = new Date(0);
-        orderData.batch = '---';
-        orderData.base_price = 0;
-        orderData.factory_margin = 0;
-        orderData.purchase_price = 0;
-        orderData.sale_price = 0;
-        orderData.modified = new Date();
-      }
-
-      delete orderData.products;
-      delete orderData.floorName;
-      delete orderData.mountingName;
-      delete orderData.selectedInstalmentPeriod;
-      delete orderData.selectedInstalmentPercent;
-      delete orderData.productsPriceDis;
-      delete orderData.orderPricePrimaryDis;
-      delete orderData.paymentFirstDis;
-      delete orderData.paymentMonthlyDis;
-      delete orderData.paymentFirstPrimaryDis;
-      delete orderData.paymentMonthlyPrimaryDis;
-
-
-      //console.log('!!!!orderData!!!!', orderData);
-      if(orderType && orderData.order_edit === 0) {
-        delete orderData.order_edit;
-        localDB.insertServer(
-          UserStor.userInfo.phone,
-          UserStor.userInfo.device_code,
-          localDB.tablesLocalDB.orders.tableName,
-          orderData
-        ).then(function(respond) {
-          if(respond.status) {
-            orderData.order_number = respond.order_number;
-          }
-          localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
-          deferred.resolve(1);
-        });
-      } else if(orderType && orderData.order_edit === 1) {
-        var orderId = angular.copy(orderData.id);
-        delete orderData.order_edit;
-        localDB.updateOrderServer(
-          UserStor.userInfo.phone,
-          UserStor.userInfo.device_code,
-          localDB.tablesLocalDB.orders.tableName,
-          orderData,
-          orderId
-        ).then(function(res) {
-          //------- save draft
-          localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, orderData, {id:orderId});
-            deferred.resolve(1);
-          })
+        if(orderType) {
+          orderData.additional_payment = '';
+          orderData.created = new Date();
+          orderData.sended = new Date(0);
+          orderData.state_to = new Date(0);
+          orderData.state_buch = new Date(0);
+          orderData.batch = '---';
+          orderData.base_price = 0;
+          orderData.factory_margin = 0;
+          orderData.purchase_price = 0;
+          orderData.sale_price = 0;
+          orderData.modified = new Date();
         }
 
-      //TODO
-      //------ send analytics data to Server
-      //      AnalyticsServ.sendAnalyticsDB();
+        delete orderData.products;
+        delete orderData.floorName;
+        delete orderData.mountingName;
+        delete orderData.selectedInstalmentPeriod;
+        delete orderData.selectedInstalmentPercent;
+        delete orderData.productsPriceDis;
+        delete orderData.orderPricePrimaryDis;
+        delete orderData.paymentFirstDis;
+        delete orderData.paymentMonthlyDis;
+        delete orderData.paymentFirstPrimaryDis;
+        delete orderData.paymentMonthlyPrimaryDis;
 
-      //----- cleaning order
-      OrderStor.order = OrderStor.setDefaultOrder();
-      //------ set current GeoLocation
-      loginServ.setUserGeoLocation(
-        UserStor.userInfo.city_id,
-        UserStor.userInfo.cityName,
-        UserStor.userInfo.climaticZone,
-        UserStor.userInfo.heatTransfer,
-        UserStor.userInfo.fullLocation
-      );
-    
-      //----- finish working with order
-      GlobalStor.global.isCreatedNewProject = 0;
+
+        //console.log('!!!!orderData!!!!', orderData);
+        if(orderType && orderData.order_edit === 0) {
+          delete orderData.order_edit;
+          localDB.insertServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.orders.tableName,
+            orderData
+          ).then(function(respond) {
+            if(respond.status) {
+              orderData.order_number = respond.order_number;
+            }
+            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+            defer.resolve(1);
+          });
+        } else if(orderType && orderData.order_edit === 1) {
+          var orderId = angular.copy(orderData.id);
+          delete orderData.order_edit;
+          localDB.updateOrderServer(
+            UserStor.userInfo.phone,
+            UserStor.userInfo.device_code,
+            localDB.tablesLocalDB.orders.tableName,
+            orderData,
+            orderId
+          ).then(function(res) {
+            //------- save draft
+            localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, orderData, {id:orderId});
+              defer.resolve(1);
+            })
+          }
+
+        //TODO
+        //------ send analytics data to Server
+        //      AnalyticsServ.sendAnalyticsDB();
+
+        //----- cleaning order
+        OrderStor.order = OrderStor.setDefaultOrder();
+        //------ set current GeoLocation
+        loginServ.setUserGeoLocation(
+          UserStor.userInfo.city_id,
+          UserStor.userInfo.cityName,
+          UserStor.userInfo.climaticZone,
+          UserStor.userInfo.heatTransfer,
+          UserStor.userInfo.fullLocation
+        );
+      
+        //----- finish working with order
+        GlobalStor.global.isCreatedNewProject = 0;
+        return defer.promise;
+      }
       return deferred.promise;
     }
 

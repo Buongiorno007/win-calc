@@ -1011,7 +1011,22 @@
     }
 
 
-
+    function deleteProductServer(login, access, orderNumber, table) {
+      var defer = $q.defer();
+      var dataSend = {
+              model: table,
+              orderId: orderNumber
+            }
+      $http.post(globalConstants.serverIP+'/api/remove-order-properties?login='+login+'&access_token='+access, dataSend).then(
+        function (result) {
+          defer.resolve(result.data);
+        },
+        function () {
+          defer.resolve({status: 0});
+        }
+      );
+      return defer.promise;
+    }
 
 
 
@@ -3109,7 +3124,8 @@
       getAdditionalPrice: getAdditionalPrice,
       calculationGridPrice: calculationGridPrice,
       calcDoorElemPrice: calcDoorElemPrice,
-      currencyExgange: currencyExgange
+      currencyExgange: currencyExgange,
+      deleteProductServer: deleteProductServer
     };
 
     return thisFactory.publicObj;
