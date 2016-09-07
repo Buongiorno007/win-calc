@@ -535,6 +535,7 @@
             ' template_height NUMERIC,' +
             ' template_square NUMERIC,' +
             ' profile_id INTEGER,' +
+            ' door_group_id INTEGER,' +
             ' glass_id VARCHAR,' +
             ' hardware_id INTEGER,' +
             ' lamination_id INTEGER,' +
@@ -1129,7 +1130,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          //console.log('send changes to server success:', result);
+          console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {

@@ -1353,11 +1353,11 @@
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': OrderStor.order.id});
         localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_products.tableName).then(function(def1) {
-          console.log('def1', def1)
+          console.info('delete old products', def1);
           localDB.deleteProductServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, OrderStor.order.id, localDB.tablesLocalDB.order_addelements.tableName).then(function(def2) {
-            console.log('def1', def2)
+            console.info('delete old addElem', def2);
             save().then(function(res) {
-              console.log(res,'res')
+              console.info('result edit order', res);
               deferred.resolve(1);
             });
           });
@@ -1365,6 +1365,7 @@
         
       } else {
         save().then(function(res) {
+          console.info('result save order', res);
           deferred.resolve(1);
         })
       }
@@ -1382,9 +1383,11 @@
           }
           productData.template_source = JSON.stringify(productData.template_source);
           if(productData.construction_type === 4) {
-            productData.profile_id = OrderStor.order.products[p].template_source.profile_door_id;
+            productData.door_group_id = OrderStor.order.products[p].template_source.profile_door_id;
+            productData.profile_id = 0;
           } else {
             productData.profile_id = OrderStor.order.products[p].profile.id;
+            (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0; 
           }  
           productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
             return item.id;
@@ -1421,7 +1424,6 @@
 
           /** culculate products quantity for order */
           OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
-          //console.log('SEND PRODUCT------', productData);
 
 
           if(orderType) {
@@ -1516,7 +1518,7 @@
         orderData.disc_term_plant = CartStor.cart.discountDeliveyPlant;
         orderData.margin_plant = CartStor.cart.marginDeliveyPlant;
 
-        if(orderType) {
+        if(orderType && orderData.order_edit === 0) {
           orderData.additional_payment = '';
           orderData.created = new Date();
           orderData.sended = new Date(0);
