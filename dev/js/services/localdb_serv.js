@@ -1130,7 +1130,7 @@
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
@@ -1157,11 +1157,11 @@
       };
       $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success');
+          //console.log('send changes to server success');
           defer.resolve(1);
         },
         function (result) {
-          console.log('send changes to server failed', result, table);
+          //console.log('send changes to server failed', result, table);
           defer.resolve(0);
         }
       );
@@ -1181,7 +1181,7 @@
             defer.resolve(1);
           },
           function () {
-            console.log('send changes to server failed');
+            //console.log('send changes to server failed');
             defer.resolve(0);
           }
         );
@@ -1225,7 +1225,7 @@
       var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
-          console.log(result.data);
+          //console.log(result.data);
         },
         function () {
           console.log('Something went wrong with order delete!');

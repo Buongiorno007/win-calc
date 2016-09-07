@@ -13427,7 +13427,7 @@ function ErrorResult(code, message) {
 
         //------ copy all AddElements of this order
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
-        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        //GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
 /*      function editOrder() {
@@ -13701,7 +13701,7 @@ function ErrorResult(code, message) {
                       deferIcon.resolve(1);
                     } else {
                       OrderStor.order.products.push(item);
-                      console.log(item, 'item')
+                      //console.log(item, 'item')
                       deferIcon.resolve(1);
                     }
                   });
@@ -13845,7 +13845,7 @@ function ErrorResult(code, message) {
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          console.warn('ORDER ====', OrderStor.order);
+          //console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
@@ -15504,7 +15504,7 @@ function ErrorResult(code, message) {
           };
       $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success:', result);
+          //console.log('send changes to server success:', result);
           defer.resolve(result.data);
         },
         function (result) {
@@ -15531,11 +15531,11 @@ function ErrorResult(code, message) {
       };
       $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, dataToSend).then(
         function (result) {
-          console.log('send changes to server success');
+          //console.log('send changes to server success');
           defer.resolve(1);
         },
         function (result) {
-          console.log('send changes to server failed', result, table);
+          //console.log('send changes to server failed', result, table);
           defer.resolve(0);
         }
       );
@@ -15555,7 +15555,7 @@ function ErrorResult(code, message) {
             defer.resolve(1);
           },
           function () {
-            console.log('send changes to server failed');
+            //console.log('send changes to server failed');
             defer.resolve(0);
           }
         );
@@ -15599,7 +15599,7 @@ function ErrorResult(code, message) {
       var dataSend = {orderId: +orderNumber};
       $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
         function (result) {
-          console.log(result.data);
+          //console.log(result.data);
         },
         function () {
           console.log('Something went wrong with order delete!');

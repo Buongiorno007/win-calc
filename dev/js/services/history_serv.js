@@ -296,7 +296,7 @@
 
         //------ copy all AddElements of this order
         copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
-        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        //GlobalStor.global.isBox = !GlobalStor.global.isBox;
       }
 
 /*      function editOrder() {
@@ -570,7 +570,7 @@
                       deferIcon.resolve(1);
                     } else {
                       OrderStor.order.products.push(item);
-                      console.log(item, 'item')
+                      //console.log(item, 'item')
                       deferIcon.resolve(1);
                     }
                   });
@@ -714,7 +714,7 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          console.warn('ORDER ====', OrderStor.order);
+          //console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
