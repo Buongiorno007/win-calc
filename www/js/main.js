@@ -14403,7 +14403,8 @@ function ErrorResult(code, message) {
             ' position INTEGER,' +
             ' img VARCHAR,' +
             ' description VARCHAR,' +
-            ' link VARCHAR',
+            ' link VARCHAR,' +
+            ' max_size INTEGER',
             'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
