@@ -13348,6 +13348,7 @@ function ErrorResult(code, message) {
     }
 
     function makeOrderCopy(orderStyle, orderNum, typeOrder) {
+      GlobalStor.global.isLoader = 1;
       HistoryStor.history.orderOk=0;
 /*      GlobalStor.global.isBox = !GlobalStor.global.isBox;*/
         HistoryStor.history.orderEditNumber = orderNum;
@@ -13420,6 +13421,7 @@ function ErrorResult(code, message) {
           HistoryStor.history.ordersSource.push(newOrderCopy);
           //---- save new order in LocalDB
           localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+          GlobalStor.global.isLoader = 0;
         });
 
         //------ copy all Products of this order
