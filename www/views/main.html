@@ -823,3 +823,11 @@
     <div ng-click="dangerAlert.continued()" class="continued-proc">{{::dangerAlert.IGNORE}}</div>
   </div>
 </div>
+<div ng-controller="ErrorProdCtrl as isErrorProd" ng-show="isErrorProd.G.global.isErrorProd" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-descr">{{ isErrorProd.G.global.isErrorProdTitle }}</div>
+    <div class="alert-btns"></div>
+    <div ng-click="isErrorProd.close()" class="close-dialog"></div>
+  </div>
+</div>

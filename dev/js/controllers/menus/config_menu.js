@@ -167,9 +167,18 @@
 
     function checkForAddElem() {
       alert();
-        console.info(ProductStor.product, 'product')
-      if(GlobalStor.global.dangerAlert < 1) {
-        saveProduct()
+      if(!ProductStor.product.is_addelem_only) {
+        if(GlobalStor.global.dangerAlert < 1) {
+         if( ProductStor.product.beadsData.length > 0) {
+          saveProduct();
+        } else {
+            GeneralServ.isErrorProd(
+              $filter('translate')('common_words.ERROR_PROD_BEADS')
+            );
+          }
+        }
+      } else {
+        saveProduct();
       }
     }
 

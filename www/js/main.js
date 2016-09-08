@@ -2763,9 +2763,18 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     function checkForAddElem() {
       alert();
-        console.info(ProductStor.product, 'product')
-      if(GlobalStor.global.dangerAlert < 1) {
-        saveProduct()
+      if(!ProductStor.product.is_addelem_only) {
+        if(GlobalStor.global.dangerAlert < 1) {
+         if( ProductStor.product.beadsData.length > 0) {
+          saveProduct();
+        } else {
+            GeneralServ.isErrorProd(
+              $filter('translate')('common_words.ERROR_PROD_BEADS')
+            );
+          }
+        }
+      } else {
+        saveProduct();
       }
     }
 
@@ -4368,6 +4377,34 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.box = RecOrderServ.box;
       // thisCtrl.profileForAlert = RecOrderServ.profileForAlert;
       thisCtrl.downloadOrders = HistoryServ.downloadOrders;
+  });
+})();
+
+
+
+// controllers/parts/error_product.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('MainModule')
+    .controller('ErrorProdCtrl',
+
+  function($filter, GlobalStor) {
+    /*jshint validthis:true */
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.BUTTON_N = $filter('translate')('common_words.DELETE_ORDER_TITLE');
+
+    /**============ METHODS ================*/
+
+    function close() {
+      GlobalStor.global.isErrorProd = 0;
+      GlobalStor.global.isErrorProdTitle = 'title';
+    }
+    /**========== FINISH ==========*/
+    thisCtrl.close = close;
   });
 })();
 
@@ -12959,6 +12996,10 @@ function ErrorResult(code, message) {
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
+    function isErrorProd(title) {
+      GlobalStor.global.isErrorProd = 1;
+      GlobalStor.global.isErrorProdTitle = title || '';
+    }
     function confirmPath(callback) {
       GlobalStor.global.confirmInActivity = callback;
     }
@@ -12976,6 +13017,7 @@ function ErrorResult(code, message) {
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
+      isErrorProd: isErrorProd, 
       addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,

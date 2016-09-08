@@ -294,6 +294,10 @@
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
+    function isErrorProd(title) {
+      GlobalStor.global.isErrorProd = 1;
+      GlobalStor.global.isErrorProdTitle = title || '';
+    }
     function confirmPath(callback) {
       GlobalStor.global.confirmInActivity = callback;
     }
@@ -311,6 +315,7 @@
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
+      isErrorProd: isErrorProd, 
       addElementDATA: addElementDATA,
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
