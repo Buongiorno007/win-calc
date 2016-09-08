@@ -160,11 +160,19 @@
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
-      desactiveAddElementParameters();
-      //-------- recalculate add element price
-      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
-        setAddElementsTotalPrice(ProductStor.product);
-      });
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width < GlobalStor.global.maxSizeAddElem) {
+        desactiveAddElementParameters();
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 0;
+        //-------- recalculate add element price
+        calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+          setAddElementsTotalPrice(ProductStor.product);
+        });
+      } else {
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 1;
+        ProductStor.product.chosenAddElements[index][elementIndex].element_width = 1000;
+      }
     }
 
 

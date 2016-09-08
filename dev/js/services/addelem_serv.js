@@ -14,7 +14,8 @@
     GlobalStor,
     ProductStor,
     AuxStor,
-    DesignServ
+    DesignServ,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -161,6 +162,15 @@
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
       var currElem;
+      DesignStor.design.minSizeLimit = 0;
+      if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {
+        DesignStor.design.maxSizeLimit = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+        GlobalStor.global.maxSizeAddElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+      } else {
+        DesignStor.design.maxSizeLimit = 5000;
+        GlobalStor.global.maxSizeAddElem = 5000;
+      };
+      
       /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
         AddElementMenuServ.finishCalculators();

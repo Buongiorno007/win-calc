@@ -5073,7 +5073,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------ clicking
     //------ for Add Elements Panel
     if(GlobalStor.global.currOpenPage === 'main') {
-      thisCtrl.isDesignPage = false;
+      thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
@@ -5090,6 +5090,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // controllers/parts/user_info.js
@@ -7465,11 +7466,19 @@ function ErrorResult(code, message) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
-      desactiveAddElementParameters();
-      //-------- recalculate add element price
-      calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
-        setAddElementsTotalPrice(ProductStor.product);
-      });
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width < GlobalStor.global.maxSizeAddElem) {
+        desactiveAddElementParameters();
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 0;
+        //-------- recalculate add element price
+        calcAddElemPrice(index, elementIndex, ProductStor.product.chosenAddElements).then(function() {
+          setAddElementsTotalPrice(ProductStor.product);
+        });
+      } else {
+        DesignStor.design.isMinSizeRestriction = 0;
+        DesignStor.design.isMaxSizeRestriction = 1;
+        ProductStor.product.chosenAddElements[index][elementIndex].element_width = 1000;
+      }
     }
 
 
@@ -8118,7 +8127,8 @@ function ErrorResult(code, message) {
     GlobalStor,
     ProductStor,
     AuxStor,
-    DesignServ
+    DesignServ,
+    DesignStor
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -8265,6 +8275,15 @@ function ErrorResult(code, message) {
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
       var currElem;
+      DesignStor.design.minSizeLimit = 0;
+      if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {
+        DesignStor.design.maxSizeLimit = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+        GlobalStor.global.maxSizeAddElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size;
+      } else {
+        DesignStor.design.maxSizeLimit = 5000;
+        GlobalStor.global.maxSizeAddElem = 5000;
+      };
+      
       /** click to the same parameter => calc Price and close caclulators */
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex) {
         AddElementMenuServ.finishCalculators();
@@ -18576,6 +18595,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         heightTemp = 1000;
                         break;
                     }
+                    var aF = addElemAll[elemAllQty].elementsList[el].addition_folder_id;
+                    if(addElemAll[elemAllQty].elementType[t].max_size && (aF === 2 || aF === 3 || af === 7 || af === 9)) {
+                      addElemAll[elemAllQty].elementsList[el].max_size = addElemAll[elemAllQty].elementType[t].max_size;
+                    } else {
+                      addElemAll[elemAllQty].elementsList[el].max_size = 5000;
+                    }
+                  
                     addElemAll[elemAllQty].elementsList[el].element_width = widthTemp;
                     addElemAll[elemAllQty].elementsList[el].element_height = heightTemp;
                     addElemAll[elemAllQty].elementsList[el].element_qty = 1;
