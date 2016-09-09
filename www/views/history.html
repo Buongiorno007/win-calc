@@ -149,7 +149,7 @@
                 <div class="account-row header">
                   <div class="tn-box">
                     <div ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'" class="result">{{::historyPage.ORDER_DONE}}</div>
-                    <div ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'" class="error">{{::historyPage.ORDER_ERROR}}</div>
+                    <div ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'" class="error">{{historyPage.G.global.textErrorOrder}}</div>
                   </div>
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>

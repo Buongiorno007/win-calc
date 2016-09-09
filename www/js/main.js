@@ -4829,8 +4829,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     function showRoomSelectorDialog() {
       //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
-//        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
-        GlobalStor.global.showRoomSelectorDialog = 1;
+        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+        //GlobalStor.global.showRoomSelectorDialog = 1;
         //playSound('fly');
       }
     }
@@ -4891,6 +4891,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // controllers/parts/room_selector.js
@@ -13346,21 +13347,22 @@ function ErrorResult(code, message) {
         //console.info('first click')
         HistoryStor.history.firstClick.push(orderNum);
         var xhr = new XMLHttpRequest();
-        if(xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false)) {
-          xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
-          xhr.send();
-          if (xhr.status === 200) {
+        xhr.open('GET', 'http://api.steko.com.ua/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
+        xhr.send();
+        if (xhr.status === 200) {
+          if (JSON.parse(xhr.response).status === true) {
             orderToFactory(orderStyle, orderNum);
+            HistoryStor.history.resAPI = orderNum + 'doneOrder';
+            GlobalStor.global.isLoader = 0;
           } else {
-            GlobalStor.global.isLoader = 0
+            GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
+            GlobalStor.global.isLoader = 0;
             HistoryStor.history.resAPI = orderNum + 'errorOrder';
           }
-          HistoryStor.history.resAPI = orderNum + 'doneOrder';
-          GlobalStor.global.isLoader = 0
         } else {
-          GlobalStor.global.isLoader = 0;
+          GlobalStor.global.isLoader = 0
           HistoryStor.history.resAPI = orderNum + 'errorOrder';
-        } 
+        }
       }
     }
     function reqResult() {
@@ -18600,8 +18602,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         heightTemp = 1000;
                         break;
                     }
-                    var aF = addElemAll[elemAllQty].elementsList[el].addition_folder_id;
-                    if(addElemAll[elemAllQty].elementType[t].max_size && (aF === 2 || aF === 3 || af === 7 || af === 9)) {
+                    var aF = addElemAll[elemAllQty].elementsList[el].list_group_id;
+                    if(addElemAll[elemAllQty].elementType[t].max_size && (aF === 2 || aF === 3 || aF === 7 || aF === 9)) {
                       addElemAll[elemAllQty].elementsList[el].max_size = addElemAll[elemAllQty].elementType[t].max_size;
                     } else {
                       addElemAll[elemAllQty].elementsList[el].max_size = 5000;

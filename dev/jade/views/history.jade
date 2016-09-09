@@ -77,7 +77,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                 .account-row.header
                   .tn-box
                     .result(ng-show="historyPage.H.history.resAPI === order.id + 'doneOrder'") {{::historyPage.ORDER_DONE}}
-                    .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'") {{::historyPage.ORDER_ERROR}}
+                    .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'") {{historyPage.G.global.textErrorOrder}}
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
                     .account-id(ng-if="order.order_number") id {{ order.order_number }}

@@ -149,21 +149,22 @@
         //console.info('first click')
         HistoryStor.history.firstClick.push(orderNum);
         var xhr = new XMLHttpRequest();
-        if(xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false)) {
-          xhr.open('GET', 'http://export.steko.com.ua/1c_export/stekofs.php?order_id='+orderNum, false);
-          xhr.send();
-          if (xhr.status === 200) {
+        xhr.open('GET', 'http://api.steko.com.ua/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
+        xhr.send();
+        if (xhr.status === 200) {
+          if (JSON.parse(xhr.response).status === true) {
             orderToFactory(orderStyle, orderNum);
+            HistoryStor.history.resAPI = orderNum + 'doneOrder';
+            GlobalStor.global.isLoader = 0;
           } else {
-            GlobalStor.global.isLoader = 0
+            GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
+            GlobalStor.global.isLoader = 0;
             HistoryStor.history.resAPI = orderNum + 'errorOrder';
           }
-          HistoryStor.history.resAPI = orderNum + 'doneOrder';
-          GlobalStor.global.isLoader = 0
         } else {
-          GlobalStor.global.isLoader = 0;
+          GlobalStor.global.isLoader = 0
           HistoryStor.history.resAPI = orderNum + 'errorOrder';
-        } 
+        }
       }
     }
     function reqResult() {
