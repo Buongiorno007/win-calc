@@ -2502,6 +2502,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     OrderStor,
     UserStor,
     CartStor,
+    ProductStor,
     CartMenuServ
   ) {
     /*jshint validthis:true */
@@ -2510,6 +2511,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.U = UserStor;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       activeMenuItem: false,
@@ -2537,6 +2539,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.TOTAL_PRICE_LABEL = $filter('translate')('cart.TOTAL_PRICE_LABEL');
     thisCtrl.ORDER = $filter('translate')('cart.ORDER');
     thisCtrl.MEASURE = $filter('translate')('cart.MEASURE');
+    thisCtrl.ROOM_SELECTION = $filter('translate')('mainpage.ROOM_SELECTION');
+    thisCtrl.COMMENT = $filter('translate')('mainpage.COMMENT');
 
 
 
@@ -2590,6 +2594,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // controllers/menus/config_menu.js

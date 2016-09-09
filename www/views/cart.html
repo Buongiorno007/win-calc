@@ -636,6 +636,12 @@
               <div ng-show="cartMenu.O.order.is_date_price_more" class="calendar-price up">+ {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}</div>
               <div ng-show="cartMenu.O.order.is_date_price_less" class="calendar-price down">- {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}</div>
             </div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 5}" fs-click="cartMenu.selectMenuItem(5)" class="item">
+              <div data-output="{{ ::cartMenu.COMMENT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu drop-calendar">
+              <textarea ng-model="cartMenu.P.product.comment" class="comment-field noPreventDefault"></textarea>
+            </div>
           </ul>
           <footer class="menu-footer">
             <div ng-class="{'active': cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
