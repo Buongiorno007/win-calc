@@ -274,7 +274,7 @@
         newOrderCopy.state_buch = new Date(0);
         newOrderCopy.created = new Date();
         newOrderCopy.modified = new Date();
-
+        newOrderCopy.order_style = 'order';
         (typeof newOrderCopy.customer_age === "number") ? newOrderCopy.customer_age = newOrderCopy.customer_age : newOrderCopy.customer_age = 0;
         (typeof newOrderCopy.customer_education === "number") ? newOrderCopy.customer_education = newOrderCopy.customer_education : newOrderCopy.customer_education = 0;
         (typeof newOrderCopy.customer_occupation === "number") ? newOrderCopy.customer_occupation = newOrderCopy.customer_occupation : newOrderCopy.customer_occupation = 0;
