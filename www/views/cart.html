@@ -131,7 +131,7 @@
                 <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
                   <div class="order-comment-box">
                     <div class="order-comment-title">{{ ::cartPage.ORDER_COMMENT }}</div>
-                    <div class="order-comment-content">{{ product.comment }}</div>
+                    <div class="order-comment-content">{{ cartPage.O.order.comment }}</div>
                   </div>
                 </div>
               </div>
@@ -640,7 +640,7 @@
               <div data-output="{{ ::cartMenu.COMMENT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu drop-calendar">
-              <textarea ng-model="cartMenu.P.product.comment" class="comment-field noPreventDefault"></textarea>
+              <textarea ng-model="cartMenu.O.order.comment" class="comment-field noPreventDefault"></textarea>
             </div>
           </ul>
           <footer class="menu-footer">

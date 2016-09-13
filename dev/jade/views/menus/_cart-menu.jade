@@ -70,7 +70,7 @@
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 5}", fs-click="cartMenu.selectMenuItem(5)")
         .title(data-output="{{ ::cartMenu.COMMENT }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenu.config.activeMenuItem == 5}")
-        textarea.comment-field.noPreventDefault(ng-model="cartMenu.P.product.comment")
+        textarea.comment-field.noPreventDefault(ng-model="cartMenu.O.order.comment")
 
     footer.menu-footer
       .price-block.price-with-instalments(ng-class="{'active': cartMenu.O.order.is_instalment}", fs-click="cartMenu.swipeDiscountBlock()")

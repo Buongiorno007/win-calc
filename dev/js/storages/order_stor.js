@@ -74,6 +74,7 @@
         order_price_primary: 0,
         orderPricePrimaryDis: 0,
 
+        comment: '',
         customer_name: '',
         customer_email: '',
         customer_phone: '',

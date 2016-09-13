@@ -74,7 +74,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .order-comment(ng-class="{'active': cartPage.config.isProductComment === $index+1}")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
-                    .order-comment-content {{ product.comment }}
+                    .order-comment-content {{ cartPage.O.order.comment }}
 
             button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
 

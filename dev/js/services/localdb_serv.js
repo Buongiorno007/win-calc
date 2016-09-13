@@ -500,6 +500,7 @@
             ' disc_term_plant NUMERIC,' +
             ' margin_plant NUMERIC,' +
 
+            ' comment TEXT,' +
             ' customer_name TEXT,' +
             ' customer_email TEXT,' +
             ' customer_phone VARCHAR(30),' +

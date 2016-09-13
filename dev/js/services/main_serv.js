@@ -1506,6 +1506,7 @@
         orderData.order_style = orderStyle;
         orderData.factory_id = UserStor.userInfo.factory_id;
         orderData.user_id = UserStor.userInfo.id;
+        orderData.comment = OrderStor.order.comment;
         orderData.delivery_date = new Date(OrderStor.order.delivery_date);
         orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
         orderData.customer_sex = +OrderStor.order.customer_sex || 0;
