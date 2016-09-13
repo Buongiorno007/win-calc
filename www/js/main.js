@@ -9410,8 +9410,26 @@ function ErrorResult(code, message) {
         }
         //------- set previos Page
         GeneralServ.setPreviosPage();
-        $location.path('/main');
+        var productTEMP;
+        var newId = ProductStor.product.profile.id;
+        /** save previous Product */
+        productTEMP = angular.copy(ProductStor.product);
+
+        /** check new Profile */
+        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+          //------- set current template for product
+          MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+
+            /** Extra Glass finding */
+            MainServ.checkGlassSizes(ProductStor.product.template);
+
+            /** return previous Product */
+            ProductStor.product = angular.copy(productTEMP);
+            $location.path('/main');
+          });
+        });
         GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        
       }
       function addCloneProductInOrder(cloneProduct, lastProductId) {
         //console.log(cloneProduct)
@@ -13915,7 +13933,7 @@ function ErrorResult(code, message) {
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          //console.warn('ORDER ====', OrderStor.order);
+          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
