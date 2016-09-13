@@ -1392,14 +1392,17 @@
           productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
             return item.id;
           }).join(', ');
-          if (OrderStor.order.products[p].construction_type !==4 && OrderStor.order.products[p].hardware === undefined && GlobalStor.global.currOpenPage === 'history') {
-            productData.hardware_id = 0;
-          } else if(OrderStor.order.products[p].construction_type ===4){
-            productData.hardware_id = OrderStor.order.products[p].doorLock.id;
+          
+          if(productData.construction_type === 4) {
+            productData.hardware_id = productData.doorLock.id;
           } else {
-            productData.hardware_id = OrderStor.order.products[p].hardware.id || 0;
+            if(productData.hardware.id) {
+              productData.hardware_id = productData.hardware.id;
+            } else {
+              productData.hardware_id = 0;
+            }
           }
-          productData.lamination_id = OrderStor.order.products[p].lamination.id;
+        productData.lamination_id = OrderStor.order.products[p].lamination.id;
           productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
           productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
           productData.modified = new Date();
