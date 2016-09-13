@@ -1481,7 +1481,7 @@
                 };
 
 
-                //console.log('SEND ADD',addElementsData);
+                console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(

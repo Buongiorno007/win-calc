@@ -13407,7 +13407,7 @@ function ErrorResult(code, message) {
                 res.tables.order_products.fields.splice(1,1);
                 res.tables.order_products.fields.splice(5,1);
                 res.tables.order_products.fields.splice(26,1);
-                res.tables.orders.fields.splice(0,1);
+                res.tables.orders.fields.splice(1,1);
                 for(var x=0; x<res.tables.order_products.rows.length; x+=1) {
                   res.tables.order_products.rows[x].splice(0,1);
                   res.tables.order_products.rows[x].splice(1,1);
@@ -13415,7 +13415,7 @@ function ErrorResult(code, message) {
                   res.tables.order_products.rows[x].splice(26,1);
                 };
                 for(var x=0; x<res.tables.orders.rows.length; x+=1) {
-                  res.tables.orders.rows[x].splice(0,1);
+                  res.tables.orders.rows[x].splice(1,1);
                   (res.tables.orders.rows[x][23] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
                   (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
                   (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
@@ -15364,7 +15364,7 @@ function ErrorResult(code, message) {
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', error, tableKeys[t], colums);
+                console.log('Error!!! ', error, tableKeys[t], colums, values);
                 defer.resolve(0);
               });
 
@@ -20581,7 +20581,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 };
 
 
-                //console.log('SEND ADD',addElementsData);
+                console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(
