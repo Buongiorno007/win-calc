@@ -102,7 +102,7 @@
     "CONFIGMENU_ADDITIONAL": "Suplimentar",
     "CONFIGMENU_IN_CART": "În coș",
     "VOICE_SPEACH": "Vorbiți...",
-    "COMMENT": "Lăsați mențiunile cu privire la comandă aici.",
+    "COMMENT": "Lăsați mențiunile cu privire la comandă aici.", 
     "ROOM_SELECTION": "Selectare șablon",
     "CONFIGMENU_NO_ADDELEMENTS": "Elemente supl. nu au fost alese",
     "HEATCOEF_VAL": "W",
@@ -379,7 +379,7 @@
     "DISCOUNT_WITHOUT": "Fără reducere",
     "DISCOUNT_WINDOW": "Reducere pentru articol",
     "DISCOUNT_ADDELEM": "Reducere pentru elementele suplimentare",
-    "ORDER_COMMENT": "Заметка о заказе",
+    "ORDER_COMMENT": "Notă în ordinea",
     "UNKNOWN": "Не известно"
   },
   "settings": {
