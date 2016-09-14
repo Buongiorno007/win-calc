@@ -333,7 +333,7 @@
           </div>
           <div class="alladdelements-block">
             <div ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index" ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
-              <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length" class="aux-block-inner">
+              <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length &amp;&amp; elemType.mainTypeMenu" class="aux-block-inner">
                 <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name | translate }}</div>
                 <table class="aux-list-addellement">
                   <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
@@ -638,6 +638,8 @@
             </div>
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 5}" fs-click="cartMenu.selectMenuItem(5)" class="item">
               <div data-output="{{ ::cartMenu.COMMENT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div class="cart-item-data"></div>
+              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu drop-calendar">
               <textarea ng-model="cartMenu.O.order.comment" class="comment-field noPreventDefault"></textarea>

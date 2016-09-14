@@ -2964,7 +2964,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
 
-
     /**============ METHODS ================*/
 
 
