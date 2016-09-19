@@ -35,7 +35,12 @@
 
         if(GlobalStor.global.currOpenPage === 'design') {
           //--------- set template from ProductStor
-          DesignServ.setDefaultConstruction();
+          if(ProductStor.product.construction_type !== 4) {
+            DesignServ.setDefaultConstruction();
+          } else {
+            DesignServ.setDoorConfigDefault(ProductStor.product);
+          }
+         
         } else {
           var hardwareIds = ProductStor.product.hardware.id || 0;
           //------ define product price
@@ -79,7 +84,6 @@
 
             /** DOOR */
             if(ProductStor.product.construction_type === 4) {
-              DesignServ.setDoorConfigDefault(ProductStor.product);
               //------ cleaning DesignStor
               DesignStor.design = DesignStor.setDefaultDesign();
 
@@ -139,9 +143,7 @@
         }
       });
       
-      if(ProductStor.product.construction_type === 4) {
-        DesignServ.setDoorConfigDefault(ProductStor.product);
-      } else {
+      if(ProductStor.product.construction_type !== 4) {
         ProductStor.product.doorLock = {};
       }
       function goToNewTemplate() {
