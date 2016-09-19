@@ -18619,7 +18619,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         break;
                     }
                     var aF = addElemAll[elemAllQty].elementsList[el].list_group_id;
-                    if(addElemAll[elemAllQty].elementType[t].max_size && (aF === 2 || aF === 3 || aF === 7 || aF === 9)) {
+                    if(addElemAll[elemAllQty].elementType[t].max_size && (aF === 12 || aF === 21 || aF === 9 || aF === 8)) {
                       addElemAll[elemAllQty].elementsList[el].max_size = addElemAll[elemAllQty].elementType[t].max_size;
                     } else {
                       addElemAll[elemAllQty].elementsList[el].max_size = 5000;
