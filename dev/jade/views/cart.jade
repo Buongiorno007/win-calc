@@ -89,7 +89,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
                   .disc-max(ng-show="cartPage.C.cart.tempConstructDisc > cartPage.U.userInfo.discountConstrMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempConstructDisc")
-              .discount-txt(fs-click="cartPage.approveNewDisc(0)")
+              .discount-txt(ng-click="cartPage.approveNewDisc(0)")
                 .discounts-label {{ ::cartPage.DISCOUNT_WINDOW }}
 
             //.discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
@@ -99,7 +99,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
                   .disc-max(ng-show="cartPage.C.cart.tempAddelemDisc > cartPage.U.userInfo.discountAddElemMax") {{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%
                   input.disc-input.noPreventDefault(type="number", ng-model="cartPage.C.cart.tempAddelemDisc")
-              .discount-txt(fs-click="cartPage.approveNewDisc(1)")
+              .discount-txt(ng-click="cartPage.approveNewDisc(1)")
                 .discounts-label {{ ::cartPage.DISCOUNT_ADDELEM }}
 
 

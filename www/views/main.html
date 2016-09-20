@@ -140,14 +140,14 @@
             <div data-output="{{ ::roomInfo.THERMAL_RESISTANCE }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" fs-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
+            <button ng-hide="roomInfo.P.product.is_addelem_only" show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="roomInfo.showRoomSelectorDialog()" class="select-rooms unvisible">{{ ::roomInfo.ROOM_SELECTION }}</button>
           </div>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
-            <div ng-class="{'selected': rooms.P.product.room_id === $index}" fs-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+            <div ng-class="{'selected': rooms.P.product.room_id === $index}" ng-click="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
               <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
                 <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
                 <div class="room-title">
@@ -166,11 +166,11 @@
             <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header">
               <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
-                <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" fs-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+                <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" ng-click="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
               </div>
             </div>
             <div ng-repeat="profile in producer track by $index" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
-              <div fs-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner">
+              <div ng-click="profilesPanel.checkForAddElem(profile.id)" class="box_inner">
                 <div class="profile-box-top">
                   <div class="type">{{ profile.cameras }}
                     <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
@@ -198,7 +198,7 @@
                   <div data-output="{{ ::profilesPanel.NOICE_INSULATION }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                 </div>
               </div>
-              <div ng-if="profile.img.length || profile.link.length || profile.description.length" fs-click="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
+              <div ng-if="profile.img.length || profile.link.length || profile.description.length" ng-click="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
             </div>
           </div>
         </div>
@@ -215,7 +215,7 @@
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
                 <div ng-repeat="glass in typeGlass track by $index" ng-class="{'selected': glass.id == glassPanel.G.global.selectGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div fs-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="box_inner">
+                  <div ng-click="glassPanel.selectGlass(glass.id, glass.sku, glass.glass_color)" class="box_inner">
                     <div class="glass-box-view">
                       <div class="glass-img"><img ng-src="img/glasses/glass{{ glass.glass_image }}.png"></div>
                       <div class="label"><span>{{ glassPanel.config.glassLabels[glass.glass_image-1] | translate }}</span><span ng-if="glass.glass_image === 3 || glass.glass_image === 6 || glass.glass_image === 7">{{ ::glassPanel.ENERGY_SAVE }}</span></div>
@@ -268,7 +268,7 @@
             </div>
             <div ng-repeat="hardware in producer track by $index" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
               <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" fs-click="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
-              <div fs-click="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
+              <div ng-click="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
                 <div class="hardware-box-view">
                   <div class="hardware-logo"><img ng-src="{{ hardware.img }}"></div>
                 </div>
@@ -313,7 +313,7 @@
           <div class="laminat-filter">
             <div class="laminat-inner">
               <div ng-repeat="lamin in laminPanel.G.global.laminats | orderBy: 'name' track by $index" class="laminat-box">
-                <div ng-class="{'selected': lamin.isActive}" fs-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
+                <div ng-class="{'selected': lamin.isActive}" ng-click="laminPanel.initLaminatFilter(lamin.type_id)" class="laminat-img"><img ng-src="img/lamination/{{ lamin.type_id }}.jpg"></div>
                 <div ng-if="lamin.id &gt; 1" data-output="{{ ::lamin.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
                 <div ng-if="lamin.id === 1" data-output="{{ ::lamin.name | translate}}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="laminat-label"></div>
               </div>
@@ -325,7 +325,7 @@
                 <div class="laminat-label">{{ ::laminPanel.LAMINAT_INSIDE }}</div>
                 <div class="laminat-label">{{ ::laminPanel.LAMINAT_OUTSIDE }}</div>
               </div>
-              <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" fs-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
+              <div ng-class="{'selected': lamCouple.id === laminPanel.P.product.lamination.id }" ng-click="laminPanel.selectLaminat(lamCouple.id)" class="laminat-row laminat-img"><img ng-src="img/lamination/{{ lamCouple.img_in_id }}.jpg"><img ng-src="img/lamination/{{ lamCouple.img_out_id }}.jpg"></div>
               <div class="laminat-row">
                 <div ng-if="lamCouple.img_in_id &gt; 1" class="laminat-label">{{ ::lamCouple.laminat_in_name }}</div>
                 <div ng-if="lamCouple.img_in_id === 1" class="laminat-label">{{ ::lamCouple.laminat_in_name | translate }}</div>

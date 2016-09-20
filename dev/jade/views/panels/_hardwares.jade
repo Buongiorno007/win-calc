@@ -9,7 +9,7 @@
 
       .hardware-box.unvisible(ng-repeat="hardware in producer track by $index", ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}", show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}")
         .info(ng-if="hardware.img.length || hardware.link.length || hardware.description.length", fs-click="hardwarePanel.showInfoBox(hardware.id, producer)")
-        .hardware-box-inner(fs-click="hardwarePanel.selectHardware(hardware.id)")
+        .hardware-box-inner(ng-click="hardwarePanel.selectHardware(hardware.id)")
           .hardware-box-view
             .hardware-logo
               img(ng-src="{{ hardware.img }}")

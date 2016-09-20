@@ -149,7 +149,7 @@
                   <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
-              <div fs-click="cartPage.approveNewDisc(0)" class="discount-txt">
+              <div ng-click="cartPage.approveNewDisc(0)" class="discount-txt">
                 <div class="discounts-label">{{ ::cartPage.DISCOUNT_WINDOW }}</div>
               </div>
             </div>
@@ -162,7 +162,7 @@
                   <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">
                 </div>
               </div>
-              <div fs-click="cartPage.approveNewDisc(1)" class="discount-txt">
+              <div ng-click="cartPage.approveNewDisc(1)" class="discount-txt">
                 <div class="discounts-label">{{ ::cartPage.DISCOUNT_ADDELEM }}</div>
               </div>
             </div>
