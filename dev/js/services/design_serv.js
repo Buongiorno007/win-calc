@@ -1240,7 +1240,6 @@
                 }
               }
             }
-
           });
         });
       /** show all dimensions */
