@@ -13413,9 +13413,9 @@ function ErrorResult(code, message) {
                 };
                 for(var x=0; x<res.tables.orders.rows.length; x+=1) {
                   res.tables.orders.rows[x].splice(1,1);
-                  (res.tables.orders.rows[x][23] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
-                  (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
-                  (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][54] = "done" : res.tables.orders.rows[x][54] = res.tables.orders.rows[x][54];
+                  (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : res.tables.orders.rows[x][55] = res.tables.orders.rows[x][55];
+                  (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : res.tables.orders.rows[x][55] = res.tables.orders.rows[x][55];
+                  (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : res.tables.orders.rows[x][55] = res.tables.orders.rows[x][55];
                 };
                 localDB.insertTablesLocalDB(res).then(function() {
                    downloadOrders();
