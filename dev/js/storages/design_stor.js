@@ -44,6 +44,13 @@
         prevSize: 0,
         tempSize: [],
 
+        steps: {
+          isDoorConfig:0,
+          selectedStep1:0,
+          selectedStep2:0,
+          selectedStep3:0,
+          selectedStep4:0
+        },
         isMinSizeRestriction: 0,
         isMaxSizeRestriction: 0,
         minSizeLimit: 0,

@@ -97,7 +97,7 @@
       </div>
     </div>
     <div ng-if="designPage.P.product.construction_type === 4" class="door-config-menu">
-      <button ng-class="{'active': designPage.config.isDoorConfig}" ng-click="designPage.toggleDoorConfig()" class="door-config-btn"></button>
+      <button ng-class="{'active': designPage.D.design.steps.isDoorConfig}" ng-click="designPage.toggleDoorConfig()" class="door-config-btn"></button>
       <div class="door-config-label">{{ ::designPage.DOOR_CONFIG_LABEL }}</div>
       <div class="door-config-description">{{ ::designPage.DOOR_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorName | translate }};</div>
       <div class="door-config-description">{{ ::designPage.SASH_CONFIG_DESCTIPT }}: {{ designPage.P.product.doorSashName }};</div>
@@ -191,7 +191,7 @@
         </div>
       </div>
     </div>
-    <section ng-class="{'active': designPage.config.isDoorConfig}" class="door-configuration">
+    <section ng-class="{'active': designPage.D.design.steps.isDoorConfig}" class="door-configuration">
       <div class="door-config-column step1">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
@@ -200,7 +200,7 @@
             <div class="door-subtitle">{{ ::designPage.LABEL_DOOR_TYPE }}</div>
           </div>
         </div>
-        <div ng-class="{'scroll-box': !designPage.config.selectedStep2}" class="door-config-content">
+        <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep2}" class="door-config-content">
           <ul class="door-config-list">
             <li ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index)" class="door-config-option">
               <div class="door-inner">
@@ -212,7 +212,7 @@
           </ul>
         </div>
       </div>
-      <div ng-class="{'active': designPage.config.selectedStep1}" class="door-config-column step2">
+      <div ng-class="{'active': designPage.D.design.steps.selectedStep1}" class="door-config-column step2">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
@@ -220,7 +220,7 @@
             <div class="door-subtitle">{{ ::designPage.LABEL_SASH_TYPE }}</div>
           </div>
         </div>
-        <div ng-class="{'scroll-box': !designPage.config.selectedStep3}" class="door-config-content">
+        <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
             <li ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index)" class="door-config-option">
               <div class="door-inner">
@@ -231,7 +231,7 @@
           </ul>
         </div>
       </div>
-      <div ng-class="{'active': designPage.config.selectedStep2}" class="door-config-column step3">
+      <div ng-class="{'active': designPage.D.design.steps.selectedStep2}" class="door-config-column step3">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
@@ -239,7 +239,7 @@
             <div class="door-subtitle">{{ ::designPage.LABEL_HANDLE_TYPE }}</div>
           </div>
         </div>
-        <div ng-class="{'scroll-box': !designPage.config.selectedStep4}" class="door-config-content">
+        <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep4}" class="door-config-content">
           <ul class="door-config-list">
             <li ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}" ng-click="designPage.selectHandle($index)" class="door-config-option">
               <div class="door-inner">
@@ -251,7 +251,7 @@
           </ul>
         </div>
       </div>
-      <div ng-class="{'active': designPage.config.selectedStep3}" class="door-config-column step4">
+      <div ng-class="{'active': designPage.D.design.steps.selectedStep3}" class="door-config-column step4">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">
           <div class="door-inner">
@@ -259,7 +259,7 @@
             <div class="door-subtitle">{{ ::designPage.LABEL_LOCK_TYPE }}</div>
           </div>
         </div>
-        <div ng-class="{'scroll-box': designPage.config.selectedStep3}" class="door-config-content">
+        <div ng-class="{'scroll-box': designPage.D.design.steps.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
             <li ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index)" class="door-config-option">
               <div class="door-inner">
@@ -273,7 +273,7 @@
       </div>
       <div class="door-config-tools">
         <button ng-click="designPage.closeDoorConfig()" class="door-config-finish-btn close-door-config"></button>
-        <button ng-show="designPage.config.selectedStep4" ng-click="designPage.saveDoorConfig()" class="door-config-finish-save-btn save-door-config"></button>
+        <button ng-show="designPage.D.design.steps.selectedStep4" ng-click="designPage.saveDoorConfig()" class="door-config-finish-save-btn save-door-config"></button>
       </div>
     </section>
     <div ng-if="designPage.config.isDesignError" class="design-attantion">{{ ::designPage.NOT_AVAILABLE }}</div>
