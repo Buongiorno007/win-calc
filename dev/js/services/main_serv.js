@@ -365,7 +365,6 @@
       var defer = $q.defer();
       if(!GlobalStor.global.isChangedTemplate) {
         ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-        DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
       }
       setCurrentGlass(ProductStor.product);
       //----- create template
