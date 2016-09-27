@@ -316,7 +316,6 @@
 
 
     function setCurrentGlass(product, id) {
-      console.log(product, id, 'product, id')
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {

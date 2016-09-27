@@ -2511,7 +2511,8 @@
 
 
 
-    function createSVGTemplate(sourceObj, depths) {
+    function createSVGTemplate(sourceObj, depths, ber) {
+      console.log(sourceObj, ber, 'sourceObj')
       var thisObj = {},
           defer = $q.defer(), i, blocksQty;
 

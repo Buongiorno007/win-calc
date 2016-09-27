@@ -781,15 +781,9 @@
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
-
       GlobalStor.global.checkDoors = 0;
       DesignStor.design.steps.isDoorConfig = 1;
       closeSizeCaclulator();
-      //----- show current items
-      // DesignStor.design.steps.selectedStep1 = 1;
-      // DesignStor.design.steps.selectedStep2 = 1;
-      // DesignStor.design.steps.selectedStep3 = 1;
-      // DesignStor.design.steps.selectedStep4 = 1;
     }
 
     /**---------- Select door shape --------*/
@@ -799,7 +793,8 @@
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
-
+      DesignStor.design.doorShapeList.length = [];
+      DesignStor.designSource.doorShapeList.length = [];
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
           if(ProductStor.product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
@@ -1009,10 +1004,6 @@
       DesignStor.design.steps.isDoorConfig = 0;
     }
 
-
-
-
-
     function setDoorParamValue(product, source) {
       var w =[900], h = [2000];
       var widthTEMP, heightTEMP;
@@ -1093,6 +1084,10 @@
 
     /** for start */
     function setDoorConfigDefault(product) {
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
       selectDoor(product.door_shape_id, true);
     }
 
@@ -2995,7 +2990,6 @@
             isSashesInTemplate;
         GlobalStor.global.isLoader = 1;
         closeSizeCaclulator(1).then(function() {
-
           /** check sizes of all glass */
           MainServ.checkGlassSizes(DesignStor.design.templateTEMP);
           if(DesignStor.design.extraGlass.length){
@@ -3040,18 +3034,6 @@
                 .then(function (result) {
                   ProductStor.product.templateIcon = angular.copy(result);
                 });
-
-              /** if Door Construction */
-              if(ProductStor.product.construction_type === 4) {
-                setNewDoorParamValue(ProductStor.product, DesignStor.design);
-                MainServ.setCurrentGlass(ProductStor.product);
-                rebuildSVGTemplate();
-                //---- set door profile
-         /*       ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                  DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
-                  GlobalStor.global.profiles
-                ));*/
-              }
 
               /** save new template in templates Array */
               GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(
