@@ -1314,6 +1314,12 @@
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      var shapeIndex = 0;
+      if(GlobalStor.global.currOpenPage === 'design') {
+        shapeIndex = DesignStor.design.doorConfig.doorShapeIndex;
+      } else if(GlobalStor.global.currOpenPage === 'main') {
+        shapeIndex = ProductStor.product.door_shape_id;
+      }
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1357,7 +1363,9 @@
           } else {
             /**----- DOOR -----*/
 
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+
+            
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(pointsIn[0]);
@@ -1367,7 +1375,7 @@
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3){
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
@@ -1405,17 +1413,17 @@
             index+=1;
           } else {
             /**----- DOOR -----*/
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               /** without doorstep */
               //-------- delete fp3-fp4 frame
-              if(DesignStor.design.doorConfig.doorShapeIndex === 1) {
+              if(shapeIndex === 1) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   continue;
                 }
               }
               /** doorstep Al inner */
               //-------- change fp3-fp4 frame to inner doorstep
-              if(DesignStor.design.doorConfig.doorShapeIndex === 2) {
+              if(shapeIndex === 2) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   tempPoint = angular.copy(newPointsOut[index]);
                   tempPoint.x = pointsIn[index].x * 1;
@@ -1439,7 +1447,7 @@
                   );
                 }
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3){
               /** doorstep Al outer */
               //-------- change fp3-fp4 frame to outer doorstep
               if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
@@ -2512,7 +2520,6 @@
 
 
     function createSVGTemplate(sourceObj, depths, ber) {
-      console.log(sourceObj, ber, 'sourceObj')
       var thisObj = {},
           defer = $q.defer(), i, blocksQty;
 

@@ -30,7 +30,6 @@
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
         ProductStor.product.glass.length = 0;
-        MainServ.setCurrentGlass(ProductStor.product);
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -40,7 +39,6 @@
           } else {
             DesignServ.setDoorConfigDefault(ProductStor.product);
           }
-         
         } else {
           var hardwareIds = ProductStor.product.hardware.id || 0;
           //------ define product price

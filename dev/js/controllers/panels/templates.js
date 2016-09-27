@@ -67,13 +67,6 @@
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
-    // function closeTemplates() {
-    //   if(GlobalStor.global.activePanel === 0) {
-    //     GlobalStor.global.activePanel = -1
-    //   } else {
-    //     GlobalStor.global.activePanel = 0;
-    //   }
-    // }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
 
@@ -144,7 +137,6 @@
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    //thisCtrl.closeTemplates = closeTemplates;
 
   });
 })();

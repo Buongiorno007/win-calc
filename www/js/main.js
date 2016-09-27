@@ -2455,7 +2455,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------- Select menu item
 
     function selectConfigPanel(id) {
-      MainServ.laminatFiltering()
+      MainServ.laminatFiltering();
       if(GlobalStor.global.isQtyCalculator || GlobalStor.global.isSizeCalculator) {
         /** calc Price previous parameter and close caclulators */
         AddElementMenuServ.finishCalculators();
@@ -2479,6 +2479,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
+        if(ProductStor.product.construction_type === 4) {
+          DesignServ.doorConfigReselec();
+        }
         $location.path('/design');
       } else {
         /** if Door */
@@ -2489,6 +2492,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           } else {
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
+            DesignServ.doorConfigReselec();
             $location.path('/design');
           }
         } else {
@@ -3682,13 +3686,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
-    // function closeTemplates() {
-    //   if(GlobalStor.global.activePanel === 0) {
-    //     GlobalStor.global.activePanel = -1
-    //   } else {
-    //     GlobalStor.global.activePanel = 0;
-    //   }
-    // }
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
 
@@ -3759,10 +3756,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
-    //thisCtrl.closeTemplates = closeTemplates;
 
   });
 })();
+
 
 
 // controllers/parts/addelems_group_menu.js
@@ -10525,7 +10522,7 @@ function ErrorResult(code, message) {
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
-      //GlobalStor.global.type_door = source.doorConfig.lockShapeIndex;
+      GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {
         setDoorParamValue(product, source);
@@ -10533,7 +10530,18 @@ function ErrorResult(code, message) {
       doorId(product, source);
      
     }
+    function doorConfigReselec() {
+      // indices(DesignStor.design, ProductStor.product);
+      // indices(DesignStor.designSource, ProductStor.product);
 
+      // function indices(source, product) {
+      //   source.doorConfig.doorShapeIndex = product.door_shape_id;
+      //   source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
+      //   source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
+      //   source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
+
+      // }
+    }
 
     /** for start */
     function setDoorConfigDefault(product) {
@@ -12422,16 +12430,17 @@ function ErrorResult(code, message) {
     /**------- Save and Close Construction Page ----------*/
     function saveSizeCheck() {
       if(ProductStor.product.construction_type === 4) {
+        rebuildSVGTemplate();
         checkSize(DesignStor.design.templateTEMP);
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
             clearInterval(intervalID);
-              designSaved()
+              designSaved();
           }
         } , 50);
       } else {
         ProductStor.product.doorLock = {};
-        designSaved()
+        designSaved();
       }
     }
 
@@ -12592,6 +12601,7 @@ function ErrorResult(code, message) {
       setNewDoorParamValue: setNewDoorParamValue,
       setDoorConfigDefault: setDoorConfigDefault,
       saveSizeCheck: saveSizeCheck,
+      doorConfigReselec: doorConfigReselec,
 
 
       toggleDoorConfig: toggleDoorConfig,
@@ -19647,104 +19657,95 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     /**--------- create object for price calculation ----------*/
 
     function preparePrice(template, profileId, glassIds, hardwareId, laminatId) {   
-      try {
-        var deferred = $q.defer();
-        GlobalStor.global.isLoader = 1;
-        setBeadId(profileId, laminatId).then(function(beadResult) {
-          console.info(beadResult, 'beadResult')
-          if(beadResult.length && beadResult[0]) {
-            var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
-              console.info(item, 'item')
-              var beadQty = template.priceElements.beadsSize.length;
-              while (--beadQty > -1) {
-                if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
-                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
-                }
+      var deferred = $q.defer();
+      GlobalStor.global.isLoader = 1;
+      setBeadId(profileId, laminatId).then(function(beadResult) {
+        if(beadResult.length && beadResult[0]) {
+          var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function (item) {
+            var beadQty = template.priceElements.beadsSize.length;
+            while (--beadQty > -1) {
+              if (template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                template.priceElements.beadsSize[beadQty].elemId = item.beadId;
               }
-              return item.beadId;
-            })), objXFormedPrice = {
-              laminationId: laminatId,
-              ids: [
-                ProductStor.product.profile.rama_list_id,
-                ProductStor.product.profile.rama_still_list_id,
-                ProductStor.product.profile.stvorka_list_id,
-                ProductStor.product.profile.impost_list_id,
-                ProductStor.product.profile.shtulp_list_id,
-                (glassIds.length > 1) ? glassIds.map(function (item) {
-                  return item.id;
-                }) : glassIds[0].id,
-                (beadIds.length > 1) ? beadIds : beadIds[0],
-                (ProductStor.product.construction_type === 4) ? 0 : hardwareId
-              ],
-              sizes: []
-            };
-            console.info(objXFormedPrice, 'objXFormedPrice')
-            //-------- beads data for analysis
-            ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
-            //------- fill objXFormedPrice for sizes
-            for (var size in template.priceElements) {
-              /** for door elements */
-              objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
             }
-
-            //------- set Overall Dimensions
-            ProductStor.product.template_width = 0;
-            ProductStor.product.template_height = 0;
-            ProductStor.product.template_square = 0;
-            var overallQty = ProductStor.product.template.details[0].overallDim.length;
-            while (--overallQty > -1) {
-              ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
-              ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
-              ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
-            }
-
-            //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
-            //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
-
-            //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-
-            //--------- get product price
-            calculationPrice(objXFormedPrice).then(function (result) {
-              deferred.resolve(1);
-              /** set Report */
-              if (result) {
-                //---- only for this type of user
-                if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
-                  ProductStor.product.report = prepareReport(result.constrElements);
-                  //console.log('REPORT', ProductStor.product.report);
-                  //console.timeEnd('price');
-                }
-              }
-            });
-
-            /** calculate coeffs */
-            calculateCoeffs(objXFormedPrice);
-
-            /** save analytics data first time */
-            if (GlobalStor.global.startProgramm) {
-              //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
-              // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
-              /** send analytics data to Server*/
-                //------ profile
-              $timeout(function () {
-                AnalyticsServ.sendAnalyticsData(
-                  UserStor.userInfo.id,
-                  OrderStor.order.id,
-                  ProductStor.product.template_id,
-                  ProductStor.product.profile.id,
-                  1);
-              }, 5000);
-            }
-          } else {
-            deferred.resolve(1);
+            return item.beadId;
+          })), objXFormedPrice = {
+            laminationId: laminatId,
+            ids: [
+              ProductStor.product.profile.rama_list_id,
+              ProductStor.product.profile.rama_still_list_id,
+              ProductStor.product.profile.stvorka_list_id,
+              ProductStor.product.profile.impost_list_id,
+              ProductStor.product.profile.shtulp_list_id,
+              (glassIds.length > 1) ? glassIds.map(function (item) {
+                return item.id;
+              }) : glassIds[0].id,
+              (beadIds.length > 1) ? beadIds : beadIds[0],
+              (ProductStor.product.construction_type === 4) ? 0 : hardwareId
+            ],
+            sizes: []
+          };
+          //-------- beads data for analysis
+          ProductStor.product.beadsData = angular.copy(template.priceElements.beadsSize);
+          //------- fill objXFormedPrice for sizes
+          for (var size in template.priceElements) {
+            /** for door elements */
+            objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
           }
-        });
-        return deferred.promise;
-      } catch(e) {
-        console.info(OrderStor.order, 'order');
-        console.info(ProductStor.product, 'product');
-        console.log(e, 'e');
-      }
+
+          //------- set Overall Dimensions
+          ProductStor.product.template_width = 0;
+          ProductStor.product.template_height = 0;
+          ProductStor.product.template_square = 0;
+          var overallQty = ProductStor.product.template.details[0].overallDim.length;
+          while (--overallQty > -1) {
+            ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
+            ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
+            ProductStor.product.template_square +=ProductStor.product.template.details[0].overallDim[overallQty].square;
+          }
+
+          //        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
+          //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+
+          //console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
+          //--------- get product price
+          calculationPrice(objXFormedPrice).then(function (result) {
+            deferred.resolve(1);
+            /** set Report */
+            if (result) {
+              //---- only for this type of user
+              if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+                ProductStor.product.report = prepareReport(result.constrElements);
+                //console.log('REPORT', ProductStor.product.report);
+                //console.timeEnd('price');
+              }
+            }
+          });
+
+          /** calculate coeffs */
+          calculateCoeffs(objXFormedPrice);
+
+          /** save analytics data first time */
+          if (GlobalStor.global.startProgramm) {
+            //AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id,
+            // ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+            /** send analytics data to Server*/
+              //------ profile
+            $timeout(function () {
+              AnalyticsServ.sendAnalyticsData(
+                UserStor.userInfo.id,
+                OrderStor.order.id,
+                ProductStor.product.template_id,
+                ProductStor.product.profile.id,
+                1);
+            }, 5000);
+          }
+        } else {
+          deferred.resolve(1);
+        }
+      });
+      return deferred.promise;
     }
 
 
@@ -24936,6 +24937,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+      var shapeIndex = 0;
+      if(GlobalStor.global.currOpenPage === 'design') {
+        shapeIndex = DesignStor.design.doorConfig.doorShapeIndex;
+      } else if(GlobalStor.global.currOpenPage === 'main') {
+        shapeIndex = ProductStor.product.door_shape_id;
+      }
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -24979,7 +24986,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           } else {
             /**----- DOOR -----*/
 
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+
+            
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(pointsIn[0]);
@@ -24989,7 +24998,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 /** if line */
                 collectPointsInParts(part, newPointsOut[index], newPointsOut[0], pointsIn[0], pointsIn[index]);
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3){
               //-------- change points fp2-fp3 frame
               if (newPointsOut[0].type === 'frame' && newPointsOut[0].id === 'fp3') {
                 tempPoint = angular.copy(newPointsOut[0]);
@@ -25027,17 +25036,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             index+=1;
           } else {
             /**----- DOOR -----*/
-            if(ProductStor.product.construction_type === 4 && (DesignStor.design.doorConfig.doorShapeIndex === 1 || DesignStor.design.doorConfig.doorShapeIndex === 2)) {
+            if(ProductStor.product.construction_type === 4 && (shapeIndex === 1 || shapeIndex === 2)) {
               /** without doorstep */
               //-------- delete fp3-fp4 frame
-              if(DesignStor.design.doorConfig.doorShapeIndex === 1) {
+              if(shapeIndex === 1) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   continue;
                 }
               }
               /** doorstep Al inner */
               //-------- change fp3-fp4 frame to inner doorstep
-              if(DesignStor.design.doorConfig.doorShapeIndex === 2) {
+              if(shapeIndex === 2) {
                 if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
                   tempPoint = angular.copy(newPointsOut[index]);
                   tempPoint.x = pointsIn[index].x * 1;
@@ -25061,7 +25070,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   );
                 }
               }
-            } else if(ProductStor.product.construction_type === 4 && DesignStor.design.doorConfig.doorShapeIndex === 3){
+            } else if(ProductStor.product.construction_type === 4 && shapeIndex === 3){
               /** doorstep Al outer */
               //-------- change fp3-fp4 frame to outer doorstep
               if (newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
@@ -26134,7 +26143,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function createSVGTemplate(sourceObj, depths, ber) {
-      console.log(sourceObj, ber, 'sourceObj')
       var thisObj = {},
           defer = $q.defer(), i, blocksQty;
 
@@ -26521,7 +26529,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
         ProductStor.product.glass.length = 0;
-        MainServ.setCurrentGlass(ProductStor.product);
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -26531,7 +26538,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           } else {
             DesignServ.setDoorConfigDefault(ProductStor.product);
           }
-         
         } else {
           var hardwareIds = ProductStor.product.hardware.id || 0;
           //------ define product price
