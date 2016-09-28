@@ -483,6 +483,7 @@
     thisCtrl.selectLock = DesignServ.selectLock;
     thisCtrl.closeDoorConfig = DesignServ.closeDoorConfig;
     thisCtrl.saveDoorConfig = DesignServ.saveDoorConfig;
+    thisCtrl.setDoorConfigDefault = DesignServ.setDoorConfigDefault;
 
     //------ edit design
     thisCtrl.insertSash = insertSash;

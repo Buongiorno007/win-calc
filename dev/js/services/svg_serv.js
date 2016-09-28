@@ -1315,11 +1315,9 @@
 
     function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
       var shapeIndex = 0;
-      if(GlobalStor.global.currOpenPage === 'design') {
-        shapeIndex = DesignStor.design.doorConfig.doorShapeIndex;
-      } else if(GlobalStor.global.currOpenPage === 'main') {
-        shapeIndex = ProductStor.product.door_shape_id;
-      }
+      if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
+        shapeIndex = ProductStor.product.door_type_index;
+      };
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;

@@ -71,6 +71,7 @@
           []  // 17 - spil 
         ],
 
+        door_type_index: 0,
         door_shape_id: 0,
         door_sash_shape_id: 0,
         door_handle_shape_id: 0,

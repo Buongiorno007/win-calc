@@ -870,6 +870,7 @@
             }
           }
           DesignStor.design.doorConfig.doorShapeIndex = id;
+           DesignStor.design.doorConfig.doorTypeIndex = DesignStor.design.doorShapeList[id].id;
           DesignStor.design.steps.selectedStep1 = 1;
           if(start === true) {
             selectSash(ProductStor.product.door_sash_shape_id, true);
@@ -1068,6 +1069,7 @@
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
+      product.door_type_index = source.doorConfig.doorTypeIndex;
       product.door_shape_id = source.doorConfig.doorShapeIndex;
       product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
       product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
@@ -1083,10 +1085,10 @@
 
     /** for start */
     function setDoorConfigDefault(product) {
-      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
-      DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
+      DesignStor.designSource.templateSourceTEMP = angular.copy(product.template_source);
+      DesignStor.designSource.templateTEMP = angular.copy(product.template);
+      DesignStor.design.templateSourceTEMP = angular.copy(product.template_source);
+      DesignStor.design.templateTEMP = angular.copy(product.template);
       selectDoor(product.door_shape_id, true);
     }
 

@@ -96,9 +96,6 @@
         GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
-        if(ProductStor.product.construction_type === 4) {
-          DesignServ.setDoorConfigDefault();
-        }
         $location.path('/design');
       } else {
         /** if Door */
@@ -109,7 +106,6 @@
           } else {
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
-            DesignServ.setDoorConfigDefault();
             $location.path('/design');
           }
         } else {

@@ -124,25 +124,7 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      GlobalStor.global.activePanel = 0;
-      GlobalStor.global.selectedTemplate = templateIndex;
-      GlobalStor.global.isTemplateTypeMenu = 0;
-      ProductStor.product.door_shape_id = 0;
-      ProductStor.product.door_sash_shape_id = 0;
-      ProductStor.product.door_handle_shape_id = 0;
-      ProductStor.product.door_lock_shape_id = 0;
-      ProductStor.product.doorName = '';
-      ProductStor.product.doorSashName = '';
-      ProductStor.product.doorHandle = {};
-      ProductStor.product.doorLock = {};
-      DesignStor.design.steps.selectedStep1 = 0;
-      DesignStor.design.steps.selectedStep2 = 0;
-      DesignStor.design.steps.selectedStep3 = 0;
-      DesignStor.design.steps.selectedStep4 = 0;
-      DesignStor.designSource.steps.selectedStep1 = 0;
-      DesignStor.designSource.steps.selectedStep2 = 0;
-      DesignStor.designSource.steps.selectedStep3 = 0;
-      DesignStor.designSource.steps.selectedStep4 = 0;
+      MainServ.setDefaultDoorConfig();
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
