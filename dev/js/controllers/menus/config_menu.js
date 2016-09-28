@@ -97,7 +97,7 @@
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
         if(ProductStor.product.construction_type === 4) {
-          DesignServ.doorConfigReselec();
+          DesignServ.setDoorConfigDefault();
         }
         $location.path('/design');
       } else {
@@ -109,7 +109,7 @@
           } else {
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
-            DesignServ.doorConfigReselec();
+            DesignServ.setDoorConfigDefault();
             $location.path('/design');
           }
         } else {

@@ -1731,55 +1731,55 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
           //------- check available Local DB
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-              // console.log('SYNC');
-              // //---- checking user in LocalDB
-              // localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-              //   .then(function(data) {
-              //     //---- user exists
-              //     if(data.length) {
-              //       //---------- check user password
-              //       newUserPassword = localDB.md5(thisCtrl.user.password);
-              //       if(newUserPassword === data[0].password) {
-              //         //----- checking user activation
-              //         if(data[0].locked) {
-              //           angular.extend(UserStor.userInfo, data[0]);
-              //           //------- set User Location
-              //           loginServ.prepareLocationToUse().then(function() {
-              //             checkingFactory();
-              //           });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-              //         } else {
-              //           GlobalStor.global.isLoader = 0;
-              //           //---- show attantion
-              //           thisCtrl.isUserNotActive = 1;
-              //         }
-              //       } else {
-              //         GlobalStor.global.isLoader = 0;
-              //         //---- user not exists
-              //         thisCtrl.isUserPasswordError = 1;
-              //       }
-              //     } else {
-              //       //======== IMPORT
-              //       console.log('Sync IMPORT');
-              //       checkingUser();
-              //     }
-              //   });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -2480,7 +2480,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         GlobalStor.global.activePanel = 0;
         DesignStor.design.isGlassExtra = 0;
         if(ProductStor.product.construction_type === 4) {
-          DesignServ.doorConfigReselec();
+          DesignServ.setDoorConfigDefault();
         }
         $location.path('/design');
       } else {
@@ -2492,7 +2492,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           } else {
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
-            DesignServ.doorConfigReselec();
+            DesignServ.setDoorConfigDefault();
             $location.path('/design');
           }
         } else {
@@ -10292,7 +10292,7 @@ function ErrorResult(code, message) {
       }
       
       if(!DesignStor.design.steps.selectedStep2) {
-        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
           DesignStor.design.steps.selectedStep1 = 0;
         } else {
@@ -10321,10 +10321,10 @@ function ErrorResult(code, message) {
           }
           DesignStor.design.doorConfig.doorShapeIndex = id;
           DesignStor.design.steps.selectedStep1 = 1;
+          if(start === true) {
+            selectSash(ProductStor.product.door_sash_shape_id, true);
+          }
         }
-      }
-      if(start === true) {
-        selectSash(ProductStor.product.door_sash_shape_id, true);
       }
     } 
 
@@ -10333,7 +10333,7 @@ function ErrorResult(code, message) {
     function selectSash(id, start) {
       DesignStor.design.handleShapeList = []
       if(!DesignStor.design.steps.selectedStep3) {
-        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
           DesignStor.design.steps.selectedStep2 = 0;
         } else {
@@ -10375,7 +10375,7 @@ function ErrorResult(code, message) {
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       var array = [];
       if(!DesignStor.design.steps.selectedStep4) {
-        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
           DesignStor.design.steps.selectedStep3 = 0;
         } else {
@@ -10412,7 +10412,7 @@ function ErrorResult(code, message) {
     /**---------- Select lock shape --------*/
 
     function selectLock(id, start) {
-      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id && start !== true) {
         DesignStor.design.doorConfig.lockShapeIndex = '';
         DesignStor.design.steps.selectedStep4 = 0;
       } else {
@@ -10518,10 +10518,10 @@ function ErrorResult(code, message) {
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
-      product.door_shape_id = source.doorConfig.doorShapeIndex || 0;
-      product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
-      product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
-      product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
+      product.door_shape_id = source.doorConfig.doorShapeIndex;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
       GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {
@@ -10529,18 +10529,6 @@ function ErrorResult(code, message) {
       }
       doorId(product, source);
      
-    }
-    function doorConfigReselec() {
-      // indices(DesignStor.design, ProductStor.product);
-      // indices(DesignStor.designSource, ProductStor.product);
-
-      // function indices(source, product) {
-      //   source.doorConfig.doorShapeIndex = product.door_shape_id;
-      //   source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
-      //   source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
-      //   source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
-
-      // }
     }
 
     /** for start */
@@ -12601,7 +12589,7 @@ function ErrorResult(code, message) {
       setNewDoorParamValue: setNewDoorParamValue,
       setDoorConfigDefault: setDoorConfigDefault,
       saveSizeCheck: saveSizeCheck,
-      doorConfigReselec: doorConfigReselec,
+      setDoorConfigDefault: setDoorConfigDefault,
 
 
       toggleDoorConfig: toggleDoorConfig,
@@ -26626,7 +26614,22 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       GlobalStor.global.activePanel = 0;
       GlobalStor.global.selectedTemplate = templateIndex;
       GlobalStor.global.isTemplateTypeMenu = 0;
-
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
+      ProductStor.product.doorName = '';
+      ProductStor.product.doorSashName = '';
+      ProductStor.product.doorHandle = {};
+      ProductStor.product.doorLock = {};
+      DesignStor.design.steps.selectedStep1 = 0;
+      DesignStor.design.steps.selectedStep2 = 0;
+      DesignStor.design.steps.selectedStep3 = 0;
+      DesignStor.design.steps.selectedStep4 = 0;
+      DesignStor.designSource.steps.selectedStep1 = 0;
+      DesignStor.designSource.steps.selectedStep2 = 0;
+      DesignStor.designSource.steps.selectedStep3 = 0;
+      DesignStor.designSource.steps.selectedStep4 = 0;
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
@@ -26640,9 +26643,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         }
       });
       
-      if(ProductStor.product.construction_type !== 4) {
-        ProductStor.product.doorLock = {};
-      }
       function goToNewTemplate() {
         //------ change last changed template to old one
         backDefaultTemplate();

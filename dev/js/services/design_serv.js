@@ -842,7 +842,7 @@
       }
       
       if(!DesignStor.design.steps.selectedStep2) {
-        if(DesignStor.design.doorConfig.doorShapeIndex === id) {
+        if(DesignStor.design.doorConfig.doorShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
           DesignStor.design.steps.selectedStep1 = 0;
         } else {
@@ -871,10 +871,10 @@
           }
           DesignStor.design.doorConfig.doorShapeIndex = id;
           DesignStor.design.steps.selectedStep1 = 1;
+          if(start === true) {
+            selectSash(ProductStor.product.door_sash_shape_id, true);
+          }
         }
-      }
-      if(start === true) {
-        selectSash(ProductStor.product.door_sash_shape_id, true);
       }
     } 
 
@@ -883,7 +883,7 @@
     function selectSash(id, start) {
       DesignStor.design.handleShapeList = []
       if(!DesignStor.design.steps.selectedStep3) {
-        if(DesignStor.design.doorConfig.sashShapeIndex === id) {
+        if(DesignStor.design.doorConfig.sashShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.sashShapeIndex = '';
           DesignStor.design.steps.selectedStep2 = 0;
         } else {
@@ -925,7 +925,7 @@
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       var array = [];
       if(!DesignStor.design.steps.selectedStep4) {
-        if(DesignStor.design.doorConfig.handleShapeIndex === id) {
+        if(DesignStor.design.doorConfig.handleShapeIndex === id && start !== true) {
           DesignStor.design.doorConfig.handleShapeIndex = '';
           DesignStor.design.steps.selectedStep3 = 0;
         } else {
@@ -962,7 +962,7 @@
     /**---------- Select lock shape --------*/
 
     function selectLock(id, start) {
-      if(DesignStor.design.doorConfig.lockShapeIndex === id) {
+      if(DesignStor.design.doorConfig.lockShapeIndex === id && start !== true) {
         DesignStor.design.doorConfig.lockShapeIndex = '';
         DesignStor.design.steps.selectedStep4 = 0;
       } else {
@@ -1068,10 +1068,10 @@
 
     function setNewDoorParamValue(product, source) {
       //------- save new door config
-      product.door_shape_id = source.doorConfig.doorShapeIndex || 0;
-      product.door_sash_shape_id = source.doorConfig.sashShapeIndex || 0;
-      product.door_handle_shape_id = source.doorConfig.handleShapeIndex || 0;
-      product.door_lock_shape_id = source.doorConfig.lockShapeIndex || 0;
+      product.door_shape_id = source.doorConfig.doorShapeIndex;
+      product.door_sash_shape_id = source.doorConfig.sashShapeIndex;
+      product.door_handle_shape_id = source.doorConfig.handleShapeIndex;
+      product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
       GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
       if(ProductStor.product.construction_type === 4) {
@@ -1079,18 +1079,6 @@
       }
       doorId(product, source);
      
-    }
-    function doorConfigReselec() {
-      // indices(DesignStor.design, ProductStor.product);
-      // indices(DesignStor.designSource, ProductStor.product);
-
-      // function indices(source, product) {
-      //   source.doorConfig.doorShapeIndex = product.door_shape_id;
-      //   source.doorConfig.sashShapeIndex = product.door_sash_shape_id;
-      //   source.doorConfig.handleShapeIndex = product.door_handle_shape_id;
-      //   source.doorConfig.lockShapeIndex = product.door_lock_shape_id;
-
-      // }
     }
 
     /** for start */
@@ -3151,7 +3139,7 @@
       setNewDoorParamValue: setNewDoorParamValue,
       setDoorConfigDefault: setDoorConfigDefault,
       saveSizeCheck: saveSizeCheck,
-      doorConfigReselec: doorConfigReselec,
+      setDoorConfigDefault: setDoorConfigDefault,
 
 
       toggleDoorConfig: toggleDoorConfig,
