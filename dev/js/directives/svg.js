@@ -277,7 +277,9 @@
 
             } else if (ProductStor.product.doorLock.stvorka_type === 6) {
               GlobalStor.global.imgLink = "31.jpg";      
-            } else {
+            } else if (ProductStor.product.doorLock.stvorka_type === 7) {
+              GlobalStor.global.imgLink = "inner-wall_glass.png";      
+            }else {
                GlobalStor.global.imgLink = "3333.png";
             }
           }
@@ -433,6 +435,29 @@
                 $('.elem7').css('opacity' , 1);
                 $('.elem16').css('left' , 5000 + 'px');
                 $('.elem9').css('opacity' , 0);
+                $('.elem51').css('left' , (0.23*widthT-443) + 'px');
+                $('.elem52').css('left' , (0.23*widthT-571) + 'px');
+                $('.elem56').css('left' , (0.23*widthT+215.42) + 'px');
+                $('.elem59').css({ 
+                  'top': 0.23*((heightT-2000)*(-1))+ 416 + 'px',
+                  'height' : 0.23*(heightT-2000) + 29 + 'px',
+                });
+                $('.elem60').css({ 
+                  'left' : (0.23*widthT+(262)) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 412.8 + 'px',
+                  'height' : 0.23*(heightT-2000) + 32 + 'px',
+                });
+                $('.elem55').css({ 
+                  'left' : (0.23*widthT+177.9) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 172 + 'px',
+                });                
+                $('.elem58').css({ 
+                  'width' : (0.23*widthT-186.7) + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 172.8 + 'px',
+                });
+                $('.elem54').css({ 
+                  'top': 0.23*((heightT-2000)*(-1))+ 173 + 'px',
+                });
               }
             }
         }
