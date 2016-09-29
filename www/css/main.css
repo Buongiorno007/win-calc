@@ -5238,7 +5238,7 @@ textarea.comment-field {
 /* line 453, ../../dev/sass/parts/_room-elements.scss */
 .elem54 {
   position: absolute;
-  z-index: 20;
+  z-index: 4;
   top: 21.6rem;
   left: 31.3rem;
   height: 31.5rem;
@@ -5251,7 +5251,7 @@ textarea.comment-field {
 /* line 465, ../../dev/sass/parts/_room-elements.scss */
 .elem55 {
   position: absolute;
-  z-index: 20;
+  z-index: 4;
   top: 21.5rem;
   left: 48.3rem;
   height: 31.5rem;
@@ -5264,7 +5264,7 @@ textarea.comment-field {
 /* line 477, ../../dev/sass/parts/_room-elements.scss */
 .elem56 {
   position: absolute;
-  z-index: 20;
+  z-index: 4;
   top: 53rem;
   left: 52.99rem;
   height: 31.5rem;
@@ -5277,7 +5277,7 @@ textarea.comment-field {
 /* line 489, ../../dev/sass/parts/_room-elements.scss */
 .elem57 {
   position: absolute;
-  z-index: 20;
+  z-index: 3;
   top: 53.5rem;
   left: 28.4rem;
   height: 31.5rem;
@@ -5311,7 +5311,7 @@ textarea.comment-field {
   top: 416px;
   left: 249.5px;
   height: 29px;
-  z-index: 33;
+  z-index: 4;
   width: 32px;
 }
 /* line 522, ../../dev/sass/parts/_room-elements.scss */
@@ -5329,7 +5329,7 @@ textarea.comment-field {
   top: 51.6rem;
   left: 470px;
   height: 32px;
-  z-index: 33;
+  z-index: 3;
   width: 37px;
 }
 /* line 537, ../../dev/sass/parts/_room-elements.scss */
@@ -10472,8 +10472,8 @@ tr.factory_item {
 }
 /* line 410, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-windowsill {
-  top: 68.75rem;
-  left: 7.5rem;
+  top: 69.75rem;
+  left: 5.5rem;
   z-index: 7;
 }
 /* line 415, ../../dev/sass/panels/add-elements.scss */
@@ -10769,53 +10769,54 @@ tr.factory_item {
 }
 /* line 682, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-spil-txt {
-  top: 19.375rem;
-  left: 24rem;
+  top: 21.375rem;
+  left: 26rem;
 }
 /* line 686, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-outside-txt {
   top: 21.875rem;
   left: 38.75rem;
+  z-index: 10;
 }
-/* line 690, ../../dev/sass/panels/add-elements.scss */
+/* line 691, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-louver-txt {
   top: 17.5rem;
   left: -5.875rem;
 }
-/* line 694, ../../dev/sass/panels/add-elements.scss */
+/* line 695, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-inside-txt {
   top: 23.125rem;
   left: 53.125rem;
 }
-/* line 698, ../../dev/sass/panels/add-elements.scss */
+/* line 699, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-connectors-txt {
   top: 4.375rem;
   left: 15.625rem;
 }
-/* line 702, ../../dev/sass/panels/add-elements.scss */
+/* line 703, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-fan-txt {
   top: 1.25rem;
   left: -16.25rem;
 }
-/* line 706, ../../dev/sass/panels/add-elements.scss */
+/* line 707, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-windowsill-txt {
   top: 12.25rem;
   left: 46.875rem;
   width: 18.75rem;
 }
-/* line 711, ../../dev/sass/panels/add-elements.scss */
+/* line 712, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-handle-txt {
   top: 2.1875rem;
   left: 9.375rem;
 }
-/* line 715, ../../dev/sass/panels/add-elements.scss */
+/* line 716, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 719, ../../dev/sass/panels/add-elements.scss */
+/* line 720, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block.horisontal {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -10823,22 +10824,22 @@ tr.factory_item {
   align-items: center;
   min-width: 32.5rem;
 }
-/* line 724, ../../dev/sass/panels/add-elements.scss */
+/* line 725, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .selected-block.vertival {
   -webkit-flex-flow: column wrap;
   flex-flow: column wrap;
   width: 25rem;
 }
-/* line 730, ../../dev/sass/panels/add-elements.scss */
+/* line 731, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-info-box {
   width: 15.625rem;
 }
-/* line 734, ../../dev/sass/panels/add-elements.scss */
+/* line 735, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .aux-title {
   color: #363636;
   cursor: pointer;
 }
-/* line 738, ../../dev/sass/panels/add-elements.scss */
+/* line 739, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-info {
   top: 26.25rem;
   left: 32.5rem;
@@ -10851,12 +10852,12 @@ tr.factory_item {
   background-color: #f98000;
   z-index: 21;
 }
-/* line 751, ../../dev/sass/panels/add-elements.scss */
+/* line 752, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-info:after {
   color: #fff;
   content: "";
 }
-/* line 756, ../../dev/sass/panels/add-elements.scss */
+/* line 757, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .scheme-view-dialog {
   height: 60rem;
   padding-top: 2rem;
@@ -10865,7 +10866,7 @@ tr.factory_item {
   text-align: center;
 }
 
-/* line 767, ../../dev/sass/panels/add-elements.scss */
+/* line 768, ../../dev/sass/panels/add-elements.scss */
 .numberMenu {
   position: relative;
   width: 17.7%;
@@ -10881,7 +10882,7 @@ tr.factory_item {
   border-radius: 1rem;
   background-color: orange;
 }
-/* line 781, ../../dev/sass/panels/add-elements.scss */
+/* line 782, ../../dev/sass/panels/add-elements.scss */
 .numberMenu.green {
   transition: 0.5s;
   background-color: #6ED44A;

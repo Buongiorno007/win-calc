@@ -408,7 +408,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Windowsill
   .aux-windowsill {
-    @include top_left_coord(1100px, 120px);
+    @include top_left_coord(1116px, 88px);
     z-index: 7;
   }
 
@@ -680,11 +680,12 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-spil-txt {
-    @include top_left_coord(310px,384px);
+    @include top_left_coord(342px,416px);
   }
 
   .aux-outside-txt {
     @include top_left_coord(350px, 620px);
+    z-index: 10;
   }
 
   .aux-louver-txt {
