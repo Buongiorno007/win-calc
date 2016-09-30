@@ -439,8 +439,8 @@
                 $('.elem52').css('left' , (0.23*widthT-571) + 'px');
                 $('.elem56').css('left' , (0.23*widthT+215.42) + 'px');
                 $('.elem59').css({ 
-                  'top': 0.23*((heightT-2000)*(-1))+ 416 + 'px',
-                  'height' : 0.23*(heightT-2000) + 29 + 'px',
+                  'top': 0.23*((heightT-2000)*(-1))+ 417 + 'px',
+                  'height' : 0.23*(heightT-2000) + 27 + 'px',
                 });
                 $('.elem60').css({ 
                   'left' : (0.23*widthT+(262)) + 'px',

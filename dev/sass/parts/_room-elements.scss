@@ -504,7 +504,7 @@
     height: 38px;
     width: 20.3px;
     z-index: 2;
-		img {
+		.img-b {
 			height: 100%;
 	    width: 100%;
 	    background-image: url('../img/room/dd1.png');
@@ -515,11 +515,11 @@
 	.elem59 {
 		position: absolute;
     top: 416px;
-    left: 249.5px;
+    left: 250px;
     height: 29px;
     z-index: 4;
-    width: 32px;
-		img {
+    width: 31px;
+		.img-b {
 		height: 100%;
     width: 100%;
     background-image: url('../img/room/dd2.png');
@@ -534,7 +534,7 @@
     height: 32px;
     z-index: 3;
     width: 37px;
-		img {
+		.img-b {
 		height: 100%;
     width: 100%;
     background-image: url('../img/room/dd3.png');
