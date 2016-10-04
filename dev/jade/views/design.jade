@@ -23,7 +23,8 @@ section.construction-page
 
         li.figure-item(ng-click="designPage.selectMenuItem(4)")
           .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
-            .figure-icon.arch-shape
+            .figure-icon.arch-shape-a
+            .figure-icon.arch-shape-b
             .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(5)")
