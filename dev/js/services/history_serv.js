@@ -187,16 +187,16 @@
               localDB.createTablesLocalDB(obj).then(function(data) {
               if(data) {
                 res = JSON.parse(xhr.response);
-                res.tables.order_products.fields.splice(0,1);
                 res.tables.order_products.fields.splice(1,1);
-                res.tables.order_products.fields.splice(5,1);
-                res.tables.order_products.fields.splice(26,1);
+                res.tables.order_products.fields.splice(2,1);
+                res.tables.order_products.fields.splice(6,1);
+                res.tables.order_products.fields.splice(27,1);
                 res.tables.orders.fields.splice(1,1);
                 for(var x=0; x<res.tables.order_products.rows.length; x+=1) {
-                  res.tables.order_products.rows[x].splice(0,1);
                   res.tables.order_products.rows[x].splice(1,1);
-                  res.tables.order_products.rows[x].splice(5,1);
-                  res.tables.order_products.rows[x].splice(26,1);
+                  res.tables.order_products.rows[x].splice(2,1);
+                  res.tables.order_products.rows[x].splice(6,1);
+                  res.tables.order_products.rows[x].splice(27,1);
                 };
                 for(var x=0; x<res.tables.orders.rows.length; x+=1) {
                   res.tables.orders.rows[x].splice(1,1);

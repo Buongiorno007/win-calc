@@ -13257,7 +13257,7 @@ function ErrorResult(code, message) {
         //console.info('first click')
         HistoryStor.history.firstClick.push(orderNum);
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://api.steko.com.ua/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
+        xhr.open('GET', globalConstants.serverIP +'/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
         xhr.send();
         if (xhr.status === 200) {
           if (JSON.parse(xhr.response).status === true) {
@@ -13295,16 +13295,16 @@ function ErrorResult(code, message) {
               localDB.createTablesLocalDB(obj).then(function(data) {
               if(data) {
                 res = JSON.parse(xhr.response);
-                res.tables.order_products.fields.splice(0,1);
                 res.tables.order_products.fields.splice(1,1);
-                res.tables.order_products.fields.splice(5,1);
-                res.tables.order_products.fields.splice(26,1);
+                res.tables.order_products.fields.splice(2,1);
+                res.tables.order_products.fields.splice(6,1);
+                res.tables.order_products.fields.splice(27,1);
                 res.tables.orders.fields.splice(1,1);
                 for(var x=0; x<res.tables.order_products.rows.length; x+=1) {
-                  res.tables.order_products.rows[x].splice(0,1);
                   res.tables.order_products.rows[x].splice(1,1);
-                  res.tables.order_products.rows[x].splice(5,1);
-                  res.tables.order_products.rows[x].splice(26,1);
+                  res.tables.order_products.rows[x].splice(2,1);
+                  res.tables.order_products.rows[x].splice(6,1);
+                  res.tables.order_products.rows[x].splice(27,1);
                 };
                 for(var x=0; x<res.tables.orders.rows.length; x+=1) {
                   res.tables.orders.rows[x].splice(1,1);
