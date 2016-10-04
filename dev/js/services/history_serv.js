@@ -149,7 +149,7 @@
         //console.info('first click')
         HistoryStor.history.firstClick.push(orderNum);
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://api.steko.com.ua/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
+        xhr.open('GET', globalConstants.serverIP +'/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
         xhr.send();
         if (xhr.status === 200) {
           if (JSON.parse(xhr.response).status === true) {
