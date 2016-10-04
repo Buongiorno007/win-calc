@@ -14904,6 +14904,7 @@ function ErrorResult(code, message) {
             ' lamination_id INTEGER,' +
             ' lamination_out_id INTEGER,' +
             ' lamination_in_id INTEGER,' +
+            ' door_type_index INTEGER,' +
             ' door_shape_id INTEGER,' +
             ' door_sash_shape_id INTEGER,' +
             ' door_handle_shape_id INTEGER,' +
