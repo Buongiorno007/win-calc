@@ -182,11 +182,19 @@
                   <div class="account-date">{{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
-              <button ng-hide="order.order_style == 'done'" fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)" ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" class="account-tool account-select-btn"></button>
-              <button fs-click="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"></button>
-              <button fs-click="historyPage.orderPrint(order.id)" class="account-tool account-print-btn"></button>
+              <button ng-hide="order.order_style == 'done'" fs-click="historyPage.sendOrderToFactory(order.order_style, order.id)" ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" class="account-tool account-select-btn">
+                <div class="text">{{ ::historyPage.SEND_ORDER_TITLE }}</div>
+              </button>
+              <button fs-click="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"> 
+                <div class="text">{{ ::historyPage.BUTTON_C }}</div>
+              </button>
+              <button fs-click="historyPage.orderPrint(order.id)" class="account-tool account-print-btn"> 
+                <div class="text">{{ ::historyPage.PRINT }}</div>
+              </button>
               <button ng-hide="order.order_style == 'done'" fs-click="historyPage.clickDeleteOrder(order.order_type, order.id)" class="account-delete-btn"></button>
-              <button ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" ng-hide="order.order_style == 'done'" fs-click="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ ::historyPage.CHANGE }}</button>
+              <button ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" ng-hide="order.order_style == 'done'" fs-click="historyPage.editOrder(1, order.id)" class="account-tool account-change-btn"> 
+                <div class="text">{{ ::historyPage.CHANGE }}</div>
+              </button>
             </div>
             <div ng-show="historyPage.H.history.searchingWord.length &amp;&amp; (historyPage.H.history.orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>

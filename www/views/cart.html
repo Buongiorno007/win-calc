@@ -65,7 +65,7 @@
           </div>
           <div class="scroll-hor-container">
             <div class="order-block">
-              <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
+              <div ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index" class="order">
                 <button fs-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
                 <div class="order-header"><img ng-src="img/copy_edit.png" fs-click="cartPage.box($index, 'product')" class="imgg"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" fs-click="cartPage.box($index, 'product')" class="order-header-fon">
                   <div class="order-template">

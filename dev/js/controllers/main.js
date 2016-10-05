@@ -88,7 +88,6 @@
 
 
     /**================ EDIT PRODUCT =================*/
-    console.log(ProductStor.product, 'drod')
     if (GlobalStor.global.productEditNumber) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {

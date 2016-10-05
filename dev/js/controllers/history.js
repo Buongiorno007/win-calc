@@ -45,6 +45,9 @@
     thisCtrl.ALLPRODUCTS = $filter('translate')('history.ALLPRODUCTS');
     thisCtrl.ON = $filter('translate')('history.ON');
     thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.SEND_ORDER_TITLE = $filter('translate')('common_words.SEND_ORDER_TITLE');
+    thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
+    thisCtrl.PRINT = $filter('translate')('common_words.PRINT');
     thisCtrl.BY_YOUR_REQUEST = $filter('translate')('history.BY_YOUR_REQUEST');
     thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
     thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');

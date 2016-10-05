@@ -14,7 +14,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
           .scroll-hor-container
             .order-block
-              .order(ng-repeat="product in cartPage.O.order.products track by $index")
+              .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
                 button.order-delete(fs-click="cartPage.clickDeleteProduct($index)")
                 .order-header
                   img.imgg(ng-src='img/copy_edit.png', fs-click="cartPage.box($index, 'product')")

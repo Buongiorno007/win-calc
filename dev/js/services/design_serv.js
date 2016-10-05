@@ -440,7 +440,7 @@
                 DesignStor.design.isMaxSizeRestriction = 0;
               }
 
-            } else if(newLength > DesignStor.design.maxSizeLimit) {
+            } else if(newLength >= DesignStor.design.maxSizeLimit) {
               if(GlobalStor.global.isVoiceHelper) {
                 playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'),GlobalStor.global.voiceHelperLanguage);
                 //------- deactive size box in svg

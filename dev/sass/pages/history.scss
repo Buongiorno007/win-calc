@@ -365,7 +365,7 @@
   .account-block {
     @extend .splash;
     position: relative;
-    width: 93%;
+    width: 83%;
     height: rem(446px);
     margin-bottom: rem(50px);
   }
@@ -468,44 +468,80 @@
   .account-tool {
     @extend .button;
     @extend .icon-setting;
-    @include font-icon(rem(45px), 1);
+    font: normal 1.5rem/1.25 icons, sans-serif;
 
     position: absolute;
-    width: rem(120px);
-    height: rem(112px);
-    border-top-right-radius: rem($radius_account-tool);
-    border-bottom-right-radius: rem($radius_account-tool);
+    width: rem(300px);
+    height: rem(68px);
+    border-top-right-radius: rem(16px);
+    border-bottom-right-radius: rem(16px);
     z-index: 1;
   }
   .account-select-btn {
-    @include font-icon(rem(30px), 1);
     top: rem(36px);
-    right: rem(-120px);
+    right: rem(-297.6px);
     background-color: $main_green;
     &.error {
       background-color: #f74f2e;
     }
     &:after {
+      right: 1rem;
+      top: 1rem;
+      position: absolute;
       color: #fff;
       content: $select-history-icon;
     }
+    .text {
+      position: relative;
+      width: 15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #fff;
+      text-overflow: ellipsis;
+      text-align: left;
+      left: 1.2rem;
+    }
   }
   .account-copy-btn {
-    top: rem(180px);
-    right: rem(-120px);
+    top: rem(260px);
+    right: rem(-297.6px);
     background-color: #c6c6c6;
     &:after {
+      right: 1rem;
+      top: 1rem;
+      position: absolute;
       color: $main_gray_txt;
       content: $copy-doc-icon;
     }
+    .text {
+      position: relative;
+      width: 15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      left: 1.2rem;
+    }
   }
   .account-print-btn {
-    top: rem(324px);
-    right: rem(-120px);
+    top: rem(371.68px);
+    right: rem(-297.6px);
     background-color: #c6c6c6;
     &:after {
+      right: 1rem;
+      top: 1rem;
+      position: absolute;
       color: $main_gray_txt;
       content: $printer-icon;
+    }
+    .text {
+      position: relative;
+      width: 15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      left: 1.2rem;
     }
   }
   .account.done ~ .account-print-btn {
@@ -520,20 +556,27 @@
     background-color: $main_green;
     z-index: 2;
   }
-  .account-change-btn {
-    @extend .button;
-    @include roboto-rg(rem(24px));
 
-    position: absolute;
-    top: rem(200px);
-    right: 0;
-    width: rem(160px);
-    height: rem(70px);
-    border-top-left-radius: rem($radius_account-tool);
-    border-bottom-left-radius: rem($radius_account-tool);
-    background-color: $main_green;
-    color: #fff;
-    z-index: 2;
+  .account-change-btn {
+    top: rem(148px);
+    right: rem(-297.6px);
+    background-color: #c6c6c6;
+    &:after {
+      right: 1rem;
+      top: 1rem;
+      position: absolute;
+      color: $main_gray_txt;
+      content: $copy-doc-icon;
+    }
+    .text {
+      position: relative;
+      width: 15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      left: 1.2rem;
+    }
     &.error {
       background-color: #f74f2e;
     }

@@ -1490,7 +1490,7 @@ body {
 }
 
 /* line 96, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .close-danger-alert, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .alert-btns .door-configuration .door-config-finish-save-btn, .door-configuration .alert-btns .door-config-finish-save-btn, .settings .save, .grid-selector-dialog .set-grid-all-btn, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .report-container .close_report, .close-danger-alert, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .save-m, .close-m, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .grid-selector-dialog .set-grid-btn, .aux-search-content .group-indicator, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .cart-page .close-alladdelements {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -6643,7 +6643,7 @@ tr.factory_item {
 /* line 365, ../../dev/sass/pages/history.scss */
 .accounts-container .account-block {
   position: relative;
-  width: 93%;
+  width: 83%;
   height: 27.875rem;
   margin-bottom: 3.125rem;
 }
@@ -6752,57 +6752,96 @@ tr.factory_item {
 }
 /* line 468, ../../dev/sass/pages/history.scss */
 .accounts-container .account-tool {
-  font: normal 2.8125rem/1 icons, sans-serif;
+  font: normal 1.5rem/1.25 icons, sans-serif;
   position: absolute;
-  width: 7.5rem;
-  height: 7rem;
-  border-top-right-radius: 1.875rem;
-  border-bottom-right-radius: 1.875rem;
+  width: 18.75rem;
+  height: 4.25rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   z-index: 1;
 }
 /* line 480, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn {
-  font: normal 1.875rem/1 icons, sans-serif;
   top: 2.25rem;
-  right: -7.5rem;
+  right: -18.6rem;
   background-color: #6ed44a;
 }
-/* line 485, ../../dev/sass/pages/history.scss */
+/* line 484, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn.error {
   background-color: #f74f2e;
 }
-/* line 488, ../../dev/sass/pages/history.scss */
+/* line 487, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn:after {
+  right: 1rem;
+  top: 1rem;
+  position: absolute;
   color: #fff;
   content: "";
 }
-/* line 493, ../../dev/sass/pages/history.scss */
+/* line 494, ../../dev/sass/pages/history.scss */
+.accounts-container .account-select-btn .text {
+  position: relative;
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fff;
+  text-overflow: ellipsis;
+  text-align: left;
+  left: 1.2rem;
+}
+/* line 505, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn {
-  top: 11.25rem;
-  right: -7.5rem;
+  top: 16.25rem;
+  right: -18.6rem;
   background-color: #c6c6c6;
 }
-/* line 497, ../../dev/sass/pages/history.scss */
+/* line 509, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn:after {
+  right: 1rem;
+  top: 1rem;
+  position: absolute;
   color: #363636;
   content: "";
 }
-/* line 502, ../../dev/sass/pages/history.scss */
+/* line 516, ../../dev/sass/pages/history.scss */
+.accounts-container .account-copy-btn .text {
+  position: relative;
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  left: 1.2rem;
+}
+/* line 526, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
-  top: 20.25rem;
-  right: -7.5rem;
+  top: 23.23rem;
+  right: -18.6rem;
   background-color: #c6c6c6;
 }
-/* line 506, ../../dev/sass/pages/history.scss */
+/* line 530, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn:after {
+  right: 1rem;
+  top: 1rem;
+  position: absolute;
   color: #363636;
   content: "";
 }
-/* line 511, ../../dev/sass/pages/history.scss */
+/* line 537, ../../dev/sass/pages/history.scss */
+.accounts-container .account-print-btn .text {
+  position: relative;
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  left: 1.2rem;
+}
+/* line 547, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done ~ .account-print-btn {
   top: 3.125rem;
 }
-/* line 514, ../../dev/sass/pages/history.scss */
+/* line 550, ../../dev/sass/pages/history.scss */
 .accounts-container .account-delete-btn {
   position: absolute;
   top: -1.25rem;
@@ -6810,90 +6849,100 @@ tr.factory_item {
   background-color: #6ed44a;
   z-index: 2;
 }
-/* line 523, ../../dev/sass/pages/history.scss */
+/* line 560, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn {
-  font: normal 1.5rem/1.42857 roboto-regular, sans-serif, icons;
-  position: absolute;
-  top: 12.5rem;
-  right: 0;
-  width: 10rem;
-  height: 4.375rem;
-  border-top-left-radius: 1.875rem;
-  border-bottom-left-radius: 1.875rem;
-  background-color: #6ed44a;
-  color: #fff;
-  z-index: 2;
+  top: 9.25rem;
+  right: -18.6rem;
+  background-color: #c6c6c6;
 }
-/* line 537, ../../dev/sass/pages/history.scss */
+/* line 564, ../../dev/sass/pages/history.scss */
+.accounts-container .account-change-btn:after {
+  right: 1rem;
+  top: 1rem;
+  position: absolute;
+  color: #363636;
+  content: "";
+}
+/* line 571, ../../dev/sass/pages/history.scss */
+.accounts-container .account-change-btn .text {
+  position: relative;
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  left: 1.2rem;
+}
+/* line 580, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn.error {
   background-color: #f74f2e;
 }
 
-/* line 545, ../../dev/sass/pages/history.scss */
+/* line 588, ../../dev/sass/pages/history.scss */
 .draft-view .account-block {
   height: 12.75rem;
 }
-/* line 549, ../../dev/sass/pages/history.scss */
+/* line 592, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:first-child {
   background-color: #e5e5e5;
   border-bottom: none;
 }
-/* line 553, ../../dev/sass/pages/history.scss */
+/* line 596, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:last-of-type {
   background-color: #d8d8d8;
 }
-/* line 557, ../../dev/sass/pages/history.scss */
+/* line 600, ../../dev/sass/pages/history.scss */
 .draft-view .account-print-btn {
   top: 3.125rem;
 }
 
-/* line 563, ../../dev/sass/pages/history.scss */
+/* line 606, ../../dev/sass/pages/history.scss */
 .dark-fon {
   background-color: #e1e1e1;
 }
-/* line 565, ../../dev/sass/pages/history.scss */
+/* line 608, ../../dev/sass/pages/history.scss */
 .dark-fon .account,
 .dark-fon .account.done {
   background-color: #e5e5e5;
 }
 
-/* line 571, ../../dev/sass/pages/history.scss */
+/* line 614, ../../dev/sass/pages/history.scss */
 .empty-search-result {
   text-align: center;
   z-index: 10;
 }
-/* line 581, ../../dev/sass/pages/history.scss */
+/* line 624, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon {
   font: normal 23.125rem/1.5 icons, sans-serif;
 }
-/* line 586, ../../dev/sass/pages/history.scss */
+/* line 629, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon:after {
   color: #c6c6c6;
   content: "";
 }
-/* line 591, ../../dev/sass/pages/history.scss */
+/* line 634, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif, icons;
   color: #363636;
 }
-/* line 595, ../../dev/sass/pages/history.scss */
+/* line 638, ../../dev/sass/pages/history.scss */
 .empty-search-result .searchin-text {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif, icons;
 }
 
-/* line 602, ../../dev/sass/pages/history.scss */
+/* line 645, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li {
   text-align: center !important;
 }
-/* line 604, ../../dev/sass/pages/history.scss */
+/* line 647, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i {
   font-size: 2.1875rem !important;
 }
-/* line 606, ../../dev/sass/pages/history.scss */
+/* line 649, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i div {
   display: none !important;
 }
-/* line 609, ../../dev/sass/pages/history.scss */
+/* line 652, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i .dw-mon {
   font-size: 2.1875rem !important;
 }

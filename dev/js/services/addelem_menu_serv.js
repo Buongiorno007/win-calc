@@ -160,7 +160,7 @@
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
-      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width < GlobalStor.global.maxSizeAddElem) {
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width <= GlobalStor.global.maxSizeAddElem) {
         desactiveAddElementParameters();
         DesignStor.design.isMinSizeRestriction = 0;
         DesignStor.design.isMaxSizeRestriction = 0;

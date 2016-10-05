@@ -1068,6 +1068,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.ALLPRODUCTS = $filter('translate')('history.ALLPRODUCTS');
     thisCtrl.ON = $filter('translate')('history.ON');
     thisCtrl.CHANGE = $filter('translate')('common_words.CHANGE');
+    thisCtrl.SEND_ORDER_TITLE = $filter('translate')('common_words.SEND_ORDER_TITLE');
+    thisCtrl.BUTTON_C = $filter('translate')('common_words.BUTTON_C');
+    thisCtrl.PRINT = $filter('translate')('common_words.PRINT');
     thisCtrl.BY_YOUR_REQUEST = $filter('translate')('history.BY_YOUR_REQUEST');
     thisCtrl.NOT_FIND = $filter('translate')('history.NOT_FIND');
     thisCtrl.DRAFT_VIEW = $filter('translate')('history.DRAFT_VIEW');
@@ -2122,7 +2125,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**================ EDIT PRODUCT =================*/
-    console.log(ProductStor.product, 'drod')
     if (GlobalStor.global.productEditNumber) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
@@ -7272,7 +7274,7 @@ function ErrorResult(code, message) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.auxParameter.split('-')[0] - 1);
       AuxStor.aux.tempSize.length = 0;
-      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width < GlobalStor.global.maxSizeAddElem) {
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_width <= GlobalStor.global.maxSizeAddElem) {
         desactiveAddElementParameters();
         DesignStor.design.isMinSizeRestriction = 0;
         DesignStor.design.isMaxSizeRestriction = 0;
@@ -9912,7 +9914,7 @@ function ErrorResult(code, message) {
                 DesignStor.design.isMaxSizeRestriction = 0;
               }
 
-            } else if(newLength > DesignStor.design.maxSizeLimit) {
+            } else if(newLength >= DesignStor.design.maxSizeLimit) {
               if(GlobalStor.global.isVoiceHelper) {
                 playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'),GlobalStor.global.voiceHelperLanguage);
                 //------- deactive size box in svg
