@@ -504,6 +504,7 @@
                 tempProd.beadsData = angular.copy(tempProd.template_source.beads);
               }
               if(tempProd.construction_type === 4) {
+                console.log(tempProd.template_source.profile_window_id, 'tempProd.template_source.profile_window_id')
                 tempProfileId = tempProd.template_source.profile_window_id;
               } else {
                 tempProfileId = tempProd.profile_id;
