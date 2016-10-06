@@ -642,9 +642,21 @@
         localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
       ).then(function(result) {
         var elementsAdd = angular.copy(result),
+            addElementsAll = GlobalStor.global.addElementsAll,
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
             prod, index;
+            
+        for(var x=0; x<allAddElemQty; x+=1) {
+          for(var y=0; y<addElementsAll[elementsAdd[x].element_type].elementsList.length; y+=1) {
+            for(var z=0; z<addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z+=1) {
+              if(elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
+                 angular.extend(elementsAdd[x], addElementsAll[elementsAdd[x].element_type].elementsList[y][z]);
+                 break
+              }
+            }
+          }
+        }
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {

@@ -1289,7 +1289,6 @@
       if(ProductStor.product.is_addelem_only) {
         permission = checkEmptyChoosenAddElems();
       }
-
       if(permission) {
         //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
@@ -1484,7 +1483,7 @@
                 };
 
 
-                console.log('SEND ADD',addElementsData);
+                //console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(

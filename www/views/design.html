@@ -207,7 +207,7 @@
         </div>
         <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep2}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index)" class="door-config-option">
+            <li ng-repeat="door in designPage.D.design.doorShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}" ng-click="designPage.selectDoor($index, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"><img ng-src="{{ door.iconSelect }}" ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index" class="door-shape"></div>
                 <div class="door-option-label">{{ ::door.name | translate }}</div>
@@ -227,7 +227,7 @@
         </div>
         <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index)" class="door-config-option">
+            <li ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}" ng-click="designPage.selectSash($index, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-label">{{ sashShape.name }}</div>
               </div>
@@ -246,7 +246,7 @@
         </div>
         <div ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep4}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}" ng-click="designPage.selectHandle($index)" class="door-config-option">
+            <li ng-repeat="handle in designPage.D.design.handleShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}" ng-click="designPage.selectHandle($index, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-if="handle.list_type_id === 35" ng-src="img/door-config/lever-handle.png" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"><img ng-if="handle.list_type_id === 35" ng-src="img/door-config-selected/lever-handle.png" ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"><img ng-if="handle.list_type_id === 36" ng-src="img/door-config/standart-handle.png" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"><img ng-if="handle.list_type_id === 36" ng-src="img/door-config-selected/standart-handle.png" ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ handle.name }}</div>
@@ -266,7 +266,7 @@
         </div>
         <div ng-class="{'scroll-box': designPage.D.design.steps.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index)" class="door-config-option">
+            <li ng-repeat="lock in designPage.D.design.lockShapeList track by $index" ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}" ng-click="designPage.selectLock($index, designPage.P.product)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-icon"><img ng-if="lock.type === 1 || lock.type === 2" ng-src="img/door-config/onelock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 1 || lock.type === 2" ng-src="img/door-config-selected/onelock.png" ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 3 || lock.type === 4" ng-src="img/door-config/multilock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"><img ng-if="lock.type === 3 || lock.type === 4" ng-src="img/door-config-selected/multilock.png" ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ lock.name }}</div>

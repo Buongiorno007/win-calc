@@ -49,7 +49,7 @@
   </section>
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" class="right-side">
     <section tabindex="0" class="main-content">
-      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; !mainPage.P.product.doorLock.stvorka_type" class="coeff-RoomContainer">
+      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; !mainPage.P.product.doorLock.stvorka_type &amp;&amp; !mainPage.P.product.is_addelem_only &amp;&amp; (mainPage.P.product.construction_type == 1 || mainPage.P.product.construction_type == 2)" class="coeff-RoomContainer">
         <div class="blockCheck">{{mainPage.G.global.getPCPower}}</div>
         <div class="elem1"><img ng-src="img/room/1.png"></div>
         <div class="elem5"><img ng-src="img/room/4.png"></div>
@@ -74,7 +74,7 @@
           <svg-template template="mainPage.P.product.template" template-width="mainPage.constants.svgTemplateWidth" template-height="mainPage.constants.svgTemplateHeight" type-construction="mainPage.constants.SVG_ID_MAIN"></svg-template>
         </div>
       </div>
-      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; mainPage.P.product.doorLock.stvorka_type === 6" class="coeff-RoomContainer">
+      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; mainPage.P.product.doorLock.stvorka_type === 6 &amp;&amp; !mainPage.P.product.is_addelem_only" class="coeff-RoomContainer">
         <div class="blockCheck">{{mainPage.G.global.getPCPower}}</div>
         <div class="elem31"><img ng-src="img/room/33.png"></div>
         <div class="elem32"><img ng-src="img/room/32.png"></div>
@@ -88,7 +88,7 @@
         <div class="elem40"><img></div>
         <div class="elem42"><img></div>
       </div>
-      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; mainPage.P.product.doorLock.stvorka_type === 7" class="coeff-RoomContainer">
+      <div ng-show="mainPage.G.global.isRoomElements&gt;0 &amp;&amp; mainPage.P.product.doorLock.stvorka_type === 7 &amp;&amp; !mainPage.P.product.is_addelem_only" class="coeff-RoomContainer">
         <div class="blockCheck">{{mainPage.G.global.getPCPower}}</div>
         <div class="elem51"></div>
         <div class="elem52"></div>

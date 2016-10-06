@@ -1735,55 +1735,55 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          // checkingUser();
 
           // //------- check available Local DB
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -2082,7 +2082,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-    MainServ.laminationDoor();
+   
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
@@ -2125,13 +2125,20 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     /**================ EDIT PRODUCT =================*/
-    if (GlobalStor.global.productEditNumber) {
+    if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
           ProductStor.product.template = data;
         });
+    } 
+    if(!ProductStor.product.is_addelem_only) {
+      profile(); 
+      MainServ.doorProfile();
+      MainServ.laminationDoor();
     }
-    console.log(getPCPower(), profile(), MainServ.doorProfile(), 'getPCPower()')
+    getPCPower(); 
+
+
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;
@@ -2552,8 +2559,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function checkForAddElem() {
-      alert();
       if(!ProductStor.product.is_addelem_only) {
+        alert();
         if(GlobalStor.global.dangerAlert < 1) {
          if( ProductStor.product.beadsData.length > 0) {
           saveProduct();
@@ -2564,6 +2571,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           }
         }
       } else {
+        console.log(ProductStor.product, 'save')
         saveProduct();
       }
     }
@@ -9208,28 +9216,33 @@ function ErrorResult(code, message) {
           //------ open AddElements Panel
           GlobalStor.global.activePanel = 6;
         }
-        //------- set previos Page
-        GeneralServ.setPreviosPage();
-        var productTEMP;
-        var newId = ProductStor.product.profile.id;
-        /** save previous Product */
-        productTEMP = angular.copy(ProductStor.product);
+        if(!ProductStor.product.is_addelem_only) {
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
+          var productTEMP;
+          var newId = ProductStor.product.profile.id;
+          /** save previous Product */
+          productTEMP = angular.copy(ProductStor.product);
 
-        /** check new Profile */
-        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
-          //------- set current template for product
-          MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
+          /** check new Profile */
+          MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+            //------- set current template for product
+            MainServ.saveTemplateInProduct(ProductStor.product.template_id).then(function() {
 
-            /** Extra Glass finding */
-            MainServ.checkGlassSizes(ProductStor.product.template);
+              /** Extra Glass finding */
+              MainServ.checkGlassSizes(ProductStor.product.template);
 
-            /** return previous Product */
-            ProductStor.product = angular.copy(productTEMP);
-            $location.path('/main');
+              /** return previous Product */
+              ProductStor.product = angular.copy(productTEMP);
+              $location.path('/main');
+            });
           });
-        });
-        GlobalStor.global.isBox = !GlobalStor.global.isBox;
-        
+          GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        } else {
+          GlobalStor.global.activePanel = 6;
+          GlobalStor.global.isBox = !GlobalStor.global.isBox;
+          $location.path('/main');
+        }
       }
       function addCloneProductInOrder(cloneProduct, lastProductId) {
         //console.log(cloneProduct)
@@ -9835,7 +9848,6 @@ function ErrorResult(code, message) {
     function checkSize(res, construction_type) {
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
-      console.log(res, 'res')
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
         widthT = res[0].sizes[0];
@@ -10264,7 +10276,6 @@ function ErrorResult(code, message) {
     /**---------- Select door shape --------*/
 
     function selectDoor(id, product, start) {
-      console.log(product, 'product')
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
@@ -10412,7 +10423,7 @@ function ErrorResult(code, message) {
         var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
         });
-        var  newLockArr= lockArr.filter(function(doorLocks) {
+        var newLockArr = lockArr.filter(function(doorLocks) {
           return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
         });
         var template = product.template.priceElements.shtulpsSize;
@@ -10447,7 +10458,7 @@ function ErrorResult(code, message) {
         DesignStor.design.steps.selectedStep4 = 1;
       }
       if(start === true) {
-        saveDoorConfig();
+        saveDoorConfig(product);
       }
     }
 
@@ -10475,8 +10486,12 @@ function ErrorResult(code, message) {
 
     /**---------- Save Door Configuration --------*/
 
-    function saveDoorConfig() {
-      setNewDoorParamValue(ProductStor.product, DesignStor.design);
+    function saveDoorConfig(product) {
+      if(product) {
+        setNewDoorParamValue(product, DesignStor.design);
+      } else {
+        setNewDoorParamValue(ProductStor.product, DesignStor.design);
+      }
       rebuildSVGTemplate();
       DesignStor.design.steps.isDoorConfig = 0;
     }
@@ -10552,7 +10567,7 @@ function ErrorResult(code, message) {
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
       GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
-      if(ProductStor.product.construction_type === 4) {
+      if(product.construction_type === 4) {
         setDoorParamValue(product, source);
       }
       doorId(product, source);
@@ -13754,9 +13769,21 @@ function ErrorResult(code, message) {
         localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}
       ).then(function(result) {
         var elementsAdd = angular.copy(result),
+            addElementsAll = GlobalStor.global.addElementsAll,
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
             prod, index;
+            
+        for(var x=0; x<allAddElemQty; x+=1) {
+          for(var y=0; y<addElementsAll[elementsAdd[x].element_type].elementsList.length; y+=1) {
+            for(var z=0; z<addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z+=1) {
+              if(elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
+                 angular.extend(elementsAdd[x], addElementsAll[elementsAdd[x].element_type].elementsList[y][z]);
+                 break
+              }
+            }
+          }
+        }
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
@@ -20330,7 +20357,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       if(ProductStor.product.is_addelem_only) {
         permission = checkEmptyChoosenAddElems();
       }
-
       if(permission) {
         //console.info('product-----', ProductStor.product);
         GlobalStor.global.tempAddElements.length = 0;
@@ -20525,7 +20551,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 };
 
 
-                console.log('SEND ADD',addElementsData);
+                //console.log('SEND ADD',addElementsData);
                 if(orderType) {
                   localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                   localDB.insertServer(

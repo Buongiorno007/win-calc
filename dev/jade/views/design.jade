@@ -126,7 +126,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_DOOR_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index)")
+            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", ng-click="designPage.selectDoor($index, designPage.P.product)")
               .door-inner
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.icon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
@@ -142,7 +142,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_SASH_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index)")
+            li.door-config-option(ng-repeat="sashShape in designPage.D.design.sashShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", ng-click="designPage.selectSash($index, designPage.P.product)")
               .door-inner
                 .door-option-label {{ sashShape.name }}
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
@@ -155,7 +155,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_HANDLE_TYPE }}
         .door-config-content(ng-class="{'scroll-box': !designPage.D.design.steps.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-click="designPage.selectHandle($index)")
+            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", ng-click="designPage.selectHandle($index, designPage.P.product)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-if="handle.list_type_id === 35", ng-src="img/door-config/lever-handle.png", ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
@@ -173,7 +173,7 @@ section.construction-page
             .door-subtitle {{ ::designPage.LABEL_LOCK_TYPE }}
         .door-config-content(ng-class="{'scroll-box': designPage.D.design.steps.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index)")
+            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList track by $index", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", ng-click="designPage.selectLock($index, designPage.P.product)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-if="lock.type === 1 || lock.type === 2", ng-src="img/door-config/onelock.png" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")

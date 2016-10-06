@@ -361,7 +361,6 @@
     function checkSize(res, construction_type) {
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
-      console.log(res, 'res')
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
         widthT = res[0].sizes[0];
@@ -790,7 +789,6 @@
     /**---------- Select door shape --------*/
 
     function selectDoor(id, product, start) {
-      console.log(product, 'product')
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
@@ -938,7 +936,7 @@
         var lockArr = GlobalStor.global.doorLocks.filter(function(doorLocks) {
           return doorLocks.profIds.indexOf(DesignStor.design.sashShapeList[sashShapeIndex].id)+1;
         });
-        var  newLockArr= lockArr.filter(function(doorLocks) {
+        var newLockArr = lockArr.filter(function(doorLocks) {
           return DesignStor.design.handleShapeList[id].profIds.indexOf('hel'+doorLocks.id+'lo')+1;
         });
         var template = product.template.priceElements.shtulpsSize;
@@ -973,7 +971,7 @@
         DesignStor.design.steps.selectedStep4 = 1;
       }
       if(start === true) {
-        saveDoorConfig();
+        saveDoorConfig(product);
       }
     }
 
@@ -1001,8 +999,12 @@
 
     /**---------- Save Door Configuration --------*/
 
-    function saveDoorConfig() {
-      setNewDoorParamValue(ProductStor.product, DesignStor.design);
+    function saveDoorConfig(product) {
+      if(product) {
+        setNewDoorParamValue(product, DesignStor.design);
+      } else {
+        setNewDoorParamValue(ProductStor.product, DesignStor.design);
+      }
       rebuildSVGTemplate();
       DesignStor.design.steps.isDoorConfig = 0;
     }
@@ -1078,7 +1080,7 @@
       product.door_lock_shape_id = source.doorConfig.lockShapeIndex;
       GlobalStor.global.type_door = source.doorConfig.doorShapeIndex;
 
-      if(ProductStor.product.construction_type === 4) {
+      if(product.construction_type === 4) {
         setDoorParamValue(product, source);
       }
       doorId(product, source);

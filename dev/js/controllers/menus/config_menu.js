@@ -166,8 +166,8 @@
     }
 
     function checkForAddElem() {
-      alert();
       if(!ProductStor.product.is_addelem_only) {
+        alert();
         if(GlobalStor.global.dangerAlert < 1) {
          if( ProductStor.product.beadsData.length > 0) {
           saveProduct();
@@ -178,6 +178,7 @@
           }
         }
       } else {
+        console.log(ProductStor.product, 'save')
         saveProduct();
       }
     }

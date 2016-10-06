@@ -45,7 +45,7 @@
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-    MainServ.laminationDoor();
+   
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
@@ -88,13 +88,20 @@
 
 
     /**================ EDIT PRODUCT =================*/
-    if (GlobalStor.global.productEditNumber) {
+    if (GlobalStor.global.productEditNumber && !ProductStor.product.is_addelem_only) {
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
         .then(function(data) {
           ProductStor.product.template = data;
         });
+    } 
+    if(!ProductStor.product.is_addelem_only) {
+      profile(); 
+      MainServ.doorProfile();
+      MainServ.laminationDoor();
     }
-    console.log(getPCPower(), profile(), MainServ.doorProfile(), 'getPCPower()')
+    getPCPower(); 
+
+
     function getPCPower() {
       var iterations = 1000000;
       var s = 0;
