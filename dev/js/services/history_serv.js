@@ -651,7 +651,10 @@
           for(var y=0; y<addElementsAll[elementsAdd[x].element_type].elementsList.length; y+=1) {
             for(var z=0; z<addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z+=1) {
               if(elementsAdd[x].element_id === addElementsAll[elementsAdd[x].element_type].elementsList[y][z].id) {
-                 angular.extend(elementsAdd[x], addElementsAll[elementsAdd[x].element_type].elementsList[y][z]);
+                 elementsAdd[x].max_size = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].max_size;
+                 elementsAdd[x].parent_element_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].parent_element_id;
+                 elementsAdd[x].list_group_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_group_id;
+                 elementsAdd[x].list_type_id = addElementsAll[elementsAdd[x].element_type].elementsList[y][z].list_type_id;
                  break
               }
             }
