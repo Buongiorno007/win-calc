@@ -88,6 +88,7 @@
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
+    OrderStor.order.products = _.sortBy(OrderStor.order.products, 'product_id', '0');
     GlobalStor.global.productEditNumber = 0;
     //------- collect all AddElements of Order
     CartMenuServ.joinAllAddElements();
@@ -159,7 +160,6 @@
         thisCtrl.config.isShowDiscInputAdd = 0;
       }
     }
-
 
     function pressEnterInDisc(keyEvent) {
       //--------- Enter

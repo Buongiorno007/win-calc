@@ -504,7 +504,6 @@
                 tempProd.beadsData = angular.copy(tempProd.template_source.beads);
               }
               if(tempProd.construction_type === 4) {
-                console.log(tempProd.template_source.profile_window_id, 'tempProd.template_source.profile_window_id')
                 tempProfileId = tempProd.template_source.profile_window_id;
               } else {
                 tempProfileId = tempProd.profile_id;
@@ -574,16 +573,9 @@
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
                     ) + item.addelemPriceDis);
-                    if(item.construction_type === 4) {
-                      DesignServ.setDoorConfigDefault(item);
-                      item.profile = angular.copy(ProductStor.product.profile)
-                      OrderStor.order.products.push(item);
-                      deferIcon.resolve(1);
-                    } else {
                       OrderStor.order.products.push(item);
                       //console.log(item, 'item')
-                      deferIcon.resolve(1);
-                    }
+                      deferIcon.resolve(1);                   
                   });
                 });
               }
@@ -591,7 +583,6 @@
             });
             deferred.resolve($q.all(iconPromise));
           });
-
         } else {
           deferred.reject(products);
         }
@@ -733,16 +724,40 @@
 
       //------ Download All Products of edited Order
       downloadProducts().then(function() {
-        //------ Download All Add Elements from LocalDB
-        downloadAddElements().then(function () {
-          GlobalStor.global.isConfigMenu = 1;
-          GlobalStor.global.isNavMenu = 0;
-          //------- set previos Page
-          GeneralServ.setPreviosPage();
-          GlobalStor.global.isLoader = 0;
-          //console.warn('ORDER ====', OrderStor.order);
-          $location.path('/cart');
+        var products = OrderStor.order.products;
+        async.eachSeries(products, calculate, function (err, result) {
+          //------ Download All Add Elements from LocalDB
+            downloadAddElements().then(function () {
+            GlobalStor.global.isConfigMenu = 1;
+            GlobalStor.global.isNavMenu = 0;
+            //------- set previos Page
+            GeneralServ.setPreviosPage();
+            GlobalStor.global.isLoader = 0;
+            //console.warn('ORDER ====', OrderStor.order);
+            $location.path('/cart');
+          });
         });
+
+        function calculate (products, _cb) {
+          async.waterfall([
+            function (_callback) {   
+              if(products.construction_type === 4) {
+                DesignServ.setDoorConfigDefault(products).then(function(res) {
+                  _callback();   
+                });
+              } else {
+                _callback();   
+              }      
+            }
+          ],
+          function (err, result) {
+            if (err) {
+              //console.log('err', err)
+              return _cb(err);
+            }
+              _cb(null);
+          });
+        }
       });
 
     }

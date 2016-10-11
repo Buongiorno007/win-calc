@@ -1383,9 +1383,8 @@
           if(!productData.is_addelem_only) {
             productData.template_source['beads'] = angular.copy(productData.beadsData);
           }
-          productData.template_source = JSON.stringify(productData.template_source);
+          
           if(productData.construction_type === 4) {
-            productData.door_group_id = OrderStor.order.products[p].template_source.profile_door_id;
             productData.profile_id = 0;
           } else {
             productData.profile_id = OrderStor.order.products[p].profile.id;
@@ -1404,7 +1403,8 @@
               productData.hardware_id = 0;
             }
           }
-        productData.lamination_id = OrderStor.order.products[p].lamination.id;
+          productData.lamination_id = OrderStor.order.products[p].lamination.id;
+          productData.template_source = JSON.stringify(productData.template_source);
           productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
           productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
           productData.modified = new Date();

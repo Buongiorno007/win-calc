@@ -178,7 +178,6 @@
           }
         }
       } else {
-        console.log(ProductStor.product, 'save')
         saveProduct();
       }
     }
