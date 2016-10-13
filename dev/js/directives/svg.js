@@ -902,7 +902,7 @@
 
                 /** type Grid names */
                 if (scope.typeConstruction === 'tamlateGridSVG') {
-                  if(!template.details[i].children.length && template.details[i].gridId) {
+                  if(template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
                       .attr({

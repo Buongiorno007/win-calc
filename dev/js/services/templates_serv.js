@@ -124,21 +124,21 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      MainServ.setDefaultDoorConfig();
+      
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
 
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        if(GlobalStor.global.currOpenPage === 'design') {
-          //--------- set template from ProductStor
-          DesignServ.setDefaultConstruction();
-        }
-      });
-      
       function goToNewTemplate() {
+        MainServ.setDefaultDoorConfig();
+        MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+          if(GlobalStor.global.currOpenPage === 'design') {
+            //--------- set template from ProductStor
+            DesignServ.setDefaultConstruction();
+          }
+        });
         //------ change last changed template to old one
         backDefaultTemplate();
         GlobalStor.global.isChangedTemplate = 0;
@@ -154,8 +154,15 @@
           goToNewTemplate
         );
       } else {
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
+          MainServ.setDefaultDoorConfig();
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+            if(GlobalStor.global.currOpenPage === 'design') {
+              //--------- set template from ProductStor
+              DesignServ.setDefaultConstruction();
+            }
+          });
+          newPriceForNewTemplate(templateIndex, roomInd);
+        }
     }
 
 

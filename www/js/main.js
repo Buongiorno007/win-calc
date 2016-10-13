@@ -6693,7 +6693,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
                 /** type Grid names */
                 if (scope.typeConstruction === 'tamlateGridSVG') {
-                  if(!template.details[i].children.length && template.details[i].gridId) {
+                  if(template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
                       .attr({
@@ -7510,7 +7510,7 @@ function ErrorResult(code, message) {
       while(--blocksQty > 0) {
         if(blockId) {
           /** set grid to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
             /** check block to old grid
              * delete in product.choosenAddElements if exist
              * */
@@ -7595,8 +7595,10 @@ function ErrorResult(code, message) {
     function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      if(!existedElement) {
+      if(index !== 0) {
+        existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      }
+      if(!existedElement || index == 0) {
         var newElementSource = {
               element_type: index,
               element_width: 0,
@@ -7640,12 +7642,22 @@ function ErrorResult(code, message) {
 
     /** set Selected Grids */
     function confirmGrid() {
-      if(DesignStor.design.selectedGlass.length) {
-        var grids = DesignStor.design.selectedGlass.map(function(item) {
-          var blockId = item.attributes.block_id.nodeValue;
-          //------- collect grids relative to blocks
+      var gridsT = [], grids = [];
+      if(GlobalStor.global.sashTypeBlock.length>0) {
+        gridsT = GlobalStor.global.sashTypeBlock.map(function(item) {
+          var blockId = item;
           return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
         });
+      }
+      if(DesignStor.design.selectedGlass.length) {
+        grids = DesignStor.design.selectedGlass.map(function(item) {
+          var blockId = item.attributes.block_id.nodeValue;
+          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
+        });
+      }
+
+      grids = _.union(_.compact(grids), gridsT);
+      if(grids.length>0) {
         insertGrids(grids);
       }
     }
@@ -10827,15 +10839,98 @@ function ErrorResult(code, message) {
     /**------- set click to all Glass for Grid selector ---------- */
 
     function initAllGlassXGrid() {
+
+      function test(blocks, blocksQty, parent) {
+        if(parent || !parent === 'block_0') {
+          var block = blocks.filter(function(item) {
+            if(item.id === parent) {
+              return item;
+            }
+          });
+          if(block[0].blockType === "sash") {
+            test2(block[0].children, blocks);
+
+            if(GlobalStor.global.sashTypeBlock.length>0) {
+              var double = GlobalStor.global.sashTypeBlock.filter(function(sash) {
+                if(sash === block[0].id) {
+                  return sash;
+                }
+              });
+              if(double.length>0) {
+                GlobalStor.global.sashTypeBlock = GlobalStor.global.sashTypeBlock.filter(function(sash) {
+                  if(!sash === double) {
+                    return sash;
+                  }
+                });
+              } else {
+                GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
+              }
+            } else {
+              GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
+            }    
+          } else {
+            test(blocks, blocksQty, block[0].parent);
+          }
+        } else { 
+                    //------ show error
+          showErrorInBlock(GlobalStor.global.allGlass[0].attributes.block_id.nodeValue, globalConstants.SVG_ID_GRID);
+        }
+      }
+
+      function test2(items, blocks) {
+        var temp = [];
+        if(items.length>0) {
+          GlobalStor.global.children = _.uniq(GlobalStor.global.children.concat(items));
+          GlobalStor.global.childrenTEMP = angular.copy(GlobalStor.global.children);
+          for(var j=0; j<blocks.length; j+=1) {
+            for(var x=0; x<items.length; x+=1) {
+              if(items[x] === blocks[j].id) {
+                temp = _.union(temp, blocks[j].children);
+              }
+            }
+          }
+
+          test2(temp, blocks);     
+        } else {
+          test3();
+        }
+      }
+
+      function test3() {
+        var glasses = GlobalStor.global.allGlass.filter(function(gl) {
+          for(var t=0; t<GlobalStor.global.children.length; t+=1) {
+            if(d3.select(gl)[0][0].attributes.block_id.nodeValue == GlobalStor.global.children[t]) {
+              (isExistElementInSelected(d3.select(gl)[0][0], DesignStor.design.selectedGlass)) ? d3.select(gl).classed('glass-active', true) : d3.select(gl).classed('glass-active', false);
+            }
+          }
+        })
+      }
+
+      GlobalStor.global.sashTypeBlock = [];
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#'+globalConstants.SVG_ID_GRID+' .glass')
         .each(function() {
-          var glass = d3.select(this);
+          var glass = GlobalStor.global.mosGlassRes = d3.select(this);
           glass.on(clickEvent, function() {
+            GlobalStor.global.parents = [];
+            GlobalStor.global.children = [];
             var blocks = ProductStor.product.template.details,
                 blocksQty = blocks.length,
                 blockID = glass[0][0].attributes.block_id.nodeValue,
-                isGlass;
+                parentID = glass[0][0].attributes.parent_id.nodeValue,
+                items = $(this).siblings(),
+                isGlass, allGlass = [];
+                allGlass.push(this);
+                for(var x=0; x<items.length; x+=1) {
+                  if(items[x].__data__) {
+                    if(items[x].__data__.type) {
+                      if(items[x].__data__.type === 'glass') {
+                        allGlass.push(items[x]);
+                      }
+                    }
+                  }
+                }
+                GlobalStor.global.allGlass = allGlass;
             //-------- check glass per sash
             while(--blocksQty > 0) {
               if(blocks[blocksQty].id === blockID) {
@@ -10848,8 +10943,7 @@ function ErrorResult(code, message) {
                     glass.classed('glass-active', false);
                   }
                 } else {
-                  //------ show error
-                  showErrorInBlock(blockID, globalConstants.SVG_ID_GRID);
+                  test(blocks, blocksQty, parentID)
                 }
               }
             }
@@ -26757,21 +26851,21 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      MainServ.setDefaultDoorConfig();
+      
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
 
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        if(GlobalStor.global.currOpenPage === 'design') {
-          //--------- set template from ProductStor
-          DesignServ.setDefaultConstruction();
-        }
-      });
-      
       function goToNewTemplate() {
+        MainServ.setDefaultDoorConfig();
+        MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+          if(GlobalStor.global.currOpenPage === 'design') {
+            //--------- set template from ProductStor
+            DesignServ.setDefaultConstruction();
+          }
+        });
         //------ change last changed template to old one
         backDefaultTemplate();
         GlobalStor.global.isChangedTemplate = 0;
@@ -26787,8 +26881,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           goToNewTemplate
         );
       } else {
-        newPriceForNewTemplate(templateIndex, roomInd);
-      }
+          MainServ.setDefaultDoorConfig();
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+            if(GlobalStor.global.currOpenPage === 'design') {
+              //--------- set template from ProductStor
+              DesignServ.setDefaultConstruction();
+            }
+          });
+          newPriceForNewTemplate(templateIndex, roomInd);
+        }
     }
 
 

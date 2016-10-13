@@ -389,7 +389,7 @@
       while(--blocksQty > 0) {
         if(blockId) {
           /** set grid to template block by its Id */
-          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId && ProductStor.product.template_source.details[blocksQty].blockType === 'sash') {
             /** check block to old grid
              * delete in product.choosenAddElements if exist
              * */
@@ -474,8 +474,10 @@
     function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
-      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
-      if(!existedElement) {
+      if(index !== 0) {
+        existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement);
+      }
+      if(!existedElement || index == 0) {
         var newElementSource = {
               element_type: index,
               element_width: 0,
@@ -519,12 +521,22 @@
 
     /** set Selected Grids */
     function confirmGrid() {
-      if(DesignStor.design.selectedGlass.length) {
-        var grids = DesignStor.design.selectedGlass.map(function(item) {
-          var blockId = item.attributes.block_id.nodeValue;
-          //------- collect grids relative to blocks
+      var gridsT = [], grids = [];
+      if(GlobalStor.global.sashTypeBlock.length>0) {
+        gridsT = GlobalStor.global.sashTypeBlock.map(function(item) {
+          var blockId = item;
           return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
         });
+      }
+      if(DesignStor.design.selectedGlass.length) {
+        grids = DesignStor.design.selectedGlass.map(function(item) {
+          var blockId = item.attributes.block_id.nodeValue;
+          return collectGridsAsBlock(blockId, AuxStor.aux.selectedGrid)[0];
+        });
+      }
+
+      grids = _.union(_.compact(grids), gridsT);
+      if(grids.length>0) {
         insertGrids(grids);
       }
     }
