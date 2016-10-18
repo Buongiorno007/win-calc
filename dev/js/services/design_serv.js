@@ -1785,110 +1785,141 @@
 
 
     function createSash(type, glassObj) {
+      console.log(glassObj, 'glassObj')
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
+          parentID = glassObj.attributes.parent_id.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           minGlassSize = d3.min(glass.sizes),
           sashesParams, b;
 
-      /**---- shtulps ---*/
-      if(type === 8 || type === 9) {
-        if(minGlassSize >= globalConstants.minSizeLimitStulp) {
-
-          if(type === 8) {
-            sashesParams = [
-              {
-                openDir: [4],
-                handlePos: 0,
-                sashType: 4
-              },
-              {
-                openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
-                handlePos: 2,
-                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+      function permit(parentID, blocks) {
+        var defer = $q.defer();
+        function subPermit(parent, blocks) {
+          if(parent && !parent === 'block_0') {
+            var block = blocks.filter(function(item) {
+              if(item.id === parent) {
+                return item;
               }
-            ];
-          } else if(type === 9) {
-            sashesParams = [
-              {
-                openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
-                handlePos: 4,
-                sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
-              },
-              {
-                openDir: [2],
-                handlePos: 0,
-                sashType: 4
-              }
-            ];
-          }
-
-          createShtulp(blockID, sashesParams);
-
-        } else {
-          //------ show error
-          showErrorInBlock(blockID);
-        }
-
-      } else {
-
-        if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
-
-          //---- save last step
-          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
-
-          for(b = 1; b < blocksQty; b+=1) {
-            if(blocks[b].id === blockID) {
-              blocks[b].blockType = 'sash';
-              blocks[b].gridId = 0;
-              blocks[b].gridTxt = '';
-
-              switch (type) {
-                //----- 'left'
-                case 2:
-                  blocks[b].openDir = [4];
-                  blocks[b].handlePos = 4;
-                  blocks[b].sashType = 2;
-                  break;
-                //----- 'right'
-                case 3:
-                  blocks[b].openDir = [2];
-                  blocks[b].handlePos = 2;
-                  blocks[b].sashType = 2;
-                  break;
-                //----- 'up'
-                case 4:
-                  blocks[b].openDir = [1];
-                  blocks[b].handlePos = 1;
-                  blocks[b].sashType = 7;
-                  break;
-                //------ 'down'
-                case 5:
-                  blocks[b].openDir = [3];
-                  blocks[b].handlePos = 3;
-                  blocks[b].sashType = 2;
-                  break;
-                //------ 'up', 'right'
-                case 6:
-                  blocks[b].openDir = [1, 2];
-                  blocks[b].handlePos = 2;
-                  blocks[b].sashType = 6;
-                  break;
-                //------ 'up', 'left'
-                case 7:
-                  blocks[b].openDir = [1, 4];
-                  blocks[b].handlePos = 4;
-                  blocks[b].sashType = 6;
-                  break;
-              }
-              //----- change Template
-              rebuildSVGTemplate();
+            });
+            if(block[0].blockType !== "sash") {
+              subPermit(blocks, blocksQty, block[0].parent);
+            } else {
+              return 'error';
             }
+          } else { 
+            return 'good';
+          }  
+        }
+        (subPermit(parentID, blocks) === 'good')? defer.resolve('good'): defer.resolve('error');
+        return defer.promise;
+      }
+
+      permit(parentID, blocks).then(function(result) {
+        console.log(result, 'result')
+        doSash(type, glassObj);
+      }); 
+
+      function doSash(type, glassObj) {
+        /**---- shtulps ---*/
+        if(type === 8 || type === 9) {
+          if(minGlassSize >= globalConstants.minSizeLimitStulp) {
+
+            if(type === 8) {
+              sashesParams = [
+                {
+                  openDir: [4],
+                  handlePos: 0,
+                  sashType: 4
+                },
+                {
+                  openDir: (ProductStor.product.construction_type === 4) ? [2] : [1, 2],
+                  handlePos: 2,
+                  sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                }
+              ];
+            } else if(type === 9) {
+              sashesParams = [
+                {
+                  openDir: (ProductStor.product.construction_type === 4) ? [4] : [1, 4],
+                  handlePos: 4,
+                  sashType: (ProductStor.product.construction_type === 4) ? 2 : 17
+                },
+                {
+                  openDir: [2],
+                  handlePos: 0,
+                  sashType: 4
+                }
+              ];
+            }
+
+            createShtulp(blockID, sashesParams);
+
+          } else {
+            //------ show error
+            showErrorInBlock(blockID);
           }
+
         } else {
-          //------ show error
-          showErrorInBlock(blockID);
+
+          if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+
+            //---- save last step
+            DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
+            for(b = 1; b < blocksQty; b+=1) {
+              if(blocks[b].id === blockID) {
+                blocks[b].blockType = 'sash';
+                blocks[b].gridId = 0;
+                blocks[b].gridTxt = '';
+
+                switch (type) {
+                  //----- 'left'
+                  case 2:
+                    blocks[b].openDir = [4];
+                    blocks[b].handlePos = 4;
+                    blocks[b].sashType = 2;
+                    break;
+                  //----- 'right'
+                  case 3:
+                    blocks[b].openDir = [2];
+                    blocks[b].handlePos = 2;
+                    blocks[b].sashType = 2;
+                    break;
+                  //----- 'up'
+                  case 4:
+                    blocks[b].openDir = [1];
+                    blocks[b].handlePos = 1;
+                    blocks[b].sashType = 7;
+                    break;
+                  //------ 'down'
+                  case 5:
+                    blocks[b].openDir = [3];
+                    blocks[b].handlePos = 3;
+                    blocks[b].sashType = 2;
+                    break;
+                  //------ 'up', 'right'
+                  case 6:
+                    blocks[b].openDir = [1, 2];
+                    blocks[b].handlePos = 2;
+                    blocks[b].sashType = 6;
+                    break;
+                  //------ 'up', 'left'
+                  case 7:
+                    blocks[b].openDir = [1, 4];
+                    blocks[b].handlePos = 4;
+                    blocks[b].sashType = 6;
+                    break;
+                }
+                //----- change Template
+                rebuildSVGTemplate();
+              }
+            }
+          } else {
+            //------ show error
+            showErrorInBlock(blockID);
+          }
         }
       }
     }
