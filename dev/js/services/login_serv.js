@@ -1338,11 +1338,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_hardware_items.tableName
       ).then(function(doorData) {
-        for(var x=0; x<doorData.length; x+=1) {
-          doorData[x].parent_element_id = doorData[x].child_id;
-          delete doorData[x].child_id;
+        var items = angular.copy(doorData);
+        for(var x=0; x<items.length; x+=1) {
+          items[x].parent_element_id = items[x].child_id;
+          delete items[x].child_id;
         }
-        GlobalStor.global.doorsItems = angular.copy(doorData)
+        GlobalStor.global.doorsItems = angular.copy(items);
       });
     }
 

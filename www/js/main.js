@@ -9441,11 +9441,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //localPath: '/calculator/local/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
 
       STEP: 50,
@@ -19048,11 +19048,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_hardware_items.tableName
       ).then(function(doorData) {
-        for(var x=0; x<doorData.length; x+=1) {
-          doorData[x].parent_element_id = doorData[x].child_id;
-          delete doorData[x].child_id;
+        var items = angular.copy(doorData);
+        for(var x=0; x<items.length; x+=1) {
+          items[x].parent_element_id = items[x].child_id;
+          delete items[x].child_id;
         }
-        GlobalStor.global.doorsItems = angular.copy(doorData)
+        GlobalStor.global.doorsItems = angular.copy(items);
       });
     }
 
