@@ -1735,55 +1735,55 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
-          // //------- check available Local DB
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          //------- check available Local DB
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -10510,18 +10510,31 @@ function ErrorResult(code, message) {
 
     function setDoorParamValue(product, source) {
       var w =[900], h = [2000];
+      var k = product.door_lock_shape_id || 0;
       var widthTEMP, heightTEMP;
+      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
-      var k = product.door_lock_shape_id || 0;
+      function countHandle(source) {
+        var count = source.templateTEMP.details.filter(function(item) {
+          if(item.blockType == 'sash') {
+            if(item.handlePos !== 0) {
+              return item;
+            }
+          }
+        })
+        return count;
+      }
+
+      source.lockShapeList[k].elem = [];
       product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
       product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-      source.lockShapeList[k].elem = [];
       product.doorLock = source.lockShapeList[k];
+      product.doorHandle.count = countHandle(source).length;
+      console.log(doorsItems, 'doorsItems')
       for(var x=0; x<doorsItems.length; x+=1) {
         if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
@@ -11283,7 +11296,6 @@ function ErrorResult(code, message) {
 
 
     function createSash(type, glassObj) {
-      console.log(glassObj, 'glassObj')
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
           parentID = glassObj.attributes.parent_id.nodeValue,
@@ -11295,28 +11307,31 @@ function ErrorResult(code, message) {
       function permit(parentID, blocks) {
         var defer = $q.defer();
         function subPermit(parent, blocks) {
-          if(parent && !parent === 'block_0') {
-            var block = blocks.filter(function(item) {
-              if(item.id === parent) {
-                return item;
+          if(parent) {
+            if(parent !== 'block_0') {
+              var block = blocks.filter(function(item) {
+                if(item.id === parent) {
+                  return item;
+                }
+              });
+              if(block[0].blockType !== "sash") {
+                subPermit(block[0].parent, blocks);
+              } else {
+                defer.resolve('error');
               }
-            });
-            if(block[0].blockType !== "sash") {
-              subPermit(blocks, blocksQty, block[0].parent);
-            } else {
-              return 'error';
-            }
+            } else { 
+              defer.resolve('good');
+            }  
           } else { 
-            return 'good';
+            defer.resolve('good');
           }  
         }
-        (subPermit(parentID, blocks) === 'good')? defer.resolve('good'): defer.resolve('error');
+        subPermit(parentID, blocks);
         return defer.promise;
       }
 
       permit(parentID, blocks).then(function(result) {
-        console.log(result, 'result')
-        doSash(type, glassObj);
+        (result === 'good' || ProductStor.product.construction_type !==4)?doSash(type, glassObj): showErrorInBlock(blockID);
       }); 
 
       function doSash(type, glassObj) {
