@@ -1012,18 +1012,31 @@
 
     function setDoorParamValue(product, source) {
       var w =[900], h = [2000];
+      var k = product.door_lock_shape_id || 0;
       var widthTEMP, heightTEMP;
+      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
-      var k = product.door_lock_shape_id || 0;
+      function countHandle(source) {
+        var count = source.templateTEMP.details.filter(function(item) {
+          if(item.blockType == 'sash') {
+            if(item.handlePos !== 0) {
+              return item;
+            }
+          }
+        })
+        return count;
+      }
+
+      source.lockShapeList[k].elem = [];
       product.door_group_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].id);
       product.template_source.profile_window_id = angular.copy(source.sashShapeList[product.door_sash_shape_id].profileId);
       product.doorName = source.doorShapeList[product.door_shape_id].name;
       product.doorSashName = source.sashShapeList[product.door_sash_shape_id].name;
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
-      var doorsItems = angular.copy(GlobalStor.global.doorsItems);
-      source.lockShapeList[k].elem = [];
       product.doorLock = source.lockShapeList[k];
+      product.doorHandle.count = countHandle(source).length;
+      console.log(doorsItems, 'doorsItems')
       for(var x=0; x<doorsItems.length; x+=1) {
         if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
           if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
