@@ -1785,7 +1785,6 @@
 
 
     function createSash(type, glassObj) {
-      console.log(glassObj, 'glassObj')
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
           parentID = glassObj.attributes.parent_id.nodeValue,
@@ -1797,28 +1796,31 @@
       function permit(parentID, blocks) {
         var defer = $q.defer();
         function subPermit(parent, blocks) {
-          if(parent && !parent === 'block_0') {
-            var block = blocks.filter(function(item) {
-              if(item.id === parent) {
-                return item;
+          if(parent) {
+            if(parent !== 'block_0') {
+              var block = blocks.filter(function(item) {
+                if(item.id === parent) {
+                  return item;
+                }
+              });
+              if(block[0].blockType !== "sash") {
+                subPermit(block[0].parent, blocks);
+              } else {
+                defer.resolve('error');
               }
-            });
-            if(block[0].blockType !== "sash") {
-              subPermit(blocks, blocksQty, block[0].parent);
-            } else {
-              return 'error';
-            }
+            } else { 
+              defer.resolve('good');
+            }  
           } else { 
-            return 'good';
+            defer.resolve('good');
           }  
         }
-        (subPermit(parentID, blocks) === 'good')? defer.resolve('good'): defer.resolve('error');
+        subPermit(parentID, blocks);
         return defer.promise;
       }
 
       permit(parentID, blocks).then(function(result) {
-        console.log(result, 'result')
-        doSash(type, glassObj);
+        (result === 'good' || ProductStor.product.construction_type !==4)?doSash(type, glassObj): showErrorInBlock(blockID);
       }); 
 
       function doSash(type, glassObj) {
