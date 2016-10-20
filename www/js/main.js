@@ -10512,9 +10512,11 @@ function ErrorResult(code, message) {
       var w =[900], h = [2000];
       var k = product.door_lock_shape_id || 0;
       var widthTEMP, heightTEMP;
+      var clipboard;
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
+      
       function countHandle(source) {
         var count = source.templateTEMP.details.filter(function(item) {
           if(item.blockType == 'sash') {
@@ -10534,15 +10536,27 @@ function ErrorResult(code, message) {
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[k];
       product.doorHandle.count = countHandle(source).length;
-      console.log(doorsItems, 'doorsItems')
-      for(var x=0; x<doorsItems.length; x+=1) {
-        if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
-          if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-            if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
-              if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
-                if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
-                  if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
-                    source.lockShapeList[k].elem.push(doorsItems[x]);
+      for(var e=0; e<source.templateTEMP.details.length; e+=1) {
+        if(source.templateTEMP.details[e].blockType == 'sash') {
+          if(source.templateTEMP.details[e].handlePos !== 0) {
+            if(source.templateTEMP.details[e].openDir[0] === 4) {
+               source.templateTEMP.details[e].openDir[0] = 3;
+            } 
+            for(var x=0; x<doorsItems.length; x+=1) {
+              if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
+                if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
+                  if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+                      if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                        if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                          if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                            doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
+                            clipboard = angular.copy(doorsItems[x]);
+                            source.lockShapeList[k].elem.push(clipboard);
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -12627,7 +12641,16 @@ function ErrorResult(code, message) {
     /**------- Save and Close Construction Page ----------*/
     function saveSizeCheck() {
       if(ProductStor.product.construction_type === 4) {
-        rebuildSVGTemplate();
+
+        selectDoor(ProductStor.product.door_shape_id, ProductStor.product);
+        selectSash(ProductStor.product.door_sash_shape_id, ProductStor.product).then(function(res) {
+          selectHandle(ProductStor.product.door_handle_shape_id, ProductStor.product);
+          selectLock(ProductStor.product.door_lock_shape_id, ProductStor.product);
+          saveDoorConfig(ProductStor.product).then(function(res2) {
+            rebuildSVGTemplate();
+          });
+        });
+  
         checkSize(DesignStor.design.templateTEMP);
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
@@ -17328,7 +17351,11 @@ function ErrorResult(code, message) {
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
         elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
       }
-      elemObj.qty = (kit) ? kit.value : 1;
+      if(elem.count) {
+        elemObj.qty = elem.count;
+      } else {
+        elemObj.qty = (kit) ? kit.value : 1;
+      }
       elemObj.size = 0;
       elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
       container.priceTot += elemObj.priceReal;
@@ -17355,9 +17382,10 @@ function ErrorResult(code, message) {
         element.value = element.count;
         return element.position === 'element'
       });
-          
+
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
+        handleData.count = handleSource.count;
         getDoorElem(priceObj, handleData);
         (function nextRecord() {
             if (list.length) {
@@ -17369,10 +17397,15 @@ function ErrorResult(code, message) {
                 var listArr = [];
                 parseListContent(firstKitId.parent_element_id).then(function(result2) {
                     if(result2 !== 0) {
-                        listArr = angular.copy(result2);
-                        for(var x=0; x<listArr.length; x+=1) {
-                            listArr[x].parent_element_id = listArr[x].child_id;
+                      listArr = angular.copy(result2);
+                      for(var x=0; x<listArr.length; x+=1) {
+                        listArr[x].parent_element_id = listArr[x].child_id;
+                      }
+                      listArr = listArr.filter(function(item) {
+                        if(item.direction_id == 1 || item.direction_id == firstKitId.openDir) {
+                          return item
                         }
+                      });
                     }
                     result = result.concat(listArr);
 
@@ -17406,21 +17439,20 @@ function ErrorResult(code, message) {
                       _cb(null);
                     });
                   }
-
                 });
             });
-        } else {
+          } else {
             priceObj.consist = elements;
             parseConsistElem([priceObj.consist]).then(function(consistElem) {
-                //console.warn('consistElem!!!!!!+', consistElem);
-                priceObj.consistElem = consistElem[0];
-                var elemsQty = priceObj.consist.length;
-                while(--elemsQty > -1) {
-                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-                }
-                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-                //console.warn('!!!!!!+', priceObj);
-                deffMain.resolve(priceObj);
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
             });
           }
         })();
