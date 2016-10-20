@@ -6557,13 +6557,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                           }
                         }   
                       } else {
-                        if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock !==6) {
+                        if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type !==6) {
                           if ((d.type === 'frame') || (d.type === 'impost')) {
                             fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
                           } else {
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
                             }
-                        } else if(ProductStor.product.lamination.img_in_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
+                        } else if(ProductStor.product.lamination.img_out_id > 1 && ProductStor.product.doorLock.stvorka_type === 6) {
                           if ((d.type === 'frame') || (d.type === 'impost')) {
                             fillName = (d.type !== 'glass') ? 'url(#laminat)' : '';
                           } else {
