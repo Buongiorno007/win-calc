@@ -2752,7 +2752,11 @@
       if (UserStor.userInfo.currencyId != elemObj.currency_id) {
         elemObj.price = GeneralServ.roundingValue(currencyExgange(elemObj.price, elemObj.currency_id), 3);
       }
-      elemObj.qty = (kit) ? kit.value : 1;
+      if(elem.count) {
+        elemObj.qty = elem.count;
+      } else {
+        elemObj.qty = (kit) ? kit.value : 1;
+      }
       elemObj.size = 0;
       elemObj.priceReal = GeneralServ.roundingValue((elemObj.price * elemObj.qty), 3);
       container.priceTot += elemObj.priceReal;
@@ -2779,9 +2783,10 @@
         element.value = element.count;
         return element.position === 'element'
       });
-          
+
       getElementByListId(0, handleSource.parent_element_id).then(function(handleData) {
         //console.info('price handle kit', handleData);
+        handleData.count = handleSource.count;
         getDoorElem(priceObj, handleData);
         (function nextRecord() {
             if (list.length) {
@@ -2793,10 +2798,15 @@
                 var listArr = [];
                 parseListContent(firstKitId.parent_element_id).then(function(result2) {
                     if(result2 !== 0) {
-                        listArr = angular.copy(result2);
-                        for(var x=0; x<listArr.length; x+=1) {
-                            listArr[x].parent_element_id = listArr[x].child_id;
+                      listArr = angular.copy(result2);
+                      for(var x=0; x<listArr.length; x+=1) {
+                        listArr[x].parent_element_id = listArr[x].child_id;
+                      }
+                      listArr = listArr.filter(function(item) {
+                        if(item.direction_id == 1 || item.direction_id == firstKitId.openDir) {
+                          return item
                         }
+                      });
                     }
                     result = result.concat(listArr);
 
@@ -2830,21 +2840,20 @@
                       _cb(null);
                     });
                   }
-
                 });
             });
-        } else {
+          } else {
             priceObj.consist = elements;
             parseConsistElem([priceObj.consist]).then(function(consistElem) {
-                //console.warn('consistElem!!!!!!+', consistElem);
-                priceObj.consistElem = consistElem[0];
-                var elemsQty = priceObj.consist.length;
-                while(--elemsQty > -1) {
-                  getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
-                }
-                priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
-                //console.warn('!!!!!!+', priceObj);
-                deffMain.resolve(priceObj);
+              //console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem[0];
+              var elemsQty = priceObj.consist.length;
+              while(--elemsQty > -1) {
+                getDoorElem(priceObj, priceObj.consistElem[elemsQty], priceObj.consist[elemsQty]);
+              }
+              priceObj.priceTot = (isNaN(priceObj.priceTot)) ? 0 : GeneralServ.roundingValue(priceObj.priceTot);
+              //console.warn('!!!!!!+', priceObj);
+              deffMain.resolve(priceObj);
             });
           }
         })();

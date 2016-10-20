@@ -1014,9 +1014,11 @@
       var w =[900], h = [2000];
       var k = product.door_lock_shape_id || 0;
       var widthTEMP, heightTEMP;
+      var clipboard;
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
+      
       function countHandle(source) {
         var count = source.templateTEMP.details.filter(function(item) {
           if(item.blockType == 'sash') {
@@ -1036,15 +1038,27 @@
       product.doorHandle = source.handleShapeList[product.door_handle_shape_id];
       product.doorLock = source.lockShapeList[k];
       product.doorHandle.count = countHandle(source).length;
-      console.log(doorsItems, 'doorsItems')
-      for(var x=0; x<doorsItems.length; x+=1) {
-        if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
-          if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-            if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
-              if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
-                if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
-                  if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
-                    source.lockShapeList[k].elem.push(doorsItems[x]);
+      for(var e=0; e<source.templateTEMP.details.length; e+=1) {
+        if(source.templateTEMP.details[e].blockType == 'sash') {
+          if(source.templateTEMP.details[e].handlePos !== 0) {
+            if(source.templateTEMP.details[e].openDir[0] === 4) {
+               source.templateTEMP.details[e].openDir[0] = 3;
+            } 
+            for(var x=0; x<doorsItems.length; x+=1) {
+              if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
+                if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
+                  if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+                      if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
+                        if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
+                          if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
+                            doorsItems[x].openDir = source.templateTEMP.details[e].openDir[0];
+                            clipboard = angular.copy(doorsItems[x]);
+                            source.lockShapeList[k].elem.push(clipboard);
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -3129,7 +3143,16 @@
     /**------- Save and Close Construction Page ----------*/
     function saveSizeCheck() {
       if(ProductStor.product.construction_type === 4) {
-        rebuildSVGTemplate();
+
+        selectDoor(ProductStor.product.door_shape_id, ProductStor.product);
+        selectSash(ProductStor.product.door_sash_shape_id, ProductStor.product).then(function(res) {
+          selectHandle(ProductStor.product.door_handle_shape_id, ProductStor.product);
+          selectLock(ProductStor.product.door_lock_shape_id, ProductStor.product);
+          saveDoorConfig(ProductStor.product).then(function(res2) {
+            rebuildSVGTemplate();
+          });
+        });
+  
         checkSize(DesignStor.design.templateTEMP);
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
