@@ -3144,16 +3144,31 @@
     function saveSizeCheck() {
       if(ProductStor.product.construction_type === 4) {
 
+        DesignStor.design.steps.selectedStep3 = 0;
+        DesignStor.design.steps.selectedStep4 = 0;
+        DesignStor.design.doorConfig.lockShapeIndex = '';
+        DesignStor.design.doorConfig.handleShapeIndex = '';
+        DesignStor.design.steps.selectedStep2 = 0;
+        DesignStor.design.doorConfig.sashShapeIndex = '';
+        DesignStor.design.steps.selectedStep1 = 0;
+        DesignStor.design.doorConfig.doorShapeIndex = '';
+        //------ close door config
+        DesignStor.design.steps.isDoorConfig = 0;
+        //------ set Default indexes
+        DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
+
         selectDoor(ProductStor.product.door_shape_id, ProductStor.product);
         selectSash(ProductStor.product.door_sash_shape_id, ProductStor.product).then(function(res) {
           selectHandle(ProductStor.product.door_handle_shape_id, ProductStor.product);
           selectLock(ProductStor.product.door_lock_shape_id, ProductStor.product);
           saveDoorConfig(ProductStor.product).then(function(res2) {
             rebuildSVGTemplate();
+            checkSize(DesignStor.design.templateTEMP);
           });
         });
-  
-        checkSize(DesignStor.design.templateTEMP);
+
+        
+        
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
             clearInterval(intervalID);
