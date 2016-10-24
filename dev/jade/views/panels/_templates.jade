@@ -3,7 +3,7 @@
       //.construction-type.hide(fs-click="templatesPanel.closeTemplates()")
       .construction-type.type-btn(ng-repeat="name in templatesPanel.templateName track by $index", fs-click="templatesPanel.selectNewTemplateType($index+1)", ng-class="{'selected': templatesPanel.selected === $index+1}") {{ ::templatesPanel.templateName[$index]|translate }}
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-        .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index", fs-click="templatesPanel.selectNewTemplate($index)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
+        .other-template(ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index", fs-click="templatesPanel.selectNewTemplate($index)", ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-label.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}

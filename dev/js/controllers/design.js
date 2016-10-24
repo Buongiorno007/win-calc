@@ -78,10 +78,10 @@
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
-    DesignStor.design = DesignStor.setDefaultDesign();
+    //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
-    DesignServ.setDefaultTemplate();
-
+    //DesignServ.setDefaultTemplate();
+    console.log(ProductStor.product, 'design')
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){

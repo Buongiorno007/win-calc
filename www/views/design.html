@@ -189,7 +189,7 @@
         <div ng-repeat="name in templatesPanel.templateName track by $index" fs-click="templatesPanel.selectNewTemplateType($index+1)" ng-class="{'selected': templatesPanel.selected === $index+1}" class="construction-type type-btn">{{ ::templatesPanel.templateName[$index]|translate }}</div>
       </div>
       <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
-        <div ng-repeat="templateIcon in templatesPanel.templatesImgs track by $index" fs-click="templatesPanel.selectNewTemplate($index)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-template">
+        <div ng-repeat="templateIcon in templatesPanel.G.global.templatesImgs track by $index" fs-click="templatesPanel.selectNewTemplate($index)" ng-class="{'selected': templatesPanel.G.global.selectedTemplate === $index}" class="other-template">
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ templatesPanel.G.global.templateLabel }}</div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>

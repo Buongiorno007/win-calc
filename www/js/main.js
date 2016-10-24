@@ -596,10 +596,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
     //------ cleaning DesignStor
-    DesignStor.design = DesignStor.setDefaultDesign();
+    //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
-    DesignServ.setDefaultTemplate();
-
+    //DesignServ.setDefaultTemplate();
+    console.log(ProductStor.product, 'design')
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
@@ -3676,7 +3676,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //---------- download templates Img icons
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs;
+            GlobalStor.global.templatesImgs = results.data.templateImgs;
           } else {
             console.log(results);
           }
@@ -3694,32 +3694,27 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
-
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
-      if(marker === 3) {
-        marker = 4;
-      }
+      marker = (marker==3)? 4:marker;
+
       GlobalStor.global.templatesType = marker;
 
-        optionsServ.getTemplateImgIcons(function (results) {
-          if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === marker;
-            });
-          } else {
-            console.log(results);
-          }
-        });
+      optionsServ.getTemplateImgIcons(function (results) {
+        if (results.status) {
+          GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
+            return data.type === marker;
+          });
+        };
+      });
       
-
-        MainServ.downloadAllTemplates(marker).then(function(data) {
-          if (data) {
-            GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-            GlobalStor.global.templatesSource = angular.copy(data);
-          }
-        });
+      MainServ.downloadAllTemplates(marker).then(function(data) {
+        if (data) {
+          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+          GlobalStor.global.templatesSource = angular.copy(data);
+        }
+      });
 
       GlobalStor.global.isTemplateTypeMenu = 0;
 
@@ -4694,7 +4689,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     TemplatesServ,
     GlobalStor,
     ProductStor,
-    UserStor
+    UserStor,
+    optionsServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -4712,6 +4708,23 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     //---------- Room Select
     function selectRoom(id) {
+
+      optionsServ.getTemplateImgIcons(function(results) {
+        if (results.status) {
+          GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
+            return data.type === GlobalStor.global.rooms[id].group_id;
+          });
+        };
+      });
+      MainServ.downloadAllTemplates(GlobalStor.global.rooms[id].group_id).then(function(data) {
+        if (data) {
+          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+          GlobalStor.global.templatesSource = angular.copy(data);
+        }
+      });
+
+
+
       if(GlobalStor.global.selectRoom === 0) {
         $location.path('/design');
         GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
@@ -4730,6 +4743,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
   });
 })();
+
 
 
 // controllers/parts/search_box.js
@@ -9441,11 +9455,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //localPath: '/calculator/local/',
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.steko.com.ua',
+      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
 
       STEP: 50,
@@ -19628,6 +19642,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function setCurrentGlass(product, id) {
+      console.log(product, id, 'product, id')
       //------- cleaning glass in product
       product.glass.length = 0;
       if(id) {
@@ -19636,6 +19651,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             glassIdsQty = glassIds.length;
         //------- glass filling by new elements
         while(--glassIdsQty > -1) {
+          console.log(glassIds, GlobalStor.global.glasses, 'GlobalStor.global.glasses')
           product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
         }
       } else {
@@ -26836,7 +26852,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    SVGServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -26850,7 +26867,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        ProductStor.product.glass.length = 0;
+        //ProductStor.product.glass.length = 0;
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -26895,30 +26912,40 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           DesignStor.design.isNoDoors = 1;
         } 
           /** set new Template Group */
-          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
+          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id || ProductStor.product.construction_type===4) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+            if(ProductStor.product.construction_type !== 4) {
 
-            /** rebuild profile */
-            MainServ.setCurrentProfile(ProductStor.product, 0);
+              /** rebuild profile */
+              MainServ.setCurrentProfile(ProductStor.product, 0);
 
-            /** DOOR */
-            if(ProductStor.product.construction_type === 4) {
-              //------ cleaning DesignStor
-              DesignStor.design = DesignStor.setDefaultDesign();
+              /** DOOR */
+              // if(ProductStor.product.construction_type === 4) {
+              //   //------ cleaning DesignStor
+              //   DesignStor.design = DesignStor.setDefaultDesign();
 
-              //---- set door profile
-              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
-                GlobalStor.global.profiles
-              ));
-            }
-
+              //   //---- set door profile
+              //   ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+              //     DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
+              //     GlobalStor.global.profiles
+              //   ));
+              // }
+            } 
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
               if (data) {
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
-
-                culcPriceNewTemplate(templateIndex);
+                if (ProductStor.product.construction_type === 4) {
+                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
+                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+                    ProductStor.product.template = angular.copy(result);
+                    DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
+                      culcPriceNewTemplate(templateIndex);
+                    });
+                  });
+                } else {
+                  culcPriceNewTemplate(templateIndex);
+                }
               }
             });
           } else {
@@ -26945,7 +26972,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
@@ -26961,9 +26987,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           }
         });
         //------ change last changed template to old one
-        backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        DesignStor.design.designSteps.length = 0;
+        //backDefaultTemplate();
+        //GlobalStor.global.isChangedTemplate = 0;
+        //DesignStor.design.designSteps.length = 0;
         newPriceForNewTemplate(templateIndex, roomInd);
       }
 

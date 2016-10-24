@@ -15,7 +15,8 @@
     OrderStor,
     ProductStor,
     DesignStor,
-    UserStor
+    UserStor,
+    SVGServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
@@ -29,7 +30,7 @@
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        ProductStor.product.glass.length = 0;
+        //ProductStor.product.glass.length = 0;
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -74,30 +75,40 @@
           DesignStor.design.isNoDoors = 1;
         } 
           /** set new Template Group */
-          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id) {
+          if(ProductStor.product.construction_type !== GlobalStor.global.rooms[roomInd-1].group_id || ProductStor.product.construction_type===4) {
             ProductStor.product.construction_type = GlobalStor.global.rooms[roomInd-1].group_id;
+            if(ProductStor.product.construction_type !== 4) {
 
-            /** rebuild profile */
-            MainServ.setCurrentProfile(ProductStor.product, 0);
+              /** rebuild profile */
+              MainServ.setCurrentProfile(ProductStor.product, 0);
 
-            /** DOOR */
-            if(ProductStor.product.construction_type === 4) {
-              //------ cleaning DesignStor
-              DesignStor.design = DesignStor.setDefaultDesign();
+              /** DOOR */
+              // if(ProductStor.product.construction_type === 4) {
+              //   //------ cleaning DesignStor
+              //   DesignStor.design = DesignStor.setDefaultDesign();
 
-              //---- set door profile
-              ProductStor.product.profile = angular.copy(MainServ.fineItemById(
-                DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
-                GlobalStor.global.profiles
-              ));
-            }
-
+              //   //---- set door profile
+              //   ProductStor.product.profile = angular.copy(MainServ.fineItemById(
+              //     DesignStor.design.sashShapeList[ProductStor.product.door_sash_shape_id].profileId,
+              //     GlobalStor.global.profiles
+              //   ));
+              // }
+            } 
             MainServ.downloadAllTemplates(ProductStor.product.construction_type).then(function(data) {
               if (data) {
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
-
-                culcPriceNewTemplate(templateIndex);
+                if (ProductStor.product.construction_type === 4) {
+                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
+                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+                    ProductStor.product.template = angular.copy(result);
+                    DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
+                      culcPriceNewTemplate(templateIndex);
+                    });
+                  });
+                } else {
+                  culcPriceNewTemplate(templateIndex);
+                }
               }
             });
           } else {
@@ -124,7 +135,6 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
-      
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
         ProductStor.product.construction_type = GlobalStor.global.templatesType;
@@ -140,9 +150,9 @@
           }
         });
         //------ change last changed template to old one
-        backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        DesignStor.design.designSteps.length = 0;
+        //backDefaultTemplate();
+        //GlobalStor.global.isChangedTemplate = 0;
+        //DesignStor.design.designSteps.length = 0;
         newPriceForNewTemplate(templateIndex, roomInd);
       }
 

@@ -51,7 +51,7 @@
     //---------- download templates Img icons
         optionsServ.getTemplateImgIcons(function (results) {
           if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs;
+            GlobalStor.global.templatesImgs = results.data.templateImgs;
           } else {
             console.log(results);
           }
@@ -69,32 +69,27 @@
 
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
-
       GlobalStor.global.activePanel = -1;
       GlobalStor.global.selectedTemplate = -1;
       thisCtrl.selected = marker;
-      if(marker === 3) {
-        marker = 4;
-      }
+      marker = (marker==3)? 4:marker;
+
       GlobalStor.global.templatesType = marker;
 
-        optionsServ.getTemplateImgIcons(function (results) {
-          if (results.status)  {
-            thisCtrl.templatesImgs = results.data.templateImgs.filter(function(data) {
-              return data.type === marker;
-            });
-          } else {
-            console.log(results);
-          }
-        });
+      optionsServ.getTemplateImgIcons(function (results) {
+        if (results.status) {
+          GlobalStor.global.templatesImgs = results.data.templateImgs.filter(function(data) {
+            return data.type === marker;
+          });
+        };
+      });
       
-
-        MainServ.downloadAllTemplates(marker).then(function(data) {
-          if (data) {
-            GlobalStor.global.templatesSourceSTORE = angular.copy(data);
-            GlobalStor.global.templatesSource = angular.copy(data);
-          }
-        });
+      MainServ.downloadAllTemplates(marker).then(function(data) {
+        if (data) {
+          GlobalStor.global.templatesSourceSTORE = angular.copy(data);
+          GlobalStor.global.templatesSource = angular.copy(data);
+        }
+      });
 
       GlobalStor.global.isTemplateTypeMenu = 0;
 
