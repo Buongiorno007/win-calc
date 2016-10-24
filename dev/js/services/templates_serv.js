@@ -102,6 +102,7 @@
                   ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
                   SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
                     ProductStor.product.template = angular.copy(result);
+                    MainServ.setCurrentGlass(ProductStor.product);
                     DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                       culcPriceNewTemplate(templateIndex);
                     });
