@@ -599,7 +599,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //DesignStor.design = DesignStor.setDefaultDesign();
     //--------- set template from ProductStor
     //DesignServ.setDefaultTemplate();
-    console.log(ProductStor.product, 'design')
+    DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
+    DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
+    DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
   
     /**----- initialize Events again in order to svg in template pannel -------*/
     $timeout(function(){
