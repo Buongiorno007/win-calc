@@ -26940,7 +26940,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                   ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
                   SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
                     ProductStor.product.template = angular.copy(result);
-                    MainServ.setCurrentGlass(ProductStor.product);
+                    MainServ.setCurrentGlass(ProductStor.product, 1);
                     DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                       culcPriceNewTemplate(templateIndex);
                     });
@@ -26976,22 +26976,24 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function selectNewTemplate(templateIndex, roomInd) {
       //-------- check changes in current template
       if(GlobalStor.global.currOpenPage === 'design') {
-        ProductStor.product.construction_type = GlobalStor.global.templatesType;
+        
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
-
+ProductStor.product.construction_type = (roomInd)?GlobalStor.global.rooms[roomInd-1].group_id:GlobalStor.global.templatesType;
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
-        MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-          if(GlobalStor.global.currOpenPage === 'design') {
-            //--------- set template from ProductStor
-            DesignServ.setDefaultConstruction();
-          }
-        });
+        if(ProductStor.product.construction_type !==4) {
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+            if(GlobalStor.global.currOpenPage === 'design') {
+              //--------- set template from ProductStor
+              DesignServ.setDefaultConstruction();
+            }
+          });
+        }
         //------ change last changed template to old one
-        //backDefaultTemplate();
-        //GlobalStor.global.isChangedTemplate = 0;
-        //DesignStor.design.designSteps.length = 0;
+        backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        DesignStor.design.designSteps.length = 0;
         newPriceForNewTemplate(templateIndex, roomInd);
       }
 
@@ -27004,12 +27006,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         );
       } else {
           MainServ.setDefaultDoorConfig();
-          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-            if(GlobalStor.global.currOpenPage === 'design') {
-              //--------- set template from ProductStor
-              DesignServ.setDefaultConstruction();
-            }
-          });
+          if(ProductStor.product.construction_type !==4) {
+            MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+              if(GlobalStor.global.currOpenPage === 'design') {
+                //--------- set template from ProductStor
+                DesignServ.setDefaultConstruction();
+              }
+            });
+          }
           newPriceForNewTemplate(templateIndex, roomInd);
         }
     }
