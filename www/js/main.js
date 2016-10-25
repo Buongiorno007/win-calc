@@ -9458,11 +9458,11 @@ function ErrorResult(code, message) {
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
+      // serverIP: 'http://api.windowscalculator.net',
+      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
       //localPath: '/calculator/local/',
-      // serverIP: 'http://api.steko.com.ua',
-      // printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
 
       STEP: 50,
@@ -12769,9 +12769,19 @@ function ErrorResult(code, message) {
                 ProductStor.product.hardware.id,
                 ProductStor.product.lamination.lamination_in_id
               ).then(function () {
-                //-------- template was changed
-                GlobalStor.global.isChangedTemplate = 1;
-                backtoTemplatePanel();
+                  //-------- template was changed
+                  for(var r=0; r<ProductStor.product.report.length; r+=1) {
+                    if(ProductStor.product.report[r].a) {
+                      var doorSill = angular.copy(ProductStor.product.report[r]);
+                    }
+                  }
+                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths, doorSill)
+                  .then(function (result) {
+                    ProductStor.product.template = angular.copy(result);
+                 
+                  GlobalStor.global.isChangedTemplate = 1;
+                  backtoTemplatePanel();
+                });
               });
 
             }
@@ -18342,7 +18352,11 @@ function ErrorResult(code, message) {
           profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
         }
       }
-
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName,
+        {'list_type_id': 2}).then(function(sill) {
+          GlobalStor.global.allDoorSills = angular.copy(sill);
+      });
+     
       //------ create structure of GlobalStor.global.glassesAll
       //------ insert profile Id and glass Types
       var promises2 = profileIds.map(function(item) {
@@ -19864,14 +19878,26 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
-            priceMargin;
+            priceMargin, doorData, tempDoorItems;
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
                 //console.log(doorResult, 'doorResult')
-                var doorData = angular.copy(doorResult);
+                doorData = angular.copy(doorResult);
+
+                for(var y=0; y<priceObj.constrElements.length; y+=1) {
+                  for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
+                    if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
+                      priceObj.constrElements[y].a = GlobalStor.global.allDoorSills[x].a;
+                      priceObj.constrElements[y].b = GlobalStor.global.allDoorSills[x].b;
+                      priceObj.constrElements[y].c = GlobalStor.global.allDoorSills[x].c;
+                      priceObj.constrElements[y].d = GlobalStor.global.allDoorSills[x].d;
+                    }
+                  }
+                }
+                
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
@@ -20059,7 +20085,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               //---- only for this type of user
               if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
                 ProductStor.product.report = prepareReport(result.constrElements);
-                //console.log('REPORT', ProductStor.product.report);
+                console.log('REPORT', ProductStor.product.report);
                 //console.timeEnd('price');
               }
             }
@@ -25277,7 +25303,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+    function setParts(pointsOut, pointsIn, priceElements, currGlassId, doorSill) {
       var shapeIndex = 0;
       if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
         shapeIndex = ProductStor.product.door_type_index;
@@ -26481,7 +26507,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
 
-    function createSVGTemplate(sourceObj, depths, ber) {
+    function createSVGTemplate(sourceObj, depths, report) {
       var thisObj = {},
           defer = $q.defer(), i, blocksQty;
 
@@ -26551,7 +26577,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
             $.merge(thisObj.details[i].parts, setParts(
-              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements, report
             ));
           }
 
@@ -26574,7 +26600,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
               $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements, report
               ));
 
               //----- set openPoints for sash
@@ -26606,7 +26632,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,
-                thisObj.details[i].glassId
+                thisObj.details[i].glassId,
+                report
               ));
 
             } else if(thisObj.details[i].blockType === 'sash') {
@@ -26631,7 +26658,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
               $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements, report
               ));
               thisObj.details[i].parts.push(setGlass(
                 thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
@@ -26640,7 +26667,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,
-                thisObj.details[i].glassId
+                thisObj.details[i].glassId,
+                report
               ));
 
               //----- set openPoints for sash

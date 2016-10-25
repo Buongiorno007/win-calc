@@ -3254,9 +3254,19 @@
                 ProductStor.product.hardware.id,
                 ProductStor.product.lamination.lamination_in_id
               ).then(function () {
-                //-------- template was changed
-                GlobalStor.global.isChangedTemplate = 1;
-                backtoTemplatePanel();
+                  //-------- template was changed
+                  for(var r=0; r<ProductStor.product.report.length; r+=1) {
+                    if(ProductStor.product.report[r].a) {
+                      var doorSill = angular.copy(ProductStor.product.report[r]);
+                    }
+                  }
+                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths, doorSill)
+                  .then(function (result) {
+                    ProductStor.product.template = angular.copy(result);
+                 
+                  GlobalStor.global.isChangedTemplate = 1;
+                  backtoTemplatePanel();
+                });
               });
 
             }

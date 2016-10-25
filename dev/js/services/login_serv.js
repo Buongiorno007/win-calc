@@ -522,7 +522,11 @@
           profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
         }
       }
-
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName,
+        {'list_type_id': 2}).then(function(sill) {
+          GlobalStor.global.allDoorSills = angular.copy(sill);
+      });
+     
       //------ create structure of GlobalStor.global.glassesAll
       //------ insert profile Id and glass Types
       var promises2 = profileIds.map(function(item) {
