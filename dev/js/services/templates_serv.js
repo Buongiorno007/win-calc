@@ -141,7 +141,7 @@
         
         GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       }
-ProductStor.product.construction_type = (roomInd)?GlobalStor.global.rooms[roomInd-1].group_id:GlobalStor.global.templatesType;
+      ProductStor.product.construction_type = (roomInd)?GlobalStor.global.rooms[roomInd-1].group_id:GlobalStor.global.templatesType;
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {

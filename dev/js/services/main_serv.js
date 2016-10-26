@@ -549,6 +549,15 @@
       localDB.calculationPrice(obj).then(function (result) {
         var priceObj = angular.copy(result),
             priceMargin, doorData, tempDoorItems;
+
+        for(var y=0; y<priceObj.constrElements.length; y+=1) {
+          for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
+            if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
+              ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
+            }
+          }
+        }
+
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
           if(ProductStor.product.construction_type === 4) {
@@ -556,18 +565,6 @@
               .then(function(doorResult) {
                 //console.log(doorResult, 'doorResult')
                 doorData = angular.copy(doorResult);
-
-                for(var y=0; y<priceObj.constrElements.length; y+=1) {
-                  for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
-                    if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
-                      priceObj.constrElements[y].a = GlobalStor.global.allDoorSills[x].a;
-                      priceObj.constrElements[y].b = GlobalStor.global.allDoorSills[x].b;
-                      priceObj.constrElements[y].c = GlobalStor.global.allDoorSills[x].c;
-                      priceObj.constrElements[y].d = GlobalStor.global.allDoorSills[x].d;
-                    }
-                  }
-                }
-                
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
                 priceMargin = GeneralServ.addMarginToPrice(priceObj.priceTotal, GlobalStor.global.margins.coeff);
@@ -755,7 +752,7 @@
               //---- only for this type of user
               if (UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
                 ProductStor.product.report = prepareReport(result.constrElements);
-                console.log('REPORT', ProductStor.product.report);
+                //console.log('REPORT', ProductStor.product.report);
                 //console.timeEnd('price');
               }
             }
