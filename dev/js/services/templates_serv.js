@@ -137,11 +137,9 @@
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex, roomInd) {
       //-------- check changes in current template
-      if(GlobalStor.global.currOpenPage === 'design') {
-        
-        GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-      }
+      GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
       ProductStor.product.construction_type = (roomInd)?GlobalStor.global.rooms[roomInd-1].group_id:GlobalStor.global.templatesType;
+
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {
@@ -167,17 +165,35 @@
           goToNewTemplate
         );
       } else {
-          MainServ.setDefaultDoorConfig();
-          if(ProductStor.product.construction_type !==4) {
-            MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-              if(GlobalStor.global.currOpenPage === 'design') {
-                //--------- set template from ProductStor
-                DesignServ.setDefaultConstruction();
-              }
+        MainServ.setDefaultDoorConfig();
+        if(ProductStor.product.construction_type !==4) {
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+            if(GlobalStor.global.currOpenPage === 'design') {
+              //--------- set template from ProductStor
+              DesignServ.setDefaultConstruction();
+            }
+          });
+        } else if(ProductStor.product.construction_type ==4 && !roomInd) {
+          ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+          var tempProduct = angular.copy(ProductStor.product);
+          var tempProfile = angular.copy(DesignServ.idsForNewTemplate(ProductStor.product.door_shape_id, ProductStor.product));
+          tempProduct.profile = angular.copy(tempProfile);
+          ProductStor.product.template_id = templateIndex;
+          MainServ.setCurrentDoorProfile(tempProduct).then(function(result){
+            ProductStor.product = angular.copy(result);
+            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+              ProductStor.product.template = angular.copy(result);
+              MainServ.setCurrentGlass(ProductStor.product, 1);
+              DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
+                //culcPriceNewTemplate(templateIndex);
+                console.log(ProductStor.product, 'product')
+              });
             });
-          }
+          });
+        } else {
           newPriceForNewTemplate(templateIndex, roomInd);
         }
+      }
     }
 
 

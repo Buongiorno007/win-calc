@@ -254,10 +254,33 @@
         product.profileDepths.sashDepth = result[2];
         product.profileDepths.impostDepth = result[3];
         product.profileDepths.shtulpDepth = result[4];
-        deferred.resolve(1);
+        deferred.resolve(product);
       });
       return deferred.promise;
     }
+
+    function setCurrentDoorProfile(product) {
+      var deferred = $q.defer();
+      //------- set Depths
+      $q.all([
+        downloadProfileDepth(product.profile.rama_list_id),
+        downloadProfileDepth(product.profile.rama_still_list_id),
+        downloadProfileDepth(product.profile.stvorka_list_id),
+        downloadProfileDepth(product.profile.impost_list_id),
+        downloadProfileDepth(product.profile.shtulp_list_id)
+      ]).then(function (result) {
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
+        deferred.resolve(product);
+      });
+      return deferred.promise;
+    }
+
+
+
 
     function doorProfile() {
       var door = []
@@ -1629,6 +1652,7 @@
       downloadAllTemplates: downloadAllTemplates,
 
       setCurrentProfile: setCurrentProfile,
+      setCurrentDoorProfile: setCurrentDoorProfile,
       setCurrentGlass: setCurrentGlass,
       setGlassToTemplateBlocks: setGlassToTemplateBlocks,
       setCurrentHardware: setCurrentHardware,

@@ -1313,8 +1313,10 @@
 
 
 
-    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
+    function setParts(sourceObj, pointsOut, pointsIn, priceElements, currGlassId) {
       var shapeIndex = 0;
+      var doorSill = (sourceObj.doorSill)? sourceObj.doorSill:0;
+
       if(GlobalStor.global.currOpenPage === 'design' || GlobalStor.global.currOpenPage === 'main') {
         shapeIndex = ProductStor.product.door_type_index;
       };
@@ -2587,7 +2589,7 @@
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
             $.merge(thisObj.details[i].parts, setParts(
-              thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
+              sourceObj, thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements
             ));
           }
 
@@ -2610,7 +2612,7 @@
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
               $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
 
               //----- set openPoints for sash
@@ -2639,6 +2641,7 @@
                 thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
+                sourceObj,
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,
@@ -2667,12 +2670,13 @@
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
               $.merge(thisObj.details[i].parts, setParts(
-                thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
               thisObj.details[i].parts.push(setGlass(
                 thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
+                sourceObj,
                 thisObj.details[i].beadPointsOut,
                 thisObj.details[i].beadPointsIn,
                 thisObj.priceElements,

@@ -92,36 +92,6 @@
       });
 
       GlobalStor.global.isTemplateTypeMenu = 0;
-
-      // function goToNewTemplateType() {
-      //   if (marker === 4) {
-      //     MainServ.setDefaultDoorConfig();
-      //   }
-      //   GlobalStor.global.isChangedTemplate = 0;
-      //   TemplatesServ.initNewTemplateType(marker);
-      // }
-
-      // if(marker === 4 && GlobalStor.global.noDoorExist) {
-      //   //-------- show alert than door not existed
-      //   DesignStor.design.isNoDoors = 1;
-      // } else {
-      //   //-------- check changes in current template
-      //   if (GlobalStor.global.currOpenPage === 'design') {
-      //     GlobalStor.global.isChangedTemplate = (DesignStor.design.designSteps.length) ? 1 : 0;
-      //   }
-      // }
-
-      //   if (GlobalStor.global.isChangedTemplate) {
-      //     //----- если выбран новый шаблон после изменения предыдущего
-      //     GeneralServ.confirmAlert(
-      //       $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-      //       $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-      //       goToNewTemplateType
-      //     );
-      //   } else {
-      //     TemplatesServ.initNewTemplateType(marker);
-      //   }
-      // }
     }
 
 
