@@ -19964,13 +19964,17 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         var priceObj = angular.copy(result),
             priceMargin, doorData, tempDoorItems;
 
-        for(var y=0; y<priceObj.constrElements.length; y+=1) {
-          for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
-            if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
-              ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
-            }
-          }
-        }
+        // for(var y=0; y<priceObj.constrElements.length; y+=1) {
+        //   for(var x=0; x<GlobalStor.global.allDoorSills.length; x+=1) {
+        //     if(priceObj.constrElements[y].id === GlobalStor.global.allDoorSills[x].parent_element_id) {
+        //       ProductStor.product.template_source.doorSill = GlobalStor.global.allDoorSills[x];
+        //       downloadProfileDepth(GlobalStor.global.allDoorSills[x].id)
+        //         .then(function(result) {
+        //         ProductStor.product.profileDepths.sillDepth = result;
+        //       });
+        //     }
+        //   }
+        // }
 
         if(priceObj.priceTotal) {
           /** DOOR add handle and lock Ids */
