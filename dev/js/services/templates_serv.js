@@ -186,7 +186,7 @@
               MainServ.setCurrentGlass(ProductStor.product, 1);
               DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                 //culcPriceNewTemplate(templateIndex);
-                console.log(ProductStor.product, 'product')
+                //console.log(ProductStor.product, 'product')
               });
             });
           });
