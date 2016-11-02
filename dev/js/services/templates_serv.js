@@ -30,7 +30,8 @@
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        //ProductStor.product.glass.length = 0;
+        // строка была закомичена из-за что не производился расчет стеклопакетов.
+        ProductStor.product.glass.length = 0;
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -99,12 +100,13 @@
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 if (ProductStor.product.construction_type === 4) {
-                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
+                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+                  DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
                   SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
                     ProductStor.product.template = angular.copy(result);
-                    MainServ.setCurrentGlass(ProductStor.product, 1);
+                    MainServ.setCurrentGlass(ProductStor.product);
                     DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
-                      culcPriceNewTemplate(templateIndex);
+                      //culcPriceNewTemplate(templateIndex);
                     });
                   });
                 } else {
@@ -167,11 +169,14 @@
       } else {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {
+          ProductStor.product.template_id = templateIndex;
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
             if(GlobalStor.global.currOpenPage === 'design') {
               //--------- set template from ProductStor
               DesignServ.setDefaultConstruction();
             }
+              //newPriceForNewTemplate(templateIndex, roomInd);
+
           });
         } else if(ProductStor.product.construction_type ==4 && !roomInd) {
           ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
@@ -183,14 +188,13 @@
             ProductStor.product = angular.copy(result);
             SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
               ProductStor.product.template = angular.copy(result);
-              MainServ.setCurrentGlass(ProductStor.product, 1);
+              MainServ.setCurrentGlass(ProductStor.product);
               DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                 //culcPriceNewTemplate(templateIndex);
-                //console.log(ProductStor.product, 'product')
               });
             });
           });
-        } else {
+        } else if(ProductStor.product.construction_type ==4 && roomInd) {
           newPriceForNewTemplate(templateIndex, roomInd);
         }
       }

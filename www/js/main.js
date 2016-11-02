@@ -4700,9 +4700,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
       if(GlobalStor.global.selectRoom === 0) {
         $location.path('/design');
-        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)
-        GlobalStor.global.selectRoom = 1;
+        GlobalStor.global.templateTEMP = angular.copy(ProductStor.product)  
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
+        GlobalStor.global.selectRoom = 1;
       } else {
         TemplatesServ.selectNewTemplate((GlobalStor.global.rooms[id].template_id - 1), id+1);
       }
@@ -10563,7 +10563,7 @@ function ErrorResult(code, message) {
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
-          DesignStor.design.templateSourceTEMP, 
+          product.template_source, 
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -10578,7 +10578,7 @@ function ErrorResult(code, message) {
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              DesignStor.design.templateSourceTEMP, 
+              product.template_source,  
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);
@@ -19756,7 +19756,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === product.profile.id;
+          if(product.profile.profile_id) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
         });
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
@@ -27032,7 +27037,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     function culcPriceNewTemplate(templateIndex) {
       ProductStor.product.template_id = templateIndex;
       MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        //ProductStor.product.glass.length = 0;
+        // строка была закомичена из-за что не производился расчет стеклопакетов.
+        ProductStor.product.glass.length = 0;
         MainServ.setCurrentHardware(ProductStor.product);
 
         if(GlobalStor.global.currOpenPage === 'design') {
@@ -27101,12 +27107,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 GlobalStor.global.templatesSourceSTORE = angular.copy(data);
                 GlobalStor.global.templatesSource = angular.copy(data);
                 if (ProductStor.product.construction_type === 4) {
-                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex])
+                  ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+                  DesignStor.design.templateSourceTEMP = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
                   SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
                     ProductStor.product.template = angular.copy(result);
-                    MainServ.setCurrentGlass(ProductStor.product, 1);
+                    MainServ.setCurrentGlass(ProductStor.product);
                     DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
-                      culcPriceNewTemplate(templateIndex);
+                      //culcPriceNewTemplate(templateIndex);
                     });
                   });
                 } else {
@@ -27169,11 +27176,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       } else {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {
+          ProductStor.product.template_id = templateIndex;
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
             if(GlobalStor.global.currOpenPage === 'design') {
               //--------- set template from ProductStor
               DesignServ.setDefaultConstruction();
             }
+              //newPriceForNewTemplate(templateIndex, roomInd);
+
           });
         } else if(ProductStor.product.construction_type ==4 && !roomInd) {
           ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
@@ -27185,14 +27195,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             ProductStor.product = angular.copy(result);
             SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
               ProductStor.product.template = angular.copy(result);
-              MainServ.setCurrentGlass(ProductStor.product, 1);
+              MainServ.setCurrentGlass(ProductStor.product);
               DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
                 //culcPriceNewTemplate(templateIndex);
-                //console.log(ProductStor.product, 'product')
               });
             });
           });
-        } else {
+        } else if(ProductStor.product.construction_type ==4 && roomInd) {
           newPriceForNewTemplate(templateIndex, roomInd);
         }
       }

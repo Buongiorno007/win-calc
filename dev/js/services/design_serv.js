@@ -1078,7 +1078,7 @@
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
-          DesignStor.design.templateSourceTEMP, 
+          product.template_source, 
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -1093,7 +1093,7 @@
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              DesignStor.design.templateSourceTEMP, 
+              product.template_source,  
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);

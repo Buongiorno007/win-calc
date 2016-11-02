@@ -365,7 +365,12 @@
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === product.profile.id;
+          if(product.profile.profile_id) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          } else {
+            return item.profileId === product.profile.id;
+
+          }
         });
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
