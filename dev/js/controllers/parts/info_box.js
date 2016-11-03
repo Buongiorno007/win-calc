@@ -16,7 +16,8 @@
     /**============ METHODS ================*/
 
     /** close Info Box */
-    function closeInfoBox() {
+    function closeInfoBox(clickEvent) {
+      clickEvent.stopPropagation();
       if(GlobalStor.global.showApply === 1) {
         GlobalStor.global.inform = 1;
       }

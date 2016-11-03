@@ -4230,7 +4230,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**============ METHODS ================*/
 
     /** close Info Box */
-    function closeInfoBox() {
+    function closeInfoBox(clickEvent) {
+      clickEvent.stopPropagation();
       if(GlobalStor.global.showApply === 1) {
         GlobalStor.global.inform = 1;
       }

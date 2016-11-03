@@ -77,6 +77,12 @@ $door-config-content: $ipad-height - $door-config-header;
         color: #fff;
       }
     }
+    &.hov:hover {
+      background-color: $main_green;
+        .figure-icon {
+        color: #fff;
+      }
+    }
   }
 
   .figure-icon {

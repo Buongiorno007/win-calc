@@ -4,31 +4,31 @@ section.construction-page
     .construction-left-menu
       ul.figure-lists
         li.figure-item(ng-click="designPage.selectMenuItem(3)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 3, 'hov': designPage.D.design.activeMenuItem !== 3}")
             .figure-icon.impost-shape-a
             .figure-icon.impost-shape-b
             .figure-label(data-output="{{ ::designPage.IMPOST_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(1)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 1, 'hov': designPage.D.design.activeMenuItem !== 1}")
             .figure-icon.sash-shape-a
             .figure-icon.sash-shape-b
             .figure-label(data-output="{{ ::designPage.SASH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(2)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 2, 'hov': designPage.D.design.activeMenuItem !== 2}")
             .figure-icon.angel-shape-a
             .figure-icon.angel-shape-b
             .figure-label(data-output="{{ ::designPage.ANGEL_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(4)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 4, 'hov': designPage.D.design.activeMenuItem !== 4}")
             .figure-icon.arch-shape-a
             .figure-icon.arch-shape-b
             .figure-label(data-output="{{ ::designPage.ARCH_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
         li.figure-item(ng-click="designPage.selectMenuItem(5)")
-          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5}")
+          .figure-item-block(ng-class="{'selected': designPage.D.design.activeMenuItem == 5, 'hov': designPage.D.design.activeMenuItem !== 5}")
             .figure-icon.position-shape-a
             .figure-icon.position-shape-b
             .figure-label(data-output="{{ ::designPage.POSITION_SHAPE }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")

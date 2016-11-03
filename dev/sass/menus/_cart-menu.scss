@@ -30,6 +30,15 @@
         @include rotate(270deg);
       }
     }
+    &.hov:hover {
+      margin-left: -2.75rem;
+      padding-left: 2.75rem;
+      background-color: #f0f0f0;
+      border-bottom: none;
+      &:after {
+        @include rotate(270deg);
+      }
+    }
     &.switcher {
       &:after {
         content: none;

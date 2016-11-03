@@ -1,7 +1,7 @@
 .config-menu(ng-controller="ConfigMenuCtrl as configMenu")
   ul.items-list.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_CONFIG_LIST }}")
 
-    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1}", fs-click="configMenu.selectConfigPanel(1)")
+    li.item.item-header(ng-class="{'active': configMenu.G.global.activePanel == 1, 'hov': configMenu.G.global.activePanel !== 1}", fs-click="configMenu.selectConfigPanel(1)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_CONFIGURATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
         svg-template(template="configMenu.P.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="configMenu.constants.SVG_CLASS_ICON")
@@ -9,30 +9,30 @@
       .value(data-output="{{ configMenu.P.product.template_width }} {{ ::configMenu.MM }} *", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.template_height }} {{ ::configMenu.MM }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 2}", fs-click="configMenu.selectConfigPanel(2)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 2, 'hov': configMenu.G.global.activePanel !== 2}", fs-click="configMenu.selectConfigPanel(2)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_PROFILE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.profile.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorName | translate }}
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorSashName }}
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 3}", fs-click="configMenu.selectConfigPanel(3)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 3, 'hov': configMenu.G.global.activePanel !== 3}", fs-click="configMenu.selectConfigPanel(3)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_GLASS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length == 1", data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length == 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.glass.length > 2", data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 4}", fs-click="configMenu.selectConfigPanel(4)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 4, 'hov': configMenu.G.global.activePanel !== 4}", fs-click="configMenu.selectConfigPanel(4)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_HARDWARE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type !== 4", data-output="{{ configMenu.P.product.hardware.name }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorHandle.name }}
       .value(ng-if="configMenu.P.product.construction_type === 4") {{ configMenu.P.product.doorLock.name }}
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 5}", fs-click="configMenu.selectConfigPanel(5)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 5, 'hov': configMenu.G.global.activePanel !== 5}", fs-click="configMenu.selectConfigPanel(5)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .name(data-output="{{ ::configMenu.CONFIGMENU_LAMINATION_TYPE }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.P.product.lamination.laminat_in_name | translate}} / {{ configMenu.P.product.lamination.laminat_out_name | translate}}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
-    li.item(ng-class="{'active': configMenu.G.global.activePanel == 6}", fs-click="configMenu.selectConfigPanel(6)")
+    li.item(ng-class="{'active': configMenu.G.global.activePanel == 6, 'hov': configMenu.G.global.activePanel !== 6}", fs-click="configMenu.selectConfigPanel(6)")
       .title(data-output="{{ ::configMenu.CONFIGMENU_ADDITIONAL }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ ::configMenu.CONFIGMENU_NO_ADDELEMENTS }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .additional-items-list
