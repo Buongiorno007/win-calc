@@ -328,7 +328,8 @@
             'e50137601a90943ce98b03e90d73272e',
             'd4651afb4e1c749f0bacc7ff5d101982',
             '988a8fa4855bf7ea54057717655d3fc9',
-            '82deec386376c6f81845e561f491e19a'
+            '82deec386376c6f81845e561f491e19a',
+            'f427fe660e069c2a1d03db07126c95b7'
 
           ],
           phoneArr = [
@@ -378,7 +379,8 @@
             '000026',
             '000027',
             '000028',
-            'vikna'
+            'vikna',
+            '5371'
           ],
           passwordArr = [
             '0950604425',
@@ -427,7 +429,8 @@
             '000026',
             '000027',
             '000028',
-            'vikna'
+            'vikna', 
+            '5371'
           ],
           accessQty = accessArr.length,
           isCustomer = 0;

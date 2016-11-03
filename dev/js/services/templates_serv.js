@@ -145,18 +145,38 @@
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {
+          ProductStor.product.template_id = templateIndex;
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
             if(GlobalStor.global.currOpenPage === 'design') {
               //--------- set template from ProductStor
               DesignServ.setDefaultConstruction();
             }
+              //newPriceForNewTemplate(templateIndex, roomInd);
+
           });
+        } else if(ProductStor.product.construction_type ==4 && !roomInd) {
+          ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+          var tempProduct = angular.copy(ProductStor.product);
+          var tempProfile = angular.copy(DesignServ.idsForNewTemplate(ProductStor.product.door_shape_id, ProductStor.product));
+          tempProduct.profile = angular.copy(tempProfile);
+          ProductStor.product.template_id = templateIndex;
+          MainServ.setCurrentDoorProfile(tempProduct).then(function(result){
+            ProductStor.product = angular.copy(result);
+            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+              ProductStor.product.template = angular.copy(result);
+              MainServ.setCurrentGlass(ProductStor.product);
+              DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
+                //culcPriceNewTemplate(templateIndex);
+              });
+            });
+          });
+        } else if(ProductStor.product.construction_type ==4 && roomInd) {
+          newPriceForNewTemplate(templateIndex, roomInd);
         }
         //------ change last changed template to old one
         backDefaultTemplate();
         GlobalStor.global.isChangedTemplate = 0;
         DesignStor.design.designSteps.length = 0;
-        newPriceForNewTemplate(templateIndex, roomInd);
       }
 
       if(GlobalStor.global.isChangedTemplate) {

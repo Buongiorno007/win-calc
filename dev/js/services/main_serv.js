@@ -384,8 +384,25 @@
       }
     }
 
-
-
+    //for templateTemp  
+    function setCurrentGlassForTemplate(templateSource, product) {
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        if(product.profile.profile_id) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+      if(tempGlassArr.length) {
+        GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+        GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+        product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+        GlobalStor.global.selectGlassId = product.glass[0].id;
+        GlobalStor.global.selectGlassName = product.glass[0].sku;
+        /** set Glass to all template blocks without children */
+        setGlassToTemplateBlocks(product.glass[0].glass_type, templateSource, product.glass[0].id, product.glass[0].sku);
+      }
+    }
 
     function checkSashInTemplate(template) {
       var templQty = template.details.length,
@@ -1691,7 +1708,9 @@
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       saveOrderInDB: saveOrderInDB,
-      deleteOrderInDB: deleteOrderInDB
+      deleteOrderInDB: deleteOrderInDB, 
+
+      setCurrentGlassForTemplate: setCurrentGlassForTemplate
     };
 
     return thisFactory.publicObj;

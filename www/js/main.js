@@ -1555,7 +1555,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             'e50137601a90943ce98b03e90d73272e',
             'd4651afb4e1c749f0bacc7ff5d101982',
             '988a8fa4855bf7ea54057717655d3fc9',
-            '82deec386376c6f81845e561f491e19a'
+            '82deec386376c6f81845e561f491e19a',
+            'f427fe660e069c2a1d03db07126c95b7'
 
           ],
           phoneArr = [
@@ -1605,7 +1606,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '000026',
             '000027',
             '000028',
-            'vikna'
+            'vikna',
+            '5371'
           ],
           passwordArr = [
             '0950604425',
@@ -1654,7 +1656,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
             '000026',
             '000027',
             '000028',
-            'vikna'
+            'vikna', 
+            '5371'
           ],
           accessQty = accessArr.length,
           isCustomer = 0;
@@ -7847,7 +7850,7 @@ function ErrorResult(code, message) {
         finishCalculators();
       }
       /**------- if grid delete --------*/
-      if(AuxStor.aux.isFocusedAddElement === 1) {
+      if(AuxStor.aux.isFocusedAddElement === 1 || AuxStor.aux.isAddElementListView) {
         deleteGridsInTemplate(ProductStor.product.chosenAddElements[typeId][elementId].block_id);
       }
       ProductStor.product.chosenAddElements[typeId].splice(elementId, 1);
@@ -9848,8 +9851,8 @@ function ErrorResult(code, message) {
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
-        widthT = res[0].sizes[0];
-        heightT = res[0].sizes[1];
+        widthT = (res[0].sizes)? res[0].sizes[0]:0;
+        heightT = (res[0].sizes)? res[0].sizes[1]:0;
         size(res)
         return {
           widthT:widthT,
@@ -10266,6 +10269,8 @@ function ErrorResult(code, message) {
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+      MainServ.setCurrentGlassForTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
+      ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
       GlobalStor.global.checkDoors = 0;
       DesignStor.design.steps.isDoorConfig = 1;
       closeSizeCaclulator();
@@ -10484,7 +10489,7 @@ function ErrorResult(code, message) {
     /**---------- Select handle shape --------*/
 
     function selectHandle(id, product) {
-      var pnt = checkSize(product.template, 4);
+      var pnt = checkSize(DesignStor.design.templateTEMP, 4);
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       var array = [];
       if(!DesignStor.design.steps.selectedStep4) {
@@ -12825,25 +12830,27 @@ function ErrorResult(code, message) {
                 //------ get new grids price
                 loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
               }
-
-              /** refresh price of new template */
-              MainServ.preparePrice(
-                ProductStor.product.template,
-                ProductStor.product.profile.id,
-                ProductStor.product.glass,
-                ProductStor.product.hardware.id,
-                ProductStor.product.lamination.lamination_in_id
-              ).then(function () {
-                  //-------- template was changed
-                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-                  .then(function (result) {
-                    ProductStor.product.template = angular.copy(result);
-                 
-                  GlobalStor.global.isChangedTemplate = 1;
-                  backtoTemplatePanel();
+              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.template = angular.copy(result);
+                /** refresh price of new template */
+                MainServ.preparePrice(
+                  ProductStor.product.template,
+                  ProductStor.product.profile.id,
+                  ProductStor.product.glass,
+                  ProductStor.product.hardware.id,
+                  ProductStor.product.lamination.lamination_in_id
+                ).then(function () {
+                    //-------- template was changed
+                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                      ProductStor.product.template = angular.copy(result);
+                   
+                    GlobalStor.global.isChangedTemplate = 1;
+                    backtoTemplatePanel();
+                  });
                 });
               });
-
             }
 
           }
@@ -19775,8 +19782,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
     }
 
-
-
+    //for templateTemp  
+    function setCurrentGlassForTemplate(templateSource, product) {
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        if(product.profile.profile_id) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+      if(tempGlassArr.length) {
+        GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+        GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+        product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+        GlobalStor.global.selectGlassId = product.glass[0].id;
+        GlobalStor.global.selectGlassName = product.glass[0].sku;
+        /** set Glass to all template blocks without children */
+        setGlassToTemplateBlocks(product.glass[0].glass_type, templateSource, product.glass[0].id, product.glass[0].sku);
+      }
+    }
 
     function checkSashInTemplate(template) {
       var templQty = template.details.length,
@@ -21082,7 +21106,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       saveOrderInDB: saveOrderInDB,
-      deleteOrderInDB: deleteOrderInDB
+      deleteOrderInDB: deleteOrderInDB, 
+
+      setCurrentGlassForTemplate: setCurrentGlassForTemplate
     };
 
     return thisFactory.publicObj;
@@ -25570,17 +25596,25 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                     );
                   } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                     var item1 = newPointsOut[index];
-                    // item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
-                    // item2.y = newPointsOut[index+1].y +doorSill.a;
                     var item3 = pointsIn[index+1];
-                    // item3.y = pointsIn[index+1].y +doorSill.a;
                     var item4 = pointsIn[index];
-                    // item4.y = pointsIn[index].y +doorSill.a;
                     collectPointsInParts(
                       part, item1, item2, item3, item4
                     );
                   } else if(newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                    var item1 = newPointsOut[index];
+                    item1.y = newPointsOut[index].y +doorSill.a;
+                    var item2 = newPointsOut[index+1];
+                    item2.y = newPointsOut[index+1].y +doorSill.a;
+                    var item3 = pointsIn[index+1];
+                    item3.y = pointsIn[index+1].y +doorSill.a;
+                    var item4 = pointsIn[index];
+                    item4.y = pointsIn[index].y +doorSill.a;
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else if(newPointsOut[index].type === 'sash' && newPointsOut[index+1].type === 'sash' && index ===0) {
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
@@ -25706,14 +25740,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setGlass(stillDepth, glassType, glassPoints, priceElements, currGlassId) {
       var item1, item2;
-      if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
-        item1 = angular.copy(glassPoints[0]);
-        item1.y = glassPoints[0].y + stillDepth.a;
-        item2 = angular.copy(glassPoints[1]);
-        item2.y = glassPoints[1].y + stillDepth.a;
-        glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
+      // if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
+      //   item1 = angular.copy(glassPoints[0]);
+      //   item1.y = glassPoints[0].y + stillDepth.a;
+      //   item2 = angular.copy(glassPoints[1]);
+      //   item2.y = glassPoints[1].y + stillDepth.a;
+      //   glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
 
-      }
+      // }
       var part = {
             type: 'glass',
             points: glassPoints,
@@ -26097,15 +26131,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     function sortingImpPXSizes(pointsQty, impPoints) {
-      // if(impPoints[0].y-impPoints[3].y > impPoints[0].x-impPoints[1].x) {
-      //   console.log(impPoints[0].y-impPoints[3].y)
-      //   console.log(impPoints[1].x-impPoints[3].x)
-      //   console.log('vertical')
-      // } else {
-      //   console.log(impPoints[0].y-impPoints[3].y)
-      //   console.log(impPoints[1].x-impPoints[3].x)
-      //    console.log('gorizont')
-      // }
       var newImpPoints = [], i;
       if(pointsQty === 4) {
         while(--pointsQty > -1) {
@@ -26802,6 +26827,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
               //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
@@ -26815,9 +26844,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
-                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
-              ));
               thisObj.details[i].parts.push(setGlass(
                 depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
@@ -27179,18 +27205,38 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       function goToNewTemplate() {
         MainServ.setDefaultDoorConfig();
         if(ProductStor.product.construction_type !==4) {
+          ProductStor.product.template_id = templateIndex;
           MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
             if(GlobalStor.global.currOpenPage === 'design') {
               //--------- set template from ProductStor
               DesignServ.setDefaultConstruction();
             }
+              //newPriceForNewTemplate(templateIndex, roomInd);
+
           });
+        } else if(ProductStor.product.construction_type ==4 && !roomInd) {
+          ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+          var tempProduct = angular.copy(ProductStor.product);
+          var tempProfile = angular.copy(DesignServ.idsForNewTemplate(ProductStor.product.door_shape_id, ProductStor.product));
+          tempProduct.profile = angular.copy(tempProfile);
+          ProductStor.product.template_id = templateIndex;
+          MainServ.setCurrentDoorProfile(tempProduct).then(function(result){
+            ProductStor.product = angular.copy(result);
+            SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
+              ProductStor.product.template = angular.copy(result);
+              MainServ.setCurrentGlass(ProductStor.product);
+              DesignServ.setDoorConfigDefault(ProductStor.product).then(function() {
+                //culcPriceNewTemplate(templateIndex);
+              });
+            });
+          });
+        } else if(ProductStor.product.construction_type ==4 && roomInd) {
+          newPriceForNewTemplate(templateIndex, roomInd);
         }
         //------ change last changed template to old one
         backDefaultTemplate();
         GlobalStor.global.isChangedTemplate = 0;
         DesignStor.design.designSteps.length = 0;
-        newPriceForNewTemplate(templateIndex, roomInd);
       }
 
       if(GlobalStor.global.isChangedTemplate) {

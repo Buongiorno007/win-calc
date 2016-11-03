@@ -1489,17 +1489,25 @@
                     );
                   } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                     var item1 = newPointsOut[index];
-                    // item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
-                    // item2.y = newPointsOut[index+1].y +doorSill.a;
                     var item3 = pointsIn[index+1];
-                    // item3.y = pointsIn[index+1].y +doorSill.a;
                     var item4 = pointsIn[index];
-                    // item4.y = pointsIn[index].y +doorSill.a;
                     collectPointsInParts(
                       part, item1, item2, item3, item4
                     );
                   } else if(newPointsOut[index + 1].type === 'sash' && newPointsOut[index + 1].id === 'fp4' && pointsIn[index + 1].id === 'fp4') {
+                    var item1 = newPointsOut[index];
+                    item1.y = newPointsOut[index].y +doorSill.a;
+                    var item2 = newPointsOut[index+1];
+                    item2.y = newPointsOut[index+1].y +doorSill.a;
+                    var item3 = pointsIn[index+1];
+                    item3.y = pointsIn[index+1].y +doorSill.a;
+                    var item4 = pointsIn[index];
+                    item4.y = pointsIn[index].y +doorSill.a;
+                    collectPointsInParts(
+                      part, item1, item2, item3, item4
+                    );
+                  } else if(newPointsOut[index].type === 'sash' && newPointsOut[index+1].type === 'sash' && index ===0) {
                     var item1 = newPointsOut[index];
                     item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
@@ -1625,14 +1633,14 @@
 
     function setGlass(stillDepth, glassType, glassPoints, priceElements, currGlassId) {
       var item1, item2;
-      if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
-        item1 = angular.copy(glassPoints[0]);
-        item1.y = glassPoints[0].y + stillDepth.a;
-        item2 = angular.copy(glassPoints[1]);
-        item2.y = glassPoints[1].y + stillDepth.a;
-        glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
+      // if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
+      //   item1 = angular.copy(glassPoints[0]);
+      //   item1.y = glassPoints[0].y + stillDepth.a;
+      //   item2 = angular.copy(glassPoints[1]);
+      //   item2.y = glassPoints[1].y + stillDepth.a;
+      //   glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
 
-      }
+      // }
       var part = {
             type: 'glass',
             points: glassPoints,
@@ -2016,15 +2024,6 @@
 
 
     function sortingImpPXSizes(pointsQty, impPoints) {
-      // if(impPoints[0].y-impPoints[3].y > impPoints[0].x-impPoints[1].x) {
-      //   console.log(impPoints[0].y-impPoints[3].y)
-      //   console.log(impPoints[1].x-impPoints[3].x)
-      //   console.log('vertical')
-      // } else {
-      //   console.log(impPoints[0].y-impPoints[3].y)
-      //   console.log(impPoints[1].x-impPoints[3].x)
-      //    console.log('gorizont')
-      // }
       var newImpPoints = [], i;
       if(pointsQty === 4) {
         while(--pointsQty > -1) {
@@ -2721,6 +2720,10 @@
               thisObj.details[i].sashLinesOut = setLines(thisObj.details[i].sashPointsOut);
               thisObj.details[i].sashPointsIn = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'sash-in');
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
+
+              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
+                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
+              ));
               //-------- points for Hardware
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
@@ -2734,9 +2737,6 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
-                sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
-              ));
               thisObj.details[i].parts.push(setGlass(
                 depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));

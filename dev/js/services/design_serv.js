@@ -363,8 +363,8 @@
       res = res.priceElements.sashesBlock;
       var heightT = [], widthT = [];  
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
-        widthT = res[0].sizes[0];
-        heightT = res[0].sizes[1];
+        widthT = (res[0].sizes)? res[0].sizes[0]:0;
+        heightT = (res[0].sizes)? res[0].sizes[1]:0;
         size(res)
         return {
           widthT:widthT,
@@ -781,6 +781,8 @@
     /**---------- Show Door Configuration --------*/
 
     function toggleDoorConfig() {
+      MainServ.setCurrentGlassForTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product);
+      ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
       GlobalStor.global.checkDoors = 0;
       DesignStor.design.steps.isDoorConfig = 1;
       closeSizeCaclulator();
@@ -999,7 +1001,7 @@
     /**---------- Select handle shape --------*/
 
     function selectHandle(id, product) {
-      var pnt = checkSize(product.template, 4);
+      var pnt = checkSize(DesignStor.design.templateTEMP, 4);
       var sashShapeIndex = DesignStor.design.doorConfig.sashShapeIndex;
       var array = [];
       if(!DesignStor.design.steps.selectedStep4) {
@@ -3340,25 +3342,27 @@
                 //------ get new grids price
                 loginServ.getGridPrice(ProductStor.product.chosenAddElements[0]);
               }
-
-              /** refresh price of new template */
-              MainServ.preparePrice(
-                ProductStor.product.template,
-                ProductStor.product.profile.id,
-                ProductStor.product.glass,
-                ProductStor.product.hardware.id,
-                ProductStor.product.lamination.lamination_in_id
-              ).then(function () {
-                  //-------- template was changed
-                  SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
-                  .then(function (result) {
-                    ProductStor.product.template = angular.copy(result);
-                 
-                  GlobalStor.global.isChangedTemplate = 1;
-                  backtoTemplatePanel();
+              SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+              .then(function (result) {
+                ProductStor.product.template = angular.copy(result);
+                /** refresh price of new template */
+                MainServ.preparePrice(
+                  ProductStor.product.template,
+                  ProductStor.product.profile.id,
+                  ProductStor.product.glass,
+                  ProductStor.product.hardware.id,
+                  ProductStor.product.lamination.lamination_in_id
+                ).then(function () {
+                    //-------- template was changed
+                    SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
+                    .then(function (result) {
+                      ProductStor.product.template = angular.copy(result);
+                   
+                    GlobalStor.global.isChangedTemplate = 1;
+                    backtoTemplatePanel();
+                  });
                 });
               });
-
             }
 
           }
