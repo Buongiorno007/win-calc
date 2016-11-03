@@ -1489,13 +1489,13 @@
                     );
                   } else if(newPointsOut[index].type === 'bead' && newPointsOut[index].id === 'fp3') {
                     var item1 = newPointsOut[index];
-                    // item1.y = newPointsOut[index].y +20;
+                    // item1.y = newPointsOut[index].y +doorSill.a;
                     var item2 = newPointsOut[index+1];
-                    // item2.y = newPointsOut[index+1].y +20;
+                    // item2.y = newPointsOut[index+1].y +doorSill.a;
                     var item3 = pointsIn[index+1];
-                    // item3.y = pointsIn[index+1].y +20;
+                    // item3.y = pointsIn[index+1].y +doorSill.a;
                     var item4 = pointsIn[index];
-                    // item4.y = pointsIn[index].y +20;
+                    // item4.y = pointsIn[index].y +doorSill.a;
                     collectPointsInParts(
                       part, item1, item2, item3, item4
                     );
@@ -1623,8 +1623,16 @@
 
 
 
-    function setGlass(glassType, glassPoints, priceElements, currGlassId) {
+    function setGlass(stillDepth, glassType, glassPoints, priceElements, currGlassId) {
+      var item1, item2;
+      if(((glassPoints[0].type === 'frame' && glassPoints[3].type === 'frame') || (glassPoints[1].type === 'frame' && glassPoints[2].type === 'frame')) && ProductStor.product.door_type_index === 3) {
+        item1 = angular.copy(glassPoints[0]);
+        item1.y = glassPoints[0].y + stillDepth.a;
+        item2 = angular.copy(glassPoints[1]);
+        item2.y = glassPoints[1].y + stillDepth.a;
+        glassPoints = angular.copy([item1, item2, glassPoints[2], glassPoints[3]]);
 
+      }
       var part = {
             type: 'glass',
             points: glassPoints,
@@ -2008,6 +2016,15 @@
 
 
     function sortingImpPXSizes(pointsQty, impPoints) {
+      // if(impPoints[0].y-impPoints[3].y > impPoints[0].x-impPoints[1].x) {
+      //   console.log(impPoints[0].y-impPoints[3].y)
+      //   console.log(impPoints[1].x-impPoints[3].x)
+      //   console.log('vertical')
+      // } else {
+      //   console.log(impPoints[0].y-impPoints[3].y)
+      //   console.log(impPoints[1].x-impPoints[3].x)
+      //    console.log('gorizont')
+      // }
       var newImpPoints = [], i;
       if(pointsQty === 4) {
         while(--pointsQty > -1) {
@@ -2685,7 +2702,7 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(
                 depths.frameStillDepth,
@@ -2721,7 +2738,7 @@
                 sourceObj, thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements
               ));
               thisObj.details[i].parts.push(setGlass(
-                thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
+                depths.frameStillDepth, thisObj.details[i].glass_type, thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId
               ));
               $.merge(thisObj.details[i].parts, setParts(depths.frameStillDepth,
                 sourceObj,
@@ -2744,8 +2761,18 @@
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
           //----- create impost parts
           if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
-          }
+            var temp1 = angular.copy(thisObj.details[i].impost.impostIn[0].y);
+            var temp2 = angular.copy(thisObj.details[i].impost.impostIn[3].x);
+            var temp3 = angular.copy(thisObj.details[i].impost.impostIn[3].y);
+            var temp4 = angular.copy(thisObj.details[i].impost.impostIn[0].x);
+            if(Math.abs(temp1-temp3) > Math.abs(temp2-temp4)) {
+              if(thisObj.details[i].pointsIn[0].y !== thisObj.details[i].impost.impostIn[0].y && ProductStor.product.door_type_index === 3) {
+                thisObj.details[i].impost.impostIn[0].y = angular.copy(thisObj.details[i].impost.impostIn[0].y+depths.frameStillDepth.a);
+                thisObj.details[i].impost.impostIn[1].y = angular.copy(thisObj.details[i].impost.impostIn[1].y+depths.frameStillDepth.a);
+              }
+            } 
+              thisObj.details[i].parts.push(setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements));
+            }
 
 
         }
