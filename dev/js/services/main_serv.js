@@ -939,7 +939,7 @@
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
-              return item.group_id === GlobalStor.global.type_door || GlobalStor.global.doorsGroups[0].id;
+              return item.group_id === GlobalStor.global.type_door;
           }),
           lamGroupsTempQty, isAnyActive = 0;
           for(var a=0; a<lamGroupsTemp.length; a+=1) {
@@ -1020,11 +1020,16 @@
       var deff = $q.defer();
       if(lamId) {
         //------ set profiles parameters
-        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
-        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
-        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
-        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
-        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        if(ProductStor.product.construction_type !== 4) {
+          ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+          ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+          ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+          ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        } else {
+          ProductStor.product.profile = angular.copy(selectDoor(ProductStor.product.door_shape_id, ProductStor.product));
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.profile.door_sill_list_id;
+        }
       } 
       //------- set Depths
       $q.all([
@@ -1039,14 +1044,14 @@
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,
-              ProductStor.product.profile.id,
+              profile,
               ProductStor.product.glass,
               hardwareIds,
               ProductStor.product.lamination.lamination_in_id
@@ -1064,8 +1069,24 @@
       return deff.promise;
     }
 
-
-
+    /**==================temp location for this function!!! =================*/
+    function selectDoor(id, product) {
+      var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
+      for(var i=0; i<doorsLaminations.length; i+=1) {
+        if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+        && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+          console.log(doorsLaminations[i])
+            product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
+            product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
+            product.profile.rama_list_id = doorsLaminations[i].rama_list_id
+            product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+            product.profile.stvorka_list_id = doorsLaminations[i].stvorka_list_id
+            break
+        }
+      }       
+      return product.profile;
+    } 
+    /**==================temp location for this function!!! =================*/
 
     /**----------- Glass sizes checking -------------*/
 
