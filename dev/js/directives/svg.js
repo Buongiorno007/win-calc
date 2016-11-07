@@ -601,23 +601,23 @@
                     pathHinge = "M0,0L5,0L5,15L0,15z";
                 /** dimension */
                 if(ProductStor.product.doorLock.stvorka_type !==6) {
-                                /** handle */
-                  setMarker(defs, 'handleR', '0 -1 9 32', -5, 5, 0, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleL', '0 -1 9 32', 14, 5, 0, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 270, 29, 80, pathHandle, 'handle-mark');
+                                /** handle window and balkony door */
+                  setMarker(defs, 'handleR', '0 -1 9 32', -4.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleL', '0 -1 9 32', 13.5, 5, 0, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleU', '0 -1 9 32', -4.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleD', '0 -1 9 32', 13.5, 5, 270, 8, 80, pathHandle, 'handle-mark');
                 } else { 
-                                /** handle */
-                  setMarker(defs, 'handleR', '0 -1 9 32', -5, 15, 90, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleL', '0 -1 9 32', 14, 15, 270, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
-                  setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 29, 80, pathHandle, 'handle-mark');
+                                /** handle entrance door*/
+                  setMarker(defs, 'handleR', '0 -1 9 32', -5, 17, 90, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleL', '0 -1 9 32', 14, 17, 270, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleU', '0 -1 9 32', -5.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
+                  setMarker(defs, 'handleD', '0 -1 9 32', 14.3, 5, 180, 8, 80, pathHandle, 'handle-mark');
                 }
                                 /** hinge */
-                setMarker(defs, 'hingeR', '-1 0 9 4', -17.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeL', '-1 0 9 4', 22.5, 5, 0, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeU', '-1 0 9 4', -17.3, 5, 270, 20, 80, pathHinge, 'hinge-mark');
-                setMarker(defs, 'hingeD', '-1 0 9 4', 22.2, 5, 270, 20, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeR', '-1 0 9 4', -17, 5, 0, 7, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeL', '-1 0 9 4', 22, 5, 0, 7, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeU', '-1 0 9 4', -16.5, 5, 270, 7, 80, pathHinge, 'hinge-mark');
+                setMarker(defs, 'hingeD', '-1 0 9 4', 21.5, 5, 270, 7, 80, pathHinge, 'hinge-mark');
                 //----- horizontal marker arrow
                 setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
                 setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
@@ -626,7 +626,7 @@
                 setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
                 setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
-            }
+              }
 
           /** soffits */
 
