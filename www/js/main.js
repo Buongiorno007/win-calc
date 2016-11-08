@@ -10362,6 +10362,7 @@ function ErrorResult(code, message) {
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var temp = [];
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.design.doorShapeList.length = [];
       DesignStor.designSource.doorShapeList.length = [];
@@ -10383,14 +10384,13 @@ function ErrorResult(code, message) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
                 }
               }
+              temp.push(doorsGroups[z]);
               break
             }
-          } else {
-            console.log('else')
-          }
+          } 
         } 
       }
-
+      doorsGroups = angular.copy(temp);
       for(d = 0; d < doorTypeQty; d+=1) {
         var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
                     return item.doorstep_type === 2;
@@ -20407,7 +20407,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         } else {
           //----- set white lamination Couple
           if(!selectedLam[laminatGroupQty].id) {
+            var result = angular.copy(fineItemById(product.profile.id, GlobalStor.global.profiles));
             product.lamination = selectedLam[laminatGroupQty];
+            product.lamination.rama_list_id = result.rama_list_id;
+            product.lamination.rama_still_list_id = result.rama_still_list_id;
+            product.lamination.stvorka_list_id = result.stvorka_list_id;
+            product.lamination.impost_list_id = result.impost_list_id;
+            product.lamination.shtulp_list_id = result.shtulp_list_id;
           }
         }
       }
@@ -20419,7 +20425,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setProfileByLaminat(lamId) {
       var deff = $q.defer();
-      if(lamId) {
+      if(lamId || lamId == 0) {
         //------ set profiles parameters
         if(ProductStor.product.construction_type !== 4) {
           ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
@@ -20476,7 +20482,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-          console.log(doorsLaminations[i])
             product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
             product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
             product.profile.rama_list_id = doorsLaminations[i].rama_list_id

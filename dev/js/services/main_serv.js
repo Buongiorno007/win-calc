@@ -1006,7 +1006,13 @@
         } else {
           //----- set white lamination Couple
           if(!selectedLam[laminatGroupQty].id) {
+            var result = angular.copy(fineItemById(product.profile.id, GlobalStor.global.profiles));
             product.lamination = selectedLam[laminatGroupQty];
+            product.lamination.rama_list_id = result.rama_list_id;
+            product.lamination.rama_still_list_id = result.rama_still_list_id;
+            product.lamination.stvorka_list_id = result.stvorka_list_id;
+            product.lamination.impost_list_id = result.impost_list_id;
+            product.lamination.shtulp_list_id = result.shtulp_list_id;
           }
         }
       }
@@ -1018,7 +1024,7 @@
 
     function setProfileByLaminat(lamId) {
       var deff = $q.defer();
-      if(lamId) {
+      if(lamId || lamId == 0) {
         //------ set profiles parameters
         if(ProductStor.product.construction_type !== 4) {
           ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
@@ -1075,7 +1081,6 @@
       for(var i=0; i<doorsLaminations.length; i+=1) {
         if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
         && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
-          console.log(doorsLaminations[i])
             product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
             product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
             product.profile.rama_list_id = doorsLaminations[i].rama_list_id
