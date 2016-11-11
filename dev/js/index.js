@@ -77,7 +77,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider) {
+  function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider,$compileProvider) {
 
     //-------- delete # !!!
     //$locationProvider.html5Mode({
@@ -134,7 +134,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       .otherwise({
         redirectTo: '/'
       });
-
+ $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
