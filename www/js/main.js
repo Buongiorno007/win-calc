@@ -1125,6 +1125,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
+    thisCtrl.testFunc = HistoryServ.testFunc;
   });
 })();
 
@@ -13806,18 +13807,10 @@ function ErrorResult(code, message) {
               } else {
                 deferred.resolve(1);
               }
-
-
-
-
-
-
-
-
-
             });
           }); 
         });
+        return deferred.promise;
       }
 
 
@@ -14429,8 +14422,21 @@ function ErrorResult(code, message) {
       }
     }
 
+    function testFunc(orderNum) {
+      console.log('da')
+        HistoryStor.history.orderEditNumber = orderNum;
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
+              orderItem().then(function() {
+                RecOrderServ.box();
+              })
+
+        
 
 
+
+
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -14451,7 +14457,8 @@ function ErrorResult(code, message) {
       orderSorting: orderSorting,
       sortingInit: sortingInit,
       reqResult: reqResult,
-      deleteOption: deleteOption
+      deleteOption: deleteOption,
+      testFunc: testFunc
     };
 
     return thisFactory.publicObj;

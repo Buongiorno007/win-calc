@@ -144,7 +144,7 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index" class="account-block">
+            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord | orderBy:order.order_number:true track by $index" class="account-block">
               <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account"> 
                 <div class="account-row header">
                   <div class="tn-box">
@@ -177,7 +177,7 @@
                   </div>
                 </div>
                 <div ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}" class="account-row footer">
-                  <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
+                  <div ng-click="historyPage.testFunc(order.id)" class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ ::historyPage.WAIT_MASTER }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>

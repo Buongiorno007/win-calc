@@ -378,18 +378,10 @@
               } else {
                 deferred.resolve(1);
               }
-
-
-
-
-
-
-
-
-
             });
           }); 
         });
+        return deferred.promise;
       }
 
 
@@ -1001,8 +993,21 @@
       }
     }
 
+    function testFunc(orderNum) {
+      console.log('da')
+        HistoryStor.history.orderEditNumber = orderNum;
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
+              orderItem().then(function() {
+                RecOrderServ.box();
+              })
+
+        
 
 
+
+
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -1023,7 +1028,8 @@
       orderSorting: orderSorting,
       sortingInit: sortingInit,
       reqResult: reqResult,
-      deleteOption: deleteOption
+      deleteOption: deleteOption,
+      testFunc: testFunc
     };
 
     return thisFactory.publicObj;

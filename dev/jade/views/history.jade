@@ -72,7 +72,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               ng-change ="historyPage.deleteOption()")
                 option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
           .scroll-vert-container
-            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
+            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord | orderBy:order.order_number:true track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }") 
                 .account-row.header
                   .tn-box
@@ -101,7 +101,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .user-data.account-user-adress {{ order.customer_location }}, {{ order.customer_address }}
                     .account-label {{ ::historyPage.ADDRESS }}
                 .account-row.footer(ng-class="{'error': historyPage.H.history.resAPI === order.id + 'errorOrder'}")
-                  .account-value {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-click="historyPage.testFunc(order.id)") {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
                     span(ng-show="order.is_instalment") , {{ order.selectedInstalmentPeriod }} {{ ::historyPage.PAYMENTS }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}
                   .account-value(ng-show="order.order_style == 'master'") {{ ::historyPage.WAIT_MASTER }}
                   .account-date {{ order.products_qty }} {{ ::historyPage.ALLPRODUCTS }} {{ ::historyPage.ON }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
