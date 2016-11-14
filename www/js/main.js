@@ -20100,7 +20100,22 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          g;
+          perimeterPrif = [],
+          glassObj = {},
+          g,
+          coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
+
+        for (var l = 0; l < ProductStor.product.template.details.length; l += 1) {
+          if(!ProductStor.product.template.details[l].children.length) {
+            //ищем стеклопакет, чтобы получить значение glass_type
+            glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
+            //умнажаем периметр с/п на coefGlass
+            perimeterPrif.push(((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type]);
+          }
+        }
+
+      console.log(perimeterPrif, 'perimeterPrif');
+
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
