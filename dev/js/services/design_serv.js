@@ -1242,6 +1242,7 @@
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
+          console.log(product);
         });
       });
       return deferred.promise;

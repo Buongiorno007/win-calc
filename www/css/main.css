@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1471114885') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1471114883') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1479195398') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1471114884') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1471114885') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1471114885') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1475612135') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1479195398') format('truetype');
 }
 /* line 141, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .order-path .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .grid-selector-dialog .set-grid-btn, .grid-selector-dialog .set-grid-all-btn, .grid-selector-dialog .set-grid-warning span, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .save-m, .close-m, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -2191,7 +2191,7 @@ div.drum figure {
   width: 6rem;
   height: 6rem;
   margin: -3rem 0 0 -3rem;
-  background-image: url('../img/spinner.gif?1471114885');
+  background-image: url('../img/spinner.gif?1479195399');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -2321,7 +2321,7 @@ div.drum figure {
 .sash_mark {
   fill: none;
   stroke: #f98000;
-  stroke-width: 2;
+  stroke-width: 6;
 }
 
 /* line 50, ../../dev/sass/parts/_svg.scss */
@@ -4422,19 +4422,19 @@ textarea.comment-field {
   border-radius: 2rem;
   outline: none;
 }
-/* line 61, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 61, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 64, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 64, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-moz-placeholder {
   color: #5c5b5b;
 }
-/* line 67, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 67, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input:-ms-input-placeholder {
   color: #5c5b5b;
 }
-/* line 56, ../../../../../../var/lib/gems/1.9.1/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
+/* line 56, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/css3/_user-interface.scss */
 .voice-container .voice-input::-webkit-input-placeholder {
   color: #5c5b5b;
 }
@@ -5749,7 +5749,7 @@ textarea.comment-field {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1471114886') no-repeat;
+  background: url('../img/login/login-bg.jpg?1479195400') no-repeat;
   background-size: cover;
 }
 
@@ -5806,7 +5806,7 @@ textarea.comment-field {
   width: 6.125rem;
   height: 6.125rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1471114886') no-repeat;
+  background: url('../img/login/logo.png?1479195400') no-repeat;
   background-size: cover;
 }
 
@@ -8392,7 +8392,7 @@ tr.factory_item {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1471114885') no-repeat;
+  background: url('../img/door-arrow.png?1479195399') no-repeat;
   background-size: 100% 100%;
 }
 /* line 681, ../../dev/sass/pages/design.scss */
@@ -10159,133 +10159,133 @@ tr.factory_item {
 }
 /* line 12, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/grid.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 17, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grating-img {
-  background-image: url('../img/auxiliaries-focused/grating.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/grating.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 22, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grat-img {
-  background-image: url('../img/auxiliaries-focused/grating2.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/grating2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 27, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shutters-img {
-  background-image: url('../img/auxiliaries-focused/shutters.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/shutters.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-shut-img {
-  background-image: url('../img/auxiliaries-focused/shutters2.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/shutters2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 37, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/visor.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-vis-img {
-  background-image: url('../img/auxiliaries-focused/visor2.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/visor2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 47, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 52, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spil-img {
-  background-image: url('../img/auxiliaries-focused/spillway2.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/spillway2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 57, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 62, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 67, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 77, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 82, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 87, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 92, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-outside-img {
-  background-image: url('../img/auxiliaries-focused/outside.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/outside.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 97, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/fan.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 102, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 107, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 112, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/handle.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 117, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/blind.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10295,133 +10295,133 @@ tr.factory_item {
 }
 /* line 130, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/grid.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/visor.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-vis-img {
-  background-image: url('../img/auxiliaries-selected/visor2.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/visor2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grating-img {
-  background-image: url('../img/auxiliaries-selected/grating.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/grating.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grat-img {
-  background-image: url('../img/auxiliaries-selected/grating2.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/grating2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shutters-img {
-  background-image: url('../img/auxiliaries-selected/shutters.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/shutters.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-shut-img {
-  background-image: url('../img/auxiliaries-selected/shutters2.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/shutters2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spil-img {
-  background-image: url('../img/auxiliaries-selected/spillway2.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/spillway2.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 180, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 185, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 190, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 195, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 200, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 205, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 210, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-outside-left {
-  background-image: url('../img/auxiliaries-selected/outside.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/outside.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 215, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/fan.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 220, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 225, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 230, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1471114886');
+  background-image: url('../img/auxiliaries-selected/handle.png?1479195400');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 235, ../../dev/sass/panels/add-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-blind-img {
-  background-image: url('../img/auxiliaries-focused/blind.png?1471114886');
+  background-image: url('../img/auxiliaries-focused/blind.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10445,7 +10445,7 @@ tr.factory_item {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1471114886');
+  background-image: url('../img/auxiliaries/grid.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10462,7 +10462,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor.png?1471114886');
+  background-image: url('../img/auxiliaries/visor.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10479,7 +10479,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/visor2.png?1471114886');
+  background-image: url('../img/auxiliaries/visor2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10496,7 +10496,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating.png?1471114886');
+  background-image: url('../img/auxiliaries/grating.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10513,7 +10513,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/grating2.png?1471114886');
+  background-image: url('../img/auxiliaries/grating2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10530,7 +10530,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/shutters.png?1471114886');
+  background-image: url('../img/auxiliaries/shutters.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10547,7 +10547,7 @@ tr.factory_item {
   position: absolute;
   width: 28.75rem;
   height: 38.625rem;
-  background-image: url('../img/auxiliaries/shutters2.png?1471114886');
+  background-image: url('../img/auxiliaries/shutters2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10564,7 +10564,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway.png?1471114886');
+  background-image: url('../img/auxiliaries/spillway.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10581,7 +10581,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/spillway2.png?1471114886');
+  background-image: url('../img/auxiliaries/spillway2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10598,7 +10598,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/outside.png?1471114886');
+  background-image: url('../img/auxiliaries/outside.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10615,7 +10615,7 @@ tr.factory_item {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1471114886');
+  background-image: url('../img/auxiliaries/windowsill.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10632,7 +10632,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/blind.png?1471114886');
+  background-image: url('../img/auxiliaries/blind.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10649,7 +10649,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 30.25rem;
-  background-image: url('../img/auxiliaries/template1.png?1471114886');
+  background-image: url('../img/auxiliaries/template1.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10666,7 +10666,7 @@ tr.factory_item {
   position: absolute;
   width: 28.375rem;
   height: 48.25rem;
-  background-image: url('../img/auxiliaries/template2.png?1471114886');
+  background-image: url('../img/auxiliaries/template2.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10690,7 +10690,7 @@ tr.factory_item {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1471114886');
+  background-image: url('../img/auxiliaries/louvers-top.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10700,7 +10700,7 @@ tr.factory_item {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1471114886');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10727,7 +10727,7 @@ tr.factory_item {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1471114886');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10750,7 +10750,7 @@ tr.factory_item {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1471114886');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10761,7 +10761,7 @@ tr.factory_item {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1471114886');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10772,7 +10772,7 @@ tr.factory_item {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1471114886');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10789,7 +10789,7 @@ tr.factory_item {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1471114886');
+  background-image: url('../img/auxiliaries/fan.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10812,7 +10812,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1471114886');
+  background-image: url('../img/auxiliaries/force-connector.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10823,7 +10823,7 @@ tr.factory_item {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1471114886');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -10840,7 +10840,7 @@ tr.factory_item {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1471114886');
+  background-image: url('../img/auxiliaries/handle.png?1479195399');
   background-repeat: no-repeat;
   background-size: contain;
 }

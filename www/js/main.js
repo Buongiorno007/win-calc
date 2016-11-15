@@ -137,7 +137,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       .otherwise({
         redirectTo: '/'
       });
- $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
@@ -1744,6 +1744,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           checkingUser();
 
           // //------- check available Local DB
+          // //for offline work
           // loginServ.isLocalDBExist().then(function(data){
           //   thisCtrl.isLocalDB = data;
           //   if(thisCtrl.isLocalDB) {
@@ -9434,7 +9435,7 @@ function ErrorResult(code, message) {
     .constant('globalConstants', {
       // serverIP: 'http://api.windowscalculator.net',
       // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      // localPath: '/calculator/local/',
+      //localPath: '/calculator/local/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
@@ -10731,6 +10732,7 @@ function ErrorResult(code, message) {
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
+          console.log(product);
         });
       });
       return deferred.promise;
@@ -18654,9 +18656,24 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //function downloadAllTemplates() {
     //
     //}
-
-
-
+    var roomQty_index;
+    //convert url to base64 format
+    //function to caching images for offline work 
+    function toDataUrl(url, callback) {      
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                callback(reader.result);
+                --roomQty_index;
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        
+    }
 
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
@@ -18664,6 +18681,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
         var rooms = angular.copy(result),
             roomQty = rooms.length;
+            roomQty_index  = rooms.length-1;
+
+
         if(roomQty) {
           /** sorting types by position */
           rooms = rooms.sort(function(a, b) {
@@ -18674,6 +18694,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
+
+            //call function to retrieve data from url and convert into base64
+             // toDataUrl(rooms[roomQty].img, function(base64Img) { 
+             //  rooms[roomQty_index].img=base64Img;
+             // });
           }
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
