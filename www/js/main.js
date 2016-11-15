@@ -15421,6 +15421,7 @@ function ErrorResult(code, message) {
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'shtulp_list_id INTEGER,'+
             'impost_list_id INTEGER,'+
             'stvorka_list_id INTEGER,'+
@@ -15441,7 +15442,8 @@ function ErrorResult(code, message) {
           'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
-            'group_id INTEGER,'+ 
+            'group_id INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'lamination_in INTEGER,'+ 
             'lamination_out INTEGER,'+ 
             'rama_list_id INTEGER,'+ 
