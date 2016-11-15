@@ -75,6 +75,7 @@
 
 
     function preloadImages(array) {
+      console.log("preloadImages");
       if (!preloadImages.list) {
         preloadImages.list = [];
       }
@@ -117,6 +118,7 @@
 
 
     function startProgramm() {
+      console.log("startProgramm");
       //console.time('prog');
       /** save first User entrance */
       MainServ.saveUserEntry();
@@ -144,6 +146,7 @@
 
 
     function importDBfromServer() {
+      console.log("importDBfromServer");
       thisCtrl.isStartImport = 1;
       //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
@@ -161,6 +164,7 @@
 
 
     function setFactoryLocation(factories) {
+      console.log("setFactoryLocation");
       var factoryQty = factories.length,
           locationQty;
       while(--factoryQty > -1) {
@@ -176,6 +180,7 @@
 
 
     function checkingFactory() {
+      console.log("checkingFactory");
       //------- set User Location
       loginServ.setUserLocation();
       if((+UserStor.userInfo.factory_id) > 0) {
@@ -216,7 +221,7 @@
 
 
     function importDBProsses(user) {
-
+    console.log("importDBProsses");
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
@@ -252,6 +257,7 @@
 
 
     function checkingUser() {
+      console.log("checkingUser");
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
@@ -280,6 +286,7 @@
 
 
     function entriyWithoutLogin() {
+      console.log("entriyWithoutLogin");
       var url = $location.search(),
           accessArr = [
             '7d537b6746f925b1703aefa9b8a9a4bc',
@@ -474,6 +481,7 @@
 
     /** =========== SIGN IN ======== */
     function loader() {
+      console.log("loader");
       if (GlobalStor.global.isLoader3 === 1) {
         if (GlobalStor.global.isLoader === 1) {
           GlobalStor.global.isLoader3 = 0
@@ -500,6 +508,7 @@
       loader()
     }
     function enterForm(form) {
+      console.log("enterForm");
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -622,6 +631,7 @@
     /**--------- FACTORIES ------------*/
 
     function selectFactory() {
+      console.log("selectFactory");
       if(thisCtrl.user.factoryId > 0) {
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -648,6 +658,7 @@
     }
 
     function closeFactoryDialog() {
+      console.log("closeFactoryDialog");
       thisCtrl.isFactoryNotSelect = 0;
       thisCtrl.isFactoryId = 0;
       delete thisCtrl.user.factoryId;
@@ -661,6 +672,7 @@
 
 
     function switchRegistration() {
+      console.log("switchRegistration");
       //------ check Internet
       //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
       if(thisCtrl.isOnline) {

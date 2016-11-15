@@ -903,7 +903,7 @@
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
-                console.log('Error!!! ', error, tableKeys[t], colums, values);
+                //console.log('Error!!! ', error, tableKeys[t], colums, values);
                 defer.resolve(0);
               });
 

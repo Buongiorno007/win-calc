@@ -706,7 +706,7 @@
           }
         }
 
-      console.log(perimeterPrif, 'perimeterPrif');
+      //console.log(perimeterPrif, 'perimeterPrif');
 
 
       /** working with glasses */
