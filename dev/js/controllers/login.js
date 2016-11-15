@@ -517,6 +517,7 @@
           checkingUser();
 
           // //------- check available Local DB
+          // //for offline work
           // loginServ.isLocalDBExist().then(function(data){
           //   thisCtrl.isLocalDB = data;
           //   if(thisCtrl.isLocalDB) {

@@ -755,9 +755,24 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //function downloadAllTemplates() {
     //
     //}
-
-
-
+    var roomQty_index;
+    //convert url to base64 format
+    //function to caching images for offline work 
+    function toDataUrl(url, callback) {      
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                callback(reader.result);
+                --roomQty_index;
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        
+    }
 
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
@@ -765,6 +780,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
         var rooms = angular.copy(result),
             roomQty = rooms.length;
+            roomQty_index  = rooms.length-1;
+
+
         if(roomQty) {
           /** sorting types by position */
           rooms = rooms.sort(function(a, b) {
@@ -775,6 +793,11 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
+
+            //call function to retrieve data from url and convert into base64
+             // toDataUrl(rooms[roomQty].img, function(base64Img) { 
+             //  rooms[roomQty_index].img=base64Img;
+             // });
           }
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
