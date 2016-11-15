@@ -873,6 +873,7 @@
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var temp = [];
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.design.doorShapeList.length = [];
       DesignStor.designSource.doorShapeList.length = [];
@@ -894,12 +895,13 @@
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
                 }
               }
+              temp.push(doorsGroups[z]);
               break
             }
-          }
+          } 
         } 
       }
-
+      doorsGroups = angular.copy(temp);
       for(d = 0; d < doorTypeQty; d+=1) {
         var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
                     return item.doorstep_type === 2;

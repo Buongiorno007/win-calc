@@ -1125,6 +1125,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
+    thisCtrl.testFunc = HistoryServ.testFunc;
   });
 })();
 
@@ -6407,7 +6408,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
                 setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
-                setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');}
+                setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              }
+
 
           /** soffits */
 
@@ -10361,6 +10364,7 @@ function ErrorResult(code, message) {
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
       var doorsLaminations = angular.copy(GlobalStor.global.doorsLaminations);
       var doorsGroups = angular.copy(GlobalStor.global.doorsGroups);
+      var temp = [];
       var doorKitsT1 = GlobalStor.global.doorKitsT1;
       DesignStor.design.doorShapeList.length = [];
       DesignStor.designSource.doorShapeList.length = [];
@@ -10382,12 +10386,13 @@ function ErrorResult(code, message) {
                   doorsGroups[z].doorstep_type = doorKitsT1[x].doorstep_type;
                 }
               }
+              temp.push(doorsGroups[z]);
               break
             }
-          }
+          } 
         } 
       }
-
+      doorsGroups = angular.copy(temp);
       for(d = 0; d < doorTypeQty; d+=1) {
         var ch1 = DesignStor.design.sashShapeList = doorsGroups.filter(function(item) {
                     return item.doorstep_type === 2;
@@ -13803,18 +13808,10 @@ function ErrorResult(code, message) {
               } else {
                 deferred.resolve(1);
               }
-
-
-
-
-
-
-
-
-
             });
           }); 
         });
+        return deferred.promise;
       }
 
 
@@ -14426,8 +14423,21 @@ function ErrorResult(code, message) {
       }
     }
 
+    function testFunc(orderNum) {
+      console.log('da')
+        HistoryStor.history.orderEditNumber = orderNum;
+        GlobalStor.global.isBox = !GlobalStor.global.isBox;
+        GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
+              orderItem().then(function() {
+                RecOrderServ.box();
+              })
+
+        
 
 
+
+
+    }
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -14448,7 +14458,8 @@ function ErrorResult(code, message) {
       orderSorting: orderSorting,
       sortingInit: sortingInit,
       reqResult: reqResult,
-      deleteOption: deleteOption
+      deleteOption: deleteOption,
+      testFunc: testFunc
     };
 
     return thisFactory.publicObj;
@@ -20090,7 +20101,22 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          g;
+          perimeterPrif = [],
+          glassObj = {},
+          g,
+          coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
+
+        for (var l = 0; l < ProductStor.product.template.details.length; l += 1) {
+          if(!ProductStor.product.template.details[l].children.length) {
+            //ищем стеклопакет, чтобы получить значение glass_type
+            glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
+            //умнажаем периметр с/п на coefGlass
+            perimeterPrif.push(((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type]);
+          }
+        }
+
+      console.log(perimeterPrif, 'perimeterPrif');
+
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
@@ -20337,7 +20363,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         var laminatQty = GlobalStor.global.laminats.length,
           /** sort by Profile */
           lamGroupsTemp = GlobalStor.global.doorsLaminations.filter(function(item) {
-              return item.group_id === GlobalStor.global.type_door || GlobalStor.global.doorsGroups[0].id;
+              return item.group_id === GlobalStor.global.type_door;
           }),
           lamGroupsTempQty, isAnyActive = 0;
           for(var a=0; a<lamGroupsTemp.length; a+=1) {
@@ -20404,7 +20430,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         } else {
           //----- set white lamination Couple
           if(!selectedLam[laminatGroupQty].id) {
+            var result = angular.copy(fineItemById(product.profile.id, GlobalStor.global.profiles));
             product.lamination = selectedLam[laminatGroupQty];
+            product.lamination.rama_list_id = result.rama_list_id;
+            product.lamination.rama_still_list_id = result.rama_still_list_id;
+            product.lamination.stvorka_list_id = result.stvorka_list_id;
+            product.lamination.impost_list_id = result.impost_list_id;
+            product.lamination.shtulp_list_id = result.shtulp_list_id;
           }
         }
       }
@@ -20416,13 +20448,18 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
     function setProfileByLaminat(lamId) {
       var deff = $q.defer();
-      if(lamId) {
+      if(lamId || lamId == 0) {
         //------ set profiles parameters
-        ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
-        ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
-        ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
-        ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
-        ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        if(ProductStor.product.construction_type !== 4) {
+          ProductStor.product.profile.rama_list_id = ProductStor.product.lamination.rama_list_id;
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.lamination.rama_still_list_id;
+          ProductStor.product.profile.stvorka_list_id = ProductStor.product.lamination.stvorka_list_id;
+          ProductStor.product.profile.impost_list_id = ProductStor.product.lamination.impost_list_id;
+          ProductStor.product.profile.shtulp_list_id = ProductStor.product.lamination.shtulp_list_id;
+        } else {
+          ProductStor.product.profile = angular.copy(selectDoor(ProductStor.product.door_shape_id, ProductStor.product));
+          ProductStor.product.profile.rama_still_list_id = ProductStor.product.profile.door_sill_list_id;
+        }
       } 
       //------- set Depths
       $q.all([
@@ -20437,14 +20474,14 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
             var hardwareIds = ProductStor.product.hardware.id || 0;
             preparePrice(
               ProductStor.product.template,
-              ProductStor.product.profile.id,
+              profile,
               ProductStor.product.glass,
               hardwareIds,
               ProductStor.product.lamination.lamination_in_id
@@ -20462,8 +20499,23 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deff.promise;
     }
 
-
-
+    /**==================temp location for this function!!! =================*/
+    function selectDoor(id, product) {
+      var doorsLaminations = angular.copy(GlobalStor.global.lamGroupFiltered);
+      for(var i=0; i<doorsLaminations.length; i+=1) {
+        if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+        && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
+            product.profile.door_sill_list_id = doorsLaminations[i].door_sill_list_id
+            product.profile.impost_list_id = doorsLaminations[i].impost_list_id 
+            product.profile.rama_list_id = doorsLaminations[i].rama_list_id
+            product.profile.shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+            product.profile.stvorka_list_id = doorsLaminations[i].stvorka_list_id
+            break
+        }
+      }       
+      return product.profile;
+    } 
+    /**==================temp location for this function!!! =================*/
 
     /**----------- Glass sizes checking -------------*/
 

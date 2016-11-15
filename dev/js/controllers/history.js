@@ -99,5 +99,6 @@
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
+    thisCtrl.testFunc = HistoryServ.testFunc;
   });
 })();
