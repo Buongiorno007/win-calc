@@ -795,9 +795,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             $("<img />").attr("src", rooms[roomQty].img);
 
             //call function to retrieve data from url and convert into base64
-             // toDataUrl(rooms[roomQty].img, function(base64Img) { 
-             //  rooms[roomQty_index].img=base64Img;
-             // });
+             toDataUrl(rooms[roomQty].img, function(base64Img) { 
+              rooms[roomQty_index].img=base64Img;
+             });
           }
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;

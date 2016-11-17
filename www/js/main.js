@@ -1303,7 +1303,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function preloadImages(array) {
-      console.log("preloadImages");
       if (!preloadImages.list) {
         preloadImages.list = [];
       }
@@ -1346,7 +1345,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function startProgramm() {
-      console.log("startProgramm");
       //console.time('prog');
       /** save first User entrance */
       MainServ.saveUserEntry();
@@ -1374,7 +1372,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function importDBfromServer() {
-      console.log("importDBfromServer");
       thisCtrl.isStartImport = 1;
       //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
@@ -1392,7 +1389,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function setFactoryLocation(factories) {
-      console.log("setFactoryLocation");
       var factoryQty = factories.length,
           locationQty;
       while(--factoryQty > -1) {
@@ -1408,7 +1404,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function checkingFactory() {
-      console.log("checkingFactory");
       //------- set User Location
       loginServ.setUserLocation();
       if((+UserStor.userInfo.factory_id) > 0) {
@@ -1449,7 +1444,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function importDBProsses(user) {
-    console.log("importDBProsses");
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
@@ -1485,7 +1479,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function checkingUser() {
-      console.log("checkingUser");
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
@@ -1514,7 +1507,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function entriyWithoutLogin() {
-      console.log("entriyWithoutLogin");
       var url = $location.search(),
           accessArr = [
             '7d537b6746f925b1703aefa9b8a9a4bc',
@@ -1709,7 +1701,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
     /** =========== SIGN IN ======== */
     function loader() {
-      console.log("loader");
       if (GlobalStor.global.isLoader3 === 1) {
         if (GlobalStor.global.isLoader === 1) {
           GlobalStor.global.isLoader3 = 0
@@ -1736,7 +1727,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       loader()
     }
     function enterForm(form) {
-      console.log("enterForm");
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -1751,56 +1741,56 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
-          // //------- check available Local DB
-          // //for offline work
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          //------- check available Local DB
+          //for offline work
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -1859,7 +1849,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     /**--------- FACTORIES ------------*/
 
     function selectFactory() {
-      console.log("selectFactory");
       if(thisCtrl.user.factoryId > 0) {
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -1886,7 +1875,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function closeFactoryDialog() {
-      console.log("closeFactoryDialog");
       thisCtrl.isFactoryNotSelect = 0;
       thisCtrl.isFactoryId = 0;
       delete thisCtrl.user.factoryId;
@@ -1900,7 +1888,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function switchRegistration() {
-      console.log("switchRegistration");
       //------ check Internet
       //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
       if(thisCtrl.isOnline) {
@@ -18718,9 +18705,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             $("<img />").attr("src", rooms[roomQty].img);
 
             //call function to retrieve data from url and convert into base64
-             // toDataUrl(rooms[roomQty].img, function(base64Img) { 
-             //  rooms[roomQty_index].img=base64Img;
-             // });
+             toDataUrl(rooms[roomQty].img, function(base64Img) { 
+              rooms[roomQty_index].img=base64Img;
+             });
           }
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
@@ -21105,10 +21092,12 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            if(respond.status) {
-              orderData.order_number = respond.order_number;
-            }
             localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+            if (navigator.onLine){
+              if(respond.status) {
+                orderData.order_number = respond.order_number;
+              }
+            }
             defer.resolve(1);
           });
         } else if(orderType && orderData.order_edit === 1) {

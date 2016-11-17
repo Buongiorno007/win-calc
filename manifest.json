@@ -1,0 +1,26 @@
+{
+  "name": "WindowCalculator",
+  "description": "Create your own coolest window",
+  "version": "0.1",
+  "manifest_version": 2,
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "storage",
+    "activeTab",
+    "clipboardWrite"
+  ],
+  "browser_action": {
+    "default_icon": "img/favicon.ico"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "icons": {
+    "16": "img/favicon.ico",
+    "128": "img/favicon.ico"
+  }
+
+}
+

@@ -75,7 +75,6 @@
 
 
     function preloadImages(array) {
-      console.log("preloadImages");
       if (!preloadImages.list) {
         preloadImages.list = [];
       }
@@ -118,7 +117,6 @@
 
 
     function startProgramm() {
-      console.log("startProgramm");
       //console.time('prog');
       /** save first User entrance */
       MainServ.saveUserEntry();
@@ -146,7 +144,6 @@
 
 
     function importDBfromServer() {
-      console.log("importDBfromServer");
       thisCtrl.isStartImport = 1;
       //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
@@ -164,7 +161,6 @@
 
 
     function setFactoryLocation(factories) {
-      console.log("setFactoryLocation");
       var factoryQty = factories.length,
           locationQty;
       while(--factoryQty > -1) {
@@ -180,7 +176,6 @@
 
 
     function checkingFactory() {
-      console.log("checkingFactory");
       //------- set User Location
       loginServ.setUserLocation();
       if((+UserStor.userInfo.factory_id) > 0) {
@@ -221,7 +216,6 @@
 
 
     function importDBProsses(user) {
-    console.log("importDBProsses");
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
@@ -257,7 +251,6 @@
 
 
     function checkingUser() {
-      console.log("checkingUser");
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
@@ -286,7 +279,6 @@
 
 
     function entriyWithoutLogin() {
-      console.log("entriyWithoutLogin");
       var url = $location.search(),
           accessArr = [
             '7d537b6746f925b1703aefa9b8a9a4bc',
@@ -481,7 +473,6 @@
 
     /** =========== SIGN IN ======== */
     function loader() {
-      console.log("loader");
       if (GlobalStor.global.isLoader3 === 1) {
         if (GlobalStor.global.isLoader === 1) {
           GlobalStor.global.isLoader3 = 0
@@ -508,7 +499,6 @@
       loader()
     }
     function enterForm(form) {
-      console.log("enterForm");
       var newUserPassword;
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
@@ -523,56 +513,56 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
-          // //------- check available Local DB
-          // //for offline work
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          //------- check available Local DB
+          //for offline work
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -631,7 +621,6 @@
     /**--------- FACTORIES ------------*/
 
     function selectFactory() {
-      console.log("selectFactory");
       if(thisCtrl.user.factoryId > 0) {
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
@@ -658,7 +647,6 @@
     }
 
     function closeFactoryDialog() {
-      console.log("closeFactoryDialog");
       thisCtrl.isFactoryNotSelect = 0;
       thisCtrl.isFactoryId = 0;
       delete thisCtrl.user.factoryId;
@@ -672,7 +660,6 @@
 
 
     function switchRegistration() {
-      console.log("switchRegistration");
       //------ check Internet
       //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
       if(thisCtrl.isOnline) {
