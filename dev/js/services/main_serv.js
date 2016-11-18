@@ -365,8 +365,8 @@
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          if(product.profile.profile_id) {
-            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
           } else {
             return item.profileId === product.profile.id;
 
@@ -387,8 +387,8 @@
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        if(product.profile.profile_id) {
-          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
         } else {
           return item.profileId === product.profile.id;
         }
@@ -692,7 +692,7 @@
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          perimeterPrif = [],
+          perimeterPrif = 0,
           glassObj = {},
           g,
           coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
@@ -702,11 +702,10 @@
             //ищем стеклопакет, чтобы получить значение glass_type
             glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
             //умнажаем периметр с/п на coefGlass
-            perimeterPrif.push(((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type]);
+            perimeterPrif += ((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type];
           }
         }
-
-      console.log(perimeterPrif, 'perimeterPrif');
+      
 
 
       /** working with glasses */
@@ -733,7 +732,7 @@
       }
       profHeatCT = (ProductStor.product.template_square - glassSqT)/ProductStor.product.profile.heat_coeff_value;
 
-      heatCoeffTotal = profHeatCT + glassHeatCT;
+      heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
@@ -1065,7 +1064,7 @@
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profileId;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
@@ -1703,12 +1702,45 @@
       return deferred.promise;
     }
 
+    function setGlassfilter() {
+      var product = angular.copy(ProductStor.product);
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
+        if (product.profile.profileId) {
+          return (product.construction_type == 4) ? item.profileId === product.profile.profileId : item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+    }
+    function setGlassDefault(profileId, template, product) {
+      product.glass.length = 0;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === profileId;
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+      product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+
+      GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+      GlobalStor.global.selectGlassId = product.glass[0].id;
+      GlobalStor.global.selectGlassName = product.glass[0].sku;
+
+      for(var x=0; x<template.details.length; x+=1) {
+        template.details[x].glassId = product.glass[0].id;
+        template.details[x].glassTxt = product.glass[0].sku;
+        template.details[x].glass_type = product.glass[0].glass_type;
+      }
+    }
 
 
     /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
+      setGlassfilter: setGlassfilter,
+      setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,

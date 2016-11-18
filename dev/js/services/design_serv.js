@@ -974,6 +974,13 @@
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+
+
+
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
         ).then(function(dependencies) {
@@ -1082,7 +1089,7 @@
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
-          product.template_source, 
+          product.template_source,
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -1097,13 +1104,13 @@
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              product.template_source,  
+              product.template_source,
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);
             });
           });
-        });  
+        });
       });  
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
@@ -1176,6 +1183,7 @@
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -3326,6 +3334,7 @@
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
               /** rebuild glasses */
+              MainServ.setGlassfilter();
               MainServ.setCurrentGlass(ProductStor.product, 1);
 
               /** create template icon */
