@@ -347,11 +347,36 @@
       return defer.promise;
     }
 
-
+      function setBase64Avatar(url, callback) { 
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            var value = reader.result;
+            var item = {};
+            item["userAvatar"] = value;
+            chrome.storage.local.set(item);
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url,true);
+        xhr.send();        
+    }
     function setUserDiscounts() {
       var defer = $q.defer();
       //-------- add server url to avatar img
-      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
+      if (navigator.onLine){
+        var url = globalConstants.serverIP + UserStor.userInfo.avatar
+        UserStor.userInfo.avatar = url;
+        setBase64Avatar(url, function(base64Img){ });
+      }else {
+        chrome.storage.local.get("userAvatar", function(items) {
+          UserStor.userInfo.avatar = items["userAvatar"];
+        });
+      }
+      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);
@@ -755,33 +780,38 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //function downloadAllTemplates() {
     //
     //}
+    var key;
     var roomQty_index;
     //convert url to base64 format
     //function to caching images for offline work 
-    function toDataUrl(url, callback) {      
+    function setBase64Img(rooms, index, callback) { 
+      var url = rooms[index].img;
         var xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
         xhr.onload = function() {
-            var reader = new FileReader();
-            reader.onload = function() {
-                callback(reader.result);
-                --roomQty_index;
-            }
-            reader.readAsDataURL(xhr.response);
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            key = String("key"+index);
+            var value = reader.result;
+            var item = {};
+            item[key] = value;
+            chrome.storage.local.set(item);
+            rooms[index].img = value
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
         };
-        xhr.open('GET', url);
-        xhr.send();
-        
+        xhr.open('GET', url,true);
+        xhr.send();        
     }
-
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
       var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
-        var rooms = angular.copy(result),
+        var rooms = null, roomQty = null;
+            rooms = angular.copy(result);
             roomQty = rooms.length;
-            roomQty_index  = rooms.length-1;
-
+            roomQty_index = rooms.length;
 
         if(roomQty) {
           /** sorting types by position */
@@ -793,12 +823,27 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
-
+            if (navigator.onLine){
+              localStorage.clear();
             //call function to retrieve data from url and convert into base64
-             toDataUrl(rooms[roomQty].img, function(base64Img) { 
-              rooms[roomQty_index].img=base64Img;
-             });
-          }
+            setBase64Img(rooms, roomQty, function(base64Img) { });
+            }
+           else {
+            key = String("key"+roomQty);
+            chrome.storage.local.get(key, function(items) {
+              --roomQty_index;
+              key = String("key"+roomQty_index);
+              rooms[roomQty_index].img = items[key];
+            });
+           }
+
+
+          
+        }
+             // chrome.storage.local.get(key, function(base64Img){
+
+             // });
+
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
