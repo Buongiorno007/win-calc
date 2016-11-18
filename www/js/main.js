@@ -1444,7 +1444,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function importDBProsses(user) {
-
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
@@ -1742,56 +1741,56 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
-          // //------- check available Local DB
-          // //for offline work
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          //------- check available Local DB
+          //for offline work
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -10466,6 +10465,13 @@ function ErrorResult(code, message) {
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+
+
+
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
         ).then(function(dependencies) {
@@ -10574,7 +10580,7 @@ function ErrorResult(code, message) {
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
-          product.template_source, 
+          product.template_source,
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -10589,13 +10595,13 @@ function ErrorResult(code, message) {
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              product.template_source,  
+              product.template_source,
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);
             });
           });
-        });  
+        });
       });  
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
@@ -10668,6 +10674,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -12818,6 +12825,7 @@ function ErrorResult(code, message) {
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
               /** rebuild glasses */
+              MainServ.setGlassfilter();
               MainServ.setCurrentGlass(ProductStor.product, 1);
 
               /** create template icon */
@@ -15424,6 +15432,7 @@ function ErrorResult(code, message) {
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'shtulp_list_id INTEGER,'+
             'impost_list_id INTEGER,'+
             'stvorka_list_id INTEGER,'+
@@ -15444,7 +15453,8 @@ function ErrorResult(code, message) {
           'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
-            'group_id INTEGER,'+ 
+            'group_id INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'lamination_in INTEGER,'+ 
             'lamination_out INTEGER,'+ 
             'rama_list_id INTEGER,'+ 
@@ -18258,11 +18268,36 @@ function ErrorResult(code, message) {
       return defer.promise;
     }
 
-
+      function setBase64Avatar(url, callback) { 
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            var value = reader.result;
+            var item = {};
+            item["userAvatar"] = value;
+            chrome.storage.local.set(item);
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url,true);
+        xhr.send();        
+    }
     function setUserDiscounts() {
       var defer = $q.defer();
       //-------- add server url to avatar img
-      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
+      if (navigator.onLine){
+        var url = globalConstants.serverIP + UserStor.userInfo.avatar
+        UserStor.userInfo.avatar = url;
+        setBase64Avatar(url, function(base64Img){ });
+      }else {
+        chrome.storage.local.get("userAvatar", function(items) {
+          UserStor.userInfo.avatar = items["userAvatar"];
+        });
+      }
+      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);
@@ -18666,33 +18701,38 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //function downloadAllTemplates() {
     //
     //}
+    var key;
     var roomQty_index;
     //convert url to base64 format
     //function to caching images for offline work 
-    function toDataUrl(url, callback) {      
+    function setBase64Img(rooms, index, callback) { 
+      var url = rooms[index].img;
         var xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
         xhr.onload = function() {
-            var reader = new FileReader();
-            reader.onload = function() {
-                callback(reader.result);
-                --roomQty_index;
-            }
-            reader.readAsDataURL(xhr.response);
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            key = String("key"+index);
+            var value = reader.result;
+            var item = {};
+            item[key] = value;
+            chrome.storage.local.set(item);
+            rooms[index].img = value
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
         };
-        xhr.open('GET', url);
-        xhr.send();
-        
+        xhr.open('GET', url,true);
+        xhr.send();        
     }
-
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
       var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
-        var rooms = angular.copy(result),
+        var rooms = null, roomQty = null;
+            rooms = angular.copy(result);
             roomQty = rooms.length;
-            roomQty_index  = rooms.length-1;
-
+            roomQty_index = rooms.length;
 
         if(roomQty) {
           /** sorting types by position */
@@ -18704,12 +18744,27 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
-
+            if (navigator.onLine){
+              localStorage.clear();
             //call function to retrieve data from url and convert into base64
-             // toDataUrl(rooms[roomQty].img, function(base64Img) { 
-             //  rooms[roomQty_index].img=base64Img;
+            setBase64Img(rooms, roomQty, function(base64Img) { });
+            }
+           else {
+            key = String("key"+roomQty);
+            chrome.storage.local.get(key, function(items) {
+              --roomQty_index;
+              key = String("key"+roomQty_index);
+              rooms[roomQty_index].img = items[key];
+            });
+           }
+
+
+          
+        }
+             // chrome.storage.local.get(key, function(base64Img){
+
              // });
-          }
+
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
@@ -19799,8 +19854,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          if(product.profile.profile_id) {
-            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
           } else {
             return item.profileId === product.profile.id;
 
@@ -19821,8 +19876,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        if(product.profile.profile_id) {
-          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
         } else {
           return item.profileId === product.profile.id;
         }
@@ -20126,7 +20181,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          perimeterPrif = [],
+          perimeterPrif = 0,
           glassObj = {},
           g,
           coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
@@ -20136,11 +20191,10 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //ищем стеклопакет, чтобы получить значение glass_type
             glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
             //умнажаем периметр с/п на coefGlass
-            perimeterPrif.push(((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type]);
+            perimeterPrif += ((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type];
           }
         }
-
-      console.log(perimeterPrif, 'perimeterPrif');
+      
 
 
       /** working with glasses */
@@ -20167,7 +20221,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
       profHeatCT = (ProductStor.product.template_square - glassSqT)/ProductStor.product.profile.heat_coeff_value;
 
-      heatCoeffTotal = profHeatCT + glassHeatCT;
+      heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
@@ -20499,7 +20553,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profileId;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
@@ -21137,12 +21191,45 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
+    function setGlassfilter() {
+      var product = angular.copy(ProductStor.product);
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
+        if (product.profile.profileId) {
+          return (product.construction_type == 4) ? item.profileId === product.profile.profileId : item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+    }
+    function setGlassDefault(profileId, template, product) {
+      product.glass.length = 0;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === profileId;
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+      product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+
+      GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+      GlobalStor.global.selectGlassId = product.glass[0].id;
+      GlobalStor.global.selectGlassName = product.glass[0].sku;
+
+      for(var x=0; x<template.details.length; x+=1) {
+        template.details[x].glassId = product.glass[0].id;
+        template.details[x].glassTxt = product.glass[0].sku;
+        template.details[x].glass_type = product.glass[0].glass_type;
+      }
+    }
 
 
     /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
+      setGlassfilter: setGlassfilter,
+      setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
