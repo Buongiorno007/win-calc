@@ -706,7 +706,7 @@
           }
         }
 
-      console.log(perimeterPrif, 'perimeterPrif');
+      //console.log(perimeterPrif, 'perimeterPrif');
 
 
       /** working with glasses */
@@ -1703,17 +1703,24 @@
       return deferred.promise;
     }
 
-    function setGlassDefault() {
+    function setGlassfilter() {
       var product = angular.copy(ProductStor.product);
-      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        if(product.profile.profileId) {
-          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
+        if (product.profile.profileId) {
+          return (product.construction_type == 4) ? item.profileId === product.profile.profileId : item.profileId === product.profile.id;
         } else {
           return item.profileId === product.profile.id;
         }
       });
 
-      product.glass = [];
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+    }
+    function setGlassDefault(profileId, template, product) {
+      product.glass.length = 0;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === profileId;
+      });
+
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
       product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
 
@@ -1721,21 +1728,11 @@
       GlobalStor.global.selectGlassId = product.glass[0].id;
       GlobalStor.global.selectGlassName = product.glass[0].sku;
 
-      for(var x=0; x<product.template_source.details.length; x+=1) {
-        product.template_source.details[x].glassId = product.glass[0].id;
-        product.template_source.details[x].glassTxt = product.glass[0].sku;
-        product.template_source.details[x].glass_type = product.glass[0].glass_type;
-        product.template.details[x].glassId = product.glass[0].id;
-        product.template.details[x].glassTxt = product.glass[0].sku;
-        product.template.details[x].glass_type = product.glass[0].glass_type;
-        DesignStor.design.templateSourceTEMP.details[x].glassId = product.glass[0].id;
-        DesignStor.design.templateSourceTEMP.details[x].glassTxt = product.glass[0].sku;
-        DesignStor.design.templateSourceTEMP.details[x].glass_type = product.glass[0].glass_type;
-        DesignStor.design.templateTEMP.details[x].glassId = product.glass[0].id;
-        DesignStor.design.templateTEMP.details[x].glassTxt = product.glass[0].sku;
-        DesignStor.design.templateTEMP.details[x].glass_type = product.glass[0].glass_type;
+      for(var x=0; x<template.details.length; x+=1) {
+        template.details[x].glassId = product.glass[0].id;
+        template.details[x].glassTxt = product.glass[0].sku;
+        template.details[x].glass_type = product.glass[0].glass_type;
       }
-      ProductStor.product = angular.copy(product);
     }
 
 
@@ -1743,6 +1740,7 @@
 
 
     thisFactory.publicObj = {
+      setGlassfilter: setGlassfilter,
       setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,

@@ -974,6 +974,13 @@
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+
+
+
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
         ).then(function(dependencies) {
@@ -1081,9 +1088,8 @@
         product, 
         DesignStor.design
       ).then(function(res) {
-        MainServ.setGlassDefault();
         SVGServ.createSVGTemplate(
-          product.template_source, 
+          product.template_source,
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -1098,13 +1104,13 @@
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              product.template_source,  
+              product.template_source,
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);
             });
           });
-        });  
+        });
       });  
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
@@ -3327,6 +3333,7 @@
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
               /** rebuild glasses */
+              MainServ.setGlassfilter();
               MainServ.setCurrentGlass(ProductStor.product, 1);
 
               /** create template icon */
