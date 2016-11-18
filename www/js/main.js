@@ -10571,6 +10571,7 @@ function ErrorResult(code, message) {
         product, 
         DesignStor.design
       ).then(function(res) {
+        MainServ.setGlassDefault();
         SVGServ.createSVGTemplate(
           product.template_source, 
           product.profileDepths
@@ -10666,6 +10667,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -19775,8 +19777,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          if(product.profile.profile_id) {
-            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
           } else {
             return item.profileId === product.profile.id;
 
@@ -19797,8 +19799,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        if(product.profile.profile_id) {
-          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
         } else {
           return item.profileId === product.profile.id;
         }
@@ -20475,7 +20477,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profileId;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
@@ -21113,12 +21115,47 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
+    function setGlassDefault() {
+      var product = angular.copy(ProductStor.product);
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+
+      product.glass = [];
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+      product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+
+      GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+      GlobalStor.global.selectGlassId = product.glass[0].id;
+      GlobalStor.global.selectGlassName = product.glass[0].sku;
+
+      for(var x=0; x<product.template_source.details.length; x+=1) {
+        product.template_source.details[x].glassId = product.glass[0].id;
+        product.template_source.details[x].glassTxt = product.glass[0].sku;
+        product.template_source.details[x].glass_type = product.glass[0].glass_type;
+        product.template.details[x].glassId = product.glass[0].id;
+        product.template.details[x].glassTxt = product.glass[0].sku;
+        product.template.details[x].glass_type = product.glass[0].glass_type;
+        DesignStor.design.templateSourceTEMP.details[x].glassId = product.glass[0].id;
+        DesignStor.design.templateSourceTEMP.details[x].glassTxt = product.glass[0].sku;
+        DesignStor.design.templateSourceTEMP.details[x].glass_type = product.glass[0].glass_type;
+        DesignStor.design.templateTEMP.details[x].glassId = product.glass[0].id;
+        DesignStor.design.templateTEMP.details[x].glassTxt = product.glass[0].sku;
+        DesignStor.design.templateTEMP.details[x].glass_type = product.glass[0].glass_type;
+      }
+      ProductStor.product = angular.copy(product);
+    }
 
 
     /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
+      setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,

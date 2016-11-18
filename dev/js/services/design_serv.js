@@ -1081,6 +1081,7 @@
         product, 
         DesignStor.design
       ).then(function(res) {
+        MainServ.setGlassDefault();
         SVGServ.createSVGTemplate(
           product.template_source, 
           product.profileDepths
@@ -1176,6 +1177,7 @@
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
