@@ -10465,6 +10465,13 @@ function ErrorResult(code, message) {
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+
+
+
       localDB.selectLocalDB(
         localDB.tablesLocalDB.doors_groups_dependencies.tableName, {'doors_group_id' : DesignStor.design.sashShapeList[id].id}
         ).then(function(dependencies) {
@@ -10573,7 +10580,7 @@ function ErrorResult(code, message) {
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
-          product.template_source, 
+          product.template_source,
           product.profileDepths
         ).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -10588,13 +10595,13 @@ function ErrorResult(code, message) {
               DesignStor.design.templateSourceTEMP.doorSill = angular.copy(ProductStor.product.template_source.doorSill)
             }
             SVGServ.createSVGTemplate(
-              product.template_source,  
+              product.template_source,
               product.profileDepths
             ).then(function(result) {
               deferred.resolve(1);
             });
           });
-        });  
+        });
       });  
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
@@ -10667,6 +10674,7 @@ function ErrorResult(code, message) {
       GlobalStor.global.type_door = source.doorsGroups[product.door_sash_shape_id];
       product.profile.rama_list_id = source.sashShapeList[product.door_sash_shape_id].rama_list_id;
       product.profile.id = source.sashShapeList[product.door_sash_shape_id].profileId;
+      product.profile.profileId = source.sashShapeList[product.door_sash_shape_id].profileId;
       product.profile.rama_still_list_id = source.sashShapeList[product.door_sash_shape_id].door_sill_list_id;
       product.profile.stvorka_list_id = source.sashShapeList[product.door_sash_shape_id].stvorka_list_id;
       product.profile.impost_list_id = source.sashShapeList[product.door_sash_shape_id].impost_list_id;
@@ -12817,6 +12825,7 @@ function ErrorResult(code, message) {
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
               /** rebuild glasses */
+              MainServ.setGlassfilter();
               MainServ.setCurrentGlass(ProductStor.product, 1);
 
               /** create template icon */
@@ -15423,6 +15432,7 @@ function ErrorResult(code, message) {
             'tableName': 'doors_groups',
             'prop' :
             'code_sync_white INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'shtulp_list_id INTEGER,'+
             'impost_list_id INTEGER,'+
             'stvorka_list_id INTEGER,'+
@@ -15443,7 +15453,8 @@ function ErrorResult(code, message) {
           'doors_laminations_dependencies':{
             'tableName': 'doors_laminations_dependencies',
             'prop' :
-            'group_id INTEGER,'+ 
+            'group_id INTEGER,'+
+            'rama_sill_list_id INTEGER,'+
             'lamination_in INTEGER,'+ 
             'lamination_out INTEGER,'+ 
             'rama_list_id INTEGER,'+ 
@@ -19843,8 +19854,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          if(product.profile.profile_id) {
-            return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+          if(product.profile.profileId) {
+            return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
           } else {
             return item.profileId === product.profile.id;
 
@@ -19865,8 +19876,8 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //for templateTemp  
     function setCurrentGlassForTemplate(templateSource, product) {
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-        if(product.profile.profile_id) {
-          return (product.construction_type == 4)? item.profileId === product.profile.profile_id:item.profileId === product.profile.id;
+        if(product.profile.profileId) {
+          return (product.construction_type == 4)? item.profileId === product.profile.profileId:item.profileId === product.profile.id;
         } else {
           return item.profileId === product.profile.id;
         }
@@ -20170,7 +20181,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
           glassHeatCT = 0,
           profHeatCT = 0,
           heatCoeffTotal = 0,
-          perimeterPrif = [],
+          perimeterPrif = 0,
           glassObj = {},
           g,
           coefGlass = [0, 0.05, 0.06, 0.01, 0.01, 0.01];
@@ -20180,12 +20191,9 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             //ищем стеклопакет, чтобы получить значение glass_type
             glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
             //умнажаем периметр с/п на coefGlass
-            perimeterPrif.push(((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type]);
+            perimeterPrif += ((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type];
           }
         }
-
-      //console.log(perimeterPrif, 'perimeterPrif');
-
 
       /** working with glasses */
       while(--glassSizeQty > -1) {
@@ -20211,7 +20219,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       }
       profHeatCT = (ProductStor.product.template_square - glassSqT)/ProductStor.product.profile.heat_coeff_value;
 
-      heatCoeffTotal = profHeatCT + glassHeatCT;
+      heatCoeffTotal = profHeatCT + glassHeatCT + perimeterPrif;
       /** calculate Heat Coeff Total */
       if(UserStor.userInfo.therm_coeff_id) {
         /** R */
@@ -20543,7 +20551,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         ProductStor.product.profileDepths.sashDepth = result[2];
         ProductStor.product.profileDepths.impostDepth = result[3];
         ProductStor.product.profileDepths.shtulpDepth = result[4];
-        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profile_id;
+        var profile = (ProductStor.product.construction_type !==4)? ProductStor.product.profile.id:ProductStor.product.profile.profileId;
         SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
           .then(function(result) {
             ProductStor.product.template = angular.copy(result);
@@ -21183,12 +21191,45 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       return deferred.promise;
     }
 
+    function setGlassfilter() {
+      var product = angular.copy(ProductStor.product);
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function (item) {
+        if (product.profile.profileId) {
+          return (product.construction_type == 4) ? item.profileId === product.profile.profileId : item.profileId === product.profile.id;
+        } else {
+          return item.profileId === product.profile.id;
+        }
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+    }
+    function setGlassDefault(profileId, template, product) {
+      product.glass.length = 0;
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === profileId;
+      });
+
+      GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+      product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+
+      GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+      GlobalStor.global.selectGlassId = product.glass[0].id;
+      GlobalStor.global.selectGlassName = product.glass[0].sku;
+
+      for(var x=0; x<template.details.length; x+=1) {
+        template.details[x].glassId = product.glass[0].id;
+        template.details[x].glassTxt = product.glass[0].sku;
+        template.details[x].glass_type = product.glass[0].glass_type;
+      }
+    }
 
 
     /**========== FINISH ==========*/
 
 
     thisFactory.publicObj = {
+      setGlassfilter: setGlassfilter,
+      setGlassDefault: setGlassDefault,
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
