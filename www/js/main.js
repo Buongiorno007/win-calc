@@ -4718,6 +4718,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------ clicking
     thisCtrl.selectRoom = selectRoom;
     thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
+    GlobalStor.global.selectRoom = 0;
+    //---- hide rooms if opened
+    GlobalStor.global.showRoomSelectorDialog = 0;
 
   });
 })();
@@ -18297,7 +18300,8 @@ function ErrorResult(code, message) {
           UserStor.userInfo.avatar = items["userAvatar"];
         });
       }
-      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
+      //USER AVATAR
+      //console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);
@@ -18712,7 +18716,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         xhr.onload = function() {
           var reader = new FileReader();
           reader.onloadend = function() {
-            key = String("key"+index);
+            key = String(url);
             var value = reader.result;
             var item = {};
             item[key] = value;
@@ -18750,21 +18754,15 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             setBase64Img(rooms, roomQty, function(base64Img) { });
             }
            else {
-            key = String("key"+roomQty);
+            key = String(rooms[roomQty].img);
             chrome.storage.local.get(key, function(items) {
               --roomQty_index;
-              key = String("key"+roomQty_index);
+              key = String(rooms[roomQty_index].img);
+              //console.log("key for extracting from localstorage- ",key);
               rooms[roomQty_index].img = items[key];
             });
-           }
-
-
-          
+           }          
         }
-             // chrome.storage.local.get(key, function(base64Img){
-
-             // });
-
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }
@@ -18772,7 +18770,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       });
       return deff.promise;
     }
-
 
     /** download all lamination */
     function downloadAllLamination() {
@@ -19343,7 +19340,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
 
 
     /** =========== DOWNLOAD ALL DATA =========== */
-
     function downloadAllData() {
       var defer = $q.defer();
       //console.time('start')
@@ -19377,6 +19373,13 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         GlobalStor.global.profiles
                       ).then(function(data) {
                         if(data) {
+
+
+                          // GlobalStor.global.profilesType.forEach(function(entry){
+                          //   console.log(entry.img);
+                            
+
+                          // } );
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
@@ -19385,13 +19388,87 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                               //console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
                               /** download All Hardwares */
                               //console.log('download All Hardwares');
+
                               downloadAllElemAsGroup(
                                 localDB.tablesLocalDB.window_hardware_folders.tableName,
                                 localDB.tablesLocalDB.window_hardware_groups.tableName,
                                 GlobalStor.global.hardwareTypes,
                                 GlobalStor.global.hardwares
                               ).then(function(data){
-                                if(data) {
+                                if(data) { 
+                                // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
+                                // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
+                                // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
+
+                                  GlobalStor.global.hardwares.forEach(function(entry) {
+                                    var jndex = entry.length;
+                                    for (var index = entry.length-1; index >=0; index--){
+                                      if (navigator.onLine) {
+                                          var url = String(entry[index].img);
+                                          var xmlHTTP = new XMLHttpRequest();
+                                          xmlHTTP.open('GET',url);
+                                          xmlHTTP.responseType = 'arraybuffer';
+                                          xmlHTTP.onload = function()
+                                          {
+                                              --jndex;
+                                              var arr = new Uint8Array(this.response);
+                                              var raw = String.fromCharCode.apply(null,arr);
+                                              var b64=btoa(raw);
+                                              var dataURL="data:image/jpeg;base64,"+b64;
+                                              key = String(entry[jndex].img);
+                                              var value = dataURL;
+                                              var item = {};
+                                              item[key] = value;
+                                              chrome.storage.local.set(item);
+                                              entry[jndex].img = dataURL;
+                                          };
+
+                                          xmlHTTP.send();
+                                      } 
+                                      else {
+                                        key = String(entry[index].img);
+                                        chrome.storage.local.get(key, function(items) {
+                                          --jndex;
+                                          key = String(entry[jndex].img);
+                                          //console.log("value for extracting from localstorage- ",items[key]);
+                                          entry[jndex].img = items[key];
+                                        });
+                                    }
+                                  }
+                                  });
+
+                                    GlobalStor.global.hardwareTypes.forEach(function(entry) {
+                                      if (navigator.onLine) {
+                                         var url = String(entry.img);
+                                          var xmlHTTP = new XMLHttpRequest();
+                                          xmlHTTP.open('GET',url);
+                                          xmlHTTP.responseType = 'arraybuffer';
+                                          xmlHTTP.onload = function()
+                                          {
+                                              var arr = new Uint8Array(this.response);
+                                              var raw = String.fromCharCode.apply(null,arr);
+                                              var b64=btoa(raw);
+                                              var dataURL="data:image/jpeg;base64,"+b64;
+                                              key = String(entry.img);
+                                              var value = dataURL;
+                                              var item = {};
+                                              item[key] = value;
+                                              chrome.storage.local.set(item);
+                                              entry.img = dataURL;
+                                          };
+                                          xmlHTTP.send();
+                                      } 
+                                      else {
+                                        key = String(entry.img);
+                                        chrome.storage.local.get(key, function(items) {
+                                          key = String(entry.img);
+                                          //console.log("value for extracting from localstorage- ",items[key]);
+                                          entry.img = items[key];
+                                        });
+                                    }
+                                  
+                                  });
+
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                   /** download Door Kits */
                                   downloadDoorKits();
@@ -19399,6 +19476,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                   downloadHardwareLimits();
                                   /** download All Templates and Backgrounds */
                                   downloadAllBackgrounds().then(function() {
+                                    
                                     /** download All AddElements */
                                     downloadAllAddElements().then(function() {
                                       /** download All Lamination */

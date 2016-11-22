@@ -63,6 +63,9 @@
     //------ clicking
     thisCtrl.selectRoom = selectRoom;
     thisCtrl.closeRoomSelectorDialog = MainServ.closeRoomSelectorDialog;
+    GlobalStor.global.selectRoom = 0;
+    //---- hide rooms if opened
+    GlobalStor.global.showRoomSelectorDialog = 0;
 
   });
 })();
