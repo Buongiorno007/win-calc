@@ -19471,20 +19471,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                   }
                                 });
                               });
-function ValidURL(str) {
-  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-    '(\#[-a-z\d_]*)?$','i'); // fragment locater
-  if(!pattern.test(str)) {
-    alert("Please enter a valid URL.");
-    return false;
-  } else {
-    return true;
-  }
-}
                               GlobalStor.global.glassesAll.forEach(function (object){
                                 object.glasses.forEach(function(array){
                                   //console.log(entry);
@@ -19518,9 +19504,9 @@ function ValidURL(str) {
                                       }
                                         
                                     };
-
-                                    xhr.send();
-                                    console.log(xhr.send().error);
+                                    try {
+                                    xhr.send();} catch (e){
+                                    console.log(e);}
                                   }  
                                   else {
                                     key = String(entry.img);
@@ -21368,12 +21354,13 @@ function ValidURL(str) {
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+            
             if (navigator.onLine){
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
             }
+            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
             defer.resolve(1);
           });
         } else if(orderType && orderData.order_edit === 1) {

@@ -1656,12 +1656,13 @@
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+            
             if (navigator.onLine){
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
             }
+            localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
             defer.resolve(1);
           });
         } else if(orderType && orderData.order_edit === 1) {
