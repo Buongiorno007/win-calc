@@ -702,7 +702,11 @@
             //ищем стеклопакет, чтобы получить значение glass_type
             glassObj = _.findWhere(_.flatten(GlobalStor.global.glasses), {id: ProductStor.product.template.details[l].glassId});
             //умнажаем периметр с/п на coefGlass
-            perimeterPrif += ((ProductStor.product.template.details[l].pointsIn[0].x * 2 + ProductStor.product.template.details[l].pointsIn[0].y * 2)/1000) * coefGlass[glassObj.glass_type];
+            if(ProductStor.product.template.details[l].sashPointsIn) {
+              perimeterPrif += ((Math.abs(ProductStor.product.template.details[l].sashPointsIn[1].x - ProductStor.product.template.details[l].sashPointsIn[0].x) * 2 + Math.abs(ProductStor.product.template.details[l].sashPointsIn[2].y - ProductStor.product.template.details[l].sashPointsIn[1].y) * 2)/1000) * coefGlass[glassObj.glass_type];
+            } else {
+              perimeterPrif += ((Math.abs(ProductStor.product.template.details[l].pointsIn[1].x - ProductStor.product.template.details[l].pointsIn[0].x) * 2 + Math.abs(ProductStor.product.template.details[l].pointsIn[2].y - ProductStor.product.template.details[l].pointsIn[1].y) * 2)/1000) * coefGlass[glassObj.glass_type];
+            }
           }
         }
       
