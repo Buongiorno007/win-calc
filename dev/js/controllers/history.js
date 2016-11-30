@@ -59,6 +59,7 @@
     thisCtrl.HISTORY_VIEW = $filter('translate')('history.HISTORY_VIEW');
     thisCtrl.ORDER_DONE = $filter('translate')('history.ORDER_DONE')
     thisCtrl.ORDER_ERROR = $filter('translate')('history.ORDER_ERROR');
+    thisCtrl.SYNCHRONIZE_ORDERS = $filter('translate')('history.SYNCHRONIZE_ORDERS');
     thisCtrl.time = [
         {
             name:$filter('translate')('history.DURING_THE_WEEK'),
@@ -100,5 +101,6 @@
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
     thisCtrl.testFunc = HistoryServ.testFunc;
+    thisCtrl.synchronizeOrders = HistoryServ.synchronizeOrders;
   });
 })();

@@ -55,6 +55,7 @@
     "PASSWORD": "Parolă",
     "MOBILE": "Telefon mobil",
     "REGISTRATION": "Înregistrare",
+    "UPDATEDB" : "Обновить базу данных",
     "SELECT_COUNTRY": "Selectați țara",
     "SELECT_REGION": "Selectați regiunea",
     "SELECT_CITY": "Selectați orașul",
@@ -66,7 +67,12 @@
     "SELECT_FACTORY": "Nu ați selectat producătorul",
     "USER_PASSWORD_ERROR": "Parolă incorectă!",
     "OFFLINE": "Nu există conexiune la Internet!",
-    "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!"
+    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "OFFLINE_IMPORT":"Nu există conexiune la Internet!",
+    "IMPORT_DB": "A început încărcarea Bazei de date! Vă rugăm să așteptați!",
+    "AUTO_SYNCHRONIZE" : "Date de sincronizare automată la pornirea aplicației",
+    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+
   },
   "danger-alert": {
     "PRODUCT": "constructie",
@@ -295,7 +301,8 @@
     "NOT_FIND": "nu au fost găsite rezultate",
     "WAIT_MASTER": "se așteaptă specialistul în măsurări",
     "INCLUDED": "incluse",
-    "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet."
+    "NO_PRINT": "Afișarea specificațiilor nu este posibilă din cauza lipsei conexiunii la Internet.",
+    "SYNCHRONIZE_ORDERS":"Cинхронизировать заказы"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Toate elementele supl. ale comenzii",

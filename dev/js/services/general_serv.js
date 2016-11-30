@@ -294,6 +294,11 @@
       GlobalStor.global.alertDescr = descript || '';
       GlobalStor.global.confirmAction = callback;
     }
+    function infoAlert(title, descript) {
+      GlobalStor.global.isAlertInfo = 1;
+      GlobalStor.global.alertTitle = title || '';
+      GlobalStor.global.alertDescr = descript || '';
+    }
     function isErrorProd(title) {
       GlobalStor.global.isErrorProd = 1;
       GlobalStor.global.isErrorProdTitle = title || '';
@@ -328,6 +333,7 @@
       confirmAlert: confirmAlert,
       goToLink: goToLink,
       confirmPath: confirmPath,
+      infoAlert: infoAlert
     };
 
     return thisFactory.publicObj;

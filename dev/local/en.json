@@ -12,7 +12,6 @@
     "MAX": "max.",
     "BUTTON_Y": "YES",
     "BUTTON_N": "NO",
-
     "EDIT_COPY_TXT": "What to do?",
     "BUTTON_C": "Copy",
     "BUTTON_E": "Edit",
@@ -62,6 +61,7 @@
     "PASSWORD": "Password",
     "MOBILE": "Mobile telephone",
     "REGISTRATION": "Registration",
+    "UPDATEDB" : "Обновить базу данных",
     "SELECT_COUNTRY": "Select country",
     "SELECT_REGION": "Select region",
     "SELECT_CITY": "Select city",
@@ -73,7 +73,12 @@
     "SELECT_FACTORY": "Please select the producer",
     "USER_PASSWORD_ERROR": "Sorry, but your password is wrong!",
     "OFFLINE": "No internet connection!",
-    "IMPORT_DB": "DataBase Import was started! Waite please!"
+    "OFFLINE_IMPORT":"No internet connection!",
+    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "IMPORT_DB": "DataBase Import was started! Waite please!",
+    "AUTO_SYNCHRONIZE" : "Auto-sync data when the application starts",
+    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+
   },
   "mainpage": {
     "MM": " mm ",
@@ -297,7 +302,8 @@
     "NOT_FIND": "nothing found",
     "WAIT_MASTER": "expects gager",
     "INCLUDED": "included",
-    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
+    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения",
+    "SYNCHRONIZE_ORDERS":"Synchronize orders"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "All additional elements order",

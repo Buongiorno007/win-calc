@@ -62,6 +62,7 @@
     "PASSWORD": "Password",
     "MOBILE": "Il cellulare",
     "REGISTRATION": "Registrazione",
+    "UPDATEDB" : "Обновить базу данных",
     "SELECT_COUNTRY": "Il paese di Veberite",
     "SELECT_REGION": "Scelga la regione",
     "SELECT_CITY": "Scelga la città",
@@ -73,7 +74,12 @@
     "SELECT_FACTORY": "Non ha scelto il produttore",
     "USER_PASSWORD_ERROR": "Parola d'ordine scorretta!",
     "OFFLINE": "Non c'è connessione con l'Internet!",
-    "IMPORT_DB": "Il carico di Database ha cominciato! Aspetti, per favore!"
+    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "OFFLINE_IMPORT":"Non c'è connessione con l'Internet!",
+    "IMPORT_DB": "Il carico di Database ha cominciato! Aspetti, per favore!",
+    "AUTO_SYNCHRONIZE" : "Dati Sincronizzazione automatica all'avvio dell'applicazione",
+    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+
   },
   "mainpage": {
     "MM": " мм ",
@@ -296,7 +302,8 @@
     "NOT_FIND": "Non è stato trovato niente",
     "WAIT_MASTER": "Aspetta il misuratore ",
     "INCLUDED": "sono inclusi",
-    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
+    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения",
+    "SYNCHRONIZE_ORDERS":"Cинхронизировать заказы"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Tutti gli elementi supplementari dell’oedine",

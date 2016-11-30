@@ -210,42 +210,42 @@ gulp.task('build', ['clean'], function () {
 gulp.task('default', ['watch']);
 
 // Сборка минимизированного проекта
-//gulp.task('production', ['clean'], function() {
-//  // css
-//  compassTask()
-//    .pipe(csso())
-//    .pipe(gulp.dest(config.build.dest.css));
-//
-//  // jade
-//  gulp.src(config.build.src.html)
-//    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-//    .pipe(jade())
-//    .pipe(gulp.dest(config.build.dest.html));
-//
-//  // js
-//  gulp.src(config.build.src.js)
-//    .pipe(concat('main.js'))
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_vendor)
-//    .pipe(order(config.build.src.js_order))
-//    .pipe(concat('plugins.js'))
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  gulp.src(config.build.src.js_other)
-//    .pipe(uglify())
-//    .pipe(gulp.dest(config.build.dest.js));
-//
-//  // image
-//  gulp.src(config.build.src.img)
-//    .pipe(imagemin())
-//    .pipe(gulp.dest(config.build.dest.img));
-//
-//  // fonts
-//  gulp.src(config.build.src.fonts)
-//    .pipe(gulp.dest(config.build.dest.fonts));
-//});
+gulp.task('production', ['clean'], function() {
+ // css
+ compassTask()
+   .pipe(csso())
+   .pipe(gulp.dest(config.build.dest.css));
+
+ // jade
+ gulp.src(config.build.src.html)
+   .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+   .pipe(jade())
+   .pipe(gulp.dest(config.build.dest.html));
+
+ // js
+ gulp.src(config.build.src.js)
+   .pipe(concat('main.js'))
+   .pipe(uglify())
+   .pipe(gulp.dest(config.build.dest.js));
+
+ gulp.src(config.build.src.js_vendor)
+   .pipe(order(config.build.src.js_order))
+   .pipe(concat('plugins.js'))
+   .pipe(gulp.dest(config.build.dest.js));
+
+ gulp.src(config.build.src.js_other)
+   .pipe(uglify())
+   .pipe(gulp.dest(config.build.dest.js));
+
+ // image
+ gulp.src(config.build.src.img)
+   .pipe(imagemin())
+   .pipe(gulp.dest(config.build.dest.img));
+
+ // fonts
+ gulp.src(config.build.src.fonts)
+   .pipe(gulp.dest(config.build.dest.fonts));
+});
 
 
 /** PRODUCTION css and js min */
@@ -290,8 +290,8 @@ gulp.task('prod', function() {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-//var server = config.server; 
-var server = config.serverSteko;
+var server = config.server; 
+//var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

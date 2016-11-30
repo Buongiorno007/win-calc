@@ -11,6 +11,14 @@
       button.alert-yes(fs-click="alertBox.clickYes()", ng-show="alertBox.G.global.isBox") {{ ::alertBox.BUTTON_E }}
       button.alert-no(fs-click="alertBox.G.global.isAlert = 0", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_N }}
       button.alert-yes(fs-click="alertBox.clickYes()", ng-show="!alertBox.G.global.isBox") {{ ::alertBox.BUTTON_Y }}
-
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isAlertInfo")
+  .alert-block
+    .alert-sign
+    .alert-title {{ alertBox.G.global.alertTitle }}
+    .alert-descr {{ alertBox.G.global.alertDescr }}
+    .alert-btns
+      .thisAlert
+       section.cart-page
+      button.alert-info(fs-click="alertBox.G.global.isAlertInfo = 0", ng-show="alertBox.G.global.isAlertInfo") {{ ::alertBox.OK }}
       
 

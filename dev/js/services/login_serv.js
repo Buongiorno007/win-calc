@@ -22,10 +22,15 @@
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
-
-
-
-
+    var onlineMode;
+      $.get("http://api.steko.com.ua", function(data) {
+        onlineMode = true;
+        return true;
+      })
+      .fail(function() {
+        onlineMode = false;
+        return false;
+      });
 
     /**============ METHODS ================*/
 
@@ -41,7 +46,13 @@
         }
       }
     }
-
+    var onlineMode;
+    $.get(globalConstants.serverIP, function(data) {
+      onlineMode = true;
+    })
+    .fail(function() {
+      onlineMode = false;
+    });
 
     //------- defined system language
     function getDeviceLanguage() {
@@ -367,7 +378,7 @@
     function setUserDiscounts() {
       var defer = $q.defer();
       //-------- add server url to avatar img
-      if (navigator.onLine){
+      if (onlineMode && navigator.onLine){
         var url = globalConstants.serverIP + UserStor.userInfo.avatar
         UserStor.userInfo.avatar = url;
         setBase64Avatar(url, function(base64Img){ });
@@ -818,7 +829,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
-            if (navigator.onLine){
+            if (onlineMode && navigator.onLine){
               localStorage.clear();
             //call function to retrieve data from url and convert into base64
             setBase64Img(rooms, roomQty, function(base64Img) { });
@@ -997,7 +1008,6 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                 deff2.reject(results);
               }
             });
-
             return deff2.promise;
           });
 
@@ -1441,240 +1451,231 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                         GlobalStor.global.profiles
                       ).then(function(data) {
                         if(data) {
-                      GlobalStor.global.profilesType.forEach(function(entry) {
-                        if (navigator.onLine) {
-                            var url = String(entry.img);
-                            var xhr = new XMLHttpRequest();
-                            xhr.responseType = 'blob';
-                            xhr.onload = function() {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                    key = String(entry.img);
-                                    var value = reader.result;
-                                    var item = {};
-                                    item[key] = value;
-                                    chrome.storage.local.set(item);
-                                    entry.img = reader.result;
+                          GlobalStor.global.profilesType.forEach(function (entry) {
+                              if (onlineMode && navigator.onLine) {
+                                  var url = String(entry.img);
+                                  var xhr = new XMLHttpRequest();
+                                  xhr.responseType = 'blob';
+                                  xhr.onload = function () {
+                                      var reader = new FileReader();
+                                      reader.onloadend = function () {
+                                          key = String(entry.img);
+                                          var value = reader.result;
+                                          var item = {};
+                                          item[key] = value;
+                                          chrome.storage.local.set(item);
+                                          entry.img = reader.result;
 
-                                }
-                                reader.readAsDataURL(xhr.response);
-                            };
-                            xhr.open('GET', url,true);
-                            xhr.send();
-                        } 
-                        else {
-                          key = String(entry.img);
-                          chrome.storage.local.get(key, function(items) {
-                            key = String(entry.img);
-                            //console.log("value for extracting from localstorage- ",items[key]);
-                            entry.img = items[key];
+                                      }
+                                      reader.readAsDataURL(xhr.response);
+                                  };
+                                  xhr.open('GET', url, true);
+                                  xhr.send();
+                              }
+                              else {
+                                  key = String(entry.img);
+                                  chrome.storage.local.get(key, function (items) {
+                                      key = String(entry.img);
+                                      //console.log("value for extracting from localstorage- ",items[key]);
+                                      entry.img = items[key];
+                                  });
+                              }
                           });
-                        }
-                      });
-                        GlobalStor.global.profiles.forEach(function(object) {
-                          object.forEach(function(entry) {
-                        if (navigator.onLine) {
-                            var url = String(entry.img);
-                            var xhr = new XMLHttpRequest();
-                            xhr.responseType = 'blob';
-                            xhr.onload = function() {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                    key = String(entry.img);
-                                    var value = reader.result;
-                                    var item = {};
-                                    item[key] = value;
-                                    chrome.storage.local.set(item);
-                                    entry.img = reader.result;
+                          GlobalStor.global.profiles.forEach(function (object) {
+                              object.forEach(function (entry) {
+                                  if (onlineMode && navigator.onLine) {
+                                      var url = String(entry.img);
+                                      var xhr = new XMLHttpRequest();
+                                      xhr.responseType = 'blob';
+                                      xhr.onload = function () {
+                                          var reader = new FileReader();
+                                          reader.onloadend = function () {
+                                              key = String(entry.img);
+                                              var value = reader.result;
+                                              var item = {};
+                                              item[key] = value;
+                                              chrome.storage.local.set(item);
+                                              entry.img = reader.result;
 
-                                }
-                                reader.readAsDataURL(xhr.response);
-                            };
-                            xhr.open('GET', url,true);
-                            xhr.send();
-                        } 
-                        else {
-                          key = String(entry.img);
-                          chrome.storage.local.get(key, function(items) {
-                            key = String(entry.img);
-                            //console.log("value for extracting from localstorage- ",items[key]);
-                            entry.img = items[key];
+                                          }
+                                          reader.readAsDataURL(xhr.response);
+                                      };
+                                      xhr.open('GET', url, true);
+                                      xhr.send();
+                                  }
+                                  else {
+                                      key = String(entry.img);
+                                      chrome.storage.local.get(key, function (items) {
+                                          key = String(entry.img);
+                                          //console.log("value for extracting from localstorage- ",items[key]);
+                                          entry.img = items[key];
+                                      });
+                                  }
+
+
+                              });
                           });
-                        }
-
-
-                          });
-                        });
 
                           // GlobalStor.global.profilesType.forEach(function(entry){
                           //   console.log(entry.img);
-                            
+
 
                           // } );
                           /** download All Glasses */
-                          downloadAllGlasses().then(function(data) {
-                            if(data) {
-                              /** sorting glasses as to Type */
-                              sortingGlasses();
-                              GlobalStor.global.glassesAll.forEach(function (array){
-                                array.glassTypes.forEach(function(entry){
-                                  if (navigator.onLine) {
-                                    var url = String(entry.img);
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.responseType = 'blob';
-                                    xhr.onload = function() {
-                                        var reader = new FileReader();
-                                        reader.onloadend = function() {
-                                            key = String(entry.img);
-                                            var value = reader.result;
-                                            var item = {};
-                                            item[key] = value;
-                                            chrome.storage.local.set(item);
-                                            entry.img = reader.result;
+                          downloadAllGlasses().then(function (data) {
+                              if (data) {
+                                  /** sorting glasses as to Type */
+                                  sortingGlasses();
 
-                                        }
-                                        reader.readAsDataURL(xhr.response);
-                                    };
-                                    xhr.open('GET', url,true);
-                                    xhr.send();
-                                  }  
-                                  else {
-                                    key = String(entry.img);
-                                    chrome.storage.local.get(key, function(items) {
-                                      key = String(entry.img);
-                                      entry.img = items[key];
-                                    });
-                                  }
-                                });
-                              });
-                              GlobalStor.global.glassesAll.forEach(function (object){
-                                object.glasses.forEach(function(array){
-                                  //console.log(entry);
-                                  array.forEach(function(entry){
-                                   if (navigator.onLine) {
-                                    var url = String(entry.img);
-                                    console.log(url);
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.responseType = 'blob';
-                                    xhr.open('GET', url, true);
-                                    xhr.onload = function() {
-                                      if (xhr.readyState === 4){ 
-                                        if(xhr.status === 404){
-                                        //if complete
-                                        } else if(xhr.status === 200){  //check if "OK" (200)
-                                            var reader = new FileReader();
-                                            reader.onloadend = function() {
-                                            key = String(entry.img);
-                                            var value = reader.result;
-                                            var item = {};
-                                            item[key] = value;
-                                            chrome.storage.local.set(item);
-                                            entry.img = reader.result;
+                                  GlobalStor.global.glassesAll.forEach(function (array) {
+                                      array.glassTypes.forEach(function (entry) {
+                                          if (onlineMode && navigator.onLine) {
+                                              var url = String(entry.img);
 
-                                        }
-                                        
-                                        reader.readAsDataURL(xhr.response);
-                                        } else {
-                                            console.log("error to load data")
-                                        }
-                                      }
-                                        
-                                    };
-                                    try {
-                                    xhr.send();} catch (e){
-                                    console.log(e);}
-                                  }  
-                                  else {
-                                    key = String(entry.img);
-                                    chrome.storage.local.get(key, function(items) {
-                                      key = String(entry.img);
-                                      entry.img = items[key];
-                                    });
-                                  }
+                                              var xhr = new XMLHttpRequest();
+                                              xhr.responseType = 'blob';
+                                              xhr.onload = function () {
+                                                  var reader = new FileReader();
+                                                  reader.onloadend = function () {
+                                                      key = String(entry.img);
+                                                      var value = reader.result;
+                                                      var item = {};
+                                                      item[key] = value;
+                                                      chrome.storage.local.set(item);
+                                                      entry.img = reader.result;
+
+                                                  }
+                                                  reader.readAsDataURL(xhr.response);
+                                              };
+                                              xhr.open('GET', url, true);
+                                              xhr.send();
+                                          }
+                                          else {
+                                              key = String(entry.img);
+                                              chrome.storage.local.get(key, function (items) {
+                                                  key = String(entry.img);
+                                                  entry.img = items[key];
+                                              });
+                                          }
+                                      });
                                   });
-                                  
-                                });
-                              });
-                              
-                              /** download All Hardwares */
-                              //console.log('download All Hardwares');
 
-                              downloadAllElemAsGroup(
-                                localDB.tablesLocalDB.window_hardware_folders.tableName,
-                                localDB.tablesLocalDB.window_hardware_groups.tableName,
-                                GlobalStor.global.hardwareTypes,
-                                GlobalStor.global.hardwares
-                              ).then(function(data){
-                                if(data) { 
-                                // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
-                                // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
-                                // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
+                                  GlobalStor.global.glassesAll.forEach(function (object) {
+                                    object.glasses.forEach(function (array) {
+                                        //console.log(entry);
+                                        array.forEach(function (entry) {
+                                          if (onlineMode && navigator.onLine) {
+                                            if (entry.img !== "") {
+                                              var url = entry.img;
+                                              var xhr = new XMLHttpRequest();
+                                              xhr.responseType = 'blob';
+                                              xhr.onload = function () {
+                                                  var reader = new FileReader();
+                                                  reader.onloadend = function () {
+                                                      key = entry.img;
+                                                      var value = reader.result;
+                                                      var item = {};
+                                                      item[key] = value;
+                                                      chrome.storage.local.set(item);
+                                                      entry.img = reader.result;
 
-                                  GlobalStor.global.hardwares.forEach(function(object) {
-                          object.forEach(function(entry) {
-                        if (navigator.onLine) {
-                            var url = encodeURI(entry.img);
-                            var xhr = new XMLHttpRequest();
-                            xhr.responseType = 'blob';
-                            xhr.onload = function() {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                    key = String(entry.img);
-                                    var value = reader.result;
-                                    var item = {};
-                                    item[key] = value;
-                                    chrome.storage.local.set(item);
-                                    entry.img = reader.result;
+                                                  }
+                                                  reader.readAsDataURL(xhr.response);
+                                              };
+                                              xhr.open('GET', url, true);
+                                              xhr.send();
+                                            }
+                                          } else {
+                                            key = String(entry.img);
+                                            chrome.storage.local.get(key, function (items) {
+                                                key = String(entry.img);
+                                                //console.log("value for extracting from localstorage- ",items[key]);
+                                                entry.img = items[key];
+                                            });
+                                          }
+                                        });
 
-                                }
-                                reader.readAsDataURL(xhr.response);
-                            };
-                            xhr.open('GET', url,true);
-                            xhr.send();
-                        } 
-                        else {
-                          key = String(entry.img);
-                          chrome.storage.local.get(key, function(items) {
-                            key = String(entry.img);
-                            //console.log("value for extracting from localstorage- ",items[key]);
-                            entry.img = items[key];
-                          });
-                        }
+                                    });
+                                  });
+
+                                  /** download All Hardwares */
+                                  //console.log('download All Hardwares');
+
+                                  downloadAllElemAsGroup(
+                                      localDB.tablesLocalDB.window_hardware_folders.tableName,
+                                      localDB.tablesLocalDB.window_hardware_groups.tableName,
+                                      GlobalStor.global.hardwareTypes,
+                                      GlobalStor.global.hardwares
+                                  ).then(function (data) {
+                                    if (data) {
+                                      // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.profilesType));
+                                      // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
+                                      // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
+
+                                      GlobalStor.global.hardwares.forEach(function (object) {
+                                          object.forEach(function (entry) {
+                                              if (onlineMode && navigator.onLine) {
+                                                  var url = encodeURI(entry.img);
+                                                  var xhr = new XMLHttpRequest();
+                                                  xhr.responseType = 'blob';
+                                                  xhr.onload = function () {
+                                                      var reader = new FileReader();
+                                                      reader.onloadend = function () {
+                                                          key = String(entry.img);
+                                                          var value = reader.result;
+                                                          var item = {};
+                                                          item[key] = value;
+                                                          chrome.storage.local.set(item);
+                                                          entry.img = reader.result;
+                                                      }
+                                                      reader.readAsDataURL(xhr.response);
+                                                  };
+                                                  xhr.open('GET', url, true);
+                                                  xhr.send();
+                                              }
+                                              else {
+                                                  key = String(entry.img);
+                                                  chrome.storage.local.get(key, function (items) {
+                                                      key = String(entry.img);
+                                                      //console.log("value for extracting from localstorage- ",items[key]);
+                                                      entry.img = items[key];
+                                                  });
+                                              }
 
 
-                          });
-                        });
+                                          });
+                                      });
 
-                                    GlobalStor.global.hardwareTypes.forEach(function(entry) {
-                        if (navigator.onLine) {
-                            var url = encodeURI(entry.img);
-                            var xhr = new XMLHttpRequest();
-                            xhr.responseType = 'blob';
-                            xhr.onload = function() {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                    key = String(entry.img);
-                                    var value = reader.result;
-                                    var item = {};
-                                    item[key] = value;
-                                    chrome.storage.local.set(item);
-                                    entry.img = reader.result;
+                                      GlobalStor.global.hardwareTypes.forEach(function (entry) {
+                                          if (onlineMode && navigator.onLine) {
+                                              var url = encodeURI(entry.img);
+                                              var xhr = new XMLHttpRequest();
+                                              xhr.responseType = 'blob';
+                                              xhr.onload = function () {
+                                                  var reader = new FileReader();
+                                                  reader.onloadend = function () {
+                                                      key = String(entry.img);
+                                                      var value = reader.result;
+                                                      var item = {};
+                                                      item[key] = value;
+                                                      chrome.storage.local.set(item);
+                                                      entry.img = reader.result;
 
-                                }
-                                reader.readAsDataURL(xhr.response);
-                            };
-                            xhr.open('GET', url,true);
-                            xhr.send();
-                        } 
-                        else {
-                          key = String(entry.img);
-                          chrome.storage.local.get(key, function(items) {
-                            key = String(entry.img);
-                            //console.log("value for extracting from localstorage- ",items[key]);
-                            entry.img = items[key];
-                          });
-                        }
-                      });
+                                                  }
+                                                  reader.readAsDataURL(xhr.response);
+                                              };
+                                              xhr.open('GET', url, true);
+                                              xhr.send();
+                                          }
+                                          else {
+                                              key = String(entry.img);
+                                              chrome.storage.local.get(key, function (items) {
+                                                  key = String(entry.img);
+                                                  //console.log("value for extracting from localstorage- ",items[key]);
+                                                  entry.img = items[key];
+                                              });
+                                          }
+                                      });
 
                                   //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                   /** download Door Kits */
@@ -1686,6 +1687,41 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
                                     
                                     /** download All AddElements */
                                     downloadAllAddElements().then(function() {
+                                      GlobalStor.global.addElementsAll.forEach(function(item){
+                                          //globalConstants.serverIP +
+                                          //console.log("entry.elementType",entry.elementType);
+                                          // console.log("entry.elementsList",entry.elementsList);
+                                          item.elementType.forEach(function(entry){
+                                            if (onlineMode && navigator.onLine) {
+                                            if (entry.img !== "" || entry.img !== "undefined") {
+                                              var url = globalConstants.serverIP + entry.img;
+                                              var xhr = new XMLHttpRequest();
+                                              xhr.responseType = 'blob';
+                                              xhr.onload = function () {
+                                                  var reader = new FileReader();
+                                                  reader.onloadend = function () {
+                                                      key = entry.img;
+                                                      var value = reader.result;
+                                                      var item = {};
+                                                      item[key] = value;
+                                                      chrome.storage.local.set(item);
+                                                  }
+                                                  reader.readAsDataURL(xhr.response);
+                                              };
+                                              xhr.open('GET', url, true);
+                                              xhr.send();
+                                            }
+                                          } else {
+                                            key = String(entry.img);
+                                            chrome.storage.local.get(key, function (items) {
+                                                key = String(entry.img);
+                                                //console.log("value for extracting from localstorage- ",items[key]);
+                                                entry.img = items[key];
+                                            });
+                                          }
+                                          });
+                                      });
+                                      //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                       /** download All Lamination */
                                       downloadAllLamination().then(function(result) {
                                         //console.log('LAMINATION++++', result);

@@ -45,7 +45,7 @@
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-   
+
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {

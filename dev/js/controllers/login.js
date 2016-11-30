@@ -16,7 +16,8 @@
     MainServ,
     GlobalStor,
     ProductStor,
-    UserStor
+    UserStor,
+    HistoryServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -26,6 +27,8 @@
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
+    thisCtrl.isOfflineImport = 0;
+    thisCtrl.isAutoSyncInfo = 0;
     thisCtrl.isLocalDB = 0;
     thisCtrl.isRegistration = 0;
     thisCtrl.submitted = 0;
@@ -67,12 +70,13 @@
     thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-
+    thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
+    thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
+    thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
     /** reload room img */
     //$("<img />").attr("src", "img/room/1.png");
     //$("<img />").attr("src", "img/room/33.gif");
     //$("<img />").attr("src", "img/room/333.gif");
-
 
     function preloadImages(array) {
       if (!preloadImages.list) {
@@ -139,6 +143,7 @@
           //console.timeEnd('prog');
           $location.path('/main');
         }
+
       });
     }
 
@@ -235,6 +240,12 @@
                     loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
+                    var item = {};
+                    item["UserStor.userInfo.phone"] = UserStor.userInfo.phone;
+                    chrome.storage.local.set(item);
+                    item["UserStor.userInfo.device_code"] = UserStor.userInfo.device_code;
+                    chrome.storage.local.set(item);
+                    console.log("UserStor.userInfo.phone" , UserStor.userInfo.phone, "UserStor.userInfo.device_code", UserStor.userInfo.device_code);
                   }
                 });
               }
@@ -272,8 +283,6 @@
 
       });
     }
-
-
 
     /**============== ENTRY BY LINK ===============*/
 
@@ -494,33 +503,61 @@
         $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
       }
     }
+    var onlineMode;
+      $.get(globalConstants.serverIP, function(data) {
+        onlineMode = true;
+      })
+      .fail(function() {
+        onlineMode = false;
+      });
+
 
     if (window.location.hash.length > 10) {
       loader()
     }
+
+    chrome.storage.local.get("UserStor.userInfo.phone", function(items) {
+          UserStor.userInfo.phone = items["UserStor.userInfo.phone"];
+    });
+    chrome.storage.local.get("UserStor.userInfo.device_code", function(items) {
+          UserStor.userInfo.device_code = items["UserStor.userInfo.device_code"];
+    });
     function enterForm(form) {
       var newUserPassword;
-//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.
+      //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+      //------ Trigger validation flag.     
       thisCtrl.submitted = 1;
-      if (form.$valid) {
+      if (form.$valid) {        
         GlobalStor.global.isLoader = 1;
         loader();
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
         if(thisCtrl.isOnline) {
-
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          //checkingUser();
+          if($("#updateDBcheck").prop("checked") ) { 
+            
+            if (onlineMode && navigator.onLine ){
 
+              GlobalStor.global.isLoader = 1;
+              HistoryServ.synchronizeOrders().then(function () {
+                GlobalStor.global.isLoader = 1;
+                checkingUser();
+              });
+              //checkingUser();
+            } else {
+              GlobalStor.global.isLoader = 0;
+              thisCtrl.isOfflineImport = 1;
+            }
+          }
+          else {
           //------- check available Local DB
           //for offline work
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
             if(thisCtrl.isLocalDB) {
-
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
@@ -555,14 +592,14 @@
                     checkingUser();
                   }
                 });
-
-
-            } else {
+              } else {
               //======== IMPORT
               console.log('IMPORT');
               checkingUser();
             }
           });
+          }
+
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -630,6 +667,7 @@
 //                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
           localDB.updateLocalServerDBs(
+
             localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
           ).then(function() {
             //-------- close Factory Dialog

@@ -30,7 +30,17 @@
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
-
+    var onlineMode;
+    function getOnline(){   
+      $.get("http://api.steko.com.ua", function(data) {
+        onlineMode = true;
+        return true;
+      })
+      .fail(function() {
+        onlineMode = false;
+        return false;
+      });
+    }
 
 
 
@@ -128,98 +138,143 @@
 
 
 
-
+    var onlineMode;
+    $.get(globalConstants.serverIP, function(data) {
+      onlineMode = true;
+    })
+    .fail(function() {
+      onlineMode = false;
+    });
 
     /**========= make Order Copy =========*/
     function sendOrderToFactory(orderStyle, orderNum) {
-      GlobalStor.global.isLoader = 1
-      var check = [];
-      check = HistoryStor.history.firstClick.filter(function(item) {
-        return item === orderNum
-      });
-      if(check.length !== 0) {
-        //console.info('second click')
-        GlobalStor.global.isLoader = 0;
-        for(var x=0; x<check.length; x+=1) {
-          if(check[x] !== orderNum) {
-            HistoryStor.history.firstClick.push(orderNum);
-          } 
-        }
-      } else {
-        //console.info('first click')
-        HistoryStor.history.firstClick.push(orderNum);
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', globalConstants.serverIP +'/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
-        xhr.send();
-        if (xhr.status === 200) {
-          if (JSON.parse(xhr.response).status === true) {
-            orderToFactory(orderStyle, orderNum);
-            HistoryStor.history.resAPI = orderNum + 'doneOrder';
-            GlobalStor.global.isLoader = 0;
-          } else {
-            GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
-            GlobalStor.global.isLoader = 0;
-            HistoryStor.history.resAPI = orderNum + 'errorOrder';
+       if (onlineMode && navigator.onLine) {
+        GlobalStor.global.isLoader = 1
+        var check = [];
+        check = HistoryStor.history.firstClick.filter(function(item) {
+          return item === orderNum
+        });
+        if(check.length !== 0) {
+          //console.info('second click')
+          GlobalStor.global.isLoader = 0;
+          for(var x=0; x<check.length; x+=1) {
+            if(check[x] !== orderNum) {
+              HistoryStor.history.firstClick.push(orderNum);
+            } 
           }
         } else {
-          GlobalStor.global.isLoader = 0
-          HistoryStor.history.resAPI = orderNum + 'errorOrder';
-        }
-      }
-    }
-    function reqResult() {
-      GlobalStor.global.isLoader = 1;
-      var xhr = new XMLHttpRequest();
-      var res;
-      var obj = {
-        order_products : localDB.tablesLocalDB.order_products,
-        orders : localDB.tablesLocalDB.orders,
-        order_addelements : localDB.tablesLocalDB.order_addelements
-      };
-      xhr.open('GET', 'http://admin.steko.com.ua/api/orders?login='+UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code+'&type='+HistoryStor.history.resTimeBox.namb, false);
-      xhr.send();
-      if (xhr.status != 200) {
-        console.info( xhr.status + ': ' + xhr.statusText );
-        GlobalStor.global.isLoader = 0;
-      } else {
-          localDB.cleanLocalDB(obj).then(function(data) {
-            if(data) {
-              localDB.createTablesLocalDB(obj).then(function(data) {
-              if(data) {
-                res = JSON.parse(xhr.response);
-                res.tables.order_products.fields.splice(1,1);
-                res.tables.order_products.fields.splice(2,1);
-                res.tables.order_products.fields.splice(6,1);
-                res.tables.order_products.fields.splice(27,1);
-                res.tables.orders.fields.splice(1,1);
-                for(var x=0; x<res.tables.order_products.rows.length; x+=1) {
-                  res.tables.order_products.rows[x].splice(1,1);
-                  res.tables.order_products.rows[x].splice(2,1);
-                  res.tables.order_products.rows[x].splice(6,1);
-                  res.tables.order_products.rows[x].splice(27,1);
-                };
-                for(var x=0; x<res.tables.orders.rows.length; x+=1) {
-                  res.tables.orders.rows[x].splice(1,1);
-                  (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                  (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                  (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                };
-                function test(item) {
-                  if(item === "done") {
-                    return item = "order";
-                  } else {
-                    return item;
-                  }
-                };
-                localDB.insertTablesLocalDB(res).then(function() {
-                   downloadOrders();
-                });
-              }
-            });
+          //console.info('first click')
+          HistoryStor.history.firstClick.push(orderNum);
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', globalConstants.serverIP +'/api/export?login='+ UserStor.userInfo.phone+'&access_token='+UserStor.userInfo.device_code +'&orderId='+orderNum, false);
+          xhr.send();
+          if (xhr.status === 200) {
+            if (JSON.parse(xhr.response).status === true) {
+              orderToFactory(orderStyle, orderNum);
+              HistoryStor.history.resAPI = orderNum + 'doneOrder';
+              GlobalStor.global.isLoader = 0;
+            } else {
+              GlobalStor.global.textErrorOrder = JSON.parse(xhr.response).error;
+              GlobalStor.global.isLoader = 0;
+              HistoryStor.history.resAPI = orderNum + 'errorOrder';
+            }
+          } else {
+            GlobalStor.global.isLoader = 0
+            HistoryStor.history.resAPI = orderNum + 'errorOrder';
           }
-        });
-      }  
+        }
+      } else {
+          
+            $.get(globalConstants.serverIP, function (data) {
+                onlineMode = true;
+            })
+                .fail(function () {
+                    onlineMode = false;
+                    alert("");
+                });
+            GeneralServ.infoAlert(
+                        $filter('translate')('login.OFFLINE'),
+                        $filter('translate')('login.OFFLINE_INFO')
+                    );
+        }
+    }
+
+
+    function reqResult() {
+        if (onlineMode && navigator.onLine) {
+            synchronizeOrders().then(function () {
+                GlobalStor.global.isLoader = 1;
+                var xhr = new XMLHttpRequest();
+                var res;
+                var obj = {
+                    order_products: localDB.tablesLocalDB.order_products,
+                    orders: localDB.tablesLocalDB.orders,
+                    order_addelements: localDB.tablesLocalDB.order_addelements
+                };
+                var url = 'http://admin.steko.com.ua/api/orders?login=' + UserStor.userInfo.phone + '&access_token=' + UserStor.userInfo.device_code + '&type=' + HistoryStor.history.resTimeBox.namb;
+                xhr.open('GET', url, false);
+                xhr.send();
+                if (xhr.status != 200) {
+                    console.info(xhr.status + ': ' + xhr.statusText);
+                    GlobalStor.global.isLoader = 0;
+                } else {
+                    localDB.cleanLocalDB(obj).then(function (data) {
+                        if (data) {
+                            localDB.createTablesLocalDB(obj).then(function (data) {
+                                if (data) {
+                                    res = JSON.parse(xhr.response);
+                                    res.tables.order_products.fields.splice(1, 1);
+                                    res.tables.order_products.fields.splice(2, 1);
+                                    res.tables.order_products.fields.splice(6, 1);
+                                    res.tables.order_products.fields.splice(27, 1);
+                                    res.tables.orders.fields.splice(1, 1);
+                                    for (var x = 0; x < res.tables.order_products.rows.length; x += 1) {
+                                        res.tables.order_products.rows[x].splice(1, 1);
+                                        res.tables.order_products.rows[x].splice(2, 1);
+                                        res.tables.order_products.rows[x].splice(6, 1);
+                                        res.tables.order_products.rows[x].splice(27, 1);
+                                    }
+                                    ;
+                                    for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
+                                        res.tables.orders.rows[x].splice(1, 1);
+                                        (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
+                                        (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
+                                        (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
+                                    }
+                                    ;
+                                    function test(item) {
+                                        if (item === "done") {
+                                            return item = "order";
+                                        } else {
+                                            return item;
+                                        }
+                                    };
+                                    localDB.insertTablesLocalDB(res).then(function () {
+                                        downloadOrders();
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+          
+            $.get(globalConstants.serverIP, function (data) {
+                onlineMode = true;
+            })
+                .fail(function () {
+                    onlineMode = false;
+                    alert("");
+                });
+            GeneralServ.infoAlert(
+                        $filter('translate')('login.OFFLINE'),
+                        $filter('translate')('login.OFFLINE_INFO')
+                    );
+        }
+
     } 
+
     function deleteOption() {
       $("#deleteOption").remove();
     }
@@ -228,7 +283,9 @@
       GlobalStor.global.isLoader = 1;
       HistoryStor.history.orderOk=0;
 /*      GlobalStor.global.isBox = !GlobalStor.global.isBox;*/
-        HistoryStor.history.orderEditNumber = orderNum;
+        if (onlineMode && navigator.onLine ){
+        HistoryStor.history.orderEditNumber = orderNum;}
+        else {HistoryStor.history.orderEditNumber = 0;}
 /*        dloadProducts();
         dloadAddElements();
         dloadOrder();
@@ -290,8 +347,13 @@
           UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
         ).then(function(respond) {
           console.log(respond, 'respond')
+          if (respond!==null){
           if(respond.status) {
             newOrderCopy.order_number = respond.order_number;
+          }
+        }
+          else {
+            newOrderCopy.order_number = 0;
           }
           //---- save new order
           HistoryStor.history.orders.push(newOrderCopy);
@@ -1008,6 +1070,148 @@
 
 
     }
+function synchronizeOrders() {
+    getOnline();
+    if (onlineMode) {
+        var defer = $q.defer();
+        var orderData2;
+        localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function (result_orders) {
+            orderData2 = angular.copy(result_orders);
+            console.log("orderData2", orderData2);
+            if (result_orders) {
+                localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
+                    var productData2 = angular.copy(result_order_products);
+                    localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName).then(function (result_order_addelements) {
+                        var addElementsData2 = angular.copy(result_order_addelements);
+
+
+                        if (typeof(orderData2.order_number) !== "number") {
+                            console.log('send local save');
+                            async.eachSeries(productData2, calculate1, function (err, result) {
+                                defer.resolve(1);
+                            });
+                            async.eachSeries(addElementsData2, calculate2, function (err, result) {
+                                defer.resolve(1);
+                            });
+                            async.eachSeries(orderData2, calculate3, function (err, result) {
+                                downloadOrders();
+                                defer.resolve(1);
+                            });
+                            function calculate1(productData1, _cb) {
+                                var productData;
+                                if (true) {
+                                    async.waterfall([
+                                        function (_callback) {
+                                            productData = angular.copy(productData1);
+                                            _callback(null);
+                                        },
+                                        function (_callback) {
+                                            localDB.insertServer(
+                                                UserStor.userInfo.phone,
+                                                UserStor.userInfo.device_code,
+                                                localDB.tablesLocalDB.order_products.tableName,
+                                                productData
+                                            ).then(function (respond) {
+                                                console.log("calculate1", respond);
+                                                if (respond) {
+
+                                                }
+                                                _callback();
+                                            });
+
+                                        }
+                                    ], function (err, result) {
+                                        if (err) {
+                                            //console.log('err', err)
+                                            return _cb(err);
+                                        }
+                                        //console.log('herereer')
+                                        _cb(null);
+                                    });
+                                }
+                            }
+
+                            function calculate2(addElementsData1, _cb) {
+                                var addElementsData;
+                                async.waterfall([
+                                    function (_callback) {
+                                        addElementsData = angular.copy(addElementsData1);
+                                        _callback(null);
+                                    },
+                                    function (_callback) {
+                                        localDB.insertServer(
+                                            UserStor.userInfo.phone,
+                                            UserStor.userInfo.device_code,
+                                            localDB.tablesLocalDB.order_addelements.tableName,
+                                            addElementsData
+                                        ).then(function (respond) {
+                                            console.log("calculate1", respond);
+                                            if (respond) {
+
+                                            }
+                                            _callback();
+                                        });
+
+                                    }
+                                ], function (err, result) {
+                                    if (err) {
+                                        //console.log('err', err)
+                                        return _cb(err);
+                                    }
+                                    //console.log('herereer')
+                                    _cb(null);
+                                });
+                            }
+
+                            function calculate3(orderData1, _cb) {
+                                var orderData;
+                                async.waterfall([
+                                    function (_callback) {
+                                        orderData = angular.copy(orderData1);
+                                        _callback(null);
+                                    },
+                                    function (_callback) {
+                                        localDB.insertServer(
+                                            UserStor.userInfo.phone,
+                                            UserStor.userInfo.device_code,
+                                            localDB.tablesLocalDB.orders.tableName,
+                                            orderData
+                                        ).then(function (respond) {
+                                            console.log("respond", respond);
+                                            if (typeof(respond.order_number) !== 'undefined') {
+                                                orderData.order_number = respond.order_number;
+                                                localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'id': orderData.id});
+                                                localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+                                            }
+                                            _callback();
+                                        });
+                                    }
+                                ], function (err, result) {
+                                    if (err) {
+                                        //console.log('err', err)
+                                        return _cb(err);
+                                    }
+                                    //console.log('herereer')
+                                    _cb(null);
+                                });
+                            }
+
+                        }
+
+                    });
+                });
+            } else {
+                defer.resolve(1);
+            }
+        });
+        return defer.promise;
+    } else {
+        GeneralServ.infoAlert(
+            $filter('translate')('login.OFFLINE'),
+            $filter('translate')('login.OFFLINE_INFO')
+        );
+    }
+}
     /**========== FINISH ==========*/
 
     thisFactory.publicObj = {
@@ -1028,6 +1232,7 @@
       orderSorting: orderSorting,
       sortingInit: sortingInit,
       reqResult: reqResult,
+      synchronizeOrders: synchronizeOrders,
       deleteOption: deleteOption,
       testFunc: testFunc
     };

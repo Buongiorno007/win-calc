@@ -66,7 +66,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                       .filter-label {{ ::historyPage.SORT_SHOW_DONE }}
                       .filter-select-icon
             .history-req-panel(ng-show="!historyPage.H.history.isOrderSearch")
-
+              button.req-res(fs-click="historyPage.synchronizeOrders()") {{::historyPage.SYNCHRONIZE_ORDERS}}
               button.req-res(fs-click="historyPage.reqResult()") {{::historyPage.DOWNLOAD_ORDERS}}
               select.period-of-time(ng-model="historyPage.H.history.resTimeBox", ng-options="time.name for time in historyPage.time",
               ng-change ="historyPage.deleteOption()")
@@ -80,7 +80,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .error(ng-show="historyPage.H.history.resAPI === order.id + 'errorOrder'") {{historyPage.G.global.textErrorOrder}}
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
-                    .account-id(ng-if="order.order_number") id {{ order.order_number }}
+                    .account-id id {{ order.order_number }} - {{ order.id }}
                       span(ng-if="order.order_hz && order.order_hz !== '---'") {{ order.order_hz }}
                     .account-addinfo
                       span(ng-hide="!order.floor_id && !order.mounting_id") - {{ ::historyPage.INCLUDED }}:

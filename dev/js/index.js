@@ -3,8 +3,48 @@
 /** check first device */
 var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
-(function(){
 
+(function(){
+window.onload = function()
+{
+  location.hash="#/";
+  var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
+    var coeff = document.body.clientHeight/elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
+    if (coeff>1) coeff=1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
+    if (coeff<0.6) coeff=0.6; // ограничение снизу добавлено для того, чтобы сайт совсем уж не превращался в нечитаемый
+    if (coeff!=1.0) {
+      if (navigator.userAgent.indexOf('Firefox')!=-1) elm.style.boxShadow='none';  // масштабирование в Firefox порождало некорректное отображение boxshadow, и пришлось это свойство отключить
+      elm.style.webkitTransform = 'scale('+coeff+')';
+      elm.style.msTransform = 
+      elm.style.mozTransform = 
+      elm.style.transform = 'scale('+coeff+')'; // собственно масштабирование
+    }
+}
+  window.onresize = function(event) {
+    var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
+    var coeff = document.body.clientHeight/elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
+    if (coeff>1) coeff=1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
+    if (coeff<0.6) coeff=0.6; // ограничение снизу добавлено для того, чтобы сайт совсем уж не превращался в нечитаемый
+    if (coeff!=1.0) {
+      if (navigator.userAgent.indexOf('Firefox')!=-1) elm.style.boxShadow='none';  // масштабирование в Firefox порождало некорректное отображение boxshadow, и пришлось это свойство отключить
+      elm.style.webkitTransform = 'scale('+coeff+')';
+      elm.style.msTransform = 
+      elm.style.mozTransform = 
+      elm.style.transform = 'scale('+coeff+')'; // собственно масштабирование
+    }
+
+  };
+// function scaleWindow(obj, width, height){
+//   var scale=1;
+//   if (self.innerWidth/width > self.innerHeight/height) {scale=self.innerHeight/height;}
+//   else {scale=self.innerWidth/width;}
+//   if (scale > 1) {scale=1;}
+//   var topscale =(scale-1)*height/2;
+// //  alert(scale+'  '+topscale);
+//   obj.style.transform = 'scale('+scale+')';
+//   obj.style.top = topscale+'px'; 
+//   return;
+// }
   /**------- defined system ------ */
 //  console.log('USER: navigator++', window.navigator);
 //  console.log('USER: userAgent+++', window.navigator.userAgent);

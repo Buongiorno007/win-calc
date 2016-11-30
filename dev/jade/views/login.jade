@@ -1,13 +1,14 @@
 section.login-page
   //---------------- LogIn Form
-  #login-container.login-container(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;")
+  #login-container.login-container(ng-hide="loginPage.isRegistration", fs-click="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0; loginPage.isOfflineImport = 0")
     .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ ::loginPage.OFFLINE }}
       button.inet_ok(fs-click="loginPage.closeOfflineAlert()") {{ ::loginPage.OK }}
-    .attantion(ng-if="loginPage.isSendEmail") {{ ::loginPage.USER_CHECK_EMAIL }}
-    .attantion(ng-if="loginPage.isUserNotExist") {{ ::loginPage.USER_NOT_EXIST }}
-    .attantion(ng-if="loginPage.isUserNotActive") {{ ::loginPage.USER_NOT_ACTIVE }}
+    .attantion(ng-if="loginPage.isSendEmail")         {{ ::loginPage.USER_CHECK_EMAIL }}
+    .attantion(ng-if="loginPage.isUserNotExist")      {{ ::loginPage.USER_NOT_EXIST }}
+    .attantion(ng-if="loginPage.isUserNotActive")     {{ ::loginPage.USER_NOT_ACTIVE }}
     .attantion(ng-if="loginPage.isUserPasswordError") {{ ::loginPage.USER_PASSWORD_ERROR }}
-    .attantion(ng-if="loginPage.isStartImport") {{ ::loginPage.IMPORT_DB }}
+    .attantion(ng-if="loginPage.isStartImport")       {{ ::loginPage.IMPORT_DB }}
+    .attantion(ng-if="loginPage.isOfflineImport")     {{ ::loginPage.OFFLINE_IMPORT }}
     .logo
     .lang(ng-click="loginPage.gotoSettingsPage()", id="jssj")
 
@@ -19,12 +20,20 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ ::loginPage.EMPTY_FIELD }}
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
+
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
         input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-pattern="loginPage.consts.REG_LOGIN", placeholder="{{ ::loginPage.PASSWORD }}", required)
         .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ ::loginPage.EMPTY_FIELD }}
         .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       button.login-submit(type="submit") {{ ::loginPage.ENTER }}
+    .i
+      label.updateDB(fs-click="loginPage.isAutoSyncInfo = 0;")
+        input#updateDBcheck(type="checkbox", name="updateDB", value="val")
+        |{{ ::loginPage.AUTO_SYNCHRONIZE }}  
+      .attantion(ng-if="loginPage.isAutoSyncInfo", fs-click="loginPage.isAutoSyncInfo = 0;")     {{ loginPage.SYNCHRONIZE_INFO }}
+      .i-info(fs-click="loginPage.isAutoSyncInfo = 1;") i
+
     //button.login-submit(fs-click="loginPage.switchRegistration()") {{ ::loginPage.REGISTRATION }}
 
     //-------------- Factory List

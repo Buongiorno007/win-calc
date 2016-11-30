@@ -27,13 +27,16 @@
   ) {
     /*jshint validthis:true */
     var thisFactory = this;
-
-
-
-
-
     /**============ METHODS ================*/
-
+      var onlineMode;
+      $.get("http://api.steko.com.ua", function(data) {
+        onlineMode = true;
+        return true;
+      })
+      .fail(function() {
+        onlineMode = false;
+        return false;
+      });
     /**---------- Close Room Selector Dialog ---------*/
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
@@ -1656,11 +1659,13 @@
             localDB.tablesLocalDB.orders.tableName,
             orderData
           ).then(function(respond) {
-            
-            if (navigator.onLine){
+            if (onlineMode && navigator.onLine){
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
+              
+            } else {
+              orderData.order_number = 0;
             }
             localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
             defer.resolve(1);
@@ -1734,7 +1739,6 @@
         template.details[x].glass_type = product.glass[0].glass_type;
       }
     }
-
 
     /**========== FINISH ==========*/
 

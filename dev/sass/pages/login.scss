@@ -163,6 +163,34 @@ $img_logo: 'login/logo.png';
   width: rem(382px);
   margin: rem(62px) auto 0 auto;
 }
+.i {
+    width:100%;
+    text-align: center;
+    vertical-align: middle;
+}
+.updateDB{
+  @include roboto-lt(rem(35px));
+  display: inline-block;
+  width: 90%;
+}
+#updateDBcheck{
+  margin : 1em 1em auto auto;
+  width: 1em;
+  height: 1em;
+}
+.i-info{
+  display : inline-block;
+  float : right;
+  width: 1em;
+  height: 1em;
+  font: normal 3.125rem/1 icons, sans-serif;
+  position: relative;
+  background-color: #6ed44a;
+  color: white;
+  text-align: center;
+  border-radius: 30px;
+  margin : 0.7em auto auto auto;
+}
 
 .inet_ok {
   display: block;

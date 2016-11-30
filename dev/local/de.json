@@ -64,6 +64,7 @@
     "SELECT_COUNTRY": "Land wählen",
     "SELECT_REGION": "Region wählen",
     "SELECT_CITY": "Wählen Sie die Stadt",
+    "UPDATEDB" : "Обновить базу данных",
     "USER_EXIST": "Dieser Benutzer ist bereits vorhanden! Versuchen Sie es erneut.",
     "USER_NOT_EXIST": "Ein solcher Benutzer nicht existiert. Registrieren.",
     "USER_NOT_ACTIVE": "Sie haben Ihr Profil aktiviert. Überprüfen Sie Ihre E-Mail.",
@@ -72,7 +73,12 @@
     "SELECT_FACTORY": "Sie haben noch keine gewählten Hersteller",
     "USER_PASSWORD_ERROR": "ungültiges Kennwort!",
     "OFFLINE": "Keine Verbindung zum Internet!",
-    "IMPORT_DB": "Databases JETZT HERUNTERLADEN! Warten Sie mal!"
+    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "OFFLINE_IMPORT":"Keine Verbindung zum Internet!",
+    "IMPORT_DB": "Databases JETZT HERUNTERLADEN! Warten Sie mal!",
+    "AUTO_SYNCHRONIZE" : "Auto-Sync-Daten, wenn die Anwendung hat gestartet",
+    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+
   },
   "mainpage": {
     "MM": " mm ",
@@ -296,7 +302,8 @@
     "NOT_FIND": "nichts gefunden",
     "WAIT_MASTER": "erwartet Gager",
     "INCLUDED": "inbegriffen",
-    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения"
+    "NO_PRINT": "Вывод спецификации невозможен ввиду отсутствия интернет-соединения",
+    "SYNCHRONIZE_ORDERS":"Synchronisieren sie aufträge"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Alle Anbauteile bestellen",

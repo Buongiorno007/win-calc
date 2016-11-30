@@ -146,6 +146,7 @@
 
         //----- Alert
         isAlert: 0,
+        isAlertInfo: 0,
         alertTitle: '',
         alertDescr: '',
         isBox: 0,
