@@ -1,7 +1,7 @@
 'use strict';
 /** global variable defined Browser or Device */
 /** check first device */
-var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
+var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
 
 (function(){
@@ -34,21 +34,7 @@ window.onload = function()
     }
 
   };
-// function scaleWindow(obj, width, height){
-//   var scale=1;
-//   if (self.innerWidth/width > self.innerHeight/height) {scale=self.innerHeight/height;}
-//   else {scale=self.innerWidth/width;}
-//   if (scale > 1) {scale=1;}
-//   var topscale =(scale-1)*height/2;
-// //  alert(scale+'  '+topscale);
-//   obj.style.transform = 'scale('+scale+')';
-//   obj.style.top = topscale+'px'; 
-//   return;
-// }
-  /**------- defined system ------ */
-//  console.log('USER: navigator++', window.navigator);
-//  console.log('USER: userAgent+++', window.navigator.userAgent);
-//  console.log('USER: platform', window.navigator.platform);
+
   /** check browser */
   if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;

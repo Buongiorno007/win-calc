@@ -20,7 +20,9 @@ var gulp        = require('gulp'),       // Собственно Gulp JS
     notify      = require("gulp-notify"),     // Нотификатор
     ngAnnotate  = require('gulp-ng-annotate'),
     htmlmin = require('gulp-htmlmin'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    obfuscate = require('gulp-obfuscate'),
+    js_obfuscator = require('gulp-js-obfuscator');
 
 
 // Очистка результирующей папки
@@ -210,41 +212,67 @@ gulp.task('build', ['clean'], function () {
 gulp.task('default', ['watch']);
 
 // Сборка минимизированного проекта
-gulp.task('production', ['clean'], function() {
- // css
- compassTask()
-   .pipe(csso())
-   .pipe(gulp.dest(config.build.dest.css));
+//gulp.task('production', ['clean'], function() {
+//  // css
+//  compassTask()
+//    .pipe(csso())
+//    .pipe(gulp.dest(config.build.dest.css));
+//
+//  // jade
+//  gulp.src(config.build.src.html)
+//    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+//    .pipe(jade())
+//    .pipe(gulp.dest(config.build.dest.html));
+//
+//  // js
+//  gulp.src(config.build.src.js)
+//    .pipe(concat('main.js'))
+//    .pipe(uglify())
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  gulp.src(config.build.src.js_vendor)
+//    .pipe(order(config.build.src.js_order))
+//    .pipe(concat('plugins.js'))
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  gulp.src(config.build.src.js_other)
+//    .pipe(uglify())
+//    .pipe(gulp.dest(config.build.dest.js));
+//
+//  // image
+//  gulp.src(config.build.src.img)
+//    .pipe(imagemin())
+//    .pipe(gulp.dest(config.build.dest.img));
+//
+//  // fonts
+//  gulp.src(config.build.src.fonts)
+//    .pipe(gulp.dest(config.build.dest.fonts));
+//});
 
- // jade
- gulp.src(config.build.src.html)
-   .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-   .pipe(jade())
-   .pipe(gulp.dest(config.build.dest.html));
+/** ofline */
+gulp.task('offline', function() {
+var options = {
+  keepLinefeeds:      true,
+  keepIndentations:   true,
+  encodeStrings:      true,
+  encodeNumbers:      true,
+  moveStrings:        true,
+  replaceNames:       true,
+  variableExclusions: [ '^_get_', '^_set_', '^_mtd_' ]
+};
+  // main.js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(concat('main.js'))
+    .pipe(ngAnnotate({add: true}))
+    //.pipe(obfuscate())
+    .pipe(js_obfuscator({}, options))
+    .pipe(gulp.dest(config.build.dest.js));
 
- // js
- gulp.src(config.build.src.js)
-   .pipe(concat('main.js'))
-   .pipe(uglify())
-   .pipe(gulp.dest(config.build.dest.js));
-
- gulp.src(config.build.src.js_vendor)
-   .pipe(order(config.build.src.js_order))
-   .pipe(concat('plugins.js'))
-   .pipe(gulp.dest(config.build.dest.js));
-
- gulp.src(config.build.src.js_other)
-   .pipe(uglify())
-   .pipe(gulp.dest(config.build.dest.js));
-
- // image
- gulp.src(config.build.src.img)
-   .pipe(imagemin())
-   .pipe(gulp.dest(config.build.dest.img));
-
- // fonts
- gulp.src(config.build.src.fonts)
-   .pipe(gulp.dest(config.build.dest.fonts));
 });
 
 

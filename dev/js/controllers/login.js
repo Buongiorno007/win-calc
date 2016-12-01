@@ -24,6 +24,8 @@
     thisCtrl.G = GlobalStor;
     thisCtrl.consts = globalConstants;
 
+    var onlineMode;
+
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
@@ -43,6 +45,16 @@
     thisCtrl.user = {};
     thisCtrl.factories = 0;
     GlobalStor.global.loader = 0; 
+    thisCtrl.onlineMode = 0;
+
+
+   
+      $.get(globalConstants.serverIP, function(data) {
+        onlineMode = true;
+      })
+      .fail(function() {
+        onlineMode = false;
+      });
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -503,25 +515,20 @@
         $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
       }
     }
-    var onlineMode;
-      $.get(globalConstants.serverIP, function(data) {
-        onlineMode = true;
-      })
-      .fail(function() {
-        onlineMode = false;
-      });
+
 
 
     if (window.location.hash.length > 10) {
       loader()
     }
-
-    chrome.storage.local.get("UserStor.userInfo.phone", function(items) {
-          UserStor.userInfo.phone = items["UserStor.userInfo.phone"];
-    });
-    chrome.storage.local.get("UserStor.userInfo.device_code", function(items) {
-          UserStor.userInfo.device_code = items["UserStor.userInfo.device_code"];
-    });
+    if (!onlineMode && !navigator.onLine) {
+      chrome.storage.local.get("UserStor.userInfo.phone", function(items) {
+            UserStor.userInfo.phone = items["UserStor.userInfo.phone"];
+      });
+      chrome.storage.local.get("UserStor.userInfo.device_code", function(items) {
+            UserStor.userInfo.device_code = items["UserStor.userInfo.device_code"];
+      });
+    }
     function enterForm(form) {
       var newUserPassword;
       //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
