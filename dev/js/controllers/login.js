@@ -49,7 +49,7 @@
 
 
    
-      $.get(globalConstants.serverIP, function(data) {
+      $.get(globalConstants.serverIP, function() {
         onlineMode = true;
       })
       .fail(function() {
@@ -127,7 +127,6 @@
       "img/room/fon.jpg",
       "img/room/3333.png"
     ]);
-
 
     /**============ METHODS ================*/
 
@@ -257,7 +256,7 @@
                     chrome.storage.local.set(item);
                     item["UserStor.userInfo.device_code"] = UserStor.userInfo.device_code;
                     chrome.storage.local.set(item);
-                    console.log("UserStor.userInfo.phone" , UserStor.userInfo.phone, "UserStor.userInfo.device_code", UserStor.userInfo.device_code);
+                    //console.log("UserStor.userInfo.phone" , UserStor.userInfo.phone, "UserStor.userInfo.device_code", UserStor.userInfo.device_code);
                   }
                 });
               }
@@ -537,6 +536,7 @@
       if (form.$valid) {        
         GlobalStor.global.isLoader = 1;
         loader();
+
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
@@ -544,8 +544,8 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          if($("#updateDBcheck").prop("checked") ) { 
-            
+          if($("#updateDBcheck").prop("checked") ) {
+
             if (onlineMode && navigator.onLine ){
 
               GlobalStor.global.isLoader = 1;

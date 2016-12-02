@@ -221,7 +221,7 @@
       right: 2%;
     }
   }
-  // если не указан временной интервал
+  // if not set time interval
   .time-interval.empty ~ .date-filter {
     &:after {
       left: 88%;

@@ -44,7 +44,6 @@
       GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
       //playSound('fly');
     }
-
     function setDefaultDoorConfig() {
       ProductStor.product.door_shape_id = 0;
       ProductStor.product.door_type_index = 0;

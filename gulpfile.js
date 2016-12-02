@@ -24,14 +24,12 @@ var gulp        = require('gulp'),       // Собственно Gulp JS
     obfuscate = require('gulp-obfuscate'),
     js_obfuscator = require('gulp-js-obfuscator');
 
-
 // Очистка результирующей папки
 gulp.task('clean', function() {
   del('www/**', function () {
     console.log('Files deleted');
   });
 });
-
 
 // Форматирование стилей
 
@@ -250,7 +248,7 @@ gulp.task('default', ['watch']);
 //});
 
 /** ofline */
-gulp.task('offline', function() {
+gulp.task('offlineSteko', function() {
 var options = {
   keepLinefeeds:      true,
   keepIndentations:   true,
@@ -269,12 +267,44 @@ var options = {
     .pipe(order(config.build.src.js_order))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
-    //.pipe(obfuscate())
     .pipe(js_obfuscator({}, options))
     .pipe(gulp.dest(config.build.dest.js));
 
+  gulp.src(config.offline.steko)
+    .pipe(gulp.dest(config.build.dest.html));
+
+  gulp.src(config.offline.background)
+    .pipe(gulp.dest(config.build.dest.html));
 });
 
+gulp.task('offlineWindows', function() {
+  var options = {
+    keepLinefeeds:      true,
+    keepIndentations:   true,
+    encodeStrings:      true,
+    encodeNumbers:      true,
+    moveStrings:        true,
+    replaceNames:       true,
+    variableExclusions: [ '^_get_', '^_set_', '^_mtd_' ]
+  };
+  // main.js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(concat('main.js'))
+    .pipe(ngAnnotate({add: true}))
+    .pipe(js_obfuscator({}, options))
+    .pipe(gulp.dest(config.build.dest.js));
+
+  gulp.src(config.offline.windows)
+    .pipe(gulp.dest(config.build.dest.html));
+
+  gulp.src(config.offline.background)
+    .pipe(gulp.dest(config.build.dest.html));
+});
 
 /** PRODUCTION css and js min */
 gulp.task('prod', function() {
@@ -318,8 +348,8 @@ gulp.task('prod', function() {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-var server = config.server; 
-//var server = config.serverSteko;
+//var server = config.server;
+var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

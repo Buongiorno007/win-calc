@@ -233,16 +233,15 @@
                                         res.tables.order_products.rows[x].splice(2, 1);
                                         res.tables.order_products.rows[x].splice(6, 1);
                                         res.tables.order_products.rows[x].splice(27, 1);
-                                    }
-                                    ;
+                                    };
                                     for (var x = 0; x < res.tables.orders.rows.length; x += 1) {
                                         res.tables.orders.rows[x].splice(1, 1);
                                         (res.tables.orders.rows[x][24] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
                                         (res.tables.orders.rows[x][25] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
                                         (res.tables.orders.rows[x][26] !== "1970-01-01T00:00:00.000Z") ? res.tables.orders.rows[x][55] = "done" : test(res.tables.orders.rows[x][55]);
-                                    }
-                                    ;
-                                    function test(item) {
+                                    };
+                                    //noinspection JSAnnotator
+                                  function test(item) {
                                         if (item === "done") {
                                             return item = "order";
                                         } else {
@@ -1077,7 +1076,7 @@ function synchronizeOrders() {
         var orderData2;
         localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function (result_orders) {
             orderData2 = angular.copy(result_orders);
-            console.log("orderData2", orderData2);
+            //console.log("orderData2", orderData2);
             if (result_orders) {
                 localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName).then(function (result_order_products) {
                     var productData2 = angular.copy(result_order_products);
@@ -1097,7 +1096,8 @@ function synchronizeOrders() {
                                 downloadOrders();
                                 defer.resolve(1);
                             });
-                            function calculate1(productData1, _cb) {
+                            //noinspection JSAnnotator
+                          function calculate1(productData1, _cb) {
                                 var productData;
                                 if (true) {
                                     async.waterfall([
@@ -1131,7 +1131,8 @@ function synchronizeOrders() {
                                 }
                             }
 
-                            function calculate2(addElementsData1, _cb) {
+                            //noinspection JSAnnotator
+                          function calculate2(addElementsData1, _cb) {
                                 var addElementsData;
                                 async.waterfall([
                                     function (_callback) {
@@ -1163,7 +1164,8 @@ function synchronizeOrders() {
                                 });
                             }
 
-                            function calculate3(orderData1, _cb) {
+                            //noinspection JSAnnotator
+                          function calculate3(orderData1, _cb) {
                                 var orderData;
                                 async.waterfall([
                                     function (_callback) {

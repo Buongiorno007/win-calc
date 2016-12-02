@@ -30,7 +30,7 @@ section.login-page
     .i
       label.updateDB(fs-click="loginPage.isAutoSyncInfo = 0;")
         input#updateDBcheck(type="checkbox", name="updateDB", value="val")
-        |{{ ::loginPage.AUTO_SYNCHRONIZE }}  
+        |{{ ::loginPage.AUTO_SYNCHRONIZE }}
       .attantion(ng-if="loginPage.isAutoSyncInfo", fs-click="loginPage.isAutoSyncInfo = 0;")     {{ loginPage.SYNCHRONIZE_INFO }}
       .i-info(fs-click="loginPage.isAutoSyncInfo = 1;") i
 

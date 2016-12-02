@@ -1,4 +1,9 @@
 {
+  "offline":{
+    "steko" : ["../offline/steko/manifest.json"],
+    "windows" : ["../offline/windows/manifest.json"],
+    "background":["../offline/background.js"]
+  },
   "build": {
     "src": {
       "html": [
@@ -42,6 +47,7 @@
       "local": "www/local",
       "product": "www/product"
     }
+
   },
   "watch": {
     "scss": [
