@@ -20,15 +20,15 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", fs-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
                 .aux-label {{ ::cartPage.NAME_LABEL }}
             td.aux-tablecell-qty
-              .aux-params(ng-show="addElem.element_qty")
+              .aux-params(ng-show="addElem.element_qty", ng-click="elemCartPanel.editQty($index, addElem)")
                 .aux-params-but {{ addElem.element_qty }}
                 .aux-label {{ ::cartPage.QTY_LABEL }}
             td.aux-tablecell-width
-              .aux-params(ng-show="addElem.element_width")
+              .aux-params(ng-show="addElem.element_width", ng-click="elemCartPanel.editWidth($index, addElem)")
                 .aux-params-but {{ addElem.element_width }}
                 .aux-label {{ ::cartPage.WIDTH_LABEL }}
             td.aux-tablecell-height
-              .aux-params(ng-show="addElem.element_height")
+              .aux-params(ng-show="addElem.element_height", ng-click="elemCartPanel.editHeight($index, addElem)")
                 .aux-params-but {{ addElem.element_height }}
                 .aux-label {{ ::cartPage.HEIGHT_LABEL }}
             td.aux-tablecell-price

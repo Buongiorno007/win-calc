@@ -80,7 +80,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     .module('SettingsModule', []);
 
 
-  function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider) {
+  function configurationApp($routeProvider, $locationProvider, $translateProvider, $httpProvider,$compileProvider) {
 
     //-------- delete # !!!
     //$locationProvider.html5Mode({
@@ -137,7 +137,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       .otherwise({
         redirectTo: '/'
       });
-
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
@@ -1444,7 +1444,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function importDBProsses(user) {
-
       //----- checking user activation
       if(user.locked) {
         //------- clean all tables in LocalDB
@@ -1742,55 +1741,56 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          checkingUser();
+          //checkingUser();
 
-          // //------- check available Local DB
-          // loginServ.isLocalDBExist().then(function(data){
-          //   thisCtrl.isLocalDB = data;
-          //   if(thisCtrl.isLocalDB) {
+          //------- check available Local DB
+          //for offline work
+          loginServ.isLocalDBExist().then(function(data){
+            thisCtrl.isLocalDB = data;
+            if(thisCtrl.isLocalDB) {
 
-          //     //======== SYNC
-          //     console.log('SYNC');
-          //     //---- checking user in LocalDB
-          //     localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-          //       .then(function(data) {
-          //         //---- user exists
-          //         if(data.length) {
-          //           //---------- check user password
-          //           newUserPassword = localDB.md5(thisCtrl.user.password);
-          //           if(newUserPassword === data[0].password) {
-          //             //----- checking user activation
-          //             if(data[0].locked) {
-          //               angular.extend(UserStor.userInfo, data[0]);
-          //               //------- set User Location
-          //               loginServ.prepareLocationToUse().then(function() {
-          //                 checkingFactory();
-          //               });
+              //======== SYNC
+              console.log('SYNC');
+              //---- checking user in LocalDB
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                .then(function(data) {
+                  //---- user exists
+                  if(data.length) {
+                    //---------- check user password
+                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    if(newUserPassword === data[0].password) {
+                      //----- checking user activation
+                      if(data[0].locked) {
+                        angular.extend(UserStor.userInfo, data[0]);
+                        //------- set User Location
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
 
-          //             } else {
-          //               GlobalStor.global.isLoader = 0;
-          //               //---- show attantion
-          //               thisCtrl.isUserNotActive = 1;
-          //             }
-          //           } else {
-          //             GlobalStor.global.isLoader = 0;
-          //             //---- user not exists
-          //             thisCtrl.isUserPasswordError = 1;
-          //           }
-          //         } else {
-          //           //======== IMPORT
-          //           console.log('Sync IMPORT');
-          //           checkingUser();
-          //         }
-          //       });
+                      } else {
+                        GlobalStor.global.isLoader = 0;
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = 1;
+                      }
+                    } else {
+                      GlobalStor.global.isLoader = 0;
+                      //---- user not exists
+                      thisCtrl.isUserPasswordError = 1;
+                    }
+                  } else {
+                    //======== IMPORT
+                    console.log('Sync IMPORT');
+                    checkingUser();
+                  }
+                });
 
 
-          //   } else {
-          //     //======== IMPORT
-          //     console.log('IMPORT');
-          //     checkingUser();
-          //   }
-          // });
+            } else {
+              //======== IMPORT
+              console.log('IMPORT');
+              checkingUser();
+            }
+          });
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -2744,7 +2744,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     CartMenuServ,
     OrderStor,
     CartStor,
-    AuxStor
+    AuxStor,
+    UserStor,
+    GlobalStor,
+    localDB
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -2811,7 +2814,107 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-
+    function editQty(index, element) {
+      var obj = [
+        'element_height',
+        'element_qty',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
+      var products = OrderStor.order.products;
+      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      while(--productsQty > -1) {
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = addElem[addElemProdQty].length;
+          if(addElemQty) {
+            while(--addElemQty > -1) {
+              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
+                console.log('true');
+                element.element_qty = addElem[addElemProdQty][addElemQty].element_qty+1;
+                addElem[addElemProdQty][addElemQty].element_qty = addElem[addElemProdQty][addElemQty].element_qty+1;
+                CartServ.calculateAddElemsProductsPrice(1);
+                //------ change order Price
+                CartMenuServ.calculateOrderPrice();
+                CartMenuServ.joinAllAddElements();
+              }
+            }
+          }
+        }
+      }
+    }
+    function editWidth(index, element) {
+      var obj = [
+        'element_height',
+        'element_qty',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
+      var products = OrderStor.order.products;
+      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      while(--productsQty > -1) {
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = addElem[addElemProdQty].length;
+          if(addElemQty) {
+            while(--addElemQty > -1) {
+              console.log('element', _.pick(element, obj));
+              console.log('_.pick(addElem[addElemProdQty][addElemQty], obj)', _.pick(addElem[addElemProdQty][addElemQty], obj));
+              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
+                element.element_width = addElem[addElemProdQty][addElemQty].element_width+1;
+                addElem[addElemProdQty][addElemQty].element_width = addElem[addElemProdQty][addElemQty].element_width+1;
+                calcAddElemPrice(addElem[addElemProdQty][addElemQty]);
+                CartServ.calculateAddElemsProductsPrice(1);
+                //------ change order Price
+                CartMenuServ.calculateOrderPrice();
+                CartMenuServ.joinAllAddElements();
+              }
+            }
+          }
+        }
+      }
+    }
+    function editHeight(index, element) {
+      var obj = [
+        'element_height',
+        'element_qty',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
+      var products = OrderStor.order.products;
+      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      while(--productsQty > -1) {
+        addElem = products[productsQty].chosenAddElements;
+        addElemProdQty = addElem.length;
+        while(--addElemProdQty > -1) {
+          addElemQty = addElem[addElemProdQty].length;
+          if(addElemQty) {
+            while(--addElemQty > -1) {
+              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
+                console.log('true');
+                element.element_height = addElem[addElemProdQty][addElemQty].element_height+1;
+                addElem[addElemProdQty][addElemQty].element_height = addElem[addElemProdQty][addElemQty].element_height+1;
+                CartServ.calculateAddElemsProductsPrice(1);
+                //------ change order Price
+                CartMenuServ.calculateOrderPrice();
+                CartMenuServ.joinAllAddElements();
+              }
+            }
+          }
+        }
+      }
+    }
 
     function deleteAddElemsItem(addElem) {
       deleteAddElemsInOrder(addElem);
@@ -2829,7 +2932,52 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       CartMenuServ.calculateOrderPrice();
     }
 
+    function calcAddElemPrice(item) {
+      var item;
+      /** Grid */
+      if(item.list_group_id === 20) {
 
+        var objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          element: item
+        };
+        //-------- get current add element price
+        return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            ));
+            item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
+            ));
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+
+      } else {
+        var objXAddElementPrice = {
+          currencyId: UserStor.userInfo.currencyId,
+          elementId: item.id,
+          elementWidth: (item.element_width/1000),
+          elementHeight: (item.element_height/1000)
+        };
+        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            item.element_price = GeneralServ.roundingValue(
+              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
+            );
+            item.elementPriceDis = GeneralServ.roundingValue(
+              GeneralServ.setPriceDis(
+                item.element_price, OrderStor.order.discount_addelem
+              )
+            );
+            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
+          }
+          return results;
+        });
+      }
+    }
 
     function deleteAllAddElems() {
       //------ delete all chosenAddElements in Products
@@ -3108,6 +3256,10 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     //------ adding elements to product
     thisCtrl.swipeProductSelector = swipeProductSelector;
     thisCtrl.selectProductToAddElem = selectProductToAddElem;
+    thisCtrl.editHeight = editHeight;
+    thisCtrl.editWidth = editWidth;
+    thisCtrl.editQty = editQty;
+    thisCtrl.calcAddElemPrice = calcAddElemPrice;
 
 
   });
@@ -6411,6 +6563,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
                 setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
               }
 
+
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
@@ -7232,6 +7385,7 @@ function ErrorResult(code, message) {
         //-------- get current add element price
         return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
           if (results) {
+            console.log(results, 'results')
             item.element_price = angular.copy(GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             ));
@@ -7252,6 +7406,7 @@ function ErrorResult(code, message) {
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
+            console.log(results, 'results1')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
@@ -9318,6 +9473,7 @@ function ErrorResult(code, message) {
 
 
     function getAddElemsPriceTotal() {
+      console.log('getAddElemsPriceTotal');
       var productsQty = OrderStor.order.products.length;
       CartStor.cart.addElemsOrderPriceTOTAL = 0;
       while(--productsQty > -1) {
@@ -9338,6 +9494,7 @@ function ErrorResult(code, message) {
 
     /** show All Add Elements Panel */
     function showAllAddElements() {
+      console.log('showAllAddElements');
       collectAllAddElems();
       getAddElemsPriceTotal();
       initSelectedProductsArr();
@@ -9435,7 +9592,7 @@ function ErrorResult(code, message) {
     .constant('globalConstants', {
       // serverIP: 'http://api.windowscalculator.net',
       // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      // localPath: '/calculator/local/',
+      //localPath: '/calculator/local/',
       serverIP: 'http://api.steko.com.ua',
       printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/', //TODO ipad
@@ -10742,6 +10899,7 @@ function ErrorResult(code, message) {
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
+          console.log(product);
         });
       });
       return deferred.promise;
@@ -17597,10 +17755,9 @@ function ErrorResult(code, message) {
     /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
-        //602829HA
-        if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
-            AddElement.elementWidth = 1;
-        }
+      if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
+          AddElement.elementWidth = 1;
+      }
       var deffMain = $q.defer(),
           finishPriceObj = {},
           priceObj = {
@@ -18266,11 +18423,36 @@ function ErrorResult(code, message) {
       return defer.promise;
     }
 
-
+      function setBase64Avatar(url, callback) { 
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            var value = reader.result;
+            var item = {};
+            item["userAvatar"] = value;
+            chrome.storage.local.set(item);
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url,true);
+        xhr.send();        
+    }
     function setUserDiscounts() {
       var defer = $q.defer();
       //-------- add server url to avatar img
-      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
+      if (navigator.onLine){
+        var url = globalConstants.serverIP + UserStor.userInfo.avatar
+        UserStor.userInfo.avatar = url;
+        setBase64Avatar(url, function(base64Img){ });
+      }else {
+        chrome.storage.local.get("userAvatar", function(items) {
+          UserStor.userInfo.avatar = items["userAvatar"];
+        });
+      }
+      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);
@@ -18674,16 +18856,39 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     //function downloadAllTemplates() {
     //
     //}
-
-
-
-
+    var key;
+    var roomQty_index;
+    //convert url to base64 format
+    //function to caching images for offline work 
+    function setBase64Img(rooms, index, callback) { 
+      var url = rooms[index].img;
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            key = String("key"+index);
+            var value = reader.result;
+            var item = {};
+            item[key] = value;
+            chrome.storage.local.set(item);
+            rooms[index].img = value
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url,true);
+        xhr.send();        
+    }
     /** download all Backgrounds */
     function downloadAllBackgrounds() {
       var deff = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
-        var rooms = angular.copy(result),
+        var rooms = null, roomQty = null;
+            rooms = angular.copy(result);
             roomQty = rooms.length;
+            roomQty_index = rooms.length;
+
         if(roomQty) {
           /** sorting types by position */
           rooms = rooms.sort(function(a, b) {
@@ -18694,7 +18899,27 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
             rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
             //---- prerendering img
             $("<img />").attr("src", rooms[roomQty].img);
-          }
+            if (navigator.onLine){
+              localStorage.clear();
+            //call function to retrieve data from url and convert into base64
+            setBase64Img(rooms, roomQty, function(base64Img) { });
+            }
+           else {
+            key = String("key"+roomQty);
+            chrome.storage.local.get(key, function(items) {
+              --roomQty_index;
+              key = String("key"+roomQty_index);
+              rooms[roomQty_index].img = items[key];
+            });
+           }
+
+
+          
+        }
+             // chrome.storage.local.get(key, function(base64Img){
+
+             // });
+
           //console.info('login++++', rooms);
           GlobalStor.global.rooms = rooms;
         }

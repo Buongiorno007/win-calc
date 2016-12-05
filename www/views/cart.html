@@ -344,19 +344,19 @@
                       </div>
                     </td>
                     <td class="aux-tablecell-qty">
-                      <div ng-show="addElem.element_qty" class="aux-params">
+                      <div ng-show="addElem.element_qty" ng-click="elemCartPanel.editQty($index, addElem)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_qty }}</div>
                         <div class="aux-label">{{ ::cartPage.QTY_LABEL }}</div>
                       </div>
                     </td>
                     <td class="aux-tablecell-width">
-                      <div ng-show="addElem.element_width" class="aux-params">
+                      <div ng-show="addElem.element_width" ng-click="elemCartPanel.editWidth($index, addElem)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_width }}</div>
                         <div class="aux-label">{{ ::cartPage.WIDTH_LABEL }}</div>
                       </div>
                     </td>
                     <td class="aux-tablecell-height">
-                      <div ng-show="addElem.element_height" class="aux-params">
+                      <div ng-show="addElem.element_height" ng-click="elemCartPanel.editHeight($index, addElem)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_height }}</div>
                         <div class="aux-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
                       </div>

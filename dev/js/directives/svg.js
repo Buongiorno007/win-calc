@@ -628,6 +628,7 @@
                 setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
               }
 
+
           /** soffits */
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
