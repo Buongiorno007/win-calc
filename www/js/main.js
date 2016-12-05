@@ -2866,8 +2866,6 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
           addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             while(--addElemQty > -1) {
-              console.log('element', _.pick(element, obj));
-              console.log('_.pick(addElem[addElemProdQty][addElemQty], obj)', _.pick(addElem[addElemProdQty][addElemQty], obj));
               if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
                 element.element_width = addElem[addElemProdQty][addElemQty].element_width+1;
                 addElem[addElemProdQty][addElemQty].element_width = addElem[addElemProdQty][addElemQty].element_width+1;
@@ -3259,7 +3257,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.editHeight = editHeight;
     thisCtrl.editWidth = editWidth;
     thisCtrl.editQty = editQty;
-    thisCtrl.calcAddElemPrice = calcAddElemPrice;
+    thisCtrl.calcAddElemPrice = calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
 
 
   });
@@ -8248,6 +8246,7 @@ function ErrorResult(code, message) {
     /**------------- Select Add Element Parameter --------------*/
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
+      //HEAD<<<<<<<
       var currElem;
       DesignStor.design.minSizeLimit = 0;
       if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {

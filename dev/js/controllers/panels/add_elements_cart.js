@@ -134,8 +134,6 @@
           addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             while(--addElemQty > -1) {
-              console.log('element', _.pick(element, obj));
-              console.log('_.pick(addElem[addElemProdQty][addElemQty], obj)', _.pick(addElem[addElemProdQty][addElemQty], obj));
               if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
                 element.element_width = addElem[addElemProdQty][addElemQty].element_width+1;
                 addElem[addElemProdQty][addElemQty].element_width = addElem[addElemProdQty][addElemQty].element_width+1;
@@ -527,7 +525,7 @@
     thisCtrl.editHeight = editHeight;
     thisCtrl.editWidth = editWidth;
     thisCtrl.editQty = editQty;
-    thisCtrl.calcAddElemPrice = calcAddElemPrice;
+    thisCtrl.calcAddElemPrice = calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
 
 
   });
