@@ -2814,26 +2814,32 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     }
 
     function editQty(index, element) {
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isWidthCalculator = 0;
-      GlobalStor.global.isSizeCalculator = 0;
-      CartStor.cart.addElemIndex = index;
-      GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
-
+      console.log(CartStor.cart.selectedProduct);
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.isSizeCalculator = 0;
+        CartStor.cart.addElemIndex = index;
+        GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
+      }
     }
     function editWidth(index, element) {
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 1;
-      CartStor.cart.addElemIndex = index;
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 1;
+        CartStor.cart.addElemIndex = index;
+      }
     }
     function editHeight(index, element) {
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 0;
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-      CartStor.cart.addElemIndex = index;
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        CartStor.cart.addElemIndex = index;
+      }
     }
 
     function deleteAddElemsItem(addElem) {
@@ -3098,6 +3104,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function selectProductToAddElem(prodInd) {
+      console.log('CartStor.cart.selectedProduct = prodInd')
+      CartStor.cart.selectedProduct = prodInd; //Переменная не записана в CartStor
       var isSelected = CartStor.cart.selectedProducts[prodInd].length;
       if(isSelected) {
         CartStor.cart.selectedProducts[prodInd].length = 0;
@@ -9322,6 +9330,7 @@ function ErrorResult(code, message) {
 
 
     function collectAllAddElems() {
+      console.log('collectAllAddElems');
       var addElemsSource = angular.copy(CartStor.cart.allAddElements),
           addElemsQty = addElemsSource.length,
           prodQty, elemsOrderQty, noExist;
@@ -13018,18 +13027,13 @@ function ErrorResult(code, message) {
     $timeout,
     GlobalStor,
     OrderStor,
-    ProductStor,
     CartStor,
     AuxStor,
     DesignStor,
     UserStor,
     localDB,
     GeneralServ,
-    loginServ,
     MainServ,
-    SVGServ,
-    DesignServ,
-    AnalyticsServ,
     CartServ,
     CartMenuServ
   ) {
@@ -13065,16 +13069,14 @@ function ErrorResult(code, message) {
         'name'
       ];
       var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
-      if(element[index].element_qty < 2 && newValue < 0) {
-        return false;
-      } else if(element[index].element_qty < 6 && newValue == -5) {
+      if(element[index].element_qty - newValue <= 0 || newValue == 0) {
         return false;
       } else {
-        while(--productsQty > -1) {
-          addElem = products[productsQty].chosenAddElements;
+
+          addElem = products[CartStor.cart.selectedProduct].chosenAddElements;
           addElemProdQty = addElem.length;
           while(--addElemProdQty > -1) {
             addElemQty = addElem[addElemProdQty].length;
@@ -13102,7 +13104,7 @@ function ErrorResult(code, message) {
                 }
               }
             }
-          }
+          
         }
       }
     }
@@ -13182,7 +13184,7 @@ function ErrorResult(code, message) {
         DesignStor.design.isMaxSizeRestriction = 0;
         //-------- recalculate add element price
         calcAddElemPrice(element[index]).then(function() {
-          calcAddElemPrice(OrderStor.order.products[0].chosenAddElements[firstIndex][secondIndex]).then(function() {
+          calcAddElemPrice(OrderStor.order.products[CartStor.cart.selectedProduct].chosenAddElements[firstIndex][secondIndex]).then(function() {
             CartServ.calculateAddElemsProductsPrice(1);
             CartMenuServ.calculateOrderPrice();
             CartMenuServ.joinAllAddElements();
@@ -13209,26 +13211,20 @@ function ErrorResult(code, message) {
         'name'
       ];
       var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
       index = CartStor.cart.addElemIndex;
       var newElementSize = '',
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
 
-      while(--productsQty > -1) {
-        addElem = products[productsQty].chosenAddElements;
+        addElem = products[CartStor.cart.selectedProduct].chosenAddElements;
         addElemProdQty = addElem.length;
         while(--addElemProdQty > -1) {
           addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             while(--addElemQty > -1) {
               if(_.isEqual(_.pick(element[index], obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
-                if(GlobalStor.global.isQtyCalculator) {
-                  console.log('isQtyCalculator')
-                  element[index].element_qty = newElementSize;
-                  addElem[addElemProdQty][addElemQty].element_qty = newElementSize;
 
-                } else if(GlobalStor.global.isSizeCalculator) {
                   if(GlobalStor.global.isWidthCalculator) {
                     element[index].element_width = newElementSize;
                     addElem[addElemProdQty][addElemQty].element_width = newElementSize;
@@ -13236,14 +13232,14 @@ function ErrorResult(code, message) {
                     element[index].element_height = newElementSize;
                     addElem[addElemProdQty][addElemQty].element_height = newElementSize;
                   }
-                }
+                
                 firstIndex = addElemProdQty;
                 secondIndex = addElemQty;
               }
             }
           }
         }
-      }
+      
     }
 
 

@@ -10,18 +10,13 @@
     $timeout,
     GlobalStor,
     OrderStor,
-    ProductStor,
     CartStor,
     AuxStor,
     DesignStor,
     UserStor,
     localDB,
     GeneralServ,
-    loginServ,
     MainServ,
-    SVGServ,
-    DesignServ,
-    AnalyticsServ,
     CartServ,
     CartMenuServ
   ) {
@@ -57,16 +52,14 @@
         'name'
       ];
       var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
-      if(element[index].element_qty < 2 && newValue < 0) {
-        return false;
-      } else if(element[index].element_qty < 6 && newValue == -5) {
+      if(element[index].element_qty - newValue <= 0 || newValue == 0) {
         return false;
       } else {
-        while(--productsQty > -1) {
-          addElem = products[productsQty].chosenAddElements;
+
+          addElem = products[CartStor.cart.selectedProduct].chosenAddElements;
           addElemProdQty = addElem.length;
           while(--addElemProdQty > -1) {
             addElemQty = addElem[addElemProdQty].length;
@@ -94,7 +87,7 @@
                 }
               }
             }
-          }
+          
         }
       }
     }
@@ -174,7 +167,7 @@
         DesignStor.design.isMaxSizeRestriction = 0;
         //-------- recalculate add element price
         calcAddElemPrice(element[index]).then(function() {
-          calcAddElemPrice(OrderStor.order.products[0].chosenAddElements[firstIndex][secondIndex]).then(function() {
+          calcAddElemPrice(OrderStor.order.products[CartStor.cart.selectedProduct].chosenAddElements[firstIndex][secondIndex]).then(function() {
             CartServ.calculateAddElemsProductsPrice(1);
             CartMenuServ.calculateOrderPrice();
             CartMenuServ.joinAllAddElements();
@@ -201,26 +194,20 @@
         'name'
       ];
       var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
+      var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
       index = CartStor.cart.addElemIndex;
       var newElementSize = '',
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
 
-      while(--productsQty > -1) {
-        addElem = products[productsQty].chosenAddElements;
+        addElem = products[CartStor.cart.selectedProduct].chosenAddElements;
         addElemProdQty = addElem.length;
         while(--addElemProdQty > -1) {
           addElemQty = addElem[addElemProdQty].length;
           if(addElemQty) {
             while(--addElemQty > -1) {
               if(_.isEqual(_.pick(element[index], obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
-                if(GlobalStor.global.isQtyCalculator) {
-                  console.log('isQtyCalculator')
-                  element[index].element_qty = newElementSize;
-                  addElem[addElemProdQty][addElemQty].element_qty = newElementSize;
 
-                } else if(GlobalStor.global.isSizeCalculator) {
                   if(GlobalStor.global.isWidthCalculator) {
                     element[index].element_width = newElementSize;
                     addElem[addElemProdQty][addElemQty].element_width = newElementSize;
@@ -228,14 +215,14 @@
                     element[index].element_height = newElementSize;
                     addElem[addElemProdQty][addElemQty].element_height = newElementSize;
                   }
-                }
+                
                 firstIndex = addElemProdQty;
                 secondIndex = addElemQty;
               }
             }
           }
         }
-      }
+      
     }
 
 

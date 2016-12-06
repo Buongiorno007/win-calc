@@ -164,6 +164,7 @@
 
 
     function collectAllAddElems() {
+      console.log('collectAllAddElems');
       var addElemsSource = angular.copy(CartStor.cart.allAddElements),
           addElemsQty = addElemsSource.length,
           prodQty, elemsOrderQty, noExist;

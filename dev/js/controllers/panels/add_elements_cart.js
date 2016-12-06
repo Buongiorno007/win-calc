@@ -82,26 +82,32 @@
     }
 
     function editQty(index, element) {
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isWidthCalculator = 0;
-      GlobalStor.global.isSizeCalculator = 0;
-      CartStor.cart.addElemIndex = index;
-      GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
-
+      console.log(CartStor.cart.selectedProduct);
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.isSizeCalculator = 0;
+        CartStor.cart.addElemIndex = index;
+        GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
+      }
     }
     function editWidth(index, element) {
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 1;
-      CartStor.cart.addElemIndex = index;
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 1;
+        CartStor.cart.addElemIndex = index;
+      }
     }
     function editHeight(index, element) {
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 0;
-      GlobalStor.global.maxSizeAddElem = 2500;
-      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
-      CartStor.cart.addElemIndex = index;
+      if(CartStor.cart.selectedProduct>0) {
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        CartStor.cart.addElemIndex = index;
+      }
     }
 
     function deleteAddElemsItem(addElem) {
@@ -366,6 +372,8 @@
 
 
     function selectProductToAddElem(prodInd) {
+      console.log('CartStor.cart.selectedProduct = prodInd')
+      CartStor.cart.selectedProduct = prodInd; //Переменная не записана в CartStor
       var isSelected = CartStor.cart.selectedProducts[prodInd].length;
       if(isSelected) {
         CartStor.cart.selectedProducts[prodInd].length = 0;
