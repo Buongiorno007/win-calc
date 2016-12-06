@@ -13,9 +13,8 @@
     OrderStor,
     CartStor,
     AuxStor,
-    UserStor,
     GlobalStor,
-    localDB
+    EditAddElementCartServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -83,104 +82,26 @@
     }
 
     function editQty(index, element) {
-      var obj = [
-        'element_height',
-        'element_qty',
-        'element_type',
-        'element_width',
-        'id',
-        'list_group_id',
-        'name'
-      ];
-      var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
-      while(--productsQty > -1) {
-        addElem = products[productsQty].chosenAddElements;
-        addElemProdQty = addElem.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = addElem[addElemProdQty].length;
-          if(addElemQty) {
-            while(--addElemQty > -1) {
-              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
-                console.log('true');
-                element.element_qty = addElem[addElemProdQty][addElemQty].element_qty+1;
-                addElem[addElemProdQty][addElemQty].element_qty = addElem[addElemProdQty][addElemQty].element_qty+1;
-                CartServ.calculateAddElemsProductsPrice(1);
-                //------ change order Price
-                CartMenuServ.calculateOrderPrice();
-                CartMenuServ.joinAllAddElements();
-              }
-            }
-          }
-        }
-      }
+      GlobalStor.global.maxSizeAddElem = 2500;
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      CartStor.cart.addElemIndex = index;
+      GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
+
     }
     function editWidth(index, element) {
-      var obj = [
-        'element_height',
-        'element_qty',
-        'element_type',
-        'element_width',
-        'id',
-        'list_group_id',
-        'name'
-      ];
-      var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
-      while(--productsQty > -1) {
-        addElem = products[productsQty].chosenAddElements;
-        addElemProdQty = addElem.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = addElem[addElemProdQty].length;
-          if(addElemQty) {
-            while(--addElemQty > -1) {
-              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
-                element.element_width = addElem[addElemProdQty][addElemQty].element_width+1;
-                addElem[addElemProdQty][addElemQty].element_width = addElem[addElemProdQty][addElemQty].element_width+1;
-                calcAddElemPrice(addElem[addElemProdQty][addElemQty]);
-                CartServ.calculateAddElemsProductsPrice(1);
-                //------ change order Price
-                CartMenuServ.calculateOrderPrice();
-                CartMenuServ.joinAllAddElements();
-              }
-            }
-          }
-        }
-      }
+      GlobalStor.global.maxSizeAddElem = 2500;
+      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 1;
+      CartStor.cart.addElemIndex = index;
     }
     function editHeight(index, element) {
-      GlobalStor.global.isSizeCalculator = 1;
-      var obj = [
-        'element_height',
-        'element_qty',
-        'element_type',
-        'element_width',
-        'id',
-        'list_group_id',
-        'name'
-      ];
-      var products = OrderStor.order.products;
-      var productsQty = OrderStor.order.products.length, addElemProdQty, addElemQty, addElem;
-      while(--productsQty > -1) {
-        addElem = products[productsQty].chosenAddElements;
-        addElemProdQty = addElem.length;
-        while(--addElemProdQty > -1) {
-          addElemQty = addElem[addElemProdQty].length;
-          if(addElemQty) {
-            while(--addElemQty > -1) {
-              if(_.isEqual(_.pick(element, obj), _.pick(addElem[addElemProdQty][addElemQty], obj))) {
-                console.log('true');
-                element.element_height = addElem[addElemProdQty][addElemQty].element_height+1;
-                addElem[addElemProdQty][addElemQty].element_height = addElem[addElemProdQty][addElemQty].element_height+1;
-                CartServ.calculateAddElemsProductsPrice(1);
-                //------ change order Price
-                CartMenuServ.calculateOrderPrice();
-                CartMenuServ.joinAllAddElements();
-              }
-            }
-          }
-        }
-      }
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.maxSizeAddElem = 2500;
+      GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+      CartStor.cart.addElemIndex = index;
     }
 
     function deleteAddElemsItem(addElem) {
@@ -199,52 +120,7 @@
       CartMenuServ.calculateOrderPrice();
     }
 
-    function calcAddElemPrice(item) {
-      var item;
-      /** Grid */
-      if(item.list_group_id === 20) {
 
-        var objXAddElementPrice = {
-          currencyId: UserStor.userInfo.currencyId,
-          element: item
-        };
-        //-------- get current add element price
-        return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            item.element_price = angular.copy(GeneralServ.roundingValue(
-              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
-            ));
-            item.elementPriceDis = angular.copy(GeneralServ.roundingValue(
-              GeneralServ.setPriceDis(item.element_price, OrderStor.order.discount_addelem)
-            ));
-            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
-          }
-          return results;
-        });
-
-      } else {
-        var objXAddElementPrice = {
-          currencyId: UserStor.userInfo.currencyId,
-          elementId: item.id,
-          elementWidth: (item.element_width/1000),
-          elementHeight: (item.element_height/1000)
-        };
-        return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
-          if (results) {
-            item.element_price = GeneralServ.roundingValue(
-              GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
-            );
-            item.elementPriceDis = GeneralServ.roundingValue(
-              GeneralServ.setPriceDis(
-                item.element_price, OrderStor.order.discount_addelem
-              )
-            );
-            AuxStor.aux.currAddElementPrice = angular.copy(item.elementPriceDis);
-          }
-          return results;
-        });
-      }
-    }
 
     function deleteAllAddElems() {
       //------ delete all chosenAddElements in Products
@@ -526,7 +402,7 @@
     thisCtrl.editHeight = editHeight;
     thisCtrl.editWidth = editWidth;
     thisCtrl.editQty = editQty;
-    thisCtrl.calcAddElemPrice = calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
+    thisCtrl.calcAddElemPrice = EditAddElementCartServ.calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
 
 
   });

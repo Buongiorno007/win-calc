@@ -741,10 +741,36 @@
             </tr>
           </table>
         </div>
-        <div ng-class="{'active': designPage.D.design.openVoiceHelper}" class="voice-container">
-          <div ng-class="{'loud-voice': designPage.D.design.loudVoice == true, 'quiet-voice': designPage.D.design.quietVoice == true}" class="voice-icon"></div>
-          <div class="voice-title">Укажите размер:</div>
-          <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ ::designPage.VOICE_SPEACH }}" class="voice-input">
+        <div ng-class="{'active': cartPage.G.global.isQtyCalculator}" class="calculators-box qty-calculator">
+          <table ng-controller="qtyCalculatorCtrl as qtyCalc" ng-keyup="qtyCalc.pressCulculator($event)" class="qty-calc-container">
+            <tr>
+              <td>
+                <button fs-click="qtyCalc.setValueQty(-1)" class="cell calc-digit">-1</button>
+              </td>
+              <td>
+                <div class="calc-interval">
+                  <div class="interval">
+                    <div class="calc-qty-limit">1000</div>
+                    <div class="calc-label-limit">{{ ::qtyCalc.QTY_LABEL }}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <button fs-click="qtyCalc.setValueQty(+1)" class="cell calc-digit">+1</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button fs-click="qtyCalc.setValueQty(-5)" class="cell calc-digit">-5</button>
+              </td>
+              <td>
+                <button fs-click="qtyCalc.closeQtyCaclulator()" class="cell calc-equal">=</button>
+              </td>
+              <td>
+                <button fs-click="qtyCalc.setValueQty(+5)" class="cell calc-digit">+5</button>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">

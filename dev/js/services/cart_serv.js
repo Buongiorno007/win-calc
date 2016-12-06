@@ -200,7 +200,6 @@
 
 
     function getAddElemsPriceTotal() {
-      console.log('getAddElemsPriceTotal');
       var productsQty = OrderStor.order.products.length;
       CartStor.cart.addElemsOrderPriceTOTAL = 0;
       while(--productsQty > -1) {
@@ -221,7 +220,6 @@
 
     /** show All Add Elements Panel */
     function showAllAddElements() {
-      console.log('showAllAddElements');
       collectAllAddElems();
       getAddElemsPriceTotal();
       initSelectedProductsArr();
