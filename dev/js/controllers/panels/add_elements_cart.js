@@ -149,6 +149,7 @@
       }
     }
     function editHeight(index, element) {
+      GlobalStor.global.isSizeCalculator = 1;
       var obj = [
         'element_height',
         'element_qty',

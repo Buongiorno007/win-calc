@@ -29,6 +29,12 @@
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
     //------ for Design Page
+    } else if(GlobalStor.global.currOpenPage === 'cart') {
+      // thisCtrl.isDesignPage = true;
+      // thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
+      // thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
+      // thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+      //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = DesignServ.setValueSize;

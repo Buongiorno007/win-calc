@@ -673,6 +673,80 @@
           <price price-value="cartMenu.O.order.orderPricePrimaryDis" price-currency="cartMenu.U.userInfo.currency"></price>
         </div>
       </div>
+      <div class="right-menu-footer">
+        <div ng-class="{'active': cartPage.G.global.isSizeCalculator}" class="calculators-box size-calculator">
+          <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keyup="sizeCalc.pressCulculator($event)" class="size-calc-container">
+            <thead>
+              <td>
+                <button fs-click="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
+              </td>
+              <td colspan="2">
+                <div class="calc-interval">
+                  <div class="interval">
+                    <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
+                    <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ ::sizeCalc.MIN }}</div>
+                  </div>
+                  <div class="interval">
+                    <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
+                    <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ ::sizeCalc.MAX }}</div>
+                  </div>
+                </div>
+              </td>
+            </thead>
+            <tr>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button fs-click="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+              </td>
+              <td>
+                <button fs-click="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div ng-class="{'active': designPage.D.design.openVoiceHelper}" class="voice-container">
+          <div ng-class="{'loud-voice': designPage.D.design.loudVoice == true, 'quiet-voice': designPage.D.design.quietVoice == true}" class="voice-icon"></div>
+          <div class="voice-title">Укажите размер:</div>
+          <input type="text" name="name" ng-model="designPage.D.design.voiceTxt" placeholder="{{ ::designPage.VOICE_SPEACH }}" class="voice-input">
+        </div>
+      </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
         <div class="elements-menu">
           <header class="menu-header">

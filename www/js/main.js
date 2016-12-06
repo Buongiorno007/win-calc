@@ -2881,6 +2881,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
     function editHeight(index, element) {
+      GlobalStor.global.isSizeCalculator = 1;
       var obj = [
         'element_height',
         'element_qty',
@@ -5010,6 +5011,12 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
     //------ for Design Page
+    } else if(GlobalStor.global.currOpenPage === 'cart') {
+      // thisCtrl.isDesignPage = true;
+      // thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
+      // thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
+      // thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+      //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;
       thisCtrl.setValueSize = DesignServ.setValueSize;
@@ -7383,7 +7390,6 @@ function ErrorResult(code, message) {
         //-------- get current add element price
         return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results')
             item.element_price = angular.copy(GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             ));
@@ -7404,7 +7410,6 @@ function ErrorResult(code, message) {
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results1')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );

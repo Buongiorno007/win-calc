@@ -119,7 +119,6 @@
         //-------- get current add element price
         return localDB.calculationGridPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results')
             item.element_price = angular.copy(GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             ));
@@ -140,7 +139,6 @@
         };
         return localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
           if (results) {
-            console.log(results, 'results1')
             item.element_price = GeneralServ.roundingValue(
               GeneralServ.addMarginToPrice(results.priceTotal, GlobalStor.global.margins.margin)
             );
