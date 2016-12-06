@@ -8246,7 +8246,6 @@ function ErrorResult(code, message) {
     /**------------- Select Add Element Parameter --------------*/
 
     function initAddElementTools(groupId, toolsId, elementIndex) {
-      //HEAD<<<<<<<
       var currElem;
       DesignStor.design.minSizeLimit = 0;
       if(ProductStor.product.chosenAddElements[groupId-1][elementIndex].max_size) {
