@@ -30,7 +30,14 @@
       isSwipeProdSelector: 0
     };
 
-
+      var dependObject = [
+        'element_height',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
 
 
     /**============ METHODS ================*/
@@ -81,9 +88,13 @@
       }
     }
 
-    function editQty(index, element) {
-      console.log(CartStor.cart.selectedProduct);
-      if(CartStor.cart.selectedProduct>0) {
+    function editQty(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.maxSizeAddElem = 2500;
         GlobalStor.global.isWidthCalculator = 0;
         GlobalStor.global.isSizeCalculator = 0;
@@ -91,8 +102,13 @@
         GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
       }
     }
-    function editWidth(index, element) {
-      if(CartStor.cart.selectedProduct>0) {
+    function editWidth(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.maxSizeAddElem = 2500;
         GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
         GlobalStor.global.isQtyCalculator = 0;
@@ -100,8 +116,13 @@
         CartStor.cart.addElemIndex = index;
       }
     }
-    function editHeight(index, element) {
-      if(CartStor.cart.selectedProduct>0) {
+    function editHeight(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.isQtyCalculator = 0;
         GlobalStor.global.isWidthCalculator = 0;
         GlobalStor.global.maxSizeAddElem = 2500;
@@ -372,11 +393,14 @@
 
 
     function selectProductToAddElem(prodInd) {
-      console.log('CartStor.cart.selectedProduct = prodInd')
-      CartStor.cart.selectedProduct = prodInd; //Переменная не записана в CartStor
-      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
-      if(isSelected) {
-        CartStor.cart.selectedProducts[prodInd].length = 0;
+      if(CartStor.cart.selectedProduct === prodInd) {
+        CartStor.cart.selectedProduct = -1;
+      } else {
+        CartStor.cart.selectedProduct = prodInd;
+      };
+      CartServ.collectAllAddElems();
+      if(CartStor.cart.isSelectedProduct) {
+        CartServ.initSelectedProductsArr();
         //------- check another products
         checkAllSelectedProducts();
       } else {

@@ -2762,7 +2762,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       isSwipeProdSelector: 0
     };
 
-
+      var dependObject = [
+        'element_height',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
 
 
     /**============ METHODS ================*/
@@ -2813,9 +2820,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       }
     }
 
-    function editQty(index, element) {
-      console.log(CartStor.cart.selectedProduct);
-      if(CartStor.cart.selectedProduct>0) {
+    function editQty(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.maxSizeAddElem = 2500;
         GlobalStor.global.isWidthCalculator = 0;
         GlobalStor.global.isSizeCalculator = 0;
@@ -2823,8 +2834,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
       }
     }
-    function editWidth(index, element) {
-      if(CartStor.cart.selectedProduct>0) {
+    function editWidth(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.maxSizeAddElem = 2500;
         GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
         GlobalStor.global.isQtyCalculator = 0;
@@ -2832,8 +2848,13 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
         CartStor.cart.addElemIndex = index;
       }
     }
-    function editHeight(index, element) {
-      if(CartStor.cart.selectedProduct>0) {
+    function editHeight(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
         GlobalStor.global.isQtyCalculator = 0;
         GlobalStor.global.isWidthCalculator = 0;
         GlobalStor.global.maxSizeAddElem = 2500;
@@ -3104,11 +3125,14 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function selectProductToAddElem(prodInd) {
-      console.log('CartStor.cart.selectedProduct = prodInd')
-      CartStor.cart.selectedProduct = prodInd; //Переменная не записана в CartStor
-      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
-      if(isSelected) {
-        CartStor.cart.selectedProducts[prodInd].length = 0;
+      if(CartStor.cart.selectedProduct === prodInd) {
+        CartStor.cart.selectedProduct = -1;
+      } else {
+        CartStor.cart.selectedProduct = prodInd;
+      };
+      CartServ.collectAllAddElems();
+      if(CartStor.cart.isSelectedProduct) {
+        CartServ.initSelectedProductsArr();
         //------- check another products
         checkAllSelectedProducts();
       } else {
@@ -9330,36 +9354,39 @@ function ErrorResult(code, message) {
 
 
     function collectAllAddElems() {
-      console.log('collectAllAddElems');
       var addElemsSource = angular.copy(CartStor.cart.allAddElements),
           addElemsQty = addElemsSource.length,
           prodQty, elemsOrderQty, noExist;
       CartStor.cart.allAddElemsOrder.length = 0;
-      while(--addElemsQty > -1) {
-        prodQty = addElemsSource[addElemsQty].length;
-        if(prodQty) {
-          while(--prodQty > -1) {
-            elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
-            if(elemsOrderQty) {
-              noExist = 1;
-              while(--elemsOrderQty > -1) {
-                if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
-                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
-                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
-                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      noExist -= 1;
+      if(CartStor.cart.selectedProduct === -1) {
+        while(--addElemsQty > -1) {
+          prodQty = addElemsSource[addElemsQty].length;
+          if(prodQty) {
+            while(--prodQty > -1) {
+              elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
+              if(elemsOrderQty) {
+                noExist = 1;
+                while(--elemsOrderQty > -1) {
+                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
+                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
+                      if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
+                        CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
+                        noExist -= 1;
+                      }
                     }
                   }
                 }
-              }
-              if(noExist) {
+                if(noExist) {
+                  CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
+                }
+              } else {
                 CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
               }
-            } else {
-              CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
             }
           }
         }
+      } else {
+        CartStor.cart.allAddElemsOrder = angular.copy(addElemsSource[CartStor.cart.selectedProduct]).reverse();
       }
       console.warn(CartStor.cart.allAddElemsOrder);
     }
@@ -9463,7 +9490,8 @@ function ErrorResult(code, message) {
       getAddElemsPriceTotal: getAddElemsPriceTotal,
       calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
       createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
+      addCloneProductInOrder: addCloneProductInOrder,
+      initSelectedProductsArr: initSelectedProductsArr
     };
 
     return thisFactory.publicObj;
@@ -13060,6 +13088,7 @@ function ErrorResult(code, message) {
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
+      console.log(newValue, 'newValue')
       var obj = [
         'element_height',
         'element_type',
@@ -13072,7 +13101,8 @@ function ErrorResult(code, message) {
       var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
-      if(element[index].element_qty - newValue <= 0 || newValue == 0) {
+      if(element[index].element_qty + newValue <= 0 || newValue == 0) {
+        console.log('false')
         return false;
       } else {
 
@@ -13122,7 +13152,7 @@ function ErrorResult(code, message) {
 
 
 
-    /** ============= SIze Calculator ============= */
+  /** ============= SIze Calculator ============= */
 
 
     function calcAddElemPrice(item) {
@@ -28062,6 +28092,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
         perimeterTotal: 0,
         qtyTotal: 0,
         isBox: -1,
+        selectedProduct: -1,
 
         isExistAddElems: 0,
         isAllAddElems: 0,
@@ -28111,7 +28142,7 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
       ],
 
       setDefaultCart: setDefaultCart,
-      fillOrderForm: fillOrderForm
+      fillOrderForm: fillOrderForm,
     };
 
     thisFactory.publicObj.cart = setDefaultCart();

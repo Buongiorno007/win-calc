@@ -43,6 +43,7 @@
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
+      console.log(newValue, 'newValue')
       var obj = [
         'element_height',
         'element_type',
@@ -55,7 +56,8 @@
       var addElemProdQty, addElemQty, addElem;
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
-      if(element[index].element_qty - newValue <= 0 || newValue == 0) {
+      if(element[index].element_qty + newValue <= 0 || newValue == 0) {
+        console.log('false')
         return false;
       } else {
 
@@ -105,7 +107,7 @@
 
 
 
-    /** ============= SIze Calculator ============= */
+  /** ============= SIze Calculator ============= */
 
 
     function calcAddElemPrice(item) {

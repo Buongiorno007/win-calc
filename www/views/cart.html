@@ -344,19 +344,19 @@
                       </div>
                     </td>
                     <td class="aux-tablecell-qty">
-                      <div ng-show="addElem.element_qty" ng-click="elemCartPanel.editQty($index, addElem)" class="aux-params">
+                      <div ng-show="addElem.element_qty" ng-click="elemCartPanel.editQty($index, addElem, cartPage.C.cart.allAddElemsOrder)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_qty }}</div>
                         <div class="aux-label">{{ ::cartPage.QTY_LABEL }}</div>
                       </div>
                     </td>
                     <td class="aux-tablecell-width">
-                      <div ng-show="addElem.element_width" ng-click="elemCartPanel.editWidth($index, addElem)" class="aux-params">
+                      <div ng-show="addElem.element_width" ng-click="elemCartPanel.editWidth($index, addElem, cartPage.C.cart.allAddElemsOrder)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_width }}</div>
                         <div class="aux-label">{{ ::cartPage.WIDTH_LABEL }}</div>
                       </div>
                     </td>
                     <td class="aux-tablecell-height">
-                      <div ng-show="addElem.element_height" ng-click="elemCartPanel.editHeight($index, addElem)" class="aux-params">
+                      <div ng-show="addElem.element_height" ng-click="elemCartPanel.editHeight($index, addElem, cartPage.C.cart.allAddElemsOrder)" class="aux-params">
                         <div class="aux-params-but">{{ addElem.element_height }}</div>
                         <div class="aux-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
                       </div>
@@ -390,7 +390,7 @@
           <div class="products-selector">
             <div ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}" ng-swipe-up="elemCartPanel.swipeProductSelector()" ng-swipe-down="elemCartPanel.swipeProductSelector()" class="products-selector-block">
               <div class="products-block">
-                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" fs-click="elemCartPanel.selectProductToAddElem($index)" class="product">
+                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProduct === $index}" fs-click="elemCartPanel.selectProductToAddElem($index)" class="product">
                   <div class="select-mark"></div>
                   <div class="product-header">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
