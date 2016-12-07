@@ -4,17 +4,10 @@
   angular
     .module('BauVoiceApp')
     .constant('globalConstants', {
-      // serverIP: 'http://api.windowscalculator.net',
-      // printIP: 'http://windowscalculator.net:3002/orders/get-order-pdf/',
-      //localPath: '/calculator/local/',
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
-      localPath: '/local/', //TODO ipad
-
-      // serverIP: 'http://api.orange.windowscalculator.net',
-      // printIP:  'http://api.orange.windowscalculator.net/orders/get-order-pdf/',
-
+      serverIP: SERVER_IP,
+      printIP: PRINT_IP,
+      localPath: LOCAL_PATH,
 
       STEP: 50,
       REG_LOGIN: /^[a-zA-Z?0-9?_?.?@?\-?]+$/,
@@ -22,6 +15,7 @@
       REG_NAME: /^[a-zA-Z]+$/,
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
       // /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
 
       //------------ SVG
       SVG_CLASS_ICON: 'tamlateIconSVG',

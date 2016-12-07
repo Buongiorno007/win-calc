@@ -1,0 +1,1039 @@
+
+<section ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }" class="page-container">
+  <section class="left-side">
+    <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
+      <header class="nav-menu-header">
+        <ul class="items-list">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" fs-click="navMenu.selectMenuItem(1)" class="item">
+            <div class="item-content"><span class="nav-icon-addLocation"></span><span class="title">{{ ::navMenu.NAVMENU_GEOLOCATION }}</span></div>
+          </li>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" fs-click="navMenu.selectMenuItem(2)" class="item">
+            <div class="item-content"><span class="nav-icon-geoLocation"></span><span class="title">{{ ::navMenu.NAVMENU_CURRENT_GEOLOCATION }}</span></div>
+          </li>
+          <li class="item">
+            <div class="item-content"><span class="nav-icon-location"></span><span class="title">{{ navMenu.O.order.customer_city }}</span></div>
+          </li>
+        </ul>
+        <div class="divider">{{ ::navMenu.NAVMENU_CALCULATIONS }}</div>
+        <ul class="items-list">
+          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" fs-click="navMenu.selectMenuItem(3)" class="item">
+            <div class="item-content"><span class="nav-icon-calculation"></span><span class="title">{{ ::navMenu.NAVMENU_CURRENT_CALCULATION }}</span></div>
+          </li>
+          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" fs-click="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span class="nav-icon-basketOfCalculation"></span><span class="title">{{ ::navMenu.NAVMENU_CART }}</span><span class="badge">{{ navMenu.O.order.products.length }}</span></div>
+          </li>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" fs-click="navMenu.selectMenuItem(5)" class="item">
+            <div class="item-content"><span class="nav-icon-additionalComponents"></span><span class="title">{{ ::navMenu.NAVMENU_ADD_ELEMENTS }}</span></div>
+          </li>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" fs-click="navMenu.selectMenuItem(6)" class="item">
+            <div class="item-content"><span class="nav-icon-calculationsHistory"></span><span class="title">{{ ::navMenu.NAVMENU_ALL_CALCULATIONS }}</span></div>
+          </li>
+        </ul>
+        <div class="divider">{{ ::navMenu.NAVMENU_APPENDIX }}</div>
+        <ul class="items-list">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" fs-click="navMenu.selectMenuItem(7)" class="item">
+            <div class="item-content"><span class="nav-icon-settings"></span><span class="title">{{ ::navMenu.NAVMENU_SETTINGS }}</span></div>
+          </li>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" fs-click="navMenu.selectMenuItem(8)" class="item">
+            <div class="item-content"><span class="nav-icon-information"></span><span class="title">{{ ::navMenu.NAVMENU_MORE_INFO }}</span></div>
+          </li>
+          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" fs-click="navMenu.selectMenuItem(9)" class="item">
+            <div class="item-content"><span class="nav-icon-voicehelp"></span><span class="title">{{ ::navMenu.NAVMENU_VOICE_HELPER }}</span></div>
+          </li>
+        </ul>
+      </header>
+      <footer class="nav-menu-footer">
+        <button ng-if="!navMenu.G.global.orderEditNumber" fs-click="navMenu.clickNewProject()" class="new-calc">{{ ::navMenu.NAVMENU_NEW_CALC }}</button>
+      </footer>
+    </div>
+  </section>
+  <section class="right-side">
+    <section class="main-content">
+      <section class="cart-page">
+        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" ng-swipe-up="cartPage.openDiscountBlock()" ng-swipe-down="cartPage.closeDiscountBlock()" class="cart-container full-view">
+          <div class="cart-header">
+            <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+              <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div class="user-info-block">
+                <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+              </div>
+            </div>
+            <button ng-show="cartPage.C.cart.isExistAddElems" fs-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button fs-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
+          </div>
+          <div class="scroll-hor-container">
+            <div class="order-block">
+              <div ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index" class="order">
+                <button fs-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+                <div class="order-header"><img ng-src="img/copy_edit.png" fs-click="cartPage.box($index, 'product')" class="imgg"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" fs-click="cartPage.box($index, 'product')" class="order-header-fon">
+                  <div class="order-template">
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                  </div>
+                  <div ng-if="cartPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &lt; cartPage.O.order.heat_coef_min}" class="order-u-coeff">
+                    <div>R = {{ product.heat_coef_total }}</div>
+                    <div>{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}</div>
+                  </div>
+                  <div ng-if="!cartPage.U.userInfo.therm_coeff_id" ng-class="{'coeff-low': product.heat_coef_total &gt; cartPage.O.order.heat_coef_min}" class="order-u-coeff">
+                    <div>U = {{ product.heat_coef_total }}</div>
+                    <div>{{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C</div>
+                  </div>
+                </div>
+                <div class="order-content">
+                  <ul class="order-list">
+                    <li class="order-item">
+                      <div class="order-value">{{ product.template_width }} {{ ::cartPage.MM }}</div>
+                      <div class="order-value">{{ product.template_height }} {{ ::cartPage.MM }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_SIZING }}</div>
+                    </li>
+                    <li class="order-item">
+                      <div ng-if="product.construction_type !== 4" class="order-value">{{ product.profile.name }}</div>
+                      <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorSashName }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
+                    </li>
+                    <li ng-if="product.glass.length &gt; 1" class="order-item">
+                      <div class="order-value">{{ product.glass[0].sku + ', ...' }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
+                    </li>
+                    <li ng-if="product.glass.length &lt;= 1" class="order-item">
+                      <div class="order-value">{{ product.glass[0].sku }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
+                    </li>
+                    <li class="order-item">
+                      <div ng-if="product.construction_type === 4" class="order-value">{{ product.doorHandle.name }} / {{ product.doorLock.name }}</div>
+                      <div ng-if="product.construction_type !== 4" class="order-value">{{ product.hardware.name }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
+                    </li>
+                    <li class="order-item">
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}</div>
+                      <div class="order-value"><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span></div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION }}</div>
+                    </li>
+                    <li fs-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                      <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
+                        <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
+                      </div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
+                    </li>
+                  </ul>
+                  <div class="order-qty">
+                    <button fs-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                    <div class="order-value">{{ product.product_qty }}</div>
+                    <button fs-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                    <div class="order-label qty-label">{{ ::cartPage.PRODUCT_QTY }}</div>
+                  </div>
+                </div>
+                <div class="order-footer">
+                  <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
+                  <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" fs-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                </div>
+                <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
+                  <div class="order-comment-box">
+                    <div class="order-comment-title">{{ ::cartPage.ORDER_COMMENT }}</div>
+                    <div class="order-comment-content">{{ cartPage.O.order.comment }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button fs-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.LIGHT_VIEW }}</button>
+          </div>
+          <div class="discount-container">
+            <div class="discount-title">{{ ::cartPage.DISCOUNT_SELECT }}</div>
+            <!--.discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")-->
+            <div class="discount-box selected">
+              <div fs-click="cartPage.openDiscInput(0)" ng-keyup="cartPage.enterKeyPrice(event)" class="discount-data">
+                <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
+                <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
+                  <div ng-show="cartPage.C.cart.tempConstructDisc &gt; cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
+                  <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" class="disc-input noPreventDefault">
+                </div>
+              </div>
+              <div ng-click="cartPage.approveNewDisc(0)" class="discount-txt">
+                <div class="discounts-label">{{ ::cartPage.DISCOUNT_WINDOW }}</div>
+              </div>
+            </div>
+            <!--.discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")-->
+            <div class="discount-box selected">
+              <div fs-click="cartPage.openDiscInput(1)" ng-keyup="cartPage.enterKeyDop(event)" class="discount-data">
+                <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
+                <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
+                  <div ng-show="cartPage.C.cart.tempAddelemDisc &gt; cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ ::cartPage.MAX }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
+                  <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" class="disc-input noPreventDefault">
+                </div>
+              </div>
+              <div ng-click="cartPage.approveNewDisc(1)" class="discount-txt">
+                <div class="discounts-label">{{ ::cartPage.DISCOUNT_ADDELEM }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="discount-container">
+            <div class="discount-title">{{ ::cartPage.DISCOUNT }}</div>
+            <div class="discount-price-container">
+              <div class="discount-price-box">
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITHOUT }}</div>
+                <div class="discount-price">{{ cartPage.O.order.order_price }} {{cartPage.U.userInfo.currency}}</div>
+              </div>
+              <div class="discount-price-box">
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT_WITH }}</div>
+                <div class="discount-price">{{ cartPage.O.order.productsPriceDis }} {{cartPage.U.userInfo.currency}}</div>
+              </div>
+              <div class="discount-price-box">
+                <div class="discount-price-label">{{ ::cartPage.DISCOUNT }}</div>
+                <div class="discount-price">{{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currency}}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
+          <div class="cart-header">
+            <div ng-controller="UserInfoCtrl as userBox" ng-swipe-left="userBox.swipeLeft($event)" ng-swipe-right="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': (userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage)}" fs-click="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
+              <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div class="user-info-block">
+                <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+              </div>
+            </div>
+            <button fs-click="cartPage.showAllAddElements()" class="cart-tool additional-elements">{{ ::cartPage.ALL_ADD_ELEMENTS }}</button>
+            <button fs-click="cartPage.addNewProductInOrder()" class="cart-tool new-order">{{ ::cartPage.ADD_ORDER }}</button>
+          </div>
+          <div class="order-block scroll-vert-container">
+            <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
+              <button fs-click="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
+              <div class="order-header">
+                <div fs-click="cartPage.editProduct($index, 'product')" class="order-template">
+                  <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                </div>
+              </div>
+              <div class="order-content">
+                <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ ::cartPage.MM }}</div>
+                <div fs-click="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
+                  <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
+                    <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
+                  </div>
+                  <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
+                </div>
+                <div class="order-qty">
+                  <button fs-click="cartPage.decreaseProductQty($index)" class="order-tool">-</button>
+                  <div class="order-value">{{ product.product_qty }}</div>
+                  <button fs-click="cartPage.increaseProductQty($index)" class="order-tool">+</button>
+                </div>
+                <div class="order-label">{{ ::cartPage.PRODUCT_QTY }}</div>
+              </div>
+              <div class="order-footer">
+                <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-price"></div>
+                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" fs-click="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+              </div>
+              <div ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
+                <div class="order-comment-box">
+                  <div class="order-comment-title">{{ ::cartPage.ORDER_COMMENT }}</div>
+                  <div class="order-comment-content">{{ product.comment }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button fs-click="cartPage.viewSwitching()" class="view-switch-tab">{{ ::cartPage.FULL_VIEW }}</button>
+        </section>
+        <div ng-if="cartPage.config.isAddElementDetail" class="addelements-detail">
+          <div class="addelements-detail-header">
+            <div class="addelements-detail-tools">
+              <button fs-click="cartPage.editProduct(cartPage.config.detailProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ ::cartPage.ADDELEMENTS_EDIT_LIST }}</button>
+              <button fs-click="cartPage.closeAddElementDetail()" class="addelements-detail-close"></button>
+            </div>
+            <div ng-hide="cartPage.O.order.products[cartPage.config.detailProductIndex].is_addelem_only" class="product-template">
+              <div class="addelements-detail-row">
+                <div class="product-value">
+                  <div class="product-icon-thumb">
+                    <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                  </div><span class="product-template-qty">X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}</span>
+                </div>
+                <div class="product-icon-label">{{ ::cartPage.PRODUCT_QTY }}</div>
+              </div>
+              <div class="addelements-detail-row">
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ ::cartPage.MM }} *</div>
+                <div class="product-label">{{ ::cartPage.WIDTH_LABEL }}</div>
+              </div>
+              <div class="addelements-detail-row">
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ ::cartPage.MM }}</div>
+                <div class="product-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="addelements-detail-content">
+            <ul class="addelements-detail-list">
+              <li ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item">
+                <div class="product-value">{{ addelement.name }}</div>
+                <div ng-switch-when="0" class="product-value">{{ ::cartPage.GRID }}</div>
+                <div ng-switch-when="1" class="product-value">{{ ::cartPage.VISOR }}</div>
+                <div ng-switch-when="2" class="product-value">{{ ::cartPage.SPILLWAY }}</div>
+                <div ng-switch-when="3" class="product-value">{{ ::cartPage.OUTSIDE }}</div>
+                <div ng-switch-when="4" class="product-value">{{ ::cartPage.LOUVERS }}</div>
+                <div ng-switch-when="5" class="product-value">{{ ::cartPage.INSIDE }}</div>
+                <div ng-switch-when="6" class="product-value">{{ ::cartPage.CONNECTORS }}</div>
+                <div ng-switch-when="7" class="product-value">{{ ::cartPage.FAN }}</div>
+                <div ng-switch-when="8" class="product-value">{{ ::cartPage.WINDOWSILL }}</div>
+                <div ng-switch-when="9" class="product-value">{{ ::cartPage.HANDLEL }}</div>
+                <div ng-switch-when="10" class="product-value">{{ ::cartPage.OTHERS }}</div>
+                <div class="addelement-parameters">
+                  <div ng-show="addelement.element_width" class="addelement-parameter">
+                    <div class="addelement-value">{{ addelement.element_width }}</div>
+                    <div class="addelement-label">{{ ::cartPage.WIDTH_LABEL }}</div>
+                  </div>
+                  <div ng-show="addelement.element_height" class="addelement-parameter">
+                    <div class="addelement-value">{{ addelement.element_height }}</div>
+                    <div class="addelement-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
+                  </div>
+                  <div ng-show="addelement.element_qty" class="addelement-parameter">
+                    <div class="addelement-value">{{ addelement.element_qty }}</div>
+                    <div class="addelement-label">{{ ::cartPage.QTY_LABEL }}</div>
+                  </div>
+                </div>
+                <div class="addelement-parameters">
+                  <div class="addelement-price-value">+ {{ addelement.element_qty * addelement.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
+                  <div class="addelement-label">({{ addelement.element_qty }} x {{ addelement.elementPriceDis }}{{ cartPage.U.userInfo.currency }})</div>
+                </div>
+              </li>
+            </ul>
+            <div class="addelements-detail-row price-one-product">
+              <div price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}" qty-element="1" currency-element="{{cartPage.U.userInfo.currency}}" class="addelement-price-value"></div>
+              <div class="product-label">{{ ::cartPage.ADDELEMENTS_PRODUCT_COST }}</div>
+            </div>
+          </div>
+          <div class="addelements-detail-footer">
+            <div price-fixed="{{cartPage.O.order.products[cartPage.config.detailProductIndex].addelemPriceDis}}" qty-element="{{cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}"></div>
+            <div>&#8721;</div>
+          </div>
+        </div>
+        <div ng-if="cartPage.config.isAddElementDetail" fs-click="cartPage.closeAddElementDetail()" class="backDarkView"></div>
+        <section ng-controller="AddElemCartCtrl as elemCartPanel" ng-class="{'active': cartPage.C.cart.isAllAddElems}" class="cart-container alladdelements-view">
+          <div class="alladdelements-header">
+            <button fs-click="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
+            <div ng-if="cartPage.C.cart.isSelectedProduct">
+              <form ng-controller="searchCtrl as searchBox" name="searchForm">
+                <div class="search-block">
+                  <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
+                  <button fs-click="searchBox.deleteSearchChart()" class="delete-search"></button>
+                  <button fs-click="searchBox.cancelSearching()" class="cancel-search">{{ ::searchBox.CANCEL }}</button>
+                </div>
+              </form>
+            </div>
+            <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.addElementGroups.length}" class="aux-search-content">
+              <div class="aux-list-groups">
+                <div ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | orderBy:'groupName' track by $index" class="aux-list-type">
+                  <div ng-click="addElemGroups.takeAddElemMenu(typeAddElement.type.groupId)" ng-class="[typeAddElement.type.groupClass, {'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}]" class="aux-list-group">{{ typeAddElement.type.groupName }}
+                    <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.type.groupId}" class="group-indicator"></button>
+                    <div class="search-elements-block">
+                      <div ng-repeat="elemFind in typeAddElement.elems | orderBy:'name' track by $index" ng-class="typeAddElement.type.groupClass" ng-click="addElemGroups.takeAddElemFilt(typeAddElement.type.groupId, elemFind.typeInd, elemFind.index, $event)" class="search-elem">{{ elemFind.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alladdelements-block">
+            <div ng-repeat="elemType in elemCartPanel.config.addElementDATA track by $index" ng-class="elemCartPanel.config.addElementDATA[$index].typeClass + '-theme'" class="aux-list-block">
+              <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id}).length &amp;&amp; elemType.mainTypeMenu" class="aux-block-inner">
+                <div class="aux-list-block-title">{{ elemCartPanel.config.addElementDATA[$index].name | translate }}</div>
+                <table class="aux-list-addellement">
+                  <tr ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType.id} track by $index" class="aux-list-row">
+                    <td class="aux-tablecell-name">
+                      <div class="aux-name">
+                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" fs-click="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
+                        <div class="aux-label">{{ ::cartPage.NAME_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-qty">
+                      <div ng-show="addElem.element_qty" class="aux-params">
+                        <div class="aux-params-but">{{ addElem.element_qty }}</div>
+                        <div class="aux-label">{{ ::cartPage.QTY_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-width">
+                      <div ng-show="addElem.element_width" class="aux-params">
+                        <div class="aux-params-but">{{ addElem.element_width }}</div>
+                        <div class="aux-label">{{ ::cartPage.WIDTH_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-height">
+                      <div ng-show="addElem.element_height" class="aux-params">
+                        <div class="aux-params-but">{{ addElem.element_height }}</div>
+                        <div class="aux-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-price">
+                      <div class="aux-price">+ {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
+                    </td>
+                    <td class="aux-tablecell-delete">
+                      <div fs-click="elemCartPanel.deleteAddElemsItem(addElem)" class="aux-delete"></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="aux-list-block">
+              <table class="aux-list-addellement">
+                <tr class="aux-list-row">
+                  <td class="aux-tablecell-total">
+                    <div class="aux-total-label">{{ ::cartPage.TOTAL_PRICE_TXT }}</div>
+                  </td>
+                  <td class="aux-tablecell-price">
+                    <div class="aux-total-price">{{ cartPage.C.cart.addElemsOrderPriceTOTAL }} {{ cartPage.U.userInfo.currency }}</div>
+                  </td>
+                  <td class="aux-tablecell-delete">
+                    <div fs-click="elemCartPanel.deleteAllAddElems()" class="aux-delete"></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="products-selector">
+            <div ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}" ng-swipe-up="elemCartPanel.swipeProductSelector()" ng-swipe-down="elemCartPanel.swipeProductSelector()" class="products-selector-block">
+              <div class="products-block">
+                <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" fs-click="elemCartPanel.selectProductToAddElem($index)" class="product">
+                  <div class="select-mark"></div>
+                  <div class="product-header">
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                    <div ng-hide="product.is_addelem_only" class="order-value">X {{ product.product_qty }}</div>
+                  </div>
+                  <div class="order-content">
+                    <div class="order-item">
+                      <div class="order-value">{{ product.template_width }} {{ ::cartPage.MM }}</div>
+                      <div class="order-value">{{ product.template_height }} {{ ::cartPage.MM }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_SIZING }}</div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-value">{{ product.profile.name }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_PROFILE }}</div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-value">{{ product.glass[0].sku }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_GLASS }}</div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-value">{{ product.hardware.name }}</div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_HARDWARE }}</div>
+                    </div>
+                    <div class="order-item">
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION_TYPE }}</div>
+                      <div class="order-value"><span ng-if="product.lamination.lamination_out_id &gt; 1">{{ product.lamination.laminat_out_name }}</span><span ng-if="product.lamination.lamination_out_id === 1">{{ product.lamination.laminat_out_name |translate }}</span><span>/</span><span ng-if="product.lamination.lamination_in_id &gt; 1">{{ product.lamination.laminat_in_name }}</span><span ng-if="product.lamination.lamination_in_id === 1">{{ product.lamination.laminat_in_name |translate }}</span></div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_LAMINATION }}</div>
+                    </div>
+                    <div class="order-item addelements-btn">
+                      <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
+                        <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
+                      </div>
+                      <div class="order-label">{{ ::cartPage.CONFIGMENU_ADDITIONAL }}</div>
+                    </div>
+                  </div>
+                  <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-footer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <section ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}" class="cart-container addelement-view">
+            <div class="addelementunique-header">
+              <button fs-click="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
+              <div class="addelementunit-header-fon"></div>
+              <table class="aux-list-addellement">
+                <tr class="aux-list-row">
+                  <td class="aux-tablecell-name">
+                    <div class="aux-name">
+                      <div class="aux-title">{{ elemCartPanel.config.selectedAddElemUnit.name }}</div>
+                      <div class="aux-label">{{ ::cartPage.NAME_LABEL }}</div>
+                    </div>
+                  </td>
+                  <td class="aux-tablecell-qty">
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_qty" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_qty }}</div>
+                      <div class="aux-label">{{ ::cartPage.QTY_LABEL }}</div>
+                    </div>
+                  </td>
+                  <td class="aux-tablecell-width">
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_width" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_width }}</div>
+                      <div class="aux-label">{{ ::cartPage.WIDTH_LABEL }}</div>
+                    </div>
+                  </td>
+                  <td class="aux-tablecell-height">
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_height" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_height }}</div>
+                      <div class="aux-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
+                    </div>
+                  </td>
+                  <td class="aux-tablecell-price">
+                    <div class="aux-price">+ {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
+                  </td>
+                  <td class="aux-tablecell-delete">
+                    <div fs-click="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="addelementunits-container">
+              <div class="addelementunit-block">
+                <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="!addElemUnit.is_addelem_only &amp;&amp; !addElemUnit.length" class="addelementunit">
+                  <button fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
+                  <div class="addelementunit-header">
+                    <div class="addelementunit-template">
+                      <svg-template template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                    </div>
+                  </div>
+                  <div class="addelementunit-content">
+                    <div class="addelementunit-value">{{ cartPage.O.order.products[addElemUnit.productIndex].template_width }} * {{ cartPage.O.order.products[addElemUnit.productIndex].template_height }} {{ ::cartPage.MM }}</div>
+                  </div>
+                  <div class="addelementunit-footer">{{ addElemUnit.element_qty }} {{ ::cartPage.QTY_LABEL }}</div>
+                </div>
+              </div>
+              <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.length &gt; 0" class="addelementunit-train">
+                <div class="addelementunit-train-inner">
+                  <div ng-repeat="addElemWagon in addElemUnit track by $index" ng-class="{'unit-last': $last}" class="addelementunit">
+                    <div fs-click="elemCartPanel.toggleExplodeLinkMenu($index, $event)" class="addelementunit-link link-right"></div>
+                    <button fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)" class="addelementunit-delete"></button>
+                    <div class="addelementunit-header">
+                      <div class="addelementunit-template">
+                        <svg-template template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="cartPage.constants.SVG_CLASS_ICON"></svg-template>
+                      </div>
+                    </div>
+                    <div class="addelementunit-content">
+                      <div class="addelementunit-value">{{ cartPage.O.order.products[addElemWagon.productIndex].template_width }} * {{ cartPage.O.order.products[addElemWagon.productIndex].template_height }} {{ ::cartPage.MM }}</div>
+                    </div>
+                    <div class="addelementunit-footer">{{ addElemWagon.element_qty }} {{ ::cartPage.QTY_LABEL }}</div>
+                  </div>
+                </div>
+                <div ng-show="elemCartPanel.config.isLinkExplodeMenu" ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}" class="link-explode-menu">
+                  <ul class="link-explode-list">
+                    <li fs-click="elemCartPanel.explodeUnitToProduct(addElemUnit)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_COUPLE }}</li>
+                    <li fs-click="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)" class="link-explode-item">{{ ::cartPage.LINK_BETWEEN_ALL }}</li>
+                  </ul>
+                </div>
+              </div>
+              <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.is_addelem_only" class="addelementunit-only">
+                <table class="aux-list-addellement">
+                  <tr class="aux-list-row">
+                    <td class="aux-tablecell-name">
+                      <div class="aux-name">
+                        <button class="aux-params-but aux_big_but aux-title">{{ addElemUnit.name }}</button>
+                        <div class="aux-label">{{ ::cartPage.NAME_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-qty">
+                      <div class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_qty }}</div>
+                        <div class="aux-label">{{ ::cartPage.QTY_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-width">
+                      <div ng-if="addElemUnit.element_width" class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_width }}</div>
+                        <div class="aux-label">{{ ::cartPage.WIDTH_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-height">
+                      <div ng-if="addElemUnit.element_height" class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_height }}</div>
+                        <div class="aux-label">{{ ::cartPage.HEIGHT_LABEL }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-price">
+                      <div class="aux-price">+ {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}</div>
+                    </td>
+                    <td class="aux-tablecell-delete">
+                      <div fs-click="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </section>
+    <section class="right-menu">
+      <div ng-controller="CartMenuCtrl as cartMenu" class="right-menu-controller">
+        <div class="cart-menu">
+          <ul class="items-list">
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1, 'hov': cartMenu.config.activeMenuItem !== 1}" fs-click="cartMenu.selectMenuItem(1)" class="item">
+              <div data-output="{{ ::cartMenu.DELIVERY }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div class="cart-item-data">
+                <div ng-show="!cartMenu.O.order.floor_id" data-output="{{ ::cartMenu.SELF_EXPORT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-show="cartMenu.O.order.floor_id" data-output="{{ cartMenu.O.order.floorName }} {{ ::cartMenu.FLOOR }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.floor_id" data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+              </div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery">
+              <ul class="dropdown-items-list">
+                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(0)" class="dropdown-item">
+                  <div class="dropdown-item-inner">
+                    <div class="value drop-txt">{{ ::cartMenu.SELF_EXPORT }}</div>
+                    <div class="name drop-txt"></div>
+                  </div>
+                </li>
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" fs-click="cartMenu.selectFloorPrice(supplyList)" class="dropdown-item">
+                  <div class="dropdown-item-inner">
+                    <div class="value drop-txt">{{supplyList.name}} {{ ::cartMenu.FLOOR }}</div>
+                    <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2, 'hov': cartMenu.config.activeMenuItem !== 2}" fs-click="cartMenu.selectMenuItem(2)" class="item">
+              <div data-output="{{ ::cartMenu.ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div class="cart-item-data">
+                <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ ::cartMenu.WITHOUT_ASSEMBLING }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+              </div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
+              <ul class="dropdown-items-list">
+                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(0)" class="dropdown-item">
+                  <div class="dropdown-item-inner">
+                    <div class="value drop-txt">{{ ::cartMenu.WITHOUT_ASSEMBLING }}</div>
+                    <div class="name drop-txt">{{ ::cartMenu.FREE }}</div>
+                  </div>
+                </li>
+                <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" fs-click="cartMenu.selectAssembling(assemb)" class="dropdown-item">
+                  <div class="dropdown-item-inner">
+                    <div class="value drop-txt">{{ assemb.name }}</div>
+                    <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3, 'hov': cartMenu.config.activeMenuItem !== 3}" fs-click="cartMenu.selectMenuItem(3)" class="item switcher">
+              <div data-output="{{ ::cartMenu.PAYMENT_BY_INSTALMENTS }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div class="cart-item-data">
+                <div ng-if="!cartMenu.O.order.is_instalment" data-output="{{ ::cartMenu.WITHOUT_INSTALMENTS }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-if="cartMenu.O.order.is_instalment" class="value">{{ cartMenu.O.order.selectedInstalmentPeriod }}
+                  <ng-pluralize count="cartMenu.O.order.selectedInstalmentPeriod" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
+                </div><span ng-if="cartMenu.O.order.is_instalment" data-output="{{ cartMenu.O.order.selectedInstalmentPercent }} %" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+              </div>
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" fs-click="cartMenu.closeInstalment()" class="check-switcher">
+                <div class="check-bg-active"></div>
+                <div class="check-bg-passive"></div>
+              </div>
+              <div ng-class="{'active': cartMenu.O.order.is_instalment }" fs-click="cartMenu.closeInstalment()" class="check-handle"></div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 3}" class="dropdown-cart-menu drop-instalment">
+              <ul class="dropdown-items-list">
+                <li ng-repeat="payment in cartMenu.G.global.instalmentsData" ng-class="{'selected': payment.id == cartMenu.O.order.instalment_id}" fs-click="cartMenu.selectInstalment(payment.id, payment.name, payment.value)" class="dropdown-item">
+                  <div class="dropdown-item-inner">
+                    <div class="value">{{ payment.name }}
+                      <ng-pluralize count="payment.name" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
+                    </div>
+                    <div class="value value-percent">{{ payment.value }} %</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4, 'hov': cartMenu.config.activeMenuItem !== 4}" fs-click="cartMenu.selectMenuItem(4)" class="item">
+              <div data-output="{{ ::cartMenu.DELIVERY_DATE }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div data-output="{{cartMenu.O.order.new_delivery_date | date:'dd.MM.yyyy'}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 4}" class="dropdown-cart-menu drop-calendar">
+              <calendar class="calendar-box"></calendar>
+            </div>
+            <div class="calendar-prices">
+              <div ng-show="cartMenu.O.order.is_date_price_more" class="calendar-price up">+ {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}</div>
+              <div ng-show="cartMenu.O.order.is_date_price_less" class="calendar-price down">- {{ cartMenu.O.order.delivery_price }} {{ cartMenu.U.userInfo.currency }}</div>
+            </div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 5, 'hov': cartMenu.config.activeMenuItem !== 5}" fs-click="cartMenu.selectMenuItem(5)" class="item">
+              <div data-output="{{ ::cartMenu.COMMENT }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div class="cart-item-data"></div>
+              <div data-output="{{ cartMenu.O.order.comment }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+            </li>
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 5}" class="dropdown-cart-menu drop-calendar">
+              <textarea ng-model="cartMenu.O.order.comment" class="comment-field noPreventDefault"></textarea>
+            </div>
+          </ul>
+          <footer class="menu-footer">
+            <div ng-class="{'active': cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
+              <div class="name">{{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %</div>
+              <div class="name">{{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+              <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
+              <div class="name">{{ cartMenu.O.order.selectedInstalmentPeriod }} {{ ::cartMenu.MONTHLY_PAYMENT_LABEL }}</div>
+              <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
+            </div>
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" fs-click="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
+              <div class="name">{{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+              <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
+            </div>
+            <button fs-click="cartMenu.openOrderDialog()" class="order-btn">{{ ::cartMenu.ORDER }}</button>
+            <button fs-click="cartMenu.openMasterDialog()" class="measure-btn">{{ ::cartMenu.MEASURE }}</button>
+          </footer>
+        </div>
+        <div ng-class="{'active': cartMenu.O.order.is_old_price &amp;&amp; cartMenu.O.order.is_instalment}" class="old-price-inst-tab">
+          <div class="name">{{ ::cartMenu.FIRST_PAYMENT_LABEL }} {{ cartMenu.O.order.selectedInstalmentPercent }} %</div>
+          <div class="name">{{ ::cartMenu.DATE_DELIVERY_LABEL }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}</div>
+          <price price-value="cartMenu.O.order.paymentFirstPrimaryDis" price-currency="cartMenu.U.userInfo.currency"></price>
+          <div class="name">{{ cartMenu.O.order.selectedInstalmentPeriod }} {{ ::cartMenu.MONTHLY_PAYMENT_LABEL }}</div>
+          <price price-value="cartMenu.O.order.paymentMonthlyPrimaryDis" price-currency="cartMenu.U.userInfo.currency"></price>
+        </div>
+        <div ng-class="{'active': cartMenu.O.order.is_old_price &amp;&amp; !cartMenu.O.order.is_instalment}" class="old-price-tab">
+          <div class="name">{{ ::cartMenu.TOTAL_PRICE_LABEL }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}</div>
+          <price price-value="cartMenu.O.order.orderPricePrimaryDis" price-currency="cartMenu.U.userInfo.currency"></price>
+        </div>
+      </div>
+      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
+        <div class="elements-menu">
+          <header class="menu-header">
+            <div class="tip">{{ ::elementsMenu.TIP }}</div>
+            <button fs-click="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
+          </header>
+          <div class="menu-lists">
+            <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-lister">
+              <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" ng-click="elementsMenu.chooseAddElement()" class="item empty-element">
+                <div class="value">{{ ::elementsMenu.EMPTY_ELEMENT }}</div>
+              </li>
+            </ul>
+            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" id="{{$index}}" ng-class="{'one-elem': elementsMenu.A.aux.addElementsList.length&lt;=1}" class="items-lister">
+              <div ng-click="elementsMenu.hideMenu($index)" class="title">{{ elementsMenu.A.aux.addElementsType[$index].name }}
+                <button ng-if="elementsMenu.A.aux.addElementsType[$index].img.length || elementsMenu.A.aux.addElementsType[$index].link.length || elementsMenu.A.aux.addElementsType[$index].description.length" fs-click="elementsMenu.showInfoBox(elementsMenu.A.aux.addElementsType[$index].id, elementsMenu.A.aux.addElementsType)" class="element-info"></button>
+                <div id="{{$index + 'open'}}" class="open-list"><img ng-src="img/plus.png"></div>
+                <div id="{{$index + 'close'}}" class="open-list2"><img ng-src="img/minus.png"></div>
+              </div>
+              <li ng-repeat="addElement in type track by $index" class="item">
+                <div ng-click="elementsMenu.selectAddElement($parent.$index, $index, $event)" id="{{$parent.$index+'prod'+$index}}" class="value">{{ addElement.name }}</div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" fs-click="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+              </li>
+            </ul>
+          </div>
+          <footer class="menu-footer">
+            <div ng-show="elementsMenu.A.aux.isAddElement &amp;&amp; elementsMenu.A.aux.currAddElementPrice" class="price-element">
+              <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
+            </div>
+          </footer>
+        </div>
+        <!--========== one element pannel in List View-->
+        <div ng-show="elementsMenu.A.aux.isAddElementListView &amp;&amp; elementsMenu.A.aux.showAddElementsMenu &amp;&amp; ((elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement &gt; 1) || elementsMenu.G.global.currOpenPage === 'cart')" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
+          <div ng-repeat="addElement in type track by $index" class="list-item">
+            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.A.aux.coordinats" class="aux-list-item">
+              <div class="aux-list-row">
+                <div class="aux-name">
+                  <div class="aux-title">{{ addElement.name }}</div>
+                  <div class="aux-label">{{ ::elementsMenu.NAME_LABEL }}</div>
+                </div>
+                <div class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_qty }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.QTY_LABEL }}</div>
+                </div>
+                <div ng-show="addElement.element_width" class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_width }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.WIDTH_LABEL }}</div>
+                </div>
+                <div ng-show="addElement.element_height" class="aux-params">
+                  <button class="aux-params-but">{{ addElement.element_height }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.HEIGHT_LABEL }}</div>
+                </div>
+                <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
+                <button fs-click="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ ::elementsMenu.ADD }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--======== Tabs-->
+        <div ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index" ng-if="elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === ($index+1)" class="menu-right-tabs">
+          <div class="tab-block simple-frame">
+            <button ng-class="{'active': addElemTab.length == 1}" class="frame-tab">{{ ::elementsMenu.TAB_NAME_SIMPLE_FRAME }}</button>
+          </div>
+          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
+            <button ng-class="{'active': elementsMenu.A.aux.showAddElementsMenu &amp;&amp; addElemTab.length &gt; 1}" fs-click="elementsMenu.showFrameTabs()" class="frame-tab">{{ ::elementsMenu.TAB_NAME_HARD_FRAME }}</button>
+            <div ng-if="addElemTab.length === 0" class="tab-content-empty">
+              <div class="tab-empty">{{ ::elementsMenu.TAB_EMPTY_EXPLAIN }}</div>
+            </div>
+            <div ng-if="addElemTab.length &gt; 0" class="tab-content">
+              <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 1, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_qty }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.QTY_LABEL }}</div>
+                </div>
+                <div ng-hide="$parent.$index==3 || $parent.$index==5 || $parent.$index==7 || $parent.$index==9 || $parent.$index==10" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 2, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_width }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.WIDTH_LABEL }}</div>
+                </div>
+                <div ng-show="!$parent.$index || $parent.$index==4" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button fs-click="elementsMenu.initAddElementTools(($parent.$index+1), 3, $index)" ng-keyup="elementsMenu.pressCulculator($event)" ng-disabled="!elementsMenu.P.product.is_addelem_only &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === 1" class="aux-params-but">{{ addElement.element_height }}</button>
+                  <div class="aux-label">{{ ::elementsMenu.HEIGHT_LABEL }}</div>
+                </div>
+                <div price-fixed="{{addElement.elementPriceDis}}" qty-element="{{addElement.element_qty}}" currency-element="{{elementsMenu.U.userInfo.currency}}" class="tab-aux-price"></div>
+                <div fs-click="elementsMenu.deleteAddElement($parent.$index, $index)" class="aux-delete"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section ng-controller="OrderFormCtrl as orderForm" class="order-forms">
+      <div ng-class="{ 'unvisible' : !orderForm.C.cart.isMasterDialog }" class="cart-dialogs master-dialog">
+        <div class="cart-dialogs-container">
+          <form name="callMasterForm" novalidate ng-submit="orderForm.submitForm(callMasterForm)">
+            <div class="cart-dialog-header">
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <div class="cart-dialog-title">{{ ::orderForm.CALL_MASTER }}</div>
+              <button type="submit" class="save">{{ ::orderForm.READY }}</button>
+            </div>
+            <div class="cart-dialog-body">
+              <div class="cart-dialog-descrip">{{ ::orderForm.CALL_MASTER_DESCRIP }}</div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callMasterForm.name.$error.required }" class="input-field">
+                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callMasterForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callMasterForm.location.$error.required }" class="input-field">
+                <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                </ul>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field">
+                <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callMasterForm.address.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callMasterForm.phone.$error.required }" class="input-field">
+                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callMasterForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callMasterForm.phone.$error.pattern || callMasterForm.phone.$dirty &amp;&amp; callMasterForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div ng-class="{ 'unvisible' : !orderForm.C.cart.isOrderDialog }" class="cart-dialogs order-dialog">
+        <div class="cart-dialogs-container">
+          <form name="callOrderForm" novalidate ng-submit="orderForm.submitForm(callOrderForm)">
+            <div class="cart-dialog-header">
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <div class="cart-dialog-title">{{ ::orderForm.CALL_ORDER }}</div>
+            </div>
+            <div class="cart-dialog-body">
+              <div class="cart-dialog-descrip">{{ ::orderForm.CALL_ORDER_DESCRIP }}</div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_CLIENT_INFO }}</div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required }" class="input-field">
+                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required }" class="input-field">
+                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+              </div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.location.$error.required &amp;&amp; orderForm.G.global.changeLocation === 0}" class="input-field">
+                <input id="impLocation" type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD_LOCATION }}</div>
+                <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                </ul>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
+                <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" required class="user-field street">
+                <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" required class="user-field small">
+                <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" required class="user-field small">
+                <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" required class="user-field small">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip street">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.house.$error.required" class="error-tooltip house">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.flat.$error.required" class="error-tooltip flat">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }}: {{ orderForm.O.order.order_price_dis }} {{ orderForm.U.userInfo.currency }}</div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
+              <div class="input-field">
+                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
+              </div>
+              <div class="input-field">
+                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+              </div>
+              <div class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
+                <label class="label-field">{{ ::orderForm.CLIENT_SEX_M }}
+                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="1" class="radio-field">
+                </label>
+                <label class="label-field">{{ ::orderForm.CLIENT_SEX_F }}
+                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="2" class="radio-field">
+                </label>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
+                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
+                  <!--option(value='') {{ ::orderForm.SELECT_AGE }}-->
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.age.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
+                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
+                  <!--option(value='') {{ ::orderForm.SELECT_ADUCATION }}-->
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.education.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
+                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
+                  <!--option(value='') {{ ::orderForm.SELECT_OCCUPATION }}-->
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.occupation.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
+                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
+                  <!--option(value='') {{ ::orderForm.SELECT_INFO_SOURCE }}-->
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callOrderForm.infoSource.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <button type="submit" class="save save-order">{{ ::orderForm.READY }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div ng-class="{ 'unvisible' : !orderForm.C.cart.isCreditDialog }" class="cart-dialogs order-dialog">
+        <div class="cart-dialogs-container">
+          <form name="callCreditForm" novalidate ng-submit="orderForm.submitForm(callCreditForm)">
+            <div class="cart-dialog-header">
+              <button fs-click="orderForm.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
+              <div class="cart-dialog-title">{{ ::orderForm.CALL_CREDIT }}</div>
+            </div>
+            <div class="cart-dialog-body">
+              <div class="cart-dialog-descrip">{{ ::orderForm.CALL_CREDIT_DESCRIP }}</div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_CREDIT_CLIENT_INFO }}</div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.name.$error.required }" class="input-field">
+                <input type="text" name="name" ng-model="orderForm.C.cart.customer.customer_name" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_NAME }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.name.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.target.$error.required }" class="input-field">
+                <input type="text" name="target" ng-model="orderForm.C.cart.customer.customer_target" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CREDIT_TARGET }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.target.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.itn.$error.required }" class="input-field">
+                <input type="number" name="itn" ng-model="orderForm.C.cart.customer.customer_itn" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ITN }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.itn.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.phone.$error.required }" class="input-field">
+                <input type="tel" name="phone" ng-model="orderForm.C.cart.customer.customer_phone" ng-pattern="" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.MOBILE }}" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.phone.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.phone.$error.pattern || callCreditForm.phone.$dirty &amp;&amp; callCreditForm.phone.$error.pattern" class="error-tooltip">{{ ::orderForm.WRONG_NUMBER }}</div>
+              </div>
+              <div class="input-field">
+                <div class="time-block"><span class="time-label">{{ ::orderForm.CALL_START_TIME }}</span>
+                  <input type="nubmer" name="starttime" ng-model="orderForm.C.cart.customer.customer_starttime" placeholder="00:00" class="time-field">
+                </div>
+                <div class="time-block"><span class="time-label">{{ ::orderForm.CALL_END_TIME }}</span>
+                  <input type="nubmer" name="endtime" ng-model="orderForm.C.cart.customer.customer_endtime" placeholder="00:00" class="time-field">
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="user-field">{{ orderForm.O.order.selectedInstalmentPeriod }}
+                  <ng-pluralize count="orderForm.O.order.selectedInstalmentPeriod" when="{'1': '{{ orderForm.config.month }}', '2': '{{ orderForm.config.montha }}', '3': '{{ orderForm.config.montha }}', '4': '{{ orderForm.config.montha }}', 'other': '{{ orderForm.config.months }}'}">, {{orderForm.O.order.selectedInstalmentPercent}}%</ng-pluralize>
+                </div>
+              </div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_TOTAL_PRICE }} {{ orderForm.O.order.order_price_dis }}{{ orderForm.U.userInfo.currency }} {{ ::orderForm.CALL_CREDIT_PARTIAL_PRICE }} {{ orderForm.O.order.payment_monthly }}{{ orderForm.U.userInfo.currency }}</div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_DELIVERY }} {{ orderForm.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required }" class="input-field">
+                <input type="text" name="location" ng-model="orderForm.C.cart.customer.customer_location" ng-change="orderForm.changeLocation()" placeholder="{{ ::orderForm.CLIENT_LOCATION }}" autocomplete="off" required class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <ul ng-show="orderForm.C.cart.isCityBox" class="location-list-tooltip">
+                  <li ng-repeat="location in orderForm.locations | locationFilter:orderForm.C.cart.customer.customer_location track by $index" fs-click="orderForm.selectCity(location)" class="location-option">{{location.fullLocation}}</li>
+                </ul>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required }" class="input-field">
+                <input type="text" name="address" ng-model="orderForm.C.cart.customer.customer_address" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_ADDRESS }}" required class="user-field street">
+                <input type="text" name="house" ng-model="orderForm.C.cart.customer.customer_house" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_HOUSE }}" required class="user-field small">
+                <input type="text" name="flat" ng-model="orderForm.C.cart.customer.customer_flat" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLAT }}" required class="user-field small">
+                <input type="text" name="floor" ng-model="orderForm.C.cart.customer.customer_floor" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_FLOOR }}" required class="user-field small">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required" class="error-tooltip street">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.house.$error.required" class="error-tooltip house">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.flat.$error.required" class="error-tooltip flat">{{ ::orderForm.EMPTY_FIELD }}</div>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.floor.$error.required" class="error-tooltip floor">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div class="cart-dialog-label">{{ ::orderForm.CALL_ORDER_ADD_INFO }}</div>
+              <div class="input-field">
+                <input type="email" name="mail" ng-model="orderForm.C.cart.customer.customer_email" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.CLIENT_EMAIL_ORDER }}" class="user-field">
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.email" class="error-tooltip">{{ ::orderForm.WRONG_EMAIL }}</div>
+              </div>
+              <div class="input-field">
+                <input type="tel" name="phone2" ng-model="orderForm.C.cart.customer.customer_phone_city" ng-focus="orderForm.C.cart.isCityBox = 0" placeholder="{{ ::orderForm.ADD_PHONE }}" class="user-field">
+              </div>
+              <div class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_SEX }}</div>
+                <label class="label-field">{{ ::orderForm.CLIENT_SEX_M }}
+                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="1" class="radio-field">
+                </label>
+                <label class="label-field">{{ ::orderForm.CLIENT_SEX_F }}
+                  <input type="radio" name="sex" ng-model="orderForm.C.cart.customer.customer_sex" value="2" class="radio-field">
+                </label>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.age.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_AGE }}</div>
+                <select name="age" ng-model="orderForm.C.cart.customer.customer_age" ng-options="age.name | translate for age in orderForm.C.optionAge" required class="user-select-field">
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.age.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.education.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_EDUCATION }}</div>
+                <select name="education" ng-model="orderForm.C.cart.customer.customer_education" ng-options="educ.name | translate for educ in orderForm.C.optionEductaion" required class="user-select-field">
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.education.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.occupation.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_OCCUPATION }}</div>
+                <select name="occupation" ng-model="orderForm.C.cart.customer.customer_occupation" ng-options="occup.name | translate for occup in orderForm.C.optionOccupation" required class="user-select-field">
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.occupation.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <div ng-class="{ 'has-error' : orderForm.C.cart.submitted &amp;&amp; callCreditForm.infoSource.$error.required }" class="input-field">
+                <div class="subtitle-field">{{ ::orderForm.CLIENT_INFO_SOURCE }}</div>
+                <select name="infoSource" ng-model="orderForm.C.cart.customer.customer_infoSource" ng-options="info.name | translate for info in orderForm.C.optionInfo" required class="user-select-field">
+                  <option value="">{{ ::orderForm.SELECT_PLACEHOLD }}</option>
+                </select>
+                <div ng-show="orderForm.C.cart.submitted &amp;&amp; callCreditForm.infoSource.$error.required" class="error-tooltip">{{ ::orderForm.EMPTY_FIELD }}</div>
+              </div>
+              <button type="submit" class="save save-order">{{ ::orderForm.READY }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </section>
+</section>
+<div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
+  <div ng-class="{'active': loadBox.G.global.loader === 2}" class="loader"></div>
+  <div ng-show="loadBox.G.global.loader !== 2" class="loader-counter">{{loadBox.G.global.isLoader2 + '%'}}</div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page">
+          <div fs-click="alertBox.isAlert()" ng-show="alertBox.G.global.isBox" class="order-delete"></div>
+        </section>
+      </div>
+      <button fs-click="alertBox.clickCopy()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_C }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_E }}</button>
+      <button fs-click="alertBox.G.global.isAlert = 0" ng-show="!alertBox.G.global.isBox" class="alert-no">{{ ::alertBox.BUTTON_N }}</button>
+      <button fs-click="alertBox.clickYes()" ng-show="!alertBox.G.global.isBox" class="alert-yes">{{ ::alertBox.BUTTON_Y }}</button>
+    </div>
+  </div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlertInfo" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <div class="thisAlert">
+        <section class="cart-page"></section>
+      </div>
+      <button fs-click="alertBox.G.global.isAlertInfo = 0" ng-show="alertBox.G.global.isAlertInfo" class="alert-info">{{ ::alertBox.OK }}</button>
+    </div>
+  </div>
+</div>

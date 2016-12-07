@@ -20,9 +20,10 @@
     "gulp-newer": "^1.1.0",
     "gulp-ng-annotate": "^1.1.0",
     "gulp-notify": "^2.2.0",
-    "gulp-obfuscate": "^0.2.9",
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.0.1",
+    "gulp-replace": "^0.5.4",
+    "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "gulp-wrapper": "^1.0.0"

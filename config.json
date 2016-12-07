@@ -1,8 +1,17 @@
 {
-  "offline":{
-    "steko" : ["../offline/steko/manifest.json"],
-    "windows" : ["../offline/windows/manifest.json"],
-    "background":["../offline/background.js"]
+  "offline": {
+    "steko": [
+      "../offline/steko/manifest.json"
+    ],
+    "window": [
+      "../offline/windows/manifest.json"
+    ],
+    "orange": [
+      "../offline/orange/manifest.json"
+    ],
+    "background": [
+      "../offline/background.js"
+    ]
   },
   "build": {
     "src": {
@@ -10,9 +19,7 @@
         "./dev/jade/**/*.jade",
         "!./dev/jade/**/_*.jade"
       ],
-
       "css": "./dev/sass/*.scss",
-
       "js": [
         "./dev/js/**/*.js",
         "!./dev/js/**/_*.js"
@@ -21,7 +28,6 @@
         "index.js",
         "**/*.js"
       ],
-
       "js_vendor": "./dev/vendor/**/*.js",
       "js_vendor_order": [
         "jquery/**/*.js",
@@ -29,14 +35,12 @@
         "angular/**/*.js",
         "**/*.js"
       ],
-
       "js_other": "./dev/js/**/_*.js",
       "img": "dev/img/**/*",
       "fonts": "dev/fonts/**/*",
       "audio": "dev/audio/*",
       "local": "dev/local/*.json"
     },
-
     "dest": {
       "css": "www/css",
       "html": "www/",
@@ -46,27 +50,93 @@
       "audio": "www/audio",
       "local": "www/local",
       "product": "www/product"
+    },
+    "steko": {
+      "site": {
+        "root":"_product/steko/site",
+        "css": "_product/steko/site/css",
+        "html": "_product/steko/site/",
+        "js": "_product/steko/site/js",
+        "img": "_product/steko/site/img",
+        "fonts": "_product/steko/site/fonts",
+        "audio": "_product/steko/site/audio",
+        "local": "_product/steko/site/local",
+        "product": "_product/steko/site/product"
+      },
+      "ext": {
+        "root":"_product/steko/ext",
+        "css": "_product/steko/ext/css",
+        "html": "_product/steko/ext/",
+        "js": "_product/steko/ext/js",
+        "img": "_product/steko/ext/img",
+        "fonts": "_product/steko/ext/fonts",
+        "audio": "_product/steko/ext/audio",
+        "local": "_product/steko/ext/local",
+        "product": "_product/steko/ext/product"
+      }
+    },
+    "window": {
+      "site": {
+        "root":"_product/window/site",
+        "css": "_product/window/site/css",
+        "html": "_product/window/site/",
+        "js": "_product/window/site/js",
+        "img": "_product/window/site/img",
+        "fonts": "_product/window/site/fonts",
+        "audio": "_product/window/site/audio",
+        "local": "_product/window/site/local",
+        "product": "_product/window/site/product"
+      },
+      "ext": {
+        "root":"_product/window/ext",
+        "css": "_product/window/ext/css",
+        "html": "_product/window/ext/",
+        "js": "_product/window/ext/js",
+        "img": "_product/window/ext/img",
+        "fonts": "_product/window/ext/fonts",
+        "audio": "_product/window/ext/audio",
+        "local": "_product/window/ext/local",
+        "product": "_product/window/ext/product"
+      }
+    },
+    "orange": {
+      "site": {
+        "root":"_product/orange/site",
+        "css": "_product/orange/site/css",
+        "html": "_product/orange/site/",
+        "js": "_product/orange/site/js",
+        "img": "_product/orange/site/img",
+        "fonts": "_product/orange/site/fonts",
+        "audio": "_product/orange/site/audio",
+        "local": "_product/orange/site/local",
+        "product": "_product/orange/site/product"
+      },
+      "ext": {
+        "root":"_product/orange/ext",
+        "css": "_product/orange/ext/css",
+        "html": "_product/orange/ext/",
+        "js": "_product/orange/ext/js",
+        "img": "_product/orange/ext/img",
+        "fonts": "_product/orange/ext/fonts",
+        "audio": "_product/orange/ext/audio",
+        "local": "_product/orange/ext/local",
+        "product": "_product/orange/ext/product"
+      }
     }
-
   },
   "watch": {
     "scss": [
       "dev/sass/**/*.scss",
       "dev/vendor/**/*.scss"
     ],
-
     "jade": "dev/jade/**/*.jade",
-
     "js": "dev/js/**/*.js",
-
     "js_vendor": "dev/vendor/**/*.js",
-
     "img": [
       "dev/img/**/*.png",
       "dev/img/**/*.jpg",
       "dev/img/**/*.gif"
     ],
-
     "fonts": [
       "dev/fonts/**/*.eot",
       "dev/fonts/**/*.ttf",
@@ -76,13 +146,19 @@
     ],
     "local": "dev/local/*.json"
   },
-
-  "server": {
+  "serverWindows": {
     "host": "windowscalculator.net",
     "port": "",
     "user": "windowscalculator_netfpm",
     "pass": "tyKlB@E0",
     "remotePath": "/web/calculator"
+  },
+  "serverOrange": {
+    "host": "orange.windowscalculator.net",
+    "port": "",
+    "user": "windowscalculator_netfpm",
+    "pass": "tyKlB@E0",
+    "remotePath": "/web/"
   },
   "serverSteko": {
     "host": "calculator.steko.com.ua",
@@ -91,7 +167,6 @@
     "pass": "_Y1zJyiXrwOJt",
     "remotePath": "/web"
   },
-
   "buildApp": {
     "src": {
       "html": "www/product/views/*.html",

@@ -360,10 +360,10 @@
           xhr.onload = function () {
             var reader = new FileReader();
             reader.onloadend = function () {
+              var key = "userAvatar";
               var value = reader.result;
-              var item = {};
-              item["userAvatar"] = value;
-              chrome.storage.local.set(item);
+              localforage.setItem(key, value, function (err, value) {
+              });
               callback(reader.result);
             }
             reader.readAsDataURL(xhr.response);
@@ -383,8 +383,8 @@
             setBase64Avatar(url, function (base64Img) {
             });
           } else {
-            chrome.storage.local.get("userAvatar", function (items) {
-              UserStor.userInfo.avatar = items["userAvatar"];
+            localforage.getItem("userAvatar", function (err, value) {
+              UserStor.userInfo.avatar = value;
             });
           }
           //USER AVATAR
@@ -398,6 +398,7 @@
               UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
               UserStor.userInfo.discountConstrMax = +discounts.max_construct;
               UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
+
 
               var disKeys = Object.keys(discounts),
                 disQty = disKeys.length, dis;
@@ -777,7 +778,6 @@
           });
         }
 
-        var key;
         //TODO
         /** download all Templates */
         //function downloadAllTemplates() {
@@ -788,9 +788,8 @@
         function downloadAllBackgrounds() {
           var deff = $q.defer();
           localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function (result) {
-            var rooms = null, roomQty = null;
-            rooms = angular.copy(result);
-            roomQty = rooms.length;
+            var rooms = angular.copy(result),
+                roomQty = rooms.length;
 
             if (roomQty) {
               /** sorting types by position */
@@ -798,18 +797,18 @@
                 return GeneralServ.sorting(a.position, b.position);
               });
 
+              //download images for rooms
 
-              while (--roomQty > -1) {
-                rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
-                //rooms[roomQty].img = globalConstants.serverIP + rooms[roomQty].img;
-                //---- prerendering img
-                $("<img />").attr("src", rooms[roomQty].img);
-              }
+              // while (--roomQty > -1) {
+              //   rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+              //   //rooms[roomQty].img = globalConstants.serverIP + rooms[roomQty].img;
+              //   //---- prerendering img
+              //   $("<img />").attr("src", rooms[roomQty].img);
+              // }
               rooms.forEach(function (entry) {
-                console.log("onlineMode", onlineMode);
-                console.log("navigator.onLine", navigator.onLine);
+                entry.img = globalConstants.serverIP + entry.img;
                 if (onlineMode && navigator.onLine) {
-                  var url = String(globalConstants.serverIP + entry.img);
+                  var url = String(entry.img);
                   var xhr = new XMLHttpRequest();
                   xhr.responseType = 'blob';
                   xhr.onload = function () {
@@ -826,8 +825,7 @@
                   };
                   xhr.open('GET', url, true);
                   xhr.send();
-                }
-                else {
+                }else {
                   var key = String(entry.img);
                   localforage.getItem(key, function (err, value) {
                     entry.img = value;
@@ -1680,7 +1678,7 @@
                                             item.elementType.forEach(function (entry) {
                                               if (entry.img !== "") {
                                                 if (onlineMode && navigator.onLine) {
-                                                  var url = String(entry.img);
+                                                  var url = String(globalConstants.serverIP + entry.img);
 
                                                   var xhr = new XMLHttpRequest();
                                                   xhr.responseType = 'blob';

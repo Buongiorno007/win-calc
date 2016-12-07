@@ -251,12 +251,14 @@
                     loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
-                    var item = {};
-                    item["UserStor.userInfo.phone"] = UserStor.userInfo.phone;
-                    chrome.storage.local.set(item);
-                    item["UserStor.userInfo.device_code"] = UserStor.userInfo.device_code;
-                    chrome.storage.local.set(item);
-                    //console.log("UserStor.userInfo.phone" , UserStor.userInfo.phone, "UserStor.userInfo.device_code", UserStor.userInfo.device_code);
+                    var key = "UserStor.userInfo.phone";
+                    var value = UserStor.userInfo.phone;
+                    localforage.setItem(key, value, function (err, value) {
+                    });
+                    var key = "UserStor.userInfo.device_code";
+                    var value = UserStor.userInfo.device_code;
+                    localforage.setItem(key, value, function (err, value) {
+                    });
                   }
                 });
               }
@@ -521,11 +523,12 @@
       loader()
     }
     if (!onlineMode && !navigator.onLine) {
-      chrome.storage.local.get("UserStor.userInfo.phone", function(items) {
-            UserStor.userInfo.phone = items["UserStor.userInfo.phone"];
+      localforage.getItem("UserStor.userInfo.phone", function (err, value) {
+        UserStor.userInfo.phone = value;
       });
-      chrome.storage.local.get("UserStor.userInfo.device_code", function(items) {
-            UserStor.userInfo.device_code = items["UserStor.userInfo.device_code"];
+
+      localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
+        UserStor.userInfo.device_code = value;
       });
     }
     function enterForm(form) {

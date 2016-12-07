@@ -27,7 +27,7 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && loginForm.password.$error.pattern || loginForm.password.$dirty && loginForm.password.$error.pattern") {{ ::loginPage.WRONG_LOGIN }}
 
       button.login-submit(type="submit") {{ ::loginPage.ENTER }}
-    .i
+    //#.i
       label.updateDB(fs-click="loginPage.isAutoSyncInfo = 0;")
         input#updateDBcheck(type="checkbox", name="updateDB", value="val")
         |{{ ::loginPage.AUTO_SYNCHRONIZE }}
