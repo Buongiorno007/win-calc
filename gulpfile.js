@@ -23,8 +23,7 @@ var gulp = require('gulp'),       // Собственно Gulp JS
   gutil = require('gulp-util'),
   js_obfuscator = require('gulp-js-obfuscator'),  //искажение кода, для невозможности его в дальнейшем расшифровать
   replace = require('gulp-replace'),              //модуль для замены меток в файлах на нужные значения
-  args = require('yargs').argv,
-  gulpsync = require('gulp-sync')(gulp);
+  args = require('yargs').argv;
 
 // Очистка результирующей папки
 gulp.task('clean', function () {
@@ -332,7 +331,7 @@ function buildExt(id) {
   gulp.src(config.build.src.css)
     .pipe(compass({
       css: "_product/" + id + "/ext/css",
-      image: "_product/" + id + "/ext/img",
+      image: "dev/img/",
       sass: "dev/sass",
       font: "_product/" + id + "/ext/fonts",
     }))
@@ -369,9 +368,67 @@ gulp.task('OrangeExt', function () {
     buildExt("orange");
 });
 
-gulp.task('buildExt', gulpsync.sync(['StekoExt', 'WindowExt', 'OrangeExt']));
+gulp.task('buildExt', function () {
+  gulp.start(['StekoExt', 'WindowExt', 'OrangeExt']);
+});
 
+/**BUILDING SITE FOLDER*/
 
+function buildSite(id) {
+  gulp.src(config.build.src.css)
+    .pipe(compass({
+      css: "_product/" + id + "/site",
+      image: "dev/img/",
+      sass: "dev/sass",
+      font: "_product/" + id + "/site",
+    }))
+  // main.js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env[id]))
+    .pipe(replace('PRINT_IP', print_env[id]))
+    .pipe(replace('LOCAL_PATH', path_env[id]))
+    .pipe(concat('main.js'))
+    .pipe(ngAnnotate({add: true}))
+    .pipe(uglify({mangle: true}).on('error', gutil.log))
+    .pipe(gulp.dest("_product/" + id + "/site"));
+
+  // plugins.js
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest("_product/" + id + "/site"));
+
+  // html
+  gulp.src(config.build.src.html)
+    .pipe(newer("_product/" + id + "/site", '.html'))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+
+    .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+    .pipe(gulp.dest("_product/" + id + "/site"));
+}
+gulp.task('stekoSite',function () {
+  buildSite("steko");
+});
+
+gulp.task('windowSite', function () {
+  buildSite("windowSite");
+});
+
+gulp.task('orangeSite', function () {
+  buildSite("orange");
+});
+gulp.task('buildSite', function () {
+  gulp.start(['stekoSite', 'windowSite', 'orangeSite']);
+});
 
 /** PRODUCTION css and js min */
 gulp.task('prod', function () {
