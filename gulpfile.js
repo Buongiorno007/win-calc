@@ -45,14 +45,14 @@ function compassTask() {
   return gulp.src(config.build.src.css)
     .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
     .pipe(compass({
-//      project: "/",
+      //      project: "/",
       css: "www/css",
       sass: "dev/sass",
       font: "www/fonts",
       image: "www/img",
       javascript: "www/js",
-//      style: 'compressed',
-//      relative: true,
+      //      style: 'compressed',
+      //      relative: true,
       comments: true
     })); // Пути к css и scss должны совпадать с путями в config.rb
 }
@@ -323,11 +323,11 @@ function buildExt(id) {
     .pipe(newer("_product/" + id + "/ext/img"))
     .pipe(gulp.dest("_product/" + id + "/ext/img"));
 
-// Копируем шрифты
+  // Копируем шрифты
   gulp.src(config.build.src.fonts)
     .pipe(newer("_product/" + id + "/ext/fonts"))
     .pipe(gulp.dest("_product/" + id + "/ext/fonts"));
-//css
+  //css
   gulp.src(config.build.src.css)
     .pipe(compass({
       css: "_product/" + id + "/ext/css",
@@ -337,12 +337,12 @@ function buildExt(id) {
     }))
     .pipe(csso())
     .pipe(gulp.dest("_product/" + id + "/ext/css"));
-// Копируем audio
+  // Копируем audio
   gulp.src(config.build.src.audio)
     .pipe(newer("_product/" + id + "/ext/audio"))
     .pipe(gulp.dest("_product/" + id + "/ext/audio"));
 
-// copy translate jsons
+  // copy translate jsons
   gulp.src(config.build.src.local)
     .pipe(newer("_product/" + id + "/ext/local"))
     .pipe(gulp.dest("_product/" + id + "/ext/local"));
@@ -356,16 +356,16 @@ function buildExt(id) {
 }
 
 
-gulp.task('StekoExt',function () {
+gulp.task('StekoExt', function () {
   buildExt("steko");
 });
 
 gulp.task('WindowExt', function () {
-    buildExt("window");
+  buildExt("window");
 });
 
 gulp.task('OrangeExt', function () {
-    buildExt("orange");
+  buildExt("orange");
 });
 
 gulp.task('buildExt', function () {
@@ -415,7 +415,7 @@ function buildSite(id) {
     .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
     .pipe(gulp.dest("_product/" + id + "/site"));
 }
-gulp.task('stekoSite',function () {
+gulp.task('stekoSite', function () {
   buildSite("steko");
 });
 
@@ -429,7 +429,40 @@ gulp.task('orangeSite', function () {
 gulp.task('buildSite', function () {
   gulp.start(['stekoSite', 'windowSite', 'orangeSite']);
 });
+/**UPLOAD SITE TO SERVER */
+var server = config.serverSteko;
+function uploadSite(id) {
 
+  gulp.src("_product/" + id + "/site" + 'index.html')
+    .pipe(ftp(server));
+  /** upload html */
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/views';
+  gulp.src("_product/" + id + "/site" + '/views/*.html')
+    .pipe(ftp(settings));
+  /** upload js */
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/js';
+  gulp.src("_product/" + id + "/site" + '/*.js')
+    .pipe(ftp(settings));
+  /** upload css */
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/css';
+  gulp.src("_product/" + id + "/site" + '/*.css')
+    .pipe(ftp(settings));
+
+  /** upload fonts */
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/fonts/icons';
+  gulp.src(config.build.src.fonts + '/icons/*.ttf')
+    .pipe(ftp(settings));
+
+  /** upload translate */
+  var settings = JSON.parse(JSON.stringify(server));
+  settings.remotePath += '/local';
+  gulp.src(config.build.src.local + '/*.json')
+    .pipe(ftp(settings));
+}
 /** PRODUCTION css and js min */
 gulp.task('prod', function () {
   // css
@@ -472,8 +505,8 @@ gulp.task('prod', function () {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-//var server = config.serverWindows;
-//var server = config.serverOrange;
+  //var server = config.serverWindows;
+  //var server = config.serverOrange;
 var server = config.serverSteko;
 
 /** upload index */
