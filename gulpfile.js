@@ -276,7 +276,6 @@ gulp.task('default', ['watch']);
 //    .pipe(gulp.dest(config.build.dest.fonts));
 //});
 /** OFFLINE */
-
 function buildExt(id) {
   //html
   gulp.src(config.build.src.html)
@@ -327,16 +326,7 @@ function buildExt(id) {
   gulp.src(config.build.src.fonts)
     .pipe(newer("_product/" + id + "/ext/fonts"))
     .pipe(gulp.dest("_product/" + id + "/ext/fonts"));
-  //css
-  gulp.src(config.build.src.css)
-    .pipe(compass({
-      css: "_product/" + id + "/ext/css",
-      image: "dev/img/",
-      sass: "dev/sass",
-      font: "_product/" + id + "/ext/fonts",
-    }))
-    .pipe(csso())
-    .pipe(gulp.dest("_product/" + id + "/ext/css"));
+
   // Копируем audio
   gulp.src(config.build.src.audio)
     .pipe(newer("_product/" + id + "/ext/audio"))
@@ -353,36 +343,55 @@ function buildExt(id) {
 
   gulp.src(config.offline.background)
     .pipe(gulp.dest("_product/" + id + "/ext"));
+    //css
+    gulp.src(config.build.src.css)
+      .pipe(compass({
+        css: "_product/" + id + "/ext/css",
+        image: "_product/" + id + "/ext/img/",
+        sass: "dev/sass",
+        font: "_product/" + id + "/ext/fonts",
+      }))
+      .pipe(csso())
+      .pipe(gulp.dest("_product/" + id + "/ext/css"));
 }
+/**!!!!!!!!!!!!!ВАЖНО билдить расширения можно поочередно руками или командой
+ *
+ * gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt
+ *
+ * задача buildExt выполняется корректно при условии что уже есть папка img
+**/
 
-
-gulp.task('StekoExt', function () {
+gulp.task('buildStekoExt', function () {
   buildExt("steko");
 });
 
-gulp.task('WindowExt', function () {
+gulp.task('buildWindowExt', function () {
   buildExt("window");
 });
 
-gulp.task('OrangeExt', function () {
+gulp.task('buildOrangeExt', function () {
   buildExt("orange");
 });
 
 gulp.task('buildExt', function () {
-  gulp.start(['StekoExt', 'WindowExt', 'OrangeExt']);
+  gulp.start('StekoExt', 'WindowExt','OrangeExt');
 });
 
 /**BUILDING SITE FOLDER*/
 
 function buildSite(id) {
-  gulp.src(config.build.src.css)
-    .pipe(compass({
-      css: "_product/" + id + "/site",
-      image: "dev/img/",
-      sass: "dev/sass",
-      font: "_product/" + id + "/site",
+  //html
+  gulp.src(config.build.src.html)
+    .pipe(newer("_product/" + id + "/site", '.html'))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
     }))
-  // main.js
+    .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+    .pipe(gulp.dest("_product/" + id + "/site"));
+
+  //js
   gulp.src(config.build.src.js)
     .pipe(wrapper({
       header: '\n// ${filename}\n\n',
@@ -394,61 +403,90 @@ function buildSite(id) {
     .pipe(replace('LOCAL_PATH', path_env[id]))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
-    .pipe(uglify({mangle: true}).on('error', gutil.log))
-    .pipe(gulp.dest("_product/" + id + "/site"));
+    .pipe(js_obfuscator())
+    .pipe(uglify())
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
-  // plugins.js
+
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
-    .pipe(gulp.dest("_product/" + id + "/site"));
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
-  // html
-  gulp.src(config.build.src.html)
-    .pipe(newer("_product/" + id + "/site", '.html'))
-    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
-    .pipe(jade({
-      doctype: 'html',
-      pretty: true
+  gulp.src(config.build.src.js_other)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
     }))
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
-    .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
-    .pipe(gulp.dest("_product/" + id + "/site"));
+  // Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(newer("_product/" + id + "/site/img"))
+    .pipe(gulp.dest("_product/" + id + "/site/img"));
+
+  // Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(newer("_product/" + id + "/site/fonts"))
+    .pipe(gulp.dest("_product/" + id + "/site/fonts"));
+
+  // Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(newer("_product/" + id + "/site/audio"))
+    .pipe(gulp.dest("_product/" + id + "/site/audio"));
+
+  // copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(newer("_product/" + id + "/site/local"))
+    .pipe(gulp.dest("_product/" + id + "/site/local"));
+  //css
+  gulp.src(config.build.src.css)
+    .pipe(compass({
+      css: "_product/" + id + "/site/css",
+      image: "_product/" + id + "/site/img/",
+      sass: "dev/sass",
+      font: "_product/" + id + "/site/fonts",
+    }))
+    .pipe(csso())
+    .pipe(gulp.dest("_product/" + id + "/site/css"));
 }
-gulp.task('stekoSite', function () {
+
+gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
-gulp.task('windowSite', function () {
+gulp.task('buildWindowSite', function () {
   buildSite("windowSite");
 });
 
-gulp.task('orangeSite', function () {
+gulp.task('buildOrangeSite', function () {
   buildSite("orange");
 });
+
 gulp.task('buildSite', function () {
   gulp.start(['stekoSite', 'windowSite', 'orangeSite']);
 });
+
 /**UPLOAD SITE TO SERVER */
 var server = config.serverSteko;
 function uploadSite(id) {
 
-  gulp.src("_product/" + id + "/site" + 'index.html')
+  gulp.src("_product/" + id + "/site/toUpload" + 'index.html')
     .pipe(ftp(server));
   /** upload html */
   var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/views';
-  gulp.src("_product/" + id + "/site" + '/views/*.html')
+  gulp.src("_product/" + id + "/site/toUpload" + '/views/*.html')
     .pipe(ftp(settings));
   /** upload js */
   var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/js';
-  gulp.src("_product/" + id + "/site" + '/*.js')
+  gulp.src("_product/" + id + "/site/toUpload" + '/*.js')
     .pipe(ftp(settings));
   /** upload css */
   var settings = JSON.parse(JSON.stringify(server));
   settings.remotePath += '/css';
-  gulp.src("_product/" + id + "/site" + '/*.css')
+  gulp.src("_product/" + id + "/site/toUpload" + '/*.css')
     .pipe(ftp(settings));
 
   /** upload fonts */
