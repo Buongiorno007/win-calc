@@ -198,7 +198,6 @@
       } else {
         CartStor.cart.allAddElemsOrder = angular.copy(addElemsSource[CartStor.cart.selectedProduct]).reverse();
       }
-      console.warn(CartStor.cart.allAddElemsOrder);
     }
 
 

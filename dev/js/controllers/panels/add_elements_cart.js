@@ -53,6 +53,9 @@
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
     }
 
 
@@ -393,6 +396,9 @@
 
 
     function selectProductToAddElem(prodInd) {
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
       if(CartStor.cart.selectedProduct === prodInd) {
         CartStor.cart.selectedProduct = -1;
       } else {

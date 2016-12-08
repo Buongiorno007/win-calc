@@ -309,7 +309,7 @@
         <section ng-controller="AddElemCartCtrl as elemCartPanel" ng-class="{'active': cartPage.C.cart.isAllAddElems}" class="cart-container alladdelements-view">
           <div class="alladdelements-header">
             <button fs-click="elemCartPanel.closeAllAddElemsPanel()" class="close-alladdelements"></button>
-            <div ng-if="cartPage.C.cart.isSelectedProduct">
+            <div ng-if="cartPage.C.cart.selectedProduct !== -1">
               <form ng-controller="searchCtrl as searchBox" name="searchForm">
                 <div class="search-block">
                   <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">

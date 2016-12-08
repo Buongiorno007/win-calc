@@ -2785,6 +2785,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
     }
 
 
@@ -3125,6 +3128,9 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
 
 
     function selectProductToAddElem(prodInd) {
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
       if(CartStor.cart.selectedProduct === prodInd) {
         CartStor.cart.selectedProduct = -1;
       } else {
@@ -9388,7 +9394,6 @@ function ErrorResult(code, message) {
       } else {
         CartStor.cart.allAddElemsOrder = angular.copy(addElemsSource[CartStor.cart.selectedProduct]).reverse();
       }
-      console.warn(CartStor.cart.allAddElemsOrder);
     }
 
 
@@ -13088,7 +13093,6 @@ function ErrorResult(code, message) {
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
-      console.log(newValue, 'newValue')
       var obj = [
         'element_height',
         'element_type',
@@ -13102,7 +13106,6 @@ function ErrorResult(code, message) {
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
       if(element[index].element_qty + newValue <= 0 || newValue == 0) {
-        console.log('false')
         return false;
       } else {
 
@@ -13124,7 +13127,7 @@ function ErrorResult(code, message) {
                   firstIndex = addElemProdQty;
                   secondIndex = addElemQty;
                   calcAddElemPrice(element[index]).then(function() {
-                    calcAddElemPrice(OrderStor.order.products[0].chosenAddElements[firstIndex][secondIndex]).then(function() {
+                    calcAddElemPrice(OrderStor.order.products[CartStor.cart.selectedProduct].chosenAddElements[firstIndex][secondIndex]).then(function() {
                       CartServ.calculateAddElemsProductsPrice(1);
                       CartMenuServ.calculateOrderPrice();
                       CartMenuServ.joinAllAddElements();
@@ -18800,7 +18803,6 @@ function ErrorResult(code, message) {
           UserStor.userInfo.avatar = items["userAvatar"];
         });
       }
-      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);

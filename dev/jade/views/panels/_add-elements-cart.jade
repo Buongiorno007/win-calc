@@ -2,7 +2,7 @@
 section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': cartPage.C.cart.isAllAddElems}")
   .alladdelements-header
     button.close-alladdelements(fs-click="elemCartPanel.closeAllAddElemsPanel()")
-    div(ng-if="cartPage.C.cart.isSelectedProduct")
+    div(ng-if="cartPage.C.cart.selectedProduct !== -1")
       include ../parts/_search-block
 
     include ../parts/_addelems-group-menu

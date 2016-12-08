@@ -376,7 +376,6 @@
           UserStor.userInfo.avatar = items["userAvatar"];
         });
       }
-      console.log("UserStor.userInfo.avatar",UserStor.userInfo.avatar);
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
             //    console.log('DISCTOUN=====', result);

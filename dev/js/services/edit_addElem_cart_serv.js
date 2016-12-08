@@ -43,7 +43,6 @@
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
-      console.log(newValue, 'newValue')
       var obj = [
         'element_height',
         'element_type',
@@ -57,7 +56,6 @@
       var element = CartStor.cart.allAddElemsOrder,
           index = CartStor.cart.addElemIndex;
       if(element[index].element_qty + newValue <= 0 || newValue == 0) {
-        console.log('false')
         return false;
       } else {
 
@@ -79,7 +77,7 @@
                   firstIndex = addElemProdQty;
                   secondIndex = addElemQty;
                   calcAddElemPrice(element[index]).then(function() {
-                    calcAddElemPrice(OrderStor.order.products[0].chosenAddElements[firstIndex][secondIndex]).then(function() {
+                    calcAddElemPrice(OrderStor.order.products[CartStor.cart.selectedProduct].chosenAddElements[firstIndex][secondIndex]).then(function() {
                       CartServ.calculateAddElemsProductsPrice(1);
                       CartMenuServ.calculateOrderPrice();
                       CartMenuServ.joinAllAddElements();
