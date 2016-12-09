@@ -1,29 +1,29 @@
 'use strict';
 // Инициализируем плагины
-var gulp = require('gulp'),       // Собственно Gulp JS
-  config = require('./config.json'),   // Конфиг для проектов
-  newer = require('gulp-newer'),      // Passing through only those source files that are newer than corresponding destination files
-  concat = require('gulp-concat'),     // Склейка файлов
-  jade = require('gulp-jade'),       // Плагин для Jade
-  compass = require('gulp-compass'),    // Плагин для Compass
-  csso = require('gulp-csso'),       // Минификация CSS
-  imagemin = require('gulp-imagemin'),   // Минификация изображений
-  uglify = require('gulp-uglify'),     // Минификация JS
-  ftp = require('gulp-ftp'),        // FTP-клиент
-  del = require('del'),             // Удаление файлов и папок
-  browserSync = require('browser-sync'),    // Обновление без перезагрузки страницы
+var gulp = require('gulp'),                       // Собственно Gulp JS
+  config = require('./config.json'),              // Конфиг для проектов
+  newer = require('gulp-newer'),                  // Passing through only those source files that are newer than corresponding destination files
+  concat = require('gulp-concat'),                // Склейка файлов
+  jade = require('gulp-jade'),                    // Плагин для Jade
+  compass = require('gulp-compass'),              // Плагин для Compass
+  csso = require('gulp-csso'),                    // Минификация CSS
+  imagemin = require('gulp-imagemin'),            // Минификация изображений
+  uglify = require('gulp-uglify'),                // Минификация JS
+  ftp = require('gulp-ftp'),                      // FTP-клиент
+  del = require('del'),                           // Удаление файлов и папок
+  browserSync = require('browser-sync'),          // Обновление без перезагрузки страницы
   reload = browserSync.reload,
-  order = require('gulp-order'),      // Определение порядка файлов в потоке
-  csscomb = require('gulp-csscomb'),    // Форматирование стилей
-  wrapper = require('gulp-wrapper'),    // Добавляет к файлу текстовую шапку и/или подвал
-  plumber = require('gulp-plumber'),    // Перехватчик ошибок
-  notify = require("gulp-notify"),     // Нотификатор
+  order = require('gulp-order'),                  // Определение порядка файлов в потоке
+  csscomb = require('gulp-csscomb'),              // Форматирование стилей
+  wrapper = require('gulp-wrapper'),              // Добавляет к файлу текстовую шапку и/или подвал
+  plumber = require('gulp-plumber'),              // Перехватчик ошибок
+  notify = require("gulp-notify"),                // Нотификатор
   ngAnnotate = require('gulp-ng-annotate'),
   htmlmin = require('gulp-htmlmin'),
   gutil = require('gulp-util'),
-  js_obfuscator = require('gulp-js-obfuscator'),  //искажение кода, для невозможности его в дальнейшем расшифровать
-  replace = require('gulp-replace'),              //модуль для замены меток в файлах на нужные значения
-  args = require('yargs').argv;
+  js_obfuscator = require('gulp-js-obfuscator'),  //обфускация кода
+  replace = require('gulp-replace'),              //плагин для замены данных в файлах (в нашем случае заменяется метка server_ip на конкретный адрес формата "http://...")
+  args = require('yargs').argv;                   //компонент для ипользования параметров которые перезадются в таску галпа. пример gulp --env windowSite
 
 // Очистка результирующей папки
 gulp.task('clean', function () {
@@ -89,7 +89,7 @@ var server_env = {
     "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
-    "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
+    "": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
     "windowSite": "'/calculator/local/'",
@@ -97,15 +97,16 @@ var server_env = {
     "orange": "'/local/'",
     "window": "'/local/'"
   };
-// Собираем JS
+
 //для указания сервера, к которому будет обращаться приложение необходимо передать параметр
 //по умолчанию обращение идет к стеко.
-//пример "gulp --env window"   - переключение на сервер WindowsCalculator
-//"gulp --env offline" - для расширения. т.к. пути к файлам отличаются
+//пример "gulp --env windowSite"   - переключение на сервер WindowsCalculator
+//"gulp --env window" - для расширения. т.к. пути к файлам отличаются
 //gulp --env steko
 //gulp --env orange
-// собственно параметры window|steko|orange|offline
+// собственно параметры windowSite|steko|orange|window
 
+// Собираем JS
 gulp.task('js', function () {
   return gulp.src(config.build.src.js)
     .pipe(wrapper({
@@ -275,7 +276,11 @@ gulp.task('default', ['watch']);
 //  gulp.src(config.build.src.fonts)
 //    .pipe(gulp.dest(config.build.dest.fonts));
 //});
-/** OFFLINE */
+/** extension
+ * функция для сборки расширения в указанную папку.
+ * id - параметр для указания пути, в какую папку сбирать расширение
+ * одна функция для всех расширений
+ **/
 function buildExt(id) {
   //html
   gulp.src(config.build.src.html)
@@ -303,7 +308,6 @@ function buildExt(id) {
     .pipe(js_obfuscator())
     .pipe(uglify())
     .pipe(gulp.dest("_product/" + id + "/ext/js"));
-
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
@@ -343,23 +347,23 @@ function buildExt(id) {
 
   gulp.src(config.offline.background)
     .pipe(gulp.dest("_product/" + id + "/ext"));
-    //css
-    gulp.src(config.build.src.css)
-      .pipe(compass({
-        css: "_product/" + id + "/ext/css",
-        image: "_product/" + id + "/ext/img/",
-        sass: "dev/sass",
-        font: "_product/" + id + "/ext/fonts",
-      }))
-      .pipe(csso())
-      .pipe(gulp.dest("_product/" + id + "/ext/css"));
+  //css
+  gulp.src(config.build.src.css)
+    .pipe(compass({
+      css: "_product/" + id + "/ext/css",
+      image: "_product/" + id + "/ext/img/",
+      sass: "dev/sass",
+      font: "_product/" + id + "/ext/fonts",
+    }))
+    .pipe(csso())
+    .pipe(gulp.dest("_product/" + id + "/ext/css"));
 }
 /**!!!!!!!!!!!!!ВАЖНО билдить расширения можно поочередно руками или командой
  *
  * gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt
  *
- * задача buildExt выполняется корректно при условии что уже есть папка img
-**/
+ * задача buildExt выполняется не корректно
+ **/
 
 gulp.task('buildStekoExt', function () {
   buildExt("steko");
@@ -374,10 +378,13 @@ gulp.task('buildOrangeExt', function () {
 });
 
 gulp.task('buildExt', function () {
-  gulp.start('StekoExt', 'WindowExt','OrangeExt');
+  gulp.start('StekoExt', 'WindowExt', 'OrangeExt');
 });
 
-/**BUILDING SITE FOLDER*/
+/**BUILDING SITE FOLDER
+ * сборка папки для заливки на сервер
+ * минифицирует все файлы (html, css, js)
+ **/
 
 function buildSite(id) {
   //html
@@ -467,40 +474,6 @@ gulp.task('buildSite', function () {
   gulp.start(['stekoSite', 'windowSite', 'orangeSite']);
 });
 
-/**UPLOAD SITE TO SERVER */
-var server = config.serverSteko;
-function uploadSite(id) {
-
-  gulp.src("_product/" + id + "/site/toUpload" + 'index.html')
-    .pipe(ftp(server));
-  /** upload html */
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/views';
-  gulp.src("_product/" + id + "/site/toUpload" + '/views/*.html')
-    .pipe(ftp(settings));
-  /** upload js */
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/js';
-  gulp.src("_product/" + id + "/site/toUpload" + '/*.js')
-    .pipe(ftp(settings));
-  /** upload css */
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/css';
-  gulp.src("_product/" + id + "/site/toUpload" + '/*.css')
-    .pipe(ftp(settings));
-
-  /** upload fonts */
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/fonts/icons';
-  gulp.src(config.build.src.fonts + '/icons/*.ttf')
-    .pipe(ftp(settings));
-
-  /** upload translate */
-  var settings = JSON.parse(JSON.stringify(server));
-  settings.remotePath += '/local';
-  gulp.src(config.build.src.local + '/*.json')
-    .pipe(ftp(settings));
-}
 /** PRODUCTION css and js min */
 gulp.task('prod', function () {
   // css
@@ -595,6 +568,82 @@ gulp.task('upload-json', function () {
 gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css', 'upload-fonts', 'upload-json']);
 
 
+function makeApp(id) {
+
+//html
+  gulp.src(config.build.src.html)
+    .pipe(newer("_iosApp/"+id+"/www", '.html'))
+    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(jade({
+      doctype: 'html',
+      pretty: true
+    }))
+    .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+    .pipe(gulp.dest("_iosApp/"+id+"/www"))
+    .pipe(reload({stream: true}));
+
+  //js
+  gulp.src(config.build.src.js)
+    .pipe(wrapper({
+      header: '\n// ${filename}\n\n',
+      footer: '\n'
+    }))
+    .pipe(order(config.build.src.js_order))
+    .pipe(replace('SERVER_IP', server_env[id]))
+    .pipe(replace('PRINT_IP', print_env[id]))
+    .pipe(replace('LOCAL_PATH', path_env[id]))
+    .pipe(concat('main.js'))
+    .pipe(ngAnnotate({add: true}))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/js"));
+
+  gulp.src(config.build.src.js_vendor)
+    .pipe(order(config.build.src.js_vendor_order))
+    .pipe(concat('plugins.js'))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/js"));
+
+  // Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(newer("_iosApp/"+id+"/www/img"))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/img"));
+
+  // Копируем шрифты
+  gulp.src(config.build.src.fonts)
+    .pipe(newer("_iosApp/"+id+"/www/fonts"))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/fonts"));
+
+  // Копируем audio
+  gulp.src(config.build.src.audio)
+    .pipe(newer("_iosApp/"+id+"/www/audio"))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/audio"));
+
+  // copy translate jsons
+  gulp.src(config.build.src.local)
+    .pipe(newer("_iosApp/"+id+"/www/local"))
+    .pipe(gulp.dest("_iosApp/"+id+"/www/local"));
+
+  //css
+  gulp.src(config.build.src.css)
+    .pipe(compass({
+      css: "_iosApp/"+id+"/www/css",
+      image: "_iosApp/"+id+"/www/img",
+      sass: "dev/sass",
+      font: "_iosApp/"+id+"/www/fonts",
+      javascript: "_iosApp/"+id+"/www/js"
+    }))
+    .pipe(csso())
+    .pipe(gulp.dest("_iosApp/"+id+"/www/css"));
+}
+gulp.task('buildStekoApp', function () {
+  makeApp("steko");
+});
+
+gulp.task('buildWindowApp', function () {
+  makeApp("window");
+});
+
+gulp.task('buildOrangeApp', function () {
+  makeApp("orange");
+});
 // PhoneGap build
 // Копируем in app/www
 //var appPath = 'app/platforms/ios/';
