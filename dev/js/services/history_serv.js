@@ -24,7 +24,8 @@
     UserStor,
     HistoryStor,
     CartStor,
-    DesignStor
+    DesignStor,
+    PrintServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -472,9 +473,9 @@
 
 
     //------ Download All Products Data for Order
-    function downloadProducts() {
+    function downloadProducts(print) {
       var deferred = $q.defer();
-
+      var printProd = [];
       localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
       ).then(function(result) {
@@ -565,9 +566,14 @@
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
                     ) + item.addelemPriceDis);
-                      OrderStor.order.products.push(item);
-                      //console.log(item, 'item')
-                      deferIcon.resolve(1);                   
+                      if(item) {
+                        printProd.push(item);
+                        deferIcon.resolve(printProd);                   
+                      } else {
+                        OrderStor.order.products.push(item);
+                        deferIcon.resolve(1);                   
+                      }
+                      //console.log(item, 'item')                
                   });
                 });
               }
@@ -804,7 +810,11 @@
       var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
       if(navigator.onLine) {
-        GeneralServ.goToLink(printLink);
+        //GeneralServ.goToLink(printLink);
+        GlobalStor.global.orderEditNumber = orderId;
+        downloadProducts(1).then( function(result) {
+          PrintServ.getProducts(result[0]);
+        }) 
       } else {
         HistoryStor.history.isNoPrint = 1;
       }

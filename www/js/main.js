@@ -1037,7 +1037,8 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     UserStor,
     HistoryStor,
     HistoryServ,
-    CartServ
+    CartServ,
+    PrintServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -1108,6 +1109,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
     thisCtrl.createdDate = 'created';
 
     HistoryServ.downloadOrders();
+      console.log(HistoryStor.history.orders, HistoryStor.history.ordersSource, 'testArr')
 
 
     //------ clicking
@@ -13971,7 +13973,8 @@ function ErrorResult(code, message) {
     UserStor,
     HistoryStor,
     CartStor,
-    DesignStor
+    DesignStor,
+    PrintServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
@@ -14419,9 +14422,9 @@ function ErrorResult(code, message) {
 
 
     //------ Download All Products Data for Order
-    function downloadProducts() {
+    function downloadProducts(print) {
       var deferred = $q.defer();
-
+      var printProd = [];
       localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
       ).then(function(result) {
@@ -14512,9 +14515,14 @@ function ErrorResult(code, message) {
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
                     ) + item.addelemPriceDis);
-                      OrderStor.order.products.push(item);
-                      //console.log(item, 'item')
-                      deferIcon.resolve(1);                   
+                      if(item) {
+                        printProd.push(item);
+                        deferIcon.resolve(printProd);                   
+                      } else {
+                        OrderStor.order.products.push(item);
+                        deferIcon.resolve(1);                   
+                      }
+                      //console.log(item, 'item')                
                   });
                 });
               }
@@ -14751,7 +14759,11 @@ function ErrorResult(code, message) {
       var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
       if(navigator.onLine) {
-        GeneralServ.goToLink(printLink);
+        //GeneralServ.goToLink(printLink);
+        GlobalStor.global.orderEditNumber = orderId;
+        downloadProducts(1).then( function(result) {
+          PrintServ.getProducts(result[0]);
+        }) 
       } else {
         HistoryStor.history.isNoPrint = 1;
       }
@@ -24005,6 +24017,47 @@ if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalSto
     	return thisFactory.publicObj;
   });
 })();
+
+
+// services/print_serv.js
+
+(function(){
+  'use strict';
+  /**@ngInject*/
+  angular
+    .module('CartModule')
+    .factory('PrintServ',
+ 
+  function(
+    $location,
+    $filter,
+    GeneralServ,
+    MainServ,
+    CartMenuServ,
+    GlobalStor,
+    HistoryStor
+  ) {
+    /*jshint validthis:true */
+    var thisFactory = this;
+
+
+    /**============ METHODS ================*/
+       function getProducts(products) {
+        HistoryStor.history.isTest = products;
+        console.log(products, 'products=====')
+      }
+    /**========== FINISH ==========*/
+
+    thisFactory.publicObj = {
+      getProducts:getProducts
+    };
+
+    return thisFactory.publicObj;
+
+
+  });
+})();
+
 
 
 // services/profile_serv.js
