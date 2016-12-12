@@ -24,14 +24,15 @@
     UserStor,
     HistoryStor,
     CartStor,
-    DesignStor
+    DesignStor,
+    PrintServ
   ) {
     /*jshint validthis:true */
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
     var onlineMode;
-    function getOnline(){   
+    function getOnline(){
       $.get("http://api.steko.com.ua", function(data) {
         onlineMode = true;
         return true;
@@ -160,7 +161,7 @@
           for(var x=0; x<check.length; x+=1) {
             if(check[x] !== orderNum) {
               HistoryStor.history.firstClick.push(orderNum);
-            } 
+            }
           }
         } else {
           //console.info('first click')
@@ -184,7 +185,7 @@
           }
         }
       } else {
-          
+
             $.get(globalConstants.serverIP, function (data) {
                 onlineMode = true;
             })
@@ -258,7 +259,7 @@
                 }
             });
         } else {
-          
+
             $.get(globalConstants.serverIP, function (data) {
                 onlineMode = true;
             })
@@ -272,7 +273,7 @@
                     );
         }
 
-    } 
+    }
 
     function deleteOption() {
       $("#deleteOption").remove();
@@ -407,13 +408,13 @@
                 [], // 8 - windowSill
                 [], // 9 - handles
                 [], // 10 - others
-                [], // 11 - shutters 
-                [], // 12 - grating 
-                [], // 13 - blind 
-                [], // 14 - shut 
-                [], // 15 - grat 
-                [], // 16 - vis 
-                []  // 17 - spil 
+                [], // 11 - shutters
+                [], // 12 - grating
+                [], // 13 - blind
+                [], // 14 - shut
+                [], // 15 - grat
+                [], // 16 - vis
+                []  // 17 - spil
               ];
             }
             dloadAddElements().then(function(data) {
@@ -440,7 +441,7 @@
                 deferred.resolve(1);
               }
             });
-          }); 
+          });
         });
         return deferred.promise;
       }
@@ -533,9 +534,9 @@
 
 
     //------ Download All Products Data for Order
-    function downloadProducts() {
+    function downloadProducts(print) {
       var deferred = $q.defer();
-
+      var printProd = [];
       localDB.selectLocalDB(
         localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}
       ).then(function(result) {
@@ -626,9 +627,14 @@
                     item.productPriceDis = (GeneralServ.setPriceDis(
                       item.template_price, OrderStor.order.discount_construct
                     ) + item.addelemPriceDis);
-                      OrderStor.order.products.push(item);
+                      if(item) {
+                        printProd.push(item);
+                        deferIcon.resolve(printProd);
+                      } else {
+                        OrderStor.order.products.push(item);
+                        deferIcon.resolve(1);
+                      }
                       //console.log(item, 'item')
-                      deferIcon.resolve(1);                   
                   });
                 });
               }
@@ -690,7 +696,7 @@
             allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length,
             prod, index;
-            
+
         for(var x=0; x<allAddElemQty; x+=1) {
           for(var y=0; y<addElementsAll[elementsAdd[x].element_type].elementsList.length; y+=1) {
             for(var z=0; z<addElementsAll[elementsAdd[x].element_type].elementsList[y].length; z+=1) {
@@ -746,7 +752,7 @@
         if(typeOrder) {
           if(HistoryStor.history.orders[ordersQty].id === orderNum) {
             angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-            CartStor.fillOrderForm();             
+            CartStor.fillOrderForm();
           }
         } else {
           if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
@@ -793,14 +799,14 @@
 
         function calculate (products, _cb) {
           async.waterfall([
-            function (_callback) {   
+            function (_callback) {
               if(products.construction_type === 4) {
                 DesignServ.setDoorConfigDefault(products).then(function(res) {
-                  _callback();   
+                  _callback();
                 });
               } else {
-                _callback();   
-              }      
+                _callback();
+              }
             }
           ],
           function (err, result) {
@@ -864,8 +870,19 @@
       //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
       var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
       /** check internet */
+
       if(navigator.onLine) {
-        GeneralServ.goToLink(printLink);
+        HistoryStor.history.orders.forEach(function (entry, index) {
+          if (entry.id === orderId){
+            HistoryStor.history.historyID = index;
+
+          }
+        });
+       //GeneralServ.goToLink(printLink);
+        GlobalStor.global.orderEditNumber = orderId;
+        downloadProducts(1).then( function(result) {
+          PrintServ.getProducts(result[0]);
+        })
       } else {
         HistoryStor.history.isNoPrint = 1;
       }
@@ -1063,7 +1080,7 @@
                 RecOrderServ.box();
               })
 
-        
+
 
 
 

@@ -11,7 +11,8 @@
     UserStor,
     HistoryStor,
     HistoryServ,
-    CartServ
+    CartServ,
+    PrintServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -83,8 +84,6 @@
     thisCtrl.createdDate = 'created';
 
     HistoryServ.downloadOrders();
-
-
     //------ clicking
     thisCtrl.reqResult = HistoryServ.reqResult;
     thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;

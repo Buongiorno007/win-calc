@@ -15,6 +15,7 @@
 
     thisFactory.publicObj = {
       historySource: {
+        historyID : -1,
         //===== Order
         orders: [],
         ordersSource: [],

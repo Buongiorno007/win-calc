@@ -2,7 +2,7 @@
 section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': cartPage.C.cart.isAllAddElems}")
   .alladdelements-header
     button.close-alladdelements(fs-click="elemCartPanel.closeAllAddElemsPanel()")
-    div(ng-if="cartPage.C.cart.isSelectedProduct")
+    div(ng-if="cartPage.C.cart.selectedProduct !== -1")
       include ../parts/_search-block
 
     include ../parts/_addelems-group-menu
@@ -20,15 +20,15 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", fs-click="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
                 .aux-label {{ ::cartPage.NAME_LABEL }}
             td.aux-tablecell-qty
-              .aux-params(ng-show="addElem.element_qty")
+              .aux-params(ng-show="addElem.element_qty", ng-click="elemCartPanel.editQty($index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_qty }}
                 .aux-label {{ ::cartPage.QTY_LABEL }}
             td.aux-tablecell-width
-              .aux-params(ng-show="addElem.element_width")
+              .aux-params(ng-show="addElem.element_width", ng-click="elemCartPanel.editWidth($index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_width }}
                 .aux-label {{ ::cartPage.WIDTH_LABEL }}
             td.aux-tablecell-height
-              .aux-params(ng-show="addElem.element_height")
+              .aux-params(ng-show="addElem.element_height", ng-click="elemCartPanel.editHeight($index, addElem, cartPage.C.cart.allAddElemsOrder)")
                 .aux-params-but {{ addElem.element_height }}
                 .aux-label {{ ::cartPage.HEIGHT_LABEL }}
             td.aux-tablecell-price
@@ -53,7 +53,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
     .products-selector-block(ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}", ng-swipe-up="elemCartPanel.swipeProductSelector()", ng-swipe-down="elemCartPanel.swipeProductSelector()")
 
       .products-block
-        .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", fs-click="elemCartPanel.selectProductToAddElem($index)")
+        .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProduct === $index}", fs-click="elemCartPanel.selectProductToAddElem($index)")
           .select-mark
           .product-header
             svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")

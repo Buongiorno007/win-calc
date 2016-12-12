@@ -168,33 +168,36 @@
           addElemsQty = addElemsSource.length,
           prodQty, elemsOrderQty, noExist;
       CartStor.cart.allAddElemsOrder.length = 0;
-      while(--addElemsQty > -1) {
-        prodQty = addElemsSource[addElemsQty].length;
-        if(prodQty) {
-          while(--prodQty > -1) {
-            elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
-            if(elemsOrderQty) {
-              noExist = 1;
-              while(--elemsOrderQty > -1) {
-                if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
-                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
-                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
-                      CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
-                      noExist -= 1;
+      if(CartStor.cart.selectedProduct === -1) {
+        while(--addElemsQty > -1) {
+          prodQty = addElemsSource[addElemsQty].length;
+          if(prodQty) {
+            while(--prodQty > -1) {
+              elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
+              if(elemsOrderQty) {
+                noExist = 1;
+                while(--elemsOrderQty > -1) {
+                  if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === addElemsSource[addElemsQty][prodQty].id) {
+                    if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === addElemsSource[addElemsQty][prodQty].element_width) {
+                      if(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === addElemsSource[addElemsQty][prodQty].element_height) {
+                        CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingValue(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + addElemsSource[addElemsQty][prodQty].element_qty);
+                        noExist -= 1;
+                      }
                     }
                   }
                 }
-              }
-              if(noExist) {
+                if(noExist) {
+                  CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
+                }
+              } else {
                 CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
               }
-            } else {
-              CartStor.cart.allAddElemsOrder.push(addElemsSource[addElemsQty][prodQty]);
             }
           }
         }
+      } else {
+        CartStor.cart.allAddElemsOrder = angular.copy(addElemsSource[CartStor.cart.selectedProduct]).reverse();
       }
-      console.warn(CartStor.cart.allAddElemsOrder);
     }
 
 
@@ -296,7 +299,8 @@
       getAddElemsPriceTotal: getAddElemsPriceTotal,
       calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
       createProductCopy: createProductCopy,
-      addCloneProductInOrder: addCloneProductInOrder
+      addCloneProductInOrder: addCloneProductInOrder,
+      initSelectedProductsArr: initSelectedProductsArr
     };
 
     return thisFactory.publicObj;

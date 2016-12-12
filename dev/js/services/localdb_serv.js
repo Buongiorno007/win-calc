@@ -2869,10 +2869,9 @@
     /**========= ADDELEMENT PRICE ==========*/
 
     function getAdditionalPrice(AddElement){
-        //602829HA
-        if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
-            AddElement.elementWidth = 1;
-        }
+      if(AddElement.elementWidth === 0 && AddElement.elementHeight === 0) {
+          AddElement.elementWidth = 1;
+      }
       var deffMain = $q.defer(),
           finishPriceObj = {},
           priceObj = {

@@ -225,7 +225,7 @@ gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-
   gulp.watch(config.watch.img, ['images']);
   gulp.watch(config.watch.fonts, ['fonts']);
   gulp.watch(config.watch.scss, ['compass']);
-  gulp.watch(config.watch.js, ['js ', 'js-other']);
+  gulp.watch(config.watch.js, ['js', 'js-other']);
   gulp.watch(config.watch.js_vendor, ['js-vendor']);
   gulp.watch(config.watch.local, ['json']);
 });

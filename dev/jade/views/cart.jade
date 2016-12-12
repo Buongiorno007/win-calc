@@ -220,6 +220,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
     section.right-menu
       include menus/_cart-menu
+      .right-menu-footer
+        .calculators-box.size-calculator(ng-class="{'active': cartPage.G.global.isSizeCalculator}")
+          include parts/_size-calculator
+        .calculators-box.qty-calculator(ng-class="{'active': cartPage.G.global.isQtyCalculator}")
+          include parts/_qty-calculator
       include menus/_addelems-menu
 
     section.order-forms(ng-controller="OrderFormCtrl as orderForm")

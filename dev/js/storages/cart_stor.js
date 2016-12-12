@@ -50,6 +50,7 @@
         perimeterTotal: 0,
         qtyTotal: 0,
         isBox: -1,
+        selectedProduct: -1,
 
         isExistAddElems: 0,
         isAllAddElems: 0,
@@ -99,7 +100,7 @@
       ],
 
       setDefaultCart: setDefaultCart,
-      fillOrderForm: fillOrderForm
+      fillOrderForm: fillOrderForm,
     };
 
     thisFactory.publicObj.cart = setDefaultCart();

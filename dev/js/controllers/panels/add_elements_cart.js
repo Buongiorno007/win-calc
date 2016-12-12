@@ -12,7 +12,9 @@
     CartMenuServ,
     OrderStor,
     CartStor,
-    AuxStor
+    AuxStor,
+    GlobalStor,
+    EditAddElementCartServ
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
@@ -28,7 +30,14 @@
       isSwipeProdSelector: 0
     };
 
-
+      var dependObject = [
+        'element_height',
+        'element_type',
+        'element_width',
+        'id',
+        'list_group_id',
+        'name'
+      ];
 
 
     /**============ METHODS ================*/
@@ -44,6 +53,9 @@
       AuxStor.aux.showAddElementsMenu = 0;
       AuxStor.aux.addElementGroups.length = 0;
       AuxStor.aux.searchingWord = '';
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
     }
 
 
@@ -79,7 +91,48 @@
       }
     }
 
-
+    function editQty(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.isSizeCalculator = 0;
+        CartStor.cart.addElemIndex = index;
+        GlobalStor.global.isQtyCalculator = !GlobalStor.global.isQtyCalculator;
+      }
+    }
+    function editWidth(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 1;
+        CartStor.cart.addElemIndex = index;
+      }
+    }
+    function editHeight(index, element, allElements) {
+      for(var x=0; x<allElements.length; x+=1) {
+        if(_.isEqual(_.pick(element, dependObject), _.pick(allElements[x], dependObject))) {
+          index = x;
+        }
+      }
+      if(CartStor.cart.selectedProduct>=0) {
+        GlobalStor.global.isQtyCalculator = 0;
+        GlobalStor.global.isWidthCalculator = 0;
+        GlobalStor.global.maxSizeAddElem = 2500;
+        GlobalStor.global.isSizeCalculator = !GlobalStor.global.isSizeCalculator;
+        CartStor.cart.addElemIndex = index;
+      }
+    }
 
     function deleteAddElemsItem(addElem) {
       deleteAddElemsInOrder(addElem);
@@ -343,9 +396,17 @@
 
 
     function selectProductToAddElem(prodInd) {
-      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
-      if(isSelected) {
-        CartStor.cart.selectedProducts[prodInd].length = 0;
+      GlobalStor.global.isWidthCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isQtyCalculator = 0;
+      if(CartStor.cart.selectedProduct === prodInd) {
+        CartStor.cart.selectedProduct = -1;
+      } else {
+        CartStor.cart.selectedProduct = prodInd;
+      };
+      CartServ.collectAllAddElems();
+      if(CartStor.cart.isSelectedProduct) {
+        CartServ.initSelectedProductsArr();
         //------- check another products
         checkAllSelectedProducts();
       } else {
@@ -376,6 +437,10 @@
     //------ adding elements to product
     thisCtrl.swipeProductSelector = swipeProductSelector;
     thisCtrl.selectProductToAddElem = selectProductToAddElem;
+    thisCtrl.editHeight = editHeight;
+    thisCtrl.editWidth = editWidth;
+    thisCtrl.editQty = editQty;
+    thisCtrl.calcAddElemPrice = EditAddElementCartServ.calcAddElemPrice; // надо оптимизировать. Есть копия этой функции с таким же названием.
 
 
   });

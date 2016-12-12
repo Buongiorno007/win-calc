@@ -1,0 +1,96 @@
+.print-conteiner
+  .header
+    .order-number
+      b {{historyPage.H.history.orders[historyPage.H.history.historyID].id}}
+    .order-info
+      .col-md-7
+        p
+          | Заказчик: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_name}}
+          br
+          | Населённый пункт: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_location}}
+          br
+          | Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_address+ ' дом ' +  historyPage.H.history.orders[historyPage.H.history.historyID].customer_house + ' кв. ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_flat + ' этаж ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_floor}}
+          br
+          | Тел. моб: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}
+        p
+          | Исполнитель: Не определено
+          br
+          | Телефон: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}
+          br
+          | Город: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city}}
+          br
+          | Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city + "("+historyPage.H.history.orders[historyPage.H.history.historyID].created+")"}}
+      .col-md-5
+        table
+          tbody
+            tr
+              td(ng-class="title") Общее кол-во конструкций
+              td(ng-class="result") результат
+            tr
+              td(ng-class="title") Общая площадь конструкций
+              td(ng-class="result") результат
+            tr
+              td(ng-class="title") Общий периметр конструкций
+              td(ng-class="result") результат
+        br
+        br
+        table
+          tbody
+            tr
+              td(ng-class="title")
+              td(ng-class="result") Скидка %
+              td(ng-class="result") Итоги к оплате:
+            tr
+              td(ng-class="title") Конструкции
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].discount_construct}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+            tr
+              td(ng-class="title") Доп. элементы
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].discount_addelem}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price - historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+            tr
+              td(ng-class="title") Доставка
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].delivery_price}}
+            tr
+              td(ng-class="title") Монтаж
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].mounting_price}}
+            tr
+              td(ng-class="title") Итого
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+  .content(ng-repeat="produ in historyPage.H.history.isTest track by $index")
+    .header
+      .head-block {{produ.product_id}}
+      .head-block
+    .construction
+      .left
+      .right
+        tbody
+          table
+            tr
+              td(ng-class="title") Профильная система
+              td(ng-class="result")  {{produ.profile.name}}
+            tr
+              td(ng-class="title") Стеклопакет(ы)
+              td(ng-class="result", ng-repeat="gl in produ.glass track by $index") {{gl.name}}
+            tr
+              td(ng-class="title") Фурнитура
+              td(ng-class="result") {{produ.hardware.name || 'отсутствует'}}
+            tr
+              td(ng-class="title") Коеф. теплоизоляции
+              td(ng-class="result") {{produ.template_square}}
+            tr
+              td(ng-class="title") Цвет профиля
+              td(ng-class="result") {{produ.lamination.laminat_in_name | translate }}
+            tr
+              td(ng-class="title") Доп. елементы
+              td(ng-class="result") {{produ.profile.name}}
+            tr
+              td(ng-class="title") Стоимость конструкции
+              td(ng-class="result") {{produ.template_price}}
+            tr
+              td(ng-class="title") Стоимость доп. елементов
+              td(ng-class="result") {{produ.addelem_price}}
+  hr
