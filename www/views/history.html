@@ -411,17 +411,14 @@
 <div ng-click="window.print()" class="print-conteiner">
   <div class="header">
     <div class="order-number"><b>{{historyPage.H.history.orders[0].id}}</b></div>
-    <div class="order-info"> 
+    <div class="order-info">
       <div class="col-md-7">
         <p>Заказчик: {{historyPage.H.history.orders[0].customer_name}}<br>Населённый пункт: {{historyPage.H.history.orders[0].customer_location}}<br>Адрес: {{historyPage.H.history.orders[0].customer_address+ ' дом ' +  historyPage.H.history.orders[0].customer_house + ' кв. ' + historyPage.H.history.orders[0].customer_flat + ' этаж ' + historyPage.H.history.orders[0].customer_floor}}<br>Тел. моб: {{historyPage.H.history.orders[0].customer_phone}}</p>
-        <p>
-           
-          Исполнитель: Не определено<br>Телефон: {{historyPage.H.history.orders[0].customer_phone}}<br>Город: {{historyPage.H.history.orders[0].customer_city}}<br>Адрес: {{historyPage.H.history.orders[0].customer_city + "("+historyPage.H.history.orders[0].created+")"}}
-        </p>
+        <p>Исполнитель: Не определено<br>Телефон: {{historyPage.H.history.orders[0].customer_phone}}<br>Город: {{historyPage.H.history.orders[0].customer_city}}<br>Адрес: {{historyPage.H.history.orders[0].customer_city + "("+historyPage.H.history.orders[0].created+")"}}</p>
       </div>
       <div class="col-md-5">
         <table>
-          <tbody> 
+          <tbody>
             <tr>
               <td ng-class="title">Общее кол-во конструкций</td>
               <td ng-class="result">результат</td>
@@ -432,14 +429,14 @@
             </tr>
             <tr>
               <td ng-class="title">Общий периметр конструкций</td>
-              <td ng-class="result">результат                            </td>
+              <td ng-class="result">результат</td>
             </tr>
           </tbody>
         </table><br><br>
         <table>
-          <tbody> 
+          <tbody>
             <tr>
-              <td ng-class="title"> </td>
+              <td ng-class="title"></td>
               <td ng-class="result">Скидка %</td>
               <td ng-class="result">Итоги к оплате:</td>
             </tr>
@@ -450,23 +447,23 @@
             </tr>
             <tr>
               <td ng-class="title">Доп. єлементы</td>
-              <td ng-class="result">{{historyPage.H.history.orders[0].discount_addelem}} </td>
-              <td ng-class="result">{{historyPage.H.history.orders[0].order_price - historyPage.H.history.orders[0].templates_price}}   </td>
+              <td ng-class="result">{{historyPage.H.history.orders[0].discount_addelem}}</td>
+              <td ng-class="result">{{historyPage.H.history.orders[0].order_price - historyPage.H.history.orders[0].templates_price}}</td>
             </tr>
             <tr>
               <td ng-class="title">Доставка</td>
-              <td ng-class="result"> </td>
+              <td ng-class="result"></td>
               <td ng-class="result">{{historyPage.H.history.orders[0].delivery_price}}</td>
             </tr>
             <tr>
               <td ng-class="title">Монтаж</td>
-              <td ng-class="result"> </td>
+              <td ng-class="result"></td>
               <td ng-class="result">{{historyPage.H.history.orders[0].mounting_price}}</td>
             </tr>
             <tr>
               <td ng-class="title">Итого</td>
-              <td ng-class="result">   </td>
-              <td ng-class="result">{{historyPage.H.history.orders[0].templates_price}}   </td>
+              <td ng-class="result"></td>
+              <td ng-class="result">{{historyPage.H.history.orders[0].templates_price}}</td>
             </tr>
           </tbody>
         </table>
@@ -502,7 +499,7 @@
             </tr>
             <tr>
               <td ng-class="title">Цвет профиля</td>
-              <td ng-class="result">{{produ.lamination.laminat_in_name | translate + '(внутренняя)' + {produ.lamination.laminat_out_name | translate + '(наружная)'}}</td>
+              <td ng-class="result">{{produ.lamination.laminat_in_name | translate }}</td>
             </tr>
             <tr>
               <td ng-class="title">Доп. елементы</td>

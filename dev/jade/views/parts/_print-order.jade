@@ -2,27 +2,27 @@
   .header
     .order-number
       b {{historyPage.H.history.orders[0].id}}
-    .order-info 
+    .order-info
       .col-md-7
         p
           Заказчик: {{historyPage.H.history.orders[0].customer_name}}
-          br 
+          br
           Населённый пункт: {{historyPage.H.history.orders[0].customer_location}}
-          br 
+          br
           Адрес: {{historyPage.H.history.orders[0].customer_address+ ' дом ' +  historyPage.H.history.orders[0].customer_house + ' кв. ' + historyPage.H.history.orders[0].customer_flat + ' этаж ' + historyPage.H.history.orders[0].customer_floor}}
-          br 
+          br
           Тел. моб: {{historyPage.H.history.orders[0].customer_phone}}
-        p  
+        p
           Исполнитель: Не определено
-          br 
+          br
           Телефон: {{historyPage.H.history.orders[0].customer_phone}}
-          br 
+          br
           Город: {{historyPage.H.history.orders[0].customer_city}}
-          br 
+          br
           Адрес: {{historyPage.H.history.orders[0].customer_city + "("+historyPage.H.history.orders[0].created+")"}}
       .col-md-5
         table
-          tbody 
+          tbody
             tr
               td(ng-class="title") Общее кол-во конструкций
               td(ng-class="result") результат
@@ -31,13 +31,13 @@
               td(ng-class="result") результат
             tr
               td(ng-class="title") Общий периметр конструкций
-              td(ng-class="result") результат                            
-        br 
-        br      
+              td(ng-class="result") результат
+        br
+        br
         table
-          tbody 
+          tbody
             tr
-              td(ng-class="title") 
+              td(ng-class="title")
               td(ng-class="result") Скидка %
               td(ng-class="result") Итоги к оплате:
             tr
@@ -46,20 +46,20 @@
               td(ng-class="result") {{historyPage.H.history.orders[0].templates_price}}
             tr
               td(ng-class="title") Доп. єлементы
-              td(ng-class="result") {{historyPage.H.history.orders[0].discount_addelem}} 
-              td(ng-class="result") {{historyPage.H.history.orders[0].order_price - historyPage.H.history.orders[0].templates_price}}   
+              td(ng-class="result") {{historyPage.H.history.orders[0].discount_addelem}}
+              td(ng-class="result") {{historyPage.H.history.orders[0].order_price - historyPage.H.history.orders[0].templates_price}}
             tr
               td(ng-class="title") Доставка
-              td(ng-class="result") 
+              td(ng-class="result")
               td(ng-class="result") {{historyPage.H.history.orders[0].delivery_price}}
             tr
               td(ng-class="title") Монтаж
-              td(ng-class="result") 
+              td(ng-class="result")
               td(ng-class="result") {{historyPage.H.history.orders[0].mounting_price}}
             tr
               td(ng-class="title") Итого
-              td(ng-class="result")    
-              td(ng-class="result") {{historyPage.H.history.orders[0].templates_price}}   
+              td(ng-class="result")
+              td(ng-class="result") {{historyPage.H.history.orders[0].templates_price}}
   hr
   .content(ng-repeat="produ in historyPage.H.history.isTest track by $index")
     .header
@@ -84,7 +84,7 @@
               td(ng-class="result") {{produ.template_square}}
             tr
               td(ng-class="title") Цвет профиля
-              td(ng-class="result") {{produ.lamination.laminat_in_name | translate + '(внутренняя)' + {produ.lamination.laminat_out_name | translate + '(наружная)'}}
+              td(ng-class="result") {{produ.lamination.laminat_in_name | translate }}
             tr
               td(ng-class="title") Доп. елементы
               td(ng-class="result") {{produ.profile.name}}
