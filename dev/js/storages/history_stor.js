@@ -68,7 +68,12 @@
         listNameGlass: [],
         listNameHardware: [],
         listNameProfiles: [],
-        firstClick: []
+        firstClick: [],
+        PrintProduct :[],
+        PrintAddEl :[],
+        OrderPrintLength:0,
+        OrderPrintSquare : 0,
+        OrderPrintPerimeter : 0
 
       },
       setDefaultHistory: setDefaultHistory

@@ -40,7 +40,6 @@
       AuxStor.aux.addElementsType = angular.copy(GlobalStor.global.addElementsAll[index].elementType);
       if (onlineMode && navigator.onLine) {
         AuxStor.aux.addElementsType = AuxStor.aux.addElementsType.filter(function(res) {
-          console.log("globalConstants.serverIP + res.img", globalConstants.serverIP, res.img);
           res.img = globalConstants.serverIP + res.img;
           return res;
         });

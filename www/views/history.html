@@ -435,15 +435,15 @@
           <tbody>
             <tr>
               <td ng-class="title">Общее кол-во конструкций</td>
-              <td ng-class="result">результат</td>
+              <td ng-class="result">{{historyPage.H.history.OrderPrintLength}}</td>
             </tr>
             <tr>
               <td ng-class="title">Общая площадь конструкций</td>
-              <td ng-class="result">результат</td>
+              <td ng-class="result">{{historyPage.H.history.OrderPrintSquare}}</td>
             </tr>
             <tr>
               <td ng-class="title">Общий периметр конструкций</td>
-              <td ng-class="result">результат</td>
+              <td ng-class="result">{{historyPage.H.history.OrderPrintPerimeter}}</td>
             </tr>
           </tbody>
         </table><br><br>
@@ -484,10 +484,10 @@
       </div>
     </div>
   </div>
-  <div ng-repeat="produ in historyPage.H.history.isTest track by $index" class="content">
+  <div ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index" class="content">
     <div class="header">
-      <div class="head-block">{{produ.product_id}}</div>
-      <div class="head-block"></div>
+      <hr>
+      <div class="head-block">{{curProd[$index].product_id}} Количество {{curProd[$index].product_id}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}</div>
     </div>
     <div class="construction">
       <div class="left"></div>
@@ -496,35 +496,37 @@
           <table>
             <tr>
               <td ng-class="title">Профильная система</td>
-              <td ng-class="result"> {{produ.profile.name}}</td>
+              <td ng-class="result"> {{curProd[$index].profile.name}}</td>
             </tr>
             <tr>
               <td ng-class="title">Стеклопакет(ы)</td>
-              <td ng-class="result" ng-repeat="gl in produ.glass track by $index">{{gl.name}}</td>
+              <td ng-class="result" ng-repeat="gl in curProd[$index].glass track by $index">{{gl.name}}</td>
             </tr>
             <tr>
               <td ng-class="title">Фурнитура</td>
-              <td ng-class="result">{{produ.hardware.name || 'отсутствует'}}</td>
+              <td ng-class="result">{{curProd[$index].hardware.name || 'отсутствует'}}</td>
             </tr>
             <tr>
               <td ng-class="title">Коеф. теплоизоляции</td>
-              <td ng-class="result">{{produ.template_square}}</td>
+              <td ng-class="result">{{curProd[$index].template_square}}</td>
             </tr>
             <tr>
               <td ng-class="title">Цвет профиля</td>
-              <td ng-class="result">{{produ.lamination.laminat_in_name | translate }}</td>
+              <td ng-class="result">{{curProd[$index].lamination.laminat_in_name | translate }}</td>
             </tr>
             <tr>
               <td ng-class="title">Доп. елементы</td>
-              <td ng-class="result">{{produ.profile.name}}</td>
+              <td ng-class="result">
+                <div ng-repeat="addEll in historyPage.H.history.PrintAddEl track by $index" class="resultAdd">{{addEll.name +"("+ addEll.element_width + addEll.element_height+addEll.element_qty +"шт.)"}}</div>
+              </td>
             </tr>
             <tr>
               <td ng-class="title">Стоимость конструкции</td>
-              <td ng-class="result">{{produ.template_price}}</td>
+              <td ng-class="result">{{curProd[$index].template_price}}</td>
             </tr>
             <tr>
               <td ng-class="title">Стоимость доп. елементов</td>
-              <td ng-class="result">{{produ.addelem_price}}</td>
+              <td ng-class="result">{{curProd[$index].addelem_price}}</td>
             </tr>
           </table>
         </tbody>
@@ -532,4 +534,6 @@
     </div>
   </div>
   <hr>
+  <p class="footer">Заказчик несёт ответственность за правильность размеров, конфигурации и комплектации заказа. Оплаченный счёт является потдтверждением.</p>
+  <p class="footer">Заказчик____________________           Исполнитель________________________</p>
 </div>

@@ -25,13 +25,13 @@
           tbody
             tr
               td(ng-class="title") Общее кол-во конструкций
-              td(ng-class="result") результат
+              td(ng-class="result") {{historyPage.H.history.OrderPrintLength}}
             tr
               td(ng-class="title") Общая площадь конструкций
-              td(ng-class="result") результат
+              td(ng-class="result") {{historyPage.H.history.OrderPrintSquare}}
             tr
               td(ng-class="title") Общий периметр конструкций
-              td(ng-class="result") результат
+              td(ng-class="result") {{historyPage.H.history.OrderPrintPerimeter}}
         br
         br
         table
@@ -60,10 +60,11 @@
               td(ng-class="title") Итого
               td(ng-class="result")
               td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
-  .content(ng-repeat="produ in historyPage.H.history.isTest track by $index")
+  .content(ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index")
     .header
-      .head-block {{produ.product_id}}
-      .head-block
+      hr
+      .head-block {{curProd[$index].product_id}} Количество {{curProd[$index].product_id}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}
+
     .construction
       .left
       .right
@@ -71,26 +72,31 @@
           table
             tr
               td(ng-class="title") Профильная система
-              td(ng-class="result")  {{produ.profile.name}}
+              td(ng-class="result")  {{curProd[$index].profile.name}}
             tr
               td(ng-class="title") Стеклопакет(ы)
-              td(ng-class="result", ng-repeat="gl in produ.glass track by $index") {{gl.name}}
+              td(ng-class="result", ng-repeat="gl in curProd[$index].glass track by $index") {{gl.name}}
             tr
               td(ng-class="title") Фурнитура
-              td(ng-class="result") {{produ.hardware.name || 'отсутствует'}}
+              td(ng-class="result") {{curProd[$index].hardware.name || 'отсутствует'}}
             tr
               td(ng-class="title") Коеф. теплоизоляции
-              td(ng-class="result") {{produ.template_square}}
+              td(ng-class="result") {{curProd[$index].template_square}}
             tr
               td(ng-class="title") Цвет профиля
-              td(ng-class="result") {{produ.lamination.laminat_in_name | translate }}
+              td(ng-class="result") {{curProd[$index].lamination.laminat_in_name | translate }}
             tr
               td(ng-class="title") Доп. елементы
-              td(ng-class="result") {{produ.profile.name}}
+              td(ng-class="result")
+                .resultAdd(ng-repeat="addEll in historyPage.H.history.PrintAddEl track by $index") {{addEll.name +"("+ addEll.element_width + addEll.element_height+addEll.element_qty +"шт.)"}}
             tr
               td(ng-class="title") Стоимость конструкции
-              td(ng-class="result") {{produ.template_price}}
+              td(ng-class="result") {{curProd[$index].template_price}}
             tr
               td(ng-class="title") Стоимость доп. елементов
-              td(ng-class="result") {{produ.addelem_price}}
+              td(ng-class="result") {{curProd[$index].addelem_price}}
   hr
+  p.footer
+    | Заказчик несёт ответственность за правильность размеров, конфигурации и комплектации заказа. Оплаченный счёт является потдтверждением.
+  p.footer
+    | Заказчик____________________           Исполнитель________________________

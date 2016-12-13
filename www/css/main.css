@@ -5754,27 +5754,45 @@ textarea.comment-field {
 
 @media print {
   /* line 2, ../../dev/sass/parts/_print.scss */
+  body, html, #main-frame, .app-container, .print-conteiner {
+    height: auto;
+  }
+
+  /* line 5, ../../dev/sass/parts/_print.scss */
   .print-conteiner {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 768px;
+    min-height: 768px;
+    display: block;
+    height: auto;
+  }
+
+  /* line 13, ../../dev/sass/parts/_print.scss */
+  .pagebreak {
+    page-break-after: always;
+  }
+
+  /* line 16, ../../dev/sass/parts/_print.scss */
+  .app-container {
+    height: auto;
   }
 }
-/* line 9, ../../dev/sass/parts/_print.scss */
+/* line 21, ../../dev/sass/parts/_print.scss */
 .print-conteiner {
   background-color: #fff;
   margin: 0px auto;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding-top: 5px;
+  font-size: 12px;
+  font-family: 'roboto';
 }
-/* line 15, ../../dev/sass/parts/_print.scss */
+/* line 28, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header {
-  max-height: 310px;
-  min-height: 310px;
+  max-height: 250px;
+  min-height: 250px;
 }
-/* line 18, ../../dev/sass/parts/_print.scss */
+/* line 31, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-number {
   clear: both;
   display: table;
@@ -5783,12 +5801,12 @@ textarea.comment-field {
   margin-bottom: 2px;
   width: 100%;
 }
-/* line 25, ../../dev/sass/parts/_print.scss */
+/* line 38, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-number b {
   font-weight: normal;
   font-size: 11px;
 }
-/* line 30, ../../dev/sass/parts/_print.scss */
+/* line 43, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info {
   clear: both;
   display: table;
@@ -5797,7 +5815,7 @@ textarea.comment-field {
   margin-bottom: 2px;
   width: 100%;
 }
-/* line 37, ../../dev/sass/parts/_print.scss */
+/* line 50, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-7 {
   box-sizing: border-box;
   position: relative;
@@ -5810,7 +5828,7 @@ textarea.comment-field {
   width: 58.333333%;
   font-size: 11px;
 }
-/* line 48, ../../dev/sass/parts/_print.scss */
+/* line 61, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-7 p {
   display: block;
   -webkit-margin-before: 1em;
@@ -5818,7 +5836,7 @@ textarea.comment-field {
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
 }
-/* line 56, ../../dev/sass/parts/_print.scss */
+/* line 69, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 {
   box-sizing: border-box;
   position: relative;
@@ -5830,42 +5848,42 @@ textarea.comment-field {
   padding-bottom: 2px;
   width: 41.666666%;
 }
-/* line 67, ../../dev/sass/parts/_print.scss */
+/* line 80, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table {
   font-size: 11px;
   border-collapse: collapse;
   text-align: right;
   width: 100%;
 }
-/* line 72, ../../dev/sass/parts/_print.scss */
+/* line 85, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
 }
-/* line 76, ../../dev/sass/parts/_print.scss */
+/* line 89, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table tbody tr {
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
 }
-/* line 81, ../../dev/sass/parts/_print.scss */
+/* line 94, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table tbody td, .print-conteiner .header .order-info .col-md-5 table tbody th {
   display: table-cell;
   vertical-align: inherit;
 }
-/* line 84, ../../dev/sass/parts/_print.scss */
+/* line 97, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table tbody td.title, .print-conteiner .header .order-info .col-md-5 table tbody th.title {
   width: 650pt;
   text-align: left;
 }
-/* line 85, ../../dev/sass/parts/_print.scss */
+/* line 98, ../../dev/sass/parts/_print.scss */
 .print-conteiner .header .order-info .col-md-5 table tbody td.result, .print-conteiner .header .order-info .col-md-5 table tbody th.result {
   width: 80pt;
   color: #283891;
   padding-right: 20px;
 }
-/* line 93, ../../dev/sass/parts/_print.scss */
+/* line 106, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .header {
   box-sizing: border-box;
   margin-bottom: 2px;
@@ -5873,7 +5891,7 @@ textarea.comment-field {
   min-height: 50px;
   max-height: 50px;
 }
-/* line 99, ../../dev/sass/parts/_print.scss */
+/* line 112, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .header .head-block {
   box-sizing: border-box;
   position: relative;
@@ -5885,13 +5903,13 @@ textarea.comment-field {
   padding-bottom: 2px;
   width: 50%;
 }
-/* line 111, ../../dev/sass/parts/_print.scss */
+/* line 124, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction {
   position: relative;
-  min-height: 250px;
-  max-height: 250px;
+  min-height: 200px;
+  max-height: 200px;
 }
-/* line 115, ../../dev/sass/parts/_print.scss */
+/* line 128, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction .left {
   box-sizing: border-box;
   position: relative;
@@ -5904,7 +5922,7 @@ textarea.comment-field {
   width: 40%;
   font-size: 11px;
 }
-/* line 127, ../../dev/sass/parts/_print.scss */
+/* line 140, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction .right {
   box-sizing: border-box;
   position: relative;
@@ -5917,45 +5935,49 @@ textarea.comment-field {
   width: 60%;
   font-size: 11px;
 }
-/* line 139, ../../dev/sass/parts/_print.scss */
+/* line 152, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table {
   font-size: 12px !important;
   border-collapse: collapse;
   text-align: right;
   width: 100%;
 }
-/* line 144, ../../dev/sass/parts/_print.scss */
+/* line 157, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
 }
-/* line 148, ../../dev/sass/parts/_print.scss */
+/* line 161, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody tr {
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
 }
-/* line 153, ../../dev/sass/parts/_print.scss */
+/* line 166, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td, .print-conteiner .content .construction table tbody th {
   display: table-cell;
   vertical-align: inherit;
 }
-/* line 156, ../../dev/sass/parts/_print.scss */
+/* line 169, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td.title, .print-conteiner .content .construction table tbody th.title {
   width: 200px;
   border-right: solid 1px #d1d2d4;
 }
-/* line 157, ../../dev/sass/parts/_print.scss */
+/* line 170, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td.result, .print-conteiner .content .construction table tbody th.result {
   width: 450px;
   color: #283891;
   padding-right: 15px;
 }
-/* line 163, ../../dev/sass/parts/_print.scss */
+/* line 176, ../../dev/sass/parts/_print.scss */
 .print-conteiner hr {
   margin: 2px !important;
   clear: both;
+}
+/* line 180, ../../dev/sass/parts/_print.scss */
+.print-conteiner .footer {
+  width: 100%;
 }
 
 /* line 4, ../../dev/sass/pages/login.scss */

@@ -17,11 +17,15 @@
 
 
         /**============ METHODS ================*/
-        function getProducts(products) {
-          HistoryStor.history.isTest = products;
+        function getProducts(products,addEl) {
+          HistoryStor.history.PrintProduct = products;
+          HistoryStor.history.PrintAddEl = addEl;
           console.log(products, 'products=====');
+          console.log(addEl, 'addEl=====');
 
-          setTimeout(function() { window.print(); }, 1000)
+          setTimeout(function () {
+            window.print();
+          }, 1000)
           //window.print();
 
         }
