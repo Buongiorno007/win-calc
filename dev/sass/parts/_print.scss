@@ -1,7 +1,10 @@
 @media print {
-  body, html, #main-frame,.app-container,.print-conteiner  {
+  body, html, #main-frame, .app-container, .print-conteiner {
     height: auto;
+    width: 100%;
+    overflow : visible;
   }
+
   .print-conteiner {
     position: absolute;
     top : 0;
@@ -123,8 +126,8 @@
 		}
 		.construction {
 	    position: relative;
-	    min-height: 200px;
-	    max-height: 200px;
+	    min-height: 180px;
+	    max-height: 180px;
 	    .left {
 			  box-sizing: border-box;
 			  position: relative;

@@ -14903,31 +14903,34 @@ function ErrorResult(code, message) {
             downloadDrafts();
           }
         }
+
         //#
         function orderPrint(orderId) {
-          //var domainLink = globalConstants.serverIP.split('api.').join(''),
-          //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
-          var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
           /** check internet */
           if (navigator.onLine) {
+            var domainLink = globalConstants.serverIP.split('api.').join(''),
+              paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+              printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+            var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
+            GeneralServ.goToLink(printLink);
+          } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
                 HistoryStor.history.historyID = index;
               }
             });
-            //GeneralServ.goToLink(printLink);
+
             GlobalStor.global.orderEditNumber = orderId;
             downloadProducts(1).then(function (result_prod) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (entry,index) {
-                tmpSquare+=entry[index].template_square;
-                tmpPerim += (entry[index].template_height+entry[index].template_width)*2;
+              result_prod.forEach(function (entry, index) {
+                tmpSquare += entry[index].template_square;
+                tmpPerim += (entry[index].template_height + entry[index].template_width) * 2;
               });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter =tmpPerim/100;
+              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
@@ -14946,9 +14949,6 @@ function ErrorResult(code, message) {
               });
 
             })
-
-          } else {
-            HistoryStor.history.isNoPrint = 1;
           }
         }
 
@@ -20458,73 +20458,73 @@ function ErrorResult(code, message) {
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
                                       // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
 
-                                      // GlobalStor.global.hardwares.forEach(function (object) {
-                                      //   object.forEach(function (entry) {
-                                      //     if (entry.img !== "") {
-                                      //       if (onlineMode && navigator.onLine) {
-                                      //         var url = String(entry.img);
-                                      //
-                                      //         var xhr = new XMLHttpRequest();
-                                      //         xhr.responseType = 'blob';
-                                      //         xhr.onload = function () {
-                                      //           var reader = new FileReader();
-                                      //           reader.onloadend = function () {
-                                      //             var key = String(entry.img);
-                                      //             var value = reader.result;
-                                      //             localforage.setItem(key, value, function (err, value) {
-                                      //               //console.log(value);
-                                      //             });
-                                      //
-                                      //           }
-                                      //           reader.readAsDataURL(xhr.response);
-                                      //         };
-                                      //         xhr.open('GET', url, true);
-                                      //         xhr.send();
-                                      //       }
-                                      //
-                                      //       else {
-                                      //         var key = String(entry.img);
-                                      //         localforage.getItem(key, function (err, value) {
-                                      //           entry.img = value;
-                                      //         });
-                                      //       }
-                                      //     }
-                                      //
-                                      //
-                                      //   });
-                                      // });
-                                      //
-                                      // GlobalStor.global.hardwareTypes.forEach(function (entry) {
-                                      //   if (entry.img !== "") {
-                                      //     if (onlineMode && navigator.onLine) {
-                                      //       var url = String(entry.img);
-                                      //
-                                      //       var xhr = new XMLHttpRequest();
-                                      //       xhr.responseType = 'blob';
-                                      //       xhr.onload = function () {
-                                      //         var reader = new FileReader();
-                                      //         reader.onloadend = function () {
-                                      //           var key = String(entry.img);
-                                      //           var value = reader.result;
-                                      //           localforage.setItem(key, value, function (err, value) {
-                                      //             //console.log(value);
-                                      //           });
-                                      //
-                                      //         }
-                                      //         reader.readAsDataURL(xhr.response);
-                                      //       };
-                                      //       xhr.open('GET', url, true);
-                                      //       xhr.send();
-                                      //     }
-                                      //
-                                      //     else {
-                                      //       var key = String(entry.img);
-                                      //       localforage.getItem(key, function (err, value) {
-                                      //         entry.img = value;
-                                      //       });
-                                      //     }
-                                      //   }
-                                      // });
+                                      //# GlobalStor.global.hardwares.forEach(function (object) {
+                                      //#   object.forEach(function (entry) {
+                                      //#     if (entry.img !== "") {
+                                      //#       if (onlineMode && navigator.onLine) {
+                                      //#         var url = String(entry.img);
+                                      //#
+                                      //#         var xhr = new XMLHttpRequest();
+                                      //#         xhr.responseType = 'blob';
+                                      //#         xhr.onload = function () {
+                                      //#           var reader = new FileReader();
+                                      //#           reader.onloadend = function () {
+                                      //#             var key = String(entry.img);
+                                      //#             var value = reader.result;
+                                      //#             localforage.setItem(key, value, function (err, value) {
+                                      //#               //console.log(value);
+                                      //#             });
+                                      //#
+                                      //#           }
+                                      //#           reader.readAsDataURL(xhr.response);
+                                      //#         };
+                                      //#         xhr.open('GET', url, true);
+                                      //#         xhr.send();
+                                      //#       }
+                                      //#
+                                      //#       else {
+                                      //#         var key = String(entry.img);
+                                      //#         localforage.getItem(key, function (err, value) {
+                                      //#           entry.img = value;
+                                      //#         });
+                                      //#       }
+                                      //#     }
+                                      //#
+                                      //#
+                                      //#   });
+                                      //# });
+                                      //#
+                                      //# GlobalStor.global.hardwareTypes.forEach(function (entry) {
+                                      //#   if (entry.img !== "") {
+                                      //#     if (onlineMode && navigator.onLine) {
+                                      //#       var url = String(entry.img);
+                                      //#
+                                      //#       var xhr = new XMLHttpRequest();
+                                      //#       xhr.responseType = 'blob';
+                                      //#       xhr.onload = function () {
+                                      //#         var reader = new FileReader();
+                                      //#         reader.onloadend = function () {
+                                      //#           var key = String(entry.img);
+                                      //#           var value = reader.result;
+                                      //#           localforage.setItem(key, value, function (err, value) {
+                                      //#             //console.log(value);
+                                      //#           });
+                                      //#
+                                      //#         }
+                                      //#         reader.readAsDataURL(xhr.response);
+                                      //#       };
+                                      //#       xhr.open('GET', url, true);
+                                      //#       xhr.send();
+                                      //#     }
+                                      //#
+                                      //#     else {
+                                      //#       var key = String(entry.img);
+                                      //#       localforage.getItem(key, function (err, value) {
+                                      //#         entry.img = value;
+                                      //#       });
+                                      //#     }
+                                      //#   }
+                                      //# });
 
                                       //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                       /** download Door Kits */
@@ -20536,42 +20536,42 @@ function ErrorResult(code, message) {
 
                                         /** download All AddElements */
                                         downloadAllAddElements().then(function () {
-                                          // GlobalStor.global.addElementsAll.forEach(function (item) {
-                                          //   //globalConstants.serverIP +
-                                          //   //console.log("entry.elementType",entry.elementType);
-                                          //   // console.log("entry.elementsList",entry.elementsList);
-                                          //   item.elementType.forEach(function (entry) {
-                                          //     if (entry.img !== "") {
-                                          //       if (onlineMode && navigator.onLine) {
-                                          //         var url = String(globalConstants.serverIP + entry.img);
-                                          //
-                                          //         var xhr = new XMLHttpRequest();
-                                          //         xhr.responseType = 'blob';
-                                          //         xhr.onload = function () {
-                                          //           var reader = new FileReader();
-                                          //           reader.onloadend = function () {
-                                          //             var key = String(entry.img);
-                                          //             var value = reader.result;
-                                          //             localforage.setItem(key, value, function (err, value) {
-                                          //               //console.log(value);
-                                          //             });
-                                          //
-                                          //           }
-                                          //           reader.readAsDataURL(xhr.response);
-                                          //         };
-                                          //         xhr.open('GET', url, true);
-                                          //         xhr.send();
-                                          //       }
-                                          //
-                                          //       else {
-                                          //         var key = String(entry.img);
-                                          //         localforage.getItem(key, function (err, value) {
-                                          //           entry.img = value;
-                                          //         });
-                                          //       }
-                                          //     }
-                                          //   });
-                                          // });
+                                          //# GlobalStor.global.addElementsAll.forEach(function (item) {
+                                          //#   //globalConstants.serverIP +
+                                          //#   //console.log("entry.elementType",entry.elementType);
+                                          //#   // console.log("entry.elementsList",entry.elementsList);
+                                          //#   item.elementType.forEach(function (entry) {
+                                          //#     if (entry.img !== "") {
+                                          //#       if (onlineMode && navigator.onLine) {
+                                          //#         var url = String(globalConstants.serverIP + entry.img);
+                                          //#
+                                          //#         var xhr = new XMLHttpRequest();
+                                          //#         xhr.responseType = 'blob';
+                                          //#         xhr.onload = function () {
+                                          //#           var reader = new FileReader();
+                                          //#           reader.onloadend = function () {
+                                          //#             var key = String(entry.img);
+                                          //#             var value = reader.result;
+                                          //#             localforage.setItem(key, value, function (err, value) {
+                                          //#               //console.log(value);
+                                          //#             });
+                                          //#
+                                          //#           }
+                                          //#           reader.readAsDataURL(xhr.response);
+                                          //#         };
+                                          //#         xhr.open('GET', url, true);
+                                          //#         xhr.send();
+                                          //#       }
+                                          //#
+                                          //#       else {
+                                          //#         var key = String(entry.img);
+                                          //#         localforage.getItem(key, function (err, value) {
+                                          //#           entry.img = value;
+                                          //#         });
+                                          //#       }
+                                          //#     }
+                                          //#   });
+                                          //# });
                                           //console.log(JSON.stringify(GlobalStor.global.tempAddElements));
                                           /** download All Lamination */
                                           downloadAllLamination().then(function (result) {
@@ -24698,10 +24698,9 @@ function ErrorResult(code, message) {
           HistoryStor.history.PrintAddEl = addEl;
           console.log(products, 'products=====');
           console.log(addEl, 'addEl=====');
-
           setTimeout(function () {
             window.print();
-          }, 1000)
+          }, 1000);
           //window.print();
 
         }

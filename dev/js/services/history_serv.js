@@ -857,31 +857,34 @@
             downloadDrafts();
           }
         }
+
         //#
         function orderPrint(orderId) {
-          //var domainLink = globalConstants.serverIP.split('api.').join(''),
-          //    paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-          //    printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
-          var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
           /** check internet */
           if (navigator.onLine) {
+            var domainLink = globalConstants.serverIP.split('api.').join(''),
+              paramLink = orderId + '?userId=' + UserStor.userInfo.id,
+              printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+            var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
+            GeneralServ.goToLink(printLink);
+          } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
                 HistoryStor.history.historyID = index;
               }
             });
-            //GeneralServ.goToLink(printLink);
+
             GlobalStor.global.orderEditNumber = orderId;
             downloadProducts(1).then(function (result_prod) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (entry,index) {
-                tmpSquare+=entry[index].template_square;
-                tmpPerim += (entry[index].template_height+entry[index].template_width)*2;
+              result_prod.forEach(function (entry, index) {
+                tmpSquare += entry[index].template_square;
+                tmpPerim += (entry[index].template_height + entry[index].template_width) * 2;
               });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter =tmpPerim/100;
+              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
@@ -900,9 +903,6 @@
               });
 
             })
-
-          } else {
-            HistoryStor.history.isNoPrint = 1;
           }
         }
 

@@ -22,10 +22,9 @@
           HistoryStor.history.PrintAddEl = addEl;
           console.log(products, 'products=====');
           console.log(addEl, 'addEl=====');
-
           setTimeout(function () {
             window.print();
-          }, 1000)
+          }, 1000);
           //window.print();
 
         }

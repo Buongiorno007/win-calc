@@ -89,7 +89,7 @@ var server_env = {
     "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
-    "": "'http://windowscalculator.net/orders/get-order-pdf/'"
+    "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
     "windowSite": "'/calculator/local/'",
@@ -303,6 +303,7 @@ function buildExt(id) {
     .pipe(replace('SERVER_IP', server_env[id]))
     .pipe(replace('PRINT_IP', print_env[id]))
     .pipe(replace('LOCAL_PATH', path_env[id]))
+    .pipe(replace('//#', ""))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
     .pipe(js_obfuscator())
