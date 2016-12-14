@@ -63,10 +63,9 @@
   .content(ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index")
     .header
       hr
-      .head-block {{curProd[$index].product_id}} Количество {{curProd[$index].product_id}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}
+      .head-block {{curProd[$index].product_id}} Количество {{curProd[$index].product_qty}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}
 
     .construction
-      .left
       .right
         tbody
           table
