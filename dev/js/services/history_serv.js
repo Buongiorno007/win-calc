@@ -879,10 +879,12 @@
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (entry, index) {
-                tmpSquare += entry[index].template_square;
-                tmpPerim += (entry[index].template_height + entry[index].template_width) * 2;
-              });
+              for(var x=0; x<result_prod.length; x+=1) {
+                if(!result_prod[x].is_addelem_only) {
+                  tmpSquare += result_prod[x].template_square;
+                  tmpPerim += (result_prod[x].template_height + result_prod[x].template_width) * 2;
+                }
+              }
               HistoryStor.history.OrderPrintSquare = tmpSquare;
               HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
               downloadAddElements(1).then(function (result_add) {

@@ -2855,16 +2855,57 @@
       return scaleTmp;
     }
 
+    function setTemplateScalePrint(dim, windowW, windowH, padding) {
+      var templateW = (dim.maxX - dim.minX),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('W======', scaleTmp);
+        }
+        // console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('H======', scaleTmp);
+        }
+      // console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
+    }
     //----------- TRANSLATE
 
-    function setTemplatePosition(dim, windowW, windowH, scale) {
-      var position = {
-        x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
-        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
-      };
+    function setTemplatePosition(dim, windowW, windowH, scale, print) {
+      var position;
+      if(print) {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } else {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } 
       return position;
     }
-
 
     //----------- TRANSLATE MAIN
     function setTemplatePositionMAIN(dim, windowH, scale) {
@@ -2936,6 +2977,7 @@
       setQPointCoord: setQPointCoord,
       getCenterLine: getCenterLine,
       calcSquare: calcSquare,
+      setTemplateScalePrint: setTemplateScalePrint,
 
       checkInsidePointInLineEasy: checkInsidePointInLineEasy,
       sortByX: sortByX

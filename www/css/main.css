@@ -5885,7 +5885,11 @@ textarea.comment-field {
   color: #283891;
   padding-right: 20px;
 }
-/* line 109, ../../dev/sass/parts/_print.scss */
+/* line 108, ../../dev/sass/parts/_print.scss */
+.print-conteiner .content {
+  height: auto;
+}
+/* line 110, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .header {
   box-sizing: border-box;
   margin-bottom: 2px;
@@ -5893,7 +5897,7 @@ textarea.comment-field {
   min-height: 50px;
   max-height: 50px;
 }
-/* line 115, ../../dev/sass/parts/_print.scss */
+/* line 116, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .header .head-block {
   box-sizing: border-box;
   position: relative;
@@ -5905,13 +5909,14 @@ textarea.comment-field {
   padding-bottom: 2px;
   width: 50%;
 }
-/* line 127, ../../dev/sass/parts/_print.scss */
+/* line 128, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction {
   position: relative;
-  min-height: 238px;
-  max-height: 238px;
+  min-height: 310px;
+  height: auto;
+  overflow: hidden;
 }
-/* line 131, ../../dev/sass/parts/_print.scss */
+/* line 133, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction .left {
   box-sizing: border-box;
   position: relative;
@@ -5923,63 +5928,63 @@ textarea.comment-field {
   padding-bottom: 2px;
   width: 40%;
   font-size: 11px;
-  min-height: 238px;
-  max-height: 238px;
+  min-height: 310px;
+  height: auto;
 }
-/* line 145, ../../dev/sass/parts/_print.scss */
+/* line 147, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction .right {
   box-sizing: border-box;
   position: relative;
   min-height: 1px;
-  padding-right: 5px;
+  padding-right: 20px;
   padding-left: 5px;
   float: right;
-  padding-top: 2px;
+  padding-top: 20px;
   padding-bottom: 2px;
   width: 60%;
   font-size: 11px;
 }
-/* line 157, ../../dev/sass/parts/_print.scss */
+/* line 159, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table {
   font-size: 12px !important;
   border-collapse: collapse;
   text-align: right;
   width: 100%;
 }
-/* line 162, ../../dev/sass/parts/_print.scss */
+/* line 164, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
 }
-/* line 166, ../../dev/sass/parts/_print.scss */
+/* line 168, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody tr {
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
 }
-/* line 171, ../../dev/sass/parts/_print.scss */
+/* line 173, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td, .print-conteiner .content .construction table tbody th {
   display: table-cell;
   vertical-align: inherit;
 }
-/* line 174, ../../dev/sass/parts/_print.scss */
+/* line 176, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td.title, .print-conteiner .content .construction table tbody th.title {
   width: 200px;
   border-right: solid 1px #d1d2d4;
 }
-/* line 175, ../../dev/sass/parts/_print.scss */
+/* line 177, ../../dev/sass/parts/_print.scss */
 .print-conteiner .content .construction table tbody td.result, .print-conteiner .content .construction table tbody th.result {
   width: 450px;
   color: #283891;
   padding-right: 15px;
 }
-/* line 181, ../../dev/sass/parts/_print.scss */
+/* line 183, ../../dev/sass/parts/_print.scss */
 .print-conteiner hr {
   margin: 2px !important;
   clear: both;
 }
-/* line 185, ../../dev/sass/parts/_print.scss */
+/* line 187, ../../dev/sass/parts/_print.scss */
 .print-conteiner .footer {
   width: 100%;
 }

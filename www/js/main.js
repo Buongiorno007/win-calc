@@ -1066,13 +1066,15 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     HistoryStor,
     HistoryServ,
     CartServ,
-    PrintServ
+    PrintServ,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
+    thisCtrl.constants = globalConstants;
 
     //------- translate
     thisCtrl.FROM = $filter('translate')('history.FROM');
@@ -6017,7 +6019,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           }
         }
         function createDimension(dir, dim, dimGroup, lineCreator) {
-          if(scope.typeConstruction !== globalConstants.SVG_ID_MAIN) {
+          if(scope.typeConstruction !== (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
           var dimLineHeight = -150,
               dimEdger = 50,
               dimMarginBottom = -20,
@@ -6420,7 +6422,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               padding = 1;
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
-            } else if(scope.typeConstruction === globalConstants.SVG_ID_MAIN){
+            } else if(scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)){
               padding = 0.6;
             }
 
@@ -6440,6 +6442,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
             if(scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
               scale = SVGServ.setTemplateScaleMAIN(padding);
+            } else if(scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+              scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             } else {
               scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             }
@@ -6447,6 +6451,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
+              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+                position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
               } else {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
               }
@@ -6692,7 +6698,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
                     var fillName;
                     if (d.type === 'glass') {
-                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                      if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                         if(d.glass_type === 3) {
                           fillName = '#ececec';
                         } else if (d.glass_type === 4) {
@@ -6722,7 +6728,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                           } else {
                               fillName = (d.type !== 'glass') ? 'url(#laminat1)' : '';
                             }
-                        } else if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                        } else if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                           fillName = '#DCDCDC';
                         } else {
                           fillName = '#f9f9f9';
@@ -6733,7 +6739,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                   'fill-opacity': function(d) {
                     var fillName;
                     if (d.type === 'glass') {
-                      if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
+                      if (scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)) {
                         if(d.glass_type === 2) {
                           fillName = 0.5;
                         } else {
@@ -9629,6 +9635,7 @@ function ErrorResult(code, message) {
       SVG_ID_ICON: 'tamlateIconBigSVG',
       SVG_ID_GLASS: 'tamlateGlassSVG',
       SVG_ID_GRID: 'tamlateGridSVG',
+      SVG_ID_PRINT: 'tamlatePrintSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
@@ -14925,10 +14932,12 @@ function ErrorResult(code, message) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              result_prod.forEach(function (entry, index) {
-                tmpSquare += entry[index].template_square;
-                tmpPerim += (entry[index].template_height + entry[index].template_width) * 2;
-              });
+              for(var x=0; x<result_prod.length; x+=1) {
+                if(!result_prod[x].is_addelem_only) {
+                  tmpSquare += result_prod[x].template_square;
+                  tmpPerim += (result_prod[x].template_height + result_prod[x].template_width) * 2;
+                }
+              }
               HistoryStor.history.OrderPrintSquare = tmpSquare;
               HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
               downloadAddElements(1).then(function (result_add) {
@@ -28346,16 +28355,57 @@ function ErrorResult(code, message) {
       return scaleTmp;
     }
 
+    function setTemplateScalePrint(dim, windowW, windowH, padding) {
+      var templateW = (dim.maxX - dim.minX),
+          templateH = (dim.maxY - dim.minY),
+          scaleTmp,
+          d3scaling = d3.scale.linear()
+            .domain([0, 1])
+            .range([0, padding]);
+      if(templateW > templateH) {
+        if(windowW > templateW) {
+          scaleTmp = d3scaling(templateW/(windowW+200));
+          // console.info('W < =====', templateW/windowW, scaleTmp);
+        } else if(windowW < templateW) {
+          scaleTmp = d3scaling(windowW/(templateW+200));
+          // console.info('W > =====', windowW/templateW, scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('W======', scaleTmp);
+        }
+        // console.info('W > H --', scaleTmp);
+      } else if(templateW <= templateH) {
+        if(windowH > templateH) {
+          scaleTmp = d3scaling(templateH/windowH);
+          // console.info('H < =====', templateH/windowH, scaleTmp);
+        } else if(windowH < templateH) {
+          scaleTmp = d3scaling(windowH/templateH);
+          // console.info('H > =====', (windowH/templateH), scaleTmp);
+        } else {
+          scaleTmp = d3scaling(0.2);
+          // console.info('H======', scaleTmp);
+        }
+      // console.info('H > W --', scaleTmp);
+      }
+      return scaleTmp;
+    }
     //----------- TRANSLATE
 
-    function setTemplatePosition(dim, windowW, windowH, scale) {
-      var position = {
-        x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
-        y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
-      };
+    function setTemplatePosition(dim, windowW, windowH, scale, print) {
+      var position;
+      if(print) {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } else {
+        position = {
+          x: ((windowW - (dim.minX + dim.maxX)*scale)/2),
+          y: ((windowH - (dim.minY + dim.maxY)*scale)/2)
+        };
+      } 
       return position;
     }
-
 
     //----------- TRANSLATE MAIN
     function setTemplatePositionMAIN(dim, windowH, scale) {
@@ -28427,6 +28477,7 @@ function ErrorResult(code, message) {
       setQPointCoord: setQPointCoord,
       getCenterLine: getCenterLine,
       calcSquare: calcSquare,
+      setTemplateScalePrint: setTemplateScalePrint,
 
       checkInsidePointInLineEasy: checkInsidePointInLineEasy,
       sortByX: sortByX

@@ -66,6 +66,10 @@
       .head-block {{curProd[$index].product_id}} Количество {{curProd[$index].product_qty}} шт., ширина {{curProd[$index].template_width}} мм., высота {{curProd[$index].template_height}} мм., площадь {{curProd[$index].template_square}}
 
     .construction
+      .left
+        .construction-block-main(ng-if(curProd[$index].template.length))
+          .construction-scrollbox-main
+            svg-template(template="curProd[$index].template", template-width="399", template-height="300", type-construction="historyPage.constants.SVG_ID_PRINT")
       .right
         tbody
           table
