@@ -888,7 +888,6 @@
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
-
                     if (entry.element_height === 0) {
                       entry.element_width = "";
                       entry.element_height = "";
