@@ -1,4 +1,4 @@
-.print-conteiner
+.print-conteiner#print-conteiner
   .header
     .order-number
       b {{historyPage.H.history.orders[historyPage.H.history.historyID].id}}
@@ -13,13 +13,13 @@
           br
           | Тел. моб: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}
         p
-          | Исполнитель: Не определено
+          | Исполнитель: {{historyPage.U.userInfo.name}}
           br
-          | Телефон: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}
+          | Телефон: {{historyPage.U.userInfo.phone}}
           br
-          | Город: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city}}
+          | Город: {{historyPage.U.userInfo.cityName}}
           br
-          | Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city + "("+historyPage.H.history.orders[historyPage.H.history.historyID].created+")"}}
+          | Адрес: {{historyPage.U.userInfo.fullLocation + "("+historyPage.H.history.orders[historyPage.H.history.historyID].modified+")"}}
       .col-md-5
         table
           tbody
@@ -47,7 +47,7 @@
             tr
               td(ng-class="title") Доп. элементы
               td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].discount_addelem}}
-              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price - historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].addelems_price}}
             tr
               td(ng-class="title") Доставка
               td(ng-class="result")
@@ -59,7 +59,7 @@
             tr
               td(ng-class="title") Итого
               td(ng-class="result")
-              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}
+              td(ng-class="result") {{historyPage.H.history.orders[historyPage.H.history.historyID].order_price}}
   .content(ng-repeat="curProd in historyPage.H.history.PrintProduct track by $index")
     .header
       hr
@@ -99,4 +99,6 @@
   p.footer
     | Заказчик несёт ответственность за правильность размеров, конфигурации и комплектации заказа. Оплаченный счёт является потдтверждением.
   p.footer
-    | Заказчик____________________           Исполнитель________________________
+    | Заказчик_________________________________________
+    br
+    | Исполнитель______________________________________

@@ -422,13 +422,13 @@
     <div ng-click="dangerAlert.continued()" class="continued-proc">{{::dangerAlert.IGNORE}}</div>
   </div>
 </div>
-<div class="print-conteiner">
+<div id="print-conteiner" class="print-conteiner">
   <div class="header">
     <div class="order-number"><b>{{historyPage.H.history.orders[historyPage.H.history.historyID].id}}</b></div>
     <div class="order-info">
       <div class="col-md-7">
         <p>Заказчик: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_name}}<br>Населённый пункт: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_location}}<br>Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_address+ ' дом ' +  historyPage.H.history.orders[historyPage.H.history.historyID].customer_house + ' кв. ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_flat + ' этаж ' + historyPage.H.history.orders[historyPage.H.history.historyID].customer_floor}}<br>Тел. моб: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}</p>
-        <p>Исполнитель: Не определено<br>Телефон: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_phone}}<br>Город: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city}}<br>Адрес: {{historyPage.H.history.orders[historyPage.H.history.historyID].customer_city + "("+historyPage.H.history.orders[historyPage.H.history.historyID].created+")"}}</p>
+        <p>Исполнитель: {{historyPage.U.userInfo.name}}<br>Телефон: {{historyPage.U.userInfo.phone}}<br>Город: {{historyPage.U.userInfo.cityName}}<br>Адрес: {{historyPage.U.userInfo.fullLocation + "("+historyPage.H.history.orders[historyPage.H.history.historyID].modified+")"}}</p>
       </div>
       <div class="col-md-5">
         <table>
@@ -462,7 +462,7 @@
             <tr>
               <td ng-class="title">Доп. элементы</td>
               <td ng-class="result">{{historyPage.H.history.orders[historyPage.H.history.historyID].discount_addelem}}</td>
-              <td ng-class="result">{{historyPage.H.history.orders[historyPage.H.history.historyID].order_price - historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}</td>
+              <td ng-class="result">{{historyPage.H.history.orders[historyPage.H.history.historyID].addelems_price}}</td>
             </tr>
             <tr>
               <td ng-class="title">Доставка</td>
@@ -477,7 +477,7 @@
             <tr>
               <td ng-class="title">Итого</td>
               <td ng-class="result"></td>
-              <td ng-class="result">{{historyPage.H.history.orders[historyPage.H.history.historyID].templates_price}}</td>
+              <td ng-class="result">{{historyPage.H.history.orders[historyPage.H.history.historyID].order_price}}</td>
             </tr>
           </tbody>
         </table>
@@ -535,5 +535,5 @@
   </div>
   <hr>
   <p class="footer">Заказчик несёт ответственность за правильность размеров, конфигурации и комплектации заказа. Оплаченный счёт является потдтверждением.</p>
-  <p class="footer">Заказчик____________________           Исполнитель________________________</p>
+  <p class="footer">Заказчик_________________________________________<br>Исполнитель______________________________________</p>
 </div>

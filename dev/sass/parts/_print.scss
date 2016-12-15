@@ -4,30 +4,26 @@
     width: 100%;
     overflow : visible;
   }
-
   .print-conteiner {
-    position: absolute;
-    top : 0;
     width: 100%;
-    min-height: 768px;
     display: block;
     height: auto;
   }
-  .pagebreak {
-    page-break-after: always;
-  }
-  .app-container {
-    height:auto;
-  }
 }
-
+body, html {
+  width : 100%;
+  height: auto;
+  overflow: visible;
+}
 .print-conteiner {
   background-color: #fff;
   margin: 0px auto;
   padding: 10px;
   padding-top: 5px;
-  font-size: 12px;
+  font-size: 15px;
   font-family: 'roboto';
+  height: auto;
+  width: 80%;
 	.header {
     max-height: 230px;
     min-height: 230px;
@@ -184,5 +180,6 @@
 	}
   .footer{
     width:100%;
+    margin: 0 15px ;
   }
 }
