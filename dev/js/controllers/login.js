@@ -275,6 +275,8 @@
 
 
     function checkingUser() {
+             localforage.setItem("FirstIn", "true", function (err, value) {
+             });
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
         if(result.status) {
           var userTemp = angular.copy(result.user);
@@ -531,7 +533,15 @@
         UserStor.userInfo.device_code = value;
       });
     }
+    var FirstIn = "true";
+       localforage.getItem("FirstIn", function (err, value) {
+         if (value!=="true"){
+           $("#updateDBcheck").prop("checked",true);
+         }
+       });
+
     function enterForm(form) {
+
       var newUserPassword;
       //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.     
@@ -540,6 +550,7 @@
         GlobalStor.global.isLoader = 1;
         loader();
 
+
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
@@ -547,8 +558,8 @@
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          if($("#updateDBcheck").prop("checked") ) {
 
+          if($("#updateDBcheck").prop("checked") ) {
             if (onlineMode && navigator.onLine ){
 
               GlobalStor.global.isLoader = 1;

@@ -887,7 +887,7 @@
                 tmpPerim += (entry[index].template_height + entry[index].template_width) * 2;
               });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
+              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {

@@ -1128,6 +1128,7 @@
 
 
     function insertServer(login, access, table, data) {
+      console.log(data);
       var defer = $q.defer(),
           dataToSend = {
             model: table,
