@@ -14914,7 +14914,7 @@ function ErrorResult(code, message) {
         //#
         function orderPrint(orderId) {
           /** check internet */
-          if (navigator.onLine) {
+          if (navigator.onLine && onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join(''),
               paramLink = orderId + '?userId=' + UserStor.userInfo.id,
               printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
@@ -14923,6 +14923,8 @@ function ErrorResult(code, message) {
           } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
+                entry.modified = entry.modified.substr(0,10);
+                console.log(" HistoryStor.history.orders",entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -14943,7 +14945,6 @@ function ErrorResult(code, message) {
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
-
                     if (entry.element_height === 0) {
                       entry.element_width = "";
                       entry.element_height = "";
@@ -14958,7 +14959,7 @@ function ErrorResult(code, message) {
               });
 
             })
-          }
+         }
         }
 
 
@@ -22388,11 +22389,12 @@ function ErrorResult(code, message) {
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
     }
     function setGlassDefault(profileId, template, product) {
+      var glasses = angular.copy(product.glass);
       product.glass.length = 0;
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === profileId;
       });
-
+      console.log(tempGlassArr, 'tempGlassArr')
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
       product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
 
@@ -24702,14 +24704,39 @@ function ErrorResult(code, message) {
 
 
         /**============ METHODS ================*/
-        function getProducts(products,addEl) {
+        function getProducts(products, addEl) {
           HistoryStor.history.PrintProduct = products;
           HistoryStor.history.PrintAddEl = addEl;
           console.log(products, 'products=====');
           console.log(addEl, 'addEl=====');
           setTimeout(function () {
-            window.print();
+            var print = $('#print-conteiner').html();
+            var prtContent = document.getElementById('print-conteiner');
+            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';
+            var WinPrint = window.open(this.href, '_blank');
+            WinPrint.document.write('<div class="print-conteiner">');
+            WinPrint.document.write(prtCSS);
+            WinPrint.document.write(prtContent.innerHTML);
+            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");
+            WinPrint.document.write('</div>');
+            WinPrint.document.close();
+            WinPrint.focus();
+
           }, 1000);
+
+
+          // var mywindow = open('_blank','newokno','width=700,height=700,status=1,menubar=1');
+          // mywindow.document.open();
+          // mywindow.document.write('<html><head><title>Создаём хтмл-документ');
+          // mywindow.document.write('</title></head><body>');
+          // mywindow.document.write(print);
+          // mywindow.document.write('Это статичный текст');
+          // mywindow.document.write('</body></html>');
+          // mywindow.document.close();
+
+          // setTimeout(function () {
+          //   window.print();
+          // }, 1000);
           //window.print();
 
         }

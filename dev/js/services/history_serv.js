@@ -861,7 +861,7 @@
         //#
         function orderPrint(orderId) {
           /** check internet */
-          if (navigator.onLine) {
+          if (navigator.onLine && onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join(''),
               paramLink = orderId + '?userId=' + UserStor.userInfo.id,
               printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
@@ -870,6 +870,8 @@
           } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
+                entry.modified = entry.modified.substr(0,10);
+                console.log(" HistoryStor.history.orders",entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -890,7 +892,6 @@
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
-
                     if (entry.element_height === 0) {
                       entry.element_width = "";
                       entry.element_height = "";
@@ -905,7 +906,7 @@
               });
 
             })
-          }
+         }
         }
 
 

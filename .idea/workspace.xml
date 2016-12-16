@@ -2,763 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1277f2a7-425a-475e-8c39-42f7f08bef6b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dev/vendor/print/pdfmake.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dev/vendor/print/vfs_fonts.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDV.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVAvailability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVAvailabilityDeprecated.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVCommandDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVCommandDelegateImpl.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVCommandDelegateImpl.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVCommandQueue.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVCommandQueue.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVConfigParser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVConfigParser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVDebug.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVHandleOpenURL.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVHandleOpenURL.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVInvokedUrlCommand.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVInvokedUrlCommand.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVJSON.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVJSON.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVJSON_private.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVJSON_private.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVLocalStorage.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVLocalStorage.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVPluginResult.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVPluginResult.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVScreenOrientationDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVShared.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVTimer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVTimer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVURLProtocol.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVURLProtocol.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVUserAgentUtil.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVUserAgentUtil.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVWebViewDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVWebViewDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVWhitelist.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/CDVWhitelist.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSArray+Comparisons.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSArray+Comparisons.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSData+Base64.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSData+Base64.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSDictionary+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSDictionary+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSMutableArray+QueueAdditions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/NSMutableArray+QueueAdditions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/UIDevice+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/Classes/UIDevice+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/CordovaLib_Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/VERSION" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/CordovaLib/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/OrangeCalculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Headers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SKEarcon.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SKRecognition.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SKRecognizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SKVocalizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SpeechKit.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Headers/SpeechKitErrors.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Resources/English.lproj/InfoPlist.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/Resources/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/A/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/SpeechKit.framework/Versions/Current" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator 2.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Steko Calculator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Classes/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Classes/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Classes/MainViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Classes/MainViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Classes/MainViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/Brand Assets.launchimage/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/Icon-29.imageset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/Icon-29.imageset/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Images.xcassets/Icon-29.imageset/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/Credentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/Credentials.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/ICredentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/PhoneGapSpeechPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/PhoneGapSpeechPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/CDVExif.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/controls_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/controls_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/de.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/en.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/es.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/microphone-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/microphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/microphone@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/microphone@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/microphone~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/record_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/record_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/record_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/record_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/recording_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/recording_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/se.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/stop_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/CDVCapture.bundle/stop_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/1024.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-40@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-60.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-60@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-60@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Icon@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/iTunesArtwork.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/icons/iTunesArtwork@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-667h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-Landscape-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-Landscape@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-Landscape~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-Portrait@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default-Portrait~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Default~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Resources/splash/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Voice Creator-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/Voice Creator-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/Voice Creator/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/apple_ios_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/apple_osx_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/apple_xcode_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/build-debug.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/build-release.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/build.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/check_reqs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/clean" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/clean.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/defaults.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/build.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/check_reqs.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/clean.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/copy-www-build-step.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/list-devices" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/list-emulator-images" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/list-started-emulators" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/run.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/spawn.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/start-emulator" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/lib/versions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/run" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/run.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/cordova/version.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/orange/platform_www/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDV.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVAvailability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVAvailabilityDeprecated.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVCommandDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVCommandDelegateImpl.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVCommandDelegateImpl.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVCommandQueue.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVCommandQueue.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVConfigParser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVConfigParser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVDebug.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVHandleOpenURL.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVHandleOpenURL.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVInvokedUrlCommand.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVInvokedUrlCommand.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVJSON.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVJSON.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVJSON_private.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVJSON_private.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVLocalStorage.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVLocalStorage.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVPluginResult.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVPluginResult.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVScreenOrientationDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVShared.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVTimer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVTimer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVURLProtocol.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVURLProtocol.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVUserAgentUtil.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVUserAgentUtil.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVWebViewDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVWebViewDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVWhitelist.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/CDVWhitelist.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSArray+Comparisons.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSArray+Comparisons.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSData+Base64.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSData+Base64.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSDictionary+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSDictionary+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSMutableArray+QueueAdditions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/NSMutableArray+QueueAdditions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/UIDevice+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/Classes/UIDevice+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/CordovaLib_Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/VERSION" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/CordovaLib/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Headers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SKEarcon.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SKRecognition.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SKRecognizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SKVocalizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SpeechKit.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Headers/SpeechKitErrors.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Resources/English.lproj/InfoPlist.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/Resources/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/A/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/SpeechKit.framework/Versions/Current" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator 2.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Steko Calculator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Classes/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Classes/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Classes/MainViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Classes/MainViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Classes/MainViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S100x100.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S144x144.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S152x152.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S29x29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S40x40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S50x50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S58x58.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S72x72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S76x76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/AppIcon.appiconset/S80x80.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/Brand Assets.launchimage/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/Icon-29.imageset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/Icon-29.imageset/S29x29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Images.xcassets/Icon-29.imageset/S58x58.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/Credentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/Credentials.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/ICredentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/PhoneGapSpeechPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/PhoneGapSpeechPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/CDVExif.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/controls_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/controls_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/de.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/en.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/es.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/microphone-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/microphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/microphone@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/microphone@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/microphone~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/record_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/record_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/record_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/record_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/recording_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/recording_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/se.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/stop_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/CDVCapture.bundle/stop_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/1024.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-40@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-60.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-60@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-60@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Icon@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/iTunesArtwork.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/icons/iTunesArtwork@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-667h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-Landscape-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-Landscape@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-Landscape~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-Portrait@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default-Portrait~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Default~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Resources/splash/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Voice Creator-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/Voice Creator-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/Voice Creator/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/apple_ios_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/apple_osx_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/apple_xcode_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/build-debug.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/build-release.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/build.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/check_reqs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/clean" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/clean.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/defaults.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/build.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/check_reqs.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/clean.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/copy-www-build-step.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/list-devices" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/list-emulator-images" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/list-started-emulators" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/run.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/spawn.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/start-emulator" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/lib/versions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/run" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/run.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/cordova/version.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/steko/platform_www/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDV.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVAvailability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVAvailabilityDeprecated.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVCommandDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVCommandDelegateImpl.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVCommandDelegateImpl.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVCommandQueue.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVCommandQueue.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVConfigParser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVConfigParser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVDebug.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVHandleOpenURL.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVHandleOpenURL.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVInvokedUrlCommand.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVInvokedUrlCommand.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVJSON.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVJSON.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVJSON_private.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVJSON_private.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVLocalStorage.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVLocalStorage.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVPluginResult.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVPluginResult.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVScreenOrientationDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVShared.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVTimer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVTimer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVURLProtocol.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVURLProtocol.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVUserAgentUtil.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVUserAgentUtil.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVWebViewDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVWebViewDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVWhitelist.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/CDVWhitelist.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSArray+Comparisons.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSArray+Comparisons.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSData+Base64.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSData+Base64.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSDictionary+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSDictionary+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSMutableArray+QueueAdditions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/NSMutableArray+QueueAdditions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/UIDevice+Extensions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/Classes/UIDevice+Extensions.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/CordovaLib.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/CordovaLib_Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/VERSION" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/CordovaLib/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Headers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SKEarcon.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SKRecognition.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SKRecognizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SKVocalizer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SpeechKit.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Headers/SpeechKitErrors.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Resources/English.lproj/InfoPlist.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/Resources/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/A/SpeechKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/SpeechKit.framework/Versions/Current" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Classes/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Classes/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Classes/MainViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Classes/MainViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Classes/MainViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/AppIcon.appiconset/icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/Brand Assets.launchimage/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/Icon-29.imageset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/Icon-29.imageset/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Images.xcassets/Icon-29.imageset/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/Credentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/Credentials.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/ICredentials.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/PhoneGapSpeechPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/PhoneGapSpeechPlugin.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/CDVCamera.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/CDVExif.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/CDVJpegHeaderWriter.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.camera/UIImage+CropScaleOrientation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.console/CDVLogger.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file-transfer/CDVFileTransfer.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVAssetLibraryFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVFile.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.file/CDVLocalFilesystem.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.geolocation/CDVLocation.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.globalization/CDVGlobalization.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.inappbrowser/CDVInAppBrowser.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.media-capture/CDVCapture.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.media/CDVSound.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.network-information/CDVConnection.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.network-information/CDVReachability.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.splashscreen/CDVSplashScreen.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Plugins/org.apache.cordova.statusbar/CDVStatusBar.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/controls_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/controls_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/controls_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/de.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/en.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/es.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/microphone-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/microphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/microphone@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/microphone@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/microphone~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/record_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/record_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/record_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/record_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/recording_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/recording_bg@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/recording_bg~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/se.lproj/Localizable.strings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/stop_button.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/stop_button@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/CDVCapture.bundle/stop_button~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/1024.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/Icon-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/Icon-29@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/Icon-40@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/iTunesArtwork.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/iTunesArtwork@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-60.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-60@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-60@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/icons/icon@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-667h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-Landscape-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-Landscape@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-Landscape~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-Portrait@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default-Portrait~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Default~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Resources/splash/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Voice Creator-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/Voice Creator-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/Voice Creator/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/xcshareddata/Voice Creator.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/xcuserdata/Alexandr.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/xcuserdata/andrey.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/project.xcworkspace/xcuserdata/rodion.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/Alexandr.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Steko Calculator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/andrey.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/Voice Creator.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator.xcodeproj/xcuserdata/rodion.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/WindowsCalculator/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/apple_ios_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/apple_osx_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/apple_xcode_version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/build-debug.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/build-release.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/build.xcconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/check_reqs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/clean" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/clean.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/defaults.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/build.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/check_reqs.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/clean.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/copy-www-build-step.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/list-devices" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/list-emulator-images" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/list-started-emulators" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/run.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/spawn.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/start-emulator" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/lib/versions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/run" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/run.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/version" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/cordova/version.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_iosApp/window/platform_www/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/npm-debug.log" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/history_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/history_serv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/login_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/login_serv.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/print_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/print_serv.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_print.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_print.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/main.css" afterPath="$PROJECT_DIR$/www/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/main.js" afterPath="$PROJECT_DIR$/www/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/plugins.js" afterPath="$PROJECT_DIR$/www/js/plugins.js" />
@@ -786,28 +34,8 @@
       <file leaf-file-name="print_serv.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/js/services/print_serv.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_print.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_print.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_print-order.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="97" column="4" lean-forward="false" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
+            <state relative-caret-position="106">
+              <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="21" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -816,8 +44,80 @@
       <file leaf-file-name="history_serv.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dev/js/services/history_serv.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49">
-              <caret line="863" column="30" lean-forward="false" selection-start-line="863" selection-start-column="30" selection-end-line="863" selection-end-column="30" />
+            <state relative-caret-position="360">
+              <caret line="907" column="9" lean-forward="false" selection-start-line="907" selection-start-column="9" selection-end-line="907" selection-end-column="9" />
+              <folding>
+                <marker date="1481734665557" expanded="true" signature="37196:37629" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="history_stor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/storages/history_stor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_stor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/storages/user_stor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="history.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/controllers/history.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login_serv.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/services/login_serv.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="666">
+              <caret line="324" column="26" lean-forward="false" selection-start-line="324" selection-start-column="8" selection-end-line="324" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="general_serv.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/services/general_serv.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="314" column="27" lean-forward="false" selection-start-line="314" selection-start-column="7" selection-end-line="314" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_print.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_print.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="743">
+              <caret line="181" column="12" lean-forward="false" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_print-order.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="61" column="111" lean-forward="false" selection-start-line="61" selection-start-column="111" selection-end-line="61" selection-end-column="111" />
               <folding />
             </state>
           </provider>
@@ -831,7 +131,14 @@
       <find>template_sq</find>
       <find>200</find>
       <find>rpri</find>
+      <find>goToLink</find>
+      <find>typing-delay=&quot;2000&quot;</find>
+      <find>avatra</find>
+      <find>rprin</find>
     </findStrings>
+    <dirStrings>
+      <dir>E:\bauvoiceapp\dev\jade</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -865,8 +172,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1928" />
-    <option name="y" value="-354" />
+    <option name="x" value="1358" />
+    <option name="y" value="-320" />
     <option name="width" value="1936" />
     <option name="height" value="1066" />
   </component>
@@ -888,8 +195,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -899,38 +206,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -985,6 +260,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -1031,34 +312,44 @@
       <option name="presentableId" value="Default" />
       <updated>1481701931443</updated>
       <workItem from="1481701936628" duration="22000" />
-      <workItem from="1481702003775" duration="9299000" />
+      <workItem from="1481702003775" duration="11604000" />
+      <workItem from="1481714277168" duration="16906000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9321000" />
+    <option name="totallyTimeSpent" value="28532000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-354" width="1936" height="1066" extended-state="6" />
+    <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17702845" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32690248" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32690248" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1102,79 +393,111 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/vendor/print/vfs_fonts.js" />
+    <entry file="file://$PROJECT_DIR$/dev/vendor/print/pdfmake.min.js" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitattributes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="363" column="67" lean-forward="false" selection-start-line="363" selection-start-column="3" selection-end-line="363" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/general_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="314" column="27" lean-forward="false" selection-start-line="314" selection-start-column="7" selection-end-line="314" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/login_serv.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12426">
-          <caret line="929" column="46" lean-forward="false" selection-start-line="929" selection-start-column="46" selection-end-line="929" selection-end-column="46" />
+        <state relative-caret-position="666">
+          <caret line="324" column="26" lean-forward="false" selection-start-line="324" selection-start-column="8" selection-end-line="324" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/dev/js/storages/history_stor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="363" column="21" lean-forward="false" selection-start-line="363" selection-start-column="3" selection-end-line="363" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/print/vfs_fonts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5967">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/vendor/print/pdfmake.min.js">
+    <entry file="file://$PROJECT_DIR$/dev/js/storages/user_stor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="0" column="2307" lean-forward="false" selection-start-line="0" selection-start-column="2307" selection-end-line="0" selection-end-column="2307" />
+        <state relative-caret-position="272">
+          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/controllers/history.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/sass/parts/_print.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="97" column="4" lean-forward="false" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
+        <state relative-caret-position="743">
+          <caret line="181" column="12" lean-forward="false" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/print_serv.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="21" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <caret line="61" column="111" lean-forward="false" selection-start-line="61" selection-start-column="111" selection-end-line="61" selection-end-column="111" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/history_serv.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="863" column="30" lean-forward="false" selection-start-line="863" selection-start-column="30" selection-end-line="863" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="360">
+          <caret line="907" column="9" lean-forward="false" selection-start-line="907" selection-start-column="9" selection-end-line="907" selection-end-column="9" />
+          <folding>
+            <marker date="1481734665557" expanded="true" signature="37196:37629" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
