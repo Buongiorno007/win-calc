@@ -217,10 +217,11 @@
       cursor: pointer;
     }
     .order-template {
-      text-align : center;
-      position: relative;
+      position: absolute;
       bottom: rem(-73px);
       left: rem(10px);
+      padding: rem(20px);
+      background-color: #fff;
       border-radius: rem($radius_order-template);
     }
     .order-u-coeff {

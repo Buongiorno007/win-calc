@@ -1252,7 +1252,7 @@
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
-          console.log(product);
+          //console.log(product);
         });
       });
       return deferred.promise;
@@ -3340,6 +3340,7 @@
               /** create template icon */
               SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
                 .then(function (result) {
+                  console.log("SVGTemplateIcon",result);
                   ProductStor.product.templateIcon = angular.copy(result);
                 });
 

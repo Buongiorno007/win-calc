@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1277f2a7-425a-475e-8c39-42f7f08bef6b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/css/main.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/js/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/js/plugins.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/cart.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/views/history.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/cart.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/login.js" afterPath="$PROJECT_DIR$/dev/js/controllers/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/index.js" afterPath="$PROJECT_DIR$/dev/js/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/history_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/history_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/design_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/design_serv.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/login_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/login_serv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/main_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/main_serv.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/pages/cart.scss" afterPath="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -36,11 +27,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="login_serv.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/login_serv.js">
+      <file leaf-file-name="design_serv.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1436">
-              <caret line="1668" column="37" lean-forward="false" selection-start-line="1668" selection-start-column="37" selection-end-line="1668" selection-end-column="37" />
+            <state relative-caret-position="199">
+              <caret line="1254" column="12" lean-forward="false" selection-start-line="1254" selection-start-column="12" selection-end-line="1254" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cart.jade" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cart.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="278" column="35" lean-forward="true" selection-start-line="278" selection-start-column="35" selection-end-line="278" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -50,7 +61,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>//#</find>
       <find>template_sq</find>
       <find>200</find>
       <find>rpri</find>
@@ -67,7 +77,6 @@
       <find>orderType</find>
       <find>insertServer</find>
       <find>order-header-fon</find>
-      <find>order-template</find>
       <find>.order-template</find>
       <find>checkForAddElem()</find>
       <find>setPreviosPage</find>
@@ -77,12 +86,18 @@
       <find>GlobalStor.global.profilesType.forEach(func</find>
       <find>prerender</find>
       <find>ce</find>
+      <find>designSaved()</find>
+      <find>function insertServer(login, access, table, data)</find>
+      <find>console.log(product);</find>
+      <find>order-u-coeff</find>
+      <find>order-template</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp\dev\jade</dir>
       <dir>E:\bauvoiceapp\sass</dir>
-      <dir>E:\bauvoiceapp\dev\sass</dir>
       <dir>E:\bauvoiceapp\dev\js</dir>
+      <dir>E:\bauvoiceapp\dev</dir>
+      <dir>E:\bauvoiceapp\dev\sass</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -99,14 +114,15 @@
         <option value="$PROJECT_DIR$/_product/steko/ext/index.html" />
         <option value="$PROJECT_DIR$/_product/steko/ext/js/main.js" />
         <option value="$PROJECT_DIR$/dev/js/index.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
         <option value="$PROJECT_DIR$/dev/js/services/main_serv.js" />
-        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
-        <option value="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
         <option value="$PROJECT_DIR$/www/js/main.js" />
         <option value="$PROJECT_DIR$/dev/js/controllers/login.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/dev/js/services/login_serv.js" />
+        <option value="$PROJECT_DIR$/dev/js/services/localdb_serv.js" />
+        <option value="$PROJECT_DIR$/dev/js/services/design_serv.js" />
+        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
+        <option value="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
       </list>
     </option>
   </component>
@@ -157,6 +173,60 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bauvoiceapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -280,12 +350,12 @@
       <workItem from="1481701936628" duration="22000" />
       <workItem from="1481702003775" duration="11604000" />
       <workItem from="1481714277168" duration="24191000" />
-      <workItem from="1481796092714" duration="23493000" />
+      <workItem from="1481796092714" duration="26187000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59310000" />
+    <option name="totallyTimeSpent" value="62004000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -301,14 +371,14 @@
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17702845" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17702845" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690248" sideWeight="0.5021075" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32690248" sideWeight="0.49789253" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690248" sideWeight="0.49789253" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -502,30 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/localdb_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="1130" column="10" lean-forward="false" selection-start-line="1130" selection-start-column="10" selection-end-line="1130" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="223" column="0" lean-forward="false" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -610,6 +656,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1436">
           <caret line="1668" column="37" lean-forward="false" selection-start-line="1668" selection-start-column="37" selection-end-line="1668" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/localdb_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19069">
+          <caret line="1130" column="0" lean-forward="false" selection-start-line="1130" selection-start-column="0" selection-end-line="1130" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="1254" column="12" lean-forward="false" selection-start-line="1254" selection-start-column="12" selection-end-line="1254" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/base/_sizes.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="59" column="8" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="278" column="35" lean-forward="true" selection-start-line="278" selection-start-column="35" selection-end-line="278" selection-end-column="35" />
           <folding />
         </state>
       </provider>
