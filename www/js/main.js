@@ -1275,21 +1275,16 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     MainServ,
     GlobalStor,
     ProductStor,
-    UserStor,
-    HistoryServ
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.consts = globalConstants;
 
-    var onlineMode;
-
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
-    thisCtrl.isOfflineImport = 0;
-    thisCtrl.isAutoSyncInfo = 0;
     thisCtrl.isLocalDB = 0;
     thisCtrl.isRegistration = 0;
     thisCtrl.submitted = 0;
@@ -1304,16 +1299,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.user = {};
     thisCtrl.factories = 0;
     GlobalStor.global.loader = 0; 
-    thisCtrl.onlineMode = 0;
-
-
-   
-      $.get(globalConstants.serverIP, function() {
-        onlineMode = true;
-      })
-      .fail(function() {
-        onlineMode = false;
-      });
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -1341,13 +1326,12 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-    thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
-    thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
-    thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
+
     /** reload room img */
     //$("<img />").attr("src", "img/room/1.png");
     //$("<img />").attr("src", "img/room/33.gif");
     //$("<img />").attr("src", "img/room/333.gif");
+
 
     function preloadImages(array) {
       if (!preloadImages.list) {
@@ -1387,6 +1371,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       "img/room/3333.png"
     ]);
 
+
     /**============ METHODS ================*/
 
 
@@ -1413,7 +1398,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           //console.timeEnd('prog');
           $location.path('/main');
         }
-
       });
     }
 
@@ -1510,14 +1494,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                     loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
-                    var key = "UserStor.userInfo.phone";
-                    var value = UserStor.userInfo.phone;
-                    localforage.setItem(key, value, function (err, value) {
-                    });
-                    var key = "UserStor.userInfo.device_code";
-                    var value = UserStor.userInfo.device_code;
-                    localforage.setItem(key, value, function (err, value) {
-                    });
                   }
                 });
               }
@@ -1555,6 +1531,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
       });
     }
+
+
 
     /**============== ENTRY BY LINK ===============*/
 
@@ -1609,7 +1587,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             'd4651afb4e1c749f0bacc7ff5d101982',
             '988a8fa4855bf7ea54057717655d3fc9',
             '82deec386376c6f81845e561f491e19a',
-            'f427fe660e069c2a1d03db07126c95b7'
+            'f427fe660e069c2a1d03db07126c95b7',
+            '15bbb9d0bbf25e8d2978de1168c749dc'
 
           ],
           phoneArr = [
@@ -1660,7 +1639,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             '000027',
             '000028',
             'vikna',
-            '5371'
+            '5371',
+            'Website'
           ],
           passwordArr = [
             '0950604425',
@@ -1710,7 +1690,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             '000027',
             '000028',
             'vikna', 
-            '5371'
+            '5371',
+            'Website'
           ],
           accessQty = accessArr.length,
           isCustomer = 0;
@@ -1776,57 +1757,32 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       }
     }
 
-
-
     if (window.location.hash.length > 10) {
       loader()
     }
-    if (!onlineMode && !navigator.onLine) {
-      localforage.getItem("UserStor.userInfo.phone", function (err, value) {
-        UserStor.userInfo.phone = value;
-      });
-
-      localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
-        UserStor.userInfo.device_code = value;
-      });
-    }
     function enterForm(form) {
       var newUserPassword;
-      //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.     
+//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+      //------ Trigger validation flag.
       thisCtrl.submitted = 1;
-      if (form.$valid) {        
+      if (form.$valid) {
         GlobalStor.global.isLoader = 1;
         loader();
-
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
         if(thisCtrl.isOnline) {
+
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          if($("#updateDBcheck").prop("checked") ) {
+          //checkingUser();
 
-            if (onlineMode && navigator.onLine ){
-
-              GlobalStor.global.isLoader = 1;
-              HistoryServ.synchronizeOrders().then(function () {
-                GlobalStor.global.isLoader = 1;
-                checkingUser();
-              });
-              //checkingUser();
-            } else {
-              GlobalStor.global.isLoader = 0;
-              thisCtrl.isOfflineImport = 1;
-            }
-          }
-          else {
           //------- check available Local DB
           //for offline work
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
             if(thisCtrl.isLocalDB) {
+
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
@@ -1861,14 +1817,14 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                     checkingUser();
                   }
                 });
-              } else {
+
+
+            } else {
               //======== IMPORT
               console.log('IMPORT');
               checkingUser();
             }
           });
-          }
-
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -1936,7 +1892,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 //                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
           localDB.updateLocalServerDBs(
-
             localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
           ).then(function() {
             //-------- close Factory Dialog
@@ -22389,12 +22344,11 @@ function ErrorResult(code, message) {
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
     }
     function setGlassDefault(profileId, template, product) {
-      var glasses = angular.copy(product.glass);
       product.glass.length = 0;
       var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === profileId;
       });
-      console.log(tempGlassArr, 'tempGlassArr')
+
       GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
       product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
 

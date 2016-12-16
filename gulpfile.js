@@ -517,9 +517,9 @@ gulp.task('prod', function () {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-  //var server = config.serverWindows;
+  var server = config.serverWindows;
   //var server = config.serverOrange;
-var server = config.serverSteko;
+  //var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

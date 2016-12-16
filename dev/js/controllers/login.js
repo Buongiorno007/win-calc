@@ -16,21 +16,16 @@
     MainServ,
     GlobalStor,
     ProductStor,
-    UserStor,
-    HistoryServ
+    UserStor
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.consts = globalConstants;
 
-    var onlineMode;
-
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
-    thisCtrl.isOfflineImport = 0;
-    thisCtrl.isAutoSyncInfo = 0;
     thisCtrl.isLocalDB = 0;
     thisCtrl.isRegistration = 0;
     thisCtrl.submitted = 0;
@@ -45,16 +40,6 @@
     thisCtrl.user = {};
     thisCtrl.factories = 0;
     GlobalStor.global.loader = 0; 
-    thisCtrl.onlineMode = 0;
-
-
-   
-      $.get(globalConstants.serverIP, function() {
-        onlineMode = true;
-      })
-      .fail(function() {
-        onlineMode = false;
-      });
 
     //------- translate
     thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
@@ -82,13 +67,12 @@
     thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
     thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
     thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-    thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
-    thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
-    thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
+
     /** reload room img */
     //$("<img />").attr("src", "img/room/1.png");
     //$("<img />").attr("src", "img/room/33.gif");
     //$("<img />").attr("src", "img/room/333.gif");
+
 
     function preloadImages(array) {
       if (!preloadImages.list) {
@@ -128,6 +112,7 @@
       "img/room/3333.png"
     ]);
 
+
     /**============ METHODS ================*/
 
 
@@ -154,7 +139,6 @@
           //console.timeEnd('prog');
           $location.path('/main');
         }
-
       });
     }
 
@@ -251,14 +235,6 @@
                     loginServ.prepareLocationToUse().then(function() {
                       checkingFactory();
                     });
-                    var key = "UserStor.userInfo.phone";
-                    var value = UserStor.userInfo.phone;
-                    localforage.setItem(key, value, function (err, value) {
-                    });
-                    var key = "UserStor.userInfo.device_code";
-                    var value = UserStor.userInfo.device_code;
-                    localforage.setItem(key, value, function (err, value) {
-                    });
                   }
                 });
               }
@@ -296,6 +272,8 @@
 
       });
     }
+
+
 
     /**============== ENTRY BY LINK ===============*/
 
@@ -350,7 +328,8 @@
             'd4651afb4e1c749f0bacc7ff5d101982',
             '988a8fa4855bf7ea54057717655d3fc9',
             '82deec386376c6f81845e561f491e19a',
-            'f427fe660e069c2a1d03db07126c95b7'
+            'f427fe660e069c2a1d03db07126c95b7',
+            '15bbb9d0bbf25e8d2978de1168c749dc'
 
           ],
           phoneArr = [
@@ -401,7 +380,8 @@
             '000027',
             '000028',
             'vikna',
-            '5371'
+            '5371',
+            'Website'
           ],
           passwordArr = [
             '0950604425',
@@ -451,7 +431,8 @@
             '000027',
             '000028',
             'vikna', 
-            '5371'
+            '5371',
+            'Website'
           ],
           accessQty = accessArr.length,
           isCustomer = 0;
@@ -517,57 +498,32 @@
       }
     }
 
-
-
     if (window.location.hash.length > 10) {
       loader()
     }
-    if (!onlineMode && !navigator.onLine) {
-      localforage.getItem("UserStor.userInfo.phone", function (err, value) {
-        UserStor.userInfo.phone = value;
-      });
-
-      localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
-        UserStor.userInfo.device_code = value;
-      });
-    }
     function enterForm(form) {
       var newUserPassword;
-      //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.     
+//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+      //------ Trigger validation flag.
       thisCtrl.submitted = 1;
-      if (form.$valid) {        
+      if (form.$valid) {
         GlobalStor.global.isLoader = 1;
         loader();
-
         //------ check Internet
         //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
         if(thisCtrl.isOnline) {
+
           ////TODO for Steko
           //======== IMPORT
           //console.log('IMPORT');
-          if($("#updateDBcheck").prop("checked") ) {
+          //checkingUser();
 
-            if (onlineMode && navigator.onLine ){
-
-              GlobalStor.global.isLoader = 1;
-              HistoryServ.synchronizeOrders().then(function () {
-                GlobalStor.global.isLoader = 1;
-                checkingUser();
-              });
-              //checkingUser();
-            } else {
-              GlobalStor.global.isLoader = 0;
-              thisCtrl.isOfflineImport = 1;
-            }
-          }
-          else {
           //------- check available Local DB
           //for offline work
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
             if(thisCtrl.isLocalDB) {
+
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
@@ -602,14 +558,14 @@
                     checkingUser();
                   }
                 });
-              } else {
+
+
+            } else {
               //======== IMPORT
               console.log('IMPORT');
               checkingUser();
             }
           });
-          }
-
 
         //-------- check LocalDB
         } else if(thisCtrl.isLocalDB) {
@@ -677,7 +633,6 @@
 //                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
           localDB.updateLocalServerDBs(
-
             localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
           ).then(function() {
             //-------- close Factory Dialog
