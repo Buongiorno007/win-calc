@@ -80,18 +80,21 @@ gulp.task('jade', function () {
 
 var env = args.env || 'steko';
 var server_env = {
+    "windowSiteTest": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
     "orange": "'http://api.orange.windowscalculator.net'",
     "window": "'http://api.windowscalculator.net'"
   },
   print_env = {
+    "windowSiteTest": "'http://test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
+    "windowSiteTest": "'/calculator/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
@@ -463,6 +466,10 @@ gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
+gulp.task('buildWindowSiteTest', function () {
+  buildSite("windowSiteTest");
+});
+
 gulp.task('buildWindowSite', function () {
   buildSite("windowSite");
 });
@@ -517,9 +524,9 @@ gulp.task('prod', function () {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-  //var server = config.serverWindows;
+  var server = config.serverWindows;
   //var server = config.serverOrange;
-var server = config.serverSteko;
+  //var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

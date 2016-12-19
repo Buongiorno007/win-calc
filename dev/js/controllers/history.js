@@ -12,13 +12,15 @@
     HistoryStor,
     HistoryServ,
     CartServ,
-    PrintServ
+    PrintServ,
+    globalConstants
   ) {
     /*jshint validthis:true */
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
+    thisCtrl.constants = globalConstants;
 
     //------- translate
     thisCtrl.FROM = $filter('translate')('history.FROM');
