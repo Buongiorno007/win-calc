@@ -40,7 +40,7 @@ deploy_dev:
       git checkout . ;
       git pull origin $GIT_TEST_BRANCH ;
       npm i ;
-      gulp buildWindowSite; 
+      gulp buildWindowSiteTest ; 
       cp -fr $TEST_BUILD_PATH/* $TEST_WEB_PATH "
   only:
     - develop
