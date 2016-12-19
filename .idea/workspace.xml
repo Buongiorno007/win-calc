@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1277f2a7-425a-475e-8c39-42f7f08bef6b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/main.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/main.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/views/history.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" afterPath="$PROJECT_DIR$/dev/jade/views/parts/_print-order.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/history.js" afterPath="$PROJECT_DIR$/dev/js/controllers/history.js" />
@@ -12,9 +15,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/svg_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/svg_serv.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_print.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_print.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/main.css" afterPath="$PROJECT_DIR$/www/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/main.js" afterPath="$PROJECT_DIR$/www/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/views/history.html" afterPath="$PROJECT_DIR$/www/views/history.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -305,12 +305,12 @@
       <workItem from="1481702003775" duration="11604000" />
       <workItem from="1481714277168" duration="24191000" />
       <workItem from="1481796092714" duration="23493000" />
-      <workItem from="1482163744152" duration="2313000" />
+      <workItem from="1482163744152" duration="2453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61623000" />
+    <option name="totallyTimeSpent" value="61763000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
