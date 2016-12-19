@@ -24,6 +24,7 @@
       SVG_ID_ICON: 'tamlateIconBigSVG',
       SVG_ID_GLASS: 'tamlateGlassSVG',
       SVG_ID_GRID: 'tamlateGridSVG',
+      SVG_ID_PRINT: 'tamlatePrintSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
