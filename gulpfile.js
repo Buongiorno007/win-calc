@@ -453,10 +453,10 @@ function buildSite(id) {
   //css
   gulp.src(config.build.src.css)
     .pipe(compass({
-      css: "_product/" + id + "/site/css",
-      image: "_product/" + id + "/site/img/",
+      css: "home/deploy/bauvoiceapp/current/_product/" + id + "/site/css",
+      image: "home/deploy/bauvoiceapp/current/_product/" + id + "/site/img/",
       sass: "dev/sass",
-      font: "_product/" + id + "/site/fonts",
+      font: "home/deploy/bauvoiceapp/current/_product/" + id + "/site/fonts",
     }))
     .pipe(csso())
     .pipe(gulp.dest("_product/" + id + "/site/css"));
