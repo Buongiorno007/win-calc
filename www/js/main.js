@@ -10601,10 +10601,12 @@ function ErrorResult(code, message) {
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      if(GlobalStor.global.currOpenPage !== 'history' && GlobalStor.global.currOpenPage !== 'cart') {
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      } 
 
 
 
@@ -13098,6 +13100,11 @@ function ErrorResult(code, message) {
 
   });
 })();
+
+
+
+// services/door_config_serv.js
+
 
 
 
@@ -17855,8 +17862,6 @@ function ErrorResult(code, message) {
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
-        console.log(objTmp, 'objTmp')
-        console.log(currConsist, 'currConsist')
 
         /** if glass */
         if (objTmp.element_group_id === 9) {

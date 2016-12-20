@@ -2325,8 +2325,6 @@
         //console.log('Поправка на обрезку : ' + pruning);
         //console.log('Размер: ' + currSize + ' m');
         //console.log('parentValue: ' + parentValue);
-        console.log(objTmp, 'objTmp')
-        console.log(currConsist, 'currConsist')
 
         /** if glass */
         if (objTmp.element_group_id === 9) {
