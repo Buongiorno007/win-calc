@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1277f2a7-425a-475e-8c39-42f7f08bef6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -370,12 +370,12 @@
       <workItem from="1481796092714" duration="26187000" />
       <workItem from="1482149081529" duration="8685000" />
       <workItem from="1482157836175" duration="5324000" />
-      <workItem from="1482166516436" duration="5819000" />
+      <workItem from="1482166516436" duration="6105000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81832000" />
+    <option name="totallyTimeSpent" value="82118000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
