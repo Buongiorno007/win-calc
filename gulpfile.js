@@ -393,14 +393,14 @@ gulp.task('buildExt', function () {
 function buildSite(id) {
   //html
   gulp.src(config.build.src.html)
-    .pipe(newer("current/_product/" + id + "/site", '.html'))
+    .pipe(newer("_product/" + id + "/site", '.html'))
     .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
     .pipe(jade({
       doctype: 'html',
       pretty: true
     }))
     .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
-    .pipe(gulp.dest("current/_product/" + id + "/site"));
+    .pipe(gulp.dest("_product/" + id + "/site"));
 
   //js
   gulp.src(config.build.src.js)
@@ -416,50 +416,50 @@ function buildSite(id) {
     .pipe(ngAnnotate({add: true}))
     .pipe(js_obfuscator())
     .pipe(uglify())
-    .pipe(gulp.dest("current/_product/" + id + "/site/js"));
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
-    .pipe(gulp.dest("current/_product/" + id + "/site/js"));
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
   gulp.src(config.build.src.js_other)
     .pipe(wrapper({
       header: '\n// ${filename}\n\n',
       footer: '\n'
     }))
-    .pipe(gulp.dest("current/_product/" + id + "/site/js"));
+    .pipe(gulp.dest("_product/" + id + "/site/js"));
 
   // Копируем изображения
   gulp.src(config.build.src.img)
-    .pipe(newer("current/_product/" + id + "/site/img"))
-    .pipe(gulp.dest("current/_product/" + id + "/site/img"));
+    .pipe(newer("_product/" + id + "/site/img"))
+    .pipe(gulp.dest("_product/" + id + "/site/img"));
 
   // Копируем шрифты
   gulp.src(config.build.src.fonts)
-    .pipe(newer("current/_product/" + id + "/site/fonts"))
-    .pipe(gulp.dest("current/_product/" + id + "/site/fonts"));
+    .pipe(newer("_product/" + id + "/site/fonts"))
+    .pipe(gulp.dest("_product/" + id + "/site/fonts"));
 
   // Копируем audio
   gulp.src(config.build.src.audio)
-    .pipe(newer("current/_product/" + id + "/site/audio"))
-    .pipe(gulp.dest("current/_product/" + id + "/site/audio"));
+    .pipe(newer("_product/" + id + "/site/audio"))
+    .pipe(gulp.dest("_product/" + id + "/site/audio"));
 
   // copy translate jsons
   gulp.src(config.build.src.local)
-    .pipe(newer("current/_product/" + id + "/site/local"))
-    .pipe(gulp.dest("current/_product/" + id + "/site/local"));
+    .pipe(newer("_product/" + id + "/site/local"))
+    .pipe(gulp.dest("_product/" + id + "/site/local"));
   //css
   gulp.src(config.build.src.css)
     .pipe(compass({
-      css: "current/_product/" + id + "/site/css",
-      image: "current/_product/" + id + "/site/img/",
+      css: "_product/" + id + "/site/css",
+      image: "_product/" + id + "/site/img/",
       sass: "dev/sass",
-      font: "current/_product/" + id + "/site/fonts",
+      font: "_product/" + id + "/site/fonts",
     }))
     .pipe(csso())
-    .pipe(gulp.dest("current/_product/" + id + "/site/css"));
+    .pipe(gulp.dest("_product/" + id + "/site/css"));
 }
 
 gulp.task('buildStekoSite', function () {
