@@ -462,13 +462,20 @@ function buildSite(id) {
     .pipe(gulp.dest("_product/" + id + "/site/css"));
 }
 
+gulp.task('CopyWindowIMG', function () {
+  // Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(newer("_product/WindowSiteTest/site/img"))
+    .pipe(gulp.dest("_product/WindowSiteTest/site/img"));
+});
+
 gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
-gulp.task('buildWindowSiteTest', function () {
+gulp.task('buildWindowSiteTest',['CopyWindowIMG'], function () {
   buildSite("windowSiteTest");
-});
+})
 
 gulp.task('buildWindowSite', function () {
   buildSite("windowSite");
@@ -524,9 +531,9 @@ gulp.task('prod', function () {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-  var server = config.serverWindows;
-  //var server = config.serverOrange;
-  //var server = config.serverSteko;
+var server = config.serverWindows;
+//var server = config.serverOrange;
+//var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {
