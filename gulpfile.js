@@ -87,7 +87,7 @@ var server_env = {
     "window": "'http://api.windowscalculator.net'"
   },
   print_env = {
-    "windowSiteTest": "'http://test.windowscalculator.net/orders/get-order-pdf/'",
+    "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
@@ -362,6 +362,7 @@ function buildExt(id) {
     .pipe(csso())
     .pipe(gulp.dest("_product/" + id + "/ext/css"));
 }
+
 /**!!!!!!!!!!!!!ВАЖНО билдить расширения можно поочередно руками или командой
  *
  * gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt
@@ -475,7 +476,8 @@ gulp.task('buildStekoSite', function () {
 
 gulp.task('buildWindowSiteTest',['CopyWindowIMG'], function () {
   buildSite("windowSiteTest");
-})
+});
+
 
 gulp.task('buildWindowSite', function () {
   buildSite("windowSite");

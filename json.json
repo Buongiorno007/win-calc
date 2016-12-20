@@ -1,0 +1,6010 @@
+{
+  "details": [
+    {
+      "type": "skylight",
+      "id": "block_0",
+      "level": 0,
+      "blockType": "frame",
+      "children": [
+        "block_1"
+      ],
+      "maxSizeLimit": 5000,
+      "overallDim": [
+        {
+          "w": 1300,
+          "h": 1400,
+          "square": 1.82
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_1",
+      "level": 1,
+      "blockType": "frame",
+      "parent": "block_0",
+      "children": [
+        "block_2",
+        "block_3"
+      ],
+      "pointsOut": [
+        {
+          "type": "frame",
+          "id": "fp3",
+          "x": 1300,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 312.87890360333853,
+          "corner": 1
+        },
+        {
+          "type": "frame",
+          "id": "fp4",
+          "x": 0,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 227.12109639666144,
+          "corner": 1
+        },
+        {
+          "type": "frame",
+          "id": "fp1",
+          "x": 0,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 132.87890360333856,
+          "corner": 1
+        },
+        {
+          "type": "frame",
+          "id": "fp2",
+          "x": 1300,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 47.12109639666146,
+          "corner": 1
+        }
+      ],
+      "pointsIn": [
+        {
+          "x": 1259.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1
+        },
+        {
+          "x": 40.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1
+        },
+        {
+          "x": 40.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1
+        },
+        {
+          "x": 1259.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1
+        }
+      ],
+      "pointsLight": [
+        {
+          "x": 1238.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1
+        },
+        {
+          "x": 61.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1
+        },
+        {
+          "x": 61.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1
+        },
+        {
+          "x": 1238.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1
+        }
+      ],
+      "parts": [
+        {
+          "type": "frame",
+          "dir": "line",
+          "points": [
+            {
+              "type": "frame",
+              "id": "fp3",
+              "x": 1300,
+              "y": 1400,
+              "dir": "line",
+              "view": 1,
+              "sill": 1,
+              "fi": 312.87890360333853,
+              "corner": 1
+            },
+            {
+              "type": "frame",
+              "id": "fp4",
+              "x": 0,
+              "y": 1400,
+              "dir": "line",
+              "view": 1,
+              "sill": 1,
+              "fi": 227.12109639666144,
+              "corner": 1
+            },
+            {
+              "x": 40.5,
+              "y": 1359.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1
+            },
+            {
+              "x": 1259.5,
+              "y": 1359.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1
+            }
+          ],
+          "sill": 1,
+          "path": "M 1300,1400 L 0,1400 L 40.5,1359.5 L 1259.5,1359.5 Z",
+          "size": 1300
+        },
+        {
+          "type": "frame",
+          "dir": "line",
+          "points": [
+            {
+              "type": "frame",
+              "id": "fp4",
+              "x": 0,
+              "y": 1400,
+              "dir": "line",
+              "view": 1,
+              "sill": 1,
+              "fi": 227.12109639666144,
+              "corner": 1
+            },
+            {
+              "type": "frame",
+              "id": "fp1",
+              "x": 0,
+              "y": 0,
+              "dir": "line",
+              "view": 1,
+              "fi": 132.87890360333856,
+              "corner": 1
+            },
+            {
+              "x": 40.5,
+              "y": 40.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1
+            },
+            {
+              "x": 40.5,
+              "y": 1359.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1
+            }
+          ],
+          "path": "M 0,1400 L 0,0 L 40.5,40.5 L 40.5,1359.5 Z",
+          "size": 1400
+        },
+        {
+          "type": "frame",
+          "dir": "line",
+          "points": [
+            {
+              "type": "frame",
+              "id": "fp1",
+              "x": 0,
+              "y": 0,
+              "dir": "line",
+              "view": 1,
+              "fi": 132.87890360333856,
+              "corner": 1
+            },
+            {
+              "type": "frame",
+              "id": "fp2",
+              "x": 1300,
+              "y": 0,
+              "dir": "line",
+              "view": 1,
+              "fi": 47.12109639666146,
+              "corner": 1
+            },
+            {
+              "x": 1259.5,
+              "y": 40.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1
+            },
+            {
+              "x": 40.5,
+              "y": 40.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1
+            }
+          ],
+          "path": "M 0,0 L 1300,0 L 1259.5,40.5 L 40.5,40.5 Z",
+          "size": 1300
+        },
+        {
+          "type": "frame",
+          "dir": "line",
+          "points": [
+            {
+              "type": "frame",
+              "id": "fp2",
+              "x": 1300,
+              "y": 0,
+              "dir": "line",
+              "view": 1,
+              "fi": 47.12109639666146,
+              "corner": 1
+            },
+            {
+              "type": "frame",
+              "id": "fp3",
+              "x": 1300,
+              "y": 1400,
+              "dir": "line",
+              "view": 1,
+              "sill": 1,
+              "fi": 312.87890360333853,
+              "corner": 1
+            },
+            {
+              "x": 1259.5,
+              "y": 1359.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1
+            },
+            {
+              "x": 1259.5,
+              "y": 40.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1
+            }
+          ],
+          "path": "M 1300,0 L 1300,1400 L 1259.5,1359.5 L 1259.5,40.5 Z",
+          "size": 1400
+        },
+        {
+          "type": "impost",
+          "dir": "line",
+          "points": [
+            {
+              "type": "impost",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 271.7153200148868
+            },
+            {
+              "type": "impost",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 268.28467998511314
+            },
+            {
+              "type": "impost",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 91.71532001488683
+            },
+            {
+              "type": "impost",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 88.28467998511319
+            }
+          ],
+          "path": "M 669.75,1359.5 L 630.25,1359.5 L 630.25,40.5 L 669.75,40.5 Z",
+          "size": 1319
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "impost": {
+        "impostAxis": [
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          }
+        ],
+        "impostOut": [
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          }
+        ],
+        "impostIn": [
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 271.7153200148868
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 268.28467998511314
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 91.71532001488683
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 88.28467998511319
+          }
+        ],
+        "impostLight": [
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1
+          }
+        ]
+      },
+      "position": "single",
+      "center": {
+        "x": 650,
+        "y": 700
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 47.12109639666146
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 312.87890360333853
+          },
+          "type": "frame",
+          "size": 1400,
+          "coefA": -1400,
+          "coefB": 0,
+          "coefC": 1820000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 312.87890360333853
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 227.12109639666144
+          },
+          "type": "frame",
+          "size": 1300,
+          "coefA": 0,
+          "coefB": -1300,
+          "coefC": 1820000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 227.12109639666144
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 132.87890360333856
+          },
+          "type": "frame",
+          "size": 1400,
+          "coefA": 1400,
+          "coefB": 0,
+          "coefC": 0
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 132.87890360333856
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 47.12109639666146
+          },
+          "type": "frame",
+          "size": 1300,
+          "coefA": 0,
+          "coefB": 1300,
+          "coefC": 0
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1319,
+          "coefA": -1319,
+          "coefB": 0,
+          "coefC": 1661280.5
+        },
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1219,
+          "coefA": 0,
+          "coefB": -1219,
+          "coefC": 1657230.5
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1319,
+          "coefA": 1319,
+          "coefB": 0,
+          "coefC": -53419.5
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1219,
+          "coefA": 0,
+          "coefB": 1219,
+          "coefC": -49369.5
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1277,
+          "coefA": -1277,
+          "coefB": 0,
+          "coefC": 1581564.5
+        },
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1177,
+          "coefA": 0,
+          "coefB": -1177,
+          "coefC": 1575414.5
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1277,
+          "coefA": 1277,
+          "coefB": 0,
+          "coefC": -78535.5
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1
+          },
+          "type": "frame",
+          "size": 1177,
+          "coefA": 0,
+          "coefB": 1177,
+          "coefC": -72385.5
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_2",
+      "level": 2,
+      "blockType": "frame",
+      "parent": "block_1",
+      "children": [
+        "block_4",
+        "block_5"
+      ],
+      "pointsOut": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 1400,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 294.9047688080952
+        },
+        {
+          "type": "frame",
+          "id": "fp4",
+          "x": 0,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 245.09523119190482,
+          "corner": 1
+        },
+        {
+          "type": "frame",
+          "id": "fp1",
+          "x": 0,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 114.90476880809518,
+          "corner": 1
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 0,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 65.09523119190482
+        }
+      ],
+      "pointsIn": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 294.0903272023245
+        },
+        {
+          "x": 40.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1,
+          "fi": 245.9096727976755
+        },
+        {
+          "x": 40.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1,
+          "fi": 114.0903272023245
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 65.90967279767551
+        }
+      ],
+      "pointsLight": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 609.25,
+          "y": 1338.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 293.21618708125555
+        },
+        {
+          "x": 61.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1,
+          "fi": 246.78381291874445
+        },
+        {
+          "x": 61.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1,
+          "fi": 113.21618708125555
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 609.25,
+          "y": 61.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 66.78381291874446
+        }
+      ],
+      "parts": [
+        {
+          "type": "impost",
+          "dir": "line",
+          "points": [
+            {
+              "type": "impost",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 356.1681930228258
+            },
+            {
+              "type": "impost",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 183.83180697717424
+            },
+            {
+              "type": "impost",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 176.16819302282576
+            },
+            {
+              "type": "impost",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 3.8318069771742382
+            }
+          ],
+          "path": "M 630.25,719.75 L 40.5,719.75 L 40.5,680.25 L 630.25,680.25 Z",
+          "size": 589.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "impost": {
+        "impostAxis": [
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 0,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          }
+        ],
+        "impostOut": [
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          }
+        ],
+        "impostIn": [
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 356.1681930228258
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 183.83180697717424
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 176.16819302282576
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 3.8318069771742382
+          }
+        ],
+        "impostLight": [
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1
+          }
+        ]
+      },
+      "center": {
+        "x": 335.375,
+        "y": 700
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 65.09523119190482
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 294.9047688080952
+          },
+          "type": "impost",
+          "size": 1400,
+          "coefA": -1400,
+          "coefB": 0,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 294.9047688080952
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 245.09523119190482,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 245.09523119190482,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 114.90476880809518,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 1400,
+          "coefA": 1400,
+          "coefB": 0,
+          "coefC": 0
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 114.90476880809518,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 65.09523119190482
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": 0
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 65.90967279767551
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 294.0903272023245
+          },
+          "type": "impost",
+          "size": 1319,
+          "coefA": -1319,
+          "coefB": 0,
+          "coefC": 831299.75
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 294.0903272023245
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 245.9096727976755
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 245.9096727976755
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 114.0903272023245
+          },
+          "type": "frame",
+          "size": 1319,
+          "coefA": 1319,
+          "coefB": 0,
+          "coefC": -53419.5
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 114.0903272023245
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 65.90967279767551
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 66.78381291874446
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 293.21618708125555
+          },
+          "type": "impost",
+          "size": 1277,
+          "coefA": -1277,
+          "coefB": 0,
+          "coefC": 778012.25
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 293.21618708125555
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 246.78381291874445
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 733163.375
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 246.78381291874445
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 113.21618708125555
+          },
+          "type": "frame",
+          "size": 1277,
+          "coefA": 1277,
+          "coefB": 0,
+          "coefC": -78535.5
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 113.21618708125555
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 66.78381291874446
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -33686.625
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_3",
+      "level": 2,
+      "blockType": "frame",
+      "parent": "block_1",
+      "children": [
+        "block_6",
+        "block_7"
+      ],
+      "pointsOut": [
+        {
+          "type": "frame",
+          "id": "fp3",
+          "x": 1300,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 294.9047688080952,
+          "corner": 1
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 1400,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 245.09523119190482
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 0,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 114.90476880809518
+        },
+        {
+          "type": "frame",
+          "id": "fp2",
+          "x": 1300,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 65.09523119190482,
+          "corner": 1
+        }
+      ],
+      "pointsIn": [
+        {
+          "x": 1259.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1,
+          "fi": 294.0903272023245
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 245.9096727976755
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 114.0903272023245
+        },
+        {
+          "x": 1259.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1,
+          "fi": 65.90967279767551
+        }
+      ],
+      "pointsLight": [
+        {
+          "x": 1238.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1,
+          "fi": 293.21618708125555
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 690.75,
+          "y": 1338.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 246.78381291874445
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 690.75,
+          "y": 61.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 113.21618708125555
+        },
+        {
+          "x": 1238.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1,
+          "fi": 66.78381291874446
+        }
+      ],
+      "parts": [
+        {
+          "type": "impost",
+          "dir": "line",
+          "points": [
+            {
+              "type": "impost",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 356.1681930228258
+            },
+            {
+              "type": "impost",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 183.83180697717424
+            },
+            {
+              "type": "impost",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 176.16819302282576
+            },
+            {
+              "type": "impost",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 3.8318069771742382
+            }
+          ],
+          "path": "M 1259.5,719.75 L 669.75,719.75 L 669.75,680.25 L 1259.5,680.25 Z",
+          "size": 589.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "impost": {
+        "impostAxis": [
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1300,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          }
+        ],
+        "impostOut": [
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          }
+        ],
+        "impostIn": [
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 356.1681930228258
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 183.83180697717424
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 176.16819302282576
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 3.8318069771742382
+          }
+        ],
+        "impostLight": [
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0
+          },
+          {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1
+          }
+        ]
+      },
+      "center": {
+        "x": 964.625,
+        "y": 700
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 65.09523119190482,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 294.9047688080952,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 1400,
+          "coefA": -1400,
+          "coefB": 0,
+          "coefC": 1820000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 294.9047688080952,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 245.09523119190482
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 245.09523119190482
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 114.90476880809518
+          },
+          "type": "impost",
+          "size": 1400,
+          "coefA": 1400,
+          "coefB": 0,
+          "coefC": -910000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 114.90476880809518
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 65.09523119190482,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": 0
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 65.90967279767551
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 294.0903272023245
+          },
+          "type": "frame",
+          "size": 1319,
+          "coefA": -1319,
+          "coefB": 0,
+          "coefC": 1661280.5
+        },
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 294.0903272023245
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 245.9096727976755
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 245.9096727976755
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 114.0903272023245
+          },
+          "type": "impost",
+          "size": 1319,
+          "coefA": 1319,
+          "coefB": 0,
+          "coefC": -883400.25
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 114.0903272023245
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 65.90967279767551
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 66.78381291874446
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 293.21618708125555
+          },
+          "type": "frame",
+          "size": 1277,
+          "coefA": -1277,
+          "coefB": 0,
+          "coefC": 1581564.5
+        },
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 293.21618708125555
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 246.78381291874445
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 733163.375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 246.78381291874445
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 113.21618708125555
+          },
+          "type": "impost",
+          "size": 1277,
+          "coefA": 1277,
+          "coefB": 0,
+          "coefC": -882087.75
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 113.21618708125555
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 66.78381291874446
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -33686.625
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_4",
+      "level": 3,
+      "blockType": "frame",
+      "parent": "block_2",
+      "children": [],
+      "pointsOut": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 1400,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 312.87890360333853
+        },
+        {
+          "type": "frame",
+          "id": "fp4",
+          "x": 0,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 227.12109639666144,
+          "corner": 1
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 0,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.87890360333856
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 650,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.12109639666146
+        }
+      ],
+      "pointsIn": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 312.67123930185414
+        },
+        {
+          "x": 40.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 40.5,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 630.25,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "pointsLight": [
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 609.25,
+          "y": 1338.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 312.50067945709236
+        },
+        {
+          "x": 61.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1,
+          "fi": 227.49932054290764
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 61.5,
+          "y": 740.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 609.25,
+          "y": 740.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.49932054290765
+        }
+      ],
+      "parts": [
+        {
+          "type": "glass",
+          "points": [
+            {
+              "x": 623.5,
+              "y": 1353,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 47,
+              "y": 1353,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1
+            },
+            {
+              "x": 47,
+              "y": 726.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 623.5,
+              "y": 726.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            }
+          ],
+          "path": "M 623.5,1353 L 623.5,1353 L 47,1353 L 47,726.5 L 623.5,726.5 Z",
+          "square": 0.36117725,
+          "glass_type": 1,
+          "sizes": [
+            576.5,
+            626.5,
+            576.5,
+            626.5
+          ]
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 312.67123930185414
+            },
+            {
+              "x": 40.5,
+              "y": 1359.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "x": 60.5,
+              "y": 1339.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1
+            },
+            {
+              "x": 610.25,
+              "y": 1339.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            }
+          ],
+          "path": "M 630.25,1359.5 L 40.5,1359.5 L 60.5,1339.5 L 610.25,1339.5 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "x": 40.5,
+              "y": 1359.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 132.67123930185414
+            },
+            {
+              "x": 60.5,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 60.5,
+              "y": 1339.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp4",
+              "view": 1
+            }
+          ],
+          "path": "M 40.5,1359.5 L 40.5,719.75 L 60.5,739.75 L 60.5,1339.5 Z",
+          "size": 639.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 132.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "x": 610.25,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 60.5,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            }
+          ],
+          "path": "M 40.5,719.75 L 630.25,719.75 L 610.25,739.75 L 60.5,739.75 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 312.67123930185414
+            },
+            {
+              "x": 610.25,
+              "y": 1339.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 610.25,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            }
+          ],
+          "path": "M 630.25,719.75 L 630.25,1359.5 L 610.25,1339.5 L 610.25,739.75 Z",
+          "size": 639.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "center": {
+        "x": 335.375,
+        "y": 1039.625
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "type": "impost",
+          "size": 700,
+          "coefA": -700,
+          "coefB": 0,
+          "coefC": 455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 227.12109639666144,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp4",
+            "x": 0,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 227.12109639666144,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 0,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "type": "frame",
+          "size": 700,
+          "coefA": 700,
+          "coefB": 0,
+          "coefC": 0
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 0,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "type": "impost",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": -455000
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 403202.4375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -25909.875
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -424472.5625
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.50067945709236
+          },
+          "type": "impost",
+          "size": 597.75,
+          "coefA": -597.75,
+          "coefB": 0,
+          "coefC": 364179.1875
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.49932054290764
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 733163.375
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.49932054290764
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.50067945709236
+          },
+          "type": "frame",
+          "size": 597.75,
+          "coefA": 597.75,
+          "coefB": 0,
+          "coefC": -36761.625
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "type": "impost",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -405745.8125
+        }
+      ],
+      "beadPointsOut": [
+        {
+          "type": "bead",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 312.67123930185414
+        },
+        {
+          "x": 40.5,
+          "y": 1359.5,
+          "type": "bead",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "bead",
+          "id": "ip2",
+          "x": 40.5,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip2",
+          "x": 630.25,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "beadLinesOut": [
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 403202.4375
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 1359.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp4",
+            "view": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -25909.875
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -424472.5625
+        }
+      ],
+      "beadPointsIn": [
+        {
+          "x": 610.25,
+          "y": 1339.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 60.5,
+          "y": 1339.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1
+        },
+        {
+          "x": 60.5,
+          "y": 739.75,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 610.25,
+          "y": 739.75,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        }
+      ],
+      "glassPoints": [
+        {
+          "x": 623.5,
+          "y": 1353,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 47,
+          "y": 1353,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp4",
+          "view": 1
+        },
+        {
+          "x": 47,
+          "y": 726.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 623.5,
+          "y": 726.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_5",
+      "level": 3,
+      "blockType": "frame",
+      "parent": "block_2",
+      "children": [],
+      "pointsOut": [
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 650,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 312.87890360333853
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 0,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 227.12109639666144
+        },
+        {
+          "type": "frame",
+          "id": "fp1",
+          "x": 0,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 132.87890360333856,
+          "corner": 1
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 0,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 47.12109639666146
+        }
+      ],
+      "pointsIn": [
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 630.25,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 40.5,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "x": 40.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "pointsLight": [
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 609.25,
+          "y": 659.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip2",
+          "x": 61.5,
+          "y": 659.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.49932054290764
+        },
+        {
+          "x": 61.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1,
+          "fi": 132.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 609.25,
+          "y": 61.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 47.49932054290765
+        }
+      ],
+      "parts": [
+        {
+          "type": "glass",
+          "points": [
+            {
+              "x": 623.5,
+              "y": 673.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 47,
+              "y": 673.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 47,
+              "y": 47,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1
+            },
+            {
+              "x": 623.5,
+              "y": 47,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            }
+          ],
+          "path": "M 623.5,673.5 L 623.5,673.5 L 47,673.5 L 47,47 L 623.5,47 Z",
+          "square": 0.36117725,
+          "glass_type": 1,
+          "sizes": [
+            576.5,
+            626.5,
+            576.5,
+            626.5
+          ]
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "x": 60.5,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 610.25,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            }
+          ],
+          "path": "M 630.25,680.25 L 40.5,680.25 L 60.5,660.25 L 610.25,660.25 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 40.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "x": 40.5,
+              "y": 40.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1,
+              "fi": 132.67123930185414
+            },
+            {
+              "x": 60.5,
+              "y": 60.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1
+            },
+            {
+              "x": 60.5,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            }
+          ],
+          "path": "M 40.5,680.25 L 40.5,40.5 L 60.5,60.5 L 60.5,660.25 Z",
+          "size": 639.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "x": 40.5,
+              "y": 40.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1,
+              "fi": 132.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "x": 610.25,
+              "y": 60.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 60.5,
+              "y": 60.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp1",
+              "view": 1
+            }
+          ],
+          "path": "M 40.5,40.5 L 630.25,40.5 L 610.25,60.5 L 60.5,60.5 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 630.25,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "type": "bead",
+              "id": "ip2",
+              "x": 630.25,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "x": 610.25,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip2",
+              "view": 1
+            },
+            {
+              "x": 610.25,
+              "y": 60.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            }
+          ],
+          "path": "M 630.25,40.5 L 630.25,680.25 L 610.25,660.25 L 610.25,60.5 Z",
+          "size": 639.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "center": {
+        "x": 335.375,
+        "y": 360.375
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "type": "impost",
+          "size": 700,
+          "coefA": -700,
+          "coefB": 0,
+          "coefC": 455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 0,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "type": "impost",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 0,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 132.87890360333856,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 700,
+          "coefA": 700,
+          "coefB": 0,
+          "coefC": 0
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp1",
+            "x": 0,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 132.87890360333856,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": 0
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 403202.4375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 401177.4375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -25909.875
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.50067945709236
+          },
+          "type": "impost",
+          "size": 597.75,
+          "coefA": -597.75,
+          "coefB": 0,
+          "coefC": 364179.1875
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 609.25,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "type": "impost",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 361104.1875
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip2",
+            "x": 61.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "dir": "line",
+          "to": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.50067945709236
+          },
+          "type": "frame",
+          "size": 597.75,
+          "coefA": 597.75,
+          "coefB": 0,
+          "coefC": -36761.625
+        },
+        {
+          "from": {
+            "x": 61.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 609.25,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -33686.625
+        }
+      ],
+      "beadPointsOut": [
+        {
+          "type": "bead",
+          "id": "ip2",
+          "x": 630.25,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip2",
+          "x": 40.5,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "x": 40.5,
+          "y": 40.5,
+          "type": "bead",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip1",
+          "x": 630.25,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "beadLinesOut": [
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 403202.4375
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 630.25,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 401177.4375
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip2",
+            "x": 40.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -25909.875
+        },
+        {
+          "from": {
+            "x": 40.5,
+            "y": 40.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp1",
+            "view": 1,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 630.25,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "beadPointsIn": [
+        {
+          "x": 610.25,
+          "y": 660.25,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 60.5,
+          "y": 660.25,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 60.5,
+          "y": 60.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1
+        },
+        {
+          "x": 610.25,
+          "y": 60.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        }
+      ],
+      "glassPoints": [
+        {
+          "x": 623.5,
+          "y": 673.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 47,
+          "y": 673.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip2",
+          "view": 1
+        },
+        {
+          "x": 47,
+          "y": 47,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp1",
+          "view": 1
+        },
+        {
+          "x": 623.5,
+          "y": 47,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_6",
+      "level": 3,
+      "blockType": "frame",
+      "parent": "block_3",
+      "children": [],
+      "pointsOut": [
+        {
+          "type": "frame",
+          "id": "fp3",
+          "x": 1300,
+          "y": 1400,
+          "dir": "line",
+          "view": 1,
+          "sill": 1,
+          "fi": 312.87890360333853,
+          "corner": 1
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 1400,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 227.12109639666144
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 650,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.87890360333856
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1300,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.12109639666146
+        }
+      ],
+      "pointsIn": [
+        {
+          "x": 1259.5,
+          "y": 1359.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 669.75,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1259.5,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "pointsLight": [
+        {
+          "x": 1238.5,
+          "y": 1338.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1,
+          "fi": 312.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 690.75,
+          "y": 1338.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 227.49932054290764
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 690.75,
+          "y": 740.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1238.5,
+          "y": 740.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.49932054290765
+        }
+      ],
+      "parts": [
+        {
+          "type": "glass",
+          "points": [
+            {
+              "x": 1253,
+              "y": 1353,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1
+            },
+            {
+              "x": 676.5,
+              "y": 1353,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 676.5,
+              "y": 726.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 1253,
+              "y": 726.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            }
+          ],
+          "path": "M 1253,1353 L 1253,1353 L 676.5,1353 L 676.5,726.5 L 1253,726.5 Z",
+          "square": 0.36117725,
+          "glass_type": 1,
+          "sizes": [
+            576.5,
+            626.5,
+            576.5,
+            626.5
+          ]
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "x": 1259.5,
+              "y": 1359.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "x": 689.75,
+              "y": 1339.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 1239.5,
+              "y": 1339.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1
+            }
+          ],
+          "path": "M 1259.5,1359.5 L 669.75,1359.5 L 689.75,1339.5 L 1239.5,1339.5 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 1359.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 132.67123930185414
+            },
+            {
+              "x": 689.75,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 689.75,
+              "y": 1339.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            }
+          ],
+          "path": "M 669.75,1359.5 L 669.75,719.75 L 689.75,739.75 L 689.75,1339.5 Z",
+          "size": 639.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 132.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "x": 1239.5,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 689.75,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            }
+          ],
+          "path": "M 669.75,719.75 L 1259.5,719.75 L 1239.5,739.75 L 689.75,739.75 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 719.75,
+              "dir": "line",
+              "dimType": 1,
+              "group": 0,
+              "fi": 47.32876069814588
+            },
+            {
+              "x": 1259.5,
+              "y": 1359.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "x": 1239.5,
+              "y": 1339.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp3",
+              "view": 1
+            },
+            {
+              "x": 1239.5,
+              "y": 739.75,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            }
+          ],
+          "path": "M 1259.5,719.75 L 1259.5,1359.5 L 1239.5,1339.5 L 1239.5,739.75 Z",
+          "size": 639.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "center": {
+        "x": 964.625,
+        "y": 1039.625
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1300,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 312.87890360333853,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 700,
+          "coefA": -700,
+          "coefB": 0,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp3",
+            "x": 1300,
+            "y": 1400,
+            "dir": "line",
+            "view": 1,
+            "sill": 1,
+            "fi": 312.87890360333853,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 1400,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "type": "impost",
+          "size": 700,
+          "coefA": 700,
+          "coefB": 0,
+          "coefC": -455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1300,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.12109639666146
+          },
+          "type": "impost",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": -455000
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 805765.125
+        },
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -428472.5625
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -424472.5625
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.50067945709236
+          },
+          "type": "frame",
+          "size": 597.75,
+          "coefA": -597.75,
+          "coefB": 0,
+          "coefC": 740313.375
+        },
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 1338.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 733163.375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 1338.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.50067945709236
+          },
+          "type": "impost",
+          "size": 597.75,
+          "coefA": 597.75,
+          "coefB": 0,
+          "coefC": -412895.8125
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 740.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.49932054290765
+          },
+          "type": "impost",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -405745.8125
+        }
+      ],
+      "beadPointsOut": [
+        {
+          "x": 1259.5,
+          "y": 1359.5,
+          "type": "bead",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 1359.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "bead",
+          "id": "ip3",
+          "x": 669.75,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 132.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip3",
+          "x": 1259.5,
+          "y": 719.75,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 47.32876069814588
+        }
+      ],
+      "beadLinesOut": [
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 805765.125
+        },
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 1359.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp3",
+            "view": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 801765.125
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 1359.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -428472.5625
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 719.75,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 47.32876069814588
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -424472.5625
+        }
+      ],
+      "beadPointsIn": [
+        {
+          "x": 1239.5,
+          "y": 1339.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1
+        },
+        {
+          "x": 689.75,
+          "y": 1339.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 689.75,
+          "y": 739.75,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 1239.5,
+          "y": 739.75,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        }
+      ],
+      "glassPoints": [
+        {
+          "x": 1253,
+          "y": 1353,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp3",
+          "view": 1
+        },
+        {
+          "x": 676.5,
+          "y": 1353,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 676.5,
+          "y": 726.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 1253,
+          "y": 726.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        }
+      ]
+    },
+    {
+      "type": "skylight",
+      "id": "block_7",
+      "level": 3,
+      "blockType": "frame",
+      "parent": "block_3",
+      "children": [],
+      "pointsOut": [
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1300,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 312.87890360333853
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 650,
+          "y": 700,
+          "dir": "line",
+          "dimType": 1,
+          "group": 0,
+          "fi": 227.12109639666144
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 650,
+          "y": 0,
+          "dir": "line",
+          "dimType": 0,
+          "group": 0,
+          "fi": 132.87890360333856
+        },
+        {
+          "type": "frame",
+          "id": "fp2",
+          "x": 1300,
+          "y": 0,
+          "dir": "line",
+          "view": 1,
+          "fi": 47.12109639666146,
+          "corner": 1
+        }
+      ],
+      "pointsIn": [
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1259.5,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 669.75,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 132.67123930185414
+        },
+        {
+          "x": 1259.5,
+          "y": 40.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1,
+          "fi": 47.32876069814588
+        }
+      ],
+      "pointsLight": [
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 1238.5,
+          "y": 659.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.50067945709236
+        },
+        {
+          "type": "impost",
+          "id": "ip3",
+          "x": 690.75,
+          "y": 659.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.49932054290764
+        },
+        {
+          "type": "impost",
+          "id": "ip1",
+          "x": 690.75,
+          "y": 61.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 132.50067945709236
+        },
+        {
+          "x": 1238.5,
+          "y": 61.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1,
+          "fi": 47.49932054290765
+        }
+      ],
+      "parts": [
+        {
+          "type": "glass",
+          "points": [
+            {
+              "x": 1253,
+              "y": 673.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 676.5,
+              "y": 673.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 676.5,
+              "y": 47,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 1253,
+              "y": 47,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1
+            }
+          ],
+          "path": "M 1253,673.5 L 1253,673.5 L 676.5,673.5 L 676.5,47 L 1253,47 Z",
+          "square": 0.36117725,
+          "glass_type": 1,
+          "sizes": [
+            576.5,
+            626.5,
+            576.5,
+            626.5
+          ]
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "x": 689.75,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 1239.5,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            }
+          ],
+          "path": "M 1259.5,680.25 L 669.75,680.25 L 689.75,660.25 L 1239.5,660.25 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 669.75,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 227.32876069814586
+            },
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 132.67123930185414
+            },
+            {
+              "x": 689.75,
+              "y": 60.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            },
+            {
+              "x": 689.75,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            }
+          ],
+          "path": "M 669.75,680.25 L 669.75,40.5 L 689.75,60.5 L 689.75,660.25 Z",
+          "size": 639.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "type": "bead",
+              "id": "ip1",
+              "x": 669.75,
+              "y": 40.5,
+              "dir": "line",
+              "dimType": 0,
+              "group": 1,
+              "fi": 132.67123930185414
+            },
+            {
+              "x": 1259.5,
+              "y": 40.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1,
+              "fi": 47.32876069814588
+            },
+            {
+              "x": 1239.5,
+              "y": 60.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1
+            },
+            {
+              "x": 689.75,
+              "y": 60.5,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip1",
+              "view": 1
+            }
+          ],
+          "path": "M 669.75,40.5 L 1259.5,40.5 L 1239.5,60.5 L 689.75,60.5 Z",
+          "size": 589.8
+        },
+        {
+          "type": "bead",
+          "dir": "line",
+          "points": [
+            {
+              "x": 1259.5,
+              "y": 40.5,
+              "type": "bead",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1,
+              "fi": 47.32876069814588
+            },
+            {
+              "type": "bead",
+              "id": "ip3",
+              "x": 1259.5,
+              "y": 680.25,
+              "dir": "line",
+              "dimType": 1,
+              "group": 1,
+              "fi": 312.67123930185414
+            },
+            {
+              "x": 1239.5,
+              "y": 660.25,
+              "type": "impost",
+              "dir": "line",
+              "id": "ip3",
+              "view": 1
+            },
+            {
+              "x": 1239.5,
+              "y": 60.5,
+              "type": "frame",
+              "dir": "line",
+              "id": "fp2",
+              "view": 1
+            }
+          ],
+          "path": "M 1259.5,40.5 L 1259.5,680.25 L 1239.5,660.25 L 1239.5,60.5 Z",
+          "size": 639.8
+        }
+      ],
+      "glassId": 311891,
+      "glassTxt": "4-16-4",
+      "glass_type": 1,
+      "center": {
+        "x": 964.625,
+        "y": 360.375
+      },
+      "linesOut": [
+        {
+          "from": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 47.12109639666146,
+            "corner": 1
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1300,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "type": "frame",
+          "size": 700,
+          "coefA": -700,
+          "coefB": 0,
+          "coefC": 910000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1300,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 312.87890360333853
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "type": "impost",
+          "size": 650,
+          "coefA": 0,
+          "coefB": -650,
+          "coefC": 455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 650,
+            "y": 700,
+            "dir": "line",
+            "dimType": 1,
+            "group": 0,
+            "fi": 227.12109639666144
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "type": "impost",
+          "size": 700,
+          "coefA": 700,
+          "coefB": 0,
+          "coefC": -455000
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 650,
+            "y": 0,
+            "dir": "line",
+            "dimType": 0,
+            "group": 0,
+            "fi": 132.87890360333856
+          },
+          "dir": "line",
+          "to": {
+            "type": "frame",
+            "id": "fp2",
+            "x": 1300,
+            "y": 0,
+            "dir": "line",
+            "view": 1,
+            "fi": 47.12109639666146,
+            "corner": 1
+          },
+          "type": "frame",
+          "size": 650,
+          "coefA": 0,
+          "coefB": 650,
+          "coefC": 0
+        }
+      ],
+      "linesIn": [
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 805765.125
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 401177.4375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -428472.5625
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.32876069814588
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "linesLight": [
+        {
+          "from": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.49932054290765
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.50067945709236
+          },
+          "type": "frame",
+          "size": 597.75,
+          "coefA": -597.75,
+          "coefB": 0,
+          "coefC": 740313.375
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 1238.5,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "type": "impost",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": -547.75,
+          "coefC": 361104.1875
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip3",
+            "x": 690.75,
+            "y": 659.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.49932054290764
+          },
+          "dir": "line",
+          "to": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.50067945709236
+          },
+          "type": "impost",
+          "size": 597.75,
+          "coefA": 597.75,
+          "coefB": 0,
+          "coefC": -412895.8125
+        },
+        {
+          "from": {
+            "type": "impost",
+            "id": "ip1",
+            "x": 690.75,
+            "y": 61.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.50067945709236
+          },
+          "dir": "line",
+          "to": {
+            "x": 1238.5,
+            "y": 61.5,
+            "type": "frame",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.49932054290765
+          },
+          "type": "frame",
+          "size": 547.75,
+          "coefA": 0,
+          "coefB": 547.75,
+          "coefC": -33686.625
+        }
+      ],
+      "beadPointsOut": [
+        {
+          "type": "bead",
+          "id": "ip3",
+          "x": 1259.5,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 312.67123930185414
+        },
+        {
+          "type": "bead",
+          "id": "ip3",
+          "x": 669.75,
+          "y": 680.25,
+          "dir": "line",
+          "dimType": 1,
+          "group": 1,
+          "fi": 227.32876069814586
+        },
+        {
+          "type": "bead",
+          "id": "ip1",
+          "x": 669.75,
+          "y": 40.5,
+          "dir": "line",
+          "dimType": 0,
+          "group": 1,
+          "fi": 132.67123930185414
+        },
+        {
+          "x": 1259.5,
+          "y": 40.5,
+          "type": "bead",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1,
+          "fi": 47.32876069814588
+        }
+      ],
+      "beadLinesOut": [
+        {
+          "from": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.32876069814588
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "type": "frame",
+          "size": 639.75,
+          "coefA": -639.75,
+          "coefB": 0,
+          "coefC": 805765.125
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 1259.5,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 312.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "type": "impost",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": -589.75,
+          "coefC": 401177.4375
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip3",
+            "x": 669.75,
+            "y": 680.25,
+            "dir": "line",
+            "dimType": 1,
+            "group": 1,
+            "fi": 227.32876069814586
+          },
+          "dir": "line",
+          "to": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.67123930185414
+          },
+          "type": "impost",
+          "size": 639.75,
+          "coefA": 639.75,
+          "coefB": 0,
+          "coefC": -428472.5625
+        },
+        {
+          "from": {
+            "type": "bead",
+            "id": "ip1",
+            "x": 669.75,
+            "y": 40.5,
+            "dir": "line",
+            "dimType": 0,
+            "group": 1,
+            "fi": 132.67123930185414
+          },
+          "dir": "line",
+          "to": {
+            "x": 1259.5,
+            "y": 40.5,
+            "type": "bead",
+            "dir": "line",
+            "id": "fp2",
+            "view": 1,
+            "fi": 47.32876069814588
+          },
+          "type": "frame",
+          "size": 589.75,
+          "coefA": 0,
+          "coefB": 589.75,
+          "coefC": -23884.875
+        }
+      ],
+      "beadPointsIn": [
+        {
+          "x": 1239.5,
+          "y": 660.25,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 689.75,
+          "y": 660.25,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 689.75,
+          "y": 60.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 1239.5,
+          "y": 60.5,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1
+        }
+      ],
+      "glassPoints": [
+        {
+          "x": 1253,
+          "y": 673.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 676.5,
+          "y": 673.5,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip3",
+          "view": 1
+        },
+        {
+          "x": 676.5,
+          "y": 47,
+          "type": "impost",
+          "dir": "line",
+          "id": "ip1",
+          "view": 1
+        },
+        {
+          "x": 1253,
+          "y": 47,
+          "type": "frame",
+          "dir": "line",
+          "id": "fp2",
+          "view": 1
+        }
+      ]
+    }
+  ],
+  "priceElements": {
+    "framesSize": [
+      1.4,
+      1.3,
+      1.4
+    ],
+    "frameSillSize": [
+      1.3
+    ],
+    "sashsSize": [],
+    "impostsSize": [
+      1.319,
+      0.59,
+      0.59
+    ],
+    "shtulpsSize": [],
+    "glassSquares": [
+      {
+        "elemId": 311891,
+        "square": 0.36117725,
+        "sizes": [
+          0.577,
+          0.627,
+          0.577,
+          0.627
+        ]
+      },
+      {
+        "elemId": 311891,
+        "square": 0.36117725,
+        "sizes": [
+          0.577,
+          0.627,
+          0.577,
+          0.627
+        ]
+      },
+      {
+        "elemId": 311891,
+        "square": 0.36117725,
+        "sizes": [
+          0.577,
+          0.627,
+          0.577,
+          0.627
+        ]
+      },
+      {
+        "elemId": 311891,
+        "square": 0.36117725,
+        "sizes": [
+          0.577,
+          0.627,
+          0.577,
+          0.627
+        ]
+      }
+    ],
+    "beadsSize": [
+      {
+        "glassId": 311891,
+        "sizes": [
+          0.59,
+          0.64,
+          0.59,
+          0.64
+        ]
+      },
+      {
+        "glassId": 311891,
+        "sizes": [
+          0.59,
+          0.64,
+          0.59,
+          0.64
+        ]
+      },
+      {
+        "glassId": 311891,
+        "sizes": [
+          0.59,
+          0.64,
+          0.59,
+          0.64
+        ]
+      },
+      {
+        "glassId": 311891,
+        "sizes": [
+          0.59,
+          0.64,
+          0.59,
+          0.64
+        ]
+      }
+    ],
+    "sashesBlock": []
+  },
+  "dimension": {
+    "dimX": [
+      {
+        "blockId": "block_1",
+        "level": 1,
+        "axis": "x",
+        "dimId": "fp3",
+        "from": 0,
+        "to": 1300,
+        "text": 1300,
+        "minLimit": 750,
+        "maxLimit": 3200
+      },
+      {
+        "blockId": "block_4",
+        "level": 0,
+        "axis": "x",
+        "dimId": "ip2",
+        "from": 0,
+        "to": 650,
+        "text": 650,
+        "minLimit": 100,
+        "maxLimit": 1200
+      },
+      {
+        "blockId": "block_5",
+        "level": 0,
+        "axis": "x",
+        "dimId": "ip1",
+        "from": 0,
+        "to": 650,
+        "text": 650,
+        "minLimit": 100,
+        "maxLimit": 1200
+      },
+      {
+        "blockId": "block_6",
+        "level": 0,
+        "axis": "x",
+        "dimId": "fp3",
+        "from": 650,
+        "to": 1300,
+        "text": 650,
+        "minLimit": 100,
+        "maxLimit": 1200
+      },
+      {
+        "blockId": "block_7",
+        "level": 0,
+        "axis": "x",
+        "dimId": "fp2",
+        "from": 650,
+        "to": 1300,
+        "text": 650,
+        "minLimit": 100,
+        "maxLimit": 1200
+      }
+    ],
+    "dimY": [
+      {
+        "blockId": "block_1",
+        "level": 1,
+        "axis": "y",
+        "dimId": "fp3",
+        "from": 0,
+        "to": 1400,
+        "text": 1400,
+        "minLimit": 800,
+        "maxLimit": 3200
+      },
+      {
+        "blockId": "block_4",
+        "level": 0,
+        "axis": "y",
+        "dimId": "fp4",
+        "from": 700,
+        "to": 1400,
+        "text": 700,
+        "minLimit": 100,
+        "maxLimit": 1300
+      },
+      {
+        "blockId": "block_5",
+        "level": 0,
+        "axis": "y",
+        "dimId": "ip2",
+        "from": 0,
+        "to": 700,
+        "text": 700,
+        "minLimit": 100,
+        "maxLimit": 1300
+      },
+      {
+        "blockId": "block_6",
+        "level": 0,
+        "axis": "y",
+        "dimId": "fp3",
+        "from": 700,
+        "to": 1400,
+        "text": 700,
+        "minLimit": 100,
+        "maxLimit": 1300
+      },
+      {
+        "blockId": "block_7",
+        "level": 0,
+        "axis": "y",
+        "dimId": "ip3",
+        "from": 0,
+        "to": 700,
+        "text": 700,
+        "minLimit": 100,
+        "maxLimit": 1300
+      }
+    ],
+    "dimQ": []
+  }
+}

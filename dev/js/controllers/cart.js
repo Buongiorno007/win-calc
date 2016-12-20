@@ -167,7 +167,12 @@
         CartMenuServ.closeDiscountBlock();
       }
     }
-
+  function showCartTemplte (index){
+    CartStor.cart.curProd = index;
+    if (!CartStor.cart.showCurrentTemp){
+    CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;}
+    console.log(index);
+  }
 
 
     /**========== FINISH ==========*/
@@ -195,5 +200,6 @@
     thisCtrl.approveNewDisc = CartMenuServ.approveNewDisc;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.pressEnterInDisc = pressEnterInDisc;
+    thisCtrl.showCartTemplte = showCartTemplte;
   });
 })();

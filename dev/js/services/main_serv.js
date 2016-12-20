@@ -1411,7 +1411,7 @@
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-          delete ProductStor.product.template;
+          //delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
         }
@@ -1627,6 +1627,7 @@
 
           if(orderType) {
             localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+            console.log("productData",productData);
             localDB.insertServer(
               UserStor.userInfo.phone,
               UserStor.userInfo.device_code,
