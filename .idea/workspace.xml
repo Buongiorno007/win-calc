@@ -57,8 +57,8 @@
       <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gulpfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="418" column="21" lean-forward="false" selection-start-line="418" selection-start-column="21" selection-end-line="418" selection-end-column="21" />
+            <state relative-caret-position="289">
+              <caret line="461" column="29" lean-forward="false" selection-start-line="461" selection-start-column="29" selection-end-line="461" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -361,12 +361,12 @@
       <workItem from="1481796092714" duration="26187000" />
       <workItem from="1482149081529" duration="8685000" />
       <workItem from="1482157836175" duration="5324000" />
-      <workItem from="1482166516436" duration="3538000" />
+      <workItem from="1482166516436" duration="3816000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79551000" />
+    <option name="totallyTimeSpent" value="79829000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -775,8 +775,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="418" column="21" lean-forward="false" selection-start-line="418" selection-start-column="21" selection-end-line="418" selection-end-column="21" />
+        <state relative-caret-position="289">
+          <caret line="461" column="29" lean-forward="false" selection-start-line="461" selection-start-column="29" selection-end-line="461" selection-end-column="29" />
           <folding />
         </state>
       </provider>
