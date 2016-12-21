@@ -1,3 +1,6 @@
+#tamlateGlassSVG{
+  padding: rem(50px);
+}
 .cart-page {
   position: relative;
   width: 100%;
@@ -12,21 +15,20 @@
     background-color: #fff;
     text-align: center;
   }
-.template-window{
-  @extend .splash;
-  @extend .modal-dialog;
-  @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
-  padding:0;
-  width : auto;
-  height: auto;
-  background: white;
-  position: absolute;
-  top : rem(200px);
-  left : rem(200px);
-  z-index: 10;
-  border-radius: rem($radius_order);
-
-}
+  .template-window {
+    @extend .splash;
+    @extend .modal-dialog;
+    @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+    padding: 0;
+    width: auto;
+    height: auto;
+    background: white;
+    position: absolute;
+    top: rem(235px);
+    left: rem(200px);
+    z-index: 10;
+    border-radius: rem($radius_order);
+  }
 
   //======== main Cart Page
   .cart-container {
@@ -238,23 +240,23 @@
       position: relative;
       top: rem(30px);
     }
-    .R-MInfo{
-      width:auto;
+    .R-MInfo {
+      width: auto;
       display: inline-block;
     }
 
-    .R-MInfo p{
+    .R-MInfo p {
       color: #0f0f0f;
       margin: 0;
       //font-family: roboto-bold;
     }
-    .inner-text{
-      position:relative;
+    .inner-text {
+      position: relative;
       top: rem(-15px);
-      width:100%;
+      width: 100%;
       font-size: rem(30px);
     }
-    .close-cur-window{
+    .close-cur-window {
       @extend .small-cross-btn;
 
       position: absolute;
@@ -263,11 +265,18 @@
       background-color: #F98000;
       z-index: 1;
     }
+    .edit-cur-window {
+      @extend .small-cross-btn;
+      position: absolute;
+      right: 3rem;
+      z-index: 1;
+      top: -1.25rem;
+    }
     .order-u-coeff {
       @include roboto-lt(rem(42px));
       position: relative;
       color: $main_green;
-      text-align:center;
+      text-align: center;
       height: rem(95px);
       border-bottom: 1px solid $main_gray_btn;
       &.coeff-low {
@@ -311,7 +320,7 @@
     .order-header {
       min-height: 8rem;
       padding-top: 2.5rem;
-      background-color:white;
+      background-color: white;
     }
     .order-content {
       padding: rem(40px) rem(20px);
@@ -334,8 +343,6 @@
       padding-top: rem(10px);
     }
   }
-
-
 
   //=========== AddElements Detail Block
 
@@ -463,9 +470,7 @@
     border-bottom: 1px solid $main_gray_btn;
   }
 
-
-
-//======== DISCOUNT ========//
+  //======== DISCOUNT ========//
 
   .discount-container {
     width: 90%;
@@ -584,14 +589,13 @@
     color: #8c8c8c;
   }
 
-
 }
 
-  .imgg {
-    position: absolute;
-    height: 17%;
-    right: 3rem;
-    z-index: 1;
-    top: -1.25rem;
-  }
+.imgg {
+  position: absolute;
+  height: 17%;
+  right: 3rem;
+  z-index: 1;
+  top: -1.25rem;
+}
 

@@ -82,7 +82,8 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
           .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
             button.close-cur-window(fs-click="cartPage.C.cart.showCurrentTemp=0")
-            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="650", template-height="650", type-construction="historyPage.constants.SVG_ID_PRINT")
+            img.edit-cur-window(ng-src='img/copy_edit.png', fs-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
 
 
           .discount-container
