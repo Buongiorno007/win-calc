@@ -2368,6 +2368,23 @@
         }
 
         if (sizeReal) {
+            // if(222===222) {
+            //         tempS = angular.copy(sizeReal);
+            //     switch (4) {
+            //       case 1:
+            //         sizeReal = Math.ceil(tempS/x)*x;
+            //         //console.log('Округления кратно заданному числу в большую сторону');
+            //         break;
+            //       case 2:
+            //         sizeReal = Math.floor(tempS/x)*x;
+            //         //console.log('Округления кратно заданному числу в меньшую сторону');
+            //         break;
+            //       case 3:
+            //         sizeReal = Math.round(tempS/x)*x;
+            //         //console.log('Округление кратно заданному числу согластно математическим правилам');
+            //         break;
+            //     }
+            // }
           priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
         } else {
           priceReal = qtyReal * currConsistElem.price * wasteValue;
