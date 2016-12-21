@@ -13,14 +13,16 @@
     text-align: center;
   }
 .template-window{
+  @extend .splash;
   @extend .modal-dialog;
   @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+  padding:0;
   width : auto;
   height: auto;
   background: white;
   position: absolute;
-  top : rem(300px);
-  left : rem(300px);
+  top : rem(200px);
+  left : rem(200px);
   z-index: 10;
   border-radius: rem($radius_order);
 
