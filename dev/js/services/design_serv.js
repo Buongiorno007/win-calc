@@ -81,12 +81,7 @@
     }
 
 
-    function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-        .then(function(result) {
-          DesignStor.design.templateTEMP = angular.copy(result);
-        });
-    }
+
 
 
     function showErrorInBlock(blockID, svgSelector) {
@@ -361,7 +356,7 @@
     function checkSize(res, construction_type) {
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
-      var heightT = [], widthT = [];  
+      var heightT = [], widthT = [];
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
         widthT = (res[0].sizes)? res[0].sizes[0]:0;
         heightT = (res[0].sizes)? res[0].sizes[1]:0;
@@ -387,14 +382,14 @@
               GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
               if(heightT <= product.height_max && heightT >= product.height_min) {
                 if(widthT <= product.width_max && widthT >= product.width_min) {
-                } else {  
+                } else {
                   GlobalStor.global.checkDoors = 1;
                   break
                 }
               } else {
                 GlobalStor.global.checkDoors = 1;
                 break
-              } 
+              }
             }
           }
           GlobalStor.global.timeoutFunc = 1;
@@ -800,13 +795,13 @@
       DesignStor.designSource.doorShapeList.length = [];
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
           && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
               doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
@@ -819,7 +814,7 @@
               break
             }
           }
-        } 
+        }
       }
 
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -842,14 +837,14 @@
           doorSill.push(DesignStor.design.doorShapeData[d]);
         }
       }
-      
+
       sash.length = 0;
       switch (id) {
         case 0:
         case 1:
           if (doorsGroups.length) {
             sash = angular.copy(doorsGroups);
-          } 
+          }
           break;
         case 3:
           if (doorsGroups.length) {
@@ -867,7 +862,7 @@
         }
       }
       return sash[id];
-    } 
+    }
 
     function selectDoor(id, product) {
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
@@ -879,13 +874,13 @@
       DesignStor.designSource.doorShapeList.length = [];
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
           && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
               doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
@@ -898,8 +893,8 @@
               temp.push(doorsGroups[z]);
               break
             }
-          } 
-        } 
+          }
+        }
       }
       doorsGroups = angular.copy(temp);
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -923,7 +918,7 @@
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
-      
+
       if(!DesignStor.design.steps.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -935,7 +930,7 @@
             case 1:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              } 
+              }
               break;
             case 3:
               if (doorsGroups.length) {
@@ -958,7 +953,7 @@
           return DesignStor.design.sashShapeList[id];
         }
       }
-    } 
+    }
 
     /**---------- Select prifile/sash shape --------*/
 
@@ -992,9 +987,9 @@
             } else {
               deferred.resolve(1);
             }
-          } 
+          }
         });
-         return deferred.promise;  
+         return deferred.promise;
     }
     function depend(item) {
       var newHandleArr;
@@ -1087,7 +1082,7 @@
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
       setNewDoorParamValue(
-        product, 
+        product,
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
@@ -1113,7 +1108,7 @@
             });
           });
         });
-      });  
+      });
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
     }
@@ -1126,7 +1121,7 @@
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
-      
+
       function countHandle(source) {
         var count = source.templateTEMP.details.filter(function(item) {
           if(item.blockType == 'sash') {
@@ -1151,12 +1146,12 @@
           if(source.templateTEMP.details[e].handlePos !== 0) {
             if(source.templateTEMP.details[e].openDir[0] === 4) {
                source.templateTEMP.details[e].openDir[0] = 3;
-            } 
+            }
             for(var x=0; x<doorsItems.length; x+=1) {
               if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
                 if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
                   if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
                       if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
                         if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
                           if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
@@ -1254,7 +1249,7 @@
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
-          console.log(product);
+          //console.log(product);
         });
       });
       return deferred.promise;
@@ -1506,11 +1501,11 @@
               }
             } else {
               GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
-            }    
+            }
           } else {
             test(blocks, blocksQty, block[0].parent);
           }
-        } else { 
+        } else {
                     //------ show error
           showErrorInBlock(GlobalStor.global.allGlass[0].attributes.block_id.nodeValue, globalConstants.SVG_ID_GRID);
         }
@@ -1529,7 +1524,7 @@
             }
           }
 
-          test2(temp, blocks);     
+          test2(temp, blocks);
         } else {
           test3();
         }
@@ -1945,12 +1940,12 @@
               } else {
                 defer.resolve('error');
               }
-            } else { 
+            } else {
               defer.resolve('good');
-            }  
-          } else { 
+            }
+          } else {
             defer.resolve('good');
-          }  
+          }
         }
         subPermit(parentID, blocks);
         return defer.promise;
@@ -1958,7 +1953,7 @@
 
       permit(parentID, blocks).then(function(result) {
         (result === 'good' || ProductStor.product.construction_type !==4)?doSash(type, glassObj): showErrorInBlock(blockID);
-      }); 
+      });
 
       function doSash(type, glassObj) {
         /**---- shtulps ---*/
@@ -2969,7 +2964,18 @@
       }
       return isInside;
     }
-
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateTEMP.details.forEach(function(entry,index){
+            if(entry.impost){
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
+            }
+          });
+        });
+    }
 
 
     function positionAxises() {
@@ -3022,6 +3028,8 @@
         step = Math.round(parentSizeMax/(impostInd.length+1));
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
+
+
 
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
@@ -3277,8 +3285,8 @@
           });
         });
 
-        
-        
+
+
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
             clearInterval(intervalID);
@@ -3331,7 +3339,7 @@
               GlobalStor.global.isLoader = 0;
               DesignStor.design.isHardwareExtra = 1;
             } else {
-              /** save new template in product */
+              /** save new template in product ***** */
               ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
@@ -3371,7 +3379,7 @@
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
                     .then(function (result) {
                       ProductStor.product.template = angular.copy(result);
-                   
+
                     GlobalStor.global.isChangedTemplate = 1;
                     backtoTemplatePanel();
                   });

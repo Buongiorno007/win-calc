@@ -80,18 +80,21 @@ gulp.task('jade', function () {
 
 var env = args.env || 'steko';
 var server_env = {
+    "windowSiteTest": "'http://api.test.windowscalculator.net'",
     "windowSite": "'http://api.windowscalculator.net'",
     "steko": "'http://api.steko.com.ua'",
     "orange": "'http://api.orange.windowscalculator.net'",
     "window": "'http://api.windowscalculator.net'"
   },
   print_env = {
+    "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
     "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
   },
   path_env = {
+    "windowSiteTest": "'/calculator/local/'",
     "windowSite": "'/calculator/local/'",
     "steko": "'/local/'",
     "orange": "'/local/'",
@@ -359,6 +362,7 @@ function buildExt(id) {
     .pipe(csso())
     .pipe(gulp.dest("_product/" + id + "/ext/css"));
 }
+
 /**!!!!!!!!!!!!!ВАЖНО билдить расширения можно поочередно руками или командой
  *
  * gulp buildStekoExt && gulp buildWindowExt && gulp buildOrangeExt
@@ -459,8 +463,19 @@ function buildSite(id) {
     .pipe(gulp.dest("_product/" + id + "/site/css"));
 }
 
+gulp.task('CopyWindowIMG', function () {
+  // Копируем изображения
+  gulp.src(config.build.src.img)
+    .pipe(newer("_product/WindowSiteTest/site/img"))
+    .pipe(gulp.dest("_product/WindowSiteTest/site/img"));
+});
+
 gulp.task('buildStekoSite', function () {
   buildSite("steko");
+});
+
+gulp.task('buildWindowSiteTest',['CopyWindowIMG'], function () {
+  buildSite("windowSiteTest");
 });
 
 gulp.task('buildWindowSite', function () {
@@ -517,9 +532,9 @@ gulp.task('prod', function () {
 /**========= Загрузка на удаленный сервер =========*/
 
 
-  var server = config.serverWindows;
-  //var server = config.serverOrange;
-  //var server = config.serverSteko;
+var server = config.serverWindows;
+//var server = config.serverOrange;
+//var server = config.serverSteko;
 
 /** upload index */
 gulp.task('upload-index', function () {

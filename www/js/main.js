@@ -11,7 +11,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
   window.onload = function () {
     location.hash = "#/";
     var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
-    var coeff = document.body.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
+    var coeff = document.documentElement.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
     if (coeff > 1) coeff = 1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
     if (coeff < 0.6) coeff = 0.6; // ограничение снизу добавлено для того, чтобы сайт совсем уж не превращался в нечитаемый
     if (coeff != 1.0) {
@@ -21,10 +21,10 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         elm.style.mozTransform =
           elm.style.transform = 'scale(' + coeff + ')'; // собственно масштабирование
     }
-  }
+  };
   window.onresize = function (event) {
     var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
-    var coeff = document.body.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
+    var coeff = document.documentElement.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
     if (coeff > 1) coeff = 1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
     if (coeff < 0.6) coeff = 0.6; // ограничение снизу добавлено для того, чтобы сайт совсем уж не превращался в нечитаемый
     if (coeff != 1.0) {
@@ -1264,543 +1264,651 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     .module('LoginModule')
     .controller('LoginCtrl',
 
-  function(
-    $location,
-    $timeout,
-    $cordovaNetwork,
-    $filter,
-    globalConstants,
-    localDB,
-    loginServ,
-    MainServ,
-    GlobalStor,
-    ProductStor,
-    UserStor
-  ) {
-    /*jshint validthis:true */
-    var thisCtrl = this;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.consts = globalConstants;
+      function(
+        $location,
+        $timeout,
+        $cordovaNetwork,
+        $filter,
+        globalConstants,
+        localDB,
+        loginServ,
+        MainServ,
+        GlobalStor,
+        ProductStor,
+        UserStor,
+        HistoryServ
+      ) {
+        /*jshint validthis:true */
+        var thisCtrl = this;
+        thisCtrl.G = GlobalStor;
+        thisCtrl.consts = globalConstants;
 
-    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-    thisCtrl.isOnline = 1;
-    thisCtrl.isOffline = 0;
-    thisCtrl.isLocalDB = 0;
-    thisCtrl.isRegistration = 0;
-    thisCtrl.submitted = 0;
-    thisCtrl.isUserExist = 0;
-    thisCtrl.isUserNotExist = 0;
-    thisCtrl.isUserPasswordError = 0;
-    thisCtrl.isSendEmail = 0;
-    thisCtrl.isUserNotActive = 0;
-    thisCtrl.isFactoryId = 0;
-    thisCtrl.isFactoryNotSelect = 0;
-    thisCtrl.isStartImport = 0;
-    thisCtrl.user = {};
-    thisCtrl.factories = 0;
-    GlobalStor.global.loader = 0; 
+        var onlineMode;
 
-    //------- translate
-    thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
-    thisCtrl.OK = $filter('translate')('common_words.OK');
-    thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
-    thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
-    thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
-    thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
-    thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
-    thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
-    thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
-    thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
-    thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
-    thisCtrl.ENTER = $filter('translate')('login.ENTER');
-    thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
-    thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
-    thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
-    thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
-    thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
-    thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
-    thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
-    thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
-    thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
-    thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
-    thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
-    thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
-    thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
-
-    /** reload room img */
-    //$("<img />").attr("src", "img/room/1.png");
-    //$("<img />").attr("src", "img/room/33.gif");
-    //$("<img />").attr("src", "img/room/333.gif");
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        thisCtrl.isOnline = 1;
+        thisCtrl.isOffline = 0;
+        thisCtrl.isOfflineImport = 0;
+        thisCtrl.isAutoSyncInfo = 0;
+        thisCtrl.isLocalDB = 0;
+        thisCtrl.isRegistration = 0;
+        thisCtrl.submitted = 0;
+        thisCtrl.isUserExist = 0;
+        thisCtrl.isUserNotExist = 0;
+        thisCtrl.isUserPasswordError = 0;
+        thisCtrl.isSendEmail = 0;
+        thisCtrl.isUserNotActive = 0;
+        thisCtrl.isFactoryId = 0;
+        thisCtrl.isFactoryNotSelect = 0;
+        thisCtrl.isStartImport = 0;
+        thisCtrl.user = {};
+        thisCtrl.factories = 0;
+        GlobalStor.global.loader = 0;
+        thisCtrl.onlineMode = 0;
 
 
-    function preloadImages(array) {
-      if (!preloadImages.list) {
-        preloadImages.list = [];
-      }
-      var list = preloadImages.list, i, img;
-      for (i = 0; i < array.length; i+=1) {
-        img = new Image();
-        img.onload = function() {
-          var index = list.indexOf(this);
-          if (index !== -1) {
-            // remove image from the array once it's loaded
-            // for memory consumption reasons
-            list.splice(index, 1);
-          }
-        };
-        list.push(img);
-        img.src = array[i];
-      }
-    }
 
-    preloadImages([
-      "img/room/1.png",
-      "img/room/4.png",
-      "img/room/6.png",
-      "img/room/7.png",
-      "img/room/8.png",
-      "img/room/9.png",
-      "img/room/10.png",
-      "img/room/11.png",
-      "img/room/12.png",
-      "img/room/26.png",
-      "img/room/121.png",
-      "img/room/122.png",
-      "img/room/123.png",
-      "img/room/fon.jpg",
-      "img/room/3333.png"
-    ]);
-
-
-    /**============ METHODS ================*/
-
-
-    function startProgramm() {
-      //console.time('prog');
-      /** save first User entrance */
-      MainServ.saveUserEntry();
-      /** create order date */
-      MainServ.createOrderData();
-      /** set Curr Discounts */
-      MainServ.setCurrDiscounts();
-
-      /** set first Template */
-      MainServ.setCurrTemplate();
-      /** set Templates */
-      MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        MainServ.prepareMainPage();
-        /** start lamination filtering */
-        MainServ.laminatFiltering();
-        /** download all cities */
-        if(GlobalStor.global.locations.cities.length === 1) {
-          loginServ.downloadAllCities(1);
-          GlobalStor.global.isLoader = 0;
-          //console.timeEnd('prog');
-          $location.path('/main');
-        }
-      });
-    }
-
-
-    function importDBfromServer() {
-      thisCtrl.isStartImport = 1;
-      //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-        if(data) {
-          /** download all data */
-          loginServ.downloadAllData().then(function() {
-            startProgramm();
+        $.get(globalConstants.serverIP, function() {
+          onlineMode = true;
+        })
+          .fail(function() {
+            onlineMode = false;
           });
-          thisCtrl.isStartImport = 0;
-        } else {
-          console.log('Error!');
-        }
-      });
-    }
 
+        //------- translate
+        thisCtrl.OFFLINE = $filter('translate')('login.OFFLINE');
+        thisCtrl.OK = $filter('translate')('common_words.OK');
+        thisCtrl.USER_CHECK_EMAIL = $filter('translate')('login.USER_CHECK_EMAIL');
+        thisCtrl.USER_NOT_EXIST = $filter('translate')('login.USER_NOT_EXIST');
+        thisCtrl.USER_NOT_ACTIVE = $filter('translate')('login.USER_NOT_ACTIVE');
+        thisCtrl.USER_PASSWORD_ERROR = $filter('translate')('login.USER_PASSWORD_ERROR');
+        thisCtrl.IMPORT_DB = $filter('translate')('login.IMPORT_DB');
+        thisCtrl.LOGIN = $filter('translate')('login.LOGIN');
+        thisCtrl.PASSWORD = $filter('translate')('login.PASSWORD');
+        thisCtrl.EMPTY_FIELD = $filter('translate')('login.EMPTY_FIELD');
+        thisCtrl.WRONG_LOGIN = $filter('translate')('login.WRONG_LOGIN');
+        thisCtrl.ENTER = $filter('translate')('login.ENTER');
+        thisCtrl.REGISTRATION = $filter('translate')('login.REGISTRATION');
+        thisCtrl.SELECT_FACTORY = $filter('translate')('login.SELECT_FACTORY');
+        thisCtrl.SELECT_PRODUCER = $filter('translate')('login.SELECT_PRODUCER');
+        thisCtrl.SELECT = $filter('translate')('common_words.SELECT');
+        thisCtrl.USER_EXIST = $filter('translate')('login.USER_EXIST');
+        thisCtrl.CLIENT_NAME = $filter('translate')('cart.CLIENT_NAME');
+        thisCtrl.WRONG_NAME = $filter('translate')('login.WRONG_NAME');
+        thisCtrl.SHORT_NAME = $filter('translate')('login.SHORT_NAME');
+        thisCtrl.SELECT_COUNTRY = $filter('translate')('login.SELECT_COUNTRY');
+        thisCtrl.SELECT_REGION = $filter('translate')('login.SELECT_REGION');
+        thisCtrl.SELECT_CITY = $filter('translate')('login.SELECT_CITY');
+        thisCtrl.CLIENT_EMAIL = $filter('translate')('cart.CLIENT_EMAIL');
+        thisCtrl.WRONG_EMAIL = $filter('translate')('cart.WRONG_EMAIL');
+        thisCtrl.OFFLINE_IMPORT = $filter('translate')('login.OFFLINE_IMPORT');
+        thisCtrl.AUTO_SYNCHRONIZE = $filter('translate')('login.AUTO_SYNCHRONIZE');
+        thisCtrl.SYNCHRONIZE_INFO = $filter('translate')('login.SYNCHRONIZE_INFO');
+        /** reload room img */
+        //$("<img />").attr("src", "img/room/1.png");
+        //$("<img />").attr("src", "img/room/33.gif");
+        //$("<img />").attr("src", "img/room/333.gif");
 
-    function setFactoryLocation(factories) {
-      var factoryQty = factories.length,
-          locationQty;
-      while(--factoryQty > -1) {
-        locationQty = GlobalStor.global.locations.cities.length;
-        while(--locationQty > -1) {
-          if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
-            factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
+        function preloadImages(array) {
+          if (!preloadImages.list) {
+            preloadImages.list = [];
+          }
+          var list = preloadImages.list, i, img;
+          for (i = 0; i < array.length; i+=1) {
+            img = new Image();
+            img.onload = function() {
+              var index = list.indexOf(this);
+              if (index !== -1) {
+                // remove image from the array once it's loaded
+                // for memory consumption reasons
+                list.splice(index, 1);
+              }
+            };
+            list.push(img);
+            img.src = array[i];
           }
         }
-      }
-      return factories;
-    }
+
+        preloadImages([
+          "img/room/1.png",
+          "img/room/4.png",
+          "img/room/6.png",
+          "img/room/7.png",
+          "img/room/8.png",
+          "img/room/9.png",
+          "img/room/10.png",
+          "img/room/11.png",
+          "img/room/12.png",
+          "img/room/26.png",
+          "img/room/121.png",
+          "img/room/122.png",
+          "img/room/123.png",
+          "img/room/fon.jpg",
+          "img/room/3333.png"
+        ]);
+
+        /**============ METHODS ================*/
 
 
-    function checkingFactory() {
-      //------- set User Location
-      loginServ.setUserLocation();
-      if((+UserStor.userInfo.factory_id) > 0) {
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-          if (thisCtrl.isLocalDB) {
-            //------- current FactoryId matches to user FactoryId, go to main page without importDB
-            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-            /** download all data */
-            loginServ.downloadAllData().then(function() {
-              startProgramm();
-            });
-            //});
-          } else {
-            //------ LocalDB is empty
-            importDBfromServer(UserStor.userInfo.factory_id);
-          }
-        });
-      } else {
-        //---- show Factory List
-        //----- collect city Ids regarding to user country
-        loginServ.collectCityIdsAsCountry().then(function(cityIds) {
-          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
-            .then(function(result) {
-              //            console.log('Factories++++++', result);
+        function startProgramm() {
+          //console.time('prog');
+          /** save first User entrance */
+          MainServ.saveUserEntry();
+          /** create order date */
+          MainServ.createOrderData();
+          /** set Curr Discounts */
+          MainServ.setCurrDiscounts();
+
+          /** set first Template */
+          MainServ.setCurrTemplate();
+          /** set Templates */
+          MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
+            MainServ.prepareMainPage();
+            /** start lamination filtering */
+            MainServ.laminatFiltering();
+            /** download all cities */
+            if(GlobalStor.global.locations.cities.length === 1) {
+              loginServ.downloadAllCities(1);
               GlobalStor.global.isLoader = 0;
-              if(result.status) {
-                thisCtrl.factories = setFactoryLocation(result.factories);
-                //-------- close Factory Dialog
-                thisCtrl.isFactoryId = 1;
+              //console.timeEnd('prog');
+              $location.path('/main');
+            }
+
+          });
+        }
+
+
+        function importDBfromServer() {
+          thisCtrl.isStartImport = 1;
+          //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+          localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+            if(data) {
+              /** download all data */
+              loginServ.downloadAllData().then(function() {
+                startProgramm();
+              });
+              thisCtrl.isStartImport = 0;
+            } else {
+              console.log('Error!');
+            }
+          });
+        }
+
+
+        function setFactoryLocation(factories) {
+          var factoryQty = factories.length,
+            locationQty;
+          while(--factoryQty > -1) {
+            locationQty = GlobalStor.global.locations.cities.length;
+            while(--locationQty > -1) {
+              if(factories[factoryQty].city_id === GlobalStor.global.locations.cities[locationQty].cityId) {
+                factories[factoryQty].location = GlobalStor.global.locations.cities[locationQty].fullLocation;
+              }
+            }
+          }
+          return factories;
+        }
+
+
+        function checkingFactory() {
+          //------- set User Location
+          loginServ.setUserLocation();
+          if((+UserStor.userInfo.factory_id) > 0) {
+            loginServ.isLocalDBExist().then(function(data) {
+              thisCtrl.isLocalDB = data;
+              if (thisCtrl.isLocalDB) {
+                //------- current FactoryId matches to user FactoryId, go to main page without importDB
+                //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+                /** download all data */
+                loginServ.downloadAllData().then(function() {
+                  startProgramm();
+                });
+                //});
               } else {
-                console.log('can not get factories!');
+                //------ LocalDB is empty
+                importDBfromServer(UserStor.userInfo.factory_id);
               }
             });
-        });
-      }
-    }
+          } else {
+            //---- show Factory List
+            //----- collect city Ids regarding to user country
+            loginServ.collectCityIdsAsCountry().then(function(cityIds) {
+              localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
+                .then(function(result) {
+                  //            console.log('Factories++++++', result);
+                  GlobalStor.global.isLoader = 0;
+                  if(result.status) {
+                    thisCtrl.factories = setFactoryLocation(result.factories);
+                    //-------- close Factory Dialog
+                    thisCtrl.isFactoryId = 1;
+                  } else {
+                    console.log('can not get factories!');
+                  }
+                });
+            });
+          }
+        }
 
 
-    function importDBProsses(user) {
-      //----- checking user activation
-      if(user.locked) {
-        //------- clean all tables in LocalDB
-        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-          if(data) {
-            //------- creates all tables in LocalDB
-            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
+        function importDBProsses(user) {
+          //----- checking user activation
+          if(user.locked) {
+            //------- clean all tables in LocalDB
+            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
               if(data) {
-                //------- save user in LocalDB
-                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
-                //------- save user in Stor
-                angular.extend(UserStor.userInfo, user);
-                //------- import Location
-                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                //------- creates all tables in LocalDB
+                localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
                   if(data) {
-                    //------ save Location Data in local obj
-                    loginServ.prepareLocationToUse().then(function() {
-                      checkingFactory();
+                    //------- save user in LocalDB
+                    localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                    //------- save user in Stor
+                    angular.extend(UserStor.userInfo, user);
+                    //------- import Location
+                    localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                      if(data) {
+                        //------ save Location Data in local obj
+                        loginServ.prepareLocationToUse().then(function() {
+                          checkingFactory();
+                        });
+                        var key = "UserStor.userInfo.phone";
+                        var value = UserStor.userInfo.phone;
+                        localforage.setItem(key, value, function (err, value) {
+                        });
+                        var key = "UserStor.userInfo.device_code";
+                        var value = UserStor.userInfo.device_code;
+                        localforage.setItem(key, value, function (err, value) {
+                        });
+                      }
                     });
                   }
                 });
               }
             });
-          }
-        });
-      } else {
-        GlobalStor.global.isLoader = 0;
-        //---- show attantion
-        thisCtrl.isUserNotActive = 1;
-      }
-
-    }
-
-
-    function checkingUser() {
-      localDB.importUser(thisCtrl.user.phone).then(function(result) {
-        if(result.status) {
-          var userTemp = angular.copy(result.user);
-          //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
-          //---------- check user password
-          var newUserPassword = localDB.md5(thisCtrl.user.password);
-          if(newUserPassword === userTemp.password) {
-            importDBProsses(userTemp);
           } else {
             GlobalStor.global.isLoader = 0;
-            //---- user not exists
-            thisCtrl.isUserPasswordError = 1;
+            //---- show attantion
+            thisCtrl.isUserNotActive = 1;
           }
-        } else {
-          GlobalStor.global.isLoader = 0;
-          //---- user not exists
-          thisCtrl.isUserNotExist = 1;
+
         }
 
-      });
-    }
 
+        function checkingUser() {
+          localforage.setItem("FirstIn", "true", function (err, value) {
+          });
+          localDB.importUser(thisCtrl.user.phone).then(function(result) {
+            if(result.status) {
+              var userTemp = angular.copy(result.user);
+              //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
+              //---------- check user password
+              var newUserPassword = localDB.md5(thisCtrl.user.password);
+              if(newUserPassword === userTemp.password) {
+                importDBProsses(userTemp);
+              } else {
+                GlobalStor.global.isLoader = 0;
+                //---- user not exists
+                thisCtrl.isUserPasswordError = 1;
+              }
+            } else {
+              GlobalStor.global.isLoader = 0;
+              //---- user not exists
+              thisCtrl.isUserNotExist = 1;
+            }
 
-
-    /**============== ENTRY BY LINK ===============*/
-
-
-    function entriyWithoutLogin() {
-      var url = $location.search(),
-          accessArr = [
-            '7d537b6746f925b1703aefa9b8a9a4bc',
-            '3f5f0c7d46d318e026f9ba60dceffc65',
-            '799e078b084c6d57cea0b0d53a7e3008',
-            '9aefeef9c7e53f9de9bb36f32649dc3f',
-            'a2da6d85764368b24392740020efbc92',
-            'ceb60bfed037baaa484bd7b88d274c98',
-            '632b3213660804acb71fe045c6e321ed',
-            'd11758b674ac02f0fcf128dcc906dbef',
-            '8155bc545f84d9652f1012ef2bdfb6eb',
-            '59e711d152de7bec7304a8c2ecaf9f0f',
-            '877466ffd21fe26dd1b3366330b7b560',
-            'f31c147335274c56d801f833d3c26a70',
-            'f68ec4f0c6df90137749af75a929a3eb',
-            '0f190e6e164eafe66f011073b4486975',
-            'a9588aa82388c0579d8f74b4d02b895f',
-            '66a516f865fca1c921dba625ede4a693',
-            '7cebd0178b69b2e88774529e1e59a7b0',
-            'ad1df793247a0e650d0d7166341b8d97',
-            'ffc14b7acfd31440e19d0431d4ab0cba',
-            '4736b2b496ba3de748c6eea6c6b9ca65',
-
-            '04fc711301f3c784d66955d98d399afb',
-            '768c1c687efe184ae6dd2420710b8799',
-            'f7a5c99c58103f6b65c451efd0f81826',
-            '27701bd8dd141b953b94a5c9a44697c0',
-            '7f7d5f9f3a660f2b09e3aae62a15e29b',
-            '23ff17389acbfd020043268fb49e7048',
-            'cd714cc33cfd23e74f414cbb8b9787fe',
-            '2959f1aea8db0f7fbba61f0f8474d0ef',
-            'a28a19e19b283845c851b4876b97cef4',
-            '661e67f8ce5eaf9d63c1b5be6fce1afb',
-            '0653e359db756493450c3fb1fc6790b2',
-            'ec5fefce8d1d81849b47923d6d1b52c0',
-            'd4ccb0f347163d9ee1cd5a106e1ec48b',
-            'c500ea6c5baf3deb447be25b90cf5f1c',
-            '59a6670111970ede6a77e9b43a5c4787',
-            '266021e24dd0bfaaa96f2b5e21d7c800',
-            'b8c4b7f74db12fadbe2d979ed93f392b',
-            '2482b711a07d1da3efa733aa7014f947',
-            '573b8926f015aa477cb6604901b92aea',
-            'b54d11c86eb7c8955a50d20f6b3be2f2',
-            '3a55b7218a5ca395ac71b3ec9904b6ed',
-            '3615d9213b1b3d5fe760901f43a8405f',
-            'e50137601a90943ce98b03e90d73272e',
-            'd4651afb4e1c749f0bacc7ff5d101982',
-            '988a8fa4855bf7ea54057717655d3fc9',
-            '82deec386376c6f81845e561f491e19a',
-            'f427fe660e069c2a1d03db07126c95b7',
-            '15bbb9d0bbf25e8d2978de1168c749dc'
-
-          ],
-          phoneArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-            '9201922876',
-            '903528981',
-            '9301600441',
-            '89324310961',
-            '1000000',
-            '1000001',
-            '1000002',
-            '1000003',
-            '1000004',
-            '1000005',
-            '1000006',
-            '1000007',
-            '1000008',
-            '1000009',
-            'wd-op',
-            'op1',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028',
-            'vikna',
-            '5371',
-            'Website'
-          ],
-          passwordArr = [
-            '0950604425',
-            '0500505500',
-            '78124541170',
-            '22274313',
-            '9201922876',
-            '903528981',
-            '9301600441',
-            '89324310961',
-            '1000000',
-            '1000001',
-            '1000002',
-            '1000003',
-            '1000004',
-            '1000005',
-            '1000006',
-            '1000007',
-            '1000008',
-            '1000009',
-            'wd-op',
-            'op1op1',
-
-            '000001',
-            '000002',
-            '000003',
-            '000007',
-            '000008',
-            '000009',
-            '000010',
-            '000011',
-            '000012',
-            '000013',
-            '000014',
-            '000015',
-            '000016',
-            '000017',
-            '000018',
-            '000019',
-            '000020',
-            '000021',
-            '000022',
-            '000023',
-            '000024',
-            '000025',
-            '000026',
-            '000027',
-            '000028',
-            'vikna', 
-            '5371',
-            'Website'
-          ],
-          accessQty = accessArr.length,
-          isCustomer = 0;
-
-
-      if(url.access) {
-
-        while(accessQty > -1) {
-          accessQty -= 1;
-          if(accessArr[accessQty] === url.access) {
-            thisCtrl.user.phone = phoneArr[accessQty];
-            thisCtrl.user.password = passwordArr[accessQty];
-            isCustomer = 1;
-          }
-        }
-
-        if(isCustomer) {
-          if(thisCtrl.user.phone && thisCtrl.user.password) {
-            GlobalStor.global.isLoader = 1;
-            checkingUser();
-          }
-        } else {
-          localDB.importUser(url.access, 1).then(function(result) {
-            var userTemp = angular.copy(result.user);
-            GlobalStor.global.isLoader = 1;
-            importDBProsses(userTemp);
           });
         }
 
-      }
-    }
+        /**============== ENTRY BY LINK ===============*/
 
 
+        function entriyWithoutLogin() {
+          var url = $location.search(),
+            accessArr = [
+              '7d537b6746f925b1703aefa9b8a9a4bc',
+              '3f5f0c7d46d318e026f9ba60dceffc65',
+              '799e078b084c6d57cea0b0d53a7e3008',
+              '9aefeef9c7e53f9de9bb36f32649dc3f',
+              'a2da6d85764368b24392740020efbc92',
+              'ceb60bfed037baaa484bd7b88d274c98',
+              '632b3213660804acb71fe045c6e321ed',
+              'd11758b674ac02f0fcf128dcc906dbef',
+              '8155bc545f84d9652f1012ef2bdfb6eb',
+              '59e711d152de7bec7304a8c2ecaf9f0f',
+              '877466ffd21fe26dd1b3366330b7b560',
+              'f31c147335274c56d801f833d3c26a70',
+              'f68ec4f0c6df90137749af75a929a3eb',
+              '0f190e6e164eafe66f011073b4486975',
+              'a9588aa82388c0579d8f74b4d02b895f',
+              '66a516f865fca1c921dba625ede4a693',
+              '7cebd0178b69b2e88774529e1e59a7b0',
+              'ad1df793247a0e650d0d7166341b8d97',
+              'ffc14b7acfd31440e19d0431d4ab0cba',
+              '4736b2b496ba3de748c6eea6c6b9ca65',
+
+              '04fc711301f3c784d66955d98d399afb',
+              '768c1c687efe184ae6dd2420710b8799',
+              'f7a5c99c58103f6b65c451efd0f81826',
+              '27701bd8dd141b953b94a5c9a44697c0',
+              '7f7d5f9f3a660f2b09e3aae62a15e29b',
+              '23ff17389acbfd020043268fb49e7048',
+              'cd714cc33cfd23e74f414cbb8b9787fe',
+              '2959f1aea8db0f7fbba61f0f8474d0ef',
+              'a28a19e19b283845c851b4876b97cef4',
+              '661e67f8ce5eaf9d63c1b5be6fce1afb',
+              '0653e359db756493450c3fb1fc6790b2',
+              'ec5fefce8d1d81849b47923d6d1b52c0',
+              'd4ccb0f347163d9ee1cd5a106e1ec48b',
+              'c500ea6c5baf3deb447be25b90cf5f1c',
+              '59a6670111970ede6a77e9b43a5c4787',
+              '266021e24dd0bfaaa96f2b5e21d7c800',
+              'b8c4b7f74db12fadbe2d979ed93f392b',
+              '2482b711a07d1da3efa733aa7014f947',
+              '573b8926f015aa477cb6604901b92aea',
+              'b54d11c86eb7c8955a50d20f6b3be2f2',
+              '3a55b7218a5ca395ac71b3ec9904b6ed',
+              '3615d9213b1b3d5fe760901f43a8405f',
+              'e50137601a90943ce98b03e90d73272e',
+              'd4651afb4e1c749f0bacc7ff5d101982',
+              '988a8fa4855bf7ea54057717655d3fc9',
+              '82deec386376c6f81845e561f491e19a',
+              'f427fe660e069c2a1d03db07126c95b7'
+
+            ],
+            phoneArr = [
+              '0950604425',
+              '0500505500',
+              '78124541170',
+              '22274313',
+              '9201922876',
+              '903528981',
+              '9301600441',
+              '89324310961',
+              '1000000',
+              '1000001',
+              '1000002',
+              '1000003',
+              '1000004',
+              '1000005',
+              '1000006',
+              '1000007',
+              '1000008',
+              '1000009',
+              'wd-op',
+              'op1',
+
+              '000001',
+              '000002',
+              '000003',
+              '000007',
+              '000008',
+              '000009',
+              '000010',
+              '000011',
+              '000012',
+              '000013',
+              '000014',
+              '000015',
+              '000016',
+              '000017',
+              '000018',
+              '000019',
+              '000020',
+              '000021',
+              '000022',
+              '000023',
+              '000024',
+              '000025',
+              '000026',
+              '000027',
+              '000028',
+              'vikna',
+              '5371'
+            ],
+            passwordArr = [
+              '0950604425',
+              '0500505500',
+              '78124541170',
+              '22274313',
+              '9201922876',
+              '903528981',
+              '9301600441',
+              '89324310961',
+              '1000000',
+              '1000001',
+              '1000002',
+              '1000003',
+              '1000004',
+              '1000005',
+              '1000006',
+              '1000007',
+              '1000008',
+              '1000009',
+              'wd-op',
+              'op1op1',
+
+              '000001',
+              '000002',
+              '000003',
+              '000007',
+              '000008',
+              '000009',
+              '000010',
+              '000011',
+              '000012',
+              '000013',
+              '000014',
+              '000015',
+              '000016',
+              '000017',
+              '000018',
+              '000019',
+              '000020',
+              '000021',
+              '000022',
+              '000023',
+              '000024',
+              '000025',
+              '000026',
+              '000027',
+              '000028',
+              'vikna',
+              '5371'
+            ],
+            accessQty = accessArr.length,
+            isCustomer = 0;
 
 
-    function closeOfflineAlert() {
-      thisCtrl.isOffline = false;
-    }
+          if(url.access) {
 
+            while(accessQty > -1) {
+              accessQty -= 1;
+              if(accessArr[accessQty] === url.access) {
+                thisCtrl.user.phone = phoneArr[accessQty];
+                thisCtrl.user.password = passwordArr[accessQty];
+                isCustomer = 1;
+              }
+            }
 
+            if(isCustomer) {
+              if(thisCtrl.user.phone && thisCtrl.user.password) {
+                GlobalStor.global.isLoader = 1;
+                checkingUser();
+              }
+            } else {
+              localDB.importUser(url.access, 1).then(function(result) {
+                var userTemp = angular.copy(result.user);
+                GlobalStor.global.isLoader = 1;
+                importDBProsses(userTemp);
+              });
+            }
 
-    /** =========== SIGN IN ======== */
-    function loader() {
-      if (GlobalStor.global.isLoader3 === 1) {
-        if (GlobalStor.global.isLoader === 1) {
-          GlobalStor.global.isLoader3 = 0
+          }
         }
-      }
-      if (GlobalStor.global.isLoader3 === 0) {
-        $timeout(function() { GlobalStor.global.isLoader3 = 1 }, 1) 
-        $timeout(function() { GlobalStor.global.isLoader2 = 0 }, 1)  
-        $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
-        $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)      
-        $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
-        $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
-        $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000) 
-      }
-    }
 
-    if (window.location.hash.length > 10) {
-      loader()
-    }
-    function enterForm(form) {
-      var newUserPassword;
-//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
-      //------ Trigger validation flag.
-      thisCtrl.submitted = 1;
-      if (form.$valid) {
-        GlobalStor.global.isLoader = 1;
-        loader();
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
 
-          ////TODO for Steko
-          //======== IMPORT
-          //console.log('IMPORT');
-          //checkingUser();
 
-          //------- check available Local DB
-          //for offline work
-          loginServ.isLocalDBExist().then(function(data){
-            thisCtrl.isLocalDB = data;
-            if(thisCtrl.isLocalDB) {
 
-              //======== SYNC
-              console.log('SYNC');
+        function closeOfflineAlert() {
+          thisCtrl.isOffline = false;
+        }
+
+
+
+        /** =========== SIGN IN ======== */
+        function loader() {
+          if (GlobalStor.global.isLoader3 === 1) {
+            if (GlobalStor.global.isLoader === 1) {
+              GlobalStor.global.isLoader3 = 0
+            }
+          }
+          if (GlobalStor.global.isLoader3 === 0) {
+            $timeout(function() { GlobalStor.global.isLoader3 = 1 }, 1)
+            $timeout(function() { GlobalStor.global.isLoader2 = 0 }, 1)
+            $timeout(function() { GlobalStor.global.isLoader2 = 25 }, 100)
+            $timeout(function() { GlobalStor.global.isLoader2 = 40 }, 1500)
+            $timeout(function() { GlobalStor.global.isLoader2 = 65 }, 3000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 90 }, 4000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 94 }, 7000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 95 }, 9000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 96 }, 11000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 97 }, 15000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 98 }, 21000)
+            $timeout(function() { GlobalStor.global.isLoader2 = 99 }, 30000)
+            $timeout(function() { GlobalStor.global.isLoader3 = 0 }, 31000)
+          }
+        }
+
+
+
+        if (window.location.hash.length > 10) {
+          loader()
+        }
+        if (!onlineMode && !navigator.onLine) {
+          localforage.getItem("UserStor.userInfo.phone", function (err, value) {
+            UserStor.userInfo.phone = value;
+          });
+
+          localforage.getItem("UserStor.userInfo.device_code", function (err, value) {
+            UserStor.userInfo.device_code = value;
+          });
+        }
+        var FirstIn = "true";
+        localforage.getItem("FirstIn", function (err, value) {
+          if (value!=="true"){
+            $("#updateDBcheck").prop("checked",true);
+          }
+        });
+
+        function enterForm(form) {
+
+          var newUserPassword;
+          //console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
+          //------ Trigger validation flag.
+          thisCtrl.submitted = 1;
+          if (form.$valid) {
+            GlobalStor.global.isLoader = 1;
+            loader();
+
+
+            //------ check Internet
+            //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+            //if (navigator.onLine){    thisCtrl.isOnline = 1;} else {    thisCtrl.isOnline = 0;}
+            if(thisCtrl.isOnline) {
+              ////TODO for Steko
+              //======== IMPORT
+              //console.log('IMPORT');
+
+              if($("#updateDBcheck").prop("checked") ) {
+                if (onlineMode && navigator.onLine ){
+
+                  GlobalStor.global.isLoader = 1;
+                  HistoryServ.synchronizeOrders().then(function () {
+                    GlobalStor.global.isLoader = 1;
+                    checkingUser();
+                  });
+                  //checkingUser();
+                } else {
+                  GlobalStor.global.isLoader = 0;
+                  thisCtrl.isOfflineImport = 1;
+                }
+              }
+              else {
+                //------- check available Local DB
+                //for offline work
+                loginServ.isLocalDBExist().then(function(data){
+                  thisCtrl.isLocalDB = data;
+                  if(thisCtrl.isLocalDB) {
+                    //======== SYNC
+                    console.log('SYNC');
+                    //---- checking user in LocalDB
+                    localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
+                      .then(function(data) {
+                        //---- user exists
+                        if(data.length) {
+                          //---------- check user password
+                          newUserPassword = localDB.md5(thisCtrl.user.password);
+                          if(newUserPassword === data[0].password) {
+                            //----- checking user activation
+                            if(data[0].locked) {
+                              angular.extend(UserStor.userInfo, data[0]);
+                              //------- set User Location
+                              loginServ.prepareLocationToUse().then(function() {
+                                checkingFactory();
+                              });
+
+                            } else {
+                              GlobalStor.global.isLoader = 0;
+                              //---- show attantion
+                              thisCtrl.isUserNotActive = 1;
+                            }
+                          } else {
+                            GlobalStor.global.isLoader = 0;
+                            //---- user not exists
+                            thisCtrl.isUserPasswordError = 1;
+                          }
+                        } else {
+                          //======== IMPORT
+                          console.log('Sync IMPORT');
+                          checkingUser();
+                        }
+                      });
+                  } else {
+                    //======== IMPORT
+                    console.log('IMPORT');
+                    checkingUser();
+                  }
+                });
+              }
+
+
+              //-------- check LocalDB
+            } else if(thisCtrl.isLocalDB) {
+              console.log('OFFLINE');
               //---- checking user in LocalDB
               localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
                 .then(function(data) {
                   //---- user exists
                   if(data.length) {
                     //---------- check user password
-                    newUserPassword = localDB.md5(thisCtrl.user.password);
+                    var newUserPassword = localDB.md5(thisCtrl.user.password);
                     if(newUserPassword === data[0].password) {
                       //----- checking user activation
                       if(data[0].locked) {
-                        angular.extend(UserStor.userInfo, data[0]);
-                        //------- set User Location
-                        loginServ.prepareLocationToUse().then(function() {
-                          checkingFactory();
-                        });
-
+                        //------- checking user FactoryId
+                        if(data[0].factory_id > 0) {
+                          angular.extend(UserStor.userInfo, data[0]);
+                          //------- set User Location
+                          loginServ.prepareLocationToUse().then(function() {
+                            loginServ.setUserLocation();
+                            /** download all data */
+                            loginServ.downloadAllData().then(function() {
+                              startProgramm();
+                            });
+                          });
+                        } else {
+                          GlobalStor.global.isLoader = 0;
+                          thisCtrl.isOffline = 1;
+                        }
                       } else {
                         GlobalStor.global.isLoader = 0;
                         //---- show attantion
@@ -1812,264 +1920,212 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                       thisCtrl.isUserPasswordError = 1;
                     }
                   } else {
-                    //======== IMPORT
-                    console.log('Sync IMPORT');
-                    checkingUser();
+                    GlobalStor.global.isLoader = 0;
+                    //---- user not exists
+                    thisCtrl.isUserNotExist = 1;
                   }
                 });
 
-
             } else {
-              //======== IMPORT
-              console.log('IMPORT');
-              checkingUser();
-            }
-          });
-
-        //-------- check LocalDB
-        } else if(thisCtrl.isLocalDB) {
-          console.log('OFFLINE');
-          //---- checking user in LocalDB
-          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone})
-            .then(function(data) {
-              //---- user exists
-              if(data.length) {
-                //---------- check user password
-                var newUserPassword = localDB.md5(thisCtrl.user.password);
-                if(newUserPassword === data[0].password) {
-                  //----- checking user activation
-                  if(data[0].locked) {
-                    //------- checking user FactoryId
-                    if(data[0].factory_id > 0) {
-                      angular.extend(UserStor.userInfo, data[0]);
-                      //------- set User Location
-                      loginServ.prepareLocationToUse().then(function() {
-                        loginServ.setUserLocation();
-                        /** download all data */
-                        loginServ.downloadAllData().then(function() {
-                          startProgramm();
-                        });
-                      });
-                    } else {
-                      GlobalStor.global.isLoader = 0;
-                      thisCtrl.isOffline = 1;
-                    }
-                  } else {
-                    GlobalStor.global.isLoader = 0;
-                    //---- show attantion
-                    thisCtrl.isUserNotActive = 1;
-                  }
-                } else {
-                  GlobalStor.global.isLoader = 0;
-                  //---- user not exists
-                  thisCtrl.isUserPasswordError = 1;
-                }
-              } else {
-                GlobalStor.global.isLoader = 0;
-                //---- user not exists
-                thisCtrl.isUserNotExist = 1;
-              }
-            });
-
-        } else {
-          GlobalStor.global.isLoader = 0;
-          thisCtrl.isOffline = 1;
-        }
-      }
-    }
-
-
-
-    /**--------- FACTORIES ------------*/
-
-    function selectFactory() {
-      if(thisCtrl.user.factoryId > 0) {
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //-------- send selected Factory Id in Server
-          UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-//                  console.log(UserStor.userInfo.factory_id);
-          //----- update factoryId in LocalDB & Server
-          localDB.updateLocalServerDBs(
-            localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
-          ).then(function() {
-            //-------- close Factory Dialog
-            thisCtrl.isFactoryId = 0;
-            importDBfromServer();
-          });
-        } else {
-          thisCtrl.isOffline = 1;
-        }
-      } else {
-        //---- show attantion if any factory was chosen
-        thisCtrl.isFactoryNotSelect = 1;
-      }
-
-    }
-
-    function closeFactoryDialog() {
-      thisCtrl.isFactoryNotSelect = 0;
-      thisCtrl.isFactoryId = 0;
-      delete thisCtrl.user.factoryId;
-    }
-
-
-
-
-
-    /**============ Registration ============*/
-
-
-    function switchRegistration() {
-      //------ check Internet
-      //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-      if(thisCtrl.isOnline) {
-        //------- check available Local DB
-        loginServ.isLocalDBExist().then(function(data) {
-          thisCtrl.isLocalDB = data;
-//          console.log('REG', data);
-          //------ if locations is not exists refresh Location and Users
-          if(thisCtrl.isLocalDB) {
-            GlobalStor.global.isLoader = 1;
-            loginServ.prepareLocationToUse(1).then(function() {
               GlobalStor.global.isLoader = 0;
-              thisCtrl.isRegistration = 1;
-            });
+              thisCtrl.isOffline = 1;
+            }
+          }
+        }
+
+
+
+        /**--------- FACTORIES ------------*/
+
+        function selectFactory() {
+          if(thisCtrl.user.factoryId > 0) {
+            //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+            if(thisCtrl.isOnline) {
+              GlobalStor.global.isLoader = 1;
+              //-------- send selected Factory Id in Server
+              UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
+//                  console.log(UserStor.userInfo.factory_id);
+              //----- update factoryId in LocalDB & Server
+              localDB.updateLocalServerDBs(
+
+                localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}
+              ).then(function() {
+                //-------- close Factory Dialog
+                thisCtrl.isFactoryId = 0;
+                importDBfromServer();
+              });
+            } else {
+              thisCtrl.isOffline = 1;
+            }
           } else {
-            GlobalStor.global.isLoader = 1;
-            //------- clean all tables in LocalDB
-            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-              if(data) {
-                //------- creates all tables in LocalDB
-                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
+            //---- show attantion if any factory was chosen
+            thisCtrl.isFactoryNotSelect = 1;
+          }
+
+        }
+
+        function closeFactoryDialog() {
+          thisCtrl.isFactoryNotSelect = 0;
+          thisCtrl.isFactoryId = 0;
+          delete thisCtrl.user.factoryId;
+        }
+
+
+
+
+
+        /**============ Registration ============*/
+
+
+        function switchRegistration() {
+          //------ check Internet
+          //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+          if(thisCtrl.isOnline) {
+            //------- check available Local DB
+            loginServ.isLocalDBExist().then(function(data) {
+              thisCtrl.isLocalDB = data;
+//          console.log('REG', data);
+              //------ if locations is not exists refresh Location and Users
+              if(thisCtrl.isLocalDB) {
+                GlobalStor.global.isLoader = 1;
+                loginServ.prepareLocationToUse(1).then(function() {
+                  GlobalStor.global.isLoader = 0;
+                  thisCtrl.isRegistration = 1;
+                });
+              } else {
+                GlobalStor.global.isLoader = 1;
+                //------- clean all tables in LocalDB
+                localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
                   if(data) {
-                    //------- import Location
-                    localDB.importLocation().then(function(data) {
+                    //------- creates all tables in LocalDB
+                    localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
                       if(data) {
-                        //------ save Location Data in local obj
-                        loginServ.prepareLocationToUse(1).then(function() {
-                          GlobalStor.global.isLoader = 0;
-                          thisCtrl.isRegistration = 1;
+                        //------- import Location
+                        localDB.importLocation().then(function(data) {
+                          if(data) {
+                            //------ save Location Data in local obj
+                            loginServ.prepareLocationToUse(1).then(function() {
+                              GlobalStor.global.isLoader = 0;
+                              thisCtrl.isRegistration = 1;
+                            });
+                          }
                         });
                       }
                     });
                   }
                 });
               }
+              thisCtrl.user = {};
+              //angular.element('#first_input').focus();
             });
+          } else {
+            thisCtrl.isOffline = 1;
           }
-          thisCtrl.user = {};
-          //angular.element('#first_input').focus();
-        });
-      } else {
-        thisCtrl.isOffline = 1;
-      }
-    }
-
-
-    function closeRegistration() {
-      thisCtrl.user = {};
-      thisCtrl.isRegistration = 0;
-    }
-
-    function registrForm(form) {
-      // Trigger validation flag.
-      thisCtrl.submitted = true;
-      if (form.$valid) {
-        //------ check Internet
-        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
-        if(thisCtrl.isOnline) {
-          GlobalStor.global.isLoader = 1;
-          //--- checking user in server
-          localDB.importUser(thisCtrl.user.phone).then(function(result) {
-            if(result.status) {
-              GlobalStor.global.isLoader = 0;
-              //---- show attantion
-              thisCtrl.isUserExist = 1;
-            } else {
-              var userData = {
-                name: thisCtrl.user.name,
-                phone: thisCtrl.user.phone,
-                email: thisCtrl.user.mail,
-                cityId: thisCtrl.user.city.cityId,
-                password: localDB.md5(thisCtrl.user.phone)
-              };
-              console.log('CREATE USER!!!!!!!!!!!!', userData);
-              //--- create new user in Server
-              localDB.createUserServer(userData);
-              GlobalStor.global.isLoader = 0;
-              //-------- sent confirmed email
-              thisCtrl.isSendEmail = 1;
-              closeRegistration();
-            }
-          });
-        } else {
-          thisCtrl.isOffline = 1;
         }
-      }
-    }
-
-    //--------- if was empty option selected in select after choosing
-    function selectLocation() {
-      if(!thisCtrl.user.country) {
-        delete thisCtrl.user.region;
-        delete thisCtrl.user.city;
-      } else if(!thisCtrl.user.region) {
-        delete thisCtrl.user.city;
-      }
-    }
-
-  function gotoSettingsPage() {
-    if (window.location.hash.length < 10) {
-      if(GlobalStor.global.gotoSettingsPage === 0) {
-        $timeout(function() {
-          $location.path('/change-lang');
-        }, 1);
-        $timeout(function() {
-          $location.path('/');
-        }, 1);
-        GlobalStor.global.gotoSettingsPage = 1;
-      }
-    } else {
-      GlobalStor.global.gotoSettingsPage = 1;
-    }
-  }
-
-  setTimeout(function(){
-    $('#jssj').trigger('click');
-  },  1000);
-
-    /**========== FINISH ==========*/
 
 
-    //------ clicking
-    thisCtrl.gotoSettingsPage = gotoSettingsPage;
-    thisCtrl.switchRegistration = switchRegistration;
-    thisCtrl.closeRegistration = closeRegistration;
-    thisCtrl.enterForm = enterForm;
-    thisCtrl.loader = loader;
-    thisCtrl.registrForm = registrForm;
-    thisCtrl.selectLocation = selectLocation;
-    thisCtrl.selectFactory = selectFactory;
-    thisCtrl.closeFactoryDialog = closeFactoryDialog;
-    thisCtrl.closeOfflineAlert = closeOfflineAlert;
+        function closeRegistration() {
+          thisCtrl.user = {};
+          thisCtrl.isRegistration = 0;
+        }
+
+        function registrForm(form) {
+          // Trigger validation flag.
+          thisCtrl.submitted = true;
+          if (form.$valid) {
+            //------ check Internet
+            //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
+            if(thisCtrl.isOnline) {
+              GlobalStor.global.isLoader = 1;
+              //--- checking user in server
+              localDB.importUser(thisCtrl.user.phone).then(function(result) {
+                if(result.status) {
+                  GlobalStor.global.isLoader = 0;
+                  //---- show attantion
+                  thisCtrl.isUserExist = 1;
+                } else {
+                  var userData = {
+                    name: thisCtrl.user.name,
+                    phone: thisCtrl.user.phone,
+                    email: thisCtrl.user.mail,
+                    cityId: thisCtrl.user.city.cityId,
+                    password: localDB.md5(thisCtrl.user.phone)
+                  };
+                  console.log('CREATE USER!!!!!!!!!!!!', userData);
+                  //--- create new user in Server
+                  localDB.createUserServer(userData);
+                  GlobalStor.global.isLoader = 0;
+                  //-------- sent confirmed email
+                  thisCtrl.isSendEmail = 1;
+                  closeRegistration();
+                }
+              });
+            } else {
+              thisCtrl.isOffline = 1;
+            }
+          }
+        }
+
+        //--------- if was empty option selected in select after choosing
+        function selectLocation() {
+          if(!thisCtrl.user.country) {
+            delete thisCtrl.user.region;
+            delete thisCtrl.user.city;
+          } else if(!thisCtrl.user.region) {
+            delete thisCtrl.user.city;
+          }
+        }
+
+        function gotoSettingsPage() {
+          if (window.location.hash.length < 10) {
+            if(GlobalStor.global.gotoSettingsPage === 0) {
+              $timeout(function() {
+                $location.path('/change-lang');
+              }, 1);
+              $timeout(function() {
+                $location.path('/');
+              }, 1);
+              GlobalStor.global.gotoSettingsPage = 1;
+            }
+          } else {
+            GlobalStor.global.gotoSettingsPage = 1;
+          }
+        }
+
+        setTimeout(function(){
+          $('#jssj').trigger('click');
+        },  1000);
+
+        /**========== FINISH ==========*/
+
+
+        //------ clicking
+        thisCtrl.gotoSettingsPage = gotoSettingsPage;
+        thisCtrl.switchRegistration = switchRegistration;
+        thisCtrl.closeRegistration = closeRegistration;
+        thisCtrl.enterForm = enterForm;
+        thisCtrl.loader = loader;
+        thisCtrl.registrForm = registrForm;
+        thisCtrl.selectLocation = selectLocation;
+        thisCtrl.selectFactory = selectFactory;
+        thisCtrl.closeFactoryDialog = closeFactoryDialog;
+        thisCtrl.closeOfflineAlert = closeOfflineAlert;
 
 
 
-    //------- defined system language
-    loginServ.getDeviceLanguage();
+        //------- defined system language
+        loginServ.getDeviceLanguage();
 
 
-    //------- export data
-    if(thisCtrl.isOnline) {
-      loginServ.initExport();
-      entriyWithoutLogin();
-    }
+        //------- export data
+        if(thisCtrl.isOnline) {
+          loginServ.initExport();
+          entriyWithoutLogin();
+        }
 
 
 
-  });
+      });
 })();
 
 
@@ -9708,12 +9764,7 @@ function ErrorResult(code, message) {
     }
 
 
-    function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
-        .then(function(result) {
-          DesignStor.design.templateTEMP = angular.copy(result);
-        });
-    }
+
 
 
     function showErrorInBlock(blockID, svgSelector) {
@@ -9988,7 +10039,7 @@ function ErrorResult(code, message) {
     function checkSize(res, construction_type) {
       GlobalStor.global.timeoutFunc = 0;
       res = res.priceElements.sashesBlock;
-      var heightT = [], widthT = [];  
+      var heightT = [], widthT = [];
       if(ProductStor.product.construction_type === 4 || construction_type === 4) {
         widthT = (res[0].sizes)? res[0].sizes[0]:0;
         heightT = (res[0].sizes)? res[0].sizes[1]:0;
@@ -10014,14 +10065,14 @@ function ErrorResult(code, message) {
               GlobalStor.global.heightLim = '('+product.width_min+' - '+product.width_max+') x ('+product.height_min+' - '+product.height_max+')';
               if(heightT <= product.height_max && heightT >= product.height_min) {
                 if(widthT <= product.width_max && widthT >= product.width_min) {
-                } else {  
+                } else {
                   GlobalStor.global.checkDoors = 1;
                   break
                 }
               } else {
                 GlobalStor.global.checkDoors = 1;
                 break
-              } 
+              }
             }
           }
           GlobalStor.global.timeoutFunc = 1;
@@ -10427,13 +10478,13 @@ function ErrorResult(code, message) {
       DesignStor.designSource.doorShapeList.length = [];
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
           && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
               doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
@@ -10446,7 +10497,7 @@ function ErrorResult(code, message) {
               break
             }
           }
-        } 
+        }
       }
 
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -10469,14 +10520,14 @@ function ErrorResult(code, message) {
           doorSill.push(DesignStor.design.doorShapeData[d]);
         }
       }
-      
+
       sash.length = 0;
       switch (id) {
         case 0:
         case 1:
           if (doorsGroups.length) {
             sash = angular.copy(doorsGroups);
-          } 
+          }
           break;
         case 3:
           if (doorsGroups.length) {
@@ -10494,7 +10545,7 @@ function ErrorResult(code, message) {
         }
       }
       return sash[id];
-    } 
+    }
 
     function selectDoor(id, product) {
       var doorTypeQty = DesignStor.design.doorShapeData.length, d, isExist;
@@ -10506,13 +10557,13 @@ function ErrorResult(code, message) {
       DesignStor.designSource.doorShapeList.length = [];
       for(var z=0; z<doorsGroups.length; z+=1) {
         for(var i=0; i<doorsLaminations.length; i+=1) {
-          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id 
+          if(product.lamination.lamination_in_id === doorsLaminations[i].lamination_in_id
           && product.lamination.lamination_out_id === doorsLaminations[i].lamination_out_id) {
             if (doorsGroups[z].id === doorsLaminations[i].group_id) {
               doorsGroups[z].door_sill_list_id = doorsLaminations[i].door_sill_list_id
-              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id 
+              doorsGroups[z].impost_list_id = doorsLaminations[i].impost_list_id
               doorsGroups[z].rama_list_id = doorsLaminations[i].rama_list_id
-              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id 
+              doorsGroups[z].shtulp_list_id = doorsLaminations[i].shtulp_list_id
               doorsGroups[z].stvorka_list_id = doorsLaminations[i].stvorka_list_id
               doorsGroups[z].doorstep_type = 0;
               doorsGroups[z].profileId = doorsGroups[z].profile_id || 345;
@@ -10525,8 +10576,8 @@ function ErrorResult(code, message) {
               temp.push(doorsGroups[z]);
               break
             }
-          } 
-        } 
+          }
+        }
       }
       doorsGroups = angular.copy(temp);
       for(d = 0; d < doorTypeQty; d+=1) {
@@ -10550,7 +10601,7 @@ function ErrorResult(code, message) {
           DesignStor.designSource.doorShapeList.push(DesignStor.designSource.doorShapeData[d]);
         }
       }
-      
+
       if(!DesignStor.design.steps.selectedStep2) {
         if(DesignStor.design.doorConfig.doorShapeIndex === id) {
           DesignStor.design.doorConfig.doorShapeIndex = '';
@@ -10562,7 +10613,7 @@ function ErrorResult(code, message) {
             case 1:
               if (doorsGroups.length) {
                 DesignStor.design.sashShapeList = angular.copy(doorsGroups);
-              } 
+              }
               break;
             case 3:
               if (doorsGroups.length) {
@@ -10585,7 +10636,7 @@ function ErrorResult(code, message) {
           return DesignStor.design.sashShapeList[id];
         }
       }
-    } 
+    }
 
     /**---------- Select prifile/sash shape --------*/
 
@@ -10619,9 +10670,9 @@ function ErrorResult(code, message) {
             } else {
               deferred.resolve(1);
             }
-          } 
+          }
         });
-         return deferred.promise;  
+         return deferred.promise;
     }
     function depend(item) {
       var newHandleArr;
@@ -10714,7 +10765,7 @@ function ErrorResult(code, message) {
       (product) ? product = product: product = ProductStor.product;
       var deferred = $q.defer();
       setNewDoorParamValue(
-        product, 
+        product,
         DesignStor.design
       ).then(function(res) {
         SVGServ.createSVGTemplate(
@@ -10740,7 +10791,7 @@ function ErrorResult(code, message) {
             });
           });
         });
-      });  
+      });
       DesignStor.design.steps.isDoorConfig = 0;
       return deferred.promise;
     }
@@ -10753,7 +10804,7 @@ function ErrorResult(code, message) {
       var doorsItems = angular.copy(GlobalStor.global.doorsItems);
       (GlobalStor.global.widthTEMP.length > 0) ? widthTEMP = GlobalStor.global.widthTEMP : widthTEMP = w;
       (GlobalStor.global.widthTEMP.length > 0) ? heightTEMP = GlobalStor.global.widthTEMP : heightTEMP = h;
-      
+
       function countHandle(source) {
         var count = source.templateTEMP.details.filter(function(item) {
           if(item.blockType == 'sash') {
@@ -10778,12 +10829,12 @@ function ErrorResult(code, message) {
           if(source.templateTEMP.details[e].handlePos !== 0) {
             if(source.templateTEMP.details[e].openDir[0] === 4) {
                source.templateTEMP.details[e].openDir[0] = 3;
-            } 
+            }
             for(var x=0; x<doorsItems.length; x+=1) {
               if(source.lockShapeList[k].id === doorsItems[x].hardware_group_id) {
                 if(source.templateTEMP.details[e].openDir[0] === doorsItems[x].direction_id || doorsItems[x].direction_id === 1) {
                   if(doorsItems[x].hardware_color_id === product.lamination.id || doorsItems[x].hardware_color_id === 0) {
-                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) { 
+                    if(heightTEMP <= doorsItems[x].max_height || doorsItems[x].max_height === 0) {
                       if(heightTEMP >= doorsItems[x].min_height || doorsItems[x].min_height === 0) {
                         if(widthTEMP <= doorsItems[x].max_width || doorsItems[x].max_width === 0) {
                           if(widthTEMP >= doorsItems[x].min_width || doorsItems[x].min_width === 0) {
@@ -10881,7 +10932,7 @@ function ErrorResult(code, message) {
         selectLock(product.door_lock_shape_id, product);
         saveDoorConfig(product).then(function(res2) {
           deferred.resolve(product);
-          console.log(product);
+          //console.log(product);
         });
       });
       return deferred.promise;
@@ -11133,11 +11184,11 @@ function ErrorResult(code, message) {
               }
             } else {
               GlobalStor.global.sashTypeBlock[GlobalStor.global.sashTypeBlock.length] = block[0].id;
-            }    
+            }
           } else {
             test(blocks, blocksQty, block[0].parent);
           }
-        } else { 
+        } else {
                     //------ show error
           showErrorInBlock(GlobalStor.global.allGlass[0].attributes.block_id.nodeValue, globalConstants.SVG_ID_GRID);
         }
@@ -11156,7 +11207,7 @@ function ErrorResult(code, message) {
             }
           }
 
-          test2(temp, blocks);     
+          test2(temp, blocks);
         } else {
           test3();
         }
@@ -11572,12 +11623,12 @@ function ErrorResult(code, message) {
               } else {
                 defer.resolve('error');
               }
-            } else { 
+            } else {
               defer.resolve('good');
-            }  
-          } else { 
+            }
+          } else {
             defer.resolve('good');
-          }  
+          }
         }
         subPermit(parentID, blocks);
         return defer.promise;
@@ -11585,7 +11636,7 @@ function ErrorResult(code, message) {
 
       permit(parentID, blocks).then(function(result) {
         (result === 'good' || ProductStor.product.construction_type !==4)?doSash(type, glassObj): showErrorInBlock(blockID);
-      }); 
+      });
 
       function doSash(type, glassObj) {
         /**---- shtulps ---*/
@@ -12596,7 +12647,18 @@ function ErrorResult(code, message) {
       }
       return isInside;
     }
-
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
+        .then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          DesignStor.design.templateTEMP.details.forEach(function(entry,index){
+            if(entry.impost){
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
+            }
+          });
+        });
+    }
 
 
     function positionAxises() {
@@ -12649,6 +12711,8 @@ function ErrorResult(code, message) {
         step = Math.round(parentSizeMax/(impostInd.length+1));
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
+
+
 
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
@@ -12904,8 +12968,8 @@ function ErrorResult(code, message) {
           });
         });
 
-        
-        
+
+
         var intervalID = setInterval( function() {
           if(GlobalStor.global.timeoutFunc === 1){
             clearInterval(intervalID);
@@ -12958,7 +13022,7 @@ function ErrorResult(code, message) {
               GlobalStor.global.isLoader = 0;
               DesignStor.design.isHardwareExtra = 1;
             } else {
-              /** save new template in product */
+              /** save new template in product ***** */
               ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
               ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
@@ -12998,7 +13062,7 @@ function ErrorResult(code, message) {
                     SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths)
                     .then(function (result) {
                       ProductStor.product.template = angular.copy(result);
-                   
+
                     GlobalStor.global.isChangedTemplate = 1;
                     backtoTemplatePanel();
                   });
@@ -14903,7 +14967,7 @@ function ErrorResult(code, message) {
                 }
               }
               HistoryStor.history.OrderPrintSquare = tmpSquare;
-              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 100;
+              HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
               downloadAddElements(1).then(function (result_add) {
                 if (result_add !== 0) {
                   result_add.forEach(function (entry) {
@@ -18981,119 +19045,100 @@ function ErrorResult(code, message) {
           var defer = $q.defer(),
             cityIds = GlobalStor.global.locations.cities.map(function (item) {
               if (item.countryId === UserStor.userInfo.countryId) {
-                return item.cityId; }
+                return item.cityId;
+              }
 
-      });
-    }
-
-
-    /**--------- set user location -------*/
-    function setUserLocation() {
-      var cityQty = GlobalStor.global.locations.cities.length;
-      var regionQty = GlobalStor.global.locations.regions.length;
-      while(--cityQty > -1) {
-        if(GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
-          UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
-          UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
-          UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
-          UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
-          UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
-          while(--regionQty > -1) {
-            if(GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
-              GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
-            }
-          }
+            });
         }
-      }
-    }
 
 
-
-
-    function setCurrency() {
-      var defer = $q.defer();
-      /** download All Currencies */
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
-        .then(function(currencies) {
-          var currencQty = currencies.length;
-          if(currencies && currencQty) {
-            GlobalStor.global.currencies = currencies;
-            /** set current currency */
-            while(--currencQty > -1) {
-              if(currencies[currencQty].is_base === 1) {
-                UserStor.userInfo.currencyId = currencies[currencQty].id;
-                if( /uah/i.test(currencies[currencQty].name) ) {
-                  UserStor.userInfo.currency = '\u20b4';//'₴';
-                } else if( /rub/i.test(currencies[currencQty].name) ) {
-                  UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
-                } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
-                  UserStor.userInfo.currency = '$';
-                } else if( /eur/i.test(currencies[currencQty].name) ) {
-                  UserStor.userInfo.currency = '\u20AC';//'€';
-                } else {
-                  UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+        /**--------- set user location -------*/
+        function setUserLocation() {
+          var cityQty = GlobalStor.global.locations.cities.length;
+          var regionQty = GlobalStor.global.locations.regions.length;
+          while (--cityQty > -1) {
+            if (GlobalStor.global.locations.cities[cityQty].cityId === UserStor.userInfo.city_id) {
+              UserStor.userInfo.cityName = GlobalStor.global.locations.cities[cityQty].cityName;
+              UserStor.userInfo.countryId = GlobalStor.global.locations.cities[cityQty].countryId;
+              UserStor.userInfo.climaticZone = GlobalStor.global.locations.cities[cityQty].climaticZone;
+              UserStor.userInfo.heatTransfer = GlobalStor.global.locations.cities[cityQty].heatTransfer;
+              UserStor.userInfo.fullLocation = GlobalStor.global.locations.cities[cityQty].fullLocation;
+              while (--regionQty > -1) {
+                if (GlobalStor.global.locations.cities[cityQty].regionId === GlobalStor.global.locations.regions[regionQty].id) {
+                  GlobalStor.global.regionCoefs = GlobalStor.global.locations.regions[regionQty].id;
                 }
               }
             }
-            defer.resolve(1);
-          } else {
-            console.error('not find currencies!');
-            defer.resolve(0);
           }
-        });
-      return defer.promise;
-    }
+        }
 
-      function setBase64Avatar(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function() {
-          var reader = new FileReader();
-          reader.onloadend = function() {
-            var value = reader.result;
-            var item = {};
-            item["userAvatar"] = value;
-            chrome.storage.local.set(item);
-            callback(reader.result);
+
+        function setCurrency() {
+          var defer = $q.defer();
+          /** download All Currencies */
+          localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value')
+            .then(function (currencies) {
+              var currencQty = currencies.length;
+              if (currencies && currencQty) {
+                GlobalStor.global.currencies = currencies;
+                /** set current currency */
+                while (--currencQty > -1) {
+                  if (currencies[currencQty].is_base === 1) {
+                    UserStor.userInfo.currencyId = currencies[currencQty].id;
+                    if (/uah/i.test(currencies[currencQty].name)) {
+                      UserStor.userInfo.currency = '\u20b4';//'₴';
+                    } else if (/rub/i.test(currencies[currencQty].name)) {
+                      UserStor.userInfo.currency = '\ue906';// '\u20BD';//'₽';
+                    } else if (/(usd|\$)/i.test(currencies[currencQty].name)) {
+                      UserStor.userInfo.currency = '$';
+                    } else if (/eur/i.test(currencies[currencQty].name)) {
+                      UserStor.userInfo.currency = '\u20AC';//'€';
+                    } else {
+                      UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
+                    }
+                  }
+                }
+                defer.resolve(1);
+              } else {
+                console.error('not find currencies!');
+                defer.resolve(0);
+              }
+            });
+          return defer.promise;
+        }
+
+        function setUserDiscounts() {
+          console.log(setUserDiscounts);
+
+          var defer = $q.defer();
+          //-------- add server url to avatar img
+          if (navigator.onLine) {
+            var url = globalConstants.serverIP + UserStor.userInfo.avatar
+            UserStor.userInfo.avatar = url;
           }
-          reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url,true);
-        xhr.send();
-    }
-    function setUserDiscounts() {
-      var defer = $q.defer();
-      //-------- add server url to avatar img
-      if (navigator.onLine){
-        var url = globalConstants.serverIP + UserStor.userInfo.avatar
-        UserStor.userInfo.avatar = url;
-        setBase64Avatar(url, function(base64Img){ });
-      }else {
-        chrome.storage.local.get("userAvatar", function(items) {
-          UserStor.userInfo.avatar = items["userAvatar"];
-        });
-      }
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function (result) {
             //    console.log('DISCTOUN=====', result);
-        var discounts = angular.copy(result[0]);
-        if(discounts) {
-          UserStor.userInfo.discountConstr = +discounts.default_construct;
-          UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
-          UserStor.userInfo.discountConstrMax = +discounts.max_construct;
-          UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
+            var discounts = angular.copy(result[0]);
+            if (discounts) {
+              UserStor.userInfo.discountConstr = +discounts.default_construct;
+              UserStor.userInfo.discountAddElem = +discounts.default_add_elem;
+              UserStor.userInfo.discountConstrMax = +discounts.max_construct;
+              UserStor.userInfo.discountAddElemMax = +discounts.max_add_elem;
 
-          var disKeys = Object.keys(discounts),
-              disQty = disKeys.length, dis;
-          for(dis = 0; dis < disQty; dis+=1) {
-            if(disKeys[dis].indexOf('week')+1) {
-              if(disKeys[dis].indexOf('construct')+1) {
-                UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
-              } else if(disKeys[dis].indexOf('add_elem')+1) {
-                UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
+              var disKeys = Object.keys(discounts),
+                disQty = disKeys.length, dis;
+              for (dis = 0; dis < disQty; dis += 1) {
+                if (disKeys[dis].indexOf('week') + 1) {
+                  if (disKeys[dis].indexOf('construct') + 1) {
+                    UserStor.userInfo.discConstrByWeek.push(+discounts[disKeys[dis]]);
+                  } else if (disKeys[dis].indexOf('add_elem') + 1) {
+                    UserStor.userInfo.discAddElemByWeek.push(+discounts[disKeys[dis]]);
+                  }
+                }
               }
-              }
-            }}}).join(',');
+            }
+          }).join(',');
           defer.resolve(cityIds);
           return defer.promise;
         }
@@ -19234,8 +19279,8 @@ function ErrorResult(code, message) {
           if (onlineMode && navigator.onLine) {
             var url = globalConstants.serverIP + UserStor.userInfo.avatar
             UserStor.userInfo.avatar = url;
-            setBase64Avatar(url, function (base64Img) {
-            });
+            //#setBase64Avatar(url, function (base64Img) {
+            //#});
           } else {
             localforage.getItem("userAvatar", function (err, value) {
               UserStor.userInfo.avatar = value;
@@ -19643,7 +19688,7 @@ function ErrorResult(code, message) {
           var deff = $q.defer();
           localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function (result) {
             var rooms = angular.copy(result),
-                roomQty = rooms.length;
+              roomQty = rooms.length;
 
             if (roomQty) {
               /** sorting types by position */
@@ -19661,6 +19706,7 @@ function ErrorResult(code, message) {
               // }
               rooms.forEach(function (entry) {
                 entry.img = globalConstants.serverIP + entry.img;
+                //# if($("#updateDBcheck").prop("checked") ) {
                 //# if (onlineMode && navigator.onLine) {
                 //#   var url = String(entry.img);
                 //#   var xhr = new XMLHttpRequest();
@@ -19679,7 +19725,7 @@ function ErrorResult(code, message) {
                 //#   };
                 //#   xhr.open('GET', url, true);
                 //#   xhr.send();
-                //# }else {
+                //# }}else {
                 //#   var key = String(entry.img);
                 //#   localforage.getItem(key, function (err, value) {
                 //#     entry.img = value;
@@ -20291,38 +20337,6 @@ function ErrorResult(code, message) {
                           ).then(function (data) {
                             if (data) {
                               //# GlobalStor.global.profilesType.forEach(function (entry) {
-                              //#   if (entry.img !== "") {
-                              //#   if (onlineMode && navigator.onLine) {
-                              //#     var url = String(entry.img);
-                              //#
-                              //#       var xhr = new XMLHttpRequest();
-                              //#       xhr.responseType = 'blob';
-                              //#       xhr.onload = function () {
-                              //#         var reader = new FileReader();
-                              //#         reader.onloadend = function () {
-                              //#           var key = String(entry.img);
-                              //#           var value = reader.result;
-                              //#           localforage.setItem(key, value, function (err, value) {
-                              //#             //console.log(value);
-                              //#           });
-                              //#
-                              //#         }
-                              //#         reader.readAsDataURL(xhr.response);
-                              //#       };
-                              //#       xhr.open('GET', url, true);
-                              //#       xhr.send();
-                              //#     }
-                              //#
-                              //#     else {
-                              //#       var key = String(entry.img);
-                              //#       localforage.getItem(key, function (err, value) {
-                              //#         entry.img = value;
-                              //#       });
-                              //#     }
-                              //#   }
-                              //# });
-                              //#GlobalStor.global.profiles.forEach(function (object) {
-                              //#   object.forEach(function (entry) {
                               //#     if (entry.img !== "") {
                               //#       if (onlineMode && navigator.onLine) {
                               //#         var url = String(entry.img);
@@ -20345,14 +20359,43 @@ function ErrorResult(code, message) {
                               //#         xhr.send();
                               //#       }
                               //#
-                              //#       else {
-                              //#         var key = String(entry.img);
-                              //#         localforage.getItem(key, function (err, value) {
-                              //#           entry.img = value;
-                              //#         });
-                              //#       }
-                              //#     }
+                              //#   else {
+                              //#     var key = String(entry.img);
+                              //#     localforage.getItem(key, function (err, value) {
+                              //#       entry.img = value;
+                              //#     });
+                              //#   }
+                              //# }
+                              //# });
+                              //# GlobalStor.global.profiles.forEach(function (object) {
+                              //#   object.forEach(function (entry) {
+                              //#       if (entry.img !== "") {
+                              //#         if (onlineMode && navigator.onLine) {
+                              //#           var url = String(entry.img);
+                              //#           var xhr = new XMLHttpRequest();
+                              //#           xhr.responseType = 'blob';
+                              //#           xhr.onload = function () {
+                              //#             var reader = new FileReader();
+                              //#             reader.onloadend = function () {
+                              //#               var key = String(entry.img);
+                              //#               var value = reader.result;
+                              //#               localforage.setItem(key, value, function (err, value) {
+                              //#                 //console.log(value);
+                              //#               });
                               //#
+                              //#             }
+                              //#             reader.readAsDataURL(xhr.response);
+                              //#           };
+                              //#           xhr.open('GET', url, true);
+                              //#           xhr.send();
+                              //#         }
+                              //#
+                              //#     else {
+                              //#       var key = String(entry.img);
+                              //#       localforage.getItem(key, function (err, value) {
+                              //#         entry.img = value;
+                              //#       });
+                              //#     }}
                               //#   });
                               //# });
                               /** download All Glasses */
@@ -20363,38 +20406,38 @@ function ErrorResult(code, message) {
 
                                   //# GlobalStor.global.glassesAll.forEach(function (array) {
                                   //#   array.glassTypes.forEach(function (entry) {
-                                  //#     if (entry.img !== "") {
-                                  //#       if (onlineMode && navigator.onLine) {
-                                  //#         var url = String(entry.img);
+                                  //#       if (entry.img !== "") {
+                                  //#         if (onlineMode && navigator.onLine) {
+                                  //#           var url = String(entry.img);
                                   //#
-                                  //#         var xhr = new XMLHttpRequest();
-                                  //#         xhr.responseType = 'blob';
-                                  //#         xhr.onload = function () {
-                                  //#           var reader = new FileReader();
-                                  //#           reader.onloadend = function () {
-                                  //#             var key = String(entry.img);
-                                  //#             var value = reader.result;
-                                  //#             localforage.setItem(key, value, function (err, value) {
-                                  //#               //console.log(value);
-                                  //#             });
+                                  //#           var xhr = new XMLHttpRequest();
+                                  //#           xhr.responseType = 'blob';
+                                  //#           xhr.onload = function () {
+                                  //#             var reader = new FileReader();
+                                  //#             reader.onloadend = function () {
+                                  //#               var key = String(entry.img);
+                                  //#               var value = reader.result;
+                                  //#               localforage.setItem(key, value, function (err, value) {
+                                  //#                 //console.log(value);
+                                  //#               });
                                   //#
-                                  //#           }
-                                  //#           reader.readAsDataURL(xhr.response);
-                                  //#         };
-                                  //#         xhr.open('GET', url, true);
-                                  //#         xhr.send();
-                                  //#       }
+                                  //#             }
+                                  //#             reader.readAsDataURL(xhr.response);
+                                  //#           };
+                                  //#           xhr.open('GET', url, true);
+                                  //#           xhr.send();
+                                  //#         }
                                   //#
-                                  //#       else {
-                                  //#         var key = String(entry.img);
-                                  //#         localforage.getItem(key, function (err, value) {
-                                  //#           entry.img = value;
-                                  //#         });
-                                  //#       }
+                                  //#     else {
+                                  //#       var key = String(entry.img);
+                                  //#       localforage.getItem(key, function (err, value) {
+                                  //#         entry.img = value;
+                                  //#       });
                                   //#     }
+                                  //#   }
                                   //#   });
                                   //# });
-                                  //#
+
                                   //# GlobalStor.global.glassesAll.forEach(function (object) {
                                   //#   object.glasses.forEach(function (array) {
                                   //#     //console.log(entry);
@@ -20412,7 +20455,7 @@ function ErrorResult(code, message) {
                                   //#               var value = reader.result;
                                   //#               localforage.setItem(key, value, function (err, value) {
                                   //#                 //console.log(value);
-                                  //#              });
+                                  //#               });
                                   //#
                                   //#             }
                                   //#             reader.readAsDataURL(xhr.response);
@@ -20447,73 +20490,73 @@ function ErrorResult(code, message) {
                                       // console.log("GlobalStor.global.profilesType - ",JSON.stringify(GlobalStor.global.hardwareTypes));
                                       // console.log("GlobalStor.global.profiles - ",GlobalStor.global.profiles);
 
-                                      //# GlobalStor.global.hardwares.forEach(function (object) {
-                                      //#   object.forEach(function (entry) {
-                                      //#     if (entry.img !== "") {
-                                      //#       if (onlineMode && navigator.onLine) {
-                                      //#         var url = String(entry.img);
+                                      //#  GlobalStor.global.hardwares.forEach(function (object) {
+                                      //#    object.forEach(function (entry) {
+                                      //#      if (entry.img !== "") {
+                                      //#        if (onlineMode && navigator.onLine) {
+                                      //#          var url = String(entry.img);
                                       //#
-                                      //#         var xhr = new XMLHttpRequest();
-                                      //#         xhr.responseType = 'blob';
-                                      //#         xhr.onload = function () {
-                                      //#           var reader = new FileReader();
-                                      //#           reader.onloadend = function () {
-                                      //#             var key = String(entry.img);
-                                      //#             var value = reader.result;
-                                      //#             localforage.setItem(key, value, function (err, value) {
-                                      //#               //console.log(value);
-                                      //#             });
+                                      //#          var xhr = new XMLHttpRequest();
+                                      //#          xhr.responseType = 'blob';
+                                      //#          xhr.onload = function () {
+                                      //#            var reader = new FileReader();
+                                      //#            reader.onloadend = function () {
+                                      //#              var key = String(entry.img);
+                                      //#              var value = reader.result;
+                                      //#              localforage.setItem(key, value, function (err, value) {
+                                      //#                //console.log(value);
+                                      //#              });
                                       //#
-                                      //#           }
-                                      //#           reader.readAsDataURL(xhr.response);
-                                      //#         };
-                                      //#         xhr.open('GET', url, true);
-                                      //#         xhr.send();
-                                      //#       }
+                                      //#            }
+                                      //#            reader.readAsDataURL(xhr.response);
+                                      //#          };
+                                      //#          xhr.open('GET', url, true);
+                                      //#          xhr.send();
+                                      //#        }
                                       //#
-                                      //#       else {
-                                      //#         var key = String(entry.img);
-                                      //#         localforage.getItem(key, function (err, value) {
-                                      //#           entry.img = value;
-                                      //#         });
-                                      //#       }
-                                      //#     }
-                                      //#
-                                      //#
-                                      //#   });
-                                      //# });
-                                      //#
-                                      //# GlobalStor.global.hardwareTypes.forEach(function (entry) {
-                                      //#   if (entry.img !== "") {
-                                      //#     if (onlineMode && navigator.onLine) {
-                                      //#       var url = String(entry.img);
-                                      //#
-                                      //#       var xhr = new XMLHttpRequest();
-                                      //#       xhr.responseType = 'blob';
-                                      //#       xhr.onload = function () {
-                                      //#         var reader = new FileReader();
-                                      //#         reader.onloadend = function () {
-                                      //#           var key = String(entry.img);
-                                      //#           var value = reader.result;
-                                      //#           localforage.setItem(key, value, function (err, value) {
-                                      //#             //console.log(value);
-                                      //#           });
-                                      //#
-                                      //#         }
-                                      //#         reader.readAsDataURL(xhr.response);
-                                      //#       };
-                                      //#       xhr.open('GET', url, true);
-                                      //#       xhr.send();
-                                      //#     }
-                                      //#
-                                      //#     else {
-                                      //#       var key = String(entry.img);
-                                      //#       localforage.getItem(key, function (err, value) {
-                                      //#         entry.img = value;
-                                      //#       });
-                                      //#     }
-                                      //#   }
-                                      //# });
+                                      // #       else {
+                                      // #         var key = String(entry.img);
+                                      // #         localforage.getItem(key, function (err, value) {
+                                      // #           entry.img = value;
+                                      // #         });
+                                      // #       }
+                                      // #     }
+                                      // #
+                                      // #
+                                      // #   });
+                                      // # });
+                                      // #
+                                      // # GlobalStor.global.hardwareTypes.forEach(function (entry) {
+                                      // #   if (entry.img !== "") {
+                                      // #     if (onlineMode && navigator.onLine) {
+                                      // #       var url = String(entry.img);
+                                      // #
+                                      // #       var xhr = new XMLHttpRequest();
+                                      // #       xhr.responseType = 'blob';
+                                      // #       xhr.onload = function () {
+                                      // #         var reader = new FileReader();
+                                      // #         reader.onloadend = function () {
+                                      // #           var key = String(entry.img);
+                                      // #           var value = reader.result;
+                                      // #           localforage.setItem(key, value, function (err, value) {
+                                      // #             //console.log(value);
+                                      // #           });
+                                      // #
+                                      // #         }
+                                      // #         reader.readAsDataURL(xhr.response);
+                                      // #       };
+                                      // #       xhr.open('GET', url, true);
+                                      // #       xhr.send();
+                                      // #     }
+                                      // #
+                                      // #     else {
+                                      // #       var key = String(entry.img);
+                                      // #       localforage.getItem(key, function (err, value) {
+                                      // #         entry.img = value;
+                                      // #       });
+                                      // #     }
+                                      // #   }
+                                      // # });
 
                                       //console.log('HARDWARE ALL', GlobalStor.global.hardwareTypes);
                                       /** download Door Kits */
@@ -22055,7 +22098,7 @@ function ErrorResult(code, message) {
           /**========== if New Product =========*/
         } else {
     ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
-          delete ProductStor.product.template;
+          //delete ProductStor.product.template;
           //-------- insert product in order
           OrderStor.order.products.push(ProductStor.product);
         }
@@ -22124,126 +22167,9 @@ function ErrorResult(code, message) {
         var prodQty = OrderStor.order.products.length, p;
         OrderStor.order.products_qty = 0;
         for(p = 0; p < prodQty; p+=1) {
-          var productData = angular.copy(OrderStor.order.products[p]);    
-          productData.order_id = OrderStor.order.id;
-          if(!productData.is_addelem_only) {
-            productData.template_source['beads'] = angular.copy(productData.beadsData);
-          }
-          
-          if(productData.construction_type === 4) {
-            productData.profile_id = 0;
-          } else {
-            productData.profile_id = OrderStor.order.products[p].profile.id;
-            (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0; 
-          }  
-          productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
-            return item.id;
-          }).join(', ');
-          
-          if(productData.construction_type === 4) {
-            productData.hardware_id = productData.doorLock.id;
-          } else {
-            if(productData.hardware.id) {
-              productData.hardware_id = productData.hardware.id;
-            } else {
-              productData.hardware_id = 0;
-            }
-          }
-          productData.lamination_id = OrderStor.order.products[p].lamination.id;
-          productData.template_source = JSON.stringify(productData.template_source);
-          productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
-          productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
-          productData.modified = new Date();
-          if(productData.template) {
-            delete productData.template;
-          }
-          delete productData.templateIcon;
-          delete productData.profile;
-          delete productData.glass;
-          delete productData.hardware;
-          delete productData.lamination;
-          delete productData.chosenAddElements;
-          delete productData.profileDepths;
-          delete productData.addelemPriceDis;
-          delete productData.productPriceDis;
-          delete productData.report;
-          delete productData.beadsData;
-          delete productData.doorName;
-          delete productData.doorSashName;
-          delete productData.doorHandle;
-          delete productData.doorLock;
-
           /** culculate products quantity for order */
           OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
-
-
-          if(orderType) {
-            localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
-            localDB.insertServer(
-              UserStor.userInfo.phone,
-              UserStor.userInfo.device_code,
-              localDB.tablesLocalDB.order_products.tableName,
-              productData
-            );
-          }
-
-          /** ====== SAVE Report Data ===== */
-          var productReportData = angular.copy(OrderStor.order.products[p].report),
-              reportQty = productReportData.length;
-          while(--reportQty > -1) {
-            productReportData[reportQty].order_id = OrderStor.order.id;
-            productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
-            delete productReportData[reportQty].priceReal;
-            //-------- insert product Report into local DB
-            //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
-            //-------- send Report to Server
-            // TODO localDB.insertServer(
-            // UserStor.userInfo.phone, UserStor.userInfo.device_code,
-            // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
-          }
-
-          /**============= SAVE ADDELEMENTS ============ */
-
-          var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
-          for(add = 0; add < addElemQty; add+=1) {
-            var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
-            if(elemQty > 0) {
-              for (elem = 0; elem < elemQty; elem+=1) {
-                if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
-                  if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
-                    OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
-                  }
-                }
-                var addElementsData = {
-                  order_id: OrderStor.order.id,
-                  product_id: OrderStor.order.products[p].product_id,
-                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
-                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
-                  name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
-                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
-                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
-                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
-                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
-                  block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
-                  modified: new Date()
-                };
-
-
-                //console.log('SEND ADD',addElementsData);
-                if(orderType) {
-                  localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-                  localDB.insertServer(
-                    UserStor.userInfo.phone,
-                    UserStor.userInfo.device_code,
-                    localDB.tablesLocalDB.order_addelements.tableName,
-                    addElementsData
-                  );
-                } 
-              }
-            }
-          }
         }
-
         /** ============ SAVE ORDER =========== */
         var orderData = angular.copy(OrderStor.order);
         orderData.order_date = new Date(OrderStor.order.order_date);
@@ -22310,7 +22236,7 @@ function ErrorResult(code, message) {
               if(respond.status) {
                 orderData.order_number = respond.order_number;
               }
-              
+
             } else {
               orderData.order_number = 0;
             }
@@ -22329,9 +22255,132 @@ function ErrorResult(code, message) {
           ).then(function(res) {
             //------- save draft
             localDB.updateLocalDB(localDB.tablesLocalDB.orders.tableName, orderData, {id:orderId});
-              defer.resolve(1);
-            })
+            defer.resolve(1);
+          })
+        }
+
+        for(p = 0; p < prodQty; p+=1) {
+          var productData = angular.copy(OrderStor.order.products[p]);
+          productData.order_id = OrderStor.order.id;
+          if(!productData.is_addelem_only) {
+            productData.template_source['beads'] = angular.copy(productData.beadsData);
           }
+
+          if(productData.construction_type === 4) {
+            productData.profile_id = 0;
+          } else {
+            productData.profile_id = OrderStor.order.products[p].profile.id;
+            (productData.door_group_id) ? productData.door_group_id = 0: productData.door_group_id = 0;
+          }
+          productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+            return item.id;
+          }).join(', ');
+
+          if(productData.construction_type === 4) {
+            productData.hardware_id = productData.doorLock.id;
+          } else {
+            if(productData.hardware.id) {
+              productData.hardware_id = productData.hardware.id;
+            } else {
+              productData.hardware_id = 0;
+            }
+          }
+          productData.lamination_id = OrderStor.order.products[p].lamination.id;
+          productData.template_source = JSON.stringify(productData.template_source);
+          productData.lamination_in_id = OrderStor.order.products[p].lamination.img_in_id;
+          productData.lamination_out_id = OrderStor.order.products[p].lamination.img_out_id;
+          productData.modified = new Date();
+          if(productData.template) {
+            delete productData.template;
+          }
+          delete productData.templateIcon;
+          delete productData.profile;
+          delete productData.glass;
+          delete productData.hardware;
+          delete productData.lamination;
+          delete productData.chosenAddElements;
+          delete productData.profileDepths;
+          delete productData.addelemPriceDis;
+          delete productData.productPriceDis;
+          delete productData.report;
+          delete productData.beadsData;
+          delete productData.doorName;
+          delete productData.doorSashName;
+          delete productData.doorHandle;
+          delete productData.doorLock;
+
+
+
+
+          if(orderType) {
+            localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+            console.log("productData",productData);
+            localDB.insertServer(
+              UserStor.userInfo.phone,
+              UserStor.userInfo.device_code,
+              localDB.tablesLocalDB.order_products.tableName,
+              productData
+            );
+          }
+
+          /** ====== SAVE Report Data ===== */
+          var productReportData = angular.copy(OrderStor.order.products[p].report),
+              reportQty = productReportData.length;
+          while(--reportQty > -1) {
+            productReportData[reportQty].order_id = OrderStor.order.id;
+            productReportData[reportQty].price = angular.copy(productReportData[reportQty].priceReal);
+            delete productReportData[reportQty].priceReal;
+            //-------- insert product Report into local DB
+            //localDB.insertRowLocalDB(productReportData[reportQty], localDB.tablesLocalDB.order_elements.tableName);
+            //-------- send Report to Server
+            // TODO localDB.insertServer(
+            // UserStor.userInfo.phone, UserStor.userInfo.device_code,
+            // localDB.tablesLocalDB.order_elements.tableName, productReportData[reportQty]);
+          }
+
+          /**============= SAVE ADDELEMENTS ============ */
+
+          var addElemQty = OrderStor.order.products[p].chosenAddElements.length, add;
+          for(add = 0; add < addElemQty; add+=1) {
+            var elemQty = OrderStor.order.products[p].chosenAddElements[add].length, elem;
+            if(elemQty > 0) {
+              for (elem = 0; elem < elemQty; elem+=1) {
+                if(OrderStor.order.products[p].chosenAddElements[add][elem].list_group_id === 20 && !productData.is_addelem_only) {
+                  if (typeof OrderStor.order.products[p].chosenAddElements[add][elem].block_id !== 'number' ) {
+                    OrderStor.order.products[p].chosenAddElements[add][elem].block_id = OrderStor.order.products[p].chosenAddElements[add][elem].block_id.split('_')[1];
+                  }
+                }
+                var addElementsData = {
+                  order_id: OrderStor.order.id,
+                  product_id: OrderStor.order.products[p].product_id,
+                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                  name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
+                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                  block_id:  OrderStor.order.products[p].chosenAddElements[add][elem].block_id*1,
+                  modified: new Date()
+                };
+
+
+                //console.log('SEND ADD',addElementsData);
+                if(orderType) {
+                  localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
+                  localDB.insertServer(
+                    UserStor.userInfo.phone,
+                    UserStor.userInfo.device_code,
+                    localDB.tablesLocalDB.order_addelements.tableName,
+                    addElementsData
+                  );
+                }
+              }
+            }
+          }
+        }
+
+
 
         //TODO
         //------ send analytics data to Server
