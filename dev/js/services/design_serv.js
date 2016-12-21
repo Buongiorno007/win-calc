@@ -2963,16 +2963,15 @@
       return isInside;
     }
     function rebuildSVGTemplate() {
-      console.log("DesignStor.design.templateSourceTEMP",DesignStor.design);
       SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
         .then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
-          // DesignStor.design.templateTEMP.details.forEach(function(entry,index){
-          //   if(entry.impost){
-          //     DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
-          //     DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
-          //   }
-          // });
+          DesignStor.design.templateTEMP.details.forEach(function(entry,index){
+            if(entry.impost){
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
+            }
+          });
         });
     }
 
