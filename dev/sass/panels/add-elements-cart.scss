@@ -99,6 +99,11 @@
         .aux-params-but {
           border: none;
           cursor: default;
+          border-radius: 1.25rem;
+          padding: 0 1.25rem;
+          border-width: 1px;
+          border-style: solid;
+          background-color: inherit;
         }
       }
     }
