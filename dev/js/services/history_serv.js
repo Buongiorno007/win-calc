@@ -72,8 +72,12 @@
                 orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
-              HistoryStor.history.ordersSource = angular.copy(orders);
-              HistoryStor.history.orders = angular.copy(orders);
+
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+              HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
 //          console.info('HISTORY orders+++++', HistoryStor.history.orders);
               //----- max day for calendar-scroll
@@ -334,6 +338,7 @@
             newOrderCopy.state_to = new Date(0);
             newOrderCopy.state_buch = new Date(0);
             newOrderCopy.created = new Date();
+            newOrderCopy.order_date = new Date();
             newOrderCopy.modified = new Date();
             newOrderCopy.order_style = 'order';
             (typeof newOrderCopy.customer_age === "number") ? newOrderCopy.customer_age = newOrderCopy.customer_age : newOrderCopy.customer_age = 0;
@@ -343,7 +348,6 @@
             localDB.insertServer(
               UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
             ).then(function (respond) {
-              console.log(respond, 'respond')
               if (respond !== null) {
                 if (respond.status) {
                   newOrderCopy.order_number = respond.order_number;
@@ -357,6 +361,11 @@
               HistoryStor.history.ordersSource.push(newOrderCopy);
               //---- save new order in LocalDB
               localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+              HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(HistoryStor.history.orders);
               GlobalStor.global.isLoader = 0;
             });
 
@@ -1083,7 +1092,6 @@
         }
 
         function testFunc(orderNum) {
-          console.log('da')
           HistoryStor.history.orderEditNumber = orderNum;
           GlobalStor.global.isBox = !GlobalStor.global.isBox;
           GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;
