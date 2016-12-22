@@ -168,14 +168,12 @@
         }
 
         function showCartTemplte(index) {
-          DesignServ.initAllGlassXGlass();
           CartStor.cart.curProd = index;
-          if (!CartStor.cart.showCurrentTemp) {
-            CartStor.cart.showCurrentTemp = !CartStor.cart.showCurrentTemp;
-          }
+          setTimeout(function(){ DesignServ.initAllGlassXGlass(); }, 1000);
+
+          CartStor.cart.showCurrentTemp = 1;
 
         }
-
 
         /**========== FINISH ==========*/
 

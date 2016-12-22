@@ -1,5 +1,5 @@
 #tamlateGlassSVG{
-  padding: rem(50px);
+  padding: rem(50px) rem(70px);
 }
 .cart-page {
   position: relative;
@@ -24,7 +24,7 @@
     height: auto;
     background: white;
     position: absolute;
-    top: rem(235px);
+    top: rem(210px);
     left: rem(200px);
     z-index: 10;
     border-radius: rem($radius_order);

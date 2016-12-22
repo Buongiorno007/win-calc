@@ -3,12 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="09a26e4c-1ffd-4261-ae5c-22f56b115fd2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/cart.jade" afterPath="$PROJECT_DIR$/dev/jade/views/cart.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/cart.js" afterPath="$PROJECT_DIR$/dev/js/controllers/cart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/controllers/menus/cart_menu.js" afterPath="$PROJECT_DIR$/dev/js/controllers/menus/cart_menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/directives/svg.js" afterPath="$PROJECT_DIR$/dev/js/directives/svg.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/cart_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/cart_serv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/design_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/design_serv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/storages/cart_stor.js" afterPath="$PROJECT_DIR$/dev/js/storages/cart_stor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/storages/global_stor.js" afterPath="$PROJECT_DIR$/dev/js/storages/global_stor.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/pages/cart.scss" afterPath="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,130 +26,20 @@
     <favorites_list name="bauvoiceapp" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cart.jade" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="84" column="87" lean-forward="false" selection-start-line="84" selection-start-column="79" selection-end-line="84" selection-end-column="87" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cart.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cart.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dev/js/controllers/cart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="170" column="42" lean-forward="false" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_svg.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/sass/parts/_svg.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="84" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="svg.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/directives/svg.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="814" column="43" lean-forward="false" selection-start-line="814" selection-start-column="42" selection-end-line="814" selection-end-column="43" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cart_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/cart_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="133" column="8" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="glasses_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/glasses_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="29" column="38" lean-forward="true" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="design_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="1448" column="22" lean-forward="false" selection-start-line="1448" selection-start-column="6" selection-end-line="1448" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cart_menu.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/controllers/menus/cart_menu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="81" column="40" lean-forward="false" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="templates_serv.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-781">
-              <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>копирова</find>
-      <find>{'active': glassPanel.G.global.showGlassSelectorDialog}</find>
-      <find>box</find>
-      <find>glass in typeGlass track by $index</find>
       <find>showGlassSelectorDialog</find>
       <find>{'active': rooms.G.global.showRoomSelectorDialog}</find>
       <find>rooms-selector-dialog</find>
       <find>@extend</find>
       <find>close</find>
-      <find>glass-selector-dialog</find>
-      <find>selectGlass</find>
       <find>currOpenPage</find>
       <find>tamlateIconSVG</find>
       <find>svg-template</find>
       <find>glass</find>
       <find>dim_blockX</find>
-      <find>selectGlass(</find>
       <find>dim_block</find>
       <find>tamlateGlassSVG</find>
       <find>SVG_ID_GLASS</find>
@@ -164,14 +51,21 @@
       <find>addNewProductInOrder</find>
       <find>dim_hidden</find>
       <find>showAllDimension</find>
-      <find>initAllGlassXGlass</find>
+      <find>selectGlass</find>
+      <find>selectGlass(</find>
+      <find>closeGlassSelectorDialog(</find>
+      <find>closeGlassSelectorDialog</find>
+      <find>cartPage.fastEdit(cartPage.C.cart.curProd, 'product')</find>
+      <find>glass-selector-dialog</find>
       <find>fastEdit</find>
+      <find>glassse</find>
+      <find>initAllGlassXGlass</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp\dev\jade</dir>
       <dir>E:\bauvoiceapp\dev\sass</dir>
-      <dir>E:\bauvoiceapp\dev\js</dir>
       <dir>E:\bauvoiceapp\dev</dir>
+      <dir>E:\bauvoiceapp\dev\js</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -181,14 +75,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/dev/jade/views/panels/_glasses.jade" />
-        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
         <option value="$PROJECT_DIR$/dev/js/directives/svg.js" />
-        <option value="$PROJECT_DIR$/dev/js/services/design_serv.js" />
         <option value="$PROJECT_DIR$/dev/js/controllers/menus/cart_menu.js" />
         <option value="$PROJECT_DIR$/dev/js/services/cart_serv.js" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_svg.scss" />
-        <option value="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
+        <option value="$PROJECT_DIR$/dev/js/storages/cart_stor.js" />
+        <option value="$PROJECT_DIR$/dev/js/storages/global_stor.js" />
+        <option value="$PROJECT_DIR$/dev/jade/views/cart.jade" />
+        <option value="$PROJECT_DIR$/dev/js/services/design_serv.js" />
         <option value="$PROJECT_DIR$/dev/js/controllers/cart.js" />
+        <option value="$PROJECT_DIR$/dev/sass/pages/cart.scss" />
       </list>
     </option>
   </component>
@@ -267,29 +163,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bauvoiceapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -388,19 +262,19 @@
       <option name="presentableId" value="Default" />
       <updated>1482305650473</updated>
       <workItem from="1482305652314" duration="3084000" />
-      <workItem from="1482314622426" duration="19010000" />
+      <workItem from="1482314622426" duration="28068000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22094000" />
+    <option name="totallyTimeSpent" value="31152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -563,34 +437,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="34" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="5969" column="15" lean-forward="false" selection-start-line="5969" selection-start-column="15" selection-end-line="5969" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/svg_serv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-29">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/panels/_glasses.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="12" column="93" lean-forward="true" selection-start-line="12" selection-start-column="76" selection-end-line="12" selection-end-column="93" />
           <folding />
         </state>
       </provider>
@@ -611,44 +461,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="84" column="87" lean-forward="false" selection-start-line="84" selection-start-column="79" selection-end-line="84" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/services/templates_serv.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-781">
           <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/directives/svg.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="814" column="43" lean-forward="false" selection-start-line="814" selection-start-column="42" selection-end-line="814" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="1448" column="22" lean-forward="false" selection-start-line="1448" selection-start-column="6" selection-end-line="1448" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/glasses_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="29" column="38" lean-forward="true" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -661,14 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/js/services/cart_serv.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="133" column="8" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/sass/parts/_svg.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
@@ -677,18 +485,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="2420" column="6" lean-forward="false" selection-start-line="2420" selection-start-column="6" selection-end-line="2420" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/directives/svg.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="814" column="43" lean-forward="false" selection-start-line="814" selection-start-column="42" selection-end-line="814" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/cart.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="85" column="41" lean-forward="false" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dev/sass/pages/cart.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        <state relative-caret-position="221">
+          <caret line="13" column="38" lean-forward="true" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/controllers/cart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="170" column="42" lean-forward="false" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
+        <state relative-caret-position="162">
+          <caret line="171" column="70" lean-forward="false" selection-start-line="171" selection-start-column="70" selection-end-line="171" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/storages/cart_stor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/jade/views/panels/_glasses.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/cart_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="133" column="8" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/glasses_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/storages/global_stor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="69" column="21" lean-forward="false" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/js/services/design_serv.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="1361" column="0" lean-forward="false" selection-start-line="1361" selection-start-column="0" selection-end-line="1361" selection-end-column="0" />
           <folding />
         </state>
       </provider>

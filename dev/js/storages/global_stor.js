@@ -18,6 +18,7 @@
     thisFactory.publicObj = {
 
       globalSource: {
+        showCurrentTemp : 0,
         getPCPower: 0,
         isDevice: 0,
         continued: 0,

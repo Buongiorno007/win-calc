@@ -40,7 +40,7 @@
     thisFactory.publicObj = {
       cartSource: {
         curProd:0,
-        showCurrentTemp:0,
+        showCurrentTemp : 0,
         allAddElements: [],
         isShowDiscount: 0,
         tempConstructDisc: 0,
