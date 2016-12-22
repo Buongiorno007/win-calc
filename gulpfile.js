@@ -70,6 +70,7 @@ gulp.task('jade', function () {
   return gulp.src(config.build.src.html)
     .pipe(newer(config.build.dest.html, '.html'))
     .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+    .pipe(replace('//#', ""))
     .pipe(jade({
       doctype: 'html',
       pretty: true
@@ -121,6 +122,7 @@ gulp.task('js', function () {
     .pipe(replace('SERVER_IP', server_env[env]))
     .pipe(replace('PRINT_IP', print_env[env]))
     .pipe(replace('LOCAL_PATH', path_env[env]))
+    .pipe(replace('ISEXTFLAG', "1"))
     .pipe(gulp.dest(config.build.dest.js))
     .pipe(reload({stream: true}));
 });
@@ -306,7 +308,7 @@ function buildExt(id) {
     .pipe(replace('SERVER_IP', server_env[id]))
     .pipe(replace('PRINT_IP', print_env[id]))
     .pipe(replace('LOCAL_PATH', path_env[id]))
-    .pipe(replace('//#', ""))
+    .pipe(replace('ISEXTFLAG', "1"))
     .pipe(concat('main.js'))
     .pipe(ngAnnotate({add: true}))
     .pipe(js_obfuscator())
