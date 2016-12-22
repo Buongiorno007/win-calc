@@ -88,7 +88,7 @@ var server_env = {
   },
   print_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
+    "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
