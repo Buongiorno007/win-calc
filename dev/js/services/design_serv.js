@@ -969,10 +969,12 @@
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      if(GlobalStor.global.currOpenPage !== 'history' && GlobalStor.global.currOpenPage !== 'cart') {
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      } 
 
 
 
