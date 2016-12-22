@@ -970,10 +970,12 @@
           DesignStor.design.steps.selectedStep2 = 1;
         }
       }
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
-      MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      if(GlobalStor.global.currOpenPage !== 'history' && GlobalStor.global.currOpenPage !== 'cart') {
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, DesignStor.design.templateSourceTEMP, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template_source, product);
+        MainServ.setGlassDefault(DesignStor.design.sashShapeList[id].profileId, product.template, product);
+      } 
 
 
 
@@ -2964,7 +2966,6 @@
       return isInside;
     }
     function rebuildSVGTemplate() {
-      //console.log("DesignStor.design.templateSourceTEMP",DesignStor.design.templateSourceTEMP);
       SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths)
         .then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);

@@ -72,7 +72,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               ng-change ="historyPage.deleteOption()")
                 option(id='deleteOption', value='') {{::historyPage.DURING_THE_WEEK}}
           .scroll-vert-container
-            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord | orderBy:order.order_number:true track by $index")
+            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord | orderBy:order.created:true track by $index")
               .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }") 
                 .account-row.header
                   .tn-box
