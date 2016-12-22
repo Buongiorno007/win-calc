@@ -18795,7 +18795,7 @@ function ErrorResult(code, message) {
         /*jshint validthis:true */
         var thisFactory = this;
         var onlineMode;
-        var ISEXT = 1;
+        var ISEXT = 0;
         $.get("http://api.steko.com.ua", function (data) {
           onlineMode = true;
           return true;
