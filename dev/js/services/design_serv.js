@@ -2970,8 +2970,8 @@
           DesignStor.design.templateTEMP = angular.copy(result);
           DesignStor.design.templateTEMP.details.forEach(function(entry,index){
             if(entry.impost){
-              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
-              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[1].x;
             }
           });
         });
@@ -3029,8 +3029,6 @@
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
-
-
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
@@ -3056,6 +3054,7 @@
         }
       }
       rebuildSVGTemplate();
+
     }
 
 
