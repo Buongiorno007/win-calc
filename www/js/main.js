@@ -9762,8 +9762,7 @@ function ErrorResult(code, message) {
     function hideAllDimension() {
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockX').classed('dim_shiftX', false);
       d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_blockY').classed('dim_shiftY', false);
-      if (!CartStor.cart.showCurrentTemp){
-      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block').classed('dim_hidden', true);}
+      d3.selectAll('#'+globalConstants.SVG_ID_EDIT+' .dim_block').classed('dim_hidden', true);
     }
 
 
@@ -12696,8 +12695,8 @@ function ErrorResult(code, message) {
           DesignStor.design.templateTEMP = angular.copy(result);
           DesignStor.design.templateTEMP.details.forEach(function(entry,index){
             if(entry.impost){
-              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[0].x;
-              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[1].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[1].x= entry.impost.impostAxis[0].x;
+              DesignStor.design.templateSourceTEMP.details[index].impost.impostAxis[0].x= entry.impost.impostAxis[1].x;
             }
           });
         });
