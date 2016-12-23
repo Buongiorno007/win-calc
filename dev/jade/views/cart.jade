@@ -16,23 +16,27 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             .order-block
               .order(ng-repeat="product in cartPage.O.order.products | orderBy: 'product_id' track by $index")
                 button.order-delete(fs-click="cartPage.clickDeleteProduct($index)")
-                .order-header
+                .order-header(ng-click="cartPage.showCartTemplte($index)")
                   img.imgg(ng-src='img/copy_edit.png', fs-click="cartPage.box($index, 'product')")
 
-                  img.order-header-fon(ng-src="{{cartPage.G.global.rooms[product.room_id].img}}", fs-click="cartPage.box($index, 'product')")
-
                   .order-template
-                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="cartPage.constants.SVG_CLASS_ICON")
-                  .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
-                    div R = {{ product.heat_coef_total }}
-                    div {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}
+                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidthCart", template-height="cartPage.constants.svgTemplateIconHeightCart", type-construction="cartPage.constants.SVG_CLASS_ICON")
+
                   .order-u-coeff(ng-if="!cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total > cartPage.O.order.heat_coef_min}")
                     div U = {{ product.heat_coef_total }}
                     div {{ ::cartPage.HEATCOEF_VAL }}/{{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C
                 .order-content
+                  .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
+                    div.R-MInfo
+                     p {{ $index+1+"."+"\u00A0"}}
+                    div.R-MInfo R = {{ product.heat_coef_total +"\u00A0"}}
+                    div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}
+                    div.R-MInfo
+                      p.inner-text
+                       | теплопроводность
                   ul.order-list
                     li.order-item
-                      .order-value {{ product.template_width }} {{ ::cartPage.MM }}
+                      .order-value {{ product.template_width }} {{ ::cartPage.MM +"\u00A0"}}
                       .order-value {{ product.template_height }} {{ ::cartPage.MM }}
                       .order-label {{ ::cartPage.CONFIGMENU_SIZING }}
                     li.order-item
@@ -75,8 +79,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   .order-comment-box
                     .order-comment-title {{ ::cartPage.ORDER_COMMENT }}
                     .order-comment-content {{ cartPage.O.order.comment }}
-
             button.view-switch-tab(fs-click="cartPage.viewSwitching()") {{ ::cartPage.LIGHT_VIEW }}
+          .template-window(ng-show="cartPage.C.cart.showCurrentTemp")
+            button.close-cur-window(fs-click="cartPage.C.cart.showCurrentTemp=0")
+            img.edit-cur-window(ng-src='img/copy_edit.png', fs-click="cartPage.fastEdit(cartPage.C.cart.curProd, 'product')")
+            svg-template(template="cartPage.O.order.products[cartPage.C.cart.curProd].template", template-width="630", template-height="630", type-construction="cartPage.constants.SVG_ID_GLASS")
 
 
           .discount-container

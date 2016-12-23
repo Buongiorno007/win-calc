@@ -154,7 +154,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'tamlateSVG') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -892,7 +892,7 @@
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'tamlateGlassSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
@@ -906,7 +906,7 @@
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'tamlateGridSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GRID) {
                   if(template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)
