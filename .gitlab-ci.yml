@@ -44,6 +44,18 @@ deploy_dev:
       cp -fr $TEST_BUILD_PATH/* $TEST_WEB_PATH "
   only:
     - develop
+deploy_prod:
+  stage: deploy
+  script:
+  - ssh $SSH_PROD_USERNAME@$SSH_PROD_SERVER "
+      cd $PROJECT_PROD_PATH ;
+      git checkout . ;
+      git pull origin $GIT_PROD_BRANCH ;
+      npm i ;
+      gulp buildWindowSite ; 
+      cp -fr $PROD_BUILD_PATH/* $PROD_WEB_PATH "
+  only:
+    - master    
 clean_up_job:
   stage: clean_up
   script:
