@@ -1584,6 +1584,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               'ad1df793247a0e650d0d7166341b8d97',
               'ffc14b7acfd31440e19d0431d4ab0cba',
               '4736b2b496ba3de748c6eea6c6b9ca65',
+              '15bbb9d0bbf25e8d2978de1168c749dc',
 
               '04fc711301f3c784d66955d98d399afb',
               '768c1c687efe184ae6dd2420710b8799',
@@ -1635,6 +1636,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               '1000009',
               'wd-op',
               'op1',
+              'Website',
 
               '000001',
               '000002',
@@ -1685,6 +1687,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               '1000009',
               'wd-op',
               'op1op1',
+              'Website',
 
               '000001',
               '000002',
@@ -17977,23 +17980,6 @@ function ErrorResult(code, message) {
         }
 
         if (sizeReal) {
-            // if(222===222) {
-            //         tempS = angular.copy(sizeReal);
-            //     switch (4) {
-            //       case 1:
-            //         sizeReal = Math.ceil(tempS/x)*x;
-            //         //console.log('Округления кратно заданному числу в большую сторону');
-            //         break;
-            //       case 2:
-            //         sizeReal = Math.floor(tempS/x)*x;
-            //         //console.log('Округления кратно заданному числу в меньшую сторону');
-            //         break;
-            //       case 3:
-            //         sizeReal = Math.round(tempS/x)*x;
-            //         //console.log('Округление кратно заданному числу согластно математическим правилам');
-            //         break;
-            //     }
-            // }
           priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
         } else {
           priceReal = qtyReal * currConsistElem.price * wasteValue;
@@ -18073,8 +18059,9 @@ function ErrorResult(code, message) {
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
             if(currConsist.child_type === "list") {
+                //console.log(consistArr[el], currConsist, currConsist, 'fix1')
               currConsist.newValue = getValueByRule(
-                consistArr[el].newValue, currConsist.value, currConsist.rules_type_id
+                1, currConsist.value, currConsist.rules_type_id
               );
             }
             if(consistArr[el].rules_type_id === 2) {
