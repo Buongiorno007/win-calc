@@ -439,7 +439,19 @@ function buildSite(id) {
   // Копируем изображения
   gulp.src(config.build.src.img)
     .pipe(newer("_product/" + id + "/site/img"))
-    .pipe(gulp.dest("_product/" + id + "/site/img"));
+    .pipe(gulp.dest("_product/" + id + "/site/img"))
+    .on('end', function(){
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: "_product/" + id + "/site/css",
+          image: "_product/" + id + "/site/img/",
+          sass: "dev/sass",
+          font: "_product/" + id + "/site/fonts",
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest("_product/" + id + "/site/css"));
+    });
 
   // Копируем шрифты
   gulp.src(config.build.src.fonts)
@@ -455,30 +467,15 @@ function buildSite(id) {
   gulp.src(config.build.src.local)
     .pipe(newer("_product/" + id + "/site/local"))
     .pipe(gulp.dest("_product/" + id + "/site/local"));
-  //css
-  gulp.src(config.build.src.css)
-    .pipe(compass({
-      css: "_product/" + id + "/site/css",
-      image: "_product/" + id + "/site/img/",
-      sass: "dev/sass",
-      font: "_product/" + id + "/site/fonts",
-    }))
-    .pipe(csso())
-    .pipe(gulp.dest("_product/" + id + "/site/css"));
+
 }
 
-gulp.task('CopyWindowIMG', function () {
-  // Копируем изображения
-  gulp.src(config.build.src.img)
-    .pipe(newer("_product/WindowSiteTest/site/img"))
-    .pipe(gulp.dest("_product/WindowSiteTest/site/img"));
-});
 
 gulp.task('buildStekoSite', function () {
   buildSite("steko");
 });
 
-gulp.task('buildWindowSiteTest',['CopyWindowIMG'], function () {
+gulp.task('buildWindowSiteTest', function () {
   buildSite("windowSiteTest");
 });
 
