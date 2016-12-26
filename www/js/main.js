@@ -1396,7 +1396,13 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         ]);
 
         /**============ METHODS ================*/
-
+        function startSlider() {
+          $('#featured').orbit({
+          'bullets': true,
+          'timer' : true,
+          'animation' : 'horizontal-slide'
+          });
+        }
 
         function startProgramm() {
           //console.time('prog');
@@ -1418,6 +1424,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             if(GlobalStor.global.locations.cities.length === 1) {
               loginServ.downloadAllCities(1);
               GlobalStor.global.isLoader = 0;
+              GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
               $location.path('/main');
             }
@@ -1817,6 +1824,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           thisCtrl.submitted = 1;
           if (form.$valid) {
             GlobalStor.global.isLoader = 1;
+            GlobalStor.global.startSlider = 1;
+            startSlider();
             loader();
 
 
@@ -2120,6 +2129,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         thisCtrl.selectFactory = selectFactory;
         thisCtrl.closeFactoryDialog = closeFactoryDialog;
         thisCtrl.closeOfflineAlert = closeOfflineAlert;
+        thisCtrl.startSlider = startSlider;
 
 
 
@@ -2189,7 +2199,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
-
     /**============ METHODS ================*/
     //TODO delete
     function goToEditTemplate() {
@@ -2608,6 +2617,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
             $location.path('/design');
+            //console.log('fix2')
             DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
               DesignStor.design.steps.isDoorConfig = 1;
             })

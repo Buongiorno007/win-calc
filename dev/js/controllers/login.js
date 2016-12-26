@@ -129,7 +129,13 @@
         ]);
 
         /**============ METHODS ================*/
-
+        function startSlider() {
+          $('#featured').orbit({
+          'bullets': true,
+          'timer' : true,
+          'animation' : 'horizontal-slide'
+          });
+        }
 
         function startProgramm() {
           //console.time('prog');
@@ -151,6 +157,7 @@
             if(GlobalStor.global.locations.cities.length === 1) {
               loginServ.downloadAllCities(1);
               GlobalStor.global.isLoader = 0;
+              GlobalStor.global.startSlider = 0;
               //console.timeEnd('prog');
               $location.path('/main');
             }
@@ -550,6 +557,8 @@
           thisCtrl.submitted = 1;
           if (form.$valid) {
             GlobalStor.global.isLoader = 1;
+            GlobalStor.global.startSlider = 1;
+            startSlider();
             loader();
 
 
@@ -853,6 +862,7 @@
         thisCtrl.selectFactory = selectFactory;
         thisCtrl.closeFactoryDialog = closeFactoryDialog;
         thisCtrl.closeOfflineAlert = closeOfflineAlert;
+        thisCtrl.startSlider = startSlider;
 
 
 
