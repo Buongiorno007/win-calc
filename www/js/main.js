@@ -1491,6 +1491,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds)
                 .then(function(result) {
                   //            console.log('Factories++++++', result);
+                  GlobalStor.global.startSlider = 0;
                   GlobalStor.global.isLoader = 0;
                   if(result.status) {
                     thisCtrl.factories = setFactoryLocation(result.factories);
@@ -1506,6 +1507,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
         function importDBProsses(user) {
+          console.log('dadadada')
+          startSlider();
           //----- checking user activation
           if(user.locked) {
             //------- clean all tables in LocalDB
@@ -1541,6 +1544,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             });
           } else {
             GlobalStor.global.isLoader = 0;
+            GlobalStor.global.startSlider = 0;
             //---- show attantion
             thisCtrl.isUserNotActive = 1;
           }
@@ -1558,13 +1562,17 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               var newUserPassword = localDB.md5(thisCtrl.user.password);
               if(newUserPassword === userTemp.password) {
                 importDBProsses(userTemp);
+                GlobalStor.global.startSlider = 1;
+
               } else {
                 GlobalStor.global.isLoader = 0;
+                GlobalStor.global.startSlider = 0;
                 //---- user not exists
                 thisCtrl.isUserPasswordError = 1;
               }
             } else {
               GlobalStor.global.isLoader = 0;
+              GlobalStor.global.startSlider = 0;
               //---- user not exists
               thisCtrl.isUserNotExist = 1;
             }
@@ -1749,12 +1757,14 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             if(isCustomer) {
               if(thisCtrl.user.phone && thisCtrl.user.password) {
                 GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
                 checkingUser();
               }
             } else {
               localDB.importUser(url.access, 1).then(function(result) {
                 var userTemp = angular.copy(result.user);
                 GlobalStor.global.isLoader = 1;
+                GlobalStor.global.startSlider = 1;
                 importDBProsses(userTemp);
               });
             }
@@ -1825,7 +1835,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           if (form.$valid) {
             GlobalStor.global.isLoader = 1;
             GlobalStor.global.startSlider = 1;
-            startSlider();
             loader();
 
 
@@ -1841,13 +1850,16 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                 if (onlineMode && navigator.onLine ){
 
                   GlobalStor.global.isLoader = 1;
+                  GlobalStor.global.startSlider = 1;
                   HistoryServ.synchronizeOrders().then(function () {
                     GlobalStor.global.isLoader = 1;
+                    GlobalStor.global.startSlider = 1;
                     checkingUser();
                   });
                   //checkingUser();
                 } else {
                   GlobalStor.global.isLoader = 0;
+                    GlobalStor.global.startSlider = 0;
                   thisCtrl.isOfflineImport = 1;
                 }
               }
@@ -1876,12 +1888,14 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                               });
 
                             } else {
+                              GlobalStor.global.startSlider = 0;
                               GlobalStor.global.isLoader = 0;
                               //---- show attantion
                               thisCtrl.isUserNotActive = 1;
                             }
                           } else {
                             GlobalStor.global.isLoader = 0;
+                            GlobalStor.global.startSlider = 0;
                             //---- user not exists
                             thisCtrl.isUserPasswordError = 1;
                           }
@@ -1925,20 +1939,24 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                             });
                           });
                         } else {
+                          GlobalStor.global.startSlider = 0;
                           GlobalStor.global.isLoader = 0;
                           thisCtrl.isOffline = 1;
                         }
                       } else {
+                        GlobalStor.global.startSlider = 0;
                         GlobalStor.global.isLoader = 0;
                         //---- show attantion
                         thisCtrl.isUserNotActive = 1;
                       }
                     } else {
+                      GlobalStor.global.startSlider = 0;
                       GlobalStor.global.isLoader = 0;
                       //---- user not exists
                       thisCtrl.isUserPasswordError = 1;
                     }
                   } else {
+                    GlobalStor.global.startSlider = 0;
                     GlobalStor.global.isLoader = 0;
                     //---- user not exists
                     thisCtrl.isUserNotExist = 1;
@@ -1946,6 +1964,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                 });
 
             } else {
+              GlobalStor.global.startSlider = 0;
               GlobalStor.global.isLoader = 0;
               thisCtrl.isOffline = 1;
             }
@@ -1960,6 +1979,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           if(thisCtrl.user.factoryId > 0) {
             //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
             if(thisCtrl.isOnline) {
+              GlobalStor.global.startSlider = 1;
               GlobalStor.global.isLoader = 1;
               //-------- send selected Factory Id in Server
               UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
