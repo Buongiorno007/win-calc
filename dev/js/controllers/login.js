@@ -48,7 +48,7 @@
         thisCtrl.onlineMode = 0;
 
 
-
+        /** PING SERVER*/
         $.get(globalConstants.serverIP, function() {
           onlineMode = true;
         })
@@ -275,8 +275,7 @@
 
 
         function checkingUser() {
-          localforage.setItem("FirstIn", "true", function (err, value) {
-          });
+          localforage.setItem("FirstIn", "true", function (err, value) { });
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
             if(result.status) {
               var userTemp = angular.copy(result.user);

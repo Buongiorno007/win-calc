@@ -154,7 +154,7 @@
           sizeBox = dimBlock.append('g')
             .classed('size-box', true);
 
-          if(scope.typeConstruction === 'tamlateSVG') {
+          if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
@@ -475,6 +475,7 @@
                 pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
+
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
             } else if(scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)){
@@ -502,15 +503,18 @@
             } else {
               scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             }
-
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
+            }
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
-              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT || scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
               } else {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
               }
+
             }
 
             mainGroup = mainSVG.append("g").attr({
@@ -892,7 +896,7 @@
                 }
 
                 /** type Glass names */
-                if (scope.typeConstruction === 'tamlateGlassSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GLASS) {
                   if(!template.details[i].children.length) {
                     elementsGroup.append('text')
                       .text(template.details[i].glassTxt)
@@ -906,7 +910,7 @@
                 }
 
                 /** type Grid names */
-                if (scope.typeConstruction === 'tamlateGridSVG') {
+                if (scope.typeConstruction === globalConstants.SVG_ID_GRID) {
                   if(template.details[i].gridId) {
                     elementsGroup.append('text')
                       .text(template.details[i].gridTxt)

@@ -27,6 +27,8 @@
       SVG_ID_PRINT: 'tamlatePrintSVG',
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,
+      svgTemplateIconWidthCart: 130,
+      svgTemplateIconHeightCart: 130,
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
       svgTemplateWidth: 1022,

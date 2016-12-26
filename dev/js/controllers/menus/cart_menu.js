@@ -79,6 +79,7 @@
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
+      CartStor.cart.showCurrentTemp = 0;
       if(OrderStor.order.products.length) {
         if (OrderStor.order.is_instalment) {
           CartStor.cart.isCreditDialog = 1;
