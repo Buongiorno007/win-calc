@@ -475,6 +475,7 @@
                 pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
+
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
             } else if(scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)){
@@ -502,15 +503,18 @@
             } else {
               scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             }
-
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
+            }
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
-              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT || scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
               } else {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
               }
+
             }
 
             mainGroup = mainSVG.append("g").attr({

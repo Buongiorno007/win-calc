@@ -122,20 +122,38 @@
     background-color: #F98000;
     z-index: 1;
   }
-
+  .R-MInfo {
+    width: auto;
+    display: inline-block;
+  }
+  .inner-text {
+    position: relative;
+    top: rem(-6px);
+    width: 100%;
+    @include roboto-lt(rem(22px));
+    color: #8c8c8c;
+    margin:0;
+  }
+  .number{
+    color: $main_gray_txt;
+    @include roboto-lt(rem(36px));
+    position:relative;
+    left: rem(-40px);
+    margin:0;
+  }
   .order-value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
     min-height: 3.214rem;
     color: $main_gray_txt;
     display: inline-block;
+    overflow: hidden;
   }
   .addelements-btn {
     cursor: pointer;
   }
   .order-label {
     @include roboto-lt(rem(22px));
-
     color: #8c8c8c;
   }
   .order-qty {
@@ -240,22 +258,7 @@
       position: relative;
       top: rem(30px);
     }
-    .R-MInfo {
-      width: auto;
-      display: inline-block;
-    }
 
-    .R-MInfo p {
-      color: #0f0f0f;
-      margin: 0;
-      //font-family: roboto-bold;
-    }
-    .inner-text {
-      position: relative;
-      top: rem(-15px);
-      width: 100%;
-      font-size: rem(30px);
-    }
     .close-cur-window {
       @extend .small-cross-btn;
 
@@ -277,7 +280,7 @@
       position: relative;
       color: $main_green;
       text-align: center;
-      height: rem(95px);
+      height:auto;
       border-bottom: 1px solid $main_gray_btn;
       &.coeff-low {
         @extend .coeff-low;
@@ -468,6 +471,7 @@
   .order-item {
     padding: rem(7px) 0;
     border-bottom: 1px solid $main_gray_btn;
+    overflow:hidden;
   }
 
   //======== DISCOUNT ========//
