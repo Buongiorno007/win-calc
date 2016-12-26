@@ -1591,6 +1591,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               'ad1df793247a0e650d0d7166341b8d97',
               'ffc14b7acfd31440e19d0431d4ab0cba',
               '4736b2b496ba3de748c6eea6c6b9ca65',
+              '15bbb9d0bbf25e8d2978de1168c749dc',
 
               '04fc711301f3c784d66955d98d399afb',
               '768c1c687efe184ae6dd2420710b8799',
@@ -1642,6 +1643,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               '1000009',
               'wd-op',
               'op1',
+              'Website',
 
               '000001',
               '000002',
@@ -1692,6 +1694,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
               '1000009',
               'wd-op',
               'op1op1',
+              'Website',
 
               '000001',
               '000002',
@@ -6439,6 +6442,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                 pnt = PointsServ.templatePoints(template);
             if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
               padding = 1;
+
             } else if(scope.typeConstruction === globalConstants.SVG_ID_EDIT) {
               padding = 0.6;
             } else if(scope.typeConstruction === (globalConstants.SVG_ID_MAIN || globalConstants.SVG_ID_PRINT)){
@@ -6466,15 +6470,18 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
             } else {
               scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             }
-
+            if(scope.typeConstruction === globalConstants.SVG_CLASS_ICON){
+              position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
+            }
             if(scope.typeConstruction !== globalConstants.SVG_CLASS_ICON) {
               if (scope.typeConstruction === globalConstants.SVG_ID_MAIN) {
                 position = SVGServ.setTemplatePositionMAIN(dimMaxMin, heightSVG, scale);
-              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
+              } else if (scope.typeConstruction === globalConstants.SVG_ID_PRINT || scope.typeConstruction === globalConstants.SVG_ID_PRINT) {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale, 1);
               } else {
                 position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
               }
+
             }
 
             mainGroup = mainSVG.append("g").attr({
@@ -12754,8 +12761,6 @@ function ErrorResult(code, message) {
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
-
-
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
@@ -12781,6 +12786,7 @@ function ErrorResult(code, message) {
         }
       }
       rebuildSVGTemplate();
+
     }
 
 
@@ -14193,8 +14199,12 @@ function ErrorResult(code, message) {
                 orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
-              HistoryStor.history.ordersSource = angular.copy(orders);
-              HistoryStor.history.orders = angular.copy(orders);
+
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+              HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
 //          console.info('HISTORY orders+++++', HistoryStor.history.orders);
               //----- max day for calendar-scroll
@@ -14455,6 +14465,7 @@ function ErrorResult(code, message) {
             newOrderCopy.state_to = new Date(0);
             newOrderCopy.state_buch = new Date(0);
             newOrderCopy.created = new Date();
+            newOrderCopy.order_date = new Date();
             newOrderCopy.modified = new Date();
             newOrderCopy.order_style = 'order';
             (typeof newOrderCopy.customer_age === "number") ? newOrderCopy.customer_age = newOrderCopy.customer_age : newOrderCopy.customer_age = 0;
@@ -14464,7 +14475,6 @@ function ErrorResult(code, message) {
             localDB.insertServer(
               UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy
             ).then(function (respond) {
-              console.log(respond, 'respond')
               if (respond !== null) {
                 if (respond.status) {
                   newOrderCopy.order_number = respond.order_number;
@@ -14478,6 +14488,11 @@ function ErrorResult(code, message) {
               HistoryStor.history.ordersSource.push(newOrderCopy);
               //---- save new order in LocalDB
               localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+              function sortNumber(a, b) {
+                return b.order_date.getTime() - a.order_date.getTime();
+              }
+              HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource.sort(sortNumber));
+              HistoryStor.history.ordersSource = angular.copy(HistoryStor.history.orders);
               GlobalStor.global.isLoader = 0;
             });
 
@@ -15204,7 +15219,6 @@ function ErrorResult(code, message) {
         }
 
         function testFunc(orderNum) {
-          console.log('da')
           HistoryStor.history.orderEditNumber = orderNum;
           GlobalStor.global.isBox = !GlobalStor.global.isBox;
           GlobalStor.global.isEditBox = !GlobalStor.global.isEditBox;

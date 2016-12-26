@@ -28,11 +28,10 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                 .order-content
                   .order-u-coeff(ng-if="cartPage.U.userInfo.therm_coeff_id", ng-class="{'coeff-low': product.heat_coef_total < cartPage.O.order.heat_coef_min}")
                     div.R-MInfo
-                     p {{ $index+1+"."+"\u00A0"}}
-                    div.R-MInfo R = {{ product.heat_coef_total +"\u00A0"}}
-                    div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL }}
-                    div.R-MInfo
-                      p.inner-text
+                     p.number {{ $index+1+"."+"\u00A0"}}
+                    div.R-MInfo {{ product.heat_coef_total +"\u00A0"+"\u00A0"}}
+                    div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
+                    div.inner-text
                        | теплопроводность
                   ul.order-list
                     li.order-item

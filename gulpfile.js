@@ -90,7 +90,7 @@ var server_env = {
   },
   print_env = {
     "windowSiteTest": "'http://api.test.windowscalculator.net/orders/get-order-pdf/'",
-    "windowSite": "'http://windowscalculator.net/orders/get-order-pdf/'",
+    "windowSite": "'http://admin.windowscalculator.net/orders/get-order-pdf/'",
     "steko": "'http://admin.steko.com.ua:3002/orders/get-order-pdf/'",
     "orange": "'http://api.orange.windowscalculator.net/orders/get-order-pdf/'",
     "window": "'http://windowscalculator.net/orders/get-order-pdf/'"
@@ -297,7 +297,8 @@ function buildExt(id) {
       doctype: 'html',
       pretty: true
     }))
-    .pipe(gulp.dest("_product/" + id + "/ext"));
+    .pipe(gulp.dest("_product/" + id + "/ext"))
+    .on('end', function(){ gutil.log('html!'); });
 
   //js
   gulp.src(config.build.src.js)
@@ -314,7 +315,8 @@ function buildExt(id) {
     .pipe(ngAnnotate({add: true}))
     .pipe(js_obfuscator())
     .pipe(uglify())
-    .pipe(gulp.dest("_product/" + id + "/ext/js"));
+    .pipe(gulp.dest("_product/" + id + "/ext/js"))
+    .on('end', function(){ gutil.log('js!'); });
 
   gulp.src(config.build.src.js_vendor)
     .pipe(order(config.build.src.js_vendor_order))
@@ -331,22 +333,38 @@ function buildExt(id) {
   // Копируем изображения
   gulp.src(config.build.src.img)
     .pipe(newer("_product/" + id + "/ext/img"))
-    .pipe(gulp.dest("_product/" + id + "/ext/img"));
+    .pipe(gulp.dest("_product/" + id + "/ext/img"))
+    .on('end', function(){
+      //css
+      gulp.src(config.build.src.css)
+        .pipe(compass({
+          css: "_product/" + id + "/ext/css",
+          image: "_product/" + id + "/ext/img/",
+          sass: "dev/sass",
+          font: "_product/" + id + "/ext/fonts",
+        }))
+        .pipe(csso())
+        .pipe(gulp.dest("_product/" + id + "/ext/css"))
+        .on('end', function(){ gutil.log('css!'); });
+      gutil.log('img!'); });
 
   // Копируем шрифты
   gulp.src(config.build.src.fonts)
     .pipe(newer("_product/" + id + "/ext/fonts"))
-    .pipe(gulp.dest("_product/" + id + "/ext/fonts"));
+    .pipe(gulp.dest("_product/" + id + "/ext/fonts"))
+    .on('end', function(){ gutil.log('font!'); });
 
   // Копируем audio
   gulp.src(config.build.src.audio)
     .pipe(newer("_product/" + id + "/ext/audio"))
-    .pipe(gulp.dest("_product/" + id + "/ext/audio"));
+    .pipe(gulp.dest("_product/" + id + "/ext/audio"))
+    .on('end', function(){ gutil.log('audio!'); });
 
   // copy translate jsons
   gulp.src(config.build.src.local)
     .pipe(newer("_product/" + id + "/ext/local"))
-    .pipe(gulp.dest("_product/" + id + "/ext/local"));
+    .pipe(gulp.dest("_product/" + id + "/ext/local"))
+    .on('end', function(){ gutil.log('local!'); });
 
 
   gulp.src("../offline/" + id + "/manifest.json")
@@ -354,16 +372,7 @@ function buildExt(id) {
 
   gulp.src(config.offline.background)
     .pipe(gulp.dest("_product/" + id + "/ext"));
-  //css
-  gulp.src(config.build.src.css)
-    .pipe(compass({
-      css: "_product/" + id + "/ext/css",
-      image: "_product/" + id + "/ext/img/",
-      sass: "dev/sass",
-      font: "_product/" + id + "/ext/fonts",
-    }))
-    .pipe(csso())
-    .pipe(gulp.dest("_product/" + id + "/ext/css"));
+
 }
 
 /**!!!!!!!!!!!!!ВАЖНО билдить расширения можно поочередно руками или командой
@@ -386,7 +395,7 @@ gulp.task('buildOrangeExt', function () {
 });
 
 gulp.task('buildExt', function () {
-  gulp.start('StekoExt', 'WindowExt', 'OrangeExt');
+  gulp.start('buildStekoExt', 'buildWindowExt', 'buildOrangeExt');
 });
 
 /**BUILDING SITE FOLDER
@@ -452,7 +461,6 @@ function buildSite(id) {
         .pipe(csso())
         .pipe(gulp.dest("_product/" + id + "/site/css"));
     });
-
   // Копируем шрифты
   gulp.src(config.build.src.fonts)
     .pipe(newer("_product/" + id + "/site/fonts"))
@@ -484,12 +492,12 @@ gulp.task('buildWindowSite', function () {
   buildSite("windowSite");
 });
 
-gulp.task('buildOrangeSite', function () {
+gulp.task('buildOrangeSite',function () {
   buildSite("orange");
 });
 
-gulp.task('buildSite', function () {
-  gulp.start(['stekoSite', 'windowSite', 'orangeSite']);
+gulp.task('buildSite',  function () {
+  gulp.start(['buildStekoSite', 'buildWindowSiteTest', 'buildWindowSite','buildOrangeSite']);
 });
 
 /** PRODUCTION css and js min */

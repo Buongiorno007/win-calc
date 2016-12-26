@@ -3029,8 +3029,6 @@
         impostIndSort = impostInd.sort(SVGServ.sortByX);
         impostIndQty = impostIndSort.length;
 
-
-
         for(i = 0; i < impostIndQty; i+=1) {
           //-------- insert back imposts X
           if(!i) {
@@ -3056,6 +3054,7 @@
         }
       }
       rebuildSVGTemplate();
+
     }
 
 
