@@ -18104,8 +18104,9 @@ function ErrorResult(code, message) {
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
             if(currConsist.child_type === "list") {
+                //console.log(consistArr[el], currConsist, currConsist, 'fix1')
               currConsist.newValue = getValueByRule(
-                consistArr[el].newValue, currConsist.value, currConsist.rules_type_id
+                1, currConsist.value, currConsist.rules_type_id
               );
             }
             if(consistArr[el].rules_type_id === 2) {
