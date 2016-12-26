@@ -137,8 +137,9 @@
   .number{
     color: $main_gray_txt;
     @include roboto-lt(rem(36px));
-    position:relative;
-    left: rem(-40px);
+    position: absolute;
+    left: 0;
+    top:0.3rem;
     margin:0;
   }
   .order-value {
