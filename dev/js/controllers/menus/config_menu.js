@@ -107,6 +107,10 @@
             GlobalStor.global.activePanel = 0;
             DesignStor.design.isGlassExtra = 0;
             $location.path('/design');
+            //console.log('fix2')
+            DesignServ.setDoorConfigDefault(ProductStor.product).then(function(result) {
+              DesignStor.design.steps.isDoorConfig = 1;
+            })
           }
         } else {
           GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
