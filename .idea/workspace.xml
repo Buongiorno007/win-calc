@@ -3,18 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8dddf46b-ac43-4ea1-abaf-f716ac182602" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/jade/views/panels/_profiles.jade" afterPath="$PROJECT_DIR$/dev/jade/views/panels/_profiles.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/js/services/main_serv.js" afterPath="$PROJECT_DIR$/dev/js/services/main_serv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/de.json" afterPath="$PROJECT_DIR$/dev/local/de.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/en.json" afterPath="$PROJECT_DIR$/dev/local/en.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/it.json" afterPath="$PROJECT_DIR$/dev/local/it.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/pl.json" afterPath="$PROJECT_DIR$/dev/local/pl.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/ro.json" afterPath="$PROJECT_DIR$/dev/local/ro.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/local/uk.json" afterPath="$PROJECT_DIR$/dev/local/uk.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/panels/profile.scss" afterPath="$PROJECT_DIR$/dev/sass/panels/profile.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/sass/parts/_config-panel.scss" afterPath="$PROJECT_DIR$/dev/sass/parts/_config-panel.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/main.js" afterPath="$PROJECT_DIR$/www/js/main.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,7 +24,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_profiles.jade" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_profiles.jade" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/jade/views/panels/_profiles.jade">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
@@ -68,8 +57,8 @@
       <file leaf-file-name="_config-panel.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/sass/parts/_config-panel.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="219" column="10" lean-forward="false" selection-start-line="219" selection-start-column="10" selection-end-line="219" selection-end-column="10" />
+            <state relative-caret-position="181">
+              <caret line="157" column="11" lean-forward="false" selection-start-line="157" selection-start-column="3" selection-end-line="157" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -85,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.scss" pinned="false" current-in-tab="false">
+      <file leaf-file-name="profile.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dev/sass/panels/profile.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
+            <state relative-caret-position="492">
+              <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -99,8 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>big-button</find>
-      <find>item hov</find>
       <find>item.hov</find>
       <find>title</find>
       <find>-100px</find>
@@ -111,7 +98,6 @@
       <find>cart-menu</find>
       <find>producer in profilesPanel.G.global.profiles track by $index</find>
       <find>info_box</find>
-      <find>profile</find>
       <find>showInfoBox</find>
       <find>unvisible</find>
       <find>profile-box</find>
@@ -129,6 +115,9 @@
       <find>label-country</find>
       <find>sele</find>
       <find>type</find>
+      <find>profile-i</find>
+      <find>profile</find>
+      <find>profile-d</find>
     </findStrings>
     <dirStrings>
       <dir>E:\bauvoiceapp\dev\local</dir>
@@ -162,10 +151,10 @@
         <option value="$PROJECT_DIR$/dev/local/pl.json" />
         <option value="$PROJECT_DIR$/dev/local/de.json" />
         <option value="$PROJECT_DIR$/dev/local/en.json" />
-        <option value="$PROJECT_DIR$/dev/sass/panels/profile.scss" />
         <option value="$PROJECT_DIR$/dev/sass/parts/_config-panel.scss" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/dev/jade/views/panels/_profiles.jade" />
+        <option value="$PROJECT_DIR$/dev/sass/panels/profile.scss" />
       </list>
     </option>
   </component>
@@ -369,16 +358,16 @@
       <updated>1482739550931</updated>
       <workItem from="1482739552549" duration="7789000" />
       <workItem from="1482747785820" duration="537000" />
-      <workItem from="1482748787853" duration="46437000" />
+      <workItem from="1482748787853" duration="47521000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54763000" />
+    <option name="totallyTimeSpent" value="55847000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-320" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -388,7 +377,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -780,22 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/panels/profile.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_config-panel.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="219" column="10" lean-forward="false" selection-start-line="219" selection-start-column="10" selection-end-line="219" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dev/js/controllers/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -816,6 +789,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/parts/_config-panel.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="157" column="11" lean-forward="false" selection-start-line="157" selection-start-column="3" selection-end-line="157" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/sass/panels/profile.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
           <folding />
         </state>
       </provider>

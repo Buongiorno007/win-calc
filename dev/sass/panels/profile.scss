@@ -20,6 +20,7 @@
     @include justify-content(space-between);
     @include align-items(space-between);
     height: rem(532px);
+
   }
   .profile-box-top {
     width: 100%;
@@ -34,6 +35,8 @@
     position:absolute;
     bottom:9rem;
     color: $main_gray_txt;
+    width:80%;
+    overflow: hidden;
   }
   .profile-country {
     @include roboto-lt(rem(46px));
@@ -53,6 +56,6 @@
   }
   .profile-img{
     width:100%;
-
+    max-height: 18rem;
   }
 }
