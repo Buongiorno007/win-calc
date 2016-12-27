@@ -1,4 +1,4 @@
-{ 
+{
   "common_words": {
     "CHANGE": "untreu sein",
     "MONTHS": "Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember",
@@ -73,11 +73,11 @@
     "SELECT_FACTORY": "Sie haben noch keine gewählten Hersteller",
     "USER_PASSWORD_ERROR": "ungültiges Kennwort!",
     "OFFLINE": "Keine Verbindung zum Internet!",
-    "OFFLINE_INFO": "Подключитесь к интернету и повторите попытку",
+    "OFFLINE_INFO": "Eine Verbindung mit dem Internet und versuchen Sie es erneut",
     "OFFLINE_IMPORT":"Keine Verbindung zum Internet!",
     "IMPORT_DB": "Databases JETZT HERUNTERLADEN! Warten Sie mal!",
     "AUTO_SYNCHRONIZE" : "Auto-Sync-Daten, wenn die Anwendung hat gestartet",
-    "SYNCHRONIZE_INFO" : "При включённой функции автосинхронизации данных, во время запуска приложения происходит загрузка текущих цен, а так же сохранение на сервер набранных ранее заказов. Автосинхронизация производится только при наличие доступа к интернет"
+    "SYNCHRONIZE_INFO" : "Wenn diese Funktion aktiviert Funktionen Auto-Sync-Daten, beim Start der Anwendung wird der Strompreise belastet, sowie die Einsparung von früher rekrutiert Server Aufträge. Auto-Sync nur, wenn Sie Zugang zum Internet haben"
 
   },
   "mainpage": {
@@ -269,7 +269,8 @@
     "MAX_VALUE_HIGHER": "перевышает допустимое максимальное значение",
     "EXTRA_SASH": "Текущий размер створки по фальцу",
     "CHANGE_SIZE": "Для сохранения конструкции измените размеры.",
-    "DOOR_ERROR": "Systems of entrance doors are not configured"
+    "DOOR_ERROR": "Systems of entrance doors are not configured",
+    "CALC_PRICE": "Berechnen Sie den Preis"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Suche nach Stichwort",

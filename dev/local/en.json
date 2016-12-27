@@ -1,4 +1,4 @@
-{ 
+{
   "common_words": {
     "CHANGE": "Change",
     "MONTHS": "January, February, March, April, May, June, July, August, September, October, November, December",
@@ -269,7 +269,8 @@
     "MAX_VALUE_HIGHER": "перевышает допустимое максимальное значение",
     "EXTRA_SASH": "Текущий размер створки по фальцу",
     "CHANGE_SIZE": "Для сохранения конструкции измените размеры.",
-    "DOOR_ERROR": "Systems of entrance doors are not configured"
+    "DOOR_ERROR": "Systems of entrance doors are not configured",
+    "CALC_PRICE": "Calculate the price"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Search by keyword",

@@ -10,7 +10,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(ng-show="cartPage.C.cart.isExistAddElems", fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .scroll-hor-container
             .order-block
@@ -31,8 +31,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                      p.number {{ $index+1+"."+"\u00A0"}}
                     div.R-MInfo {{ product.heat_coef_total +"\u00A0"+"\u00A0"}}
                     div.R-MInfo {{ ::cartPage.LETTER_M }} &sup2;&middot;&deg;C/{{ ::cartPage.HEATCOEF_VAL +"\u00A0" }}
-                    div.inner-text
-                       | теплопроводность
+                    div.inner-text {{cartPage.THERMAL_RESISTANCE}}
                   ul.order-list
                     li.order-item
                       .order-value {{ product.template_width }} {{ ::cartPage.MM +"\u00A0"}}
@@ -130,7 +129,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(fs-click="cartPage.showAllAddElements()") {{ ::cartPage.ALL_ADD_ELEMENTS }}
-            button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
+            //button.cart-tool.new-order(fs-click="cartPage.addNewProductInOrder()") {{ ::cartPage.ADD_ORDER }}
 
           .order-block.scroll-vert-container
             .order(ng-repeat="product in cartPage.O.order.products track by $index")

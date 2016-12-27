@@ -266,6 +266,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
         thisCtrl.TOTAL_PRICE_TXT = $filter('translate')('add_elements.TOTAL_PRICE_TXT');
         thisCtrl.LINK_BETWEEN_COUPLE = $filter('translate')('cart.LINK_BETWEEN_COUPLE');
         thisCtrl.LINK_BETWEEN_ALL = $filter('translate')('cart.LINK_BETWEEN_ALL');
+        thisCtrl.THERMAL_RESISTANCE = $filter('translate')('mainpage.THERMAL_RESISTANCE');
 
         //------- set current Page
         GlobalStor.global.currOpenPage = 'cart';
@@ -628,6 +629,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
     thisCtrl.VOICE_SPEACH = $filter('translate')('design.VOICE_SPEACH');
     thisCtrl.BY_AXIS = $filter('translate')('design.BY_AXIS');
     thisCtrl.BY_GLASS = $filter('translate')('design.BY_GLASS');
+    thisCtrl.CALC_PRICE = $filter('translate')('design.CALC_PRICE');
 
     //------ DOOR
     //DesignServ.setDoorConfigDefault(ProductStor.product);
@@ -9719,7 +9721,8 @@ function ErrorResult(code, message) {
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
         {label: 'ro', name: 'Român'},
-        {label: 'it', name: 'Italiano'}
+        {label: 'it', name: 'Italiano'},
+        {label: 'pl', name: 'Polski'}
       ]
 
     });

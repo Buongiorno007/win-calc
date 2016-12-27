@@ -120,9 +120,25 @@
   .cart-btn {
     @extend .orange-big-btn;
     @extend .splash;
-
     position: relative;
     width: 100%;
-    margin: rem(20px) 0;
+    margin-bottom: 1rem;
+  }
+  .add-prod:after{
+    content: none !important;
+  }
+
+  .prod-img{
+    float:right;
+    height:rem(90px);
+    width:rem(90px);
+  }
+  .prod-btn{
+    @include roboto-md(rem(45px), 1);
+    color: $main_orange;
+    margin: 0;
+    width:50%;
+    float:left;
   }
 }
+

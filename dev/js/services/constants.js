@@ -50,7 +50,8 @@
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
         {label: 'ro', name: 'Român'},
-        {label: 'it', name: 'Italiano'}
+        {label: 'it', name: 'Italiano'},
+        {label: 'pl', name: 'Polski'}
       ]
 
     });
