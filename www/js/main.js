@@ -1507,8 +1507,6 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
         function importDBProsses(user) {
-          console.log('dadadada')
-          startSlider();
           //----- checking user activation
           if(user.locked) {
             //------- clean all tables in LocalDB
@@ -1557,6 +1555,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
             if(result.status) {
               var userTemp = angular.copy(result.user);
+              console.log('first');
+              startSlider();
               //console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
               //---------- check user password
               var newUserPassword = localDB.md5(thisCtrl.user.password);
@@ -1881,6 +1881,8 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
                           if(newUserPassword === data[0].password) {
                             //----- checking user activation
                             if(data[0].locked) {
+                                console.log('second');
+                                startSlider();
                               angular.extend(UserStor.userInfo, data[0]);
                               //------- set User Location
                               loginServ.prepareLocationToUse().then(function() {
