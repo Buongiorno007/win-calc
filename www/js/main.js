@@ -9676,8 +9676,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.steko.com.ua',
-      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
+      serverIP: 'http://api.windowscalculator.net',
+      printIP: 'http://windowscalculator.net/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -22023,6 +22023,8 @@ function ErrorResult(code, message) {
     /**-------------- show Info Box of element or group ------------*/
 
     function showInfoBox(id, itemArr) {
+      console.log("id",id);
+      console.log("itemArr",itemArr);
       if(GlobalStor.global.isInfoBox !== id) {
                 // console.info(id, itemArr);
         var itemArrQty = itemArr.length,

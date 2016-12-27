@@ -1,4 +1,4 @@
-{
+  { 
   "common_words": {
     "CHANGE": "Zmień",
     "MONTHS": "Styczeń, Luty, Marzec, Kwiecień, Maj, Czerwiec, Lipiec, Sierpień, Wrzesień, Październik, Listopad, Grudzień",
@@ -32,7 +32,7 @@
     "AND": "i",
     "OK": "OK",
     "BACK": "Wstecz",
-    "PRINT": "Drukuj",
+    "PRINT": "Drukuj",    
     "LETTER_M": "m"
   },
   "login": {
@@ -60,21 +60,16 @@
     "SELECT_FACTORY": "Producent nie został wybrany",
     "USER_PASSWORD_ERROR": "Błędne hasło!",
     "OFFLINE": "Brak połączenia z Internetem!",
-    "OFFLINE_INFO": "Podłaczcie się do internetu i spróbujcie jeszcze raz",
-    "OFFLINE_IMPORT":"Nie ma łączenia z internetem! Synchronizować bazę można po podłaczaniu do интрнету",
-    "IMPORT_DB": "Importowanie bazy danych zostało rozpoczęte! Prosimy poczekać!",
-    "AUTO_SYNCHRONIZE" : "Automatyczna synchronizacja danych przy rozruchu załącznika",
-    "SYNCHRONIZE_INFO" : "Przy włączonej funkcji automatycznej synchronizacji danych, podczas rozruchu załącznika odbywa się ładowanie potocznych cen, a tak samo zachowanie na serwer nabranych przedtem zamówień. Automatyczna synchronizacja dzieje się tylko przy obecność dostępu do internet"
-
+    "IMPORT_DB": "Importowanie bazy danych zostało rozpoczęte! Prosimy poczekać!"
   },
-  "natification": {
+  "natification": { 
     "ASKING_PRICE": "Sprawdź ceny",
     "TEXT1": "Biezący rozmiar wrębu skrzydła: ",
     "TEXT2": "Nieprawidłowy format, jest poza dopuszczalnym zakresem: ",
     "TEXT3": "Aby zapisać konstrukcję, proszę zmienić rozmiary.",
     "EDIT_HARDWARE": "Inne okucia",
     "EDIT_SIZE": "Wróć do poprzedniego rozmiaru."
-  },
+    },
   "mainpage": {
     "MM": " mm ",
     "CLIMATE_ZONE": "Strefa klimatyczna",
@@ -142,15 +137,15 @@
     "5_TYPE": "rozwierne ze słupkiem",
     "6_TYPE": "rozwierno-uchylne ze słupkiem",
     "7_TYPE": "dwuskrzydłowe",
-    "8_TYPE": "штульповое",
+    "8_TYPE": "stulp",
     "9_TYPE": "głuche ze słupkiem",
     "10_TYPE": "obrotowe ze słupkiem",
     "11_TYPE": "rozwierno-uchylne ze słupkiem",
     "21_TYPE": "rozwierno-uchylne",
     "22_TYPE": "rozwierne",
-    "23_TYPE": "штульповая",
+    "23_TYPE": "stulp",
     "31_TYPE": "jednoskrzydłowe",
-    "32_TYPE": "штульповая",
+    "32_TYPE": "stulp",
 
 
     "TWO_WINDOW_TYPE": "Dwuskrzydłowe",
@@ -226,7 +221,7 @@
     "TAB_NAME_HARD_FRAME": "Złożona konstrukcja",
     "TAB_EMPTY_EXPLAIN": "Wybierz z listy pierwszy element, żeby rozpocząć konstrukcję ."
   },
-  "danger-alert": {
+    "danger-alert": {
     "PRODUCT": "konstrukcja",
     "IGNORE": "Kontynuj",
     "DANGER_ALERT_FIRST_PAGE": "Uwaga! Wybrane elementy dodatkowe nie odpowiadają wybranemu systemu profili",
@@ -270,8 +265,7 @@
     "MAX_VALUE_HIGHER": "przekracza maksymalną dopuszczalną wartość",
     "EXTRA_SASH": "Biezący rozmiar skrzydla na wrębie",
     "CHANGE_SIZE": "Zmień rozmiar, aby zapisać konstrukcję.",
-    "DOOR_ERROR": "Systemy drzwi wejściowych nie zostały ustawione",
-    "CALC_PRICE": "Obliczyć cenę"
+    "DOOR_ERROR": "Systemy drzwi wejściowych nie zostały ustawione"
   },
   "history": {
     "SEARCH_PLACEHOLDER": "Wyszukiwanie według słów kluczowych",
@@ -306,8 +300,7 @@
     "NOT_FIND": "nic nie zostało znalezione",
     "WAIT_MASTER": "oczekuje na specjalistę do wymiarów",
     "INCLUDED": "uwzględnione",
-    "NO_PRINT": "Podsumowanie specyfikacji nie jest możliwe ze względu na brak połączenia z internetem",
-    "SYNCHRONIZE_ORDERS" : "Synchronizacja zleceń"
+    "NO_PRINT": "Podsumowanie specyfikacji nie jest możliwe ze względu na brak połączenia z internetem"
   },
   "cart": {
     "ALL_ADD_ELEMENTS": "Wszystkie elementy dodatkowe zamówienia",
@@ -335,7 +328,7 @@
     "CALL_MASTER_DESCRIP": "Aby zadzwonić po specjalistę do wymiarów, potrzebujemy Twoje dane. Oba pola są wymagane.",
     "CLIENT_LOCATION": "Miasto",
     "CLIENT_ADDRESS": "Ulica",
-    "CLIENT_HOUSE": "Nr. budynku",
+    "CLIENT_HOUSE": "Nr. budynku", 
     "CLIENT_FLAT": "Nr. lokalu",
     "CLIENT_FLOOR": "piętro",
     "CALL_ORDER": "Sporządzenie zamówienia do obliczania",

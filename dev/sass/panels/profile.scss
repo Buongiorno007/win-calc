@@ -31,18 +31,28 @@
   .profile-descr {
     @extend .truncated;
     @include roboto-md(rem(36px));
-
-    margin: rem(30px) 0;
+    position:absolute;
+    bottom:9rem;
     color: $main_gray_txt;
   }
   .profile-country {
-    @include roboto-lt(rem(36px));
+    @include roboto-lt(rem(46px));
 
     color: $main_gray_txt;
   }
   .label {
     @include roboto-lt(rem(22px));
-
+    margin-left:rem(5px);
     color: #8c8c8c;
+  }
+  .label-country{
+    @extend .label;
+    position:absolute;
+    top:7rem;
+
+  }
+  .profile-img{
+    width:100%;
+
   }
 }
