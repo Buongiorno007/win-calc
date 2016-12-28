@@ -8,8 +8,13 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
 
 (function () {
+  /** check browser */
+  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+    isDevice = 0;
+  }
   window.onload = function () {
-    location.hash = "#/";
+    if(!isDevice){location.hash = "#/";}
+
     var elm = document.getElementById('main-frame'); // all -- элемент, в который был обернут весь сайт
     var coeff = document.documentElement.clientHeight / elm.offsetHeight; // считаем коэффициент масштабирования так, чтобы элемент all занял весь экран
     if (coeff > 1) coeff = 1; // нам нужно только уменьшение сайта, но не его увеличение, поэтому ограничиваем коэффициент сверху единицей
@@ -37,10 +42,7 @@ var isDevice = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.tes
 
   };
 
-  /** check browser */
-  if (/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
-    isDevice = 0;
-  }
+
   //console.log('isDevice===', isDevice);
 
 
@@ -13962,7 +13964,7 @@ function ErrorResult(code, message) {
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link);
+        var ref = window.open(link,"_self");
         ref.close();
       } else {
         $window.open(link);
@@ -24783,7 +24785,7 @@ function ErrorResult(code, message) {
 
 // services/print_serv.js
 
-(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            var print = $('#print-conteiner').html();            var prtContent = document.getElementById('print-conteiner');            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';            var WinPrint = window.open(this.href, '_blank');            WinPrint.document.write('<div class="print-conteiner">');            WinPrint.document.write(prtCSS);            WinPrint.document.write(prtContent.innerHTML);            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");            WinPrint.document.write('</div>');            WinPrint.document.close();            WinPrint.focus();          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
+(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            if (GlobalStor.global.isDevice) {              window.print();            } else {              var print = $('#print-conteiner').html();              var prtContent = document.getElementById('print-conteiner');              var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';              var WinPrint = window.open(this.href, '_blank');              WinPrint.document.write('<div class="print-conteiner">');              WinPrint.document.write(prtCSS);              WinPrint.document.write(prtContent.innerHTML);              WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");              WinPrint.document.write('</div>');              WinPrint.document.close();              WinPrint.focus();            }          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
 
 
 // services/profile_serv.js

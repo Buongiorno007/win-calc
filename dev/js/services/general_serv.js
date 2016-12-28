@@ -309,7 +309,7 @@
 
     function goToLink(link) {
       if(GlobalStor.global.isDevice) {
-        var ref = window.open(link);
+        var ref = window.open(link,"_self");
         ref.close();
       } else {
         $window.open(link);
