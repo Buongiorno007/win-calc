@@ -2818,7 +2818,7 @@
                   });
 
                   function calculate (element, _cb) {
-                      async.waterfall([
+                    async.waterfall([
                         function (_callback) {
                           if(element.child_type === 'list') {
                             list.push(element)
@@ -2861,6 +2861,7 @@
         })();
 
       });
+
       return deffMain.promise;
     }
 

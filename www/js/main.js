@@ -9676,8 +9676,8 @@ function ErrorResult(code, message) {
     .module('BauVoiceApp')
     .constant('globalConstants', {
 
-      serverIP: 'http://api.windowscalculator.net',
-      printIP: 'http://windowscalculator.net/orders/get-order-pdf/',
+      serverIP: 'http://api.steko.com.ua',
+      printIP: 'http://admin.steko.com.ua:3002/orders/get-order-pdf/',
       localPath: '/local/',
 
       STEP: 50,
@@ -14203,9 +14203,11 @@ function ErrorResult(code, message) {
                 orders[orderQty].order_date = new Date(orders[orderQty].order_date);
               }
 
+              //noinspection JSAnnotator
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(orders.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(orders.sort(sortNumber));
               GlobalStor.global.isLoader = 0;
@@ -14494,6 +14496,7 @@ function ErrorResult(code, message) {
               function sortNumber(a, b) {
                 return b.order_date.getTime() - a.order_date.getTime();
               }
+
               HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource.sort(sortNumber));
               HistoryStor.history.ordersSource = angular.copy(HistoryStor.history.orders);
               GlobalStor.global.isLoader = 0;
@@ -15002,15 +15005,15 @@ function ErrorResult(code, message) {
           /** check internet */
           if (navigator.onLine && onlineMode) {
             var domainLink = globalConstants.serverIP.split('api.').join(''),
-              paramLink = orderId + '?userId=' + UserStor.userInfo.id,
-              printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
+              paramLink = orderId + '?userId=' + UserStor.userInfo.id;
+            //printLink = domainLink + ':3002/orders/get-order-pdf/' + paramLink;
             var printLink = globalConstants.printIP + orderId + '?userId=' + UserStor.userInfo.id;
             GeneralServ.goToLink(printLink);
           } else {
             HistoryStor.history.orders.forEach(function (entry, index) {
               if (entry.id === orderId) {
-                entry.modified = entry.modified.substr(0,10);
-                console.log(" HistoryStor.history.orders",entry);
+                entry.modified = entry.modified.substr(0, 10);
+                console.log(" HistoryStor.history.orders", entry);
                 HistoryStor.history.historyID = index;
               }
             });
@@ -15020,12 +15023,19 @@ function ErrorResult(code, message) {
               var tmpSquare = 0;
               var tmpPerim = 0;
               HistoryStor.history.OrderPrintLength = result_prod.length;
-              for(var x=0; x<result_prod.length; x+=1) {
-                if(!result_prod[x].is_addelem_only) {
-                  tmpSquare += result_prod[x].template_square;
-                  tmpPerim += (result_prod[x].template_height + result_prod[x].template_width) * 2;
-                }
-              }
+              result_prod.forEach(function (item) {
+                item.forEach(function (entry) {
+
+                  if (!entry.is_addelem_only) {
+                    // console.log("entry", entry);
+                    // console.log("entry.template_square", entry.template_square);
+                    // console.log("entryPerim", (entry.template_height + entry.template_width) * 2);
+                     tmpSquare += entry.template_square;
+                     tmpPerim += (entry.template_height + entry.template_width) * 2;
+                  }
+
+                });
+              });
               HistoryStor.history.OrderPrintSquare = tmpSquare;
               HistoryStor.history.OrderPrintPerimeter = tmpPerim / 1000;
               downloadAddElements(1).then(function (result_add) {
@@ -15045,7 +15055,7 @@ function ErrorResult(code, message) {
               });
 
             })
-         }
+          }
         }
 
 
@@ -18478,7 +18488,7 @@ function ErrorResult(code, message) {
                   });
 
                   function calculate (element, _cb) {
-                      async.waterfall([
+                    async.waterfall([
                         function (_callback) {
                           if(element.child_type === 'list') {
                             list.push(element)
@@ -18521,6 +18531,7 @@ function ErrorResult(code, message) {
         })();
 
       });
+
       return deffMain.promise;
     }
 
@@ -21359,7 +21370,7 @@ function ErrorResult(code, message) {
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                //console.log(doorResult, 'doorResult')
+                console.log('doorResult',JSON.stringify( doorResult));
                 doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
@@ -21492,7 +21503,7 @@ function ErrorResult(code, message) {
         /** U */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
           ProductStor.product.template_square/heatCoeffTotal
-        );
+        )*1.03;
       }
 
     }
@@ -24772,73 +24783,7 @@ function ErrorResult(code, message) {
 
 // services/print_serv.js
 
-(function () {
-  'use strict';
-  /**@ngInject*/
-  angular
-    .module('CartModule')
-    .factory('PrintServ',
-
-      function ($location,
-                $filter,
-                GeneralServ,
-                MainServ,
-                CartMenuServ,
-                GlobalStor,
-                HistoryStor) {
-        /*jshint validthis:true */
-        var thisFactory = this;
-
-
-        /**============ METHODS ================*/
-        function getProducts(products, addEl) {
-          HistoryStor.history.PrintProduct = products;
-          HistoryStor.history.PrintAddEl = addEl;
-          console.log(products, 'products=====');
-          console.log(addEl, 'addEl=====');
-          setTimeout(function () {
-            var print = $('#print-conteiner').html();
-            var prtContent = document.getElementById('print-conteiner');
-            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';
-            var WinPrint = window.open(this.href, '_blank');
-            WinPrint.document.write('<div class="print-conteiner">');
-            WinPrint.document.write(prtCSS);
-            WinPrint.document.write(prtContent.innerHTML);
-            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");
-            WinPrint.document.write('</div>');
-            WinPrint.document.close();
-            WinPrint.focus();
-
-          }, 1000);
-
-
-          // var mywindow = open('_blank','newokno','width=700,height=700,status=1,menubar=1');
-          // mywindow.document.open();
-          // mywindow.document.write('<html><head><title>Создаём хтмл-документ');
-          // mywindow.document.write('</title></head><body>');
-          // mywindow.document.write(print);
-          // mywindow.document.write('Это статичный текст');
-          // mywindow.document.write('</body></html>');
-          // mywindow.document.close();
-
-          // setTimeout(function () {
-          //   window.print();
-          // }, 1000);
-          //window.print();
-
-        }
-
-        /**========== FINISH ==========*/
-        thisFactory.publicObj = {
-          getProducts: getProducts,
-        };
-
-        return thisFactory.publicObj;
-
-
-      });
-})();
-
+(function () {  'use strict';  /**@ngInject*/  angular    .module('CartModule')    .factory('PrintServ',      function ($location,                $filter,                GeneralServ,                MainServ,                CartMenuServ,                GlobalStor,                HistoryStor) {        /*jshint validthis:true */        var thisFactory = this;        /**============ METHODS ================*/        function getProducts(products, addEl) {          HistoryStor.history.PrintProduct = products;          HistoryStor.history.PrintAddEl = addEl;          console.log(products, 'products=====');          console.log(addEl, 'addEl=====');          setTimeout(function () {            var print = $('#print-conteiner').html();            var prtContent = document.getElementById('print-conteiner');            var prtCSS = '<link rel="stylesheet" href="/css/main.css" type="text/css" />';            var WinPrint = window.open(this.href, '_blank');            WinPrint.document.write('<div class="print-conteiner">');            WinPrint.document.write(prtCSS);            WinPrint.document.write(prtContent.innerHTML);            WinPrint.document.write("<script> window.onload = function(){window.print();}</script>");            WinPrint.document.write('</div>');            WinPrint.document.close();            WinPrint.focus();          }, 800);        }        /**========== FINISH ==========*/        thisFactory.publicObj = {          getProducts: getProducts,        };        return thisFactory.publicObj;      });})();
 
 
 // services/profile_serv.js

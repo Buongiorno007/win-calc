@@ -614,7 +614,7 @@
           if(ProductStor.product.construction_type === 4) {
             localDB.calcDoorElemPrice(ProductStor.product.doorHandle, ProductStor.product.doorLock.elem)
               .then(function(doorResult) {
-                //console.log(doorResult, 'doorResult')
+                console.log('doorResult',JSON.stringify( doorResult));
                 doorData = angular.copy(doorResult);
                 priceObj.priceTotal += doorData.priceTot;
                 priceObj.constrElements = priceObj.constrElements.concat(doorData.elements);
@@ -747,7 +747,7 @@
         /** U */
         ProductStor.product.heat_coef_total = GeneralServ.roundingValue(
           ProductStor.product.template_square/heatCoeffTotal
-        );
+        )*1.03;
       }
 
     }
